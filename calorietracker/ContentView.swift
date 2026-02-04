@@ -7,74 +7,82 @@
 
 import SwiftUI
 
-// MARK: - Color Theme
+// MARK: - Color Theme (Cal AI Inspired - Light Theme)
 extension Color {
-    static let appBackground = Color(red: 0.05, green: 0.05, blue: 0.07)
-    static let cardBackground = Color(red: 0.11, green: 0.11, blue: 0.14)
-    static let cardBackgroundLight = Color(red: 0.15, green: 0.15, blue: 0.18)
-    static let accentTeal = Color(red: 0.0, green: 0.85, blue: 0.65)
-    static let accentOrange = Color(red: 1.0, green: 0.55, blue: 0.0)
-    static let textPrimary = Color.white
-    static let textSecondary = Color(white: 0.55)
-    static let textTertiary = Color(white: 0.4)
+    static let appBackground = Color(red: 0.98, green: 0.98, blue: 0.98)
+    static let cardBackground = Color.white
+    static let cardBorder = Color(red: 0.92, green: 0.92, blue: 0.92)
+    static let textPrimary = Color(red: 0.1, green: 0.1, blue: 0.1)
+    static let textSecondary = Color(red: 0.5, green: 0.5, blue: 0.5)
+    static let textTertiary = Color(red: 0.7, green: 0.7, blue: 0.7)
+    static let proteinColor = Color(red: 0.95, green: 0.45, blue: 0.35)
+    static let carbsColor = Color(red: 0.95, green: 0.75, blue: 0.3)
+    static let fatColor = Color(red: 0.35, green: 0.55, blue: 0.9)
+    static let streakOrange = Color(red: 1.0, green: 0.6, blue: 0.2)
+    static let progressGray = Color(red: 0.93, green: 0.93, blue: 0.93)
 }
 
 // MARK: - Main Content View
 struct ContentView: View {
     var body: some View {
         TabView {
-            TodayView()
+            HomeView()
                 .tabItem {
-                    Image(systemName: "book.closed.fill")
-                    Text("Diary")
+                    Image(systemName: "house.fill")
+                    Text("Home")
                 }
 
-            RecipesView()
+            ProgressView()
                 .tabItem {
-                    Image(systemName: "fork.knife")
-                    Text("Recipes")
+                    Image(systemName: "chart.bar.fill")
+                    Text("Progress")
                 }
 
-            FastingView()
+            GroupsView()
                 .tabItem {
-                    Image(systemName: "timer")
-                    Text("Fasting")
+                    Image(systemName: "person.3.fill")
+                    Text("Groups")
                 }
 
             ProfileView()
                 .tabItem {
-                    Image(systemName: "person.fill")
+                    Image(systemName: "person.circle.fill")
                     Text("Profile")
                 }
         }
-        .tint(Color.accentTeal)
+        .tint(.textPrimary)
     }
 }
 
-// MARK: - Today View (Main Dashboard)
-struct TodayView: View {
+// MARK: - Home View (Main Dashboard)
+struct HomeView: View {
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottomTrailing) {
             Color.appBackground.ignoresSafeArea()
 
             ScrollView(showsIndicators: false) {
-                VStack(spacing: 0) {
+                VStack(spacing: 20) {
                     // Header
                     HeaderView()
 
-                    // Main Content
-                    VStack(spacing: 16) {
-                        // Summary Section
-                        SummaryCard()
+                    // Week Selector
+                    WeekSelectorView()
 
-                        // Nutrition Section
-                        NutritionSection()
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.top, 8)
-                    .padding(.bottom, 100)
+                    // Calorie Card
+                    CalorieCard()
+
+                    // Macro Pills
+                    MacroPillsView()
+
+                    // Recently Uploaded
+                    RecentlyUploadedSection()
                 }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 100)
             }
+
+            // Floating Add Button
+            FloatingAddButton()
         }
     }
 }
@@ -82,337 +90,394 @@ struct TodayView: View {
 // MARK: - Header View
 struct HeaderView: View {
     var body: some View {
-        VStack(spacing: 0) {
-            HStack(alignment: .center) {
-                // Title Section
-                VStack(alignment: .leading, spacing: 2) {
-                    Text("Today")
-                        .font(.system(size: 32, weight: .bold, design: .rounded))
-                        .foregroundColor(.textPrimary)
+        HStack {
+            // Logo
+            HStack(spacing: 6) {
+                Image(systemName: "apple.logo")
+                    .font(.system(size: 22, weight: .medium))
+                    .foregroundColor(.textPrimary)
 
-                    Text("Week 175")
-                        .font(.system(size: 14, weight: .medium, design: .rounded))
-                        .foregroundColor(.textSecondary)
-                }
-
-                Spacer()
-
-                // Badges
-                HStack(spacing: 8) {
-                    // Calorie Goal Badge
-                    HStack(spacing: 4) {
-                        Image(systemName: "flag.fill")
-                            .font(.system(size: 11, weight: .semibold))
-                            .foregroundColor(.accentTeal)
-                        Text("2000")
-                            .font(.system(size: 13, weight: .semibold, design: .rounded))
-                            .foregroundColor(.textPrimary)
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 6)
-                    .background(Color.cardBackground)
-                    .clipShape(Capsule())
-
-                    // Streak Badge
-                    HStack(spacing: 4) {
-                        Image(systemName: "flame.fill")
-                            .font(.system(size: 11, weight: .semibold))
-                            .foregroundColor(.accentOrange)
-                        Text("135")
-                            .font(.system(size: 13, weight: .semibold, design: .rounded))
-                            .foregroundColor(.textPrimary)
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 6)
-                    .background(Color.cardBackground)
-                    .clipShape(Capsule())
-                }
+                Text("Cal AI")
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .foregroundColor(.textPrimary)
             }
-            .padding(.horizontal, 16)
-            .padding(.top, 8)
-            .padding(.bottom, 16)
+
+            Spacer()
+
+            // Streak Badge
+            HStack(spacing: 4) {
+                Image(systemName: "flame.fill")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.streakOrange)
+                Text("15")
+                    .font(.system(size: 15, weight: .semibold, design: .rounded))
+                    .foregroundColor(.textPrimary)
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(Color.cardBackground)
+            .clipShape(Capsule())
+            .overlay(
+                Capsule()
+                    .stroke(Color.cardBorder, lineWidth: 1)
+            )
         }
+        .padding(.top, 8)
     }
 }
 
-// MARK: - Summary Card
-struct SummaryCard: View {
+// MARK: - Week Selector View
+struct WeekSelectorView: View {
+    let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    let dates = [10, 11, 12, 13, 14, 15, 16]
+    @State private var selectedIndex = 3 // Wednesday
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("Summary")
-                .font(.system(size: 18, weight: .semibold, design: .rounded))
-                .foregroundColor(.textPrimary)
+        HStack(spacing: 0) {
+            ForEach(0..<7, id: \.self) { index in
+                VStack(spacing: 6) {
+                    Text(days[index])
+                        .font(.system(size: 11, weight: .medium, design: .rounded))
+                        .foregroundColor(index == selectedIndex ? .textPrimary : .textTertiary)
 
-            // Calorie Ring Section
-            HStack(spacing: 24) {
-                // Eaten
-                VStack(spacing: 4) {
-                    Text("1,020")
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                        .foregroundColor(.textPrimary)
-                    Text("Eaten")
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                        .foregroundColor(.textSecondary)
-                }
-
-                // Circular Progress
-                ZStack {
-                    // Background Circle
-                    Circle()
-                        .stroke(Color.cardBackgroundLight, lineWidth: 12)
-                        .frame(width: 100, height: 100)
-
-                    // Progress Arc
-                    Circle()
-                        .trim(from: 0, to: 0.51)
-                        .stroke(
-                            Color.accentTeal,
-                            style: StrokeStyle(lineWidth: 12, lineCap: .round)
+                    Text("\(dates[index])")
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .foregroundColor(index == selectedIndex ? .white : .textPrimary)
+                        .frame(width: 32, height: 32)
+                        .background(
+                            Circle()
+                                .fill(index == selectedIndex ? Color.textPrimary : Color.clear)
                         )
-                        .frame(width: 100, height: 100)
-                        .rotationEffect(.degrees(-90))
-
-                    // Center Text
-                    VStack(spacing: 0) {
-                        Text("868")
-                            .font(.system(size: 28, weight: .bold, design: .rounded))
-                            .foregroundColor(.textPrimary)
-                        Text("Remaining")
-                            .font(.system(size: 10, weight: .medium, design: .rounded))
-                            .foregroundColor(.textSecondary)
+                }
+                .frame(maxWidth: .infinity)
+                .onTapGesture {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        selectedIndex = index
                     }
                 }
-
-                // Protein
-                VStack(spacing: 4) {
-                    Text("Protein")
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                        .foregroundColor(.textSecondary)
-                    Text("46")
-                        .font(.system(size: 20, weight: .bold, design: .rounded))
-                        .foregroundColor(.textPrimary)
-                }
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 8)
+        }
+        .padding(.vertical, 12)
+        .padding(.horizontal, 8)
+        .background(Color.cardBackground)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color.cardBorder, lineWidth: 1)
+        )
+    }
+}
 
-            // Macro Progress Bars
-            HStack(spacing: 20) {
-                MacroProgressBar(label: "Carbs", current: 97, goal: 207, unit: "g", color: .accentTeal)
-                MacroProgressBar(label: "Protein", current: 46, goal: 115, unit: "g", color: .accentTeal)
+// MARK: - Calorie Card
+struct CalorieCard: View {
+    let eaten: Int = 1250
+    let goal: Int = 2500
+
+    var progress: CGFloat {
+        CGFloat(eaten) / CGFloat(goal)
+    }
+
+    var body: some View {
+        HStack {
+            // Calorie Text
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(alignment: .firstTextBaseline, spacing: 0) {
+                    Text("\(eaten)")
+                        .font(.system(size: 48, weight: .bold, design: .rounded))
+                        .foregroundColor(.textPrimary)
+
+                    Text("/\(goal)")
+                        .font(.system(size: 20, weight: .medium, design: .rounded))
+                        .foregroundColor(.textSecondary)
+                }
+
+                Text("Calories eaten")
+                    .font(.system(size: 14, weight: .medium, design: .rounded))
+                    .foregroundColor(.textSecondary)
+            }
+
+            Spacer()
+
+            // Circular Progress
+            ZStack {
+                Circle()
+                    .stroke(Color.progressGray, lineWidth: 8)
+                    .frame(width: 64, height: 64)
+
+                Circle()
+                    .trim(from: 0, to: progress)
+                    .stroke(Color.textPrimary, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                    .frame(width: 64, height: 64)
+                    .rotationEffect(.degrees(-90))
+
+                Image(systemName: "flame.fill")
+                    .font(.system(size: 20, weight: .medium))
+                    .foregroundColor(.textPrimary)
             }
         }
         .padding(20)
         .background(Color.cardBackground)
-        .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .stroke(Color.cardBorder, lineWidth: 1)
+        )
     }
 }
 
-// MARK: - Macro Progress Bar
-struct MacroProgressBar: View {
+// MARK: - Macro Pills View
+struct MacroPillsView: View {
+    var body: some View {
+        HStack(spacing: 12) {
+            MacroPill(
+                label: "Protein eaten",
+                current: 75,
+                goal: 150,
+                unit: "g",
+                color: .proteinColor,
+                icon: "fork.knife"
+            )
+
+            MacroPill(
+                label: "Carbs eaten",
+                current: 138,
+                goal: 275,
+                unit: "g",
+                color: .carbsColor,
+                icon: "leaf.fill"
+            )
+
+            MacroPill(
+                label: "Fat eaten",
+                current: 35,
+                goal: 70,
+                unit: "g",
+                color: .fatColor,
+                icon: "drop.fill"
+            )
+        }
+    }
+}
+
+// MARK: - Macro Pill
+struct MacroPill: View {
     let label: String
     let current: Int
     let goal: Int
     let unit: String
     let color: Color
+    let icon: String
 
     var progress: CGFloat {
         min(CGFloat(current) / CGFloat(goal), 1.0)
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(label)
-                .font(.system(size: 13, weight: .medium, design: .rounded))
-                .foregroundColor(.textSecondary)
-
-            GeometryReader { geometry in
-                ZStack(alignment: .leading) {
-                    // Background
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(Color.cardBackgroundLight)
-                        .frame(height: 6)
-
-                    // Progress
-                    RoundedRectangle(cornerRadius: 4)
-                        .fill(color)
-                        .frame(width: geometry.size.width * progress, height: 6)
-                }
-            }
-            .frame(height: 6)
-
-            Text("\(current) / \(goal) \(unit)")
-                .font(.system(size: 12, weight: .medium, design: .rounded))
-                .foregroundColor(.textTertiary)
-        }
-    }
-}
-
-// MARK: - Nutrition Section
-struct NutritionSection: View {
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("Nutrition")
-                    .font(.system(size: 18, weight: .semibold, design: .rounded))
+        VStack(spacing: 10) {
+            // Value
+            HStack(alignment: .firstTextBaseline, spacing: 0) {
+                Text("\(current)")
+                    .font(.system(size: 20, weight: .bold, design: .rounded))
                     .foregroundColor(.textPrimary)
 
-                Spacer()
-
-                Text("More")
-                    .font(.system(size: 14, weight: .medium, design: .rounded))
-                    .foregroundColor(.accentTeal)
+                Text("/\(goal)\(unit)")
+                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .foregroundColor(.textSecondary)
             }
 
-            VStack(spacing: 0) {
-                MealRow(
-                    emoji: "🍳",
-                    meal: "Breakfast",
-                    calories: 466,
-                    totalCalories: 566,
-                    description: "Fried eggs with mix...",
-                    hasAI: true,
-                    isFirst: true
-                )
+            // Label
+            Text(label)
+                .font(.system(size: 10, weight: .medium, design: .rounded))
+                .foregroundColor(.textSecondary)
+                .lineLimit(1)
 
-                Divider()
-                    .background(Color.cardBackgroundLight)
-                    .padding(.leading, 56)
-
-                MealRow(
-                    emoji: "🍝",
-                    meal: "Lunch",
-                    calories: 354,
-                    totalCalories: 755,
-                    description: "Farfalle pasta with ca...",
-                    hasAI: true,
-                    isFirst: false
-                )
-
-                Divider()
-                    .background(Color.cardBackgroundLight)
-                    .padding(.leading, 56)
-
-                MealRow(
-                    emoji: "🥗",
-                    meal: "Dinner",
-                    calories: 0,
-                    totalCalories: 679,
-                    description: "Add food",
-                    hasAI: false,
-                    isFirst: false
-                )
-
-                Divider()
-                    .background(Color.cardBackgroundLight)
-                    .padding(.leading, 56)
-
-                MealRow(
-                    emoji: "🍎",
-                    meal: "Snacks",
-                    calories: 200,
-                    totalCalories: 400,
-                    description: "Apple, Almonds",
-                    hasAI: false,
-                    isFirst: false
-                )
-            }
-            .background(Color.cardBackground)
-            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-        }
-    }
-}
-
-// MARK: - Meal Row
-struct MealRow: View {
-    let emoji: String
-    let meal: String
-    let calories: Int
-    let totalCalories: Int
-    let description: String
-    let hasAI: Bool
-    let isFirst: Bool
-
-    var body: some View {
-        HStack(spacing: 12) {
-            // Emoji Circle
+            // Circular Progress with Icon
             ZStack {
                 Circle()
-                    .fill(Color.cardBackgroundLight)
+                    .stroke(Color.progressGray, lineWidth: 4)
                     .frame(width: 44, height: 44)
 
-                Text(emoji)
-                    .font(.system(size: 20))
-            }
+                Circle()
+                    .trim(from: 0, to: progress)
+                    .stroke(color, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                    .frame(width: 44, height: 44)
+                    .rotationEffect(.degrees(-90))
 
-            // Meal Info
-            VStack(alignment: .leading, spacing: 3) {
-                HStack(spacing: 4) {
-                    Text(meal)
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
-                        .foregroundColor(.textPrimary)
-
-                    Image(systemName: "arrow.right")
-                        .font(.system(size: 10, weight: .semibold))
-                        .foregroundColor(.textSecondary)
-                }
-
-                HStack(spacing: 6) {
-                    Text("\(calories) / \(totalCalories) Cal")
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                        .foregroundColor(.textSecondary)
-
-                    if hasAI {
-                        Text("AI")
-                            .font(.system(size: 9, weight: .bold, design: .rounded))
-                            .foregroundColor(.black)
-                            .padding(.horizontal, 5)
-                            .padding(.vertical, 2)
-                            .background(Color.accentTeal)
-                            .clipShape(RoundedRectangle(cornerRadius: 4))
-                    }
-
-                    Text(description)
-                        .font(.system(size: 12, weight: .medium, design: .rounded))
-                        .foregroundColor(.textTertiary)
-                        .lineLimit(1)
-                }
-            }
-
-            Spacer()
-
-            // Add Button
-            Button(action: {}) {
-                Image(systemName: "plus")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(.textPrimary)
-                    .frame(width: 32, height: 32)
-                    .background(Color.cardBackgroundLight)
-                    .clipShape(Circle())
+                Image(systemName: icon)
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(color)
             }
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 14)
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 16)
+        .background(Color.cardBackground)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color.cardBorder, lineWidth: 1)
+        )
+    }
+}
+
+// MARK: - Recently Uploaded Section
+struct RecentlyUploadedSection: View {
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Recently uploaded")
+                .font(.system(size: 18, weight: .semibold, design: .rounded))
+                .foregroundColor(.textPrimary)
+
+            VStack(spacing: 12) {
+                FoodCard(
+                    imageName: "photo",
+                    name: "Grilled Salmon",
+                    calories: 550,
+                    protein: 35,
+                    carbs: 40,
+                    fat: 28,
+                    time: "12:37pm"
+                )
+
+                FoodCard(
+                    imageName: "photo",
+                    name: "Caesar Salad",
+                    calories: 330,
+                    protein: 8,
+                    carbs: 20,
+                    fat: 18,
+                    time: "6:21pm"
+                )
+
+                FoodCard(
+                    imageName: "photo",
+                    name: "Protein Smoothie",
+                    calories: 280,
+                    protein: 24,
+                    carbs: 32,
+                    fat: 6,
+                    time: "8:15am"
+                )
+            }
+        }
+    }
+}
+
+// MARK: - Food Card
+struct FoodCard: View {
+    let imageName: String
+    let name: String
+    let calories: Int
+    let protein: Int
+    let carbs: Int
+    let fat: Int
+    let time: String
+
+    var body: some View {
+        HStack(spacing: 14) {
+            // Food Image Placeholder
+            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                .fill(Color.progressGray)
+                .frame(width: 64, height: 64)
+                .overlay(
+                    Image(systemName: imageName)
+                        .font(.system(size: 24))
+                        .foregroundColor(.textTertiary)
+                )
+
+            // Food Info
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Text(name)
+                        .font(.system(size: 16, weight: .semibold, design: .rounded))
+                        .foregroundColor(.textPrimary)
+
+                    Spacer()
+
+                    Text(time)
+                        .font(.system(size: 12, weight: .medium, design: .rounded))
+                        .foregroundColor(.textTertiary)
+                }
+
+                // Calories
+                HStack(spacing: 4) {
+                    Image(systemName: "flame.fill")
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundColor(.streakOrange)
+                    Text("\(calories) Calories")
+                        .font(.system(size: 13, weight: .medium, design: .rounded))
+                        .foregroundColor(.textSecondary)
+                }
+
+                // Macros
+                HStack(spacing: 12) {
+                    MacroLabel(value: protein, unit: "g", color: .proteinColor)
+                    MacroLabel(value: carbs, unit: "g", color: .carbsColor)
+                    MacroLabel(value: fat, unit: "g", color: .fatColor)
+                }
+            }
+        }
+        .padding(14)
+        .background(Color.cardBackground)
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(Color.cardBorder, lineWidth: 1)
+        )
+    }
+}
+
+// MARK: - Macro Label
+struct MacroLabel: View {
+    let value: Int
+    let unit: String
+    let color: Color
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Circle()
+                .fill(color)
+                .frame(width: 8, height: 8)
+            Text("\(value)\(unit)")
+                .font(.system(size: 12, weight: .medium, design: .rounded))
+                .foregroundColor(.textSecondary)
+        }
+    }
+}
+
+// MARK: - Floating Add Button
+struct FloatingAddButton: View {
+    var body: some View {
+        Button(action: {}) {
+            Image(systemName: "plus")
+                .font(.system(size: 24, weight: .semibold))
+                .foregroundColor(.white)
+                .frame(width: 56, height: 56)
+                .background(Color.textPrimary)
+                .clipShape(Circle())
+                .shadow(color: Color.black.opacity(0.15), radius: 8, x: 0, y: 4)
+        }
+        .padding(.trailing, 20)
+        .padding(.bottom, 100)
     }
 }
 
 // MARK: - Placeholder Views for Other Tabs
-struct RecipesView: View {
+struct ProgressView: View {
     var body: some View {
         ZStack {
             Color.appBackground.ignoresSafeArea()
-            Text("Recipes")
+            Text("Progress")
                 .font(.system(size: 24, weight: .bold, design: .rounded))
                 .foregroundColor(.textPrimary)
         }
     }
 }
 
-struct FastingView: View {
+struct GroupsView: View {
     var body: some View {
         ZStack {
             Color.appBackground.ignoresSafeArea()
-            Text("Fasting")
+            Text("Groups")
                 .font(.system(size: 24, weight: .bold, design: .rounded))
                 .foregroundColor(.textPrimary)
         }
@@ -432,5 +497,4 @@ struct ProfileView: View {
 
 #Preview {
     ContentView()
-        .preferredColorScheme(.dark)
 }

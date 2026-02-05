@@ -117,8 +117,9 @@ struct HomeView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showCamera) {
+            .fullScreenCover(isPresented: $showCamera) {
                 CameraView(image: $capturedImage)
+                    .ignoresSafeArea()
             }
         }
     }
@@ -154,6 +155,8 @@ struct CameraView: UIViewControllerRepresentable {
         let picker = UIImagePickerController()
         picker.sourceType = .camera
         picker.delegate = context.coordinator
+        picker.modalPresentationStyle = .fullScreen
+        picker.edgesForExtendedLayout = .all
         return picker
     }
 

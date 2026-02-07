@@ -15,8 +15,9 @@ struct OnboardingView: View {
     @State private var activityLevel: ActivityLevel = .moderate
     @State private var goal: WeightGoal = .maintain
     @State private var selectedPlan: PaywallPlan = .yearly
+    @State private var referralSource: String?
 
-    private let totalSteps = 9 // 0-8
+    private let totalSteps = 10 // 0-9
 
     private var profile: UserProfile {
         let cm: Double
@@ -45,7 +46,7 @@ struct OnboardingView: View {
 
             VStack(spacing: 0) {
                 // Top bar: back + progress
-                if step > 0 && step < 8 {
+                if step > 0 && step < 9 {
                     HStack(spacing: 16) {
                         Button {
                             withAnimation(.snappy) { step -= 1 }
@@ -82,9 +83,10 @@ struct OnboardingView: View {
                     case 3: heightWeightStep
                     case 4: activityStep
                     case 5: goalStep
-                    case 6: buildingPlanStep
-                    case 7: planReadyStep
-                    case 8: paywallStep
+                    case 6: referralStep
+                    case 7: buildingPlanStep
+                    case 8: planReadyStep
+                    case 9: paywallStep
                     default: EmptyView()
                     }
                 }
@@ -344,7 +346,59 @@ struct OnboardingView: View {
         }
     }
 
-    // MARK: - Step 6: Building Plan
+    // MARK: - Step 6: Referral Source
+
+    private let referralOptions: [(icon: String, label: String)] = [
+        ("bubble.left.and.bubble.right.fill", "Social Media"),
+        ("magnifyingglass", "Search Engine"),
+        ("person.2.fill", "Friend or Family"),
+        ("app.badge.fill", "App Store"),
+        ("play.rectangle.fill", "YouTube"),
+        ("ellipsis.circle.fill", "Other")
+    ]
+
+    private var referralStep: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            stepHeader(title: "How did you\nfind us?", subtitle: "This helps us grow")
+
+            Spacer()
+
+            VStack(spacing: 10) {
+                ForEach(referralOptions, id: \.label) { option in
+                    Button {
+                        withAnimation(.spring(response: 0.3)) { referralSource = option.label }
+                    } label: {
+                        HStack(spacing: 14) {
+                            Image(systemName: option.icon)
+                                .font(.system(size: 18))
+                                .foregroundStyle(referralSource == option.label ? Color.primary : .secondary)
+                                .frame(width: 36)
+
+                            Text(option.label)
+                                .font(.system(.body, design: .rounded, weight: .medium))
+                                .foregroundStyle(.primary)
+
+                            Spacer()
+                        }
+                        .padding(14)
+                        .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 14))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14)
+                                .strokeBorder(referralSource == option.label ? Color.primary : Color.clear, lineWidth: 2)
+                        )
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.horizontal, 24)
+
+            Spacer()
+
+            continueButton()
+        }
+    }
+
+    // MARK: - Step 7: Building Plan
 
     private var buildingPlanStep: some View {
         BuildingPlanStepView {

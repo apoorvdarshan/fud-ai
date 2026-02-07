@@ -45,7 +45,6 @@ struct HomeView: View {
     @State private var showCamera = false
     @State private var capturedImage: UIImage?
     @State private var cameraMode: CameraMode = .snapFood
-    @State private var showPhotoModeChoice = false
     @State private var selectedPhotoItem: PhotosPickerItem?
     @State private var showPhotoPicker = false
     @State private var showError = false
@@ -185,7 +184,7 @@ struct HomeView: View {
                         }) {
                             Label("Nutrition Label", systemImage: "text.viewfinder")
                         }
-                        Button(action: { showPhotoModeChoice = true }) {
+                        Button(action: { showPhotoPicker = true }) {
                             Label("From Photos", systemImage: "photo.on.rectangle")
                         }
                     } label: {
@@ -227,17 +226,6 @@ struct HomeView: View {
                 }
             }
             .interactiveDismissDisabled(activeSheet == .analyzing)
-            .alert("What are you uploading?", isPresented: $showPhotoModeChoice) {
-                Button("Food Photo") {
-                    cameraMode = .snapFood
-                    showPhotoPicker = true
-                }
-                Button("Nutrition Label") {
-                    cameraMode = .nutritionLabel
-                    showPhotoPicker = true
-                }
-                Button("Cancel", role: .cancel) { }
-            }
             .photosPicker(isPresented: $showPhotoPicker, selection: $selectedPhotoItem, matching: .images)
             .onChange(of: selectedPhotoItem) { oldValue, newValue in
                 guard let item = newValue else { return }
@@ -246,7 +234,16 @@ struct HomeView: View {
                     if let data = try? await item.loadTransferable(type: Data.self),
                        let image = UIImage(data: data) {
                         currentImage = image
-                        startAnalysis(image: image, mode: cameraMode)
+                        activeSheet = .analyzing
+                        do {
+                            let result = try await GeminiService.autoAnalyze(image: image)
+                            currentFoodResult = result
+                            activeSheet = .foodResult
+                        } catch {
+                            activeSheet = nil
+                            errorMessage = error.localizedDescription
+                            showError = true
+                        }
                     }
                 }
             }

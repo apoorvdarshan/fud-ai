@@ -52,6 +52,21 @@ struct GeminiService {
         }
     }
 
+    static func autoAnalyze(image: UIImage) async throws -> FoodAnalysis {
+        let prompt = """
+        Analyze this image. It could be either a photo of food OR a nutrition facts label.
+
+        If it's a food photo: identify the food and estimate nutritional content for the serving shown.
+        If it's a nutrition label: read the values and calculate for one serving size as listed on the label.
+
+        Respond ONLY with JSON: {"name":"...","calories":0,"protein":0,"carbs":0,"fat":0}
+        All integers. Calories in kcal, macros in grams.
+        """
+
+        let text = try await callGemini(image: image, prompt: prompt)
+        return try parseFoodAnalysis(from: text)
+    }
+
     static func analyzeFood(image: UIImage) async throws -> FoodAnalysis {
         let prompt = """
         Analyze this food image. Identify the food and estimate its nutritional content.

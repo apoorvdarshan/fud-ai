@@ -52,13 +52,12 @@ struct HomeView: View {
     @State private var errorMessage = ""
 
     enum ActiveSheet: String, Identifiable {
-        case analyzing, foodResult, servingSize
+        case analyzing, foodResult
         var id: String { rawValue }
     }
     @State private var activeSheet: ActiveSheet?
 
     @State private var currentFoodResult: GeminiService.FoodAnalysis?
-    @State private var currentLabelResult: GeminiService.NutritionLabelAnalysis?
     @State private var currentImage: UIImage?
 
     var body: some View {
@@ -195,17 +194,6 @@ struct HomeView: View {
                             }
                         )
                     }
-                case .servingSize:
-                    if let image = currentImage, let labelResult = currentLabelResult {
-                        ServingSizeInputView(
-                            image: image,
-                            labelAnalysis: labelResult,
-                            onContinue: { scaled in
-                                currentFoodResult = scaled
-                                activeSheet = .foodResult
-                            }
-                        )
-                    }
                 }
             }
             .interactiveDismissDisabled(activeSheet == .analyzing)
@@ -251,10 +239,10 @@ struct HomeView: View {
                     activeSheet = .foodResult
 
                 case .nutritionLabel:
-                    let result = try await GeminiService.analyzeNutritionLabel(image: image)
-                    currentLabelResult = result
-                    currentFoodResult = nil
-                    activeSheet = .servingSize
+                    let label = try await GeminiService.analyzeNutritionLabel(image: image)
+                    let servingGrams = label.servingSizeGrams ?? 100
+                    currentFoodResult = label.scaled(to: servingGrams)
+                    activeSheet = .foodResult
                 }
             } catch {
                 activeSheet = nil

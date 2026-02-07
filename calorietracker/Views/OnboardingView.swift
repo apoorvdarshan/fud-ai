@@ -374,12 +374,13 @@ struct OnboardingView: View {
                         .foregroundStyle(.secondary)
                 }
 
-                // Macro rings
-                HStack(spacing: 32) {
-                    macroRing(label: "Protein", grams: profile.proteinGoal, colors: AppColors.proteinGradient)
-                    macroRing(label: "Carbs", grams: profile.carbsGoal, colors: AppColors.carbsGradient)
-                    macroRing(label: "Fat", grams: profile.fatGoal, colors: AppColors.fatGradient)
+                // Macro bars (matching home page style)
+                HStack(spacing: 20) {
+                    MacroCard(label: "Protein", current: profile.proteinGoal, goal: profile.proteinGoal, gradientColors: AppColors.proteinGradient)
+                    MacroCard(label: "Carbs", current: profile.carbsGoal, goal: profile.carbsGoal, gradientColors: AppColors.carbsGradient)
+                    MacroCard(label: "Fat", current: profile.fatGoal, goal: profile.fatGoal, gradientColors: AppColors.fatGradient)
                 }
+                .padding(.horizontal, 24)
             }
 
             Spacer()
@@ -530,22 +531,6 @@ struct OnboardingView: View {
             )
         }
         .buttonStyle(.plain)
-    }
-
-    private func macroRing(label: String, grams: Int, colors: [Color]) -> some View {
-        VStack(spacing: 8) {
-            ZStack {
-                ActivityRingView(progress: 0.75, ringWidth: 6, gradientColors: colors)
-                    .frame(width: 56, height: 56)
-
-                Text("\(grams)g")
-                    .font(.system(.caption, design: .rounded, weight: .bold))
-            }
-
-            Text(label)
-                .font(.system(.caption2, design: .rounded, weight: .medium))
-                .foregroundStyle(.secondary)
-        }
     }
 
     private func formatPrice(_ amount: Double) -> String {

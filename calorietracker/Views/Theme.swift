@@ -16,6 +16,9 @@ enum AppColors {
     // Fat: Blue → Cyan
     static let fatGradient: [Color] = [Color(hex: 0x0A84FF), Color(hex: 0x5AC8FA)]
     static let fat: Color = Color(hex: 0x0A84FF)
+
+    // Background: warm cream in light, system dark in dark
+    static let appBackground = Color("appBackground")
 }
 
 extension Color {

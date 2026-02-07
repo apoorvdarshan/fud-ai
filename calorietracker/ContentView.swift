@@ -165,7 +165,7 @@ struct HomeView: View {
                 }
             }
             .scrollContentBackground(.hidden)
-            .background(Color(.systemGroupedBackground))
+            .background(AppColors.appBackground)
             .animation(.snappy, value: selectedDate)
             .navigationTitle(navigationTitle)
             .toolbar {

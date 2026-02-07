@@ -19,6 +19,7 @@ enum AppColors {
 
     // Background: warm cream in light, system dark in dark
     static let appBackground = Color("appBackground")
+    static let appCard = Color("appCard")
 }
 
 extension Color {

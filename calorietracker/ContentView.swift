@@ -146,12 +146,14 @@ struct HomeView: View {
                     Section(isToday ? "Today's Food" : "Food Log") {
                         Text("No foods logged")
                             .foregroundStyle(.secondary)
+                            .listRowBackground(AppColors.appCard)
                     }
                 } else {
                     ForEach(mealGroups, id: \.meal) { group in
                         Section {
                             ForEach(group.entries) { entry in
                                 FoodRow(entry: entry)
+                                    .listRowBackground(AppColors.appCard)
                             }
                             .onDelete { offsets in
                                 for index in offsets {
@@ -395,12 +397,16 @@ struct ProgressTabView: View {
                     LabeledContent("Current", value: "132.1 lbs")
                     LabeledContent("Goal", value: "140 lbs")
                 }
+                .listRowBackground(AppColors.appCard)
 
                 Section("Statistics") {
                     LabeledContent("Daily Average", value: "2861 cal")
                     LabeledContent("Weekly Average", value: "2750 cal")
                 }
+                .listRowBackground(AppColors.appCard)
             }
+            .scrollContentBackground(.hidden)
+            .background(AppColors.appBackground)
             .navigationTitle("Progress")
         }
     }
@@ -412,7 +418,10 @@ struct GroupsView: View {
             List {
                 Text("No groups yet")
                     .foregroundStyle(.secondary)
+                    .listRowBackground(AppColors.appCard)
             }
+            .scrollContentBackground(.hidden)
+            .background(AppColors.appBackground)
             .navigationTitle("Groups")
         }
     }
@@ -436,18 +445,23 @@ struct ProfileView: View {
                         }
                     }
                 }
+                .listRowBackground(AppColors.appCard)
 
                 Section("Settings") {
                     Label("Notifications", systemImage: "bell")
                     Label("Goals", systemImage: "target")
                     Label("Units", systemImage: "scalemass")
                 }
+                .listRowBackground(AppColors.appCard)
 
                 Section {
                     Label("Sign Out", systemImage: "rectangle.portrait.and.arrow.right")
                         .foregroundStyle(.red)
                 }
+                .listRowBackground(AppColors.appCard)
             }
+            .scrollContentBackground(.hidden)
+            .background(AppColors.appBackground)
             .navigationTitle("Profile")
         }
     }

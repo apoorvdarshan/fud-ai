@@ -466,9 +466,9 @@ struct OnboardingView: View {
                     HStack(spacing: 0) {
                         VStack(spacing: 6) {
                             Image(systemName: "tortoise.fill").font(.system(size: 24))
-                                .foregroundStyle(goalSpeed == 0 ? Color.primary : Color.secondary.opacity(0.4))
+                                .foregroundStyle(goalSpeed == 0 ? AppColors.calorie : Color.secondary.opacity(0.4))
                             Text("Slow").font(.system(.caption, design: .rounded, weight: .medium))
-                                .foregroundStyle(goalSpeed == 0 ? .primary : .secondary)
+                                .foregroundStyle(goalSpeed == 0 ? AppColors.calorie : .secondary)
                         }.frame(maxWidth: .infinity)
                         VStack(spacing: 6) {
                             Image(systemName: "hare.fill").font(.system(size: 24))
@@ -478,9 +478,9 @@ struct OnboardingView: View {
                         }.frame(maxWidth: .infinity)
                         VStack(spacing: 6) {
                             Image(systemName: "bolt.fill").font(.system(size: 24))
-                                .foregroundStyle(goalSpeed == 2 ? Color.primary : Color.secondary.opacity(0.4))
+                                .foregroundStyle(goalSpeed == 2 ? AppColors.calorie : Color.secondary.opacity(0.4))
                             Text("Fast").font(.system(.caption, design: .rounded, weight: .medium))
-                                .foregroundStyle(goalSpeed == 2 ? .primary : .secondary)
+                                .foregroundStyle(goalSpeed == 2 ? AppColors.calorie : .secondary)
                         }.frame(maxWidth: .infinity)
                     }.padding(.horizontal, 24)
                     Slider(value: Binding(

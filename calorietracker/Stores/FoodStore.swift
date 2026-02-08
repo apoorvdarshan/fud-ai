@@ -6,6 +6,7 @@ class FoodStore {
     private(set) var entries: [FoodEntry] = []
     var onEntriesChanged: (() -> Void)?
     var onEntryAdded: ((FoodEntry) -> Void)?
+    var onEntryDeleted: ((UUID) -> Void)?
 
     private let storageKey = "foodEntries"
 
@@ -96,6 +97,7 @@ class FoodStore {
         entries.removeAll { $0.id == id }
         saveEntries()
         onEntriesChanged?()
+        onEntryDeleted?(id)
         if UserDefaults.standard.string(forKey: "appleUserID") != nil {
             Task { await CloudKitService.deleteFoodEntry(id: id) }
         }

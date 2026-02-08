@@ -131,12 +131,17 @@ struct calorietrackerApp: App {
 
         foodStore.onEntryAdded = { [healthKitManager] entry in
             healthKitManager.writeNutrition(
+                entryId: entry.id,
                 calories: entry.calories,
                 protein: entry.protein,
                 carbs: entry.carbs,
                 fat: entry.fat,
                 date: entry.timestamp
             )
+        }
+
+        foodStore.onEntryDeleted = { [healthKitManager] entryId in
+            healthKitManager.deleteNutrition(for: entryId)
         }
 
         weightStore.onEntryAdded = { [healthKitManager] entry in

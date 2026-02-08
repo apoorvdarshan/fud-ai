@@ -9,6 +9,7 @@ class HealthKitManager {
 
     private let healthStore = HKHealthStore()
     private var observerQueries: [HKObserverQuery] = []
+    private let sampleMapKey = "healthKitSampleMap"
 
     // MARK: - Types
 
@@ -49,7 +50,7 @@ class HealthKitManager {
 
     // MARK: - Write Nutrition
 
-    func writeNutrition(calories: Int, protein: Int, carbs: Int, fat: Int, date: Date) {
+    func writeNutrition(entryId: UUID, calories: Int, protein: Int, carbs: Int, fat: Int, date: Date) {
         guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
 
         let samples: [(HKQuantityTypeIdentifier, Double, HKUnit)] = [
@@ -59,12 +60,53 @@ class HealthKitManager {
             (.dietaryFatTotal, Double(fat), .gram()),
         ]
 
+        var sampleUUIDs: [String] = []
         for (identifier, value, unit) in samples {
             let type = HKQuantityType(identifier)
             let quantity = HKQuantity(unit: unit, doubleValue: value)
             let sample = HKQuantitySample(type: type, quantity: quantity, start: date, end: date)
+            sampleUUIDs.append(sample.uuid.uuidString)
             healthStore.save(sample) { _, _ in }
         }
+        saveSampleUUIDs(sampleUUIDs, for: entryId)
+    }
+
+    // MARK: - Delete Nutrition
+
+    func deleteNutrition(for entryId: UUID) {
+        guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
+        guard let uuidStrings = loadSampleUUIDs(for: entryId) else { return }
+
+        let uuids = uuidStrings.compactMap { UUID(uuidString: $0) }
+        let predicate = HKQuery.predicateForObjects(with: Set(uuids))
+
+        let types: [HKQuantityTypeIdentifier] = [
+            .dietaryEnergyConsumed, .dietaryProtein, .dietaryCarbohydrates, .dietaryFatTotal
+        ]
+        for identifier in types {
+            let type = HKQuantityType(identifier)
+            healthStore.deleteObjects(of: type, predicate: predicate) { _, _, _ in }
+        }
+        removeSampleUUIDs(for: entryId)
+    }
+
+    // MARK: - Sample UUID Mapping
+
+    private func saveSampleUUIDs(_ uuids: [String], for entryId: UUID) {
+        var map = UserDefaults.standard.dictionary(forKey: sampleMapKey) as? [String: [String]] ?? [:]
+        map[entryId.uuidString] = uuids
+        UserDefaults.standard.set(map, forKey: sampleMapKey)
+    }
+
+    private func loadSampleUUIDs(for entryId: UUID) -> [String]? {
+        let map = UserDefaults.standard.dictionary(forKey: sampleMapKey) as? [String: [String]] ?? [:]
+        return map[entryId.uuidString]
+    }
+
+    private func removeSampleUUIDs(for entryId: UUID) {
+        var map = UserDefaults.standard.dictionary(forKey: sampleMapKey) as? [String: [String]] ?? [:]
+        map.removeValue(forKey: entryId.uuidString)
+        UserDefaults.standard.set(map, forKey: sampleMapKey)
     }
 
     // MARK: - Write Body Measurements

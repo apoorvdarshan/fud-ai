@@ -662,36 +662,32 @@ struct ProfileView: View {
 
                 // Section 2: Goals & Nutrition
                 Section("Goals & Nutrition") {
-                    NavigationLink {
-                        WeightGoalSelectionView(selected: $profile.goal) {
-                            if profile.goal == .maintain {
-                                profile.weeklyChangeKg = nil
-                            } else if profile.weeklyChangeKg == nil {
-                                profile.weeklyChangeKg = 0.5
-                            }
-                            saveProfile()
+                    Picker(selection: $profile.goal) {
+                        ForEach(WeightGoal.allCases, id: \.self) { goal in
+                            Text(goal.displayName).tag(goal)
                         }
                     } label: {
-                        HStack {
-                            Label("Weight Goal", systemImage: profile.goal.icon)
-                            Spacer()
-                            Text(profile.goal.displayName)
-                                .foregroundStyle(.secondary)
+                        Label("Weight Goal", systemImage: profile.goal.icon)
+                    }
+                    .pickerStyle(.menu)
+                    .onChange(of: profile.goal) { _, newValue in
+                        if newValue == .maintain {
+                            profile.weeklyChangeKg = nil
+                        } else if profile.weeklyChangeKg == nil {
+                            profile.weeklyChangeKg = 0.5
                         }
+                        saveProfile()
                     }
 
-                    NavigationLink {
-                        ActivityLevelSelectionView(selected: $profile.activityLevel) {
-                            saveProfile()
+                    Picker(selection: $profile.activityLevel) {
+                        ForEach(ActivityLevel.allCases, id: \.self) { level in
+                            Text(level.displayName).tag(level)
                         }
                     } label: {
-                        HStack {
-                            Label("Activity Level", systemImage: profile.activityLevel.icon)
-                            Spacer()
-                            Text(profile.activityLevel.displayName)
-                                .foregroundStyle(.secondary)
-                        }
+                        Label("Activity Level", systemImage: profile.activityLevel.icon)
                     }
+                    .pickerStyle(.menu)
+                    .onChange(of: profile.activityLevel) { _, _ in saveProfile() }
 
                     if profile.goal != .maintain {
                         NavigationLink {

@@ -221,18 +221,25 @@ struct OnboardingView: View {
                 do {
                     let cloudData = try await CloudKitService.pullAllData()
                     if let cloudProfile = cloudData.profile {
-                        // Returning user — restore everything
+                        // Returning user — restore from iCloud
                         cloudProfile.save()
                         foodStore.replaceAllEntries(cloudData.foodEntries)
                         weightStore.replaceAllEntries(cloudData.weightEntries)
+                        hasCompletedOnboarding = true
+                    } else if UserProfile.load() != nil {
+                        // Local profile exists (sign-out → sign-in) — skip onboarding
                         hasCompletedOnboarding = true
                     } else {
                         // New user — continue onboarding
                         withAnimation(.snappy) { step += 1 }
                     }
                 } catch {
-                    // Cloud fetch failed — continue as new user
-                    withAnimation(.snappy) { step += 1 }
+                    // Cloud fetch failed — check local data
+                    if UserProfile.load() != nil {
+                        hasCompletedOnboarding = true
+                    } else {
+                        withAnimation(.snappy) { step += 1 }
+                    }
                 }
                 isRestoringFromCloud = false
             }

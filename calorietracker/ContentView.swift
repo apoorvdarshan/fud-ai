@@ -429,6 +429,8 @@ struct GroupsView: View {
 }
 
 struct ProfileView: View {
+    @AppStorage("appearanceMode") private var appearanceMode = "system"
+
     var body: some View {
         NavigationStack {
             List {
@@ -451,7 +453,14 @@ struct ProfileView: View {
                 Section("Settings") {
                     Label("Notifications", systemImage: "bell")
                     Label("Goals", systemImage: "target")
-                    Label("Units", systemImage: "scalemass")
+                    Picker(selection: $appearanceMode) {
+                        Text("System").tag("system")
+                        Text("Light").tag("light")
+                        Text("Dark").tag("dark")
+                    } label: {
+                        Label("Appearance", systemImage: "circle.lefthalf.filled")
+                    }
+                    .pickerStyle(.menu)
                 }
                 .listRowBackground(AppColors.appCard)
 

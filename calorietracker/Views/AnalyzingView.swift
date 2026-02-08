@@ -16,10 +16,11 @@ struct AnalyzingView: View {
 
             ProgressView()
                 .controlSize(.large)
+                .tint(AppColors.calorie)
 
             Text("Analyzing your food...")
                 .font(.headline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(AppColors.calorie)
 
             Spacer()
         }

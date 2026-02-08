@@ -614,13 +614,6 @@ struct ProfileView: View {
     var body: some View {
         NavigationStack {
             List {
-                // Section 0: Header
-                Section {
-                    ProfileHeaderSection(profile: profile)
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                }
-
                 // Section 1: Personal Info
                 Section("Personal Info") {
                     ProfileInfoRow(icon: "person", label: "Name", value: profile.displayName) {

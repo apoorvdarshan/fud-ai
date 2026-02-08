@@ -61,10 +61,10 @@ struct HomeView: View {
     @State private var currentImage: UIImage?
 
     private var userProfile: UserProfile { UserProfile.load() ?? .default }
-    private var calorieGoal: Int { userProfile.dailyCalories }
-    private var proteinGoal: Int { userProfile.proteinGoal }
-    private var carbsGoal: Int { userProfile.carbsGoal }
-    private var fatGoal: Int { userProfile.fatGoal }
+    private var calorieGoal: Int { userProfile.effectiveCalories }
+    private var proteinGoal: Int { userProfile.effectiveProtein }
+    private var carbsGoal: Int { userProfile.effectiveCarbs }
+    private var fatGoal: Int { userProfile.effectiveFat }
     private var selectedCalories: Int { foodStore.calories(for: selectedDate) }
     private var caloriesRemaining: Int { max(calorieGoal - selectedCalories, 0) }
     private var isToday: Bool { Calendar.current.isDateInToday(selectedDate) }

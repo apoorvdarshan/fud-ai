@@ -73,6 +73,17 @@ enum ActivityLevel: String, Codable, CaseIterable {
         case .extraActive: 1.9
         }
     }
+
+    var proteinPerKg: Double {
+        switch self {
+        case .sedentary: 1.0
+        case .light: 1.4
+        case .moderate: 1.6
+        case .active: 1.8
+        case .veryActive: 2.0
+        case .extraActive: 2.2
+        }
+    }
 }
 
 enum WeightGoal: String, Codable, CaseIterable {
@@ -106,6 +117,10 @@ struct UserProfile: Codable {
     var goal: WeightGoal
     var bodyFatPercentage: Double?
     var weeklyChangeKg: Double?
+    var customCalories: Int?
+    var customProtein: Int?
+    var customFat: Int?
+    var customCarbs: Int?
 
     var age: Int {
         Calendar.current.dateComponents([.year], from: birthday, to: Date()).year ?? 25
@@ -146,16 +161,21 @@ struct UserProfile: Codable {
     }
 
     var proteinGoal: Int {
-        Int(Double(dailyCalories) * 0.30 / 4) // 4 cal per gram
-    }
-
-    var carbsGoal: Int {
-        Int(Double(dailyCalories) * 0.45 / 4) // 4 cal per gram
+        Int(activityLevel.proteinPerKg * weightKg)
     }
 
     var fatGoal: Int {
-        Int(Double(dailyCalories) * 0.25 / 9) // 9 cal per gram
+        Int(0.6 * weightKg)
     }
+
+    var carbsGoal: Int {
+        max(0, (dailyCalories - proteinGoal * 4 - fatGoal * 9) / 4)
+    }
+
+    var effectiveCalories: Int { customCalories ?? dailyCalories }
+    var effectiveProtein: Int { customProtein ?? proteinGoal }
+    var effectiveFat: Int { customFat ?? fatGoal }
+    var effectiveCarbs: Int { customCarbs ?? carbsGoal }
 
     static let `default` = UserProfile(
         gender: .male,
@@ -165,7 +185,11 @@ struct UserProfile: Codable {
         activityLevel: .moderate,
         goal: .maintain,
         bodyFatPercentage: nil,
-        weeklyChangeKg: nil
+        weeklyChangeKg: nil,
+        customCalories: nil,
+        customProtein: nil,
+        customFat: nil,
+        customCarbs: nil
     )
 
     // MARK: - Persistence

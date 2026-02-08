@@ -25,6 +25,16 @@ struct OnboardingView: View {
     @State private var selectedAccomplishment: String?
     @State private var knowsBodyFat = false
     @State private var bodyFatPercentage = 20
+    @State private var editedCalories: Int?
+    @State private var editedProtein: Int?
+    @State private var editedFat: Int?
+    @State private var editedCarbs: Int?
+    @State private var editingField: EditableField?
+
+    private enum EditableField: String, Identifiable {
+        case calories, protein, fat, carbs
+        var id: String { rawValue }
+    }
 
     private let totalSteps = 24 // 0-23
 
@@ -1004,48 +1014,195 @@ struct OnboardingView: View {
 
     // MARK: - 22: Plan Ready
 
+    private var planCalories: Int { editedCalories ?? profile.dailyCalories }
+    private var planProtein: Int { editedProtein ?? profile.proteinGoal }
+    private var planFat: Int { editedFat ?? profile.fatGoal }
+    private var planCarbs: Int { editedCarbs ?? profile.carbsGoal }
+
+    private func initPlanValues() {
+        if editedCalories == nil && editedProtein == nil && editedFat == nil && editedCarbs == nil {
+            editedCalories = profile.dailyCalories
+            editedProtein = profile.proteinGoal
+            editedFat = profile.fatGoal
+            editedCarbs = profile.carbsGoal
+        }
+    }
+
     private var planReadyStep: some View {
         VStack(spacing: 0) {
-            stepHeader(title: "Your Plan", subtitle: "Based on your profile")
-            Spacer()
-            VStack(spacing: 24) {
-                VStack(spacing: 4) {
-                    Text("\(profile.dailyCalories)")
-                        .font(.system(size: 64, weight: .bold, design: .rounded))
-                        .foregroundStyle(
-                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
-                    Text("daily calories")
-                        .font(.system(.callout, design: .rounded, weight: .medium))
-                        .foregroundStyle(.secondary)
-                }
-                HStack(spacing: 20) {
-                    MacroCard(label: "Protein", current: profile.proteinGoal, goal: profile.proteinGoal, gradientColors: AppColors.proteinGradient)
-                    MacroCard(label: "Carbs", current: profile.carbsGoal, goal: profile.carbsGoal, gradientColors: AppColors.carbsGradient)
-                    MacroCard(label: "Fat", current: profile.fatGoal, goal: profile.fatGoal, gradientColors: AppColors.fatGradient)
-                }
-                .padding(.horizontal, 24)
-                if profile.dailyCalories < 1200 {
-                    HStack(spacing: 10) {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .foregroundStyle(.orange)
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("Please consult with a doctor")
-                                .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                            Text("The minimum recommendation is 1,200 calories per day.")
-                                .font(.system(.caption, design: .rounded))
-                                .foregroundStyle(.secondary)
+            stepHeader(title: "Your Plan", subtitle: "Tap any value to adjust")
+
+            ScrollView {
+                VStack(spacing: 20) {
+                    // Calorie display - tappable
+                    Button {
+                        withAnimation(.snappy) {
+                            editingField = editingField == .calories ? nil : .calories
+                        }
+                    } label: {
+                        VStack(spacing: 4) {
+                            Text("\(planCalories)")
+                                .font(.system(size: 64, weight: .bold, design: .rounded))
+                                .foregroundStyle(
+                                    LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
+                                )
+                                .contentTransition(.numericText())
+                                .animation(.snappy, value: planCalories)
+                            HStack(spacing: 4) {
+                                Text("daily calories")
+                                    .font(.system(.callout, design: .rounded, weight: .medium))
+                                    .foregroundStyle(.secondary)
+                                Image(systemName: "pencil.circle.fill")
+                                    .font(.system(size: 14))
+                                    .foregroundStyle(.tertiary)
+                            }
                         }
                     }
-                    .padding(14)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.orange.opacity(0.1), in: RoundedRectangle(cornerRadius: 12))
+                    .buttonStyle(.plain)
+
+                    if editingField == .calories {
+                        Picker("Calories", selection: Binding(
+                            get: { planCalories },
+                            set: { newCal in
+                                editedCalories = newCal
+                                editedCarbs = max(0, (newCal - planProtein * 4 - planFat * 9) / 4)
+                            }
+                        )) {
+                            ForEach(Array(stride(from: 800, through: 5000, by: 10)), id: \.self) { cal in
+                                Text("\(cal) cal").tag(cal)
+                            }
+                        }
+                        .pickerStyle(.wheel)
+                        .frame(height: 150)
+                        .padding(.horizontal, 24)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                    }
+
+                    // Macro cards - tappable
+                    HStack(spacing: 12) {
+                        editableMacroCard(label: "Protein", value: planProtein, unit: "g", gradientColors: AppColors.proteinGradient, field: .protein)
+                        editableMacroCard(label: "Carbs", value: planCarbs, unit: "g", gradientColors: AppColors.carbsGradient, field: .carbs)
+                        editableMacroCard(label: "Fat", value: planFat, unit: "g", gradientColors: AppColors.fatGradient, field: .fat)
+                    }
                     .padding(.horizontal, 24)
+
+                    if editingField == .protein {
+                        Picker("Protein", selection: Binding(
+                            get: { planProtein },
+                            set: { newProtein in
+                                editedProtein = newProtein
+                                editedCarbs = max(0, (planCalories - newProtein * 4 - planFat * 9) / 4)
+                            }
+                        )) {
+                            ForEach(20...300, id: \.self) { g in Text("\(g) g").tag(g) }
+                        }
+                        .pickerStyle(.wheel)
+                        .frame(height: 150)
+                        .padding(.horizontal, 24)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                    }
+
+                    if editingField == .carbs {
+                        Picker("Carbs", selection: Binding(
+                            get: { planCarbs },
+                            set: { newCarbs in
+                                editedCarbs = newCarbs
+                                editedCalories = newCarbs * 4 + planProtein * 4 + planFat * 9
+                            }
+                        )) {
+                            ForEach(0...500, id: \.self) { g in Text("\(g) g").tag(g) }
+                        }
+                        .pickerStyle(.wheel)
+                        .frame(height: 150)
+                        .padding(.horizontal, 24)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                    }
+
+                    if editingField == .fat {
+                        Picker("Fat", selection: Binding(
+                            get: { planFat },
+                            set: { newFat in
+                                editedFat = newFat
+                                editedCarbs = max(0, (planCalories - planProtein * 4 - newFat * 9) / 4)
+                            }
+                        )) {
+                            ForEach(10...200, id: \.self) { g in Text("\(g) g").tag(g) }
+                        }
+                        .pickerStyle(.wheel)
+                        .frame(height: 150)
+                        .padding(.horizontal, 24)
+                        .transition(.opacity.combined(with: .move(edge: .top)))
+                    }
+
+                    if planCalories < 1200 {
+                        HStack(spacing: 10) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .foregroundStyle(.orange)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Please consult with a doctor")
+                                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                                Text("The minimum recommendation is 1,200 calories per day.")
+                                    .font(.system(.caption, design: .rounded))
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .padding(14)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.orange.opacity(0.1), in: RoundedRectangle(cornerRadius: 12))
+                        .padding(.horizontal, 24)
+                    }
                 }
+                .padding(.top, 16)
+                .padding(.bottom, 100)
             }
-            Spacer()
-            continueButton("Let's get started!")
+
+            continueButton("Let's get started!") {
+                var editedProfile = profile
+                editedProfile.customCalories = editedCalories
+                editedProfile.customProtein = editedProtein
+                editedProfile.customFat = editedFat
+                editedProfile.customCarbs = editedCarbs
+                editedProfile.save()
+            }
         }
+        .onAppear { initPlanValues() }
+    }
+
+    private func editableMacroCard(label: String, value: Int, unit: String, gradientColors: [Color], field: EditableField) -> some View {
+        Button {
+            withAnimation(.snappy) {
+                editingField = editingField == field ? nil : field
+            }
+        } label: {
+            VStack(spacing: 6) {
+                Text(label)
+                    .font(.system(.caption, design: .rounded, weight: .medium))
+                    .foregroundStyle(.secondary)
+                HStack(spacing: 2) {
+                    Text("\(value)")
+                        .font(.system(.title2, design: .rounded, weight: .bold))
+                        .foregroundStyle(
+                            LinearGradient(colors: gradientColors, startPoint: .topLeading, endPoint: .bottomTrailing)
+                        )
+                        .contentTransition(.numericText())
+                        .animation(.snappy, value: value)
+                    Text(unit)
+                        .font(.system(.caption, design: .rounded, weight: .medium))
+                        .foregroundStyle(.secondary)
+                }
+                Image(systemName: "pencil.circle.fill")
+                    .font(.system(size: 12))
+                    .foregroundStyle(.tertiary)
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 12)
+            .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 14))
+            .overlay(
+                RoundedRectangle(cornerRadius: 14)
+                    .strokeBorder(editingField == field ? gradientColors.first ?? .clear : .clear, lineWidth: 2)
+            )
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: - 23: Paywall

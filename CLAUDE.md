@@ -19,6 +19,9 @@ xcrun devicectl device install app --device 00008140-000C02942169801C \
 # Reset onboarding (delete + reinstall — UserDefaults lives on device)
 xcrun devicectl device uninstall app --device 00008140-000C02942169801C com.apoorvdarshan.calorietracker
 # then reinstall with the install command above
+
+# Reset onboarding in simulator (alternative — uses launch argument)
+# App supports --reset-onboarding launch argument to clear UserDefaults
 ```
 
 Available simulators: iPhone 17 Pro, iPhone 17, iPhone Air (no iPhone 16 Pro).
@@ -33,7 +36,7 @@ SwiftUI iOS app (Swift 5, iOS 26.2) with zero external dependencies. Uses Gemini
 
 ### Key Patterns
 
-- **`@Observable` macro** — not `ObservableObject`. Inject with `.environment()`, consume with `@Environment(FoodStore.self)`.
+- **`@Observable` macro** — not `ObservableObject`. Inject with `.environment()`, consume with `@Environment(FoodStore.self)`. Four objects injected at app root: `FoodStore`, `WeightStore`, `NotificationManager`, `AuthManager`.
 - **`SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor`** — all code runs on main actor by default. No manual `@MainActor` needed.
 - **`PBXFileSystemSynchronizedRootGroup`** — Xcode auto-discovers new files. Never edit pbxproj manually.
 - **`GeminiService`** — pure struct with static async methods, no state.
@@ -41,7 +44,11 @@ SwiftUI iOS app (Swift 5, iOS 26.2) with zero external dependencies. Uses Gemini
 
 ### Data Flow
 
-User captures photo → `GeminiService.autoAnalyze(image:)` → JSON response parsed into `FoodAnalysis` → user reviews/edits in `FoodResultView` → `FoodStore.addEntry()` → persisted to UserDefaults as JSON → `HomeView` recomputes via `@Observable`.
+User captures photo → `GeminiService.autoAnalyze(image:)` → JSON response parsed into `FoodAnalysis` → user reviews/edits in `FoodResultView` → `FoodStore.addEntry()` → persisted to UserDefaults as JSON → `HomeView` recomputes via `@Observable`. Text input follows a similar path via `TextFoodInputView` → `GeminiService`.
+
+### Cloud Sync & Auth
+
+`AuthManager` wraps Apple Sign-In (ASAuthorization). `CloudKitService` is a pure struct with static methods that syncs `FoodEntry`, `WeightEntry`, and `UserProfile` to iCloud private database. Sync is triggered on sign-in and merges by comparing entries by UUID. OnboardingView checks for existing cloud data on first launch and offers to restore.
 
 ### Source Layout
 
@@ -49,8 +56,8 @@ User captures photo → `GeminiService.autoAnalyze(image:)` → JSON response pa
 |-----------|---------|
 | `Models/` | `UserProfile` (BMR/TDEE/macros), `FoodEntry` (logged food item), `Article` (learn content), `WeightEntry` |
 | `Views/` | `OnboardingView` (24-step flow), `HomeComponents`, `FoodResultView`, `LearnView`, `ProgressComponents`, `Theme` (AppColors) |
-| `Services/` | `GeminiService` (Gemini API), `APIKeyManager` |
-| `Stores/` | `FoodStore` (@Observable, food entries), `WeightStore` (@Observable, weight tracking) |
+| `Services/` | `GeminiService` (Gemini API), `APIKeyManager`, `AuthManager` (Apple Sign-In), `CloudKitService` (iCloud sync) |
+| `Stores/` | `FoodStore` (@Observable, food entries), `WeightStore` (@Observable, weight tracking), `NotificationManager` (@Observable, local notifications) |
 
 ### Main Views
 
@@ -74,7 +81,7 @@ User captures photo → `GeminiService.autoAnalyze(image:)` → JSON response pa
 
 - **SourceKit false errors**: Cross-file references and UIKit types show errors in editor on macOS. Always build to verify — if `xcodebuild` succeeds, the code is correct.
 - **`ProgressTabView`**: Named to avoid clash with SwiftUI's built-in `ProgressView`.
-- **Multiple `.sheet()` modifiers**: Cause white/black screens. Use single `.sheet(item:)` with an enum instead.
+- **Multiple `.sheet()` modifiers**: Cause white/black screens. Use single `.sheet(item:)` with an `ActiveSheet` enum (see `HomeView` for the pattern).
 - **`FoodEntry` backward compat**: Has custom `init(from:)` that defaults `mealType` to `.other` for old entries missing the field.
 - **`UserProfile` optional fields**: `bodyFatPercentage` and `weeklyChangeKg` are optional so old saved JSON decodes without them (Swift Codable defaults missing optionals to nil).
 - **AsyncImage `.fill` overflow**: When using `.aspectRatio(contentMode: .fill)` with `AsyncImage`, wrap in `Color.clear.frame(height:).overlay { ... }.clipped()` — otherwise the image layout expands beyond the frame and clips surrounding text.

@@ -800,8 +800,8 @@ struct ProfileView: View {
                             Image(systemName: "rectangle.portrait.and.arrow.right")
                                 .foregroundStyle(AppColors.calorie)
                         }
-                        .foregroundStyle(.primary)
                     }
+                    .buttonStyle(.plain)
 
                     Button(role: .destructive) {
                         showDeleteConfirmation = true
@@ -813,6 +813,7 @@ struct ProfileView: View {
                         }
                         .foregroundStyle(.red)
                     }
+                    .buttonStyle(.plain)
                 }
                 .listRowBackground(AppColors.appCard)
             }

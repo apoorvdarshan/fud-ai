@@ -696,7 +696,6 @@ struct ComingSoonRow: View {
                     Image(systemName: icon)
                         .foregroundStyle(AppColors.calorie)
                 }
-                .foregroundStyle(.primary)
                 Spacer()
                 Text("Coming Soon")
                     .font(.system(.caption, design: .rounded, weight: .medium))
@@ -707,5 +706,6 @@ struct ComingSoonRow: View {
                     .clipShape(Capsule())
             }
         }
+        .buttonStyle(.plain)
     }
 }

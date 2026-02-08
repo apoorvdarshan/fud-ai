@@ -128,7 +128,7 @@ struct LearnView: View {
                 .padding(.vertical)
             }
             .background(AppColors.appBackground)
-            .navigationTitle("Learn")
+            .navigationBarHidden(true)
             .searchable(text: $searchText, prompt: "Search articles")
         }
     }

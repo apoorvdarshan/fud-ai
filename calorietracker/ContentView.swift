@@ -172,7 +172,7 @@ struct HomeView: View {
             .scrollContentBackground(.hidden)
             .background(AppColors.appBackground)
             .animation(.snappy, value: selectedDate)
-            .navigationTitle(navigationTitle)
+            .navigationBarHidden(true)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
@@ -546,7 +546,7 @@ struct ProgressTabView: View {
                 .padding(.vertical)
             }
             .background(AppColors.appBackground)
-            .navigationTitle("Progress")
+            .navigationBarHidden(true)
             .sheet(isPresented: $showLogWeight) {
                 LogWeightSheet(
                     currentWeightLbs: weightStore.latestEntry?.weightLbs ?? userProfile.weightKg * 2.20462
@@ -819,7 +819,7 @@ struct ProfileView: View {
             }
             .scrollContentBackground(.hidden)
             .background(AppColors.appBackground)
-            .navigationTitle("Profile")
+            .navigationBarHidden(true)
             .onAppear {
                 profile = UserProfile.load() ?? .default
             }

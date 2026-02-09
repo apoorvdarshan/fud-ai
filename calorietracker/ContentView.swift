@@ -260,6 +260,7 @@ struct HomeView: View {
                             protein: result.protein,
                             carbs: result.carbs,
                             fat: result.fat,
+                            servingSizeGrams: result.servingSizeGrams,
                             sugar: result.sugar,
                             addedSugar: result.addedSugar,
                             fiber: result.fiber,

@@ -8,6 +8,7 @@ struct GeminiService {
         var protein: Int
         var carbs: Int
         var fat: Int
+        var servingSizeGrams: Double
         var emoji: String?
         var sugar: Double?
         var addedSugar: Double?
@@ -45,6 +46,7 @@ struct GeminiService {
                 protein: Int(round(proteinPer100g * scale)),
                 carbs: Int(round(carbsPer100g * scale)),
                 fat: Int(round(fatPer100g * scale)),
+                servingSizeGrams: grams,
                 sugar: sugarPer100g.map { round($0 * scale * 10) / 10 },
                 addedSugar: addedSugarPer100g.map { round($0 * scale * 10) / 10 },
                 fiber: fiberPer100g.map { round($0 * scale * 10) / 10 },
@@ -89,8 +91,8 @@ struct GeminiService {
         Quantity: \(quantity) \(unit)
         If a brand is mentioned, use that brand's known nutritional data.
         Respond ONLY with JSON:
-        {"name":"...","calories":0,"protein":0,"carbs":0,"fat":0,"emoji":"🍽️","sugar":0.0,"added_sugar":0.0,"fiber":0.0,"saturated_fat":0.0,"monounsaturated_fat":0.0,"polyunsaturated_fat":0.0,"cholesterol":0.0,"sodium":0.0,"potassium":0.0}
-        Calories/protein/carbs/fat are integers. Micronutrients are numbers (sugar/fiber/sat fat/mono fat/poly fat in grams, cholesterol/sodium/potassium in milligrams).
+        {"name":"...","calories":0,"protein":0,"carbs":0,"fat":0,"serving_size_grams":0.0,"emoji":"🍽️","sugar":0.0,"added_sugar":0.0,"fiber":0.0,"saturated_fat":0.0,"monounsaturated_fat":0.0,"polyunsaturated_fat":0.0,"cholesterol":0.0,"sodium":0.0,"potassium":0.0}
+        Calories/protein/carbs/fat are integers. serving_size_grams is the estimated weight in grams of the quantity specified. Micronutrients are numbers (sugar/fiber/sat fat/mono fat/poly fat in grams, cholesterol/sodium/potassium in milligrams).
         Include a single food emoji that best represents the food. Use null for any nutrient you cannot estimate.
         """
 
@@ -106,8 +108,8 @@ struct GeminiService {
         If it's a nutrition label: read the values and calculate for one serving size as listed on the label.
 
         Respond ONLY with JSON:
-        {"name":"...","calories":0,"protein":0,"carbs":0,"fat":0,"sugar":0.0,"added_sugar":0.0,"fiber":0.0,"saturated_fat":0.0,"monounsaturated_fat":0.0,"polyunsaturated_fat":0.0,"cholesterol":0.0,"sodium":0.0,"potassium":0.0}
-        Calories/protein/carbs/fat are integers. Micronutrients are numbers (sugar/fiber/sat fat/mono fat/poly fat in grams, cholesterol/sodium/potassium in milligrams).
+        {"name":"...","calories":0,"protein":0,"carbs":0,"fat":0,"serving_size_grams":0.0,"sugar":0.0,"added_sugar":0.0,"fiber":0.0,"saturated_fat":0.0,"monounsaturated_fat":0.0,"polyunsaturated_fat":0.0,"cholesterol":0.0,"sodium":0.0,"potassium":0.0}
+        Calories/protein/carbs/fat are integers. serving_size_grams is the estimated weight in grams of the serving. Micronutrients are numbers (sugar/fiber/sat fat/mono fat/poly fat in grams, cholesterol/sodium/potassium in milligrams).
         Use null for any nutrient you cannot estimate.
         """
 
@@ -126,6 +128,7 @@ struct GeminiService {
           "protein": 00,
           "carbs": 00,
           "fat": 00,
+          "serving_size_grams": 000.0,
           "sugar": 0.0,
           "added_sugar": 0.0,
           "fiber": 0.0,
@@ -137,7 +140,7 @@ struct GeminiService {
           "potassium": 0.0
         }
 
-        Calories/protein/carbs/fat are integers. Micronutrients are numbers (sugar/fiber/sat fat/mono fat/poly fat in grams, cholesterol/sodium/potassium in milligrams).
+        Calories/protein/carbs/fat are integers. serving_size_grams is the estimated weight in grams of the serving shown. Micronutrients are numbers (sugar/fiber/sat fat/mono fat/poly fat in grams, cholesterol/sodium/potassium in milligrams).
         Give your best estimate for a typical serving size shown in the image. Use null for any nutrient you cannot estimate.
         """
 
@@ -324,8 +327,9 @@ struct GeminiService {
             throw AnalysisError.invalidResponse
         }
         let emoji = json["emoji"] as? String
+        let servingSizeGrams = (json["serving_size_grams"] as? NSNumber)?.doubleValue ?? 100
         return FoodAnalysis(
-            name: name, calories: calories, protein: protein, carbs: carbs, fat: fat, emoji: emoji,
+            name: name, calories: calories, protein: protein, carbs: carbs, fat: fat, servingSizeGrams: servingSizeGrams, emoji: emoji,
             sugar: (json["sugar"] as? NSNumber)?.doubleValue,
             addedSugar: (json["added_sugar"] as? NSNumber)?.doubleValue,
             fiber: (json["fiber"] as? NSNumber)?.doubleValue,

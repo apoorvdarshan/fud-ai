@@ -110,17 +110,20 @@ Fud AI is an AI-powered calorie and nutrition tracker for iOS. Snap a photo of y
 
 ## Screenshots
 
-<p>
-  <img src="screenshots/home-light.png" width="180">&nbsp;&nbsp;
-  <img src="screenshots/home-dark.png" width="180">&nbsp;&nbsp;
-  <img src="screenshots/camera.png" width="180">&nbsp;&nbsp;
-  <img src="screenshots/review-light.png" width="180">
-</p>
-<p>
-  <img src="screenshots/review-dark.png" width="180">&nbsp;&nbsp;
-  <img src="screenshots/meals-light.png" width="180">&nbsp;&nbsp;
-  <img src="screenshots/meals-dark.png" width="180">
-</p>
+### Home Dashboard
+| Light | Dark |
+|:---:|:---:|
+| <img src="screenshots/home-light.png" width="280"> | <img src="screenshots/home-dark.png" width="280"> |
+
+### Capture & Review
+| Camera | Review (Light) | Review (Dark) |
+|:---:|:---:|:---:|
+| <img src="screenshots/camera.png" width="250"> | <img src="screenshots/review-light.png" width="250"> | <img src="screenshots/review-dark.png" width="250"> |
+
+### Meal Log
+| Light | Dark |
+|:---:|:---:|
+| <img src="screenshots/meals-light.png" width="280"> | <img src="screenshots/meals-dark.png" width="280"> |
 
 ---
 

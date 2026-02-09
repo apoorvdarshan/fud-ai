@@ -173,17 +173,21 @@ struct WheelSegment: View {
                 }
                 .stroke(Color.black.opacity(0.3), lineWidth: 1.5)
 
-                // Text label — positioned radially, reading outward
+                // Text label — positioned radially, always right-side up
                 let midAngle = (startAngle + endAngle) / 2.0 - 90
                 let textRadius = radius * 0.65
                 let x = center.x + textRadius * cos(midAngle * .pi / 180)
                 let y = center.y + textRadius * sin(midAngle * .pi / 180)
 
+                // Normalize to 0-360 and flip text if it would be upside down
+                let normalized = ((midAngle.truncatingRemainder(dividingBy: 360)) + 360).truncatingRemainder(dividingBy: 360)
+                let textRotation = (normalized > 90 && normalized < 270) ? midAngle + 180 : midAngle
+
                 Text(text)
                     .font(.system(size: isHighlighted ? 15 : 13, weight: .bold, design: .rounded))
                     .foregroundStyle(.white)
                     .position(x: x, y: y)
-                    .rotationEffect(.degrees(midAngle + 90))
+                    .rotationEffect(.degrees(textRotation))
             }
         }
     }

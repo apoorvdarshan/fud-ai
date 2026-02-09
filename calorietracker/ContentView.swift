@@ -387,7 +387,7 @@ struct NutritionDetailView: View {
                 Section("Macros") {
                     NutritionDetailRow(label: "Calories", value: "\(foodStore.calories(for: date))", unit: "kcal", goal: "\(userProfile.effectiveCalories)")
                     NutritionDetailRow(label: "Protein", value: "\(foodStore.protein(for: date))", unit: "g", goal: "\(userProfile.effectiveProtein)")
-                    NutritionDetailRow(label: "Carbs", value: "\(foodStore.carbs(for: date))", unit: "g", goal: "\(userProfile.effectiveCarbs)")
+                     NutritionDetailRow(label: "Carbs", value: "\(foodStore.carbs(for: date))", unit: "g", goal: "\(userProfile.effectiveCarbs)")
                     NutritionDetailRow(label: "Fat", value: "\(foodStore.fat(for: date))", unit: "g", goal: "\(userProfile.effectiveFat)")
                 }
 
@@ -1327,6 +1327,8 @@ struct ProfileView: View {
                     // Wipe all persisted data
                     let domain = Bundle.main.bundleIdentifier ?? ""
                     UserDefaults.standard.removePersistentDomain(forName: domain)
+                    // Re-check subscription — Apple manages this, not UserDefaults
+                    Task { await storeManager.checkEntitlements() }
                     hasCompletedOnboarding = false
                 }
             } message: {

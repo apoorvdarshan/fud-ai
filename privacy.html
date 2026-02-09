@@ -14,6 +14,15 @@
 </head>
 <body>
 
+<!-- ========== AMBIENT BACKGROUND ========== -->
+<div class="scroll-progress"></div>
+<div class="cursor-glow"></div>
+<div class="bg-grid"></div>
+<div class="bg-blob bg-blob-1"></div>
+<div class="bg-blob bg-blob-2"></div>
+<div class="bg-blob bg-blob-3"></div>
+<div class="noise-overlay"></div>
+
 <nav class="nav scrolled" id="nav">
   <div class="container">
     <a href="/" class="nav-brand">
@@ -136,6 +145,35 @@
   </div>
 </footer>
 
+<script>
+// Scroll progress bar
+const scrollProgress = document.querySelector('.scroll-progress');
+if (scrollProgress) {
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight > 0) scrollProgress.style.width = (scrollTop / docHeight * 100) + '%';
+  });
+}
+// Cursor glow
+const cursorGlow = document.querySelector('.cursor-glow');
+if (cursorGlow && window.innerWidth > 480) {
+  let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
+  document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+  (function animateGlow() {
+    glowX += (mouseX - glowX) * 0.08;
+    glowY += (mouseY - glowY) * 0.08;
+    cursorGlow.style.left = glowX + 'px';
+    cursorGlow.style.top = glowY + 'px';
+    requestAnimationFrame(animateGlow);
+  })();
+}
+// Mobile menu
+const navToggle = document.getElementById('nav-toggle');
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => { navToggle.checked = false; });
+});
+</script>
 <script>
   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
 </script>

@@ -36,7 +36,7 @@ SwiftUI iOS app (Swift 5, iOS 26.2) with zero external dependencies. Uses Gemini
 
 ### Key Patterns
 
-- **`@Observable` macro** — not `ObservableObject`. Inject with `.environment()`, consume with `@Environment(FoodStore.self)`. Four objects injected at app root: `FoodStore`, `WeightStore`, `NotificationManager`, `AuthManager`.
+- **`@Observable` macro** — not `ObservableObject`. Inject with `.environment()`, consume with `@Environment(FoodStore.self)`. Six objects injected at app root: `FoodStore`, `WeightStore`, `NotificationManager`, `AuthManager`, `HealthKitManager`, `StoreManager`.
 - **`SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor`** — all code runs on main actor by default. No manual `@MainActor` needed.
 - **`PBXFileSystemSynchronizedRootGroup`** — Xcode auto-discovers new files. Never edit pbxproj manually.
 - **`GeminiService`** — pure struct with static async methods, no state.
@@ -50,6 +50,14 @@ User captures photo → `GeminiService.autoAnalyze(image:)` → JSON response pa
 
 `AuthManager` wraps Apple Sign-In (ASAuthorization). `CloudKitService` is a pure struct with static methods that syncs `FoodEntry`, `WeightEntry`, and `UserProfile` to iCloud private database. Sync is triggered on sign-in and merges by comparing entries by UUID. OnboardingView checks for existing cloud data on first launch and offers to restore.
 
+### Subscription & Paywall
+
+`StoreManager` wraps StoreKit 2. Free tier allows 3 scans; subscribers get 25/day. Product IDs: `fudai.subscription.monthly`, `fudai.subscription.yearly`, `fudai.subscription.yearly.discount`. App entry point routes to `PaywallView` when free scans exhausted and user isn't subscribed.
+
+### HealthKit Integration
+
+`HealthKitManager` reads/writes body measurements (weight, height, body fat, DOB, sex) and writes all nutrition data (12 types: energy, protein, carbs, fat, sugar, fiber, saturated/mono/poly fat, cholesterol, sodium, potassium). Tracks written sample UUIDs for deletion. Uses observer pattern (`startBodyMeasurementObserver()`) for bidirectional sync.
+
 ### Source Layout
 
 | Directory | Purpose |
@@ -57,11 +65,11 @@ User captures photo → `GeminiService.autoAnalyze(image:)` → JSON response pa
 | `Models/` | `UserProfile` (BMR/TDEE/macros), `FoodEntry` (logged food item), `Article` (learn content), `WeightEntry` |
 | `Views/` | `OnboardingView` (24-step flow), `HomeComponents`, `FoodResultView`, `LearnView`, `ProgressComponents`, `Theme` (AppColors) |
 | `Services/` | `GeminiService` (Gemini API), `APIKeyManager`, `AuthManager` (Apple Sign-In), `CloudKitService` (iCloud sync) |
-| `Stores/` | `FoodStore` (@Observable, food entries), `WeightStore` (@Observable, weight tracking), `NotificationManager` (@Observable, local notifications) |
+| `Stores/` | `FoodStore` (food entries), `WeightStore` (weight tracking), `NotificationManager` (local notifications), `HealthKitManager` (Apple Health sync), `StoreManager` (StoreKit 2 subscriptions) |
 
 ### Main Views
 
-- **`calorietrackerApp`** — routes to `OnboardingView` or `ContentView` based on `@AppStorage("hasCompletedOnboarding")`
+- **`calorietrackerApp`** — routes to `OnboardingView` → `ContentView` (or `PaywallView` if free scans exhausted) based on `@AppStorage("hasCompletedOnboarding")` and `StoreManager.canUseApp`
 - **`ContentView`** — 4-tab layout: Home, Progress, Learn, Profile. Also contains `HomeView`, `ProfileView`, `CameraView`, `FoodRow`, `MacroPill` inline.
 - **`OnboardingView`** — 24 steps (0-23) with step index switch. Steps shift when inserting new ones.
 - **`HomeView`** (inside ContentView) — daily tracker with week strip, calorie hero, macro cards, meal-grouped food list, camera toolbar.

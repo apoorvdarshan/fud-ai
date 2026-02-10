@@ -1,6 +1,6 @@
 # Fud AI — Calorie Tracker
 
-**Live:** [https://fud-ai.vercel.app/](https://fud-ai.vercel.app/)
+**Live:** [https://fud-ai.app/](https://fud-ai.app/)
 
 Single-page marketing website for the Fud AI iOS app.
 

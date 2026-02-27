@@ -98,6 +98,17 @@ struct WeightChartSection: View {
                         .foregroundStyle(AppColors.calorie)
                         .symbolSize(30)
                     }
+
+                    if let goalKg = goalWeightKg {
+                        RuleMark(y: .value("Goal", displayWeight(goalKg)))
+                            .foregroundStyle(.green.opacity(0.7))
+                            .lineStyle(StrokeStyle(lineWidth: 1.5, dash: [6, 4]))
+                            .annotation(position: .top, alignment: .trailing) {
+                                Text("Goal")
+                                    .font(.caption2)
+                                    .foregroundStyle(.green)
+                            }
+                    }
                 }
                 .chartYScale(domain: weightYDomain)
                 .chartXAxis {
@@ -122,7 +133,8 @@ struct WeightChartSection: View {
     }
 
     private var weightYDomain: ClosedRange<Double> {
-        let weights = weightEntries.map { displayWeight($0.weightKg) }
+        var weights = weightEntries.map { displayWeight($0.weightKg) }
+        if let goalKg = goalWeightKg { weights.append(displayWeight(goalKg)) }
         guard let minW = weights.min(), let maxW = weights.max() else { return 0...200 }
         let padding = max((maxW - minW) * 0.15, 2)
         return (minW - padding)...(maxW + padding)

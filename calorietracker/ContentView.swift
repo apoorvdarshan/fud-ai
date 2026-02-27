@@ -654,6 +654,7 @@ struct ProgressTabView: View {
     @Environment(WeightStore.self) private var weightStore
     @State private var timeRange: TimeRange = .week
     @State private var showLogWeight = false
+    @State private var showGoalReached = false
 
     private var userProfile: UserProfile { UserProfile.load() ?? .default }
 
@@ -769,7 +770,7 @@ struct ProgressTabView: View {
                     // Weight Trend
                     WeightChartSection(
                         weightEntries: filteredWeightEntries,
-                        goalWeightKg: nil,
+                        goalWeightKg: userProfile.goalWeightKg,
                         currentWeightKg: weightStore.latestEntry?.weightKg,
                         onLogWeight: { showLogWeight = true }
                     )
@@ -812,7 +813,33 @@ struct ProgressTabView: View {
                 ) { weightKg in
                     let entry = WeightEntry(weightKg: weightKg)
                     weightStore.addEntry(entry)
+                    // Check if goal weight reached
+                    if let goalKg = userProfile.goalWeightKg {
+                        let reached: Bool
+                        switch userProfile.goal {
+                        case .lose: reached = weightKg <= goalKg
+                        case .gain: reached = weightKg >= goalKg
+                        case .maintain: reached = false
+                        }
+                        if reached { showGoalReached = true }
+                    }
                 }
+            }
+            .alert("Congratulations!", isPresented: $showGoalReached) {
+                Button("Switch to Maintain") {
+                    var profile = userProfile
+                    profile.goal = .maintain
+                    profile.weeklyChangeKg = nil
+                    profile.goalWeightKg = nil
+                    profile.customCalories = nil
+                    profile.customProtein = nil
+                    profile.customCarbs = nil
+                    profile.customFat = nil
+                    profile.save()
+                }
+                Button("Keep Going", role: .cancel) { }
+            } message: {
+                Text("You've reached your goal weight! Would you like to switch to maintenance?")
             }
         }
     }
@@ -833,7 +860,7 @@ struct ProfileView: View {
     @AppStorage("healthKitEnabled") private var healthKitEnabled = false
 
     enum ActiveSheet: String, Identifiable {
-        case editName, editBirthday, editHeight, editWeight, editBodyFat, editCalories, editProtein, editCarbs, editFat, paywall
+        case editName, editBirthday, editHeight, editWeight, editBodyFat, editGoalWeight, editCalories, editProtein, editCarbs, editFat, paywall
         var id: String { rawValue }
     }
     @State private var activeSheet: ActiveSheet?
@@ -867,6 +894,15 @@ struct ProfileView: View {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return "\(formatter.string(from: profile.birthday)) (age \(profile.age))"
+    }
+
+    // Goal weight display
+    private var goalWeightDisplay: String {
+        guard let gw = profile.goalWeightKg else { return "Not set" }
+        if useMetric {
+            return String(format: "%.1f kg", gw)
+        }
+        return String(format: "%.1f lbs", gw * 2.20462)
     }
 
     // Weekly change display
@@ -945,6 +981,7 @@ struct ProfileView: View {
                     .onChange(of: profile.goal) { _, newValue in
                         if newValue == .maintain {
                             profile.weeklyChangeKg = nil
+                            profile.goalWeightKg = nil
                         } else if profile.weeklyChangeKg == nil {
                             profile.weeklyChangeKg = 0.5
                         }
@@ -985,6 +1022,14 @@ struct ProfileView: View {
                         }
                         .pickerStyle(.menu)
                         .tint(.secondary)
+
+                        ProfileInfoRow(
+                            icon: "flag.checkered",
+                            label: "Goal Weight",
+                            value: goalWeightDisplay
+                        ) {
+                            activeSheet = .editGoalWeight
+                        }
                     }
 
                     ProfileInfoRow(icon: "flame", label: "Calories", value: "\(profile.effectiveCalories) kcal") {
@@ -1413,6 +1458,15 @@ struct ProfileView: View {
                     ) { newValue in
                         profile.bodyFatPercentage = newValue
                         resetNutritionAndSave()
+                    }
+
+                case .editGoalWeight:
+                    WeightPickerSheet(
+                        useMetric: useMetric,
+                        currentWeightKg: profile.goalWeightKg ?? profile.weightKg
+                    ) { newGoalWeight in
+                        profile.goalWeightKg = newGoalWeight
+                        saveProfile()
                     }
 
                 case .editCalories:

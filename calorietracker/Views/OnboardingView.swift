@@ -62,6 +62,7 @@ struct OnboardingView: View {
             cm = Double(heightFeet) * 30.48 + Double(heightInches) * 2.54
             kg = Double(weightLbs) * 0.453592
         }
+        let targetKg: Double? = goal == .maintain ? nil : (isMetric ? Double(targetWeightKg) : Double(targetWeightLbs) * 0.453592)
         return UserProfile(
             gender: gender,
             birthday: birthday,
@@ -70,7 +71,8 @@ struct OnboardingView: View {
             activityLevel: activityLevel,
             goal: goal,
             bodyFatPercentage: knowsBodyFat ? Double(bodyFatPercentage) / 100.0 : nil,
-            weeklyChangeKg: goal == .maintain ? nil : weeklyChangeKg
+            weeklyChangeKg: goal == .maintain ? nil : weeklyChangeKg,
+            goalWeightKg: targetKg
         )
     }
 

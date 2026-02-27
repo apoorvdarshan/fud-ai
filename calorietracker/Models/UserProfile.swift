@@ -118,6 +118,7 @@ struct UserProfile: Codable {
     var goal: WeightGoal
     var bodyFatPercentage: Double?
     var weeklyChangeKg: Double?
+    var goalWeightKg: Double?
     var customCalories: Int?
     var customProtein: Int?
     var customFat: Int?
@@ -201,6 +202,7 @@ struct UserProfile: Codable {
         goal: .maintain,
         bodyFatPercentage: nil,
         weeklyChangeKg: nil,
+        goalWeightKg: nil,
         customCalories: nil,
         customProtein: nil,
         customFat: nil,

@@ -132,6 +132,7 @@ struct CloudKitService {
         record["goal"] = profile.goal.rawValue
         if let bf = profile.bodyFatPercentage { record["bodyFatPercentage"] = bf }
         if let wc = profile.weeklyChangeKg { record["weeklyChangeKg"] = wc }
+        if let gw = profile.goalWeightKg { record["goalWeightKg"] = gw }
         if let cc = profile.customCalories { record["customCalories"] = cc }
         if let cp = profile.customProtein { record["customProtein"] = cp }
         if let cf = profile.customFat { record["customFat"] = cf }
@@ -161,6 +162,7 @@ struct CloudKitService {
             goal: goal,
             bodyFatPercentage: record["bodyFatPercentage"] as? Double,
             weeklyChangeKg: record["weeklyChangeKg"] as? Double,
+            goalWeightKg: record["goalWeightKg"] as? Double,
             customCalories: record["customCalories"] as? Int,
             customProtein: record["customProtein"] as? Int,
             customFat: record["customFat"] as? Int,

@@ -29,14 +29,9 @@ struct OnboardingView: View {
     @State private var activityLevel: ActivityLevel = .moderate
     @State private var goal: WeightGoal = .maintain
     @State private var selectedPlan: PaywallPlan = .yearly
-    @State private var referralSource: String?
-    @State private var triedOtherApps: Bool?
     @State private var targetWeightLbs = 154
     @State private var targetWeightKg = 70
     @State private var goalSpeed = 1
-    @State private var selectedObstacle: String?
-    @State private var selectedDiet: String?
-    @State private var selectedAccomplishment: String?
     @State private var knowsBodyFat = false
     @State private var bodyFatPercentage = 20
     @State private var editedCalories: Int?
@@ -50,7 +45,7 @@ struct OnboardingView: View {
         var id: String { rawValue }
     }
 
-    private let totalSteps = 24 // 0-23
+    private let totalSteps = 15 // 0-14
 
     private var profile: UserProfile {
         let cm: Double
@@ -78,7 +73,7 @@ struct OnboardingView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-                if step > 0 && step < 23 {
+                if step > 0 && step < 14 {
                     HStack(spacing: 16) {
                         Button {
                             withAnimation(.snappy) { step -= 1 }
@@ -115,22 +110,13 @@ struct OnboardingView: View {
                     case 5: activityStep
                     case 6: goalStep
                     case 7: desiredWeightStep
-                    case 8: motivationStep
-                    case 9: goalSpeedStep
-                    case 10: obstaclesStep
-                    case 11: dietStep
-                    case 12: accomplishStep
-                    case 13: triedOtherAppsStep
-                    case 14: referralStep
-                    case 15: weightTransitionStep
-                    case 16: trustStep
-                    case 17: notificationsStep
-                    case 18: appleHealthStep
-                    case 19: allDoneStep
-                    case 20: reviewStep
-                    case 21: buildingPlanStep
-                    case 22: planReadyStep
-                    case 23: paywallStep
+                    case 8: goalSpeedStep
+                    case 9: notificationsStep
+                    case 10: appleHealthStep
+                    case 11: reviewStep
+                    case 12: buildingPlanStep
+                    case 13: planReadyStep
+                    case 14: paywallStep
                     default: EmptyView()
                     }
                 }
@@ -484,46 +470,7 @@ struct OnboardingView: View {
         }
     }
 
-    // MARK: - 8: Motivation
-
-    private var motivationStep: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            VStack(spacing: 20) {
-                if goal == .maintain {
-                    Text("Maintaining your weight\nis a great goal!")
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
-                        .multilineTextAlignment(.center)
-                    Text("Consistency is key. We'll help you\nstay on track every day.")
-                        .font(.system(.callout, design: .rounded))
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                } else {
-                    let diffText = isMetric
-                        ? "\(abs(targetWeightKg - weightKg)) kg"
-                        : "\(abs(targetWeightLbs - weightLbs)) lbs"
-                    let verb = goal == .lose ? "Losing" : "Gaining"
-                    (Text("\(verb) ")
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
-                    + Text(diffText)
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
-                        .foregroundColor(AppColors.calorie)
-                    + Text(" is a\nrealistic target.\nYou've got this!")
-                        .font(.system(size: 28, weight: .bold, design: .rounded)))
-                    .multilineTextAlignment(.center)
-                    Text("Most users see real progress within\nthe first few weeks of tracking.")
-                        .font(.system(.callout, design: .rounded))
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                }
-            }
-            .padding(.horizontal, 24)
-            Spacer()
-            continueButton()
-        }
-    }
-
-    // MARK: - 9: Goal Speed
+    // MARK: - 8: Goal Speed
 
     private var weeklyChangeKg: Double {
         switch goalSpeed { case 0: 0.25; case 2: 1.0; default: 0.5 }
@@ -607,270 +554,7 @@ struct OnboardingView: View {
         }
     }
 
-    // MARK: - 10: Obstacles
-
-    private let obstacleOptions: [(icon: String, label: String)] = [
-        ("chart.bar.fill", "Lack of consistency"),
-        ("fork.knife", "Unhealthy eating habits"),
-        ("hand.raised.fill", "Lack of support"),
-        ("calendar.badge.clock", "Busy schedule"),
-        ("lightbulb.fill", "Lack of meal inspiration")
-    ]
-
-    private var obstaclesStep: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            stepHeader(title: "What's stopping you\nfrom reaching\nyour goals?", subtitle: "We'll help you overcome it")
-            Spacer()
-            VStack(spacing: 10) {
-                ForEach(obstacleOptions, id: \.label) { option in
-                    simpleListCard(icon: option.icon, title: option.label, isSelected: selectedObstacle == option.label) {
-                        withAnimation(.spring(response: 0.3)) { selectedObstacle = option.label }
-                    }
-                }
-            }
-            .padding(.horizontal, 24)
-            Spacer()
-            continueButton()
-        }
-    }
-
-    // MARK: - 11: Diet
-
-    private let dietOptions: [(icon: String, label: String)] = [
-        ("flame.fill", "Classic"),
-        ("fish.fill", "Pescatarian"),
-        ("leaf.fill", "Vegetarian"),
-        ("carrot.fill", "Vegan")
-    ]
-
-    private var dietStep: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            stepHeader(title: "Do you follow a\nspecific diet?", subtitle: "Helps personalize your experience")
-            Spacer()
-            VStack(spacing: 10) {
-                ForEach(dietOptions, id: \.label) { option in
-                    simpleListCard(icon: option.icon, title: option.label, isSelected: selectedDiet == option.label) {
-                        withAnimation(.spring(response: 0.3)) { selectedDiet = option.label }
-                    }
-                }
-            }
-            .padding(.horizontal, 24)
-            Spacer()
-            continueButton()
-        }
-    }
-
-    // MARK: - 12: Accomplish
-
-    private let accomplishOptions: [(icon: String, label: String)] = [
-        ("apple.logo", "Eat and live healthier"),
-        ("sun.max.fill", "Boost my energy and mood"),
-        ("flame.fill", "Stay motivated and consistent"),
-        ("figure.mind.and.body", "Feel better about my body")
-    ]
-
-    private var accomplishStep: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            stepHeader(title: "What would you\nlike to accomplish?", subtitle: "Pick what resonates most")
-            Spacer()
-            VStack(spacing: 10) {
-                ForEach(accomplishOptions, id: \.label) { option in
-                    simpleListCard(icon: option.icon, title: option.label, isSelected: selectedAccomplishment == option.label) {
-                        withAnimation(.spring(response: 0.3)) { selectedAccomplishment = option.label }
-                    }
-                }
-            }
-            .padding(.horizontal, 24)
-            Spacer()
-            continueButton()
-        }
-    }
-
-    // MARK: - 13: Tried Other Apps
-
-    private var triedOtherAppsStep: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            stepHeader(title: "Have you tried other\ncalorie tracking apps?", subtitle: "Just curious")
-            Spacer()
-            VStack(spacing: 12) {
-                selectionCard(icon: "hand.thumbsup.fill", title: "Yes", isSelected: triedOtherApps == true) {
-                    withAnimation(.spring(response: 0.3)) { triedOtherApps = true }
-                }
-                selectionCard(icon: "hand.thumbsdown.fill", title: "No", isSelected: triedOtherApps == false) {
-                    withAnimation(.spring(response: 0.3)) { triedOtherApps = false }
-                }
-            }
-            .padding(.horizontal, 24)
-            Spacer()
-            continueButton()
-        }
-    }
-
-    // MARK: - 14: Referral
-
-    private let referralOptions: [(icon: String, label: String)] = [
-        ("bubble.left.and.bubble.right.fill", "Social Media"),
-        ("magnifyingglass", "Search Engine"),
-        ("person.2.fill", "Friend or Family"),
-        ("app.badge.fill", "App Store"),
-        ("play.rectangle.fill", "YouTube"),
-        ("ellipsis.circle.fill", "Other")
-    ]
-
-    private var referralStep: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            stepHeader(title: "How did you\nfind us?", subtitle: "This helps us grow")
-            Spacer()
-            VStack(spacing: 10) {
-                ForEach(referralOptions, id: \.label) { option in
-                    simpleListCard(icon: option.icon, title: option.label, isSelected: referralSource == option.label) {
-                        withAnimation(.spring(response: 0.3)) { referralSource = option.label }
-                    }
-                }
-            }
-            .padding(.horizontal, 24)
-            Spacer()
-            continueButton()
-        }
-    }
-
-    // MARK: - 15: Weight Transition
-
-    private var weightTransitionStep: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            stepHeader(title: "You have great\npotential to crush\nyour goal", subtitle: "")
-
-            Spacer()
-
-            VStack(alignment: .leading, spacing: 16) {
-                Text("Your weight transition")
-                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
-
-                // Simple progress curve
-                GeometryReader { geo in
-                    let w = geo.size.width
-                    let h = geo.size.height
-                    ZStack(alignment: .bottomLeading) {
-                        // Grid lines
-                        Path { path in
-                            for i in 0...2 {
-                                let x = w * CGFloat(i) / 2
-                                path.move(to: CGPoint(x: x, y: 0))
-                                path.addLine(to: CGPoint(x: x, y: h))
-                            }
-                        }
-                        .stroke(Color.secondary.opacity(0.15), style: StrokeStyle(lineWidth: 1, dash: [4]))
-
-                        // Curve
-                        Path { path in
-                            let points: [(CGFloat, CGFloat)] = goal == .lose
-                                ? [(0, 0.2), (0.2, 0.25), (0.5, 0.5), (1.0, 0.9)]
-                                : [(0, 0.8), (0.2, 0.75), (0.5, 0.5), (1.0, 0.1)]
-                            path.move(to: CGPoint(x: points[0].0 * w, y: points[0].1 * h))
-                            for i in 1..<points.count {
-                                let prev = points[i-1]
-                                let curr = points[i]
-                                let cp1 = CGPoint(x: (prev.0 + curr.0) / 2 * w, y: prev.1 * h)
-                                let cp2 = CGPoint(x: (prev.0 + curr.0) / 2 * w, y: curr.1 * h)
-                                path.addCurve(
-                                    to: CGPoint(x: curr.0 * w, y: curr.1 * h),
-                                    control1: cp1, control2: cp2
-                                )
-                            }
-                        }
-                        .stroke(AppColors.calorie, lineWidth: 2.5)
-
-                        // Dots
-                        let dotPositions: [(CGFloat, CGFloat)] = goal == .lose
-                            ? [(0, 0.2), (0.2, 0.25), (0.5, 0.5), (1.0, 0.9)]
-                            : [(0, 0.8), (0.2, 0.75), (0.5, 0.5), (1.0, 0.1)]
-                        ForEach(0..<dotPositions.count, id: \.self) { i in
-                            Circle()
-                                .fill(i == dotPositions.count - 1 ? AppColors.calorie : Color.primary.opacity(0.6))
-                                .frame(width: i == dotPositions.count - 1 ? 14 : 8, height: i == dotPositions.count - 1 ? 14 : 8)
-                                .overlay {
-                                    if i == dotPositions.count - 1 {
-                                        Image(systemName: "trophy.fill")
-                                            .font(.system(size: 7))
-                                            .foregroundStyle(.white)
-                                    }
-                                }
-                                .position(x: dotPositions[i].0 * w, y: dotPositions[i].1 * h)
-                        }
-                    }
-                }
-                .frame(height: 120)
-
-                HStack {
-                    Text("3 Days").font(.system(.caption, design: .rounded)).foregroundStyle(.secondary)
-                    Spacer()
-                    Text("7 Days").font(.system(.caption, design: .rounded)).foregroundStyle(.secondary)
-                    Spacer()
-                    Text("30 Days").font(.system(.caption, design: .rounded)).foregroundStyle(.secondary)
-                }
-
-                Text("Based on our data, progress is usually gradual at first, but after 7 days you'll see real results!")
-                    .font(.system(.caption, design: .rounded))
-                    .foregroundStyle(.secondary)
-                    .padding(.top, 4)
-            }
-            .padding(20)
-            .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
-            .padding(.horizontal, 24)
-
-            Spacer()
-            continueButton()
-        }
-    }
-
-    // MARK: - 16: Trust / Privacy
-
-    private var trustStep: some View {
-        VStack(spacing: 0) {
-            Spacer()
-
-            VStack(spacing: 24) {
-                ZStack {
-                    Circle()
-                        .fill(Color.secondary.opacity(0.06))
-                        .frame(width: 160, height: 160)
-                    Image(systemName: "lock.shield.fill")
-                        .font(.system(size: 56))
-                        .foregroundStyle(.primary)
-                }
-
-                VStack(spacing: 8) {
-                    Text("Thank you for\ntrusting us")
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
-                        .multilineTextAlignment(.center)
-                    Text("Now let's personalize your plan...")
-                        .font(.system(.callout, design: .rounded))
-                        .foregroundStyle(.secondary)
-                }
-
-                VStack(spacing: 8) {
-                    Image(systemName: "lock.fill")
-                        .font(.system(size: 20))
-                        .foregroundStyle(.secondary)
-                    Text("Your privacy and security matter to us.")
-                        .font(.system(.subheadline, design: .rounded, weight: .medium))
-                    Text("We promise to always keep your\npersonal information private and secure.")
-                        .font(.system(.caption, design: .rounded))
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                }
-                .padding(20)
-                .frame(maxWidth: .infinity)
-                .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
-                .padding(.horizontal, 24)
-            }
-
-            Spacer()
-            continueButton()
-        }
-    }
-
-    // MARK: - 17: Notifications
+    // MARK: - 9: Notifications
 
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
 
@@ -948,7 +632,7 @@ struct OnboardingView: View {
         }
     }
 
-    // MARK: - 18: Apple Health
+    // MARK: - 10: Apple Health
 
     private var appleHealthStep: some View {
         VStack(spacing: 0) {
@@ -1041,40 +725,7 @@ struct OnboardingView: View {
         }
     }
 
-    // MARK: - 19: All Done
-
-    private var allDoneStep: some View {
-        VStack(spacing: 0) {
-            Spacer()
-
-            VStack(spacing: 24) {
-                ZStack {
-                    Circle()
-                        .fill(
-                            LinearGradient(colors: [Color.pink.opacity(0.1), Color.blue.opacity(0.1)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
-                        .frame(width: 160, height: 160)
-                    Image(systemName: "checkmark.circle.fill")
-                        .font(.system(size: 64))
-                        .foregroundStyle(AppColors.calorie)
-                }
-
-                VStack(spacing: 8) {
-                    Text("All done!")
-                        .font(.system(.callout, design: .rounded, weight: .medium))
-                        .foregroundStyle(.secondary)
-                    Text("Time to generate\nyour custom plan!")
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
-                        .multilineTextAlignment(.center)
-                }
-            }
-
-            Spacer()
-            continueButton()
-        }
-    }
-
-    // MARK: - 20: Review
+    // MARK: - 11: Review
 
     private var reviewStep: some View {
         VStack(spacing: 0) {
@@ -1132,7 +783,7 @@ struct OnboardingView: View {
         }
     }
 
-    // MARK: - 21: Building Plan
+    // MARK: - 12: Building Plan
 
     private var buildingPlanStep: some View {
         BuildingPlanStepView(profile: profile) {
@@ -1140,7 +791,7 @@ struct OnboardingView: View {
         }
     }
 
-    // MARK: - 22: Plan Ready
+    // MARK: - 13: Plan Ready
 
     private var planCalories: Int { editedCalories ?? profile.dailyCalories }
     private var planProtein: Int { editedProtein ?? profile.proteinGoal }
@@ -1337,7 +988,7 @@ struct OnboardingView: View {
         .buttonStyle(.plain)
     }
 
-    // MARK: - 23: Paywall
+    // MARK: - 14: Paywall
 
     private var paywallStep: some View {
         Group {
@@ -1603,20 +1254,6 @@ struct OnboardingView: View {
             .padding(16)
             .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
             .overlay(RoundedRectangle(cornerRadius: 16).strokeBorder(isSelected ? Color.primary : Color.clear, lineWidth: 2))
-        }.buttonStyle(.plain)
-    }
-
-    private func simpleListCard(icon: String, title: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
-            HStack(spacing: 14) {
-                Image(systemName: icon).font(.system(size: 18))
-                    .foregroundStyle(isSelected ? Color.primary : .secondary).frame(width: 36)
-                Text(title).font(.system(.body, design: .rounded, weight: .medium)).foregroundStyle(.primary)
-                Spacer()
-            }
-            .padding(14)
-            .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 14))
-            .overlay(RoundedRectangle(cornerRadius: 14).strokeBorder(isSelected ? Color.primary : Color.clear, lineWidth: 2))
         }.buttonStyle(.plain)
     }
 

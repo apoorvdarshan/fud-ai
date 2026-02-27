@@ -24,7 +24,7 @@ struct FoodResultView: View {
     @State var name: String
     @State var servingSizeGrams: Double
     @State private var servingSizeText: String
-    @State var mealType: MealType = .snack
+    @State var mealType: MealType = .currentMeal
 
     var onLog: (FoodEntry) -> Void
     @Environment(\.dismiss) private var dismiss

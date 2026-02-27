@@ -32,6 +32,16 @@ enum MealType: String, Codable, CaseIterable {
         case .other: "fork.knife"
         }
     }
+
+    static var currentMeal: MealType {
+        let hour = Calendar.current.component(.hour, from: .now)
+        switch hour {
+        case 5..<11: return .breakfast
+        case 11..<15: return .lunch
+        case 15..<21: return .dinner
+        default: return .snack
+        }
+    }
 }
 
 struct FoodEntry: Identifiable, Codable {

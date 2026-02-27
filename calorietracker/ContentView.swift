@@ -688,57 +688,6 @@ struct ProgressTabView: View {
         return (totalP / count, totalC / count, totalF / count)
     }
 
-    private var streak: Int {
-        let calendar = Calendar.current
-        let today = calendar.startOfDay(for: .now)
-        var count = 0
-        var day = today
-        while true {
-            let dayEntries = foodStore.entries(for: day)
-            if dayEntries.isEmpty { break }
-            count += 1
-            guard let prev = calendar.date(byAdding: .day, value: -1, to: day) else { break }
-            day = prev
-        }
-        return count
-    }
-
-    private var bestStreak: Int {
-        let calendar = Calendar.current
-        guard let earliest = foodStore.entries.map({ $0.timestamp }).min() else { return 0 }
-        let start = calendar.startOfDay(for: earliest)
-        let today = calendar.startOfDay(for: .now)
-        let totalDays = max(calendar.dateComponents([.day], from: start, to: today).day ?? 0, 0) + 1
-
-        var best = 0, current = 0
-        for offset in 0..<totalDays {
-            guard let date = calendar.date(byAdding: .day, value: offset, to: start) else { continue }
-            if !foodStore.entries(for: date).isEmpty {
-                current += 1
-                best = max(best, current)
-            } else {
-                current = 0
-            }
-        }
-        return best
-    }
-
-    private var daysOnTarget: Int {
-        let calendar = Calendar.current
-        let goal = Double(userProfile.effectiveCalories)
-        let days = timeRange.days
-        let today = calendar.startOfDay(for: .now)
-        var count = 0
-        for offset in 0..<days {
-            guard let date = calendar.date(byAdding: .day, value: -offset, to: today) else { continue }
-            let cals = Double(foodStore.calories(for: date))
-            if cals > 0 && goal > 0 && abs(cals - goal) / goal <= 0.10 {
-                count += 1
-            }
-        }
-        return count
-    }
-
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -779,14 +728,7 @@ struct ProgressTabView: View {
                     )
                     .padding(.horizontal)
 
-                    // Streaks & Stats
-                    StatsSection(
-                        streak: streak,
-                        daysOnTarget: daysOnTarget,
-                        totalEntries: foodStore.entries.count,
-                        bestStreak: bestStreak
-                    )
-                    .padding(.horizontal)
+
                 }
                 .padding(.vertical)
             }

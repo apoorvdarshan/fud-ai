@@ -1063,20 +1063,6 @@ struct ProfileView: View {
                         }
                         .buttonStyle(.plain)
                     } else {
-                        #if DEBUG
-                        HStack {
-                            Label {
-                                Text("Premium (Debug)")
-                            } icon: {
-                                Image(systemName: "star.fill")
-                                    .foregroundStyle(AppColors.calorie)
-                            }
-                            Spacer()
-                            Text("Unlimited")
-                                .font(.system(.caption, design: .rounded))
-                                .foregroundStyle(.secondary)
-                        }
-                        #else
                         HStack {
                             Label {
                                 Text("Free Plan")
@@ -1100,7 +1086,6 @@ struct ProfileView: View {
                                     .foregroundStyle(AppColors.calorie)
                             }
                         }
-                        #endif
                     }
 
                     Button {

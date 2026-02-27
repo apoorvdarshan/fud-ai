@@ -36,23 +36,15 @@ class StoreManager {
 
     // MARK: - Computed
     var canScan: Bool {
-        #if DEBUG
-        return true
-        #else
         if isSubscribed {
             resetDailyCounterIfNeeded()
             return dailyScansUsed < 25
         }
         return freeScansUsed < 4
-        #endif
     }
 
     var canUseApp: Bool {
-        #if DEBUG
-        return true
-        #else
         return isSubscribed || freeScansUsed < 4
-        #endif
     }
 
     var remainingScans: Int {

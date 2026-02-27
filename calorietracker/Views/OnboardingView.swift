@@ -1199,10 +1199,6 @@ struct OnboardingView: View {
     }
 
     private func purchaseSelectedPlan(discount: Bool = false) async {
-        #if DEBUG
-        hasCompletedOnboarding = true
-        return
-        #else
         let product: Product?
         if selectedPlan == .yearly {
             product = discount ? storeManager.yearlyDiscountProduct : storeManager.yearlyProduct
@@ -1214,7 +1210,6 @@ struct OnboardingView: View {
         if storeManager.isSubscribed {
             hasCompletedOnboarding = true
         }
-        #endif
     }
 
     private func yearlyPerMonthText(_ product: Product) -> String {

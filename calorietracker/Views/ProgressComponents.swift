@@ -6,25 +6,19 @@ import Charts
 enum TimeRange: String, CaseIterable {
     case week = "Week"
     case month = "Month"
-    case allTime = "All Time"
 
-    var days: Int? {
+    var days: Int {
         switch self {
         case .week: 7
         case .month: 30
-        case .allTime: nil
         }
     }
 
     func dateRange() -> ClosedRange<Date> {
         let calendar = Calendar.current
         let end = calendar.startOfDay(for: .now).addingTimeInterval(86399)
-        if let days {
-            let start = calendar.date(byAdding: .day, value: -(days - 1), to: calendar.startOfDay(for: .now))!
-            return start...end
-        }
-        let distantStart = calendar.date(byAdding: .year, value: -10, to: .now)!
-        return distantStart...end
+        let start = calendar.date(byAdding: .day, value: -(days - 1), to: calendar.startOfDay(for: .now))!
+        return start...end
     }
 }
 

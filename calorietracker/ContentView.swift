@@ -660,10 +660,7 @@ struct ProgressTabView: View {
 
     private var dailyCalories: [(date: Date, calories: Int)] {
         let calendar = Calendar.current
-        let days = timeRange.days ?? {
-            guard let earliest = foodStore.entries.map({ $0.timestamp }).min() else { return 7 }
-            return max(calendar.dateComponents([.day], from: earliest, to: .now).day ?? 7, 1)
-        }()
+        let days = timeRange.days
         let today = calendar.startOfDay(for: .now)
         return (0..<days).compactMap { offset in
             guard let date = calendar.date(byAdding: .day, value: -offset, to: today) else { return nil }
@@ -675,10 +672,7 @@ struct ProgressTabView: View {
 
     private var macroAverages: (protein: Int, carbs: Int, fat: Int) {
         let calendar = Calendar.current
-        let days = timeRange.days ?? {
-            guard let earliest = foodStore.entries.map({ $0.timestamp }).min() else { return 7 }
-            return max(calendar.dateComponents([.day], from: earliest, to: .now).day ?? 7, 1)
-        }()
+        let days = timeRange.days
         let today = calendar.startOfDay(for: .now)
         var totalP = 0, totalC = 0, totalF = 0, count = 0
         for offset in 0..<days {
@@ -732,10 +726,7 @@ struct ProgressTabView: View {
     private var daysOnTarget: Int {
         let calendar = Calendar.current
         let goal = Double(userProfile.effectiveCalories)
-        let days = timeRange.days ?? {
-            guard let earliest = foodStore.entries.map({ $0.timestamp }).min() else { return 7 }
-            return max(calendar.dateComponents([.day], from: earliest, to: .now).day ?? 7, 1)
-        }()
+        let days = timeRange.days
         let today = calendar.startOfDay(for: .now)
         var count = 0
         for offset in 0..<days {

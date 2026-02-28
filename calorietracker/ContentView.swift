@@ -246,8 +246,9 @@ struct HomeView: View {
                                     showVoicePopover = false
                                     currentImage = nil
                                     currentEmoji = nil
-                                    activeSheet = .analyzingText
                                     Task {
+                                        try? await Task.sleep(for: .milliseconds(300))
+                                        activeSheet = .analyzingText
                                         do {
                                             let result = try await GeminiService.analyzeTextInput(description: description)
                                             storeManager.recordScan()

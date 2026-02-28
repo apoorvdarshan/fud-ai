@@ -4,6 +4,7 @@ import Combine
 struct TextFoodInputView: View {
     @State private var foodDescription = ""
     @State private var placeholderIndex = 0
+    @FocusState private var isFocused: Bool
     @Environment(\.dismiss) private var dismiss
 
     var onSubmit: (String) -> Void
@@ -19,14 +20,14 @@ struct TextFoodInputView: View {
 
     var body: some View {
         NavigationStack {
-            VStack(spacing: 24) {
-                Spacer()
-
-                ZStack(alignment: .leading) {
+            VStack(spacing: 20) {
+                ZStack(alignment: .topLeading) {
                     if foodDescription.isEmpty {
                         Text(placeholders[placeholderIndex])
                             .foregroundStyle(.tertiary)
-                            .font(.title3)
+                            .font(.body)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 10)
                             .transition(.asymmetric(
                                 insertion: .move(edge: .bottom).combined(with: .opacity),
                                 removal: .move(edge: .top).combined(with: .opacity)
@@ -36,36 +37,43 @@ struct TextFoodInputView: View {
                     }
 
                     TextField("", text: $foodDescription, axis: .vertical)
-                        .font(.title3)
-                        .lineLimit(1...4)
+                        .font(.body)
+                        .lineLimit(2...5)
                         .textFieldStyle(.plain)
                         .autocorrectionDisabled()
                         .submitLabel(.done)
+                        .focused($isFocused)
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 10)
                 }
-                .padding()
+                .padding(12)
                 .background(
-                    RoundedRectangle(cornerRadius: 16)
-                        .fill(.ultraThinMaterial)
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color(.secondarySystemGroupedBackground))
                 )
-                .padding(.horizontal)
 
                 Button {
                     onSubmit(foodDescription)
                 } label: {
                     Text("Analyze")
                         .font(.headline)
+                        .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
+                        .padding(.vertical, 14)
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(foodDescription.trimmingCharacters(in: .whitespaces).isEmpty
+                                      ? AppColors.calorie.opacity(0.3)
+                                      : AppColors.calorie)
+                        )
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(AppColors.calorie)
                 .disabled(foodDescription.trimmingCharacters(in: .whitespaces).isEmpty)
-                .padding(.horizontal)
 
                 Spacer()
-                Spacer()
             }
-            .background(AppColors.appBackground)
+            .padding(.horizontal)
+            .padding(.top, 20)
+            .background(Color(.systemGroupedBackground))
             .navigationTitle("Text Input")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -73,6 +81,7 @@ struct TextFoodInputView: View {
                     Button("Cancel") { dismiss() }
                 }
             }
+            .onAppear { isFocused = true }
             .onReceive(timer) { _ in
                 guard foodDescription.isEmpty else { return }
                 withAnimation(.easeInOut(duration: 0.3)) {

@@ -57,16 +57,11 @@ struct TextFoodInputView: View {
                 } label: {
                     Text("Analyze")
                         .font(.headline)
-                        .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(foodDescription.trimmingCharacters(in: .whitespaces).isEmpty
-                                      ? AppColors.calorie.opacity(0.3)
-                                      : AppColors.calorie)
-                        )
                 }
+                .buttonStyle(.borderedProminent)
+                .tint(AppColors.calorie)
+                .controlSize(.large)
                 .disabled(foodDescription.trimmingCharacters(in: .whitespaces).isEmpty)
 
                 Spacer()

@@ -49,9 +49,10 @@ struct HomeView: View {
     @State private var errorMessage = ""
     @State private var selectedDate: Date = .now
     @State private var showScanLimitAlert = false
+    @State private var showVoiceOverlay = false
 
     enum ActiveSheet: String, Identifiable {
-        case analyzing, foodResult, textInput, analyzingText, editFood, voice
+        case analyzing, foodResult, textInput, analyzingText, editFood
         var id: String { rawValue }
     }
     @State private var activeSheet: ActiveSheet?
@@ -229,7 +230,7 @@ struct HomeView: View {
                             }
                             Button(action: {
                                 guard checkScanAvailable() else { return }
-                                activeSheet = .voice
+                                showVoiceOverlay = true
                             }) {
                                 Label("Voice", systemImage: "mic.fill")
                             }
@@ -305,25 +306,6 @@ struct HomeView: View {
                             }
                         }
                     }
-                case .voice:
-                    VoiceInputView { description in
-                        currentImage = nil
-                        currentEmoji = nil
-                        activeSheet = .analyzingText
-                        Task {
-                            do {
-                                let result = try await GeminiService.analyzeTextInput(description: description)
-                                storeManager.recordScan()
-                                currentFoodResult = result
-                                currentEmoji = result.emoji
-                                activeSheet = .foodResult
-                            } catch {
-                                activeSheet = nil
-                                errorMessage = error.localizedDescription
-                                showError = true
-                            }
-                        }
-                    }
                 }
             }
             .interactiveDismissDisabled(activeSheet == .analyzing || activeSheet == .analyzingText)
@@ -363,6 +345,36 @@ struct HomeView: View {
             .sheet(isPresented: $showNutritionDetail) {
                 NutritionDetailView(date: selectedDate)
             }
+            .overlay {
+                if showVoiceOverlay {
+                    VoiceInputView(
+                        onCancel: {
+                            showVoiceOverlay = false
+                        },
+                        onSubmit: { description in
+                            showVoiceOverlay = false
+                            currentImage = nil
+                            currentEmoji = nil
+                            activeSheet = .analyzingText
+                            Task {
+                                do {
+                                    let result = try await GeminiService.analyzeTextInput(description: description)
+                                    storeManager.recordScan()
+                                    currentFoodResult = result
+                                    currentEmoji = result.emoji
+                                    activeSheet = .foodResult
+                                } catch {
+                                    activeSheet = nil
+                                    errorMessage = error.localizedDescription
+                                    showError = true
+                                }
+                            }
+                        }
+                    )
+                    .transition(.opacity)
+                }
+            }
+            .animation(.easeInOut(duration: 0.25), value: showVoiceOverlay)
         }
     }
 

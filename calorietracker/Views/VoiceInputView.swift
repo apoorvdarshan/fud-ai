@@ -107,7 +107,10 @@ struct VoiceInputView: View {
                 }
             }
             .padding(20)
-            .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .background(
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .fill(Color(.secondarySystemGroupedBackground))
+            )
             .padding(.horizontal, 24)
         }
         .onAppear {

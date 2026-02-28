@@ -108,10 +108,11 @@ struct VoiceInputView: View {
             }
             .padding(20)
             .background(
-                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(Color(.secondarySystemGroupedBackground))
+                RoundedRectangle(cornerRadius: 14, style: .continuous)
+                    .fill(Color(.tertiarySystemBackground))
+                    .stroke(Color.white.opacity(0.15), lineWidth: 0.5)
             )
-            .padding(.horizontal, 24)
+            .padding(.horizontal, 20)
         }
         .onAppear {
             startRecording()

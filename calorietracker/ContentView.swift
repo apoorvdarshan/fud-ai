@@ -51,7 +51,7 @@ struct HomeView: View {
     @State private var showScanLimitAlert = false
 
     enum ActiveSheet: String, Identifiable {
-        case analyzing, foodResult, textInput, analyzingText, editFood
+        case analyzing, foodResult, textInput, analyzingText, editFood, voice
         var id: String { rawValue }
     }
     @State private var activeSheet: ActiveSheet?
@@ -227,6 +227,12 @@ struct HomeView: View {
                             }) {
                                 Label("Text Input", systemImage: "character.cursor.ibeam")
                             }
+                            Button(action: {
+                                guard checkScanAvailable() else { return }
+                                activeSheet = .voice
+                            }) {
+                                Label("Voice", systemImage: "mic.fill")
+                            }
                         } label: {
                             Image(systemName: "plus")
                         }
@@ -282,6 +288,25 @@ struct HomeView: View {
                     }
                 case .textInput:
                     TextFoodInputView { description in
+                        currentImage = nil
+                        currentEmoji = nil
+                        activeSheet = .analyzingText
+                        Task {
+                            do {
+                                let result = try await GeminiService.analyzeTextInput(description: description)
+                                storeManager.recordScan()
+                                currentFoodResult = result
+                                currentEmoji = result.emoji
+                                activeSheet = .foodResult
+                            } catch {
+                                activeSheet = nil
+                                errorMessage = error.localizedDescription
+                                showError = true
+                            }
+                        }
+                    }
+                case .voice:
+                    VoiceInputView { description in
                         currentImage = nil
                         currentEmoji = nil
                         activeSheet = .analyzingText

@@ -50,9 +50,10 @@ struct HomeView: View {
     @State private var selectedDate: Date = .now
     @State private var showScanLimitAlert = false
     @State private var showVoicePopover = false
+    @State private var showTextPopover = false
 
     enum ActiveSheet: String, Identifiable {
-        case analyzing, foodResult, textInput, analyzingText, editFood
+        case analyzing, foodResult, analyzingText, editFood
         var id: String { rawValue }
     }
     @State private var activeSheet: ActiveSheet?
@@ -224,7 +225,7 @@ struct HomeView: View {
                             }
                             Button(action: {
                                 guard checkScanAvailable() else { return }
-                                activeSheet = .textInput
+                                showTextPopover = true
                             }) {
                                 Label("Text Input", systemImage: "character.cursor.ibeam")
                             }
@@ -236,6 +237,34 @@ struct HomeView: View {
                             }
                         } label: {
                             Image(systemName: "plus")
+                        }
+                        .popover(isPresented: $showTextPopover) {
+                            TextFoodInputView(
+                                onCancel: {
+                                    showTextPopover = false
+                                },
+                                onSubmit: { description in
+                                    showTextPopover = false
+                                    currentImage = nil
+                                    currentEmoji = nil
+                                    Task {
+                                        try? await Task.sleep(for: .milliseconds(300))
+                                        activeSheet = .analyzingText
+                                        do {
+                                            let result = try await GeminiService.analyzeTextInput(description: description)
+                                            storeManager.recordScan()
+                                            currentFoodResult = result
+                                            currentEmoji = result.emoji
+                                            activeSheet = .foodResult
+                                        } catch {
+                                            activeSheet = nil
+                                            errorMessage = error.localizedDescription
+                                            showError = true
+                                        }
+                                    }
+                                }
+                            )
+                            .presentationCompactAdaptation(.popover)
                         }
                         .popover(isPresented: $showVoicePopover) {
                             VoiceInputView(
@@ -314,25 +343,6 @@ struct HomeView: View {
                 case .editFood:
                     if let editingEntry {
                         EditFoodEntryView(entry: editingEntry)
-                    }
-                case .textInput:
-                    TextFoodInputView { description in
-                        currentImage = nil
-                        currentEmoji = nil
-                        activeSheet = .analyzingText
-                        Task {
-                            do {
-                                let result = try await GeminiService.analyzeTextInput(description: description)
-                                storeManager.recordScan()
-                                currentFoodResult = result
-                                currentEmoji = result.emoji
-                                activeSheet = .foodResult
-                            } catch {
-                                activeSheet = nil
-                                errorMessage = error.localizedDescription
-                                showError = true
-                            }
-                        }
                     }
                 }
             }

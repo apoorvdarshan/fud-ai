@@ -7,6 +7,7 @@ struct WeekEnergyStrip: View {
     let caloriesForDate: (Date) -> Int
     let calorieGoal: Int
     @AppStorage("weekStartsOnMonday") private var weekStartsOnMonday = false
+    @State private var hasScrolledToInitial = false
 
     private static let totalWeeks = 53 // ~1 year of history
     private static let currentWeekIndex = totalWeeks - 1
@@ -57,15 +58,10 @@ struct WeekEnergyStrip: View {
             }
             .scrollTargetBehavior(.paging)
             .onAppear {
-                proxy.scrollTo(Self.currentWeekIndex, anchor: .trailing)
-            }
-            .onChange(of: selectedDate) { _, newDate in
-                let targetWeek = weekIndex(for: newDate)
-                if targetWeek >= 0 && targetWeek < Self.totalWeeks {
-                    withAnimation(.snappy(duration: 0.3)) {
-                        proxy.scrollTo(targetWeek, anchor: .center)
-                    }
-                }
+                guard !hasScrolledToInitial else { return }
+                hasScrolledToInitial = true
+                let targetWeek = weekIndex(for: selectedDate)
+                proxy.scrollTo(targetWeek, anchor: .trailing)
             }
             .onChange(of: weekStartsOnMonday) { _, _ in
                 proxy.scrollTo(Self.currentWeekIndex, anchor: .trailing)

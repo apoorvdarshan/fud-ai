@@ -55,7 +55,8 @@ Fud AI is an AI-powered calorie and nutrition tracker for iOS. Snap a photo of y
 - Track **13 nutrients** per entry: calories, protein, carbs, fat, sugar, added sugar, fiber, saturated fat, monounsaturated fat, polyunsaturated fat, cholesterol, sodium, and potassium
 - Adjustable **serving sizes** with real-time nutrition recalculation
 - Organize entries by **meal type** (Breakfast, Lunch, Dinner, Snack, Other)
-- Browse past days with a **date selector**
+- **Scrollable week calendar** — swipe to browse any past week, log food for any day
+- Configurable **week start day** (Sunday or Monday)
 
 ### Smart Dashboard
 - Daily calorie hero display with progress bar
@@ -68,7 +69,7 @@ Fud AI is an AI-powered calorie and nutrition tracker for iOS. Snap a photo of y
 - **Goal-reached detection** — get congratulated when you hit your target weight
 - **Calorie trend chart** showing daily intake vs. goal
 - **Macro averages** over selected time range
-- Time range filters: Week and Month
+- Time range filters: 1W, 1M, 3M, 6M, 1Y, and All Time
 
 ### Goal Weight Tracking
 - Set a target weight during onboarding (lose or gain)

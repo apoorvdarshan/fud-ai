@@ -19,7 +19,7 @@ Free, open-source AI calorie tracker. Bring your own API key — Gemini, OpenAI,
 
 ## Keywords (100 chars max)
 ```
-calorie tracker,nutrition,food scanner,AI food,macro tracker,diet,weight loss,health,open source
+calorie,tracker,nutrition,macro,AI,food,scanner,diet,protein,weight,health,fitness,meal,log,TDEE
 ```
 
 ## Category

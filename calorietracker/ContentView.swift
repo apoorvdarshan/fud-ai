@@ -824,7 +824,6 @@ struct ProfileView: View {
     @State private var apiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedProvider) ?? ""
     @State private var customBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedProvider) ?? ""
     @State private var showAPIKey = false
-    @State private var apiKeySaved = true
 
     // Height formatting
     private var heightDisplay: String {
@@ -1122,8 +1121,8 @@ struct ProfileView: View {
                             .multilineTextAlignment(.trailing)
                             .autocorrectionDisabled()
                             .textInputAutocapitalization(.never)
-                            .onChange(of: apiKeyText) { _, _ in
-                                apiKeySaved = false
+                            .onChange(of: apiKeyText) { _, newValue in
+                                AIProviderSettings.setAPIKey(newValue.isEmpty ? nil : newValue, for: selectedProvider)
                             }
                             Button {
                                 showAPIKey.toggle()
@@ -1134,19 +1133,6 @@ struct ProfileView: View {
                             }
                             .buttonStyle(.plain)
                         }
-
-                        Button {
-                            AIProviderSettings.setAPIKey(apiKeyText.isEmpty ? nil : apiKeyText, for: selectedProvider)
-                            apiKeySaved = true
-                        } label: {
-                            HStack {
-                                Text(apiKeySaved ? "Saved" : "Save API Key")
-                                Spacer()
-                                Image(systemName: apiKeySaved ? "checkmark.circle.fill" : "arrow.down.circle.fill")
-                                    .foregroundStyle(apiKeySaved ? .green : AppColors.calorie)
-                            }
-                        }
-                        .disabled(apiKeySaved)
                     }
 
                     if selectedProvider == .ollama {

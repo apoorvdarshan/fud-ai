@@ -823,6 +823,7 @@ struct ProfileView: View {
     @State private var selectedModel: String = AIProviderSettings.selectedModel
     @State private var apiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedProvider) ?? ""
     @State private var customBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedProvider) ?? ""
+    @State private var showAPIKey = false
 
     // Height formatting
     private var heightDisplay: String {
@@ -1109,14 +1110,28 @@ struct ProfileView: View {
                                     .foregroundStyle(AppColors.calorie)
                             }
                             Spacer()
-                            SecureField(selectedProvider.apiKeyPlaceholder, text: $apiKeyText)
-                                .textFieldStyle(.plain)
-                                .multilineTextAlignment(.trailing)
-                                .autocorrectionDisabled()
-                                .textInputAutocapitalization(.never)
-                                .onChange(of: apiKeyText) { _, newValue in
-                                    AIProviderSettings.setAPIKey(newValue.isEmpty ? nil : newValue, for: selectedProvider)
+                            Group {
+                                if showAPIKey {
+                                    TextField(selectedProvider.apiKeyPlaceholder, text: $apiKeyText)
+                                } else {
+                                    SecureField(selectedProvider.apiKeyPlaceholder, text: $apiKeyText)
                                 }
+                            }
+                            .textFieldStyle(.plain)
+                            .multilineTextAlignment(.trailing)
+                            .autocorrectionDisabled()
+                            .textInputAutocapitalization(.never)
+                            .onChange(of: apiKeyText) { _, newValue in
+                                AIProviderSettings.setAPIKey(newValue.isEmpty ? nil : newValue, for: selectedProvider)
+                            }
+                            Button {
+                                showAPIKey.toggle()
+                            } label: {
+                                Image(systemName: showAPIKey ? "eye.fill" : "eye.slash.fill")
+                                    .foregroundStyle(.secondary)
+                                    .font(.system(size: 14))
+                            }
+                            .buttonStyle(.plain)
                         }
                     }
 

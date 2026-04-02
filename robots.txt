@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fud-ai.app/sitemap.xml

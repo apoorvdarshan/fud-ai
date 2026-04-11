@@ -120,6 +120,33 @@ class FoodStore {
         entries(for: date).reduce(0) { $0 + ($1.potassium ?? 0) }
     }
 
+    // MARK: - Recents / Frequent
+
+    func recentEntries(limit: Int = 50) -> [FoodEntry] {
+        Array(entries.sorted { $0.timestamp > $1.timestamp }.prefix(limit))
+    }
+
+    func frequentGroups() -> [FrequentFoodGroup] {
+        var aggregates: [String: (count: Int, template: FoodEntry)] = [:]
+        for entry in entries {
+            let key = "\(entry.name.lowercased())|\(entry.calories)"
+            if let current = aggregates[key] {
+                let newCount = current.count + 1
+                let template = entry.timestamp > current.template.timestamp ? entry : current.template
+                aggregates[key] = (newCount, template)
+            } else {
+                aggregates[key] = (1, entry)
+            }
+        }
+        return aggregates.map { _, pair in
+            FrequentFoodGroup(template: pair.template, count: pair.count)
+        }
+        .sorted { lhs, rhs in
+            if lhs.count != rhs.count { return lhs.count > rhs.count }
+            return lhs.name.localizedCaseInsensitiveCompare(rhs.name) == .orderedAscending
+        }
+    }
+
     func addEntry(_ entry: FoodEntry) {
         entries.append(entry)
         saveEntries()
@@ -173,5 +200,21 @@ class FoodStore {
               let decoded = try? JSONDecoder().decode([FoodEntry].self, from: data)
         else { return }
         entries = decoded
+    }
+}
+
+struct FrequentFoodGroup: Identifiable {
+    let id: String
+    let name: String
+    let calories: Int
+    let count: Int
+    let template: FoodEntry
+
+    init(template: FoodEntry, count: Int) {
+        self.id = "\(template.name.lowercased())|\(template.calories)"
+        self.name = template.name
+        self.calories = template.calories
+        self.count = count
+        self.template = template
     }
 }

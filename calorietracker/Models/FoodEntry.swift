@@ -145,4 +145,30 @@ struct FoodEntry: Identifiable, Codable {
         formatter.dateFormat = "h:mma"
         return formatter.string(from: timestamp).lowercased()
     }
+
+    /// New entry for the given log date (new id), copying nutrition and media from this entry.
+    func duplicatedForLogging(at logDate: Date, mealType: MealType = .currentMeal) -> FoodEntry {
+        FoodEntry(
+            name: name,
+            calories: calories,
+            protein: protein,
+            carbs: carbs,
+            fat: fat,
+            timestamp: logDate,
+            imageData: imageData,
+            emoji: emoji,
+            source: source,
+            mealType: mealType,
+            sugar: sugar,
+            addedSugar: addedSugar,
+            fiber: fiber,
+            saturatedFat: saturatedFat,
+            monounsaturatedFat: monounsaturatedFat,
+            polyunsaturatedFat: polyunsaturatedFat,
+            cholesterol: cholesterol,
+            sodium: sodium,
+            potassium: potassium,
+            servingSizeGrams: servingSizeGrams
+        )
+    }
 }

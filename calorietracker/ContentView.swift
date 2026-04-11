@@ -47,6 +47,7 @@ struct HomeView: View {
     @State private var selectedDate: Date = .now
     @State private var showVoicePopover = false
     @State private var showTextPopover = false
+    @State private var showRecentSheet = false
 
     enum ActiveSheet: String, Identifiable {
         case analyzing, foodResult, analyzingText, editFood
@@ -231,6 +232,12 @@ struct HomeView: View {
                             }) {
                                 Label("Voice", systemImage: "mic.fill")
                             }
+                            Button(action: {
+                                
+                                showRecentSheet = true
+                            }) {
+                                Label("Recent", systemImage: "clock.fill")
+                            }
                         } label: {
                             Image(systemName: "plus")
                         }
@@ -342,6 +349,9 @@ struct HomeView: View {
                     }
                 }
             }
+            .sheet(isPresented: $showRecentSheet, content: {
+                RecentsView(logDate: selectedDate)
+            })
             .interactiveDismissDisabled(activeSheet == .analyzing || activeSheet == .analyzingText)
             .photosPicker(isPresented: $showPhotoPicker, selection: $selectedPhotoItem, matching: .images)
             .onChange(of: selectedPhotoItem) { oldValue, newValue in

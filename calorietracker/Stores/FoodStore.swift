@@ -9,9 +9,12 @@ class FoodStore {
     var onEntryDeleted: ((UUID) -> Void)?
 
     private let storageKey = "foodEntries"
+    private let favoritesKey = "favoriteFoodEntries"
+    private(set) var favorites: [FoodEntry] = []
 
     init() {
         loadEntries()
+        loadFavorites()
     }
 
     var todayEntries: [FoodEntry] {
@@ -146,6 +149,37 @@ class FoodStore {
             return lhs.name.localizedCaseInsensitiveCompare(rhs.name) == .orderedAscending
         }
     }
+
+    // MARK: - Favorites
+
+    func isFavorite(_ entry: FoodEntry) -> Bool {
+        favorites.contains { $0.favoriteKey == entry.favoriteKey }
+    }
+
+    func toggleFavorite(_ entry: FoodEntry) {
+        if let index = favorites.firstIndex(where: { $0.favoriteKey == entry.favoriteKey }) {
+            favorites.remove(at: index)
+        } else {
+            favorites.append(entry)
+        }
+        saveFavorites()
+    }
+
+    private func saveFavorites() {
+        if let data = try? JSONEncoder().encode(favorites) {
+            UserDefaults.standard.set(data, forKey: favoritesKey)
+            UserDefaults.standard.synchronize()
+        }
+    }
+
+    private func loadFavorites() {
+        guard let data = UserDefaults.standard.data(forKey: favoritesKey),
+              let decoded = try? JSONDecoder().decode([FoodEntry].self, from: data)
+        else { return }
+        favorites = decoded
+    }
+
+    // MARK: - CRUD
 
     func addEntry(_ entry: FoodEntry) {
         entries.append(entry)

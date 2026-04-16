@@ -1,10 +1,3 @@
-//
-//  RecentsView.swift
-//  calorietracker
-//
-//  Created by Pearson Smith on 4/11/26.
-//
-
 import SwiftUI
 import UIKit
 
@@ -18,7 +11,8 @@ struct RecentsView: View {
 
     private enum RecentsSegment: String, CaseIterable {
         case recents = "Recents"
-        case frequent = "Frequents"
+        case frequent = "Frequent"
+        case favorites = "Favorites"
     }
 
     private var recentItems: [FoodEntry] {
@@ -46,10 +40,7 @@ struct RecentsView: View {
                 case .recents:
                     if recentItems.isEmpty {
                         Section {
-                            Text("No foods logged yet")
-                                .foregroundStyle(.secondary)
-                                .frame(maxWidth: .infinity)
-                                .listRowBackground(AppColors.appCard)
+                            emptyState("No foods logged yet")
                         }
                     } else {
                         Section {
@@ -57,19 +48,23 @@ struct RecentsView: View {
                                 FoodRow(entry: entry)
                                     .listRowBackground(AppColors.appCard)
                                     .contentShape(Rectangle())
-                                    .onTapGesture {
-                                        logEntry(entry)
+                                    .onTapGesture { logEntry(entry) }
+                                    .swipeActions(edge: .trailing) {
+                                        Button {
+                                            foodStore.toggleFavorite(entry)
+                                        } label: {
+                                            Label(foodStore.isFavorite(entry) ? "Unfavorite" : "Favorite", systemImage: foodStore.isFavorite(entry) ? "heart.slash.fill" : "heart.fill")
+                                        }
+                                        .tint(AppColors.calorie)
                                     }
                             }
                         }
                     }
+
                 case .frequent:
                     if frequentItems.isEmpty {
                         Section {
-                            Text("No foods logged yet")
-                                .foregroundStyle(.secondary)
-                                .frame(maxWidth: .infinity)
-                                .listRowBackground(AppColors.appCard)
+                            emptyState("No foods logged yet")
                         }
                     } else {
                         Section {
@@ -77,8 +72,37 @@ struct RecentsView: View {
                                 FrequentFoodRow(group: group)
                                     .listRowBackground(AppColors.appCard)
                                     .contentShape(Rectangle())
-                                    .onTapGesture {
-                                        logEntry(group.template)
+                                    .onTapGesture { logEntry(group.template) }
+                                    .swipeActions(edge: .trailing) {
+                                        Button {
+                                            foodStore.toggleFavorite(group.template)
+                                        } label: {
+                                            Label(foodStore.isFavorite(group.template) ? "Unfavorite" : "Favorite", systemImage: foodStore.isFavorite(group.template) ? "heart.slash.fill" : "heart.fill")
+                                        }
+                                        .tint(AppColors.calorie)
+                                    }
+                            }
+                        }
+                    }
+
+                case .favorites:
+                    if foodStore.favorites.isEmpty {
+                        Section {
+                            emptyState("No favorites yet. Swipe left on any food to add it.")
+                        }
+                    } else {
+                        Section {
+                            ForEach(foodStore.favorites) { entry in
+                                FoodRow(entry: entry)
+                                    .listRowBackground(AppColors.appCard)
+                                    .contentShape(Rectangle())
+                                    .onTapGesture { logEntry(entry) }
+                                    .swipeActions(edge: .trailing) {
+                                        Button(role: .destructive) {
+                                            foodStore.toggleFavorite(entry)
+                                        } label: {
+                                            Label("Remove", systemImage: "heart.slash.fill")
+                                        }
                                     }
                             }
                         }
@@ -100,6 +124,13 @@ struct RecentsView: View {
     private func logEntry(_ entry: FoodEntry) {
         foodStore.addEntry(entry.duplicatedForLogging(at: logDate))
         dismiss()
+    }
+
+    private func emptyState(_ message: String) -> some View {
+        Text(message)
+            .foregroundStyle(.secondary)
+            .frame(maxWidth: .infinity)
+            .listRowBackground(AppColors.appCard)
     }
 }
 
@@ -148,9 +179,4 @@ private struct FrequentFoodRow: View {
         }
         .padding(.vertical, 4)
     }
-}
-
-#Preview {
-    RecentsView(logDate: .now)
-        .environment(FoodStore())
 }

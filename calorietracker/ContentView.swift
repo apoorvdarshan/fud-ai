@@ -180,11 +180,21 @@ struct HomeView: View {
                                         editingEntry = entry
                                         activeSheet = .editFood
                                     }
-                            }
-                            .onDelete { offsets in
-                                for index in offsets {
-                                    foodStore.deleteEntry(group.entries[index])
-                                }
+                                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                        Button(role: .destructive) {
+                                            foodStore.deleteEntry(entry)
+                                        } label: {
+                                            Label("Delete", systemImage: "trash.fill")
+                                        }
+                                    }
+                                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                        Button {
+                                            foodStore.toggleFavorite(entry)
+                                        } label: {
+                                            Label(foodStore.isFavorite(entry) ? "Unfavorite" : "Favorite", systemImage: foodStore.isFavorite(entry) ? "heart.slash.fill" : "heart.fill")
+                                        }
+                                        .tint(AppColors.calorie)
+                                    }
                             }
                         } header: {
                             Label(group.meal.displayName, systemImage: group.meal.icon)

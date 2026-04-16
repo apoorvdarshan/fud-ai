@@ -146,6 +146,11 @@ struct FoodEntry: Identifiable, Codable {
         return formatter.string(from: timestamp).lowercased()
     }
 
+    /// Unique key for favorite deduplication (name + calorie combo)
+    var favoriteKey: String {
+        "\(name.lowercased())|\(calories)"
+    }
+
     /// New entry for the given log date (new id), copying nutrition and media from this entry.
     func duplicatedForLogging(at logDate: Date, mealType: MealType = .currentMeal) -> FoodEntry {
         FoodEntry(

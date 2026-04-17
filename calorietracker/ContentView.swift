@@ -30,6 +30,116 @@ struct ContentView: View {
                     Image(systemName: "person.circle.fill")
                     Text("Profile")
                 }
+
+            AboutView()
+                .tabItem {
+                    Image(systemName: "info.circle.fill")
+                    Text("About")
+                }
+        }
+    }
+}
+
+// MARK: - About View
+struct AboutView: View {
+    var body: some View {
+        NavigationStack {
+            List {
+                Section {
+                    VStack(spacing: 12) {
+                        Image("onboardingLogo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80, height: 80)
+                            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+
+                        VStack(spacing: 4) {
+                            Text("Fud AI")
+                                .font(.system(.title2, design: .rounded, weight: .bold))
+                            Text("Eat Smart, Live Better")
+                                .font(.system(.subheadline, design: .rounded))
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                }
+
+                Section {
+                    // Open Source
+                    Link(destination: URL(string: "https://github.com/apoorvdarshan/fud-ai")!) {
+                        Label {
+                            Text("Open Source (MIT)")
+                        } icon: {
+                            Image(systemName: "chevron.left.forwardslash.chevron.right")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+                    .buttonStyle(.plain)
+
+                    // Report Issues
+                    Link(destination: URL(string: "https://github.com/apoorvdarshan/fud-ai/issues")!) {
+                        Label {
+                            Text("Report an Issue")
+                        } icon: {
+                            Image(systemName: "exclamationmark.bubble.fill")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+                    .buttonStyle(.plain)
+
+                    // Contact
+                    Link(destination: URL(string: "mailto:ad13dtu@gmail.com")!) {
+                        Label {
+                            Text("Contact Us")
+                        } icon: {
+                            Image(systemName: "envelope.fill")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                }
+                .listRowBackground(AppColors.appCard)
+
+                Section {
+                    // Privacy Policy
+                    Link(destination: URL(string: "https://fud-ai.vercel.app/privacy.html")!) {
+                        Label {
+                            Text("Privacy Policy")
+                        } icon: {
+                            Image(systemName: "lock.shield.fill")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+                    .buttonStyle(.plain)
+
+                    // Terms of Service
+                    Link(destination: URL(string: "https://fud-ai.vercel.app/terms.html")!) {
+                        Label {
+                            Text("Terms of Service")
+                        } icon: {
+                            Image(systemName: "doc.text.fill")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                }
+                .listRowBackground(AppColors.appCard)
+
+                Section {
+                    Text("Version \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—")")
+                        .font(.system(.footnote, design: .rounded))
+                        .foregroundStyle(.tertiary)
+                        .frame(maxWidth: .infinity)
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                }
+            }
+            .scrollContentBackground(.hidden)
+            .background(AppColors.appBackground)
+            .navigationTitle("About")
         }
     }
 }
@@ -881,6 +991,7 @@ struct ProfileView: View {
     }
     @State private var activeSheet: ActiveSheet?
     @State private var showDeleteConfirmation = false
+    @State private var showClearFoodLogConfirmation = false
     @State private var editingName: String = ""
     @State private var selectedProvider: AIProvider = AIProviderSettings.selectedProvider
     @State private var selectedModel: String = AIProviderSettings.selectedModel
@@ -1226,8 +1337,8 @@ struct ProfileView: View {
                 }
                 .listRowBackground(AppColors.appCard)
 
-                // Section 5: About
-                Section("About") {
+                // Section 5: Health & Data
+                Section("Health & Data") {
                     // Apple Health
                     HStack {
                         Label {
@@ -1244,58 +1355,16 @@ struct ProfileView: View {
                             }
                     }
 
-                    // Open Source
-                    Link(destination: URL(string: "https://github.com/apoorvdarshan/fud-ai")!) {
+                    // Clear Food Log
+                    Button(role: .destructive) {
+                        showClearFoodLogConfirmation = true
+                    } label: {
                         Label {
-                            Text("Open Source (MIT)")
+                            Text("Clear Food Log")
                         } icon: {
-                            Image(systemName: "chevron.left.forwardslash.chevron.right")
-                                .foregroundStyle(AppColors.calorie)
+                            Image(systemName: "fork.knife")
                         }
-                    }
-                    .buttonStyle(.plain)
-
-                    // Report Issues
-                    Link(destination: URL(string: "https://github.com/apoorvdarshan/fud-ai/issues")!) {
-                        Label {
-                            Text("Report an Issue")
-                        } icon: {
-                            Image(systemName: "exclamationmark.bubble.fill")
-                                .foregroundStyle(AppColors.calorie)
-                        }
-                    }
-                    .buttonStyle(.plain)
-
-                    // Contact
-                    Link(destination: URL(string: "mailto:ad13dtu@gmail.com")!) {
-                        Label {
-                            Text("Contact Us")
-                        } icon: {
-                            Image(systemName: "envelope.fill")
-                                .foregroundStyle(AppColors.calorie)
-                        }
-                    }
-                    .buttonStyle(.plain)
-
-                    // Privacy Policy
-                    Link(destination: URL(string: "https://fud-ai.vercel.app/privacy.html")!) {
-                        Label {
-                            Text("Privacy Policy")
-                        } icon: {
-                            Image(systemName: "lock.shield.fill")
-                                .foregroundStyle(AppColors.calorie)
-                        }
-                    }
-                    .buttonStyle(.plain)
-
-                    // Terms of Service
-                    Link(destination: URL(string: "https://fud-ai.vercel.app/terms.html")!) {
-                        Label {
-                            Text("Terms of Service")
-                        } icon: {
-                            Image(systemName: "doc.text.fill")
-                                .foregroundStyle(AppColors.calorie)
-                        }
+                        .foregroundStyle(.orange)
                     }
                     .buttonStyle(.plain)
 
@@ -1461,6 +1530,14 @@ struct ProfileView: View {
                     }
 
                 }
+            }
+            .alert("Clear Food Log", isPresented: $showClearFoodLogConfirmation) {
+                Button("Cancel", role: .cancel) { }
+                Button("Clear All Logs", role: .destructive) {
+                    foodStore.replaceAllEntries([])
+                }
+            } message: {
+                Text("This will permanently delete all your logged food entries. Your profile, weight entries, and favorites will be kept. This action cannot be undone.")
             }
             .alert("Delete All Data", isPresented: $showDeleteConfirmation) {
                 Button("Cancel", role: .cancel) { }

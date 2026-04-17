@@ -42,32 +42,30 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         models.first ?? ""
     }
 
+    /// Only models that are currently in service AND accept image input + return structured text.
+    /// Text-only and deprecated/preview models are excluded since this app needs vision for food photos.
     var models: [String] {
         switch self {
         case .gemini: [
-            "gemini-2.5-flash",
-            "gemini-2.5-pro",
-            "gemini-2.0-flash",
-            "gemini-1.5-flash",
-            "gemini-1.5-pro",
+            "gemini-2.5-flash",          // vision, fastest
+            "gemini-2.5-pro",            // vision, highest quality
+            "gemini-2.0-flash",          // vision, stable fallback
         ]
         case .openai: [
-            "gpt-4o",
-            "gpt-4o-mini",
-            "gpt-4.1",
-            "gpt-4.1-mini",
-            "gpt-4.1-nano",
-            "o4-mini",
+            "gpt-4o",                    // vision
+            "gpt-4o-mini",               // vision, cheap
+            "gpt-4.1",                   // vision
+            "gpt-4.1-mini",              // vision
+            "gpt-4.1-nano",              // vision, cheapest
         ]
         case .anthropic: [
-            "claude-sonnet-4-20250514",
-            "claude-haiku-4-20250414",
-            "claude-3-5-sonnet-20241022",
-            "claude-3-5-haiku-20241022",
+            "claude-sonnet-4-5-20250929",  // vision, latest Sonnet
+            "claude-haiku-4-5-20251001",   // vision (Haiku 3.5 had no vision; Haiku 4.5 does)
+            "claude-opus-4-1-20250805",    // vision, highest quality
+            "claude-3-5-sonnet-20241022",  // vision, legacy fallback
         ]
         case .xai: [
-            "grok-2-vision-1212",
-            "grok-2-1212",
+            "grok-2-vision-1212",        // only Grok model with vision
         ]
         case .openrouter: [
             "google/gemini-2.5-flash",
@@ -80,9 +78,8 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
             "meta-llama/Llama-Vision-Free",
         ]
         case .groq: [
-            "meta-llama/llama-4-scout-17b-16e-instruct",
-            "llama-3.2-90b-vision-preview",
-            "llama-3.2-11b-vision-preview",
+            "meta-llama/llama-4-scout-17b-16e-instruct",       // vision
+            "meta-llama/llama-4-maverick-17b-128e-instruct",   // vision
         ]
         case .ollama: [
             "llama3.2-vision",
@@ -146,7 +143,13 @@ struct AIProviderSettings {
 
     static var selectedModel: String {
         get {
-            UserDefaults.standard.string(forKey: modelKey) ?? selectedProvider.defaultModel
+            let saved = UserDefaults.standard.string(forKey: modelKey)
+            // Validate the saved model is still in the current provider's supported list;
+            // fall back to default if it was removed (e.g., deprecated text-only model).
+            if let saved, selectedProvider.models.contains(saved) {
+                return saved
+            }
+            return selectedProvider.defaultModel
         }
         set {
             UserDefaults.standard.set(newValue, forKey: modelKey)

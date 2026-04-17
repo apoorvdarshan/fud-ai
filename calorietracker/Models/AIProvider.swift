@@ -49,23 +49,25 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         case .gemini: [
             "gemini-2.5-flash",          // vision, fastest
             "gemini-2.5-pro",            // vision, highest quality
-            "gemini-2.0-flash",          // vision, stable fallback
+            "gemini-2.0-flash",          // vision, legacy fallback
         ]
         case .openai: [
-            "gpt-4o",                    // vision
-            "gpt-4o-mini",               // vision, cheap
-            "gpt-4.1",                   // vision
-            "gpt-4.1-mini",              // vision
-            "gpt-4.1-nano",              // vision, cheapest
+            "gpt-5",                     // vision, current flagship
+            "gpt-5-mini",                // vision, cheap
+            "gpt-5-nano",                // vision, cheapest
+            "gpt-4o",                    // vision, legacy
+            "gpt-4o-mini",               // vision, legacy cheap
+            "gpt-4.1",                   // vision, legacy
+            "gpt-4.1-mini",              // vision, legacy
         ]
         case .anthropic: [
-            "claude-sonnet-4-5-20250929",  // vision, latest Sonnet
-            "claude-haiku-4-5-20251001",   // vision (Haiku 3.5 had no vision; Haiku 4.5 does)
+            "claude-sonnet-4-5-20250929",  // vision, current Sonnet
+            "claude-haiku-4-5-20251001",   // vision, current Haiku (Haiku 3.5 had no vision)
             "claude-opus-4-1-20250805",    // vision, highest quality
-            "claude-3-5-sonnet-20241022",  // vision, legacy fallback
         ]
         case .xai: [
-            "grok-2-vision-1212",        // only Grok model with vision
+            "grok-4",                    // vision, current flagship
+            "grok-2-vision-latest",      // vision, rolling alias for legacy compat
         ]
         case .openrouter: [
             "google/gemini-2.5-flash",
@@ -74,12 +76,12 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
             "meta-llama/llama-4-maverick",
         ]
         case .togetherai: [
-            "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
-            "meta-llama/Llama-Vision-Free",
+            "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",  // vision
+            "meta-llama/Llama-3.2-90B-Vision-Instruct-Turbo",     // vision
+            "Qwen/Qwen2.5-VL-72B-Instruct",                       // vision
         ]
         case .groq: [
-            "meta-llama/llama-4-scout-17b-16e-instruct",       // vision
-            "meta-llama/llama-4-maverick-17b-128e-instruct",   // vision
+            "meta-llama/llama-4-scout-17b-16e-instruct",          // vision
         ]
         case .ollama: [
             "llama3.2-vision",

@@ -185,7 +185,9 @@ struct GeminiService {
 
     private static func callGemini(baseURL: String, model: String, prompt: String, imageData: Data?) async throws -> String {
         let apiKey = AIProviderSettings.currentAPIKey!
-        guard let url = URL(string: "\(baseURL)/models/\(model):generateContent?key=\(apiKey)") else {
+        // Send the API key in the X-goog-api-key header, not the URL query string,
+        // so it doesn't end up in server logs / proxies (CodeQL: cleartext transmission).
+        guard let url = URL(string: "\(baseURL)/models/\(model):generateContent") else {
             throw AnalysisError.apiError("Invalid API URL. Check your provider settings.")
         }
 
@@ -204,7 +206,11 @@ struct GeminiService {
             "contents": [["parts": parts]]
         ]
 
-        let data = try await makeRequest(url: url, headers: ["Content-Type": "application/json"], body: body)
+        let data = try await makeRequest(
+            url: url,
+            headers: ["Content-Type": "application/json", "X-goog-api-key": apiKey],
+            body: body
+        )
 
         guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
               let candidates = json["candidates"] as? [[String: Any]],

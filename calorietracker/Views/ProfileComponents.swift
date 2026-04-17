@@ -620,6 +620,9 @@ struct NutritionPickerSheet: View {
     let range: ClosedRange<Int>
     let step: Int
     let onSave: (Int) -> Void
+    /// Optional callback to revert this macro to auto-balanced (custom value cleared).
+    /// When provided, a "Reset to Auto" button appears in the sheet.
+    var onResetToAuto: (() -> Void)? = nil
 
     @State private var selectedValue: Int = 0
 
@@ -661,6 +664,18 @@ struct NutritionPickerSheet: View {
                         .clipShape(RoundedRectangle(cornerRadius: 14))
                 }
                 .padding(.horizontal, 24)
+
+                if let resetAction = onResetToAuto {
+                    Button {
+                        resetAction()
+                        dismiss()
+                    } label: {
+                        Text("Reset to Auto-balance")
+                            .font(.system(.subheadline, design: .rounded, weight: .medium))
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding(.top, 4)
+                }
 
                 Spacer()
             }

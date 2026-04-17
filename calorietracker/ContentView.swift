@@ -1149,11 +1149,18 @@ struct ProgressTabView: View {
 
 
 struct ProfileView: View {
+    @Environment(ProfileStore.self) private var profileStore
     @Environment(WeightStore.self) private var weightStore
     @Environment(FoodStore.self) private var foodStore
     @Environment(NotificationManager.self) private var notificationManager
     @Environment(HealthKitManager.self) private var healthKitManager
-    @State private var profile: UserProfile = UserProfile.load() ?? .default
+    private var profile: UserProfile {
+        get { profileStore.profile }
+        nonmutating set { profileStore.profile = newValue }
+    }
+    private var profileBinding: Binding<UserProfile> {
+        Binding(get: { profileStore.profile }, set: { profileStore.profile = $0 })
+    }
     @AppStorage("appearanceMode") private var appearanceMode = "system"
     @AppStorage("useMetric") private var useMetric = false
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = true
@@ -1231,7 +1238,7 @@ struct ProfileView: View {
                         activeSheet = .editName
                     }
 
-                    Picker(selection: $profile.gender) {
+                    Picker(selection: profileBinding.gender) {
                         Text("Male").tag(Gender.male)
                         Text("Female").tag(Gender.female)
                         Text("Other").tag(Gender.other)
@@ -1271,7 +1278,7 @@ struct ProfileView: View {
 
                 // Section 2: Goals & Nutrition
                 Section("Goals & Nutrition") {
-                    Picker(selection: $profile.goal) {
+                    Picker(selection: profileBinding.goal) {
                         ForEach(WeightGoal.allCases, id: \.self) { goal in
                             Text(goal.displayName).tag(goal)
                         }
@@ -1295,7 +1302,7 @@ struct ProfileView: View {
                         resetCustomGoalsAndSave()
                     }
 
-                    Picker(selection: $profile.activityLevel) {
+                    Picker(selection: profileBinding.activityLevel) {
                         ForEach(ActivityLevel.allCases, id: \.self) { level in
                             Text(level.displayName).tag(level)
                         }
@@ -1568,9 +1575,6 @@ struct ProfileView: View {
             .scrollContentBackground(.hidden)
             .background(AppColors.appBackground)
             .navigationBarHidden(true)
-            .onAppear {
-                profile = UserProfile.load() ?? .default
-            }
             .sheet(item: $activeSheet) { sheet in
                 switch sheet {
                 case .editName:
@@ -1605,7 +1609,7 @@ struct ProfileView: View {
 
                             DatePicker(
                                 "Birthday",
-                                selection: $profile.birthday,
+                                selection: profileBinding.birthday,
                                 in: ...Date.now,
                                 displayedComponents: .date
                             )
@@ -1682,22 +1686,31 @@ struct ProfileView: View {
                     }
 
                 case .editProtein:
-                    NutritionPickerSheet(label: "Protein", unit: "g", currentValue: profile.effectiveProtein, range: 10...500, step: 5) { value in
-                        profile.customProtein = value
-                        saveProfile()
-                    }
+                    NutritionPickerSheet(
+                        label: "Protein", unit: "g",
+                        currentValue: profile.effectiveProtein,
+                        range: 10...500, step: 5,
+                        onSave: { setMacro(.protein, to: $0) },
+                        onResetToAuto: profile.isPinned(.protein) ? { setMacro(.protein, to: nil) } : nil
+                    )
 
                 case .editCarbs:
-                    NutritionPickerSheet(label: "Carbs", unit: "g", currentValue: profile.effectiveCarbs, range: 0...800, step: 5) { value in
-                        profile.customCarbs = value
-                        saveProfile()
-                    }
+                    NutritionPickerSheet(
+                        label: "Carbs", unit: "g",
+                        currentValue: profile.effectiveCarbs,
+                        range: 0...800, step: 5,
+                        onSave: { setMacro(.carbs, to: $0) },
+                        onResetToAuto: profile.isPinned(.carbs) ? { setMacro(.carbs, to: nil) } : nil
+                    )
 
                 case .editFat:
-                    NutritionPickerSheet(label: "Fat", unit: "g", currentValue: profile.effectiveFat, range: 10...300, step: 5) { value in
-                        profile.customFat = value
-                        saveProfile()
-                    }
+                    NutritionPickerSheet(
+                        label: "Fat", unit: "g",
+                        currentValue: profile.effectiveFat,
+                        range: 10...300, step: 5,
+                        onSave: { setMacro(.fat, to: $0) },
+                        onResetToAuto: profile.isPinned(.fat) ? { setMacro(.fat, to: nil) } : nil
+                    )
 
                 }
             }
@@ -1761,63 +1774,45 @@ struct ProfileView: View {
         saveProfile()
     }
 
-    /// Macro row with a pin/unpin button. Pinned macros are editable and stay locked at the
-    /// chosen value. Auto macros derive live from the remaining calories. Max 2 pinned at a time.
+    /// Macro row. Tap to open the picker (which lets the user enter a value to pin, or reset to auto).
+    /// "(auto)" suffix when the macro is unpinned. Lock icon shows current pin state.
     @ViewBuilder
     private func macroRow(label: String, icon: String, macro: AutoBalanceMacro, value: Int, sheet: ActiveSheet) -> some View {
         let pinned = profile.isPinned(macro)
-        HStack(spacing: 12) {
-            Image(systemName: icon)
-                .foregroundStyle(AppColors.calorie)
-                .frame(width: 22)
-            Text(label)
-            Spacer()
-            Text(pinned ? "\(value)g" : "\(value)g · auto")
-                .foregroundStyle(.secondary)
-            Button {
-                togglePin(macro)
-            } label: {
-                Image(systemName: pinned ? "lock.fill" : "lock.open")
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(pinned ? AppColors.calorie : .secondary)
-                    .frame(width: 32, height: 32)
-                    .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-        }
-        .contentShape(Rectangle())
-        .onTapGesture {
-            if pinned {
-                activeSheet = sheet
+        Button {
+            // Enforce max-2 only at the moment of trying to pin a NEW macro.
+            // Opening the picker on an already-pinned macro is fine; opening on an auto macro
+            // is also fine since user might just want to view + tap "Reset to Auto" to no-op.
+            if !pinned && profile.pinnedCount >= 2 {
+                showMaxPinnedAlert = true
             } else {
-                showAutoMacroEditAlert = true
+                activeSheet = sheet
+            }
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: icon)
+                    .foregroundStyle(AppColors.calorie)
+                    .frame(width: 22)
+                Text(label)
+                    .foregroundStyle(.primary)
+                Spacer()
+                Text(pinned ? "\(value)g" : "\(value)g · auto")
+                    .foregroundStyle(.secondary)
+                Image(systemName: pinned ? "lock.fill" : "lock.open")
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundStyle(pinned ? AppColors.calorie : .secondary)
             }
         }
+        .buttonStyle(.plain)
     }
 
-    private func togglePin(_ macro: AutoBalanceMacro) {
-        if profile.isPinned(macro) {
-            // Unpin: clear custom value -> macro auto-balances.
-            switch macro {
-            case .protein: profile.customProtein = nil
-            case .carbs:   profile.customCarbs = nil
-            case .fat:     profile.customFat = nil
-            }
-            saveProfile()
-        } else {
-            // Pin: enforce max 2 pinned at a time.
-            if profile.pinnedCount >= 2 {
-                showMaxPinnedAlert = true
-                return
-            }
-            // Freeze the current effective value as the new custom value.
-            switch macro {
-            case .protein: profile.customProtein = profile.effectiveProtein
-            case .carbs:   profile.customCarbs   = profile.effectiveCarbs
-            case .fat:     profile.customFat     = profile.effectiveFat
-            }
-            saveProfile()
+    private func setMacro(_ macro: AutoBalanceMacro, to value: Int?) {
+        switch macro {
+        case .protein: profile.customProtein = value
+        case .carbs:   profile.customCarbs   = value
+        case .fat:     profile.customFat     = value
         }
+        saveProfile()
     }
 
     private func recalculateGoalsNow() {

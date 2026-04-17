@@ -165,13 +165,6 @@ class HealthKitManager {
         }
     }
 
-    /// Marks the current `authVersion` as already-backfilled without re-writing samples.
-    /// Use for users who were already syncing nutrition incrementally before backfill tracking existed,
-    /// to avoid duplicating their entire history.
-    func markBackfillCurrent() {
-        UserDefaults.standard.set(authVersion, forKey: nutritionBackfillVersionKey)
-    }
-
     /// Deletes the existing samples for an entry, awaits completion, then writes the new samples.
     /// Used on edits so a stale delete cannot clobber the freshly-written samples.
     func updateNutrition(for entry: FoodEntry) {
@@ -183,16 +176,30 @@ class HealthKitManager {
     }
 
     /// Backfills nutrition samples for any entries logged before HealthKit nutrition sync was enabled.
-    /// Idempotent — runs once per `authVersion`.
+    /// Skips entries that already have samples in Apple Health to avoid duplicating history for users
+    /// who were already syncing incrementally.
     func backfillNutritionIfNeeded(entries: [FoodEntry]) {
         guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
         guard hasNutritionWriteAccess else { return }
         let backfilled = UserDefaults.standard.integer(forKey: nutritionBackfillVersionKey)
         guard backfilled < authVersion else { return }
-        for entry in entries {
-            writeNutrition(for: entry)
+        Task {
+            for entry in entries where await !nutritionSampleExists(forEntryID: entry.id) {
+                writeNutrition(for: entry)
+            }
+            UserDefaults.standard.set(authVersion, forKey: nutritionBackfillVersionKey)
         }
-        UserDefaults.standard.set(authVersion, forKey: nutritionBackfillVersionKey)
+    }
+
+    private func nutritionSampleExists(forEntryID entryID: UUID) async -> Bool {
+        let predicate = HKQuery.predicateForObjects(withMetadataKey: "fudai_entry_id", operatorType: .equalTo, value: entryID.uuidString)
+        let type = HKQuantityType(.dietaryEnergyConsumed)
+        return await withCheckedContinuation { continuation in
+            let query = HKSampleQuery(sampleType: type, predicate: predicate, limit: 1, sortDescriptors: nil) { _, results, _ in
+                continuation.resume(returning: !(results?.isEmpty ?? true))
+            }
+            healthStore.execute(query)
+        }
     }
 
     private func deleteNutritionSamples(entryID: UUID) async {

@@ -80,17 +80,15 @@ struct calorietrackerApp: App {
         guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
 
         // Re-request authorization if new HealthKit types were added since last auth.
-        // Only backfill when nutrition access was JUST granted — users who were already on
-        // the current auth version have been syncing incrementally via onEntryAdded, so re-running
-        // backfill would duplicate their entire history in Apple Health.
+        // Backfill is idempotent (per-entry HealthKit existence check), so it's safe to call
+        // in both branches without duplicating already-synced history.
         if healthKitManager.needsReauthorization {
             Task { [healthKitManager, foodStore] in
                 _ = await healthKitManager.requestAuthorization()
                 healthKitManager.backfillNutritionIfNeeded(entries: foodStore.entries)
             }
         } else {
-            // Existing user already on current auth version — mark backfill done without rewriting.
-            healthKitManager.markBackfillCurrent()
+            healthKitManager.backfillNutritionIfNeeded(entries: foodStore.entries)
         }
 
         healthKitManager.onBodyMeasurementsChanged = { [weightStore] weightKg, heightCm, bodyFat, dob, sex in

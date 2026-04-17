@@ -29,8 +29,8 @@ struct ContentView: View {
 
             ProfileView()
                 .tabItem {
-                    Image(systemName: "person.circle.fill")
-                    Text("Profile")
+                    Image(systemName: "gearshape.fill")
+                    Text("Settings")
                 }
 
             AboutView()
@@ -78,6 +78,17 @@ struct AboutView: View {
                             Text("Star on GitHub")
                         } icon: {
                             Image(systemName: "star.circle.fill")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+                    .buttonStyle(.plain)
+
+                    // Support the Project
+                    Link(destination: URL(string: "https://paypal.me/apoorvdarshan")!) {
+                        Label {
+                            Text("Support the Project")
+                        } icon: {
+                            Image(systemName: "heart.fill")
                                 .foregroundStyle(AppColors.calorie)
                         }
                     }

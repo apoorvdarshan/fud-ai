@@ -123,7 +123,11 @@ struct calorietrackerApp: App {
                 if shouldAdd {
                     weightStore.addEntry(WeightEntry(date: date, weightKg: kg))
                 }
-                if abs(profile.weightKg - kg) > 0.01 {
+                // Only sync profile.weightKg from the HK observer when the latest sample came
+                // from OUTSIDE our app. For our own samples, WeightStore.addEntry / deleteEntry
+                // already syncs profile — updating it here again can revert a just-made edit if
+                // HK hasn't indexed the write yet and returns an older sample of ours.
+                if weightFudaiID == nil, abs(profile.weightKg - kg) > 0.01 {
                     profile.weightKg = kg
                     changed = true
                 }

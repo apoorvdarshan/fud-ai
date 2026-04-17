@@ -8,10 +8,10 @@ Fud AI is an open-source iOS calorie tracker (SwiftUI, iOS 17.6+). Snap/speak/ty
 
 ## Build, Install, Launch
 
-The app must be tested on Apoorv's physical iPhone (no simulator). After every change, run all three:
+The app is tested on Apoorv's physical iPhone (iPhone 16, device ID `E2095CDC-E117-527C-818A-9F741A145103`). After every change run all three commands. The Release config is intentional — it matches what users actually see.
 
 ```bash
-# Build (Release config to match what's installed)
+# Build
 xcodebuild -scheme calorietracker -destination 'id=E2095CDC-E117-527C-818A-9F741A145103' build
 
 # Install
@@ -22,7 +22,13 @@ xcrun devicectl device install app --device E2095CDC-E117-527C-818A-9F741A145103
 xcrun devicectl device process launch --device E2095CDC-E117-527C-818A-9F741A145103 com.apoorvdarshan.calorietracker
 ```
 
-Device ID `E2095CDC-E117-527C-818A-9F741A145103` is Apoorv's iPhone (iPhone 16). There is no test target — verify by hand on device.
+## Tests
+
+`calorietrackerTests` and `calorietrackerUITests` targets exist but only contain Xcode boilerplate — there are no real tests. Verify behavior by hand on device. If you do add tests, run them with:
+
+```bash
+xcodebuild test -scheme calorietracker -destination 'id=E2095CDC-E117-527C-818A-9F741A145103'
+```
 
 ## Code Review
 
@@ -50,7 +56,7 @@ Address P1 and P2 findings. P3 is judgment-call.
 - **OpenAI-compatible** (OpenAI, Grok, Groq, OpenRouter, Together AI, Ollama)
 - **Anthropic Messages API** (Claude)
 
-The active provider + model + base URL come from `AIProviderSettings` (UserDefaults). API keys come from `KeychainHelper`. To add a provider, extend the `AIProvider` enum and add a branch in `callAI`.
+The active provider + model + base URL come from `AIProviderSettings` (UserDefaults). API keys come from `KeychainHelper`. To add a provider: add a case to `AIProvider` enum in `Models/AIProvider.swift` (set `baseURL`, `models`, `apiFormat`, `apiKeyPlaceholder`); OpenAI-compatible providers work automatically, otherwise add a branch in `callAI`.
 
 ### FoodStore Callbacks
 
@@ -87,6 +93,7 @@ Clear Food Log keeps Apple Health samples (per product spec — only saves stora
 - **Multiple `.sheet()` modifiers** on the same view cause white/black-screen bugs. Always use a single `.sheet(item:)` driven by an enum.
 - **`ProgressView`** is renamed to `ProgressTabView` to avoid clashing with SwiftUI's built-in `ProgressView`.
 - **Dead files** (kept for git history but not referenced anywhere): `AuthManager.swift`, `StoreManager.swift`, `PaywallView.swift`, `SpinWheelView.swift`, `CloudKitService.swift`. Don't add new code to these.
+- **Persistent state** lives in two places: `UserDefaults` (preferences + JSON-encoded `entries`/`weights`/`favorites` arrays + the various `*Enabled` / `*Reminder*` keys read via `@AppStorage`) and iOS Keychain (API keys via `KeychainHelper`). There is no Core Data / SwiftData / iCloud.
 - **CodeQL workflow** (`.github/workflows/codeql.yml`) pins `latest-stable` Xcode via `maxim-lobanov/setup-xcode@v1` because the runner default is too old for our Swift Charts usage.
 
 ## Commit Style

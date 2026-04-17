@@ -155,3 +155,13 @@ MIT License. See [LICENSE](LICENSE).
 - **Developer:** Apoorv Darshan
 - **Email:** ad13dtu@gmail.com
 - **Issues:** [github.com/apoorvdarshan/fud-ai/issues](https://github.com/apoorvdarshan/fud-ai/issues)
+
+## Contributors
+
+Thanks to everyone who has contributed to making Fud AI better:
+
+<a href="https://github.com/apoorvdarshan/fud-ai/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=apoorvdarshan/fud-ai" alt="Contributors" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).

@@ -93,11 +93,6 @@ struct WeightChartSection: View {
                         RuleMark(y: .value("Goal", displayWeight(goalKg)))
                             .foregroundStyle(.green.opacity(0.7))
                             .lineStyle(StrokeStyle(lineWidth: 1.5, dash: [6, 4]))
-                            .annotation(position: .top, alignment: .trailing) {
-                                Text("Goal")
-                                    .font(.caption2)
-                                    .foregroundStyle(.green)
-                            }
                     }
                 }
                 .chartYScale(domain: weightYDomain)
@@ -172,11 +167,6 @@ struct CalorieChartSection: View {
                     RuleMark(y: .value("Goal", calorieGoal))
                         .foregroundStyle(AppColors.calorie.opacity(0.6))
                         .lineStyle(StrokeStyle(lineWidth: 1.5, dash: [6, 4]))
-                        .annotation(position: .top, alignment: .trailing) {
-                            Text("Goal")
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-                        }
                 }
                 .chartXAxis {
                     AxisMarks(values: .stride(by: .day, count: calorieXStride)) { _ in

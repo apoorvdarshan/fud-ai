@@ -1176,7 +1176,7 @@ struct ProfileView: View {
     @AppStorage("weekStartsOnMonday") private var weekStartsOnMonday = false
 
     enum ActiveSheet: String, Identifiable {
-        case editName, editBirthday, editHeight, editWeight, editBodyFat, editGoalWeight, editCalories, editProtein, editCarbs, editFat
+        case editBirthday, editHeight, editWeight, editBodyFat, editGoalWeight, editCalories, editProtein, editCarbs, editFat
         var id: String { rawValue }
     }
     @State private var activeSheet: ActiveSheet?
@@ -1187,7 +1187,6 @@ struct ProfileView: View {
     @State private var showMaxPinnedAlert = false
     @State private var showInvalidGoalWeightAlert = false
     @State private var invalidGoalWeightMessage = ""
-    @State private var editingName: String = ""
     @State private var selectedProvider: AIProvider = AIProviderSettings.selectedProvider
     @State private var selectedModel: String = AIProviderSettings.selectedModel
     @State private var apiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedProvider) ?? ""
@@ -1243,11 +1242,6 @@ struct ProfileView: View {
             List {
                 // Section 1: Personal Info
                 Section("Personal Info") {
-                    ProfileInfoRow(icon: "person", label: "Name", value: profile.displayName) {
-                        editingName = profile.name ?? ""
-                        activeSheet = .editName
-                    }
-
                     Picker(selection: profileBinding.gender) {
                         Text("Male").tag(Gender.male)
                         Text("Female").tag(Gender.female)
@@ -1598,30 +1592,6 @@ struct ProfileView: View {
             .navigationBarHidden(true)
             .sheet(item: $activeSheet) { sheet in
                 switch sheet {
-                case .editName:
-                    NavigationStack {
-                        Form {
-                            TextField("Your name", text: $editingName)
-                                .textContentType(.name)
-                                .autocorrectionDisabled()
-                        }
-                        .navigationTitle("Edit Name")
-                        .navigationBarTitleDisplayMode(.inline)
-                        .toolbar {
-                            ToolbarItem(placement: .cancellationAction) {
-                                Button("Cancel") { activeSheet = nil }
-                            }
-                            ToolbarItem(placement: .confirmationAction) {
-                                Button("Save") {
-                                    profile.name = editingName.isEmpty ? nil : editingName
-                                    saveProfile()
-                                    activeSheet = nil
-                                }
-                            }
-                        }
-                    }
-                    .presentationDetents([.medium])
-
                 case .editBirthday:
                     NavigationStack {
                         VStack(spacing: 20) {

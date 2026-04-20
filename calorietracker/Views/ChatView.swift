@@ -154,6 +154,15 @@ struct ChatView: View {
             .onChange(of: isSending) { _, sending in
                 if sending { withAnimation { proxy.scrollTo("typing", anchor: .bottom) } }
             }
+            .onChange(of: isInputFocused) { _, focused in
+                guard focused, let lastID = messages.last?.id else { return }
+                // Delay so the scroll runs after the keyboard has changed the safe-area
+                // inset — otherwise we scroll against the pre-keyboard viewport and the
+                // newest message ends up hidden behind the keyboard.
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                    withAnimation { proxy.scrollTo(lastID, anchor: .bottom) }
+                }
+            }
         }
     }
 

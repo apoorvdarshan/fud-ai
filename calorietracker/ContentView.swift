@@ -1217,6 +1217,9 @@ struct ProfileView: View {
     @State private var apiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedProvider) ?? ""
     @State private var customBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedProvider) ?? ""
     @State private var showAPIKey = false
+    @State private var selectedSpeechProvider: SpeechProvider = SpeechSettings.selectedProvider
+    @State private var speechApiKeyText: String = SpeechSettings.apiKey(for: SpeechSettings.selectedProvider) ?? ""
+    @State private var showSpeechAPIKey = false
 
     // Height formatting
     private var heightDisplay: String {
@@ -1612,6 +1615,72 @@ struct ProfileView: View {
                 }
                 .listRowBackground(AppColors.appCard)
 
+                // Speech-to-Text Provider
+                Section {
+                    Picker(selection: $selectedSpeechProvider) {
+                        ForEach(SpeechProvider.allCases) { provider in
+                            Text(provider.rawValue).tag(provider)
+                        }
+                    } label: {
+                        Label {
+                            Text("Provider")
+                        } icon: {
+                            Image(systemName: selectedSpeechProvider.icon)
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+                    .pickerStyle(.menu)
+                    .tint(.secondary)
+                    .onChange(of: selectedSpeechProvider) { _, newProvider in
+                        SpeechSettings.selectedProvider = newProvider
+                        speechApiKeyText = SpeechSettings.apiKey(for: newProvider) ?? ""
+                    }
+
+                    Text(selectedSpeechProvider.description)
+                        .font(.system(.caption, design: .rounded))
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    if selectedSpeechProvider.requiresAPIKey {
+                        HStack {
+                            Label {
+                                Text("API Key")
+                            } icon: {
+                                Image(systemName: "key.fill")
+                                    .foregroundStyle(AppColors.calorie)
+                            }
+                            Spacer()
+                            Group {
+                                if showSpeechAPIKey {
+                                    TextField(selectedSpeechProvider.apiKeyPlaceholder, text: $speechApiKeyText)
+                                } else {
+                                    SecureField(selectedSpeechProvider.apiKeyPlaceholder, text: $speechApiKeyText)
+                                }
+                            }
+                            .textFieldStyle(.plain)
+                            .multilineTextAlignment(.trailing)
+                            .autocorrectionDisabled()
+                            .textInputAutocapitalization(.never)
+                            .onChange(of: speechApiKeyText) { _, newValue in
+                                SpeechSettings.setAPIKey(newValue.isEmpty ? nil : newValue, for: selectedSpeechProvider)
+                            }
+                            Button {
+                                showSpeechAPIKey.toggle()
+                            } label: {
+                                Image(systemName: showSpeechAPIKey ? "eye.fill" : "eye.slash.fill")
+                                    .foregroundStyle(.secondary)
+                                    .font(.system(size: 14))
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                } header: {
+                    Text("Speech-to-Text")
+                } footer: {
+                    Text("Used when you tap the voice icon to log a meal. Native iOS runs on-device for free; third-party providers often have better accuracy on food terms and accents.")
+                }
+                .listRowBackground(AppColors.appCard)
+
                 // Section 5: Health & Data
                 Section("Health & Data") {
                     // Apple Health
@@ -1837,6 +1906,7 @@ struct ProfileView: View {
                     UserDefaults.standard.removePersistentDomain(forName: domain)
                     // Wipe Keychain API keys
                     AIProviderSettings.deleteAllData()
+                    SpeechSettings.deleteAllData()
                     hasCompletedOnboarding = false
                 }
             } message: {

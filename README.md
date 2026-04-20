@@ -21,7 +21,7 @@
 
 ---
 
-Open-source, privacy-first calorie tracker for iOS. Bring your own AI provider — 9 supported including Gemini, OpenAI, Claude, Grok, Groq, and any custom OpenAI-compatible endpoint. Snap a meal, ask your AI coach how to hit your goal, speak your lunch. All data stays on your device. No accounts, no cloud sync, no tracking, no subscriptions.
+Open-source, privacy-first calorie tracker for iOS. Bring your own AI provider — 13 supported including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, and any custom OpenAI-compatible endpoint. Open-weight models (Gemma, Llama Vision, Qwen VL, Pixtral) work out of the box. Snap a meal, ask your AI coach how to hit your goal, speak your lunch. All data stays on your device. No accounts, no cloud sync, no tracking, no subscriptions.
 
 [Download on the App Store](https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726) · [Website](https://fud-ai.app) · [Report an Issue](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20) · [Request a Feature](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20)
 
@@ -60,19 +60,23 @@ Open-source, privacy-first calorie tracker for iOS. Bring your own AI provider �
 
 ## AI Providers
 
-Pick any of the **9 LLM providers** for both food analysis and the Coach chat. Free Gemini keys are available at [aistudio.google.com/apikey](https://aistudio.google.com/apikey).
+Pick any of the **13 LLM providers** for both food analysis and the Coach chat. Free Gemini keys are available at [aistudio.google.com/apikey](https://aistudio.google.com/apikey).
 
-| Provider | Format | Needs API Key |
-|----------|--------|:---:|
-| Google Gemini | Gemini API | Yes |
-| OpenAI | OpenAI | Yes |
-| Anthropic Claude | Messages API | Yes |
-| xAI Grok | OpenAI-compatible | Yes |
-| OpenRouter | OpenAI-compatible | Yes (free-form model ID supported) |
-| Together AI | OpenAI-compatible | Yes |
-| Groq | OpenAI-compatible | Yes |
-| Ollama | OpenAI-compatible (local) | No |
-| Custom (OpenAI-compatible) | OpenAI-compatible | Optional — you set base URL + model name |
+| Provider | Format | Highlight | Needs API Key |
+|----------|--------|-----------|:---:|
+| Google Gemini | Gemini API | Gemini 2.5 Pro / Flash | Yes |
+| OpenAI | OpenAI | GPT-5 / 4o | Yes |
+| Anthropic Claude | Messages API | Sonnet 4.5 / Haiku 4.5 / Opus 4.1 | Yes |
+| xAI Grok | OpenAI-compatible | Grok 4 | Yes |
+| OpenRouter | OpenAI-compatible | Any model, free-form IDs | Yes |
+| Together AI | OpenAI-compatible | Llama 4, Qwen VL | Yes |
+| Groq | OpenAI-compatible | Llama 4 Scout, very fast | Yes |
+| Hugging Face | OpenAI-compatible | Gemma 3, Qwen VL, Llama Vision (open-weight router, free-form IDs) | Yes |
+| Fireworks AI | OpenAI-compatible | Qwen VL, Llama Vision, Phi-3 Vision | Yes |
+| DeepInfra | OpenAI-compatible | Gemma 3, Llama Vision, Qwen VL | Yes |
+| Mistral | OpenAI-compatible | Pixtral Large / 12B (open-weight) | Yes |
+| Ollama | OpenAI-compatible (local) | Llama 3.2 Vision, LLaVA, Moondream — runs on your Mac | No |
+| Custom (OpenAI-compatible) | OpenAI-compatible | You set base URL + free-form model name | Optional |
 
 ## Speech-to-Text Providers
 
@@ -127,7 +131,7 @@ All values can be manually overridden in Settings, with a **Recalculate Goals** 
 |-----------|---------|
 | **Language** | Swift 5, SwiftUI, iOS 17.6+ |
 | **Storage** | UserDefaults (local JSON), Keychain (API keys) |
-| **AI** | `GeminiService` for food + label analysis, `ChatService` for multi-turn Coach chat, both route across all 9 providers |
+| **AI** | `GeminiService` for food + label analysis, `ChatService` for multi-turn Coach chat, both route across all 13 providers |
 | **Speech** | Native `SFSpeechRecognizer` or remote providers via `SpeechService` (m4a upload) |
 | **Health** | HealthKit read/write (body measurements + 12 nutrition types) with background observers, UUID-tagged samples for safe delete |
 | **Pattern** | `@Observable` + `.environment()`, main actor isolation |
@@ -142,7 +146,7 @@ calorietracker/
 ├── ContentView.swift             # 5-tab layout (Home, Progress, Coach, Settings, About)
 ├── Localizable.xcstrings         # String Catalog, 15 languages
 ├── Models/
-│   ├── AIProvider.swift          # 9 LLM providers, model lists, settings
+│   ├── AIProvider.swift          # 13 LLM providers, model lists, settings
 │   ├── SpeechProvider.swift      # 5 STT providers + Keychain settings
 │   ├── ChatMessage.swift         # Coach chat message model
 │   ├── UserProfile.swift         # BMR/TDEE/macro calculations
@@ -157,8 +161,8 @@ calorietracker/
 │   ├── HomeComponents.swift      # Week strip, macro cards
 │   └── ProgressComponents.swift  # Charts, weight history
 ├── Services/
-│   ├── GeminiService.swift       # Food/label analysis, routes 9 providers
-│   ├── ChatService.swift         # Multi-turn Coach chat, routes 9 providers
+│   ├── GeminiService.swift       # Food/label analysis, routes 13 providers
+│   ├── ChatService.swift         # Multi-turn Coach chat, routes 13 providers
 │   ├── SpeechService.swift       # Remote STT router (OpenAI / Groq / Deepgram / AssemblyAI)
 │   ├── WeightAnalysisService.swift # Thermodynamic weight-forecast math
 │   ├── KeychainHelper.swift      # iOS Keychain wrapper

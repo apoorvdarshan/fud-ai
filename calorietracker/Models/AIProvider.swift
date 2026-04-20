@@ -8,6 +8,10 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     case openrouter = "OpenRouter"
     case togetherai = "Together AI"
     case groq = "Groq"
+    case huggingface = "Hugging Face"
+    case fireworks = "Fireworks AI"
+    case deepinfra = "DeepInfra"
+    case mistral = "Mistral"
     case ollama = "Ollama (Local)"
     case customOpenAI = "Custom (OpenAI-compatible)"
 
@@ -22,6 +26,10 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         case .openrouter: "arrow.triangle.branch"
         case .togetherai: "square.stack.3d.up"
         case .groq: "hare.fill"
+        case .huggingface: "face.smiling.inverse"
+        case .fireworks: "flame.fill"
+        case .deepinfra: "server.rack"
+        case .mistral: "wind"
         case .ollama: "desktopcomputer"
         case .customOpenAI: "wrench.and.screwdriver.fill"
         }
@@ -36,6 +44,10 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         case .openrouter: "https://openrouter.ai/api/v1"
         case .togetherai: "https://api.together.xyz/v1"
         case .groq: "https://api.groq.com/openai/v1"
+        case .huggingface: "https://router.huggingface.co/v1"
+        case .fireworks: "https://api.fireworks.ai/inference/v1"
+        case .deepinfra: "https://api.deepinfra.com/v1/openai"
+        case .mistral: "https://api.mistral.ai/v1"
         case .ollama: "http://localhost:11434/v1"
         case .customOpenAI: ""  // user must supply
         }
@@ -86,6 +98,25 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         case .groq: [
             "meta-llama/llama-4-scout-17b-16e-instruct",          // vision
         ]
+        case .huggingface: [
+            "google/gemma-3-27b-it",                              // vision, open-weight Gemma 3
+            "Qwen/Qwen2.5-VL-72B-Instruct",                       // vision, open-weight Qwen VL
+            "meta-llama/Llama-3.2-90B-Vision-Instruct",           // vision, open-weight Llama
+        ]
+        case .fireworks: [
+            "accounts/fireworks/models/qwen2-vl-72b-instruct",    // vision
+            "accounts/fireworks/models/llama-v3p2-90b-vision-instruct",  // vision
+            "accounts/fireworks/models/phi-3-vision-128k-instruct",      // vision, small
+        ]
+        case .deepinfra: [
+            "google/gemma-3-27b-it",                              // vision, open-weight Gemma 3
+            "meta-llama/Llama-3.2-90B-Vision-Instruct",           // vision
+            "Qwen/Qwen2.5-VL-72B-Instruct",                       // vision
+        ]
+        case .mistral: [
+            "pixtral-large-latest",                               // vision, open-weight Pixtral
+            "pixtral-12b-latest",                                 // vision, smaller Pixtral
+        ]
         case .ollama: [
             "llama3.2-vision",
             "llava",
@@ -110,9 +141,9 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
     }
 
     /// True for providers where free-form input is allowed in addition to the preset list
-    /// (e.g., OpenRouter — user can pick a preset OR type any model ID like `anthropic/claude-sonnet-4`).
+    /// (e.g., OpenRouter / Hugging Face — user can pick a preset OR type any model ID).
     var supportsCustomModelName: Bool {
-        self == .openrouter || self == .customOpenAI
+        self == .openrouter || self == .huggingface || self == .customOpenAI
     }
 
     /// API format grouping
@@ -126,7 +157,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         switch self {
         case .gemini: .gemini
         case .anthropic: .anthropic
-        case .openai, .xai, .openrouter, .togetherai, .groq, .ollama, .customOpenAI: .openaiCompatible
+        case .openai, .xai, .openrouter, .togetherai, .groq, .huggingface, .fireworks, .deepinfra, .mistral, .ollama, .customOpenAI: .openaiCompatible
         }
     }
 
@@ -139,6 +170,10 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
         case .openrouter: "sk-or-..."
         case .togetherai: "..."
         case .groq: "gsk_..."
+        case .huggingface: "hf_..."
+        case .fireworks: "fw_..."
+        case .deepinfra: "..."
+        case .mistral: "..."
         case .ollama: "No key needed"
         case .customOpenAI: "API key (or anything if endpoint doesn't need one)"
         }

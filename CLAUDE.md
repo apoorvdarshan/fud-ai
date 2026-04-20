@@ -57,9 +57,9 @@ All stores use Swift's `@Observable` macro (not `ObservableObject`) and are inje
 
 Build setting `SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor` means most types are main-actor isolated by default. New files are auto-discovered via `PBXFileSystemSynchronizedRootGroup` — **do not** edit `project.pbxproj` to register source files. (The `knownRegions` entry in pbxproj *is* edited when adding a new localization.)
 
-### AI / LLM Routing (9 providers, 3 formats)
+### AI / LLM Routing (13 providers, 3 formats)
 
-Two services, both route to the same 9 providers via `AIProvider.apiFormat`:
+Two services, both route to the same 13 providers via `AIProvider.apiFormat`:
 
 - **`GeminiService`** (`Services/GeminiService.swift`) — single-shot food/label analysis. Methods: `analyzeFood`, `analyzeTextInput`, `autoAnalyze`, `analyzeNutritionLabel`. All funnel through `callAI`.
 - **`ChatService`** (`Services/ChatService.swift`) — multi-turn Coach chat. Builds a fresh system prompt every turn from the live profile + forecast + recent weights/foods, sends history + new user message.
@@ -67,7 +67,7 @@ Two services, both route to the same 9 providers via `AIProvider.apiFormat`:
 The three API dialects are:
 - **Gemini** (`.gemini`): `POST /models/{model}:generateContent` with `systemInstruction` + `contents[{role, parts}]`. API key goes in `X-goog-api-key` header, not the URL.
 - **Anthropic Messages** (`.anthropic`): `POST /messages` with `system` + `messages` array, `x-api-key` header + `anthropic-version: 2023-06-01`.
-- **OpenAI-compatible** (`.openaiCompatible`): `POST /chat/completions` with `messages` array (system + user/assistant). Used by OpenAI, xAI Grok, OpenRouter, Together AI, Groq, Ollama (local), and the **Custom (OpenAI-compatible)** provider where the user supplies their own base URL + free-form model name.
+- **OpenAI-compatible** (`.openaiCompatible`): `POST /chat/completions` with `messages` array (system + user/assistant). Used by OpenAI, xAI Grok, OpenRouter, Together AI, Groq, **Hugging Face** (router for open-weight models — Gemma, Qwen VL, Llama Vision), **Fireworks AI**, **DeepInfra** (open-weight hosts), **Mistral** (Pixtral vision), Ollama (local), and the **Custom (OpenAI-compatible)** provider where the user supplies their own base URL + free-form model name. OpenRouter and Hugging Face both set `supportsCustomModelName = true` so users can type any model ID alongside the preset list.
 
 Adding a provider: add a case to `AIProvider` in `Models/AIProvider.swift`, set `baseURL`/`models`/`apiFormat`/`apiKeyPlaceholder`. If `apiFormat` is `.openaiCompatible` it works automatically; otherwise add a branch in both `GeminiService.callAI` and `ChatService.sendMessage`.
 

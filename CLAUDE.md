@@ -71,7 +71,7 @@ The three API dialects are:
 
 Adding a provider: add a case to `AIProvider` in `Models/AIProvider.swift`, set `baseURL`/`models`/`apiFormat`/`apiKeyPlaceholder`. If `apiFormat` is `.openaiCompatible` it works automatically; otherwise add a branch in both `GeminiService.callAI` and `ChatService.sendMessage`.
 
-Transient 503/529/429 responses auto-retry with 1s/2s/4s backoff before surfacing the error — so "model overloaded" spikes usually resolve invisibly.
+Transient 503/529/429 responses auto-retry with 1s/2s/4s backoff before surfacing the error — so "model overloaded" spikes usually resolve invisibly. This applies to **both** services (`GeminiService.makeRequest` and `ChatService.send`); if you add a third LLM entry point, port the same loop. On final failure, both services convert status codes to user-friendly copy ("The AI provider is overloaded right now. We retried a few times…") — don't surface raw `HTTP 503` / provider JSON messages.
 
 ### Speech-to-Text Routing (5 providers)
 

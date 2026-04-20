@@ -21,27 +21,24 @@ struct ChatView: View {
 
     var body: some View {
         NavigationStack {
-            ZStack {
-                ambientBackdrop
-
-                VStack(spacing: 0) {
-                    Group {
-                        if messages.isEmpty {
-                            emptyState
-                        } else {
-                            messageList
-                        }
+            VStack(spacing: 0) {
+                Group {
+                    if messages.isEmpty {
+                        emptyState
+                    } else {
+                        messageList
                     }
-                    .contentShape(Rectangle())
-                    .simultaneousGesture(
-                        TapGesture().onEnded { isInputFocused = false }
-                    )
-
-                    promptChips
-
-                    inputBar
                 }
+                .contentShape(Rectangle())
+                .simultaneousGesture(
+                    TapGesture().onEnded { isInputFocused = false }
+                )
+
+                promptChips
+
+                inputBar
             }
+            .background(AppColors.appBackground)
             .navigationTitle("Coach")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -69,29 +66,6 @@ struct ChatView: View {
                 Text("Clear all messages and start fresh? This can't be undone.")
             }
         }
-    }
-
-    // MARK: - Backdrop
-
-    /// Soft gradient wash behind the glass — gives the materials something to refract.
-    private var ambientBackdrop: some View {
-        ZStack {
-            AppColors.appBackground
-
-            // Two gentle color blobs, blurred, for depth behind bubbles.
-            Circle()
-                .fill(AppColors.calorie.opacity(0.22))
-                .frame(width: 340, height: 340)
-                .blur(radius: 90)
-                .offset(x: -120, y: -260)
-
-            Circle()
-                .fill(AppColors.calorieGradient.last!.opacity(0.18))
-                .frame(width: 380, height: 380)
-                .blur(radius: 100)
-                .offset(x: 140, y: 240)
-        }
-        .ignoresSafeArea()
     }
 
     // MARK: - Sections

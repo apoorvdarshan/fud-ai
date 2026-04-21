@@ -164,7 +164,7 @@ https://fud-ai.app
 ```
 1) iPhone only — not optimized for iPad. Please review on iPhone.
 2) App is now free and open source — no subscriptions, no sign-in required.
-3) Users bring their own AI API key (e.g. Google Gemini). To test: go to Profile → AI Provider → enter any valid Gemini API key. A free key can be obtained at https://aistudio.google.com/apikey
+3) Users bring their own AI API key (e.g. Google Gemini). To test: go to Settings → AI Provider → enter any valid Gemini API key. A free key can be obtained at https://aistudio.google.com/apikey
 4) API keys are stored locally in iOS Keychain. No data leaves the device except AI analysis requests.
 5) No test account needed — app works immediately after onboarding.
 ```

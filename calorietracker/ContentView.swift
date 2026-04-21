@@ -51,6 +51,13 @@ struct ContentView: View {
 
 // MARK: - About View
 struct AboutView: View {
+    @State private var showShareSheet = false
+
+    private var shareMessage: String {
+        String(localized: "I've been tracking my meals with Fud AI — snap a photo, speak it, or type it, and the AI logs the calories. It's free, open source, and your data stays on your device.\n\nLearn more: https://fud-ai.app")
+    }
+    private let appStoreURL = URL(string: "https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726")!
+
     var body: some View {
         NavigationStack {
             List {
@@ -68,12 +75,13 @@ struct AboutView: View {
                     }
                     .tint(.primary)
 
-                    // Share the App
-                    ShareLink(
-                        item: URL(string: "https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726")!,
-                        subject: Text("Fud AI — AI Calorie Tracker"),
-                        message: Text("I've been tracking my meals with Fud AI — snap a photo, speak it, or type it, and the AI logs the calories. It's free, open source, and your data stays on your device.\n\nLearn more: https://fud-ai.app")
-                    ) {
+                    // Share the App — uses UIActivityViewController so both
+                    // the personalized message AND the App Store URL get
+                    // forwarded to every share target (SwiftUI ShareLink
+                    // drops the message arg for most targets).
+                    Button {
+                        showShareSheet = true
+                    } label: {
                         Label {
                             Text("Share the App")
                         } icon: {
@@ -215,6 +223,9 @@ struct AboutView: View {
             .scrollContentBackground(.hidden)
             .background(AppColors.appBackground)
             .navigationBarHidden(true)
+            .sheet(isPresented: $showShareSheet) {
+                ActivityShareSheet(activityItems: [shareMessage, appStoreURL])
+            }
         }
     }
 
@@ -224,6 +235,21 @@ struct AboutView: View {
             AppStore.requestReview(in: scene)
         }
     }
+}
+
+// MARK: - Share Sheet wrapper (UIActivityViewController)
+// Used by AboutView so the personalized message AND the App Store URL
+// both reach every share target. SwiftUI's ShareLink message arg is
+// dropped by most targets; UIActivityViewController forwards every item.
+struct ActivityShareSheet: UIViewControllerRepresentable {
+    let activityItems: [Any]
+    var applicationActivities: [UIActivity]? = nil
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
 // MARK: - Home View (Main Dashboard)

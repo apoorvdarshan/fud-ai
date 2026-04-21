@@ -163,8 +163,28 @@ https://fud-ai.app
 ## Reviewer Notes
 ```
 1) iPhone only — not optimized for iPad. Please review on iPhone.
-2) App is now free and open source — no subscriptions, no sign-in required.
-3) Users bring their own AI API key (e.g. Google Gemini). To test: go to Profile → AI Provider → enter any valid Gemini API key. A free key can be obtained at https://aistudio.google.com/apikey
-4) API keys are stored locally in iOS Keychain. No data leaves the device except AI analysis requests.
-5) No test account needed — app works immediately after onboarding.
+
+2) Free and open source. No account, no sign-in, no subscriptions, no in-app purchases. Nothing to buy at any point.
+
+3) Bring-your-own-key AI. The user provides their own API key for any of 13 supported providers: Google Gemini, OpenAI, Anthropic Claude, xAI Grok, Groq, OpenRouter, Together AI, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama (local), or any OpenAI-compatible custom endpoint.
+
+   To test food analysis: Settings tab → AI Provider → paste any valid key. A free Gemini key can be obtained in ~30 seconds at https://aistudio.google.com/apikey.
+
+4) API keys are stored in iOS Keychain. Network requests go only to the AI provider the user configured — there is no backend we control.
+
+5) No test account needed. The app is fully functional after first-run onboarding.
+
+6) NEW in v3.0: "Coach" tab — multi-turn AI chat that uses the same bring-your-own-key provider. It reads the user's profile, weight history, and food log to answer questions like "expected weight in 30 days?". Reviewer can skip Coach by declining to set an API key; Home, Progress, Settings, and About are all usable without one.
+
+7) NEW in v3.0: Home Screen + Lock Screen widgets. Add via iOS long-press on Home Screen → search "Fud AI".
+
+8) Permission prompts the reviewer will see (all optional):
+   • Camera — for meal photos
+   • Microphone + Speech Recognition — for voice input (Native iOS, on-device, by default)
+   • Notifications — meal reminders
+   • HealthKit — nutrition + weight sync
+
+9) All user data stays on the device. Delete All Data (Settings) wipes local storage only. Apple Health samples are user-owned and intentionally not touched by the app — the user can clear them from Health → Sources → Fud AI if desired.
+
+10) The app is localized into 15 languages and auto-selects from iOS's system language. Reviewer can change device language to test.
 ```

@@ -336,7 +336,7 @@ class HealthKitManager {
                     completionHandler()
                     return
                 }
-                Task {
+                Task { @MainActor in
                     let m = await self.fetchLatestBodyMeasurements()
                     self.onBodyMeasurementsChanged?(
                         m.weight, m.weightDate, m.weightFudaiID, m.height, m.bodyFat, m.dob, m.sex

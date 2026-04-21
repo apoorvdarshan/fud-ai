@@ -170,7 +170,7 @@ class StoreManager {
     }
 
     // MARK: - Verification
-    private func extractTransaction<T>(_ result: VerificationResult<T>) -> T {
+    nonisolated private func extractTransaction<T>(_ result: VerificationResult<T>) -> T {
         switch result {
         case .unverified(let payload, _):
             return payload

@@ -164,16 +164,6 @@ struct EditFoodEntryView: View {
                     .tint(AppColors.calorie)
                 }
 
-                Section {
-                    Button(action: saveChanges) {
-                        Text("Save Changes")
-                            .font(.headline)
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(AppColors.calorie)
-                    .listRowBackground(Color.clear)
-                }
             }
             .scrollContentBackground(.hidden)
             .background(AppColors.appBackground)
@@ -182,6 +172,11 @@ struct EditFoodEntryView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save", action: saveChanges)
+                        .font(.system(.body, design: .rounded, weight: .semibold))
+                        .tint(AppColors.calorie)
                 }
             }
         }

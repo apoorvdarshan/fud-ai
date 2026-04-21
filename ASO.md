@@ -19,7 +19,7 @@ Snap, speak, or type a meal — AI logs the calories. Now with Coach: ask your n
 
 ## Keywords (100 chars max)
 ```
-calorie,tracker,nutrition,macro,AI,coach,scanner,diet,protein,weight,fitness,meal,log,TDEE,chat
+calorie,tracker,nutrition,macro,AI,food,scanner,diet,protein,weight,health,fitness,meal,log,TDEE
 ```
 
 ## Category

@@ -596,9 +596,52 @@ body:hover .cursor-glow { opacity: 1; }
   transform: translateY(-3px) scale(1.02);
 }
 
+/* Secondary pill buttons (PayPal donate, GitHub star) — outlined, dark-theme friendly */
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: -0.01em;
+  border: 1.5px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  transition: all var(--transition);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.pill-btn i { font-size: 1.05rem; }
+.pill-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 14px 38px rgba(0,0,0,0.35);
+}
+
+/* PayPal donate — blue accent on hover */
+.pill-btn.pill-paypal:hover {
+  border-color: #0070ba;
+  background: rgba(0, 112, 186, 0.14);
+  box-shadow: 0 14px 38px rgba(0, 112, 186, 0.28);
+}
+.pill-btn.pill-paypal i { color: #00b7f0; }
+
+/* GitHub star — subtle yellow on hover */
+.pill-btn.pill-github:hover {
+  border-color: #ffc857;
+  background: rgba(255, 200, 87, 0.10);
+  box-shadow: 0 14px 38px rgba(255, 200, 87, 0.22);
+}
+.pill-btn.pill-github .fa-star { color: #ffc857; }
+
 @media (max-width: 600px) {
   .cta-group { gap: 10px; }
   .ph-badge img { height: 46px; }
+  .pill-btn { padding: 12px 18px; font-size: 0.84rem; gap: 8px; border-radius: 12px; }
+  .pill-btn i { font-size: 0.95rem; }
 }
 
 /* Phone mockup */

@@ -168,4 +168,3 @@ https://fud-ai.app
 4) API keys are stored locally in iOS Keychain. No data leaves the device except AI analysis requests.
 5) No test account needed — app works immediately after onboarding.
 ```
-

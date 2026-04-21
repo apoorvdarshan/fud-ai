@@ -110,6 +110,68 @@ Photo / Text / Voice
 
 For the Coach chat, every turn builds a fresh system prompt from your live profile, BMR formula in use, computed forecast, last 10 weights, and last 7 days of calorie totals, then sends it along with the conversation history to your selected LLM.
 
+## Screenshots
+
+A seven-step walkthrough of the app's core flow — from opening the dashboard to reviewing long-term trends.
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="screenshots/home.png" width="230" alt="Home dashboard">
+      <br><br>
+      <b>01 · Home · Dashboard</b>
+      <br>
+      <sub>Daily calorie ring, macro bars (P&nbsp;/&nbsp;C&nbsp;/&nbsp;F), and today's logged meals grouped by meal type. Week strip at the top for date navigation.</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="screenshots/logging.png" width="230" alt="Logging options menu">
+      <br><br>
+      <b>02 · Log · Options</b>
+      <br>
+      <sub>Tap + to open the entry menu: Camera, Camera + Note, Nutrition Label scan, From Photos, Text Input, Voice, or Saved Meals.</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="screenshots/snap.png" width="230" alt="Snap food capture">
+      <br><br>
+      <b>03 · Snap · Capture</b>
+      <br>
+      <sub>Point and shoot. The image is sent to your chosen AI provider; nutrition estimates come back within a few seconds.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%">
+      <img src="screenshots/review.png" width="230" alt="Review food entry">
+      <br><br>
+      <b>04 · Review · Edit</b>
+      <br>
+      <sub>Review the AI's guess, adjust the serving size (everything recalculates live), and pick a meal type before logging.</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="screenshots/meals.png" width="230" alt="Meals log">
+      <br><br>
+      <b>05 · Meals · Log</b>
+      <br>
+      <sub>The day's entries grouped by breakfast / lunch / dinner / snack. Swipe to delete, tap to edit any entry.</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="screenshots/coach.png" width="230" alt="AI Coach chat">
+      <br><br>
+      <b>06 · Coach · AI Chat</b>
+      <br>
+      <sub>Multi-turn conversation with full context of your profile, weight history, food log, and forecast. Ask "what should I eat?" or "expected weight in 30 days?".</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%" colspan="3">
+      <img src="screenshots/progress.png" width="230" alt="Progress charts">
+      <br><br>
+      <b>07 · Progress · Charts</b>
+      <br>
+      <sub>Weight trend with goal line, calorie history (intake vs. goal), and macro averages. Time ranges span 1 week to all time.</sub>
+    </td>
+  </tr>
+</table>
+
 ## Calorie & Macro Calculation
 
 The app calculates personalized daily targets using established nutrition science formulas:

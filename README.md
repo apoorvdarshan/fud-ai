@@ -17,4 +17,4 @@ MIT — see [LICENSE](LICENSE).
 
 ## Contact
 
-ad13dtu@gmail.com
+apoorv@fud-ai.app

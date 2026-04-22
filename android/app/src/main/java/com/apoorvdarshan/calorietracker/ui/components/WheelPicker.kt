@@ -210,6 +210,48 @@ fun NumericWheelPicker(
     }
 }
 
+/**
+ * Imperial height picker — feet + inches dual wheel. Converts to/from total cm
+ * externally so the ViewModel only ever stores one source of truth (cm).
+ */
+@Composable
+fun FeetInchesWheelPicker(
+    cm: Int,
+    onValueChange: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val totalInches = (cm / 2.54).toInt().coerceIn(36, 95) // 3'0" to 7'11"
+    val feet = totalInches / 12
+    val inches = totalInches % 12
+
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(6.dp)
+    ) {
+        WheelPicker(
+            items = (3..7).toList(),
+            selected = feet,
+            onSelect = { f ->
+                val newTotal = f * 12 + inches
+                onValueChange((newTotal * 2.54).toInt())
+            },
+            label = { "$it ft" },
+            modifier = Modifier.weight(1f)
+        )
+        WheelPicker(
+            items = (0..11).toList(),
+            selected = inches,
+            onSelect = { i ->
+                val newTotal = feet * 12 + i
+                onValueChange((newTotal * 2.54).toInt())
+            },
+            label = { "$it in" },
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
 /** Decimal (one-digit-precision) wheel picker. Stores as Int*10 under the hood. */
 @Composable
 fun DecimalWheelPicker(

@@ -35,14 +35,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Switch
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.ActivityLevel
+import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.Gender
 import com.apoorvdarshan.calorietracker.models.WeightGoal
 import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.DecimalWheelPicker
+import com.apoorvdarshan.calorietracker.ui.components.FeetInchesWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.NumericWheelPicker
+import com.apoorvdarshan.calorietracker.ui.components.UnitToggle
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import java.time.LocalDate
 import java.time.Period
@@ -77,12 +85,52 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 OnboardingStep.WELCOME -> WelcomeStep()
                 OnboardingStep.GENDER -> GenderStep(selected = ui.gender, onSelect = vm::setGender)
                 OnboardingStep.BIRTHDAY -> BirthdayStep(current = ui.birthday, onChange = vm::setBirthday)
-                OnboardingStep.HEIGHT -> HeightStep(cm = ui.heightCm, onChange = vm::setHeight)
-                OnboardingStep.WEIGHT -> WeightStep(kg = ui.weightKg, onChange = vm::setWeight)
+                OnboardingStep.HEIGHT -> HeightStep(
+                    cm = ui.heightCm,
+                    useMetric = ui.useMetric,
+                    onChange = vm::setHeight,
+                    onToggle = vm::setUseMetric
+                )
+                OnboardingStep.WEIGHT -> WeightStep(
+                    kg = ui.weightKg,
+                    useMetric = ui.useMetric,
+                    onChange = vm::setWeight,
+                    onToggle = vm::setUseMetric
+                )
+                OnboardingStep.BODY_FAT -> BodyFatStep(
+                    bodyFat = ui.bodyFatPercentage,
+                    onChange = vm::setBodyFat
+                )
                 OnboardingStep.ACTIVITY -> ActivityStep(selected = ui.activity, onSelect = vm::setActivity)
                 OnboardingStep.GOAL -> GoalStep(selected = ui.goal, onSelect = vm::setGoal)
-                OnboardingStep.GOAL_WEIGHT -> GoalWeightStep(current = ui.goalWeightKg, goal = ui.goal, onChange = vm::setGoalWeight)
-                OnboardingStep.PROVIDER -> ProviderStep()
+                OnboardingStep.GOAL_WEIGHT -> GoalWeightStep(
+                    current = ui.goalWeightKg,
+                    goal = ui.goal,
+                    useMetric = ui.useMetric,
+                    onChange = vm::setGoalWeight,
+                    onToggle = vm::setUseMetric
+                )
+                OnboardingStep.GOAL_SPEED -> GoalSpeedStep(
+                    weeklyKg = ui.weeklyChangeKg,
+                    goal = ui.goal,
+                    useMetric = ui.useMetric,
+                    onSelect = vm::setWeeklyChange
+                )
+                OnboardingStep.NOTIFICATIONS -> NotificationsStep(
+                    enabled = ui.notificationsEnabled,
+                    onToggle = vm::setNotificationsEnabled
+                )
+                OnboardingStep.HEALTH_CONNECT -> HealthConnectStep(
+                    enabled = ui.healthConnectEnabled,
+                    onToggle = vm::setHealthConnectEnabled
+                )
+                OnboardingStep.PROVIDER -> ProviderStep(
+                    provider = ui.aiProvider,
+                    apiKey = ui.apiKey,
+                    onProviderChange = vm::setAiProvider,
+                    onKeyChange = vm::setApiKey
+                )
+                OnboardingStep.BUILDING_PLAN -> BuildingPlanStep(state = ui)
                 OnboardingStep.REVIEW -> ReviewStep(state = ui)
             }
         }
@@ -197,25 +245,56 @@ private fun BirthdayStep(current: LocalDate, onChange: (LocalDate) -> Unit) {
 }
 
 @Composable
-private fun HeightStep(cm: Int, onChange: (Int) -> Unit) {
+private fun HeightStep(cm: Int, useMetric: Boolean, onChange: (Int) -> Unit, onToggle: (Boolean) -> Unit) {
     Column {
         StepHeader("Your height?")
-        NumericWheelPicker(value = cm, onValueChange = onChange, min = 100, max = 250, unit = "cm")
+        UnitToggle(
+            leftLabel = "cm",
+            rightLabel = "ft / in",
+            isLeft = useMetric,
+            onSelect = onToggle,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(24.dp))
+        if (useMetric) {
+            NumericWheelPicker(value = cm, onValueChange = onChange, min = 100, max = 250, unit = "cm")
+        } else {
+            FeetInchesWheelPicker(cm = cm, onValueChange = onChange)
+        }
     }
 }
 
 @Composable
-private fun WeightStep(kg: Double, onChange: (Double) -> Unit) {
+private fun WeightStep(kg: Double, useMetric: Boolean, onChange: (Double) -> Unit, onToggle: (Boolean) -> Unit) {
     Column {
         StepHeader("Your current weight?")
-        DecimalWheelPicker(
-            value = kg,
-            onValueChange = onChange,
-            min = 30.0,
-            max = 250.0,
-            step = 0.1,
-            unit = "kg"
+        UnitToggle(
+            leftLabel = "kg",
+            rightLabel = "lbs",
+            isLeft = useMetric,
+            onSelect = onToggle,
+            modifier = Modifier.fillMaxWidth()
         )
+        Spacer(Modifier.height(24.dp))
+        if (useMetric) {
+            DecimalWheelPicker(
+                value = kg,
+                onValueChange = onChange,
+                min = 30.0,
+                max = 250.0,
+                step = 0.1,
+                unit = "kg"
+            )
+        } else {
+            DecimalWheelPicker(
+                value = kg * 2.20462,
+                onValueChange = { lbs -> onChange(lbs / 2.20462) },
+                min = 66.0,
+                max = 551.0,
+                step = 0.1,
+                unit = "lbs"
+            )
+        }
     }
 }
 
@@ -242,49 +321,280 @@ private fun GoalStep(selected: WeightGoal, onSelect: (WeightGoal) -> Unit) {
 }
 
 @Composable
-private fun GoalWeightStep(current: Double, goal: WeightGoal, onChange: (Double) -> Unit) {
+private fun GoalWeightStep(current: Double, goal: WeightGoal, useMetric: Boolean, onChange: (Double) -> Unit, onToggle: (Boolean) -> Unit) {
     Column {
         StepHeader(
             "Your target weight?",
             subtitle = if (goal == WeightGoal.MAINTAIN) "Skip — maintaining current weight." else null
         )
         if (goal != WeightGoal.MAINTAIN) {
-            DecimalWheelPicker(
-                value = current,
-                onValueChange = onChange,
-                min = 30.0,
-                max = 250.0,
-                step = 0.1,
-                unit = "kg"
+            UnitToggle(
+                leftLabel = "kg",
+                rightLabel = "lbs",
+                isLeft = useMetric,
+                onSelect = onToggle,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(Modifier.height(24.dp))
+            if (useMetric) {
+                DecimalWheelPicker(
+                    value = current,
+                    onValueChange = onChange,
+                    min = 30.0,
+                    max = 250.0,
+                    step = 0.1,
+                    unit = "kg"
+                )
+            } else {
+                DecimalWheelPicker(
+                    value = current * 2.20462,
+                    onValueChange = { lbs -> onChange(lbs / 2.20462) },
+                    min = 66.0,
+                    max = 551.0,
+                    step = 0.1,
+                    unit = "lbs"
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun BodyFatStep(bodyFat: Double?, onChange: (Double?) -> Unit) {
+    Column {
+        StepHeader(
+            "Body fat % (optional)",
+            subtitle = "If set, BMR uses Katch-McArdle instead of Mifflin-St Jeor — a bit more accurate."
+        )
+        val current = bodyFat ?: 0.20
+        DecimalWheelPicker(
+            value = current * 100,
+            onValueChange = { onChange(it / 100.0) },
+            min = 5.0,
+            max = 60.0,
+            step = 0.5,
+            unit = "%"
+        )
+        Spacer(Modifier.height(20.dp))
+        TextButton(
+            onClick = { onChange(null) },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                if (bodyFat == null) "Skipped — not used in BMR" else "Skip / clear",
+                color = if (bodyFat == null) AppColors.Calorie else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
             )
         }
     }
 }
 
 @Composable
-private fun ProviderStep() {
+private fun GoalSpeedStep(weeklyKg: Double, goal: WeightGoal, useMetric: Boolean, onSelect: (Double) -> Unit) {
     Column {
-        StepHeader("AI Provider")
-        Text(
-            "Fud AI uses your own API key — no subscription, nothing transmitted through us.",
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+        StepHeader(
+            "How fast?",
+            subtitle = "Pace of ${if (goal == WeightGoal.GAIN) "gain" else "loss"} determines your calorie adjustment."
         )
-        Spacer(Modifier.height(16.dp))
-        Card(
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = AppColors.Calorie.copy(alpha = 0.12f))
+        val options = listOf(
+            Triple(0.25, "Slow & steady", "Sustainable. Easier to stick with."),
+            Triple(0.5, "Moderate", "Recommended for most people."),
+            Triple(1.0, "Fast", "Aggressive. Higher risk of muscle loss on cuts.")
+        )
+        for ((kg, label, subtitle) in options) {
+            val display = if (useMetric) String.format(Locale.US, "%.2f kg/week", kg)
+                          else String.format(Locale.US, "%.2f lbs/week", kg * 2.20462)
+            ChoiceRow(
+                label = "$label · $display",
+                subtitle = subtitle,
+                selected = kotlin.math.abs(weeklyKg - kg) < 0.01
+            ) { onSelect(kg) }
+            Spacer(Modifier.height(10.dp))
+        }
+    }
+}
+
+@Composable
+private fun NotificationsStep(enabled: Boolean, onToggle: (Boolean) -> Unit) {
+    Column {
+        StepHeader(
+            "Daily reminders?",
+            subtitle = "We'll nudge you to log a meal and keep your streak."
+        )
+        ToggleCard(
+            label = "Enable reminders",
+            subtitle = "Streak reminder + daily summary.",
+            enabled = enabled,
+            onToggle = onToggle
+        )
+        Spacer(Modifier.height(12.dp))
+        Text(
+            "You can change this anytime in Settings.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f)
+        )
+    }
+}
+
+@Composable
+private fun HealthConnectStep(enabled: Boolean, onToggle: (Boolean) -> Unit) {
+    Column {
+        StepHeader(
+            "Sync with Health Connect?",
+            subtitle = "Mirrors macros + 9 micronutrients + weight to Android's Health Connect so Samsung Health, Fitbit, Withings, etc. see them."
+        )
+        ToggleCard(
+            label = "Use Health Connect",
+            subtitle = "Grant permission after onboarding completes.",
+            enabled = enabled,
+            onToggle = onToggle
+        )
+        Spacer(Modifier.height(12.dp))
+        Text(
+            "Everything stays on-device unless you enable Health Connect's own cloud sync.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f)
+        )
+    }
+}
+
+@Composable
+private fun ToggleCard(label: String, subtitle: String, enabled: Boolean, onToggle: (Boolean) -> Unit) {
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = if (enabled) AppColors.Calorie.copy(alpha = 0.12f) else MaterialTheme.colorScheme.surface
+        ),
+        modifier = Modifier.fillMaxWidth().clickable { onToggle(!enabled) }
+    ) {
+        Row(
+            Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Column(Modifier.padding(16.dp)) {
-                Text("Default: Google Gemini", fontWeight = FontWeight.SemiBold, color = AppColors.Calorie)
-                Spacer(Modifier.height(4.dp))
+            Column(Modifier.weight(1f)) {
+                Text(label, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                Spacer(Modifier.height(2.dp))
                 Text(
-                    "Free tier at aistudio.google.com/apikey. You can switch to OpenAI / Claude / any of 13 providers in Settings after onboarding.",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+                    subtitle,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f)
                 )
             }
+            Switch(checked = enabled, onCheckedChange = onToggle)
         }
+    }
+}
+
+@Composable
+private fun ProviderStep(
+    provider: AIProvider,
+    apiKey: String,
+    onProviderChange: (AIProvider) -> Unit,
+    onKeyChange: (String) -> Unit
+) {
+    Column {
+        StepHeader(
+            "AI Provider",
+            subtitle = "Bring your own key. 13 providers supported — you can switch anytime in Settings."
+        )
+        // Provider quick-select — just the top 3 most common, rest in Settings later.
+        val quick = listOf(AIProvider.GEMINI, AIProvider.OPENAI, AIProvider.ANTHROPIC)
+        for (p in quick) {
+            ChoiceRow(
+                label = p.displayName,
+                subtitle = when (p) {
+                    AIProvider.GEMINI -> "Free tier at aistudio.google.com/apikey"
+                    AIProvider.OPENAI -> "sk-... from platform.openai.com"
+                    AIProvider.ANTHROPIC -> "sk-ant-... from console.anthropic.com"
+                    else -> null
+                },
+                selected = p == provider
+            ) { onProviderChange(p) }
+            Spacer(Modifier.height(10.dp))
+        }
+        Spacer(Modifier.height(8.dp))
+        Text(
+            "Paste your ${provider.displayName} key",
+            style = MaterialTheme.typography.titleSmall,
+            fontWeight = FontWeight.SemiBold
+        )
+        Spacer(Modifier.height(6.dp))
+        OutlinedTextField(
+            value = apiKey,
+            onValueChange = onKeyChange,
+            placeholder = { Text(provider.apiKeyPlaceholder) },
+            visualTransformation = PasswordVisualTransformation(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(6.dp))
+        Text(
+            "Optional — you can skip and paste later in Settings.",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f)
+        )
+    }
+}
+
+@Composable
+private fun BuildingPlanStep(state: OnboardingState) {
+    val profile = state.buildProfile()
+    Column {
+        StepHeader("Your plan is ready")
+        Card(
+            shape = RoundedCornerShape(20.dp),
+            colors = CardDefaults.cardColors(containerColor = AppColors.Calorie.copy(alpha = 0.1f)),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(Modifier.padding(20.dp)) {
+                Text(
+                    "Daily calories",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = AppColors.Calorie,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Text(
+                    "${profile.effectiveCalories} kcal",
+                    style = MaterialTheme.typography.displaySmall,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(Modifier.height(12.dp))
+                Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+                    MacroTile("Protein", "${profile.effectiveProtein}g")
+                    MacroTile("Carbs", "${profile.effectiveCarbs}g")
+                    MacroTile("Fat", "${profile.effectiveFat}g")
+                }
+            }
+        }
+        Spacer(Modifier.height(14.dp))
+        val bmrFormula = if (profile.bodyFatPercentage != null) "Katch-McArdle (body fat-aware)" else "Mifflin-St Jeor"
+        Text(
+            "BMR formula: $bmrFormula · TDEE ${profile.tdee.toInt()} kcal",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f)
+        )
+        if (state.goal != WeightGoal.MAINTAIN) {
+            val sign = if (state.goal == WeightGoal.LOSE) "-" else "+"
+            val weeklyLabel = if (state.useMetric) String.format(Locale.US, "%s%.2f kg/week", sign, state.weeklyChangeKg)
+                              else String.format(Locale.US, "%s%.2f lbs/week", sign, state.weeklyChangeKg * 2.20462)
+            Text(
+                "Target pace: $weeklyLabel",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f)
+            )
+        }
+    }
+}
+
+@Composable
+private fun MacroTile(label: String, value: String) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(value, style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+        Text(
+            label,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+        )
     }
 }
 

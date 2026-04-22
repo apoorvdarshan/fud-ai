@@ -36,6 +36,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import android.Manifest
+import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
@@ -127,6 +131,7 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                     onToggle = vm::setNotificationsEnabled
                 )
                 OnboardingStep.HEALTH_CONNECT -> HealthConnectStep(
+                    container = container,
                     enabled = ui.healthConnectEnabled,
                     onToggle = vm::setHealthConnectEnabled
                 )
@@ -430,6 +435,10 @@ private fun GoalSpeedStep(weeklyKg: Double, goal: WeightGoal, useMetric: Boolean
 
 @Composable
 private fun NotificationsStep(enabled: Boolean, onToggle: (Boolean) -> Unit) {
+    val notifLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted -> onToggle(granted) }
+
     Column {
         StepHeader(
             "Daily reminders?",
@@ -439,7 +448,17 @@ private fun NotificationsStep(enabled: Boolean, onToggle: (Boolean) -> Unit) {
             label = "Enable reminders",
             subtitle = "Streak reminder + daily summary.",
             enabled = enabled,
-            onToggle = onToggle
+            onToggle = { wantEnabled ->
+                if (wantEnabled) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        notifLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    } else {
+                        onToggle(true)
+                    }
+                } else {
+                    onToggle(false)
+                }
+            }
         )
         Spacer(Modifier.height(12.dp))
         Text(
@@ -451,7 +470,13 @@ private fun NotificationsStep(enabled: Boolean, onToggle: (Boolean) -> Unit) {
 }
 
 @Composable
-private fun HealthConnectStep(enabled: Boolean, onToggle: (Boolean) -> Unit) {
+private fun HealthConnectStep(container: AppContainer, enabled: Boolean, onToggle: (Boolean) -> Unit) {
+    val hcLauncher = rememberLauncherForActivityResult(
+        container.health.permissionRequestContract()
+    ) { granted ->
+        onToggle(granted.containsAll(container.health.permissions))
+    }
+
     Column {
         StepHeader(
             "Sync with Health Connect?",
@@ -459,9 +484,21 @@ private fun HealthConnectStep(enabled: Boolean, onToggle: (Boolean) -> Unit) {
         )
         ToggleCard(
             label = "Use Health Connect",
-            subtitle = "Grant permission after onboarding completes.",
+            subtitle = if (container.health.isAvailable()) "Grant read/write for Weight + Nutrition."
+                       else "Health Connect not available on this device.",
             enabled = enabled,
-            onToggle = onToggle
+            onToggle = { wantEnabled ->
+                if (wantEnabled) {
+                    if (container.health.isAvailable()) {
+                        hcLauncher.launch(container.health.permissions)
+                    } else {
+                        // Can't grant — leave it off.
+                        onToggle(false)
+                    }
+                } else {
+                    onToggle(false)
+                }
+            }
         )
         Spacer(Modifier.height(12.dp))
         Text(

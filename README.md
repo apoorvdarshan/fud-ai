@@ -10,9 +10,11 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/platform-iOS%2017.6+-blue?logo=apple" alt="Platform">
+  <img src="https://img.shields.io/badge/iOS-17.6+-blue?logo=apple" alt="iOS">
+  <img src="https://img.shields.io/badge/Android-8.0+-green?logo=android" alt="Android">
   <img src="https://img.shields.io/badge/swift-5-orange?logo=swift" alt="Swift">
-  <img src="https://img.shields.io/badge/UI-SwiftUI-purple" alt="SwiftUI">
+  <img src="https://img.shields.io/badge/kotlin-2.2-7F52FF?logo=kotlin" alt="Kotlin">
+  <img src="https://img.shields.io/badge/UI-SwiftUI%20%2F%20Compose-purple" alt="UI">
   <img src="https://img.shields.io/badge/dependencies-zero-brightgreen" alt="Zero Dependencies">
   <img src="https://img.shields.io/badge/languages-15-blue" alt="15 Languages">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
@@ -22,7 +24,7 @@
 
 ---
 
-Open-source, privacy-first calorie tracker for iOS. Bring your own AI provider — 13 supported including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, and any custom OpenAI-compatible endpoint. Open-weight models (Gemma, Llama Vision, Qwen VL, Pixtral) work out of the box. Snap a meal, ask your AI coach how to hit your goal, speak your lunch. All data stays on your device. No accounts, no cloud sync, no tracking, no subscriptions.
+Open-source, privacy-first calorie tracker for iOS and Android. Bring your own AI provider — 13 supported including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, and any custom OpenAI-compatible endpoint. Open-weight models (Gemma, Llama Vision, Qwen VL, Pixtral) work out of the box. Snap a meal, ask your AI coach how to hit your goal, speak your lunch. All data stays on your device. No accounts, no cloud sync, no tracking, no subscriptions.
 
 [Download on the App Store](https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726) · [Website](https://fud-ai.app) · [Report an Issue](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20) · [Request a Feature](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20)
 
@@ -207,8 +209,8 @@ All values can be manually overridden in Settings, with a **Recalculate Goals** 
 
 ```
 fud-ai/
-├── ios/        # SwiftUI iOS app (this is the current shipping product)
-├── android/    # Kotlin + Jetpack Compose app (coming)
+├── ios/        # SwiftUI iOS app (shipping on App Store)
+├── android/    # Kotlin + Jetpack Compose app (min SDK 26 / Android 8.0)
 ├── web/        # Marketing site — https://fud-ai.app (static HTML/CSS, Vercel)
 └── README, LICENSE, CONTRIBUTING, SECURITY, CLAUDE.md, .github/
 ```
@@ -264,14 +266,31 @@ ios/
 # Clone
 git clone https://github.com/apoorvdarshan/fud-ai.git
 cd fud-ai
+```
 
-# Build (iOS)
+### iOS
+
+```bash
 xcodebuild -project ios/calorietracker.xcodeproj \
   -scheme calorietracker \
   -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
 ```
 
-Open `ios/calorietracker.xcodeproj` in Xcode, select your device, and run. On first launch, go to **Settings → AI Provider** to set your provider and API key. A free Gemini key is available at [aistudio.google.com/apikey](https://aistudio.google.com/apikey).
+Open `ios/calorietracker.xcodeproj` in Xcode, select your device, and run.
+
+### Android
+
+Open `android/` in Android Studio (Narwhal or newer), let Gradle sync, hit ▶ Run. Or from the CLI:
+
+```bash
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+cd android
+./gradlew :app:assembleDebug
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+adb shell am start -n com.apoorvdarshan.calorietracker/.MainActivity
+```
+
+First launch walks you through a 15-step onboarding (gender, birthday, height/weight with metric/imperial toggle, body fat %, activity, goal, goal speed, notifications, Health Connect, AI provider + API key, plan preview, review). A free Gemini key is available at [aistudio.google.com/apikey](https://aistudio.google.com/apikey). You can switch providers anytime in **Settings → AI Provider**.
 
 ## Contributing
 

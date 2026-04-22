@@ -75,6 +75,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -167,15 +168,61 @@ fun HomeScreen(container: AppContainer) {
                 ),
                 actions = {
                     Box(modifier = Modifier.padding(end = 8.dp)) {
-                        // iOS Liquid Glass + button: dark translucent disc, WHITE plus icon,
-                        // no colored border. Matches the frosted dark-gray circle in iOS 26.
+                        // iOS 26 Liquid Glass + button. Compose can't do real backdrop
+                        // refraction blur, but we fake the look with:
+                        //   - Vertical gradient fill: brighter at top (specular hint),
+                        //     darker at bottom (depth)
+                        //   - Hairline white border with 0.45 -> 0.05 fall-off (glass rim)
+                        //   - Soft drop shadow for the floating-on-page feel
+                        //   - Press scale spring (0.85 damping, response 0.4) for the
+                        //     iOS Menu-button compress feel
+                        val pressed = remember { androidx.compose.runtime.mutableStateOf(false) }
+                        val scale by androidx.compose.animation.core.animateFloatAsState(
+                            targetValue = if (pressed.value) 0.92f else 1f,
+                            animationSpec = androidx.compose.animation.core.spring(
+                                dampingRatio = 0.85f,
+                                stiffness = 220f
+                            ),
+                            label = "plusPress"
+                        )
                         Box(
                             modifier = Modifier
                                 .size(36.dp)
+                                .graphicsLayer {
+                                    scaleX = scale; scaleY = scale
+                                }
+                                .shadow(
+                                    elevation = 8.dp,
+                                    shape = CircleShape,
+                                    ambientColor = Color.Black.copy(alpha = 0.25f),
+                                    spotColor = Color.Black.copy(alpha = 0.25f)
+                                )
                                 .clip(CircleShape)
-                                .background(Color.White.copy(alpha = 0.10f))
-                                .border(0.5.dp, Color.White.copy(alpha = 0.18f), CircleShape)
-                                .clickable { showAddMenu = true },
+                                .background(
+                                    Brush.verticalGradient(
+                                        listOf(
+                                            Color.White.copy(alpha = 0.22f),
+                                            Color.White.copy(alpha = 0.08f)
+                                        )
+                                    )
+                                )
+                                .border(
+                                    0.7.dp,
+                                    Brush.linearGradient(
+                                        listOf(
+                                            Color.White.copy(alpha = 0.45f),
+                                            Color.White.copy(alpha = 0.05f)
+                                        )
+                                    ),
+                                    CircleShape
+                                )
+                                .clickable(
+                                    interactionSource = remember { MutableInteractionSource() },
+                                    indication = null
+                                ) {
+                                    pressed.value = true
+                                    showAddMenu = true
+                                },
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
@@ -184,6 +231,12 @@ fun HomeScreen(container: AppContainer) {
                                 tint = Color.White,
                                 modifier = Modifier.size(20.dp)
                             )
+                        }
+                        androidx.compose.runtime.LaunchedEffect(pressed.value) {
+                            if (pressed.value) {
+                                kotlinx.coroutines.delay(120)
+                                pressed.value = false
+                            }
                         }
                         DropdownMenu(
                             expanded = showAddMenu,

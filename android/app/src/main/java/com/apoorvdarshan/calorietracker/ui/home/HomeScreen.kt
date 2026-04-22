@@ -167,36 +167,21 @@ fun HomeScreen(container: AppContainer) {
                 ),
                 actions = {
                     Box(modifier = Modifier.padding(end = 8.dp)) {
-                        // Liquid Glass-style + button — translucent fill + soft pink edge.
-                        // Compose can't do real refraction blur the way iOS 26 does, but
-                        // the white-tinted disc with a pink hairline border + soft shadow
-                        // reads as a frosted glass affordance.
+                        // iOS Liquid Glass + button: dark translucent disc, WHITE plus icon,
+                        // no colored border. Matches the frosted dark-gray circle in iOS 26.
                         Box(
                             modifier = Modifier
                                 .size(36.dp)
-                                .shadow(
-                                    elevation = 4.dp,
-                                    shape = CircleShape,
-                                    ambientColor = AppColors.Calorie.copy(alpha = 0.25f),
-                                    spotColor = AppColors.Calorie.copy(alpha = 0.25f)
-                                )
                                 .clip(CircleShape)
-                                .background(
-                                    Brush.linearGradient(
-                                        listOf(
-                                            Color.White.copy(alpha = 0.18f),
-                                            Color.White.copy(alpha = 0.08f)
-                                        )
-                                    )
-                                )
-                                .border(0.8.dp, AppColors.Calorie.copy(alpha = 0.45f), CircleShape)
+                                .background(Color.White.copy(alpha = 0.10f))
+                                .border(0.5.dp, Color.White.copy(alpha = 0.18f), CircleShape)
                                 .clickable { showAddMenu = true },
                             contentAlignment = Alignment.Center
                         ) {
                             Icon(
                                 Icons.Filled.Add,
                                 contentDescription = "Add food",
-                                tint = AppColors.Calorie,
+                                tint = Color.White,
                                 modifier = Modifier.size(20.dp)
                             )
                         }
@@ -226,7 +211,7 @@ fun HomeScreen(container: AppContainer) {
                                 icon = Icons.Filled.Note
                             ) { showAddMenu = false; openCamera() }
                             MenuRow(
-                                label = "Nutrition label",
+                                label = "Nutrition Label",
                                 icon = Icons.Filled.QrCodeScanner
                             ) { showAddMenu = false; openCamera() }
                             MenuRow(
@@ -237,7 +222,7 @@ fun HomeScreen(container: AppContainer) {
                                 photoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                             }
                             MenuRow(
-                                label = "Text input",
+                                label = "Text Input",
                                 icon = Icons.Filled.Edit
                             ) { showAddMenu = false; showText = true }
                             MenuRow(
@@ -245,7 +230,7 @@ fun HomeScreen(container: AppContainer) {
                                 icon = Icons.Filled.Mic
                             ) { showAddMenu = false; showVoice = true }
                             MenuRow(
-                                label = "Saved meals",
+                                label = "Saved Meals",
                                 icon = Icons.Filled.Bookmark
                             ) { showAddMenu = false; showSaved = true }
                         }
@@ -597,7 +582,8 @@ private fun MenuRow(label: String, icon: ImageVector, onClick: () -> Unit) {
             )
         },
         leadingIcon = {
-            Icon(icon, contentDescription = null, tint = AppColors.Calorie, modifier = Modifier.size(20.dp))
+            // iOS Menu uses white system-icon glyphs, not tinted accent — match that.
+            Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
         },
         onClick = onClick,
         contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 16.dp, vertical = 4.dp)

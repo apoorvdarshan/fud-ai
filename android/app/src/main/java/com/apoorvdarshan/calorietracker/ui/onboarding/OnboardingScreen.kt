@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.onboarding
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,36 +15,34 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.painterResource
-import com.apoorvdarshan.calorietracker.R
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.apoorvdarshan.calorietracker.AppContainer
+import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.ActivityLevel
 import com.apoorvdarshan.calorietracker.models.Gender
 import com.apoorvdarshan.calorietracker.models.WeightGoal
+import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
+import com.apoorvdarshan.calorietracker.ui.components.DecimalWheelPicker
+import com.apoorvdarshan.calorietracker.ui.components.NumericWheelPicker
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import java.time.LocalDate
 import java.time.Period
@@ -58,20 +57,22 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
         Modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
-            .padding(24.dp)
     ) {
+        Spacer(Modifier.height(24.dp))
         val progress = (ui.step.ordinal + 1).toFloat() / OnboardingStep.values().size.toFloat()
         LinearProgressIndicator(
             progress = { progress },
             color = AppColors.Calorie,
+            trackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f),
             modifier = Modifier
                 .fillMaxWidth()
-                .height(4.dp)
-                .clip(RoundedCornerShape(2.dp))
+                .padding(horizontal = 24.dp)
+                .height(5.dp)
+                .clip(RoundedCornerShape(3.dp))
         )
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.height(32.dp))
 
-        Box(Modifier.weight(1f).fillMaxWidth()) {
+        Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = 24.dp)) {
             when (ui.step) {
                 OnboardingStep.WELCOME -> WelcomeStep()
                 OnboardingStep.GENDER -> GenderStep(selected = ui.gender, onSelect = vm::setGender)
@@ -86,16 +87,31 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
             }
         }
 
-        Row(Modifier.fillMaxWidth()) {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp, vertical = 20.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             if (ui.step != OnboardingStep.WELCOME) {
-                TextButton(onClick = { vm.back() }) { Text("Back") }
+                TextButton(onClick = { vm.back() }) {
+                    Text("Back", style = MaterialTheme.typography.bodyLarge)
+                }
             }
             Spacer(Modifier.weight(1f))
             Button(
                 onClick = { if (ui.isLastStep) vm.complete(onComplete) else vm.next() },
-                colors = androidx.compose.material3.ButtonDefaults.buttonColors(containerColor = AppColors.Calorie)
+                shape = RoundedCornerShape(28.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie),
+                modifier = Modifier.height(52.dp).padding(horizontal = 8.dp)
             ) {
-                Text(if (ui.isLastStep) "Finish" else "Next", color = Color.White)
+                Text(
+                    if (ui.isLastStep) "Finish" else "Next",
+                    color = Color.White,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.padding(horizontal = 24.dp)
+                )
             }
         }
     }
@@ -107,119 +123,139 @@ private fun WelcomeStep() {
         Image(
             painter = painterResource(id = R.drawable.ic_logo),
             contentDescription = "Fud AI logo",
-            modifier = Modifier.size(120.dp)
+            modifier = Modifier.size(140.dp)
         )
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(24.dp))
         Text("Fud AI", style = MaterialTheme.typography.displayMedium, fontWeight = FontWeight.Bold)
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(10.dp))
         Text(
-            "Snap a photo, speak, or type. AI handles the rest.\nFree, open source, bring your own API key.",
-            style = MaterialTheme.typography.bodyLarge,
-            color = Color(0xFF8E8E93)
+            "Snap a photo, speak, or type.",
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+        )
+        Text(
+            "AI handles the rest.",
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+        )
+        Spacer(Modifier.height(20.dp))
+        Text(
+            "Free · Open source · Bring your own API key",
+            style = MaterialTheme.typography.labelLarge,
+            color = AppColors.Calorie,
+            fontWeight = FontWeight.SemiBold
         )
     }
 }
 
 @Composable
+private fun StepHeader(title: String, subtitle: String? = null) {
+    Column {
+        Text(
+            title,
+            style = MaterialTheme.typography.displaySmall,
+            fontWeight = FontWeight.Bold
+        )
+        subtitle?.let {
+            Spacer(Modifier.height(6.dp))
+            Text(
+                it,
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+            )
+        }
+        Spacer(Modifier.height(32.dp))
+    }
+}
+
+@Composable
 private fun GenderStep(selected: Gender, onSelect: (Gender) -> Unit) {
-    StepColumn(title = "How do you identify?") {
+    Column {
+        StepHeader("How do you identify?")
         for (g in Gender.values()) {
             ChoiceRow(label = g.displayName, selected = g == selected) { onSelect(g) }
+            Spacer(Modifier.height(12.dp))
         }
     }
 }
 
 @Composable
 private fun BirthdayStep(current: LocalDate, onChange: (LocalDate) -> Unit) {
-    var input by remember { mutableStateOf(current.toString()) }
-    StepColumn(title = "Your birthday?") {
+    Column {
+        StepHeader("Your birthday?", subtitle = "We use this for BMR math.")
+        Spacer(Modifier.height(8.dp))
+        DateWheelPicker(selected = current, onSelect = onChange)
+        Spacer(Modifier.height(20.dp))
         Text(
-            "YYYY-MM-DD",
-            color = Color(0xFF8E8E93),
-            style = MaterialTheme.typography.bodySmall
+            "Age: ${Period.between(current, LocalDate.now()).years}",
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center
         )
-        OutlinedTextField(
-            value = input,
-            onValueChange = {
-                input = it
-                runCatching { LocalDate.parse(it) }.getOrNull()?.let(onChange)
-            },
-            modifier = Modifier.fillMaxWidth()
-        )
-        val age = Period.between(current, LocalDate.now()).years
-        Text("Age: $age", color = Color(0xFF8E8E93), style = MaterialTheme.typography.bodySmall)
     }
 }
 
 @Composable
 private fun HeightStep(cm: Int, onChange: (Int) -> Unit) {
-    var input by remember { mutableStateOf(cm.toString()) }
-    StepColumn(title = "Your height (cm)?") {
-        OutlinedTextField(
-            value = input,
-            onValueChange = {
-                input = it
-                it.toIntOrNull()?.let(onChange)
-            },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxWidth()
-        )
+    Column {
+        StepHeader("Your height?")
+        NumericWheelPicker(value = cm, onValueChange = onChange, min = 100, max = 250, unit = "cm")
     }
 }
 
 @Composable
 private fun WeightStep(kg: Double, onChange: (Double) -> Unit) {
-    var input by remember { mutableStateOf(String.format(Locale.US, "%.1f", kg)) }
-    StepColumn(title = "Your current weight (kg)?") {
-        OutlinedTextField(
-            value = input,
-            onValueChange = {
-                input = it
-                it.toDoubleOrNull()?.let(onChange)
-            },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-            modifier = Modifier.fillMaxWidth()
+    Column {
+        StepHeader("Your current weight?")
+        DecimalWheelPicker(
+            value = kg,
+            onValueChange = onChange,
+            min = 30.0,
+            max = 250.0,
+            step = 0.1,
+            unit = "kg"
         )
     }
 }
 
 @Composable
 private fun ActivityStep(selected: ActivityLevel, onSelect: (ActivityLevel) -> Unit) {
-    StepColumn(title = "How active are you?") {
+    Column {
+        StepHeader("How active are you?", subtitle = "Drives your TDEE multiplier.")
         for (a in ActivityLevel.values()) {
-            ChoiceRow(
-                label = a.displayName,
-                subtitle = a.subtitle,
-                selected = a == selected
-            ) { onSelect(a) }
+            ChoiceRow(label = a.displayName, subtitle = a.subtitle, selected = a == selected) { onSelect(a) }
+            Spacer(Modifier.height(10.dp))
         }
     }
 }
 
 @Composable
 private fun GoalStep(selected: WeightGoal, onSelect: (WeightGoal) -> Unit) {
-    StepColumn(title = "What's your goal?") {
+    Column {
+        StepHeader("What's your goal?")
         for (g in WeightGoal.values()) {
             ChoiceRow(label = g.displayName, selected = g == selected) { onSelect(g) }
+            Spacer(Modifier.height(12.dp))
         }
     }
 }
 
 @Composable
 private fun GoalWeightStep(current: Double, goal: WeightGoal, onChange: (Double) -> Unit) {
-    var input by remember { mutableStateOf(String.format(Locale.US, "%.1f", current)) }
-    StepColumn(title = "Your target weight (kg)?") {
-        if (goal == WeightGoal.MAINTAIN) {
-            Text("Skip — maintaining current weight.", color = Color(0xFF8E8E93))
-        } else {
-            OutlinedTextField(
-                value = input,
-                onValueChange = {
-                    input = it
-                    it.toDoubleOrNull()?.let(onChange)
-                },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                modifier = Modifier.fillMaxWidth()
+    Column {
+        StepHeader(
+            "Your target weight?",
+            subtitle = if (goal == WeightGoal.MAINTAIN) "Skip — maintaining current weight." else null
+        )
+        if (goal != WeightGoal.MAINTAIN) {
+            DecimalWheelPicker(
+                value = current,
+                onValueChange = onChange,
+                min = 30.0,
+                max = 250.0,
+                step = 0.1,
+                unit = "kg"
             )
         }
     }
@@ -227,62 +263,120 @@ private fun GoalWeightStep(current: Double, goal: WeightGoal, onChange: (Double)
 
 @Composable
 private fun ProviderStep() {
-    StepColumn(title = "AI Provider") {
+    Column {
+        StepHeader("AI Provider")
         Text(
-            "Fud AI uses your own API key — no subscription, nothing transmitted through us.\n\nThe default is Google Gemini (free tier). You can pick a different one in Settings after onboarding, and paste your key there.",
-            color = Color(0xFF8E8E93)
+            "Fud AI uses your own API key — no subscription, nothing transmitted through us.",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
         )
-    }
-}
-
-@Composable
-private fun ReviewStep(state: OnboardingState) {
-    StepColumn(title = "Review") {
-        Text("Gender: ${state.gender.displayName}")
-        Text("Age: ${Period.between(state.birthday, LocalDate.now()).years}")
-        Text("Height: ${state.heightCm} cm")
-        Text("Weight: ${String.format(Locale.US, "%.1f", state.weightKg)} kg")
-        Text("Activity: ${state.activity.displayName}")
-        Text("Goal: ${state.goal.displayName}")
-        if (state.goal != WeightGoal.MAINTAIN) {
-            Text("Target: ${String.format(Locale.US, "%.1f", state.goalWeightKg)} kg")
+        Spacer(Modifier.height(16.dp))
+        Card(
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(containerColor = AppColors.Calorie.copy(alpha = 0.12f))
+        ) {
+            Column(Modifier.padding(16.dp)) {
+                Text("Default: Google Gemini", fontWeight = FontWeight.SemiBold, color = AppColors.Calorie)
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    "Free tier at aistudio.google.com/apikey. You can switch to OpenAI / Claude / any of 13 providers in Settings after onboarding.",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f)
+                )
+            }
         }
     }
 }
 
 @Composable
-private fun StepColumn(title: String, content: @Composable () -> Unit) {
-    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Text(title, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.SemiBold)
-        content()
+private fun ReviewStep(state: OnboardingState) {
+    Column {
+        StepHeader("Looks good?")
+        ReviewRow("Gender", state.gender.displayName)
+        ReviewRow("Age", "${Period.between(state.birthday, LocalDate.now()).years}")
+        ReviewRow("Height", "${state.heightCm} cm")
+        ReviewRow("Weight", String.format(Locale.US, "%.1f kg", state.weightKg))
+        ReviewRow("Activity", state.activity.displayName)
+        ReviewRow("Goal", state.goal.displayName)
+        if (state.goal != WeightGoal.MAINTAIN) {
+            ReviewRow("Target", String.format(Locale.US, "%.1f kg", state.goalWeightKg))
+        }
+    }
+}
+
+@Composable
+private fun ReviewRow(label: String, value: String) {
+    Row(
+        Modifier.fillMaxWidth().padding(vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            label,
+            modifier = Modifier.weight(1f),
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+        )
+        Text(
+            value,
+            style = MaterialTheme.typography.bodyLarge,
+            fontWeight = FontWeight.SemiBold
+        )
     }
 }
 
 @Composable
 private fun ChoiceRow(label: String, subtitle: String? = null, selected: Boolean, onClick: () -> Unit) {
-    Card(
-        shape = RoundedCornerShape(14.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = if (selected) AppColors.Calorie.copy(alpha = 0.15f) else MaterialTheme.colorScheme.surface
-        ),
-        modifier = Modifier.fillMaxWidth().clickable(onClick = onClick)
+    val bg = if (selected) {
+        Brush.linearGradient(listOf(AppColors.CalorieStart.copy(alpha = 0.18f), AppColors.CalorieEnd.copy(alpha = 0.10f)))
+    } else {
+        Brush.linearGradient(listOf(MaterialTheme.colorScheme.surface, MaterialTheme.colorScheme.surface))
+    }
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(bg)
+            .clickable(onClick = onClick)
+            .padding(horizontal = 18.dp, vertical = 16.dp)
     ) {
-        Row(
-            Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 14.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             Box(
                 Modifier
-                    .size(20.dp)
+                    .size(22.dp)
                     .clip(CircleShape)
                     .background(if (selected) AppColors.Calorie else Color.Transparent)
-                    .padding(2.dp)
-            )
-            Spacer(Modifier.size(12.dp))
+                    .padding(3.dp)
+            ) {
+                if (selected) {
+                    Box(
+                        Modifier
+                            .fillMaxSize()
+                            .clip(CircleShape)
+                            .background(Color.White.copy(alpha = 0.95f))
+                    )
+                } else {
+                    Box(
+                        Modifier
+                            .fillMaxSize()
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.3f))
+                    )
+                }
+            }
+            Spacer(Modifier.size(14.dp))
             Column(Modifier.weight(1f)) {
-                Text(label, style = MaterialTheme.typography.bodyLarge)
+                Text(
+                    label,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold
+                )
                 subtitle?.let {
-                    Text(it, style = MaterialTheme.typography.bodySmall, color = Color(0xFF8E8E93))
+                    Spacer(Modifier.height(2.dp))
+                    Text(
+                        it,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f)
+                    )
                 }
             }
         }

@@ -12,9 +12,11 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.lifecycleScope
 import com.apoorvdarshan.calorietracker.ui.navigation.FudAINavHost
 import com.apoorvdarshan.calorietracker.ui.theme.FudAITheme
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : ComponentActivity() {
@@ -23,7 +25,7 @@ class MainActivity : ComponentActivity() {
         // back to Theme.FudAI before the first frame, preventing a white flash
         // on cold start. The splash itself shows the launcher icon on the
         // app's cream/dark background (see values/themes.xml).
-        installSplashScreen()
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
@@ -48,6 +50,20 @@ class MainActivity : ComponentActivity() {
             intent.removeExtra("restore_real_data")
         }
         val startOnboarding = runBlocking { !container.prefs.hasCompletedOnboarding.first() }
+
+        // Hold the splash on screen until the saved profile has loaded from
+        // DataStore so Home doesn't briefly render its 2000/150/220/70 fallback
+        // goal numbers before snapping to the user's real targets. Onboarding
+        // doesn't show those numbers, so we let the splash dismiss immediately
+        // in that case.
+        var contentReady = startOnboarding
+        splashScreen.setKeepOnScreenCondition { !contentReady }
+        if (!startOnboarding) {
+            lifecycleScope.launch {
+                container.profileRepository.profile.first { it != null }
+                contentReady = true
+            }
+        }
 
         setContent {
             val appearance by container.prefs.appearanceMode.collectAsState(initial = "system")

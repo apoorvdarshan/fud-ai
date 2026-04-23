@@ -322,6 +322,7 @@ private fun WeightChartCanvas(entries: List<WeightEntry>, goalKg: Double?) {
     val yMax = maxW + pad
     val tStart = entries.first().date.toEpochMilli()
     val tEnd = entries.last().date.toEpochMilli()
+    val singleEntry = entries.size == 1
     val tRange = maxOf(1L, tEnd - tStart)
     val goalLineColor = Color(0xFF34C759).copy(alpha = 0.7f) // iOS systemGreen at 0.7
 
@@ -336,15 +337,21 @@ private fun WeightChartCanvas(entries: List<WeightEntry>, goalKg: Double?) {
                 pathEffect = PathEffect.dashPathEffect(floatArrayOf(18f, 12f))
             )
         }
+        // Center the lone marker when there's only one weight entry — otherwise
+        // it would render at x=0 (left edge), looking misplaced.
+        val xFor: (com.apoorvdarshan.calorietracker.models.WeightEntry) -> Float = { e ->
+            if (singleEntry) w / 2f
+            else ((e.date.toEpochMilli() - tStart).toDouble() / tRange * w).toFloat()
+        }
         val path = Path()
         entries.forEachIndexed { i, e ->
-            val x = ((e.date.toEpochMilli() - tStart).toDouble() / tRange * w).toFloat()
+            val x = xFor(e)
             val y = h - (((e.weightKg - yMin) / (yMax - yMin)).toFloat() * h)
             if (i == 0) path.moveTo(x, y) else path.lineTo(x, y)
         }
         drawPath(path, AppColors.Calorie, style = Stroke(width = 5f))
         entries.forEach { e ->
-            val x = ((e.date.toEpochMilli() - tStart).toDouble() / tRange * w).toFloat()
+            val x = xFor(e)
             val y = h - (((e.weightKg - yMin) / (yMax - yMin)).toFloat() * h)
             drawCircle(AppColors.Calorie, radius = 5.5f, center = Offset(x, y))
         }
@@ -408,35 +415,41 @@ private fun CalorieBarChart(dailyCalories: List<Pair<LocalDate, Int>>, goal: Int
     val gradientStart = AppColors.CalorieStart
     val gradientEnd = AppColors.CalorieEnd
     val goalColor = AppColors.Calorie.copy(alpha = 0.4f)
-    BoxWithConstraints(Modifier.fillMaxWidth().height(180.dp)) {
-        val w = maxWidth
-        Canvas(Modifier.fillMaxWidth().height(180.dp)) {
-            val pxW = size.width; val pxH = size.height
-            val n = dailyCalories.size
-            val gap = 4f
-            val barWidth = ((pxW - gap * (n - 1)) / n).coerceAtLeast(2f)
-            // Goal line
-            val goalY = pxH - ((goal / maxValue) * pxH).coerceAtMost(pxH)
-            drawLine(
-                color = goalColor,
-                start = Offset(0f, goalY), end = Offset(pxW, goalY),
-                strokeWidth = 2f,
-                pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 6f))
+    val density = androidx.compose.ui.platform.LocalDensity.current
+    Canvas(Modifier.fillMaxWidth().height(180.dp)) {
+        val pxW = size.width; val pxH = size.height
+        val n = dailyCalories.size
+        val gap = 4f
+        // Cap bar width to ~28dp so a single-day chart doesn't render as one
+        // giant block spanning the full width.
+        val maxBarPx = with(density) { 28.dp.toPx() }
+        val rawWidth = (pxW - gap * (n - 1)) / n
+        val barWidth = rawWidth.coerceIn(2f, maxBarPx)
+        // Center the bar group horizontally when capped (otherwise left-aligned).
+        val totalGroupW = barWidth * n + gap * (n - 1)
+        val startX = ((pxW - totalGroupW) / 2f).coerceAtLeast(0f)
+
+        // Goal line
+        val goalY = pxH - ((goal / maxValue) * pxH).coerceAtMost(pxH)
+        drawLine(
+            color = goalColor,
+            start = Offset(0f, goalY), end = Offset(pxW, goalY),
+            strokeWidth = 2f,
+            pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 6f))
+        )
+        dailyCalories.forEachIndexed { i, (_, cals) ->
+            val barH = ((cals / maxValue) * pxH)
+            val x = startX + i * (barWidth + gap)
+            val y = pxH - barH
+            drawRoundRect(
+                brush = Brush.verticalGradient(
+                    colors = listOf(gradientEnd, gradientStart),
+                    startY = y, endY = pxH
+                ),
+                topLeft = Offset(x, y),
+                size = Size(barWidth, barH),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f, 4f)
             )
-            dailyCalories.forEachIndexed { i, (_, cals) ->
-                val barH = ((cals / maxValue) * pxH)
-                val x = i * (barWidth + gap)
-                val y = pxH - barH
-                drawRoundRect(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(gradientEnd, gradientStart),
-                        startY = y, endY = pxH
-                    ),
-                    topLeft = Offset(x, y),
-                    size = Size(barWidth, barH),
-                    cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f, 4f)
-                )
-            }
         }
     }
 }

@@ -31,37 +31,36 @@ class CoachViewModel(private val container: AppContainer) : ViewModel() {
             .onEach { _ui.value = _ui.value.copy(messages = it) }
             .launchIn(viewModelScope)
 
-        viewModelScope.launch { refreshSuggestions() }
+        // Live-subscribe to profile so chips update when the user changes goal in Settings.
+        container.profileRepository.profile
+            .onEach { p -> _ui.value = _ui.value.copy(suggestions = chipsFor(p?.goal)) }
+            .launchIn(viewModelScope)
     }
 
-    private suspend fun refreshSuggestions() {
-        val profile = container.profileRepository.current()
-        val suggestions = when (profile?.goal) {
-            WeightGoal.LOSE -> listOf(
-                "What's my expected weight in 30 days?",
-                "How do I lose weight faster safely?",
-                "Am I eating too much?",
-                "What should I eat for dinner?"
-            )
-            WeightGoal.GAIN -> listOf(
-                "What's my expected weight in 30 days?",
-                "How do I gain weight healthily?",
-                "Am I eating enough?",
-                "High-protein foods I can add?"
-            )
-            WeightGoal.MAINTAIN -> listOf(
-                "Am I holding my weight?",
-                "What's my average intake?",
-                "Macro suggestions?",
-                "How's my trend?"
-            )
-            else -> listOf(
-                "How am I doing this week?",
-                "What's my expected weight in 30 days?",
-                "Any advice based on my log?"
-            )
-        }
-        _ui.value = _ui.value.copy(suggestions = suggestions)
+    private fun chipsFor(goal: WeightGoal?): List<String> = when (goal) {
+        WeightGoal.LOSE -> listOf(
+            "What's my expected weight in 30 days?",
+            "How do I lose weight faster safely?",
+            "Am I eating too much?",
+            "What should I eat for dinner?"
+        )
+        WeightGoal.GAIN -> listOf(
+            "What's my expected weight in 30 days?",
+            "How do I gain weight healthily?",
+            "Am I eating enough?",
+            "High-protein foods I can add?"
+        )
+        WeightGoal.MAINTAIN -> listOf(
+            "Am I holding my weight?",
+            "What's my average intake?",
+            "Macro suggestions?",
+            "How's my trend?"
+        )
+        else -> listOf(
+            "How am I doing this week?",
+            "What's my expected weight in 30 days?",
+            "Any advice based on my log?"
+        )
     }
 
     fun send(userText: String) {

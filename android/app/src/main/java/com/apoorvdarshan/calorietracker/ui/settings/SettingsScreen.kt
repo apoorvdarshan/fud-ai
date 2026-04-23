@@ -772,7 +772,12 @@ private fun birthdayDisplay(profile: UserProfile): String {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun BirthdaySheet(current: Instant, onSave: (Instant) -> Unit) {
-    val initialMillis = current.toEpochMilli()
+    // Material3 DatePicker stores selection as UTC-midnight millis. We store
+    // birthdays as a local-zone Instant. Round-trip both sides through the
+    // user's local date to avoid an off-by-one when the user is east of UTC.
+    val localDate = current.atZone(ZoneId.systemDefault()).toLocalDate()
+    val initialMillis = localDate.atStartOfDay(java.time.ZoneOffset.UTC)
+        .toInstant().toEpochMilli()
     val state = rememberDatePickerState(initialSelectedDateMillis = initialMillis)
     Text("Birthday", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
     Spacer(Modifier.height(8.dp))
@@ -792,7 +797,10 @@ private fun BirthdaySheet(current: Instant, onSave: (Instant) -> Unit) {
     Button(
         onClick = {
             val millis = state.selectedDateMillis ?: return@Button
-            val newDate = LocalDate.ofEpochDay(millis / 86_400_000L)
+            // Picker millis is UTC-midnight of the selected calendar day —
+            // pull the LocalDate via UTC, then convert to local-zone Instant.
+            val newDate = Instant.ofEpochMilli(millis)
+                .atZone(java.time.ZoneOffset.UTC).toLocalDate()
             val newInstant = newDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
             onSave(newInstant)
         },

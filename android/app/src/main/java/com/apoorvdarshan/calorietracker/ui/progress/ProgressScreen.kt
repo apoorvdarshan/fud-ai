@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,15 +16,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.EmojiEvents
-import androidx.compose.material.icons.filled.LocalFireDepartment
-import androidx.compose.material.icons.filled.Restaurant
-import androidx.compose.material.icons.filled.TrackChanges
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -31,12 +28,12 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -48,75 +45,151 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.apoorvdarshan.calorietracker.AppContainer
+import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.WeightEntry
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+
+/**
+ * Verbatim port of ios/calorietracker/ContentView.swift > struct ProgressTabView,
+ * including the per-section components in ProgressComponents.swift.
+ *
+ * Layout (top -> bottom):
+ *   1. Segmented TimeRange picker — 1W / 1M / 3M / 6M / 1Y / All
+ *   2. WeightChartSection — Weight title + Log Weight pill + StatBadges
+ *      (Current, Goal) + line chart with green dashed goal rule
+ *   3. WeightHistoryLink — only shown if any weight entries exist; shows
+ *      count + chevron, opens AllWeightHistorySheet
+ *   4. CalorieChartSection — Calories title + Avg badge + bar chart of
+ *      per-day calories with calorieGradient bars (dimmed below goal,
+ *      pink above goal — same as iOS)
+ *   5. MacroAveragesSection — averages over the selected time range,
+ *      one MacroProgressRow per macro
+ */
+enum class TimeRange(val label: String, val days: Int) {
+    WEEK("1W", 7),
+    MONTH("1M", 30),
+    THREE_MONTHS("3M", 90),
+    SIX_MONTHS("6M", 180),
+    YEAR("1Y", 365),
+    ALL_TIME("All", 3650);
+
+    fun dateRange(today: LocalDate = LocalDate.now()): Pair<LocalDate, LocalDate> {
+        val start = today.minusDays((days - 1).toLong())
+        return start to today
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProgressScreen(container: AppContainer) {
     val vm: ProgressViewModel = viewModel(factory = ProgressViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
-    var showAddDialog by remember { mutableStateOf(false) }
+    val foods by container.foodRepository.entries.collectAsState(initial = emptyList())
     val useMetric by container.prefs.useMetric.collectAsState(initial = true)
 
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.background,
-        topBar = {
-            TopAppBar(
-                title = { Text("Progress", fontWeight = FontWeight.SemiBold) },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background
-                )
-            )
+    var range by remember { mutableStateOf(TimeRange.WEEK) }
+    var showAddDialog by remember { mutableStateOf(false) }
+    var showAllWeights by remember { mutableStateOf(false) }
+
+    // Filter weights to range
+    val (rangeStartDate, rangeEndDate) = range.dateRange()
+    val zone = ZoneId.systemDefault()
+    val rangeStart = rangeStartDate.atStartOfDay(zone).toInstant()
+    val rangeEnd = rangeEndDate.atTime(23, 59, 59).atZone(zone).toInstant()
+    val filteredWeights = ui.entries.filter { it.date in rangeStart..rangeEnd }.sortedBy { it.date }
+
+    // Build per-day calorie totals over the range (drop empty days, like iOS)
+    val dailyCalories = remember(foods, range) {
+        val today = LocalDate.now()
+        (0 until range.days).mapNotNull { offset ->
+            val day = today.minusDays(offset.toLong())
+            val cals = foods
+                .filter { it.timestamp.atZone(zone).toLocalDate() == day }
+                .sumOf { it.calories }
+            if (cals == 0) null else day to cals
+        }.reversed()
+    }
+
+    // Macro averages over the range, only counting days with logged food
+    val macroAverages = remember(foods, range) {
+        val today = LocalDate.now()
+        var p = 0; var c = 0; var f = 0; var n = 0
+        for (offset in 0 until range.days) {
+            val day = today.minusDays(offset.toLong())
+            val dayEntries = foods.filter { it.timestamp.atZone(zone).toLocalDate() == day }
+            if (dayEntries.isEmpty()) continue
+            p += dayEntries.sumOf { it.protein }
+            c += dayEntries.sumOf { it.carbs }
+            f += dayEntries.sumOf { it.fat }
+            n += 1
         }
-    ) { padding ->
+        if (n == 0) Triple(0, 0, 0) else Triple(p / n, c / n, f / n)
+    }
+
+    Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
         LazyColumn(
             modifier = Modifier.fillMaxSize().padding(padding),
-            contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 16.dp, vertical = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 16.dp, vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // 1. Segmented TimeRange picker
+            item { TimeRangePicker(selected = range, onSelect = { range = it }) }
+
+            // 2. Weight chart section
             item {
                 CardSection {
                     WeightSection(
-                        entries = ui.entries,
+                        entries = filteredWeights,
+                        latest = ui.entries.maxByOrNull { it.date },
                         goalKg = ui.profile?.goalWeightKg,
                         useMetric = useMetric,
                         onLogWeight = { showAddDialog = true }
                     )
                 }
             }
+
+            // 3. Weight history link (if any)
+            if (ui.entries.isNotEmpty()) {
+                item {
+                    WeightHistoryLink(count = ui.entries.size) { showAllWeights = true }
+                }
+            }
+
+            // 4. Calorie chart section
             item {
                 CardSection {
-                    StatsSection(
-                        streak = 0,
-                        bestStreak = 0,
-                        daysOnTarget = 0,
-                        totalEntries = 0
+                    CalorieSection(
+                        dailyCalories = dailyCalories,
+                        calorieGoal = ui.profile?.effectiveCalories ?: 2000
                     )
                 }
             }
-            // Macro Averages — verbatim port of MacroAveragesSection in
-            // ios/calorietracker/Views/ProgressComponents.swift.
+
+            // 5. Macro averages
             ui.profile?.let { p ->
                 item {
                     CardSection {
                         MacroAveragesSection(
-                            avgProtein = 0, // TODO compute 7-day average via ViewModel
-                            avgCarbs = 0,
-                            avgFat = 0,
+                            avgProtein = macroAverages.first,
+                            avgCarbs = macroAverages.second,
+                            avgFat = macroAverages.third,
                             proteinGoal = p.effectiveProtein,
                             carbsGoal = p.effectiveCarbs,
                             fatGoal = p.effectiveFat
@@ -124,33 +197,62 @@ fun ProgressScreen(container: AppContainer) {
                     }
                 }
             }
-            item {
-                CardSection {
-                    HistorySection(
-                        entries = ui.entries,
-                        useMetric = useMetric,
-                        onDelete = vm::deleteWeight
-                    )
-                }
-            }
         }
     }
 
     if (showAddDialog) {
-        AddWeightDialog(
+        AddWeightDialog(useMetric = useMetric, onDismiss = { showAddDialog = false }) { kg ->
+            vm.addWeight(kg); showAddDialog = false
+        }
+    }
+    if (showAllWeights) {
+        AllWeightHistorySheet(
+            entries = ui.entries.sortedByDescending { it.date },
             useMetric = useMetric,
-            onDismiss = { showAddDialog = false },
-            onSubmit = { kg -> vm.addWeight(kg); showAddDialog = false }
+            onDelete = vm::deleteWeight,
+            onDismiss = { showAllWeights = false }
         )
     }
-
     if (ui.goalReached) {
         AlertDialog(
             onDismissRequest = { vm.dismissGoalReached() },
             title = { Text("Congratulations! 🎉", fontWeight = FontWeight.SemiBold) },
-            text = { Text("You reached your goal weight.") },
-            confirmButton = { TextButton(onClick = { vm.dismissGoalReached() }) { Text("Thanks") } }
+            text = { Text("You've reached your goal weight! Head to Settings to switch your goal and tap Recalculate Goals to refresh your targets.") },
+            confirmButton = { TextButton(onClick = { vm.dismissGoalReached() }) { Text("Keep Going") } }
         )
+    }
+}
+
+// ── Components ──────────────────────────────────────────────────────
+
+@Composable
+private fun TimeRangePicker(selected: TimeRange, onSelect: (TimeRange) -> Unit) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(8.dp))
+            .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f))
+            .padding(2.dp)
+    ) {
+        for (r in TimeRange.values()) {
+            val isSel = r == selected
+            Box(
+                Modifier
+                    .weight(1f)
+                    .clip(RoundedCornerShape(7.dp))
+                    .background(if (isSel) MaterialTheme.colorScheme.surface else Color.Transparent)
+                    .clickable { onSelect(r) }
+                    .padding(vertical = 6.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    r.label,
+                    fontSize = 13.sp,
+                    fontWeight = if (isSel) FontWeight.SemiBold else FontWeight.Medium,
+                    color = if (isSel) AppColors.Calorie else MaterialTheme.colorScheme.onSurface
+                )
+            }
+        }
     }
 }
 
@@ -168,6 +270,7 @@ private fun CardSection(content: @Composable () -> Unit) {
 @Composable
 private fun WeightSection(
     entries: List<WeightEntry>,
+    latest: WeightEntry?,
     goalKg: Double?,
     useMetric: Boolean,
     onLogWeight: () -> Unit
@@ -185,7 +288,6 @@ private fun WeightSection(
                 Text("Log Weight", fontSize = 15.sp, fontWeight = FontWeight.Medium, color = AppColors.Calorie)
             }
         }
-
         if (entries.isEmpty()) {
             Text(
                 "Log your first weight to see trends",
@@ -193,13 +295,11 @@ private fun WeightSection(
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
             )
         } else {
-            val sorted = entries.sortedBy { it.date }
-            val current = sorted.lastOrNull()?.weightKg
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                current?.let { StatBadge("Current", formatWeight(it, useMetric)) }
+                latest?.let { StatBadge("Current", formatWeight(it.weightKg, useMetric)) }
                 goalKg?.let { StatBadge("Goal", formatWeight(it, useMetric)) }
             }
-            WeightChartCanvas(entries = sorted, goalKg = goalKg, useMetric = useMetric)
+            WeightChartCanvas(entries = entries, goalKg = goalKg)
         }
     }
 }
@@ -213,7 +313,7 @@ private fun StatBadge(label: String, value: String) {
 }
 
 @Composable
-private fun WeightChartCanvas(entries: List<WeightEntry>, goalKg: Double?, useMetric: Boolean) {
+private fun WeightChartCanvas(entries: List<WeightEntry>, goalKg: Double?) {
     val weights = entries.map { it.weightKg } + listOfNotNull(goalKg)
     val minW = weights.min()
     val maxW = weights.max()
@@ -223,34 +323,26 @@ private fun WeightChartCanvas(entries: List<WeightEntry>, goalKg: Double?, useMe
     val tStart = entries.first().date.toEpochMilli()
     val tEnd = entries.last().date.toEpochMilli()
     val tRange = maxOf(1L, tEnd - tStart)
+    val goalLineColor = Color(0xFF34C759).copy(alpha = 0.7f) // iOS systemGreen at 0.7
 
     Canvas(Modifier.fillMaxWidth().height(180.dp)) {
-        val w = size.width
-        val h = size.height
-
-        // Goal line
+        val w = size.width; val h = size.height
         goalKg?.let {
             val y = h - (((it - yMin) / (yMax - yMin)).toFloat() * h)
-            val dash = androidx.compose.ui.graphics.PathEffect.dashPathEffect(floatArrayOf(18f, 12f))
             drawLine(
-                color = Color(0xFF34C759).copy(alpha = 0.7f),
-                start = Offset(0f, y),
-                end = Offset(w, y),
+                color = goalLineColor,
+                start = Offset(0f, y), end = Offset(w, y),
                 strokeWidth = 3f,
-                pathEffect = dash
+                pathEffect = PathEffect.dashPathEffect(floatArrayOf(18f, 12f))
             )
         }
-
-        // Line path (catmull-ish via cubic smoothing — approximation)
         val path = Path()
         entries.forEachIndexed { i, e ->
             val x = ((e.date.toEpochMilli() - tStart).toDouble() / tRange * w).toFloat()
             val y = h - (((e.weightKg - yMin) / (yMax - yMin)).toFloat() * h)
             if (i == 0) path.moveTo(x, y) else path.lineTo(x, y)
         }
-        drawPath(path = path, color = AppColors.Calorie, style = Stroke(width = 5f))
-
-        // Points
+        drawPath(path, AppColors.Calorie, style = Stroke(width = 5f))
         entries.forEach { e ->
             val x = ((e.date.toEpochMilli() - tStart).toDouble() / tRange * w).toFloat()
             val y = h - (((e.weightKg - yMin) / (yMax - yMin)).toFloat() * h)
@@ -260,48 +352,99 @@ private fun WeightChartCanvas(entries: List<WeightEntry>, goalKg: Double?, useMe
 }
 
 @Composable
-private fun StatsSection(streak: Int, bestStreak: Int, daysOnTarget: Int, totalEntries: Int) {
+private fun WeightHistoryLink(count: Int, onClick: () -> Unit) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(MaterialTheme.colorScheme.surface)
+            .clickable(onClick = onClick)
+            .padding(horizontal = 16.dp, vertical = 14.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text("Weight History", fontSize = 15.sp, fontWeight = FontWeight.Medium)
+        Spacer(Modifier.weight(1f))
+        Text(
+            "$count entries",
+            fontSize = 13.sp,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+        )
+        Spacer(Modifier.width(6.dp))
+        Icon(Icons.Filled.ChevronRight, null, tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f), modifier = Modifier.size(18.dp))
+    }
+}
+
+@Composable
+private fun CalorieSection(dailyCalories: List<Pair<LocalDate, Int>>, calorieGoal: Int) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Text("Streaks & Stats", fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-            StatTile(icon = Icons.Filled.LocalFireDepartment, label = "Current Streak", value = "$streak days", color = AppColors.Calorie, modifier = Modifier.weight(1f))
-            StatTile(icon = Icons.Filled.EmojiEvents, label = "Best Streak", value = "$bestStreak days", color = Color(0xFFFF9500), modifier = Modifier.weight(1f))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("Calories", fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+            Spacer(Modifier.weight(1f))
+            if (dailyCalories.isNotEmpty()) {
+                val avg = dailyCalories.sumOf { it.second } / dailyCalories.size
+                Text(
+                    "Avg: $avg kcal",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                )
+            }
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
-            StatTile(icon = Icons.Filled.TrackChanges, label = "Days on Target", value = "$daysOnTarget", color = Color(0xFF007AFF), modifier = Modifier.weight(1f))
-            StatTile(icon = Icons.Filled.Restaurant, label = "Total Entries", value = "$totalEntries", color = Color(0xFF34C759), modifier = Modifier.weight(1f))
+        if (dailyCalories.isEmpty()) {
+            Text(
+                "No food logged yet",
+                fontSize = 13.sp,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
+            )
+        } else {
+            CalorieBarChart(dailyCalories = dailyCalories, goal = calorieGoal)
         }
     }
 }
 
 @Composable
-private fun StatTile(icon: ImageVector, label: String, value: String, color: Color, modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .clip(RoundedCornerShape(12.dp))
-            .background(color.copy(alpha = 0.08f))
-            .padding(vertical = 14.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(6.dp)
-    ) {
-        Icon(icon, null, tint = color, modifier = Modifier.size(22.dp))
-        Text(value, fontSize = 17.sp, fontWeight = FontWeight.Bold)
-        Text(label, fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
+private fun CalorieBarChart(dailyCalories: List<Pair<LocalDate, Int>>, goal: Int) {
+    val maxValue = (dailyCalories.maxOf { it.second }.coerceAtLeast(goal)).toFloat()
+    val gradientStart = AppColors.CalorieStart
+    val gradientEnd = AppColors.CalorieEnd
+    val goalColor = AppColors.Calorie.copy(alpha = 0.4f)
+    BoxWithConstraints(Modifier.fillMaxWidth().height(180.dp)) {
+        val w = maxWidth
+        Canvas(Modifier.fillMaxWidth().height(180.dp)) {
+            val pxW = size.width; val pxH = size.height
+            val n = dailyCalories.size
+            val gap = 4f
+            val barWidth = ((pxW - gap * (n - 1)) / n).coerceAtLeast(2f)
+            // Goal line
+            val goalY = pxH - ((goal / maxValue) * pxH).coerceAtMost(pxH)
+            drawLine(
+                color = goalColor,
+                start = Offset(0f, goalY), end = Offset(pxW, goalY),
+                strokeWidth = 2f,
+                pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 6f))
+            )
+            dailyCalories.forEachIndexed { i, (_, cals) ->
+                val barH = ((cals / maxValue) * pxH)
+                val x = i * (barWidth + gap)
+                val y = pxH - barH
+                drawRoundRect(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(gradientEnd, gradientStart),
+                        startY = y, endY = pxH
+                    ),
+                    topLeft = Offset(x, y),
+                    size = Size(barWidth, barH),
+                    cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f, 4f)
+                )
+            }
+        }
     }
 }
 
-/**
- * Verbatim port of MacroAveragesSection + MacroProgressRow in
- * ios/calorietracker/Views/ProgressComponents.swift.
- */
 @Composable
 private fun MacroAveragesSection(
-    avgProtein: Int,
-    avgCarbs: Int,
-    avgFat: Int,
-    proteinGoal: Int,
-    carbsGoal: Int,
-    fatGoal: Int
+    avgProtein: Int, avgCarbs: Int, avgFat: Int,
+    proteinGoal: Int, carbsGoal: Int, fatGoal: Int
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text("Macro Averages", fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
@@ -324,18 +467,10 @@ private fun MacroProgressRow(label: String, current: Int, goal: Int) {
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
             )
         }
-        // GeometryReader { ZStack(.leading) { Capsule.fill(color*0.12); Capsule.fill(gradient).frame(max(6,...)).shadow(color*0.3, r=4, y=2) } }.frame(height: 8)
-        androidx.compose.foundation.layout.BoxWithConstraints(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(8.dp)
-        ) {
+        BoxWithConstraints(Modifier.fillMaxWidth().height(8.dp)) {
             val w = maxWidth
             Box(
-                Modifier
-                    .fillMaxWidth()
-                    .height(8.dp)
-                    .clip(CircleShape)
+                Modifier.fillMaxWidth().height(8.dp).clip(RoundedCornerShape(4.dp))
                     .background(AppColors.Calorie.copy(alpha = 0.12f))
             )
             val barWidth = (w * progress).coerceAtLeast(6.dp)
@@ -345,27 +480,44 @@ private fun MacroProgressRow(label: String, current: Int, goal: Int) {
                     .height(8.dp)
                     .shadow(
                         elevation = 4.dp,
-                        shape = CircleShape,
+                        shape = RoundedCornerShape(4.dp),
                         ambientColor = AppColors.Calorie.copy(alpha = 0.3f),
                         spotColor = AppColors.Calorie.copy(alpha = 0.3f)
                     )
-                    .clip(CircleShape)
+                    .clip(RoundedCornerShape(4.dp))
                     .background(AppColors.CalorieGradient)
             )
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun HistorySection(entries: List<WeightEntry>, useMetric: Boolean, onDelete: (java.util.UUID) -> Unit) {
-    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text("History", fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
-        if (entries.isEmpty()) {
-            Text("No weight entries yet.", fontSize = 13.sp, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f))
-        } else {
-            val fmt = DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.US).withZone(ZoneId.systemDefault())
-            entries.sortedByDescending { it.date }.forEach { entry ->
-                Row(verticalAlignment = Alignment.CenterVertically) {
+private fun AllWeightHistorySheet(
+    entries: List<WeightEntry>,
+    useMetric: Boolean,
+    onDelete: (java.util.UUID) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val fmt = DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.US).withZone(ZoneId.systemDefault())
+    ModalBottomSheet(
+        onDismissRequest = onDismiss,
+        sheetState = state,
+        shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp)
+    ) {
+        Column(Modifier.fillMaxWidth().padding(20.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text("Weight History", fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+                Spacer(Modifier.weight(1f))
+                TextButton(onClick = onDismiss) { Text("Done", color = AppColors.Calorie) }
+            }
+            Spacer(Modifier.height(12.dp))
+            entries.forEach { entry ->
+                Row(
+                    Modifier.fillMaxWidth().padding(vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Column(Modifier.weight(1f)) {
                         Text(formatWeight(entry.weightKg, useMetric), fontSize = 15.sp, fontWeight = FontWeight.SemiBold)
                         Text(fmt.format(entry.date), fontSize = 12.sp, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f))
@@ -374,6 +526,7 @@ private fun HistorySection(entries: List<WeightEntry>, useMetric: Boolean, onDel
                         Icon(Icons.Filled.Delete, null, tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f), modifier = Modifier.size(18.dp))
                     }
                 }
+                Box(Modifier.fillMaxWidth().height(0.5.dp).background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f)))
             }
         }
     }
@@ -400,9 +553,7 @@ private fun AddWeightDialog(useMetric: Boolean, onDismiss: () -> Unit, onSubmit:
             Button(
                 onClick = {
                     val v = input.toDoubleOrNull()
-                    if (v != null && v > 0.0) {
-                        onSubmit(if (useMetric) v else v / 2.20462)
-                    }
+                    if (v != null && v > 0.0) onSubmit(if (useMetric) v else v / 2.20462)
                 },
                 colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie)
             ) { Text("Save", color = Color.White) }

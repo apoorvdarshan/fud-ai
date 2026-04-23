@@ -1,25 +1,37 @@
 package com.apoorvdarshan.calorietracker.ui.onboarding
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.outlined.Accessibility
+import androidx.compose.material.icons.outlined.ChevronLeft
+import androidx.compose.material.icons.outlined.Man
+import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.RadioButtonUnchecked
+import androidx.compose.material.icons.outlined.Woman
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -33,6 +45,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -74,23 +87,44 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // iOS hides the progress indicator on the Welcome step (the hero is the
-        // headline + Get Started CTA, no chrome). Show the indicator only from
-        // step 2 onward to match.
-        if (ui.step != OnboardingStep.WELCOME) {
-            Spacer(Modifier.height(24.dp))
-            val progress = (ui.step.ordinal + 1).toFloat() / OnboardingStep.values().size.toFloat()
-            LinearProgressIndicator(
-                progress = { progress },
-                color = AppColors.Calorie,
-                trackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f),
-                modifier = Modifier
+        // iOS shows a chevron-left back button + a thin Capsule progress bar at
+        // the top, only on steps 1..N-2 (hidden on Welcome and Review).
+        if (ui.step != OnboardingStep.WELCOME && ui.step != OnboardingStep.REVIEW) {
+            Spacer(Modifier.height(12.dp))
+            Row(
+                Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 24.dp)
-                    .height(5.dp)
-                    .clip(RoundedCornerShape(3.dp))
-            )
-            Spacer(Modifier.height(32.dp))
+                    .padding(horizontal = 24.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.ChevronLeft,
+                    contentDescription = "Back",
+                    tint = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier
+                        .size(28.dp)
+                        .clickable { vm.back() }
+                )
+                val totalSteps = OnboardingStep.values().size
+                val progress = ui.step.ordinal.toFloat() / (totalSteps - 1).toFloat()
+                Box(
+                    Modifier
+                        .weight(1f)
+                        .height(4.dp)
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.08f))
+                ) {
+                    Box(
+                        Modifier
+                            .fillMaxHeight()
+                            .fillMaxWidth(progress)
+                            .clip(RoundedCornerShape(2.dp))
+                            .background(MaterialTheme.colorScheme.onBackground)
+                    )
+                }
+            }
+            Spacer(Modifier.height(8.dp))
         } else {
             Spacer(Modifier.height(24.dp))
         }
@@ -185,30 +219,27 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 }
             }
         } else {
-            Row(
-                Modifier
+            // iOS continueButton: full-width primary-coloured Capsule, height 54,
+            // with inverse text. In dark mode that's a white pill with black text;
+            // in light mode it's a black pill with white text.
+            Button(
+                onClick = { if (ui.isLastStep) vm.complete(onComplete) else vm.next() },
+                shape = RoundedCornerShape(28.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.onBackground,
+                    contentColor = MaterialTheme.colorScheme.background
+                ),
+                modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 24.dp, vertical = 20.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(horizontal = 24.dp)
+                    .padding(bottom = 36.dp)
+                    .height(54.dp)
             ) {
-                TextButton(onClick = { vm.back() }) {
-                    Text("Back", style = MaterialTheme.typography.bodyLarge)
-                }
-                Spacer(Modifier.weight(1f))
-                Button(
-                    onClick = { if (ui.isLastStep) vm.complete(onComplete) else vm.next() },
-                    shape = RoundedCornerShape(28.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie),
-                    modifier = Modifier.height(52.dp).padding(horizontal = 8.dp)
-                ) {
-                    Text(
-                        if (ui.isLastStep) "Finish" else "Next",
-                        color = Color.White,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold,
-                        modifier = Modifier.padding(horizontal = 24.dp)
-                    )
-                }
+                Text(
+                    if (ui.isLastStep) "Finish" else "Continue",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold
+                )
             }
         }
     }
@@ -281,12 +312,22 @@ private fun StepHeader(title: String, subtitle: String? = null) {
 
 @Composable
 private fun GenderStep(selected: Gender, onSelect: (Gender) -> Unit) {
-    Column {
-        StepHeader("How do you identify?")
+    Column(Modifier.fillMaxSize()) {
+        StepHeader("What's your gender?", subtitle = "This helps us calculate your metabolism")
+        Spacer(Modifier.weight(1f))
         for (g in Gender.values()) {
-            ChoiceRow(label = g.displayName, selected = g == selected) { onSelect(g) }
+            SelectionCard(
+                icon = when (g) {
+                    Gender.MALE -> Icons.Outlined.Man
+                    Gender.FEMALE -> Icons.Outlined.Woman
+                    Gender.OTHER -> Icons.Outlined.Accessibility
+                },
+                title = g.displayName,
+                selected = g == selected
+            ) { onSelect(g) }
             Spacer(Modifier.height(12.dp))
         }
+        Spacer(Modifier.weight(1f))
     }
 }
 
@@ -735,6 +776,63 @@ private fun ReviewRow(label: String, value: String) {
             style = MaterialTheme.typography.bodyLarge,
             fontWeight = FontWeight.SemiBold
         )
+    }
+}
+
+/**
+ * iOS selectionCard parity — rounded card with leading icon, title, optional
+ * subtitle, and a trailing checkmark.circle.fill / circle. Selected state adds
+ * a 2pt onBackground stroke; matches AppColors.appCard background.
+ */
+@Composable
+private fun SelectionCard(
+    icon: ImageVector,
+    title: String,
+    subtitle: String? = null,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    val accent = MaterialTheme.colorScheme.onBackground
+    val baseModifier = Modifier
+        .fillMaxWidth()
+        .clip(RoundedCornerShape(16.dp))
+        .background(MaterialTheme.colorScheme.surface)
+        .clickable(onClick = onClick)
+    val outlined = if (selected)
+        baseModifier.border(BorderStroke(2.dp, accent), RoundedCornerShape(16.dp))
+    else baseModifier
+    Box(outlined.padding(16.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = if (selected) accent else accent.copy(alpha = 0.55f),
+                modifier = Modifier
+                    .size(40.dp)
+                    .padding(end = 16.dp)
+            )
+            Column(Modifier.weight(1f)) {
+                Text(
+                    title,
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.SemiBold
+                )
+                subtitle?.let {
+                    Spacer(Modifier.height(2.dp))
+                    Text(
+                        it,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = accent.copy(alpha = 0.55f)
+                    )
+                }
+            }
+            Icon(
+                imageVector = if (selected) Icons.Filled.CheckCircle else Icons.Outlined.RadioButtonUnchecked,
+                contentDescription = null,
+                tint = if (selected) accent else accent.copy(alpha = 0.3f),
+                modifier = Modifier.size(22.dp)
+            )
+        }
     }
 }
 

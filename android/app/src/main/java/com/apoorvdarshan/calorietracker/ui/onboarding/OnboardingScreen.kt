@@ -27,6 +27,7 @@ import androidx.compose.material.icons.automirrored.outlined.TrendingFlat
 import androidx.compose.material.icons.automirrored.outlined.TrendingUp
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Accessibility
+import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material.icons.outlined.Chair
 import androidx.compose.material.icons.outlined.CheckCircle
@@ -170,6 +171,8 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                     weeklyKg = ui.weeklyChangeKg,
                     goal = ui.goal,
                     useMetric = ui.useMetric,
+                    currentKg = ui.weightKg,
+                    targetKg = ui.goalWeightKg,
                     onSelect = vm::setWeeklyChange
                 )
                 OnboardingStep.NOTIFICATIONS -> NotificationsStep(
@@ -529,38 +532,31 @@ private fun goalIcon(goal: WeightGoal): ImageVector = when (goal) {
 
 @Composable
 private fun GoalWeightStep(current: Double, goal: WeightGoal, useMetric: Boolean, onChange: (Double) -> Unit, onToggle: (Boolean) -> Unit) {
-    Column {
-        StepHeader(
-            "Your target weight?",
-            subtitle = if (goal == WeightGoal.MAINTAIN) "Skip — maintaining current weight." else null
-        )
-        if (goal != WeightGoal.MAINTAIN) {
-            UnitToggle(
-                leftLabel = "kg",
-                rightLabel = "lbs",
-                isLeft = useMetric,
-                onSelect = onToggle,
-                modifier = Modifier.fillMaxWidth()
+    // iOS desiredWeightStep: title "What's your\ndesired weight?", subtitle is
+    // goal.displayName, integer wheel picker; no unit toggle (respects
+    // profile useMetric).
+    Column(Modifier.fillMaxSize()) {
+        StepHeader("What's your\ndesired weight?", subtitle = goal.displayName)
+        Spacer(Modifier.weight(1f))
+        if (useMetric) {
+            NumericWheelPicker(
+                value = current.toInt().coerceIn(30, 250),
+                onValueChange = { onChange(it.toDouble()) },
+                min = 30,
+                max = 250,
+                unit = "kg"
             )
-            Spacer(Modifier.height(24.dp))
-            if (useMetric) {
-                SplitDecimalWheelPicker(
-                    value = current,
-                    onValueChange = onChange,
-                    min = 30,
-                    max = 250,
-                    unit = "kg"
-                )
-            } else {
-                SplitDecimalWheelPicker(
-                    value = current * 2.20462,
-                    onValueChange = { lbs -> onChange(lbs / 2.20462) },
-                    min = 66,
-                    max = 551,
-                    unit = "lbs"
-                )
-            }
+        } else {
+            val lbs = (current * 2.20462).toInt().coerceIn(60, 500)
+            NumericWheelPicker(
+                value = lbs,
+                onValueChange = { newLbs -> onChange(newLbs / 2.20462) },
+                min = 60,
+                max = 500,
+                unit = "lbs"
+            )
         }
+        Spacer(Modifier.weight(1f))
     }
 }
 
@@ -629,27 +625,154 @@ private fun BodyFatStep(bodyFat: Double?, onChange: (Double?) -> Unit) {
 }
 
 @Composable
-private fun GoalSpeedStep(weeklyKg: Double, goal: WeightGoal, useMetric: Boolean, onSelect: (Double) -> Unit) {
-    Column {
+private fun GoalSpeedStep(
+    weeklyKg: Double,
+    goal: WeightGoal,
+    useMetric: Boolean,
+    currentKg: Double,
+    targetKg: Double,
+    onSelect: (Double) -> Unit
+) {
+    // iOS goalSpeedStep: MAINTAIN shows a centered "Balanced pace set" card; LOSE/GAIN
+    // show a big weekly-change readout, a tortoise/hare/bolt row, a 3-stop slider
+    // (0.25/0.5/1.0 kg/wk), and an estimated-days card.
+    Column(Modifier.fillMaxSize()) {
         StepHeader(
-            "How fast?",
-            subtitle = "Pace of ${if (goal == WeightGoal.GAIN) "gain" else "loss"} determines your calorie adjustment."
+            title = if (goal == WeightGoal.MAINTAIN) "Your pace"
+                    else "How fast do you want\nto reach your goal?",
+            subtitle = if (goal == WeightGoal.MAINTAIN) "We'll set a balanced plan"
+                       else "${if (goal == WeightGoal.LOSE) "Weight loss" else "Weight gain"} speed per week"
         )
-        val options = listOf(
-            Triple(0.25, "Slow & steady", "Sustainable. Easier to stick with."),
-            Triple(0.5, "Moderate", "Recommended for most people."),
-            Triple(1.0, "Fast", "Aggressive. Higher risk of muscle loss on cuts.")
-        )
-        for ((kg, label, subtitle) in options) {
-            val display = if (useMetric) String.format(Locale.US, "%.2f kg/week", kg)
-                          else String.format(Locale.US, "%.2f lbs/week", kg * 2.20462)
-            ChoiceRow(
-                label = "$label · $display",
-                subtitle = subtitle,
-                selected = kotlin.math.abs(weeklyKg - kg) < 0.01
-            ) { onSelect(kg) }
-            Spacer(Modifier.height(10.dp))
+        if (goal == WeightGoal.MAINTAIN) {
+            Spacer(Modifier.weight(1f))
+            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Icon(
+                    imageVector = Icons.Filled.CheckCircle,
+                    contentDescription = null,
+                    tint = AppColors.Protein,
+                    modifier = Modifier.size(56.dp)
+                )
+                Spacer(Modifier.height(12.dp))
+                Text(
+                    "Balanced pace set",
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    "We'll keep your calories steady\nto maintain your current weight.",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
+                    textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                )
+            }
+            Spacer(Modifier.weight(1f))
+        } else {
+            val idx = when {
+                kotlin.math.abs(weeklyKg - 0.25) < 0.01 -> 0
+                kotlin.math.abs(weeklyKg - 1.0) < 0.01 -> 2
+                else -> 1
+            }
+            val unit = if (useMetric) "kg" else "lbs"
+            val display = if (useMetric) String.format(Locale.US, "%.1f", weeklyKg)
+                          else String.format(Locale.US, "%.1f", weeklyKg * 2.20462)
+            val diffKg = kotlin.math.abs(targetKg - currentKg)
+            val estimatedDays = if (weeklyKg > 0) (diffKg / weeklyKg * 7).toInt() else 0
+            Spacer(Modifier.weight(1f))
+            // Weekly change readout
+            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Text(
+                    "$display $unit",
+                    fontSize = 40.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    "per week",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f)
+                )
+            }
+            Spacer(Modifier.height(20.dp))
+            // tortoise / hare / bolt icons with labels
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                PaceIcon(Icons.AutoMirrored.Outlined.DirectionsWalk, "Slow", idx == 0)
+                PaceIcon(Icons.AutoMirrored.Outlined.DirectionsRun, "Recommended", idx == 1)
+                PaceIcon(Icons.Outlined.Bolt, "Fast", idx == 2)
+            }
+            Spacer(Modifier.height(12.dp))
+            // Slider with 3 stops
+            androidx.compose.material3.Slider(
+                value = idx.toFloat(),
+                onValueChange = { v ->
+                    val newIdx = v.toInt().coerceIn(0, 2)
+                    val kg = when (newIdx) { 0 -> 0.25; 2 -> 1.0; else -> 0.5 }
+                    onSelect(kg)
+                },
+                valueRange = 0f..2f,
+                steps = 1,
+                colors = androidx.compose.material3.SliderDefaults.colors(
+                    thumbColor = AppColors.Calorie,
+                    activeTrackColor = AppColors.Calorie,
+                    inactiveTrackColor = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.15f)
+                ),
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+            Spacer(Modifier.height(16.dp))
+            // Estimated days card
+            Card(
+                shape = RoundedCornerShape(14.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(Modifier.padding(16.dp)) {
+                    Row {
+                        Text(
+                            "You'll reach your goal in ",
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.Medium
+                        )
+                        Text(
+                            "$estimatedDays days",
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = AppColors.Calorie
+                        )
+                    }
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        when (idx) {
+                            0 -> "Gentle and sustainable. Great for long-term habits."
+                            2 -> "Aggressive but doable. Requires strong discipline."
+                            else -> "The most balanced pace, motivating and sustainable."
+                        },
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+                    )
+                }
+            }
+            Spacer(Modifier.weight(1f))
         }
+    }
+}
+
+@Composable
+private fun PaceIcon(icon: ImageVector, label: String, selected: Boolean) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Icon(
+            imageVector = icon,
+            contentDescription = null,
+            tint = if (selected) AppColors.Calorie
+                   else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f),
+            modifier = Modifier.size(28.dp)
+        )
+        Spacer(Modifier.height(4.dp))
+        Text(
+            label,
+            style = MaterialTheme.typography.labelSmall,
+            fontWeight = FontWeight.Medium,
+            color = if (selected) AppColors.Calorie
+                    else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f)
+        )
     }
 }
 

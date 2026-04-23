@@ -105,26 +105,12 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
 
     fun next() {
         val nextStep = OnboardingStep.values().getOrNull(_ui.value.step.ordinal + 1) ?: return
-        // Skip GOAL_SPEED / GOAL_WEIGHT when user picked MAINTAIN
-        val toSet = if (nextStep == OnboardingStep.GOAL_WEIGHT && _ui.value.goal == WeightGoal.MAINTAIN) {
-            OnboardingStep.GOAL_SPEED.let {
-                // Also skip GOAL_SPEED
-                OnboardingStep.NOTIFICATIONS
-            }
-        } else if (nextStep == OnboardingStep.GOAL_SPEED && _ui.value.goal == WeightGoal.MAINTAIN) {
-            OnboardingStep.NOTIFICATIONS
-        } else nextStep
-        _ui.value = _ui.value.copy(step = toSet)
+        _ui.value = _ui.value.copy(step = nextStep)
     }
 
     fun back() {
         val prevStep = OnboardingStep.values().getOrNull(_ui.value.step.ordinal - 1) ?: return
-        val toSet = if (prevStep == OnboardingStep.GOAL_SPEED && _ui.value.goal == WeightGoal.MAINTAIN) {
-            OnboardingStep.GOAL
-        } else if (prevStep == OnboardingStep.GOAL_WEIGHT && _ui.value.goal == WeightGoal.MAINTAIN) {
-            OnboardingStep.GOAL
-        } else prevStep
-        _ui.value = _ui.value.copy(step = toSet)
+        _ui.value = _ui.value.copy(step = prevStep)
     }
 
     fun complete(onDone: () -> Unit) {

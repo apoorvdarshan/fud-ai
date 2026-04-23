@@ -17,12 +17,33 @@ import java.util.UUID
 class FoodRepository(private val prefs: PreferencesStore) {
     val entries: Flow<List<FoodEntry>> = prefs.foodEntries
 
-    val favorites: Flow<List<FoodEntry>> = prefs.foodEntries.map { allEntries ->
-        val favSet = prefs.favoriteKeys.first()
-        allEntries.filter { it.favoriteKey in favSet }
+    /**
+     * Favorites are now stored as an ordered list of [FoodEntry] copies (not
+     * a Set of keys), mirroring iOS `FoodStore.favorites`. The list owns its
+     * own copies so a favorite survives deletion of the original log entry
+     * and the user-defined order persists across restarts.
+     *
+     * Reads also trigger a one-time migration from the legacy `favoriteKeys`
+     * Set if the new list is empty but the old set has entries — done via a
+     * suspend [migratedFavorites] helper that the Saved Meals UI calls
+     * directly when the sheet opens.
+     */
+    val favorites: Flow<List<FoodEntry>> = prefs.favoriteFoodEntries
+
+    /** Run the migration once and return the (possibly newly-seeded) list. */
+    suspend fun migratedFavorites(): List<FoodEntry> {
+        ensureFavoritesMigrated()
+        return prefs.favoriteFoodEntries.first()
     }
 
-    val favoriteKeys: Flow<Set<String>> = prefs.favoriteKeys
+    /**
+     * Derived from [favorites] so existing call sites that read favoriteKeys
+     * (Home list heart icon, Saved Meals heart icon, etc.) keep working
+     * without change.
+     */
+    val favoriteKeys: Flow<Set<String>> = prefs.favoriteFoodEntries.map { list ->
+        list.map { it.favoriteKey }.toSet()
+    }
 
     fun entriesForDate(date: LocalDate): Flow<List<FoodEntry>> = entries.map { list ->
         list.filter { it.timestamp.atZone(ZoneId.systemDefault()).toLocalDate() == date }
@@ -66,13 +87,61 @@ class FoodRepository(private val prefs: PreferencesStore) {
     // -- Favorites --------------------------------------------------------
 
     suspend fun isFavorite(entry: FoodEntry): Boolean {
-        return entry.favoriteKey in prefs.favoriteKeys.first()
+        return prefs.favoriteFoodEntries.first().any { it.favoriteKey == entry.favoriteKey }
     }
 
+    /**
+     * Toggle favorite status by favoriteKey. Mirrors iOS
+     * FoodStore.toggleFavorite — if a favorite with the same favoriteKey
+     * exists, remove it; otherwise append a *copy* of [entry] to the list.
+     * The legacy `favoriteKeys` Set is also kept in sync for any older code
+     * paths still reading it directly.
+     */
     suspend fun toggleFavorite(entry: FoodEntry) {
-        val current = prefs.favoriteKeys.first().toMutableSet()
-        if (entry.favoriteKey in current) current.remove(entry.favoriteKey) else current.add(entry.favoriteKey)
-        prefs.setFavoriteKeys(current)
+        ensureFavoritesMigrated()
+        val current = prefs.favoriteFoodEntries.first().toMutableList()
+        val idx = current.indexOfFirst { it.favoriteKey == entry.favoriteKey }
+        if (idx >= 0) {
+            current.removeAt(idx)
+        } else {
+            // Drop any other entry with the same id (defensive — should not
+            // normally happen since we matched by favoriteKey above).
+            current.removeAll { it.id == entry.id }
+            current.add(entry)
+        }
+        prefs.setFavoriteFoodEntries(current)
+        prefs.setFavoriteKeys(current.map { it.favoriteKey }.toSet())
+    }
+
+    /**
+     * Reorder a favorite from index [from] to index [to]. Mirrors iOS
+     * FoodStore.moveFavorite using SwiftUI's `Array.move(fromOffsets:toOffset:)`
+     * semantics — [to] is the *destination* index in the post-removal list.
+     */
+    suspend fun moveFavorite(from: Int, to: Int) {
+        ensureFavoritesMigrated()
+        val list = prefs.favoriteFoodEntries.first().toMutableList()
+        if (from !in list.indices) return
+        val item = list.removeAt(from)
+        val safeTo = to.coerceIn(0, list.size)
+        list.add(safeTo, item)
+        prefs.setFavoriteFoodEntries(list)
+    }
+
+    /**
+     * One-time migration: if the new ordered favoriteFoodEntries list is
+     * empty but the legacy favoriteKeys Set has entries, reconstruct the
+     * ordered list from current food log entries (best-effort — no preserved
+     * order since the old format never tracked one).
+     */
+    private suspend fun ensureFavoritesMigrated() {
+        val ordered = prefs.favoriteFoodEntries.first()
+        if (ordered.isNotEmpty()) return
+        val legacy = prefs.favoriteKeys.first()
+        if (legacy.isEmpty()) return
+        val all = prefs.foodEntries.first()
+        val seeded = legacy.mapNotNull { key -> all.firstOrNull { it.favoriteKey == key } }
+        if (seeded.isNotEmpty()) prefs.setFavoriteFoodEntries(seeded)
     }
 
     // -- Recents / Frequent ---------------------------------------------

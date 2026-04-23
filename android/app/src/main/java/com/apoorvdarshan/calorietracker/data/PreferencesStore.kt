@@ -149,6 +149,22 @@ class PreferencesStore(private val context: Context) {
         ds.edit { it[Keys.FAVORITE_KEYS] = json.encodeToString(SetSerializer(String.serializer()), keys) }
     }
 
+    /**
+     * Ordered list of favorite FoodEntry copies — mirrors iOS UserDefaults
+     * key "favoriteFoodEntries". Stored as a separate copy (not a reference
+     * into [foodEntries]) so a favorite survives deletion of the original
+     * log entry, AND so user-defined order is preserved across restarts.
+     */
+    val favoriteFoodEntries: Flow<List<FoodEntry>> = ds.data.map { prefs ->
+        prefs[Keys.FAVORITE_ENTRIES]?.let {
+            runCatching { json.decodeFromString(ListSerializer(FoodEntry.serializer()), it) }.getOrNull()
+        } ?: emptyList()
+    }
+
+    suspend fun setFavoriteFoodEntries(entries: List<FoodEntry>) {
+        ds.edit { it[Keys.FAVORITE_ENTRIES] = json.encodeToString(ListSerializer(FoodEntry.serializer()), entries) }
+    }
+
     // -- Weight entries ---------------------------------------------------
     val weightEntries: Flow<List<WeightEntry>> = ds.data.map { prefs ->
         prefs[Keys.WEIGHT_ENTRIES]?.let {
@@ -221,6 +237,7 @@ class PreferencesStore(private val context: Context) {
         val SELECTED_SPEECH_PROVIDER = stringPreferencesKey("selectedSpeechProvider")
         val FOOD_ENTRIES = stringPreferencesKey("foodEntries")
         val FAVORITE_KEYS = stringPreferencesKey("favorites")
+        val FAVORITE_ENTRIES = stringPreferencesKey("favoriteFoodEntries")
         val WEIGHT_ENTRIES = stringPreferencesKey("weightEntries")
         val CHAT_HISTORY = stringPreferencesKey("coachChatHistory")
         val WIDGET_SNAPSHOT = stringPreferencesKey("widget_snapshot_v1")

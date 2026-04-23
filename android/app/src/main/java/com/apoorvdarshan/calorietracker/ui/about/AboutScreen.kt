@@ -104,8 +104,9 @@ fun AboutScreen(container: AppContainer) {
             // Section 1 — actions + community (10 rows in iOS order)
             item {
                 CardSection {
-                    AboutRow(Icons.Filled.Star, "Rate the App", onClick = ::rate)
-                    Hairline()
+                    // Rate the App — hidden until Fud AI ships on Play Store.
+                    // AboutRow(Icons.Filled.Star, "Rate the App", onClick = ::rate)
+                    // Hairline()
                     AboutRow(Icons.Filled.Share, "Share the App", onClick = ::share)
                     Hairline()
                     AboutRow(Icons.Filled.Code, "Open Source (MIT)") { open("https://github.com/apoorvdarshan/fud-ai") }

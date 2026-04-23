@@ -244,6 +244,32 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 // height so layout doesn't jump when we land on this step.
                 Spacer(Modifier.height(54.dp + 36.dp + 24.dp))
             }
+            OnboardingStep.PLAN_READY -> {
+                // Plan Ready is the final step — Get Started completes onboarding
+                // (Review/Rate step is hidden until the app ships on Play Store).
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp)
+                        .padding(bottom = 36.dp)
+                        .height(54.dp)
+                        .clip(RoundedCornerShape(28.dp))
+                        .background(
+                            Brush.horizontalGradient(
+                                listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
+                            )
+                        )
+                        .clickable { vm.complete(onComplete) },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        "Get Started",
+                        color = Color.White,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+            }
             OnboardingStep.REVIEW -> {
                 // iOS review step: pink-gradient "Rate fud" primary + "Maybe Later"
                 // secondary text button.

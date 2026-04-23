@@ -75,6 +75,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -1044,25 +1046,67 @@ private fun AnalysisResultDialog(
 
 @Composable
 private fun TextInputDialog(onDismiss: () -> Unit, onSubmit: (String) -> Unit) {
-    var input by remember { mutableStateOf("") }
-    AlertDialog(
-        onDismissRequest = onDismiss,
-        shape = RoundedCornerShape(24.dp),
-        title = { Text("Describe your meal", fontWeight = FontWeight.SemiBold) },
-        text = {
-            OutlinedTextField(
-                value = input,
-                onValueChange = { input = it },
-                placeholder = { Text("e.g. 2 eggs, toast, small OJ") },
-                modifier = Modifier.fillMaxWidth()
-            )
-        },
-        confirmButton = {
-            Button(
-                onClick = { if (input.isNotBlank()) onSubmit(input) },
-                colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie)
-            ) { Text("Analyze", color = Color.White) }
-        },
-        dismissButton = { TextButton(onClick = onDismiss) { Text("Cancel") } }
+    // Verbatim port of TextFoodInputView.swift — no title, rotating placeholder,
+    // multiline text field, full-width pink Analyze + secondary Cancel.
+    val placeholders = listOf(
+        "2 eggs, toast with butter and a coffee",
+        "Chipotle burrito bowl with chicken and rice",
+        "Domino's pepperoni pizza, 2 slices",
+        "Greek yogurt with granola and blueberries"
     )
+    var input by remember { mutableStateOf("") }
+    var placeholderIdx by remember { mutableIntStateOf(0) }
+    LaunchedEffect(Unit) {
+        while (true) {
+            kotlinx.coroutines.delay(2000)
+            if (input.isEmpty()) placeholderIdx = (placeholderIdx + 1) % placeholders.size
+        }
+    }
+    androidx.compose.ui.window.Dialog(
+        onDismissRequest = onDismiss,
+        properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false)
+    ) {
+        Box(
+            Modifier
+                .padding(horizontal = 20.dp)
+                .clip(RoundedCornerShape(24.dp))
+                .background(MaterialTheme.colorScheme.surface)
+                .padding(horizontal = 20.dp, vertical = 24.dp)
+        ) {
+            Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+                OutlinedTextField(
+                    value = input,
+                    onValueChange = { input = it },
+                    placeholder = {
+                        androidx.compose.animation.Crossfade(
+                            targetState = placeholderIdx,
+                            animationSpec = androidx.compose.animation.core.tween(300),
+                            label = "placeholder"
+                        ) { idx ->
+                            Text(
+                                placeholders[idx],
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
+                                fontSize = 15.sp
+                            )
+                        }
+                    },
+                    minLines = 2,
+                    maxLines = 5,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Button(
+                    onClick = { if (input.isNotBlank()) onSubmit(input.trim()) },
+                    enabled = input.isNotBlank(),
+                    colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie),
+                    shape = RoundedCornerShape(20.dp),
+                    modifier = Modifier.fillMaxWidth().height(52.dp)
+                ) {
+                    Text("Analyze", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+                }
+                TextButton(onClick = onDismiss, modifier = Modifier.fillMaxWidth()) {
+                    Text("Cancel", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f))
+                }
+            }
+        }
+    }
 }

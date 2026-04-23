@@ -26,6 +26,7 @@ data class HomeUiState(
     val date: LocalDate = LocalDate.now(),
     val profile: UserProfile? = null,
     val todayEntries: List<FoodEntry> = emptyList(),
+    val favoriteKeys: Set<String> = emptySet(),
     val pendingAnalysis: FoodAnalysis? = null,
     val pendingImageBytes: ByteArray? = null,
     val analyzing: Boolean = false,
@@ -35,6 +36,7 @@ data class HomeUiState(
     val proteinToday: Int get() = todayEntries.sumOf { it.protein }
     val carbsToday: Int get() = todayEntries.sumOf { it.carbs }
     val fatToday: Int get() = todayEntries.sumOf { it.fat }
+    fun isFavorite(entry: FoodEntry): Boolean = entry.favoriteKey in favoriteKeys
 }
 
 class HomeViewModel(private val container: AppContainer) : ViewModel() {
@@ -46,13 +48,19 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
         combine(
             container.profileRepository.profile,
             container.foodRepository.entries,
+            container.foodRepository.favoriteKeys,
             _selectedDate
-        ) { p, entries, day ->
+        ) { p, entries, favKeys, day ->
             val zone = ZoneId.systemDefault()
             val dayEntries = entries
                 .filter { it.timestamp.atZone(zone).toLocalDate() == day }
                 .sortedByDescending { it.timestamp }
-            _ui.value.copy(profile = p, date = day, todayEntries = dayEntries)
+            _ui.value.copy(
+                profile = p,
+                date = day,
+                todayEntries = dayEntries,
+                favoriteKeys = favKeys
+            )
         }
             .onEach { _ui.value = it }
             .launchIn(viewModelScope)
@@ -137,6 +145,12 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
     fun deleteEntry(id: UUID) {
         viewModelScope.launch {
             container.foodRepository.deleteEntry(id)
+        }
+    }
+
+    fun toggleFavorite(entry: FoodEntry) {
+        viewModelScope.launch {
+            container.foodRepository.toggleFavorite(entry)
         }
     }
 

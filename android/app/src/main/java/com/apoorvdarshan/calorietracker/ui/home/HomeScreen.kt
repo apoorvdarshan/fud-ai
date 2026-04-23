@@ -39,7 +39,10 @@ import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Coffee
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Nightlight
@@ -61,8 +64,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -372,11 +378,17 @@ fun HomeScreen(container: AppContainer) {
                         val index = entries.indexOf(entry)
                         SectionCardWrapper(isFirst = index == 0, isLast = index == entries.lastIndex) {
                             // Tap row -> open EditFoodEntrySheet (matches iOS .onTapGesture).
-                            // Delete is offered inside the sheet (matches iOS .swipeActions on the row,
-                            // but Android Compose has no built-in swipe-to-delete on rows).
-                            Box(modifier = Modifier.clickable { editingEntry = entry }) {
-                                FoodRow(entry = entry)
-                            }
+                            // Swipe trailing edge -> delete; swipe leading edge -> toggle favorite.
+                            // Mirrors iOS ContentView.swift .swipeActions(edge: .trailing) on the row,
+                            // which exposes Delete (destructive) + Favorite/Unfavorite buttons.
+                            val isFav = ui.isFavorite(entry)
+                            SwipeableFoodRow(
+                                entry = entry,
+                                isFavorite = isFav,
+                                onTap = { editingEntry = entry },
+                                onDelete = { vm.deleteEntry(entry.id) },
+                                onToggleFavorite = { vm.toggleFavorite(entry) }
+                            )
                             if (index != entries.lastIndex) Divider()
                         }
                     }
@@ -778,8 +790,97 @@ private fun Divider() {
     )
 }
 
+/**
+ * Swipe-to-action wrapper around FoodRow.
+ *
+ * - Swipe right-to-left (trailing) past threshold → delete (mirrors iOS swipeActions
+ *   trailing destructive button).
+ * - Swipe left-to-right (leading) past threshold → toggle favorite (mirrors iOS
+ *   .swipeActions secondary heart button).
+ * - Tap → open EditFoodEntrySheet (matches iOS .onTapGesture).
+ *
+ * The dismiss state is reset on a no-confirm swing-back so partial swipes don't
+ * leave the row stuck mid-flight when the user releases short of the threshold.
+ */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun FoodRow(entry: FoodEntry) {
+private fun SwipeableFoodRow(
+    entry: FoodEntry,
+    isFavorite: Boolean,
+    onTap: () -> Unit,
+    onDelete: () -> Unit,
+    onToggleFavorite: () -> Unit
+) {
+    val state = rememberSwipeToDismissBoxState(
+        confirmValueChange = { value ->
+            when (value) {
+                SwipeToDismissBoxValue.EndToStart -> { onDelete(); true }
+                SwipeToDismissBoxValue.StartToEnd -> { onToggleFavorite(); false }
+                SwipeToDismissBoxValue.Settled -> false
+            }
+        }
+    )
+    // Snap back to Settled after a leading-swipe favorite toggle (favorite doesn't
+    // dismiss the row, just flips the heart) so the row resets visually.
+    androidx.compose.runtime.LaunchedEffect(state.currentValue) {
+        if (state.currentValue == SwipeToDismissBoxValue.StartToEnd) {
+            state.reset()
+        }
+    }
+    SwipeToDismissBox(
+        state = state,
+        backgroundContent = { SwipeBackground(state.dismissDirection, isFavorite) },
+        enableDismissFromStartToEnd = true,
+        enableDismissFromEndToStart = true,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Box(modifier = Modifier.clickable(onClick = onTap)) {
+            FoodRow(entry = entry, isFavorite = isFavorite)
+        }
+    }
+}
+
+@Composable
+private fun SwipeBackground(direction: SwipeToDismissBoxValue, isFavorite: Boolean) {
+    val (bg, icon, label, alignment) = when (direction) {
+        SwipeToDismissBoxValue.EndToStart -> Quad(
+            Color(0xFFD32F2F),
+            Icons.Filled.Delete,
+            "Delete",
+            Alignment.CenterEnd
+        )
+        SwipeToDismissBoxValue.StartToEnd -> Quad(
+            AppColors.Calorie,
+            if (isFavorite) Icons.Filled.FavoriteBorder else Icons.Filled.Favorite,
+            if (isFavorite) "Unfavorite" else "Favorite",
+            Alignment.CenterStart
+        )
+        SwipeToDismissBoxValue.Settled -> Quad(
+            Color.Transparent,
+            Icons.Filled.Favorite,
+            "",
+            Alignment.Center
+        )
+    }
+    Box(
+        Modifier
+            .fillMaxWidth()
+            .background(bg)
+            .padding(horizontal = 24.dp),
+        contentAlignment = alignment
+    ) {
+        if (direction != SwipeToDismissBoxValue.Settled) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(icon, contentDescription = label, tint = Color.White)
+            }
+        }
+    }
+}
+
+private data class Quad<A, B, C, D>(val a: A, val b: B, val c: C, val d: D)
+
+@Composable
+private fun FoodRow(entry: FoodEntry, isFavorite: Boolean = false) {
     val timeFmt = DateTimeFormatter.ofPattern("h:mma", Locale.US).withZone(ZoneId.systemDefault())
     val ctx = LocalContext.current
     val container = (ctx.applicationContext as com.apoorvdarshan.calorietracker.FudAIApp).container
@@ -789,6 +890,7 @@ private fun FoodRow(entry: FoodEntry) {
     Row(
         Modifier
             .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 14.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -813,12 +915,24 @@ private fun FoodRow(entry: FoodEntry) {
         }
         Spacer(Modifier.width(12.dp))
         Column(Modifier.weight(1f)) {
-            Text(
-                entry.name,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.SemiBold,
-                maxLines = 1
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    entry.name,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    maxLines = 1,
+                    modifier = Modifier.weight(1f, fill = false)
+                )
+                if (isFavorite) {
+                    Spacer(Modifier.width(6.dp))
+                    Icon(
+                        Icons.Filled.Favorite,
+                        contentDescription = "Favorited",
+                        tint = AppColors.Calorie,
+                        modifier = Modifier.size(12.dp)
+                    )
+                }
+            }
             Spacer(Modifier.height(2.dp))
             Text(
                 "${entry.calories} kcal · P${entry.protein} · C${entry.carbs} · F${entry.fat}",

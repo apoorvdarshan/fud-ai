@@ -17,9 +17,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.filled.UnfoldMore
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
@@ -77,6 +82,8 @@ fun FoodResultSheet(
     val servingGrams = servingGramsText.toDoubleOrNull()?.takeIf { it > 0 } ?: analysis.servingSizeGrams
     val scale = if (analysis.servingSizeGrams > 0) servingGrams / analysis.servingSizeGrams else 1.0
     var mealType by remember { mutableStateOf(MealType.currentMeal) }
+    var moreNutritionExpanded by remember { mutableStateOf(false) }
+    var mealMenuExpanded by remember { mutableStateOf(false) }
 
     fun scaledInt(v: Int) = (v * scale).roundToInt()
     fun scaledD(v: Double?) = v?.let { ((it * scale) * 10).roundToInt() / 10.0 }
@@ -87,12 +94,29 @@ fun FoodResultSheet(
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         containerColor = MaterialTheme.colorScheme.surface
     ) {
+        // Cancel · "Review Food" · Log toolbar — replaces iOS NavigationStack toolbar.
+        Row(
+            Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            TextButton(onClick = onDismiss) {
+                Text("Cancel", color = MaterialTheme.colorScheme.onSurface, fontSize = 15.sp)
+            }
+            Spacer(Modifier.weight(1f))
+            Text("Review Food", fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+            Spacer(Modifier.weight(1f))
+            TextButton(onClick = {
+                onSave(name.trim().ifEmpty { analysis.name }, servingGrams, scale, mealType)
+            }) {
+                Text("Log", color = AppColors.Calorie, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
+            }
+        }
+
         LazyColumn(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 16.dp),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 24.dp),
             verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
-            // Image hero (when we have captured photo bytes) OR 72sp emoji fallback —
-            // matches iOS FoodResultView header section.
+            // Image hero (captured photo) OR 80sp emoji fallback — matches iOS section.
             item {
                 Box(Modifier.fillMaxWidth().padding(vertical = 12.dp), contentAlignment = Alignment.Center) {
                     if (bitmap != null) {
@@ -105,12 +129,11 @@ fun FoodResultSheet(
                                 .clip(RoundedCornerShape(12.dp))
                         )
                     } else {
-                        Text(analysis.emoji ?: "🍽", fontSize = 72.sp)
+                        Text(analysis.emoji ?: "🍽", fontSize = 80.sp)
                     }
                 }
             }
 
-            // 'Food Details' section header
             item { SectionHeader("Food Details") }
             item {
                 Row(
@@ -130,7 +153,6 @@ fun FoodResultSheet(
                 }
             }
 
-            // 'Serving' section
             item { SectionHeader("Serving") }
             item {
                 Row(
@@ -153,87 +175,113 @@ fun FoodResultSheet(
                 }
             }
 
-            // 'Meal Type' section
-            item { SectionHeader("Meal Type") }
+            // Nutrition (always-visible macros).
+            item { SectionHeader("Nutrition") }
             item {
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(12.dp))
+                Column(
+                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
                         .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                        .padding(horizontal = 8.dp, vertical = 6.dp)
                 ) {
-                    for (m in MealType.values()) {
-                        val isSel = m == mealType
-                        Box(
-                            Modifier
-                                .weight(1f)
-                                .clip(RoundedCornerShape(8.dp))
-                                .background(if (isSel) AppColors.Calorie else Color.Transparent)
-                                .clickable { mealType = m }
-                                .padding(vertical = 8.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text(
-                                m.displayName,
-                                fontSize = 13.sp,
-                                fontWeight = FontWeight.Medium,
-                                color = if (isSel) Color.White else MaterialTheme.colorScheme.onSurface
+                    NutritionRow("Calories", "${scaledInt(analysis.calories)}", "kcal", isHero = true)
+                    Hairline()
+                    NutritionRow("Protein", "${scaledInt(analysis.protein)}", "g")
+                    Hairline()
+                    NutritionRow("Carbs", "${scaledInt(analysis.carbs)}", "g")
+                    Hairline()
+                    NutritionRow("Fat", "${scaledInt(analysis.fat)}", "g")
+                }
+            }
+
+            // Collapsible "More Nutrition" disclosure — port of iOS DisclosureGroup.
+            item {
+                Column(
+                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
+                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                ) {
+                    Row(
+                        Modifier.fillMaxWidth()
+                            .clickable { moreNutritionExpanded = !moreNutritionExpanded }
+                            .padding(horizontal = 16.dp, vertical = 14.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            "More Nutrition",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = AppColors.Calorie,
+                            modifier = Modifier.weight(1f)
+                        )
+                        Icon(
+                            if (moreNutritionExpanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+                            contentDescription = null,
+                            tint = AppColors.Calorie
+                        )
+                    }
+                    if (moreNutritionExpanded) {
+                        val micros = listOf(
+                            Triple("Sugar", scaledD(analysis.sugar), "g"),
+                            Triple("Added Sugar", scaledD(analysis.addedSugar), "g"),
+                            Triple("Fiber", scaledD(analysis.fiber), "g"),
+                            Triple("Saturated Fat", scaledD(analysis.saturatedFat), "g"),
+                            Triple("Mono Fat", scaledD(analysis.monounsaturatedFat), "g"),
+                            Triple("Poly Fat", scaledD(analysis.polyunsaturatedFat), "g"),
+                            Triple("Cholesterol", scaledD(analysis.cholesterol), "mg"),
+                            Triple("Sodium", scaledD(analysis.sodium), "mg"),
+                            Triple("Potassium", scaledD(analysis.potassium), "mg")
+                        )
+                        for ((label, value, unit) in micros) {
+                            Hairline()
+                            NutritionRow(
+                                label,
+                                value?.let { String.format("%.1f", it) } ?: "—",
+                                unit,
+                                dim = true
                             )
                         }
                     }
                 }
             }
 
-            // 'Nutrition (per N g)' section
-            item { SectionHeader("Nutrition (per ${formatGrams(servingGrams)} g)") }
+            // Meal type as inline dropdown — matches iOS Picker(.menu) inline display.
+            item { SectionHeader("Meal") }
             item {
-                Column(
-                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                ) {
-                    NutritionRow("Calories", "${scaledInt(analysis.calories)} kcal", isHero = true)
-                    Hairline()
-                    NutritionRow("Protein", "${scaledInt(analysis.protein)} g")
-                    Hairline()
-                    NutritionRow("Carbs", "${scaledInt(analysis.carbs)} g")
-                    Hairline()
-                    NutritionRow("Fat", "${scaledInt(analysis.fat)} g")
-                    val micros = listOf(
-                        "Sugar" to scaledD(analysis.sugar)?.let { "$it g" },
-                        "Added sugar" to scaledD(analysis.addedSugar)?.let { "$it g" },
-                        "Fiber" to scaledD(analysis.fiber)?.let { "$it g" },
-                        "Sat fat" to scaledD(analysis.saturatedFat)?.let { "$it g" },
-                        "Mono fat" to scaledD(analysis.monounsaturatedFat)?.let { "$it g" },
-                        "Poly fat" to scaledD(analysis.polyunsaturatedFat)?.let { "$it g" },
-                        "Cholesterol" to scaledD(analysis.cholesterol)?.let { "$it mg" },
-                        "Sodium" to scaledD(analysis.sodium)?.let { "$it mg" },
-                        "Potassium" to scaledD(analysis.potassium)?.let { "$it mg" }
-                    )
-                    for ((label, value) in micros) {
-                        if (value != null) {
-                            Hairline()
-                            NutritionRow(label, value, dim = true)
+                Box {
+                    Row(
+                        Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
+                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
+                            .clickable { mealMenuExpanded = true }
+                            .padding(horizontal = 14.dp, vertical = 14.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text("Meal Type", fontSize = 17.sp, modifier = Modifier.weight(1f))
+                        Text(
+                            mealType.displayName,
+                            fontSize = 17.sp,
+                            color = AppColors.Calorie,
+                            fontWeight = FontWeight.Medium
+                        )
+                        Spacer(Modifier.width(6.dp))
+                        Icon(
+                            Icons.Filled.UnfoldMore,
+                            contentDescription = null,
+                            tint = AppColors.Calorie
+                        )
+                    }
+                    DropdownMenu(
+                        expanded = mealMenuExpanded,
+                        onDismissRequest = { mealMenuExpanded = false }
+                    ) {
+                        for (m in MealType.values()) {
+                            DropdownMenuItem(
+                                text = { Text(m.displayName) },
+                                onClick = {
+                                    mealType = m
+                                    mealMenuExpanded = false
+                                }
+                            )
                         }
                     }
                 }
-            }
-
-            // Save / Discard buttons
-            item {
-                Spacer(Modifier.height(8.dp))
-                Button(
-                    onClick = { onSave(name.trim().ifEmpty { analysis.name }, servingGrams, scale, mealType) },
-                    colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie),
-                    shape = RoundedCornerShape(14.dp),
-                    modifier = Modifier.fillMaxWidth().height(52.dp)
-                ) {
-                    Text("Log Meal", color = Color.White, fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
-                }
-                TextButton(
-                    onClick = onDismiss,
-                    modifier = Modifier.fillMaxWidth()
-                ) { Text("Discard") }
             }
         }
     }
@@ -241,18 +289,18 @@ fun FoodResultSheet(
 
 @Composable
 private fun SectionHeader(title: String) {
+    // iOS Section() label — sentence-case, secondary color, regular weight.
     Text(
-        title.uppercase(),
-        fontSize = 12.sp,
-        fontWeight = FontWeight.SemiBold,
+        title,
+        fontSize = 13.sp,
+        fontWeight = FontWeight.Medium,
         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
-        letterSpacing = 0.6.sp,
         modifier = Modifier.padding(start = 14.dp, top = 6.dp, bottom = 4.dp)
     )
 }
 
 @Composable
-private fun NutritionRow(label: String, value: String, isHero: Boolean = false, dim: Boolean = false) {
+private fun NutritionRow(label: String, value: String, unit: String, isHero: Boolean = false, dim: Boolean = false) {
     Row(
         Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -269,6 +317,13 @@ private fun NutritionRow(label: String, value: String, isHero: Boolean = false, 
             fontSize = if (isHero) 22.sp else 15.sp,
             fontWeight = if (isHero) FontWeight.Bold else FontWeight.Medium,
             color = if (isHero) AppColors.Calorie else MaterialTheme.colorScheme.onSurface
+        )
+        Spacer(Modifier.width(6.dp))
+        Text(
+            unit,
+            fontSize = 14.sp,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
+            modifier = Modifier.width(36.dp)
         )
     }
 }

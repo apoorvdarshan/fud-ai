@@ -41,6 +41,7 @@ import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Coffee
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.ImageSearch
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.LightMode
@@ -443,7 +444,7 @@ fun HomeScreen(container: AppContainer) {
         )
     }
 
-    if (ui.analyzing) AnalyzingOverlay()
+    if (ui.analyzing) AnalyzingOverlay(imageBytes = ui.pendingImageBytes)
 
     ui.pendingAnalysis?.let { analysis ->
         FoodResultSheet(
@@ -954,22 +955,52 @@ private fun FoodRow(entry: FoodEntry, isFavorite: Boolean = false) {
 // ── Dialogs (unchanged styling polish) ──────────────────────────────
 
 @Composable
-private fun AnalyzingOverlay() {
+private fun AnalyzingOverlay(imageBytes: ByteArray? = null) {
+    // Verbatim port of ios/calorietracker/Views/AnalyzingView.swift:
+    //   VStack { (image | text.magnifyingglass) → ProgressView(.large) → "Analyzing your food..." }
+    //   filling the screen, opaque background, calorie-pink accents.
+    val bitmap = remember(imageBytes) {
+        imageBytes?.let { android.graphics.BitmapFactory.decodeByteArray(it, 0, it.size) }
+    }
     Box(
         Modifier
             .fillMaxSize()
-            .background(Color(0x99000000)),
+            .background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
-        Card(shape = RoundedCornerShape(20.dp)) {
-            Column(
-                Modifier.padding(32.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                CircularProgressIndicator(color = AppColors.Calorie)
-                Spacer(Modifier.height(16.dp))
-                Text("Analyzing…", fontSize = 15.sp, fontWeight = FontWeight.Medium)
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(24.dp),
+            modifier = Modifier.padding(horizontal = 32.dp)
+        ) {
+            if (bitmap != null) {
+                androidx.compose.foundation.Image(
+                    bitmap = bitmap.asImageBitmap(),
+                    contentDescription = null,
+                    contentScale = androidx.compose.ui.layout.ContentScale.Fit,
+                    modifier = Modifier
+                        .size(250.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                )
+            } else {
+                Icon(
+                    Icons.Filled.ImageSearch,
+                    contentDescription = null,
+                    tint = AppColors.Calorie,
+                    modifier = Modifier.size(64.dp)
+                )
             }
+            CircularProgressIndicator(
+                color = AppColors.Calorie,
+                strokeWidth = 4.dp,
+                modifier = Modifier.size(40.dp)
+            )
+            Text(
+                "Analyzing your food...",
+                fontSize = 17.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = AppColors.Calorie
+            )
         }
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
@@ -95,7 +96,8 @@ private fun ProteinSmall(snapshot: WidgetSnapshot) {
                 text = "Protein",
                 style = TextStyle(
                     color = WidgetTheme.secondaryTextProvider,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 12.sp
                 )
             )
         }
@@ -109,12 +111,13 @@ private fun ProteinSmall(snapshot: WidgetSnapshot) {
                     text = "${snapshot.protein}g",
                     style = TextStyle(
                         color = WidgetTheme.calorieProvider,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 28.sp
                     )
                 )
                 Text(
                     text = "of ${snapshot.proteinGoal}g",
-                    style = TextStyle(color = WidgetTheme.secondaryTextProvider)
+                    style = TextStyle(color = WidgetTheme.secondaryTextProvider, fontSize = 11.sp)
                 )
             }
         }
@@ -130,7 +133,8 @@ private fun ProteinSmall(snapshot: WidgetSnapshot) {
             text = "${snapshot.proteinRemaining}g left",
             style = TextStyle(
                 color = WidgetTheme.secondaryTextProvider,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                fontSize = 11.sp
             )
         )
     }
@@ -147,7 +151,8 @@ private fun ProteinMedium(snapshot: WidgetSnapshot) {
                 text = "Protein",
                 style = TextStyle(
                     color = WidgetTheme.secondaryTextProvider,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 12.sp
                 )
             )
             Spacer(modifier = GlanceModifier.height(4.dp))
@@ -155,12 +160,13 @@ private fun ProteinMedium(snapshot: WidgetSnapshot) {
                 text = "${snapshot.protein}g",
                 style = TextStyle(
                     color = WidgetTheme.calorieProvider,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 26.sp
                 )
             )
             Text(
                 text = "of ${snapshot.proteinGoal}g",
-                style = TextStyle(color = WidgetTheme.secondaryTextProvider)
+                style = TextStyle(color = WidgetTheme.secondaryTextProvider, fontSize = 11.sp)
             )
             Spacer(modifier = GlanceModifier.height(6.dp))
             LinearProgressIndicator(
@@ -192,7 +198,8 @@ private fun ProteinSideRow(label: String, value: Int, goal: Int, progress: Float
                 text = label,
                 style = TextStyle(
                     color = WidgetTheme.secondaryTextProvider,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 11.sp
                 ),
                 modifier = GlanceModifier.defaultWeight()
             )
@@ -200,7 +207,8 @@ private fun ProteinSideRow(label: String, value: Int, goal: Int, progress: Float
                 text = "${value}${unit} / ${goal}${unit}",
                 style = TextStyle(
                     color = WidgetTheme.primaryTextProvider,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 11.sp
                 )
             )
         }

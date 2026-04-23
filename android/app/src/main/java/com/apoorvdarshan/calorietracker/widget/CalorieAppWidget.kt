@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
@@ -99,7 +100,7 @@ private fun CalorieSmall(snapshot: WidgetSnapshot) {
                 style = TextStyle(
                     color = WidgetTheme.secondaryTextProvider,
                     fontWeight = FontWeight.Medium,
-                    fontSize = androidx.compose.ui.unit.TextUnit.Unspecified
+                    fontSize = 12.sp
                 )
             )
         }
@@ -113,13 +114,15 @@ private fun CalorieSmall(snapshot: WidgetSnapshot) {
                     text = snapshot.calories.toString(),
                     style = TextStyle(
                         color = WidgetTheme.calorieProvider,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 28.sp
                     )
                 )
                 Text(
                     text = "of ${snapshot.calorieGoal} kcal",
                     style = TextStyle(
-                        color = WidgetTheme.secondaryTextProvider
+                        color = WidgetTheme.secondaryTextProvider,
+                        fontSize = 11.sp
                     )
                 )
             }
@@ -136,7 +139,8 @@ private fun CalorieSmall(snapshot: WidgetSnapshot) {
             text = "${snapshot.caloriesRemaining} kcal left",
             style = TextStyle(
                 color = WidgetTheme.secondaryTextProvider,
-                fontWeight = FontWeight.Medium
+                fontWeight = FontWeight.Medium,
+                fontSize = 11.sp
             )
         )
     }
@@ -153,7 +157,8 @@ private fun CalorieMedium(snapshot: WidgetSnapshot) {
                 text = "Today",
                 style = TextStyle(
                     color = WidgetTheme.secondaryTextProvider,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 12.sp
                 )
             )
             Spacer(modifier = GlanceModifier.height(4.dp))
@@ -161,12 +166,13 @@ private fun CalorieMedium(snapshot: WidgetSnapshot) {
                 text = snapshot.calories.toString(),
                 style = TextStyle(
                     color = WidgetTheme.calorieProvider,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 26.sp
                 )
             )
             Text(
                 text = "of ${snapshot.calorieGoal} kcal",
-                style = TextStyle(color = WidgetTheme.secondaryTextProvider)
+                style = TextStyle(color = WidgetTheme.secondaryTextProvider, fontSize = 11.sp)
             )
             Spacer(modifier = GlanceModifier.height(6.dp))
             LinearProgressIndicator(
@@ -198,7 +204,8 @@ private fun MacroRow(label: String, value: Int, goal: Int, progress: Float) {
                 text = label,
                 style = TextStyle(
                     color = WidgetTheme.secondaryTextProvider,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 11.sp
                 ),
                 modifier = GlanceModifier.defaultWeight()
             )
@@ -206,7 +213,8 @@ private fun MacroRow(label: String, value: Int, goal: Int, progress: Float) {
                 text = "${value}g / ${goal}g",
                 style = TextStyle(
                     color = WidgetTheme.primaryTextProvider,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 11.sp
                 )
             )
         }

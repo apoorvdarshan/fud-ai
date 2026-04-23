@@ -227,11 +227,14 @@ fun ProgressScreen(container: AppContainer) {
 
 @Composable
 private fun TimeRangePicker(selected: TimeRange, onSelect: (TimeRange) -> Unit) {
+    // iOS .pickerStyle(.segmented): a track tinted with the system fill colour,
+    // active segment drawn as a slightly raised darker pill, active text uses
+    // the primary on-background colour (white in dark mode), not the brand pink.
     Row(
         Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f))
+            .clip(RoundedCornerShape(9.dp))
+            .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.10f))
             .padding(2.dp)
     ) {
         for (r in TimeRange.values()) {
@@ -240,7 +243,10 @@ private fun TimeRangePicker(selected: TimeRange, onSelect: (TimeRange) -> Unit) 
                 Modifier
                     .weight(1f)
                     .clip(RoundedCornerShape(7.dp))
-                    .background(if (isSel) MaterialTheme.colorScheme.surface else Color.Transparent)
+                    .background(
+                        if (isSel) MaterialTheme.colorScheme.onSurface.copy(alpha = 0.18f)
+                        else Color.Transparent
+                    )
                     .clickable { onSelect(r) }
                     .padding(vertical = 6.dp),
                 contentAlignment = Alignment.Center
@@ -249,7 +255,7 @@ private fun TimeRangePicker(selected: TimeRange, onSelect: (TimeRange) -> Unit) 
                     r.label,
                     fontSize = 13.sp,
                     fontWeight = if (isSel) FontWeight.SemiBold else FontWeight.Medium,
-                    color = if (isSel) AppColors.Calorie else MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         }
@@ -277,7 +283,7 @@ private fun WeightSection(
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("Weight", fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+            Text("Weight", fontSize = 22.sp, fontWeight = FontWeight.Bold)
             Spacer(Modifier.weight(1f))
             Row(
                 modifier = Modifier.clickable(onClick = onLogWeight),
@@ -385,7 +391,7 @@ private fun WeightHistoryLink(count: Int, onClick: () -> Unit) {
 private fun CalorieSection(dailyCalories: List<Pair<LocalDate, Int>>, calorieGoal: Int) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("Calories", fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+            Text("Calories", fontSize = 22.sp, fontWeight = FontWeight.Bold)
             Spacer(Modifier.weight(1f))
             if (dailyCalories.isNotEmpty()) {
                 val avg = dailyCalories.sumOf { it.second } / dailyCalories.size
@@ -460,7 +466,7 @@ private fun MacroAveragesSection(
     proteinGoal: Int, carbsGoal: Int, fatGoal: Int
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Text("Macro Averages", fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+        Text("Macro Averages", fontSize = 22.sp, fontWeight = FontWeight.Bold)
         MacroProgressRow("Protein", avgProtein, proteinGoal)
         MacroProgressRow("Carbs", avgCarbs, carbsGoal)
         MacroProgressRow("Fat", avgFat, fatGoal)

@@ -20,14 +20,23 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.DirectionsRun
+import androidx.compose.material.icons.automirrored.outlined.DirectionsWalk
+import androidx.compose.material.icons.automirrored.outlined.TrendingDown
+import androidx.compose.material.icons.automirrored.outlined.TrendingFlat
+import androidx.compose.material.icons.automirrored.outlined.TrendingUp
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.outlined.Accessibility
 import androidx.compose.material.icons.outlined.Cancel
+import androidx.compose.material.icons.outlined.Chair
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.ChevronLeft
+import androidx.compose.material.icons.outlined.FitnessCenter
+import androidx.compose.material.icons.outlined.LocalFireDepartment
 import androidx.compose.material.icons.outlined.Man
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.RadioButtonUnchecked
+import androidx.compose.material.icons.outlined.SportsKabaddi
 import androidx.compose.material.icons.outlined.Woman
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -472,24 +481,50 @@ private fun WheeledColumn(
 
 @Composable
 private fun ActivityStep(selected: ActivityLevel, onSelect: (ActivityLevel) -> Unit) {
-    Column {
-        StepHeader("How active are you?", subtitle = "Drives your TDEE multiplier.")
+    Column(Modifier.fillMaxSize()) {
+        StepHeader("How active are you?", subtitle = "Your typical week")
         for (a in ActivityLevel.values()) {
-            ChoiceRow(label = a.displayName, subtitle = a.subtitle, selected = a == selected) { onSelect(a) }
-            Spacer(Modifier.height(10.dp))
+            SelectionCard(
+                icon = activityIcon(a),
+                title = a.displayName,
+                subtitle = a.subtitle,
+                selected = a == selected
+            ) { onSelect(a) }
+            Spacer(Modifier.height(12.dp))
         }
     }
 }
 
+private fun activityIcon(level: ActivityLevel): ImageVector = when (level) {
+    ActivityLevel.SEDENTARY -> Icons.Outlined.Chair
+    ActivityLevel.LIGHT -> Icons.AutoMirrored.Outlined.DirectionsWalk
+    ActivityLevel.MODERATE -> Icons.AutoMirrored.Outlined.DirectionsRun
+    ActivityLevel.ACTIVE -> Icons.Outlined.LocalFireDepartment
+    ActivityLevel.VERY_ACTIVE -> Icons.Outlined.FitnessCenter
+    ActivityLevel.EXTRA_ACTIVE -> Icons.Outlined.SportsKabaddi
+}
+
 @Composable
 private fun GoalStep(selected: WeightGoal, onSelect: (WeightGoal) -> Unit) {
-    Column {
-        StepHeader("What's your goal?")
+    Column(Modifier.fillMaxSize()) {
+        StepHeader("What's your goal?", subtitle = "You can change this anytime")
+        Spacer(Modifier.weight(1f))
         for (g in WeightGoal.values()) {
-            ChoiceRow(label = g.displayName, selected = g == selected) { onSelect(g) }
+            SelectionCard(
+                icon = goalIcon(g),
+                title = g.displayName,
+                selected = g == selected
+            ) { onSelect(g) }
             Spacer(Modifier.height(12.dp))
         }
+        Spacer(Modifier.weight(1f))
     }
+}
+
+private fun goalIcon(goal: WeightGoal): ImageVector = when (goal) {
+    WeightGoal.LOSE -> Icons.AutoMirrored.Outlined.TrendingDown
+    WeightGoal.MAINTAIN -> Icons.AutoMirrored.Outlined.TrendingFlat
+    WeightGoal.GAIN -> Icons.AutoMirrored.Outlined.TrendingUp
 }
 
 @Composable

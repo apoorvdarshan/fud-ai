@@ -182,6 +182,15 @@ class PreferencesStore(private val context: Context) {
         ds.edit { it.remove(Keys.WIDGET_SNAPSHOT) }
     }
 
+    // -- Test data backup (used by TestDataSeeder during dev seeding) -------
+    val testSeedBackupJson: Flow<String?> = ds.data.map { it[Keys.TEST_SEED_BACKUP] }
+    suspend fun setTestSeedBackupJson(json: String) {
+        ds.edit { it[Keys.TEST_SEED_BACKUP] = json }
+    }
+    suspend fun clearTestSeedBackup() {
+        ds.edit { it.remove(Keys.TEST_SEED_BACKUP) }
+    }
+
     // -- Wipe everything --------------------------------------------------
     suspend fun clearAll() {
         ds.edit { it.clear() }
@@ -210,6 +219,7 @@ class PreferencesStore(private val context: Context) {
         val WEIGHT_ENTRIES = stringPreferencesKey("weightEntries")
         val CHAT_HISTORY = stringPreferencesKey("coachChatHistory")
         val WIDGET_SNAPSHOT = stringPreferencesKey("widget_snapshot_v1")
+        val TEST_SEED_BACKUP = stringPreferencesKey("test_seed_backup_v1")
     }
 
     companion object {

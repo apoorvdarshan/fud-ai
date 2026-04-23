@@ -27,6 +27,15 @@ class MainActivity : ComponentActivity() {
         }
 
         val container = (application as FudAIApp).container
+        // Dev-only seeders for verifying the Progress tab UI without polluting Health Connect.
+        // adb shell am start -n com.apoorvdarshan.calorietracker/.MainActivity --ez seed_test_data true
+        // adb shell am start -n com.apoorvdarshan.calorietracker/.MainActivity --ez restore_real_data true
+        if (intent?.getBooleanExtra("seed_test_data", false) == true) {
+            runBlocking { container.testDataSeeder.seedYear() }
+        }
+        if (intent?.getBooleanExtra("restore_real_data", false) == true) {
+            runBlocking { container.testDataSeeder.restore() }
+        }
         val startOnboarding = runBlocking { !container.prefs.hasCompletedOnboarding.first() }
 
         setContent {

@@ -9,6 +9,7 @@ import com.apoorvdarshan.calorietracker.data.ProfileRepository
 import com.apoorvdarshan.calorietracker.data.WeightRepository
 import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import com.apoorvdarshan.calorietracker.services.NotificationService
+import com.apoorvdarshan.calorietracker.services.TestDataSeeder
 import com.apoorvdarshan.calorietracker.services.WidgetSnapshotWriter
 import com.apoorvdarshan.calorietracker.services.ai.ChatService
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysisService
@@ -55,4 +56,5 @@ class AppContainer(app: FudAIApp) {
     val speechService = SpeechService(prefs, keyStore)
 
     val widgetSnapshotWriter = WidgetSnapshotWriter(app, prefs, foodRepository, profileRepository)
+    val testDataSeeder = TestDataSeeder(this)
 }

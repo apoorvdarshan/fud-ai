@@ -27,6 +27,8 @@ import androidx.compose.material.icons.automirrored.outlined.TrendingFlat
 import androidx.compose.material.icons.automirrored.outlined.TrendingUp
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Accessibility
 import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.Cancel
@@ -984,47 +986,128 @@ private fun ProviderStep(
     onProviderChange: (AIProvider) -> Unit,
     onKeyChange: (String) -> Unit
 ) {
-    Column {
-        StepHeader(
-            "AI Provider",
-            subtitle = "Bring your own key. 13 providers supported — you can switch anytime in Settings."
-        )
-        // Provider quick-select — just the top 3 most common, rest in Settings later.
-        val quick = listOf(AIProvider.GEMINI, AIProvider.OPENAI, AIProvider.ANTHROPIC)
-        for (p in quick) {
-            ChoiceRow(
-                label = p.displayName,
-                subtitle = when (p) {
-                    AIProvider.GEMINI -> "Free tier at aistudio.google.com/apikey"
-                    AIProvider.OPENAI -> "sk-... from platform.openai.com"
-                    AIProvider.ANTHROPIC -> "sk-ant-... from console.anthropic.com"
-                    else -> null
-                },
-                selected = p == provider
-            ) { onProviderChange(p) }
-            Spacer(Modifier.height(10.dp))
+    // iOS aiProviderStep: sparkles icon in circle, "Bring Your Own AI" title,
+    // recommended-provider Gemini card with star icon, 3-step setup guide, footer.
+    Column(
+        Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Box(
+            Modifier
+                .size(120.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.06f)),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.AutoAwesome,
+                contentDescription = null,
+                modifier = Modifier.size(48.dp),
+                tint = AppColors.Calorie
+            )
         }
+        Spacer(Modifier.height(18.dp))
+        Text(
+            "Bring Your Own AI",
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+        )
         Spacer(Modifier.height(8.dp))
         Text(
-            "Paste your ${provider.displayName} key",
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.SemiBold
+            "Fud AI needs an AI provider key to\nanalyze your food. You bring your own.",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center
         )
-        Spacer(Modifier.height(6.dp))
-        OutlinedTextField(
-            value = apiKey,
-            onValueChange = onKeyChange,
-            placeholder = { Text(provider.apiKeyPlaceholder) },
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            singleLine = true,
+        Spacer(Modifier.height(18.dp))
+        // Recommended provider card
+        Card(
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface
+            ),
+            border = BorderStroke(1.dp, AppColors.Calorie.copy(alpha = 0.25f)),
             modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(Modifier.height(6.dp))
+        ) {
+            Row(
+                Modifier.padding(14.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    Modifier
+                        .size(44.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.06f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Star,
+                        contentDescription = null,
+                        tint = AppColors.Calorie,
+                        modifier = Modifier.size(18.dp)
+                    )
+                }
+                Spacer(Modifier.width(12.dp))
+                Column(Modifier.weight(1f)) {
+                    Text(
+                        "Recommended: Google Gemini",
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    Text(
+                        "Free tier available, fast & accurate",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f)
+                    )
+                }
+            }
+        }
+        Spacer(Modifier.height(10.dp))
+        // Steps card
+        Card(
+            shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                AiSetupRow("1", "Get a free key at aistudio.google.com/apikey")
+                AiSetupRow("2", "Open Settings → AI Provider")
+                AiSetupRow("3", "Paste your key — done")
+            }
+        }
+        Spacer(Modifier.height(14.dp))
         Text(
-            "Optional — you can skip and paste later in Settings.",
+            "13 providers supported. Your key stays on\nthis device, encrypted.",
             style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f)
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center
+        )
+    }
+}
+
+@Composable
+private fun AiSetupRow(number: String, text: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Box(
+            Modifier
+                .size(22.dp)
+                .clip(CircleShape)
+                .background(AppColors.Calorie),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                number,
+                color = Color.White,
+                style = MaterialTheme.typography.labelSmall,
+                fontWeight = FontWeight.Bold
+            )
+        }
+        Spacer(Modifier.width(12.dp))
+        Text(
+            text,
+            style = MaterialTheme.typography.bodyMedium
         )
     }
 }

@@ -105,6 +105,7 @@ fun HomeScreen(container: AppContainer) {
     val vm: HomeViewModel = viewModel(factory = HomeViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
     val ctx = LocalContext.current
+    val weekStartsOnMonday by container.prefs.weekStartsOnMonday.collectAsState(initial = false)
 
     var showText by remember { mutableStateOf(false) }
     var showVoice by remember { mutableStateOf(false) }
@@ -307,7 +308,8 @@ fun HomeScreen(container: AppContainer) {
                 Box(Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
                     WeekEnergyStrip(
                         selectedDate = selectedDate,
-                        onSelect = { selectedDate = it }
+                        onSelect = { selectedDate = it },
+                        weekStartsOnMonday = weekStartsOnMonday
                     )
                 }
             }

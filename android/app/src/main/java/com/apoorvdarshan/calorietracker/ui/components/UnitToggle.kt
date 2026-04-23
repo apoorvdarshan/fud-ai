@@ -63,12 +63,16 @@ private fun UnitSegment(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // iOS UISegmentedControl uses a slightly lighter neutral fill for the
+    // selected thumb (not an accent colour) — matches that look.
     val bg by animateColorAsState(
-        if (selected) AppColors.Calorie else Color.Transparent,
+        if (selected) MaterialTheme.colorScheme.onSurface.copy(alpha = 0.22f)
+        else Color.Transparent,
         label = "segBg"
     )
     val fg by animateColorAsState(
-        if (selected) Color.White else MaterialTheme.colorScheme.onSurface,
+        if (selected) MaterialTheme.colorScheme.onSurface
+        else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
         label = "segFg"
     )
     Box(

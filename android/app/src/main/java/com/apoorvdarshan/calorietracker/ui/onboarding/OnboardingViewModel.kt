@@ -18,7 +18,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 
 enum class OnboardingStep {
-    WELCOME, GENDER, BIRTHDAY, HEIGHT, WEIGHT, BODY_FAT,
+    WELCOME, GENDER, BIRTHDAY, HEIGHT_WEIGHT, BODY_FAT,
     ACTIVITY, GOAL, GOAL_WEIGHT, GOAL_SPEED,
     NOTIFICATIONS, HEALTH_CONNECT, PROVIDER,
     BUILDING_PLAN, REVIEW
@@ -36,7 +36,8 @@ data class OnboardingState(
     val goalWeightKg: Double = 70.0,
     /** 0.25 (slow), 0.5 (moderate), 1.0 (fast) kg/week */
     val weeklyChangeKg: Double = 0.5,
-    val useMetric: Boolean = true,
+    /** iOS defaults onboarding to Imperial (useMetric = false); match that. */
+    val useMetric: Boolean = false,
     val notificationsEnabled: Boolean = false,
     val healthConnectEnabled: Boolean = false,
     val aiProvider: AIProvider = AIProvider.GEMINI,

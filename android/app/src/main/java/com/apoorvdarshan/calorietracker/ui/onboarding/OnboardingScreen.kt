@@ -134,16 +134,12 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 OnboardingStep.WELCOME -> WelcomeStep()
                 OnboardingStep.GENDER -> GenderStep(selected = ui.gender, onSelect = vm::setGender)
                 OnboardingStep.BIRTHDAY -> BirthdayStep(current = ui.birthday, onChange = vm::setBirthday)
-                OnboardingStep.HEIGHT -> HeightStep(
+                OnboardingStep.HEIGHT_WEIGHT -> HeightWeightStep(
                     cm = ui.heightCm,
-                    useMetric = ui.useMetric,
-                    onChange = vm::setHeight,
-                    onToggle = vm::setUseMetric
-                )
-                OnboardingStep.WEIGHT -> WeightStep(
                     kg = ui.weightKg,
                     useMetric = ui.useMetric,
-                    onChange = vm::setWeight,
+                    onHeightChange = vm::setHeight,
+                    onWeightChange = vm::setWeight,
                     onToggle = vm::setUseMetric
                 )
                 OnboardingStep.BODY_FAT -> BodyFatStep(
@@ -342,54 +338,137 @@ private fun BirthdayStep(current: LocalDate, onChange: (LocalDate) -> Unit) {
 }
 
 @Composable
-private fun HeightStep(cm: Int, useMetric: Boolean, onChange: (Int) -> Unit, onToggle: (Boolean) -> Unit) {
-    Column {
-        StepHeader("Your height?")
+private fun HeightWeightStep(
+    cm: Int,
+    kg: Double,
+    useMetric: Boolean,
+    onHeightChange: (Int) -> Unit,
+    onWeightChange: (Double) -> Unit,
+    onToggle: (Boolean) -> Unit
+) {
+    // iOS combines height + weight onto a single onboarding step. The
+    // Imperial layout shows three columns (Feet | Inches | Weight) and the
+    // Metric layout shows two (Height | Weight). Match that.
+    Column(Modifier.fillMaxSize()) {
+        StepHeader("Height & Weight", subtitle = "We'll keep this private")
         UnitToggle(
-            leftLabel = "cm",
-            rightLabel = "ft / in",
-            isLeft = useMetric,
-            onSelect = onToggle,
+            leftLabel = "Imperial",
+            rightLabel = "Metric",
+            // useMetric=false → Imperial selected (left segment).
+            isLeft = !useMetric,
+            onSelect = { isLeftSel -> onToggle(!isLeftSel) },
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(Modifier.height(24.dp))
+        Spacer(Modifier.weight(1f))
         if (useMetric) {
-            NumericWheelPicker(value = cm, onValueChange = onChange, min = 100, max = 250, unit = "cm")
+            HeightWeightMetricWheels(
+                cm = cm,
+                kg = kg,
+                onHeightChange = onHeightChange,
+                onWeightChange = onWeightChange
+            )
         } else {
-            FeetInchesWheelPicker(cm = cm, onValueChange = onChange)
+            HeightWeightImperialWheels(
+                cm = cm,
+                kg = kg,
+                onHeightChange = onHeightChange,
+                onWeightChange = onWeightChange
+            )
+        }
+        Spacer(Modifier.weight(1f))
+    }
+}
+
+@Composable
+private fun HeightWeightMetricWheels(
+    cm: Int,
+    kg: Double,
+    onHeightChange: (Int) -> Unit,
+    onWeightChange: (Double) -> Unit
+) {
+    Row(
+        Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.Top
+    ) {
+        WheeledColumn(label = "Height", modifier = Modifier.weight(1f)) {
+            NumericWheelPicker(value = cm, onValueChange = onHeightChange, min = 100, max = 250, unit = "cm")
+        }
+        WheeledColumn(label = "Weight", modifier = Modifier.weight(1f)) {
+            NumericWheelPicker(
+                value = kg.toInt().coerceIn(30, 250),
+                onValueChange = { onWeightChange(it.toDouble()) },
+                min = 30,
+                max = 250,
+                unit = "kg"
+            )
         }
     }
 }
 
 @Composable
-private fun WeightStep(kg: Double, useMetric: Boolean, onChange: (Double) -> Unit, onToggle: (Boolean) -> Unit) {
-    Column {
-        StepHeader("Your current weight?")
-        UnitToggle(
-            leftLabel = "kg",
-            rightLabel = "lbs",
-            isLeft = useMetric,
-            onSelect = onToggle,
-            modifier = Modifier.fillMaxWidth()
-        )
-        Spacer(Modifier.height(24.dp))
-        if (useMetric) {
-            SplitDecimalWheelPicker(
-                value = kg,
-                onValueChange = onChange,
-                min = 30,
-                max = 250,
-                unit = "kg"
+private fun HeightWeightImperialWheels(
+    cm: Int,
+    kg: Double,
+    onHeightChange: (Int) -> Unit,
+    onWeightChange: (Double) -> Unit
+) {
+    val totalInches = (cm / 2.54).toInt().coerceIn(36, 96)
+    val feet = (totalInches / 12).coerceIn(3, 8)
+    val inches = (totalInches % 12).coerceIn(0, 11)
+    val lbs = (kg * 2.20462).toInt().coerceIn(60, 500)
+
+    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
+        WheeledColumn(label = "Feet", modifier = Modifier.weight(1f)) {
+            NumericWheelPicker(
+                value = feet,
+                onValueChange = { newFt ->
+                    val newCm = ((newFt * 12 + inches) * 2.54).toInt()
+                    onHeightChange(newCm)
+                },
+                min = 3,
+                max = 8,
+                unit = "ft"
             )
-        } else {
-            SplitDecimalWheelPicker(
-                value = kg * 2.20462,
-                onValueChange = { lbs -> onChange(lbs / 2.20462) },
-                min = 66,
-                max = 551,
+        }
+        WheeledColumn(label = "Inches", modifier = Modifier.weight(1f)) {
+            NumericWheelPicker(
+                value = inches,
+                onValueChange = { newIn ->
+                    val newCm = ((feet * 12 + newIn) * 2.54).toInt()
+                    onHeightChange(newCm)
+                },
+                min = 0,
+                max = 11,
+                unit = "in"
+            )
+        }
+        WheeledColumn(label = "Weight", modifier = Modifier.weight(1f)) {
+            NumericWheelPicker(
+                value = lbs,
+                onValueChange = { newLbs -> onWeightChange(newLbs / 2.20462) },
+                min = 60,
+                max = 500,
                 unit = "lbs"
             )
         }
+    }
+}
+
+@Composable
+private fun WheeledColumn(
+    label: String,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit
+) {
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            label,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
+            fontWeight = FontWeight.Medium
+        )
+        Spacer(Modifier.height(4.dp))
+        content()
     }
 }
 

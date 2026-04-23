@@ -446,10 +446,6 @@ fun HomeScreen(container: AppContainer) {
                 vm.updateEntry(updated)
                 editingEntry = null
             },
-            onDelete = {
-                vm.deleteEntry(entry.id)
-                editingEntry = null
-            },
             onDismiss = { editingEntry = null }
         )
     }

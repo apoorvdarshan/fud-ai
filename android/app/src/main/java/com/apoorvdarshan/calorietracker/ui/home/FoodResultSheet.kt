@@ -1,25 +1,18 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ExpandLess
-import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.UnfoldMore
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -27,9 +20,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,7 +30,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -51,19 +41,10 @@ import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import kotlin.math.roundToInt
 
 /**
- * Verbatim port of struct FoodResultView in
- * ios/calorietracker/Views/FoodResultView.swift.
- *
- * iOS layout (List with sections):
- *   1. Image (200dp max, 12dp rounded) OR 80sp emoji
- *   2. 'Food Details' section: Name TextField (right-aligned)
- *   3. 'Serving' section: Quantity TextField + 'g' suffix
- *   4. 'Meal Type' section: segmented picker (Breakfast / Lunch / Dinner / Snack / Other)
- *   5. 'Nutrition (per N g)' section: rows for Calories / Protein / Carbs / Fat,
- *      then optional micronutrients (Sugar / Fiber / Sat fat / Sodium / Potassium /
- *      Cholesterol / Mono fat / Poly fat / Added sugar)
- *   All macros are scaled live by `scale = servingSizeGrams / baseServingSizeGrams`.
- *   Bottom: Save button (.tint pink, full width).
+ * First-time review sheet shown after photo / text / voice analysis returns
+ * a [FoodAnalysis]. Visually identical to [EditFoodEntrySheet] — only the
+ * top-right action differs ("Log" vs "Save"). Shared visual primitives live
+ * in FoodSheetPrimitives.kt.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -78,7 +59,7 @@ fun FoodResultSheet(
     }
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var name by remember { mutableStateOf(analysis.name) }
-    var servingGramsText by remember { mutableStateOf(formatGrams(analysis.servingSizeGrams)) }
+    var servingGramsText by remember { mutableStateOf(sheetFormatGrams(analysis.servingSizeGrams)) }
     val servingGrams = servingGramsText.toDoubleOrNull()?.takeIf { it > 0 } ?: analysis.servingSizeGrams
     val scale = if (analysis.servingSizeGrams > 0) servingGrams / analysis.servingSizeGrams else 1.0
     var mealType by remember { mutableStateOf(MealType.currentMeal) }
@@ -94,39 +75,33 @@ fun FoodResultSheet(
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         containerColor = MaterialTheme.colorScheme.surface
     ) {
-        // Cancel · "Review Food" · Log toolbar — replaces iOS NavigationStack toolbar.
-        Row(
-            Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            TextButton(onClick = onDismiss) {
-                Text("Cancel", color = MaterialTheme.colorScheme.onSurface, fontSize = 15.sp)
-            }
-            Spacer(Modifier.weight(1f))
-            Text("Review Food", fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
-            Spacer(Modifier.weight(1f))
-            TextButton(onClick = {
+        SheetReviewToolbar(
+            title = "Review Food",
+            primaryLabel = "Log",
+            onCancel = onDismiss,
+            onPrimary = {
                 onSave(name.trim().ifEmpty { analysis.name }, servingGrams, scale, mealType)
-            }) {
-                Text("Log", color = AppColors.Calorie, fontSize = 16.sp, fontWeight = FontWeight.SemiBold)
             }
-        }
+        )
 
         LazyColumn(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 24.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp)
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp).padding(bottom = 28.dp),
+            verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
-            // Image hero (captured photo) OR 80sp emoji fallback — matches iOS section.
+            // Square hero (captured photo) OR 80sp emoji fallback — centered.
             item {
-                Box(Modifier.fillMaxWidth().padding(vertical = 12.dp), contentAlignment = Alignment.Center) {
+                Box(
+                    Modifier.fillMaxWidth().padding(vertical = 8.dp),
+                    contentAlignment = Alignment.Center
+                ) {
                     if (bitmap != null) {
                         androidx.compose.foundation.Image(
                             bitmap = bitmap.asImageBitmap(),
                             contentDescription = null,
-                            contentScale = androidx.compose.ui.layout.ContentScale.Fit,
+                            contentScale = androidx.compose.ui.layout.ContentScale.Crop,
                             modifier = Modifier
-                                .heightIn(max = 200.dp)
-                                .clip(RoundedCornerShape(12.dp))
+                                .size(240.dp)
+                                .clip(RoundedCornerShape(20.dp))
                         )
                     } else {
                         Text(analysis.emoji ?: "🍽", fontSize = 80.sp)
@@ -134,16 +109,9 @@ fun FoodResultSheet(
                 }
             }
 
-            // iOS inline TextField: plain, trailing-aligned, no box. Use BasicTextField
-            // styled with underline color on focus to match SwiftUI's List row feel.
-            item { SectionHeader("Food Details") }
+            item { SheetSectionHeader("Food Details") }
             item {
-                Row(
-                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                        .padding(horizontal = 16.dp, vertical = 14.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                SheetPillRow {
                     Text("Name", fontSize = 17.sp, modifier = Modifier.padding(end = 8.dp))
                     Spacer(Modifier.weight(1f))
                     androidx.compose.foundation.text.BasicTextField(
@@ -161,14 +129,9 @@ fun FoodResultSheet(
                 }
             }
 
-            item { SectionHeader("Serving") }
+            item { SheetSectionHeader("Serving") }
             item {
-                Row(
-                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                        .padding(horizontal = 16.dp, vertical = 14.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+                SheetPillRow {
                     Text("Quantity", fontSize = 17.sp, modifier = Modifier.padding(end = 8.dp))
                     Spacer(Modifier.weight(1f))
                     androidx.compose.foundation.text.BasicTextField(
@@ -189,55 +152,40 @@ fun FoodResultSheet(
                         "g",
                         fontSize = 17.sp,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                        modifier = Modifier.width(36.dp)
+                        modifier = Modifier.width(20.dp)
                     )
                 }
             }
 
-            // Nutrition (always-visible macros).
-            item { SectionHeader("Nutrition") }
+            item { SheetSectionHeader("Nutrition") }
             item {
-                Column(
-                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                ) {
-                    // iOS treats all four macros uniformly (NutritionDisplayRow).
-                    NutritionRow("Calories", "${scaledInt(analysis.calories)}", "kcal")
-                    Hairline()
-                    NutritionRow("Protein", "${scaledInt(analysis.protein)}", "g")
-                    Hairline()
-                    NutritionRow("Carbs", "${scaledInt(analysis.carbs)}", "g")
-                    Hairline()
-                    NutritionRow("Fat", "${scaledInt(analysis.fat)}", "g")
+                SheetPillCard {
+                    SheetNutritionRow("Calories", "${scaledInt(analysis.calories)}", "kcal")
+                    SheetHairline()
+                    SheetNutritionRow("Protein", "${scaledInt(analysis.protein)}", "g")
+                    SheetHairline()
+                    SheetNutritionRow("Carbs", "${scaledInt(analysis.carbs)}", "g")
+                    SheetHairline()
+                    SheetNutritionRow("Fat", "${scaledInt(analysis.fat)}", "g")
                 }
             }
 
-            // Collapsible "More Nutrition" disclosure — port of iOS DisclosureGroup.
+            // "More Nutrition" — own pill row with chevron-right that flips to
+            // chevron-down when expanded; matches iOS DisclosureGroup.
             item {
-                Column(
-                    Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                ) {
-                    Row(
-                        Modifier.fillMaxWidth()
-                            .clickable { moreNutritionExpanded = !moreNutritionExpanded }
-                            .padding(horizontal = 16.dp, vertical = 14.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            "More Nutrition",
-                            fontSize = 15.sp,
-                            fontWeight = FontWeight.Medium,
-                            color = AppColors.Calorie,
-                            modifier = Modifier.weight(1f)
-                        )
-                        Icon(
-                            if (moreNutritionExpanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                            contentDescription = null,
-                            tint = AppColors.Calorie
-                        )
-                    }
-                    if (moreNutritionExpanded) {
+                SheetPillRow(onClick = { moreNutritionExpanded = !moreNutritionExpanded }) {
+                    Text("More Nutrition", fontSize = 17.sp, modifier = Modifier.weight(1f))
+                    Icon(
+                        if (moreNutritionExpanded) Icons.Filled.KeyboardArrowDown
+                        else Icons.Filled.KeyboardArrowRight,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+                    )
+                }
+            }
+            if (moreNutritionExpanded) {
+                item {
+                    SheetPillCard {
                         val micros = listOf(
                             Triple("Sugar", scaledD(analysis.sugar), "g"),
                             Triple("Added Sugar", scaledD(analysis.addedSugar), "g"),
@@ -249,9 +197,9 @@ fun FoodResultSheet(
                             Triple("Sodium", scaledD(analysis.sodium), "mg"),
                             Triple("Potassium", scaledD(analysis.potassium), "mg")
                         )
-                        for ((label, value, unit) in micros) {
-                            Hairline()
-                            NutritionRow(
+                        micros.forEachIndexed { idx, (label, value, unit) ->
+                            if (idx > 0) SheetHairline()
+                            SheetNutritionRow(
                                 label,
                                 value?.let { String.format("%.1f", it) } ?: "—",
                                 unit,
@@ -262,18 +210,18 @@ fun FoodResultSheet(
                 }
             }
 
-            // Meal type as inline dropdown — matches iOS Picker(.menu) inline display.
-            item { SectionHeader("Meal") }
+            item { SheetSectionHeader("Meal") }
             item {
                 Box {
-                    Row(
-                        Modifier.fillMaxWidth().clip(RoundedCornerShape(12.dp))
-                            .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                            .clickable { mealMenuExpanded = true }
-                            .padding(horizontal = 14.dp, vertical = 14.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    SheetPillRow(onClick = { mealMenuExpanded = true }) {
                         Text("Meal Type", fontSize = 17.sp, modifier = Modifier.weight(1f))
+                        Icon(
+                            sheetMealIcon(mealType),
+                            contentDescription = null,
+                            tint = AppColors.Calorie,
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(Modifier.width(6.dp))
                         Text(
                             mealType.displayName,
                             fontSize = 17.sp,
@@ -293,6 +241,9 @@ fun FoodResultSheet(
                     ) {
                         for (m in MealType.values()) {
                             DropdownMenuItem(
+                                leadingIcon = {
+                                    Icon(sheetMealIcon(m), contentDescription = null, tint = AppColors.Calorie)
+                                },
                                 text = { Text(m.displayName) },
                                 onClick = {
                                     mealType = m
@@ -306,59 +257,3 @@ fun FoodResultSheet(
         }
     }
 }
-
-@Composable
-private fun SectionHeader(title: String) {
-    // iOS Section() label — sentence-case, secondary color, regular weight.
-    Text(
-        title,
-        fontSize = 13.sp,
-        fontWeight = FontWeight.Medium,
-        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
-        modifier = Modifier.padding(start = 14.dp, top = 6.dp, bottom = 4.dp)
-    )
-}
-
-@Composable
-private fun NutritionRow(label: String, value: String, unit: String, isHero: Boolean = false, dim: Boolean = false) {
-    Row(
-        Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            label,
-            fontSize = if (isHero) 17.sp else 15.sp,
-            color = if (dim) MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                    else MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.weight(1f)
-        )
-        Text(
-            value,
-            fontSize = if (isHero) 22.sp else 15.sp,
-            fontWeight = if (isHero) FontWeight.Bold else FontWeight.Medium,
-            color = if (isHero) AppColors.Calorie else MaterialTheme.colorScheme.onSurface
-        )
-        Spacer(Modifier.width(6.dp))
-        Text(
-            unit,
-            fontSize = 14.sp,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
-            modifier = Modifier.width(36.dp)
-        )
-    }
-}
-
-@Composable
-private fun Hairline() {
-    Box(
-        Modifier
-            .padding(start = 16.dp)
-            .fillMaxWidth()
-            .height(0.5.dp)
-            .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
-    )
-}
-
-private fun formatGrams(value: Double): String =
-    if (value == value.toInt().toDouble()) value.toInt().toString()
-    else String.format("%.1f", value)

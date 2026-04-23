@@ -46,6 +46,7 @@ struct ContentView: View {
                     Text("About")
                 }
         }
+        .tint(AppColors.calorie)
     }
 }
 

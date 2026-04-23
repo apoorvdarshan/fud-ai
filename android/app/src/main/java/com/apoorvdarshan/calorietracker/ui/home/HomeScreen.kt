@@ -46,7 +46,10 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.ImageSearch
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Bedtime
 import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.filled.WbSunny
+import androidx.compose.material.icons.filled.WbTwilight
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Nightlight
 import androidx.compose.material.icons.filled.Note
@@ -794,40 +797,42 @@ private fun SectionHeader(title: String) {
 
 @Composable
 private fun MealSectionHeader(meal: MealType) {
+    // iOS layout: small dim icon + sentence-case label, regular weight ~17sp.
     Row(
-        Modifier.padding(start = 24.dp, top = 12.dp, bottom = 8.dp),
+        Modifier.padding(start = 22.dp, top = 18.dp, bottom = 10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             mealIcon(meal),
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.onBackground,
-            modifier = Modifier.size(18.dp)
+            tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
+            modifier = Modifier.size(16.dp)
         )
         Spacer(Modifier.width(8.dp))
         Text(
             meal.displayName,
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onBackground
+            fontSize = 17.sp,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.85f)
         )
     }
 }
 
 private fun mealIcon(meal: MealType): ImageVector = when (meal) {
-    MealType.BREAKFAST -> Icons.Filled.LightMode
-    MealType.LUNCH -> Icons.Filled.LightMode
-    MealType.DINNER -> Icons.Filled.Nightlight
+    MealType.BREAKFAST -> Icons.Filled.WbTwilight
+    MealType.LUNCH -> Icons.Filled.WbSunny
+    MealType.DINNER -> Icons.Filled.Bedtime
     MealType.SNACK -> Icons.Filled.Coffee
     MealType.OTHER -> Icons.Filled.Restaurant
 }
 
 @Composable
 private fun SectionCardWrapper(isFirst: Boolean, isLast: Boolean, content: @Composable () -> Unit) {
+    // 22dp corners on the meal card matches the softer iOS look (was 14dp).
     val shape = when {
-        isFirst && isLast -> RoundedCornerShape(14.dp)
-        isFirst -> RoundedCornerShape(topStart = 14.dp, topEnd = 14.dp)
-        isLast -> RoundedCornerShape(bottomStart = 14.dp, bottomEnd = 14.dp)
+        isFirst && isLast -> RoundedCornerShape(22.dp)
+        isFirst -> RoundedCornerShape(topStart = 22.dp, topEnd = 22.dp)
+        isLast -> RoundedCornerShape(bottomStart = 22.dp, bottomEnd = 22.dp)
         else -> RoundedCornerShape(0.dp)
     }
     Box(
@@ -843,7 +848,7 @@ private fun SectionCardWrapper(isFirst: Boolean, isLast: Boolean, content: @Comp
 private fun Divider() {
     Box(
         Modifier
-            .padding(start = 60.dp)
+            .padding(start = 102.dp, end = 14.dp)
             .fillMaxWidth()
             .height(0.5.dp)
             .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
@@ -971,64 +976,123 @@ private fun FoodRow(entry: FoodEntry, isFavorite: Boolean = false) {
     val bitmap = remember(entry.imageFilename) {
         entry.imageFilename?.let { container.imageStore.load(it) }
     }
+    // iOS layout: large 76dp square thumb · column with (Name + heart on left,
+    // time on right) · pink kcal · serving · macro tag pills row.
     Row(
         Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.surface)
             .padding(horizontal = 14.dp, vertical = 12.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.Top,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        // Image thumbnail when present, otherwise emoji-on-tint disc.
-        if (bitmap != null) {
-            androidx.compose.foundation.Image(
-                bitmap = bitmap.asImageBitmap(),
-                contentDescription = entry.name,
-                contentScale = androidx.compose.ui.layout.ContentScale.Crop,
-                modifier = Modifier
-                    .size(44.dp)
-                    .clip(RoundedCornerShape(10.dp))
-            )
-        } else {
-            Box(
-                Modifier
-                    .size(38.dp)
-                    .clip(CircleShape)
-                    .background(AppColors.Calorie.copy(alpha = 0.14f)),
-                contentAlignment = Alignment.Center
-            ) { Text(entry.emoji ?: "🍽", fontSize = 18.sp) }
-        }
-        Spacer(Modifier.width(12.dp))
-        Column(Modifier.weight(1f)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    entry.name,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    maxLines = 1,
-                    modifier = Modifier.weight(1f, fill = false)
+        Box(
+            Modifier
+                .size(76.dp)
+                .clip(RoundedCornerShape(14.dp))
+                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f)),
+            contentAlignment = Alignment.Center
+        ) {
+            when {
+                bitmap != null -> androidx.compose.foundation.Image(
+                    bitmap = bitmap.asImageBitmap(),
+                    contentDescription = entry.name,
+                    contentScale = androidx.compose.ui.layout.ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(14.dp))
                 )
-                if (isFavorite) {
-                    Spacer(Modifier.width(6.dp))
-                    Icon(
-                        Icons.Filled.Favorite,
-                        contentDescription = "Favorited",
-                        tint = AppColors.Calorie,
-                        modifier = Modifier.size(12.dp)
+                entry.emoji != null -> Text(entry.emoji ?: "", fontSize = 36.sp)
+                else -> Icon(
+                    Icons.Filled.Restaurant,
+                    contentDescription = null,
+                    tint = AppColors.Calorie,
+                    modifier = Modifier.size(28.dp)
+                )
+            }
+        }
+
+        Column(
+            Modifier.weight(1f).padding(top = 2.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            // Name (+ heart) on the left, time on the top-right.
+            Row(
+                verticalAlignment = Alignment.Top,
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Row(
+                    Modifier.weight(1f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(
+                        entry.name,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        maxLines = 2,
+                        modifier = Modifier.weight(1f, fill = false)
+                    )
+                    if (isFavorite) {
+                        Icon(
+                            Icons.Filled.Favorite,
+                            contentDescription = "Favorited",
+                            tint = AppColors.Calorie,
+                            modifier = Modifier.size(12.dp)
+                        )
+                    }
+                }
+                Text(
+                    timeFmt.format(entry.timestamp).lowercase(),
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
+                )
+            }
+
+            // Pink kcal · gray serving size.
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(6.dp)
+            ) {
+                Text(
+                    "${entry.calories} kcal",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    color = AppColors.Calorie
+                )
+                entry.servingSizeGrams?.takeIf { it > 0 }?.let { grams ->
+                    Text("·", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f))
+                    val gramsText = if (grams == grams.toInt().toDouble()) "${grams.toInt()}g"
+                                    else String.format("%.1fg", grams)
+                    Text(
+                        gramsText,
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                     )
                 }
             }
-            Spacer(Modifier.height(2.dp))
-            Text(
-                "${entry.calories} kcal · P${entry.protein} · C${entry.carbs} · F${entry.fat}",
-                fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
-                maxLines = 1
-            )
+
+            // Macro pills (P / C / F) — tinted dark capsules with gray text.
+            Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                MacroChip("P", entry.protein)
+                MacroChip("C", entry.carbs)
+                MacroChip("F", entry.fat)
+            }
         }
+    }
+}
+
+@Composable
+private fun MacroChip(label: String, value: Int) {
+    Box(
+        Modifier
+            .clip(CircleShape)
+            .background(AppColors.Calorie.copy(alpha = 0.10f))
+            .padding(horizontal = 8.dp, vertical = 3.dp)
+    ) {
         Text(
-            timeFmt.format(entry.timestamp).lowercase(),
-            fontSize = 12.sp,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
+            "$label ${value}g",
+            fontSize = 11.sp,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
         )
     }
 }

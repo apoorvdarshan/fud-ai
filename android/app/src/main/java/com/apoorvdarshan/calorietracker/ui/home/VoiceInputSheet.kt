@@ -93,14 +93,54 @@ fun VoiceInputSheet(
     var recordedFile by remember { mutableStateOf<File?>(null) }
     var nativeJob by remember { mutableStateOf<Job?>(null) }
 
+    // Reusable "start a fresh recording" lambda — called from auto-start on
+    // sheet open, from the mic-tap retry in REVIEWING phase, and (implicitly)
+    // never again until one of those triggers fires.
+    fun startRecordingNow() {
+        transcript = ""
+        error = null
+        if (provider == SpeechProvider.NATIVE) {
+            phase = VoicePhase.RECORDING
+            nativeJob?.cancel()
+            nativeJob = scope.launch {
+                native.listen().collectLatest { event ->
+                    when (event) {
+                        is SttEvent.Partial -> transcript = event.text
+                        is SttEvent.Final -> {
+                            transcript = event.text
+                            phase = VoicePhase.REVIEWING
+                        }
+                        is SttEvent.Error -> {
+                            error = event.message
+                            phase = VoicePhase.IDLE
+                        }
+                        else -> Unit
+                    }
+                }
+            }
+        } else {
+            val file = recorder.start()
+            if (file == null) {
+                error = "Couldn't start the mic. Check permissions."
+            } else {
+                recordedFile = file
+                phase = VoicePhase.RECORDING
+            }
+        }
+    }
+
     val micPermission = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
-        if (!granted) error = "Microphone permission denied."
+        if (granted) startRecordingNow()
+        else error = "Microphone permission denied."
     }
 
+    // Mirror iOS `onAppear { startRecording() }` — start listening as soon as
+    // the sheet opens, requesting mic permission first if needed.
     LaunchedEffect(Unit) {
-        if (!native.hasMicPermission()) micPermission.launch(Manifest.permission.RECORD_AUDIO)
+        if (native.hasMicPermission()) startRecordingNow()
+        else micPermission.launch(Manifest.permission.RECORD_AUDIO)
     }
 
     DisposableEffect(Unit) {
@@ -212,38 +252,9 @@ fun VoiceInputSheet(
                     phase = phase,
                     onToggle = {
                         when (phase) {
-                            VoicePhase.IDLE -> {
-                                transcript = ""
-                                error = null
-                                if (provider == SpeechProvider.NATIVE) {
-                                    phase = VoicePhase.RECORDING
-                                    nativeJob?.cancel()
-                                    nativeJob = scope.launch {
-                                        native.listen().collectLatest { event ->
-                                            when (event) {
-                                                is SttEvent.Partial -> transcript = event.text
-                                                is SttEvent.Final -> {
-                                                    transcript = event.text
-                                                    phase = VoicePhase.REVIEWING
-                                                }
-                                                is SttEvent.Error -> {
-                                                    error = event.message
-                                                    phase = VoicePhase.IDLE
-                                                }
-                                                else -> Unit
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    val file = recorder.start()
-                                    if (file == null) {
-                                        error = "Couldn't start the mic. Check permissions."
-                                    } else {
-                                        recordedFile = file
-                                        phase = VoicePhase.RECORDING
-                                    }
-                                }
-                            }
+                            // IDLE only happens after an error or initial gate
+                            // before mic permission. Tapping the mic restarts.
+                            VoicePhase.IDLE -> startRecordingNow()
                             VoicePhase.RECORDING -> {
                                 if (provider == SpeechProvider.NATIVE) {
                                     nativeJob?.cancel()
@@ -266,20 +277,30 @@ fun VoiceInputSheet(
                                     }
                                 }
                             }
-                            else -> Unit
+                            // Tapping the mic again after a transcript is shown
+                            // discards it and starts a fresh recording — same
+                            // "retry" behavior the user expects.
+                            VoicePhase.REVIEWING -> startRecordingNow()
+                            VoicePhase.TRANSCRIBING -> Unit
                         }
                     }
                 )
             }
 
-            // Analyze / Cancel — iOS match: borderedProminent pink capsule, then a
-            // secondary Cancel text button. Shown whenever we have a transcript
-            // ready to submit OR we're in review phase, in line with iOS's one-tap
-            // native / two-tap remote flow.
+            // Analyze / Cancel — iOS match: borderedProminent pink capsule, then
+            // a secondary Cancel text button. Native is one-tap (stops the live
+            // recognizer and submits in one click); remote is two-tap (mic to
+            // stop+transcribe, then Analyze on the reviewed transcript).
             val canAnalyze = transcript.trim().isNotEmpty() && phase != VoicePhase.TRANSCRIBING
             Spacer(Modifier.height(20.dp))
             Button(
-                onClick = { if (canAnalyze) onSubmit(transcript.trim()) },
+                onClick = {
+                    if (provider == SpeechProvider.NATIVE && phase == VoicePhase.RECORDING) {
+                        nativeJob?.cancel()
+                        phase = VoicePhase.REVIEWING
+                    }
+                    if (transcript.trim().isNotEmpty()) onSubmit(transcript.trim())
+                },
                 enabled = canAnalyze,
                 colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie),
                 shape = RoundedCornerShape(20.dp),

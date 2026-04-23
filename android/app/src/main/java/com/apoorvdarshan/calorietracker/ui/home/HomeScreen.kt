@@ -81,6 +81,8 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -868,19 +870,36 @@ private fun SwipeableFoodRow(
 ) {
     val state = rememberSwipeToDismissBoxState(
         confirmValueChange = { value ->
+            // Delete still commits via Material's default release-past-threshold
+            // path (returning true triggers the dismiss anim).
+            // Favorite returns false here — it's handled below via a live
+            // offset watcher so toggling fires *during* the swipe instead of
+            // requiring a release past the (large) default threshold.
             when (value) {
                 SwipeToDismissBoxValue.EndToStart -> { onDelete(); true }
-                SwipeToDismissBoxValue.StartToEnd -> { onToggleFavorite(); false }
-                SwipeToDismissBoxValue.Settled -> false
+                else -> false
             }
         }
     )
-    // Snap back to Settled after a leading-swipe favorite toggle (favorite doesn't
-    // dismiss the row, just flips the heart) so the row resets visually.
-    androidx.compose.runtime.LaunchedEffect(state.currentValue) {
-        if (state.currentValue == SwipeToDismissBoxValue.StartToEnd) {
-            state.reset()
-        }
+    // Fire favorite toggle as soon as the row is dragged ~120dp past Settled
+    // in the StartToEnd direction. The default release-past-50% behavior was
+    // unreliable here because: (a) the threshold was too far for a wide row,
+    // and (b) Android's left-edge system back gesture often eats partial
+    // swipes-from-left-edge. Watching the offset directly + a single-fire
+    // guard makes "swipe right far enough to see the heart" always commit.
+    val density = LocalDensity.current
+    val triggerPx = with(density) { 120.dp.toPx() }
+    var firedThisSwipe by remember { mutableStateOf(false) }
+    LaunchedEffect(state) {
+        snapshotFlow { runCatching { state.requireOffset() }.getOrDefault(0f) }
+            .collect { offset ->
+                if (offset > triggerPx && !firedThisSwipe) {
+                    firedThisSwipe = true
+                    onToggleFavorite()
+                    state.reset()
+                }
+                if (offset <= 0f) firedThisSwipe = false
+            }
     }
     SwipeToDismissBox(
         state = state,

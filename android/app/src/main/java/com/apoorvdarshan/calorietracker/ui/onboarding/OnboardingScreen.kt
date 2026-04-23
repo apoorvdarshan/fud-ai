@@ -20,6 +20,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -35,6 +36,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import android.Manifest
 import android.os.Build
@@ -72,19 +74,26 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        Spacer(Modifier.height(24.dp))
-        val progress = (ui.step.ordinal + 1).toFloat() / OnboardingStep.values().size.toFloat()
-        LinearProgressIndicator(
-            progress = { progress },
-            color = AppColors.Calorie,
-            trackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp)
-                .height(5.dp)
-                .clip(RoundedCornerShape(3.dp))
-        )
-        Spacer(Modifier.height(32.dp))
+        // iOS hides the progress indicator on the Welcome step (the hero is the
+        // headline + Get Started CTA, no chrome). Show the indicator only from
+        // step 2 onward to match.
+        if (ui.step != OnboardingStep.WELCOME) {
+            Spacer(Modifier.height(24.dp))
+            val progress = (ui.step.ordinal + 1).toFloat() / OnboardingStep.values().size.toFloat()
+            LinearProgressIndicator(
+                progress = { progress },
+                color = AppColors.Calorie,
+                trackColor = MaterialTheme.colorScheme.outline.copy(alpha = 0.2f),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp)
+                    .height(5.dp)
+                    .clip(RoundedCornerShape(3.dp))
+            )
+            Spacer(Modifier.height(32.dp))
+        } else {
+            Spacer(Modifier.height(24.dp))
+        }
 
         Box(Modifier.weight(1f).fillMaxWidth().padding(horizontal = 24.dp)) {
             when (ui.step) {
@@ -146,31 +155,60 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
             }
         }
 
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 20.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (ui.step != OnboardingStep.WELCOME) {
+        if (ui.step == OnboardingStep.WELCOME) {
+            // iOS Welcome shows a single full-width pink-gradient "Get Started"
+            // capsule with no Back button.
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp, vertical = 36.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(56.dp)
+                        .clip(RoundedCornerShape(14.dp))
+                        .background(
+                            androidx.compose.ui.graphics.Brush.horizontalGradient(
+                                listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
+                            )
+                        )
+                        .clickable { vm.next() },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        "Get Started",
+                        color = Color.White,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
+            }
+        } else {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp, vertical = 20.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 TextButton(onClick = { vm.back() }) {
                     Text("Back", style = MaterialTheme.typography.bodyLarge)
                 }
-            }
-            Spacer(Modifier.weight(1f))
-            Button(
-                onClick = { if (ui.isLastStep) vm.complete(onComplete) else vm.next() },
-                shape = RoundedCornerShape(28.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie),
-                modifier = Modifier.height(52.dp).padding(horizontal = 8.dp)
-            ) {
-                Text(
-                    if (ui.isLastStep) "Finish" else "Next",
-                    color = Color.White,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.SemiBold,
-                    modifier = Modifier.padding(horizontal = 24.dp)
-                )
+                Spacer(Modifier.weight(1f))
+                Button(
+                    onClick = { if (ui.isLastStep) vm.complete(onComplete) else vm.next() },
+                    shape = RoundedCornerShape(28.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie),
+                    modifier = Modifier.height(52.dp).padding(horizontal = 8.dp)
+                ) {
+                    Text(
+                        if (ui.isLastStep) "Finish" else "Next",
+                        color = Color.White,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.padding(horizontal = 24.dp)
+                    )
+                }
             }
         }
     }
@@ -178,31 +216,45 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
 
 @Composable
 private fun WelcomeStep() {
-    Column(Modifier.fillMaxSize(), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
+    // 1:1 port of iOS OnboardingView.welcomeStep — broccoli logo, two-line
+    // "Eat Smart, / Live Better" headline (second line uses the pink gradient),
+    // and a centered two-line subheading.
+    Column(
+        Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Image(
             painter = painterResource(id = R.drawable.ic_logo),
             contentDescription = "Fud AI logo",
-            modifier = Modifier.size(140.dp)
-        )
-        Spacer(Modifier.height(24.dp))
-        Text("Fud AI", style = MaterialTheme.typography.displayMedium, fontWeight = FontWeight.Bold)
-        Spacer(Modifier.height(10.dp))
-        Text(
-            "Snap a photo, speak, or type.",
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
-        )
-        Text(
-            "AI handles the rest.",
-            style = MaterialTheme.typography.titleMedium,
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+            modifier = Modifier.size(120.dp)
         )
         Spacer(Modifier.height(20.dp))
         Text(
-            "Free · Open source · Bring your own API key",
-            style = MaterialTheme.typography.labelLarge,
-            color = AppColors.Calorie,
-            fontWeight = FontWeight.SemiBold
+            "Eat Smart,",
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        Spacer(Modifier.height(8.dp))
+        // Second line of the headline uses the pink gradient as a foreground
+        // brush — matches iOS .foregroundStyle(LinearGradient(...)).
+        Text(
+            "Live Better",
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold,
+            style = LocalTextStyle.current.copy(
+                brush = androidx.compose.ui.graphics.Brush.horizontalGradient(
+                    listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
+                )
+            )
+        )
+        Spacer(Modifier.height(20.dp))
+        Text(
+            "Just snap, track, and thrive.\nYour nutrition, simplified.",
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center
         )
     }
 }

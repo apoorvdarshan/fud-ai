@@ -10,12 +10,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -52,7 +52,13 @@ fun <T> WheelPicker(
     selected: T,
     onSelect: (T) -> Unit,
     modifier: Modifier = Modifier,
-    label: (T) -> String = { it.toString() }
+    label: (T) -> String = { it.toString() },
+    /**
+     * When false, the wheel does NOT paint its own selected-row capsule. Useful
+     * when several WheelPickers sit in a Row and the parent overlays a single
+     * shared capsule spanning every column (matches iOS UIDatePicker).
+     */
+    showSelectionHighlight: Boolean = true
 ) {
     if (items.isEmpty()) return
     val initialIndex = items.indexOf(selected).coerceAtLeast(0)
@@ -83,16 +89,17 @@ fun <T> WheelPicker(
         modifier = modifier.height(ROW_HEIGHT),
         contentAlignment = Alignment.Center
     ) {
-        // Center row guide lines (iOS-style)
-        Box(
-            Modifier
-                .fillMaxWidth()
-                .height(ITEM_HEIGHT)
-                .clip(RoundedCornerShape(10.dp))
-                .align(Alignment.Center)
-        ) {
-            HorizontalDivider(Modifier.align(Alignment.TopCenter), color = Color.White.copy(alpha = 0.08f))
-            HorizontalDivider(Modifier.align(Alignment.BottomCenter), color = Color.White.copy(alpha = 0.08f))
+        // iOS UIPickerView paints a single rounded "capsule" tint behind the
+        // selected row instead of two divider lines. Match that look.
+        if (showSelectionHighlight) {
+            Box(
+                Modifier
+                    .fillMaxWidth()
+                    .height(ITEM_HEIGHT)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.08f))
+                    .align(Alignment.Center)
+            )
         }
 
         LazyColumn(
@@ -146,39 +153,58 @@ fun DateWheelPicker(
     }
     val days = remember(daysInMonth) { (1..daysInMonth).toList() }
 
-    val monthNames = listOf("Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+    // iOS DatePicker shows full English month names (April, not Apr).
+    val monthNames = listOf("January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December")
 
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(6.dp)
+    // iOS column order is Day | Month | Year (matches iOS UIDatePicker default).
+    // The capsule highlight spans all three wheels — paint it on the parent Box
+    // and tell each wheel to skip its own per-column highlight.
+    Box(
+        modifier = modifier.fillMaxWidth().height(ROW_HEIGHT),
+        contentAlignment = Alignment.Center
     ) {
-        WheelPicker(
-            items = months,
-            selected = selected.monthValue,
-            onSelect = { m ->
-                val clampedDay = selected.dayOfMonth.coerceAtMost(YearMonth.of(selected.year, m).lengthOfMonth())
-                onSelect(LocalDate.of(selected.year, m, clampedDay))
-            },
-            label = { monthNames[it - 1] },
-            modifier = Modifier.weight(1f)
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .height(ITEM_HEIGHT)
+                .clip(RoundedCornerShape(8.dp))
+                .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.08f))
+                .align(Alignment.Center)
         )
-        WheelPicker(
-            items = days,
-            selected = selected.dayOfMonth.coerceAtMost(daysInMonth),
-            onSelect = { d -> onSelect(LocalDate.of(selected.year, selected.monthValue, d)) },
-            modifier = Modifier.weight(0.7f)
-        )
-        WheelPicker(
-            items = years,
-            selected = selected.year,
-            onSelect = { y ->
-                val clampedDay = selected.dayOfMonth.coerceAtMost(YearMonth.of(y, selected.monthValue).lengthOfMonth())
-                onSelect(LocalDate.of(y, selected.monthValue, clampedDay))
-            },
-            modifier = Modifier.weight(1f)
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            WheelPicker(
+                items = days,
+                selected = selected.dayOfMonth.coerceAtMost(daysInMonth),
+                onSelect = { d -> onSelect(LocalDate.of(selected.year, selected.monthValue, d)) },
+                modifier = Modifier.weight(0.5f),
+                showSelectionHighlight = false
+            )
+            WheelPicker(
+                items = months,
+                selected = selected.monthValue,
+                onSelect = { m ->
+                    val clampedDay = selected.dayOfMonth.coerceAtMost(YearMonth.of(selected.year, m).lengthOfMonth())
+                    onSelect(LocalDate.of(selected.year, m, clampedDay))
+                },
+                label = { monthNames[it - 1] },
+                modifier = Modifier.weight(1.2f),
+                showSelectionHighlight = false
+            )
+            WheelPicker(
+                items = years,
+                selected = selected.year,
+                onSelect = { y ->
+                    val clampedDay = selected.dayOfMonth.coerceAtMost(YearMonth.of(y, selected.monthValue).lengthOfMonth())
+                    onSelect(LocalDate.of(y, selected.monthValue, clampedDay))
+                },
+                modifier = Modifier.weight(0.7f),
+                showSelectionHighlight = false
+            )
+        }
     }
 }
 

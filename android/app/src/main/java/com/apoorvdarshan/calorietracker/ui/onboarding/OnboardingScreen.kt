@@ -333,24 +333,11 @@ private fun GenderStep(selected: Gender, onSelect: (Gender) -> Unit) {
 
 @Composable
 private fun BirthdayStep(current: LocalDate, onChange: (LocalDate) -> Unit) {
-    // Reading all 3 LocalDate fields here ensures Compose tracks every change
-    // so the Age label recomputes live as the user scrolls any wheel.
-    val age = remember(current.year, current.monthValue, current.dayOfMonth) {
-        val years = Period.between(current, LocalDate.now()).years
-        maxOf(0, years)
-    }
-    Column {
-        StepHeader("Your birthday?", subtitle = "We use this for BMR math.")
-        Spacer(Modifier.height(8.dp))
+    Column(Modifier.fillMaxSize()) {
+        StepHeader("When's your birthday?", subtitle = "Used to calculate your daily needs")
+        Spacer(Modifier.weight(1f))
         DateWheelPicker(selected = current, onSelect = onChange)
-        Spacer(Modifier.height(20.dp))
-        Text(
-            "Age: $age",
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = androidx.compose.ui.text.style.TextAlign.Center
-        )
+        Spacer(Modifier.weight(1f))
     }
 }
 

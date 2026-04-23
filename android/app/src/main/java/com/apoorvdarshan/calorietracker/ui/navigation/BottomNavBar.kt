@@ -211,7 +211,9 @@ private fun TabItem(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
-    val activeColor = AppColors.Calorie
+    // iOS TabView active accent is system blue (#007AFF). The brand pink lives
+    // on hero/CTA elements, not on chrome — match that on Android.
+    val activeColor = Color(0xFF007AFF)
     val inactiveColor = if (isDark) Color.White.copy(alpha = 0.62f)
                         else Color.Black.copy(alpha = 0.55f)
     val tint = if (selected) activeColor else inactiveColor

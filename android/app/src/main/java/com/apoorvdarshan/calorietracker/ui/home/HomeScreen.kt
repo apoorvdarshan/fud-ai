@@ -611,9 +611,11 @@ private fun CalorieHero(current: Int, goal: Int) {
                     fontWeight = FontWeight.Bold
                 )
             )
-            // "of N kcal" .font(.callout) = 16sp .foregroundStyle(.tertiary) = ~0.3 alpha
+            // "of N kcal" .font(.callout) = 16sp .foregroundStyle(.tertiary) = ~0.3 alpha.
+            // iOS SwiftUI Text("\(Int)") auto-formats integers with locale grouping,
+            // so we explicitly format the goal with thousands-separators to match.
             Text(
-                "of $goal kcal",
+                "of ${String.format(java.util.Locale.getDefault(), "%,d", goal)} kcal",
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.3f)
@@ -721,35 +723,35 @@ private fun ViewMoreButton() {
 
 @Composable
 private fun SectionHeader(title: String) {
+    // iOS Section header in .insetGrouped List renders the title in sentence case
+    // (no uppercase transform), bold, ~22sp on the iOS calorie/food page. Match that.
     Text(
-        title.uppercase(),
-        fontSize = 12.sp,
-        fontWeight = FontWeight.SemiBold,
-        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
-        letterSpacing = 0.8.sp,
-        modifier = Modifier.padding(start = 32.dp, top = 16.dp, bottom = 6.dp)
+        title,
+        fontSize = 22.sp,
+        fontWeight = FontWeight.Bold,
+        color = MaterialTheme.colorScheme.onBackground,
+        modifier = Modifier.padding(start = 24.dp, top = 12.dp, bottom = 8.dp)
     )
 }
 
 @Composable
 private fun MealSectionHeader(meal: MealType) {
     Row(
-        Modifier.padding(start = 32.dp, top = 16.dp, bottom = 6.dp),
+        Modifier.padding(start = 24.dp, top = 12.dp, bottom = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             mealIcon(meal),
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
-            modifier = Modifier.size(14.dp)
+            tint = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier.size(18.dp)
         )
-        Spacer(Modifier.width(6.dp))
+        Spacer(Modifier.width(8.dp))
         Text(
-            meal.displayName.uppercase(),
-            fontSize = 12.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
-            letterSpacing = 0.8.sp
+            meal.displayName,
+            fontSize = 22.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground
         )
     }
 }

@@ -77,7 +77,15 @@ fun SavedMealsSheet(
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
 
-    var tab by remember { mutableStateOf(SavedTab.RECENTS) }
+    // Restore the last-selected segment from DataStore so reopening the sheet
+    // remembers whether the user was on Recents / Frequent / Favorites — same
+    // as iOS @AppStorage("lastRecentsSegment") in RecentsView.swift.
+    val savedSegment by container.prefs.lastSavedMealsSegment.collectAsState(initial = SavedTab.RECENTS.name)
+    var tab by remember(savedSegment) {
+        mutableStateOf(
+            runCatching { SavedTab.valueOf(savedSegment) }.getOrDefault(SavedTab.RECENTS)
+        )
+    }
     var recents by remember { mutableStateOf<List<FoodEntry>>(emptyList()) }
     var frequent by remember { mutableStateOf<List<FrequentFoodGroup>>(emptyList()) }
     var favorites by remember { mutableStateOf<List<FoodEntry>>(emptyList()) }
@@ -116,7 +124,10 @@ fun SavedMealsSheet(
                     .padding(top = 4.dp, bottom = 12.dp),
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
-            SegmentedTabs(selected = tab, onSelect = { tab = it })
+            SegmentedTabs(selected = tab, onSelect = { newTab ->
+                tab = newTab
+                scope.launch { container.prefs.setLastSavedMealsSegment(newTab.name) }
+            })
             Spacer(Modifier.height(16.dp))
 
             when (tab) {

@@ -90,6 +90,10 @@ class PreferencesStore(private val context: Context) {
     val weekStartsOnMonday: Flow<Boolean> = ds.data.map { it[Keys.WEEK_STARTS_MONDAY] ?: false }
     suspend fun setWeekStartsOnMonday(v: Boolean) { ds.edit { it[Keys.WEEK_STARTS_MONDAY] = v } }
 
+    /** "RECENTS" | "FREQUENT" | "FAVORITES". Mirrors iOS @AppStorage("lastRecentsSegment"). */
+    val lastSavedMealsSegment: Flow<String> = ds.data.map { it[Keys.LAST_SAVED_MEALS_SEGMENT] ?: "RECENTS" }
+    suspend fun setLastSavedMealsSegment(v: String) { ds.edit { it[Keys.LAST_SAVED_MEALS_SEGMENT] = v } }
+
     // -- AI Provider selection --------------------------------------------
     val selectedAIProvider: Flow<AIProvider> = ds.data.map {
         val raw = it[Keys.SELECTED_AI_PROVIDER]
@@ -211,6 +215,7 @@ class PreferencesStore(private val context: Context) {
         val USE_METRIC = booleanPreferencesKey("useMetric")
         val APPEARANCE_MODE = stringPreferencesKey("appearanceMode")
         val WEEK_STARTS_MONDAY = booleanPreferencesKey("weekStartsOnMonday")
+        val LAST_SAVED_MEALS_SEGMENT = stringPreferencesKey("lastRecentsSegment")
         val SELECTED_AI_PROVIDER = stringPreferencesKey("selectedAIProvider")
         val SELECTED_AI_MODEL = stringPreferencesKey("selectedAIModel")
         val SELECTED_SPEECH_PROVIDER = stringPreferencesKey("selectedSpeechProvider")

@@ -572,6 +572,7 @@
     <string name="sheet_macro_label_format">%1$s (%2$s)</string>
 
     <!-- About -->
+    <string name="about_rate">Valorar la app</string>
     <string name="about_share">Compartir la app</string>
     <string name="about_open_source">Código abierto (MIT)</string>
     <string name="about_star_github">Destacar en GitHub</string>

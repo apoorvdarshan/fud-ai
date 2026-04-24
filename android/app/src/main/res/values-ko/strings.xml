@@ -572,6 +572,7 @@
     <string name="sheet_macro_label_format">%1$s (%2$s)</string>
 
     <!-- About -->
+    <string name="about_rate">앱 평가하기</string>
     <string name="about_share">앱 공유하기</string>
     <string name="about_open_source">오픈 소스 (MIT)</string>
     <string name="about_star_github">GitHub에 별 주기</string>

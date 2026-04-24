@@ -572,6 +572,7 @@
     <string name="sheet_macro_label_format">%1$s (%2$s)</string>
 
     <!-- About -->
+    <string name="about_rate">Tətbiqi qiymətləndir</string>
     <string name="about_share">Tətbiqi Paylaş</string>
     <string name="about_open_source">Açıq Mənbə (MIT)</string>
     <string name="about_star_github">GitHub-da Ulduz Ver</string>

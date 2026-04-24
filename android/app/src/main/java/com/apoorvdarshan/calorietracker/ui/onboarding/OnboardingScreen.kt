@@ -1,5 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.onboarding
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -58,6 +60,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -246,8 +249,7 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 Spacer(Modifier.height(54.dp + 36.dp + 24.dp))
             }
             OnboardingStep.PLAN_READY -> {
-                // Plan Ready is the final step — Get Started completes onboarding
-                // (Review/Rate step is hidden until the app ships on Play Store).
+                // Plan Ready advances to the Review/Rate step instead of finishing.
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -260,11 +262,11 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                                 listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
                             )
                         )
-                        .clickable { vm.complete(onComplete) },
+                        .clickable { vm.next() },
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        "Get Started",
+                        stringResource(R.string.action_continue),
                         color = Color.White,
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold
@@ -273,7 +275,27 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
             }
             OnboardingStep.REVIEW -> {
                 // iOS review step: pink-gradient "Rate fud" primary + "Maybe Later"
-                // secondary text button.
+                // secondary text button. "Rate fud" opens the Play Store listing
+                // (market://details?id=<pkg> with web fallback) and then completes
+                // onboarding so the user lands on Home regardless of whether they
+                // actually rate.
+                val ctx = LocalContext.current
+                fun openPlayStore() {
+                    val market = Uri.parse("market://details?id=${ctx.packageName}")
+                    runCatching {
+                        ctx.startActivity(
+                            Intent(Intent.ACTION_VIEW, market)
+                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
+                    }.onFailure {
+                        ctx.startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://play.google.com/store/apps/details?id=${ctx.packageName}")
+                            ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
+                    }
+                }
                 Column(
                     Modifier
                         .fillMaxWidth()
@@ -291,7 +313,10 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                                     listOf(AppColors.CalorieStart, AppColors.CalorieEnd)
                                 )
                             )
-                            .clickable { vm.complete(onComplete) },
+                            .clickable {
+                                openPlayStore()
+                                vm.complete(onComplete)
+                            },
                         contentAlignment = Alignment.Center
                     ) {
                         Text(

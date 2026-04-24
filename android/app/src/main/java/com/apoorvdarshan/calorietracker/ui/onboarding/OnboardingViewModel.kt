@@ -49,8 +49,8 @@ data class OnboardingState(
     val customCarbs: Int? = null,
     val customFat: Int? = null
 ) {
-    // Plan Ready is the user-visible final step until the rating flow ships.
-    val isLastStep: Boolean get() = step == OnboardingStep.PLAN_READY
+    /** REVIEW (Rate fud) is the actual final step. */
+    val isLastStep: Boolean get() = step == OnboardingStep.REVIEW
 
     fun buildProfile(): UserProfile = UserProfile(
         gender = gender,
@@ -119,10 +119,7 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
     fun setCustomFat(v: Int?) { _ui.value = _ui.value.copy(customFat = v) }
 
     fun next() {
-        // Plan Ready is currently the final step — the Rate/Review step is hidden
-        // until the app ships on Play Store. Tapping Continue on Plan Ready calls
-        // complete() directly from the screen rather than advancing here.
-        if (_ui.value.step == OnboardingStep.PLAN_READY) return
+        if (_ui.value.step == OnboardingStep.REVIEW) return
         val nextStep = OnboardingStep.values().getOrNull(_ui.value.step.ordinal + 1) ?: return
         _ui.value = _ui.value.copy(step = nextStep)
     }

@@ -572,6 +572,7 @@
     <string name="sheet_macro_label_format">%1$s（%2$s）</string>
 
     <!-- About -->
+    <string name="about_rate">评价应用</string>
     <string name="about_share">分享应用</string>
     <string name="about_open_source">开源 (MIT)</string>
     <string name="about_star_github">在 GitHub 上加星</string>

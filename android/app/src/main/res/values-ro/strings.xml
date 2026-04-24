@@ -572,6 +572,7 @@
     <string name="sheet_macro_label_format">%1$s (%2$s)</string>
 
     <!-- About -->
+    <string name="about_rate">Evaluează aplicația</string>
     <string name="about_share">Distribuie aplicația</string>
     <string name="about_open_source">Sursă deschisă (MIT)</string>
     <string name="about_star_github">Dă stea pe GitHub</string>

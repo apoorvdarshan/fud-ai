@@ -1,6 +1,6 @@
 # App Store Optimization (ASO)
 
-App Store listing details for Fud AI v3.0. Each field is in a code block for easy copy-paste.
+App Store listing details for Fud AI v3.1. Each field is in a code block for easy copy-paste.
 
 ## App Name
 ```
@@ -28,41 +28,18 @@ Primary: Health & Fitness
 Secondary: Food & Drink
 ```
 
-## What's New (v3.0)
+## What's New (v3.1)
 ```
-Fud AI 3.0 — your AI nutrition coach, now in 15 languages.
+Fud AI 3.1 — manual entry, a dedicated Protein widget, and Gemini 3.
 
 NEW
-• Coach tab — multi-turn AI chat that sees your profile, weight trend, and food log. Ask "expected weight in 30 days?", "how's my protein this week?", "what should I eat tonight?" — it answers in plain English.
-• Saved Meals — log a past meal in one tap. Recents, Frequent, and Favorites, with drag-to-reorder and swipe-to-delete.
-• Home Screen + Lock Screen widgets — 5 sizes (Small, Medium, Circular, Rectangular, Inline). Update the moment you log a meal — no need to open the app.
-• Camera + Note — add a short description to a food photo for sharper AI accuracy.
-• Share the App — send Fud AI to a friend in one tap, with a personalized message.
-• 15 languages — auto-selected by your iPhone's language setting.
-
-AI + Voice
-• 5 new AI providers: Hugging Face, Fireworks AI, DeepInfra, Mistral (Pixtral), and a Custom OpenAI-compatible endpoint. 13 providers total.
-• 5 speech-to-text engines: Native iOS, OpenAI Whisper, Groq, Deepgram, AssemblyAI.
-• Anthropic refreshed — Claude Sonnet 4.6 default, Opus 4.7, Haiku 4.5.
-• Transient provider overloads (503/429/529) retry automatically with exponential backoff — short spikes resolve invisibly.
-
-Apple Health
-• Now writes macros AND 9 micronutrients per logged meal (fiber, sugar, saturated fat, cholesterol, sodium, potassium, and more).
-• External weight samples (Apple Watch, scales, Health app) auto-import in the background.
-• Your edits and deletes sync back — no orphan samples.
-
-Goals & Progress
-• Recalculate Goals button — snap back to formula defaults anytime.
-• Per-macro pin / auto-balance — lock what you care about, let the rest balance.
-• Protein targets aligned with ISSN 2017 research, with a +0.2 g/kg bump during cutting.
-• Compact weight history with full-screen detail view.
+• Manual Entry — type a meal directly when you don't need AI: name, calories, protein, carbs, fat. Tag it Breakfast / Lunch / Dinner / Snack / Other from the same picker the AI flow uses. Defaults to the meal type for the time of day.
+• Protein widget — track protein progress on its own. 5 sizes (Small, Medium, Circular, Rectangular, Inline) — same families as the Calorie widget. Add both for at-a-glance daily protein + calories without opening the app.
+• Gemini 3 models — Gemini 3.1 Flash Lite, Gemini 3.1 Pro, and Gemini 3 Flash now available in the AI Provider picker. Pick the one that matches your speed/quality preference.
 
 Polish
-• Fixed a silent save failure that could lose newly logged meals on certain accounts.
-• Picker sheets open at your current value — no more flash-to-default.
-• Onboarding now includes a friendly AI-provider setup step.
-• Delete All Data is local-only — your Apple Health data is yours and never touched.
-• Tons of UI polish across Home, Progress, Coach, and Saved Meals.
+• Active tab in the bottom tab bar now tints pink to match the brand.
+• Manual Entry's meal type picker matches the AI review sheet's style for a consistent feel.
 ```
 
 ## Description

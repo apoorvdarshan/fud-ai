@@ -88,19 +88,6 @@ Privacy: https://fud-ai.app/privacy.html
 Source: https://github.com/apoorvdarshan/fud-ai
 ```
 
-## What's New (release notes — 500 chars max)
-```
-First release of Fud AI on Android.
-
-• Snap, speak, or type a meal — AI logs the calories
-• Coach tab — multi-turn AI chat that sees your profile, weight, and food log
-• 13 AI providers, 5 speech engines, 15 languages
-• Calorie + Protein widgets with pink-gradient rings
-• Health Connect sync for weight + nutrition
-• 100% free, no sign-in, no ads, no tracking
-• Open source on GitHub
-```
-
 ## Category
 ```
 Primary: Health & Fitness

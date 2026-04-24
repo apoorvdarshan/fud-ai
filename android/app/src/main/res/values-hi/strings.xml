@@ -1,0 +1,605 @@
+<resources>
+    <string name="app_name">Fud AI</string>
+
+    <!-- Widgets -->
+    <string name="widget_calorie_label">Fud AI कैलोरी</string>
+    <string name="widget_calorie_description">आज की कैलोरी और मैक्रो एक नज़र में देखें।</string>
+    <string name="widget_protein_label">Fud AI प्रोटीन</string>
+    <string name="widget_protein_description">आज की प्रोटीन प्रगति एक नज़र में देखें।</string>
+    <string name="widget_today">आज</string>
+    <string name="widget_protein">प्रोटीन</string>
+    <string name="widget_calories">कैलोरी</string>
+    <string name="widget_carbs">कार्ब्स</string>
+    <string name="widget_fat">फैट</string>
+    <string name="widget_kcal_left_format">%1$d kcal शेष</string>
+    <string name="widget_g_left_format">%1$dg शेष</string>
+    <string name="widget_kcal">kcal</string>
+    <string name="widget_protein_g">प्रोटीन g</string>
+    <string name="widget_value_unit_format">%1$d%2$s / %3$d%4$s</string>
+    <string name="widget_center_small_format">/ %1$d</string>
+    <string name="widget_center_small_g_format">/ %1$dg</string>
+    <string name="widget_center_large_g_format">%1$dg</string>
+
+    <!-- Common buttons / actions -->
+    <string name="action_save">सहेजें</string>
+    <string name="action_cancel">रद्द करें</string>
+    <string name="action_done">पूर्ण</string>
+    <string name="action_ok">ठीक है</string>
+    <string name="action_clear">साफ़ करें</string>
+    <string name="action_delete">हटाएं</string>
+    <string name="action_continue">जारी रखें</string>
+    <string name="action_get_started">शुरू करें</string>
+    <string name="action_log">लॉग</string>
+    <string name="action_analyze">विश्लेषण करें</string>
+    <string name="action_discard">रद्द करें</string>
+    <string name="action_reset">रीसेट</string>
+    <string name="action_keep_going">जारी रखें</string>
+    <string name="action_send">भेजें</string>
+    <string name="action_pin">पिन करें</string>
+
+    <!-- Generic units / labels -->
+    <string name="unit_kcal">kcal</string>
+    <string name="unit_g">g</string>
+    <string name="unit_mg">mg</string>
+    <string name="unit_percent">%</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_lbs">lbs</string>
+    <string name="unit_ft">ft</string>
+    <string name="unit_in">in</string>
+    <string name="unit_ft_in">ft / in</string>
+    <string name="kcal_value_format">%1$d kcal</string>
+    <string name="grams_value_format">%1$dg</string>
+    <string name="grams_value_decimal_format">%1$.1fg</string>
+    <string name="kg_value_format">%1$.1f kg</string>
+    <string name="lbs_value_format">%1$.1f lbs</string>
+    <string name="kg_per_week_format">%1$.2f kg/सप्ताह</string>
+    <string name="lbs_per_week_format">%1$.2f lbs/सप्ताह</string>
+    <string name="height_cm_format">%1$d cm</string>
+    <string name="feet_inches_format">%1$d\' %2$d\"</string>
+    <string name="value_unit_format">%1$d %2$s</string>
+    <string name="ft_label_format">%1$d ft</string>
+    <string name="in_label_format">%1$d in</string>
+    <string name="bullet">·</string>
+
+    <!-- Macros / Goal labels -->
+    <string name="macro_protein">प्रोटीन</string>
+    <string name="macro_carbs">कार्ब्स</string>
+    <string name="macro_fat">फैट</string>
+    <string name="macro_calories">कैलोरी</string>
+
+    <!-- Gender -->
+    <string name="gender_male">पुरुष</string>
+    <string name="gender_female">महिला</string>
+    <string name="gender_other">अन्य</string>
+
+    <!-- Activity Level -->
+    <string name="activity_sedentary">गतिहीन</string>
+    <string name="activity_light">हल्का</string>
+    <string name="activity_moderate">मध्यम</string>
+    <string name="activity_active">सक्रिय</string>
+    <string name="activity_very_active">बहुत सक्रिय</string>
+    <string name="activity_extra_active">अत्यधिक सक्रिय</string>
+    <string name="activity_sedentary_subtitle">कम या कोई व्यायाम नहीं</string>
+    <string name="activity_light_subtitle">सप्ताह में 1–3 बार व्यायाम</string>
+    <string name="activity_moderate_subtitle">सप्ताह में 4–5 बार व्यायाम</string>
+    <string name="activity_active_subtitle">रोज़ाना व्यायाम या सप्ताह में 3–4 बार तीव्र</string>
+    <string name="activity_very_active_subtitle">सप्ताह में 6–7 बार तीव्र व्यायाम</string>
+    <string name="activity_extra_active_subtitle">रोज़ाना बहुत तीव्र, या शारीरिक काम</string>
+
+    <!-- Weight Goal -->
+    <string name="goal_lose">वज़न घटाएँ</string>
+    <string name="goal_maintain">बनाए रखें</string>
+    <string name="goal_gain">वज़न बढ़ाएँ</string>
+
+    <!-- Meal Type -->
+    <string name="meal_breakfast">नाश्ता</string>
+    <string name="meal_lunch">दोपहर का भोजन</string>
+    <string name="meal_dinner">रात का भोजन</string>
+    <string name="meal_snack">स्नैक</string>
+    <string name="meal_other">अन्य</string>
+
+    <!-- AutoBalance Macro -->
+    <string name="autobalance_protein">प्रोटीन</string>
+    <string name="autobalance_carbs">कार्ब्स</string>
+    <string name="autobalance_fat">फैट</string>
+
+    <!-- AI Provider names -->
+    <string name="ai_provider_gemini">Google Gemini</string>
+    <string name="ai_provider_openai">OpenAI</string>
+    <string name="ai_provider_anthropic">Anthropic Claude</string>
+    <string name="ai_provider_xai">xAI Grok</string>
+    <string name="ai_provider_openrouter">OpenRouter</string>
+    <string name="ai_provider_together">Together AI</string>
+    <string name="ai_provider_groq">Groq</string>
+    <string name="ai_provider_huggingface">Hugging Face</string>
+    <string name="ai_provider_fireworks">Fireworks AI</string>
+    <string name="ai_provider_deepinfra">DeepInfra</string>
+    <string name="ai_provider_mistral">Mistral</string>
+    <string name="ai_provider_ollama">Ollama (लोकल)</string>
+    <string name="ai_provider_custom">कस्टम (OpenAI-संगत)</string>
+
+    <!-- AI Provider API key placeholders -->
+    <string name="ai_key_placeholder_gemini">AIza…</string>
+    <string name="ai_key_placeholder_openai">sk-…</string>
+    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
+    <string name="ai_key_placeholder_xai">xai-…</string>
+    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
+    <string name="ai_key_placeholder_together">…</string>
+    <string name="ai_key_placeholder_groq">gsk_…</string>
+    <string name="ai_key_placeholder_huggingface">hf_…</string>
+    <string name="ai_key_placeholder_fireworks">fw_…</string>
+    <string name="ai_key_placeholder_deepinfra">…</string>
+    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_ollama">कुंजी की ज़रूरत नहीं</string>
+    <string name="ai_key_placeholder_custom">API कुंजी (या कुछ भी, अगर एंडपॉइंट को ज़रूरत न हो)</string>
+
+    <!-- Speech Provider -->
+    <string name="speech_provider_native">नेटिव (ऑन-डिवाइस)</string>
+    <string name="speech_provider_openai">OpenAI Whisper</string>
+    <string name="speech_provider_groq">Groq (Whisper)</string>
+    <string name="speech_provider_deepgram">Deepgram</string>
+    <string name="speech_provider_assemblyai">AssemblyAI</string>
+
+    <string name="speech_key_placeholder_native">ज़रूरत नहीं</string>
+    <string name="speech_key_placeholder_openai">sk-…</string>
+    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
+    <string name="speech_key_placeholder_assemblyai">आपकी AssemblyAI कुंजी</string>
+
+    <string name="speech_description_native">Android की ऑन-डिवाइस स्पीच रिकग्निशन। मुफ़्त, अधिकांश फ़ोनों पर ऑफ़लाइन काम करती है, रियल-टाइम आंशिक परिणाम। अनुशंसित डिफ़ॉल्ट।</string>
+    <string name="speech_description_openai">OpenAI Whisper API. उच्च सटीकता, 99+ भाषाएँ, प्रति मिनट भुगतान।</string>
+    <string name="speech_description_groq">Groq-होस्टेड Whisper Large v3. बहुत तेज़ इन्फ़रेंस, मुफ़्त टियर उपलब्ध।</string>
+    <string name="speech_description_deepgram">Deepgram Nova. रियल-टाइम और बैच मोड, तेज़ और सटीक।</string>
+    <string name="speech_description_assemblyai">AssemblyAI Universal मॉडल। मज़बूत सटीकता, मुफ़्त टियर उपलब्ध।</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">होम</string>
+    <string name="nav_progress">प्रगति</string>
+    <string name="nav_coach">कोच</string>
+    <string name="nav_settings">सेटिंग्स</string>
+    <string name="nav_about">परिचय</string>
+
+    <!-- Day-of-week narrow letters (for week strip) -->
+    <string name="dow_narrow_monday">सो</string>
+    <string name="dow_narrow_tuesday">मं</string>
+    <string name="dow_narrow_wednesday">बु</string>
+    <string name="dow_narrow_thursday">गु</string>
+    <string name="dow_narrow_friday">शु</string>
+    <string name="dow_narrow_saturday">श</string>
+    <string name="dow_narrow_sunday">र</string>
+
+    <!-- Months (full) -->
+    <string name="month_january">जनवरी</string>
+    <string name="month_february">फ़रवरी</string>
+    <string name="month_march">मार्च</string>
+    <string name="month_april">अप्रैल</string>
+    <string name="month_may">मई</string>
+    <string name="month_june">जून</string>
+    <string name="month_july">जुलाई</string>
+    <string name="month_august">अगस्त</string>
+    <string name="month_september">सितंबर</string>
+    <string name="month_october">अक्टूबर</string>
+    <string name="month_november">नवंबर</string>
+    <string name="month_december">दिसंबर</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_back">वापस</string>
+    <string name="onboarding_logo_description">Fud AI लोगो</string>
+    <string name="onboarding_welcome_line1">समझदारी से खाएँ,</string>
+    <string name="onboarding_welcome_line2">बेहतर जिएँ</string>
+    <string name="onboarding_welcome_subtitle">बस स्नैप करें, ट्रैक करें और फलें-फूलें।\nआपका पोषण, सरल बनाया गया।</string>
+
+    <string name="onboarding_gender_title">आपका लिंग क्या है?</string>
+    <string name="onboarding_gender_subtitle">यह आपके मेटाबॉलिज़्म की गणना में मदद करता है</string>
+
+    <string name="onboarding_birthday_title">आपका जन्मदिन कब है?</string>
+    <string name="onboarding_birthday_subtitle">आपकी दैनिक ज़रूरतों की गणना के लिए</string>
+
+    <string name="onboarding_height_weight_title">ऊंचाई और वज़न</string>
+    <string name="onboarding_height_weight_subtitle">हम इसे निजी रखेंगे</string>
+    <string name="onboarding_imperial">इम्पीरियल</string>
+    <string name="onboarding_metric">मीट्रिक</string>
+    <string name="onboarding_height">ऊंचाई</string>
+    <string name="onboarding_weight">वज़न</string>
+    <string name="onboarding_feet">फीट</string>
+    <string name="onboarding_inches">इंच</string>
+
+    <string name="onboarding_activity_title">आप कितने सक्रिय हैं?</string>
+    <string name="onboarding_activity_subtitle">आपका सामान्य सप्ताह</string>
+
+    <string name="onboarding_goal_title">आपका लक्ष्य क्या है?</string>
+    <string name="onboarding_goal_subtitle">आप इसे कभी भी बदल सकते हैं</string>
+
+    <string name="onboarding_desired_weight_title">आपका\nवांछित वज़न क्या है?</string>
+
+    <string name="onboarding_body_fat_title">क्या आप अपना\nबॉडी फैट % जानते हैं?</string>
+    <string name="onboarding_body_fat_subtitle">आपके मेटाबॉलिज़्म की अधिक सटीक गणना में मदद करता है</string>
+    <string name="onboarding_yes">हाँ</string>
+    <string name="onboarding_no">नहीं</string>
+    <string name="onboarding_body_fat_ranges">सामान्य रेंज: पुरुष 10–25%, महिला 18–35%</string>
+    <string name="onboarding_body_fat_no_worries">कोई बात नहीं! हम आपकी ऊंचाई, वज़न और उम्र\nके आधार पर एक मानक फ़ॉर्मूला उपयोग करेंगे।</string>
+
+    <string name="onboarding_pace_title_maintain">आपकी गति</string>
+    <string name="onboarding_pace_subtitle_maintain">हम एक संतुलित प्लान सेट करेंगे</string>
+    <string name="onboarding_pace_title_change">आप अपने लक्ष्य तक\nकितनी जल्दी पहुँचना चाहते हैं?</string>
+    <string name="onboarding_pace_subtitle_lose">प्रति सप्ताह वज़न घटाने की गति</string>
+    <string name="onboarding_pace_subtitle_gain">प्रति सप्ताह वज़न बढ़ाने की गति</string>
+    <string name="onboarding_pace_balanced_set">संतुलित गति सेट की गई</string>
+    <string name="onboarding_pace_balanced_subtitle">हम आपका वर्तमान वज़न बनाए रखने के लिए\nआपकी कैलोरी स्थिर रखेंगे।</string>
+    <string name="onboarding_pace_per_week">प्रति सप्ताह</string>
+    <string name="onboarding_pace_slow">धीमा</string>
+    <string name="onboarding_pace_recommended">अनुशंसित</string>
+    <string name="onboarding_pace_fast">तेज़</string>
+    <string name="onboarding_pace_reach_prefix">आप अपने लक्ष्य तक पहुँचेंगे </string>
+    <string name="onboarding_pace_days_format">%1$d दिनों में</string>
+    <string name="onboarding_pace_caption_slow">सौम्य और टिकाऊ। दीर्घकालिक आदतों के लिए बढ़िया।</string>
+    <string name="onboarding_pace_caption_fast">तीव्र लेकिन संभव। मज़बूत अनुशासन की ज़रूरत है।</string>
+    <string name="onboarding_pace_caption_recommended">सबसे संतुलित गति, प्रेरक और टिकाऊ।</string>
+
+    <string name="onboarding_notifications_title">भोजन लॉग करने के\nलिए याद दिलाया जाए</string>
+    <string name="onboarding_notifications_subtitle">भोजन के समय हल्की याद दिलावटें पाएँ\nताकि आप ट्रैक करना न भूलें।</string>
+    <string name="onboarding_notifications_enabled">रिमाइंडर सक्षम</string>
+    <string name="onboarding_notifications_allow">सूचनाओं की अनुमति दें</string>
+    <string name="onboarding_notifications_change_anytime">आप इसे सेटिंग्स में कभी भी बदल सकते हैं।</string>
+
+    <string name="onboarding_health_title">Health Connect से\nजुड़ें</string>
+    <string name="onboarding_health_subtitle">अपने पोषण और शरीर के मापों को\nस्वतः सिंक रखें।</string>
+    <string name="onboarding_health_feature_nutrition">पोषण डेटा</string>
+    <string name="onboarding_health_feature_weight">वज़न सिंक</string>
+    <string name="onboarding_health_feature_body">शरीर के माप</string>
+    <string name="onboarding_health_unavailable">Health Connect अनुपलब्ध</string>
+    <string name="onboarding_health_connected">कनेक्ट किया गया</string>
+    <string name="onboarding_health_connect">कनेक्ट करें</string>
+
+    <string name="onboarding_provider_title">अपनी खुद की AI लाएँ</string>
+    <string name="onboarding_provider_subtitle">आपके भोजन का विश्लेषण करने के लिए Fud AI को\nएक AI प्रदाता कुंजी चाहिए। आप अपनी कुंजी लाएँ।</string>
+    <string name="onboarding_provider_recommended_title">अनुशंसित: Google Gemini</string>
+    <string name="onboarding_provider_recommended_subtitle">मुफ़्त टियर उपलब्ध, तेज़ और सटीक</string>
+    <string name="onboarding_provider_step_1">aistudio.google.com/apikey पर मुफ़्त कुंजी पाएँ</string>
+    <string name="onboarding_provider_step_2">सेटिंग्स खोलें → AI प्रदाता</string>
+    <string name="onboarding_provider_step_3">अपनी कुंजी पेस्ट करें — हो गया</string>
+    <string name="onboarding_provider_footer">13 प्रदाता समर्थित। आपकी कुंजी इसी डिवाइस पर,\nएन्क्रिप्टेड रहती है।</string>
+
+    <string name="onboarding_building_calories">कैलोरी</string>
+    <string name="onboarding_building_carbs">कार्ब्स</string>
+    <string name="onboarding_building_protein">प्रोटीन</string>
+    <string name="onboarding_building_fats">फैट</string>
+    <string name="onboarding_building_health_score">स्वास्थ्य स्कोर</string>
+    <string name="onboarding_building_percent_format">%1$d%%</string>
+    <string name="onboarding_building_setting_up">हम आपके लिए सब कुछ\nसेट कर रहे हैं</string>
+    <string name="onboarding_building_finalizing">परिणाम अंतिम रूप दे रहे हैं…</string>
+    <string name="onboarding_building_recommendation">दैनिक अनुशंसा</string>
+    <string name="onboarding_building_bullet">•</string>
+
+    <string name="onboarding_plan_title">आपका प्लान</string>
+    <string name="onboarding_plan_subtitle">संपादित करने के लिए किसी भी मान पर टैप करें</string>
+    <string name="onboarding_plan_daily_calories">दैनिक कैलोरी</string>
+    <string name="onboarding_plan_doctor_title">कृपया डॉक्टर से सलाह लें</string>
+    <string name="onboarding_plan_doctor_message">न्यूनतम अनुशंसा प्रतिदिन 1,200 कैलोरी है।</string>
+
+    <string name="onboarding_plan_field_calories">दैनिक कैलोरी</string>
+    <string name="onboarding_plan_field_protein">प्रोटीन</string>
+    <string name="onboarding_plan_field_carbs">कार्ब्स</string>
+    <string name="onboarding_plan_field_fat">फैट</string>
+
+    <string name="onboarding_review_title">अब तक fud पसंद आ रहा है?</string>
+    <string name="onboarding_review_subtitle">एक त्वरित रेटिंग हमें बढ़ने और आपके लिए\nऔर फीचर बनाने में मदद करती है!</string>
+    <string name="onboarding_review_rate">fud को रेट करें</string>
+    <string name="onboarding_review_maybe_later">शायद बाद में</string>
+
+    <!-- Home -->
+    <string name="home_add_food">भोजन जोड़ें</string>
+    <string name="home_menu_camera">कैमरा</string>
+    <string name="home_menu_camera_note">कैमरा + नोट</string>
+    <string name="home_menu_nutrition_label">पोषण लेबल</string>
+    <string name="home_menu_from_photos">फ़ोटो से</string>
+    <string name="home_menu_text_input">टेक्स्ट इनपुट</string>
+    <string name="home_menu_voice">आवाज़</string>
+    <string name="home_menu_manual_entry">मैनुअल एंट्री</string>
+    <string name="home_menu_saved_meals">सहेजे गए भोजन</string>
+    <string name="home_kcal_of_format">%1$s kcal में से</string>
+    <string name="home_kcal_left_format">%1$s शेष</string>
+    <string name="home_view_more">और देखें</string>
+    <string name="home_todays_food">आज का भोजन</string>
+    <string name="home_no_foods_logged">कोई भोजन लॉग नहीं किया गया</string>
+    <string name="home_swipe_delete">हटाएं</string>
+    <string name="home_swipe_favorite">पसंदीदा</string>
+    <string name="home_swipe_unfavorite">पसंदीदा से हटाएं</string>
+    <string name="home_favorited">पसंदीदा में जोड़ा गया</string>
+    <string name="home_macro_chip_format">%1$s %2$dg</string>
+    <string name="home_analyzing_food">आपके भोजन का विश्लेषण हो रहा है…</string>
+    <string name="home_looking_up_nutrition">पोषण देखा जा रहा है…</string>
+    <string name="home_fiber_format">फ़ाइबर: %1$.1fg</string>
+    <string name="home_sugar_format">चीनी: %1$.1fg</string>
+    <string name="home_sat_fat_format">सैट. फैट: %1$.1fg</string>
+    <string name="home_sodium_format">सोडियम: %1$.1fmg</string>
+    <string name="home_potassium_format">पोटैशियम: %1$.1fmg</string>
+    <string name="home_cholesterol_format">कोलेस्ट्रॉल: %1$.1fmg</string>
+    <string name="home_serving_format">सर्विंग: ~%1$dg</string>
+    <string name="home_protein_value">प्रोटीन: %1$dg</string>
+    <string name="home_carbs_value">कार्ब्स: %1$dg</string>
+    <string name="home_fat_value">फैट: %1$dg</string>
+
+    <string name="text_input_placeholder_1">2 अंडे, मक्खन के साथ टोस्ट और एक कॉफ़ी</string>
+    <string name="text_input_placeholder_2">चिकन और चावल के साथ Chipotle बरिटो बाउल</string>
+    <string name="text_input_placeholder_3">Domino\'s पेपरोनी पिज़्ज़ा, 2 स्लाइस</string>
+    <string name="text_input_placeholder_4">ग्रेनोला और ब्लूबेरी के साथ ग्रीक योगर्ट</string>
+
+    <string name="manual_title">मैनुअल एंट्री</string>
+    <string name="manual_name">नाम</string>
+    <string name="manual_name_placeholder">जैसे घर का बना सलाद</string>
+    <string name="manual_calories">कैलोरी</string>
+    <string name="manual_protein">प्रोटीन (g)</string>
+    <string name="manual_carbs">कार्ब्स (g)</string>
+    <string name="manual_fat">फैट (g)</string>
+    <string name="manual_zero_placeholder">0</string>
+    <string name="manual_meal_type">भोजन का प्रकार</string>
+
+    <string name="error_title">कुछ गलत हो गया</string>
+
+    <!-- Food sheets shared primitives -->
+    <string name="sheet_food_details">भोजन विवरण</string>
+    <string name="sheet_serving">सर्विंग</string>
+    <string name="sheet_nutrition">पोषण</string>
+    <string name="sheet_meal">भोजन</string>
+    <string name="sheet_more_nutrition">अधिक पोषण</string>
+    <string name="sheet_name">नाम</string>
+    <string name="sheet_quantity">मात्रा</string>
+    <string name="sheet_meal_type">भोजन का प्रकार</string>
+    <string name="sheet_review_food">भोजन समीक्षा करें</string>
+    <string name="sheet_edit_food">भोजन संपादित करें</string>
+
+    <string name="sheet_micro_sugar">चीनी</string>
+    <string name="sheet_micro_added_sugar">अतिरिक्त चीनी</string>
+    <string name="sheet_micro_fiber">फ़ाइबर</string>
+    <string name="sheet_micro_saturated_fat">संतृप्त फैट</string>
+    <string name="sheet_micro_mono_fat">मोनो फैट</string>
+    <string name="sheet_micro_poly_fat">पॉली फैट</string>
+    <string name="sheet_micro_cholesterol">कोलेस्ट्रॉल</string>
+    <string name="sheet_micro_sodium">सोडियम</string>
+    <string name="sheet_micro_potassium">पोटैशियम</string>
+
+    <!-- Context note sheet -->
+    <string name="context_note_title">नोट जोड़ें</string>
+    <string name="context_note_section">एक नोट जोड़ें (वैकल्पिक)</string>
+    <string name="context_note_placeholder">जैसे तेल नहीं, अतिरिक्त चीज़, बड़ा हिस्सा</string>
+
+    <!-- Voice input sheet -->
+    <string name="voice_listening">सुन रहे हैं…</string>
+    <string name="voice_tap_to_start">शुरू करने के लिए माइक पर टैप करें</string>
+    <string name="voice_transcribing_format">%1$s के माध्यम से ट्रांसक्राइब हो रहा है…</string>
+    <string name="voice_mic_permission_denied">माइक्रोफ़ोन की अनुमति अस्वीकृत।</string>
+    <string name="voice_mic_start_failed">माइक शुरू नहीं हो सका। अनुमतियाँ जाँचें।</string>
+    <string name="voice_transcription_failed">ट्रांसक्रिप्शन विफल</string>
+    <string name="voice_stop">रोकें</string>
+    <string name="voice_record">रिकॉर्ड</string>
+
+    <!-- Saved Meals sheet -->
+    <string name="saved_meals_title">सहेजे गए भोजन</string>
+    <string name="saved_meals_tab_recents">हाल के</string>
+    <string name="saved_meals_tab_frequent">अक्सर</string>
+    <string name="saved_meals_tab_favorites">पसंदीदा</string>
+    <string name="saved_meals_no_logs">अभी तक कोई भोजन लॉग नहीं किया गया</string>
+    <string name="saved_meals_no_favorites">अभी तक कोई पसंदीदा नहीं\nजोड़ने के लिए किसी भी भोजन पर बाएँ स्वाइप करें</string>
+    <string name="saved_meals_count_format">%1$d× लॉग किया गया</string>
+    <string name="saved_meals_log_action">लॉग</string>
+    <string name="saved_meals_remove_favorite">पसंदीदा से हटाएं</string>
+    <string name="saved_meals_move_up">ऊपर ले जाएँ</string>
+    <string name="saved_meals_move_down">नीचे ले जाएँ</string>
+
+    <!-- Nutrition detail sheet -->
+    <string name="nutrition_details_title">पोषण विवरण</string>
+    <string name="nutrition_section_macros">मैक्रो</string>
+    <string name="nutrition_section_detailed">विस्तृत पोषण</string>
+    <string name="nutrition_label_calories">कैलोरी</string>
+    <string name="nutrition_label_protein">प्रोटीन</string>
+    <string name="nutrition_label_carbs">कार्ब्स</string>
+    <string name="nutrition_label_fat">फैट</string>
+    <string name="nutrition_label_sugar">चीनी</string>
+    <string name="nutrition_label_added_sugar">अतिरिक्त चीनी</string>
+    <string name="nutrition_label_fiber">फ़ाइबर</string>
+    <string name="nutrition_label_saturated_fat">संतृप्त फैट</string>
+    <string name="nutrition_label_mono_fat">मोनो असंतृप्त फैट</string>
+    <string name="nutrition_label_poly_fat">पॉली असंतृप्त फैट</string>
+    <string name="nutrition_label_cholesterol">कोलेस्ट्रॉल</string>
+    <string name="nutrition_label_sodium">सोडियम</string>
+    <string name="nutrition_label_potassium">पोटैशियम</string>
+    <string name="nutrition_em_dash">—</string>
+
+    <!-- Coach -->
+    <string name="coach_title">कोच</string>
+    <string name="coach_reset_chat_a11y">चैट रीसेट करें</string>
+    <string name="coach_send_a11y">भेजें</string>
+    <string name="coach_input_placeholder">कोच से पूछें…</string>
+    <string name="coach_empty_title">अपने कोच से पूछें</string>
+    <string name="coach_empty_subtitle">आपका कोच आपके वज़न का इतिहास, कैलोरी लॉग और लक्ष्य देख सकता है। अपेक्षित वज़न, क्या खाएँ, या अपने लक्ष्य तक कैसे पहुँचें — पूछें।</string>
+    <string name="coach_reset_dialog_title">चैट रीसेट करें</string>
+    <string name="coach_reset_dialog_message">सभी संदेश साफ़ करके नई शुरुआत करें? इसे पूर्ववत नहीं किया जा सकता।</string>
+    <string name="coach_reset_confirm">रीसेट</string>
+    <string name="coach_no_profile_error">अभी कोई प्रोफ़ाइल नहीं है। पहले ऑनबोर्डिंग पूरी करें।</string>
+    <string name="coach_chat_failed">चैट विफल</string>
+
+    <string name="coach_chip_predict_30_days">30 दिनों में मेरा अपेक्षित वज़न क्या होगा?</string>
+    <string name="coach_chip_lose_faster">मैं सुरक्षित रूप से तेज़ी से वज़न कैसे घटाऊं?</string>
+    <string name="coach_chip_eating_too_much">क्या मैं बहुत ज़्यादा खा रहा हूं?</string>
+    <string name="coach_chip_what_dinner">रात के खाने में क्या खाऊं?</string>
+    <string name="coach_chip_gain_healthy">स्वस्थ तरीके से वज़न कैसे बढ़ाऊं?</string>
+    <string name="coach_chip_eating_enough">क्या मैं पर्याप्त खा रहा हूं?</string>
+    <string name="coach_chip_high_protein">उच्च प्रोटीन वाले खाद्य पदार्थ जो मैं जोड़ सकूं?</string>
+    <string name="coach_chip_holding_weight">क्या मेरा वज़न स्थिर है?</string>
+    <string name="coach_chip_average_intake">मेरा औसत सेवन क्या है?</string>
+    <string name="coach_chip_macro_suggestions">मैक्रो सुझाव?</string>
+    <string name="coach_chip_trend">मेरा ट्रेंड कैसा है?</string>
+    <string name="coach_chip_doing_this_week">इस सप्ताह मैं कैसा कर रहा हूं?</string>
+    <string name="coach_chip_log_advice">मेरे लॉग के आधार पर कोई सलाह?</string>
+
+    <!-- Progress -->
+    <string name="progress_range_week">1स</string>
+    <string name="progress_range_month">1म</string>
+    <string name="progress_range_3m">3म</string>
+    <string name="progress_range_6m">6म</string>
+    <string name="progress_range_year">1व</string>
+    <string name="progress_range_all">सभी</string>
+
+    <string name="progress_weight_section">वज़न</string>
+    <string name="progress_log_weight">वज़न लॉग करें</string>
+    <string name="progress_stat_current">वर्तमान</string>
+    <string name="progress_stat_goal">लक्ष्य</string>
+    <string name="progress_log_first_weight">ट्रेंड देखने के लिए अपना पहला वज़न लॉग करें</string>
+
+    <string name="progress_weight_history">वज़न इतिहास</string>
+    <string name="progress_history_count_format">%1$d प्रविष्टियाँ · देखने या हटाने के लिए टैप करें</string>
+
+    <string name="progress_calories_section">कैलोरी</string>
+    <string name="progress_avg_format">औसत: %1$d kcal</string>
+    <string name="progress_no_food">अभी तक कोई भोजन लॉग नहीं किया गया</string>
+
+    <string name="progress_macro_averages">मैक्रो औसत</string>
+    <string name="progress_macro_progress_format">%1$dg / %2$dg</string>
+
+    <string name="progress_log_weight_title">वज़न लॉग करें</string>
+
+    <string name="progress_goal_reached_title">बधाई हो! 🎉</string>
+    <string name="progress_goal_reached_message">आप अपने लक्ष्य वज़न तक पहुँच गए हैं! अपने लक्ष्य को बदलने के लिए सेटिंग्स पर जाएँ और अपने टार्गेट रिफ़्रेश करने के लिए लक्ष्य पुनः गणना पर टैप करें।</string>
+
+    <!-- Settings -->
+    <string name="settings_section_personal">व्यक्तिगत जानकारी</string>
+    <string name="settings_section_goals">लक्ष्य और पोषण</string>
+    <string name="settings_section_app">ऐप सेटिंग्स</string>
+    <string name="settings_section_ai">AI प्रदाता</string>
+    <string name="settings_section_speech">स्पीच-टू-टेक्स्ट</string>
+    <string name="settings_section_health">स्वास्थ्य और डेटा</string>
+
+    <string name="settings_gender">लिंग</string>
+    <string name="settings_birthday">जन्मदिन</string>
+    <string name="settings_height">ऊंचाई</string>
+    <string name="settings_weight">वज़न</string>
+    <string name="settings_body_fat">बॉडी फैट</string>
+    <string name="settings_not_set">सेट नहीं</string>
+    <string name="settings_birthday_age_format">%1$s (आयु %2$d)</string>
+
+    <string name="settings_weight_goal">वज़न लक्ष्य</string>
+    <string name="settings_activity_level">गतिविधि स्तर</string>
+    <string name="settings_weekly_change">साप्ताहिक बदलाव</string>
+    <string name="settings_weekly_default">0.50 kg/सप्ताह</string>
+    <string name="settings_goal_weight">लक्ष्य वज़न</string>
+    <string name="settings_calories">कैलोरी</string>
+    <string name="settings_recalculate_goals">लक्ष्य पुनः गणना करें</string>
+    <string name="settings_macro_pinned_format">%1$dg</string>
+    <string name="settings_macro_auto_format">%1$dg · ऑटो</string>
+    <string name="settings_macro_pinned_a11y">पिन किया गया</string>
+    <string name="settings_macro_auto_a11y">ऑटो</string>
+
+    <string name="settings_appearance">दिखावट</string>
+    <string name="settings_appearance_system">सिस्टम</string>
+    <string name="settings_appearance_light">लाइट</string>
+    <string name="settings_appearance_dark">डार्क</string>
+    <string name="settings_metric_units">मीट्रिक इकाइयाँ</string>
+    <string name="settings_week_starts">सप्ताह शुरू होता है</string>
+    <string name="settings_week_monday">सोमवार</string>
+    <string name="settings_week_sunday">रविवार</string>
+    <string name="settings_notifications">सूचनाएँ</string>
+    <string name="settings_battery_opt">बैटरी ऑप्टिमाइज़ेशन</string>
+    <string name="settings_battery_opt_value">Fud AI को व्हाइटलिस्ट करें</string>
+
+    <string name="settings_ai_provider">प्रदाता</string>
+    <string name="settings_ai_model">मॉडल</string>
+    <string name="settings_ai_model_unset">(नीचे एक सेट करें)</string>
+    <string name="settings_api_key">API कुंजी</string>
+    <string name="settings_base_url">बेस URL</string>
+    <string name="settings_server_url">सर्वर URL</string>
+    <string name="settings_tap_to_edit">संपादित करने के लिए टैप करें</string>
+    <string name="settings_custom_url_placeholder">https://your-endpoint.com/v1</string>
+    <string name="settings_custom_url_title">कस्टम बेस URL</string>
+    <string name="settings_clear_key">कुंजी साफ़ करें</string>
+
+    <string name="settings_health_connect">Health Connect</string>
+    <string name="settings_clear_food_log">खाद्य लॉग साफ़ करें</string>
+    <string name="settings_delete_all_data">सभी डेटा हटाएं</string>
+
+    <!-- Settings dialogs -->
+    <string name="settings_clear_food_title">खाद्य लॉग साफ़ करें?</string>
+    <string name="settings_clear_food_message">सभी भोजन प्रविष्टियाँ और तस्वीरें मिटा देता है। प्रोफ़ाइल, वज़न और सेटिंग्स बनी रहती हैं।</string>
+    <string name="settings_delete_all_title">सभी लोकल डेटा हटाएं?</string>
+    <string name="settings_delete_all_message">प्रोफ़ाइल, खाद्य लॉग, वज़न इतिहास, चैट और API कुंजियाँ मिटा देता है, फिर आपको ऑनबोर्डिंग पर वापस ले जाता है। Health Connect डेटा सुरक्षित रहता है।</string>
+    <string name="settings_max_pinned_title">अधिकतम 2 पिन</string>
+    <string name="settings_max_pinned_message">एक समय में अधिकतम 2 मैक्रो पिन किए जा सकते हैं। पहले किसी अन्य मैक्रो को खोलकर ऑटो-बैलेंस पर रीसेट करें पर टैप करके अनपिन करें।</string>
+    <string name="settings_recalc_title">लक्ष्य पुनः गणना करें?</string>
+    <string name="settings_recalc_message">आपकी ऊंचाई/वज़न/गतिविधि/लक्ष्य से कैलोरी और मैक्रो को फ़ॉर्मूला डिफ़ॉल्ट पर रीसेट करता है। कोई भी पिन किए गए मैक्रो साफ़ हो जाते हैं।</string>
+    <string name="settings_recalc_confirm">पुनः गणना करें</string>
+    <string name="settings_invalid_goal_title">लक्ष्य वज़न आपके लक्ष्य से मेल नहीं खाता</string>
+    <string name="settings_invalid_goal_lose">घटाने के लक्ष्य के लिए आपके वर्तमान वज़न से कम टार्गेट चाहिए।</string>
+    <string name="settings_invalid_goal_gain">बढ़ाने के लक्ष्य के लिए आपके वर्तमान वज़न से अधिक टार्गेट चाहिए।</string>
+    <string name="settings_permission_title">अनुमति आवश्यक</string>
+
+    <string name="settings_notifications_denied">सूचनाओं की अनुमति अस्वीकृत। रिमाइंडर पाने के लिए सिस्टम सेटिंग्स → ऐप्स → Fud AI → सूचनाएँ में सक्षम करें।</string>
+    <string name="settings_health_denied">Health Connect को वज़न और पोषण के लिए पढ़ने + लिखने की ज़रूरत है। टॉगल पर फिर से टैप करें और सिंक के लिए चारों अनुमतियाँ दें।</string>
+    <string name="settings_health_unavailable">इस डिवाइस पर Health Connect उपलब्ध नहीं है। इसे Play Store से इंस्टॉल करें, फिर टॉगल पर फिर से टैप करें।</string>
+
+    <!-- Settings sheets / pickers -->
+    <string name="sheet_ai_provider">AI प्रदाता</string>
+    <string name="sheet_model">मॉडल</string>
+    <string name="sheet_model_footer">या नीचे कोई कस्टम मॉडल ID टाइप करें।</string>
+    <string name="sheet_any_model_id">कोई भी मॉडल ID</string>
+    <string name="sheet_api_key_format">API कुंजी — %1$s</string>
+    <string name="sheet_speech_api_key_format">स्पीच API कुंजी — %1$s</string>
+    <string name="sheet_speech_engine">स्पीच इंजन</string>
+    <string name="sheet_gender">लिंग</string>
+    <string name="sheet_activity_level">गतिविधि स्तर</string>
+    <string name="sheet_goal">लक्ष्य</string>
+    <string name="sheet_target_weight">लक्ष्य वज़न</string>
+    <string name="sheet_weight">वज़न</string>
+    <string name="sheet_birthday">जन्मदिन</string>
+    <string name="sheet_appearance">दिखावट</string>
+    <string name="sheet_week_starts">सप्ताह शुरू होता है</string>
+    <string name="sheet_height">ऊंचाई</string>
+    <string name="sheet_body_fat_percent">बॉडी फैट %</string>
+    <string name="sheet_weekly_change">साप्ताहिक बदलाव</string>
+    <string name="sheet_weekly_change_format">%1$.1f %2$s/सप्ताह %3$s</string>
+    <string name="sheet_weekly_change_loss">घटाव</string>
+    <string name="sheet_weekly_change_gain">बढ़ाव</string>
+    <string name="sheet_pace_slow">धीमा</string>
+    <string name="sheet_pace_recommended">अनुशंसित</string>
+    <string name="sheet_pace_fast">तेज़</string>
+    <string name="sheet_selected_a11y">चयनित</string>
+    <string name="sheet_reset_to_auto">ऑटो-बैलेंस पर रीसेट करें</string>
+
+    <string name="sheet_macros">मैक्रो</string>
+    <string name="sheet_macros_subtitle">सटीक ग्राम पर 2 मैक्रो तक पिन करें। अनपिन किए गए शेष कैलोरी से ऑटो-बैलेंस होते हैं।</string>
+    <string name="sheet_macro_pinned">पिन किया गया</string>
+    <string name="sheet_macro_auto">ऑटो</string>
+    <string name="sheet_macro_label_format">%1$s (%2$s)</string>
+
+    <!-- About -->
+    <string name="about_share">ऐप शेयर करें</string>
+    <string name="about_open_source">ओपन सोर्स (MIT)</string>
+    <string name="about_star_github">GitHub पर स्टार करें</string>
+    <string name="about_vote_ph">Product Hunt पर वोट करें</string>
+    <string name="about_support">प्रोजेक्ट का समर्थन करें</string>
+    <string name="about_report_issue">समस्या की रिपोर्ट करें</string>
+    <string name="about_request_feature">फीचर का अनुरोध करें</string>
+    <string name="about_contact">संपर्क करें</string>
+    <string name="about_follow_x">X पर फॉलो करें</string>
+    <string name="about_privacy">गोपनीयता नीति</string>
+    <string name="about_terms">सेवा की शर्तें</string>
+    <string name="about_made_by">Apoorv Darshan द्वारा निर्मित</string>
+    <string name="about_with_care">देखभाल के साथ, सभी के लिए</string>
+    <string name="about_share_message">मैं Fud AI से अपने भोजन ट्रैक कर रहा हूँ — एक तस्वीर खींचें, बोलें, या टाइप करें, और AI कैलोरी लॉग कर देता है। यह मुफ़्त है, ओपन सोर्स है, और आपका डेटा आपके डिवाइस पर ही रहता है।\n\nडाउनलोड: https://fud-ai.app</string>
+    <string name="about_share_chooser">Fud AI शेयर करें</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_streak">स्ट्रीक रिमाइंडर</string>
+    <string name="notif_channel_streak_desc">भोजन लॉग करने और अपनी स्ट्रीक बनाए रखने के लिए दैनिक रिमाइंडर।</string>
+    <string name="notif_channel_daily">दैनिक सारांश</string>
+    <string name="notif_channel_daily_desc">आपकी कैलोरी और मैक्रो का दिन के अंत का सारांश।</string>
+    <string name="notif_channel_weight_goal">वज़न लक्ष्य</string>
+    <string name="notif_channel_weight_goal_desc">जब आप अपने लक्ष्य वज़न तक पहुँचते हैं तो जश्न।</string>
+    <string name="notif_goal_title">बधाई हो! 🎉</string>
+    <string name="notif_goal_text">आप अपने लक्ष्य वज़न तक पहुँच गए।</string>
+    <string name="notif_streak_title">अपने भोजन लॉग करना न भूलें</string>
+    <string name="notif_streak_text">अपनी स्ट्रीक जारी रखें — आज का कुछ लॉग करें।</string>
+    <string name="notif_summary_title">आज का सारांश तैयार है</string>
+    <string name="notif_summary_text">देखने के लिए टैप करें कि आज के मैक्रो कैसे रहे।</string>
+
+</resources>

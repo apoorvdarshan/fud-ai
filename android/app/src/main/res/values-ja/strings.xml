@@ -1,0 +1,605 @@
+<resources>
+    <string name="app_name">Fud AI</string>
+
+    <!-- Widgets -->
+    <string name="widget_calorie_label">Fud AI カロリー</string>
+    <string name="widget_calorie_description">今日のカロリーとマクロをひと目で確認。</string>
+    <string name="widget_protein_label">Fud AI タンパク質</string>
+    <string name="widget_protein_description">今日のタンパク質の進捗をひと目で確認。</string>
+    <string name="widget_today">今日</string>
+    <string name="widget_protein">タンパク質</string>
+    <string name="widget_calories">カロリー</string>
+    <string name="widget_carbs">炭水化物</string>
+    <string name="widget_fat">脂質</string>
+    <string name="widget_kcal_left_format">残り %1$d kcal</string>
+    <string name="widget_g_left_format">残り %1$dg</string>
+    <string name="widget_kcal">kcal</string>
+    <string name="widget_protein_g">タンパク質 g</string>
+    <string name="widget_value_unit_format">%1$d%2$s / %3$d%4$s</string>
+    <string name="widget_center_small_format">/ %1$d</string>
+    <string name="widget_center_small_g_format">/ %1$dg</string>
+    <string name="widget_center_large_g_format">%1$dg</string>
+
+    <!-- Common buttons / actions -->
+    <string name="action_save">保存</string>
+    <string name="action_cancel">キャンセル</string>
+    <string name="action_done">完了</string>
+    <string name="action_ok">OK</string>
+    <string name="action_clear">消去</string>
+    <string name="action_delete">削除</string>
+    <string name="action_continue">続ける</string>
+    <string name="action_get_started">始める</string>
+    <string name="action_log">記録</string>
+    <string name="action_analyze">分析</string>
+    <string name="action_discard">破棄</string>
+    <string name="action_reset">リセット</string>
+    <string name="action_keep_going">続ける</string>
+    <string name="action_send">送信</string>
+    <string name="action_pin">固定</string>
+
+    <!-- Generic units / labels -->
+    <string name="unit_kcal">kcal</string>
+    <string name="unit_g">g</string>
+    <string name="unit_mg">mg</string>
+    <string name="unit_percent">%</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_lbs">lbs</string>
+    <string name="unit_ft">ft</string>
+    <string name="unit_in">in</string>
+    <string name="unit_ft_in">ft / in</string>
+    <string name="kcal_value_format">%1$d kcal</string>
+    <string name="grams_value_format">%1$dg</string>
+    <string name="grams_value_decimal_format">%1$.1fg</string>
+    <string name="kg_value_format">%1$.1f kg</string>
+    <string name="lbs_value_format">%1$.1f lbs</string>
+    <string name="kg_per_week_format">%1$.2f kg/週</string>
+    <string name="lbs_per_week_format">%1$.2f lbs/週</string>
+    <string name="height_cm_format">%1$d cm</string>
+    <string name="feet_inches_format">%1$d\' %2$d\"</string>
+    <string name="value_unit_format">%1$d %2$s</string>
+    <string name="ft_label_format">%1$d ft</string>
+    <string name="in_label_format">%1$d in</string>
+    <string name="bullet">·</string>
+
+    <!-- Macros / Goal labels -->
+    <string name="macro_protein">タンパク質</string>
+    <string name="macro_carbs">炭水化物</string>
+    <string name="macro_fat">脂質</string>
+    <string name="macro_calories">カロリー</string>
+
+    <!-- Gender -->
+    <string name="gender_male">男性</string>
+    <string name="gender_female">女性</string>
+    <string name="gender_other">その他</string>
+
+    <!-- Activity Level -->
+    <string name="activity_sedentary">座りがち</string>
+    <string name="activity_light">軽い</string>
+    <string name="activity_moderate">中程度</string>
+    <string name="activity_active">活発</string>
+    <string name="activity_very_active">とても活発</string>
+    <string name="activity_extra_active">非常に活発</string>
+    <string name="activity_sedentary_subtitle">運動はほとんど、またはまったくしない</string>
+    <string name="activity_light_subtitle">週1〜3回の運動</string>
+    <string name="activity_moderate_subtitle">週4〜5回の運動</string>
+    <string name="activity_active_subtitle">毎日の運動、または週3〜4回の激しい運動</string>
+    <string name="activity_very_active_subtitle">週6〜7回の激しい運動</string>
+    <string name="activity_extra_active_subtitle">毎日の非常に激しい運動、または肉体労働</string>
+
+    <!-- Weight Goal -->
+    <string name="goal_lose">減量</string>
+    <string name="goal_maintain">維持</string>
+    <string name="goal_gain">増量</string>
+
+    <!-- Meal Type -->
+    <string name="meal_breakfast">朝食</string>
+    <string name="meal_lunch">昼食</string>
+    <string name="meal_dinner">夕食</string>
+    <string name="meal_snack">間食</string>
+    <string name="meal_other">その他</string>
+
+    <!-- AutoBalance Macro -->
+    <string name="autobalance_protein">タンパク質</string>
+    <string name="autobalance_carbs">炭水化物</string>
+    <string name="autobalance_fat">脂質</string>
+
+    <!-- AI Provider names -->
+    <string name="ai_provider_gemini">Google Gemini</string>
+    <string name="ai_provider_openai">OpenAI</string>
+    <string name="ai_provider_anthropic">Anthropic Claude</string>
+    <string name="ai_provider_xai">xAI Grok</string>
+    <string name="ai_provider_openrouter">OpenRouter</string>
+    <string name="ai_provider_together">Together AI</string>
+    <string name="ai_provider_groq">Groq</string>
+    <string name="ai_provider_huggingface">Hugging Face</string>
+    <string name="ai_provider_fireworks">Fireworks AI</string>
+    <string name="ai_provider_deepinfra">DeepInfra</string>
+    <string name="ai_provider_mistral">Mistral</string>
+    <string name="ai_provider_ollama">Ollama (ローカル)</string>
+    <string name="ai_provider_custom">カスタム (OpenAI互換)</string>
+
+    <!-- AI Provider API key placeholders -->
+    <string name="ai_key_placeholder_gemini">AIza…</string>
+    <string name="ai_key_placeholder_openai">sk-…</string>
+    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
+    <string name="ai_key_placeholder_xai">xai-…</string>
+    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
+    <string name="ai_key_placeholder_together">…</string>
+    <string name="ai_key_placeholder_groq">gsk_…</string>
+    <string name="ai_key_placeholder_huggingface">hf_…</string>
+    <string name="ai_key_placeholder_fireworks">fw_…</string>
+    <string name="ai_key_placeholder_deepinfra">…</string>
+    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_ollama">キーは不要</string>
+    <string name="ai_key_placeholder_custom">APIキー（エンドポイントが不要なら任意の文字列）</string>
+
+    <!-- Speech Provider -->
+    <string name="speech_provider_native">ネイティブ（オンデバイス）</string>
+    <string name="speech_provider_openai">OpenAI Whisper</string>
+    <string name="speech_provider_groq">Groq (Whisper)</string>
+    <string name="speech_provider_deepgram">Deepgram</string>
+    <string name="speech_provider_assemblyai">AssemblyAI</string>
+
+    <string name="speech_key_placeholder_native">不要</string>
+    <string name="speech_key_placeholder_openai">sk-…</string>
+    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
+    <string name="speech_key_placeholder_assemblyai">あなたのAssemblyAIキー</string>
+
+    <string name="speech_description_native">Androidのオンデバイス音声認識。無料で、ほとんどの端末でオフライン動作し、リアルタイムで部分結果を表示します。デフォルトとしておすすめ。</string>
+    <string name="speech_description_openai">OpenAI Whisper API。高精度で99以上の言語に対応、分単位の有料サービス。</string>
+    <string name="speech_description_groq">Groqがホストする Whisper Large v3。非常に高速な推論、無料プランあり。</string>
+    <string name="speech_description_deepgram">Deepgram Nova。リアルタイムとバッチの両方に対応、高速かつ高精度。</string>
+    <string name="speech_description_assemblyai">AssemblyAI Universal モデル。高い精度、無料プランあり。</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">ホーム</string>
+    <string name="nav_progress">進捗</string>
+    <string name="nav_coach">コーチ</string>
+    <string name="nav_settings">設定</string>
+    <string name="nav_about">情報</string>
+
+    <!-- Day-of-week narrow letters (for week strip) -->
+    <string name="dow_narrow_monday">月</string>
+    <string name="dow_narrow_tuesday">火</string>
+    <string name="dow_narrow_wednesday">水</string>
+    <string name="dow_narrow_thursday">木</string>
+    <string name="dow_narrow_friday">金</string>
+    <string name="dow_narrow_saturday">土</string>
+    <string name="dow_narrow_sunday">日</string>
+
+    <!-- Months (full) -->
+    <string name="month_january">1月</string>
+    <string name="month_february">2月</string>
+    <string name="month_march">3月</string>
+    <string name="month_april">4月</string>
+    <string name="month_may">5月</string>
+    <string name="month_june">6月</string>
+    <string name="month_july">7月</string>
+    <string name="month_august">8月</string>
+    <string name="month_september">9月</string>
+    <string name="month_october">10月</string>
+    <string name="month_november">11月</string>
+    <string name="month_december">12月</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_back">戻る</string>
+    <string name="onboarding_logo_description">Fud AI ロゴ</string>
+    <string name="onboarding_welcome_line1">賢く食べよう、</string>
+    <string name="onboarding_welcome_line2">より良く生きる</string>
+    <string name="onboarding_welcome_subtitle">撮って、記録して、健康に。\nあなたの栄養管理を、シンプルに。</string>
+
+    <string name="onboarding_gender_title">性別を教えてください</string>
+    <string name="onboarding_gender_subtitle">代謝の計算に役立ちます</string>
+
+    <string name="onboarding_birthday_title">誕生日はいつですか？</string>
+    <string name="onboarding_birthday_subtitle">1日の必要量を計算するために使用します</string>
+
+    <string name="onboarding_height_weight_title">身長と体重</string>
+    <string name="onboarding_height_weight_subtitle">プライベートに保ちます</string>
+    <string name="onboarding_imperial">ヤード・ポンド法</string>
+    <string name="onboarding_metric">メートル法</string>
+    <string name="onboarding_height">身長</string>
+    <string name="onboarding_weight">体重</string>
+    <string name="onboarding_feet">フィート</string>
+    <string name="onboarding_inches">インチ</string>
+
+    <string name="onboarding_activity_title">どのくらい活動的ですか？</string>
+    <string name="onboarding_activity_subtitle">あなたの普段の1週間</string>
+
+    <string name="onboarding_goal_title">あなたの目標は？</string>
+    <string name="onboarding_goal_subtitle">いつでも変更できます</string>
+
+    <string name="onboarding_desired_weight_title">目標体重は\n何kgですか？</string>
+
+    <string name="onboarding_body_fat_title">体脂肪率を\nご存知ですか？</string>
+    <string name="onboarding_body_fat_subtitle">代謝をより正確に計算するのに役立ちます</string>
+    <string name="onboarding_yes">はい</string>
+    <string name="onboarding_no">いいえ</string>
+    <string name="onboarding_body_fat_ranges">一般的な範囲：男性10–25%、女性18–35%</string>
+    <string name="onboarding_body_fat_no_worries">大丈夫です！身長、体重、年齢から\n標準的な計算式を使用します。</string>
+
+    <string name="onboarding_pace_title_maintain">あなたのペース</string>
+    <string name="onboarding_pace_subtitle_maintain">バランスの取れたプランを設定します</string>
+    <string name="onboarding_pace_title_change">どのくらいの速さで\n目標に到達したいですか？</string>
+    <string name="onboarding_pace_subtitle_lose">1週間あたりの減量ペース</string>
+    <string name="onboarding_pace_subtitle_gain">1週間あたりの増量ペース</string>
+    <string name="onboarding_pace_balanced_set">バランスの取れたペースを設定</string>
+    <string name="onboarding_pace_balanced_subtitle">現在の体重を維持するために\nカロリーを安定させます。</string>
+    <string name="onboarding_pace_per_week">1週間あたり</string>
+    <string name="onboarding_pace_slow">ゆっくり</string>
+    <string name="onboarding_pace_recommended">おすすめ</string>
+    <string name="onboarding_pace_fast">速い</string>
+    <string name="onboarding_pace_reach_prefix">目標達成までの期間：</string>
+    <string name="onboarding_pace_days_format">%1$d日</string>
+    <string name="onboarding_pace_caption_slow">穏やかで持続可能。長期的な習慣に最適。</string>
+    <string name="onboarding_pace_caption_fast">積極的だが実行可能。強い自制心が必要です。</string>
+    <string name="onboarding_pace_caption_recommended">最もバランスの取れたペースで、モチベーションを保ち持続可能。</string>
+
+    <string name="onboarding_notifications_title">食事の記録を\nリマインド</string>
+    <string name="onboarding_notifications_subtitle">食事の時間に優しくリマインドして\n記録を忘れないようサポートします。</string>
+    <string name="onboarding_notifications_enabled">リマインダーを有効化</string>
+    <string name="onboarding_notifications_allow">通知を許可</string>
+    <string name="onboarding_notifications_change_anytime">設定からいつでも変更できます。</string>
+
+    <string name="onboarding_health_title">Health Connectに\n接続</string>
+    <string name="onboarding_health_subtitle">栄養と身体測定値を\n自動で同期します。</string>
+    <string name="onboarding_health_feature_nutrition">栄養データ</string>
+    <string name="onboarding_health_feature_weight">体重の同期</string>
+    <string name="onboarding_health_feature_body">身体測定値</string>
+    <string name="onboarding_health_unavailable">Health Connectは利用できません</string>
+    <string name="onboarding_health_connected">接続済み</string>
+    <string name="onboarding_health_connect">接続</string>
+
+    <string name="onboarding_provider_title">自分のAIを使う</string>
+    <string name="onboarding_provider_subtitle">Fud AIは食事を分析するために\nAIプロバイダのキーが必要です。自分のキーを使います。</string>
+    <string name="onboarding_provider_recommended_title">おすすめ：Google Gemini</string>
+    <string name="onboarding_provider_recommended_subtitle">無料プランあり、高速で正確</string>
+    <string name="onboarding_provider_step_1">aistudio.google.com/apikey で無料キーを取得</string>
+    <string name="onboarding_provider_step_2">設定 → AIプロバイダ を開く</string>
+    <string name="onboarding_provider_step_3">キーを貼り付けて完了</string>
+    <string name="onboarding_provider_footer">13のプロバイダに対応。キーはこの端末に\n暗号化して保存されます。</string>
+
+    <string name="onboarding_building_calories">カロリー</string>
+    <string name="onboarding_building_carbs">炭水化物</string>
+    <string name="onboarding_building_protein">タンパク質</string>
+    <string name="onboarding_building_fats">脂質</string>
+    <string name="onboarding_building_health_score">健康スコア</string>
+    <string name="onboarding_building_percent_format">%1$d%%</string>
+    <string name="onboarding_building_setting_up">あなたのために\nすべて準備しています</string>
+    <string name="onboarding_building_finalizing">結果を確定中…</string>
+    <string name="onboarding_building_recommendation">1日の推奨量</string>
+    <string name="onboarding_building_bullet">•</string>
+
+    <string name="onboarding_plan_title">あなたのプラン</string>
+    <string name="onboarding_plan_subtitle">値をタップして編集</string>
+    <string name="onboarding_plan_daily_calories">1日のカロリー</string>
+    <string name="onboarding_plan_doctor_title">医師にご相談ください</string>
+    <string name="onboarding_plan_doctor_message">推奨される最低量は1日1,200カロリーです。</string>
+
+    <string name="onboarding_plan_field_calories">1日のカロリー</string>
+    <string name="onboarding_plan_field_protein">タンパク質</string>
+    <string name="onboarding_plan_field_carbs">炭水化物</string>
+    <string name="onboarding_plan_field_fat">脂質</string>
+
+    <string name="onboarding_review_title">fudはお楽しみいただけていますか？</string>
+    <string name="onboarding_review_subtitle">評価していただけると、より多くの機能を\nお届けできます！</string>
+    <string name="onboarding_review_rate">fudを評価</string>
+    <string name="onboarding_review_maybe_later">後で</string>
+
+    <!-- Home -->
+    <string name="home_add_food">食事を追加</string>
+    <string name="home_menu_camera">カメラ</string>
+    <string name="home_menu_camera_note">カメラ + メモ</string>
+    <string name="home_menu_nutrition_label">栄養成分表示</string>
+    <string name="home_menu_from_photos">写真から</string>
+    <string name="home_menu_text_input">テキスト入力</string>
+    <string name="home_menu_voice">音声</string>
+    <string name="home_menu_manual_entry">手動入力</string>
+    <string name="home_menu_saved_meals">保存した食事</string>
+    <string name="home_kcal_of_format">/ %1$s kcal</string>
+    <string name="home_kcal_left_format">残り %1$s</string>
+    <string name="home_view_more">もっと見る</string>
+    <string name="home_todays_food">今日の食事</string>
+    <string name="home_no_foods_logged">記録された食事はありません</string>
+    <string name="home_swipe_delete">削除</string>
+    <string name="home_swipe_favorite">お気に入り</string>
+    <string name="home_swipe_unfavorite">お気に入り解除</string>
+    <string name="home_favorited">お気に入り済み</string>
+    <string name="home_macro_chip_format">%1$s %2$dg</string>
+    <string name="home_analyzing_food">食事を分析中…</string>
+    <string name="home_looking_up_nutrition">栄養情報を検索中…</string>
+    <string name="home_fiber_format">食物繊維: %1$.1fg</string>
+    <string name="home_sugar_format">糖質: %1$.1fg</string>
+    <string name="home_sat_fat_format">飽和脂肪酸: %1$.1fg</string>
+    <string name="home_sodium_format">ナトリウム: %1$.1fmg</string>
+    <string name="home_potassium_format">カリウム: %1$.1fmg</string>
+    <string name="home_cholesterol_format">コレステロール: %1$.1fmg</string>
+    <string name="home_serving_format">1食分: 約%1$dg</string>
+    <string name="home_protein_value">タンパク質: %1$dg</string>
+    <string name="home_carbs_value">炭水化物: %1$dg</string>
+    <string name="home_fat_value">脂質: %1$dg</string>
+
+    <string name="text_input_placeholder_1">卵2個、バタートースト、コーヒー</string>
+    <string name="text_input_placeholder_2">チキンとライスのチポトレブリトーボウル</string>
+    <string name="text_input_placeholder_3">ドミノのペパロニピザ 2切れ</string>
+    <string name="text_input_placeholder_4">グラノーラとブルーベリー入りギリシャヨーグルト</string>
+
+    <string name="manual_title">手動入力</string>
+    <string name="manual_name">名前</string>
+    <string name="manual_name_placeholder">例：手作りサラダ</string>
+    <string name="manual_calories">カロリー</string>
+    <string name="manual_protein">タンパク質 (g)</string>
+    <string name="manual_carbs">炭水化物 (g)</string>
+    <string name="manual_fat">脂質 (g)</string>
+    <string name="manual_zero_placeholder">0</string>
+    <string name="manual_meal_type">食事タイプ</string>
+
+    <string name="error_title">問題が発生しました</string>
+
+    <!-- Food sheets shared primitives -->
+    <string name="sheet_food_details">食事の詳細</string>
+    <string name="sheet_serving">分量</string>
+    <string name="sheet_nutrition">栄養</string>
+    <string name="sheet_meal">食事</string>
+    <string name="sheet_more_nutrition">その他の栄養</string>
+    <string name="sheet_name">名前</string>
+    <string name="sheet_quantity">数量</string>
+    <string name="sheet_meal_type">食事タイプ</string>
+    <string name="sheet_review_food">食事を確認</string>
+    <string name="sheet_edit_food">食事を編集</string>
+
+    <string name="sheet_micro_sugar">糖質</string>
+    <string name="sheet_micro_added_sugar">添加糖</string>
+    <string name="sheet_micro_fiber">食物繊維</string>
+    <string name="sheet_micro_saturated_fat">飽和脂肪酸</string>
+    <string name="sheet_micro_mono_fat">一価不飽和脂肪酸</string>
+    <string name="sheet_micro_poly_fat">多価不飽和脂肪酸</string>
+    <string name="sheet_micro_cholesterol">コレステロール</string>
+    <string name="sheet_micro_sodium">ナトリウム</string>
+    <string name="sheet_micro_potassium">カリウム</string>
+
+    <!-- Context note sheet -->
+    <string name="context_note_title">メモを追加</string>
+    <string name="context_note_section">メモを追加（任意）</string>
+    <string name="context_note_placeholder">例：油なし、チーズ多め、大盛り</string>
+
+    <!-- Voice input sheet -->
+    <string name="voice_listening">聞き取り中…</string>
+    <string name="voice_tap_to_start">マイクをタップして開始</string>
+    <string name="voice_transcribing_format">%1$s で文字起こし中…</string>
+    <string name="voice_mic_permission_denied">マイクの権限が拒否されました。</string>
+    <string name="voice_mic_start_failed">マイクを開始できませんでした。権限を確認してください。</string>
+    <string name="voice_transcription_failed">文字起こしに失敗しました</string>
+    <string name="voice_stop">停止</string>
+    <string name="voice_record">録音</string>
+
+    <!-- Saved Meals sheet -->
+    <string name="saved_meals_title">保存した食事</string>
+    <string name="saved_meals_tab_recents">最近</string>
+    <string name="saved_meals_tab_frequent">よく使う</string>
+    <string name="saved_meals_tab_favorites">お気に入り</string>
+    <string name="saved_meals_no_logs">まだ食事が記録されていません</string>
+    <string name="saved_meals_no_favorites">お気に入りはまだありません\n食事を左にスワイプして追加してください</string>
+    <string name="saved_meals_count_format">%1$d回 記録</string>
+    <string name="saved_meals_log_action">記録</string>
+    <string name="saved_meals_remove_favorite">お気に入りを削除</string>
+    <string name="saved_meals_move_up">上へ移動</string>
+    <string name="saved_meals_move_down">下へ移動</string>
+
+    <!-- Nutrition detail sheet -->
+    <string name="nutrition_details_title">栄養詳細</string>
+    <string name="nutrition_section_macros">マクロ</string>
+    <string name="nutrition_section_detailed">詳細な栄養情報</string>
+    <string name="nutrition_label_calories">カロリー</string>
+    <string name="nutrition_label_protein">タンパク質</string>
+    <string name="nutrition_label_carbs">炭水化物</string>
+    <string name="nutrition_label_fat">脂質</string>
+    <string name="nutrition_label_sugar">糖質</string>
+    <string name="nutrition_label_added_sugar">添加糖</string>
+    <string name="nutrition_label_fiber">食物繊維</string>
+    <string name="nutrition_label_saturated_fat">飽和脂肪酸</string>
+    <string name="nutrition_label_mono_fat">一価不飽和脂肪酸</string>
+    <string name="nutrition_label_poly_fat">多価不飽和脂肪酸</string>
+    <string name="nutrition_label_cholesterol">コレステロール</string>
+    <string name="nutrition_label_sodium">ナトリウム</string>
+    <string name="nutrition_label_potassium">カリウム</string>
+    <string name="nutrition_em_dash">—</string>
+
+    <!-- Coach -->
+    <string name="coach_title">コーチ</string>
+    <string name="coach_reset_chat_a11y">チャットをリセット</string>
+    <string name="coach_send_a11y">送信</string>
+    <string name="coach_input_placeholder">コーチに質問…</string>
+    <string name="coach_empty_title">コーチに聞いてみよう</string>
+    <string name="coach_empty_subtitle">コーチはあなたの体重履歴、カロリー記録、目標を確認できます。予想体重、食事内容、目標達成の方法を聞いてみましょう。</string>
+    <string name="coach_reset_dialog_title">チャットをリセット</string>
+    <string name="coach_reset_dialog_message">すべてのメッセージを消去して最初からやり直しますか?この操作は取り消せません。</string>
+    <string name="coach_reset_confirm">リセット</string>
+    <string name="coach_no_profile_error">プロフィールがまだありません。先にオンボーディングを完了してください。</string>
+    <string name="coach_chat_failed">チャットに失敗しました</string>
+
+    <string name="coach_chip_predict_30_days">30日後の予想体重は?</string>
+    <string name="coach_chip_lose_faster">安全に早く痩せるには?</string>
+    <string name="coach_chip_eating_too_much">食べ過ぎ?</string>
+    <string name="coach_chip_what_dinner">夕食に何を食べる?</string>
+    <string name="coach_chip_gain_healthy">健康的に太るには?</string>
+    <string name="coach_chip_eating_enough">十分食べてる?</string>
+    <string name="coach_chip_high_protein">追加できる高タンパク食品は?</string>
+    <string name="coach_chip_holding_weight">体重を維持できてる?</string>
+    <string name="coach_chip_average_intake">平均摂取量は?</string>
+    <string name="coach_chip_macro_suggestions">マクロの提案は?</string>
+    <string name="coach_chip_trend">僕の傾向は?</string>
+    <string name="coach_chip_doing_this_week">今週の調子は?</string>
+    <string name="coach_chip_log_advice">記録に基づいたアドバイスは?</string>
+
+    <!-- Progress -->
+    <string name="progress_range_week">1週</string>
+    <string name="progress_range_month">1ヶ月</string>
+    <string name="progress_range_3m">3ヶ月</string>
+    <string name="progress_range_6m">6ヶ月</string>
+    <string name="progress_range_year">1年</string>
+    <string name="progress_range_all">すべて</string>
+
+    <string name="progress_weight_section">体重</string>
+    <string name="progress_log_weight">体重を記録</string>
+    <string name="progress_stat_current">現在</string>
+    <string name="progress_stat_goal">目標</string>
+    <string name="progress_log_first_weight">最初の体重を記録して傾向を確認</string>
+
+    <string name="progress_weight_history">体重履歴</string>
+    <string name="progress_history_count_format">%1$d件 · タップして表示・削除</string>
+
+    <string name="progress_calories_section">カロリー</string>
+    <string name="progress_avg_format">平均: %1$d kcal</string>
+    <string name="progress_no_food">まだ食事が記録されていません</string>
+
+    <string name="progress_macro_averages">マクロ平均</string>
+    <string name="progress_macro_progress_format">%1$dg / %2$dg</string>
+
+    <string name="progress_log_weight_title">体重を記録</string>
+
+    <string name="progress_goal_reached_title">おめでとうございます！ 🎉</string>
+    <string name="progress_goal_reached_message">目標体重に到達しました！設定で目標を切り替えて「目標を再計算」をタップし、ターゲットを更新してください。</string>
+
+    <!-- Settings -->
+    <string name="settings_section_personal">個人情報</string>
+    <string name="settings_section_goals">目標と栄養</string>
+    <string name="settings_section_app">App設定</string>
+    <string name="settings_section_ai">AIプロバイダ</string>
+    <string name="settings_section_speech">音声入力</string>
+    <string name="settings_section_health">ヘルスとデータ</string>
+
+    <string name="settings_gender">性別</string>
+    <string name="settings_birthday">誕生日</string>
+    <string name="settings_height">身長</string>
+    <string name="settings_weight">体重</string>
+    <string name="settings_body_fat">体脂肪率</string>
+    <string name="settings_not_set">未設定</string>
+    <string name="settings_birthday_age_format">%1$s（%2$d歳）</string>
+
+    <string name="settings_weight_goal">体重目標</string>
+    <string name="settings_activity_level">活動レベル</string>
+    <string name="settings_weekly_change">週間の変化</string>
+    <string name="settings_weekly_default">0.50 kg/週</string>
+    <string name="settings_goal_weight">目標体重</string>
+    <string name="settings_calories">カロリー</string>
+    <string name="settings_recalculate_goals">目標を再計算</string>
+    <string name="settings_macro_pinned_format">%1$dg</string>
+    <string name="settings_macro_auto_format">%1$dg · 自動</string>
+    <string name="settings_macro_pinned_a11y">固定</string>
+    <string name="settings_macro_auto_a11y">自動</string>
+
+    <string name="settings_appearance">外観</string>
+    <string name="settings_appearance_system">システム</string>
+    <string name="settings_appearance_light">ライト</string>
+    <string name="settings_appearance_dark">ダーク</string>
+    <string name="settings_metric_units">メートル単位</string>
+    <string name="settings_week_starts">週の始まり</string>
+    <string name="settings_week_monday">月曜日</string>
+    <string name="settings_week_sunday">日曜日</string>
+    <string name="settings_notifications">通知</string>
+    <string name="settings_battery_opt">バッテリー最適化</string>
+    <string name="settings_battery_opt_value">Fud AI を除外</string>
+
+    <string name="settings_ai_provider">プロバイダ</string>
+    <string name="settings_ai_model">モデル</string>
+    <string name="settings_ai_model_unset">（下で設定）</string>
+    <string name="settings_api_key">APIキー</string>
+    <string name="settings_base_url">ベースURL</string>
+    <string name="settings_server_url">サーバーURL</string>
+    <string name="settings_tap_to_edit">タップして編集</string>
+    <string name="settings_custom_url_placeholder">https://your-endpoint.com/v1</string>
+    <string name="settings_custom_url_title">カスタム ベースURL</string>
+    <string name="settings_clear_key">キーを消去</string>
+
+    <string name="settings_health_connect">Health Connect</string>
+    <string name="settings_clear_food_log">食事ログを消去</string>
+    <string name="settings_delete_all_data">すべてのデータを削除</string>
+
+    <!-- Settings dialogs -->
+    <string name="settings_clear_food_title">食事ログを消去しますか？</string>
+    <string name="settings_clear_food_message">すべての食事記録と写真を削除します。プロフィール、体重、設定は保持されます。</string>
+    <string name="settings_delete_all_title">ローカルデータをすべて削除しますか？</string>
+    <string name="settings_delete_all_message">プロフィール、食事ログ、体重履歴、チャット、APIキーを削除し、オンボーディングに戻ります。Health Connect のデータはそのまま残ります。</string>
+    <string name="settings_max_pinned_title">最大2つ固定</string>
+    <string name="settings_max_pinned_message">一度に固定できるマクロは最大2つです。まず別のマクロの固定を解除してください（タップして「自動バランスにリセット」をタップ）。</string>
+    <string name="settings_recalc_title">目標を再計算しますか？</string>
+    <string name="settings_recalc_message">身長/体重/活動レベル/目標から、カロリーとマクロを計算式のデフォルトにリセットします。固定中のマクロはすべて解除されます。</string>
+    <string name="settings_recalc_confirm">再計算</string>
+    <string name="settings_invalid_goal_title">目標体重が目標と一致しません</string>
+    <string name="settings_invalid_goal_lose">減量の目標には現在の体重より低い目標値が必要です。</string>
+    <string name="settings_invalid_goal_gain">増量の目標には現在の体重より高い目標値が必要です。</string>
+    <string name="settings_permission_title">権限が必要です</string>
+
+    <string name="settings_notifications_denied">通知の権限が拒否されています。システム設定 → アプリ → Fud AI → 通知 で有効にしてリマインダーを受け取ってください。</string>
+    <string name="settings_health_denied">Health Connect には体重と栄養の読み取り＋書き込み権限が必要です。トグルを再度タップして4つすべての権限を付与してください。</string>
+    <string name="settings_health_unavailable">この端末では Health Connect が利用できません。Play ストアからインストールしてからトグルを再度タップしてください。</string>
+
+    <!-- Settings sheets / pickers -->
+    <string name="sheet_ai_provider">AIプロバイダ</string>
+    <string name="sheet_model">モデル</string>
+    <string name="sheet_model_footer">または下にカスタムモデルIDを入力してください。</string>
+    <string name="sheet_any_model_id">任意のモデルID</string>
+    <string name="sheet_api_key_format">APIキー — %1$s</string>
+    <string name="sheet_speech_api_key_format">音声APIキー — %1$s</string>
+    <string name="sheet_speech_engine">音声エンジン</string>
+    <string name="sheet_gender">性別</string>
+    <string name="sheet_activity_level">活動レベル</string>
+    <string name="sheet_goal">目標</string>
+    <string name="sheet_target_weight">目標体重</string>
+    <string name="sheet_weight">体重</string>
+    <string name="sheet_birthday">誕生日</string>
+    <string name="sheet_appearance">外観</string>
+    <string name="sheet_week_starts">週の始まり</string>
+    <string name="sheet_height">身長</string>
+    <string name="sheet_body_fat_percent">体脂肪率 %</string>
+    <string name="sheet_weekly_change">週間の変化</string>
+    <string name="sheet_weekly_change_format">%1$.1f %2$s/週 %3$s</string>
+    <string name="sheet_weekly_change_loss">減量</string>
+    <string name="sheet_weekly_change_gain">増量</string>
+    <string name="sheet_pace_slow">ゆっくり</string>
+    <string name="sheet_pace_recommended">おすすめ</string>
+    <string name="sheet_pace_fast">速い</string>
+    <string name="sheet_selected_a11y">選択中</string>
+    <string name="sheet_reset_to_auto">自動バランスにリセット</string>
+
+    <string name="sheet_macros">マクロ</string>
+    <string name="sheet_macros_subtitle">最大2つのマクロを正確なグラム数に固定できます。固定されていないものは残りのカロリーから自動でバランス調整されます。</string>
+    <string name="sheet_macro_pinned">固定</string>
+    <string name="sheet_macro_auto">自動</string>
+    <string name="sheet_macro_label_format">%1$s (%2$s)</string>
+
+    <!-- About -->
+    <string name="about_share">アプリを共有</string>
+    <string name="about_open_source">オープンソース (MIT)</string>
+    <string name="about_star_github">GitHubでスターを付ける</string>
+    <string name="about_vote_ph">Product Huntで投票</string>
+    <string name="about_support">プロジェクトを支援</string>
+    <string name="about_report_issue">問題を報告</string>
+    <string name="about_request_feature">機能をリクエスト</string>
+    <string name="about_contact">お問い合わせ</string>
+    <string name="about_follow_x">Xでフォロー</string>
+    <string name="about_privacy">プライバシーポリシー</string>
+    <string name="about_terms">利用規約</string>
+    <string name="about_made_by">Apoorv Darshan 制作</string>
+    <string name="about_with_care">すべての人へ、心を込めて</string>
+    <string name="about_share_message">食事の記録は Fud AI で。写真を撮るか話すか入力するだけで、AI がカロリーを記録します。無料・オープンソースで、データは端末内に残ります。\n\nダウンロード: https://fud-ai.app</string>
+    <string name="about_share_chooser">Fud AI を共有</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_streak">連続記録リマインダー</string>
+    <string name="notif_channel_streak_desc">食事を記録して連続記録を続けるための毎日のリマインダー。</string>
+    <string name="notif_channel_daily">1日のサマリー</string>
+    <string name="notif_channel_daily_desc">1日の終わりにカロリーとマクロのサマリーをお届け。</string>
+    <string name="notif_channel_weight_goal">体重目標</string>
+    <string name="notif_channel_weight_goal_desc">目標体重に到達したときのお祝い。</string>
+    <string name="notif_goal_title">おめでとうございます！ 🎉</string>
+    <string name="notif_goal_text">目標体重に到達しました。</string>
+    <string name="notif_streak_title">食事の記録を忘れずに</string>
+    <string name="notif_streak_text">連続記録を続けましょう — 今日のものを記録してください。</string>
+    <string name="notif_summary_title">今日のサマリーが準備できました</string>
+    <string name="notif_summary_text">タップして今日のマクロの状況を確認。</string>
+
+</resources>

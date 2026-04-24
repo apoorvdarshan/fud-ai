@@ -1,0 +1,605 @@
+<resources>
+    <string name="app_name">Fud AI</string>
+
+    <!-- Widgets -->
+    <string name="widget_calorie_label">Fud AI 卡路里</string>
+    <string name="widget_calorie_description">一目了然查看今日的卡路里和宏量营养素。</string>
+    <string name="widget_protein_label">Fud AI 蛋白质</string>
+    <string name="widget_protein_description">一目了然查看今日的蛋白质进度。</string>
+    <string name="widget_today">今日</string>
+    <string name="widget_protein">蛋白质</string>
+    <string name="widget_calories">卡路里</string>
+    <string name="widget_carbs">碳水</string>
+    <string name="widget_fat">脂肪</string>
+    <string name="widget_kcal_left_format">还剩 %1$d kcal</string>
+    <string name="widget_g_left_format">还剩 %1$dg</string>
+    <string name="widget_kcal">kcal</string>
+    <string name="widget_protein_g">蛋白质 g</string>
+    <string name="widget_value_unit_format">%1$d%2$s / %3$d%4$s</string>
+    <string name="widget_center_small_format">/ %1$d</string>
+    <string name="widget_center_small_g_format">/ %1$dg</string>
+    <string name="widget_center_large_g_format">%1$dg</string>
+
+    <!-- Common buttons / actions -->
+    <string name="action_save">保存</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_done">完成</string>
+    <string name="action_ok">好</string>
+    <string name="action_clear">清除</string>
+    <string name="action_delete">删除</string>
+    <string name="action_continue">继续</string>
+    <string name="action_get_started">开始使用</string>
+    <string name="action_log">记录</string>
+    <string name="action_analyze">分析</string>
+    <string name="action_discard">放弃</string>
+    <string name="action_reset">重置</string>
+    <string name="action_keep_going">继续努力</string>
+    <string name="action_send">发送</string>
+    <string name="action_pin">固定</string>
+
+    <!-- Generic units / labels -->
+    <string name="unit_kcal">kcal</string>
+    <string name="unit_g">g</string>
+    <string name="unit_mg">mg</string>
+    <string name="unit_percent">%</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_lbs">lbs</string>
+    <string name="unit_ft">ft</string>
+    <string name="unit_in">in</string>
+    <string name="unit_ft_in">ft / in</string>
+    <string name="kcal_value_format">%1$d kcal</string>
+    <string name="grams_value_format">%1$dg</string>
+    <string name="grams_value_decimal_format">%1$.1fg</string>
+    <string name="kg_value_format">%1$.1f kg</string>
+    <string name="lbs_value_format">%1$.1f lbs</string>
+    <string name="kg_per_week_format">%1$.2f kg/周</string>
+    <string name="lbs_per_week_format">%1$.2f lbs/周</string>
+    <string name="height_cm_format">%1$d cm</string>
+    <string name="feet_inches_format">%1$d\' %2$d\"</string>
+    <string name="value_unit_format">%1$d %2$s</string>
+    <string name="ft_label_format">%1$d ft</string>
+    <string name="in_label_format">%1$d in</string>
+    <string name="bullet">·</string>
+
+    <!-- Macros / Goal labels -->
+    <string name="macro_protein">蛋白质</string>
+    <string name="macro_carbs">碳水</string>
+    <string name="macro_fat">脂肪</string>
+    <string name="macro_calories">卡路里</string>
+
+    <!-- Gender -->
+    <string name="gender_male">男性</string>
+    <string name="gender_female">女性</string>
+    <string name="gender_other">其他</string>
+
+    <!-- Activity Level -->
+    <string name="activity_sedentary">久坐</string>
+    <string name="activity_light">轻度</string>
+    <string name="activity_moderate">中等</string>
+    <string name="activity_active">活跃</string>
+    <string name="activity_very_active">非常活跃</string>
+    <string name="activity_extra_active">超级活跃</string>
+    <string name="activity_sedentary_subtitle">很少或不运动</string>
+    <string name="activity_light_subtitle">每周运动 1–3 次</string>
+    <string name="activity_moderate_subtitle">每周运动 4–5 次</string>
+    <string name="activity_active_subtitle">每天运动或每周高强度 3–4 次</string>
+    <string name="activity_very_active_subtitle">每周高强度运动 6–7 次</string>
+    <string name="activity_extra_active_subtitle">每天高强度运动，或体力劳动</string>
+
+    <!-- Weight Goal -->
+    <string name="goal_lose">减重</string>
+    <string name="goal_maintain">维持</string>
+    <string name="goal_gain">增重</string>
+
+    <!-- Meal Type -->
+    <string name="meal_breakfast">早餐</string>
+    <string name="meal_lunch">午餐</string>
+    <string name="meal_dinner">晚餐</string>
+    <string name="meal_snack">小食</string>
+    <string name="meal_other">其他</string>
+
+    <!-- AutoBalance Macro -->
+    <string name="autobalance_protein">蛋白质</string>
+    <string name="autobalance_carbs">碳水</string>
+    <string name="autobalance_fat">脂肪</string>
+
+    <!-- AI Provider names -->
+    <string name="ai_provider_gemini">Google Gemini</string>
+    <string name="ai_provider_openai">OpenAI</string>
+    <string name="ai_provider_anthropic">Anthropic Claude</string>
+    <string name="ai_provider_xai">xAI Grok</string>
+    <string name="ai_provider_openrouter">OpenRouter</string>
+    <string name="ai_provider_together">Together AI</string>
+    <string name="ai_provider_groq">Groq</string>
+    <string name="ai_provider_huggingface">Hugging Face</string>
+    <string name="ai_provider_fireworks">Fireworks AI</string>
+    <string name="ai_provider_deepinfra">DeepInfra</string>
+    <string name="ai_provider_mistral">Mistral</string>
+    <string name="ai_provider_ollama">Ollama（本地）</string>
+    <string name="ai_provider_custom">自定义（兼容 OpenAI）</string>
+
+    <!-- AI Provider API key placeholders -->
+    <string name="ai_key_placeholder_gemini">AIza…</string>
+    <string name="ai_key_placeholder_openai">sk-…</string>
+    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
+    <string name="ai_key_placeholder_xai">xai-…</string>
+    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
+    <string name="ai_key_placeholder_together">…</string>
+    <string name="ai_key_placeholder_groq">gsk_…</string>
+    <string name="ai_key_placeholder_huggingface">hf_…</string>
+    <string name="ai_key_placeholder_fireworks">fw_…</string>
+    <string name="ai_key_placeholder_deepinfra">…</string>
+    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_ollama">无需密钥</string>
+    <string name="ai_key_placeholder_custom">API 密钥（如端点不需要可填任意内容）</string>
+
+    <!-- Speech Provider -->
+    <string name="speech_provider_native">原生（设备端）</string>
+    <string name="speech_provider_openai">OpenAI Whisper</string>
+    <string name="speech_provider_groq">Groq（Whisper）</string>
+    <string name="speech_provider_deepgram">Deepgram</string>
+    <string name="speech_provider_assemblyai">AssemblyAI</string>
+
+    <string name="speech_key_placeholder_native">无需密钥</string>
+    <string name="speech_key_placeholder_openai">sk-…</string>
+    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
+    <string name="speech_key_placeholder_assemblyai">你的 AssemblyAI 密钥</string>
+
+    <string name="speech_description_native">Android 设备端语音识别。免费，多数手机可离线使用，支持实时部分结果。推荐默认。</string>
+    <string name="speech_description_openai">OpenAI Whisper API。准确度高，支持 99 种以上语言，按分钟计费。</string>
+    <string name="speech_description_groq">Groq 托管的 Whisper Large v3。推理速度极快，提供免费套餐。</string>
+    <string name="speech_description_deepgram">Deepgram Nova。支持实时与批量模式，快速且准确。</string>
+    <string name="speech_description_assemblyai">AssemblyAI Universal 模型。准确度高，提供免费套餐。</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">主页</string>
+    <string name="nav_progress">进度</string>
+    <string name="nav_coach">教练</string>
+    <string name="nav_settings">设置</string>
+    <string name="nav_about">关于</string>
+
+    <!-- Day-of-week narrow letters (for week strip) -->
+    <string name="dow_narrow_monday">一</string>
+    <string name="dow_narrow_tuesday">二</string>
+    <string name="dow_narrow_wednesday">三</string>
+    <string name="dow_narrow_thursday">四</string>
+    <string name="dow_narrow_friday">五</string>
+    <string name="dow_narrow_saturday">六</string>
+    <string name="dow_narrow_sunday">日</string>
+
+    <!-- Months (full) -->
+    <string name="month_january">一月</string>
+    <string name="month_february">二月</string>
+    <string name="month_march">三月</string>
+    <string name="month_april">四月</string>
+    <string name="month_may">五月</string>
+    <string name="month_june">六月</string>
+    <string name="month_july">七月</string>
+    <string name="month_august">八月</string>
+    <string name="month_september">九月</string>
+    <string name="month_october">十月</string>
+    <string name="month_november">十一月</string>
+    <string name="month_december">十二月</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_back">返回</string>
+    <string name="onboarding_logo_description">Fud AI 标志</string>
+    <string name="onboarding_welcome_line1">聪明饮食，</string>
+    <string name="onboarding_welcome_line2">活得更好</string>
+    <string name="onboarding_welcome_subtitle">只需拍照、记录、享受。\n让你的营养更简单。</string>
+
+    <string name="onboarding_gender_title">你的性别是？</string>
+    <string name="onboarding_gender_subtitle">这有助于我们计算你的代谢</string>
+
+    <string name="onboarding_birthday_title">你的生日是？</string>
+    <string name="onboarding_birthday_subtitle">用于计算你的每日所需</string>
+
+    <string name="onboarding_height_weight_title">身高和体重</string>
+    <string name="onboarding_height_weight_subtitle">我们会为你保密</string>
+    <string name="onboarding_imperial">英制</string>
+    <string name="onboarding_metric">公制</string>
+    <string name="onboarding_height">身高</string>
+    <string name="onboarding_weight">体重</string>
+    <string name="onboarding_feet">英尺</string>
+    <string name="onboarding_inches">英寸</string>
+
+    <string name="onboarding_activity_title">你的活跃程度如何？</string>
+    <string name="onboarding_activity_subtitle">你的典型一周</string>
+
+    <string name="onboarding_goal_title">你的目标是什么？</string>
+    <string name="onboarding_goal_subtitle">你可以随时更改</string>
+
+    <string name="onboarding_desired_weight_title">你的\n目标体重是？</string>
+
+    <string name="onboarding_body_fat_title">你知道自己的\n体脂率吗？</string>
+    <string name="onboarding_body_fat_subtitle">有助于更准确地计算你的代谢</string>
+    <string name="onboarding_yes">是</string>
+    <string name="onboarding_no">否</string>
+    <string name="onboarding_body_fat_ranges">常见范围：男性 10–25%，女性 18–35%</string>
+    <string name="onboarding_body_fat_no_worries">没关系！我们会根据你的身高、体重和\n年龄使用标准公式计算。</string>
+
+    <string name="onboarding_pace_title_maintain">你的节奏</string>
+    <string name="onboarding_pace_subtitle_maintain">我们会为你设定一个平衡的计划</string>
+    <string name="onboarding_pace_title_change">你希望多快\n达成目标？</string>
+    <string name="onboarding_pace_subtitle_lose">每周减重速度</string>
+    <string name="onboarding_pace_subtitle_gain">每周增重速度</string>
+    <string name="onboarding_pace_balanced_set">已设置平衡节奏</string>
+    <string name="onboarding_pace_balanced_subtitle">我们会让你的卡路里保持稳定，\n以维持当前体重。</string>
+    <string name="onboarding_pace_per_week">每周</string>
+    <string name="onboarding_pace_slow">缓慢</string>
+    <string name="onboarding_pace_recommended">推荐</string>
+    <string name="onboarding_pace_fast">快速</string>
+    <string name="onboarding_pace_reach_prefix">你将达成目标，所需时间为 </string>
+    <string name="onboarding_pace_days_format">%1$d 天</string>
+    <string name="onboarding_pace_caption_slow">温和且可持续。适合养成长期习惯。</string>
+    <string name="onboarding_pace_caption_fast">激进但可行。需要较强的自律。</string>
+    <string name="onboarding_pace_caption_recommended">最平衡的节奏，既有动力又可持续。</string>
+
+    <string name="onboarding_notifications_title">提醒你\n记录餐食</string>
+    <string name="onboarding_notifications_subtitle">在用餐时间获得温和提醒，\n让你不会忘记记录。</string>
+    <string name="onboarding_notifications_enabled">已启用提醒</string>
+    <string name="onboarding_notifications_allow">允许通知</string>
+    <string name="onboarding_notifications_change_anytime">你可以随时在设置中更改。</string>
+
+    <string name="onboarding_health_title">连接到\nHealth Connect</string>
+    <string name="onboarding_health_subtitle">让你的营养和身体测量数据\n自动保持同步。</string>
+    <string name="onboarding_health_feature_nutrition">营养数据</string>
+    <string name="onboarding_health_feature_weight">体重同步</string>
+    <string name="onboarding_health_feature_body">身体测量</string>
+    <string name="onboarding_health_unavailable">Health Connect 不可用</string>
+    <string name="onboarding_health_connected">已连接</string>
+    <string name="onboarding_health_connect">连接</string>
+
+    <string name="onboarding_provider_title">使用你自己的 AI</string>
+    <string name="onboarding_provider_subtitle">Fud AI 需要 AI 提供商密钥来\n分析你的食物。请使用你自己的密钥。</string>
+    <string name="onboarding_provider_recommended_title">推荐：Google Gemini</string>
+    <string name="onboarding_provider_recommended_subtitle">提供免费套餐，快速且准确</string>
+    <string name="onboarding_provider_step_1">在 aistudio.google.com/apikey 获取免费密钥</string>
+    <string name="onboarding_provider_step_2">打开“设置”→ AI 提供商</string>
+    <string name="onboarding_provider_step_3">粘贴你的密钥——完成</string>
+    <string name="onboarding_provider_footer">支持 13 个提供商。你的密钥仅保留在\n本设备上，并经过加密。</string>
+
+    <string name="onboarding_building_calories">卡路里</string>
+    <string name="onboarding_building_carbs">碳水</string>
+    <string name="onboarding_building_protein">蛋白质</string>
+    <string name="onboarding_building_fats">脂肪</string>
+    <string name="onboarding_building_health_score">健康评分</string>
+    <string name="onboarding_building_percent_format">%1$d%%</string>
+    <string name="onboarding_building_setting_up">我们正在为你\n设置一切</string>
+    <string name="onboarding_building_finalizing">正在完成结果…</string>
+    <string name="onboarding_building_recommendation">每日推荐量</string>
+    <string name="onboarding_building_bullet">•</string>
+
+    <string name="onboarding_plan_title">你的计划</string>
+    <string name="onboarding_plan_subtitle">点按任意数值进行编辑</string>
+    <string name="onboarding_plan_daily_calories">每日卡路里</string>
+    <string name="onboarding_plan_doctor_title">请咨询医生</string>
+    <string name="onboarding_plan_doctor_message">最低建议为每天 1,200 卡路里。</string>
+
+    <string name="onboarding_plan_field_calories">每日卡路里</string>
+    <string name="onboarding_plan_field_protein">蛋白质</string>
+    <string name="onboarding_plan_field_carbs">碳水</string>
+    <string name="onboarding_plan_field_fat">脂肪</string>
+
+    <string name="onboarding_review_title">到目前为止喜欢 fud 吗？</string>
+    <string name="onboarding_review_subtitle">快速评分能帮助我们成长，\n并为你打造更多功能！</string>
+    <string name="onboarding_review_rate">评价 fud</string>
+    <string name="onboarding_review_maybe_later">稍后再说</string>
+
+    <!-- Home -->
+    <string name="home_add_food">添加食物</string>
+    <string name="home_menu_camera">相机</string>
+    <string name="home_menu_camera_note">相机 + 备注</string>
+    <string name="home_menu_nutrition_label">营养成分表</string>
+    <string name="home_menu_from_photos">从照片</string>
+    <string name="home_menu_text_input">文本输入</string>
+    <string name="home_menu_voice">语音</string>
+    <string name="home_menu_manual_entry">手动输入</string>
+    <string name="home_menu_saved_meals">已保存的餐食</string>
+    <string name="home_kcal_of_format">/ %1$s kcal</string>
+    <string name="home_kcal_left_format">还剩 %1$s</string>
+    <string name="home_view_more">查看更多</string>
+    <string name="home_todays_food">今日饮食</string>
+    <string name="home_no_foods_logged">尚未记录食物</string>
+    <string name="home_swipe_delete">删除</string>
+    <string name="home_swipe_favorite">收藏</string>
+    <string name="home_swipe_unfavorite">取消收藏</string>
+    <string name="home_favorited">已收藏</string>
+    <string name="home_macro_chip_format">%1$s %2$dg</string>
+    <string name="home_analyzing_food">正在分析你的食物…</string>
+    <string name="home_looking_up_nutrition">正在查询营养信息…</string>
+    <string name="home_fiber_format">纤维：%1$.1fg</string>
+    <string name="home_sugar_format">糖：%1$.1fg</string>
+    <string name="home_sat_fat_format">饱和脂肪：%1$.1fg</string>
+    <string name="home_sodium_format">钠：%1$.1fmg</string>
+    <string name="home_potassium_format">钾：%1$.1fmg</string>
+    <string name="home_cholesterol_format">胆固醇：%1$.1fmg</string>
+    <string name="home_serving_format">份量：约 %1$dg</string>
+    <string name="home_protein_value">蛋白质：%1$dg</string>
+    <string name="home_carbs_value">碳水：%1$dg</string>
+    <string name="home_fat_value">脂肪：%1$dg</string>
+
+    <string name="text_input_placeholder_1">2 个鸡蛋、黄油吐司和一杯咖啡</string>
+    <string name="text_input_placeholder_2">Chipotle 鸡肉米饭卷饼碗</string>
+    <string name="text_input_placeholder_3">达美乐意大利香肠披萨，2 片</string>
+    <string name="text_input_placeholder_4">希腊酸奶配格兰诺拉麦片和蓝莓</string>
+
+    <string name="manual_title">手动输入</string>
+    <string name="manual_name">名称</string>
+    <string name="manual_name_placeholder">如：自制沙拉</string>
+    <string name="manual_calories">卡路里</string>
+    <string name="manual_protein">蛋白质 (g)</string>
+    <string name="manual_carbs">碳水 (g)</string>
+    <string name="manual_fat">脂肪 (g)</string>
+    <string name="manual_zero_placeholder">0</string>
+    <string name="manual_meal_type">餐食类型</string>
+
+    <string name="error_title">出错了</string>
+
+    <!-- Food sheets shared primitives -->
+    <string name="sheet_food_details">食物详情</string>
+    <string name="sheet_serving">份量</string>
+    <string name="sheet_nutrition">营养</string>
+    <string name="sheet_meal">餐食</string>
+    <string name="sheet_more_nutrition">更多营养</string>
+    <string name="sheet_name">名称</string>
+    <string name="sheet_quantity">数量</string>
+    <string name="sheet_meal_type">餐食类型</string>
+    <string name="sheet_review_food">核对食物</string>
+    <string name="sheet_edit_food">编辑食物</string>
+
+    <string name="sheet_micro_sugar">糖</string>
+    <string name="sheet_micro_added_sugar">添加糖</string>
+    <string name="sheet_micro_fiber">纤维</string>
+    <string name="sheet_micro_saturated_fat">饱和脂肪</string>
+    <string name="sheet_micro_mono_fat">单不饱和脂肪</string>
+    <string name="sheet_micro_poly_fat">多不饱和脂肪</string>
+    <string name="sheet_micro_cholesterol">胆固醇</string>
+    <string name="sheet_micro_sodium">钠</string>
+    <string name="sheet_micro_potassium">钾</string>
+
+    <!-- Context note sheet -->
+    <string name="context_note_title">添加备注</string>
+    <string name="context_note_section">添加备注（可选）</string>
+    <string name="context_note_placeholder">如：不放油、加双倍奶酪、大份</string>
+
+    <!-- Voice input sheet -->
+    <string name="voice_listening">聆听中…</string>
+    <string name="voice_tap_to_start">点按麦克风开始</string>
+    <string name="voice_transcribing_format">正在通过 %1$s 转写…</string>
+    <string name="voice_mic_permission_denied">麦克风权限被拒绝。</string>
+    <string name="voice_mic_start_failed">无法启动麦克风。请检查权限。</string>
+    <string name="voice_transcription_failed">转写失败</string>
+    <string name="voice_stop">停止</string>
+    <string name="voice_record">录音</string>
+
+    <!-- Saved Meals sheet -->
+    <string name="saved_meals_title">已保存的餐食</string>
+    <string name="saved_meals_tab_recents">最近</string>
+    <string name="saved_meals_tab_frequent">常用</string>
+    <string name="saved_meals_tab_favorites">收藏</string>
+    <string name="saved_meals_no_logs">尚未记录食物</string>
+    <string name="saved_meals_no_favorites">尚未收藏\n向左滑动任意食物即可添加</string>
+    <string name="saved_meals_count_format">已记录 %1$d 次</string>
+    <string name="saved_meals_log_action">记录</string>
+    <string name="saved_meals_remove_favorite">移除收藏</string>
+    <string name="saved_meals_move_up">上移</string>
+    <string name="saved_meals_move_down">下移</string>
+
+    <!-- Nutrition detail sheet -->
+    <string name="nutrition_details_title">营养详情</string>
+    <string name="nutrition_section_macros">宏量营养素</string>
+    <string name="nutrition_section_detailed">详细营养</string>
+    <string name="nutrition_label_calories">卡路里</string>
+    <string name="nutrition_label_protein">蛋白质</string>
+    <string name="nutrition_label_carbs">碳水</string>
+    <string name="nutrition_label_fat">脂肪</string>
+    <string name="nutrition_label_sugar">糖</string>
+    <string name="nutrition_label_added_sugar">添加糖</string>
+    <string name="nutrition_label_fiber">纤维</string>
+    <string name="nutrition_label_saturated_fat">饱和脂肪</string>
+    <string name="nutrition_label_mono_fat">单不饱和脂肪</string>
+    <string name="nutrition_label_poly_fat">多不饱和脂肪</string>
+    <string name="nutrition_label_cholesterol">胆固醇</string>
+    <string name="nutrition_label_sodium">钠</string>
+    <string name="nutrition_label_potassium">钾</string>
+    <string name="nutrition_em_dash">—</string>
+
+    <!-- Coach -->
+    <string name="coach_title">教练</string>
+    <string name="coach_reset_chat_a11y">重置聊天</string>
+    <string name="coach_send_a11y">发送</string>
+    <string name="coach_input_placeholder">问教练…</string>
+    <string name="coach_empty_title">问问你的教练</string>
+    <string name="coach_empty_subtitle">你的教练可以查看你的体重记录、卡路里日志和目标。问问预期体重、吃什么或如何达成目标。</string>
+    <string name="coach_reset_dialog_title">重置聊天</string>
+    <string name="coach_reset_dialog_message">清除所有消息并重新开始？此操作无法撤销。</string>
+    <string name="coach_reset_confirm">重置</string>
+    <string name="coach_no_profile_error">尚无个人资料。请先完成引导设置。</string>
+    <string name="coach_chat_failed">聊天失败</string>
+
+    <string name="coach_chip_predict_30_days">30 天后我的预期体重是多少？</string>
+    <string name="coach_chip_lose_faster">如何安全地更快减重？</string>
+    <string name="coach_chip_eating_too_much">我吃得太多了吗？</string>
+    <string name="coach_chip_what_dinner">晚餐吃什么？</string>
+    <string name="coach_chip_gain_healthy">如何健康增重？</string>
+    <string name="coach_chip_eating_enough">我吃够了吗？</string>
+    <string name="coach_chip_high_protein">可以加哪些高蛋白食物？</string>
+    <string name="coach_chip_holding_weight">我的体重稳定吗？</string>
+    <string name="coach_chip_average_intake">我的平均摄入量是多少？</string>
+    <string name="coach_chip_macro_suggestions">宏量营养建议？</string>
+    <string name="coach_chip_trend">我的趋势如何？</string>
+    <string name="coach_chip_doing_this_week">我这周表现如何？</string>
+    <string name="coach_chip_log_advice">根据我的记录有什么建议？</string>
+
+    <!-- Progress -->
+    <string name="progress_range_week">1周</string>
+    <string name="progress_range_month">1月</string>
+    <string name="progress_range_3m">3月</string>
+    <string name="progress_range_6m">6月</string>
+    <string name="progress_range_year">1年</string>
+    <string name="progress_range_all">全部</string>
+
+    <string name="progress_weight_section">体重</string>
+    <string name="progress_log_weight">记录体重</string>
+    <string name="progress_stat_current">当前</string>
+    <string name="progress_stat_goal">目标</string>
+    <string name="progress_log_first_weight">记录你的第一个体重以查看趋势</string>
+
+    <string name="progress_weight_history">体重历史</string>
+    <string name="progress_history_count_format">%1$d 条记录 · 点按以查看或删除</string>
+
+    <string name="progress_calories_section">卡路里</string>
+    <string name="progress_avg_format">平均：%1$d kcal</string>
+    <string name="progress_no_food">尚未记录食物</string>
+
+    <string name="progress_macro_averages">宏量平均值</string>
+    <string name="progress_macro_progress_format">%1$dg / %2$dg</string>
+
+    <string name="progress_log_weight_title">记录体重</string>
+
+    <string name="progress_goal_reached_title">恭喜！🎉</string>
+    <string name="progress_goal_reached_message">你已达到目标体重！前往“设置”切换目标，然后点按“重新计算目标”以更新你的目标。</string>
+
+    <!-- Settings -->
+    <string name="settings_section_personal">个人信息</string>
+    <string name="settings_section_goals">目标与营养</string>
+    <string name="settings_section_app">App 设置</string>
+    <string name="settings_section_ai">AI 提供商</string>
+    <string name="settings_section_speech">语音转文字</string>
+    <string name="settings_section_health">健康与数据</string>
+
+    <string name="settings_gender">性别</string>
+    <string name="settings_birthday">生日</string>
+    <string name="settings_height">身高</string>
+    <string name="settings_weight">体重</string>
+    <string name="settings_body_fat">体脂率</string>
+    <string name="settings_not_set">未设置</string>
+    <string name="settings_birthday_age_format">%1$s（年龄 %2$d）</string>
+
+    <string name="settings_weight_goal">体重目标</string>
+    <string name="settings_activity_level">活动水平</string>
+    <string name="settings_weekly_change">每周变化</string>
+    <string name="settings_weekly_default">0.50 kg/周</string>
+    <string name="settings_goal_weight">目标体重</string>
+    <string name="settings_calories">卡路里</string>
+    <string name="settings_recalculate_goals">重新计算目标</string>
+    <string name="settings_macro_pinned_format">%1$dg</string>
+    <string name="settings_macro_auto_format">%1$dg · 自动</string>
+    <string name="settings_macro_pinned_a11y">已固定</string>
+    <string name="settings_macro_auto_a11y">自动</string>
+
+    <string name="settings_appearance">外观</string>
+    <string name="settings_appearance_system">跟随系统</string>
+    <string name="settings_appearance_light">浅色</string>
+    <string name="settings_appearance_dark">深色</string>
+    <string name="settings_metric_units">公制单位</string>
+    <string name="settings_week_starts">每周起始日</string>
+    <string name="settings_week_monday">星期一</string>
+    <string name="settings_week_sunday">星期日</string>
+    <string name="settings_notifications">通知</string>
+    <string name="settings_battery_opt">电池优化</string>
+    <string name="settings_battery_opt_value">将 Fud AI 加入白名单</string>
+
+    <string name="settings_ai_provider">提供商</string>
+    <string name="settings_ai_model">模型</string>
+    <string name="settings_ai_model_unset">（在下方设置一个）</string>
+    <string name="settings_api_key">API 密钥</string>
+    <string name="settings_base_url">基础 URL</string>
+    <string name="settings_server_url">服务器 URL</string>
+    <string name="settings_tap_to_edit">点按以编辑</string>
+    <string name="settings_custom_url_placeholder">https://your-endpoint.com/v1</string>
+    <string name="settings_custom_url_title">自定义基础 URL</string>
+    <string name="settings_clear_key">清除密钥</string>
+
+    <string name="settings_health_connect">Health Connect</string>
+    <string name="settings_clear_food_log">清除饮食记录</string>
+    <string name="settings_delete_all_data">删除所有数据</string>
+
+    <!-- Settings dialogs -->
+    <string name="settings_clear_food_title">清除饮食记录？</string>
+    <string name="settings_clear_food_message">将清除所有食物记录和照片。个人资料、体重和设置会保留。</string>
+    <string name="settings_delete_all_title">删除所有本地数据？</string>
+    <string name="settings_delete_all_message">将清除个人资料、饮食记录、体重历史、聊天和 API 密钥，然后返回引导设置。Health Connect 数据保持不变。</string>
+    <string name="settings_max_pinned_title">最多固定 2 个</string>
+    <string name="settings_max_pinned_message">一次最多只能固定 2 个宏量营养素。请先打开另一个并点按“重置为自动平衡”以取消固定。</string>
+    <string name="settings_recalc_title">重新计算目标？</string>
+    <string name="settings_recalc_message">将根据你的身高/体重/活动量/目标，使用公式默认值重置卡路里和宏量营养素。所有已固定的宏量营养素都会被清除。</string>
+    <string name="settings_recalc_confirm">重新计算</string>
+    <string name="settings_invalid_goal_title">目标体重与你的目标不匹配</string>
+    <string name="settings_invalid_goal_lose">减重目标的目标体重需低于当前体重。</string>
+    <string name="settings_invalid_goal_gain">增重目标的目标体重需高于当前体重。</string>
+    <string name="settings_permission_title">需要权限</string>
+
+    <string name="settings_notifications_denied">通知权限被拒绝。请在“系统设置 → 应用 → Fud AI → 通知”中启用以接收提醒。</string>
+    <string name="settings_health_denied">Health Connect 需要体重和营养的读写权限。请重新点按开关并授予全部四项权限以同步。</string>
+    <string name="settings_health_unavailable">此设备不支持 Health Connect。请从 Play Store 安装后再次点按开关。</string>
+
+    <!-- Settings sheets / pickers -->
+    <string name="sheet_ai_provider">AI 提供商</string>
+    <string name="sheet_model">模型</string>
+    <string name="sheet_model_footer">或在下方输入任意自定义模型 ID。</string>
+    <string name="sheet_any_model_id">任意模型 ID</string>
+    <string name="sheet_api_key_format">API 密钥 — %1$s</string>
+    <string name="sheet_speech_api_key_format">语音 API 密钥 — %1$s</string>
+    <string name="sheet_speech_engine">语音引擎</string>
+    <string name="sheet_gender">性别</string>
+    <string name="sheet_activity_level">活动水平</string>
+    <string name="sheet_goal">目标</string>
+    <string name="sheet_target_weight">目标体重</string>
+    <string name="sheet_weight">体重</string>
+    <string name="sheet_birthday">生日</string>
+    <string name="sheet_appearance">外观</string>
+    <string name="sheet_week_starts">每周起始日</string>
+    <string name="sheet_height">身高</string>
+    <string name="sheet_body_fat_percent">体脂率 %</string>
+    <string name="sheet_weekly_change">每周变化</string>
+    <string name="sheet_weekly_change_format">%1$.1f %2$s/周 %3$s</string>
+    <string name="sheet_weekly_change_loss">减重</string>
+    <string name="sheet_weekly_change_gain">增重</string>
+    <string name="sheet_pace_slow">缓慢</string>
+    <string name="sheet_pace_recommended">推荐</string>
+    <string name="sheet_pace_fast">快速</string>
+    <string name="sheet_selected_a11y">已选择</string>
+    <string name="sheet_reset_to_auto">重置为自动平衡</string>
+
+    <string name="sheet_macros">宏量营养素</string>
+    <string name="sheet_macros_subtitle">最多可将 2 个宏量营养素固定为精确克数。未固定的会根据剩余卡路里自动平衡。</string>
+    <string name="sheet_macro_pinned">已固定</string>
+    <string name="sheet_macro_auto">自动</string>
+    <string name="sheet_macro_label_format">%1$s（%2$s）</string>
+
+    <!-- About -->
+    <string name="about_share">分享应用</string>
+    <string name="about_open_source">开源 (MIT)</string>
+    <string name="about_star_github">在 GitHub 上加星</string>
+    <string name="about_vote_ph">在 Product Hunt 上投票</string>
+    <string name="about_support">支持项目</string>
+    <string name="about_report_issue">报告问题</string>
+    <string name="about_request_feature">请求功能</string>
+    <string name="about_contact">联系我们</string>
+    <string name="about_follow_x">在 X 上关注</string>
+    <string name="about_privacy">隐私政策</string>
+    <string name="about_terms">服务条款</string>
+    <string name="about_made_by">由 Apoorv Darshan 制作</string>
+    <string name="about_with_care">用心为每个人</string>
+    <string name="about_share_message">我用 Fud AI 记录每一餐——拍照、说话或输入，AI 自动记录卡路里。完全免费、开源，所有数据都保存在你的设备上。\n\n下载：https://fud-ai.app</string>
+    <string name="about_share_chooser">分享 Fud AI</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_streak">连续记录提醒</string>
+    <string name="notif_channel_streak_desc">每日提醒记录餐食并保持连续记录。</string>
+    <string name="notif_channel_daily">每日摘要</string>
+    <string name="notif_channel_daily_desc">一天结束时的卡路里和宏量营养素摘要。</string>
+    <string name="notif_channel_weight_goal">体重目标</string>
+    <string name="notif_channel_weight_goal_desc">达成目标体重时的庆祝。</string>
+    <string name="notif_goal_title">恭喜！🎉</string>
+    <string name="notif_goal_text">你已达到目标体重。</string>
+    <string name="notif_streak_title">别忘了记录你的餐食</string>
+    <string name="notif_streak_text">保持连续记录——记录今天吃的内容。</string>
+    <string name="notif_summary_title">今日摘要已就绪</string>
+    <string name="notif_summary_text">点按查看今日宏量营养素的完成情况。</string>
+
+</resources>

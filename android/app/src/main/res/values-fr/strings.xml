@@ -1,0 +1,605 @@
+<resources>
+    <string name="app_name">Fud AI</string>
+
+    <!-- Widgets -->
+    <string name="widget_calorie_label">Fud AI Calories</string>
+    <string name="widget_calorie_description">Voyez les calories et macros du jour en un coup d\'œil.</string>
+    <string name="widget_protein_label">Fud AI Protéines</string>
+    <string name="widget_protein_description">Voyez votre progression en protéines du jour en un coup d\'œil.</string>
+    <string name="widget_today">Aujourd\'hui</string>
+    <string name="widget_protein">Protéines</string>
+    <string name="widget_calories">Calories</string>
+    <string name="widget_carbs">Glucides</string>
+    <string name="widget_fat">Lipides</string>
+    <string name="widget_kcal_left_format">%1$d kcal restantes</string>
+    <string name="widget_g_left_format">%1$d g restants</string>
+    <string name="widget_kcal">kcal</string>
+    <string name="widget_protein_g">protéines g</string>
+    <string name="widget_value_unit_format">%1$d%2$s / %3$d%4$s</string>
+    <string name="widget_center_small_format">/ %1$d</string>
+    <string name="widget_center_small_g_format">/ %1$d g</string>
+    <string name="widget_center_large_g_format">%1$d g</string>
+
+    <!-- Common buttons / actions -->
+    <string name="action_save">Enregistrer</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="action_done">OK</string>
+    <string name="action_ok">OK</string>
+    <string name="action_clear">Effacer</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="action_continue">Continuer</string>
+    <string name="action_get_started">Commencer</string>
+    <string name="action_log">Journal</string>
+    <string name="action_analyze">Analyser</string>
+    <string name="action_discard">Annuler</string>
+    <string name="action_reset">Réinitialiser</string>
+    <string name="action_keep_going">Continuer</string>
+    <string name="action_send">Envoyer</string>
+    <string name="action_pin">Épingler</string>
+
+    <!-- Generic units / labels -->
+    <string name="unit_kcal">kcal</string>
+    <string name="unit_g">g</string>
+    <string name="unit_mg">mg</string>
+    <string name="unit_percent">%</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_lbs">lbs</string>
+    <string name="unit_ft">ft</string>
+    <string name="unit_in">in</string>
+    <string name="unit_ft_in">ft / in</string>
+    <string name="kcal_value_format">%1$d kcal</string>
+    <string name="grams_value_format">%1$d g</string>
+    <string name="grams_value_decimal_format">%1$.1f g</string>
+    <string name="kg_value_format">%1$.1f kg</string>
+    <string name="lbs_value_format">%1$.1f lbs</string>
+    <string name="kg_per_week_format">%1$.2f kg/sem.</string>
+    <string name="lbs_per_week_format">%1$.2f lbs/sem.</string>
+    <string name="height_cm_format">%1$d cm</string>
+    <string name="feet_inches_format">%1$d\' %2$d\"</string>
+    <string name="value_unit_format">%1$d %2$s</string>
+    <string name="ft_label_format">%1$d ft</string>
+    <string name="in_label_format">%1$d in</string>
+    <string name="bullet">·</string>
+
+    <!-- Macros / Goal labels -->
+    <string name="macro_protein">Protéines</string>
+    <string name="macro_carbs">Glucides</string>
+    <string name="macro_fat">Lipides</string>
+    <string name="macro_calories">Calories</string>
+
+    <!-- Gender -->
+    <string name="gender_male">Homme</string>
+    <string name="gender_female">Femme</string>
+    <string name="gender_other">Autre</string>
+
+    <!-- Activity Level -->
+    <string name="activity_sedentary">Sédentaire</string>
+    <string name="activity_light">Clair</string>
+    <string name="activity_moderate">Modérée</string>
+    <string name="activity_active">Active</string>
+    <string name="activity_very_active">Très active</string>
+    <string name="activity_extra_active">Extrêmement active</string>
+    <string name="activity_sedentary_subtitle">Peu ou pas d\'exercice</string>
+    <string name="activity_light_subtitle">Exercice 1 à 3 fois / semaine</string>
+    <string name="activity_moderate_subtitle">Exercice 4 à 5 fois / semaine</string>
+    <string name="activity_active_subtitle">Exercice quotidien ou intense 3 à 4x / semaine</string>
+    <string name="activity_very_active_subtitle">Exercice intense 6 à 7 fois / semaine</string>
+    <string name="activity_extra_active_subtitle">Très intense au quotidien, ou métier physique</string>
+
+    <!-- Weight Goal -->
+    <string name="goal_lose">Perdre du poids</string>
+    <string name="goal_maintain">Maintenir</string>
+    <string name="goal_gain">Prendre du poids</string>
+
+    <!-- Meal Type -->
+    <string name="meal_breakfast">Petit-déjeuner</string>
+    <string name="meal_lunch">Déjeuner</string>
+    <string name="meal_dinner">Dîner</string>
+    <string name="meal_snack">Collation</string>
+    <string name="meal_other">Autre</string>
+
+    <!-- AutoBalance Macro -->
+    <string name="autobalance_protein">Protéines</string>
+    <string name="autobalance_carbs">Glucides</string>
+    <string name="autobalance_fat">Lipides</string>
+
+    <!-- AI Provider names -->
+    <string name="ai_provider_gemini">Google Gemini</string>
+    <string name="ai_provider_openai">OpenAI</string>
+    <string name="ai_provider_anthropic">Anthropic Claude</string>
+    <string name="ai_provider_xai">xAI Grok</string>
+    <string name="ai_provider_openrouter">OpenRouter</string>
+    <string name="ai_provider_together">Together AI</string>
+    <string name="ai_provider_groq">Groq</string>
+    <string name="ai_provider_huggingface">Hugging Face</string>
+    <string name="ai_provider_fireworks">Fireworks AI</string>
+    <string name="ai_provider_deepinfra">DeepInfra</string>
+    <string name="ai_provider_mistral">Mistral</string>
+    <string name="ai_provider_ollama">Ollama (Local)</string>
+    <string name="ai_provider_custom">Personnalisé (compatible OpenAI)</string>
+
+    <!-- AI Provider API key placeholders -->
+    <string name="ai_key_placeholder_gemini">AIza…</string>
+    <string name="ai_key_placeholder_openai">sk-…</string>
+    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
+    <string name="ai_key_placeholder_xai">xai-…</string>
+    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
+    <string name="ai_key_placeholder_together">…</string>
+    <string name="ai_key_placeholder_groq">gsk_…</string>
+    <string name="ai_key_placeholder_huggingface">hf_…</string>
+    <string name="ai_key_placeholder_fireworks">fw_…</string>
+    <string name="ai_key_placeholder_deepinfra">…</string>
+    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_ollama">Aucune clé requise</string>
+    <string name="ai_key_placeholder_custom">Clé API (ou n\'importe quoi si l\'endpoint n\'en a pas besoin)</string>
+
+    <!-- Speech Provider -->
+    <string name="speech_provider_native">Natif (sur l\'appareil)</string>
+    <string name="speech_provider_openai">OpenAI Whisper</string>
+    <string name="speech_provider_groq">Groq (Whisper)</string>
+    <string name="speech_provider_deepgram">Deepgram</string>
+    <string name="speech_provider_assemblyai">AssemblyAI</string>
+
+    <string name="speech_key_placeholder_native">Non requis</string>
+    <string name="speech_key_placeholder_openai">sk-…</string>
+    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_deepgram">Token votre-cle-deepgram</string>
+    <string name="speech_key_placeholder_assemblyai">Votre clé AssemblyAI</string>
+
+    <string name="speech_description_native">Reconnaissance vocale sur l\'appareil d\'Android. Gratuit, fonctionne hors ligne sur la plupart des téléphones, résultats partiels en temps réel. Recommandé par défaut.</string>
+    <string name="speech_description_openai">API OpenAI Whisper. Haute précision, plus de 99 langues, payant à la minute.</string>
+    <string name="speech_description_groq">Whisper Large v3 hébergé par Groq. Inférence très rapide, offre gratuite disponible.</string>
+    <string name="speech_description_deepgram">Deepgram Nova. Modes temps réel et batch, rapide et précis.</string>
+    <string name="speech_description_assemblyai">Modèle Universal d\'AssemblyAI. Bonne précision, offre gratuite disponible.</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">Accueil</string>
+    <string name="nav_progress">Progrès</string>
+    <string name="nav_coach">Coach</string>
+    <string name="nav_settings">Réglages</string>
+    <string name="nav_about">À propos</string>
+
+    <!-- Day-of-week narrow letters (for week strip) -->
+    <string name="dow_narrow_monday">L</string>
+    <string name="dow_narrow_tuesday">M</string>
+    <string name="dow_narrow_wednesday">M</string>
+    <string name="dow_narrow_thursday">J</string>
+    <string name="dow_narrow_friday">V</string>
+    <string name="dow_narrow_saturday">S</string>
+    <string name="dow_narrow_sunday">D</string>
+
+    <!-- Months (full) -->
+    <string name="month_january">Janvier</string>
+    <string name="month_february">Février</string>
+    <string name="month_march">Mars</string>
+    <string name="month_april">Avril</string>
+    <string name="month_may">Mai</string>
+    <string name="month_june">Juin</string>
+    <string name="month_july">Juillet</string>
+    <string name="month_august">Août</string>
+    <string name="month_september">Septembre</string>
+    <string name="month_october">Octobre</string>
+    <string name="month_november">Novembre</string>
+    <string name="month_december">Décembre</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_back">Retour</string>
+    <string name="onboarding_logo_description">Logo Fud AI</string>
+    <string name="onboarding_welcome_line1">Mangez malin,</string>
+    <string name="onboarding_welcome_line2">Vivez mieux</string>
+    <string name="onboarding_welcome_subtitle">Prenez une photo, suivez et progressez.\nVotre nutrition, simplifiée.</string>
+
+    <string name="onboarding_gender_title">Quel est votre sexe ?</string>
+    <string name="onboarding_gender_subtitle">Cela nous aide à calculer votre métabolisme</string>
+
+    <string name="onboarding_birthday_title">Quand est votre anniversaire ?</string>
+    <string name="onboarding_birthday_subtitle">Sert à calculer vos besoins quotidiens</string>
+
+    <string name="onboarding_height_weight_title">Taille et poids</string>
+    <string name="onboarding_height_weight_subtitle">Nous garderons cela privé</string>
+    <string name="onboarding_imperial">Impérial</string>
+    <string name="onboarding_metric">Métrique</string>
+    <string name="onboarding_height">Taille</string>
+    <string name="onboarding_weight">Poids</string>
+    <string name="onboarding_feet">Pieds</string>
+    <string name="onboarding_inches">Pouces</string>
+
+    <string name="onboarding_activity_title">Quel est votre niveau d\'activité ?</string>
+    <string name="onboarding_activity_subtitle">Votre semaine type</string>
+
+    <string name="onboarding_goal_title">Quel est votre objectif ?</string>
+    <string name="onboarding_goal_subtitle">Vous pouvez le changer à tout moment</string>
+
+    <string name="onboarding_desired_weight_title">Quel est votre\npoids souhaité ?</string>
+
+    <string name="onboarding_body_fat_title">Connaissez-vous votre\n% de graisse corporelle ?</string>
+    <string name="onboarding_body_fat_subtitle">Nous aide à calculer votre métabolisme plus précisément</string>
+    <string name="onboarding_yes">Oui</string>
+    <string name="onboarding_no">Non</string>
+    <string name="onboarding_body_fat_ranges">Plages courantes : hommes 10–25 %, femmes 18–35 %</string>
+    <string name="onboarding_body_fat_no_worries">Pas de souci ! Nous utiliserons une formule standard\nbasée sur votre taille, poids et âge.</string>
+
+    <string name="onboarding_pace_title_maintain">Votre rythme</string>
+    <string name="onboarding_pace_subtitle_maintain">Nous définirons un plan équilibré</string>
+    <string name="onboarding_pace_title_change">À quelle vitesse voulez-vous\natteindre votre objectif ?</string>
+    <string name="onboarding_pace_subtitle_lose">Vitesse de perte de poids par semaine</string>
+    <string name="onboarding_pace_subtitle_gain">Vitesse de prise de poids par semaine</string>
+    <string name="onboarding_pace_balanced_set">Rythme équilibré défini</string>
+    <string name="onboarding_pace_balanced_subtitle">Nous garderons vos calories stables\npour maintenir votre poids actuel.</string>
+    <string name="onboarding_pace_per_week">par semaine</string>
+    <string name="onboarding_pace_slow">Lent</string>
+    <string name="onboarding_pace_recommended">Recommandé</string>
+    <string name="onboarding_pace_fast">Rapide</string>
+    <string name="onboarding_pace_reach_prefix">Vous atteindrez votre objectif dans </string>
+    <string name="onboarding_pace_days_format">%1$d jours</string>
+    <string name="onboarding_pace_caption_slow">Doux et durable. Idéal pour des habitudes à long terme.</string>
+    <string name="onboarding_pace_caption_fast">Agressif mais réalisable. Demande une grande discipline.</string>
+    <string name="onboarding_pace_caption_recommended">Le rythme le plus équilibré, motivant et durable.</string>
+
+    <string name="onboarding_notifications_title">Recevez des rappels\npour enregistrer vos repas</string>
+    <string name="onboarding_notifications_subtitle">Recevez de doux rappels aux heures des repas\npour ne jamais oublier de suivre.</string>
+    <string name="onboarding_notifications_enabled">Rappels activés</string>
+    <string name="onboarding_notifications_allow">Autoriser les notifications</string>
+    <string name="onboarding_notifications_change_anytime">Vous pouvez changer cela à tout moment dans Réglages.</string>
+
+    <string name="onboarding_health_title">Connectez-vous à\nHealth Connect</string>
+    <string name="onboarding_health_subtitle">Synchronisez automatiquement votre nutrition\net vos mesures corporelles.</string>
+    <string name="onboarding_health_feature_nutrition">Données nutritionnelles</string>
+    <string name="onboarding_health_feature_weight">Synchronisation du poids</string>
+    <string name="onboarding_health_feature_body">Mesures corporelles</string>
+    <string name="onboarding_health_unavailable">Health Connect indisponible</string>
+    <string name="onboarding_health_connected">Connecté</string>
+    <string name="onboarding_health_connect">Connecter</string>
+
+    <string name="onboarding_provider_title">Utilisez votre propre IA</string>
+    <string name="onboarding_provider_subtitle">Fud AI a besoin d\'une clé de fournisseur d\'IA\npour analyser vos aliments. Vous fournissez la vôtre.</string>
+    <string name="onboarding_provider_recommended_title">Recommandé : Google Gemini</string>
+    <string name="onboarding_provider_recommended_subtitle">Offre gratuite, rapide et précise</string>
+    <string name="onboarding_provider_step_1">Obtenez une clé gratuite sur aistudio.google.com/apikey</string>
+    <string name="onboarding_provider_step_2">Ouvrez Réglages → Fournisseur d\'IA</string>
+    <string name="onboarding_provider_step_3">Collez votre clé — c\'est fait</string>
+    <string name="onboarding_provider_footer">13 fournisseurs pris en charge. Votre clé reste\nsur cet appareil, chiffrée.</string>
+
+    <string name="onboarding_building_calories">Calories</string>
+    <string name="onboarding_building_carbs">Glucides</string>
+    <string name="onboarding_building_protein">Protéines</string>
+    <string name="onboarding_building_fats">Lipides</string>
+    <string name="onboarding_building_health_score">Score de santé</string>
+    <string name="onboarding_building_percent_format">%1$d%%</string>
+    <string name="onboarding_building_setting_up">Nous configurons tout\npour vous</string>
+    <string name="onboarding_building_finalizing">Finalisation des résultats…</string>
+    <string name="onboarding_building_recommendation">Recommandation quotidienne pour</string>
+    <string name="onboarding_building_bullet">•</string>
+
+    <string name="onboarding_plan_title">Votre plan</string>
+    <string name="onboarding_plan_subtitle">Touchez une valeur pour la modifier</string>
+    <string name="onboarding_plan_daily_calories">calories quotidiennes</string>
+    <string name="onboarding_plan_doctor_title">Veuillez consulter un médecin</string>
+    <string name="onboarding_plan_doctor_message">La recommandation minimale est de 1 200 calories par jour.</string>
+
+    <string name="onboarding_plan_field_calories">Calories quotidiennes</string>
+    <string name="onboarding_plan_field_protein">Protéines</string>
+    <string name="onboarding_plan_field_carbs">Glucides</string>
+    <string name="onboarding_plan_field_fat">Lipides</string>
+
+    <string name="onboarding_review_title">Vous aimez fud jusqu\'à présent ?</string>
+    <string name="onboarding_review_subtitle">Une note rapide nous aide à grandir\net à créer plus de fonctionnalités pour vous !</string>
+    <string name="onboarding_review_rate">Noter fud</string>
+    <string name="onboarding_review_maybe_later">Plus tard</string>
+
+    <!-- Home -->
+    <string name="home_add_food">Ajouter un aliment</string>
+    <string name="home_menu_camera">Appareil photo</string>
+    <string name="home_menu_camera_note">Appareil photo + note</string>
+    <string name="home_menu_nutrition_label">Étiquette nutritionnelle</string>
+    <string name="home_menu_from_photos">Depuis Photos</string>
+    <string name="home_menu_text_input">Saisie de texte</string>
+    <string name="home_menu_voice">Voix</string>
+    <string name="home_menu_manual_entry">Saisie manuelle</string>
+    <string name="home_menu_saved_meals">Repas enregistrés</string>
+    <string name="home_kcal_of_format">sur %1$s kcal</string>
+    <string name="home_kcal_left_format">%1$s restantes</string>
+    <string name="home_view_more">Voir plus</string>
+    <string name="home_todays_food">Aliments du jour</string>
+    <string name="home_no_foods_logged">Aucun aliment enregistré</string>
+    <string name="home_swipe_delete">Supprimer</string>
+    <string name="home_swipe_favorite">Favori</string>
+    <string name="home_swipe_unfavorite">Retirer des favoris</string>
+    <string name="home_favorited">Ajouté aux favoris</string>
+    <string name="home_macro_chip_format">%1$s %2$d g</string>
+    <string name="home_analyzing_food">Analyse de votre aliment…</string>
+    <string name="home_looking_up_nutrition">Recherche de la nutrition…</string>
+    <string name="home_fiber_format">Fibres : %1$.1f g</string>
+    <string name="home_sugar_format">Sucre : %1$.1f g</string>
+    <string name="home_sat_fat_format">Lipides sat. : %1$.1f g</string>
+    <string name="home_sodium_format">Sodium : %1$.1f mg</string>
+    <string name="home_potassium_format">Potassium : %1$.1f mg</string>
+    <string name="home_cholesterol_format">Cholestérol : %1$.1f mg</string>
+    <string name="home_serving_format">Portion : ~%1$d g</string>
+    <string name="home_protein_value">Protéines : %1$d g</string>
+    <string name="home_carbs_value">Glucides : %1$d g</string>
+    <string name="home_fat_value">Lipides : %1$d g</string>
+
+    <string name="text_input_placeholder_1">2 œufs, toast au beurre et un café</string>
+    <string name="text_input_placeholder_2">Bol de burrito Chipotle avec poulet et riz</string>
+    <string name="text_input_placeholder_3">Pizza pepperoni Domino\'s, 2 parts</string>
+    <string name="text_input_placeholder_4">Yaourt grec avec granola et myrtilles</string>
+
+    <string name="manual_title">Saisie manuelle</string>
+    <string name="manual_name">Nom</string>
+    <string name="manual_name_placeholder">ex. salade maison</string>
+    <string name="manual_calories">Calories</string>
+    <string name="manual_protein">Protéines (g)</string>
+    <string name="manual_carbs">Glucides (g)</string>
+    <string name="manual_fat">Lipides (g)</string>
+    <string name="manual_zero_placeholder">0</string>
+    <string name="manual_meal_type">Type de repas</string>
+
+    <string name="error_title">Une erreur est survenue</string>
+
+    <!-- Food sheets shared primitives -->
+    <string name="sheet_food_details">Détails de l\'aliment</string>
+    <string name="sheet_serving">Portion</string>
+    <string name="sheet_nutrition">Nutrition</string>
+    <string name="sheet_meal">Repas</string>
+    <string name="sheet_more_nutrition">Plus de nutrition</string>
+    <string name="sheet_name">Nom</string>
+    <string name="sheet_quantity">Quantité</string>
+    <string name="sheet_meal_type">Type de repas</string>
+    <string name="sheet_review_food">Vérifier l\'aliment</string>
+    <string name="sheet_edit_food">Modifier l\'aliment</string>
+
+    <string name="sheet_micro_sugar">Sucre</string>
+    <string name="sheet_micro_added_sugar">Sucres ajoutés</string>
+    <string name="sheet_micro_fiber">Fibres</string>
+    <string name="sheet_micro_saturated_fat">Lipides saturés</string>
+    <string name="sheet_micro_mono_fat">Lipides mono-insat.</string>
+    <string name="sheet_micro_poly_fat">Lipides poly-insat.</string>
+    <string name="sheet_micro_cholesterol">Cholestérol</string>
+    <string name="sheet_micro_sodium">Sodium</string>
+    <string name="sheet_micro_potassium">Potassium</string>
+
+    <!-- Context note sheet -->
+    <string name="context_note_title">Ajouter une note</string>
+    <string name="context_note_section">Ajouter une note (facultatif)</string>
+    <string name="context_note_placeholder">ex. sans huile, fromage en plus, grande portion</string>
+
+    <!-- Voice input sheet -->
+    <string name="voice_listening">Écoute…</string>
+    <string name="voice_tap_to_start">Touchez le micro pour commencer</string>
+    <string name="voice_transcribing_format">Transcription via %1$s…</string>
+    <string name="voice_mic_permission_denied">Autorisation du microphone refusée.</string>
+    <string name="voice_mic_start_failed">Impossible de démarrer le micro. Vérifiez les autorisations.</string>
+    <string name="voice_transcription_failed">Échec de la transcription</string>
+    <string name="voice_stop">Arrêter</string>
+    <string name="voice_record">Enregistrer</string>
+
+    <!-- Saved Meals sheet -->
+    <string name="saved_meals_title">Repas enregistrés</string>
+    <string name="saved_meals_tab_recents">Récents</string>
+    <string name="saved_meals_tab_frequent">Fréquents</string>
+    <string name="saved_meals_tab_favorites">Favoris</string>
+    <string name="saved_meals_no_logs">Aucun aliment enregistré pour le moment</string>
+    <string name="saved_meals_no_favorites">Aucun favori pour le moment\nGlissez vers la gauche sur un aliment pour l\'ajouter</string>
+    <string name="saved_meals_count_format">%1$d× enregistré</string>
+    <string name="saved_meals_log_action">Journal</string>
+    <string name="saved_meals_remove_favorite">Retirer des favoris</string>
+    <string name="saved_meals_move_up">Monter</string>
+    <string name="saved_meals_move_down">Descendre</string>
+
+    <!-- Nutrition detail sheet -->
+    <string name="nutrition_details_title">Détails nutritionnels</string>
+    <string name="nutrition_section_macros">Macros</string>
+    <string name="nutrition_section_detailed">Nutrition détaillée</string>
+    <string name="nutrition_label_calories">Calories</string>
+    <string name="nutrition_label_protein">Protéines</string>
+    <string name="nutrition_label_carbs">Glucides</string>
+    <string name="nutrition_label_fat">Lipides</string>
+    <string name="nutrition_label_sugar">Sucre</string>
+    <string name="nutrition_label_added_sugar">Sucres ajoutés</string>
+    <string name="nutrition_label_fiber">Fibres</string>
+    <string name="nutrition_label_saturated_fat">Lipides saturés</string>
+    <string name="nutrition_label_mono_fat">Lipides mono-insat.</string>
+    <string name="nutrition_label_poly_fat">Lipides poly-insat.</string>
+    <string name="nutrition_label_cholesterol">Cholestérol</string>
+    <string name="nutrition_label_sodium">Sodium</string>
+    <string name="nutrition_label_potassium">Potassium</string>
+    <string name="nutrition_em_dash">—</string>
+
+    <!-- Coach -->
+    <string name="coach_title">Coach</string>
+    <string name="coach_reset_chat_a11y">Réinitialiser la conversation</string>
+    <string name="coach_send_a11y">Envoyer</string>
+    <string name="coach_input_placeholder">Demander au Coach…</string>
+    <string name="coach_empty_title">Demandez à votre Coach</string>
+    <string name="coach_empty_subtitle">Votre coach voit votre historique de poids, votre journal calorique et vos objectifs. Demandez-lui le poids attendu, quoi manger ou comment atteindre votre but.</string>
+    <string name="coach_reset_dialog_title">Réinitialiser</string>
+    <string name="coach_reset_dialog_message">Effacer tous les messages et recommencer ? Cette action est irréversible.</string>
+    <string name="coach_reset_confirm">Réinitialiser</string>
+    <string name="coach_no_profile_error">Aucun profil pour le moment. Terminez d\'abord l\'intégration.</string>
+    <string name="coach_chat_failed">Échec de la conversation</string>
+
+    <string name="coach_chip_predict_30_days">Quel est mon poids prévu dans 30 jours ?</string>
+    <string name="coach_chip_lose_faster">Comment perdre du poids plus vite en toute sécurité ?</string>
+    <string name="coach_chip_eating_too_much">Est-ce que je mange trop ?</string>
+    <string name="coach_chip_what_dinner">Que manger au dîner ?</string>
+    <string name="coach_chip_gain_healthy">Comment prendre du poids sainement ?</string>
+    <string name="coach_chip_eating_enough">Est-ce que je mange assez ?</string>
+    <string name="coach_chip_high_protein">Aliments riches en protéines à ajouter ?</string>
+    <string name="coach_chip_holding_weight">Est-ce que je maintiens mon poids ?</string>
+    <string name="coach_chip_average_intake">Quel est mon apport moyen ?</string>
+    <string name="coach_chip_macro_suggestions">Suggestions de macros ?</string>
+    <string name="coach_chip_trend">Quelle est ma tendance ?</string>
+    <string name="coach_chip_doing_this_week">Comment je m\'en sors cette semaine ?</string>
+    <string name="coach_chip_log_advice">Des conseils basés sur mon journal ?</string>
+
+    <!-- Progress -->
+    <string name="progress_range_week">1S</string>
+    <string name="progress_range_month">1M</string>
+    <string name="progress_range_3m">3M</string>
+    <string name="progress_range_6m">6M</string>
+    <string name="progress_range_year">1A</string>
+    <string name="progress_range_all">Tout</string>
+
+    <string name="progress_weight_section">Poids</string>
+    <string name="progress_log_weight">Enregistrer le poids</string>
+    <string name="progress_stat_current">Actuel</string>
+    <string name="progress_stat_goal">Objectif</string>
+    <string name="progress_log_first_weight">Enregistrez votre premier poids pour voir les tendances</string>
+
+    <string name="progress_weight_history">Historique du poids</string>
+    <string name="progress_history_count_format">%1$d entrées · touchez pour voir ou supprimer</string>
+
+    <string name="progress_calories_section">Calories</string>
+    <string name="progress_avg_format">Moy. : %1$d kcal</string>
+    <string name="progress_no_food">Aucun aliment enregistré pour le moment</string>
+
+    <string name="progress_macro_averages">Moyennes des macros</string>
+    <string name="progress_macro_progress_format">%1$d g / %2$d g</string>
+
+    <string name="progress_log_weight_title">Enregistrer le poids</string>
+
+    <string name="progress_goal_reached_title">Félicitations ! 🎉</string>
+    <string name="progress_goal_reached_message">Vous avez atteint votre poids cible ! Allez dans Réglages pour changer d\'objectif et touchez Recalculer les objectifs pour actualiser vos cibles.</string>
+
+    <!-- Settings -->
+    <string name="settings_section_personal">Informations personnelles</string>
+    <string name="settings_section_goals">Objectifs et nutrition</string>
+    <string name="settings_section_app">Réglages de l\'app</string>
+    <string name="settings_section_ai">Fournisseur d\'IA</string>
+    <string name="settings_section_speech">Reconnaissance vocale</string>
+    <string name="settings_section_health">Santé et données</string>
+
+    <string name="settings_gender">Sexe</string>
+    <string name="settings_birthday">Date de naissance</string>
+    <string name="settings_height">Taille</string>
+    <string name="settings_weight">Poids</string>
+    <string name="settings_body_fat">Graisse corporelle</string>
+    <string name="settings_not_set">Non défini</string>
+    <string name="settings_birthday_age_format">%1$s (âge %2$d)</string>
+
+    <string name="settings_weight_goal">Objectif de poids</string>
+    <string name="settings_activity_level">Niveau d\'activité</string>
+    <string name="settings_weekly_change">Variation hebdomadaire</string>
+    <string name="settings_weekly_default">0,50 kg/sem.</string>
+    <string name="settings_goal_weight">Poids cible</string>
+    <string name="settings_calories">Calories</string>
+    <string name="settings_recalculate_goals">Recalculer les objectifs</string>
+    <string name="settings_macro_pinned_format">%1$d g</string>
+    <string name="settings_macro_auto_format">%1$d g · auto</string>
+    <string name="settings_macro_pinned_a11y">Épinglé</string>
+    <string name="settings_macro_auto_a11y">Auto</string>
+
+    <string name="settings_appearance">Apparence</string>
+    <string name="settings_appearance_system">Système</string>
+    <string name="settings_appearance_light">Clair</string>
+    <string name="settings_appearance_dark">Sombre</string>
+    <string name="settings_metric_units">Unités métriques</string>
+    <string name="settings_week_starts">La semaine commence le</string>
+    <string name="settings_week_monday">Lundi</string>
+    <string name="settings_week_sunday">Dimanche</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_battery_opt">Optimisation de la batterie</string>
+    <string name="settings_battery_opt_value">Mettre Fud AI en liste blanche</string>
+
+    <string name="settings_ai_provider">Fournisseur</string>
+    <string name="settings_ai_model">Modèle</string>
+    <string name="settings_ai_model_unset">(à définir ci-dessous)</string>
+    <string name="settings_api_key">Clé API</string>
+    <string name="settings_base_url">URL de base</string>
+    <string name="settings_server_url">URL du serveur</string>
+    <string name="settings_tap_to_edit">Touchez pour modifier</string>
+    <string name="settings_custom_url_placeholder">https://votre-endpoint.com/v1</string>
+    <string name="settings_custom_url_title">URL de base personnalisée</string>
+    <string name="settings_clear_key">Effacer la clé</string>
+
+    <string name="settings_health_connect">Health Connect</string>
+    <string name="settings_clear_food_log">Effacer le journal alimentaire</string>
+    <string name="settings_delete_all_data">Supprimer toutes les données</string>
+
+    <!-- Settings dialogs -->
+    <string name="settings_clear_food_title">Effacer le journal alimentaire ?</string>
+    <string name="settings_clear_food_message">Efface toutes les entrées et photos d\'aliments. Le profil, les pesées et les réglages sont conservés.</string>
+    <string name="settings_delete_all_title">Supprimer toutes les données locales ?</string>
+    <string name="settings_delete_all_message">Efface le profil, le journal alimentaire, l\'historique de poids, la conversation et les clés API, puis vous ramène à l\'intégration. Les données Health Connect restent intactes.</string>
+    <string name="settings_max_pinned_title">Max. 2 épinglés</string>
+    <string name="settings_max_pinned_message">Vous pouvez épingler au maximum 2 macros à la fois. Détachez d\'abord une autre macro en l\'ouvrant et en touchant Rétablir l\'équilibrage auto.</string>
+    <string name="settings_recalc_title">Recalculer les objectifs ?</string>
+    <string name="settings_recalc_message">Réinitialise les calories et les macros aux valeurs par défaut de la formule selon votre taille/poids/activité/objectif. Les macros épinglées sont effacées.</string>
+    <string name="settings_recalc_confirm">Recalculer</string>
+    <string name="settings_invalid_goal_title">Le poids cible ne correspond pas à votre objectif</string>
+    <string name="settings_invalid_goal_lose">Un objectif de perte nécessite une cible inférieure à votre poids actuel.</string>
+    <string name="settings_invalid_goal_gain">Un objectif de prise nécessite une cible supérieure à votre poids actuel.</string>
+    <string name="settings_permission_title">Autorisation requise</string>
+
+    <string name="settings_notifications_denied">Autorisation des notifications refusée. Activez-la dans Réglages système → Applis → Fud AI → Notifications pour recevoir les rappels.</string>
+    <string name="settings_health_denied">Health Connect a besoin de la lecture et de l\'écriture pour le poids et la nutrition. Réappuyez sur la bascule et accordez les quatre autorisations pour synchroniser.</string>
+    <string name="settings_health_unavailable">Health Connect n\'est pas disponible sur cet appareil. Installez-le depuis le Play Store, puis réappuyez sur la bascule.</string>
+
+    <!-- Settings sheets / pickers -->
+    <string name="sheet_ai_provider">Fournisseur d\'IA</string>
+    <string name="sheet_model">Modèle</string>
+    <string name="sheet_model_footer">Ou tapez n\'importe quel ID de modèle personnalisé ci-dessous.</string>
+    <string name="sheet_any_model_id">N\'importe quel ID de modèle</string>
+    <string name="sheet_api_key_format">Clé API — %1$s</string>
+    <string name="sheet_speech_api_key_format">Clé API vocale — %1$s</string>
+    <string name="sheet_speech_engine">Moteur vocal</string>
+    <string name="sheet_gender">Sexe</string>
+    <string name="sheet_activity_level">Niveau d\'activité</string>
+    <string name="sheet_goal">Objectif</string>
+    <string name="sheet_target_weight">Poids cible</string>
+    <string name="sheet_weight">Poids</string>
+    <string name="sheet_birthday">Date de naissance</string>
+    <string name="sheet_appearance">Apparence</string>
+    <string name="sheet_week_starts">La semaine commence le</string>
+    <string name="sheet_height">Taille</string>
+    <string name="sheet_body_fat_percent">% de graisse corporelle</string>
+    <string name="sheet_weekly_change">Variation hebdomadaire</string>
+    <string name="sheet_weekly_change_format">%1$.1f %2$s/semaine %3$s</string>
+    <string name="sheet_weekly_change_loss">perte</string>
+    <string name="sheet_weekly_change_gain">prise</string>
+    <string name="sheet_pace_slow">Lent</string>
+    <string name="sheet_pace_recommended">Recommandé</string>
+    <string name="sheet_pace_fast">Rapide</string>
+    <string name="sheet_selected_a11y">Sélectionné</string>
+    <string name="sheet_reset_to_auto">Rétablir l\'équilibrage auto</string>
+
+    <string name="sheet_macros">Macros</string>
+    <string name="sheet_macros_subtitle">Épinglez jusqu\'à 2 macros à des grammes exacts. Les autres s\'équilibrent automatiquement à partir des calories restantes.</string>
+    <string name="sheet_macro_pinned">épinglé</string>
+    <string name="sheet_macro_auto">auto</string>
+    <string name="sheet_macro_label_format">%1$s (%2$s)</string>
+
+    <!-- About -->
+    <string name="about_share">Partager l\'app</string>
+    <string name="about_open_source">Open source (MIT)</string>
+    <string name="about_star_github">Étoile sur GitHub</string>
+    <string name="about_vote_ph">Voter sur Product Hunt</string>
+    <string name="about_support">Soutenir le projet</string>
+    <string name="about_report_issue">Signaler un problème</string>
+    <string name="about_request_feature">Demander une fonctionnalité</string>
+    <string name="about_contact">Nous contacter</string>
+    <string name="about_follow_x">Suivre sur X</string>
+    <string name="about_privacy">Politique de confidentialité</string>
+    <string name="about_terms">Conditions d\'utilisation</string>
+    <string name="about_made_by">Créé par Apoorv Darshan</string>
+    <string name="about_with_care">avec soin, pour tous</string>
+    <string name="about_share_message">Je suis mes repas avec Fud AI — prends une photo, parle ou tape, l\'IA enregistre les calories. C\'est gratuit, open source, et tes données restent sur ton appareil.\n\nTélécharger : https://fud-ai.app</string>
+    <string name="about_share_chooser">Partager Fud AI</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_streak">Rappel de série</string>
+    <string name="notif_channel_streak_desc">Rappel quotidien pour enregistrer un repas et garder votre série.</string>
+    <string name="notif_channel_daily">Résumé quotidien</string>
+    <string name="notif_channel_daily_desc">Résumé de fin de journée de vos calories et macros.</string>
+    <string name="notif_channel_weight_goal">Objectif de poids</string>
+    <string name="notif_channel_weight_goal_desc">Célébration lorsque vous atteignez votre poids cible.</string>
+    <string name="notif_goal_title">Félicitations ! 🎉</string>
+    <string name="notif_goal_text">Vous avez atteint votre poids cible.</string>
+    <string name="notif_streak_title">N\'oubliez pas d\'enregistrer vos repas</string>
+    <string name="notif_streak_text">Gardez votre série — enregistrez quelque chose pour aujourd\'hui.</string>
+    <string name="notif_summary_title">Le résumé du jour est prêt</string>
+    <string name="notif_summary_text">Touchez pour voir comment vos macros se sont alignées aujourd\'hui.</string>
+
+</resources>

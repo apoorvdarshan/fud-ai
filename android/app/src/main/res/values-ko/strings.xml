@@ -1,0 +1,605 @@
+<resources>
+    <string name="app_name">Fud AI</string>
+
+    <!-- Widgets -->
+    <string name="widget_calorie_label">Fud AI 칼로리</string>
+    <string name="widget_calorie_description">오늘의 칼로리와 매크로를 한눈에 확인하세요.</string>
+    <string name="widget_protein_label">Fud AI 단백질</string>
+    <string name="widget_protein_description">오늘의 단백질 진행 상황을 한눈에 확인하세요.</string>
+    <string name="widget_today">오늘</string>
+    <string name="widget_protein">단백질</string>
+    <string name="widget_calories">칼로리</string>
+    <string name="widget_carbs">탄수화물</string>
+    <string name="widget_fat">지방</string>
+    <string name="widget_kcal_left_format">%1$d kcal 남음</string>
+    <string name="widget_g_left_format">%1$dg 남음</string>
+    <string name="widget_kcal">kcal</string>
+    <string name="widget_protein_g">단백질 g</string>
+    <string name="widget_value_unit_format">%1$d%2$s / %3$d%4$s</string>
+    <string name="widget_center_small_format">/ %1$d</string>
+    <string name="widget_center_small_g_format">/ %1$dg</string>
+    <string name="widget_center_large_g_format">%1$dg</string>
+
+    <!-- Common buttons / actions -->
+    <string name="action_save">저장</string>
+    <string name="action_cancel">취소</string>
+    <string name="action_done">완료</string>
+    <string name="action_ok">확인</string>
+    <string name="action_clear">지우기</string>
+    <string name="action_delete">삭제</string>
+    <string name="action_continue">계속</string>
+    <string name="action_get_started">시작하기</string>
+    <string name="action_log">기록</string>
+    <string name="action_analyze">분석</string>
+    <string name="action_discard">버리기</string>
+    <string name="action_reset">초기화</string>
+    <string name="action_keep_going">계속하기</string>
+    <string name="action_send">보내기</string>
+    <string name="action_pin">고정</string>
+
+    <!-- Generic units / labels -->
+    <string name="unit_kcal">kcal</string>
+    <string name="unit_g">g</string>
+    <string name="unit_mg">mg</string>
+    <string name="unit_percent">%</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_lbs">lbs</string>
+    <string name="unit_ft">ft</string>
+    <string name="unit_in">in</string>
+    <string name="unit_ft_in">ft / in</string>
+    <string name="kcal_value_format">%1$d kcal</string>
+    <string name="grams_value_format">%1$dg</string>
+    <string name="grams_value_decimal_format">%1$.1fg</string>
+    <string name="kg_value_format">%1$.1f kg</string>
+    <string name="lbs_value_format">%1$.1f lbs</string>
+    <string name="kg_per_week_format">%1$.2f kg/주</string>
+    <string name="lbs_per_week_format">%1$.2f lbs/주</string>
+    <string name="height_cm_format">%1$d cm</string>
+    <string name="feet_inches_format">%1$d\' %2$d\"</string>
+    <string name="value_unit_format">%1$d %2$s</string>
+    <string name="ft_label_format">%1$d ft</string>
+    <string name="in_label_format">%1$d in</string>
+    <string name="bullet">·</string>
+
+    <!-- Macros / Goal labels -->
+    <string name="macro_protein">단백질</string>
+    <string name="macro_carbs">탄수화물</string>
+    <string name="macro_fat">지방</string>
+    <string name="macro_calories">칼로리</string>
+
+    <!-- Gender -->
+    <string name="gender_male">남성</string>
+    <string name="gender_female">여성</string>
+    <string name="gender_other">기타</string>
+
+    <!-- Activity Level -->
+    <string name="activity_sedentary">좌식</string>
+    <string name="activity_light">라이트</string>
+    <string name="activity_moderate">보통</string>
+    <string name="activity_active">활동적</string>
+    <string name="activity_very_active">매우 활동적</string>
+    <string name="activity_extra_active">극도로 활동적</string>
+    <string name="activity_sedentary_subtitle">운동을 거의 안 함</string>
+    <string name="activity_light_subtitle">주 1–3회 운동</string>
+    <string name="activity_moderate_subtitle">주 4–5회 운동</string>
+    <string name="activity_active_subtitle">매일 운동 또는 주 3–4회 강도 높은 운동</string>
+    <string name="activity_very_active_subtitle">주 6–7회 강도 높은 운동</string>
+    <string name="activity_extra_active_subtitle">매일 매우 강한 운동 또는 육체 노동</string>
+
+    <!-- Weight Goal -->
+    <string name="goal_lose">체중 감량</string>
+    <string name="goal_maintain">유지</string>
+    <string name="goal_gain">체중 증량</string>
+
+    <!-- Meal Type -->
+    <string name="meal_breakfast">아침</string>
+    <string name="meal_lunch">점심</string>
+    <string name="meal_dinner">저녁</string>
+    <string name="meal_snack">간식</string>
+    <string name="meal_other">기타</string>
+
+    <!-- AutoBalance Macro -->
+    <string name="autobalance_protein">단백질</string>
+    <string name="autobalance_carbs">탄수화물</string>
+    <string name="autobalance_fat">지방</string>
+
+    <!-- AI Provider names -->
+    <string name="ai_provider_gemini">Google Gemini</string>
+    <string name="ai_provider_openai">OpenAI</string>
+    <string name="ai_provider_anthropic">Anthropic Claude</string>
+    <string name="ai_provider_xai">xAI Grok</string>
+    <string name="ai_provider_openrouter">OpenRouter</string>
+    <string name="ai_provider_together">Together AI</string>
+    <string name="ai_provider_groq">Groq</string>
+    <string name="ai_provider_huggingface">Hugging Face</string>
+    <string name="ai_provider_fireworks">Fireworks AI</string>
+    <string name="ai_provider_deepinfra">DeepInfra</string>
+    <string name="ai_provider_mistral">Mistral</string>
+    <string name="ai_provider_ollama">Ollama (로컬)</string>
+    <string name="ai_provider_custom">사용자 지정 (OpenAI 호환)</string>
+
+    <!-- AI Provider API key placeholders -->
+    <string name="ai_key_placeholder_gemini">AIza…</string>
+    <string name="ai_key_placeholder_openai">sk-…</string>
+    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
+    <string name="ai_key_placeholder_xai">xai-…</string>
+    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
+    <string name="ai_key_placeholder_together">…</string>
+    <string name="ai_key_placeholder_groq">gsk_…</string>
+    <string name="ai_key_placeholder_huggingface">hf_…</string>
+    <string name="ai_key_placeholder_fireworks">fw_…</string>
+    <string name="ai_key_placeholder_deepinfra">…</string>
+    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_ollama">키 필요 없음</string>
+    <string name="ai_key_placeholder_custom">API 키 (엔드포인트가 키를 요구하지 않으면 아무 값)</string>
+
+    <!-- Speech Provider -->
+    <string name="speech_provider_native">기본 (기기 내장)</string>
+    <string name="speech_provider_openai">OpenAI Whisper</string>
+    <string name="speech_provider_groq">Groq (Whisper)</string>
+    <string name="speech_provider_deepgram">Deepgram</string>
+    <string name="speech_provider_assemblyai">AssemblyAI</string>
+
+    <string name="speech_key_placeholder_native">필요 없음</string>
+    <string name="speech_key_placeholder_openai">sk-…</string>
+    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
+    <string name="speech_key_placeholder_assemblyai">AssemblyAI 키</string>
+
+    <string name="speech_description_native">Android의 기기 내장 음성 인식. 무료이며 대부분의 기기에서 오프라인으로 작동하고 실시간 부분 결과를 제공합니다. 권장 기본값.</string>
+    <string name="speech_description_openai">OpenAI Whisper API. 높은 정확도, 99개 이상의 언어 지원, 분당 유료.</string>
+    <string name="speech_description_groq">Groq에서 호스팅하는 Whisper Large v3. 매우 빠른 추론, 무료 등급 제공.</string>
+    <string name="speech_description_deepgram">Deepgram Nova. 실시간 및 일괄 모드 지원, 빠르고 정확함.</string>
+    <string name="speech_description_assemblyai">AssemblyAI Universal 모델. 높은 정확도, 무료 등급 제공.</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">홈</string>
+    <string name="nav_progress">진행 상황</string>
+    <string name="nav_coach">코치</string>
+    <string name="nav_settings">설정</string>
+    <string name="nav_about">정보</string>
+
+    <!-- Day-of-week narrow letters (for week strip) -->
+    <string name="dow_narrow_monday">월</string>
+    <string name="dow_narrow_tuesday">화</string>
+    <string name="dow_narrow_wednesday">수</string>
+    <string name="dow_narrow_thursday">목</string>
+    <string name="dow_narrow_friday">금</string>
+    <string name="dow_narrow_saturday">토</string>
+    <string name="dow_narrow_sunday">일</string>
+
+    <!-- Months (full) -->
+    <string name="month_january">1월</string>
+    <string name="month_february">2월</string>
+    <string name="month_march">3월</string>
+    <string name="month_april">4월</string>
+    <string name="month_may">5월</string>
+    <string name="month_june">6월</string>
+    <string name="month_july">7월</string>
+    <string name="month_august">8월</string>
+    <string name="month_september">9월</string>
+    <string name="month_october">10월</string>
+    <string name="month_november">11월</string>
+    <string name="month_december">12월</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_back">뒤로</string>
+    <string name="onboarding_logo_description">Fud AI 로고</string>
+    <string name="onboarding_welcome_line1">똑똑하게 먹고,</string>
+    <string name="onboarding_welcome_line2">더 나은 삶을</string>
+    <string name="onboarding_welcome_subtitle">사진을 찍고, 기록하고, 활기차게.\n간편해진 영양 관리.</string>
+
+    <string name="onboarding_gender_title">성별이 어떻게 되시나요?</string>
+    <string name="onboarding_gender_subtitle">대사량 계산에 사용됩니다</string>
+
+    <string name="onboarding_birthday_title">생일이 언제인가요?</string>
+    <string name="onboarding_birthday_subtitle">일일 필요량 계산에 사용됩니다</string>
+
+    <string name="onboarding_height_weight_title">키 &amp; 체중</string>
+    <string name="onboarding_height_weight_subtitle">정보는 비공개로 유지됩니다</string>
+    <string name="onboarding_imperial">야드파운드법</string>
+    <string name="onboarding_metric">미터법</string>
+    <string name="onboarding_height">키</string>
+    <string name="onboarding_weight">체중</string>
+    <string name="onboarding_feet">피트</string>
+    <string name="onboarding_inches">인치</string>
+
+    <string name="onboarding_activity_title">얼마나 활동적이신가요?</string>
+    <string name="onboarding_activity_subtitle">평소 일주일 기준</string>
+
+    <string name="onboarding_goal_title">목표가 무엇인가요?</string>
+    <string name="onboarding_goal_subtitle">언제든지 변경할 수 있어요</string>
+
+    <string name="onboarding_desired_weight_title">목표 체중은\n얼마인가요?</string>
+
+    <string name="onboarding_body_fat_title">체지방률을\n알고 계신가요?</string>
+    <string name="onboarding_body_fat_subtitle">대사량을 더 정확하게 계산하는 데 도움이 됩니다</string>
+    <string name="onboarding_yes">네</string>
+    <string name="onboarding_no">아니요</string>
+    <string name="onboarding_body_fat_ranges">일반 범위: 남성 10–25%, 여성 18–35%</string>
+    <string name="onboarding_body_fat_no_worries">괜찮아요! 키, 체중, 나이를 기반으로\n표준 공식을 사용합니다.</string>
+
+    <string name="onboarding_pace_title_maintain">속도</string>
+    <string name="onboarding_pace_subtitle_maintain">균형 잡힌 계획을 설정합니다</string>
+    <string name="onboarding_pace_title_change">목표를 얼마나 빨리\n달성하고 싶으신가요?</string>
+    <string name="onboarding_pace_subtitle_lose">주당 체중 감량 속도</string>
+    <string name="onboarding_pace_subtitle_gain">주당 체중 증가 속도</string>
+    <string name="onboarding_pace_balanced_set">균형 잡힌 속도 설정됨</string>
+    <string name="onboarding_pace_balanced_subtitle">현재 체중을 유지하도록\n칼로리를 안정적으로 유지합니다.</string>
+    <string name="onboarding_pace_per_week">주당</string>
+    <string name="onboarding_pace_slow">느림</string>
+    <string name="onboarding_pace_recommended">추천</string>
+    <string name="onboarding_pace_fast">빠름</string>
+    <string name="onboarding_pace_reach_prefix">목표 달성까지 </string>
+    <string name="onboarding_pace_days_format">%1$d일</string>
+    <string name="onboarding_pace_caption_slow">부드럽고 지속 가능합니다. 장기적인 습관에 적합해요.</string>
+    <string name="onboarding_pace_caption_fast">공격적이지만 가능합니다. 강한 절제가 필요해요.</string>
+    <string name="onboarding_pace_caption_recommended">가장 균형 잡힌 속도로 동기부여가 되고 지속 가능합니다.</string>
+
+    <string name="onboarding_notifications_title">식사 기록\n알림 받기</string>
+    <string name="onboarding_notifications_subtitle">식사 시간에 부드러운 알림을 받아\n기록을 잊지 마세요.</string>
+    <string name="onboarding_notifications_enabled">알림이 활성화됨</string>
+    <string name="onboarding_notifications_allow">알림 허용</string>
+    <string name="onboarding_notifications_change_anytime">설정에서 언제든지 변경할 수 있어요.</string>
+
+    <string name="onboarding_health_title">Health Connect\n연결</string>
+    <string name="onboarding_health_subtitle">영양 정보와 신체 측정을\n자동으로 동기화하세요.</string>
+    <string name="onboarding_health_feature_nutrition">영양 데이터</string>
+    <string name="onboarding_health_feature_weight">체중 동기화</string>
+    <string name="onboarding_health_feature_body">신체 측정</string>
+    <string name="onboarding_health_unavailable">Health Connect 사용 불가</string>
+    <string name="onboarding_health_connected">연결됨</string>
+    <string name="onboarding_health_connect">연결</string>
+
+    <string name="onboarding_provider_title">자신의 AI 사용</string>
+    <string name="onboarding_provider_subtitle">Fud AI는 음식을 분석하기 위해 AI 제공자\n키가 필요합니다. 본인의 키를 사용하세요.</string>
+    <string name="onboarding_provider_recommended_title">추천: Google Gemini</string>
+    <string name="onboarding_provider_recommended_subtitle">무료 등급 제공, 빠르고 정확함</string>
+    <string name="onboarding_provider_step_1">aistudio.google.com/apikey 에서 무료 키 받기</string>
+    <string name="onboarding_provider_step_2">설정 → AI 제공자 열기</string>
+    <string name="onboarding_provider_step_3">키 붙여넣기 — 완료</string>
+    <string name="onboarding_provider_footer">13개 제공자 지원. 키는 이 기기에\n암호화되어 저장됩니다.</string>
+
+    <string name="onboarding_building_calories">칼로리</string>
+    <string name="onboarding_building_carbs">탄수화물</string>
+    <string name="onboarding_building_protein">단백질</string>
+    <string name="onboarding_building_fats">지방</string>
+    <string name="onboarding_building_health_score">건강 점수</string>
+    <string name="onboarding_building_percent_format">%1$d%%</string>
+    <string name="onboarding_building_setting_up">모든 것을\n준비하고 있어요</string>
+    <string name="onboarding_building_finalizing">결과를 마무리하는 중…</string>
+    <string name="onboarding_building_recommendation">일일 권장량</string>
+    <string name="onboarding_building_bullet">•</string>
+
+    <string name="onboarding_plan_title">나의 계획</string>
+    <string name="onboarding_plan_subtitle">값을 탭하여 편집</string>
+    <string name="onboarding_plan_daily_calories">하루 칼로리</string>
+    <string name="onboarding_plan_doctor_title">의사와 상담하세요</string>
+    <string name="onboarding_plan_doctor_message">최소 권장량은 하루 1,200칼로리입니다.</string>
+
+    <string name="onboarding_plan_field_calories">하루 칼로리</string>
+    <string name="onboarding_plan_field_protein">단백질</string>
+    <string name="onboarding_plan_field_carbs">탄수화물</string>
+    <string name="onboarding_plan_field_fat">지방</string>
+
+    <string name="onboarding_review_title">fud이 마음에 드시나요?</string>
+    <string name="onboarding_review_subtitle">간단한 평가는 저희가 더 많은 기능을\n만드는 데 큰 도움이 돼요!</string>
+    <string name="onboarding_review_rate">fud 평가하기</string>
+    <string name="onboarding_review_maybe_later">나중에</string>
+
+    <!-- Home -->
+    <string name="home_add_food">음식 추가</string>
+    <string name="home_menu_camera">카메라</string>
+    <string name="home_menu_camera_note">카메라 + 메모</string>
+    <string name="home_menu_nutrition_label">영양성분 라벨</string>
+    <string name="home_menu_from_photos">사진에서</string>
+    <string name="home_menu_text_input">텍스트 입력</string>
+    <string name="home_menu_voice">음성</string>
+    <string name="home_menu_manual_entry">수동 입력</string>
+    <string name="home_menu_saved_meals">저장된 식사</string>
+    <string name="home_kcal_of_format">/ %1$s kcal</string>
+    <string name="home_kcal_left_format">%1$s 남음</string>
+    <string name="home_view_more">더 보기</string>
+    <string name="home_todays_food">오늘의 음식</string>
+    <string name="home_no_foods_logged">기록된 음식 없음</string>
+    <string name="home_swipe_delete">삭제</string>
+    <string name="home_swipe_favorite">즐겨찾기</string>
+    <string name="home_swipe_unfavorite">즐겨찾기 해제</string>
+    <string name="home_favorited">즐겨찾기됨</string>
+    <string name="home_macro_chip_format">%1$s %2$dg</string>
+    <string name="home_analyzing_food">음식을 분석하는 중…</string>
+    <string name="home_looking_up_nutrition">영양 정보 검색 중…</string>
+    <string name="home_fiber_format">식이섬유: %1$.1fg</string>
+    <string name="home_sugar_format">당류: %1$.1fg</string>
+    <string name="home_sat_fat_format">포화지방: %1$.1fg</string>
+    <string name="home_sodium_format">나트륨: %1$.1fmg</string>
+    <string name="home_potassium_format">칼륨: %1$.1fmg</string>
+    <string name="home_cholesterol_format">콜레스테롤: %1$.1fmg</string>
+    <string name="home_serving_format">1회 제공량: ~%1$dg</string>
+    <string name="home_protein_value">단백질: %1$dg</string>
+    <string name="home_carbs_value">탄수화물: %1$dg</string>
+    <string name="home_fat_value">지방: %1$dg</string>
+
+    <string name="text_input_placeholder_1">계란 2개, 버터 바른 토스트, 커피</string>
+    <string name="text_input_placeholder_2">치킨과 라이스가 들어간 치폴레 부리토 볼</string>
+    <string name="text_input_placeholder_3">도미노 페퍼로니 피자 2조각</string>
+    <string name="text_input_placeholder_4">그래놀라와 블루베리를 곁들인 그릭 요거트</string>
+
+    <string name="manual_title">수동 입력</string>
+    <string name="manual_name">이름</string>
+    <string name="manual_name_placeholder">예: 홈메이드 샐러드</string>
+    <string name="manual_calories">칼로리</string>
+    <string name="manual_protein">단백질 (g)</string>
+    <string name="manual_carbs">탄수화물 (g)</string>
+    <string name="manual_fat">지방 (g)</string>
+    <string name="manual_zero_placeholder">0</string>
+    <string name="manual_meal_type">식사 종류</string>
+
+    <string name="error_title">문제가 발생했어요</string>
+
+    <!-- Food sheets shared primitives -->
+    <string name="sheet_food_details">음식 상세</string>
+    <string name="sheet_serving">1회 제공량</string>
+    <string name="sheet_nutrition">영양</string>
+    <string name="sheet_meal">식사</string>
+    <string name="sheet_more_nutrition">추가 영양 정보</string>
+    <string name="sheet_name">이름</string>
+    <string name="sheet_quantity">수량</string>
+    <string name="sheet_meal_type">식사 종류</string>
+    <string name="sheet_review_food">음식 검토</string>
+    <string name="sheet_edit_food">음식 편집</string>
+
+    <string name="sheet_micro_sugar">당류</string>
+    <string name="sheet_micro_added_sugar">첨가당</string>
+    <string name="sheet_micro_fiber">식이섬유</string>
+    <string name="sheet_micro_saturated_fat">포화지방</string>
+    <string name="sheet_micro_mono_fat">단일불포화지방</string>
+    <string name="sheet_micro_poly_fat">다중불포화지방</string>
+    <string name="sheet_micro_cholesterol">콜레스테롤</string>
+    <string name="sheet_micro_sodium">나트륨</string>
+    <string name="sheet_micro_potassium">칼륨</string>
+
+    <!-- Context note sheet -->
+    <string name="context_note_title">메모 추가</string>
+    <string name="context_note_section">메모 추가 (선택)</string>
+    <string name="context_note_placeholder">예: 기름 없이, 치즈 추가, 큰 분량</string>
+
+    <!-- Voice input sheet -->
+    <string name="voice_listening">듣고 있어요…</string>
+    <string name="voice_tap_to_start">마이크를 탭하여 시작</string>
+    <string name="voice_transcribing_format">%1$s(으)로 변환 중…</string>
+    <string name="voice_mic_permission_denied">마이크 권한이 거부되었습니다.</string>
+    <string name="voice_mic_start_failed">마이크를 시작할 수 없어요. 권한을 확인하세요.</string>
+    <string name="voice_transcription_failed">음성 변환 실패</string>
+    <string name="voice_stop">정지</string>
+    <string name="voice_record">녹음</string>
+
+    <!-- Saved Meals sheet -->
+    <string name="saved_meals_title">저장된 식사</string>
+    <string name="saved_meals_tab_recents">최근</string>
+    <string name="saved_meals_tab_frequent">자주</string>
+    <string name="saved_meals_tab_favorites">즐겨찾기</string>
+    <string name="saved_meals_no_logs">아직 기록된 음식이 없어요</string>
+    <string name="saved_meals_no_favorites">즐겨찾기가 아직 없어요\n음식을 왼쪽으로 스와이프하여 추가하세요</string>
+    <string name="saved_meals_count_format">%1$d회 기록됨</string>
+    <string name="saved_meals_log_action">기록</string>
+    <string name="saved_meals_remove_favorite">즐겨찾기 제거</string>
+    <string name="saved_meals_move_up">위로 이동</string>
+    <string name="saved_meals_move_down">아래로 이동</string>
+
+    <!-- Nutrition detail sheet -->
+    <string name="nutrition_details_title">영양 상세</string>
+    <string name="nutrition_section_macros">매크로</string>
+    <string name="nutrition_section_detailed">상세 영양 정보</string>
+    <string name="nutrition_label_calories">칼로리</string>
+    <string name="nutrition_label_protein">단백질</string>
+    <string name="nutrition_label_carbs">탄수화물</string>
+    <string name="nutrition_label_fat">지방</string>
+    <string name="nutrition_label_sugar">당류</string>
+    <string name="nutrition_label_added_sugar">첨가당</string>
+    <string name="nutrition_label_fiber">식이섬유</string>
+    <string name="nutrition_label_saturated_fat">포화지방</string>
+    <string name="nutrition_label_mono_fat">단일불포화지방</string>
+    <string name="nutrition_label_poly_fat">다중불포화지방</string>
+    <string name="nutrition_label_cholesterol">콜레스테롤</string>
+    <string name="nutrition_label_sodium">나트륨</string>
+    <string name="nutrition_label_potassium">칼륨</string>
+    <string name="nutrition_em_dash">—</string>
+
+    <!-- Coach -->
+    <string name="coach_title">코치</string>
+    <string name="coach_reset_chat_a11y">채팅 초기화</string>
+    <string name="coach_send_a11y">보내기</string>
+    <string name="coach_input_placeholder">코치에게 질문…</string>
+    <string name="coach_empty_title">코치에게 물어보세요</string>
+    <string name="coach_empty_subtitle">코치는 체중 기록, 칼로리 로그, 목표를 볼 수 있어요. 예상 체중, 무엇을 먹을지, 목표 달성 방법을 물어보세요.</string>
+    <string name="coach_reset_dialog_title">채팅 초기화</string>
+    <string name="coach_reset_dialog_message">모든 메시지를 지우고 새로 시작할까요? 이 작업은 되돌릴 수 없습니다.</string>
+    <string name="coach_reset_confirm">초기화</string>
+    <string name="coach_no_profile_error">아직 프로필이 없어요. 먼저 온보딩을 완료하세요.</string>
+    <string name="coach_chat_failed">채팅 실패</string>
+
+    <string name="coach_chip_predict_30_days">30일 후 예상 체중은?</string>
+    <string name="coach_chip_lose_faster">안전하게 더 빨리 살 빼는 법은?</string>
+    <string name="coach_chip_eating_too_much">너무 많이 먹고 있나요?</string>
+    <string name="coach_chip_what_dinner">저녁에 뭘 먹을까요?</string>
+    <string name="coach_chip_gain_healthy">건강하게 살찌는 법은?</string>
+    <string name="coach_chip_eating_enough">충분히 먹고 있나요?</string>
+    <string name="coach_chip_high_protein">추가할 고단백 음식은?</string>
+    <string name="coach_chip_holding_weight">체중을 유지하고 있나요?</string>
+    <string name="coach_chip_average_intake">평균 섭취량은?</string>
+    <string name="coach_chip_macro_suggestions">매크로 추천은?</string>
+    <string name="coach_chip_trend">내 추세는 어때요?</string>
+    <string name="coach_chip_doing_this_week">이번 주는 어때요?</string>
+    <string name="coach_chip_log_advice">제 기록을 보고 조언해 주세요?</string>
+
+    <!-- Progress -->
+    <string name="progress_range_week">1주</string>
+    <string name="progress_range_month">1개월</string>
+    <string name="progress_range_3m">3개월</string>
+    <string name="progress_range_6m">6개월</string>
+    <string name="progress_range_year">1년</string>
+    <string name="progress_range_all">전체</string>
+
+    <string name="progress_weight_section">체중</string>
+    <string name="progress_log_weight">체중 기록</string>
+    <string name="progress_stat_current">현재</string>
+    <string name="progress_stat_goal">목표</string>
+    <string name="progress_log_first_weight">추세를 보려면 첫 체중을 기록하세요</string>
+
+    <string name="progress_weight_history">체중 기록</string>
+    <string name="progress_history_count_format">%1$d개 항목 · 탭하여 보거나 삭제</string>
+
+    <string name="progress_calories_section">칼로리</string>
+    <string name="progress_avg_format">평균: %1$d kcal</string>
+    <string name="progress_no_food">아직 기록된 음식이 없어요</string>
+
+    <string name="progress_macro_averages">매크로 평균</string>
+    <string name="progress_macro_progress_format">%1$dg / %2$dg</string>
+
+    <string name="progress_log_weight_title">체중 기록</string>
+
+    <string name="progress_goal_reached_title">축하합니다! 🎉</string>
+    <string name="progress_goal_reached_message">목표 체중에 도달했습니다! 설정으로 이동하여 목표를 변경한 후 목표 다시 계산을 탭하여 목표치를 갱신하세요.</string>
+
+    <!-- Settings -->
+    <string name="settings_section_personal">개인 정보</string>
+    <string name="settings_section_goals">목표 및 영양</string>
+    <string name="settings_section_app">앱 설정</string>
+    <string name="settings_section_ai">AI 제공자</string>
+    <string name="settings_section_speech">음성 텍스트 변환</string>
+    <string name="settings_section_health">건강 및 데이터</string>
+
+    <string name="settings_gender">성별</string>
+    <string name="settings_birthday">생일</string>
+    <string name="settings_height">키</string>
+    <string name="settings_weight">체중</string>
+    <string name="settings_body_fat">체지방률</string>
+    <string name="settings_not_set">설정되지 않음</string>
+    <string name="settings_birthday_age_format">%1$s (%2$d세)</string>
+
+    <string name="settings_weight_goal">체중 목표</string>
+    <string name="settings_activity_level">활동 수준</string>
+    <string name="settings_weekly_change">주간 변화</string>
+    <string name="settings_weekly_default">0.50 kg/주</string>
+    <string name="settings_goal_weight">목표 체중</string>
+    <string name="settings_calories">칼로리</string>
+    <string name="settings_recalculate_goals">목표 다시 계산</string>
+    <string name="settings_macro_pinned_format">%1$dg</string>
+    <string name="settings_macro_auto_format">%1$dg · 자동</string>
+    <string name="settings_macro_pinned_a11y">고정됨</string>
+    <string name="settings_macro_auto_a11y">자동</string>
+
+    <string name="settings_appearance">화면 모드</string>
+    <string name="settings_appearance_system">시스템</string>
+    <string name="settings_appearance_light">라이트</string>
+    <string name="settings_appearance_dark">다크</string>
+    <string name="settings_metric_units">미터 단위</string>
+    <string name="settings_week_starts">주 시작 요일</string>
+    <string name="settings_week_monday">월요일</string>
+    <string name="settings_week_sunday">일요일</string>
+    <string name="settings_notifications">알림</string>
+    <string name="settings_battery_opt">배터리 최적화</string>
+    <string name="settings_battery_opt_value">Fud AI 화이트리스트 추가</string>
+
+    <string name="settings_ai_provider">제공자</string>
+    <string name="settings_ai_model">모델</string>
+    <string name="settings_ai_model_unset">(아래에서 설정)</string>
+    <string name="settings_api_key">API 키</string>
+    <string name="settings_base_url">기본 URL</string>
+    <string name="settings_server_url">서버 URL</string>
+    <string name="settings_tap_to_edit">탭하여 편집</string>
+    <string name="settings_custom_url_placeholder">https://your-endpoint.com/v1</string>
+    <string name="settings_custom_url_title">사용자 지정 기본 URL</string>
+    <string name="settings_clear_key">키 지우기</string>
+
+    <string name="settings_health_connect">Health Connect</string>
+    <string name="settings_clear_food_log">음식 기록 지우기</string>
+    <string name="settings_delete_all_data">모든 데이터 삭제</string>
+
+    <!-- Settings dialogs -->
+    <string name="settings_clear_food_title">음식 기록을 지울까요?</string>
+    <string name="settings_clear_food_message">모든 음식 기록과 사진을 삭제합니다. 프로필, 체중, 설정은 유지됩니다.</string>
+    <string name="settings_delete_all_title">모든 로컬 데이터를 삭제할까요?</string>
+    <string name="settings_delete_all_message">프로필, 음식 기록, 체중 기록, 채팅, API 키를 모두 삭제하고 온보딩으로 돌아갑니다. Health Connect 데이터는 그대로 유지됩니다.</string>
+    <string name="settings_max_pinned_title">최대 2개 고정</string>
+    <string name="settings_max_pinned_message">한 번에 최대 2개의 매크로만 고정할 수 있습니다. 다른 매크로를 먼저 열어 자동 균형으로 재설정을 탭하여 고정을 해제하세요.</string>
+    <string name="settings_recalc_title">목표를 다시 계산할까요?</string>
+    <string name="settings_recalc_message">키/체중/활동/목표를 기반으로 칼로리와 매크로를 공식 기본값으로 재설정합니다. 고정된 매크로는 모두 해제됩니다.</string>
+    <string name="settings_recalc_confirm">다시 계산</string>
+    <string name="settings_invalid_goal_title">목표 체중이 목표와 일치하지 않아요</string>
+    <string name="settings_invalid_goal_lose">감량 목표는 현재 체중보다 낮은 목표가 필요합니다.</string>
+    <string name="settings_invalid_goal_gain">증량 목표는 현재 체중보다 높은 목표가 필요합니다.</string>
+    <string name="settings_permission_title">권한 필요</string>
+
+    <string name="settings_notifications_denied">알림 권한이 거부되었습니다. 시스템 설정 → 앱 → Fud AI → 알림에서 활성화하여 알림을 받으세요.</string>
+    <string name="settings_health_denied">Health Connect는 체중과 영양에 대한 읽기 + 쓰기 권한이 필요합니다. 토글을 다시 탭하고 4가지 권한을 모두 허용하여 동기화하세요.</string>
+    <string name="settings_health_unavailable">이 기기에서는 Health Connect를 사용할 수 없습니다. Play 스토어에서 설치한 후 토글을 다시 탭하세요.</string>
+
+    <!-- Settings sheets / pickers -->
+    <string name="sheet_ai_provider">AI 제공자</string>
+    <string name="sheet_model">모델</string>
+    <string name="sheet_model_footer">또는 아래에 사용자 지정 모델 ID를 입력하세요.</string>
+    <string name="sheet_any_model_id">모델 ID</string>
+    <string name="sheet_api_key_format">API 키 — %1$s</string>
+    <string name="sheet_speech_api_key_format">음성 API 키 — %1$s</string>
+    <string name="sheet_speech_engine">음성 엔진</string>
+    <string name="sheet_gender">성별</string>
+    <string name="sheet_activity_level">활동 수준</string>
+    <string name="sheet_goal">목표</string>
+    <string name="sheet_target_weight">목표 체중</string>
+    <string name="sheet_weight">체중</string>
+    <string name="sheet_birthday">생일</string>
+    <string name="sheet_appearance">화면 모드</string>
+    <string name="sheet_week_starts">주 시작 요일</string>
+    <string name="sheet_height">키</string>
+    <string name="sheet_body_fat_percent">체지방률 %</string>
+    <string name="sheet_weekly_change">주간 변화</string>
+    <string name="sheet_weekly_change_format">%1$.1f %2$s/주 %3$s</string>
+    <string name="sheet_weekly_change_loss">감량</string>
+    <string name="sheet_weekly_change_gain">증량</string>
+    <string name="sheet_pace_slow">느림</string>
+    <string name="sheet_pace_recommended">추천</string>
+    <string name="sheet_pace_fast">빠름</string>
+    <string name="sheet_selected_a11y">선택됨</string>
+    <string name="sheet_reset_to_auto">자동 균형으로 재설정</string>
+
+    <string name="sheet_macros">매크로</string>
+    <string name="sheet_macros_subtitle">최대 2개의 매크로를 정확한 그램으로 고정하세요. 고정되지 않은 항목은 남은 칼로리에서 자동으로 균형이 맞춰집니다.</string>
+    <string name="sheet_macro_pinned">고정됨</string>
+    <string name="sheet_macro_auto">자동</string>
+    <string name="sheet_macro_label_format">%1$s (%2$s)</string>
+
+    <!-- About -->
+    <string name="about_share">앱 공유하기</string>
+    <string name="about_open_source">오픈 소스 (MIT)</string>
+    <string name="about_star_github">GitHub에 별 주기</string>
+    <string name="about_vote_ph">Product Hunt에서 투표</string>
+    <string name="about_support">프로젝트 후원</string>
+    <string name="about_report_issue">문제 신고</string>
+    <string name="about_request_feature">기능 요청</string>
+    <string name="about_contact">문의하기</string>
+    <string name="about_follow_x">X에서 팔로우</string>
+    <string name="about_privacy">개인정보 처리방침</string>
+    <string name="about_terms">서비스 약관</string>
+    <string name="about_made_by">Apoorv Darshan 제작</string>
+    <string name="about_with_care">모두를 위해, 세심하게</string>
+    <string name="about_share_message">Fud AI로 식단을 기록하고 있어요 — 사진을 찍거나 말하거나 입력하면 AI가 칼로리를 기록해 줍니다. 무료에 오픈소스이고, 데이터는 모두 기기 안에만 저장돼요.\n\n다운로드: https://fud-ai.app</string>
+    <string name="about_share_chooser">Fud AI 공유</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_streak">연속 기록 알림</string>
+    <string name="notif_channel_streak_desc">식사 기록 및 연속 기록 유지를 위한 매일 알림.</string>
+    <string name="notif_channel_daily">일일 요약</string>
+    <string name="notif_channel_daily_desc">하루 칼로리 + 매크로 일일 요약.</string>
+    <string name="notif_channel_weight_goal">체중 목표</string>
+    <string name="notif_channel_weight_goal_desc">목표 체중 달성 축하 알림.</string>
+    <string name="notif_goal_title">축하합니다! 🎉</string>
+    <string name="notif_goal_text">목표 체중에 도달했습니다.</string>
+    <string name="notif_streak_title">식사 기록을 잊지 마세요</string>
+    <string name="notif_streak_text">연속 기록을 유지하세요 — 오늘 먹은 음식을 기록해 보세요.</string>
+    <string name="notif_summary_title">오늘의 요약이 준비되었어요</string>
+    <string name="notif_summary_text">탭하여 오늘의 매크로 결과를 확인하세요.</string>
+
+</resources>

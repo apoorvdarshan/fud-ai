@@ -1,0 +1,605 @@
+<resources>
+    <string name="app_name">Fud AI</string>
+
+    <!-- Widgets -->
+    <string name="widget_calorie_label">Fud AI Calorieën</string>
+    <string name="widget_calorie_description">Bekijk in één oogopslag de calorieën en macro\'s van vandaag.</string>
+    <string name="widget_protein_label">Fud AI Eiwit</string>
+    <string name="widget_protein_description">Bekijk in één oogopslag je eiwitvoortgang van vandaag.</string>
+    <string name="widget_today">Vandaag</string>
+    <string name="widget_protein">Eiwit</string>
+    <string name="widget_calories">Calorieën</string>
+    <string name="widget_carbs">Koolhydraten</string>
+    <string name="widget_fat">Vet</string>
+    <string name="widget_kcal_left_format">%1$d kcal over</string>
+    <string name="widget_g_left_format">%1$dg over</string>
+    <string name="widget_kcal">kcal</string>
+    <string name="widget_protein_g">eiwit g</string>
+    <string name="widget_value_unit_format">%1$d%2$s / %3$d%4$s</string>
+    <string name="widget_center_small_format">/ %1$d</string>
+    <string name="widget_center_small_g_format">/ %1$dg</string>
+    <string name="widget_center_large_g_format">%1$dg</string>
+
+    <!-- Common buttons / actions -->
+    <string name="action_save">Bewaar</string>
+    <string name="action_cancel">Annuleer</string>
+    <string name="action_done">Klaar</string>
+    <string name="action_ok">OK</string>
+    <string name="action_clear">Wissen</string>
+    <string name="action_delete">Verwijder</string>
+    <string name="action_continue">Ga verder</string>
+    <string name="action_get_started">Aan de slag</string>
+    <string name="action_log">Log</string>
+    <string name="action_analyze">Analyseren</string>
+    <string name="action_discard">Verwerpen</string>
+    <string name="action_reset">Resetten</string>
+    <string name="action_keep_going">Ga door</string>
+    <string name="action_send">Verstuur</string>
+    <string name="action_pin">Vastzetten</string>
+
+    <!-- Generic units / labels -->
+    <string name="unit_kcal">kcal</string>
+    <string name="unit_g">g</string>
+    <string name="unit_mg">mg</string>
+    <string name="unit_percent">%</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_lbs">lbs</string>
+    <string name="unit_ft">ft</string>
+    <string name="unit_in">in</string>
+    <string name="unit_ft_in">ft / in</string>
+    <string name="kcal_value_format">%1$d kcal</string>
+    <string name="grams_value_format">%1$dg</string>
+    <string name="grams_value_decimal_format">%1$.1fg</string>
+    <string name="kg_value_format">%1$.1f kg</string>
+    <string name="lbs_value_format">%1$.1f lbs</string>
+    <string name="kg_per_week_format">%1$.2f kg/wk</string>
+    <string name="lbs_per_week_format">%1$.2f lbs/wk</string>
+    <string name="height_cm_format">%1$d cm</string>
+    <string name="feet_inches_format">%1$d\' %2$d\"</string>
+    <string name="value_unit_format">%1$d %2$s</string>
+    <string name="ft_label_format">%1$d ft</string>
+    <string name="in_label_format">%1$d in</string>
+    <string name="bullet">·</string>
+
+    <!-- Macros / Goal labels -->
+    <string name="macro_protein">Eiwit</string>
+    <string name="macro_carbs">Koolhydraten</string>
+    <string name="macro_fat">Vet</string>
+    <string name="macro_calories">Calorieën</string>
+
+    <!-- Gender -->
+    <string name="gender_male">Man</string>
+    <string name="gender_female">Vrouw</string>
+    <string name="gender_other">Overig</string>
+
+    <!-- Activity Level -->
+    <string name="activity_sedentary">Zittend</string>
+    <string name="activity_light">Licht</string>
+    <string name="activity_moderate">Gemiddeld</string>
+    <string name="activity_active">Actief</string>
+    <string name="activity_very_active">Zeer actief</string>
+    <string name="activity_extra_active">Extra actief</string>
+    <string name="activity_sedentary_subtitle">Weinig of geen beweging</string>
+    <string name="activity_light_subtitle">1–3 keer per week sporten</string>
+    <string name="activity_moderate_subtitle">4–5 keer per week sporten</string>
+    <string name="activity_active_subtitle">Dagelijkse beweging of intensief 3–4x / week</string>
+    <string name="activity_very_active_subtitle">Intensief sporten 6–7 keer per week</string>
+    <string name="activity_extra_active_subtitle">Zeer intensief dagelijks of fysieke baan</string>
+
+    <!-- Weight Goal -->
+    <string name="goal_lose">Afvallen</string>
+    <string name="goal_maintain">Op gewicht blijven</string>
+    <string name="goal_gain">Aankomen</string>
+
+    <!-- Meal Type -->
+    <string name="meal_breakfast">Ontbijt</string>
+    <string name="meal_lunch">Lunch</string>
+    <string name="meal_dinner">Diner</string>
+    <string name="meal_snack">Snack</string>
+    <string name="meal_other">Overig</string>
+
+    <!-- AutoBalance Macro -->
+    <string name="autobalance_protein">Eiwit</string>
+    <string name="autobalance_carbs">Koolhydraten</string>
+    <string name="autobalance_fat">Vet</string>
+
+    <!-- AI Provider names -->
+    <string name="ai_provider_gemini">Google Gemini</string>
+    <string name="ai_provider_openai">OpenAI</string>
+    <string name="ai_provider_anthropic">Anthropic Claude</string>
+    <string name="ai_provider_xai">xAI Grok</string>
+    <string name="ai_provider_openrouter">OpenRouter</string>
+    <string name="ai_provider_together">Together AI</string>
+    <string name="ai_provider_groq">Groq</string>
+    <string name="ai_provider_huggingface">Hugging Face</string>
+    <string name="ai_provider_fireworks">Fireworks AI</string>
+    <string name="ai_provider_deepinfra">DeepInfra</string>
+    <string name="ai_provider_mistral">Mistral</string>
+    <string name="ai_provider_ollama">Ollama (lokaal)</string>
+    <string name="ai_provider_custom">Aangepast (OpenAI-compatibel)</string>
+
+    <!-- AI Provider API key placeholders -->
+    <string name="ai_key_placeholder_gemini">AIza…</string>
+    <string name="ai_key_placeholder_openai">sk-…</string>
+    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
+    <string name="ai_key_placeholder_xai">xai-…</string>
+    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
+    <string name="ai_key_placeholder_together">…</string>
+    <string name="ai_key_placeholder_groq">gsk_…</string>
+    <string name="ai_key_placeholder_huggingface">hf_…</string>
+    <string name="ai_key_placeholder_fireworks">fw_…</string>
+    <string name="ai_key_placeholder_deepinfra">…</string>
+    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_ollama">Geen sleutel nodig</string>
+    <string name="ai_key_placeholder_custom">API-sleutel (of wat dan ook als endpoint er geen nodig heeft)</string>
+
+    <!-- Speech Provider -->
+    <string name="speech_provider_native">Native (op apparaat)</string>
+    <string name="speech_provider_openai">OpenAI Whisper</string>
+    <string name="speech_provider_groq">Groq (Whisper)</string>
+    <string name="speech_provider_deepgram">Deepgram</string>
+    <string name="speech_provider_assemblyai">AssemblyAI</string>
+
+    <string name="speech_key_placeholder_native">Niet nodig</string>
+    <string name="speech_key_placeholder_openai">sk-…</string>
+    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_deepgram">Token jouw-deepgram-sleutel</string>
+    <string name="speech_key_placeholder_assemblyai">Jouw AssemblyAI-sleutel</string>
+
+    <string name="speech_description_native">Spraakherkenning op het apparaat van Android. Gratis, werkt offline op de meeste telefoons, real-time tussentijdse resultaten. Aanbevolen standaard.</string>
+    <string name="speech_description_openai">OpenAI Whisper API. Hoge nauwkeurigheid, 99+ talen, betaald per minuut.</string>
+    <string name="speech_description_groq">Door Groq gehoste Whisper Large v3. Zeer snelle inference, heeft een gratis abonnement.</string>
+    <string name="speech_description_deepgram">Deepgram Nova. Real-time en batchmodus, snel en nauwkeurig.</string>
+    <string name="speech_description_assemblyai">AssemblyAI Universal-model. Sterke nauwkeurigheid, gratis abonnement beschikbaar.</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_progress">Voortgang</string>
+    <string name="nav_coach">Coach</string>
+    <string name="nav_settings">Instellingen</string>
+    <string name="nav_about">Over</string>
+
+    <!-- Day-of-week narrow letters (for week strip) -->
+    <string name="dow_narrow_monday">M</string>
+    <string name="dow_narrow_tuesday">D</string>
+    <string name="dow_narrow_wednesday">W</string>
+    <string name="dow_narrow_thursday">D</string>
+    <string name="dow_narrow_friday">V</string>
+    <string name="dow_narrow_saturday">Z</string>
+    <string name="dow_narrow_sunday">Z</string>
+
+    <!-- Months (full) -->
+    <string name="month_january">januari</string>
+    <string name="month_february">februari</string>
+    <string name="month_march">maart</string>
+    <string name="month_april">april</string>
+    <string name="month_may">mei</string>
+    <string name="month_june">juni</string>
+    <string name="month_july">juli</string>
+    <string name="month_august">augustus</string>
+    <string name="month_september">september</string>
+    <string name="month_october">oktober</string>
+    <string name="month_november">november</string>
+    <string name="month_december">december</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_back">Terug</string>
+    <string name="onboarding_logo_description">Fud AI-logo</string>
+    <string name="onboarding_welcome_line1">Eet slim,</string>
+    <string name="onboarding_welcome_line2">Leef beter</string>
+    <string name="onboarding_welcome_subtitle">Snap, registreer en bloei op.\nJouw voeding, vereenvoudigd.</string>
+
+    <string name="onboarding_gender_title">Wat is je geslacht?</string>
+    <string name="onboarding_gender_subtitle">Dit helpt ons je metabolisme te berekenen</string>
+
+    <string name="onboarding_birthday_title">Wanneer ben je jarig?</string>
+    <string name="onboarding_birthday_subtitle">Gebruikt om je dagelijkse behoefte te berekenen</string>
+
+    <string name="onboarding_height_weight_title">Lengte &amp; gewicht</string>
+    <string name="onboarding_height_weight_subtitle">We houden dit privé</string>
+    <string name="onboarding_imperial">Imperiaal</string>
+    <string name="onboarding_metric">Metrisch</string>
+    <string name="onboarding_height">Lengte</string>
+    <string name="onboarding_weight">Gewicht</string>
+    <string name="onboarding_feet">Voet</string>
+    <string name="onboarding_inches">Inches</string>
+
+    <string name="onboarding_activity_title">Hoe actief ben je?</string>
+    <string name="onboarding_activity_subtitle">Je typische week</string>
+
+    <string name="onboarding_goal_title">Wat is je doel?</string>
+    <string name="onboarding_goal_subtitle">Je kunt dit altijd wijzigen</string>
+
+    <string name="onboarding_desired_weight_title">Wat is je\ngewenste gewicht?</string>
+
+    <string name="onboarding_body_fat_title">Ken je je\nvetpercentage?</string>
+    <string name="onboarding_body_fat_subtitle">Helpt ons je metabolisme nauwkeuriger te berekenen</string>
+    <string name="onboarding_yes">Ja</string>
+    <string name="onboarding_no">Nee</string>
+    <string name="onboarding_body_fat_ranges">Normale bereiken: mannen 10–25%, vrouwen 18–35%</string>
+    <string name="onboarding_body_fat_no_worries">Geen zorgen! We gebruiken een standaardformule\ngebaseerd op je lengte, gewicht en leeftijd.</string>
+
+    <string name="onboarding_pace_title_maintain">Jouw tempo</string>
+    <string name="onboarding_pace_subtitle_maintain">We stellen een gebalanceerd plan in</string>
+    <string name="onboarding_pace_title_change">Hoe snel wil je\nje doel bereiken?</string>
+    <string name="onboarding_pace_subtitle_lose">Snelheid van gewichtsverlies per week</string>
+    <string name="onboarding_pace_subtitle_gain">Snelheid van gewichtstoename per week</string>
+    <string name="onboarding_pace_balanced_set">Gebalanceerd tempo ingesteld</string>
+    <string name="onboarding_pace_balanced_subtitle">We houden je calorieën stabiel\nom je huidige gewicht te behouden.</string>
+    <string name="onboarding_pace_per_week">per week</string>
+    <string name="onboarding_pace_slow">Langzaam</string>
+    <string name="onboarding_pace_recommended">Aanbevolen</string>
+    <string name="onboarding_pace_fast">Snel</string>
+    <string name="onboarding_pace_reach_prefix">Je bereikt je doel in </string>
+    <string name="onboarding_pace_days_format">%1$d dagen</string>
+    <string name="onboarding_pace_caption_slow">Mild en duurzaam. Geweldig voor langetermijngewoonten.</string>
+    <string name="onboarding_pace_caption_fast">Agressief maar haalbaar. Vereist sterke discipline.</string>
+    <string name="onboarding_pace_caption_recommended">Het meest gebalanceerde tempo, motiverend en duurzaam.</string>
+
+    <string name="onboarding_notifications_title">Word herinnerd om\nmaaltijden te loggen</string>
+    <string name="onboarding_notifications_subtitle">Krijg vriendelijke herinneringen op maaltijden\nzodat je nooit vergeet bij te houden.</string>
+    <string name="onboarding_notifications_enabled">Herinneringen ingeschakeld</string>
+    <string name="onboarding_notifications_allow">Meldingen toestaan</string>
+    <string name="onboarding_notifications_change_anytime">Je kunt dit altijd wijzigen in Instellingen.</string>
+
+    <string name="onboarding_health_title">Verbinden met\nHealth Connect</string>
+    <string name="onboarding_health_subtitle">Houd je voeding en lichaams-\nmetingen automatisch synchroon.</string>
+    <string name="onboarding_health_feature_nutrition">Voedingsgegevens</string>
+    <string name="onboarding_health_feature_weight">Gewichtssync</string>
+    <string name="onboarding_health_feature_body">Lichaamsmetingen</string>
+    <string name="onboarding_health_unavailable">Health Connect niet beschikbaar</string>
+    <string name="onboarding_health_connected">Verbonden</string>
+    <string name="onboarding_health_connect">Verbinden</string>
+
+    <string name="onboarding_provider_title">Breng je eigen AI mee</string>
+    <string name="onboarding_provider_subtitle">Fud AI heeft een AI-providersleutel nodig om\nje eten te analyseren. Je gebruikt je eigen sleutel.</string>
+    <string name="onboarding_provider_recommended_title">Aanbevolen: Google Gemini</string>
+    <string name="onboarding_provider_recommended_subtitle">Gratis abonnement beschikbaar, snel &amp; nauwkeurig</string>
+    <string name="onboarding_provider_step_1">Haal een gratis sleutel op bij aistudio.google.com/apikey</string>
+    <string name="onboarding_provider_step_2">Open Instellingen → AI-provider</string>
+    <string name="onboarding_provider_step_3">Plak je sleutel — klaar</string>
+    <string name="onboarding_provider_footer">13 providers ondersteund. Je sleutel blijft op\ndit apparaat, versleuteld.</string>
+
+    <string name="onboarding_building_calories">Calorieën</string>
+    <string name="onboarding_building_carbs">Koolhydraten</string>
+    <string name="onboarding_building_protein">Eiwit</string>
+    <string name="onboarding_building_fats">Vetten</string>
+    <string name="onboarding_building_health_score">Gezondheidsscore</string>
+    <string name="onboarding_building_percent_format">%1$d%%</string>
+    <string name="onboarding_building_setting_up">We zetten alles\nvoor je klaar</string>
+    <string name="onboarding_building_finalizing">Resultaten afronden…</string>
+    <string name="onboarding_building_recommendation">Dagelijkse aanbeveling voor</string>
+    <string name="onboarding_building_bullet">•</string>
+
+    <string name="onboarding_plan_title">Jouw plan</string>
+    <string name="onboarding_plan_subtitle">Tik op een waarde om te bewerken</string>
+    <string name="onboarding_plan_daily_calories">dagelijkse calorieën</string>
+    <string name="onboarding_plan_doctor_title">Raadpleeg een arts</string>
+    <string name="onboarding_plan_doctor_message">De minimale aanbeveling is 1.200 calorieën per dag.</string>
+
+    <string name="onboarding_plan_field_calories">Dagelijkse calorieën</string>
+    <string name="onboarding_plan_field_protein">Eiwit</string>
+    <string name="onboarding_plan_field_carbs">Koolhydraten</string>
+    <string name="onboarding_plan_field_fat">Vet</string>
+
+    <string name="onboarding_review_title">Bevalt fud tot nu toe?</string>
+    <string name="onboarding_review_subtitle">Een snelle beoordeling helpt ons groeien\nen meer functies voor je te bouwen!</string>
+    <string name="onboarding_review_rate">Beoordeel fud</string>
+    <string name="onboarding_review_maybe_later">Misschien later</string>
+
+    <!-- Home -->
+    <string name="home_add_food">Eten toevoegen</string>
+    <string name="home_menu_camera">Camera</string>
+    <string name="home_menu_camera_note">Camera + notitie</string>
+    <string name="home_menu_nutrition_label">Voedingslabel</string>
+    <string name="home_menu_from_photos">Uit Foto\'s</string>
+    <string name="home_menu_text_input">Tekstinvoer</string>
+    <string name="home_menu_voice">Spraak</string>
+    <string name="home_menu_manual_entry">Handmatige invoer</string>
+    <string name="home_menu_saved_meals">Opgeslagen maaltijden</string>
+    <string name="home_kcal_of_format">van %1$s kcal</string>
+    <string name="home_kcal_left_format">%1$s over</string>
+    <string name="home_view_more">Meer bekijken</string>
+    <string name="home_todays_food">Eten van vandaag</string>
+    <string name="home_no_foods_logged">Geen voedsel geregistreerd</string>
+    <string name="home_swipe_delete">Verwijder</string>
+    <string name="home_swipe_favorite">Favoriet</string>
+    <string name="home_swipe_unfavorite">Verwijder favoriet</string>
+    <string name="home_favorited">Favoriet gemaakt</string>
+    <string name="home_macro_chip_format">%1$s %2$dg</string>
+    <string name="home_analyzing_food">Je eten analyseren…</string>
+    <string name="home_looking_up_nutrition">Voeding opzoeken…</string>
+    <string name="home_fiber_format">Vezels: %1$.1fg</string>
+    <string name="home_sugar_format">Suiker: %1$.1fg</string>
+    <string name="home_sat_fat_format">Verzadigd vet: %1$.1fg</string>
+    <string name="home_sodium_format">Natrium: %1$.1fmg</string>
+    <string name="home_potassium_format">Kalium: %1$.1fmg</string>
+    <string name="home_cholesterol_format">Cholesterol: %1$.1fmg</string>
+    <string name="home_serving_format">Portie: ~%1$dg</string>
+    <string name="home_protein_value">Eiwit: %1$dg</string>
+    <string name="home_carbs_value">Koolhydraten: %1$dg</string>
+    <string name="home_fat_value">Vet: %1$dg</string>
+
+    <string name="text_input_placeholder_1">2 eieren, toast met boter en een koffie</string>
+    <string name="text_input_placeholder_2">Chipotle burrito bowl met kip en rijst</string>
+    <string name="text_input_placeholder_3">Domino\'s pepperonipizza, 2 plakjes</string>
+    <string name="text_input_placeholder_4">Griekse yoghurt met granola en bosbessen</string>
+
+    <string name="manual_title">Handmatige invoer</string>
+    <string name="manual_name">Naam</string>
+    <string name="manual_name_placeholder">bijv. Zelfgemaakte salade</string>
+    <string name="manual_calories">Calorieën</string>
+    <string name="manual_protein">Eiwit (g)</string>
+    <string name="manual_carbs">Koolhydraten (g)</string>
+    <string name="manual_fat">Vet (g)</string>
+    <string name="manual_zero_placeholder">0</string>
+    <string name="manual_meal_type">Maaltijdtype</string>
+
+    <string name="error_title">Er ging iets mis</string>
+
+    <!-- Food sheets shared primitives -->
+    <string name="sheet_food_details">Voedingsdetails</string>
+    <string name="sheet_serving">Portie</string>
+    <string name="sheet_nutrition">Voeding</string>
+    <string name="sheet_meal">Maaltijd</string>
+    <string name="sheet_more_nutrition">Meer voeding</string>
+    <string name="sheet_name">Naam</string>
+    <string name="sheet_quantity">Aantal</string>
+    <string name="sheet_meal_type">Maaltijdtype</string>
+    <string name="sheet_review_food">Eten beoordelen</string>
+    <string name="sheet_edit_food">Eten bewerken</string>
+
+    <string name="sheet_micro_sugar">Suiker</string>
+    <string name="sheet_micro_added_sugar">Toegevoegde suiker</string>
+    <string name="sheet_micro_fiber">Vezels</string>
+    <string name="sheet_micro_saturated_fat">Verzadigd vet</string>
+    <string name="sheet_micro_mono_fat">Enkelv. onverz. vet</string>
+    <string name="sheet_micro_poly_fat">Meerv. onverz. vet</string>
+    <string name="sheet_micro_cholesterol">Cholesterol</string>
+    <string name="sheet_micro_sodium">Natrium</string>
+    <string name="sheet_micro_potassium">Kalium</string>
+
+    <!-- Context note sheet -->
+    <string name="context_note_title">Notitie toevoegen</string>
+    <string name="context_note_section">Voeg een notitie toe (optioneel)</string>
+    <string name="context_note_placeholder">bijv. zonder olie, extra kaas, grote portie</string>
+
+    <!-- Voice input sheet -->
+    <string name="voice_listening">Luisteren…</string>
+    <string name="voice_tap_to_start">Tik op de microfoon om te beginnen</string>
+    <string name="voice_transcribing_format">Transcriberen via %1$s…</string>
+    <string name="voice_mic_permission_denied">Microfoonpermissie geweigerd.</string>
+    <string name="voice_mic_start_failed">Kon de microfoon niet starten. Controleer permissies.</string>
+    <string name="voice_transcription_failed">Transcriptie mislukt</string>
+    <string name="voice_stop">Stop</string>
+    <string name="voice_record">Opnemen</string>
+
+    <!-- Saved Meals sheet -->
+    <string name="saved_meals_title">Opgeslagen maaltijden</string>
+    <string name="saved_meals_tab_recents">Recent</string>
+    <string name="saved_meals_tab_frequent">Vaak</string>
+    <string name="saved_meals_tab_favorites">Favorieten</string>
+    <string name="saved_meals_no_logs">Nog geen voedsel geregistreerd</string>
+    <string name="saved_meals_no_favorites">Nog geen favorieten\nVeeg naar links op een gerecht om het toe te voegen</string>
+    <string name="saved_meals_count_format">%1$d× geregistreerd</string>
+    <string name="saved_meals_log_action">Log</string>
+    <string name="saved_meals_remove_favorite">Favoriet verwijderen</string>
+    <string name="saved_meals_move_up">Omhoog</string>
+    <string name="saved_meals_move_down">Omlaag</string>
+
+    <!-- Nutrition detail sheet -->
+    <string name="nutrition_details_title">Voedingsdetails</string>
+    <string name="nutrition_section_macros">Macro\'s</string>
+    <string name="nutrition_section_detailed">Gedetailleerde voeding</string>
+    <string name="nutrition_label_calories">Calorieën</string>
+    <string name="nutrition_label_protein">Eiwit</string>
+    <string name="nutrition_label_carbs">Koolhydraten</string>
+    <string name="nutrition_label_fat">Vet</string>
+    <string name="nutrition_label_sugar">Suiker</string>
+    <string name="nutrition_label_added_sugar">Toegevoegde suiker</string>
+    <string name="nutrition_label_fiber">Vezels</string>
+    <string name="nutrition_label_saturated_fat">Verzadigd vet</string>
+    <string name="nutrition_label_mono_fat">Enkelv. onverz. vet</string>
+    <string name="nutrition_label_poly_fat">Meerv. onverz. vet</string>
+    <string name="nutrition_label_cholesterol">Cholesterol</string>
+    <string name="nutrition_label_sodium">Natrium</string>
+    <string name="nutrition_label_potassium">Kalium</string>
+    <string name="nutrition_em_dash">—</string>
+
+    <!-- Coach -->
+    <string name="coach_title">Coach</string>
+    <string name="coach_reset_chat_a11y">Chat resetten</string>
+    <string name="coach_send_a11y">Verstuur</string>
+    <string name="coach_input_placeholder">Vraag de coach…</string>
+    <string name="coach_empty_title">Vraag je coach</string>
+    <string name="coach_empty_subtitle">Je coach ziet je gewichtsgeschiedenis, calorielogboek en doelen. Vraag naar verwacht gewicht, wat je moet eten of hoe je je doel haalt.</string>
+    <string name="coach_reset_dialog_title">Chat resetten</string>
+    <string name="coach_reset_dialog_message">Alle berichten wissen en opnieuw beginnen? Dit kan niet ongedaan worden gemaakt.</string>
+    <string name="coach_reset_confirm">Resetten</string>
+    <string name="coach_no_profile_error">Nog geen profiel. Voltooi eerst de onboarding.</string>
+    <string name="coach_chat_failed">Chat mislukt</string>
+
+    <string name="coach_chip_predict_30_days">Wat is mijn verwachte gewicht over 30 dagen?</string>
+    <string name="coach_chip_lose_faster">Hoe val ik veilig sneller af?</string>
+    <string name="coach_chip_eating_too_much">Eet ik te veel?</string>
+    <string name="coach_chip_what_dinner">Wat moet ik eten als avondeten?</string>
+    <string name="coach_chip_gain_healthy">Hoe kom ik gezond aan?</string>
+    <string name="coach_chip_eating_enough">Eet ik genoeg?</string>
+    <string name="coach_chip_high_protein">Eiwitrijke gerechten om toe te voegen?</string>
+    <string name="coach_chip_holding_weight">Houd ik mijn gewicht vast?</string>
+    <string name="coach_chip_average_intake">Wat is mijn gemiddelde inname?</string>
+    <string name="coach_chip_macro_suggestions">Macro-suggesties?</string>
+    <string name="coach_chip_trend">Hoe is mijn trend?</string>
+    <string name="coach_chip_doing_this_week">Hoe doe ik het deze week?</string>
+    <string name="coach_chip_log_advice">Advies op basis van mijn logboek?</string>
+
+    <!-- Progress -->
+    <string name="progress_range_week">1W</string>
+    <string name="progress_range_month">1M</string>
+    <string name="progress_range_3m">3M</string>
+    <string name="progress_range_6m">6M</string>
+    <string name="progress_range_year">1J</string>
+    <string name="progress_range_all">Alles</string>
+
+    <string name="progress_weight_section">Gewicht</string>
+    <string name="progress_log_weight">Gewicht loggen</string>
+    <string name="progress_stat_current">Huidig</string>
+    <string name="progress_stat_goal">Doel</string>
+    <string name="progress_log_first_weight">Log je eerste gewicht om trends te zien</string>
+
+    <string name="progress_weight_history">Gewichtsgeschiedenis</string>
+    <string name="progress_history_count_format">%1$d invoeren · tik om te bekijken of verwijderen</string>
+
+    <string name="progress_calories_section">Calorieën</string>
+    <string name="progress_avg_format">Gem.: %1$d kcal</string>
+    <string name="progress_no_food">Nog geen eten geregistreerd</string>
+
+    <string name="progress_macro_averages">Macro-gemiddelden</string>
+    <string name="progress_macro_progress_format">%1$dg / %2$dg</string>
+
+    <string name="progress_log_weight_title">Gewicht loggen</string>
+
+    <string name="progress_goal_reached_title">Gefeliciteerd! 🎉</string>
+    <string name="progress_goal_reached_message">Je hebt je streefgewicht bereikt! Ga naar Instellingen om je doel te wijzigen en tik op Doelen opnieuw berekenen om je targets te vernieuwen.</string>
+
+    <!-- Settings -->
+    <string name="settings_section_personal">Persoonlijke gegevens</string>
+    <string name="settings_section_goals">Doelen &amp; voeding</string>
+    <string name="settings_section_app">App-instellingen</string>
+    <string name="settings_section_ai">AI-provider</string>
+    <string name="settings_section_speech">Spraak-naar-tekst</string>
+    <string name="settings_section_health">Gezondheid &amp; gegevens</string>
+
+    <string name="settings_gender">Geslacht</string>
+    <string name="settings_birthday">Geboortedatum</string>
+    <string name="settings_height">Lengte</string>
+    <string name="settings_weight">Gewicht</string>
+    <string name="settings_body_fat">Vetpercentage</string>
+    <string name="settings_not_set">Niet ingesteld</string>
+    <string name="settings_birthday_age_format">%1$s (leeftijd %2$d)</string>
+
+    <string name="settings_weight_goal">Gewichtsdoel</string>
+    <string name="settings_activity_level">Activiteitsniveau</string>
+    <string name="settings_weekly_change">Wekelijkse verandering</string>
+    <string name="settings_weekly_default">0,50 kg/wk</string>
+    <string name="settings_goal_weight">Streefgewicht</string>
+    <string name="settings_calories">Calorieën</string>
+    <string name="settings_recalculate_goals">Doelen opnieuw berekenen</string>
+    <string name="settings_macro_pinned_format">%1$dg</string>
+    <string name="settings_macro_auto_format">%1$dg · auto</string>
+    <string name="settings_macro_pinned_a11y">Vastgezet</string>
+    <string name="settings_macro_auto_a11y">Auto</string>
+
+    <string name="settings_appearance">Weergave</string>
+    <string name="settings_appearance_system">Systeem</string>
+    <string name="settings_appearance_light">Licht</string>
+    <string name="settings_appearance_dark">Donker</string>
+    <string name="settings_metric_units">Metrische eenheden</string>
+    <string name="settings_week_starts">Week begint op</string>
+    <string name="settings_week_monday">Maandag</string>
+    <string name="settings_week_sunday">Zondag</string>
+    <string name="settings_notifications">Meldingen</string>
+    <string name="settings_battery_opt">Batterijoptimalisatie</string>
+    <string name="settings_battery_opt_value">Fud AI op witte lijst</string>
+
+    <string name="settings_ai_provider">Provider</string>
+    <string name="settings_ai_model">Model</string>
+    <string name="settings_ai_model_unset">(stel hieronder een in)</string>
+    <string name="settings_api_key">API-sleutel</string>
+    <string name="settings_base_url">Basis-URL</string>
+    <string name="settings_server_url">Server-URL</string>
+    <string name="settings_tap_to_edit">Tik om te bewerken</string>
+    <string name="settings_custom_url_placeholder">https://jouw-endpoint.com/v1</string>
+    <string name="settings_custom_url_title">Aangepaste basis-URL</string>
+    <string name="settings_clear_key">Sleutel wissen</string>
+
+    <string name="settings_health_connect">Health Connect</string>
+    <string name="settings_clear_food_log">Voedingsdagboek wissen</string>
+    <string name="settings_delete_all_data">Alle gegevens verwijderen</string>
+
+    <!-- Settings dialogs -->
+    <string name="settings_clear_food_title">Voedingsdagboek wissen?</string>
+    <string name="settings_clear_food_message">Wist alle voedingsinvoer en foto\'s. Profiel, gewichten en instellingen blijven behouden.</string>
+    <string name="settings_delete_all_title">Alle lokale gegevens verwijderen?</string>
+    <string name="settings_delete_all_message">Wist profiel, voedingsdagboek, gewichtsgeschiedenis, chat en API-sleutels en brengt je terug naar de onboarding. Health Connect-gegevens blijven intact.</string>
+    <string name="settings_max_pinned_title">Maximaal 2 vastgezet</string>
+    <string name="settings_max_pinned_message">Er kunnen maximaal 2 macro\'s tegelijk worden vastgezet. Maak eerst een andere macro los door deze te openen en op Terug naar auto-balans te tikken.</string>
+    <string name="settings_recalc_title">Doelen opnieuw berekenen?</string>
+    <string name="settings_recalc_message">Reset calorieën en macro\'s naar formulestandaarden op basis van je lengte/gewicht/activiteit/doel. Vastgezette macro\'s worden gewist.</string>
+    <string name="settings_recalc_confirm">Opnieuw berekenen</string>
+    <string name="settings_invalid_goal_title">Streefgewicht past niet bij je doel</string>
+    <string name="settings_invalid_goal_lose">Een doel om af te vallen vereist een streefgewicht onder je huidige gewicht.</string>
+    <string name="settings_invalid_goal_gain">Een doel om aan te komen vereist een streefgewicht boven je huidige gewicht.</string>
+    <string name="settings_permission_title">Permissie nodig</string>
+
+    <string name="settings_notifications_denied">Meldingenpermissie geweigerd. Schakel deze in via Systeeminstellingen → Apps → Fud AI → Meldingen om herinneringen te ontvangen.</string>
+    <string name="settings_health_denied">Health Connect heeft lees- + schrijftoegang nodig voor gewicht en voeding. Tik nogmaals op de schakelaar en verleen alle vier de permissies om te synchroniseren.</string>
+    <string name="settings_health_unavailable">Health Connect is niet beschikbaar op dit apparaat. Installeer het via de Play Store en tik vervolgens nogmaals op de schakelaar.</string>
+
+    <!-- Settings sheets / pickers -->
+    <string name="sheet_ai_provider">AI-provider</string>
+    <string name="sheet_model">Model</string>
+    <string name="sheet_model_footer">Of typ hieronder een aangepaste model-ID.</string>
+    <string name="sheet_any_model_id">Elke model-ID</string>
+    <string name="sheet_api_key_format">API-sleutel — %1$s</string>
+    <string name="sheet_speech_api_key_format">Spraak-API-sleutel — %1$s</string>
+    <string name="sheet_speech_engine">Spraakengine</string>
+    <string name="sheet_gender">Geslacht</string>
+    <string name="sheet_activity_level">Activiteitsniveau</string>
+    <string name="sheet_goal">Doel</string>
+    <string name="sheet_target_weight">Streefgewicht</string>
+    <string name="sheet_weight">Gewicht</string>
+    <string name="sheet_birthday">Geboortedatum</string>
+    <string name="sheet_appearance">Weergave</string>
+    <string name="sheet_week_starts">Week begint op</string>
+    <string name="sheet_height">Lengte</string>
+    <string name="sheet_body_fat_percent">Vetpercentage</string>
+    <string name="sheet_weekly_change">Wekelijkse verandering</string>
+    <string name="sheet_weekly_change_format">%1$.1f %2$s/week %3$s</string>
+    <string name="sheet_weekly_change_loss">verlies</string>
+    <string name="sheet_weekly_change_gain">toename</string>
+    <string name="sheet_pace_slow">Langzaam</string>
+    <string name="sheet_pace_recommended">Aanbevolen</string>
+    <string name="sheet_pace_fast">Snel</string>
+    <string name="sheet_selected_a11y">Geselecteerd</string>
+    <string name="sheet_reset_to_auto">Terug naar auto-balans</string>
+
+    <string name="sheet_macros">Macro\'s</string>
+    <string name="sheet_macros_subtitle">Zet maximaal 2 macro\'s vast op exacte grammen. Niet-vastgezette worden automatisch berekend uit de resterende calorieën.</string>
+    <string name="sheet_macro_pinned">vastgezet</string>
+    <string name="sheet_macro_auto">auto</string>
+    <string name="sheet_macro_label_format">%1$s (%2$s)</string>
+
+    <!-- About -->
+    <string name="about_share">App delen</string>
+    <string name="about_open_source">Open source (MIT)</string>
+    <string name="about_star_github">Ster op GitHub</string>
+    <string name="about_vote_ph">Stem op Product Hunt</string>
+    <string name="about_support">Steun het project</string>
+    <string name="about_report_issue">Probleem melden</string>
+    <string name="about_request_feature">Functie aanvragen</string>
+    <string name="about_contact">Neem contact op</string>
+    <string name="about_follow_x">Volg op X</string>
+    <string name="about_privacy">Privacybeleid</string>
+    <string name="about_terms">Servicevoorwaarden</string>
+    <string name="about_made_by">Gemaakt door Apoorv Darshan</string>
+    <string name="about_with_care">met zorg, voor iedereen</string>
+    <string name="about_share_message">Ik houd mijn maaltijden bij met Fud AI — maak een foto, spreek het in of typ het, en de AI logt de calorieën. Het is gratis, open source, en je gegevens blijven op je apparaat.\n\nDownload: https://fud-ai.app</string>
+    <string name="about_share_chooser">Fud AI delen</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_streak">Streak-herinnering</string>
+    <string name="notif_channel_streak_desc">Dagelijkse herinnering om een maaltijd te loggen en je streak te behouden.</string>
+    <string name="notif_channel_daily">Dagelijkse samenvatting</string>
+    <string name="notif_channel_daily_desc">Eindedag-samenvatting van je calorieën + macro\'s.</string>
+    <string name="notif_channel_weight_goal">Gewichtsdoel</string>
+    <string name="notif_channel_weight_goal_desc">Felicitatie wanneer je je streefgewicht bereikt.</string>
+    <string name="notif_goal_title">Gefeliciteerd! 🎉</string>
+    <string name="notif_goal_text">Je hebt je streefgewicht bereikt.</string>
+    <string name="notif_streak_title">Vergeet niet je maaltijden te loggen</string>
+    <string name="notif_streak_text">Houd je streak gaande — log iets van vandaag.</string>
+    <string name="notif_summary_title">De samenvatting van vandaag is klaar</string>
+    <string name="notif_summary_text">Tik om te zien hoe de macro\'s van vandaag uitkwamen.</string>
+
+</resources>

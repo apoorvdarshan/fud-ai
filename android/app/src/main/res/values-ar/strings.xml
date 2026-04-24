@@ -1,0 +1,605 @@
+<resources>
+    <string name="app_name">Fud AI</string>
+
+    <!-- Widgets -->
+    <string name="widget_calorie_label">Fud AI السعرات الحرارية</string>
+    <string name="widget_calorie_description">اطّلع على سعراتك الحرارية وعناصرك الكبرى لليوم في لمحة.</string>
+    <string name="widget_protein_label">Fud AI البروتين</string>
+    <string name="widget_protein_description">اطّلع على تقدم البروتين اليوم في لمحة.</string>
+    <string name="widget_today">اليوم</string>
+    <string name="widget_protein">البروتين</string>
+    <string name="widget_calories">السعرات الحرارية</string>
+    <string name="widget_carbs">الكربوهيدرات</string>
+    <string name="widget_fat">الدهون</string>
+    <string name="widget_kcal_left_format">%1$d kcal متبقية</string>
+    <string name="widget_g_left_format">%1$dg متبقية</string>
+    <string name="widget_kcal">kcal</string>
+    <string name="widget_protein_g">بروتين g</string>
+    <string name="widget_value_unit_format">%1$d%2$s / %3$d%4$s</string>
+    <string name="widget_center_small_format">/ %1$d</string>
+    <string name="widget_center_small_g_format">/ %1$dg</string>
+    <string name="widget_center_large_g_format">%1$dg</string>
+
+    <!-- Common buttons / actions -->
+    <string name="action_save">حفظ</string>
+    <string name="action_cancel">إلغاء</string>
+    <string name="action_done">تم</string>
+    <string name="action_ok">حسنًا</string>
+    <string name="action_clear">مسح</string>
+    <string name="action_delete">حذف</string>
+    <string name="action_continue">متابعة</string>
+    <string name="action_get_started">ابدأ الآن</string>
+    <string name="action_log">تسجيل</string>
+    <string name="action_analyze">تحليل</string>
+    <string name="action_discard">تجاهل</string>
+    <string name="action_reset">إعادة تعيين</string>
+    <string name="action_keep_going">استمر</string>
+    <string name="action_send">إرسال</string>
+    <string name="action_pin">تثبيت</string>
+
+    <!-- Generic units / labels -->
+    <string name="unit_kcal">kcal</string>
+    <string name="unit_g">g</string>
+    <string name="unit_mg">mg</string>
+    <string name="unit_percent">%</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_lbs">lbs</string>
+    <string name="unit_ft">ft</string>
+    <string name="unit_in">in</string>
+    <string name="unit_ft_in">ft / in</string>
+    <string name="kcal_value_format">%1$d kcal</string>
+    <string name="grams_value_format">%1$dg</string>
+    <string name="grams_value_decimal_format">%1$.1fg</string>
+    <string name="kg_value_format">%1$.1f kg</string>
+    <string name="lbs_value_format">%1$.1f lbs</string>
+    <string name="kg_per_week_format">%1$.2f kg/أسبوع</string>
+    <string name="lbs_per_week_format">%1$.2f lbs/أسبوع</string>
+    <string name="height_cm_format">%1$d cm</string>
+    <string name="feet_inches_format">%1$d\' %2$d\"</string>
+    <string name="value_unit_format">%1$d %2$s</string>
+    <string name="ft_label_format">%1$d ft</string>
+    <string name="in_label_format">%1$d in</string>
+    <string name="bullet">·</string>
+
+    <!-- Macros / Goal labels -->
+    <string name="macro_protein">البروتين</string>
+    <string name="macro_carbs">الكربوهيدرات</string>
+    <string name="macro_fat">الدهون</string>
+    <string name="macro_calories">السعرات الحرارية</string>
+
+    <!-- Gender -->
+    <string name="gender_male">ذكر</string>
+    <string name="gender_female">أنثى</string>
+    <string name="gender_other">آخر</string>
+
+    <!-- Activity Level -->
+    <string name="activity_sedentary">خامل</string>
+    <string name="activity_light">خفيف</string>
+    <string name="activity_moderate">معتدل</string>
+    <string name="activity_active">نشط</string>
+    <string name="activity_very_active">نشط جدًا</string>
+    <string name="activity_extra_active">نشط للغاية</string>
+    <string name="activity_sedentary_subtitle">قليل من التمارين أو لا توجد</string>
+    <string name="activity_light_subtitle">تمارين 1–3 مرات / أسبوع</string>
+    <string name="activity_moderate_subtitle">تمارين 4–5 مرات / أسبوع</string>
+    <string name="activity_active_subtitle">تمارين يومية أو مكثفة 3–4 مرات / أسبوع</string>
+    <string name="activity_very_active_subtitle">تمارين مكثفة 6–7 مرات / أسبوع</string>
+    <string name="activity_extra_active_subtitle">تمارين مكثفة جدًا يوميًا أو وظيفة بدنية</string>
+
+    <!-- Weight Goal -->
+    <string name="goal_lose">إنقاص الوزن</string>
+    <string name="goal_maintain">الحفاظ على الوزن</string>
+    <string name="goal_gain">زيادة الوزن</string>
+
+    <!-- Meal Type -->
+    <string name="meal_breakfast">الإفطار</string>
+    <string name="meal_lunch">الغداء</string>
+    <string name="meal_dinner">العشاء</string>
+    <string name="meal_snack">وجبة خفيفة</string>
+    <string name="meal_other">أخرى</string>
+
+    <!-- AutoBalance Macro -->
+    <string name="autobalance_protein">البروتين</string>
+    <string name="autobalance_carbs">الكربوهيدرات</string>
+    <string name="autobalance_fat">الدهون</string>
+
+    <!-- AI Provider names -->
+    <string name="ai_provider_gemini">Google Gemini</string>
+    <string name="ai_provider_openai">OpenAI</string>
+    <string name="ai_provider_anthropic">Anthropic Claude</string>
+    <string name="ai_provider_xai">xAI Grok</string>
+    <string name="ai_provider_openrouter">OpenRouter</string>
+    <string name="ai_provider_together">Together AI</string>
+    <string name="ai_provider_groq">Groq</string>
+    <string name="ai_provider_huggingface">Hugging Face</string>
+    <string name="ai_provider_fireworks">Fireworks AI</string>
+    <string name="ai_provider_deepinfra">DeepInfra</string>
+    <string name="ai_provider_mistral">Mistral</string>
+    <string name="ai_provider_ollama">Ollama (محلي)</string>
+    <string name="ai_provider_custom">مخصص (متوافق مع OpenAI)</string>
+
+    <!-- AI Provider API key placeholders -->
+    <string name="ai_key_placeholder_gemini">AIza…</string>
+    <string name="ai_key_placeholder_openai">sk-…</string>
+    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
+    <string name="ai_key_placeholder_xai">xai-…</string>
+    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
+    <string name="ai_key_placeholder_together">…</string>
+    <string name="ai_key_placeholder_groq">gsk_…</string>
+    <string name="ai_key_placeholder_huggingface">hf_…</string>
+    <string name="ai_key_placeholder_fireworks">fw_…</string>
+    <string name="ai_key_placeholder_deepinfra">…</string>
+    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_ollama">لا حاجة لمفتاح</string>
+    <string name="ai_key_placeholder_custom">مفتاح API (أو أي شيء إذا لم تكن نقطة النهاية بحاجة إلى مفتاح)</string>
+
+    <!-- Speech Provider -->
+    <string name="speech_provider_native">أصلي (على الجهاز)</string>
+    <string name="speech_provider_openai">OpenAI Whisper</string>
+    <string name="speech_provider_groq">Groq (Whisper)</string>
+    <string name="speech_provider_deepgram">Deepgram</string>
+    <string name="speech_provider_assemblyai">AssemblyAI</string>
+
+    <string name="speech_key_placeholder_native">غير مطلوب</string>
+    <string name="speech_key_placeholder_openai">sk-…</string>
+    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
+    <string name="speech_key_placeholder_assemblyai">مفتاح AssemblyAI الخاص بك</string>
+
+    <string name="speech_description_native">التعرف على الكلام على جهاز Android. مجاني، يعمل دون اتصال على معظم الهواتف، ويعرض نتائج جزئية في الوقت الفعلي. الإعداد الافتراضي الموصى به.</string>
+    <string name="speech_description_openai">واجهة OpenAI Whisper. دقة عالية، يدعم أكثر من 99 لغة، مدفوع لكل دقيقة.</string>
+    <string name="speech_description_groq">Whisper Large v3 المستضاف على Groq. استدلال سريع جدًا، ويوفر طبقة مجانية.</string>
+    <string name="speech_description_deepgram">Deepgram Nova. أوضاع فورية ودفعية، سريع ودقيق.</string>
+    <string name="speech_description_assemblyai">نموذج AssemblyAI Universal. دقة قوية، مع توفر طبقة مجانية.</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">الرئيسية</string>
+    <string name="nav_progress">التقدم</string>
+    <string name="nav_coach">المدرب</string>
+    <string name="nav_settings">الإعدادات</string>
+    <string name="nav_about">حول</string>
+
+    <!-- Day-of-week narrow letters (for week strip) -->
+    <string name="dow_narrow_monday">ن</string>
+    <string name="dow_narrow_tuesday">ث</string>
+    <string name="dow_narrow_wednesday">ر</string>
+    <string name="dow_narrow_thursday">خ</string>
+    <string name="dow_narrow_friday">ج</string>
+    <string name="dow_narrow_saturday">س</string>
+    <string name="dow_narrow_sunday">ح</string>
+
+    <!-- Months (full) -->
+    <string name="month_january">يناير</string>
+    <string name="month_february">فبراير</string>
+    <string name="month_march">مارس</string>
+    <string name="month_april">أبريل</string>
+    <string name="month_may">مايو</string>
+    <string name="month_june">يونيو</string>
+    <string name="month_july">يوليو</string>
+    <string name="month_august">أغسطس</string>
+    <string name="month_september">سبتمبر</string>
+    <string name="month_october">أكتوبر</string>
+    <string name="month_november">نوفمبر</string>
+    <string name="month_december">ديسمبر</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_back">رجوع</string>
+    <string name="onboarding_logo_description">شعار Fud AI</string>
+    <string name="onboarding_welcome_line1">تناول بذكاء،</string>
+    <string name="onboarding_welcome_line2">عش أفضل</string>
+    <string name="onboarding_welcome_subtitle">فقط التقط، تتبّع، وازدهر.\nتغذيتك، مبسطة.</string>
+
+    <string name="onboarding_gender_title">ما هو جنسك؟</string>
+    <string name="onboarding_gender_subtitle">يساعدنا هذا في حساب معدل الأيض لديك</string>
+
+    <string name="onboarding_birthday_title">متى عيد ميلادك؟</string>
+    <string name="onboarding_birthday_subtitle">يُستخدم لحساب احتياجاتك اليومية</string>
+
+    <string name="onboarding_height_weight_title">الطول والوزن</string>
+    <string name="onboarding_height_weight_subtitle">سنحافظ على خصوصية هذه المعلومات</string>
+    <string name="onboarding_imperial">إمبراطوري</string>
+    <string name="onboarding_metric">متري</string>
+    <string name="onboarding_height">الطول</string>
+    <string name="onboarding_weight">الوزن</string>
+    <string name="onboarding_feet">قدم</string>
+    <string name="onboarding_inches">إنش</string>
+
+    <string name="onboarding_activity_title">ما مدى نشاطك؟</string>
+    <string name="onboarding_activity_subtitle">أسبوعك المعتاد</string>
+
+    <string name="onboarding_goal_title">ما هو هدفك؟</string>
+    <string name="onboarding_goal_subtitle">يمكنك تغيير هذا في أي وقت</string>
+
+    <string name="onboarding_desired_weight_title">ما هو\nوزنك المرغوب؟</string>
+
+    <string name="onboarding_body_fat_title">هل تعرف نسبة\nدهون جسمك؟</string>
+    <string name="onboarding_body_fat_subtitle">يساعدنا في حساب معدل الأيض لديك بدقة أكبر</string>
+    <string name="onboarding_yes">نعم</string>
+    <string name="onboarding_no">لا</string>
+    <string name="onboarding_body_fat_ranges">النطاقات الشائعة: الرجال 10–25%، النساء 18–35%</string>
+    <string name="onboarding_body_fat_no_worries">لا تقلق! سنستخدم صيغة قياسية\nبناءً على طولك ووزنك وعمرك.</string>
+
+    <string name="onboarding_pace_title_maintain">وتيرتك</string>
+    <string name="onboarding_pace_subtitle_maintain">سنضع خطة متوازنة</string>
+    <string name="onboarding_pace_title_change">ما السرعة التي تريد بها\nالوصول إلى هدفك؟</string>
+    <string name="onboarding_pace_subtitle_lose">سرعة فقدان الوزن لكل أسبوع</string>
+    <string name="onboarding_pace_subtitle_gain">سرعة زيادة الوزن لكل أسبوع</string>
+    <string name="onboarding_pace_balanced_set">تم ضبط وتيرة متوازنة</string>
+    <string name="onboarding_pace_balanced_subtitle">سنحافظ على ثبات سعراتك الحرارية\nللحفاظ على وزنك الحالي.</string>
+    <string name="onboarding_pace_per_week">أسبوعيًا</string>
+    <string name="onboarding_pace_slow">بطيء</string>
+    <string name="onboarding_pace_recommended">موصى به</string>
+    <string name="onboarding_pace_fast">سريع</string>
+    <string name="onboarding_pace_reach_prefix">ستصل إلى هدفك خلال </string>
+    <string name="onboarding_pace_days_format">%1$d يومًا</string>
+    <string name="onboarding_pace_caption_slow">لطيف ومستدام. رائع للعادات طويلة المدى.</string>
+    <string name="onboarding_pace_caption_fast">حازم لكنه قابل للتنفيذ. يتطلب انضباطًا قويًا.</string>
+    <string name="onboarding_pace_caption_recommended">الوتيرة الأكثر توازنًا، محفّزة ومستدامة.</string>
+
+    <string name="onboarding_notifications_title">احصل على تذكيرات\nلتسجيل الوجبات</string>
+    <string name="onboarding_notifications_subtitle">احصل على تذكيرات لطيفة في أوقات الوجبات\nحتى لا تنسى التتبع أبدًا.</string>
+    <string name="onboarding_notifications_enabled">التذكيرات مفعّلة</string>
+    <string name="onboarding_notifications_allow">السماح بالإشعارات</string>
+    <string name="onboarding_notifications_change_anytime">يمكنك تغيير هذا في أي وقت من الإعدادات.</string>
+
+    <string name="onboarding_health_title">الاتصال بـ\nHealth Connect</string>
+    <string name="onboarding_health_subtitle">حافظ على مزامنة تغذيتك ومقاييس\nجسمك تلقائيًا.</string>
+    <string name="onboarding_health_feature_nutrition">بيانات التغذية</string>
+    <string name="onboarding_health_feature_weight">مزامنة الوزن</string>
+    <string name="onboarding_health_feature_body">مقاييس الجسم</string>
+    <string name="onboarding_health_unavailable">Health Connect غير متاح</string>
+    <string name="onboarding_health_connected">متصل</string>
+    <string name="onboarding_health_connect">ربط</string>
+
+    <string name="onboarding_provider_title">استخدم الذكاء الاصطناعي الخاص بك</string>
+    <string name="onboarding_provider_subtitle">يحتاج Fud AI إلى مفتاح مزود ذكاء اصطناعي\nلتحليل طعامك. أنت توفّر مفتاحك الخاص.</string>
+    <string name="onboarding_provider_recommended_title">موصى به: Google Gemini</string>
+    <string name="onboarding_provider_recommended_subtitle">طبقة مجانية متاحة، سريعة ودقيقة</string>
+    <string name="onboarding_provider_step_1">احصل على مفتاح مجاني من aistudio.google.com/apikey</string>
+    <string name="onboarding_provider_step_2">افتح الإعدادات ← مزود الذكاء الاصطناعي</string>
+    <string name="onboarding_provider_step_3">الصق مفتاحك — تم</string>
+    <string name="onboarding_provider_footer">يدعم 13 مزودًا. يبقى مفتاحك على\nهذا الجهاز، مشفّرًا.</string>
+
+    <string name="onboarding_building_calories">السعرات الحرارية</string>
+    <string name="onboarding_building_carbs">الكربوهيدرات</string>
+    <string name="onboarding_building_protein">البروتين</string>
+    <string name="onboarding_building_fats">الدهون</string>
+    <string name="onboarding_building_health_score">نقاط الصحة</string>
+    <string name="onboarding_building_percent_format">%1$d%%</string>
+    <string name="onboarding_building_setting_up">نقوم بإعداد كل شيء\nمن أجلك</string>
+    <string name="onboarding_building_finalizing">جارٍ إنهاء النتائج…</string>
+    <string name="onboarding_building_recommendation">التوصية اليومية لـ</string>
+    <string name="onboarding_building_bullet">•</string>
+
+    <string name="onboarding_plan_title">خطتك</string>
+    <string name="onboarding_plan_subtitle">اضغط على أي قيمة لتعديلها</string>
+    <string name="onboarding_plan_daily_calories">السعرات اليومية</string>
+    <string name="onboarding_plan_doctor_title">يرجى استشارة طبيب</string>
+    <string name="onboarding_plan_doctor_message">الحد الأدنى الموصى به هو 1,200 سعرة حرارية يوميًا.</string>
+
+    <string name="onboarding_plan_field_calories">السعرات اليومية</string>
+    <string name="onboarding_plan_field_protein">البروتين</string>
+    <string name="onboarding_plan_field_carbs">الكربوهيدرات</string>
+    <string name="onboarding_plan_field_fat">الدهون</string>
+
+    <string name="onboarding_review_title">هل تستمتع بـ fud حتى الآن؟</string>
+    <string name="onboarding_review_subtitle">تقييم سريع يساعدنا على النمو\nوبناء المزيد من الميزات لك!</string>
+    <string name="onboarding_review_rate">قيّم fud</string>
+    <string name="onboarding_review_maybe_later">ربما لاحقًا</string>
+
+    <!-- Home -->
+    <string name="home_add_food">إضافة طعام</string>
+    <string name="home_menu_camera">الكاميرا</string>
+    <string name="home_menu_camera_note">كاميرا + ملاحظة</string>
+    <string name="home_menu_nutrition_label">ملصق التغذية</string>
+    <string name="home_menu_from_photos">من الصور</string>
+    <string name="home_menu_text_input">إدخال نصي</string>
+    <string name="home_menu_voice">الصوت</string>
+    <string name="home_menu_manual_entry">إدخال يدوي</string>
+    <string name="home_menu_saved_meals">الوجبات المحفوظة</string>
+    <string name="home_kcal_of_format">من %1$s kcal</string>
+    <string name="home_kcal_left_format">%1$s متبقية</string>
+    <string name="home_view_more">عرض المزيد</string>
+    <string name="home_todays_food">طعام اليوم</string>
+    <string name="home_no_foods_logged">لم يتم تسجيل أي طعام</string>
+    <string name="home_swipe_delete">حذف</string>
+    <string name="home_swipe_favorite">إضافة للمفضلة</string>
+    <string name="home_swipe_unfavorite">إزالة من المفضلة</string>
+    <string name="home_favorited">مفضّلة</string>
+    <string name="home_macro_chip_format">%1$s %2$dg</string>
+    <string name="home_analyzing_food">جارٍ تحليل طعامك…</string>
+    <string name="home_looking_up_nutrition">جارٍ البحث عن التغذية…</string>
+    <string name="home_fiber_format">الألياف: %1$.1fg</string>
+    <string name="home_sugar_format">السكر: %1$.1fg</string>
+    <string name="home_sat_fat_format">الدهون المشبعة: %1$.1fg</string>
+    <string name="home_sodium_format">الصوديوم: %1$.1fmg</string>
+    <string name="home_potassium_format">البوتاسيوم: %1$.1fmg</string>
+    <string name="home_cholesterol_format">الكوليسترول: %1$.1fmg</string>
+    <string name="home_serving_format">الحصة: ~%1$dg</string>
+    <string name="home_protein_value">البروتين: %1$dg</string>
+    <string name="home_carbs_value">الكربوهيدرات: %1$dg</string>
+    <string name="home_fat_value">الدهون: %1$dg</string>
+
+    <string name="text_input_placeholder_1">بيضتان، خبز محمص بالزبدة وقهوة</string>
+    <string name="text_input_placeholder_2">طبق بوريتو من Chipotle مع دجاج وأرز</string>
+    <string name="text_input_placeholder_3">بيتزا بيبروني من Domino\'s، شريحتان</string>
+    <string name="text_input_placeholder_4">زبادي يوناني مع غرانولا وتوت أزرق</string>
+
+    <string name="manual_title">إدخال يدوي</string>
+    <string name="manual_name">الاسم</string>
+    <string name="manual_name_placeholder">مثال: سلطة منزلية</string>
+    <string name="manual_calories">السعرات الحرارية</string>
+    <string name="manual_protein">البروتين (g)</string>
+    <string name="manual_carbs">الكربوهيدرات (g)</string>
+    <string name="manual_fat">الدهون (g)</string>
+    <string name="manual_zero_placeholder">0</string>
+    <string name="manual_meal_type">نوع الوجبة</string>
+
+    <string name="error_title">حدث خطأ ما</string>
+
+    <!-- Food sheets shared primitives -->
+    <string name="sheet_food_details">تفاصيل الطعام</string>
+    <string name="sheet_serving">الحصة</string>
+    <string name="sheet_nutrition">التغذية</string>
+    <string name="sheet_meal">الوجبة</string>
+    <string name="sheet_more_nutrition">مزيد من التغذية</string>
+    <string name="sheet_name">الاسم</string>
+    <string name="sheet_quantity">الكمية</string>
+    <string name="sheet_meal_type">نوع الوجبة</string>
+    <string name="sheet_review_food">مراجعة الطعام</string>
+    <string name="sheet_edit_food">تحرير الطعام</string>
+
+    <string name="sheet_micro_sugar">السكر</string>
+    <string name="sheet_micro_added_sugar">السكر المضاف</string>
+    <string name="sheet_micro_fiber">الألياف</string>
+    <string name="sheet_micro_saturated_fat">الدهون المشبعة</string>
+    <string name="sheet_micro_mono_fat">دهون أحادية</string>
+    <string name="sheet_micro_poly_fat">دهون متعددة</string>
+    <string name="sheet_micro_cholesterol">الكوليسترول</string>
+    <string name="sheet_micro_sodium">الصوديوم</string>
+    <string name="sheet_micro_potassium">البوتاسيوم</string>
+
+    <!-- Context note sheet -->
+    <string name="context_note_title">إضافة ملاحظة</string>
+    <string name="context_note_section">إضافة ملاحظة (اختياري)</string>
+    <string name="context_note_placeholder">مثال: بدون زيت، جبنة إضافية، حصة كبيرة</string>
+
+    <!-- Voice input sheet -->
+    <string name="voice_listening">جارٍ الاستماع…</string>
+    <string name="voice_tap_to_start">اضغط على الميكروفون للبدء</string>
+    <string name="voice_transcribing_format">جارٍ التحويل عبر %1$s…</string>
+    <string name="voice_mic_permission_denied">تم رفض إذن الميكروفون.</string>
+    <string name="voice_mic_start_failed">تعذّر تشغيل الميكروفون. تحقّق من الأذونات.</string>
+    <string name="voice_transcription_failed">فشل تحويل الكلام</string>
+    <string name="voice_stop">إيقاف</string>
+    <string name="voice_record">تسجيل</string>
+
+    <!-- Saved Meals sheet -->
+    <string name="saved_meals_title">الوجبات المحفوظة</string>
+    <string name="saved_meals_tab_recents">الأخيرة</string>
+    <string name="saved_meals_tab_frequent">المتكررة</string>
+    <string name="saved_meals_tab_favorites">المفضلة</string>
+    <string name="saved_meals_no_logs">لم يتم تسجيل أي طعام بعد</string>
+    <string name="saved_meals_no_favorites">لا توجد مفضلات بعد\nاسحب يسارًا على أي طعام لإضافته</string>
+    <string name="saved_meals_count_format">%1$d× تم تسجيلها</string>
+    <string name="saved_meals_log_action">تسجيل</string>
+    <string name="saved_meals_remove_favorite">إزالة من المفضلة</string>
+    <string name="saved_meals_move_up">نقل لأعلى</string>
+    <string name="saved_meals_move_down">نقل لأسفل</string>
+
+    <!-- Nutrition detail sheet -->
+    <string name="nutrition_details_title">تفاصيل التغذية</string>
+    <string name="nutrition_section_macros">العناصر الكبرى</string>
+    <string name="nutrition_section_detailed">تغذية تفصيلية</string>
+    <string name="nutrition_label_calories">السعرات الحرارية</string>
+    <string name="nutrition_label_protein">البروتين</string>
+    <string name="nutrition_label_carbs">الكربوهيدرات</string>
+    <string name="nutrition_label_fat">الدهون</string>
+    <string name="nutrition_label_sugar">السكر</string>
+    <string name="nutrition_label_added_sugar">السكر المضاف</string>
+    <string name="nutrition_label_fiber">الألياف</string>
+    <string name="nutrition_label_saturated_fat">الدهون المشبعة</string>
+    <string name="nutrition_label_mono_fat">دهون أحادية غير مشبعة</string>
+    <string name="nutrition_label_poly_fat">دهون متعددة غير مشبعة</string>
+    <string name="nutrition_label_cholesterol">الكوليسترول</string>
+    <string name="nutrition_label_sodium">الصوديوم</string>
+    <string name="nutrition_label_potassium">البوتاسيوم</string>
+    <string name="nutrition_em_dash">—</string>
+
+    <!-- Coach -->
+    <string name="coach_title">المدرب</string>
+    <string name="coach_reset_chat_a11y">إعادة تعيين المحادثة</string>
+    <string name="coach_send_a11y">إرسال</string>
+    <string name="coach_input_placeholder">اسأل المدرب…</string>
+    <string name="coach_empty_title">اسأل مدربك</string>
+    <string name="coach_empty_subtitle">يمكن لمدربك الاطلاع على سجل وزنك وسعراتك الحرارية وأهدافك. اسأل عن الوزن المتوقع أو ماذا تأكل أو كيف تحقق هدفك.</string>
+    <string name="coach_reset_dialog_title">إعادة تعيين المحادثة</string>
+    <string name="coach_reset_dialog_message">هل تريد مسح جميع الرسائل والبدء من جديد؟ لا يمكن التراجع عن هذا الإجراء.</string>
+    <string name="coach_reset_confirm">إعادة تعيين</string>
+    <string name="coach_no_profile_error">لا يوجد ملف شخصي بعد. أكمل عملية الإعداد أولًا.</string>
+    <string name="coach_chat_failed">فشلت المحادثة</string>
+
+    <string name="coach_chip_predict_30_days">ما هو وزني المتوقع خلال 30 يومًا؟</string>
+    <string name="coach_chip_lose_faster">كيف أخسر الوزن بشكل أسرع وآمن؟</string>
+    <string name="coach_chip_eating_too_much">هل أتناول الكثير من الطعام؟</string>
+    <string name="coach_chip_what_dinner">ماذا يجب أن أتناول على العشاء؟</string>
+    <string name="coach_chip_gain_healthy">كيف أزيد وزني بشكل صحي؟</string>
+    <string name="coach_chip_eating_enough">هل آكل بما يكفي؟</string>
+    <string name="coach_chip_high_protein">أطعمة غنية بالبروتين يمكنني إضافتها؟</string>
+    <string name="coach_chip_holding_weight">هل أحافظ على وزني؟</string>
+    <string name="coach_chip_average_intake">ما متوسط ما أتناوله؟</string>
+    <string name="coach_chip_macro_suggestions">اقتراحات للماكرو؟</string>
+    <string name="coach_chip_trend">كيف يبدو اتجاهي؟</string>
+    <string name="coach_chip_doing_this_week">كيف أبلي هذا الأسبوع؟</string>
+    <string name="coach_chip_log_advice">أي نصيحة بناءً على سجلي؟</string>
+
+    <!-- Progress -->
+    <string name="progress_range_week">1أ</string>
+    <string name="progress_range_month">1ش</string>
+    <string name="progress_range_3m">3ش</string>
+    <string name="progress_range_6m">6ش</string>
+    <string name="progress_range_year">1س</string>
+    <string name="progress_range_all">الكل</string>
+
+    <string name="progress_weight_section">الوزن</string>
+    <string name="progress_log_weight">تسجيل الوزن</string>
+    <string name="progress_stat_current">الحالي</string>
+    <string name="progress_stat_goal">الهدف</string>
+    <string name="progress_log_first_weight">سجّل وزنك الأول لرؤية الاتجاهات</string>
+
+    <string name="progress_weight_history">سجل الوزن</string>
+    <string name="progress_history_count_format">%1$d إدخالات · اضغط للعرض أو الحذف</string>
+
+    <string name="progress_calories_section">السعرات الحرارية</string>
+    <string name="progress_avg_format">المتوسط: %1$d kcal</string>
+    <string name="progress_no_food">لم يتم تسجيل أي طعام بعد</string>
+
+    <string name="progress_macro_averages">متوسطات العناصر الكبرى</string>
+    <string name="progress_macro_progress_format">%1$dg / %2$dg</string>
+
+    <string name="progress_log_weight_title">تسجيل الوزن</string>
+
+    <string name="progress_goal_reached_title">تهانينا! 🎉</string>
+    <string name="progress_goal_reached_message">لقد وصلت إلى وزنك المستهدف! انتقل إلى الإعدادات لتبديل هدفك ثم اضغط على إعادة حساب الأهداف لتحديث مقاييسك.</string>
+
+    <!-- Settings -->
+    <string name="settings_section_personal">المعلومات الشخصية</string>
+    <string name="settings_section_goals">الأهداف والتغذية</string>
+    <string name="settings_section_app">إعدادات التطبيق</string>
+    <string name="settings_section_ai">مزود الذكاء الاصطناعي</string>
+    <string name="settings_section_speech">تحويل الكلام إلى نص</string>
+    <string name="settings_section_health">الصحة والبيانات</string>
+
+    <string name="settings_gender">الجنس</string>
+    <string name="settings_birthday">تاريخ الميلاد</string>
+    <string name="settings_height">الطول</string>
+    <string name="settings_weight">الوزن</string>
+    <string name="settings_body_fat">نسبة الدهون</string>
+    <string name="settings_not_set">غير محدد</string>
+    <string name="settings_birthday_age_format">%1$s (العمر %2$d)</string>
+
+    <string name="settings_weight_goal">هدف الوزن</string>
+    <string name="settings_activity_level">مستوى النشاط</string>
+    <string name="settings_weekly_change">التغيير الأسبوعي</string>
+    <string name="settings_weekly_default">0.50 kg/أسبوع</string>
+    <string name="settings_goal_weight">وزن الهدف</string>
+    <string name="settings_calories">السعرات الحرارية</string>
+    <string name="settings_recalculate_goals">إعادة حساب الأهداف</string>
+    <string name="settings_macro_pinned_format">%1$dg</string>
+    <string name="settings_macro_auto_format">%1$dg · تلقائي</string>
+    <string name="settings_macro_pinned_a11y">مثبّت</string>
+    <string name="settings_macro_auto_a11y">تلقائي</string>
+
+    <string name="settings_appearance">المظهر</string>
+    <string name="settings_appearance_system">النظام</string>
+    <string name="settings_appearance_light">فاتح</string>
+    <string name="settings_appearance_dark">داكن</string>
+    <string name="settings_metric_units">وحدات متريّة</string>
+    <string name="settings_week_starts">يبدأ الأسبوع يوم</string>
+    <string name="settings_week_monday">الإثنين</string>
+    <string name="settings_week_sunday">الأحد</string>
+    <string name="settings_notifications">الإشعارات</string>
+    <string name="settings_battery_opt">تحسين البطارية</string>
+    <string name="settings_battery_opt_value">إضافة Fud AI للقائمة البيضاء</string>
+
+    <string name="settings_ai_provider">المزود</string>
+    <string name="settings_ai_model">النموذج</string>
+    <string name="settings_ai_model_unset">(اختر واحدًا أدناه)</string>
+    <string name="settings_api_key">مفتاح API</string>
+    <string name="settings_base_url">عنوان URL الأساسي</string>
+    <string name="settings_server_url">عنوان URL للخادم</string>
+    <string name="settings_tap_to_edit">اضغط للتعديل</string>
+    <string name="settings_custom_url_placeholder">https://your-endpoint.com/v1</string>
+    <string name="settings_custom_url_title">عنوان URL أساسي مخصص</string>
+    <string name="settings_clear_key">مسح المفتاح</string>
+
+    <string name="settings_health_connect">Health Connect</string>
+    <string name="settings_clear_food_log">مسح سجل الطعام</string>
+    <string name="settings_delete_all_data">حذف جميع البيانات</string>
+
+    <!-- Settings dialogs -->
+    <string name="settings_clear_food_title">مسح سجل الطعام؟</string>
+    <string name="settings_clear_food_message">يمسح جميع إدخالات الطعام والصور. يبقى الملف الشخصي والأوزان والإعدادات.</string>
+    <string name="settings_delete_all_title">حذف جميع البيانات المحلية؟</string>
+    <string name="settings_delete_all_message">يمسح الملف الشخصي وسجل الطعام وسجل الوزن والمحادثة ومفاتيح API، ثم يعيدك إلى الإعداد. تبقى بيانات Health Connect سليمة.</string>
+    <string name="settings_max_pinned_title">الحد الأقصى 2 مثبتة</string>
+    <string name="settings_max_pinned_message">يمكن تثبيت 2 من العناصر الكبرى كحد أقصى في وقت واحد. قم بإلغاء تثبيت عنصر آخر أولًا بفتحه والضغط على إعادة التعيين إلى الموازنة التلقائية.</string>
+    <string name="settings_recalc_title">إعادة حساب الأهداف؟</string>
+    <string name="settings_recalc_message">يعيد ضبط السعرات الحرارية والعناصر الكبرى إلى قيم الصيغة الافتراضية بناءً على طولك ووزنك ونشاطك وهدفك. ستُمسح أي عناصر مثبتة.</string>
+    <string name="settings_recalc_confirm">إعادة الحساب</string>
+    <string name="settings_invalid_goal_title">وزن الهدف لا يطابق هدفك</string>
+    <string name="settings_invalid_goal_lose">يحتاج هدف الإنقاص إلى وزن أقل من وزنك الحالي.</string>
+    <string name="settings_invalid_goal_gain">يحتاج هدف الزيادة إلى وزن أعلى من وزنك الحالي.</string>
+    <string name="settings_permission_title">الإذن مطلوب</string>
+
+    <string name="settings_notifications_denied">تم رفض إذن الإشعارات. فعّله من إعدادات النظام ← التطبيقات ← Fud AI ← الإشعارات لتلقي التذكيرات.</string>
+    <string name="settings_health_denied">يحتاج Health Connect إلى أذونات قراءة وكتابة للوزن والتغذية. أعد الضغط على المفتاح وامنح الأذونات الأربعة للمزامنة.</string>
+    <string name="settings_health_unavailable">Health Connect غير متاح على هذا الجهاز. ثبّته من Play Store، ثم أعد الضغط على المفتاح.</string>
+
+    <!-- Settings sheets / pickers -->
+    <string name="sheet_ai_provider">مزود الذكاء الاصطناعي</string>
+    <string name="sheet_model">النموذج</string>
+    <string name="sheet_model_footer">أو اكتب أي معرّف نموذج مخصص أدناه.</string>
+    <string name="sheet_any_model_id">أي معرّف نموذج</string>
+    <string name="sheet_api_key_format">مفتاح API — %1$s</string>
+    <string name="sheet_speech_api_key_format">مفتاح API للكلام — %1$s</string>
+    <string name="sheet_speech_engine">محرك الكلام</string>
+    <string name="sheet_gender">الجنس</string>
+    <string name="sheet_activity_level">مستوى النشاط</string>
+    <string name="sheet_goal">الهدف</string>
+    <string name="sheet_target_weight">الوزن المستهدف</string>
+    <string name="sheet_weight">الوزن</string>
+    <string name="sheet_birthday">تاريخ الميلاد</string>
+    <string name="sheet_appearance">المظهر</string>
+    <string name="sheet_week_starts">يبدأ الأسبوع يوم</string>
+    <string name="sheet_height">الطول</string>
+    <string name="sheet_body_fat_percent">نسبة الدهون %</string>
+    <string name="sheet_weekly_change">التغيير الأسبوعي</string>
+    <string name="sheet_weekly_change_format">%1$.1f %2$s/أسبوع %3$s</string>
+    <string name="sheet_weekly_change_loss">إنقاص</string>
+    <string name="sheet_weekly_change_gain">زيادة</string>
+    <string name="sheet_pace_slow">بطيء</string>
+    <string name="sheet_pace_recommended">موصى به</string>
+    <string name="sheet_pace_fast">سريع</string>
+    <string name="sheet_selected_a11y">محدد</string>
+    <string name="sheet_reset_to_auto">إعادة التعيين إلى الموازنة التلقائية</string>
+
+    <string name="sheet_macros">العناصر الكبرى</string>
+    <string name="sheet_macros_subtitle">ثبّت ما يصل إلى 2 من العناصر الكبرى بقيم محددة من الغرامات. وتُوازن غير المثبتة تلقائيًا من السعرات المتبقية.</string>
+    <string name="sheet_macro_pinned">مثبّت</string>
+    <string name="sheet_macro_auto">تلقائي</string>
+    <string name="sheet_macro_label_format">%1$s (%2$s)</string>
+
+    <!-- About -->
+    <string name="about_share">شارك التطبيق</string>
+    <string name="about_open_source">مفتوح المصدر (MIT)</string>
+    <string name="about_star_github">ضع نجمة على GitHub</string>
+    <string name="about_vote_ph">صوّت على Product Hunt</string>
+    <string name="about_support">ادعم المشروع</string>
+    <string name="about_report_issue">الإبلاغ عن مشكلة</string>
+    <string name="about_request_feature">طلب ميزة</string>
+    <string name="about_contact">اتصل بنا</string>
+    <string name="about_follow_x">تابعنا على X</string>
+    <string name="about_privacy">سياسة الخصوصية</string>
+    <string name="about_terms">شروط الخدمة</string>
+    <string name="about_made_by">صنع بواسطة Apoorv Darshan</string>
+    <string name="about_with_care">بعناية، للجميع</string>
+    <string name="about_share_message">أتتبّع وجباتي مع Fud AI — التقط صورة أو تحدّث أو اكتب، والذكاء الاصطناعي يسجّل السعرات الحرارية. التطبيق مجاني ومفتوح المصدر، وتبقى بياناتك على جهازك.\n\nنزّله: https://fud-ai.app</string>
+    <string name="about_share_chooser">شارك Fud AI</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_streak">تذكير السلسلة</string>
+    <string name="notif_channel_streak_desc">تذكير يومي بتسجيل وجبة والحفاظ على سلسلتك.</string>
+    <string name="notif_channel_daily">الملخص اليومي</string>
+    <string name="notif_channel_daily_desc">ملخص نهاية اليوم لسعراتك الحرارية وعناصرك الكبرى.</string>
+    <string name="notif_channel_weight_goal">هدف الوزن</string>
+    <string name="notif_channel_weight_goal_desc">احتفال عند الوصول إلى وزن هدفك.</string>
+    <string name="notif_goal_title">تهانينا! 🎉</string>
+    <string name="notif_goal_text">لقد وصلت إلى وزن هدفك.</string>
+    <string name="notif_streak_title">لا تنسَ تسجيل وجباتك</string>
+    <string name="notif_streak_text">حافظ على سلسلتك — سجّل شيئًا من اليوم.</string>
+    <string name="notif_summary_title">ملخص اليوم جاهز</string>
+    <string name="notif_summary_text">اضغط لرؤية كيف اتسقت ماكروهات اليوم.</string>
+
+</resources>

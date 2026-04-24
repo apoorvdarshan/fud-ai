@@ -20,13 +20,14 @@
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
   <a href="https://github.com/apoorvdarshan/fud-ai/stargazers"><img src="https://img.shields.io/github/stars/apoorvdarshan/fud-ai?style=flat&logo=github&color=yellow" alt="GitHub stars"></a>
   <a href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726"><img src="https://img.shields.io/badge/App%20Store-Download-black?logo=apple" alt="App Store"></a>
+  <a href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker"><img src="https://img.shields.io/badge/Google%20Play-Download-414141?logo=googleplay" alt="Google Play"></a>
 </p>
 
 ---
 
 Open-source, privacy-first calorie tracker for iOS and Android. Bring your own AI provider — 13 supported including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, and any custom OpenAI-compatible endpoint. Open-weight models (Gemma, Llama Vision, Qwen VL, Pixtral) work out of the box. Snap a meal, ask your AI coach how to hit your goal, speak your lunch. All data stays on your device. No accounts, no cloud sync, no tracking, no subscriptions.
 
-[Download on the App Store](https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726) · [Website](https://fud-ai.app) · [Report an Issue](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20) · [Request a Feature](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20)
+[App Store](https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726) · [Google Play](https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker) · [Website](https://fud-ai.app) · [Report an Issue](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20) · [Request a Feature](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20)
 
 ---
 

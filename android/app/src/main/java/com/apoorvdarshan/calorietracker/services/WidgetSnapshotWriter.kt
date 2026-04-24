@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.services
 
 import android.content.Context
+import android.util.Log
 import androidx.glance.appwidget.updateAll
 import com.apoorvdarshan.calorietracker.data.FoodRepository
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
@@ -58,6 +59,12 @@ class WidgetSnapshotWriter(
             prefs.setWidgetSnapshot(snapshot)
         }
         runCatching { CalorieAppWidget().updateAll(context) }
+            .onFailure { Log.e(TAG, "CalorieAppWidget.updateAll failed", it) }
         runCatching { ProteinAppWidget().updateAll(context) }
+            .onFailure { Log.e(TAG, "ProteinAppWidget.updateAll failed", it) }
+    }
+
+    private companion object {
+        const val TAG = "FudAIWidget"
     }
 }

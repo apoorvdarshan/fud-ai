@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Privacy Policy — Fud AI Calorie Tracker for iOS</title>
-<meta name="description" content="Privacy Policy for Fud AI, the AI-powered calorie and nutrition tracker for iOS.">
+<title>Privacy Policy — Fud AI Calorie Tracker for iOS &amp; Android</title>
+<meta name="description" content="Privacy Policy for Fud AI, the AI-powered calorie and nutrition tracker for iOS and Android.">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://fud-ai.app/privacy.html">
-<meta property="og:title" content="Privacy Policy — Fud AI Calorie Tracker for iOS">
-<meta property="og:description" content="Privacy Policy for Fud AI, the AI-powered calorie and nutrition tracker for iOS.">
-<meta property="og:image" content="https://fud-ai.app/assets/og-preview.png">
+<meta property="og:title" content="Privacy Policy — Fud AI Calorie Tracker for iOS &amp; Android">
+<meta property="og:description" content="Privacy Policy for Fud AI, the AI-powered calorie and nutrition tracker for iOS and Android.">
+<meta property="og:image" content="https://fud-ai.app/assets/og-preview.png?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Privacy Policy — Fud AI Calorie Tracker for iOS">
-<meta name="twitter:description" content="Privacy Policy for Fud AI, the AI-powered calorie and nutrition tracker for iOS.">
-<meta name="twitter:image" content="https://fud-ai.app/assets/og-preview.png">
+<meta name="twitter:title" content="Privacy Policy — Fud AI Calorie Tracker for iOS &amp; Android">
+<meta name="twitter:description" content="Privacy Policy for Fud AI, the AI-powered calorie and nutrition tracker for iOS and Android.">
+<meta name="twitter:image" content="https://fud-ai.app/assets/og-preview.png?v=3">
 <link rel="icon" href="assets/calorie logo transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="styles.css?v=20260421l">
+<link rel="stylesheet" href="styles.css?v=20260425a">
 </head>
 <body>
 
@@ -50,31 +50,33 @@
   <div class="container">
     <div class="legal-content">
       <h2>Privacy Policy</h2>
-      <span class="legal-date">Last updated: April 21, 2026</span>
+      <span class="legal-date">Last updated: April 25, 2026</span>
 
-      <p>Fud AI ("we", "our", "the app") is an open-source iOS app developed by Apoorv Darshan. This privacy policy explains how your information is handled. In short: we don't run servers, we don't have accounts, and your data stays on your device. The only thing that leaves your phone is the specific request you initiate to your own AI provider using your own API key.</p>
+      <p>Fud AI ("we", "our", "the app") is an open-source iOS and Android app developed by Apoorv Darshan. This privacy policy explains how your information is handled across both platforms. In short: we don't run servers, we don't have accounts, and your data stays on your device. The only thing that leaves your phone is the specific request you initiate to your own AI provider using your own API key.</p>
 
       <h3>Information You Provide</h3>
       <ul>
-        <li>Name, gender, date of birth, height, weight, and body fat percentage (entered during onboarding)</li>
+        <li>Gender, date of birth, height, weight, and body fat percentage (entered during onboarding)</li>
+        <li>Activity level, weight goal, target weight, and weekly weight-change rate</li>
         <li>Food photos taken within the app</li>
-        <li>Food entries and nutrition data you log</li>
+        <li>Food entries and nutrition data you log (including manual entries)</li>
         <li>Weight log entries</li>
-        <li>Dietary preferences and fitness goals</li>
         <li>Voice recordings (when using voice meal input)</li>
         <li>AI Coach chat messages (multi-turn conversation history)</li>
-        <li>AI provider and speech-to-text provider API keys (stored in iOS Keychain)</li>
+        <li>AI provider and speech-to-text provider API keys (stored encrypted on device — see below)</li>
+        <li>App preferences: appearance mode, units (metric / imperial), week-start day, notification times, language preference</li>
       </ul>
 
       <h3>How We Use Your Information</h3>
       <ul>
         <li><strong>AI Food Analysis:</strong> Food photos, text descriptions, and the text produced from voice input are sent to your chosen AI provider (any of 13 supported: Google Gemini, OpenAI, Anthropic Claude, xAI Grok, OpenRouter, Together AI, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama running locally, or a custom OpenAI-compatible endpoint you configure). You bring your own API key. We do not proxy, route, or intercept these requests — they go directly from your device to the provider you selected.</li>
-        <li><strong>AI Coach Chat:</strong> When you use the Coach tab, the app sends a system prompt built from your profile, recent weight entries, recent daily calorie totals, and your chosen conversation history to the AI provider you selected. Full chat history is kept locally in UserDefaults; only the last 20 messages are included in each LLM request to cap token cost.</li>
-        <li><strong>Speech-to-Text:</strong> If you pick Native iOS as your STT provider, voice recognition happens entirely on your device. If you pick a remote provider (OpenAI Whisper, Groq, Deepgram, AssemblyAI), a short audio recording is uploaded to that provider and its text response is returned to the app. No audio is ever uploaded anywhere else.</li>
-        <li><strong>Local Storage:</strong> All food entries, weight entries, user profile, Coach chat history, food photos, and app preferences are stored locally on your device in UserDefaults. Nothing leaves your device except the specific AI/STT requests described above.</li>
-        <li><strong>API Key Storage:</strong> Your API keys are stored in iOS Keychain — encrypted hardware-backed storage accessible only to the app on your device.</li>
-        <li><strong>Home Screen &amp; Lock Screen Widgets:</strong> To display today's calorie and macro totals, the main app writes a small snapshot (today's totals + goals) to a shared App Group container on your device. The widget extension reads this snapshot to render. The snapshot never leaves your device and contains only numbers — no food names, photos, or identifiers.</li>
-        <li><strong>Apple Health:</strong> If you enable Apple Health integration, the app writes body measurements (weight, height, body fat percentage) and 12 nutrition types per meal (calories, protein, carbs, fat, sugar, fiber, saturated fat, monounsaturated fat, polyunsaturated fat, cholesterol, sodium, potassium) to HealthKit. It also reads weight, height, body fat, date of birth, and biological sex from HealthKit to keep your profile accurate. You control this via iOS Settings → Health → Data Access → Fud AI.</li>
+        <li><strong>AI Coach Chat:</strong> When you use the Coach tab, the app sends a system prompt built from your profile, recent weight entries, recent daily calorie totals, and your conversation history to the AI provider you selected. Full chat history is kept locally; only the last 20 messages are included in each LLM request to cap token cost.</li>
+        <li><strong>Speech-to-Text:</strong> If you pick the on-device option (Native iOS on iPhone, Native Android <code>SpeechRecognizer</code> on Android), voice recognition happens entirely on your device. If you pick a remote provider (OpenAI Whisper, Groq, Deepgram, AssemblyAI), a short audio recording is uploaded to that provider and its text response is returned to the app. No audio is ever uploaded anywhere else.</li>
+        <li><strong>Local Storage:</strong> All food entries, weight entries, user profile, Coach chat history, food photos, and app preferences are stored locally on your device — in <code>UserDefaults</code> on iOS, in <code>DataStore Preferences</code> on Android. Nothing leaves your device except the specific AI/STT requests described above.</li>
+        <li><strong>API Key Storage:</strong> On iOS, your API keys are stored in iOS Keychain (encrypted, hardware-backed, accessible only to the app). On Android, they are stored in <code>EncryptedSharedPreferences</code> using AES-256 with the master key managed by Android Keystore (also hardware-backed on devices with a TEE / StrongBox).</li>
+        <li><strong>Widgets:</strong> To display today's calorie and macro totals on the Home Screen / Lock Screen, the main app writes a small snapshot (today's totals + goals) into a shared container — App Group on iOS, the same DataStore on Android. The widget reads this snapshot to render. The snapshot never leaves your device and contains only numbers — no food names, photos, or identifiers.</li>
+        <li><strong>Apple Health (iOS) / Health Connect (Android):</strong> If you enable health integration in Settings, the app writes body measurements (weight, height, body fat percentage) and per-meal nutrition (calories, protein, carbs, fat, sugar, fiber, saturated fat, monounsaturated fat, polyunsaturated fat, cholesterol, sodium, potassium) to the platform's health store. It also reads weight (and on iOS, height, body fat, date of birth, biological sex) back into your profile — and on Android, automatically imports external weight samples from any other Health Connect–compatible app (Samsung Health, Fitbit, Withings, etc.). You control this via iOS Settings → Health → Data Access → Fud AI, or via the Health Connect app on Android.</li>
+        <li><strong>Notifications:</strong> If you enable streak or daily-summary reminders, they are scheduled locally via iOS local notifications (iOS) or <code>AlarmManager</code> + <code>POST_NOTIFICATIONS</code> permission (Android 13+). No notification content is ever sent to a server.</li>
       </ul>
 
       <h3>Information We Do NOT Collect</h3>
@@ -90,19 +92,20 @@
       <h3>Data Storage &amp; Security</h3>
       <table class="legal-table">
         <thead>
-          <tr><th>Data</th><th>Storage Location</th><th>Accessible By</th></tr>
+          <tr><th>Data</th><th>Storage Location (iOS)</th><th>Storage Location (Android)</th><th>Accessible By</th></tr>
         </thead>
         <tbody>
-          <tr><td>Food entries &amp; photos</td><td>Device only (UserDefaults)</td><td>You only</td></tr>
-          <tr><td>Weight entries</td><td>Device only (UserDefaults)</td><td>You only</td></tr>
-          <tr><td>User profile</td><td>Device only (UserDefaults)</td><td>You only</td></tr>
-          <tr><td>Coach chat history</td><td>Device only (UserDefaults)</td><td>You only</td></tr>
-          <tr><td>Widget snapshot (today's totals)</td><td>Device only (App Group container)</td><td>You only</td></tr>
-          <tr><td>API keys (LLM + STT)</td><td>iOS Keychain (encrypted)</td><td>You only</td></tr>
-          <tr><td>Food photos (for AI analysis)</td><td>Sent to your chosen AI provider</td><td>Processed in transit per that provider's policy</td></tr>
-          <tr><td>Voice audio (remote STT)</td><td>Sent to your chosen STT provider</td><td>Processed in transit per that provider's policy</td></tr>
-          <tr><td>Coach chat messages</td><td>Sent to your chosen AI provider</td><td>Processed in transit per that provider's policy</td></tr>
-          <tr><td>Health data</td><td>Apple HealthKit</td><td>You + apps you authorize</td></tr>
+          <tr><td>Food entries</td><td>UserDefaults</td><td>DataStore Preferences</td><td>You only</td></tr>
+          <tr><td>Food photos</td><td>App Support directory</td><td><code>filesDir/fudai-food-images/</code></td><td>You only</td></tr>
+          <tr><td>Weight entries</td><td>UserDefaults</td><td>DataStore Preferences</td><td>You only</td></tr>
+          <tr><td>User profile</td><td>UserDefaults</td><td>DataStore Preferences</td><td>You only</td></tr>
+          <tr><td>Coach chat history</td><td>UserDefaults</td><td>DataStore Preferences</td><td>You only</td></tr>
+          <tr><td>Widget snapshot (today's totals)</td><td>App Group container</td><td>Same DataStore</td><td>You only</td></tr>
+          <tr><td>API keys (LLM + STT)</td><td>iOS Keychain</td><td>EncryptedSharedPreferences (AES-256, AndroidKeystore-backed)</td><td>You only</td></tr>
+          <tr><td>Food photos (for AI analysis)</td><td colspan="2">Sent to your chosen AI provider</td><td>Processed in transit per that provider's policy</td></tr>
+          <tr><td>Voice audio (remote STT)</td><td colspan="2">Sent to your chosen STT provider</td><td>Processed in transit per that provider's policy</td></tr>
+          <tr><td>Coach chat messages</td><td colspan="2">Sent to your chosen AI provider</td><td>Processed in transit per that provider's policy</td></tr>
+          <tr><td>Health data</td><td>Apple HealthKit</td><td>Health Connect</td><td>You + apps you authorize</td></tr>
         </tbody>
       </table>
 
@@ -125,15 +128,26 @@
       </ul>
       <p>If you use Ollama or a custom OpenAI-compatible endpoint, requests go to whatever URL you configure — typically your own machine or a self-hosted server.</p>
 
+      <h3>Permissions Requested</h3>
+      <ul>
+        <li><strong>Camera</strong> — for snapping food photos. Prompted on first use.</li>
+        <li><strong>Microphone / Speech Recognition</strong> — for voice meal input. Prompted on first use.</li>
+        <li><strong>Photo Library / Storage</strong> — to pick existing food photos. iOS uses <code>PHPicker</code>; Android uses the system <code>PickVisualMedia</code> photo picker — neither requires broad photo-library access.</li>
+        <li><strong>Notifications</strong> — only if you enable streak or daily-summary reminders. On Android 13+, this triggers the runtime <code>POST_NOTIFICATIONS</code> permission prompt.</li>
+        <li><strong>Health</strong> — only if you flip on Apple Health (iOS) or Health Connect (Android) integration. The system permission sheet lists exactly which read/write types are requested.</li>
+        <li><strong>Internet</strong> — required for AI/STT requests to your chosen providers. Implicit on iOS; declared in <code>AndroidManifest.xml</code> on Android.</li>
+        <li><strong>Battery Optimization (Android, optional)</strong> — Settings exposes a deep-link to whitelist Fud AI in Android's battery-optimization list. This is needed on aggressive OEM skins (OriginOS, MIUI/HyperOS, One UI) where exact alarms are killed otherwise. Whitelisting only affects local reminder reliability — it does not change anything about data handling.</li>
+      </ul>
+
       <h3>Open Source</h3>
       <p>Fud AI is open source under the MIT License. You can review exactly what the app does — including every network call — at <a href="https://github.com/apoorvdarshan/fud-ai" target="_blank">github.com/apoorvdarshan/fud-ai</a>.</p>
 
       <h3>Data Retention &amp; Deletion</h3>
       <ul>
         <li>All data remains on your device until you delete it or uninstall the app.</li>
-        <li><strong>Delete All Data</strong> (Profile → Delete All Data) wipes the app's local storage: food log, weight log, profile, Coach chat history, saved meals, widget snapshot, API keys, and preferences. It <strong>intentionally does not touch Apple Health</strong> — your HealthKit samples are personal and survive the reset. If you want them removed too, go to iOS Settings → Health → Data Access &amp; Devices → Fud AI and delete the data from there.</li>
-        <li><strong>Clear Food Log</strong> (Profile → Clear Food Log) removes local food entries only; previously-synced Apple Health samples are kept.</li>
-        <li>Uninstalling the app removes everything in its sandbox (same as Delete All Data) — again, Apple Health samples persist in Health unless deleted separately.</li>
+        <li><strong>Delete All Data</strong> (Settings → Delete All Data) wipes the app's local storage on both platforms: food log, weight log, profile, Coach chat history, saved meals, widget snapshot, API keys, and preferences. It <strong>intentionally does not touch Apple Health or Health Connect</strong> — those samples are personal and survive the reset. If you want them removed too, on iOS go to Settings → Health → Data Access &amp; Devices → Fud AI; on Android use the Health Connect app's data management screen.</li>
+        <li><strong>Clear Food Log</strong> (Settings → Clear Food Log) removes local food entries only; previously-synced Apple Health / Health Connect samples are kept.</li>
+        <li>Uninstalling the app removes everything in its sandbox (same as Delete All Data) — again, Apple Health / Health Connect samples persist unless deleted separately.</li>
       </ul>
 
       <h3>Children's Privacy</h3>
@@ -156,7 +170,7 @@
           <img src="assets/calorie logo transparent.png" alt="Fud AI">
           <span>Fud AI</span>
         </a>
-        <p>An open-source iOS calorie tracker that puts you in charge of the AI, the data, and the device.</p>
+        <p>An open-source iOS and Android calorie tracker that puts you in charge of the AI, the data, and the device.</p>
         <div class="footer-socials">
           <a href="mailto:apoorv@fud-ai.app" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
           <a href="https://github.com/apoorvdarshan/fud-ai" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
@@ -191,7 +205,7 @@
     </div>
     <div class="footer-bottom">
       <span>© 2026 Apoorv Darshan · Set in Fraunces &amp; Manrope</span>
-      <span>Volume 02 · No. 01</span>
+      <span>Volume 03 · No. 01</span>
     </div>
   </div>
 </footer>

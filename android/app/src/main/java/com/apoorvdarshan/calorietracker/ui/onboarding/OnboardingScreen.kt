@@ -658,13 +658,19 @@ private fun goalIcon(goal: WeightGoal): ImageVector = when (goal) {
 
 @Composable
 private fun GoalWeightStep(current: Double, goal: WeightGoal, useMetric: Boolean, onChange: (Double) -> Unit, onToggle: (Boolean) -> Unit) {
-    // iOS desiredWeightStep: title "What's your\ndesired weight?", subtitle is
-    // goal.displayName, integer wheel picker; no unit toggle (respects
-    // profile useMetric).
+    // Same Imperial/Metric toggle as HeightWeightStep so the user can switch
+    // units without backing out to change Settings first.
     Column(Modifier.fillMaxSize()) {
         StepHeader(
             stringResource(R.string.onboarding_desired_weight_title),
             subtitle = stringResource(goal.displayNameRes)
+        )
+        UnitToggle(
+            leftLabel = stringResource(R.string.onboarding_imperial),
+            rightLabel = stringResource(R.string.onboarding_metric),
+            isLeft = !useMetric,
+            onSelect = { isLeftSel -> onToggle(!isLeftSel) },
+            modifier = Modifier.fillMaxWidth()
         )
         Spacer(Modifier.weight(1f))
         if (useMetric) {

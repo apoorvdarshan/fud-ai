@@ -14,7 +14,7 @@ Food & Macro Tracker
 
 ## Promotional Text (170 chars max)
 ```
-Snap, speak, or type a meal — AI logs the calories. Now with Coach: ask your nutrition questions in plain English. Free, open source, on-device.
+Snap, speak, type, or now manually enter a meal — AI logs the macros. New Protein widget, Gemini 3 models, and Coach chat. Free, open source, on-device.
 ```
 
 ## Keywords (100 chars max)
@@ -46,26 +46,32 @@ Polish
 ```
 Fud AI makes calorie tracking effortless with AI-powered food recognition. Snap a photo, speak it, or type it — and get instant, accurate nutrition data: calories, protein, carbs, fats, and 9 micronutrients.
 
-NEW in v3.0: Coach — a multi-turn AI chat that sees your profile, weight history, and food log. Ask anything, in plain English.
+NEW in v3.1: Manual Entry for fully manual logging, a dedicated Protein widget across all 5 widget families, and the Gemini 3 model lineup (3.1 Flash Lite, 3.1 Pro, and 3 Flash) in the AI Provider picker.
 
 Fud AI is free, open source, and privacy-first. Bring your own API key. All data stays on your device.
 
 HOW TO USE FUD AI:
 
 1) Set up your profile with your goals and body stats
-2) Snap, speak, or type your meal — review and save
+2) Snap, speak, type, or manually enter your meal — review and save
 3) Ask the Coach anything: trends, predictions, advice
 4) Track your progress over time on charts and widgets
 
+4 WAYS TO LOG A MEAL
+• Snap a photo — AI identifies the food and returns nutrition
+• Speak it — voice input with 5 STT engines (native iOS or remote)
+• Type it — describe the meal in plain language and AI parses it
+• Manual Entry — type name, calories, and macros directly when you don't need AI; meal-type picker (Breakfast / Lunch / Dinner / Snack / Other) defaults to the time of day
+
 13 AI PROVIDERS SUPPORTED
-• Google Gemini, OpenAI, Anthropic Claude, xAI Grok, Groq, OpenRouter, Together AI, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama (local), and any OpenAI-compatible endpoint
+• Google Gemini (including the new Gemini 3.1 Flash Lite, 3.1 Pro, and 3 Flash), OpenAI, Anthropic Claude, xAI Grok, Groq, OpenRouter, Together AI, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama (local), and any OpenAI-compatible endpoint
 • Switch providers and models anytime
 • API keys stored securely in iOS Keychain
 
 5 SPEECH-TO-TEXT ENGINES
 • Native iOS, OpenAI Whisper, Groq, Deepgram, AssemblyAI
 
-COACH (NEW)
+COACH
 • Multi-turn AI chat tab
 • Sees your full profile, weight trend, daily macro totals, and last 10 weight entries
 • Goal-aware prompts — different chips for Lose / Gain / Maintain
@@ -87,12 +93,13 @@ PROGRESS & ANALYTICS
 • Calorie trend chart with daily intake vs goal
 • Macro averages over 1W, 1M, 3M, 6M, 1Y, or All Time
 
-WIDGETS (NEW)
-• Home Screen widgets — Small and Medium
-• Lock Screen widgets — Circular, Rectangular, Inline
-• Today's calories, macros, and goal — at a glance
+WIDGETS
+• Two widget types — Calorie and Protein (NEW in v3.1) — each available in all 5 families
+• Home Screen — Small and Medium
+• Lock Screen — Circular, Rectangular, Inline
+• Today's calories, protein, macros, and goals — at a glance, no app open
 
-15 LANGUAGES (NEW)
+15 LANGUAGES
 • English, Spanish, French, German, Italian, Portuguese (BR), Dutch, Russian, Japanese, Korean, Chinese (Simplified), Hindi, Arabic, Romanian, Azerbaijani
 
 PRIVACY FIRST
@@ -105,6 +112,9 @@ APPLE HEALTH
 • Two-way sync for nutrition, weight, height, and body fat
 • External samples (Apple Watch, scales, Health app) auto-imported
 • Background observer for real-time updates
+
+ALSO ON ANDROID
+• Fud AI now ships on Google Play with full feature parity — Health Connect sync, Glance widgets (Calorie + Protein), all 13 AI providers, all 5 STT engines, all 15 languages
 
 I built Fud AI because tracking calories shouldn't feel like a chore. I want to make healthy eating simple and accessible for everyone.
 

@@ -61,8 +61,9 @@ android {
         }
         debug {
             // Suffix the package + version so the debug build installs side-by-side
-            // with the production app pulled from Play Store. The launcher label is
-            // overridden via app/src/debug/res/values/strings.xml.
+            // with the production app pulled from Play Store. Launcher label stays
+            // "Fud AI" (same as release) — distinguish the two by the install order
+            // / icon position rather than a separate label.
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
         }

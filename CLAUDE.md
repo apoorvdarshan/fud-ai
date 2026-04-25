@@ -309,6 +309,8 @@ Build the AAB Play Console wants:
 # output: app/build/outputs/bundle/release/app-release.aab
 ```
 
+**Shipped artifacts live in `android/release/`** (tracked in git, ~24 MB and growing). After every Play-Store-bound build, copy the signed outputs into that folder as `fudai-v<MARKETING>.aab` + `fudai-v<MARKETING>.apk` and commit them — this gives us an offline archive of every Play Console upload so a side-load reproducer (or an internal-track recovery) is always one `git checkout` away. Older versions are never deleted.
+
 **ProGuard/R8 keep rules** (`app/proguard-rules.pro`) — these caught real release-only crashes during prep, don't strip them:
 
 1. **kotlinx.serialization** — every `@Serializable` data class is reflected at runtime to find its generated `$$serializer` companion. Without keep rules, DataStore + widget snapshot decode fails with `NoSuchMethodError: serializer()`.

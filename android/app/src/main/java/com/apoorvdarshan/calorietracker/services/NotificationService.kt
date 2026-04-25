@@ -22,11 +22,15 @@ import java.util.Calendar
  *   - Streak reminder: daily at user-chosen time (default 7:00pm)
  *   - Daily summary: daily at user-chosen time (default 9:00pm)
  *
+ * Uses inexact alarms (setAndAllowWhileIdle) — a daily nudge firing within a
+ * few minutes of the chosen time is perfectly fine, and Play Store reserves
+ * the exact-alarm permission for calendar / alarm-clock apps only.
+ *
  * Also owns the "weight_goal" channel used from WeightRepository crossings.
  *
- * OriginOS / MIUI / HyperOS aggressive battery optimization kills exact alarms
- * unless the app is whitelisted — Settings UI exposes a deep link to the
- * battery-optimization exception screen.
+ * OriginOS / MIUI / HyperOS aggressive battery optimization can still kill
+ * inexact alarms unless the app is whitelisted — Settings UI exposes a deep
+ * link to the battery-optimization exception screen.
  */
 class NotificationService(private val context: Context) {
 
@@ -119,12 +123,7 @@ class NotificationService(private val context: Context) {
             if (before(now)) add(Calendar.DAY_OF_MONTH, 1)
         }
 
-        val canUseExact = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) am.canScheduleExactAlarms() else true
-        if (canUseExact) {
-            am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, fire.timeInMillis, pi)
-        } else {
-            am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, fire.timeInMillis, pi)
-        }
+        am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, fire.timeInMillis, pi)
     }
 
     private fun cancel(requestCode: Int) {
@@ -187,12 +186,7 @@ class ReminderReceiver : BroadcastReceiver() {
             context, request, reIntent,
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val canUseExact = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) am.canScheduleExactAlarms() else true
-        if (canUseExact) {
-            am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextFire, pi)
-        } else {
-            am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextFire, pi)
-        }
+        am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, nextFire, pi)
     }
 }
 

@@ -17,12 +17,19 @@ struct OnboardingView: View {
     @State private var heightFeet = 5
     @State private var heightInches = 9
     @State private var heightCm = 175
-    @State private var weightLbs = 154
-    @State private var weightKg = 70
+    // Weights are split into whole + tenth so the SwiftUI wheel picker can stay
+    // Int-tagged (fractional tags don't pair cleanly with Picker) while users
+    // still get 0.1-precision selection. Combine via `Double(whole) + Double(tenth) / 10.0`.
+    @State private var weightLbsWhole = 154
+    @State private var weightLbsTenth = 0
+    @State private var weightKgWhole = 70
+    @State private var weightKgTenth = 0
     @State private var activityLevel: ActivityLevel = .moderate
     @State private var goal: WeightGoal = .maintain
-    @State private var targetWeightLbs = 154
-    @State private var targetWeightKg = 70
+    @State private var targetWeightLbsWhole = 154
+    @State private var targetWeightLbsTenth = 0
+    @State private var targetWeightKgWhole = 70
+    @State private var targetWeightKgTenth = 0
     @State private var goalSpeed = 1
     @State private var knowsBodyFat = false
     @State private var bodyFatPercentage = 20
@@ -43,17 +50,25 @@ struct OnboardingView: View {
 
     private let totalSteps = 15 // 0-14
 
+    /// Combine the whole + tenth wheel selections into a single Double.
+    private func combine(_ whole: Int, _ tenth: Int) -> Double { Double(whole) + Double(tenth) / 10.0 }
+
+    private var weightKg: Double { combine(weightKgWhole, weightKgTenth) }
+    private var weightLbs: Double { combine(weightLbsWhole, weightLbsTenth) }
+    private var targetWeightKg: Double { combine(targetWeightKgWhole, targetWeightKgTenth) }
+    private var targetWeightLbs: Double { combine(targetWeightLbsWhole, targetWeightLbsTenth) }
+
     private var profile: UserProfile {
         let cm: Double
         let kg: Double
         if isMetric {
             cm = Double(heightCm)
-            kg = Double(weightKg)
+            kg = weightKg
         } else {
             cm = Double(heightFeet) * 30.48 + Double(heightInches) * 2.54
-            kg = Double(weightLbs) * 0.453592
+            kg = weightLbs * 0.453592
         }
-        let targetKg: Double? = goal == .maintain ? nil : (isMetric ? Double(targetWeightKg) : Double(targetWeightLbs) * 0.453592)
+        let targetKg: Double? = goal == .maintain ? nil : (isMetric ? targetWeightKg : targetWeightLbs * 0.453592)
         return UserProfile(
             gender: gender,
             birthday: birthday,
@@ -238,7 +253,7 @@ struct OnboardingView: View {
             .onChange(of: isMetric) { _, newValue in useMetric = newValue }
             Spacer()
             if isMetric {
-                HStack(spacing: 0) {
+                HStack(spacing: 4) {
                     VStack(spacing: 4) {
                         Text("Height").font(.system(.caption, design: .rounded, weight: .medium)).foregroundStyle(.secondary)
                         Picker("cm", selection: $heightCm) {
@@ -247,13 +262,11 @@ struct OnboardingView: View {
                     }
                     VStack(spacing: 4) {
                         Text("Weight").font(.system(.caption, design: .rounded, weight: .medium)).foregroundStyle(.secondary)
-                        Picker("kg", selection: $weightKg) {
-                            ForEach(30...250, id: \.self) { kg in Text("\(kg) kg").tag(kg) }
-                        }.pickerStyle(.wheel)
+                        decimalWeightWheel(whole: $weightKgWhole, tenth: $weightKgTenth, range: 30...250, unit: "kg")
                     }
-                }.padding(.horizontal, 24)
+                }.padding(.horizontal, 16)
             } else {
-                HStack(spacing: 0) {
+                HStack(spacing: 4) {
                     VStack(spacing: 4) {
                         Text("Feet").font(.system(.caption, design: .rounded, weight: .medium)).foregroundStyle(.secondary)
                         Picker("ft", selection: $heightFeet) {
@@ -268,11 +281,9 @@ struct OnboardingView: View {
                     }
                     VStack(spacing: 4) {
                         Text("Weight").font(.system(.caption, design: .rounded, weight: .medium)).foregroundStyle(.secondary)
-                        Picker("lbs", selection: $weightLbs) {
-                            ForEach(60...500, id: \.self) { lb in Text("\(lb) lbs").tag(lb) }
-                        }.pickerStyle(.wheel)
+                        decimalWeightWheel(whole: $weightLbsWhole, tenth: $weightLbsTenth, range: 60...500, unit: "lbs")
                     }
-                }.padding(.horizontal, 24)
+                }.padding(.horizontal, 16)
             }
             Spacer()
             continueButton()
@@ -416,16 +427,17 @@ struct OnboardingView: View {
             .padding(.horizontal, 24)
             Spacer()
             continueButton {
-                if goal == .lose {
-                    targetWeightLbs = max(90, weightLbs - 10)
-                    targetWeightKg = max(40, weightKg - 5)
-                } else if goal == .gain {
-                    targetWeightLbs = weightLbs + 10
-                    targetWeightKg = weightKg + 5
-                } else {
-                    targetWeightLbs = weightLbs
-                    targetWeightKg = weightKg
-                }
+                // Seed the desired-weight wheels from the current weight + a
+                // direction-appropriate offset. Whole-number offsets (5/10) are
+                // fine — the user can fine-tune the tenth wheel in the next step.
+                let lbsDelta = goal == .lose ? -10 : (goal == .gain ? 10 : 0)
+                let kgDelta  = goal == .lose ? -5  : (goal == .gain ? 5  : 0)
+                let newLbsWhole = max(60, weightLbsWhole + lbsDelta)
+                let newKgWhole  = max(30, weightKgWhole + kgDelta)
+                targetWeightLbsWhole = newLbsWhole
+                targetWeightLbsTenth = weightLbsTenth
+                targetWeightKgWhole  = newKgWhole
+                targetWeightKgTenth  = weightKgTenth
             }
         }
     }
@@ -435,8 +447,8 @@ struct OnboardingView: View {
     private var weightUnit: String { isMetric ? "kg" : "lbs" }
 
     private var weightDiffKg: Double {
-        let currentKg = isMetric ? Double(weightKg) : Double(weightLbs) * 0.453592
-        let targetKg = isMetric ? Double(targetWeightKg) : Double(targetWeightLbs) * 0.453592
+        let currentKg = isMetric ? weightKg : weightLbs * 0.453592
+        let targetKg = isMetric ? targetWeightKg : targetWeightLbs * 0.453592
         return abs(targetKg - currentKg)
     }
 
@@ -445,16 +457,46 @@ struct OnboardingView: View {
             stepHeader(title: "What's your\ndesired weight?", subtitle: goal.displayName)
             Spacer()
             if isMetric {
-                Picker("kg", selection: $targetWeightKg) {
-                    ForEach(30...250, id: \.self) { kg in Text("\(kg) kg").tag(kg) }
-                }.pickerStyle(.wheel).frame(height: 150).padding(.horizontal, 24)
+                decimalWeightWheel(whole: $targetWeightKgWhole, tenth: $targetWeightKgTenth, range: 30...250, unit: "kg")
+                    .frame(height: 150).padding(.horizontal, 24)
             } else {
-                Picker("lbs", selection: $targetWeightLbs) {
-                    ForEach(60...500, id: \.self) { lb in Text("\(lb) lbs").tag(lb) }
-                }.pickerStyle(.wheel).frame(height: 150).padding(.horizontal, 24)
+                decimalWeightWheel(whole: $targetWeightLbsWhole, tenth: $targetWeightLbsTenth, range: 60...500, unit: "lbs")
+                    .frame(height: 150).padding(.horizontal, 24)
             }
             Spacer()
             continueButton()
+        }
+    }
+
+    /// Reusable iOS-26-style two-wheel decimal picker for body weight (whole +
+    /// tenth + unit suffix). Keeps the wheel selections Int-tagged — Picker
+    /// doesn't pair cleanly with Double tags — and the parent computes the
+    /// combined Double via `combine(_:_:)`.
+    private func decimalWeightWheel(whole: Binding<Int>, tenth: Binding<Int>, range: ClosedRange<Int>, unit: String) -> some View {
+        HStack(spacing: 0) {
+            Picker("whole", selection: whole) {
+                ForEach(range, id: \.self) { n in Text("\(n)").tag(n) }
+            }
+            .pickerStyle(.wheel)
+            .frame(maxWidth: .infinity)
+            .clipped()
+
+            Text(".")
+                .font(.system(size: 24, weight: .bold, design: .rounded))
+                .offset(y: -1)
+                .foregroundStyle(.secondary)
+
+            Picker("tenth", selection: tenth) {
+                ForEach(0...9, id: \.self) { n in Text("\(n)").tag(n) }
+            }
+            .pickerStyle(.wheel)
+            .frame(width: 56)
+            .clipped()
+
+            Text(unit)
+                .font(.system(.caption, design: .rounded))
+                .foregroundStyle(.secondary)
+                .padding(.leading, 4)
         }
     }
 
@@ -1178,7 +1220,12 @@ struct BuildingPlanStepView: View {
                     Capsule().fill(Color.primary.opacity(0.08))
                     Capsule()
                         .fill(
-                            LinearGradient(colors: AppColors.calorieGradient + [Color.blue.opacity(0.6)], startPoint: .leading, endPoint: .trailing)
+                            // Mono-pink to match the rest of the brand surface
+                            // (macro rings, home + button, PlanReady calorie
+                            // number) — earlier 3-stop gradient ended in blue
+                            // and read as off-brand against the otherwise
+                            // pink-only palette.
+                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
                         )
                         .frame(width: geo.size.width * progress)
                         .animation(.easeInOut(duration: 0.4), value: progress)

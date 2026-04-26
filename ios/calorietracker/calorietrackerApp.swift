@@ -13,6 +13,7 @@ import WidgetKit
 struct calorietrackerApp: App {
     @State private var foodStore = FoodStore()
     @State private var weightStore = WeightStore()
+    @State private var bodyFatStore = BodyFatStore()
     @State private var notificationManager = NotificationManager()
     @State private var healthKitManager = HealthKitManager()
     @State private var profileStore = ProfileStore()
@@ -45,6 +46,7 @@ struct calorietrackerApp: App {
                     ContentView()
                         .environment(foodStore)
                         .environment(weightStore)
+                        .environment(bodyFatStore)
                         .environment(notificationManager)
                         .environment(healthKitManager)
                         .environment(profileStore)
@@ -54,6 +56,7 @@ struct calorietrackerApp: App {
                         .environment(notificationManager)
                         .environment(foodStore)
                         .environment(weightStore)
+                        .environment(bodyFatStore)
                         .environment(healthKitManager)
                         .environment(profileStore)
                         .environment(chatStore)
@@ -96,6 +99,12 @@ struct calorietrackerApp: App {
                 // which produced a 70 kg phantom entry for every fresh user.
                 if let profile = UserProfile.load() {
                     weightStore.seedInitialWeightFromProfileIfEmpty(profile.weightKg)
+                    // Same idea for body fat — only when the user actually
+                    // entered a value during the onboarding body-fat step.
+                    // Skipped when bodyFatPercentage is nil (the "No" branch).
+                    if let bf = profile.bodyFatPercentage {
+                        bodyFatStore.seedInitialBodyFatFromProfileIfEmpty(bf)
+                    }
                 }
                 refreshWidgetSnapshot()
             }

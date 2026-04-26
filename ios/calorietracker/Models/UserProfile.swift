@@ -118,6 +118,10 @@ struct UserProfile: Codable, Equatable {
     var activityLevel: ActivityLevel
     var goal: WeightGoal
     var bodyFatPercentage: Double?
+    /// Target body-fat fraction (0.0–1.0). Display-only — does NOT participate
+    /// in BMR / TDEE / macro calculations. Only shown to users who entered a
+    /// current body-fat % in onboarding (or set one later via Settings).
+    var goalBodyFatPercentage: Double?
     var weeklyChangeKg: Double?
     var goalWeightKg: Double?
     var customCalories: Int?
@@ -275,6 +279,7 @@ struct UserProfile: Codable, Equatable {
         activityLevel: .moderate,
         goal: .maintain,
         bodyFatPercentage: nil,
+        goalBodyFatPercentage: nil,
         weeklyChangeKg: nil,
         goalWeightKg: nil,
         customCalories: nil,

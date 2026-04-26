@@ -26,6 +26,10 @@ struct OnboardingView: View {
     @State private var goalSpeed = 1
     @State private var knowsBodyFat = false
     @State private var bodyFatPercentage = 20
+    /// Optional target body-fat % (whole number, 3–60). Nil means "skip" — the
+    /// user opted out, or hasn't entered a current body fat (the goal field
+    /// only appears when knowsBodyFat is true).
+    @State private var goalBodyFatPercentInt: Int? = nil
     @State private var editedCalories: Int?
     @State private var editedProtein: Int?
     @State private var editedFat: Int?
@@ -58,6 +62,7 @@ struct OnboardingView: View {
             activityLevel: activityLevel,
             goal: goal,
             bodyFatPercentage: knowsBodyFat ? Double(bodyFatPercentage) / 100.0 : nil,
+            goalBodyFatPercentage: knowsBodyFat ? goalBodyFatPercentInt.map { Double($0) / 100.0 } : nil,
             weeklyChangeKg: goal == .maintain ? nil : weeklyChangeKg,
             goalWeightKg: targetKg
         )
@@ -290,17 +295,73 @@ struct OnboardingView: View {
             }
             .padding(.horizontal, 24)
             if knowsBodyFat {
-                Picker("Body Fat %", selection: $bodyFatPercentage) {
-                    ForEach(3...60, id: \.self) { pct in Text("\(pct)%").tag(pct) }
+                ScrollView {
+                    VStack(spacing: 16) {
+                        VStack(spacing: 4) {
+                            Text("Current")
+                                .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                                .foregroundStyle(.secondary)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 24)
+                            Picker("Body Fat %", selection: $bodyFatPercentage) {
+                                ForEach(3...60, id: \.self) { pct in Text("\(pct)%").tag(pct) }
+                            }
+                            .pickerStyle(.wheel)
+                            .frame(height: 130)
+                            .padding(.horizontal, 24)
+                            Text("Common ranges: Men 10–25%, Women 18–35%")
+                                .font(.system(.caption, design: .rounded))
+                                .foregroundStyle(.secondary)
+                                .frame(maxWidth: .infinity)
+                        }
+
+                        // Optional goal sub-section. Skip is the default — keeping it
+                        // off-by-default avoids surprising users who don't have a
+                        // body-recomp goal in mind. Goal body fat % is display-only
+                        // (drives the Progress tab chart line) — it does NOT
+                        // participate in BMR / TDEE / macro math.
+                        VStack(spacing: 4) {
+                            HStack {
+                                Text("Goal (optional)")
+                                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                                    .foregroundStyle(.secondary)
+                                Spacer()
+                                Toggle("", isOn: Binding(
+                                    get: { goalBodyFatPercentInt != nil },
+                                    set: { isOn in
+                                        // Default the goal to the current value
+                                        // when toggled on — gives the user a sane
+                                        // starting point to scroll up/down from.
+                                        goalBodyFatPercentInt = isOn ? bodyFatPercentage : nil
+                                    }
+                                ))
+                                .labelsHidden()
+                                .tint(AppColors.calorie)
+                            }
+                            .padding(.horizontal, 24)
+
+                            if let _ = goalBodyFatPercentInt {
+                                Picker("Goal Body Fat %", selection: Binding(
+                                    get: { goalBodyFatPercentInt ?? bodyFatPercentage },
+                                    set: { goalBodyFatPercentInt = $0 }
+                                )) {
+                                    ForEach(3...60, id: \.self) { pct in Text("\(pct)%").tag(pct) }
+                                }
+                                .pickerStyle(.wheel)
+                                .frame(height: 110)
+                                .padding(.horizontal, 24)
+                            } else {
+                                Text("You can set this later in Settings.")
+                                    .font(.system(.caption, design: .rounded))
+                                    .foregroundStyle(.tertiary)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.horizontal, 24)
+                                    .padding(.top, 4)
+                            }
+                        }
+                    }
+                    .padding(.vertical, 8)
                 }
-                .pickerStyle(.wheel)
-                .frame(height: 150)
-                .padding(.horizontal, 24)
-                Text("Common ranges: Men 10–25%, Women 18–35%")
-                    .font(.system(.caption, design: .rounded))
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity)
-                    .padding(.top, 4)
             } else {
                 VStack(spacing: 8) {
                     Image(systemName: "function")

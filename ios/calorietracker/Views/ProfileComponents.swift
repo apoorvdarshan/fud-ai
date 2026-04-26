@@ -350,6 +350,96 @@ struct BodyFatPickerSheet: View {
     }
 }
 
+// MARK: - Goal Body Fat Picker Sheet
+
+/// Same wheel + Save UX as BodyFatPickerSheet but the title and the destructive
+/// button text are framed as a "goal" — which is a separate, optional, display-
+/// only number that lives alongside `bodyFatPercentage` on UserProfile.
+struct GoalBodyFatPickerSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    let currentGoal: Double?
+    let currentBodyFat: Double?
+    let onSave: (Double?) -> Void
+
+    @State private var percentage: Int
+
+    init(currentGoal: Double?, currentBodyFat: Double?, onSave: @escaping (Double?) -> Void) {
+        self.currentGoal = currentGoal
+        self.currentBodyFat = currentBodyFat
+        self.onSave = onSave
+        // Seed from the existing goal, falling back to the user's current
+        // body-fat value so the wheel lands somewhere sensible on first open.
+        let seed = currentGoal ?? currentBodyFat ?? 0.15
+        _percentage = State(initialValue: Int(seed * 100))
+    }
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 16) {
+                Text("Body Fat Goal")
+                    .font(.system(.title2, design: .rounded, weight: .bold))
+
+                if let bf = currentBodyFat {
+                    Text("Currently \(Int(bf * 100))%")
+                        .font(.system(.subheadline, design: .rounded))
+                        .foregroundStyle(.secondary)
+                }
+
+                HStack(spacing: 0) {
+                    Picker("Percentage", selection: $percentage) {
+                        ForEach(3...60, id: \.self) { n in
+                            Text("\(n)").tag(n)
+                                .font(.system(.title2, design: .rounded, weight: .medium))
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(width: 100)
+                    .clipped()
+
+                    Text("%")
+                        .font(.system(.title3, design: .rounded))
+                        .foregroundStyle(.secondary)
+                        .padding(.leading, 4)
+                }
+
+                Button {
+                    onSave(Double(percentage) / 100.0)
+                    dismiss()
+                } label: {
+                    Text("Save")
+                        .font(.system(.headline, design: .rounded, weight: .semibold))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(
+                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
+                        )
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                }
+                .padding(.horizontal, 24)
+
+                Button {
+                    onSave(nil)
+                    dismiss()
+                } label: {
+                    Text("Remove Goal")
+                        .font(.system(.subheadline, design: .rounded, weight: .medium))
+                        .foregroundStyle(.red)
+                }
+
+                Spacer()
+            }
+            .padding(.top, 24)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+            }
+        }
+        .presentationDetents([.medium])
+    }
+}
+
 // MARK: - Activity Level Selection View
 
 struct ActivityLevelSelectionView: View {

@@ -1131,10 +1131,12 @@ struct MacroPill: View {
 struct ProgressTabView: View {
     @Environment(FoodStore.self) private var foodStore
     @Environment(WeightStore.self) private var weightStore
+    @Environment(BodyFatStore.self) private var bodyFatStore
     @Environment(ProfileStore.self) private var profileStore
     @AppStorage("useMetric") private var useMetric = false
     @State private var timeRange: TimeRange = .week
     @State private var showLogWeight = false
+    @State private var showLogBodyFat = false
     @State private var showGoalReached = false
     @State private var showAllWeights = false
 
@@ -1144,6 +1146,21 @@ struct ProgressTabView: View {
 
     private var filteredWeightEntries: [WeightEntry] {
         weightStore.entries(in: dateRange)
+    }
+
+    private var filteredBodyFatEntries: [BodyFatEntry] {
+        bodyFatStore.entries(in: dateRange)
+    }
+
+    /// Show the Body Fat section to anyone who has either logged a reading,
+    /// set a current value (legacy users from before BodyFatStore existed —
+    /// they won't have any entries yet but we still want to show the tracker
+    /// + Log button so they can start), or set a goal. Hidden entirely for
+    /// users who skipped the body-fat track in onboarding.
+    private var showsBodyFatSection: Bool {
+        !bodyFatStore.entries.isEmpty
+            || userProfile.bodyFatPercentage != nil
+            || userProfile.goalBodyFatPercentage != nil
     }
 
     private var dailyCalories: [(date: Date, calories: Int)] {
@@ -1208,6 +1225,19 @@ struct ProgressTabView: View {
                         .padding(.horizontal)
                     }
 
+                    // Body Fat Trend — only surfaced for users who opted into
+                    // body-fat tracking (via onboarding "Yes I know my body
+                    // fat %" or by setting it later in Settings → Profile).
+                    if showsBodyFatSection {
+                        BodyFatChartSection(
+                            entries: filteredBodyFatEntries,
+                            goalBodyFatFraction: userProfile.goalBodyFatPercentage,
+                            currentBodyFatFraction: bodyFatStore.latestEntry?.bodyFatFraction ?? userProfile.bodyFatPercentage,
+                            onLogBodyFat: { showLogBodyFat = true }
+                        )
+                        .padding(.horizontal)
+                    }
+
                     // Calorie Trend
                     CalorieChartSection(
                         dailyCalories: dailyCalories,
@@ -1237,6 +1267,16 @@ struct ProgressTabView: View {
                     currentWeightKg: weightStore.latestEntry?.weightKg ?? userProfile.weightKg
                 ) { weightKg in
                     weightStore.addEntry(WeightEntry(weightKg: weightKg))
+                }
+            }
+            .sheet(isPresented: $showLogBodyFat) {
+                // Seed from latest entry → profile current → sane default,
+                // mirroring the LogWeightSheet seeding chain.
+                let seed = bodyFatStore.latestEntry?.bodyFatFraction
+                    ?? userProfile.bodyFatPercentage
+                    ?? 0.20
+                LogBodyFatSheet(currentFraction: seed) { fraction in
+                    bodyFatStore.addEntry(BodyFatEntry(bodyFatFraction: fraction))
                 }
             }
             .alert("Congratulations!", isPresented: $showGoalReached) {
@@ -1281,7 +1321,7 @@ struct ProfileView: View {
     @AppStorage("weekStartsOnMonday") private var weekStartsOnMonday = false
 
     enum ActiveSheet: String, Identifiable {
-        case editBirthday, editHeight, editWeight, editBodyFat, editGoalWeight, editCalories, editProtein, editCarbs, editFat
+        case editBirthday, editHeight, editWeight, editBodyFat, editGoalBodyFat, editGoalWeight, editCalories, editProtein, editCarbs, editFat
         var id: String { rawValue }
     }
     @State private var activeSheet: ActiveSheet?
@@ -1384,6 +1424,20 @@ struct ProfileView: View {
                         value: profile.bodyFatPercentage != nil ? "\(Int(profile.bodyFatPercentage! * 100))%" : "Not set"
                     ) {
                         activeSheet = .editBodyFat
+                    }
+
+                    // Only surface the goal row to users who have a current
+                    // body-fat value — feature was scoped to "skippable, no
+                    // math impact, only visible if the user opted in to the
+                    // body-fat track in onboarding (or set one later here)."
+                    if profile.bodyFatPercentage != nil {
+                        ProfileInfoRow(
+                            icon: "target",
+                            label: "Goal Body Fat",
+                            value: profile.goalBodyFatPercentage != nil ? "\(Int(profile.goalBodyFatPercentage! * 100))%" : "Not set"
+                        ) {
+                            activeSheet = .editGoalBodyFat
+                        }
                     }
                 }
                 .listRowBackground(AppColors.appCard)
@@ -1884,7 +1938,24 @@ struct ProfileView: View {
                         currentPercentage: profile.bodyFatPercentage
                     ) { newValue in
                         profile.bodyFatPercentage = newValue
+                        // Goal body fat only makes sense alongside a current
+                        // value — clear it whenever the current is cleared so
+                        // a stale goal doesn't linger on a user who's opted out.
+                        if newValue == nil { profile.goalBodyFatPercentage = nil }
                         resetCustomGoalsAndSave()
+                    }
+
+                case .editGoalBodyFat:
+                    // Goal body fat is purely cosmetic — does NOT participate
+                    // in BMR / TDEE / macro math. Use a plain saveProfile()
+                    // path (not resetCustomGoalsAndSave) so editing the goal
+                    // never silently wipes a user's pinned macros.
+                    GoalBodyFatPickerSheet(
+                        currentGoal: profile.goalBodyFatPercentage,
+                        currentBodyFat: profile.bodyFatPercentage
+                    ) { newValue in
+                        profile.goalBodyFatPercentage = newValue
+                        saveProfile()
                     }
 
                 case .editGoalWeight:

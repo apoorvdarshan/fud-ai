@@ -537,6 +537,174 @@ private func displayWeight(_ kg: Double, useMetric: Bool) -> String {
     return String(format: "%.1f lb", lbs)
 }
 
+// MARK: - Body Fat Chart Section
+
+/// Visual twin of WeightChartSection for body-fat % readings. Goal line is
+/// drawn as a dashed RuleMark in green if `goalBodyFatFraction` is set. The
+/// goal value is purely visual — it never enters BMR / TDEE / macro math.
+struct BodyFatChartSection: View {
+    let entries: [BodyFatEntry]
+    let goalBodyFatFraction: Double?
+    let currentBodyFatFraction: Double?
+    let onLogBodyFat: () -> Void
+
+    private func displayPercent(_ fraction: Double) -> Double {
+        fraction * 100
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("Body Fat")
+                    .font(.system(.headline, design: .rounded, weight: .semibold))
+                Spacer()
+                Button(action: onLogBodyFat) {
+                    Label("Log Body Fat", systemImage: "plus.circle.fill")
+                        .font(.system(.subheadline, design: .rounded, weight: .medium))
+                        .foregroundStyle(AppColors.calorie)
+                }
+            }
+
+            if entries.isEmpty {
+                emptyState("Log your first body fat % to see trends")
+            } else {
+                HStack(spacing: 16) {
+                    if let current = currentBodyFatFraction {
+                        StatBadge(label: "Current", value: String(format: "%.1f%%", displayPercent(current)))
+                    }
+                    if let goal = goalBodyFatFraction {
+                        StatBadge(label: "Goal", value: String(format: "%.1f%%", displayPercent(goal)))
+                    }
+                }
+
+                Chart {
+                    ForEach(entries) { entry in
+                        LineMark(
+                            x: .value("Date", entry.date, unit: .day),
+                            y: .value("Body Fat", displayPercent(entry.bodyFatFraction))
+                        )
+                        .foregroundStyle(AppColors.calorie)
+                        .interpolationMethod(.catmullRom)
+                        .lineStyle(StrokeStyle(lineWidth: 2))
+
+                        PointMark(
+                            x: .value("Date", entry.date, unit: .day),
+                            y: .value("Body Fat", displayPercent(entry.bodyFatFraction))
+                        )
+                        .foregroundStyle(AppColors.calorie)
+                        .symbolSize(30)
+                    }
+
+                    if let goalFraction = goalBodyFatFraction {
+                        RuleMark(y: .value("Goal", displayPercent(goalFraction)))
+                            .foregroundStyle(.green.opacity(0.7))
+                            .lineStyle(StrokeStyle(lineWidth: 1.5, dash: [6, 4]))
+                    }
+                }
+                .chartYScale(domain: bodyFatYDomain)
+                .chartXAxis {
+                    AxisMarks(values: .stride(by: .day, count: xAxisStride)) { _ in
+                        AxisGridLine()
+                        AxisValueLabel(format: .dateTime.month(.abbreviated).day())
+                    }
+                }
+                .frame(height: 180)
+                .clipped()
+            }
+        }
+        .padding()
+        .background(AppColors.appCard)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+
+    private var xAxisStride: Int {
+        let count = entries.count
+        if count <= 7 { return 1 }
+        if count <= 30 { return 5 }
+        if count <= 90 { return 14 }
+        if count <= 180 { return 30 }
+        return 60
+    }
+
+    private var bodyFatYDomain: ClosedRange<Double> {
+        var values = entries.map { displayPercent($0.bodyFatFraction) }
+        if let goal = goalBodyFatFraction { values.append(displayPercent(goal)) }
+        guard let minV = values.min(), let maxV = values.max() else { return 0...60 }
+        let padding = max((maxV - minV) * 0.15, 1)
+        return max(0, minV - padding)...(maxV + padding)
+    }
+}
+
+// MARK: - Log Body Fat Sheet
+
+/// Single-wheel picker for body-fat %. Whole-number precision (matches
+/// BodyFatPickerSheet in Settings) — body-fat measurements rarely justify
+/// 0.1% resolution given the noise of calipers / smart scales.
+struct LogBodyFatSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    let currentFraction: Double
+    let onSave: (Double) -> Void
+
+    @State private var percentage: Int
+
+    init(currentFraction: Double, onSave: @escaping (Double) -> Void) {
+        self.currentFraction = currentFraction
+        self.onSave = onSave
+        _percentage = State(initialValue: Int(currentFraction * 100))
+    }
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 20) {
+                Text("Log Body Fat")
+                    .font(.system(.title2, design: .rounded, weight: .bold))
+
+                HStack(spacing: 0) {
+                    Picker("Percentage", selection: $percentage) {
+                        ForEach(3...60, id: \.self) { n in
+                            Text("\(n)").tag(n)
+                                .font(.system(.title2, design: .rounded, weight: .medium))
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(width: 100)
+                    .clipped()
+
+                    Text("%")
+                        .font(.system(.title3, design: .rounded))
+                        .foregroundStyle(.secondary)
+                        .padding(.leading, 4)
+                }
+
+                Button {
+                    onSave(Double(percentage) / 100.0)
+                    dismiss()
+                } label: {
+                    Text("Save")
+                        .font(.system(.headline, design: .rounded, weight: .semibold))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(
+                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing)
+                        )
+                        .foregroundStyle(.white)
+                        .clipShape(RoundedRectangle(cornerRadius: 14))
+                }
+                .padding(.horizontal, 24)
+
+                Spacer()
+            }
+            .padding(.top, 24)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+            }
+        }
+        .presentationDetents([.medium])
+    }
+}
+
 // MARK: - Helpers
 
 private func emptyState(_ message: String) -> some View {

@@ -517,13 +517,15 @@ private fun HeightWeightMetricWheels(
         Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.Top
     ) {
-        WheeledColumn(label = stringResource(R.string.onboarding_height), modifier = Modifier.weight(1f)) {
+        WheeledColumn(label = stringResource(R.string.onboarding_height), modifier = Modifier.weight(0.9f)) {
             NumericWheelPicker(value = cm, onValueChange = onHeightChange, min = 100, max = 250, unit = stringResource(R.string.unit_cm))
         }
-        WheeledColumn(label = stringResource(R.string.onboarding_weight), modifier = Modifier.weight(1f)) {
-            NumericWheelPicker(
-                value = kg.toInt().coerceIn(30, 250),
-                onValueChange = { onWeightChange(it.toDouble()) },
+        // Weight column gets extra width — it has int + "." + tenths + unit (4 cells)
+        // vs the height column's int + unit (2 cells), so 1f / 1f cramped the digits.
+        WheeledColumn(label = stringResource(R.string.onboarding_weight), modifier = Modifier.weight(1.4f)) {
+            SplitDecimalWheelPicker(
+                value = kg.coerceIn(30.0, 250.0),
+                onValueChange = onWeightChange,
                 min = 30,
                 max = 250,
                 unit = stringResource(R.string.unit_kg)
@@ -542,10 +544,10 @@ private fun HeightWeightImperialWheels(
     val totalInches = (cm / 2.54).toInt().coerceIn(36, 96)
     val feet = (totalInches / 12).coerceIn(3, 8)
     val inches = (totalInches % 12).coerceIn(0, 11)
-    val lbs = (kg * 2.20462).toInt().coerceIn(60, 500)
+    val lbs = (kg * 2.20462).coerceIn(60.0, 500.0)
 
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.Top) {
-        WheeledColumn(label = stringResource(R.string.onboarding_feet), modifier = Modifier.weight(1f)) {
+        WheeledColumn(label = stringResource(R.string.onboarding_feet), modifier = Modifier.weight(0.7f)) {
             NumericWheelPicker(
                 value = feet,
                 onValueChange = { newFt ->
@@ -557,7 +559,7 @@ private fun HeightWeightImperialWheels(
                 unit = stringResource(R.string.unit_ft)
             )
         }
-        WheeledColumn(label = stringResource(R.string.onboarding_inches), modifier = Modifier.weight(1f)) {
+        WheeledColumn(label = stringResource(R.string.onboarding_inches), modifier = Modifier.weight(0.7f)) {
             NumericWheelPicker(
                 value = inches,
                 onValueChange = { newIn ->
@@ -569,8 +571,10 @@ private fun HeightWeightImperialWheels(
                 unit = stringResource(R.string.unit_in)
             )
         }
-        WheeledColumn(label = stringResource(R.string.onboarding_weight), modifier = Modifier.weight(1f)) {
-            NumericWheelPicker(
+        // Weight column needs ~50% of the row — three-digit lbs (e.g. 152) plus
+        // "." + tenths + "lbs" can't fit when all three columns share width 1:1:1.
+        WheeledColumn(label = stringResource(R.string.onboarding_weight), modifier = Modifier.weight(1.6f)) {
+            SplitDecimalWheelPicker(
                 value = lbs,
                 onValueChange = { newLbs -> onWeightChange(newLbs / 2.20462) },
                 min = 60,

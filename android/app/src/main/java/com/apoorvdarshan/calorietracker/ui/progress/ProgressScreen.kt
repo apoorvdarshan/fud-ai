@@ -31,7 +31,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -55,7 +54,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
+import com.apoorvdarshan.calorietracker.ui.components.SplitDecimalWheelPicker
 import androidx.annotation.StringRes
 import com.apoorvdarshan.calorietracker.R
 import androidx.compose.ui.unit.dp
@@ -206,7 +205,13 @@ fun ProgressScreen(container: AppContainer) {
     }
 
     if (showAddDialog) {
-        AddWeightDialog(useMetric = useMetric, onDismiss = { showAddDialog = false }) { kg ->
+        // Seed the wheel from the most recent entry, or fall back to the profile
+        // weight, or a sane default. Avoids the picker landing on its min row
+        // (30 kg) when the user has never logged before.
+        val seedKg = ui.entries.maxByOrNull { it.date }?.weightKg
+            ?: ui.profile?.weightKg
+            ?: 70.0
+        AddWeightDialog(useMetric = useMetric, initialKg = seedKg, onDismiss = { showAddDialog = false }) { kg ->
             vm.addWeight(kg); showAddDialog = false
         }
     }
@@ -748,28 +753,42 @@ private fun AllWeightHistorySheet(
 }
 
 @Composable
-private fun AddWeightDialog(useMetric: Boolean, onDismiss: () -> Unit, onSubmit: (Double) -> Unit) {
-    var input by remember { mutableStateOf("") }
+private fun AddWeightDialog(
+    useMetric: Boolean,
+    initialKg: Double,
+    onDismiss: () -> Unit,
+    onSubmit: (Double) -> Unit
+) {
+    // Wheel picker matches Settings → Goal Weight + the onboarding height/weight
+    // step — split-decimal so users land on e.g. 72.4 without typing.
+    var pickerKg by remember { mutableStateOf(initialKg) }
     AlertDialog(
         onDismissRequest = onDismiss,
         shape = RoundedCornerShape(24.dp),
         title = { Text(stringResource(R.string.progress_log_weight_title), fontWeight = FontWeight.SemiBold) },
         text = {
-            OutlinedTextField(
-                value = input,
-                onValueChange = { input = it },
-                placeholder = { Text(if (useMetric) stringResource(R.string.unit_kg) else stringResource(R.string.unit_lbs)) },
-                keyboardOptions = androidx.compose.foundation.text.KeyboardOptions(keyboardType = KeyboardType.Decimal),
-                singleLine = true,
-                modifier = Modifier.fillMaxWidth()
-            )
+            if (useMetric) {
+                SplitDecimalWheelPicker(
+                    value = pickerKg.coerceIn(30.0, 250.0),
+                    onValueChange = { pickerKg = it },
+                    min = 30,
+                    max = 250,
+                    unit = stringResource(R.string.unit_kg)
+                )
+            } else {
+                val lbs = (pickerKg * 2.20462).coerceIn(60.0, 500.0)
+                SplitDecimalWheelPicker(
+                    value = lbs,
+                    onValueChange = { newLbs -> pickerKg = newLbs / 2.20462 },
+                    min = 60,
+                    max = 500,
+                    unit = stringResource(R.string.unit_lbs)
+                )
+            }
         },
         confirmButton = {
             Button(
-                onClick = {
-                    val v = input.toDoubleOrNull()
-                    if (v != null && v > 0.0) onSubmit(if (useMetric) v else v / 2.20462)
-                },
+                onClick = { onSubmit(pickerKg) },
                 colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie)
             ) { Text(stringResource(R.string.action_save), color = Color.White) }
         },

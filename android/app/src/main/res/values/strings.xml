@@ -221,6 +221,11 @@
     <string name="onboarding_body_fat_no_worries">No worries! We\'ll use a standard formula\nbased on your height, weight, and age.</string>
     <string name="onboarding_goal_optional">Goal (optional)</string>
     <string name="onboarding_goal_set_later">You can set this later in Settings.</string>
+    <string name="progress_metric_weight">Weight</string>
+    <string name="progress_metric_body_fat">Body Fat</string>
+    <string name="progress_log_body_fat">Log Body Fat</string>
+    <string name="progress_log_first_body_fat">Log your first body fat % to see trends</string>
+    <string name="progress_log_body_fat_title">Log Body Fat</string>
 
     <string name="onboarding_pace_title_maintain">Your pace</string>
     <string name="onboarding_pace_subtitle_maintain">We\'ll set a balanced plan</string>

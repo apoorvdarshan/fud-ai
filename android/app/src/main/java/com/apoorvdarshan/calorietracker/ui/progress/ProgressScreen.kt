@@ -54,6 +54,7 @@ import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import com.apoorvdarshan.calorietracker.ui.components.DecimalWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.SplitDecimalWheelPicker
 import androidx.annotation.StringRes
 import com.apoorvdarshan.calorietracker.R
@@ -61,6 +62,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.apoorvdarshan.calorietracker.AppContainer
+import com.apoorvdarshan.calorietracker.models.BodyFatEntry
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.WeightEntry
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
@@ -110,14 +112,22 @@ fun ProgressScreen(container: AppContainer) {
 
     var range by remember { mutableStateOf(TimeRange.WEEK) }
     var showAddDialog by remember { mutableStateOf(false) }
+    var showAddBodyFatDialog by remember { mutableStateOf(false) }
     var showAllWeights by remember { mutableStateOf(false) }
+    var bodyMetric by remember { mutableStateOf(BodyMetric.WEIGHT) }
 
-    // Filter weights to range
+    // Filter weights + body fats to range
     val (rangeStartDate, rangeEndDate) = range.dateRange()
     val zone = ZoneId.systemDefault()
     val rangeStart = rangeStartDate.atStartOfDay(zone).toInstant()
     val rangeEnd = rangeEndDate.atTime(23, 59, 59).atZone(zone).toInstant()
     val filteredWeights = ui.entries.filter { it.date in rangeStart..rangeEnd }.sortedBy { it.date }
+    val filteredBodyFats = ui.bodyFatEntries.filter { it.date in rangeStart..rangeEnd }.sortedBy { it.date }
+    // Body Fat segment only renders when the user has opted in — same visibility
+    // rule as iOS: hidden entirely for users who never set body fat OR a goal.
+    val bodyFatAvailable = ui.bodyFatEntries.isNotEmpty()
+        || ui.profile?.bodyFatPercentage != null
+        || ui.profile?.goalBodyFatPercentage != null
 
     // Build per-day calorie totals over the range (drop empty days, like iOS)
     val dailyCalories = remember(foods, range) {
@@ -156,16 +166,43 @@ fun ProgressScreen(container: AppContainer) {
             // 1. Segmented TimeRange picker
             item { TimeRangePicker(selected = range, onSelect = { range = it }) }
 
-            // 2. Weight chart section
+            // 2. Weight / Body Fat chart — single card with a segmented toggle
+            //    when the user has opted into body-fat tracking, or just the
+            //    bare Weight chart (visually identical to v1.0.3) when they
+            //    haven't.
             item {
-                CardSection {
-                    WeightSection(
-                        entries = filteredWeights,
-                        latest = ui.entries.maxByOrNull { it.date },
-                        goalKg = ui.profile?.goalWeightKg,
-                        useMetric = useMetric,
-                        onLogWeight = { showAddDialog = true }
-                    )
+                if (bodyFatAvailable) {
+                    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                        BodyMetricToggle(selected = bodyMetric, onSelect = { bodyMetric = it })
+                        CardSection {
+                            when (bodyMetric) {
+                                BodyMetric.WEIGHT -> WeightSection(
+                                    entries = filteredWeights,
+                                    latest = ui.entries.maxByOrNull { it.date },
+                                    goalKg = ui.profile?.goalWeightKg,
+                                    useMetric = useMetric,
+                                    onLogWeight = { showAddDialog = true }
+                                )
+                                BodyMetric.BODY_FAT -> BodyFatSection(
+                                    entries = filteredBodyFats,
+                                    latest = ui.bodyFatEntries.maxByOrNull { it.date }?.bodyFatFraction
+                                        ?: ui.profile?.bodyFatPercentage,
+                                    goalFraction = ui.profile?.goalBodyFatPercentage,
+                                    onLogBodyFat = { showAddBodyFatDialog = true }
+                                )
+                            }
+                        }
+                    }
+                } else {
+                    CardSection {
+                        WeightSection(
+                            entries = filteredWeights,
+                            latest = ui.entries.maxByOrNull { it.date },
+                            goalKg = ui.profile?.goalWeightKg,
+                            useMetric = useMetric,
+                            onLogWeight = { showAddDialog = true }
+                        )
+                    }
                 }
             }
 
@@ -213,6 +250,15 @@ fun ProgressScreen(container: AppContainer) {
             ?: 70.0
         AddWeightDialog(useMetric = useMetric, initialKg = seedKg, onDismiss = { showAddDialog = false }) { kg ->
             vm.addWeight(kg); showAddDialog = false
+        }
+    }
+    if (showAddBodyFatDialog) {
+        // Same seeding chain as weight — last entry → profile → 20% fallback.
+        val seedFraction = ui.bodyFatEntries.maxByOrNull { it.date }?.bodyFatFraction
+            ?: ui.profile?.bodyFatPercentage
+            ?: 0.20
+        AddBodyFatDialog(initialFraction = seedFraction, onDismiss = { showAddBodyFatDialog = false }) { fraction ->
+            vm.addBodyFat(fraction); showAddBodyFatDialog = false
         }
     }
     if (showAllWeights) {
@@ -799,3 +845,176 @@ private fun AddWeightDialog(
 private fun formatWeight(kg: Double, useMetric: Boolean): String =
     if (useMetric) String.format(Locale.US, "%.1f kg", kg)
     else String.format(Locale.US, "%.1f lbs", kg * 2.20462)
+
+// MARK: - Body Fat surfaces ----------------------------------------------
+
+enum class BodyMetric { WEIGHT, BODY_FAT }
+
+@Composable
+private fun BodyMetricToggle(selected: BodyMetric, onSelect: (BodyMetric) -> Unit) {
+    val labelWeight = stringResource(R.string.progress_metric_weight)
+    val labelBodyFat = stringResource(R.string.progress_metric_body_fat)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(12.dp))
+            .background(MaterialTheme.colorScheme.surface),
+        horizontalArrangement = Arrangement.spacedBy(0.dp)
+    ) {
+        listOf(BodyMetric.WEIGHT to labelWeight, BodyMetric.BODY_FAT to labelBodyFat).forEach { (metric, label) ->
+            val isSelected = metric == selected
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(
+                        if (isSelected) AppColors.Calorie.copy(alpha = 0.15f) else Color.Transparent
+                    )
+                    .clickable { onSelect(metric) }
+                    .padding(vertical = 8.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    label,
+                    fontSize = 14.sp,
+                    fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Medium,
+                    color = if (isSelected) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun BodyFatSection(
+    entries: List<BodyFatEntry>,
+    latest: Double?,
+    goalFraction: Double?,
+    onLogBodyFat: () -> Unit
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(stringResource(R.string.progress_metric_body_fat), fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+            Spacer(Modifier.weight(1f))
+            Row(
+                modifier = Modifier.clickable(onClick = onLogBodyFat),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(Icons.Filled.AddCircle, null, tint = AppColors.Calorie, modifier = Modifier.size(16.dp))
+                Spacer(Modifier.width(4.dp))
+                Text(stringResource(R.string.progress_log_body_fat), fontSize = 15.sp, fontWeight = FontWeight.Medium, color = AppColors.Calorie)
+            }
+        }
+        if (entries.isEmpty() && latest == null) {
+            Box(Modifier.fillMaxWidth().padding(vertical = 24.dp), contentAlignment = Alignment.Center) {
+                Text(
+                    stringResource(R.string.progress_log_first_body_fat),
+                    fontSize = 15.sp,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
+                )
+            }
+        } else {
+            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                latest?.let { StatBadge(stringResource(R.string.progress_stat_current), formatPercent(it)) }
+                goalFraction?.let { StatBadge(stringResource(R.string.progress_stat_goal), formatPercent(it)) }
+            }
+            if (entries.isNotEmpty()) {
+                BodyFatChartCanvas(entries = entries, goalFraction = goalFraction)
+            }
+        }
+    }
+}
+
+@Composable
+private fun BodyFatChartCanvas(entries: List<BodyFatEntry>, goalFraction: Double?) {
+    // Reuse the same chart styling as WeightChartCanvas — just plot
+    // bodyFatFraction*100 instead of weight, with goal-line overlay if set.
+    val percents = entries.map { it.bodyFatFraction * 100 } + listOfNotNull(goalFraction?.let { it * 100 })
+    val minP = (percents.minOrNull() ?: 0.0)
+    val maxP = (percents.maxOrNull() ?: 60.0)
+    val padding = ((maxP - minP) * 0.15).coerceAtLeast(1.0)
+    val yMin = (minP - padding).coerceAtLeast(0.0)
+    val yMax = maxP + padding
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(180.dp)
+            .padding(top = 4.dp)
+    ) {
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val w = size.width
+            val h = size.height
+            val xMin = entries.first().date.toEpochMilli().toFloat()
+            val xMax = entries.last().date.toEpochMilli().toFloat()
+            val xRange = (xMax - xMin).coerceAtLeast(1f)
+            val yRange = (yMax - yMin).coerceAtLeast(0.0001).toFloat()
+            fun pointFor(date: Long, percent: Double): Offset {
+                val x = (date.toFloat() - xMin) / xRange * w
+                val y = h - ((percent - yMin).toFloat() / yRange) * h
+                return Offset(x, y)
+            }
+            // Goal line
+            goalFraction?.let { g ->
+                val gPct = (g * 100)
+                val y = h - ((gPct - yMin).toFloat() / yRange) * h
+                drawLine(
+                    color = Color(0xFF34C759).copy(alpha = 0.7f),
+                    start = Offset(0f, y),
+                    end = Offset(w, y),
+                    strokeWidth = 2f,
+                    pathEffect = PathEffect.dashPathEffect(floatArrayOf(12f, 8f))
+                )
+            }
+            // Series line
+            val pts = entries.map { pointFor(it.date.toEpochMilli(), it.bodyFatFraction * 100) }
+            for (i in 0 until pts.size - 1) {
+                drawLine(
+                    color = AppColors.Calorie,
+                    start = pts[i],
+                    end = pts[i + 1],
+                    strokeWidth = 4f
+                )
+            }
+            // Dots
+            for (p in pts) {
+                drawCircle(color = AppColors.Calorie, radius = 4f, center = p)
+            }
+        }
+    }
+}
+
+@Composable
+private fun AddBodyFatDialog(
+    initialFraction: Double,
+    onDismiss: () -> Unit,
+    onSubmit: (Double) -> Unit
+) {
+    // Whole-percent wheel — body fat measurements rarely justify 0.1% resolution
+    // given the noise of calipers / smart scales (matches iOS LogBodyFatSheet).
+    var pct by remember { mutableStateOf(initialFraction * 100) }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        shape = RoundedCornerShape(24.dp),
+        title = { Text(stringResource(R.string.progress_log_body_fat_title), fontWeight = FontWeight.SemiBold) },
+        text = {
+            DecimalWheelPicker(
+                value = pct.coerceIn(3.0, 60.0),
+                onValueChange = { pct = it },
+                min = 3.0,
+                max = 60.0,
+                step = 0.5,
+                unit = stringResource(R.string.unit_percent)
+            )
+        },
+        confirmButton = {
+            Button(
+                onClick = { onSubmit(pct / 100.0) },
+                colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie)
+            ) { Text(stringResource(R.string.action_save), color = Color.White) }
+        },
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_cancel)) } }
+    )
+}
+
+private fun formatPercent(fraction: Double): String =
+    String.format(Locale.US, "%.1f%%", fraction * 100)

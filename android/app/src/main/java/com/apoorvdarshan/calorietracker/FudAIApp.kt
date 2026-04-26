@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker
 
 import android.app.Application
+import com.apoorvdarshan.calorietracker.data.BodyFatRepository
 import com.apoorvdarshan.calorietracker.data.ChatRepository
 import com.apoorvdarshan.calorietracker.data.FoodRepository
 import com.apoorvdarshan.calorietracker.data.KeyStore
@@ -63,6 +64,7 @@ class AppContainer(app: FudAIApp) {
     val profileRepository = ProfileRepository(prefs)
     val foodRepository = FoodRepository(prefs)
     val weightRepository = WeightRepository(prefs, profileRepository)
+    val bodyFatRepository = BodyFatRepository(prefs, profileRepository)
     val chatRepository = ChatRepository(prefs)
 
     val foodAnalysis = FoodAnalysisService(prefs, keyStore)

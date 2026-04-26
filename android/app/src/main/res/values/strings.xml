@@ -219,6 +219,8 @@
     <string name="onboarding_no">No</string>
     <string name="onboarding_body_fat_ranges">Common ranges: Men 10–25%, Women 18–35%</string>
     <string name="onboarding_body_fat_no_worries">No worries! We\'ll use a standard formula\nbased on your height, weight, and age.</string>
+    <string name="onboarding_goal_optional">Goal (optional)</string>
+    <string name="onboarding_goal_set_later">You can set this later in Settings.</string>
 
     <string name="onboarding_pace_title_maintain">Your pace</string>
     <string name="onboarding_pace_subtitle_maintain">We\'ll set a balanced plan</string>
@@ -476,6 +478,9 @@
     <string name="settings_height">Height</string>
     <string name="settings_weight">Weight</string>
     <string name="settings_body_fat">Body Fat</string>
+    <string name="settings_goal_body_fat">Goal Body Fat</string>
+    <string name="settings_use_body_fat_bmr">Use Body Fat for BMR</string>
+    <string name="settings_use_body_fat_bmr_subtitle">On = Katch-McArdle (uses lean mass for a more accurate BMR). Off = Mifflin-St Jeor (height/weight/age only). Turn off if your body-fat reading is outdated.</string>
     <string name="settings_not_set">Not set</string>
     <string name="settings_birthday_age_format">%1$s (age %2$d)</string>
 
@@ -559,6 +564,9 @@
     <string name="sheet_week_starts">Week Starts On</string>
     <string name="sheet_height">Height</string>
     <string name="sheet_body_fat_percent">Body fat %</string>
+    <string name="sheet_goal_body_fat">Body Fat Goal</string>
+    <string name="sheet_goal_body_fat_currently">Currently %1$d%%</string>
+    <string name="action_remove_goal">Remove Goal</string>
     <string name="sheet_weekly_change">Weekly Change</string>
     <string name="sheet_weekly_change_format">%1$.1f %2$s/week %3$s</string>
     <string name="sheet_weekly_change_loss">loss</string>

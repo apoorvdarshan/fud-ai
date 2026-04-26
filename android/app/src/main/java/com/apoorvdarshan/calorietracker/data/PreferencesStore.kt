@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.apoorvdarshan.calorietracker.models.AIProvider
+import com.apoorvdarshan.calorietracker.models.BodyFatEntry
 import com.apoorvdarshan.calorietracker.models.ChatMessage
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
@@ -176,6 +177,17 @@ class PreferencesStore(private val context: Context) {
         ds.edit { it[Keys.WEIGHT_ENTRIES] = json.encodeToString(ListSerializer(WeightEntry.serializer()), entries) }
     }
 
+    // -- Body fat entries --------------------------------------------------
+    val bodyFatEntries: Flow<List<BodyFatEntry>> = ds.data.map { prefs ->
+        prefs[Keys.BODY_FAT_ENTRIES]?.let {
+            runCatching { json.decodeFromString(ListSerializer(BodyFatEntry.serializer()), it) }.getOrNull()
+        } ?: emptyList()
+    }
+
+    suspend fun setBodyFatEntries(entries: List<BodyFatEntry>) {
+        ds.edit { it[Keys.BODY_FAT_ENTRIES] = json.encodeToString(ListSerializer(BodyFatEntry.serializer()), entries) }
+    }
+
     // -- Coach chat history ----------------------------------------------
     val chatHistory: Flow<List<ChatMessage>> = ds.data.map { prefs ->
         prefs[Keys.CHAT_HISTORY]?.let {
@@ -239,6 +251,7 @@ class PreferencesStore(private val context: Context) {
         val FAVORITE_KEYS = stringPreferencesKey("favorites")
         val FAVORITE_ENTRIES = stringPreferencesKey("favoriteFoodEntries")
         val WEIGHT_ENTRIES = stringPreferencesKey("weightEntries")
+        val BODY_FAT_ENTRIES = stringPreferencesKey("bodyFatEntries")
         val CHAT_HISTORY = stringPreferencesKey("coachChatHistory")
         val WIDGET_SNAPSHOT = stringPreferencesKey("widget_snapshot_v1")
         val TEST_SEED_BACKUP = stringPreferencesKey("test_seed_backup_v1")

@@ -67,7 +67,9 @@ import androidx.compose.material.icons.outlined.LocalFireDepartment
 import androidx.compose.material.icons.outlined.Mic
 import androidx.compose.material.icons.outlined.MonitorWeight
 import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.Calculate
 import androidx.compose.material.icons.outlined.Percent
+import androidx.compose.material.icons.outlined.TrackChanges
 import androidx.compose.material.icons.outlined.BatteryAlert
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Refresh
@@ -142,7 +144,7 @@ import java.util.Locale
 
 private enum class SettingsSheet {
     AI_PROVIDER, AI_MODEL, API_KEY, CUSTOM_BASE_URL, SPEECH_PROVIDER, SPEECH_KEY,
-    GENDER, BIRTHDAY, HEIGHT, WEIGHT, BODY_FAT, ACTIVITY, GOAL, GOAL_WEIGHT, GOAL_SPEED,
+    GENDER, BIRTHDAY, HEIGHT, WEIGHT, BODY_FAT, GOAL_BODY_FAT, ACTIVITY, GOAL, GOAL_WEIGHT, GOAL_SPEED,
     CALORIES, PROTEIN, CARBS, FAT,
     APPEARANCE, WEEK_START
 }
@@ -277,6 +279,37 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController) {
                         p.bodyFatPercentage?.let { "${(it * 100).toInt()}%" } ?: stringResource(R.string.settings_not_set),
                         icon = Icons.Outlined.Percent
                     ) { sheet = SettingsSheet.BODY_FAT }
+
+                    // Goal Body Fat + Use-Body-Fat-for-BMR toggle only render
+                    // when the user actually has a body fat % set — avoids
+                    // surfacing irrelevant controls to users who never opted in.
+                    if (p.bodyFatPercentage != null) {
+                        HorizontalDivider()
+                        SettingRow(
+                            stringResource(R.string.settings_goal_body_fat),
+                            p.goalBodyFatPercentage?.let { "${(it * 100).toInt()}%" } ?: stringResource(R.string.settings_not_set),
+                            icon = Icons.Outlined.TrackChanges
+                        ) { sheet = SettingsSheet.GOAL_BODY_FAT }
+                        HorizontalDivider()
+                        // Use saveProfile (not recompute) for the toggle since
+                        // BMR formula switching is precisely what should
+                        // recompute calories + macros — handled inline via
+                        // recalculatedFromFormulas after the copy.
+                        ToggleRow(
+                            stringResource(R.string.settings_use_body_fat_bmr),
+                            p.useBodyFatInBMR ?: true,
+                            icon = Icons.Outlined.Calculate,
+                            onChange = { newValue ->
+                                vm.updateProfileAndRecompute { it.copy(useBodyFatInBMR = newValue) }
+                            }
+                        )
+                        Text(
+                            stringResource(R.string.settings_use_body_fat_bmr_subtitle),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+                        )
+                    }
                 }
             }
 
@@ -637,7 +670,26 @@ private fun SettingsSheets(
                 }
                 SettingsSheet.BODY_FAT -> BodyFatSheet(
                     current = ui.profile?.bodyFatPercentage,
-                    onSave = { bf -> vm.updateProfileAndRecompute { it.copy(bodyFatPercentage = bf) }; onDismiss() }
+                    // Clearing the current value also clears the goal so a stale
+                    // goal doesn't linger on someone who opted out of the
+                    // body-fat track entirely.
+                    onSave = { bf ->
+                        vm.updateProfileAndRecompute {
+                            it.copy(
+                                bodyFatPercentage = bf,
+                                goalBodyFatPercentage = if (bf == null) null else it.goalBodyFatPercentage
+                            )
+                        }
+                        onDismiss()
+                    }
+                )
+                SettingsSheet.GOAL_BODY_FAT -> GoalBodyFatSheet(
+                    currentGoal = ui.profile?.goalBodyFatPercentage,
+                    currentBodyFat = ui.profile?.bodyFatPercentage,
+                    // Goal body fat doesn't feed BMR/TDEE/macro math, so use
+                    // updateProfile (no recompute) — editing the goal must
+                    // never silently wipe the user's pinned macros.
+                    onSave = { goal -> vm.updateProfile { it.copy(goalBodyFatPercentage = goal) }; onDismiss() }
                 )
                 SettingsSheet.ACTIVITY -> ListSheet(
                     title = stringResource(R.string.sheet_activity_level),
@@ -974,6 +1026,31 @@ private fun BodyFatSheet(current: Double?, onSave: (Double?) -> Unit) {
     GradientSaveButton { onSave(pct / 100.0) }
     Spacer(Modifier.height(4.dp))
     TextButton(onClick = { onSave(null) }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.action_clear)) }
+    Spacer(Modifier.height(8.dp))
+}
+
+/** Same wheel UX as BodyFatSheet, but framed as a goal — separate, optional,
+ *  display-only. Seeds from the existing goal, falling back to the user's
+ *  current body fat % so the wheel lands somewhere sensible on first open. */
+@Composable
+private fun GoalBodyFatSheet(currentGoal: Double?, currentBodyFat: Double?, onSave: (Double?) -> Unit) {
+    val seed = currentGoal ?: currentBodyFat ?: 0.15
+    var pct by remember(currentGoal) { mutableStateOf(seed * 100) }
+    Text(stringResource(R.string.sheet_goal_body_fat), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.Bold)
+    if (currentBodyFat != null) {
+        Spacer(Modifier.height(4.dp))
+        Text(
+            stringResource(R.string.sheet_goal_body_fat_currently, (currentBodyFat * 100).toInt()),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
+        )
+    }
+    Spacer(Modifier.height(12.dp))
+    DecimalWheelPicker(pct, { pct = it }, 3.0, 60.0, 0.5, stringResource(R.string.unit_percent))
+    Spacer(Modifier.height(12.dp))
+    GradientSaveButton { onSave(pct / 100.0) }
+    Spacer(Modifier.height(4.dp))
+    TextButton(onClick = { onSave(null) }, modifier = Modifier.fillMaxWidth()) { Text(stringResource(R.string.action_remove_goal)) }
     Spacer(Modifier.height(8.dp))
 }
 

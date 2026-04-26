@@ -84,7 +84,10 @@ import android.Manifest
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
@@ -170,7 +173,9 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 )
                 OnboardingStep.BODY_FAT -> BodyFatStep(
                     bodyFat = ui.bodyFatPercentage,
-                    onChange = vm::setBodyFat
+                    goalBodyFat = ui.goalBodyFatPercentage,
+                    onChange = vm::setBodyFat,
+                    onGoalChange = vm::setGoalBodyFat
                 )
                 OnboardingStep.ACTIVITY -> ActivityStep(selected = ui.activity, onSelect = vm::setActivity)
                 OnboardingStep.GOAL -> GoalStep(selected = ui.goal, onSelect = vm::setGoal)
@@ -697,11 +702,16 @@ private fun GoalWeightStep(current: Double, goal: WeightGoal, useMetric: Boolean
 }
 
 @Composable
-private fun BodyFatStep(bodyFat: Double?, onChange: (Double?) -> Unit) {
+private fun BodyFatStep(
+    bodyFat: Double?,
+    goalBodyFat: Double?,
+    onChange: (Double?) -> Unit,
+    onGoalChange: (Double?) -> Unit
+) {
     // Mirrors iOS: Yes/No SelectionCards. "No" reveals a small explanatory
-    // ƒ(x) message; "Yes" reveals a body-fat % wheel picker.
+    // ƒ(x) message; "Yes" reveals a body-fat % wheel picker + an optional Goal toggle.
     val knows = bodyFat != null
-    Column(Modifier.fillMaxSize()) {
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
         StepHeader(
             stringResource(R.string.onboarding_body_fat_title),
             subtitle = stringResource(R.string.onboarding_body_fat_subtitle)
@@ -737,6 +747,45 @@ private fun BodyFatStep(bodyFat: Double?, onChange: (Double?) -> Unit) {
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = androidx.compose.ui.text.style.TextAlign.Center
             )
+
+            // Optional goal sub-section. Off by default — the toggle defaults
+            // the goal value to the current body-fat % so the wheel has a sane
+            // starting point. Goal body fat is display-only (Progress chart
+            // overlay) and does NOT participate in BMR/TDEE/macro math.
+            Spacer(Modifier.height(20.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    stringResource(R.string.onboarding_goal_optional),
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
+                    modifier = Modifier.weight(1f)
+                )
+                Switch(
+                    checked = goalBodyFat != null,
+                    onCheckedChange = { isOn ->
+                        onGoalChange(if (isOn) bodyFat else null)
+                    },
+                    colors = SwitchDefaults.colors(checkedThumbColor = AppColors.Calorie)
+                )
+            }
+            if (goalBodyFat != null) {
+                Spacer(Modifier.height(8.dp))
+                DecimalWheelPicker(
+                    value = goalBodyFat * 100,
+                    onValueChange = { onGoalChange(it / 100.0) },
+                    min = 3.0,
+                    max = 60.0,
+                    step = 0.5,
+                    unit = stringResource(R.string.unit_percent)
+                )
+            } else {
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    stringResource(R.string.onboarding_goal_set_later),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.45f)
+                )
+            }
         } else {
             Spacer(Modifier.height(12.dp))
             Column(

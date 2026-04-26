@@ -17,6 +17,11 @@ data class UserProfile(
     val activityLevel: ActivityLevel = ActivityLevel.MODERATE,
     val goal: WeightGoal = WeightGoal.MAINTAIN,
     val bodyFatPercentage: Double? = null,
+    /** Display-only goal — explicitly NOT used in BMR/TDEE/macro math. */
+    val goalBodyFatPercentage: Double? = null,
+    /** Nullable so older serialized profiles decode as null = treat as true. When false,
+     *  BMR falls back to Mifflin-St Jeor even if bodyFatPercentage is set. */
+    val useBodyFatInBMR: Boolean? = null,
     val weeklyChangeKg: Double? = null,
     val goalWeightKg: Double? = null,
     val customCalories: Int? = null,
@@ -41,10 +46,14 @@ data class UserProfile(
         return Period.between(birthDate, LocalDate.now()).years.coerceAtLeast(0)
     }
 
-    val bmr: Double get() = bodyFatPercentage?.let { bf ->
+    /** True when BMR currently uses Katch-McArdle. Centralized accessor — read this everywhere
+     *  instead of the raw `useBodyFatInBMR` Bool? so the nil-default-true semantics live in one place. */
+    val usesBodyFatForBMR: Boolean get() = bodyFatPercentage != null && (useBodyFatInBMR ?: true)
+
+    val bmr: Double get() = if (usesBodyFatForBMR) {
         // Katch-McArdle
-        370.0 + 21.6 * (1.0 - bf) * weightKg
-    } ?: run {
+        370.0 + 21.6 * (1.0 - bodyFatPercentage!!) * weightKg
+    } else {
         // Mifflin-St Jeor
         val base = 10.0 * weightKg + 6.25 * heightCm - 5.0 * age - 161.0
         if (gender == Gender.MALE) base + 166.0 else base

@@ -31,6 +31,10 @@ data class OnboardingState(
     val heightCm: Int = 175,
     val weightKg: Double = 70.0,
     val bodyFatPercentage: Double? = null,
+    /** Optional target body-fat fraction. Only meaningful when bodyFatPercentage
+     *  is non-null (i.e. user picked "Yes I know my body fat" + opted into
+     *  setting a goal). Display-only — does NOT participate in BMR/TDEE/macro math. */
+    val goalBodyFatPercentage: Double? = null,
     val activity: ActivityLevel = ActivityLevel.MODERATE,
     val goal: WeightGoal = WeightGoal.MAINTAIN,
     val goalWeightKg: Double = 70.0,
@@ -60,6 +64,7 @@ data class OnboardingState(
         activityLevel = activity,
         goal = goal,
         bodyFatPercentage = bodyFatPercentage,
+        goalBodyFatPercentage = if (bodyFatPercentage != null) goalBodyFatPercentage else null,
         weeklyChangeKg = if (goal == WeightGoal.MAINTAIN) null else weeklyChangeKg,
         goalWeightKg = if (goal == WeightGoal.MAINTAIN) null else goalWeightKg,
         customCalories = customCalories,
@@ -84,7 +89,15 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
     fun setBirthday(v: LocalDate) { _ui.value = _ui.value.copy(birthday = v) }
     fun setHeight(cm: Int) { _ui.value = _ui.value.copy(heightCm = cm) }
     fun setWeight(kg: Double) { _ui.value = _ui.value.copy(weightKg = kg, goalWeightKg = kg) }
-    fun setBodyFat(pct: Double?) { _ui.value = _ui.value.copy(bodyFatPercentage = pct) }
+    fun setBodyFat(pct: Double?) {
+        // Clear the goal alongside the current value so a stale goal doesn't
+        // linger when the user backs out of "Yes I know my body fat".
+        _ui.value = _ui.value.copy(
+            bodyFatPercentage = pct,
+            goalBodyFatPercentage = if (pct == null) null else _ui.value.goalBodyFatPercentage
+        )
+    }
+    fun setGoalBodyFat(pct: Double?) { _ui.value = _ui.value.copy(goalBodyFatPercentage = pct) }
     fun setActivity(v: ActivityLevel) { _ui.value = _ui.value.copy(activity = v) }
     fun setGoal(v: WeightGoal) {
         val defaultGoalWeight = when (v) {
@@ -136,6 +149,12 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
             val profile = state.buildProfile()
             container.profileRepository.save(profile)
             container.weightRepository.seedInitialWeightIfEmpty(profile.weightKg)
+            // Only seed body fat when the user actually entered one in onboarding
+            // (the "Yes I know my body fat %" branch); the "No" branch leaves
+            // bodyFatPercentage null and the store stays empty.
+            profile.bodyFatPercentage?.let {
+                container.bodyFatRepository.seedInitialBodyFatIfEmpty(it)
+            }
             container.prefs.setNotificationsEnabled(state.notificationsEnabled)
             container.prefs.setHealthConnectEnabled(state.healthConnectEnabled)
             container.prefs.setSelectedAIProvider(state.aiProvider)

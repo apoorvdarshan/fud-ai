@@ -83,6 +83,17 @@ class WeightStore {
         saveEntries()
     }
 
+    /// Bulk-import weight samples discovered from HealthKit (e.g. years of
+    /// scale history that predate Fud AI). Bypasses onEntryAdded so the
+    /// imported externals don't echo back to HK as fresh writes — these
+    /// samples already exist there. Saves + syncs profile once at the end.
+    func importExternalEntries(_ external: [WeightEntry]) {
+        guard !external.isEmpty else { return }
+        entries.append(contentsOf: external)
+        saveEntries()
+        syncProfileWeightToLatest()
+    }
+
     func mergeWithCloudEntries(_ cloudEntries: [WeightEntry]) {
         var merged = Dictionary(uniqueKeysWithValues: entries.map { ($0.id, $0) })
         for cloudEntry in cloudEntries {

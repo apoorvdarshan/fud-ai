@@ -1207,12 +1207,20 @@ struct ProgressTabView: View {
                     .pickerStyle(.segmented)
                     .padding(.horizontal)
 
-                    // Weight Trend
-                    WeightChartSection(
+                    // Weight / Body Fat Trend — single card with a segmented
+                    // toggle (when the user has opted into body-fat tracking)
+                    // or just the bare Weight chart (when they haven't, so the
+                    // layout stays identical to v3.1 for those users).
+                    BodyMetricsSection(
                         weightEntries: filteredWeightEntries,
                         goalWeightKg: userProfile.goalWeightKg,
                         currentWeightKg: weightStore.latestEntry?.weightKg,
-                        onLogWeight: { showLogWeight = true }
+                        onLogWeight: { showLogWeight = true },
+                        bodyFatEntries: filteredBodyFatEntries,
+                        goalBodyFatFraction: userProfile.goalBodyFatPercentage,
+                        currentBodyFatFraction: bodyFatStore.latestEntry?.bodyFatFraction ?? userProfile.bodyFatPercentage,
+                        onLogBodyFat: { showLogBodyFat = true },
+                        bodyFatAvailable: showsBodyFatSection
                     )
                     .padding(.horizontal)
 
@@ -1221,19 +1229,6 @@ struct ProgressTabView: View {
                         WeightHistoryLink(
                             totalCount: weightStore.entries.count,
                             onTap: { showAllWeights = true }
-                        )
-                        .padding(.horizontal)
-                    }
-
-                    // Body Fat Trend — only surfaced for users who opted into
-                    // body-fat tracking (via onboarding "Yes I know my body
-                    // fat %" or by setting it later in Settings → Profile).
-                    if showsBodyFatSection {
-                        BodyFatChartSection(
-                            entries: filteredBodyFatEntries,
-                            goalBodyFatFraction: userProfile.goalBodyFatPercentage,
-                            currentBodyFatFraction: bodyFatStore.latestEntry?.bodyFatFraction ?? userProfile.bodyFatPercentage,
-                            onLogBodyFat: { showLogBodyFat = true }
                         )
                         .padding(.horizontal)
                     }

@@ -54,6 +54,16 @@ class HealthKitManager {
     private let nutritionBackfillVersionKey = "healthKitNutritionBackfillVersion"
     private var isBackfillingNutrition = false
 
+    /// One-shot import of historical weight + body-fat samples. Once a backfill
+    /// completes for the current typesVersion the key is stamped so subsequent
+    /// scene-active wire-ups skip it. Keeps these separate from the nutrition
+    /// backfill version so each one can be re-run independently if we ever bump
+    /// only one of the type sets.
+    private let weightBackfillVersionKey = "healthKitWeightBackfillVersion"
+    private let bodyFatBackfillVersionKey = "healthKitBodyFatBackfillVersion"
+    private var isBackfillingWeight = false
+    private var isBackfillingBodyFat = false
+
     private var readTypes: Set<HKObjectType> {
         [
             HKQuantityType(.bodyMass),
@@ -266,6 +276,84 @@ class HealthKitManager {
         }
     }
 
+    /// One-shot import of every weight sample HealthKit knows about. Skips
+    /// our own writes (fudai_weight_id present), and dedupes against existing
+    /// entries by same-day + same-value so re-running this — or running it
+    /// when the user already incrementally synced via the change-token observer
+    /// — never creates duplicates. Stamps weightBackfillVersionKey on success
+    /// so subsequent scene-active wire-ups skip it.
+    func backfillWeightFromHealthKitIfNeeded(
+        existing: @escaping () -> [WeightEntry],
+        importBatch: @escaping ([WeightEntry]) -> Void
+    ) {
+        guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
+        let backfilled = UserDefaults.standard.integer(forKey: weightBackfillVersionKey)
+        guard backfilled < typesVersion else { return }
+        guard !isBackfillingWeight else { return }
+        isBackfillingWeight = true
+        Task {
+            defer { isBackfillingWeight = false }
+            let samples = await fetchAllSamples(.bodyMass, unit: .gramUnit(with: .kilo), fudaiMetadataKey: "fudai_weight_id")
+            // Build the dedup index from the *current* store snapshot — the
+            // observer might have added rows while we were querying HK.
+            let calendar = Calendar.current
+            let snapshot = existing()
+            // Same-day + close-value match catches both our own pre-metadata
+            // writes and externals already imported via the change-token loop.
+            let isAlreadyLogged: (Date, Double) -> Bool = { date, kg in
+                snapshot.contains {
+                    calendar.isDate($0.date, inSameDayAs: date) && abs($0.weightKg - kg) < 0.01
+                }
+            }
+            var newEntries: [WeightEntry] = []
+            for s in samples {
+                if s.fudaiID != nil { continue } // our own write — already represented
+                if isAlreadyLogged(s.date, s.value) { continue }
+                newEntries.append(WeightEntry(date: s.date, weightKg: s.value))
+            }
+            if !newEntries.isEmpty {
+                await MainActor.run { importBatch(newEntries) }
+            }
+            UserDefaults.standard.set(typesVersion, forKey: weightBackfillVersionKey)
+        }
+    }
+
+    /// Mirror of backfillWeightFromHealthKitIfNeeded for body-fat samples.
+    /// Same dedup discipline (skip our writes via fudai_bodyfat_id, dedup
+    /// externals by same-day + same-fraction) and same one-shot-per-version
+    /// guard so it doesn't re-scan on every scene-active.
+    func backfillBodyFatFromHealthKitIfNeeded(
+        existing: @escaping () -> [BodyFatEntry],
+        importBatch: @escaping ([BodyFatEntry]) -> Void
+    ) {
+        guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
+        let backfilled = UserDefaults.standard.integer(forKey: bodyFatBackfillVersionKey)
+        guard backfilled < typesVersion else { return }
+        guard !isBackfillingBodyFat else { return }
+        isBackfillingBodyFat = true
+        Task {
+            defer { isBackfillingBodyFat = false }
+            let samples = await fetchAllSamples(.bodyFatPercentage, unit: .percent(), fudaiMetadataKey: "fudai_bodyfat_id")
+            let calendar = Calendar.current
+            let snapshot = existing()
+            let isAlreadyLogged: (Date, Double) -> Bool = { date, fraction in
+                snapshot.contains {
+                    calendar.isDate($0.date, inSameDayAs: date) && abs($0.bodyFatFraction - fraction) < 0.001
+                }
+            }
+            var newEntries: [BodyFatEntry] = []
+            for s in samples {
+                if s.fudaiID != nil { continue }
+                if isAlreadyLogged(s.date, s.value) { continue }
+                newEntries.append(BodyFatEntry(date: s.date, bodyFatFraction: s.value))
+            }
+            if !newEntries.isEmpty {
+                await MainActor.run { importBatch(newEntries) }
+            }
+            UserDefaults.standard.set(typesVersion, forKey: bodyFatBackfillVersionKey)
+        }
+    }
+
     private func nutritionSampleExists(forEntryID entryID: UUID) async -> Bool {
         let predicate = HKQuery.predicateForObjects(withMetadataKey: "fudai_entry_id", operatorType: .equalTo, value: entryID.uuidString)
         let type = HKQuantityType(.dietaryEnergyConsumed)
@@ -324,6 +412,33 @@ class HealthKitManager {
         let h = await height
         let b = await bodyFat
         return (w?.value, w?.date, w?.fudaiID, h?.value, b?.value, b?.date, b?.fudaiID, dob, sex)
+    }
+
+    /// Pulls every sample of `identifier` ever written to HealthKit (limit 10k
+    /// — well above any realistic personal scale history). Used for the one-shot
+    /// weight + body-fat backfill that runs the first time the user enables
+    /// HealthKit sync and brings years of historical readings into the Progress
+    /// chart. Sorted oldest-first so callers can append in chronological order.
+    func fetchAllSamples(_ identifier: HKQuantityTypeIdentifier, unit: HKUnit, fudaiMetadataKey: String?) async -> [(value: Double, date: Date, fudaiID: UUID?)] {
+        let type = HKQuantityType(identifier)
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
+        let predicate = HKQuery.predicateForSamples(withStart: nil, end: nil, options: .strictEndDate)
+
+        return await withCheckedContinuation { continuation in
+            let query = HKSampleQuery(sampleType: type, predicate: predicate, limit: 10_000, sortDescriptors: [sortDescriptor]) { _, results, _ in
+                guard let samples = results as? [HKQuantitySample] else {
+                    continuation.resume(returning: [])
+                    return
+                }
+                let mapped = samples.map { sample -> (value: Double, date: Date, fudaiID: UUID?) in
+                    let idString = fudaiMetadataKey.flatMap { sample.metadata?[$0] as? String }
+                    let fudaiID = idString.flatMap(UUID.init(uuidString:))
+                    return (sample.quantity.doubleValue(for: unit), sample.startDate, fudaiID)
+                }
+                continuation.resume(returning: mapped)
+            }
+            healthStore.execute(query)
+        }
     }
 
     /// `fudaiMetadataKey` lets each caller specify which metadata key holds the

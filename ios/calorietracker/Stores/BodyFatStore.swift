@@ -76,6 +76,16 @@ class BodyFatStore {
         saveEntries()
     }
 
+    /// Bulk-import body-fat samples discovered from HealthKit (e.g. years of
+    /// smart-scale history). Bypasses onEntryAdded so the imports don't echo
+    /// back to HK as fresh writes — these samples already exist there.
+    func importExternalEntries(_ external: [BodyFatEntry]) {
+        guard !external.isEmpty else { return }
+        entries.append(contentsOf: external)
+        saveEntries()
+        syncProfileBodyFatToLatest()
+    }
+
     private func saveEntries() {
         if let data = try? JSONEncoder().encode(entries) {
             UserDefaults.standard.set(data, forKey: storageKey)

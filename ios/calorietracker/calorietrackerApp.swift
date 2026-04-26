@@ -124,12 +124,14 @@ struct calorietrackerApp: App {
                     entries: foodStore.entries,
                     currentEntryIDs: { Set(foodStore.entries.map(\.id)) }
                 )
+                runBodyMeasurementBackfills()
             }
         } else {
             healthKitManager.backfillNutritionIfNeeded(
                 entries: foodStore.entries,
                 currentEntryIDs: { Set(foodStore.entries.map(\.id)) }
             )
+            runBodyMeasurementBackfills()
         }
 
         healthKitManager.onBodyMeasurementsChanged = { [weightStore, bodyFatStore] weightKg, weightDate, weightFudaiID, heightCm, bodyFat, bodyFatDate, bodyFatFudaiID, dob, sex in
@@ -243,6 +245,22 @@ struct calorietrackerApp: App {
         foodStore.onEntryUpdated = { [healthKitManager] entry in
             healthKitManager.updateNutrition(for: entry)
         }
+    }
+
+    /// Pulls historical weight + body-fat samples out of HealthKit on first
+    /// HK enable so the Progress chart starts populated for users who already
+    /// have years of scale data in Apple Health (Withings, Renpho, Apple
+    /// Watch, manual entries, etc.). One-shot per typesVersion — see
+    /// HealthKitManager.{weight,bodyFat}BackfillVersionKey.
+    private func runBodyMeasurementBackfills() {
+        healthKitManager.backfillWeightFromHealthKitIfNeeded(
+            existing: { [weightStore] in weightStore.entries },
+            importBatch: { [weightStore] entries in weightStore.importExternalEntries(entries) }
+        )
+        healthKitManager.backfillBodyFatFromHealthKitIfNeeded(
+            existing: { [bodyFatStore] in bodyFatStore.entries },
+            importBatch: { [bodyFatStore] entries in bodyFatStore.importExternalEntries(entries) }
+        )
     }
 
     private func wireUpFoodStoreCallback() {

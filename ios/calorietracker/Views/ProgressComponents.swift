@@ -537,6 +537,94 @@ private func displayWeight(_ kg: Double, useMetric: Bool) -> String {
     return String(format: "%.1f lb", lbs)
 }
 
+// MARK: - Body Metrics Section (Weight / Body Fat toggle)
+
+enum BodyMetric: String, CaseIterable, Identifiable {
+    case weight, bodyFat
+    var id: String { rawValue }
+    var displayName: String {
+        switch self {
+        case .weight: "Weight"
+        case .bodyFat: "Body Fat"
+        }
+    }
+}
+
+/// Single card with a segmented Weight / Body Fat toggle at the top and the
+/// matching chart below — replaces the two stacked cards. The toggle is only
+/// rendered when both metrics are available; users without body-fat data see
+/// the bare WeightChartSection (no toggle, identical to the v3.1 layout) so
+/// nothing changes for users who never opted into body-fat tracking.
+struct BodyMetricsSection: View {
+    let weightEntries: [WeightEntry]
+    let goalWeightKg: Double?
+    let currentWeightKg: Double?
+    let onLogWeight: () -> Void
+
+    let bodyFatEntries: [BodyFatEntry]
+    let goalBodyFatFraction: Double?
+    let currentBodyFatFraction: Double?
+    let onLogBodyFat: () -> Void
+
+    /// True when the user has opted into body-fat tracking — drives whether
+    /// the segmented toggle renders at all.
+    let bodyFatAvailable: Bool
+
+    @State private var metric: BodyMetric = .weight
+
+    var body: some View {
+        VStack(spacing: 12) {
+            if bodyFatAvailable {
+                Picker("Metric", selection: $metric.animation(.snappy)) {
+                    ForEach(BodyMetric.allCases) { m in
+                        Text(m.displayName).tag(m)
+                    }
+                }
+                .pickerStyle(.segmented)
+            }
+
+            // Render the active metric. Both children carry their own card
+            // background, so the parent VStack just stacks them naturally.
+            switch metric {
+            case .weight:
+                WeightChartSection(
+                    weightEntries: weightEntries,
+                    goalWeightKg: goalWeightKg,
+                    currentWeightKg: currentWeightKg,
+                    onLogWeight: onLogWeight
+                )
+                // Swipe right to flip to Body Fat (only when available).
+                .gesture(
+                    bodyFatAvailable
+                        ? DragGesture(minimumDistance: 30)
+                            .onEnded { value in
+                                if value.translation.width < -50 {
+                                    withAnimation(.snappy) { metric = .bodyFat }
+                                }
+                            }
+                        : nil
+                )
+            case .bodyFat:
+                BodyFatChartSection(
+                    entries: bodyFatEntries,
+                    goalBodyFatFraction: goalBodyFatFraction,
+                    currentBodyFatFraction: currentBodyFatFraction,
+                    onLogBodyFat: onLogBodyFat
+                )
+                // Swipe left to flip back to Weight.
+                .gesture(
+                    DragGesture(minimumDistance: 30)
+                        .onEnded { value in
+                            if value.translation.width > 50 {
+                                withAnimation(.snappy) { metric = .weight }
+                            }
+                        }
+                )
+            }
+        }
+    }
+}
+
 // MARK: - Body Fat Chart Section
 
 /// Visual twin of WeightChartSection for body-fat % readings. Goal line is

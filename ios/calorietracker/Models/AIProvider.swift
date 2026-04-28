@@ -91,6 +91,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
             "grok-2-vision-latest",      // vision, rolling alias for legacy compat
         ]
         case .openrouter: [
+            "openrouter/free",           // free tier, vision, no credits required
             "google/gemini-2.5-flash",
             "openai/gpt-4o",
             "anthropic/claude-sonnet-4",

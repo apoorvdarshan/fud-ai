@@ -228,9 +228,11 @@
           <p>Bring your own key. Choose from Gemini, OpenAI, Anthropic Claude, Grok, OpenRouter, Together AI, Groq, Hugging Face, Fireworks, DeepInfra, Mistral, Ollama (local), or any custom OpenAI-compatible endpoint.</p>
           <ul>
             <li>Open-weight vision models out of the box: Gemma, Llama Vision, Qwen VL, Pixtral</li>
-            <li>OpenRouter testable on $0 credits — the new <code>openrouter/free</code> default routes to a free vision model so you can try the integration without funding the account</li>
+            <li>OpenRouter testable on $0 credits — the <code>openrouter/free</code> default routes to a free vision model so you can try the integration without funding the account</li>
+            <li><strong>Custom AI Instructions</strong> — optional Settings text appended to every AI request. Drop your region, diet, or brand context once instead of repeating it per meal ("I live in Germany, prefer ALDI/REWE brands" or "I'm on a bodybuilding cut")</li>
+            <li><strong>Fallback Provider</strong> — opt-in second provider that auto-retries when your primary fails on overload, rate limit, or network error. Pair a paid model with a free fallback for cheap reliability</li>
             <li>API keys stored in iOS Keychain (iOS) or EncryptedSharedPreferences with AES-256 (Android) — never transmitted to us</li>
-            <li>Switch providers and models anytime; transient overloads (503 / 429 / 529) auto-retry with backoff, and AI responses with surrounding prose or markdown fences are now parsed reliably</li>
+            <li>Switch providers and models anytime; transient overloads (503 / 429 / 529) auto-retry with backoff, and AI responses with surrounding prose or markdown fences are parsed reliably</li>
           </ul>
         </div>
       </article>

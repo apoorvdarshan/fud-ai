@@ -125,17 +125,6 @@ struct AboutView: View {
                     }
                     .tint(.primary)
 
-                    // Support the Project
-                    Link(destination: URL(string: "https://paypal.me/apoorvdarshan")!) {
-                        Label {
-                            Text("Support the Project")
-                        } icon: {
-                            Image(systemName: "heart.fill")
-                                .foregroundStyle(AppColors.calorie)
-                        }
-                    }
-                    .tint(.primary)
-
                     // Report an Issue
                     Link(destination: URL(string: "https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20")!) {
                         Label {

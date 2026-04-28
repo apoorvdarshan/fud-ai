@@ -68,10 +68,37 @@ internal object FoodJsonParser {
 
     fun extractJson(text: String): String {
         var cleaned = text.trim()
-        if (cleaned.startsWith("```json")) cleaned = cleaned.drop(7)
-        else if (cleaned.startsWith("```")) cleaned = cleaned.drop(3)
-        if (cleaned.endsWith("```")) cleaned = cleaned.dropLast(3)
-        return cleaned.trim()
+
+        val openFence = cleaned.indexOf("```json", ignoreCase = true)
+            .takeIf { it >= 0 }
+            ?: cleaned.indexOf("```").takeIf { it >= 0 }
+        if (openFence != null) {
+            val after = if (cleaned.regionMatches(openFence, "```json", 0, 7, ignoreCase = true)) openFence + 7 else openFence + 3
+            cleaned = cleaned.substring(after)
+            val closeFence = cleaned.lastIndexOf("```")
+            if (closeFence >= 0) cleaned = cleaned.substring(0, closeFence)
+        }
+        cleaned = cleaned.trim()
+
+        val firstBrace = cleaned.indexOf('{')
+        if (firstBrace < 0) return cleaned
+        var depth = 0
+        var inString = false
+        var escape = false
+        var endIndex = -1
+        for (i in firstBrace until cleaned.length) {
+            val ch = cleaned[i]
+            if (escape) { escape = false; continue }
+            if (ch == '\\') { escape = true; continue }
+            if (ch == '"') { inString = !inString; continue }
+            if (inString) continue
+            if (ch == '{') depth++
+            else if (ch == '}') {
+                depth--
+                if (depth == 0) { endIndex = i + 1; break }
+            }
+        }
+        return if (endIndex > firstBrace) cleaned.substring(firstBrace, endIndex) else cleaned
     }
 
     fun parseFood(text: String): FoodAnalysis {

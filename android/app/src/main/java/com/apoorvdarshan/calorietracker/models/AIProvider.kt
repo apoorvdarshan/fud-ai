@@ -86,6 +86,7 @@ enum class AIProvider {
             "grok-2-vision-latest"
         )
         OPENROUTER -> listOf(
+            "openrouter/free",
             "google/gemini-2.5-flash",
             "openai/gpt-4o",
             "anthropic/claude-sonnet-4",

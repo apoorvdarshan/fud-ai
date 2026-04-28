@@ -1835,16 +1835,18 @@ struct ProfileView: View {
                         // AIProviderSettings.currentFallbackConfig.
                         Picker(selection: $selectedFallbackProvider) {
                             ForEach(AIProvider.allCases) { provider in
-                                Text(provider.rawValue).tag(provider)
+                                Label(provider.rawValue, systemImage: provider.icon).tag(provider)
                             }
                         } label: {
                             Label {
                                 Text("Provider")
                             } icon: {
-                                Image(systemName: "sparkles")
+                                Image(systemName: "cpu")
                                     .foregroundStyle(AppColors.calorie)
                             }
                         }
+                        .pickerStyle(.menu)
+                        .tint(.secondary)
                         .onChange(of: selectedFallbackProvider) { _, newProvider in
                             AIProviderSettings.selectedFallbackProvider = newProvider
                             if !newProvider.supportsCustomModelName,
@@ -1929,6 +1931,8 @@ struct ProfileView: View {
                                             .foregroundStyle(AppColors.calorie)
                                     }
                                 }
+                                .pickerStyle(.menu)
+                                .tint(.secondary)
                                 .onChange(of: selectedFallbackModel) { _, newModel in
                                     AIProviderSettings.selectedFallbackModel = newModel
                                 }

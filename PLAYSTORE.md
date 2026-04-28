@@ -10,162 +10,22 @@ Google Play Console listing copy for Fud AI Android (current: v1.0.5 / versionCo
 
 ## 1. App Name
 
-**30 char hard cap per language.** Brand name stays as `Fud AI` untranslated; the descriptor after the dash is what gets localized.
+**30 char hard cap per language.** Brand name stays as `Fud AI` untranslated; the descriptor after the dash is what gets localized. Per-language translations handled by Play Console's free **Machine translation** service (Grow → Store presence → Translations service → Machine translation) — paste the English source here, run translate, all 13 supported locales auto-fill.
 
 ### English (en-US) — 24 chars
 ```
 Fud AI - Calorie Tracker
 ```
 
-### Arabic (ar) — 22 chars
-```
-Fud AI - متعقب السعرات
-```
-
-### Azerbaijani (az-AZ) — 24 chars
-```
-Fud AI - Kalori İzləyici
-```
-
-### German (de-DE) — 24 chars
-```
-Fud AI - Kalorienzähler
-```
-
-### Spanish (es-ES) — 28 chars
-```
-Fud AI - Contador Calorías
-```
-
-### French (fr-FR) — 26 chars
-```
-Fud AI - Suivi de Calories
-```
-
-### Hindi (hi-IN) — 21 chars
-```
-Fud AI - कैलोरी ट्रैकर
-```
-
-### Italian (it-IT) — 21 chars
-```
-Fud AI - Contacalorie
-```
-
-### Japanese (ja-JP) — 17 chars
-```
-Fud AI - カロリー記録
-```
-
-### Korean (ko-KR) — 17 chars
-```
-Fud AI - 칼로리 트래커
-```
-
-### Dutch (nl-NL) — 26 chars
-```
-Fud AI - Calorieën Tracker
-```
-
-### Portuguese Brazil (pt-BR) — 29 chars
-```
-Fud AI - Contador de Calorias
-```
-
-### Romanian (ro) — 25 chars
-```
-Fud AI - Contor de Calorii
-```
-
-### Russian (ru-RU) — 24 chars
-```
-Fud AI - Счётчик Калорий
-```
-
-### Chinese Simplified (zh-CN) — 14 chars
-```
-Fud AI - 卡路里追踪
-```
-
 ---
 
 ## 2. Short Description
 
-**80 char hard cap per language. Cannot include price/promotion keywords ("free", "discount", "sale", "best", "#1", etc.) — Play Console will block promotion of the listing.** Current live English used "Free & open source" which triggers the warning; the version below drops "Free" while keeping the same rhythm.
+**80 char hard cap per language. Cannot include price/promotion keywords ("free", "discount", "sale", "best", "#1", etc.) — Play Console will block promotion of the listing.** Live Play Store currently has "Snap, speak, or type a meal. AI logs the calories. Free & open source." which triggers the warning; replacement below drops "Free" while keeping the same rhythm. Per-language translations handled by Play Console's free Machine translation service same as App Name.
 
 ### English (en-US) — 63 chars
 ```
 Snap, speak, or type a meal. AI logs the calories. Open source.
-```
-
-### Arabic (ar) — 70 chars
-```
-صوّر أو تحدّث أو اكتب وجبتك. الذكاء الاصطناعي يسجّل السعرات. مفتوح المصدر.
-```
-
-### Azerbaijani (az-AZ) — 78 chars
-```
-Yeməyi şəkillə, səslə və ya yazaraq daxil edin. AI kaloriləri qeyd edir.
-```
-
-### German (de-DE) — 76 chars
-```
-Mahlzeit fotografieren, sprechen oder eingeben. KI erfasst die Kalorien.
-```
-
-### Spanish (es-ES) — 75 chars
-```
-Foto, voz o texto de una comida. La IA registra las calorías. Open source.
-```
-
-### French (fr-FR) — 78 chars
-```
-Photo, voix ou texte d'un repas. L'IA enregistre les calories. Open source.
-```
-
-### Hindi (hi-IN) — 79 chars
-```
-भोजन की फ़ोटो लें, बोलें या लिखें। AI कैलोरी ट्रैक करता है। ओपन सोर्स।
-```
-
-### Italian (it-IT) — 76 chars
-```
-Foto, voce o testo di un pasto. L'IA registra le calorie. Codice aperto.
-```
-
-### Japanese (ja-JP) — 41 chars
-```
-食事を撮影・発話・入力。AIがカロリーを記録します。オープンソース。
-```
-
-### Korean (ko-KR) — 47 chars
-```
-식사를 촬영, 말하기, 입력하면 AI가 칼로리를 기록합니다. 오픈 소스.
-```
-
-### Dutch (nl-NL) — 75 chars
-```
-Foto, spraak of tekst van een maaltijd. AI registreert calorieën. Open source.
-```
-
-### Portuguese Brazil (pt-BR) — 74 chars
-```
-Foto, voz ou texto de uma refeição. A IA registra as calorias. Open source.
-```
-
-### Romanian (ro) — 76 chars
-```
-Foto, voce sau text al unei mese. AI înregistrează caloriile. Open source.
-```
-
-### Russian (ru-RU) — 78 chars
-```
-Фото, голос или текст блюда. ИИ записывает калории. С открытым исходным кодом.
-```
-
-### Chinese Simplified (zh-CN) — 33 chars
-```
-拍照、语音或文字记录餐食。AI 自动追踪卡路里。开源应用。
 ```
 
 ---
@@ -241,8 +101,8 @@ Privacy: https://fud-ai.app/privacy.html
 Source: https://github.com/apoorvdarshan/fud-ai
 ```
 
-### Other 14 languages
-Currently English-only on Play Console — Play Store falls back to English for non-localized regions. If you want to add per-language Full Descriptions, request a translation pass (deliberate ~45k-char decision).
+### Other 13 languages
+Handled by Play Console's free **Machine translation** service (Grow → Store presence → Translations service → Machine translation → translate from en-US into the 13 supported locales: ar, de-DE, es-ES, fr-FR, hi-IN, it-IT, ja-JP, ko-KR, nl-NL, pt-BR, ro, ru-RU, zh-CN). Re-run the translation whenever the English source changes (every Android version bump that touches the Full Description). Azerbaijani is intentionally skipped because Play's machine translation doesn't support az-AZ — Azerbaijani users will see the English Play Store listing but the in-app UI is fully translated via values-az/strings.xml.
 
 ---
 

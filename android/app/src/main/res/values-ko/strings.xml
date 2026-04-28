@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">체성분 변화를 추적하려면 오늘의 체지방률을 기록하세요.</string>
     <string name="saved_meals_search_placeholder">저장된 음식 검색</string>
     <string name="saved_meals_no_match">일치하는 음식이 없습니다</string>
+    <string name="settings_section_custom_instructions">사용자 지정 AI 지침</string>
+    <string name="settings_custom_instructions_placeholder">예: 독일에 거주하며, 유럽식 1인분 크기를 기준으로 하고, ALDI/REWE 브랜드를 선호합니다. 보디빌딩 감량 중입니다.</string>
+    <string name="settings_custom_instructions_footer">모든 AI 요청과 함께 전송되는 선택적 컨텍스트 — 지역, 식단, 운동 목표 등 매번 반복해서 입력해야 하는 정보. 비활성화하려면 비워 두세요.</string>
+    <string name="settings_save">저장</string>
+    <string name="settings_saved">저장됨</string>
+    <string name="settings_section_fallback">폴백 제공자</string>
+    <string name="settings_enable_fallback">폴백 사용</string>
+    <string name="settings_fallback_footer">기본 제공자가 실패할 경우(과부하, 속도 제한, 네트워크 오류) 앱이 이 폴백으로 자동 재시도합니다. 기본과 동일한 제공자도 허용됩니다 — 다른 모델을 선택하세요.</string>
 </resources>

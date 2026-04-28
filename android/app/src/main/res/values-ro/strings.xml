@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">Înregistrează grăsimea corporală de azi pentru a urmări tendința compoziției.</string>
     <string name="saved_meals_search_placeholder">Caută în mâncărurile salvate</string>
     <string name="saved_meals_no_match">Nicio mâncare potrivită</string>
+    <string name="settings_section_custom_instructions">Instrucțiuni AI personalizate</string>
+    <string name="settings_custom_instructions_placeholder">Ex.: locuiesc în Germania, presupune porții europene, prefer mărcile ALDI/REWE. Sunt într-o etapă de definire la culturism.</string>
+    <string name="settings_custom_instructions_footer">Context opțional trimis cu fiecare cerere AI — regiune, dietă, obiective sportive, orice ai repeta altfel de fiecare dată. Lasă gol pentru a dezactiva.</string>
+    <string name="settings_save">Salvează</string>
+    <string name="settings_saved">Salvat</string>
+    <string name="settings_section_fallback">Furnizor de rezervă</string>
+    <string name="settings_enable_fallback">Activează rezerva</string>
+    <string name="settings_fallback_footer">Dacă furnizorul principal eșuează (suprasolicitare, limită de rată, eroare de rețea), aplicația reîncearcă automat cu această rezervă. Este permis același furnizor ca cel principal — doar alege un model diferit.</string>
 </resources>

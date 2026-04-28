@@ -526,6 +526,17 @@
     <string name="settings_custom_url_title">Custom base URL</string>
     <string name="settings_clear_key">Clear key</string>
 
+    <!-- Custom AI Instructions + Fallback Provider (v1.0.6) -->
+    <string name="settings_section_custom_instructions">Custom AI Instructions</string>
+    <string name="settings_custom_instructions_placeholder">e.g. I live in Germany, assume European portion sizes, prefer ALDI/REWE brands. I\'m on a bodybuilding cut.</string>
+    <string name="settings_custom_instructions_footer">Optional context sent with every AI request — region, diet, athletic goals, anything you\'d otherwise repeat each time. Leave empty to disable.</string>
+    <string name="settings_save">Save</string>
+    <string name="settings_saved">Saved</string>
+
+    <string name="settings_section_fallback">Fallback Provider</string>
+    <string name="settings_enable_fallback">Enable Fallback</string>
+    <string name="settings_fallback_footer">If your primary provider fails (overload, rate limit, network error), the app retries automatically with this fallback. Same provider as primary is allowed — just pick a different model.</string>
+
     <string name="settings_health_connect">Health Connect</string>
     <string name="settings_clear_food_log">Clear Food Log</string>
     <string name="settings_delete_all_data">Delete All Data</string>

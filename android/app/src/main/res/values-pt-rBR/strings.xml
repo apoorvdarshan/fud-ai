@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">Registre sua gordura corporal de hoje para acompanhar a tendência de composição.</string>
     <string name="saved_meals_search_placeholder">Buscar refeições salvas</string>
     <string name="saved_meals_no_match">Nenhuma refeição correspondente</string>
+    <string name="settings_section_custom_instructions">Instruções de IA personalizadas</string>
+    <string name="settings_custom_instructions_placeholder">Ex.: moro na Alemanha, considere porções europeias, prefiro as marcas ALDI/REWE. Estou em fase de cutting no fisiculturismo.</string>
+    <string name="settings_custom_instructions_footer">Contexto opcional enviado em cada solicitação de IA — região, dieta, objetivos atléticos, qualquer coisa que você repetiria toda vez. Deixe vazio para desativar.</string>
+    <string name="settings_save">Salvar</string>
+    <string name="settings_saved">Salvo</string>
+    <string name="settings_section_fallback">Provedor de fallback</string>
+    <string name="settings_enable_fallback">Ativar fallback</string>
+    <string name="settings_fallback_footer">Se o seu provedor principal falhar (sobrecarga, limite de taxa, erro de rede), o app tenta novamente automaticamente com este fallback. É permitido o mesmo provedor do principal — basta escolher um modelo diferente.</string>
 </resources>

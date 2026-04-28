@@ -120,6 +120,33 @@ class PreferencesStore(private val context: Context) {
         }
     }
 
+    // -- Custom AI Instructions ------------------------------------------
+    /** Free-form text appended to every AI request. Empty = disabled. */
+    val userContext: Flow<String> = ds.data.map { it[Keys.USER_CONTEXT].orEmpty() }
+    suspend fun setUserContext(value: String) {
+        val trimmed = value.trim()
+        ds.edit {
+            if (trimmed.isEmpty()) it.remove(Keys.USER_CONTEXT) else it[Keys.USER_CONTEXT] = trimmed
+        }
+    }
+
+    // -- Fallback AI Provider --------------------------------------------
+    val fallbackEnabled: Flow<Boolean> = ds.data.map { it[Keys.FALLBACK_ENABLED] ?: false }
+    suspend fun setFallbackEnabled(v: Boolean) { ds.edit { it[Keys.FALLBACK_ENABLED] = v } }
+
+    val selectedFallbackProvider: Flow<AIProvider> = ds.data.map {
+        val raw = it[Keys.FALLBACK_PROVIDER]
+        AIProvider.values().firstOrNull { p -> p.name == raw } ?: AIProvider.GEMINI
+    }
+    suspend fun setSelectedFallbackProvider(p: AIProvider) {
+        ds.edit { it[Keys.FALLBACK_PROVIDER] = p.name }
+    }
+
+    val selectedFallbackModel: Flow<String?> = ds.data.map { it[Keys.FALLBACK_MODEL] }
+    suspend fun setSelectedFallbackModel(model: String) {
+        ds.edit { it[Keys.FALLBACK_MODEL] = model }
+    }
+
     // -- Speech Provider selection ---------------------------------------
     val selectedSpeechProvider: Flow<SpeechProvider> = ds.data.map {
         val raw = it[Keys.SELECTED_SPEECH_PROVIDER]
@@ -246,6 +273,10 @@ class PreferencesStore(private val context: Context) {
         val LAST_SAVED_MEALS_SEGMENT = stringPreferencesKey("lastRecentsSegment")
         val SELECTED_AI_PROVIDER = stringPreferencesKey("selectedAIProvider")
         val SELECTED_AI_MODEL = stringPreferencesKey("selectedAIModel")
+        val USER_CONTEXT = stringPreferencesKey("userContext")
+        val FALLBACK_ENABLED = booleanPreferencesKey("aiFallbackEnabled")
+        val FALLBACK_PROVIDER = stringPreferencesKey("selectedFallbackAIProvider")
+        val FALLBACK_MODEL = stringPreferencesKey("selectedFallbackAIModel")
         val SELECTED_SPEECH_PROVIDER = stringPreferencesKey("selectedSpeechProvider")
         val FOOD_ENTRIES = stringPreferencesKey("foodEntries")
         val FAVORITE_KEYS = stringPreferencesKey("favorites")

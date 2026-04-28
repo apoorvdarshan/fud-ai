@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">Registra il tuo grasso corporeo oggi per seguire l\'andamento della composizione.</string>
     <string name="saved_meals_search_placeholder">Cerca tra i pasti salvati</string>
     <string name="saved_meals_no_match">Nessun pasto corrispondente</string>
+    <string name="settings_section_custom_instructions">Istruzioni IA personalizzate</string>
+    <string name="settings_custom_instructions_placeholder">Es. vivo in Germania, considera porzioni europee, preferisco i marchi ALDI/REWE. Sono in fase di definizione per il bodybuilding.</string>
+    <string name="settings_custom_instructions_footer">Contesto opzionale inviato a ogni richiesta IA — regione, dieta, obiettivi sportivi, qualsiasi cosa che altrimenti ripeteresti ogni volta. Lascia vuoto per disattivare.</string>
+    <string name="settings_save">Salva</string>
+    <string name="settings_saved">Salvato</string>
+    <string name="settings_section_fallback">Provider di riserva</string>
+    <string name="settings_enable_fallback">Attiva provider di riserva</string>
+    <string name="settings_fallback_footer">Se il tuo provider principale fallisce (sovraccarico, limite di velocità, errore di rete), l\'app riprova automaticamente con questo provider di riserva. È consentito lo stesso provider del principale — basta scegliere un modello diverso.</string>
 </resources>

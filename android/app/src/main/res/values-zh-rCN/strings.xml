@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">记录今天的体脂百分比以追踪你的体成分趋势。</string>
     <string name="saved_meals_search_placeholder">搜索已保存的食物</string>
     <string name="saved_meals_no_match">没有匹配的食物</string>
+    <string name="settings_section_custom_instructions">自定义 AI 指令</string>
+    <string name="settings_custom_instructions_placeholder">例如：我住在德国，按欧洲份量计算，优先选择 ALDI/REWE 品牌。我正在进行健美减脂期。</string>
+    <string name="settings_custom_instructions_footer">随每次 AI 请求一同发送的可选上下文——地区、饮食、运动目标，任何你本来需要每次都重复的信息。留空即可停用。</string>
+    <string name="settings_save">保存</string>
+    <string name="settings_saved">已保存</string>
+    <string name="settings_section_fallback">备用提供商</string>
+    <string name="settings_enable_fallback">启用备用</string>
+    <string name="settings_fallback_footer">如果主提供商失败（过载、速率限制、网络错误），应用会自动使用此备用提供商重试。允许与主提供商相同——只需选择不同的模型即可。</string>
 </resources>

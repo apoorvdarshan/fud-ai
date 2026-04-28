@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">体組成の変化を追跡するために、今日の体脂肪率を記録しましょう。</string>
     <string name="saved_meals_search_placeholder">保存した食事を検索</string>
     <string name="saved_meals_no_match">一致する食事がありません</string>
+    <string name="settings_section_custom_instructions">カスタムAIインストラクション</string>
+    <string name="settings_custom_instructions_placeholder">例: ドイツ在住で、ヨーロッパの分量を想定し、ALDI/REWEのブランドを優先します。ボディビルの減量期です。</string>
+    <string name="settings_custom_instructions_footer">すべてのAIリクエストと一緒に送信される任意のコンテキスト — 地域、食事制限、トレーニング目標など、毎回繰り返したくない情報。無効にするには空のままにしてください。</string>
+    <string name="settings_save">保存</string>
+    <string name="settings_saved">保存しました</string>
+    <string name="settings_section_fallback">フォールバックプロバイダー</string>
+    <string name="settings_enable_fallback">フォールバックを有効にする</string>
+    <string name="settings_fallback_footer">プライマリプロバイダーが失敗した場合（過負荷、レート制限、ネットワークエラー）、アプリはこのフォールバックで自動的に再試行します。プライマリと同じプロバイダーも使用できます — 別のモデルを選んでください。</string>
 </resources>

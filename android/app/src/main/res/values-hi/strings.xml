@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">अपनी संरचना का रुझान देखने के लिए आज का बॉडी फैट % दर्ज करें।</string>
     <string name="saved_meals_search_placeholder">सहेजे गए खानों में खोजें</string>
     <string name="saved_meals_no_match">कोई मेल खाता खाना नहीं</string>
+    <string name="settings_section_custom_instructions">कस्टम AI निर्देश</string>
+    <string name="settings_custom_instructions_placeholder">उदा. मैं जर्मनी में रहता हूँ, यूरोपीय पोर्शन साइज़ मानें, ALDI/REWE ब्रांड्स को प्राथमिकता दें। मैं बॉडीबिल्डिंग कट पर हूँ।</string>
+    <string name="settings_custom_instructions_footer">हर AI अनुरोध के साथ भेजा जाने वाला वैकल्पिक संदर्भ — क्षेत्र, डाइट, एथलेटिक लक्ष्य, और जो कुछ भी आप हर बार दोहराते हैं। बंद करने के लिए खाली छोड़ें।</string>
+    <string name="settings_save">सहेजें</string>
+    <string name="settings_saved">सहेजा गया</string>
+    <string name="settings_section_fallback">फ़ॉलबैक प्रदाता</string>
+    <string name="settings_enable_fallback">फ़ॉलबैक चालू करें</string>
+    <string name="settings_fallback_footer">यदि आपका प्राथमिक प्रदाता विफल हो जाता है (ओवरलोड, रेट लिमिट, नेटवर्क त्रुटि), तो ऐप स्वचालित रूप से इस फ़ॉलबैक के साथ पुनः प्रयास करता है। प्राथमिक के समान प्रदाता की अनुमति है — बस एक अलग मॉडल चुनें।</string>
 </resources>

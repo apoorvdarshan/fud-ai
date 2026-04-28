@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">Запишите свой % жира сегодня, чтобы отслеживать динамику состава тела.</string>
     <string name="saved_meals_search_placeholder">Поиск сохранённых продуктов</string>
     <string name="saved_meals_no_match">Нет подходящих продуктов</string>
+    <string name="settings_section_custom_instructions">Свои инструкции для ИИ</string>
+    <string name="settings_custom_instructions_placeholder">Например: живу в Германии, ориентируйся на европейские размеры порций, предпочитаю бренды ALDI/REWE. Я на сушке для бодибилдинга.</string>
+    <string name="settings_custom_instructions_footer">Необязательный контекст, отправляемый с каждым запросом к ИИ — регион, диета, спортивные цели, всё, что ты иначе повторял бы каждый раз. Оставь пустым, чтобы отключить.</string>
+    <string name="settings_save">Сохранить</string>
+    <string name="settings_saved">Сохранено</string>
+    <string name="settings_section_fallback">Резервный провайдер</string>
+    <string name="settings_enable_fallback">Включить резерв</string>
+    <string name="settings_fallback_footer">Если основной провайдер недоступен (перегрузка, лимит запросов, сетевая ошибка), приложение автоматически повторит запрос через этот резервный. Можно выбрать того же провайдера, что и основной — просто укажи другую модель.</string>
 </resources>

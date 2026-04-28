@@ -28,7 +28,12 @@ data class SettingsUiState(
     val apiKeyMasked: String = "",
     val speechApiKeyMasked: String = "",
     val appearanceMode: String = "system",
-    val weekStartsOnMonday: Boolean = false
+    val weekStartsOnMonday: Boolean = false,
+    val userContext: String = "",
+    val fallbackEnabled: Boolean = false,
+    val fallbackProvider: AIProvider = AIProvider.GEMINI,
+    val fallbackModel: String = AIProvider.GEMINI.defaultModel,
+    val fallbackApiKeyMasked: String = ""
 )
 
 class SettingsViewModel(val container: AppContainer) : ViewModel() {
@@ -48,6 +53,11 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             val speechMasked = maskKey(container.keyStore.speechApiKey(speech))
             val appearance = container.prefs.appearanceMode.first()
             val weekMon = container.prefs.weekStartsOnMonday.first()
+            val userContext = container.prefs.userContext.first()
+            val fbEnabled = container.prefs.fallbackEnabled.first()
+            val fbProvider = container.prefs.selectedFallbackProvider.first()
+            val fbModel = container.prefs.selectedFallbackModel.first() ?: fbProvider.defaultModel
+            val fbMasked = maskKey(container.keyStore.apiKey(fbProvider))
             _ui.value = SettingsUiState(
                 selectedAI = provider,
                 selectedModel = model,
@@ -59,8 +69,54 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 apiKeyMasked = masked,
                 speechApiKeyMasked = speechMasked,
                 appearanceMode = appearance,
-                weekStartsOnMonday = weekMon
+                weekStartsOnMonday = weekMon,
+                userContext = userContext,
+                fallbackEnabled = fbEnabled,
+                fallbackProvider = fbProvider,
+                fallbackModel = fbModel,
+                fallbackApiKeyMasked = fbMasked
             )
+        }
+    }
+
+    fun setUserContext(value: String) {
+        viewModelScope.launch {
+            container.prefs.setUserContext(value)
+            _ui.value = _ui.value.copy(userContext = value.trim())
+        }
+    }
+
+    fun setFallbackEnabled(v: Boolean) {
+        viewModelScope.launch {
+            container.prefs.setFallbackEnabled(v)
+            _ui.value = _ui.value.copy(fallbackEnabled = v)
+        }
+    }
+
+    fun selectFallbackProvider(p: AIProvider) {
+        viewModelScope.launch {
+            container.prefs.setSelectedFallbackProvider(p)
+            // Reset model to provider default if old model isn't in the new provider's list.
+            val current = _ui.value.fallbackModel
+            val newModel = if (p.supportsCustomModelName || p.models.contains(current)) current else p.defaultModel
+            container.prefs.setSelectedFallbackModel(newModel)
+            val masked = maskKey(container.keyStore.apiKey(p))
+            _ui.value = _ui.value.copy(fallbackProvider = p, fallbackModel = newModel, fallbackApiKeyMasked = masked)
+        }
+    }
+
+    fun selectFallbackModel(m: String) {
+        viewModelScope.launch {
+            container.prefs.setSelectedFallbackModel(m)
+            _ui.value = _ui.value.copy(fallbackModel = m)
+        }
+    }
+
+    fun setFallbackApiKey(raw: String) {
+        viewModelScope.launch {
+            val p = _ui.value.fallbackProvider
+            container.keyStore.setApiKey(p, raw.takeIf { it.isNotBlank() })
+            _ui.value = _ui.value.copy(fallbackApiKeyMasked = maskKey(raw.takeIf { it.isNotBlank() }))
         }
     }
 

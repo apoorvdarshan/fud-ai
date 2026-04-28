@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">Erfasse heute dein Körperfett, um deinen Verlauf zu verfolgen.</string>
     <string name="saved_meals_search_placeholder">Gespeicherte Mahlzeiten durchsuchen</string>
     <string name="saved_meals_no_match">Keine passenden Mahlzeiten</string>
+    <string name="settings_section_custom_instructions">Eigene KI-Anweisungen</string>
+    <string name="settings_custom_instructions_placeholder">z. B. Ich lebe in Deutschland, gehe von europäischen Portionsgrößen aus, bevorzuge ALDI/REWE-Marken. Ich bin in einer Bodybuilding-Diätphase.</string>
+    <string name="settings_custom_instructions_footer">Optionaler Kontext, der bei jeder KI-Anfrage mitgesendet wird — Region, Ernährung, sportliche Ziele, alles, was du sonst jedes Mal wiederholen müsstest. Leer lassen, um zu deaktivieren.</string>
+    <string name="settings_save">Speichern</string>
+    <string name="settings_saved">Gespeichert</string>
+    <string name="settings_section_fallback">Fallback-Anbieter</string>
+    <string name="settings_enable_fallback">Fallback aktivieren</string>
+    <string name="settings_fallback_footer">Wenn dein primärer Anbieter ausfällt (Überlastung, Rate-Limit, Netzwerkfehler), versucht die App es automatisch erneut mit diesem Fallback. Derselbe Anbieter wie der primäre ist erlaubt — wähle einfach ein anderes Modell.</string>
 </resources>

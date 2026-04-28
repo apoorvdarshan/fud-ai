@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">Bədən tərkibinizin trendini izləmək üçün bu günkü bədən yağı %-ni qeyd edin.</string>
     <string name="saved_meals_search_placeholder">Saxlanılan yeməklərdə axtarın</string>
     <string name="saved_meals_no_match">Uyğun yemək tapılmadı</string>
+    <string name="settings_section_custom_instructions">Fərdi AI Təlimatları</string>
+    <string name="settings_custom_instructions_placeholder">məsələn, Almaniyada yaşayıram, Avropa porsiya ölçülərini nəzərə al, ALDI/REWE markalarını üstün tut. Bodibildinq kəsim mərhələsindəyəm.</string>
+    <string name="settings_custom_instructions_footer">Hər AI sorğusu ilə göndərilən isteğe bağlı kontekst — region, pəhriz, idman məqsədləri, hər dəfə təkrarlamalı olduğun hər şey. Söndürmək üçün boş burax.</string>
+    <string name="settings_save">Yadda saxla</string>
+    <string name="settings_saved">Yadda saxlanıldı</string>
+    <string name="settings_section_fallback">Ehtiyat Provayder</string>
+    <string name="settings_enable_fallback">Ehtiyatı aktivləşdir</string>
+    <string name="settings_fallback_footer">Əsas provayderin uğursuz olarsa (yüklənmə, sürət limiti, şəbəkə xətası), tətbiq avtomatik olaraq bu ehtiyat provayderlə yenidən cəhd edir. Əsas ilə eyni provayder seçilə bilər — sadəcə fərqli model seç.</string>
 </resources>

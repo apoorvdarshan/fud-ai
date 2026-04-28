@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">Log je vetpercentage van vandaag om je samenstellings-trend te volgen.</string>
     <string name="saved_meals_search_placeholder">Zoek in opgeslagen maaltijden</string>
     <string name="saved_meals_no_match">Geen overeenkomende maaltijden</string>
+    <string name="settings_section_custom_instructions">Aangepaste AI-instructies</string>
+    <string name="settings_custom_instructions_placeholder">Bijv. ik woon in Duitsland, ga uit van Europese portiegroottes, voorkeur voor ALDI/REWE-merken. Ik zit in een bodybuilding-cut.</string>
+    <string name="settings_custom_instructions_footer">Optionele context die met elk AI-verzoek wordt meegestuurd — regio, dieet, sportieve doelen, alles wat je anders elke keer zou herhalen. Laat leeg om uit te schakelen.</string>
+    <string name="settings_save">Opslaan</string>
+    <string name="settings_saved">Opgeslagen</string>
+    <string name="settings_section_fallback">Reserveprovider</string>
+    <string name="settings_enable_fallback">Reserve inschakelen</string>
+    <string name="settings_fallback_footer">Als je primaire provider faalt (overbelasting, snelheidslimiet, netwerkfout), probeert de app automatisch opnieuw met deze reserve. Dezelfde provider als de primaire is toegestaan — kies gewoon een ander model.</string>
 </resources>

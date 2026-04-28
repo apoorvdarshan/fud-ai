@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">Registra tu grasa corporal de hoy para seguir tu tendencia de composición.</string>
     <string name="saved_meals_search_placeholder">Buscar comidas guardadas</string>
     <string name="saved_meals_no_match">No hay comidas que coincidan</string>
+    <string name="settings_section_custom_instructions">Instrucciones de IA personalizadas</string>
+    <string name="settings_custom_instructions_placeholder">Por ejemplo: vivo en Alemania, asume tamaños de porción europeos, prefiero las marcas ALDI/REWE. Estoy en una etapa de definición de culturismo.</string>
+    <string name="settings_custom_instructions_footer">Contexto opcional que se envía con cada solicitud de IA: región, dieta, objetivos deportivos, cualquier cosa que de otro modo repetirías cada vez. Déjalo vacío para desactivarlo.</string>
+    <string name="settings_save">Guardar</string>
+    <string name="settings_saved">Guardado</string>
+    <string name="settings_section_fallback">Proveedor de respaldo</string>
+    <string name="settings_enable_fallback">Activar respaldo</string>
+    <string name="settings_fallback_footer">Si tu proveedor principal falla (sobrecarga, límite de tasa, error de red), la app reintenta automáticamente con este respaldo. Se permite el mismo proveedor que el principal — solo elige un modelo diferente.</string>
 </resources>

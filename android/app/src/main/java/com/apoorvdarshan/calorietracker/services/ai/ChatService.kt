@@ -49,7 +49,11 @@ class ChatService(
         foods: List<FoodEntry>,
         useMetric: Boolean
     ): String {
-        val systemPrompt = buildSystemPrompt(profile, weights, bodyFats, foods, useMetric)
+        val baseSystemPrompt = buildSystemPrompt(profile, weights, bodyFats, foods, useMetric)
+        val userContext = prefs.userContext.first()
+        val systemPrompt = if (userContext.isNotBlank())
+            "$baseSystemPrompt\n\n## User-provided context\n$userContext"
+        else baseSystemPrompt
         val tools = CoachTools(weights = weights, bodyFats = bodyFats, foods = foods)
 
         val provider = prefs.selectedAIProvider.first()

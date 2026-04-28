@@ -69,14 +69,33 @@ class FoodAnalysisService(
     // -- Internal dispatch ------------------------------------------------
 
     private suspend fun callAi(prompt: String, imageBytes: ByteArray?): String {
-        val provider = prefs.selectedAIProvider.first()
-        val model = prefs.selectedAIModel.first() ?: provider.defaultModel
-        val baseUrl = prefs.customBaseUrl(provider).first()?.takeIf { it.isNotEmpty() } ?: provider.baseUrl
-        val apiKey = keyStore.apiKey(provider)
+        val context = prefs.userContext.first()
+        val finalPrompt = if (context.isNotBlank()) "User context (apply to every analysis): $context\n\n$prompt" else prompt
 
-        if (provider.requiresApiKey && apiKey.isNullOrEmpty()) throw AiError.NoApiKey
+        val primary = prefs.selectedAIProvider.first()
+        val primaryModel = prefs.selectedAIModel.first() ?: primary.defaultModel
+        val primaryBaseUrl = prefs.customBaseUrl(primary).first()?.takeIf { it.isNotEmpty() } ?: primary.baseUrl
+        val primaryKey = keyStore.apiKey(primary)
+        if (primary.requiresApiKey && primaryKey.isNullOrEmpty()) throw AiError.NoApiKey
+
+        return try {
+            dispatch(primary, primaryModel, primaryBaseUrl, primaryKey, finalPrompt, imageBytes)
+        } catch (primaryError: Throwable) {
+            val fallback = currentFallbackConfig(primary, primaryModel) ?: throw primaryError
+            dispatch(fallback.provider, fallback.model, fallback.baseUrl, fallback.apiKey, finalPrompt, imageBytes)
+        }
+    }
+
+    private suspend fun dispatch(
+        provider: AIProvider,
+        model: String,
+        baseUrl: String,
+        apiKey: String?,
+        prompt: String,
+        imageBytes: ByteArray?
+    ): String {
         if (baseUrl.isEmpty()) throw AiError.InvalidUrl(baseUrl)
-
+        if (provider.requiresApiKey && apiKey.isNullOrEmpty()) throw AiError.NoApiKey
         return when (provider.apiFormat) {
             AIProvider.ApiFormat.GEMINI ->
                 GeminiClient.analyze(okHttp, baseUrl, model, apiKey!!, prompt, imageBytes)
@@ -86,6 +105,29 @@ class FoodAnalysisService(
                 OpenAICompatibleClient.analyze(okHttp, baseUrl, model, apiKey, prompt, imageBytes, provider)
         }
     }
+
+    private suspend fun currentFallbackConfig(
+        primary: AIProvider,
+        primaryModel: String
+    ): FallbackConfig? {
+        if (!prefs.fallbackEnabled.first()) return null
+        val provider = prefs.selectedFallbackProvider.first()
+        val model = prefs.selectedFallbackModel.first() ?: provider.defaultModel
+        // Fallback identical to primary would be a pointless retry of the same call.
+        if (provider == primary && model == primaryModel) return null
+        val key = keyStore.apiKey(provider)
+        if (provider.requiresApiKey && key.isNullOrEmpty()) return null
+        val baseUrl = prefs.customBaseUrl(provider).first()?.takeIf { it.isNotEmpty() } ?: provider.baseUrl
+        if (baseUrl.isEmpty()) return null
+        return FallbackConfig(provider, model, baseUrl, key)
+    }
+
+    private data class FallbackConfig(
+        val provider: AIProvider,
+        val model: String,
+        val baseUrl: String,
+        val apiKey: String?
+    )
 
     companion object {
         internal val defaultClient: OkHttpClient by lazy {

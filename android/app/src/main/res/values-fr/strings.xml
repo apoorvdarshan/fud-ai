@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">Enregistre ton % de masse grasse du jour pour suivre ton évolution.</string>
     <string name="saved_meals_search_placeholder">Rechercher dans les aliments enregistrés</string>
     <string name="saved_meals_no_match">Aucun aliment correspondant</string>
+    <string name="settings_section_custom_instructions">Instructions IA personnalisées</string>
+    <string name="settings_custom_instructions_placeholder">Par ex. : je vis en Allemagne, prends des portions européennes, je préfère les marques ALDI/REWE. Je suis en sèche pour la musculation.</string>
+    <string name="settings_custom_instructions_footer">Contexte facultatif envoyé à chaque requête IA — région, régime, objectifs sportifs, tout ce que tu répéterais sinon à chaque fois. Laisse vide pour désactiver.</string>
+    <string name="settings_save">Enregistrer</string>
+    <string name="settings_saved">Enregistré</string>
+    <string name="settings_section_fallback">Fournisseur de secours</string>
+    <string name="settings_enable_fallback">Activer le fournisseur de secours</string>
+    <string name="settings_fallback_footer">Si ton fournisseur principal échoue (surcharge, limite de débit, erreur réseau), l\'app réessaie automatiquement avec ce fournisseur de secours. Le même fournisseur que le principal est autorisé — choisis simplement un modèle différent.</string>
 </resources>

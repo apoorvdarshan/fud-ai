@@ -625,4 +625,12 @@
     <string name="notif_body_fat_log_text">سجّل نسبة الدهون اليوم لتتبع تطور تكوين جسمك.</string>
     <string name="saved_meals_search_placeholder">ابحث في الأطعمة المحفوظة</string>
     <string name="saved_meals_no_match">لا توجد أطعمة مطابقة</string>
+    <string name="settings_section_custom_instructions">تعليمات الذكاء الاصطناعي المخصصة</string>
+    <string name="settings_custom_instructions_placeholder">مثلاً: أعيش في ألمانيا، افترض أحجام حصص أوروبية، أُفضّل ماركات ALDI/REWE. أنا في مرحلة تنشيف لكمال الأجسام.</string>
+    <string name="settings_custom_instructions_footer">سياق اختياري يُرسَل مع كل طلب للذكاء الاصطناعي — المنطقة، النظام الغذائي، الأهداف الرياضية، أي شيء كنت ستكرره في كل مرة. اتركه فارغاً للتعطيل.</string>
+    <string name="settings_save">حفظ</string>
+    <string name="settings_saved">تم الحفظ</string>
+    <string name="settings_section_fallback">المزود الاحتياطي</string>
+    <string name="settings_enable_fallback">تفعيل الاحتياطي</string>
+    <string name="settings_fallback_footer">إذا فشل المزود الأساسي (تحميل زائد، تجاوز الحد، خطأ في الشبكة)، يُعيد التطبيق المحاولة تلقائياً باستخدام هذا الاحتياطي. يُسمح بنفس المزود الأساسي — فقط اختر طرازاً مختلفاً.</string>
 </resources>

@@ -144,6 +144,7 @@ import java.util.Locale
 
 private enum class SettingsSheet {
     AI_PROVIDER, AI_MODEL, API_KEY, CUSTOM_BASE_URL, SPEECH_PROVIDER, SPEECH_KEY,
+    FALLBACK_PROVIDER, FALLBACK_MODEL, FALLBACK_KEY, FALLBACK_BASE_URL,
     GENDER, BIRTHDAY, HEIGHT, WEIGHT, BODY_FAT, GOAL_BODY_FAT, ACTIVITY, GOAL, GOAL_WEIGHT, GOAL_SPEED,
     CALORIES, PROTEIN, CARBS, FAT,
     APPEARANCE, WEEK_START
@@ -442,6 +443,67 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController) {
                 }
             }
 
+            // Section 4b — Custom AI Instructions (matches iOS Section)
+            SectionCard(title = stringResource(R.string.settings_section_custom_instructions)) {
+                CustomInstructionsBlock(
+                    initial = ui.userContext,
+                    placeholder = stringResource(R.string.settings_custom_instructions_placeholder),
+                    onSave = { vm.setUserContext(it) }
+                )
+                Text(
+                    stringResource(R.string.settings_custom_instructions_footer),
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+                )
+            }
+
+            // Section 4c — Fallback Provider (matches iOS Section)
+            SectionCard(title = stringResource(R.string.settings_section_fallback)) {
+                ToggleRow(
+                    stringResource(R.string.settings_enable_fallback),
+                    ui.fallbackEnabled,
+                    icon = Icons.Outlined.Refresh,
+                    onChange = { vm.setFallbackEnabled(it) }
+                )
+                if (ui.fallbackEnabled) {
+                    HorizontalDivider()
+                    SettingRow(
+                        stringResource(R.string.settings_ai_provider),
+                        stringResource(ui.fallbackProvider.displayNameRes),
+                        icon = Icons.Outlined.SmartToy
+                    ) { sheet = SettingsSheet.FALLBACK_PROVIDER }
+                    HorizontalDivider()
+                    SettingRow(
+                        stringResource(R.string.settings_ai_model),
+                        ui.fallbackModel.ifEmpty { stringResource(R.string.settings_ai_model_unset) },
+                        icon = Icons.Outlined.Tune
+                    ) { sheet = SettingsSheet.FALLBACK_MODEL }
+                    if (ui.fallbackProvider.requiresApiKey) {
+                        HorizontalDivider()
+                        SettingRow(
+                            stringResource(R.string.settings_api_key),
+                            ui.fallbackApiKeyMasked.ifEmpty { stringResource(R.string.settings_not_set) },
+                            icon = Icons.Outlined.Key
+                        ) { sheet = SettingsSheet.FALLBACK_KEY }
+                    }
+                    if (ui.fallbackProvider.requiresCustomEndpoint || ui.fallbackProvider == AIProvider.OLLAMA) {
+                        HorizontalDivider()
+                        SettingRow(
+                            if (ui.fallbackProvider.requiresCustomEndpoint) stringResource(R.string.settings_base_url) else stringResource(R.string.settings_server_url),
+                            stringResource(R.string.settings_tap_to_edit),
+                            icon = Icons.Outlined.Link
+                        ) { sheet = SettingsSheet.FALLBACK_BASE_URL }
+                    }
+                    Text(
+                        stringResource(R.string.settings_fallback_footer),
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+                    )
+                }
+            }
+
             // Section 5 — Speech-to-Text (matches iOS Section "Speech-to-Text")
             SectionCard(title = stringResource(R.string.settings_section_speech)) {
                 SettingRow(stringResource(R.string.settings_ai_provider), stringResource(ui.selectedSpeech.displayNameRes), icon = Icons.Outlined.Mic) { sheet = SettingsSheet.SPEECH_PROVIDER }
@@ -643,6 +705,45 @@ private fun SettingsSheets(
                         onDismiss()
                     }
                 )
+                SettingsSheet.FALLBACK_PROVIDER -> ListSheet(
+                    title = stringResource(R.string.sheet_ai_provider),
+                    items = AIProvider.values().toList(),
+                    label = { stringResource(it.displayNameRes) },
+                    selected = { it == ui.fallbackProvider },
+                    onSelect = { vm.selectFallbackProvider(it); onDismiss() }
+                )
+                SettingsSheet.FALLBACK_MODEL -> {
+                    // Same provider as primary → exclude primary's selected model so
+                    // fallback can't be a literal duplicate config.
+                    val opts = if (ui.fallbackProvider == ui.selectedAI)
+                        ui.fallbackProvider.models.filter { it != ui.selectedModel }
+                    else ui.fallbackProvider.models
+                    ListSheet(
+                        title = stringResource(R.string.sheet_model),
+                        items = opts,
+                        label = { it },
+                        selected = { it == ui.fallbackModel },
+                        onSelect = { vm.selectFallbackModel(it); onDismiss() },
+                        footer = if (ui.fallbackProvider.supportsCustomModelName) stringResource(R.string.sheet_model_footer) else null,
+                        customField = if (ui.fallbackProvider.supportsCustomModelName) {
+                            { m -> vm.selectFallbackModel(m); onDismiss() }
+                        } else null
+                    )
+                }
+                SettingsSheet.FALLBACK_KEY -> ApiKeySheet(
+                    title = stringResource(R.string.sheet_api_key_format, stringResource(ui.fallbackProvider.displayNameRes)),
+                    placeholder = stringResource(ui.fallbackProvider.apiKeyPlaceholderRes),
+                    onSave = { vm.setFallbackApiKey(it); onDismiss() }
+                )
+                SettingsSheet.FALLBACK_BASE_URL -> {
+                    val existing = remember { runBlocking { vm.container.prefs.customBaseUrl(ui.fallbackProvider).first().orEmpty() } }
+                    TextFieldSheet(
+                        title = stringResource(R.string.settings_custom_url_title),
+                        initial = existing,
+                        placeholder = stringResource(R.string.settings_custom_url_placeholder),
+                        onSave = { vm.setCustomBaseUrl(ui.fallbackProvider, it); onDismiss() }
+                    )
+                }
                 SettingsSheet.GENDER -> ListSheet(
                     title = stringResource(R.string.sheet_gender),
                     items = Gender.values().toList(),
@@ -1353,6 +1454,55 @@ private fun MacroSettingRow(
                    else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
             modifier = Modifier.size(16.dp)
         )
+    }
+}
+
+/**
+ * Multi-line text editor with a Save row at the bottom that pulses brand pink
+ * when the current text differs from the persisted value, mirrors iOS Custom
+ * AI Instructions section.
+ */
+@Composable
+private fun CustomInstructionsBlock(
+    initial: String,
+    placeholder: String,
+    onSave: (String) -> Unit
+) {
+    var text by remember(initial) { mutableStateOf(initial) }
+    var saved by remember(initial) { mutableStateOf(initial) }
+    val hasChanges = text != saved
+    Column(Modifier.padding(horizontal = 16.dp, vertical = 10.dp)) {
+        OutlinedTextField(
+            value = text,
+            onValueChange = { text = it },
+            placeholder = { Text(placeholder, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)) },
+            modifier = Modifier.fillMaxWidth().heightIn(min = 110.dp),
+            shape = RoundedCornerShape(12.dp),
+            maxLines = 6
+        )
+        Spacer(Modifier.height(8.dp))
+        TextButton(
+            onClick = {
+                onSave(text)
+                saved = text.trim()
+                text = saved
+            },
+            enabled = hasChanges,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Icon(
+                Icons.Filled.Check,
+                contentDescription = null,
+                tint = if (hasChanges) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
+                modifier = Modifier.size(18.dp)
+            )
+            Spacer(Modifier.width(8.dp))
+            Text(
+                stringResource(R.string.settings_save),
+                color = if (hasChanges) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f),
+                fontWeight = FontWeight.SemiBold
+            )
+        }
     }
 }
 

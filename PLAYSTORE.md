@@ -10,7 +10,7 @@ Google Play Console listing copy for Fud AI Android (current: v1.0.6 / versionCo
 
 ## 1. App Name
 
-**30 char hard cap per language.** Brand name stays as `Fud AI` untranslated; the descriptor after the dash is what gets localized. Per-language translations handled by Play Console's free **Machine translation** service (Grow → Store presence → Translations service → Machine translation) — paste the English source here, run translate, all 13 supported locales auto-fill.
+**30 char hard cap per language.** Brand name stays as `Fud AI` untranslated; the descriptor after the dash is what gets localized. English-only on Play Console — non-English Play Store browsers see the English source as fallback.
 
 ### English (en-US) — 24 chars
 ```
@@ -21,7 +21,7 @@ Fud AI - Calorie Tracker
 
 ## 2. Short Description
 
-**80 char hard cap per language. Cannot include price/promotion keywords ("free", "discount", "sale", "best", "#1", etc.) — Play Console will block promotion of the listing.** Live Play Store currently has "Snap, speak, or type a meal. AI logs the calories. Free & open source." which triggers the warning; replacement below drops "Free" while keeping the same rhythm. Per-language translations handled by Play Console's free Machine translation service same as App Name.
+**80 char hard cap per language. Cannot include price/promotion keywords ("free", "discount", "sale", "best", "#1", etc.) — Play Console will block promotion of the listing.** Live Play Store currently has "Snap, speak, or type a meal. AI logs the calories. Free & open source." which triggers the warning; replacement below drops "Free" while keeping the same rhythm. English-only on Play Console — non-English Play Store browsers see the English source as fallback.
 
 ### English (en-US) — 63 chars
 ```
@@ -32,7 +32,7 @@ Snap, speak, or type a meal. AI logs the calories. Open source.
 
 ## 3. Full Description
 
-**4000 char hard cap per language.** This is the long-form "About this app" copy. Currently maintained in English only on Play Console — if you want to translate into the other 14 languages, request a translation pass (3000+ chars × 14 langs = ~45k chars of content, deliberate decision because most users see the English fallback anyway).
+**4000 char hard cap per language.** This is the long-form "About this app" copy. English-only on Play Console — non-English Play Store browsers see the English source as fallback (deliberate decision; the in-app UI is fully translated via per-locale `values-{lang}/strings.xml` so users still get a localized experience once installed).
 
 ### English (en-US)
 ```
@@ -101,8 +101,8 @@ Privacy: https://fud-ai.app/privacy.html
 Source: https://github.com/apoorvdarshan/fud-ai
 ```
 
-### Other 13 languages
-Handled by Play Console's free **Machine translation** service (Grow → Store presence → Translations service → Machine translation → translate from en-US into the 13 supported locales: ar, de-DE, es-ES, fr-FR, hi-IN, it-IT, ja-JP, ko-KR, nl-NL, pt-BR, ro, ru-RU, zh-CN). Re-run the translation whenever the English source changes (every Android version bump that touches the Full Description). Azerbaijani is intentionally skipped because Play's machine translation doesn't support az-AZ — Azerbaijani users will see the English Play Store listing but the in-app UI is fully translated via values-az/strings.xml.
+### Other 14 languages
+English-only on Play Console — non-English Play Store browsers (ar, az-AZ, de-DE, es-ES, fr-FR, hi-IN, it-IT, ja-JP, ko-KR, nl-NL, pt-BR, ro, ru-RU, zh-CN) see the English source as fallback. The in-app UI itself is fully translated into all 14 locales via per-locale `values-{lang}/strings.xml`, so the localization gap is only on the Play Store listing surface, not inside the app.
 
 ---
 

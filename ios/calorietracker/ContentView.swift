@@ -1864,18 +1864,26 @@ struct ProfileView: View {
                         }
 
                         if selectedFallbackProvider.supportsCustomModelName {
+                            // Free-form TextField + preset Menu, mirrors primary AI Provider section.
+                            // When fallback provider == primary, the preset menu hides the primary's model.
+                            let presetOptions: [String] = {
+                                if selectedFallbackProvider == selectedProvider {
+                                    return selectedFallbackProvider.models.filter { $0 != selectedModel }
+                                }
+                                return selectedFallbackProvider.models
+                            }()
                             HStack {
                                 Label {
                                     Text("Model")
                                 } icon: {
-                                    Image(systemName: "cpu")
+                                    Image(systemName: "brain")
                                         .foregroundStyle(AppColors.calorie)
                                 }
                                 Spacer()
                                 TextField(
                                     selectedFallbackProvider == .openrouter
-                                        ? "provider/model-name"
-                                        : "model-name",
+                                        ? "e.g. anthropic/claude-sonnet-4"
+                                        : "e.g. gpt-4o-mini",
                                     text: $selectedFallbackModel
                                 )
                                 .textFieldStyle(.plain)
@@ -1885,11 +1893,23 @@ struct ProfileView: View {
                                 .onChange(of: selectedFallbackModel) { _, newModel in
                                     AIProviderSettings.selectedFallbackModel = newModel
                                 }
+                                if !presetOptions.isEmpty {
+                                    Menu {
+                                        ForEach(presetOptions, id: \.self) { model in
+                                            Button(model) {
+                                                selectedFallbackModel = model
+                                                AIProviderSettings.selectedFallbackModel = model
+                                            }
+                                        }
+                                    } label: {
+                                        Image(systemName: "list.bullet.circle")
+                                            .foregroundStyle(AppColors.calorie)
+                                    }
+                                }
                             }
                         } else {
                             // Same provider as primary → exclude the primary's model from the picker so
-                            // user can't accidentally pick an identical config. Different provider →
-                            // show all models normally.
+                            // user can't accidentally pick an identical config.
                             let modelOptions: [String] = {
                                 if selectedFallbackProvider == selectedProvider {
                                     return selectedFallbackProvider.models.filter { $0 != selectedModel }
@@ -1905,7 +1925,7 @@ struct ProfileView: View {
                                     Label {
                                         Text("Model")
                                     } icon: {
-                                        Image(systemName: "cpu")
+                                        Image(systemName: "brain")
                                             .foregroundStyle(AppColors.calorie)
                                     }
                                 }
@@ -1913,8 +1933,6 @@ struct ProfileView: View {
                                     AIProviderSettings.selectedFallbackModel = newModel
                                 }
                                 .onAppear {
-                                    // If saved fallback model collides with primary model on same provider,
-                                    // bump to the first available alternative.
                                     if !modelOptions.contains(selectedFallbackModel),
                                        let first = modelOptions.first {
                                         selectedFallbackModel = first

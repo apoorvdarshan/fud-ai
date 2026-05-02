@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -124,6 +125,7 @@ fun FudAIBottomNavBar(
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .navigationBarsPadding()
             .padding(horizontal = 14.dp, vertical = 10.dp)
     ) {
         BoxWithConstraints(

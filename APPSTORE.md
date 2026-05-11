@@ -57,28 +57,27 @@ HOW TO USE
 4) Track progress on charts and widgets
 
 9 WAYS TO LOG A MEAL
-• Photo — AI identifies the food and returns nutrition
+• Photo — AI identifies food and returns nutrition
 • Photo + Note — add context like "extra cheese" or "no oil"
 • Nutrition Label — read package nutrition facts
 • From Photos — analyze an existing image
 • From Photos + Note — add context to a library photo
-• Voice — 6 STT options with per-provider language selection
+• Voice — 6 STT options with language selection
 • Text — describe in plain language, AI parses it
-• Manual Entry — name + calories + macros + meal type, no AI needed
+• Manual Entry — name + calories + macros + meal type
 • Saved Meals — re-log recents, frequent meals, and favorites
 
 13 AI PROVIDERS
-Google Gemini (incl. Gemini 3.1), OpenAI, Anthropic Claude, xAI Grok, Groq, OpenRouter, Together AI, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama (local), or any OpenAI-compatible endpoint. Switch anytime. Keys stored in iOS Keychain. Add Custom AI Instructions to send region, diet, or brand context with every request. Set a Fallback Provider so the app auto-retries on overload or rate-limit errors.
+Google Gemini, OpenAI, Anthropic Claude, xAI Grok, Groq, OpenRouter, Together AI, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama, or any OpenAI-compatible endpoint. Switch anytime. Keys are stored in iOS Keychain. Add Custom AI Instructions for region, diet, or brand context. Set a Fallback Provider so requests retry on overload or rate-limit errors.
 
 AI ACCESS MODES
 Bring Your Own Key remains available for full provider control. Fud AI Plus is optional and uses Fud AI's Gemini proxy for no-key food scan, voice, and Coach access with daily limits. Plus voice logging includes a speech language selector; Provider Auto follows your iPhone language.
 
 6 SPEECH-TO-TEXT OPTIONS
-Native iOS, Gemini Audio, OpenAI Whisper, Groq, Deepgram, AssemblyAI.
-Choose Provider Auto, Use iPhone Language, or a specific language per provider where supported.
+Native iOS, Gemini Audio, OpenAI Whisper, Groq, Deepgram, AssemblyAI. Choose Provider Auto, Use iPhone Language, or a specific language per provider where supported.
 
 COACH
-• Multi-turn chat with on-demand access to your full history via tool calling
+• Multi-turn chat with on-demand access to your history
 • Ask any date range — "what was my weight in March?", "body fat in the last 60 days?", "what did I eat Tuesday?"
 • Sees your profile, BMR formula, macro targets, and forecast
 • Goal-aware prompt chips for Lose / Gain / Maintain
@@ -87,10 +86,10 @@ COACH
 Calories, protein, carbs, fat, sugar, added sugar, fiber, saturated fat, mono/polyunsaturated fat, cholesterol, sodium, potassium.
 
 PERSONALIZED GOALS
-• BMR via Katch-McArdle or Mifflin-St Jeor (toggle which one in Settings)
+• BMR via Katch-McArdle or Mifflin-St Jeor
 • TDEE with 6 activity levels
 • Auto-calculated calorie + protein + carbs + fat targets — fully overridable
-• Optional nutrient goals are set separately for fiber, sugar, saturated fat, cholesterol, sodium, and potassium
+• Optional nutrient goals are separate for fiber, sugar, saturated fat, cholesterol, sodium, and potassium
 • Home nutrient cards can show macros or selected detailed nutrients
 
 PROGRESS
@@ -109,15 +108,14 @@ PRIVACY
 No account, no sign-in, no cloud sync, no analytics, no ads, no tracking. BYOK keys stay on-device. Plus sends only active AI requests through Fud AI's Gemini proxy. MIT licensed.
 
 APPLE HEALTH
-Two-way sync for nutrition, weight, height, body fat. External samples (Apple Watch, scales, Health app) auto-import. One-shot backfill of years of past weight + body fat data on first enable.
-
-Built solo because tracking calories shouldn't feel like a chore. Reach out at apoorv@fud-ai.app or on GitHub.
+Two-way sync for nutrition, weight, height, body fat. External samples from Apple Watch, scales, and Health app auto-import. One-shot backfill of past weight + body fat data on first enable.
 
 Fud AI is not medical advice — consult a healthcare professional before significant diet changes.
 
 Terms: https://fud-ai.app/terms.html
 Privacy: https://fud-ai.app/privacy.html
 Source: https://github.com/apoorvdarshan/fud-ai
+
 ```
 
 ## Privacy URL

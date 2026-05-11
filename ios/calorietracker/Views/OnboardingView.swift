@@ -11,7 +11,7 @@ struct OnboardingView: View {
     @Environment(StoreManager.self) private var storeManager
 
     @State private var step = 0
-    @State private var selectedAccessMode: AIAccessMode = AIAccessSettings.mode
+    @State private var selectedAccessMode: AIAccessMode = .fudAIPlus
     @State private var showPaywall = false
     @State private var shouldAdvanceAfterPlusPurchase = false
     @State private var gender: Gender = .male
@@ -815,14 +815,14 @@ struct OnboardingView: View {
                         mode: .fudAIPlus,
                         title: "Fud AI Plus",
                         subtitle: "No setup for non-technical users. Gemini food scans, voice, and Coach with fallback.",
-                        badge: storeManager.isSubscribed ? "Active" : "Paid"
+                        badge: storeManager.isSubscribed ? "Active" : "Default"
                     )
 
                     aiAccessCard(
                         mode: .bringYourOwnKey,
                         title: "Bring Your Own Key",
                         subtitle: "Free app mode. Use your own Gemini key, OpenAI, Groq, or another provider.",
-                        badge: "Default"
+                        badge: "Free"
                     )
 
                     if selectedAccessMode == .fudAIPlus && !storeManager.isSubscribed {

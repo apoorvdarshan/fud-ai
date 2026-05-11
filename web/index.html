@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fud AI — Free Open Source AI Calorie Tracker for iOS &amp; Android</title>
-<meta name="description" content="Free, open-source AI calorie tracker for iOS and Android. Snap food, speak meals, or type it. Fud AI Plus on iOS adds no-key Gemini access with daily limits and speech language control. Smart serving units, food log sorting, AI Coach, 13 AI providers, 6 STT options, widgets, 15 languages, Apple Health + Health Connect. Privacy-first, no Fud AI account needed.">
-<meta name="keywords" content="calorie tracker, AI food scanner, nutrition tracker, macro tracker, body fat tracker, body composition, open source, iOS, Android, privacy, BYOK, Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama, Gemma, Llama Vision, Qwen VL, Pixtral, widgets, AI coach, tool calling, speech-to-text language, theme color, app icon, launcher icon, app update check, Apple Health, Health Connect, weight tracker, TDEE calculator, 15 languages">
+<meta name="description" content="Free, open-source AI calorie tracker for iOS and Android. Snap food, add notes to camera or library photos, speak meals, or type it. Fud AI Plus on iOS adds no-key Gemini access with daily limits and speech language control. Optional nutrient goals, customizable Home cards, smart serving units, AI Coach, 13 AI providers, 6 STT options, widgets, 15 languages, Apple Health + Health Connect. Privacy-first, no Fud AI account needed.">
+<meta name="keywords" content="calorie tracker, AI food scanner, nutrition tracker, macro tracker, body fat tracker, body composition, photo note food log, optional nutrient goals, custom nutrient cards, open source, iOS, Android, privacy, BYOK, Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama, Gemma, Llama Vision, Qwen VL, Pixtral, widgets, AI coach, tool calling, speech-to-text language, theme color, app icon, launcher icon, app update check, Apple Health, Health Connect, weight tracker, TDEE calculator, 15 languages">
 <link rel="canonical" href="https://fud-ai.app/">
 <meta name="theme-color" content="#FF375F">
 <!-- Open Graph (Facebook · WhatsApp · LinkedIn · iMessage · Discord · Slack) -->
@@ -14,7 +14,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://fud-ai.app/">
 <meta property="og:title" content="Fud AI — Free Open Source Calorie Tracker for iOS &amp; Android">
-<meta property="og:description" content="Snap food, speak meals, or type it. Bring your own AI provider, or use optional Fud AI Plus on iOS. Privacy-first, no account needed.">
+<meta property="og:description" content="Snap food, add photo notes, speak meals, or type it. Customize Home nutrient cards and optional goals. Privacy-first, no account needed.">
 <meta property="og:image" content="https://fud-ai.app/assets/og-preview.png?v=5">
 <meta property="og:image:secure_url" content="https://fud-ai.app/assets/og-preview.png?v=5">
 <meta property="og:image:type" content="image/png">
@@ -27,14 +27,14 @@
 <meta name="twitter:creator" content="@apoorvdarshan">
 <meta name="twitter:url" content="https://fud-ai.app/">
 <meta name="twitter:title" content="Fud AI — Free Open Source Calorie Tracker for iOS &amp; Android">
-<meta name="twitter:description" content="Snap food, speak meals, or type it. Bring your own AI provider, or use optional Fud AI Plus on iOS. Privacy-first, no account needed.">
+<meta name="twitter:description" content="Snap food, add photo notes, speak meals, or type it. Customize Home nutrient cards and optional goals. Privacy-first, no account needed.">
 <meta name="twitter:image" content="https://fud-ai.app/assets/og-preview.png?v=5">
 <meta name="twitter:image:alt" content="Fud AI — AI calorie tracker for iOS and Android. Snap, speak, or type your meal.">
 <link rel="icon" href="assets/calorie logo transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="styles.css?v=20260504a">
+<link rel="stylesheet" href="styles.css?v=20260511a">
 <!-- Structured Data -->
 <script type="application/ld+json">
 {
@@ -44,7 +44,7 @@
   "operatingSystem": "iOS, Android",
   "applicationCategory": "HealthApplication",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "description": "Free, open-source AI-powered calorie and nutrition tracker for iOS and Android. Snap a photo of food, speak your meal, or type it. Body fat tracking with goal + history graph alongside weight on the Progress tab. Multi-turn AI Coach with on-demand tool calling — Coach can fetch any date range of weight, body-fat, food, or calorie history (\"what was my weight in March?\", \"what did I eat Tuesday?\") and uses current date/timezone plus richer meal details for better answers. Supports 13 AI providers including Google Gemini, OpenAI GPT-5, Anthropic Claude (Sonnet 4.6, Opus 4.7, Haiku 4.5), xAI Grok, Groq, Together AI, OpenRouter, Hugging Face (open-weight Gemma, Qwen VL, Llama Vision), Fireworks AI, DeepInfra, Mistral (Pixtral), Ollama for local inference, and any custom OpenAI-compatible endpoint. iOS also offers optional Fud AI Plus for no-key Gemini food analysis, Gemini Audio transcription, and Coach access with separate daily limits. Smart serving units can show slices, pieces, cups, ml, or other visible units while grams remain the source of truth. Food log sorting can keep the default grouped order or sort sections by latest logging order from the Home screen. Smart daily reminders for weight + body fat logging skip on days already logged. Home Screen and Lock Screen widgets on iOS (5 families); Calorie + Protein Glance widgets on Android. Theme color personalization changes the app accent and matching iOS app icon / Android launcher icon. 6 speech-to-text options (Native iOS / Native Android, Gemini Audio, OpenAI Whisper, Groq, Deepgram, AssemblyAI) with per-provider language selection. App-update checks open the App Store or Play Store when a newer version is available. 15 languages with system auto-selection on both platforms. Tracks 13 nutrients per meal including calories, protein, carbs, fat, sugar, fiber, saturated fat, monounsaturated fat, polyunsaturated fat, cholesterol, sodium, and potassium. Personalized TDEE and BMR calculation using Katch-McArdle (with body-fat input) and Mifflin-St Jeor formulas — toggle which one is active in Settings. Apple Health (iOS) and Health Connect (Android) bidirectional sync for body measurements and per-meal nutrition, including a one-shot historical backfill on first enable that pulls years of past weight + body-fat scale data into the Progress chart (iOS). Privacy-first with no Fud AI account, no cloud sync, no ads, and no in-app tracking. API keys stored in iOS Keychain (iOS) or EncryptedSharedPreferences with AES-256 (Android). Delete All Data is local-only and never touches Apple Health or Health Connect. MIT licensed open source. Built with SwiftUI (iOS) and Jetpack Compose (Android).",
+  "description": "Free, open-source AI-powered calorie and nutrition tracker for iOS and Android. Snap a photo of food, add a note to camera or photo-library meals, speak your meal, or type it. Body fat tracking with goal + history graph alongside weight on the Progress tab. Multi-turn AI Coach with on-demand tool calling — Coach can fetch any date range of weight, body-fat, food, or calorie history (\"what was my weight in March?\", \"what did I eat Tuesday?\") and uses current date/timezone plus richer meal details for better answers. Supports 13 AI providers including Google Gemini, OpenAI GPT-5, Anthropic Claude (Sonnet 4.6, Opus 4.7, Haiku 4.5), xAI Grok, Groq, Together AI, OpenRouter, Hugging Face (open-weight Gemma, Qwen VL, Llama Vision), Fireworks AI, DeepInfra, Mistral (Pixtral), Ollama for local inference, and any custom OpenAI-compatible endpoint. iOS also offers optional Fud AI Plus for no-key Gemini food analysis, Gemini Audio transcription, and Coach access with separate daily limits. Smart serving units can show slices, pieces, cups, ml, or other visible units while grams remain the source of truth. Food log sorting can keep the default grouped order or sort sections by latest logging order from the Home screen. Custom Home nutrient cards can show macros or selected detailed nutrients, and optional nutrient goals for fiber, sugar, saturated fat, cholesterol, sodium, and potassium can be set manually or estimated with AI without changing calorie/protein/carbs/fat formulas. Smart daily reminders for weight + body fat logging skip on days already logged. Home Screen and Lock Screen widgets on iOS (5 families); Calorie + Protein Glance widgets on Android. Theme color personalization changes the app accent and matching iOS app icon / Android launcher icon. 6 speech-to-text options (Native iOS / Native Android, Gemini Audio, OpenAI Whisper, Groq, Deepgram, AssemblyAI) with per-provider language selection. App-update checks open the App Store or Play Store when a newer version is available. 15 languages with system auto-selection on both platforms. Tracks 13 nutrients per meal including calories, protein, carbs, fat, sugar, fiber, saturated fat, monounsaturated fat, polyunsaturated fat, cholesterol, sodium, and potassium. Personalized TDEE and BMR calculation using Katch-McArdle (with body-fat input) and Mifflin-St Jeor formulas — toggle which one is active in Settings. Apple Health (iOS) and Health Connect (Android) bidirectional sync for body measurements and per-meal nutrition, including a one-shot historical backfill on first enable that pulls years of past weight + body-fat scale data into the Progress chart (iOS). Privacy-first with no Fud AI account, no cloud sync, no ads, and no in-app tracking. API keys stored in iOS Keychain (iOS) or EncryptedSharedPreferences with AES-256 (Android). Delete All Data is local-only and never touches Apple Health or Health Connect. MIT licensed open source. Built with SwiftUI (iOS) and Jetpack Compose (Android).",
   "author": { "@type": "Person", "name": "Apoorv Darshan" },
   "url": "https://fud-ai.app",
   "sameAs": [
@@ -56,7 +56,7 @@
   ],
   "downloadUrl": "https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726",
   "screenshot": "https://fud-ai.app/assets/screenshots/home.png",
-  "softwareVersion": "iOS 3.4.0 / Android 1.1.0",
+  "softwareVersion": "iOS 3.4.1 / Android 1.1.1",
   "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5", "ratingCount": "1" }
 }
 </script>
@@ -99,7 +99,7 @@
         <h1 class="hero-title">Eat smart,<br><em>live</em> better.</h1>
 
         <p class="hero-lede">
-          <span class="dropcap">A</span>free, open-source calorie tracker for iOS and Android. Snap a photo, speak your meal, or type it — bring your own AI provider, or use optional Fud AI Plus on iOS with no API setup. Thirteen providers including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Mistral and Ollama. Track weight and body fat together on the Progress chart. Multi-turn AI Coach can fetch any date range of your history, voice input supports per-provider language selection, smart serving units make slices/pieces/ml editable, and theme colors update the app accent plus matching iOS / Android icons.
+          <span class="dropcap">A</span>free, open-source calorie tracker for iOS and Android. Snap a photo, add a note to camera or library meals, speak your meal, or type it — bring your own AI provider, or use optional Fud AI Plus on iOS with no API setup. Thirteen providers including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Mistral and Ollama. Track weight and body fat together, customize the Home nutrient cards, set optional detailed nutrient goals, and let AI suggest those goals without changing the core calorie and macro calculator.
         </p>
 
         <div class="cta-group">
@@ -129,8 +129,8 @@
           <a href="https://www.instagram.com/fudai.app/" target="_blank" rel="noopener" class="chip-btn chip-instagram" aria-label="Follow on Instagram">
             <i class="fa-brands fa-instagram"></i><span>Instagram</span>
           </a>
-          <a href="https://paypal.me/apoorvdarshan" target="_blank" rel="noopener" class="chip-btn chip-paypal" aria-label="Support on PayPal">
-            <i class="fa-brands fa-paypal"></i><span>Support</span>
+          <a href="https://ko-fi.com/apoorvdarshan" target="_blank" rel="noopener" class="chip-btn chip-kofi" aria-label="Support on Ko-fi">
+            <i class="fa-solid fa-mug-hot"></i><span>Ko-fi</span>
           </a>
           <a href="https://x.com/apoorvdarshan" target="_blank" rel="noopener" class="chip-btn chip-x" aria-label="Follow on X">
             <i class="fa-brands fa-x-twitter"></i><span>Follow</span>
@@ -221,12 +221,12 @@
         <div class="chapter-num">01</div>
         <header class="chapter-head">
           <h3>Capture a meal.</h3>
-          <span class="chapter-tag">Photo · Voice · Text · Manual</span>
+          <span class="chapter-tag">Photo · Note · Voice · Text · Manual</span>
         </header>
         <div class="chapter-body">
-          <p>Snap a photo of any meal for instant estimates, scan a nutrition label for precise per-serving data (iOS), speak your lunch hands-free, type it, or enter macros manually when you already know them.</p>
+          <p>Snap a photo of any meal, add a note to a camera or photo-library image, scan a nutrition label, speak your lunch hands-free, type it, or enter macros manually when you already know them.</p>
           <ul>
-            <li>Native camera + photo library import on both platforms</li>
+            <li>Native camera + photo library import on both platforms, with optional notes for extra meal context</li>
             <li>Voice input via 6 speech-to-text options with per-provider language selection</li>
             <li>Smart serving units show slices, pieces, cups, ml, or similar units when the AI can infer them</li>
             <li>Text and manual fallbacks for quick logging</li>
@@ -260,10 +260,12 @@
           <span class="chapter-tag">Macros + micros</span>
         </header>
         <div class="chapter-body">
-          <p>Calories, protein, carbs, fat, sugar, fiber, saturated fat, mono-unsaturated fat, poly-unsaturated fat, cholesterol, sodium, potassium, and added sugar — adjustable serving sizes and AI-suggested units recalculate everything live.</p>
+          <p>Calories, protein, carbs, fat, sugar, fiber, saturated fat, mono-unsaturated fat, poly-unsaturated fat, cholesterol, sodium, potassium, and added sugar — adjustable serving sizes and AI-suggested units recalculate every logged entry live.</p>
           <ul>
             <li>Personalized BMR + TDEE via Katch-McArdle / Mifflin-St Jeor</li>
             <li>Auto daily targets, fully overridable, with per-macro pin / auto-balance</li>
+            <li>Optional nutrient goals for fiber, sugar, saturated fat, cholesterol, sodium, and potassium stay separate from calorie/protein/carbs/fat math</li>
+            <li>Home cards can show macros or selected detailed nutrients</li>
             <li>Browse past days with the date strip; configurable week start and optional latest-first food log sorting</li>
           </ul>
         </div>
@@ -358,7 +360,7 @@
           <div class="process-num">Step 01</div>
           <div class="process-text">
             <h3><em>Capture</em></h3>
-            <p>Snap a photo, scan a label, pick from library, type, or speak your food details.</p>
+            <p>Snap a photo, add a note, scan a label, pick from library, type, or speak your food details.</p>
           </div>
         </div>
         <div class="process-step">
@@ -408,7 +410,7 @@
       <figcaption class="plate-caption"><span class="num">PLATE&nbsp;01</span><span>Home · Dashboard</span></figcaption>
     </figure>
     <figure class="plate">
-      <div class="phone-frame"><div class="phone-screen"><img src="assets/screenshots/logging.png" alt="Logging options menu"></div></div>
+      <div class="phone-frame"><div class="phone-screen"><img src="assets/screenshots/logging.png" alt="Logging options menu with camera, photos, notes, text, voice, manual, and saved meals"></div></div>
       <figcaption class="plate-caption"><span class="num">PLATE&nbsp;02</span><span>Log · Options</span></figcaption>
     </figure>
     <figure class="plate">
@@ -440,7 +442,7 @@
     <div class="cta-content">
       <span class="eyebrow">Coda</span>
       <h2>Start <em>tracking</em> today.</h2>
-      <p>Free, open source, privacy first. Bring your own AI key or use optional Fud AI Plus on iOS — no Fud AI account, no cloud sync, no in-app tracking. Available on iOS and Android.</p>
+      <p>Free, open source, privacy first. Bring your own AI key or use optional Fud AI Plus on iOS — no Fud AI account, no cloud sync, no in-app tracking. Available on iOS and Android with photo notes and customizable nutrient goals.</p>
       <div class="cta-group">
         <a href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726" class="app-store-btn">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -458,7 +460,7 @@
         <a href="https://www.linkedin.com/company/fud-ai-app" target="_blank" rel="noopener" class="chip-btn chip-linkedin"><i class="fa-brands fa-linkedin-in"></i><span>LinkedIn</span></a>
         <a href="https://trustmrr.com/startup/fud-ai-calorie-tracker" target="_blank" rel="noopener" class="chip-btn chip-trustmrr"><i class="fa-solid fa-star"></i><span>TrustMRR</span></a>
         <a href="https://www.instagram.com/fudai.app/" target="_blank" rel="noopener" class="chip-btn chip-instagram"><i class="fa-brands fa-instagram"></i><span>Instagram</span></a>
-        <a href="https://paypal.me/apoorvdarshan" target="_blank" rel="noopener" class="chip-btn chip-paypal"><i class="fa-brands fa-paypal"></i><span>Support</span></a>
+        <a href="https://ko-fi.com/apoorvdarshan" target="_blank" rel="noopener" class="chip-btn chip-kofi"><i class="fa-solid fa-mug-hot"></i><span>Ko-fi</span></a>
         <a href="https://x.com/apoorvdarshan" target="_blank" rel="noopener" class="chip-btn chip-x"><i class="fa-brands fa-x-twitter"></i><span>Follow</span></a>
       </div>
     </div>
@@ -468,7 +470,7 @@
 <!-- ========== HIDDEN SEO CONTENT ========== -->
 <section class="seo-only" aria-hidden="true">
   <h2>Fud AI — Free AI Calorie Tracker App for iPhone &amp; Android</h2>
-  <p>Free open-source calorie tracker for iPhone and Android. AI food recognition from photos. Scan nutrition labels (iOS), voice input, text logging, manual entry. Body fat tracking with goal % and history graph alongside weight on the Progress tab. Supports 13 AI providers: Google Gemini, OpenAI GPT-5, Anthropic Claude Sonnet 4.6 / Opus 4.7 / Haiku 4.5, xAI Grok, Groq, Together AI, OpenRouter (testable on $0 credits via the new openrouter/free default vision model), Hugging Face, Fireworks AI, DeepInfra, Mistral Pixtral, Ollama for local AI. iOS also offers optional Fud AI Plus for no-key Gemini food scan, Gemini Audio voice logging, and Coach access with separate daily limits and speech language control. Reliable AI response parsing handles prose or markdown fences around JSON. Custom AI Instructions in Settings add region, diet, or brand context to every AI request, and Fallback Provider auto-retries with a second model when your primary fails on overload, rate-limit, or network errors. New in iOS 3.4.0 / Android 1.1.0: optional Plus subscriptions on iOS, smart serving units like slices/pieces/ml, food log sorting from the Home screen, theme color selection with matching app / launcher icons, speech-to-text language selection per provider, richer Coach context with current date/timezone and meal details, About update checks with store links, keyboard polish, and Android bottom-nav fixes. Tracks 13 nutrients including calories, protein, carbs, fat, sugar, fiber, saturated fat, mono-fat, poly-fat, cholesterol, sodium, potassium. AI Coach with on-demand tool calling — fetches any date range of weight, body-fat, food, or calorie history when asked ("what was my weight in March?", "what did I eat Tuesday?"). Smart daily reminders for weight + body-fat logging. Calorie + Protein widgets — Home Screen and Lock Screen on iOS, Glance on Android. Apple Health (iOS) and Health Connect (Android) bidirectional sync, including a one-shot historical backfill of past scale data on first enable (iOS). 15 languages auto-selected by phone's system language. Privacy-first, no Fud AI account, no cloud sync, BYOK. MIT licensed. Built with SwiftUI on iOS, Jetpack Compose on Android. Best alternative to MyFitnessPal, Lose It, Cronometer, MacroFactor, Carbon Diet Coach, Cal AI, Yazio.</p>
+  <p>Free open-source calorie tracker for iPhone and Android. AI food recognition from photos, camera notes, photo-library notes, nutrition labels, voice input, text logging, saved meals, and manual entry. Body fat tracking with goal % and history graph alongside weight on the Progress tab. Supports 13 AI providers: Google Gemini, OpenAI GPT-5, Anthropic Claude Sonnet 4.6 / Opus 4.7 / Haiku 4.5, xAI Grok, Groq, Together AI, OpenRouter (testable on $0 credits via the openrouter/free default vision model), Hugging Face, Fireworks AI, DeepInfra, Mistral Pixtral, Ollama for local AI. iOS also offers optional Fud AI Plus for no-key Gemini food scan, Gemini Audio voice logging, and Coach access with separate daily limits and speech language control. Reliable AI response parsing handles prose or markdown fences around JSON. Custom AI Instructions in Settings add region, diet, or brand context to every AI request, and Fallback Provider auto-retries with a second model when your primary fails on overload, rate-limit, or network errors. New in iOS 3.4.1 / Android 1.1.1: From Photos + Note logging, customizable Home nutrient cards, optional goals for fiber, sugar, saturated fat, cholesterol, sodium, and potassium, AI goal estimation that stays separate from calorie/protein/carbs/fat calculations, and Ko-fi support from About. Tracks 13 nutrients including calories, protein, carbs, fat, sugar, fiber, saturated fat, mono-fat, poly-fat, cholesterol, sodium, potassium. AI Coach with on-demand tool calling — fetches any date range of weight, body-fat, food, or calorie history when asked ("what was my weight in March?", "what did I eat Tuesday?"). Smart daily reminders for weight + body-fat logging. Calorie + Protein widgets — Home Screen and Lock Screen on iOS, Glance on Android. Apple Health (iOS) and Health Connect (Android) bidirectional sync, including a one-shot historical backfill of past scale data on first enable (iOS). 15 languages auto-selected by phone's system language. Privacy-first, no Fud AI account, no cloud sync, BYOK. MIT licensed. Built with SwiftUI on iOS, Jetpack Compose on Android. Best alternative to MyFitnessPal, Lose It, Cronometer, MacroFactor, Carbon Diet Coach, Cal AI, Yazio.</p>
 </section>
 
 <!-- ========== FOOTER ========== -->
@@ -488,7 +490,7 @@
           <a href="https://www.instagram.com/fudai.app/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
           <a href="https://www.linkedin.com/company/fud-ai-app" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
           <a href="https://trustmrr.com/startup/fud-ai-calorie-tracker" target="_blank" rel="noopener" aria-label="TrustMRR"><i class="fa-solid fa-star"></i></a>
-          <a href="https://paypal.me/apoorvdarshan" target="_blank" rel="noopener" aria-label="PayPal"><i class="fa-brands fa-paypal"></i></a>
+          <a href="https://ko-fi.com/apoorvdarshan" target="_blank" rel="noopener" aria-label="Ko-fi"><i class="fa-solid fa-mug-hot"></i></a>
           <a href="https://www.producthunt.com/products/fud-ai-calorie-tracker" target="_blank" rel="noopener" aria-label="Product Hunt"><i class="fa-brands fa-product-hunt"></i></a>
         </div>
       </div>

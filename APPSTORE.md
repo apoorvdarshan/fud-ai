@@ -1,6 +1,6 @@
 # App Store Listing
 
-App Store Connect submission details for Fud AI v3.4.0. Each field is in a code block for easy copy-paste.
+App Store Connect submission details for Fud AI v3.4.1. Each field is in a code block for easy copy-paste.
 
 ## App Name
 ```
@@ -14,7 +14,7 @@ Food & Macro Tracker
 
 ## Promotional Text (170 chars max)
 ```
-New Fud AI Plus for no-key AI logging. Also adds theme colors, voice language control, smarter servings, food log sorting, and smoother editing.
+New photo + note logging, customizable nutrient cards, optional nutrient goals, and Ko-fi support. Fud AI Plus and BYOK both remain available.
 ```
 
 ## Keywords (100 chars max)
@@ -28,24 +28,25 @@ Primary: Health & Fitness
 Secondary: Food & Drink
 ```
 
-## What's New (v3.4.0)
+## What's New (v3.4.1)
 ```
-Fud AI 3.4.0 — Fud AI Plus.
+Fud AI 3.4.1 — more ways to log and track.
 
 NEW
-• Added optional Fud AI Plus for no-key food scans, voice logging, and Coach.
-• Bring Your Own Key remains available as the free default mode.
-• Added daily Plus usage limits in Settings.
-• Added speech language selection for Plus voice logging.
+• Added From Photos + Note, so existing meal photos can include extra context before AI analysis.
+• Added customizable Home nutrient cards beyond protein, carbs, and fat.
+• Added optional nutrient goals for fiber, sugar, saturated fat, cholesterol, sodium, and potassium.
+• Added AI estimation for those optional nutrient goals based on your profile.
+• Added Ko-fi support link in About.
 
-Also includes theme colors with matching app icons, Instagram in About, smarter serving units like slices/pieces/ml, optional food log sorting, smoother quantity editing, update checks, and richer Coach food context.
+These goals are separate from the calorie, protein, carb, and fat calculator, so macro recalculation stays unchanged.
 ```
 
 ## Description
 ```
 Effortless calorie tracking with AI-powered food recognition. Snap, speak, or type a meal — get instant nutrition: calories, protein, carbs, fats, and 9 micronutrients.
 
-NEW in v3.4.0: Optional Fud AI Plus gives no-key access to food scans, voice logging, and Coach through Fud AI's Gemini proxy. Bring Your Own Key remains available as the free default mode.
+NEW in v3.4.1: Log existing photos with notes, customize the Home nutrient cards, and set or AI-estimate optional goals for fiber, sugar, saturated fat, cholesterol, sodium, and potassium.
 
 Free, open source, privacy-first. Bring your own API key, or use optional Fud AI Plus if you do not want to set up APIs.
 
@@ -55,11 +56,16 @@ HOW TO USE
 3) Ask Coach for trends, predictions, and advice
 4) Track progress on charts and widgets
 
-4 WAYS TO LOG A MEAL
+9 WAYS TO LOG A MEAL
 • Photo — AI identifies the food and returns nutrition
+• Photo + Note — add context like "extra cheese" or "no oil"
+• Nutrition Label — read package nutrition facts
+• From Photos — analyze an existing image
+• From Photos + Note — add context to a library photo
 • Voice — 6 STT options with per-provider language selection
 • Text — describe in plain language, AI parses it
 • Manual Entry — name + calories + macros + meal type, no AI needed
+• Saved Meals — re-log recents, frequent meals, and favorites
 
 13 AI PROVIDERS
 Google Gemini (incl. Gemini 3.1), OpenAI, Anthropic Claude, xAI Grok, Groq, OpenRouter, Together AI, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama (local), or any OpenAI-compatible endpoint. Switch anytime. Keys stored in iOS Keychain. Add Custom AI Instructions to send region, diet, or brand context with every request. Set a Fallback Provider so the app auto-retries on overload or rate-limit errors.
@@ -84,6 +90,8 @@ PERSONALIZED GOALS
 • BMR via Katch-McArdle or Mifflin-St Jeor (toggle which one in Settings)
 • TDEE with 6 activity levels
 • Auto-calculated calorie + protein + carbs + fat targets — fully overridable
+• Optional nutrient goals are set separately for fiber, sugar, saturated fat, cholesterol, sodium, and potassium
+• Home nutrient cards can show macros or selected detailed nutrients
 
 PROGRESS
 • Unified Weight / Body Fat chart with segmented toggle and swipe to switch

@@ -1,6 +1,6 @@
 # Play Store Listing
 
-Google Play Console listing copy for Fud AI Android (current: v1.1.0 / versionCode 15). Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over.
+Google Play Console listing copy for Fud AI Android (current: v1.1.1 / versionCode 16). Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over.
 
 **Where to paste each field in Play Console:**
 - App name / Short description / Full description → Grow → Store presence → **Main store listing** (default English) and Grow → Store presence → **Custom store listings** → Manage translations (per-language overrides)
@@ -38,7 +38,7 @@ Snap, speak, or type a meal. AI logs the calories. Open source.
 ```
 Fud AI makes calorie tracking effortless with AI-powered food recognition. Snap a photo, speak it, or type it — get instant nutrition: calories, protein, carbs, fats, and 9 micronutrients.
 
-NEW in v1.1.0: Food logs can now be sorted by latest meal order, serving units are easier to edit, Gemini speech-to-text is available, and GPT-5/OpenAI requests are fixed.
+NEW in v1.1.1: Add notes to photo-library meals, customize Home nutrient cards, set optional nutrient goals, estimate those goals with AI, and open Ko-fi from About.
 
 Free, open source, privacy-first. Bring your own API key. All data stays on your device.
 
@@ -48,11 +48,16 @@ HOW TO USE
 3) Ask Coach anything: trends, predictions, advice
 4) Track progress on charts and home screen widgets
 
-4 WAYS TO LOG A MEAL
+9 WAYS TO LOG A MEAL
 • Photo — AI identifies the food and returns nutrition
+• Photo + Note — add context before AI analysis
+• Nutrition Label — scan package nutrition facts
+• From Photos — analyze an existing image
+• From Photos + Note — add context to a library photo
 • Voice — 5 STT engines with per-provider language selection
 • Text — describe in plain language, AI parses it
 • Manual Entry — name + calories + macros + meal type, no AI needed
+• Saved Meals — re-log recents, frequent meals, and favorites
 
 BODY COMPOSITION TRACKING
 Log body fat % over time, set a goal %, see it graphed alongside weight on the unified Progress chart. Health Connect sync auto-imports samples from Withings, Renpho, Samsung Health, Google Fit. "Use Body Fat for BMR" toggles Katch-McArdle ↔ Mifflin-St Jeor without losing the value.
@@ -71,6 +76,9 @@ Log Weight, Log Body Fat, Streak, Daily Summary — all skip firing on days you'
 
 PERSONALIZED GOALS
 BMR via Katch-McArdle (with body fat) or Mifflin-St Jeor. TDEE with 6 activity levels. Auto-calculated calorie + protein + carbs + fat targets — fully customizable.
+
+OPTIONAL NUTRIENT GOALS
+Set fiber, sugar, saturated fat, cholesterol, sodium, and potassium goals separately from the macro calculator. Use AI Estimate to suggest values from your profile, or manually pick each goal with the same wheel picker used for macros. Home cards can show macros or selected detailed nutrients.
 
 PROGRESS
 Unified Weight / Body Fat chart with trend lines + goal overlays. Calorie trend vs goal. Macro averages over 1W, 1M, 3M, 6M, 1Y, All Time.
@@ -104,84 +112,99 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, de-
 
 ---
 
-## 4. What's New (v1.1.0)
+## 4. What's New (v1.1.1)
 
 **500 char hard cap per language.** Paste the entire block below into Play Console's "Release notes" field — it auto-routes each `<lang-tag>` block to the matching locale.
 
 ```
 <en-US>
-• New food log sort option for latest meal order.
-• Easier serving unit edits, Gemini speech-to-text, and GPT-5/OpenAI fixes.
+• Add notes to photo-library meals.
+• Customize Home nutrient cards and set optional nutrient goals.
+• AI can estimate fiber, sugar, sodium, potassium, and other goals.
 </en-US>
 
 <ar>
-• خيار جديد لترتيب سجل الطعام حسب أحدث وجبة.
-• تحسين تعديل وحدات الحصة، وإضافة Gemini للصوت، وإصلاح GPT-5/OpenAI.
+• أضف ملاحظات إلى صور الوجبات من المعرض.
+• خصص بطاقات العناصر الغذائية وحدد أهدافًا اختيارية.
+• يمكن للذكاء الاصطناعي تقدير أهداف الألياف والسكر والصوديوم.
 </ar>
 
 <az-AZ>
-• Yemək tarixçəsini ən son yemək sırasına görə çeşidləmə əlavə edildi.
-• Porsiya vahidləri, Gemini səs mətni və GPT-5/OpenAI düzəldildi.
+• Qalereyadan seçilən yeməklərə qeyd əlavə edin.
+• Əsas nutrient kartlarını və əlavə hədəfləri dəyişin.
+• AI lif, şəkər, natrium və digər hədəfləri təxmin edə bilər.
 </az-AZ>
 
 <de-DE>
-• Neue Sortierung für Essenslogs nach neuester Mahlzeit.
-• Einfachere Portionseinheiten, Gemini-Spracheingabe und GPT-5/OpenAI-Fixes.
+• Notizen zu Fotos aus der Galerie hinzufügen.
+• Home-Nährstoffkarten und optionale Ziele anpassen.
+• KI schätzt Ziele für Ballaststoffe, Zucker, Natrium und mehr.
 </de-DE>
 
 <es-ES>
-• Nueva opción para ordenar comidas por registro más reciente.
-• Mejor edición de unidades, voz con Gemini y correcciones GPT-5/OpenAI.
+• Añade notas a fotos de comidas de la galería.
+• Personaliza tarjetas de nutrientes y objetivos opcionales.
+• La IA estima fibra, azúcar, sodio y más.
 </es-ES>
 
 <fr-FR>
-• Nouveau tri du journal par repas les plus récents.
-• Unités plus faciles à modifier, voix Gemini et correctifs GPT-5/OpenAI.
+• Ajoutez des notes aux photos de repas.
+• Personnalisez les cartes nutriments et objectifs optionnels.
+• L’IA estime fibres, sucre, sodium et plus.
 </fr-FR>
 
 <hi-IN>
-• Food log को latest meal order से sort करने का नया option.
-• Serving unit edit बेहतर, Gemini speech-to-text और GPT-5/OpenAI fixes.
+• Gallery photos पर meal notes जोड़ें.
+• Home nutrient cards और optional goals customize करें.
+• AI fiber, sugar, sodium और बाकी goals estimate कर सकता है.
 </hi-IN>
 
 <it-IT>
-• Nuovo ordinamento del diario per pasti più recenti.
-• Unità porzione più semplici, voce Gemini e correzioni GPT-5/OpenAI.
+• Aggiungi note alle foto dei pasti.
+• Personalizza le schede nutrienti e gli obiettivi opzionali.
+• L’IA stima fibre, zucchero, sodio e altro.
 </it-IT>
 
 <ja-JP>
-• 最新の食事順でフードログを並べ替えできます。
-• 単位編集、Gemini音声入力、GPT-5/OpenAIの修正を追加。
+• 写真ライブラリの食事にメモを追加できます。
+• ホームの栄養カードと任意目標をカスタマイズ。
+• AIが食物繊維、糖分、ナトリウムなどを推定。
 </ja-JP>
 
 <ko-KR>
-• 최신 식사 순서로 음식 기록을 정렬할 수 있습니다.
-• 단위 편집, Gemini 음성 입력, GPT-5/OpenAI 수정.
+• 사진 보관함 음식에 메모를 추가하세요.
+• 홈 영양 카드와 선택 영양 목표를 설정하세요.
+• AI가 섬유질, 당, 나트륨 등을 추정합니다.
 </ko-KR>
 
 <nl-NL>
-• Nieuwe sortering voor logs op nieuwste maaltijd.
-• Portie-eenheden makkelijker bewerken, Gemini-spraak en GPT-5/OpenAI-fixes.
+• Voeg notities toe aan maaltijdfoto’s.
+• Pas Home-nutriëntkaarten en optionele doelen aan.
+• AI schat vezels, suiker, natrium en meer.
 </nl-NL>
 
 <pt-BR>
-• Nova ordenação do diário por refeição mais recente.
-• Unidades melhores, voz Gemini e correções para GPT-5/OpenAI.
+• Adicione notas a fotos de refeições.
+• Personalize cartões de nutrientes e metas opcionais.
+• A IA estima fibra, açúcar, sódio e mais.
 </pt-BR>
 
 <ro>
-• Sortare nouă a jurnalului după cele mai recente mese.
-• Unități mai ușor de editat, voce Gemini și remedieri GPT-5/OpenAI.
+• Adaugă note la fotografiile meselor.
+• Personalizează cardurile de nutrienți și obiectivele opționale.
+• AI estimează fibre, zahăr, sodiu și altele.
 </ro>
 
 <ru-RU>
-• Новая сортировка журнала по последним приемам пищи.
-• Улучшены единицы порций, Gemini для речи и исправления GPT-5/OpenAI.
+• Добавляйте заметки к фото еды из галереи.
+• Настройте карточки нутриентов и доп. цели.
+• ИИ оценит клетчатку, сахар, натрий и другое.
 </ru-RU>
 
 <zh-CN>
-• 新增按最新餐次排序食物日志。
-• 优化份量单位编辑，加入 Gemini 语音，并修复 GPT-5/OpenAI。
+• 为相册中的餐食照片添加备注。
+• 自定义首页营养卡片和可选营养目标。
+• AI 可估算纤维、糖、钠等目标。
 </zh-CN>
 ```
 

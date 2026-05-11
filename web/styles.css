@@ -375,7 +375,7 @@ p { color: var(--ink-soft); }
 .chip-btn.chip-linkedin:hover i { color: #0A66C2; }
 .chip-btn.chip-trustmrr:hover i { color: #5865FF; }
 .chip-btn.chip-instagram:hover i { color: #E4405F; }
-.chip-btn.chip-paypal:hover i   { color: #0BAFE2; }
+.chip-btn.chip-kofi:hover i     { color: #ff5e5b; }
 .chip-btn.chip-x:hover i        { color: #FFFFFF; }
 
 /* ---------------- ANDROID BETA MODAL ----------------

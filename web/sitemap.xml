@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://fud-ai.app/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <loc>https://www.fud-ai.app/</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://fud-ai.app/privacy.html</loc>
-    <lastmod>2026-05-05</lastmod>
+    <loc>https://www.fud-ai.app/privacy.html</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://fud-ai.app/terms.html</loc>
-    <lastmod>2026-05-05</lastmod>
+    <loc>https://www.fud-ai.app/terms.html</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 </urlset>

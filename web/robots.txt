@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fud-ai.app/sitemap.xml
+Sitemap: https://www.fud-ai.app/sitemap.xml

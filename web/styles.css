@@ -934,6 +934,7 @@ p { color: var(--ink-soft); }
   max-width: 760px;
   margin: 0 auto;
 }
+.legal-content h1,
 .legal-content h2 {
   font-family: var(--serif);
   font-weight: 400;
@@ -1015,13 +1016,39 @@ p { color: var(--ink-soft); }
 }
 .legal-table td { color: var(--ink-soft); }
 
-/* ---------------- HIDDEN SEO BLOCK ---------------- */
-.seo-only {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+/* ---------------- FAQ ---------------- */
+.faq-section {
+  padding: 116px 0;
+  background: var(--paper-warm);
+  border-top: 1px solid var(--rule);
+}
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--rule);
+}
+.faq-item {
+  padding: 30px 36px 30px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.faq-item:nth-child(odd) {
+  border-right: 1px solid var(--rule);
+}
+.faq-item:nth-child(even) {
+  padding-left: 36px;
+}
+.faq-item h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  line-height: 1.14;
+  letter-spacing: -0.018em;
+  margin-bottom: 12px;
+}
+.faq-item p {
+  font-family: var(--sans);
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
 }
 
 /* ---------------- RESPONSIVE ---------------- */
@@ -1055,6 +1082,17 @@ p { color: var(--ink-soft); }
   .process {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+  .faq-item,
+  .faq-item:nth-child(even) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .faq-item:nth-child(odd) {
+    border-right: 0;
   }
   .footer-grid {
     grid-template-columns: 1fr 1fr;
@@ -1220,6 +1258,7 @@ p { color: var(--ink-soft); }
   .plate-caption .num { letter-spacing: 0.16em; }
 
   .legal-section { padding: 110px 0 56px; }
+  .legal-content h1,
   .legal-content h2 { font-size: clamp(2rem, 8vw, 2.8rem); }
   .legal-content h3 { font-size: 1.2rem; margin: 32px 0 12px; }
   .legal-content p, .legal-content li { font-size: 0.95rem; line-height: 1.65; }
@@ -1269,6 +1308,7 @@ p { color: var(--ink-soft); }
   .stat-number { font-size: 2.4rem; }
   .chip-btn { height: 36px; padding: 0 12px; font-size: 10px; }
   .plate .phone-frame { width: 160px; }
+  .legal-content h1,
   .legal-content h2 { font-size: 1.85rem; }
 }
 

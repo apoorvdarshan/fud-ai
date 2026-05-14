@@ -166,8 +166,17 @@ struct ContentView: View {
                     showFudAIPlusIntro = false
                     showFudAIPlusPaywall = true
                 },
-                onKeepBYOK: {
-                    AIAccessSettings.mode = .bringYourOwnKey
+                onRateApp: {
+                    showFudAIPlusIntro = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                        requestNativeReview()
+                    }
+                },
+                onStarGitHub: {
+                    showFudAIPlusIntro = false
+                    openGitHubRepo()
+                },
+                onDismiss: {
                     showFudAIPlusIntro = false
                 }
             )
@@ -189,56 +198,74 @@ struct ContentView: View {
 
     @MainActor
     private func maybeShowFudAIPlusIntro() {
-        guard !AIAccessSettings.hasSeenPlusIntro else { return }
+        let currentVersion = AppUpdateChecker.currentVersion
+        guard AIAccessSettings.lastSeenPlusUpdateAnnouncementVersion != currentVersion else { return }
+        AIAccessSettings.lastSeenPlusUpdateAnnouncementVersion = currentVersion
         guard !storeManager.isSubscribed else { return }
-        AIAccessSettings.hasSeenPlusIntro = true
         showFudAIPlusIntro = true
+    }
+
+    private func requestNativeReview() {
+        if let scene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            AppStore.requestReview(in: scene)
+        }
+    }
+
+    private func openGitHubRepo() {
+        if let url = URL(string: "https://github.com/apoorvdarshan/fud-ai") {
+            UIApplication.shared.open(url)
+        }
     }
 }
 
 private struct FudAIPlusIntroView: View {
     let onUpgrade: () -> Void
-    let onKeepBYOK: () -> Void
+    let onRateApp: () -> Void
+    let onStarGitHub: () -> Void
+    let onDismiss: () -> Void
 
     var body: some View {
         VStack(spacing: 0) {
-            Spacer()
-            VStack(spacing: 18) {
-                ZStack {
-                    Circle()
-                        .fill(.ultraThinMaterial)
-                        .frame(width: 96, height: 96)
-                    Image(systemName: "sparkles")
-                        .font(.system(size: 40, weight: .semibold))
-                        .foregroundStyle(
-                            LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
-                }
+            ScrollView {
+                VStack(spacing: 18) {
+                    ZStack {
+                        Circle()
+                            .fill(.ultraThinMaterial)
+                            .frame(width: 96, height: 96)
+                        Image(systemName: "barcode.viewfinder")
+                            .font(.system(size: 40, weight: .semibold))
+                            .foregroundStyle(
+                                LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
+                            )
+                    }
 
-                VStack(spacing: 8) {
-                    Text("Fud AI Plus")
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
-                    Text("New: use food scan, voice, and Coach without setting up any API key.")
-                        .font(.system(.callout, design: .rounded))
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 28)
-                }
+                    VStack(spacing: 8) {
+                        Text("New in Fud AI")
+                            .font(.system(size: 28, weight: .bold, design: .rounded))
+                        Text("Barcode logging is here. Fud AI Plus is the no-setup option for non-technical users who do not want to manage API keys.")
+                            .font(.system(.callout, design: .rounded))
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, 28)
+                    }
 
-                VStack(alignment: .leading, spacing: 10) {
-                    plusIntroRow("Gemini for AI, Deepgram for voice")
-                    plusIntroRow("\(AIAccessSettings.paidFoodDailyRequestLimit) food logs, \(AIAccessSettings.paidCoachDailyRequestLimit) Coach messages/day")
-                    plusIntroRow("BYOK still works and you can switch anytime")
+                    VStack(alignment: .leading, spacing: 10) {
+                        plusIntroRow("Scan a barcode to log packaged foods faster")
+                        plusIntroRow("Fud AI Plus includes food scan, voice, and Coach without setup")
+                        plusIntroRow("Ratings and GitHub stars help keep the app open source and BYOK-friendly")
+                    }
+                    .font(.system(.subheadline, design: .rounded))
+                    .padding(.horizontal, 30)
+                    .padding(.top, 4)
                 }
-                .font(.system(.subheadline, design: .rounded))
-                .padding(.horizontal, 30)
-                .padding(.top, 4)
+                .padding(.top, 28)
+                .padding(.bottom, 16)
             }
-            Spacer()
 
             VStack(spacing: 10) {
                 Button(action: onUpgrade) {
-                    Text("Upgrade")
+                    Text("Upgrade to Fud AI Plus")
                         .font(.system(.body, design: .rounded, weight: .semibold))
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
@@ -249,8 +276,26 @@ private struct FudAIPlusIntroView: View {
                         )
                 }
 
-                Button(action: onKeepBYOK) {
-                    Text("Keep BYOK")
+                Button(action: onRateApp) {
+                    Label("Rate the App", systemImage: "star.fill")
+                        .font(.system(.body, design: .rounded, weight: .semibold))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                }
+                .buttonStyle(.bordered)
+                .tint(AppColors.calorie)
+
+                Button(action: onStarGitHub) {
+                    Label("Star on GitHub", systemImage: "chevron.left.forwardslash.chevron.right")
+                        .font(.system(.body, design: .rounded, weight: .semibold))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 48)
+                }
+                .buttonStyle(.bordered)
+                .tint(.secondary)
+
+                Button(action: onDismiss) {
+                    Text("Not Now")
                         .font(.system(.body, design: .rounded, weight: .medium))
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity)
@@ -261,7 +306,7 @@ private struct FudAIPlusIntroView: View {
             .padding(.bottom, 28)
         }
         .background(AppColors.appBackground)
-        .presentationDetents([.medium])
+        .presentationDetents([.large])
     }
 
     private func plusIntroRow(_ text: String) -> some View {

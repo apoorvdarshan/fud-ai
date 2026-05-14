@@ -62,6 +62,7 @@ struct AIAccessSettings {
     private static let modeKey = "aiAccessMode"
     private static let plusEntitlementCacheKey = "fudAIPlusEntitlementCached"
     private static let plusIntroSeenKey = "fudAIPlusIntroSeen_3_4"
+    private static let plusUpdateAnnouncementVersionKey = "fudAIPlusUpdateAnnouncementSeenVersion"
     private static let installIDKey = "fudAIInstallID"
     private static let proxyEndpointKey = "fudAIProxyEndpoint"
 
@@ -96,6 +97,11 @@ struct AIAccessSettings {
         set { UserDefaults.standard.set(newValue, forKey: plusIntroSeenKey) }
     }
 
+    static var lastSeenPlusUpdateAnnouncementVersion: String? {
+        get { UserDefaults.standard.string(forKey: plusUpdateAnnouncementVersionKey) }
+        set { UserDefaults.standard.set(newValue, forKey: plusUpdateAnnouncementVersionKey) }
+    }
+
     static var installID: String {
         if let existing = UserDefaults.standard.string(forKey: installIDKey), !existing.isEmpty {
             return existing
@@ -114,6 +120,7 @@ struct AIAccessSettings {
         UserDefaults.standard.removeObject(forKey: modeKey)
         UserDefaults.standard.removeObject(forKey: plusEntitlementCacheKey)
         UserDefaults.standard.removeObject(forKey: plusIntroSeenKey)
+        UserDefaults.standard.removeObject(forKey: plusUpdateAnnouncementVersionKey)
         UserDefaults.standard.removeObject(forKey: proxyEndpointKey)
     }
 }

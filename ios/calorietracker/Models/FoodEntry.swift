@@ -3,6 +3,7 @@ import Foundation
 enum FoodSource: String, Codable {
     case snapFood
     case nutritionLabel
+    case barcode
     case textInput
     case manual
 }

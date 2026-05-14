@@ -4,6 +4,7 @@ import UIKit
 import HealthKit
 import StoreKit
 import WidgetKit
+import AVFoundation
 
 // MARK: - Camera Mode
 enum CameraMode {
@@ -611,6 +612,7 @@ struct ActivityShareSheet: UIViewControllerRepresentable {
 struct HomeView: View {
     @Environment(FoodStore.self) private var foodStore
     @State private var showCamera = false
+    @State private var showBarcodeScanner = false
     @State private var capturedImage: UIImage?
     @State private var cameraMode: CameraMode = .snapFood
     @State private var selectedPhotoItem: PhotosPickerItem?
@@ -628,7 +630,7 @@ struct HomeView: View {
     @State private var showContextSheet = false
 
     enum ActiveSheet: String, Identifiable {
-        case analyzing, foodResult, analyzingText, editFood
+        case analyzing, foodResult, analyzingText, lookingUpBarcode, editFood
         var id: String { rawValue }
     }
     @State private var activeSheet: ActiveSheet?
@@ -637,6 +639,7 @@ struct HomeView: View {
     @State private var currentFoodResult: GeminiService.FoodAnalysis?
     @State private var currentImage: UIImage?
     @State private var currentEmoji: String?
+    @State private var currentFoodSource: FoodSource = .snapFood
     @State private var showNutritionDetail = false
     @AppStorage("aiAnalysisConsentGiven") private var aiConsentGiven: Bool = false
     @AppStorage(FoodLogSortOrder.storageKey) private var foodLogSortOrderRaw = FoodLogSortOrder.defaultOrder.rawValue
@@ -869,6 +872,12 @@ struct HomeView: View {
                             }
                             Button(action: {
 
+                                showBarcodeScanner = true
+                            }) {
+                                Label("Barcode", systemImage: "barcode.viewfinder")
+                            }
+                            Button(action: {
+
                                 cameraMode = .snapFood
                                 photoPickerMode = .snapFood
                                 showPhotoPicker = true
@@ -919,6 +928,7 @@ struct HomeView: View {
                                     showTextPopover = false
                                     currentImage = nil
                                     currentEmoji = nil
+                                    currentFoodSource = .textInput
                                     guard aiConsentGiven else { showAIConsent = true; return }
                                     Task {
                                         try? await Task.sleep(for: .milliseconds(300))
@@ -948,6 +958,7 @@ struct HomeView: View {
                                     showVoicePopover = false
                                     currentImage = nil
                                     currentEmoji = nil
+                                    currentFoodSource = .textInput
                                     guard aiConsentGiven else { showAIConsent = true; return }
                                     Task {
                                         try? await Task.sleep(for: .milliseconds(300))
@@ -984,6 +995,18 @@ struct HomeView: View {
             .fullScreenCover(isPresented: $showCamera) {
                 CameraView(image: $capturedImage)
                     .ignoresSafeArea()
+            }
+            .fullScreenCover(isPresented: $showBarcodeScanner) {
+                BarcodeScannerView(
+                    onScan: { barcode in
+                        showBarcodeScanner = false
+                        startBarcodeLookup(barcode)
+                    },
+                    onCancel: {
+                        showBarcodeScanner = false
+                    }
+                )
+                .ignoresSafeArea()
             }
             .onChange(of: capturedImage) { oldValue, newValue in
                 guard let image = newValue else { return }
@@ -1024,12 +1047,14 @@ struct HomeView: View {
                     AnalyzingView(image: currentImage)
                 case .analyzingText:
                     AnalyzingView(image: nil, message: "Looking up nutrition...")
+                case .lookingUpBarcode:
+                    AnalyzingView(image: nil, message: "Looking up barcode...")
                 case .foodResult:
                     if let result = currentFoodResult {
                         FoodResultView(
                             image: currentImage,
                             emoji: currentEmoji,
-                            source: currentImage == nil ? .textInput : (cameraMode == .nutritionLabel ? .nutritionLabel : .snapFood),
+                            source: currentFoodSource,
                             name: result.name,
                             calories: result.calories,
                             protein: result.protein,
@@ -1068,6 +1093,7 @@ struct HomeView: View {
                         currentImage = nil
                     }
                     currentEmoji = entry.emoji
+                    currentFoodSource = entry.source
                     currentFoodResult = GeminiService.FoodAnalysis(
                         name: entry.name,
                         calories: entry.calories,
@@ -1092,7 +1118,7 @@ struct HomeView: View {
                     activeSheet = .foodResult
                 })
             })
-            .interactiveDismissDisabled(activeSheet == .analyzing || activeSheet == .analyzingText)
+            .interactiveDismissDisabled(activeSheet == .analyzing || activeSheet == .analyzingText || activeSheet == .lookingUpBarcode)
             .photosPicker(isPresented: $showPhotoPicker, selection: $selectedPhotoItem, matching: .images)
             .onChange(of: selectedPhotoItem) { oldValue, newValue in
                 guard let item = newValue else { return }
@@ -1103,6 +1129,7 @@ struct HomeView: View {
                        let image = UIImage(data: data) {
                         currentImage = image
                         currentEmoji = nil
+                        currentFoodSource = .snapFood
                         if photoPickerMode == .snapFoodWithContext {
                             pendingContextImage = image
                             contextDescription = ""
@@ -1157,17 +1184,20 @@ struct HomeView: View {
                 case .snapFood:
                     let result = try await GeminiService.analyzeFood(image: image)
                     currentFoodResult = result
+                    currentFoodSource = .snapFood
                     activeSheet = .foodResult
 
                 case .snapFoodWithContext:
                     let result = try await GeminiService.analyzeFood(image: image, description: description)
                     currentFoodResult = result
+                    currentFoodSource = .snapFood
                     activeSheet = .foodResult
 
                 case .nutritionLabel:
                     let label = try await GeminiService.analyzeNutritionLabel(image: image)
                     let servingGrams = label.servingSizeGrams ?? 100
                     currentFoodResult = label.scaled(to: servingGrams)
+                    currentFoodSource = .nutritionLabel
                     activeSheet = .foodResult
                 }
             } catch {
@@ -1178,6 +1208,289 @@ struct HomeView: View {
         }
     }
 
+    private func startBarcodeLookup(_ barcode: String) {
+        let trimmedBarcode = barcode.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedBarcode.isEmpty else { return }
+
+        currentImage = nil
+        currentEmoji = nil
+        currentFoodSource = .barcode
+        activeSheet = .lookingUpBarcode
+
+        Task {
+            do {
+                let result = try await OpenFoodFactsService.lookup(barcode: trimmedBarcode)
+                currentFoodResult = result
+                currentEmoji = result.emoji
+                activeSheet = .foodResult
+            } catch {
+                activeSheet = nil
+                errorMessage = error.localizedDescription
+                showError = true
+            }
+        }
+    }
+
+}
+
+// MARK: - Open Food Facts Barcode Lookup
+private enum OpenFoodFactsService {
+    enum LookupError: LocalizedError {
+        case invalidBarcode
+        case productNotFound
+        case missingNutrition
+        case invalidResponse
+        case networkError(Error)
+
+        var errorDescription: String? {
+            switch self {
+            case .invalidBarcode:
+                return "That barcode could not be read. Try scanning it again."
+            case .productNotFound:
+                return "Product not found in Open Food Facts. Scan the nutrition label instead."
+            case .missingNutrition:
+                return "This barcode was found, but nutrition data is incomplete. Scan the nutrition label instead."
+            case .invalidResponse:
+                return "Open Food Facts returned an unexpected response."
+            case .networkError(let error):
+                return "Barcode lookup failed: \(error.localizedDescription)"
+            }
+        }
+    }
+
+    static func lookup(barcode: String) async throws -> GeminiService.FoodAnalysis {
+        let code = barcode.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !code.isEmpty,
+              let encodedCode = code.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed),
+              var components = URLComponents(string: "https://world.openfoodfacts.org/api/v2/product/\(encodedCode).json")
+        else {
+            throw LookupError.invalidBarcode
+        }
+
+        components.queryItems = [
+            URLQueryItem(
+                name: "fields",
+                value: "product_name,generic_name,brands,quantity,serving_size,serving_quantity,nutriments"
+            )
+        ]
+
+        guard let url = components.url else { throw LookupError.invalidBarcode }
+
+        var request = URLRequest(url: url)
+        request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+            guard let http = response as? HTTPURLResponse,
+                  (200..<300).contains(http.statusCode) else {
+                throw LookupError.invalidResponse
+            }
+
+            let decoded = try JSONDecoder().decode(OpenFoodFactsResponse.self, from: data)
+            guard decoded.status != 0, let product = decoded.product else {
+                throw LookupError.productNotFound
+            }
+
+            return try analysis(from: product, barcode: code)
+        } catch let error as LookupError {
+            throw error
+        } catch {
+            throw LookupError.networkError(error)
+        }
+    }
+
+    private static var userAgent: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+        return "FudAI/\(version) (https://fud-ai.app)"
+    }
+
+    private static func analysis(from product: OpenFoodFactsProduct, barcode: String) throws -> GeminiService.FoodAnalysis {
+        guard let nutriments = product.nutriments else { throw LookupError.missingNutrition }
+
+        let servingGrams = max(
+            product.servingQuantity?.value ?? grams(from: product.servingSize) ?? 100,
+            1
+        )
+        let scale = servingGrams / 100
+
+        let calories = servingValue("energy-kcal", in: nutriments, scale: scale)
+            ?? servingValue("energy", in: nutriments, scale: scale).map { $0 * 0.23900573614 }
+        let protein = servingValue("proteins", in: nutriments, scale: scale)
+        let carbs = servingValue("carbohydrates", in: nutriments, scale: scale)
+        let fat = servingValue("fat", in: nutriments, scale: scale)
+
+        guard calories != nil || protein != nil || carbs != nil || fat != nil else {
+            throw LookupError.missingNutrition
+        }
+
+        let name = productName(from: product, barcode: barcode)
+        let servingOption = ServingUnitOption(unit: "serving", gramsPerUnit: servingGrams, quantity: 1)
+
+        return GeminiService.FoodAnalysis(
+            name: name,
+            calories: Int(round(calories ?? 0)),
+            protein: Int(round(protein ?? 0)),
+            carbs: Int(round(carbs ?? 0)),
+            fat: Int(round(fat ?? 0)),
+            servingSizeGrams: servingGrams,
+            emoji: "🏷️",
+            sugar: rounded(servingValue("sugars", in: nutriments, scale: scale)),
+            addedSugar: rounded(servingValue("added-sugars", in: nutriments, scale: scale)),
+            fiber: rounded(servingValue("fiber", in: nutriments, scale: scale)),
+            saturatedFat: rounded(servingValue("saturated-fat", in: nutriments, scale: scale)),
+            monounsaturatedFat: rounded(servingValue("monounsaturated-fat", in: nutriments, scale: scale)),
+            polyunsaturatedFat: rounded(servingValue("polyunsaturated-fat", in: nutriments, scale: scale)),
+            cholesterol: milligrams(servingValue("cholesterol", in: nutriments, scale: scale)),
+            sodium: milligrams(servingValue("sodium", in: nutriments, scale: scale)),
+            potassium: milligrams(servingValue("potassium", in: nutriments, scale: scale)),
+            servingUnitOptions: [servingOption],
+            selectedServingUnit: servingOption.unit,
+            selectedServingQuantity: 1
+        )
+    }
+
+    private static func servingValue(_ key: String, in nutriments: OpenFoodFactsNutriments, scale: Double) -> Double? {
+        if let serving = nutriments.value(for: "\(key)_serving") {
+            return serving
+        }
+        if let per100g = nutriments.value(for: "\(key)_100g") {
+            return per100g * scale
+        }
+        return nil
+    }
+
+    private static func productName(from product: OpenFoodFactsProduct, barcode: String) -> String {
+        let primary = firstNonEmpty(product.productName, product.genericName)
+        let brand = product.brands?
+            .split(separator: ",")
+            .first
+            .map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
+
+        if let primary, let brand, !primary.localizedCaseInsensitiveContains(brand) {
+            return "\(brand) \(primary)"
+        }
+        return primary ?? brand ?? "Barcode \(barcode)"
+    }
+
+    private static func firstNonEmpty(_ values: String?...) -> String? {
+        values
+            .compactMap { $0?.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .first { !$0.isEmpty }
+    }
+
+    private static func rounded(_ value: Double?) -> Double? {
+        value.map { round($0 * 10) / 10 }
+    }
+
+    private static func milligrams(_ grams: Double?) -> Double? {
+        grams.map { round($0 * 1000 * 10) / 10 }
+    }
+
+    private static func grams(from servingSize: String?) -> Double? {
+        guard var text = servingSize?.lowercased() else { return nil }
+        text = text.replacingOccurrences(of: ",", with: ".")
+        text = text.replacingOccurrences(of: "fl. oz", with: "fl oz")
+
+        let pattern = #"([0-9]+(?:\.[0-9]+)?)\s*(fl oz|kg|mg|g|oz|ml|l)"#
+        guard let regex = try? NSRegularExpression(pattern: pattern),
+              let match = regex.firstMatch(in: text, range: NSRange(text.startIndex..., in: text)),
+              let valueRange = Range(match.range(at: 1), in: text),
+              let unitRange = Range(match.range(at: 2), in: text),
+              let value = Double(text[valueRange])
+        else {
+            return nil
+        }
+
+        switch String(text[unitRange]) {
+        case "kg": return value * 1000
+        case "mg": return value / 1000
+        case "oz": return value * 28.3495
+        case "fl oz": return value * 29.5735
+        case "ml": return value
+        case "l": return value * 1000
+        default: return value
+        }
+    }
+
+    private struct OpenFoodFactsResponse: Decodable {
+        let status: Int?
+        let product: OpenFoodFactsProduct?
+    }
+
+    private struct OpenFoodFactsProduct: Decodable {
+        let productName: String?
+        let genericName: String?
+        let brands: String?
+        let servingSize: String?
+        let servingQuantity: FlexibleDouble?
+        let nutriments: OpenFoodFactsNutriments?
+
+        private enum CodingKeys: String, CodingKey {
+            case productName = "product_name"
+            case genericName = "generic_name"
+            case brands
+            case servingSize = "serving_size"
+            case servingQuantity = "serving_quantity"
+            case nutriments
+        }
+    }
+
+    private struct OpenFoodFactsNutriments: Decodable {
+        private let values: [String: Double]
+
+        func value(for key: String) -> Double? {
+            values[key]
+        }
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: DynamicCodingKey.self)
+            var parsed: [String: Double] = [:]
+
+            for key in container.allKeys {
+                if let value = try? container.decode(FlexibleDouble.self, forKey: key) {
+                    parsed[key.stringValue] = value.value
+                }
+            }
+
+            values = parsed
+        }
+    }
+
+    private struct FlexibleDouble: Decodable {
+        let value: Double
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.singleValueContainer()
+            if let double = try? container.decode(Double.self) {
+                value = double
+            } else if let int = try? container.decode(Int.self) {
+                value = Double(int)
+            } else {
+                let string = try container.decode(String.self)
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
+                    .replacingOccurrences(of: ",", with: ".")
+                guard let parsed = Double(string) else {
+                    throw DecodingError.dataCorruptedError(in: container, debugDescription: "Not a number")
+                }
+                value = parsed
+            }
+        }
+    }
+
+    private struct DynamicCodingKey: CodingKey {
+        let stringValue: String
+        let intValue: Int?
+
+        init?(stringValue: String) {
+            self.stringValue = stringValue
+            self.intValue = nil
+        }
+
+        init?(intValue: Int) {
+            self.stringValue = "\(intValue)"
+            self.intValue = intValue
+        }
+    }
 }
 
 
@@ -1508,6 +1821,226 @@ struct CameraView: UIViewControllerRepresentable {
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             parent.dismiss()
         }
+    }
+}
+
+// MARK: - Barcode Scanner
+struct BarcodeScannerView: UIViewControllerRepresentable {
+    let onScan: (String) -> Void
+    let onCancel: () -> Void
+
+    func makeUIViewController(context: Context) -> BarcodeScannerViewController {
+        BarcodeScannerViewController(onScan: onScan, onCancel: onCancel)
+    }
+
+    func updateUIViewController(_ uiViewController: BarcodeScannerViewController, context: Context) {}
+}
+
+final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+    private let onScan: (String) -> Void
+    private let onCancel: () -> Void
+    private var session: AVCaptureSession?
+    private var previewLayer: AVCaptureVideoPreviewLayer?
+    private var didScan = false
+
+    init(onScan: @escaping (String) -> Void, onCancel: @escaping () -> Void) {
+        self.onScan = onScan
+        self.onCancel = onCancel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .black
+        buildOverlay()
+        checkCameraAccess()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        previewLayer?.frame = view.bounds
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let session = session
+        DispatchQueue.global(qos: .userInitiated).async {
+            session?.stopRunning()
+        }
+    }
+
+    private func checkCameraAccess() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            configureSession()
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
+                DispatchQueue.main.async {
+                    if granted {
+                        self?.configureSession()
+                    } else {
+                        self?.showCameraUnavailable("Camera access is needed to scan barcodes.")
+                    }
+                }
+            }
+        case .denied, .restricted:
+            showCameraUnavailable("Camera access is needed to scan barcodes.")
+        @unknown default:
+            showCameraUnavailable("Camera is unavailable.")
+        }
+    }
+
+    private func configureSession() {
+        let session = AVCaptureSession()
+        session.beginConfiguration()
+
+        guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
+              let input = try? AVCaptureDeviceInput(device: camera),
+              session.canAddInput(input) else {
+            session.commitConfiguration()
+            showCameraUnavailable("Camera is unavailable.")
+            return
+        }
+        session.addInput(input)
+
+        let output = AVCaptureMetadataOutput()
+        guard session.canAddOutput(output) else {
+            session.commitConfiguration()
+            showCameraUnavailable("Barcode scanning is unavailable.")
+            return
+        }
+        session.addOutput(output)
+        output.setMetadataObjectsDelegate(self, queue: .main)
+
+        let supportedTypes: [AVMetadataObject.ObjectType] = [
+            .ean13,
+            .ean8,
+            .upce,
+            .code128,
+            .code39,
+            .code93,
+            .itf14,
+            .interleaved2of5
+        ]
+        let availableTypes = supportedTypes.filter { output.availableMetadataObjectTypes.contains($0) }
+        guard !availableTypes.isEmpty else {
+            session.commitConfiguration()
+            showCameraUnavailable("Barcode scanning is unavailable.")
+            return
+        }
+        output.metadataObjectTypes = availableTypes
+        session.commitConfiguration()
+
+        let previewLayer = AVCaptureVideoPreviewLayer(session: session)
+        previewLayer.videoGravity = .resizeAspectFill
+        previewLayer.frame = view.bounds
+        view.layer.insertSublayer(previewLayer, at: 0)
+
+        self.session = session
+        self.previewLayer = previewLayer
+
+        DispatchQueue.global(qos: .userInitiated).async {
+            session.startRunning()
+        }
+    }
+
+    private func buildOverlay() {
+        let closeButton = UIButton(type: .system)
+        closeButton.setTitle("Cancel", for: .normal)
+        closeButton.setTitleColor(.white, for: .normal)
+        closeButton.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        closeButton.addTarget(self, action: #selector(cancelTapped), for: .touchUpInside)
+        view.addSubview(closeButton)
+
+        let scanBox = UIView()
+        scanBox.layer.borderColor = UIColor.white.withAlphaComponent(0.9).cgColor
+        scanBox.layer.borderWidth = 3
+        scanBox.layer.cornerRadius = 22
+        scanBox.backgroundColor = UIColor.clear
+        scanBox.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scanBox)
+
+        let label = UILabel()
+        label.text = "Point the camera at the barcode"
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+
+        let hint = UILabel()
+        hint.text = "If the product is not found, scan the nutrition label instead."
+        hint.textColor = UIColor.white.withAlphaComponent(0.72)
+        hint.font = .systemFont(ofSize: 14, weight: .medium)
+        hint.textAlignment = .center
+        hint.numberOfLines = 0
+        hint.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(hint)
+
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
+            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+            scanBox.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scanBox.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -34),
+            scanBox.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.76),
+            scanBox.heightAnchor.constraint(equalToConstant: 190),
+
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -28),
+            label.topAnchor.constraint(equalTo: scanBox.bottomAnchor, constant: 28),
+
+            hint.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 36),
+            hint.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -36),
+            hint.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 10)
+        ])
+    }
+
+    private func showCameraUnavailable(_ message: String) {
+        let label = UILabel()
+        label.text = message
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(label)
+
+        NSLayoutConstraint.activate([
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -32)
+        ])
+    }
+
+    @objc private func cancelTapped() {
+        onCancel()
+    }
+
+    func metadataOutput(
+        _ output: AVCaptureMetadataOutput,
+        didOutput metadataObjects: [AVMetadataObject],
+        from connection: AVCaptureConnection
+    ) {
+        guard !didScan,
+              let object = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
+              let code = object.stringValue,
+              !code.isEmpty else { return }
+
+        didScan = true
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+        let session = session
+        DispatchQueue.global(qos: .userInitiated).async {
+            session?.stopRunning()
+        }
+        onScan(code)
     }
 }
 

@@ -10,11 +10,19 @@ struct ChatMessage: Identifiable, Codable, Equatable {
     let role: Role
     let content: String
     let timestamp: Date
+    let attachmentImageData: Data?
 
-    init(id: UUID = UUID(), role: Role, content: String, timestamp: Date = .now) {
+    init(
+        id: UUID = UUID(),
+        role: Role,
+        content: String,
+        timestamp: Date = .now,
+        attachmentImageData: Data? = nil
+    ) {
         self.id = id
         self.role = role
         self.content = content
         self.timestamp = timestamp
+        self.attachmentImageData = attachmentImageData
     }
 }

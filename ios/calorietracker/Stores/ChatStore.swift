@@ -25,7 +25,7 @@ class ChatStore {
     func replaceLastAssistant(with content: String) {
         guard let idx = messages.lastIndex(where: { $0.role == .assistant }) else { return }
         let old = messages[idx]
-        messages[idx] = ChatMessage(id: old.id, role: .assistant, content: content, timestamp: old.timestamp)
+        messages[idx] = ChatMessage(id: old.id, role: .assistant, content: content, timestamp: old.timestamp, attachmentImageData: old.attachmentImageData)
         save()
     }
 

@@ -40,6 +40,7 @@ struct ChatService {
     static func sendMessage(
         history: [ChatMessage],
         newUserMessage: String,
+        imageData: Data? = nil,
         profile: UserProfile,
         weights: [WeightEntry],
         bodyFats: [BodyFatEntry],
@@ -70,11 +71,11 @@ struct ChatService {
 
         switch provider.apiFormat {
         case .gemini:
-            return try await callGemini(baseURL: baseURL, model: model, systemPrompt: systemPrompt, history: history, newUserMessage: newUserMessage, tools: tools)
+            return try await callGemini(baseURL: baseURL, model: model, systemPrompt: systemPrompt, history: history, newUserMessage: newUserMessage, imageData: imageData, tools: tools)
         case .anthropic:
-            return try await callAnthropic(baseURL: baseURL, model: model, systemPrompt: systemPrompt, history: history, newUserMessage: newUserMessage, tools: tools)
+            return try await callAnthropic(baseURL: baseURL, model: model, systemPrompt: systemPrompt, history: history, newUserMessage: newUserMessage, imageData: imageData, tools: tools)
         case .openaiCompatible:
-            return try await callOpenAICompatible(baseURL: baseURL, model: model, systemPrompt: systemPrompt, history: history, newUserMessage: newUserMessage, provider: provider, tools: tools)
+            return try await callOpenAICompatible(baseURL: baseURL, model: model, systemPrompt: systemPrompt, history: history, newUserMessage: newUserMessage, imageData: imageData, provider: provider, tools: tools)
         }
     }
 
@@ -209,7 +210,7 @@ struct ChatService {
         }
     }
 
-    private static func callOpenAICompatible(baseURL: String, model: String, systemPrompt: String, history: [ChatMessage], newUserMessage: String, provider: AIProvider, tools: CoachTools) async throws -> String {
+    private static func callOpenAICompatible(baseURL: String, model: String, systemPrompt: String, history: [ChatMessage], newUserMessage: String, imageData: Data?, provider: AIProvider, tools: CoachTools) async throws -> String {
         guard let url = URL(string: "\(baseURL)/chat/completions") else {
             throw ChatError.apiError("Invalid API URL.")
         }
@@ -218,7 +219,11 @@ struct ChatService {
         for msg in history {
             messages.append(["role": msg.role.rawValue, "content": msg.content])
         }
-        messages.append(["role": "user", "content": newUserMessage])
+        if let imageData {
+            messages.append(["role": "user", "content": openAIUserContent(text: newUserMessage, imageData: imageData)])
+        } else {
+            messages.append(["role": "user", "content": newUserMessage])
+        }
 
         var headers = ["Content-Type": "application/json"]
         if let apiKey = AIProviderSettings.currentAPIKey {
@@ -276,6 +281,16 @@ struct ChatService {
         throw ChatError.apiError("Coach exceeded the tool-call round limit. Try rephrasing your question.")
     }
 
+    private static func openAIUserContent(text: String, imageData: Data) -> [[String: Any]] {
+        [
+            [
+                "type": "image_url",
+                "image_url": ["url": "data:image/jpeg;base64,\(imageData.base64EncodedString())"],
+            ],
+            ["type": "text", "text": text],
+        ]
+    }
+
     // MARK: - Anthropic Messages API
 
     /// Anthropic tool schema: `{name, description, input_schema}`. Tool calls
@@ -301,7 +316,7 @@ struct ChatService {
         }
     }
 
-    private static func callAnthropic(baseURL: String, model: String, systemPrompt: String, history: [ChatMessage], newUserMessage: String, tools: CoachTools) async throws -> String {
+    private static func callAnthropic(baseURL: String, model: String, systemPrompt: String, history: [ChatMessage], newUserMessage: String, imageData: Data?, tools: CoachTools) async throws -> String {
         guard let apiKey = AIProviderSettings.currentAPIKey else { throw ChatError.noAPIKey }
         guard let url = URL(string: "\(baseURL)/messages") else {
             throw ChatError.apiError("Invalid API URL.")
@@ -310,7 +325,11 @@ struct ChatService {
         for msg in history {
             messages.append(["role": msg.role.rawValue, "content": msg.content])
         }
-        messages.append(["role": "user", "content": newUserMessage])
+        if let imageData {
+            messages.append(["role": "user", "content": anthropicUserContent(text: newUserMessage, imageData: imageData)])
+        } else {
+            messages.append(["role": "user", "content": newUserMessage])
+        }
 
         let toolsArray = anthropicToolsArray()
         let headers = [
@@ -367,6 +386,20 @@ struct ChatService {
         throw ChatError.apiError("Coach exceeded the tool-call round limit. Try rephrasing your question.")
     }
 
+    private static func anthropicUserContent(text: String, imageData: Data) -> [[String: Any]] {
+        [
+            [
+                "type": "image",
+                "source": [
+                    "type": "base64",
+                    "media_type": "image/jpeg",
+                    "data": imageData.base64EncodedString(),
+                ],
+            ],
+            ["type": "text", "text": text],
+        ]
+    }
+
     // MARK: - Gemini (v1beta generateContent with system_instruction + tools)
 
     /// Gemini tool schema: `{"functionDeclarations": [{name, description, parameters}]}`
@@ -393,7 +426,7 @@ struct ChatService {
         return ["functionDeclarations": declarations]
     }
 
-    private static func callGemini(baseURL: String, model: String, systemPrompt: String, history: [ChatMessage], newUserMessage: String, tools: CoachTools) async throws -> String {
+    private static func callGemini(baseURL: String, model: String, systemPrompt: String, history: [ChatMessage], newUserMessage: String, imageData: Data?, tools: CoachTools) async throws -> String {
         let apiKey = AIProviderSettings.currentAPIKey
         if !AIAccessSettings.isUsingFudAIPlus, apiKey == nil {
             throw ChatError.noAPIKey
@@ -407,7 +440,7 @@ struct ChatService {
             let role = msg.role == .user ? "user" : "model"
             contents.append(["role": role, "parts": [["text": msg.content]]])
         }
-        contents.append(["role": "user", "parts": [["text": newUserMessage]]])
+        contents.append(["role": "user", "parts": geminiUserParts(text: newUserMessage, imageData: imageData)])
 
         let toolsObj = geminiToolsObject()
 
@@ -467,6 +500,20 @@ struct ChatService {
             throw ChatError.invalidResponse
         }
         throw ChatError.apiError("Coach exceeded the tool-call round limit. Try rephrasing your question.")
+    }
+
+    private static func geminiUserParts(text: String, imageData: Data?) -> [[String: Any]] {
+        var parts: [[String: Any]] = []
+        if let imageData {
+            parts.append([
+                "inlineData": [
+                    "mimeType": "image/jpeg",
+                    "data": imageData.base64EncodedString(),
+                ],
+            ])
+        }
+        parts.append(["text": text])
+        return parts
     }
 
     // MARK: - Shared HTTP

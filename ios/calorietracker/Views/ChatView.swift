@@ -1,4 +1,6 @@
+import PhotosUI
 import SwiftUI
+import UIKit
 
 /// "Coach" tab — a persistent AI conversation that has access to the user's profile,
 /// weight history, food log, and computed forecast. Handles multi-turn chat with memory
@@ -12,9 +14,14 @@ struct ChatView: View {
     @AppStorage("useMetric") private var useMetric = false
 
     @State private var draft = ""
+    @State private var attachedImage: UIImage?
+    @State private var capturedImage: UIImage?
+    @State private var selectedPhotoItem: PhotosPickerItem?
     @State private var isSending = false
     @State private var errorMessage: String?
     @State private var showResetConfirmation = false
+    @State private var showCamera = false
+    @State private var showPhotoPicker = false
     @FocusState private var isInputFocused: Bool
 
     private var userProfile: UserProfile { profileStore.profile }
@@ -37,7 +44,7 @@ struct ChatView: View {
 
                 promptChips
 
-                inputBar
+                inputArea
             }
             .background(AppColors.appBackground)
             .navigationTitle("Coach")
@@ -61,6 +68,38 @@ struct ChatView: View {
                 }
             } message: {
                 Text("Clear all messages and start fresh? This can't be undone.")
+            }
+            .fullScreenCover(isPresented: $showCamera) {
+                CameraView(image: $capturedImage)
+                    .ignoresSafeArea()
+            }
+            .photosPicker(isPresented: $showPhotoPicker, selection: $selectedPhotoItem, matching: .images)
+            .onChange(of: capturedImage) { _, newValue in
+                guard let image = newValue else { return }
+                capturedImage = nil
+                attachedImage = image
+                errorMessage = nil
+            }
+            .onChange(of: selectedPhotoItem) { _, newValue in
+                guard let item = newValue else { return }
+                selectedPhotoItem = nil
+                Task {
+                    do {
+                        guard let data = try await item.loadTransferable(type: Data.self),
+                              let image = UIImage(data: data) else {
+                            await MainActor.run { errorMessage = "Could not load that photo." }
+                            return
+                        }
+                        await MainActor.run {
+                            attachedImage = image
+                            errorMessage = nil
+                        }
+                    } catch {
+                        await MainActor.run {
+                            errorMessage = "Could not load that photo."
+                        }
+                    }
+                }
             }
         }
     }
@@ -243,12 +282,88 @@ struct ChatView: View {
         }
     }
 
+    private var inputArea: some View {
+        VStack(spacing: 8) {
+            if let attachedImage {
+                attachmentPreview(attachedImage)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+            }
+
+            inputBar
+        }
+        .animation(.easeInOut(duration: 0.18), value: attachedImage == nil)
+    }
+
+    private func attachmentPreview(_ image: UIImage) -> some View {
+        HStack(spacing: 10) {
+            Image(uiImage: image)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 62, height: 62)
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .stroke(Color.white.opacity(0.18), lineWidth: 0.6)
+                )
+
+            VStack(alignment: .leading, spacing: 3) {
+                Text("Image attached")
+                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                Text("Send with your Coach message")
+                    .font(.system(.caption, design: .rounded))
+                    .foregroundStyle(.secondary)
+            }
+
+            Spacer()
+
+            Button {
+                attachedImage = nil
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundStyle(.secondary)
+                    .frame(width: 30, height: 30)
+                    .background(.ultraThinMaterial, in: Circle())
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 9)
+        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .stroke(AppColors.calorie.opacity(0.18), lineWidth: 0.7)
+        )
+        .padding(.horizontal, 12)
+    }
+
     private var inputBar: some View {
         HStack(spacing: 8) {
+            Menu {
+                Button {
+                    openCamera()
+                } label: {
+                    Label("Camera", systemImage: "camera.fill")
+                }
+
+                Button {
+                    showPhotoPicker = true
+                } label: {
+                    Label("Photo Library", systemImage: "photo.on.rectangle")
+                }
+            } label: {
+                Image(systemName: attachedImage == nil ? "plus.circle.fill" : "photo.fill")
+                    .font(.system(size: 24, weight: .semibold))
+                    .foregroundStyle(AppColors.calorie)
+                    .frame(width: 34, height: 34)
+            }
+            .disabled(isSending)
+            .padding(.leading, 8)
+
             TextField("Ask Coach…", text: $draft, axis: .vertical)
                 .font(.system(.body, design: .rounded))
                 .lineLimit(1...5)
-                .padding(.horizontal, 18)
+                .padding(.horizontal, 8)
                 .padding(.vertical, 12)
                 .focused($isInputFocused)
 
@@ -295,17 +410,31 @@ struct ChatView: View {
     }
 
     private var canSend: Bool {
-        !isSending && !draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        !isSending && (!draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || attachedImage != nil)
     }
 
     // MARK: - Send
 
     private func send() {
-        let text = draft.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !text.isEmpty, !isSending else { return }
+        let typedText = draft.trimmingCharacters(in: .whitespacesAndNewlines)
+        let image = attachedImage
+        guard (!typedText.isEmpty || image != nil), !isSending else { return }
 
-        chatStore.append(ChatMessage(role: .user, content: text))
+        let text = typedText.isEmpty ? "Analyze this image." : typedText
+        let imageDataForAI = image.flatMap {
+            resizedJPEGData(from: $0, maxDimension: 1600, compressionQuality: 0.78)
+        }
+        let thumbnailData = image.flatMap {
+            resizedJPEGData(from: $0, maxDimension: 700, compressionQuality: 0.68)
+        }
+        if image != nil, imageDataForAI == nil {
+            errorMessage = "Failed to process the image."
+            return
+        }
+
+        chatStore.append(ChatMessage(role: .user, content: text, attachmentImageData: thumbnailData))
         draft = ""
+        attachedImage = nil
         errorMessage = nil
         isSending = true
         let historyForCall = chatStore.contextMessages().dropLast()  // exclude the user msg we just appended
@@ -316,6 +445,7 @@ struct ChatView: View {
                 let reply = try await ChatService.sendMessage(
                     history: Array(historyForCall),
                     newUserMessage: text,
+                    imageData: imageDataForAI,
                     profile: userProfile,
                     weights: weightStore.entries,
                     bodyFats: bodyFatStore.entries,
@@ -327,6 +457,32 @@ struct ChatView: View {
                 errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
             }
         }
+    }
+
+    private func openCamera() {
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+            errorMessage = "Camera is not available on this device."
+            return
+        }
+        showCamera = true
+    }
+
+    private func resizedJPEGData(from image: UIImage, maxDimension: CGFloat, compressionQuality: CGFloat) -> Data? {
+        let originalSize = image.size
+        let longestSide = max(originalSize.width, originalSize.height)
+        guard longestSide > 0 else {
+            return image.jpegData(compressionQuality: compressionQuality)
+        }
+
+        let scale = min(1, maxDimension / longestSide)
+        let targetSize = CGSize(width: originalSize.width * scale, height: originalSize.height * scale)
+        let format = UIGraphicsImageRendererFormat.default()
+        format.scale = 1
+        let renderer = UIGraphicsImageRenderer(size: targetSize, format: format)
+        let resized = renderer.image { _ in
+            image.draw(in: CGRect(origin: .zero, size: targetSize))
+        }
+        return resized.jpegData(compressionQuality: compressionQuality)
     }
 }
 
@@ -372,10 +528,25 @@ private struct MessageBubble: View {
     }
 
     private var bubble: some View {
-        Text(message.content)
-            .font(.system(.body, design: .rounded))
-            .textSelection(.enabled)
-            .foregroundStyle(isUser ? .white : .primary)
+        VStack(alignment: .leading, spacing: 9) {
+            if let imageData = message.attachmentImageData,
+               let uiImage = UIImage(data: imageData) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 196, height: 140)
+                    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 14, style: .continuous)
+                            .stroke(Color.white.opacity(isUser ? 0.25 : 0.12), lineWidth: 0.7)
+                    )
+            }
+
+            Text(message.content)
+                .font(.system(.body, design: .rounded))
+                .textSelection(.enabled)
+                .foregroundStyle(isUser ? .white : .primary)
+        }
             .padding(.horizontal, 16)
             .padding(.vertical, 11)
             .background(bubbleBackground)

@@ -1,6 +1,6 @@
 # Play Store Listing
 
-Google Play Console listing copy for Fud AI Android (current: v1.2 / versionCode 17). Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over.
+Google Play Console listing copy for Fud AI Android (current: v1.2 / versionCode 18). Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over.
 
 **Where to paste each field in Play Console:**
 - App name / Short description / Full description → Grow → Store presence → **Main store listing** (default English) and Grow → Store presence → **Custom store listings** → Manage translations (per-language overrides)

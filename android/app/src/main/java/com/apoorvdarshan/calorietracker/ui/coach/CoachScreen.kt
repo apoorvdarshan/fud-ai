@@ -118,7 +118,6 @@ fun CoachScreen(container: AppContainer) {
     val ui by vm.ui.collectAsState()
     var input by remember { mutableStateOf("") }
     var attachedImageBytes by remember { mutableStateOf<ByteArray?>(null) }
-    var showAttachMenu by remember { mutableStateOf(false) }
     var pendingCaptureFile by remember { mutableStateOf<File?>(null) }
     val listState = rememberLazyListState()
     var showResetConfirm by remember { mutableStateOf(false) }
@@ -152,7 +151,7 @@ fun CoachScreen(container: AppContainer) {
     }
 
     fun launchCamera() {
-        val dir = File(ctx.cacheDir, "coach-capture").apply { mkdirs() }
+        val dir = File(ctx.cacheDir, "capture").apply { mkdirs() }
         val file = File(dir, "coach-${System.currentTimeMillis()}.jpg")
         val uri = FileProvider.getUriForFile(ctx, "${ctx.packageName}.fileprovider", file)
         pendingCaptureFile = file
@@ -267,7 +266,10 @@ fun CoachScreen(container: AppContainer) {
                 onValueChange = { input = it },
                 attachedImageBytes = attachedImageBytes,
                 sending = ui.sending,
-                onPickImage = { showAttachMenu = true },
+                onPickImage = {
+                    photoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                },
+                onCaptureImage = { openCamera() },
                 onRemoveImage = { attachedImageBytes = null },
                 onSend = { sendCurrentDraft() }
             )
@@ -291,24 +293,6 @@ fun CoachScreen(container: AppContainer) {
         )
     }
 
-    if (showAttachMenu) {
-        AlertDialog(
-            onDismissRequest = { showAttachMenu = false },
-            title = { Text("Add Image") },
-            confirmButton = {
-                TextButton(onClick = {
-                    showAttachMenu = false
-                    openCamera()
-                }) { Text("Camera", color = AppColors.Calorie) }
-            },
-            dismissButton = {
-                TextButton(onClick = {
-                    showAttachMenu = false
-                    photoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-                }) { Text("Photos") }
-            }
-        )
-    }
 }
 
 /**
@@ -655,6 +639,7 @@ private fun InputBar(
     attachedImageBytes: ByteArray?,
     sending: Boolean,
     onPickImage: () -> Unit,
+    onCaptureImage: () -> Unit,
     onRemoveImage: () -> Unit,
     onSend: () -> Unit
 ) {
@@ -725,6 +710,18 @@ private fun InputBar(
                 Icon(
                     Icons.Filled.PhotoLibrary,
                     contentDescription = "Add image",
+                    tint = AppColors.Calorie,
+                    modifier = Modifier.size(22.dp)
+                )
+            }
+            IconButton(
+                onClick = onCaptureImage,
+                enabled = !sending,
+                modifier = Modifier.size(38.dp)
+            ) {
+                Icon(
+                    Icons.Filled.CameraAlt,
+                    contentDescription = "Open camera",
                     tint = AppColors.Calorie,
                     modifier = Modifier.size(22.dp)
                 )

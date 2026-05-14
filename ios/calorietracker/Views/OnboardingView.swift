@@ -54,6 +54,11 @@ struct OnboardingView: View {
     }
 
     private let totalSteps = 15 // 0-14
+    private let onboardingReviewQuotes: [(title: String, author: String, quote: String)] = [
+        ("Thankful", "Joel819", "This app is great, am recommending this to my friends."),
+        ("One of the best", "2MitiN6", "Yours changes my life in real time for free."),
+        ("Cool App", "Sloosi", "I wrote a suggestion on GitHub and was approved and done instantly.")
+    ]
 
     /// Combine the whole + tenth wheel selections into a single Double.
     private func combine(_ whole: Int, _ tenth: Int) -> Double { Double(whole) + Double(tenth) / 10.0 }
@@ -945,32 +950,47 @@ struct OnboardingView: View {
 
     private var reviewStep: some View {
         VStack(spacing: 0) {
-            Spacer()
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 22) {
+                    VStack(spacing: 16) {
+                        ZStack {
+                            Circle()
+                                .fill(
+                                    LinearGradient(colors: [Color.pink.opacity(0.1), Color.yellow.opacity(0.1)], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                )
+                                .frame(width: 116, height: 116)
+                            Image(systemName: "star.fill")
+                                .font(.system(size: 46))
+                                .foregroundStyle(AppColors.calorie)
+                        }
 
-            VStack(spacing: 24) {
-                ZStack {
-                    Circle()
-                        .fill(
-                            LinearGradient(colors: [Color.pink.opacity(0.1), Color.yellow.opacity(0.1)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
-                        .frame(width: 160, height: 160)
-                    Image(systemName: "star.fill")
-                        .font(.system(size: 64))
-                        .foregroundStyle(AppColors.calorie)
-                }
+                        VStack(spacing: 8) {
+                            Text("Enjoying fud so far?")
+                                .font(.system(size: 28, weight: .bold, design: .rounded))
+                                .multilineTextAlignment(.center)
+                            Text("A quick rating helps us grow\nand build more features for you!")
+                                .font(.system(.callout, design: .rounded))
+                                .foregroundStyle(.secondary)
+                                .multilineTextAlignment(.center)
+                        }
+                    }
 
-                VStack(spacing: 8) {
-                    Text("Enjoying fud so far?")
-                        .font(.system(size: 28, weight: .bold, design: .rounded))
-                        .multilineTextAlignment(.center)
-                    Text("A quick rating helps us grow\nand build more features for you!")
-                        .font(.system(.callout, design: .rounded))
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("What people are saying")
+                            .font(.system(.headline, design: .rounded, weight: .bold))
+                            .padding(.horizontal, 24)
+
+                        VStack(spacing: 10) {
+                            ForEach(onboardingReviewQuotes.indices, id: \.self) { index in
+                                onboardingReviewCard(onboardingReviewQuotes[index])
+                            }
+                        }
+                        .padding(.horizontal, 24)
+                    }
                 }
+                .padding(.top, 24)
+                .padding(.bottom, 18)
             }
-
-            Spacer()
 
             Button {
                 requestNativeReview()
@@ -999,6 +1019,42 @@ struct OnboardingView: View {
             .padding(.top, 12)
             .padding(.bottom, 36)
         }
+    }
+
+    private func onboardingReviewCard(_ review: (title: String, author: String, quote: String)) -> some View {
+        VStack(alignment: .leading, spacing: 7) {
+            HStack(spacing: 2) {
+                ForEach(0..<5, id: \.self) { _ in
+                    Image(systemName: "star.fill")
+                        .font(.system(size: 10, weight: .semibold))
+                        .foregroundStyle(AppColors.calorie)
+                }
+                Spacer(minLength: 8)
+                Text(review.author)
+                    .font(.system(.caption2, design: .rounded, weight: .medium))
+                    .foregroundStyle(.secondary)
+            }
+
+            Text(review.title)
+                .font(.system(.subheadline, design: .rounded, weight: .bold))
+                .foregroundStyle(.primary)
+
+            Text(review.quote)
+                .font(.system(.caption, design: .rounded))
+                .foregroundStyle(.secondary)
+                .lineLimit(2)
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .fill(Color(.secondarySystemGroupedBackground).opacity(0.9))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .strokeBorder(Color.white.opacity(0.08), lineWidth: 1)
+        )
     }
 
     // MARK: - 12: Building Plan

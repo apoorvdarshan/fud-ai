@@ -53,6 +53,14 @@ class StoreManager {
 
     private static let allProductIDs: Set<String> = [weeklyID, monthlyID, yearlyID]
 
+    private static var usesStoreKitTestingProducts: Bool {
+        #if DEBUG
+        true
+        #else
+        false
+        #endif
+    }
+
     // MARK: - Purchase State
     var products: [PlusProduct] = []
     var isSubscribed = false {
@@ -130,7 +138,7 @@ class StoreManager {
         dailyScansUsed = UserDefaults.standard.integer(forKey: "dailyScansUsed")
         lastScanDate = UserDefaults.standard.object(forKey: "lastScanDate") as? Date
 
-        if !RevenueCatConfig.isConfigured {
+        if !RevenueCatConfig.isConfigured || Self.usesStoreKitTestingProducts {
             transactionListener = listenForTransactions()
         }
 
@@ -142,13 +150,13 @@ class StoreManager {
 
     // MARK: - Load Products
     func loadProducts() async {
+        if Self.usesStoreKitTestingProducts {
+            await loadStoreKitProducts()
+            return
+        }
+
         if RevenueCatConfig.isConfigured {
             await loadRevenueCatProducts()
-            #if DEBUG
-            if products.isEmpty {
-                await loadStoreKitProducts()
-            }
-            #endif
             return
         }
 
@@ -247,7 +255,7 @@ class StoreManager {
     // MARK: - Restore
     @discardableResult
     func restorePurchases() async -> Bool {
-        if RevenueCatConfig.isConfigured {
+        if RevenueCatConfig.isConfigured && !Self.usesStoreKitTestingProducts {
             do {
                 let customerInfo = try await Purchases.shared.restorePurchases()
                 applyCustomerInfo(customerInfo)
@@ -270,7 +278,7 @@ class StoreManager {
 
     // MARK: - Entitlements
     func checkEntitlements(fallbackActiveProductID: String? = nil) async {
-        if RevenueCatConfig.isConfigured {
+        if RevenueCatConfig.isConfigured && !Self.usesStoreKitTestingProducts {
             do {
                 let customerInfo = try await Purchases.shared.customerInfo()
                 applyCustomerInfo(customerInfo, fallbackProductID: fallbackActiveProductID)

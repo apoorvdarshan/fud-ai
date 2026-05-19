@@ -1108,11 +1108,11 @@ private fun SwipeableFoodRow(
     onToggleFavorite: () -> Unit
 ) {
     val density = LocalDensity.current
-    val deleteTriggerPx = with(density) { 260.dp.toPx() }
+    val deleteTriggerPx = with(density) { 190.dp.toPx() }
     var currentSwipeOffset by remember { mutableStateOf(0f) }
     val state = rememberSwipeToDismissBoxState(
         confirmValueChange = { value ->
-            // Delete commits only after a near-full trailing swipe. The old
+            // Delete commits only after a deliberate trailing swipe. The old
             // default threshold was 56dp, which made accidental deletes too easy.
             // Favorite returns false here — it's handled below via a live
             // offset watcher so toggling fires *during* the swipe instead of
@@ -1130,7 +1130,7 @@ private fun SwipeableFoodRow(
             }
         },
         positionalThreshold = { totalDistance ->
-            maxOf(totalDistance * 0.82f, deleteTriggerPx).coerceAtMost(totalDistance * 0.95f)
+            maxOf(totalDistance * 0.60f, deleteTriggerPx).coerceAtMost(totalDistance * 0.82f)
         }
     )
     // Fire favorite toggle only after a clear leading swipe. This is still

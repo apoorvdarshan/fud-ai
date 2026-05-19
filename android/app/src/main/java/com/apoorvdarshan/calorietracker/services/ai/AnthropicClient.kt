@@ -25,12 +25,12 @@ object AnthropicClient {
         model: String,
         apiKey: String,
         prompt: String,
-        imageBytes: ByteArray?
+        imageBytesList: List<ByteArray>
     ): String {
         val url = "$baseUrl/messages"
 
         val content = JSONArray().apply {
-            imageBytes?.let {
+            imageBytesList.forEach {
                 put(
                     JSONObject()
                         .put("type", "image")

@@ -38,6 +38,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Note
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddAPhoto
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.CalendarMonth
@@ -158,6 +159,8 @@ fun HomeScreen(container: AppContainer) {
 
     var showCameraCapture by remember { mutableStateOf(false) }
     var cameraCaptureWantsNote by remember { mutableStateOf(false) }
+    var cameraCaptureWantsSecondPhoto by remember { mutableStateOf(false) }
+    var pendingCameraPairFirstImageBytes by remember { mutableStateOf<ByteArray?>(null) }
     // Holds the just-captured bytes while the Camera + Note sheet is shown.
     var pendingNoteImageBytes by remember { mutableStateOf<ByteArray?>(null) }
     var pendingPickedPhotoWantsNote by remember { mutableStateOf(false) }
@@ -181,24 +184,30 @@ fun HomeScreen(container: AppContainer) {
 
     // Tracks whether the next permission grant should also show the note sheet.
     var permissionWantsNote by remember { mutableStateOf(false) }
+    var permissionWantsSecondPhoto by remember { mutableStateOf(false) }
     val cameraPermission = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
         if (granted) {
             cameraCaptureWantsNote = permissionWantsNote
+            cameraCaptureWantsSecondPhoto = permissionWantsSecondPhoto
             showCameraCapture = true
         }
         permissionWantsNote = false
+        permissionWantsSecondPhoto = false
     }
 
-    fun openCamera(withNote: Boolean = false) {
+    fun openCamera(withNote: Boolean = false, withSecondPhoto: Boolean = false) {
         if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.CAMERA) ==
             PackageManager.PERMISSION_GRANTED
         ) {
             cameraCaptureWantsNote = withNote
+            cameraCaptureWantsSecondPhoto = withSecondPhoto
+            pendingCameraPairFirstImageBytes = null
             showCameraCapture = true
         } else {
             permissionWantsNote = withNote
+            permissionWantsSecondPhoto = withSecondPhoto
             cameraPermission.launch(Manifest.permission.CAMERA)
         }
     }
@@ -376,8 +385,8 @@ fun HomeScreen(container: AppContainer) {
                                 .padding(vertical = 7.dp)
                         ) {
                             // Mirrors iOS HomeView toolbar Menu, in the same order:
-                            // Camera, Camera + Note, Nutrition Label, From Photos,
-                            // Text Input, Voice, Saved Meals.
+                            // Camera, Camera + Note, Camera + Camera, Nutrition Label,
+                            // From Photos, Text Input, Voice, Saved Meals.
                             // Each leadingIcon is tinted pink to match iOS .tint(AppColors.calorie).
                             MenuRow(
                                 label = "Camera",
@@ -387,6 +396,10 @@ fun HomeScreen(container: AppContainer) {
                                 label = "Camera + Note",
                                 icon = Icons.AutoMirrored.Filled.Note
                             ) { showAddMenu = false; openCamera(withNote = true) }
+                            MenuRow(
+                                label = "Camera + Camera",
+                                icon = Icons.Filled.AddAPhoto
+                            ) { showAddMenu = false; openCamera(withSecondPhoto = true) }
                             MenuRow(
                                 label = "Nutrition Label",
                                 icon = Icons.Filled.QrCodeScanner
@@ -607,9 +620,19 @@ fun HomeScreen(container: AppContainer) {
         InAppCameraCaptureDialog(
             onCapture = { bytes ->
                 val wantsNote = cameraCaptureWantsNote
+                val wantsSecondPhoto = cameraCaptureWantsSecondPhoto
+                val firstPairImage = pendingCameraPairFirstImageBytes
                 showCameraCapture = false
                 cameraCaptureWantsNote = false
-                if (wantsNote) {
+                cameraCaptureWantsSecondPhoto = false
+                if (wantsSecondPhoto && firstPairImage == null) {
+                    pendingCameraPairFirstImageBytes = bytes
+                    cameraCaptureWantsSecondPhoto = true
+                    showCameraCapture = true
+                } else if (wantsSecondPhoto && firstPairImage != null) {
+                    pendingCameraPairFirstImageBytes = null
+                    vm.analyzePhotos(firstPairImage, bytes)
+                } else if (wantsNote) {
                     pendingNoteImageBytes = bytes
                 } else {
                     vm.analyzePhoto(bytes)
@@ -618,6 +641,8 @@ fun HomeScreen(container: AppContainer) {
             onDismiss = {
                 showCameraCapture = false
                 cameraCaptureWantsNote = false
+                cameraCaptureWantsSecondPhoto = false
+                pendingCameraPairFirstImageBytes = null
             }
         )
     }

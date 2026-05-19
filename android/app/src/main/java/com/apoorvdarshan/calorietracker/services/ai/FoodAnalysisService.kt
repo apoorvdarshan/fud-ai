@@ -107,6 +107,24 @@ class FoodAnalysisService(
         return addingFallbackServingUnits(analysis, imageBytes = imageBytes, description = description)
     }
 
+    suspend fun analyzeFood(imageBytesList: List<ByteArray>): FoodAnalysis {
+        val prompt = """
+            Analyze these food images together. They are different angles or supporting photos of the same meal.
+            Use all images to identify the food and estimate the total nutritional content for the serving shown.
+            Respond ONLY with JSON:
+            {"name":"...","calories":0,"protein":0,"carbs":0,"fat":0,"serving_size_grams":0.0,"sugar":0.0,"added_sugar":0.0,"fiber":0.0,"saturated_fat":0.0,"monounsaturated_fat":0.0,"polyunsaturated_fat":0.0,"cholesterol":0.0,"sodium":0.0,"potassium":0.0,"unit_options":[]}
+            Calories/protein/carbs/fat are integers. serving_size_grams is the estimated weight in grams of the serving shown. Micronutrients are numbers (sugar/fiber/sat fat/mono fat/poly fat in grams, cholesterol/sodium/potassium in milligrams).
+            The [] in unit_options above is only a JSON shape placeholder; replace it with options when a non-gram unit is obvious.
+            unit_options is required for obvious non-gram units visible in the food. Use slice/piece for pizza, cake, bread, cookies, fruit pieces, etc.; use ml/cup/fl oz for drinks, milk, soup, smoothies, sauces, etc.; use tbsp/tsp for spooned foods; use can/packet when packaged. Its quantity must describe the whole analyzed amount, not always 1. Use [] only when no non-gram unit is apparent. Do not include g/grams in unit_options.
+            Do not double-count the meal across images. Treat the photos as multiple views of the same item unless there are clearly separate foods.
+            Use null for any nutrient you cannot estimate.
+        """.trimIndent()
+        val images = imageBytesList.filter { it.isNotEmpty() }
+        if (images.isEmpty()) throw AiError.InvalidResponse
+        val analysis = FoodJsonParser.parseFood(callAi(prompt, images))
+        return addingFallbackServingUnits(analysis, imageBytes = images.first(), description = null)
+    }
+
     suspend fun analyzeNutritionLabel(imageBytes: ByteArray, servingGrams: Double): FoodAnalysis {
         val prompt = """
             Read this nutrition facts label and extract per-100g values. If the label only shows per-serving, normalize using the serving size listed on the label.
@@ -122,6 +140,10 @@ class FoodAnalysisService(
     // -- Internal dispatch ------------------------------------------------
 
     private suspend fun callAi(prompt: String, imageBytes: ByteArray?): String {
+        return callAi(prompt, imageBytes?.let { listOf(it) }.orEmpty())
+    }
+
+    private suspend fun callAi(prompt: String, imageBytesList: List<ByteArray>): String {
         val context = prefs.userContext.first()
         val finalPrompt = if (context.isNotBlank()) "User context (apply to every analysis): $context\n\n$prompt" else prompt
 
@@ -132,10 +154,10 @@ class FoodAnalysisService(
         if (primary.requiresApiKey && primaryKey.isNullOrEmpty()) throw AiError.NoApiKey
 
         return try {
-            dispatch(primary, primaryModel, primaryBaseUrl, primaryKey, finalPrompt, imageBytes)
+            dispatch(primary, primaryModel, primaryBaseUrl, primaryKey, finalPrompt, imageBytesList)
         } catch (primaryError: Throwable) {
             val fallback = currentFallbackConfig(primary, primaryModel) ?: throw primaryError
-            dispatch(fallback.provider, fallback.model, fallback.baseUrl, fallback.apiKey, finalPrompt, imageBytes)
+            dispatch(fallback.provider, fallback.model, fallback.baseUrl, fallback.apiKey, finalPrompt, imageBytesList)
         }
     }
 
@@ -222,17 +244,17 @@ class FoodAnalysisService(
         baseUrl: String,
         apiKey: String?,
         prompt: String,
-        imageBytes: ByteArray?
+        imageBytesList: List<ByteArray>
     ): String {
         if (baseUrl.isEmpty()) throw AiError.InvalidUrl(baseUrl)
         if (provider.requiresApiKey && apiKey.isNullOrEmpty()) throw AiError.NoApiKey
         return when (provider.apiFormat) {
             AIProvider.ApiFormat.GEMINI ->
-                GeminiClient.analyze(okHttp, baseUrl, model, apiKey!!, prompt, imageBytes)
+                GeminiClient.analyze(okHttp, baseUrl, model, apiKey!!, prompt, imageBytesList)
             AIProvider.ApiFormat.ANTHROPIC ->
-                AnthropicClient.analyze(okHttp, baseUrl, model, apiKey!!, prompt, imageBytes)
+                AnthropicClient.analyze(okHttp, baseUrl, model, apiKey!!, prompt, imageBytesList)
             AIProvider.ApiFormat.OPENAI_COMPATIBLE ->
-                OpenAICompatibleClient.analyze(okHttp, baseUrl, model, apiKey, prompt, imageBytes, provider)
+                OpenAICompatibleClient.analyze(okHttp, baseUrl, model, apiKey, prompt, imageBytesList, provider)
         }
     }
 

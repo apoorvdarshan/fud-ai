@@ -24,12 +24,12 @@ object GeminiClient {
         model: String,
         apiKey: String,
         prompt: String,
-        imageBytes: ByteArray?
+        imageBytesList: List<ByteArray>
     ): String {
         val url = "$baseUrl/models/$model:generateContent"
 
         val parts = JSONArray().apply {
-            imageBytes?.let {
+            imageBytesList.forEach {
                 put(
                     JSONObject().put(
                         "inlineData",

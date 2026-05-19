@@ -181,6 +181,33 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
         }
     }
 
+    fun analyzePhotos(firstBytes: ByteArray, secondBytes: ByteArray) {
+        viewModelScope.launch {
+            val previousDraftImage = _ui.value.pendingDraftImageFilename
+            container.analyzingFood.value = true
+            _ui.value = _ui.value.copy(
+                analyzing = true,
+                error = null,
+                pendingAnalysis = null,
+                pendingImageBytes = firstBytes,
+                pendingFoodSource = FoodSource.SNAP_FOOD,
+                pendingDraftImageFilename = null,
+                pendingReviewSource = null
+            )
+            discardPendingDraft(previousDraftImage)
+            try {
+                val analysis = container.foodAnalysis.analyzeFood(listOf(firstBytes, secondBytes))
+                savePendingDraft(analysis, imageBytes = firstBytes, source = FoodSource.SNAP_FOOD)
+            } catch (e: AiError) {
+                _ui.value = _ui.value.copy(analyzing = false, error = e.message)
+            } catch (e: Throwable) {
+                _ui.value = _ui.value.copy(analyzing = false, error = e.localizedMessage ?: "Analysis failed")
+            } finally {
+                container.analyzingFood.value = false
+            }
+        }
+    }
+
     /**
      * "Camera + Note" flow — analyze a photo with extra textual context the
      * user typed in (e.g. "extra cheese", "no oil"). Mirrors iOS

@@ -29,13 +29,13 @@ object OpenAICompatibleClient {
         model: String,
         apiKey: String?,
         prompt: String,
-        imageBytes: ByteArray?,
+        imageBytesList: List<ByteArray>,
         provider: AIProvider
     ): String {
         val url = "$baseUrl/chat/completions"
 
         val content = JSONArray().apply {
-            imageBytes?.let {
+            imageBytesList.forEach {
                 put(
                     JSONObject()
                         .put("type", "image_url")

@@ -2,12 +2,14 @@ package com.apoorvdarshan.calorietracker.services.ai
 
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
 import com.apoorvdarshan.calorietracker.models.OptionalNutrientGoals
+import kotlinx.serialization.Serializable
 import org.json.JSONArray
 import org.json.JSONObject
 import kotlin.math.round
 import kotlin.math.roundToInt
 
 /** Result of AI food-photo / text analysis. */
+@Serializable
 data class FoodAnalysis(
     val name: String,
     val calories: Int,

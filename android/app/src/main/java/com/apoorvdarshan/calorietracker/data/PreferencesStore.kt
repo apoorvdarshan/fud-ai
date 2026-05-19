@@ -13,6 +13,7 @@ import com.apoorvdarshan.calorietracker.models.ChatMessage
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.OptionalNutrientGoals
+import com.apoorvdarshan.calorietracker.models.PendingFoodAnalysisDraft
 import com.apoorvdarshan.calorietracker.models.SpeechLanguage
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
 import com.apoorvdarshan.calorietracker.models.UserProfile
@@ -236,6 +237,23 @@ class PreferencesStore(private val context: Context) {
         ds.edit { it[Keys.FAVORITE_ENTRIES] = json.encodeToString(ListSerializer(FoodEntry.serializer()), entries) }
     }
 
+    // -- Pending food analysis draft --------------------------------------
+    val pendingFoodAnalysisDraft: Flow<PendingFoodAnalysisDraft?> = ds.data.map { prefs ->
+        prefs[Keys.PENDING_FOOD_ANALYSIS_DRAFT]?.let {
+            runCatching { json.decodeFromString<PendingFoodAnalysisDraft>(it) }.getOrNull()
+        }
+    }
+
+    suspend fun setPendingFoodAnalysisDraft(draft: PendingFoodAnalysisDraft?) {
+        ds.edit {
+            if (draft == null) {
+                it.remove(Keys.PENDING_FOOD_ANALYSIS_DRAFT)
+            } else {
+                it[Keys.PENDING_FOOD_ANALYSIS_DRAFT] = json.encodeToString(PendingFoodAnalysisDraft.serializer(), draft)
+            }
+        }
+    }
+
     // -- Weight entries ---------------------------------------------------
     val weightEntries: Flow<List<WeightEntry>> = ds.data.map { prefs ->
         prefs[Keys.WEIGHT_ENTRIES]?.let {
@@ -330,6 +348,7 @@ class PreferencesStore(private val context: Context) {
         val FOOD_ENTRIES = stringPreferencesKey("foodEntries")
         val FAVORITE_KEYS = stringPreferencesKey("favorites")
         val FAVORITE_ENTRIES = stringPreferencesKey("favoriteFoodEntries")
+        val PENDING_FOOD_ANALYSIS_DRAFT = stringPreferencesKey("pendingFoodAnalysisDraft")
         val WEIGHT_ENTRIES = stringPreferencesKey("weightEntries")
         val BODY_FAT_ENTRIES = stringPreferencesKey("bodyFatEntries")
         val CHAT_HISTORY = stringPreferencesKey("coachChatHistory")

@@ -9,6 +9,7 @@ import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.OptionalNutrientGoals
+import com.apoorvdarshan.calorietracker.models.PendingFoodAnalysisDraft
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.services.OpenFoodFactsService
 import com.apoorvdarshan.calorietracker.services.ai.AiError
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -46,6 +48,7 @@ data class HomeUiState(
     val pendingAnalysis: FoodAnalysis? = null,
     val pendingImageBytes: ByteArray? = null,
     val pendingFoodSource: FoodSource? = null,
+    val pendingDraftImageFilename: String? = null,
     /**
      * Set when the pendingAnalysis came from a Saved Meals tap (Recents /
      * Frequent / Favorites) instead of a fresh AI analysis. We keep the
@@ -102,6 +105,10 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 _ui.value = _ui.value.copy(optionalNutrientGoals = goals)
             }
             .launchIn(viewModelScope)
+
+        viewModelScope.launch {
+            container.prefs.pendingFoodAnalysisDraft.first()?.let { restorePendingDraft(it) }
+        }
     }
 
     fun setSelectedDate(date: LocalDate) {
@@ -122,11 +129,21 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
 
     fun analyzeText(description: String) {
         viewModelScope.launch {
+            val previousDraftImage = _ui.value.pendingDraftImageFilename
             container.analyzingFood.value = true
-            _ui.value = _ui.value.copy(analyzing = true, error = null, pendingAnalysis = null, pendingImageBytes = null, pendingFoodSource = FoodSource.TEXT_INPUT)
+            _ui.value = _ui.value.copy(
+                analyzing = true,
+                error = null,
+                pendingAnalysis = null,
+                pendingImageBytes = null,
+                pendingFoodSource = FoodSource.TEXT_INPUT,
+                pendingDraftImageFilename = null,
+                pendingReviewSource = null
+            )
+            discardPendingDraft(previousDraftImage)
             try {
                 val analysis = container.foodAnalysis.analyzeText(description)
-                _ui.value = _ui.value.copy(analyzing = false, pendingAnalysis = analysis)
+                savePendingDraft(analysis, imageBytes = null, source = FoodSource.TEXT_INPUT)
             } catch (e: AiError) {
                 _ui.value = _ui.value.copy(analyzing = false, error = e.message)
             } catch (e: Throwable) {
@@ -139,11 +156,21 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
 
     fun analyzePhoto(bytes: ByteArray) {
         viewModelScope.launch {
+            val previousDraftImage = _ui.value.pendingDraftImageFilename
             container.analyzingFood.value = true
-            _ui.value = _ui.value.copy(analyzing = true, error = null, pendingAnalysis = null, pendingImageBytes = bytes, pendingFoodSource = FoodSource.SNAP_FOOD)
+            _ui.value = _ui.value.copy(
+                analyzing = true,
+                error = null,
+                pendingAnalysis = null,
+                pendingImageBytes = bytes,
+                pendingFoodSource = FoodSource.SNAP_FOOD,
+                pendingDraftImageFilename = null,
+                pendingReviewSource = null
+            )
+            discardPendingDraft(previousDraftImage)
             try {
                 val analysis = container.foodAnalysis.analyzeAuto(bytes)
-                _ui.value = _ui.value.copy(analyzing = false, pendingAnalysis = analysis)
+                savePendingDraft(analysis, imageBytes = bytes, source = FoodSource.SNAP_FOOD)
             } catch (e: AiError) {
                 _ui.value = _ui.value.copy(analyzing = false, error = e.message)
             } catch (e: Throwable) {
@@ -161,11 +188,21 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
      */
     fun analyzePhotoWithNote(bytes: ByteArray, note: String) {
         viewModelScope.launch {
+            val previousDraftImage = _ui.value.pendingDraftImageFilename
             container.analyzingFood.value = true
-            _ui.value = _ui.value.copy(analyzing = true, error = null, pendingAnalysis = null, pendingImageBytes = bytes, pendingFoodSource = FoodSource.SNAP_FOOD)
+            _ui.value = _ui.value.copy(
+                analyzing = true,
+                error = null,
+                pendingAnalysis = null,
+                pendingImageBytes = bytes,
+                pendingFoodSource = FoodSource.SNAP_FOOD,
+                pendingDraftImageFilename = null,
+                pendingReviewSource = null
+            )
+            discardPendingDraft(previousDraftImage)
             try {
                 val analysis = container.foodAnalysis.analyzeFood(bytes, note.takeIf { it.isNotBlank() })
-                _ui.value = _ui.value.copy(analyzing = false, pendingAnalysis = analysis)
+                savePendingDraft(analysis, imageBytes = bytes, source = FoodSource.SNAP_FOOD)
             } catch (e: AiError) {
                 _ui.value = _ui.value.copy(analyzing = false, error = e.message)
             } catch (e: Throwable) {
@@ -178,6 +215,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
 
     fun lookupBarcode(barcode: String) {
         viewModelScope.launch {
+            val previousDraftImage = _ui.value.pendingDraftImageFilename
             container.analyzingFood.value = true
             _ui.value = _ui.value.copy(
                 analyzing = true,
@@ -185,11 +223,13 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 pendingAnalysis = null,
                 pendingImageBytes = null,
                 pendingFoodSource = FoodSource.BARCODE,
+                pendingDraftImageFilename = null,
                 pendingReviewSource = null
             )
+            discardPendingDraft(previousDraftImage)
             try {
                 val analysis = OpenFoodFactsService.lookup(barcode)
-                _ui.value = _ui.value.copy(analyzing = false, pendingAnalysis = analysis)
+                savePendingDraft(analysis, imageBytes = null, source = FoodSource.BARCODE)
             } catch (e: Throwable) {
                 _ui.value = _ui.value.copy(analyzing = false, error = e.localizedMessage ?: "Barcode lookup failed")
             } finally {
@@ -209,6 +249,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
         val analysis = _ui.value.pendingAnalysis ?: return
         val reviewSource = _ui.value.pendingReviewSource
         val pendingFoodSource = _ui.value.pendingFoodSource
+        val pendingDraftImageFilename = _ui.value.pendingDraftImageFilename
         viewModelScope.launch {
             val imageBytes = _ui.value.pendingImageBytes
             val id = UUID.randomUUID()
@@ -217,6 +258,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             // JPEG. Otherwise (fresh AI analysis), persist the in-memory
             // bytes as a new file under the new entry id.
             val filename = reviewSource?.imageFilename
+                ?: pendingDraftImageFilename
                 ?: imageBytes?.let { container.imageStore.storeBytes(it, id) }
             fun s(v: Int) = (v * scale).toInt()
             fun s(v: Double?) = v?.let { it * scale }
@@ -249,23 +291,30 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 selectedServingQuantity = if (analysis.servingUnitOptions.isEmpty()) null else selectedServingQuantity
             )
             container.foodRepository.addEntry(entry)
+            container.prefs.setPendingFoodAnalysisDraft(null)
             _ui.value = _ui.value.copy(
                 pendingAnalysis = null,
                 pendingImageBytes = null,
                 pendingFoodSource = null,
+                pendingDraftImageFilename = null,
                 pendingReviewSource = null
             )
         }
     }
 
     fun dismissPending() {
+        val previousDraftImage = _ui.value.pendingDraftImageFilename
         _ui.value = _ui.value.copy(
             pendingAnalysis = null,
             pendingImageBytes = null,
             pendingFoodSource = null,
+            pendingDraftImageFilename = null,
             pendingReviewSource = null,
             error = null
         )
+        viewModelScope.launch {
+            discardPendingDraft(previousDraftImage)
+        }
     }
 
     /**
@@ -283,6 +332,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             pendingAnalysis = analysis,
             pendingImageBytes = bytes,
             pendingFoodSource = template.source,
+            pendingDraftImageFilename = null,
             pendingReviewSource = template,
             error = null
         )
@@ -370,6 +420,50 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
         val zone = ZoneId.systemDefault()
         val sourceTime = sourceTimestamp.atZone(zone).toLocalTime()
         return _selectedDate.value.atTime(sourceTime).atZone(zone).toInstant()
+    }
+
+    private suspend fun savePendingDraft(
+        analysis: FoodAnalysis,
+        imageBytes: ByteArray?,
+        source: FoodSource
+    ) {
+        val imageFilename = imageBytes?.let { container.imageStore.storeBytes(it, UUID.randomUUID()) }
+        container.prefs.setPendingFoodAnalysisDraft(
+            PendingFoodAnalysisDraft(
+                analysis = analysis,
+                imageFilename = imageFilename,
+                source = source
+            )
+        )
+        _ui.value = _ui.value.copy(
+            analyzing = false,
+            pendingAnalysis = analysis,
+            pendingImageBytes = imageBytes,
+            pendingFoodSource = source,
+            pendingDraftImageFilename = imageFilename,
+            pendingReviewSource = null
+        )
+    }
+
+    private fun restorePendingDraft(draft: PendingFoodAnalysisDraft) {
+        val bytes = draft.imageFilename?.let {
+            runCatching { container.imageStore.file(it).readBytes() }.getOrNull()
+        }
+        _ui.value = _ui.value.copy(
+            analyzing = false,
+            pendingAnalysis = draft.analysis,
+            pendingImageBytes = bytes,
+            pendingFoodSource = draft.source,
+            pendingDraftImageFilename = draft.imageFilename,
+            pendingReviewSource = null,
+            error = null
+        )
+    }
+
+    private suspend fun discardPendingDraft(imageFilename: String? = _ui.value.pendingDraftImageFilename) {
+        val filename = imageFilename ?: container.prefs.pendingFoodAnalysisDraft.first()?.imageFilename
+        container.prefs.setPendingFoodAnalysisDraft(null)
+        filename?.let { container.imageStore.delete(it) }
     }
 
     class Factory(private val container: AppContainer) : ViewModelProvider.Factory {

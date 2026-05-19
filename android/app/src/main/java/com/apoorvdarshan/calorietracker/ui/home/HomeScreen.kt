@@ -1107,31 +1107,40 @@ private fun SwipeableFoodRow(
     onDelete: () -> Unit,
     onToggleFavorite: () -> Unit
 ) {
+    val density = LocalDensity.current
+    val deleteTriggerPx = with(density) { 260.dp.toPx() }
+    var currentSwipeOffset by remember { mutableStateOf(0f) }
     val state = rememberSwipeToDismissBoxState(
         confirmValueChange = { value ->
-            // Delete still commits via Material's default release-past-threshold
-            // path (returning true triggers the dismiss anim).
+            // Delete commits only after a near-full trailing swipe. The old
+            // default threshold was 56dp, which made accidental deletes too easy.
             // Favorite returns false here — it's handled below via a live
             // offset watcher so toggling fires *during* the swipe instead of
             // requiring a release past the (large) default threshold.
             when (value) {
-                SwipeToDismissBoxValue.EndToStart -> { onDelete(); true }
+                SwipeToDismissBoxValue.EndToStart -> {
+                    if (currentSwipeOffset <= -deleteTriggerPx) {
+                        onDelete()
+                        true
+                    } else {
+                        false
+                    }
+                }
                 else -> false
             }
+        },
+        positionalThreshold = { totalDistance ->
+            maxOf(totalDistance * 0.82f, deleteTriggerPx).coerceAtMost(totalDistance * 0.95f)
         }
     )
-    // Fire favorite toggle as soon as the row is dragged ~120dp past Settled
-    // in the StartToEnd direction. The default release-past-50% behavior was
-    // unreliable here because: (a) the threshold was too far for a wide row,
-    // and (b) Android's left-edge system back gesture often eats partial
-    // swipes-from-left-edge. Watching the offset directly + a single-fire
-    // guard makes "swipe right far enough to see the heart" always commit.
-    val density = LocalDensity.current
-    val triggerPx = with(density) { 120.dp.toPx() }
+    // Fire favorite toggle only after a clear leading swipe. This is still
+    // intentionally easier than delete, but no longer trips on tiny nudges.
+    val triggerPx = with(density) { 180.dp.toPx() }
     var firedThisSwipe by remember { mutableStateOf(false) }
     LaunchedEffect(state) {
         snapshotFlow { runCatching { state.requireOffset() }.getOrDefault(0f) }
             .collect { offset ->
+                currentSwipeOffset = offset
                 if (offset > triggerPx && !firedThisSwipe) {
                     firedThisSwipe = true
                     onToggleFavorite()

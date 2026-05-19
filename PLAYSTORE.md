@@ -1,6 +1,6 @@
 # Play Store Listing
 
-Google Play Console listing copy for Fud AI Android (current: v1.2 / versionCode 18). Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over.
+Google Play Console listing copy for Fud AI Android (current: v2.0.0 / versionCode 19). Each field is in a code block for easy copy-paste. Char counts are tracked because Play Console enforces hard caps and silently truncates anything over.
 
 **Where to paste each field in Play Console:**
 - App name / Short description / Full description → Grow → Store presence → **Main store listing** (default English) and Grow → Store presence → **Custom store listings** → Manage translations (per-language overrides)
@@ -36,9 +36,9 @@ Snap, speak, or type a meal. AI logs the calories. Open source.
 
 ### English (en-US)
 ```
-Fud AI makes calorie tracking effortless with AI-powered food recognition. Snap a photo, scan a barcode, speak it, or type it — get instant nutrition: calories, protein, carbs, fats, and 9 micronutrients.
+Fud AI makes calorie tracking effortless with AI-powered food recognition. Snap a photo, scan a barcode, speak it, or type it — get instant nutrition: calories, protein, carbs, fats, vitamins, minerals, and more.
 
-NEW in v1.2: Barcode logging on Android, Copy from Day, editable food date/time, Coach photo/camera attachments, and Gemini Flash Lite GA.
+NEW in v2.0.0: A major Android UI refresh, Camera + Camera logging, in-app camera capture, Barcode, expanded nutrient goals, Coach image attachments, better Health Connect sync, safer swipes, cached thumbnails, and onboarding layout fixes.
 
 Free, open source, privacy-first. Bring your own API key. All data stays on your device.
 
@@ -48,9 +48,10 @@ HOW TO USE
 3) Ask Coach anything: trends, predictions, advice
 4) Track progress on charts and home screen widgets
 
-9 WAYS TO LOG A MEAL
+11 WAYS TO LOG A MEAL
 • Photo — AI identifies food and returns nutrition
 • Photo + Note — add context before AI analysis
+• Photo + Photo — combine two images in one analysis
 • Nutrition Label — scan package nutrition facts
 • Barcode — look up packaged foods with Open Food Facts
 • From Photos — analyze an existing image
@@ -62,10 +63,10 @@ HOW TO USE
 • Copy from Day — copy meals from another date
 
 BODY COMPOSITION TRACKING
-Log body fat % over time, set a goal %, and see it alongside weight on the unified Progress chart. Health Connect can auto-import samples from Withings, Renpho, Samsung Health, Google Fit, and more. "Use Body Fat for BMR" toggles Katch-McArdle ↔ Mifflin-St Jeor without losing the value.
+Log body fat % over time, set a goal %, and see it alongside weight on the unified Progress chart. Health Connect can auto-import samples from compatible apps and scales.
 
 13 AI PROVIDERS
-Google Gemini, OpenAI, Anthropic Claude, xAI Grok, Groq, OpenRouter, Together AI, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama, or any OpenAI-compatible endpoint. Switch anytime. Keys are stored encrypted. Add Custom AI Instructions for region, diet, or brand context. Set a Fallback Provider so requests retry on overload or rate-limit errors.
+Google Gemini, OpenAI, Anthropic Claude, xAI Grok, Groq, OpenRouter, Together AI, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama, or any OpenAI-compatible endpoint. Switch anytime. Keys are stored encrypted.
 
 6 SPEECH-TO-TEXT ENGINES
 Native Android, Gemini, OpenAI Whisper, Groq, Deepgram, AssemblyAI. Choose Provider Auto, Use Device Language, or a fixed language.
@@ -73,23 +74,17 @@ Native Android, Gemini, OpenAI Whisper, Groq, Deepgram, AssemblyAI. Choose Provi
 COACH
 Multi-turn chat that sees your profile, weight, body fat, and food log. Ask "what was my weight in March?" or "how's my protein this week?" — Coach pulls the date range it needs via on-demand tools. You can also attach a camera photo or photo-library image to a Coach message.
 
-SMART DAILY REMINDERS
-Log Weight, Log Body Fat, Streak, and Daily Summary reminders skip firing on days you've already logged.
-
 PERSONALIZED GOALS
 BMR via Katch-McArdle or Mifflin-St Jeor. TDEE with 6 activity levels. Auto-calculated calorie + protein + carbs + fat targets — fully customizable.
 
 OPTIONAL NUTRIENT GOALS
-Set fiber, sugar, saturated fat, cholesterol, sodium, and potassium goals separately from the macro calculator. Use AI Estimate from your profile, or set goals manually. Home cards can show macros or selected detailed nutrients.
+Set expanded nutrient goals separately from the macro calculator: fiber, sugar, fats, cholesterol, sodium, potassium, calcium, iron, magnesium, zinc, vitamins, folate, omega-3, and more when available. Use AI Estimate from your profile, or set goals manually. Home cards can show macros or selected detailed nutrients.
 
 PROGRESS
 Unified Weight / Body Fat chart with trend lines + goal overlays. Calorie trend vs goal. Macro averages over 1W, 1M, 3M, 6M, 1Y, All Time.
 
 WIDGETS
-Calorie and Protein widgets refresh when you log a meal.
-
-SAVED MEALS + SEARCH
-Recents, Frequent, and Favorites tabs. Search filters each tab separately.
+Calorie and nutrient widgets refresh when you log a meal.
 
 15 LANGUAGES
 Auto-selected by phone language: English, Spanish, French, German, Italian, Portuguese (BR), Dutch, Russian, Japanese, Korean, Chinese, Hindi, Arabic, Romanian, Azerbaijani.
@@ -98,7 +93,7 @@ PRIVACY FIRST
 No account, no sign-in, no cloud sync, no analytics, no ads, no tracking. Local-only. MIT licensed.
 
 HEALTH CONNECT
-Two-way sync for nutrition, weight, body fat. Macros + 9 micronutrients per meal. Edits and deletes sync back.
+Sync nutrition, weight, and body fat with permission reconciliation and backfill support. Edits and deletes sync back where supported.
 
 NOTE: Not medical advice. All nutritional estimates are AI-generated. Consult a healthcare professional before significant diet changes.
 
@@ -113,129 +108,114 @@ English-only on Play Console — non-English Play Store browsers (ar, az-AZ, de-
 
 ---
 
-## 4. What's New (v1.2)
+## 4. What's New (v2.0.0)
 
 **500 char hard cap per language.** Paste the entire block below into Play Console's "Release notes" field — it auto-routes each `<lang-tag>` block to the matching locale.
 
 ```
 <en-US>
-• Barcode logging for packaged foods with Open Food Facts.
-• Copy meals from another date.
-• Edit a food's logged date and time.
-• Attach camera or photo-library images in Coach.
-• Gemini Flash Lite moved to the GA model.
+• Major Android UI refresh with cleaner menus, sheets, dialogs, and light mode.
+• Added Barcode, Camera + Camera, and in-app camera capture.
+• Expanded optional nutrients, goals, and Home cards.
+• Improved Health Connect sync, safer swipes, saved meals, drafts, thumbnails, and onboarding.
 </en-US>
 
 <ar>
-• تسجيل الباركود للأطعمة المعلبة عبر Open Food Facts.
-• انسخ الوجبات من يوم آخر.
-• عدّل تاريخ ووقت تسجيل الطعام.
-• أرفق صور الكاميرا أو المعرض في Coach.
-• تحديث Gemini Flash Lite إلى إصدار GA.
+• تحديث كبير لواجهة Android مع قوائم ونوافذ أوضح.
+• إضافة الباركود وCamera + Camera والكاميرا داخل التطبيق.
+• توسيع المغذيات الاختيارية والأهداف وبطاقات Home.
+• تحسين Health Connect والسحب الآمن والوجبات المحفوظة والمسودات والصور المصغرة.
 </ar>
 
 <az-AZ>
-• Paketli qidalar üçün Open Food Facts barkod qeydi.
-• Yeməkləri başqa gündən kopyalayın.
-• Yeməyin qeyd tarixini və vaxtını redaktə edin.
-• Coach-da kamera və qalereya şəkli əlavə edin.
-• Gemini Flash Lite GA modelinə keçirildi.
+• Daha təmiz menyular, pəncərələr və işıq rejimi ilə böyük Android UI yeniləməsi.
+• Barkod, Camera + Camera və tətbiqdaxili kamera əlavə edildi.
+• Əlavə qida hədəfləri və Home kartları genişləndirildi.
+• Health Connect, swipe təhlükəsizliyi, saxlanmış yeməklər, qaralamalar və miniatürlər yaxşılaşdırıldı.
 </az-AZ>
 
 <de-DE>
-• Barcode-Logging mit Open Food Facts.
-• Mahlzeiten von einem anderen Tag kopieren.
-• Datum und Uhrzeit eines Lebensmittels bearbeiten.
-• Kamera- oder Galerie-Bilder in Coach anhängen.
-• Gemini Flash Lite nutzt jetzt das GA-Modell.
+• Großes Android-UI-Update mit saubereren Menüs, Sheets, Dialogen und Light Mode.
+• Barcode, Camera + Camera und In-App-Kamera hinzugefügt.
+• Erweiterte Nährstoffe, Ziele und Home-Karten.
+• Health Connect, sichereres Wischen, gespeicherte Mahlzeiten, Entwürfe und Thumbnails verbessert.
 </de-DE>
 
 <es-ES>
-• Registro por código de barras con Open Food Facts.
-• Copia comidas desde otro día.
-• Edita fecha y hora de un alimento.
-• Adjunta fotos de cámara o galería en Coach.
-• Gemini Flash Lite pasa al modelo GA.
+• Gran renovación de Android con menús, hojas, diálogos y modo claro más limpios.
+• Añadidos Barcode, Camera + Camera y cámara integrada.
+• Nutrientes, objetivos y tarjetas de Home ampliados.
+• Mejoras en Health Connect, gestos, comidas guardadas, borradores y miniaturas.
 </es-ES>
 
 <fr-FR>
-• Journal par code-barres avec Open Food Facts.
-• Copiez des repas depuis un autre jour.
-• Modifiez la date et l'heure d'un aliment.
-• Ajoutez des photos caméra/galerie dans Coach.
-• Gemini Flash Lite passe au modèle GA.
+• Grande refonte Android avec menus, feuilles, dialogues et mode clair plus propres.
+• Ajout de Barcode, Camera + Camera et caméra intégrée.
+• Nutriments, objectifs et cartes Home élargis.
+• Health Connect, gestes, repas enregistrés, brouillons et miniatures améliorés.
 </fr-FR>
 
 <hi-IN>
-• Open Food Facts से barcode food logging.
-• किसी और दिन से meals copy करें.
-• Food की logged date और time edit करें.
-• Coach में camera या gallery image attach करें.
-• Gemini Flash Lite अब GA model पर है.
+• Android UI refresh: cleaner menus, sheets, dialogs और light mode.
+• Barcode, Camera + Camera और in-app camera जोड़ा गया.
+• Optional nutrients, goals और Home cards बढ़ाए गए.
+• Health Connect, safer swipes, saved meals, drafts, thumbnails और onboarding बेहतर.
 </hi-IN>
 
 <it-IT>
-• Log con codice a barre tramite Open Food Facts.
-• Copia pasti da un altro giorno.
-• Modifica data e ora di un alimento.
-• Allega foto da camera o galleria in Coach.
-• Gemini Flash Lite ora usa il modello GA.
+• Grande refresh Android con menu, sheet, dialoghi e modalità chiara più puliti.
+• Aggiunti Barcode, Camera + Camera e fotocamera in-app.
+• Nutrienti opzionali, obiettivi e carte Home ampliati.
+• Migliorati Health Connect, swipe, pasti salvati, bozze e miniature.
 </it-IT>
 
 <ja-JP>
-• Open Food Factsでバーコード記録。
-• 別の日から食事をコピーできます。
-• 食品の記録日と時刻を編集できます。
-• Coachにカメラ/写真を添付できます。
-• Gemini Flash LiteをGAモデルに更新。
+• Android UIを大幅刷新。メニュー、シート、ダイアログ、ライトモードを改善。
+• Barcode、Camera + Camera、アプリ内カメラを追加。
+• 任意栄養素、目標、Homeカードを拡張。
+• Health Connect、スワイプ、保存済み食事、下書き、サムネイルを改善。
 </ja-JP>
 
 <ko-KR>
-• Open Food Facts 바코드 식품 기록.
-• 다른 날짜의 식사를 복사하세요.
-• 음식의 기록 날짜와 시간을 편집하세요.
-• Coach에 카메라/사진을 첨부하세요.
-• Gemini Flash Lite가 GA 모델로 전환되었습니다.
+• Android UI 대폭 개선: 메뉴, 시트, 대화상자, 라이트 모드 정리.
+• Barcode, Camera + Camera, 앱 내 카메라 추가.
+• 선택 영양소, 목표, Home 카드 확장.
+• Health Connect, 스와이프, 저장된 식사, 초안, 썸네일 개선.
 </ko-KR>
 
 <nl-NL>
-• Barcode-loggen met Open Food Facts.
-• Kopieer maaltijden van een andere dag.
-• Bewerk datum en tijd van een maaltijd.
-• Voeg camera- of galerijbeelden toe in Coach.
-• Gemini Flash Lite gebruikt nu het GA-model.
+• Grote Android UI-refresh met schonere menu's, sheets, dialogen en lichte modus.
+• Barcode, Camera + Camera en in-app camera toegevoegd.
+• Uitgebreide nutriënten, doelen en Home-kaarten.
+• Health Connect, swipes, opgeslagen maaltijden, concepten en thumbnails verbeterd.
 </nl-NL>
 
 <pt-BR>
-• Registro por código de barras com Open Food Facts.
-• Copie refeições de outro dia.
-• Edite data e hora de um alimento.
-• Anexe fotos da câmera ou galeria no Coach.
-• Gemini Flash Lite agora usa o modelo GA.
+• Grande atualização visual no Android com menus, folhas, diálogos e modo claro melhores.
+• Adicionados Barcode, Camera + Camera e câmera no app.
+• Nutrientes, metas e cartões Home expandidos.
+• Health Connect, gestos, refeições salvas, rascunhos e miniaturas melhorados.
 </pt-BR>
 
 <ro>
-• Logare prin cod de bare cu Open Food Facts.
-• Copiază mese din altă zi.
-• Editează data și ora unui aliment.
-• Atașează poze din cameră sau galerie în Coach.
-• Gemini Flash Lite folosește acum modelul GA.
+• Refresh major Android cu meniuri, panouri, dialoguri și mod luminos mai curate.
+• Adăugate Barcode, Camera + Camera și cameră în aplicație.
+• Nutrienți opționali, obiective și carduri Home extinse.
+• Health Connect, swipe-uri, mese salvate, ciorne și miniaturi îmbunătățite.
 </ro>
 
 <ru-RU>
-• Запись по штрихкоду через Open Food Facts.
-• Копируйте еду из другого дня.
-• Меняйте дату и время записи еды.
-• Прикрепляйте фото с камеры или галереи в Coach.
-• Gemini Flash Lite переведен на GA-модель.
+• Большое обновление Android UI: чище меню, панели, диалоги и светлая тема.
+• Добавлены Barcode, Camera + Camera и камера внутри приложения.
+• Расширены нутриенты, цели и Home-карточки.
+• Улучшены Health Connect, свайпы, сохраненные блюда, черновики и миниатюры.
 </ru-RU>
 
 <zh-CN>
-• 使用 Open Food Facts 条码记录包装食品。
-• 从其他日期复制餐食。
-• 编辑食物的记录日期和时间。
-• 在 Coach 中附加相机或相册图片。
-• Gemini Flash Lite 已切换到 GA 模型。
+• Android 界面大更新：菜单、弹窗、对话框和浅色模式更清爽。
+• 新增 Barcode、Camera + Camera 和应用内相机。
+• 扩展可选营养素、目标和 Home 卡片。
+• 改进 Health Connect、滑动、保存餐食、草稿、缩略图和引导流程。
 </zh-CN>
 ```
 

@@ -25,7 +25,7 @@
 
 ---
 
-Open-source, privacy-first calorie tracker for iOS and Android. Bring your own AI provider — 13 supported including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, and any custom OpenAI-compatible endpoint. iOS also supports Fud AI Plus, an optional paid no-key mode that routes food scans and Coach through Gemini and Plus voice through Deepgram via a serverless proxy with daily limits and speech language control. Snap a meal, scan a barcode, add a note to a camera or library photo, ask your AI coach how to hit your goal, or speak your lunch. No accounts, no cloud sync, no tracking.
+Open-source, privacy-first calorie tracker for iOS and Android. Bring your own AI provider — 13 supported including Gemini, OpenAI, Claude, Grok, Groq, Hugging Face, Fireworks AI, DeepInfra, Mistral, and any custom OpenAI-compatible endpoint. iOS also supports Fud AI Plus, an optional paid no-key mode that routes food scans and Coach through Gemini and Plus voice through Deepgram via a serverless proxy with daily limits and speech language control. Snap a meal, scan a barcode, combine two camera shots, add a note to a camera or library photo, ask your AI coach how to hit your goal, or speak your lunch. No accounts, no cloud sync, no tracking.
 
 [App Store](https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726) · [Google Play](https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker) · [Website](https://fud-ai.app) · [Report an Issue](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20) · [Request a Feature](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20)
 
@@ -36,6 +36,7 @@ Open-source, privacy-first calorie tracker for iOS and Android. Bring your own A
 ### Logging
 - **Snap food** — camera identifies meals and estimates nutrition
 - **Camera + Note** — add a description with the photo for better accuracy
+- **Camera + Camera** — capture two images for one analysis, useful for front/back packaging or food + label combos
 - **Nutrition label scan** — reads packaging for precise per-serving data
 - **Barcode lookup** — scan packaged foods on iOS and Android and fill nutrition from Open Food Facts when product data is available
 - **Photo library** — analyze existing photos
@@ -44,19 +45,19 @@ Open-source, privacy-first calorie tracker for iOS and Android. Bring your own A
 - **Voice input** — speak your meals hands-free (6 STT options with per-provider language selection, see below)
 - **Manual Entry** — log known calories and macros without AI
 - **Smart serving units** — AI can show slices, pieces, cups, ml, or other visible serving units while grams stay the source of truth
-- **Saved Meals** — Recents, Frequent, and Favorites with swipe-to-delete and drag-to-reorder
+- **Saved Meals** — Recents, Frequent, and Favorites with safer swipe actions, search, and drag-to-reorder
 
 ### Intelligence
 - **AI Coach tab** — multi-turn chat with memory. Coach sees your profile, weight history, food log, today's date/timezone, and richer meal details, then answers questions like "what's my expected weight in 30 days?" or "how do I lose 2 kg?". Coach also supports camera/photo attachments on Android. Memory persists across launches; Reset button starts a fresh conversation. Long-press any reply to copy.
 - **AI Access modes** — Bring Your Own Key remains available; iOS onboarding now highlights optional Fud AI Plus first for no-key Gemini food scan, Deepgram voice transcription, and Coach access with a Plus speech language selector.
-- **AI optional nutrient goals** — estimate fiber, sugar, saturated fat, cholesterol, sodium, and potassium goals from profile data without changing calorie/protein/carbs/fat formulas.
+- **AI optional nutrient goals** — estimate detailed nutrient goals from profile data without changing calorie/protein/carbs/fat formulas.
 - **Goal-aware prompt chips** — suggested questions change based on whether your goal is Lose / Gain / Maintain
 - **Thermodynamic weight forecast** — expected weight at 30/60/90 days, predicted vs observed weekly change, days-to-goal, under-logging detection. Surfaced through Coach as live context on every turn.
 - **Resilient requests** — transient provider overloads (503 / 529 / 429) auto-retry with 1s / 2s / 4s exponential backoff across both food analysis and Coach chat, so short spikes resolve invisibly
 
 ### Tracking
-- **13 nutrients** per entry (calories, protein, carbs, fat + 9 micronutrients)
-- **Custom Home nutrient cards** — swap the top cards from protein/carbs/fat to fiber, sugar, sodium, potassium, or other tracked nutrients
+- **Expanded nutrients** per entry — macros plus sugar, fiber, fats, cholesterol, sodium, potassium, calcium, iron, magnesium, zinc, vitamins, folate, omega-3, and more when available
+- **Custom Home nutrient cards** — swap the top cards from protein/carbs/fat to fiber, sodium, vitamin D, calcium, or other tracked nutrients
 - **Optional nutrient goals** — set or AI-estimate goals for the non-macro nutrients; these stay separate from the calorie and macro calculator
 - **Scrollable week calendar** — swipe to any past week, configurable start day
 - **Food log sorting** — keep the default grouped view, or sort meal sections by latest logging order from the Home screen
@@ -65,8 +66,10 @@ Open-source, privacy-first calorie tracker for iOS and Android. Bring your own A
 - **Goal tracking** — set target weight, BMR/TDEE auto-calculation; goal-reached alert fires from both manual logs and Apple Health reads
 
 ### Health & platform
-- **Apple Health** — bidirectional sync for body measurements + 12 nutrition types written per meal
-- **Widgets** — Home Screen (small / medium with calorie ring + macro bars) and Lock Screen (circular / rectangular / inline). Update live whenever you add or delete a meal — no tap-to-open-app needed
+- **Apple Health** — bidirectional sync for body measurements + nutrition types written per meal
+- **Health Connect** — Android sync for nutrition, weight, and body fat, with permission reconciliation and backfill support
+- **Widgets** — Home Screen and Lock Screen widgets on iOS now follow your selected Home nutrient cards instead of fixed macros; Android Glance widgets update when you log
+- **Android 2.0 UI refresh** — cleaner glass-style menus, sheets, dialogs, selectors, light mode, bottom spacing, cached thumbnails, in-app camera capture, and safer food-row gestures
 - **Share the App** — native iOS share sheet from About → forwards App Store URL plus a personalized message and `fud-ai.app` link; message body localized into all 15 languages
 - **Update check** — About shows the installed app version, opens the App Store / Play Store when a newer version is available, and shows a tab dot for pending updates
 - **Theme color** — iOS and Android Settings let users change the app accent, with matching home screen / launcher icons
@@ -131,26 +134,26 @@ For the Coach chat, every turn builds a slim system prompt from your live profil
 
 ## Screenshots
 
-A seven-step walkthrough of the app's core flow — from opening the dashboard to reviewing long-term trends.
+A ten-screen walkthrough of the current app flow — from opening the dashboard to custom nutrient cards and settings.
 
 <table>
   <tr>
     <td align="center" width="33%">
-      <img src="ios/screenshots/home.png" width="230" alt="Home dashboard">
+      <img src="web/assets/screenshots/home.png" width="230" alt="Home dashboard">
       <br><br>
       <b>01 · Home · Dashboard</b>
       <br>
-      <sub>Daily calorie ring, macro bars (P&nbsp;/&nbsp;C&nbsp;/&nbsp;F), and today's logged meals grouped by meal type. Week strip at the top for date navigation.</sub>
+      <sub>Daily calorie ring, selected Home nutrient cards, and today's logged meals grouped by meal type. Week strip at the top for date navigation.</sub>
     </td>
     <td align="center" width="33%">
-      <img src="ios/screenshots/logging.png" width="230" alt="Food logging options menu">
+      <img src="web/assets/screenshots/logging.png" width="230" alt="Food logging options menu">
       <br><br>
       <b>02 · Log · Options</b>
       <br>
-      <sub>Tap + to open the entry menu: Camera, Camera + Note, Nutrition Label scan, Barcode, From Photos, From Photos + Note, Text Input, Voice, Manual Entry, or Saved Meals.</sub>
+      <sub>Tap + to open Camera, Camera + Note, Camera + Camera, Nutrition Label, Barcode, Photos, Text, Voice, Manual Entry, Saved Meals, or Copy from Day.</sub>
     </td>
     <td align="center" width="33%">
-      <img src="ios/screenshots/snap.png" width="230" alt="Snap food capture">
+      <img src="web/assets/screenshots/snap.png" width="230" alt="Snap food capture">
       <br><br>
       <b>03 · Snap · Capture</b>
       <br>
@@ -159,21 +162,21 @@ A seven-step walkthrough of the app's core flow — from opening the dashboard t
   </tr>
   <tr>
     <td align="center" width="33%">
-      <img src="ios/screenshots/review.png" width="230" alt="Review food entry">
+      <img src="web/assets/screenshots/review.png" width="230" alt="Review food entry">
       <br><br>
       <b>04 · Review · Edit</b>
       <br>
       <sub>Review the AI's guess, adjust the serving size (everything recalculates live), and pick a meal type before logging.</sub>
     </td>
     <td align="center" width="33%">
-      <img src="ios/screenshots/meals.png" width="230" alt="Meals log">
+      <img src="web/assets/screenshots/meals.png" width="230" alt="Meals log">
       <br><br>
       <b>05 · Meals · Log</b>
       <br>
       <sub>The day's entries grouped by breakfast / lunch / dinner / snack. Swipe to delete, tap to edit any entry.</sub>
     </td>
     <td align="center" width="33%">
-      <img src="ios/screenshots/coach.png" width="230" alt="AI Coach chat">
+      <img src="web/assets/screenshots/coach.png" width="230" alt="AI Coach chat">
       <br><br>
       <b>06 · Coach · AI Chat</b>
       <br>
@@ -181,12 +184,35 @@ A seven-step walkthrough of the app's core flow — from opening the dashboard t
     </td>
   </tr>
   <tr>
-    <td align="center" width="33%" colspan="3">
-      <img src="ios/screenshots/progress.png" width="230" alt="Progress charts">
+    <td align="center" width="33%">
+      <img src="web/assets/screenshots/progress.png" width="230" alt="Progress charts">
       <br><br>
       <b>07 · Progress · Charts</b>
       <br>
       <sub>Weight trend with goal line, calorie history (intake vs. goal), and macro averages. Time ranges span 1 week to all time.</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="web/assets/screenshots/micronutrients.png" width="230" alt="Detailed nutrition view">
+      <br><br>
+      <b>08 · View More · Nutrients</b>
+      <br>
+      <sub>Detailed nutrition shows macro totals plus optional nutrients such as fiber, sugar, sodium, minerals, vitamins, and fats.</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="web/assets/screenshots/custom.png" width="230" alt="Custom Home nutrient cards">
+      <br><br>
+      <b>09 · Custom · Home Cards</b>
+      <br>
+      <sub>Choose the three nutrients that matter most on Home without changing calorie/protein/carbs/fat calculations.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="33%" colspan="3">
+      <img src="web/assets/screenshots/setting.png" width="230" alt="Settings">
+      <br><br>
+      <b>10 · Settings · Control</b>
+      <br>
+      <sub>Adjust AI access, goals, Health sync, notifications, theme, optional nutrients, and local data controls from one place.</sub>
     </td>
   </tr>
 </table>
@@ -215,7 +241,7 @@ All values can be manually overridden in Settings, with a **Recalculate Goals** 
 | **Storage** | UserDefaults (local JSON), Keychain (API keys) |
 | **AI** | `GeminiService` for food + label analysis, `ChatService` for multi-turn Coach chat, both route across all 13 providers |
 | **Speech** | Native `SFSpeechRecognizer` or remote providers via `SpeechService` (m4a upload) |
-| **Health** | HealthKit read/write (body measurements + 12 nutrition types) with background observers, UUID-tagged samples for safe delete |
+| **Health** | HealthKit / Health Connect read-write paths for body measurements and meal nutrition, with UUID-tagged samples for safe delete |
 | **Pattern** | `@Observable` + `.environment()`, main actor isolation |
 | **Localization** | `Localizable.xcstrings` (String Catalog), 15 languages, auto-selected by iPhone's system language |
 | **Dependencies** | RevenueCat SPM for iOS purchases; app data and API keys remain local |
@@ -224,8 +250,8 @@ All values can be manually overridden in Settings, with a **Recalculate Goals** 
 
 ```
 fud-ai/
-├── ios/          # SwiftUI iOS app (shipping on App Store, v3.5)
-├── android/      # Kotlin + Jetpack Compose app (min SDK 26 / Android 8.0, v1.2)
+├── ios/          # SwiftUI iOS app (shipping on App Store, v3.6)
+├── android/      # Kotlin + Jetpack Compose app (min SDK 26 / Android 8.0, v2.0.0)
 ├── web/          # Marketing site — https://fud-ai.app (static HTML/CSS, Vercel)
 ├── APPSTORE.md   # App Store Connect listing copy (iOS)
 ├── PLAYSTORE.md  # Google Play Console listing copy (Android)
@@ -240,7 +266,7 @@ ios/
 ├── calorietrackerTests/              # Unit test target (boilerplate)
 ├── calorietrackerUITests/            # UI test target (boilerplate)
 ├── FudAIWidgets/                     # Widget extension target (Home + Lock Screen)
-├── screenshots/                      # README screenshots
+├── screenshots/                      # App Store screenshot sources
 └── calorietracker/
     ├── calorietrackerApp.swift       # Entry point, environment setup
     ├── ContentView.swift             # 5-tab layout (Home, Progress, Coach, Settings, About)
@@ -250,7 +276,7 @@ ios/
     │   ├── SpeechProvider.swift      # 6 STT options + Keychain settings
     │   ├── ChatMessage.swift         # Coach chat message model
     │   ├── UserProfile.swift         # BMR/TDEE/macro calculations
-    │   ├── FoodEntry.swift           # Food item with 13 nutrients
+    │   ├── FoodEntry.swift           # Food item with macros and expanded optional nutrients
     │   └── WeightEntry.swift         # Weight log entry
     ├── Views/
     │   ├── OnboardingView.swift      # 15-step onboarding flow
@@ -320,7 +346,7 @@ See [SECURITY.md](SECURITY.md). Use [private vulnerability reporting](https://gi
 
 ## Privacy
 
-No accounts, no cloud sync, no analytics. BYOK API keys are encrypted on-device and requests go directly to the provider you choose. Barcode lookup sends the scanned barcode to Open Food Facts and stores the returned nutrition locally. Fud AI Plus sends only the active AI/STT request through the proxy for processing and quota enforcement: Gemini for food/Coach and Deepgram for voice. Optional nutrient goals and Home nutrient-card choices are local preferences; AI estimation sends only the profile context needed for that one estimate. **Delete All Data** is local-only — it wipes the app's storage (food log, weight log, profile, Coach chat, API keys, widget snapshot) but never touches Apple Health or Health Connect. Samples you've synced are yours; if you want them cleaned up, do it from Health / Health Connect settings. See [Privacy Policy](https://fud-ai.app/privacy.html).
+No accounts, no cloud sync, no analytics. BYOK API keys are encrypted on-device and requests go directly to the provider you choose. Barcode lookup sends the scanned barcode to Open Food Facts and stores the returned nutrition locally. Fud AI Plus sends only the active AI/STT request through the proxy for processing and quota enforcement: Gemini for food/Coach and Deepgram for voice. Optional nutrient goals, Home nutrient-card choices, food photos, cached thumbnails, and widget snapshots are local preferences/data; AI estimation sends only the profile context needed for that one estimate. **Delete All Data** is local-only — it wipes the app's storage (food log, weight log, body-fat log, profile, Coach chat, saved meals, API keys, widget snapshot) but never touches Apple Health or Health Connect. Samples you've synced are yours; if you want them cleaned up, do it from Health / Health Connect settings. See [Privacy Policy](https://fud-ai.app/privacy.html).
 
 ## License
 

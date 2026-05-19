@@ -31,7 +31,7 @@ Only the latest released version on each store (App Store for iOS, Play Store fo
 
 - The iOS app source in `ios/` (SwiftUI codebase, widget extension, tests targets)
 - API-key handling and iOS Keychain storage (`KeychainHelper`, `AIProviderSettings`, `SpeechSettings`)
-- Network requests to AI and speech-to-text providers (`GeminiService`, `ChatService`, `SpeechService`)
+- Network requests to AI and speech-to-text providers (`GeminiService`, `ChatService`, `SpeechService`), including multi-image food analysis and expanded nutrient payloads
 - Fud AI Plus proxy request handling (`web/api/gemini.js`), including Gemini food/Coach routing, Deepgram voice routing, anonymous install IDs, and quota enforcement
 - Barcode lookup behavior against Open Food Facts, including the "missing product / missing nutrition" fallback path
 - HealthKit read/write paths (`HealthKitManager`) and UUID-tagged sample conventions
@@ -42,10 +42,10 @@ Only the latest released version on each store (App Store for iOS, Play Store fo
 
 - The Android app source in `android/` (Kotlin + Compose codebase, Glance widget, repositories, services)
 - API-key handling via `EncryptedSharedPreferences` (AES-256, AndroidKeystore-backed) in `data/KeyStore.kt` — including the AEAD recovery path that wipes a corrupted master-key alias on reinstall
-- Network requests to AI and speech-to-text providers (`services/ai/*`, `services/speech/*`)
+- Network requests to AI and speech-to-text providers (`services/ai/*`, `services/speech/*`), including multi-image food analysis, Coach image attachments, and expanded nutrient payloads
 - Barcode lookup behavior against Open Food Facts, including the "missing product / missing nutrition" fallback path
 - Health Connect read/write (`services/health/HealthConnectManager.kt`) and the `fudai_<uuid>` `clientRecordId` convention used for dedup + safe deletion
-- Glance widget snapshot (`models/WidgetSnapshot.kt`) shared via the app's DataStore and `ImageProvider(bitmap)` rendering path
+- Glance widget snapshot (`models/WidgetSnapshot.kt`) shared via the app's DataStore and `ImageProvider(bitmap)` rendering path, plus local thumbnail caching used by food rows and saved meals
 - Local persistence (DataStore Preferences for everything, EncryptedSharedPreferences for keys, no Room/cloud)
 - Release signing material handling — `keystore.properties` and `*.jks` are gitignored; ProGuard/R8 keep rules in `app/proguard-rules.pro` (relevant if a missing keep introduces a release-only crash that has security implications)
 

@@ -1,6 +1,6 @@
 # App Store Listing
 
-App Store Connect submission details for Fud AI v3.5. Each field is in a code block for easy copy-paste.
+App Store Connect submission details for Fud AI v3.6. Each field is in a code block for easy copy-paste.
 
 ## App Name
 ```
@@ -14,7 +14,7 @@ Food & Macro Tracker
 
 ## Promotional Text (170 chars max)
 ```
-Barcode logging, weekly Plus, Deepgram voice, 60-sec voice cap, photo + note, custom nutrient cards, and optional nutrient goals.
+Camera + Camera logging, expanded nutrients, smarter widgets, barcode, Plus, and custom Home nutrient cards.
 ```
 
 ## Keywords (100 chars max)
@@ -28,27 +28,25 @@ Primary: Health & Fitness
 Secondary: Food & Drink
 ```
 
-## What's New (v3.5)
+## What's New (v3.6)
 ```
-Fud AI 3.5 — faster packaged-food logging and cleaner Plus access.
+Fud AI 3.6 — expanded nutrients and better capture flows.
 
 NEW
-• Added barcode logging for packaged foods using Open Food Facts.
-• Added a weekly Fud AI Plus plan alongside monthly and yearly.
-• Fud AI Plus voice now uses Deepgram through the secure proxy.
-• Added a 60-second cap for Plus voice recordings.
-• Added a one-time update popup for barcode + Plus changes.
-• Added direct App Store subscription management.
-• Added image attachments in Coach chat.
+• Added Camera + Camera logging for combining two photos in one analysis.
+• Widgets now follow the selected Home nutrient cards instead of fixed macros.
+• Expanded optional nutrient tracking and goals with vitamins, minerals, and extra fats.
+• Added more nutrients to View More, Home card selection, and AI-estimated goals.
+• Improved Plus onboarding/update messaging for non-technical users.
 
 BYOK mode remains available, and existing calorie/macro goal calculations are unchanged.
 ```
 
 ## Description
 ```
-Effortless calorie tracking with AI-powered food recognition. Snap, scan, speak, or type a meal — get instant nutrition: calories, protein, carbs, fats, and 9 micronutrients.
+Effortless calorie tracking with AI-powered food recognition. Snap, scan, speak, or type a meal — get instant nutrition: calories, protein, carbs, fats, vitamins, minerals, and more.
 
-NEW in v3.5: Barcode logging for packaged foods, weekly Fud AI Plus, Deepgram-powered Plus voice, a 60-second Plus voice cap, image attachments in Coach, and direct App Store subscription management.
+NEW in v3.6: Camera + Camera logging, expanded optional nutrients and goals, widgets that follow your selected Home nutrient cards, and clearer Fud AI Plus guidance for users who do not want to manage API keys.
 
 Free, open source, privacy-first. Bring your own API key, or use optional Fud AI Plus if you do not want to set up APIs.
 
@@ -58,8 +56,8 @@ HOW TO USE
 3) Ask Coach for trends, predictions, and advice
 4) Track progress on charts and widgets
 
-10 WAYS TO LOG A MEAL
-Photo, Photo + Note, Nutrition Label, Barcode, From Photos, From Photos + Note, Voice, Text, Manual Entry, and Saved Meals.
+11 WAYS TO LOG A MEAL
+Photo, Photo + Note, Photo + Photo, Nutrition Label, Barcode, From Photos, From Photos + Note, Voice, Text, Manual Entry, and Saved Meals.
 
 13 AI PROVIDERS
 Google Gemini, OpenAI, Anthropic Claude, xAI Grok, Groq, OpenRouter, Together AI, Hugging Face, Fireworks AI, DeepInfra, Mistral, Ollama, or any OpenAI-compatible endpoint. Switch anytime. Keys are stored in iOS Keychain. Add Custom AI Instructions and an optional Fallback Provider.
@@ -76,17 +74,17 @@ COACH
 • Ask any date range — "what did I eat Tuesday?"
 • Sees your profile, targets, forecast, and food log when you allow it
 
-13 NUTRIENTS
-Calories, protein, carbs, fat, sugar, added sugar, fiber, saturated fat, mono/polyunsaturated fat, cholesterol, sodium, potassium.
+EXPANDED NUTRIENTS
+Calories, protein, carbs, fat, sugar, added sugar, fiber, saturated fat, trans fat, mono/polyunsaturated fat, cholesterol, sodium, potassium, calcium, iron, magnesium, zinc, vitamins A/C/D/E/K/B12, folate, omega-3, and more when available.
 
 PERSONALIZED GOALS
-BMR via Katch-McArdle or Mifflin-St Jeor, TDEE with 6 activity levels, auto-calculated calorie + protein + carbs + fat targets, and optional nutrient goals for fiber, sugar, saturated fat, cholesterol, sodium, and potassium. Optional goals stay separate from the calorie and macro calculator.
+BMR via Katch-McArdle or Mifflin-St Jeor, TDEE with 6 activity levels, auto-calculated calorie + protein + carbs + fat targets, and optional detailed nutrient goals. Optional goals stay separate from the calorie and macro calculator.
 
 PROGRESS
 Weight / Body Fat chart, goal lines, calorie trend vs goal, and macro averages over 1W, 1M, 3M, 6M, 1Y, All Time.
 
 WIDGETS
-Calorie and Protein widgets in all 5 families — Small, Medium, Circular, Rectangular, Inline.
+Widgets in all 5 families — Small, Medium, Circular, Rectangular, Inline. Nutrient widgets follow the three Home cards you choose.
 
 15 LANGUAGES
 English, Spanish, French, German, Italian, Portuguese (BR), Dutch, Russian, Japanese, Korean, Chinese (Simplified), Hindi, Arabic, Romanian, Azerbaijani.
@@ -95,7 +93,7 @@ PRIVACY
 No account, no sign-in, no cloud sync, no analytics, no ads, no tracking. BYOK keys stay on-device. Barcode sends only the barcode to Open Food Facts. Plus sends only active AI or speech requests through Fud AI's proxy. MIT licensed.
 
 APPLE HEALTH
-Two-way sync for nutrition, weight, height, body fat. External samples from Apple Watch, scales, and Health app can auto-import.
+Two-way sync for nutrition, weight, height, and body fat. External samples from Apple Watch, scales, and Health app can auto-import.
 
 Fud AI is not medical advice — consult a healthcare professional before significant diet changes.
 

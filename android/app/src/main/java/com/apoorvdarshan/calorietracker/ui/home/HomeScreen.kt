@@ -31,6 +31,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -320,18 +321,37 @@ fun HomeScreen(container: AppContainer) {
                                 pressed.value = false
                             }
                         }
+                        val glassMenuShape = RoundedCornerShape(28.dp)
                         DropdownMenu(
                             expanded = showAddMenu,
                             onDismissRequest = { showAddMenu = false },
-                            shape = RoundedCornerShape(14.dp),
-                            containerColor = MaterialTheme.colorScheme.surface,
-                            shadowElevation = 12.dp,
+                            shape = glassMenuShape,
+                            containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.90f),
+                            shadowElevation = 28.dp,
                             modifier = Modifier
-                                .border(
-                                    0.5.dp,
-                                    Color.White.copy(alpha = 0.12f),
-                                    RoundedCornerShape(14.dp)
+                                .widthIn(min = 292.dp)
+                                .background(
+                                    Brush.verticalGradient(
+                                        listOf(
+                                            Color.White.copy(alpha = 0.11f),
+                                            Color.White.copy(alpha = 0.035f),
+                                            AppColors.Calorie.copy(alpha = 0.05f)
+                                        )
+                                    ),
+                                    glassMenuShape
                                 )
+                                .border(
+                                    0.8.dp,
+                                    Brush.linearGradient(
+                                        listOf(
+                                            Color.White.copy(alpha = 0.28f),
+                                            Color.White.copy(alpha = 0.07f),
+                                            AppColors.Calorie.copy(alpha = 0.18f)
+                                        )
+                                    ),
+                                    glassMenuShape
+                                )
+                                .padding(vertical = 8.dp)
                         ) {
                             // Mirrors iOS HomeView toolbar Menu, in the same order:
                             // Camera, Camera + Note, Nutrition Label, From Photos,
@@ -856,22 +876,47 @@ private fun CalorieHero(current: Int, goal: Int) {
  */
 @Composable
 private fun MenuRow(label: String, icon: ImageVector, onClick: () -> Unit) {
-    DropdownMenuItem(
-        text = {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 10.dp, vertical = 2.dp)
+            .clip(RoundedCornerShape(18.dp))
+            .clickable(onClick = onClick)
+            .padding(horizontal = 14.dp, vertical = 11.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(14.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .size(34.dp)
+                .clip(CircleShape)
+                .background(
+                    Brush.verticalGradient(
+                        listOf(
+                            AppColors.Calorie.copy(alpha = 0.24f),
+                            Color.White.copy(alpha = 0.08f)
+                        )
+                    )
+                )
+                .border(0.6.dp, Color.White.copy(alpha = 0.18f), CircleShape),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                icon,
+                contentDescription = null,
+                tint = AppColors.Calorie,
+                modifier = Modifier.size(20.dp)
+            )
+        }
+        Column(verticalArrangement = Arrangement.spacedBy(1.dp)) {
             Text(
                 label,
                 fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onSurface
+                fontWeight = FontWeight.SemiBold,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.94f)
             )
-        },
-        leadingIcon = {
-            // iOS Menu uses white system-icon glyphs, not tinted accent — match that.
-            Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.onSurface, modifier = Modifier.size(20.dp))
-        },
-        onClick = onClick,
-        contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 16.dp, vertical = 4.dp)
-    )
+        }
+    }
 }
 
 @Composable

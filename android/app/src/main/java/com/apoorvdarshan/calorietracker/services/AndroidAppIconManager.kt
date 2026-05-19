@@ -4,9 +4,11 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
+import android.util.Log
 import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
 
 object AndroidAppIconManager {
+    private const val TAG = "AndroidAppIconManager"
     private const val COMPONENT_NAMESPACE = "com.apoorvdarshan.calorietracker"
 
     private val launcherActivities = mapOf(
@@ -21,9 +23,31 @@ object AndroidAppIconManager {
     )
 
     fun apply(context: Context, themeColor: AppThemeColor) {
+        runCatching {
+            applyLauncherIcon(context, themeColor)
+        }.onFailure { error ->
+            Log.w(TAG, "Unable to apply launcher icon color", error)
+        }
+    }
+
+    private fun applyLauncherIcon(context: Context, themeColor: AppThemeColor) {
         val selectedLauncher = launcherActivities[themeColor] ?: launcherActivities.getValue(AppThemeColor.FUD_PINK)
         val packageManager = context.packageManager
         val packageName = context.packageName
+
+        if (launcherActivities.values.all { launcher ->
+                val desiredState = if (launcher == selectedLauncher) {
+                    PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+                } else {
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+                }
+                packageManager.getComponentEnabledSetting(
+                    ComponentName(packageName, "$COMPONENT_NAMESPACE.$launcher")
+                ) == desiredState
+            }
+        ) {
+            return
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val flags = PackageManager.DONT_KILL_APP or PackageManager.SYNCHRONOUS

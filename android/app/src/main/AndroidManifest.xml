@@ -44,117 +44,117 @@
             android:label="@string/app_name"
             android:theme="@style/Theme.FudAI.Splash" />
 
-        <activity
+        <activity-alias
             android:name=".FudPinkLauncherActivity"
             android:enabled="true"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
-            android:theme="@style/Theme.FudAI.Splash.FudPink">
+            android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
 
-        <activity
+        <activity-alias
             android:name=".RedLauncherActivity"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_red"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_red_round"
-            android:theme="@style/Theme.FudAI.Splash.Red">
+            android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
 
-        <activity
+        <activity-alias
             android:name=".OrangeLauncherActivity"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_orange"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_orange_round"
-            android:theme="@style/Theme.FudAI.Splash.Orange">
+            android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
 
-        <activity
+        <activity-alias
             android:name=".GreenLauncherActivity"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_green"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_green_round"
-            android:theme="@style/Theme.FudAI.Splash.Green">
+            android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
 
-        <activity
+        <activity-alias
             android:name=".MintLauncherActivity"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_mint"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_mint_round"
-            android:theme="@style/Theme.FudAI.Splash.Mint">
+            android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
 
-        <activity
+        <activity-alias
             android:name=".TealLauncherActivity"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_teal"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_teal_round"
-            android:theme="@style/Theme.FudAI.Splash.Teal">
+            android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
 
-        <activity
+        <activity-alias
             android:name=".BlueLauncherActivity"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_blue"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_blue_round"
-            android:theme="@style/Theme.FudAI.Splash.Blue">
+            android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
 
-        <activity
+        <activity-alias
             android:name=".PurpleLauncherActivity"
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_purple"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_purple_round"
-            android:theme="@style/Theme.FudAI.Splash.Purple">
+            android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
 
         <activity-alias
             android:name="ViewPermissionUsageActivity"

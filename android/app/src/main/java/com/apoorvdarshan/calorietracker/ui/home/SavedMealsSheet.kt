@@ -16,11 +16,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Favorite
@@ -38,7 +41,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.SheetValue
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxState
 import androidx.compose.material3.SwipeToDismissBoxValue
@@ -60,10 +62,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.AppContainer
@@ -100,10 +107,7 @@ fun SavedMealsSheet(
     onDismiss: () -> Unit,
     onRelogEntry: (FoodEntry) -> Unit
 ) {
-    val state = rememberModalBottomSheetState(
-        skipPartiallyExpanded = true,
-        confirmValueChange = { it != SheetValue.Hidden }
-    )
+    val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val scope = rememberCoroutineScope()
 
     // Restore the last-selected segment from DataStore so reopening the sheet
@@ -155,7 +159,7 @@ fun SavedMealsSheet(
     }
 
     ModalBottomSheet(
-        onDismissRequest = {},
+        onDismissRequest = onDismiss,
         sheetState = state,
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         containerColor = MaterialTheme.colorScheme.surface
@@ -166,7 +170,15 @@ fun SavedMealsSheet(
                 .padding(horizontal = 16.dp)
                 .padding(bottom = 16.dp)
         ) {
-            SavedMealsToolbar(onCancel = onDismiss)
+            Text(
+                "Saved Meals",
+                fontSize = 17.sp,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 4.dp, bottom = 12.dp),
+                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+            )
             SegmentedTabs(selected = tab, onSelect = { newTab ->
                 tab = newTab
                 scope.launch { container.prefs.setLastSavedMealsSegment(newTab.name) }
@@ -272,33 +284,6 @@ fun SavedMealsSheet(
 }
 
 @Composable
-private fun SavedMealsToolbar(onCancel: () -> Unit) {
-    Row(
-        Modifier.fillMaxWidth().padding(horizontal = 2.dp, vertical = 6.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Box(
-            Modifier
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.55f))
-                .clickable(onClick = onCancel)
-                .padding(horizontal = 16.dp, vertical = 8.dp)
-        ) {
-            Text(
-                "Cancel",
-                color = AppColors.Calorie,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
-            )
-        }
-        Spacer(Modifier.weight(1f))
-        Text("Saved Meals", fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
-        Spacer(Modifier.weight(1f))
-        Spacer(Modifier.width(76.dp))
-    }
-}
-
-@Composable
 private fun SegmentedTabs(selected: SavedTab, onSelect: (SavedTab) -> Unit) {
     Row(
         Modifier
@@ -338,8 +323,13 @@ private fun SegmentedTabs(selected: SavedTab, onSelect: (SavedTab) -> Unit) {
 
 @Composable
 private fun <T> SavedList(items: List<T>, row: @Composable (T) -> Unit) {
+    val listState = rememberLazyListState()
     LazyColumn(
-        Modifier.fillMaxWidth().heightConstraint(),
+        state = listState,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightConstraint()
+            .blockSheetDragAtLazyListEdges(listState),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(items) { row(it) }
@@ -366,11 +356,13 @@ private fun FavoritesReorderableList(
     onRemove: (FoodEntry) -> Unit,
     onMove: (Int, Int) -> Unit
 ) {
+    val scrollState = rememberScrollState()
     Column(
         Modifier
             .fillMaxWidth()
             .heightConstraint()
-            .verticalScroll(rememberScrollState()),
+            .blockSheetDragAtScrollEdges(scrollState)
+            .verticalScroll(scrollState),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         favorites.forEachIndexed { idx, entry ->
@@ -410,6 +402,52 @@ private fun FavoritesReorderableList(
             }
         }
     }
+}
+
+@Composable
+private fun Modifier.blockSheetDragAtLazyListEdges(listState: LazyListState): Modifier {
+    val connection = remember(listState) {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                if (source != NestedScrollSource.UserInput) return Offset.Zero
+                val shouldBlock =
+                    (available.y > 0f && !listState.canScrollBackward) ||
+                    (available.y < 0f && !listState.canScrollForward)
+                return if (shouldBlock) Offset(0f, available.y) else Offset.Zero
+            }
+
+            override suspend fun onPreFling(available: Velocity): Velocity {
+                val shouldBlock =
+                    (available.y > 0f && !listState.canScrollBackward) ||
+                    (available.y < 0f && !listState.canScrollForward)
+                return if (shouldBlock) Velocity(0f, available.y) else Velocity.Zero
+            }
+        }
+    }
+    return nestedScroll(connection)
+}
+
+@Composable
+private fun Modifier.blockSheetDragAtScrollEdges(scrollState: ScrollState): Modifier {
+    val connection = remember(scrollState) {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                if (source != NestedScrollSource.UserInput) return Offset.Zero
+                val shouldBlock =
+                    (available.y > 0f && scrollState.value <= 0) ||
+                    (available.y < 0f && scrollState.value >= scrollState.maxValue)
+                return if (shouldBlock) Offset(0f, available.y) else Offset.Zero
+            }
+
+            override suspend fun onPreFling(available: Velocity): Velocity {
+                val shouldBlock =
+                    (available.y > 0f && scrollState.value <= 0) ||
+                    (available.y < 0f && scrollState.value >= scrollState.maxValue)
+                return if (shouldBlock) Velocity(0f, available.y) else Velocity.Zero
+            }
+        }
+    }
+    return nestedScroll(connection)
 }
 
 /**

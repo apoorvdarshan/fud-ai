@@ -161,6 +161,7 @@ fun HomeScreen(container: AppContainer) {
     var cameraCaptureWantsNote by remember { mutableStateOf(false) }
     var cameraCaptureWantsSecondPhoto by remember { mutableStateOf(false) }
     var pendingCameraPairFirstImageBytes by remember { mutableStateOf<ByteArray?>(null) }
+    var showCameraPairTransition by remember { mutableStateOf(false) }
     // Holds the just-captured bytes while the Camera + Note sheet is shown.
     var pendingNoteImageBytes by remember { mutableStateOf<ByteArray?>(null) }
     var pendingPickedPhotoWantsNote by remember { mutableStateOf(false) }
@@ -204,11 +205,23 @@ fun HomeScreen(container: AppContainer) {
             cameraCaptureWantsNote = withNote
             cameraCaptureWantsSecondPhoto = withSecondPhoto
             pendingCameraPairFirstImageBytes = null
+            showCameraPairTransition = false
             showCameraCapture = true
         } else {
             permissionWantsNote = withNote
             permissionWantsSecondPhoto = withSecondPhoto
             cameraPermission.launch(Manifest.permission.CAMERA)
+        }
+    }
+
+    LaunchedEffect(showCameraPairTransition) {
+        if (showCameraPairTransition) {
+            kotlinx.coroutines.delay(650)
+            showCameraPairTransition = false
+            if (pendingCameraPairFirstImageBytes != null) {
+                cameraCaptureWantsSecondPhoto = true
+                showCameraCapture = true
+            }
         }
     }
 
@@ -627,8 +640,7 @@ fun HomeScreen(container: AppContainer) {
                 cameraCaptureWantsSecondPhoto = false
                 if (wantsSecondPhoto && firstPairImage == null) {
                     pendingCameraPairFirstImageBytes = bytes
-                    cameraCaptureWantsSecondPhoto = true
-                    showCameraCapture = true
+                    showCameraPairTransition = true
                 } else if (wantsSecondPhoto && firstPairImage != null) {
                     pendingCameraPairFirstImageBytes = null
                     vm.analyzePhotos(firstPairImage, bytes)
@@ -643,6 +655,7 @@ fun HomeScreen(container: AppContainer) {
                 cameraCaptureWantsNote = false
                 cameraCaptureWantsSecondPhoto = false
                 pendingCameraPairFirstImageBytes = null
+                showCameraPairTransition = false
             }
         )
     }
@@ -682,6 +695,7 @@ fun HomeScreen(container: AppContainer) {
     }
 
     if (ui.analyzing) AnalyzingOverlay(imageBytes = ui.pendingImageBytes)
+    if (showCameraPairTransition) CameraPairTransitionOverlay()
 
     ui.pendingAnalysis?.let { analysis ->
         FoodResultSheet(
@@ -1620,6 +1634,71 @@ private fun AnalyzingOverlay(imageBytes: ByteArray? = null) {
                 fontWeight = FontWeight.SemiBold,
                 color = AppColors.Calorie
             )
+        }
+    }
+}
+
+@Composable
+private fun CameraPairTransitionOverlay() {
+    var entered by remember { mutableStateOf(false) }
+    val scale by animateFloatAsState(
+        targetValue = if (entered) 1f else 0.86f,
+        animationSpec = spring(dampingRatio = 0.72f, stiffness = Spring.StiffnessMediumLow),
+        label = "cameraPairTransitionScale"
+    )
+
+    LaunchedEffect(Unit) {
+        entered = true
+    }
+
+    Box(
+        Modifier
+            .fillMaxSize()
+            .background(Color.Black.copy(alpha = 0.72f)),
+        contentAlignment = Alignment.Center
+    ) {
+        FudGlassSurface(
+            modifier = Modifier
+                .width(250.dp)
+                .graphicsLayer {
+                    scaleX = scale
+                    scaleY = scale
+                },
+            cornerRadius = 28.dp,
+            padding = 22.dp,
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(58.dp)
+                        .clip(CircleShape)
+                        .background(AppColors.CalorieGradient),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        Icons.Filled.AddAPhoto,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(30.dp)
+                    )
+                }
+                Text(
+                    "First photo saved",
+                    fontSize = 19.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    "Take the second shot",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
+                )
+            }
         }
     }
 }

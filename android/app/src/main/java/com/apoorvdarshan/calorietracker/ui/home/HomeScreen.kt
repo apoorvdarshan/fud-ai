@@ -16,6 +16,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -27,6 +28,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -76,24 +78,21 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SheetValue
-import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberModalBottomSheetState
-import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -105,10 +104,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -127,6 +128,7 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.temporal.WeekFields
 import java.util.Locale
+import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -1098,7 +1100,6 @@ private fun Divider() {
  * The dismiss state is reset on a no-confirm swing-back so partial swipes don't
  * leave the row stuck mid-flight when the user releases short of the threshold.
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun SwipeableFoodRow(
     entry: FoodEntry,
@@ -1108,87 +1109,70 @@ private fun SwipeableFoodRow(
     onToggleFavorite: () -> Unit
 ) {
     val density = LocalDensity.current
-    val deleteTriggerPx = with(density) { 190.dp.toPx() }
-    var currentSwipeOffset by remember { mutableStateOf(0f) }
-    val state = rememberSwipeToDismissBoxState(
-        confirmValueChange = { value ->
-            // Delete commits only after a deliberate trailing swipe. The old
-            // default threshold was 56dp, which made accidental deletes too easy.
-            // Favorite returns false here — it's handled below via a live
-            // offset watcher so toggling fires *during* the swipe instead of
-            // requiring a release past the (large) default threshold.
-            when (value) {
-                SwipeToDismissBoxValue.EndToStart -> {
-                    if (currentSwipeOffset <= -deleteTriggerPx) {
-                        onDelete()
-                        true
-                    } else {
-                        false
-                    }
-                }
-                else -> false
-            }
-        },
-        positionalThreshold = { totalDistance ->
-            maxOf(totalDistance * 0.60f, deleteTriggerPx).coerceAtMost(totalDistance * 0.82f)
-        }
-    )
-    // Fire favorite toggle only after a clear leading swipe. This is still
-    // intentionally easier than delete, but no longer trips on tiny nudges.
-    val triggerPx = with(density) { 180.dp.toPx() }
-    var firedThisSwipe by remember { mutableStateOf(false) }
-    LaunchedEffect(state) {
-        snapshotFlow { runCatching { state.requireOffset() }.getOrDefault(0f) }
-            .collect { offset ->
-                currentSwipeOffset = offset
-                if (offset > triggerPx && !firedThisSwipe) {
-                    firedThisSwipe = true
-                    onToggleFavorite()
-                    state.reset()
-                }
-                if (offset <= 0f) firedThisSwipe = false
-            }
-    }
-    SwipeToDismissBox(
-        state = state,
-        backgroundContent = { SwipeBackground(state, isFavorite) },
-        enableDismissFromStartToEnd = true,
-        enableDismissFromEndToStart = true,
+    val favoriteTriggerPx = with(density) { 150.dp.toPx() }
+    val deleteTriggerPx = with(density) { 220.dp.toPx() }
+    var offsetPx by remember(entry.id) { mutableFloatStateOf(0f) }
+
+    BoxWithConstraints(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Box(modifier = Modifier.clickable(onClick = onTap)) {
-            FoodRow(entry = entry, isFavorite = isFavorite)
+        val maxSwipePx = with(density) { maxWidth.toPx() * 0.72f }
+        Box(Modifier.fillMaxWidth()) {
+            SwipeBackground(offsetPx = offsetPx, isFavorite = isFavorite)
+            Box(
+                modifier = Modifier
+                    .offset { IntOffset(offsetPx.roundToInt(), 0) }
+                    .pointerInput(entry.id, maxSwipePx) {
+                        detectHorizontalDragGestures(
+                            onHorizontalDrag = { change, dragAmount ->
+                                change.consume()
+                                offsetPx = (offsetPx + dragAmount).coerceIn(-maxSwipePx, maxSwipePx)
+                            },
+                            onDragEnd = {
+                                val finalOffset = offsetPx
+                                offsetPx = 0f
+                                when {
+                                    finalOffset <= -deleteTriggerPx -> onDelete()
+                                    finalOffset >= favoriteTriggerPx -> onToggleFavorite()
+                                }
+                            },
+                            onDragCancel = {
+                                offsetPx = 0f
+                            }
+                        )
+                    }
+                    .clickable(onClick = onTap)
+            ) {
+                FoodRow(entry = entry, isFavorite = isFavorite)
+            }
         }
     }
 }
 
 @Composable
-private fun SwipeBackground(state: androidx.compose.material3.SwipeToDismissBoxState, isFavorite: Boolean) {
-    val direction = state.dismissDirection
-    if (direction == SwipeToDismissBoxValue.Settled) {
+private fun SwipeBackground(offsetPx: Float, isFavorite: Boolean) {
+    if (offsetPx == 0f) {
         Box(Modifier.fillMaxSize())
         return
     }
-    val (bg, icon, label) = when (direction) {
-        SwipeToDismissBoxValue.EndToStart -> Triple(
+    val (bg, icon, label) = if (offsetPx < 0f) {
+        Triple(
             Color(0xFFD32F2F),
             Icons.Filled.Delete,
             "Delete"
         )
-        SwipeToDismissBoxValue.StartToEnd -> Triple(
+    } else {
+        Triple(
             AppColors.Calorie,
             if (isFavorite) Icons.Filled.FavoriteBorder else Icons.Filled.Favorite,
             if (isFavorite) "Unfavorite" else "Favorite"
         )
-        else -> return
     }
     // iOS Mail-style trailing reveal: paint only the area the foreground has
     // moved out of, pinned to the matching edge. Width = absolute offset.
-    val offset = runCatching { state.requireOffset() }.getOrDefault(0f)
-    val widthPx = kotlin.math.abs(offset)
+    val widthPx = kotlin.math.abs(offsetPx)
     val widthDp = with(LocalDensity.current) { widthPx.toDp() }
-    val alignment = if (direction == SwipeToDismissBoxValue.EndToStart)
-        Alignment.CenterEnd else Alignment.CenterStart
+    val alignment = if (offsetPx < 0f) Alignment.CenterEnd else Alignment.CenterStart
 
     Box(Modifier.fillMaxSize()) {
         Box(

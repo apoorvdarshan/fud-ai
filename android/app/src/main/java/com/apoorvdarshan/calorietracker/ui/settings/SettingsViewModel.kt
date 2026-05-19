@@ -56,6 +56,15 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
 
     init {
         viewModelScope.launch {
+            container.prefs.optionalNutrientGoals.collect { goals ->
+                _ui.value = _ui.value.copy(
+                    optionalNutrientGoals = goals,
+                    optionalNutrientGoalError = null
+                )
+            }
+        }
+
+        viewModelScope.launch {
             val provider = container.prefs.selectedAIProvider.first()
             val model = provider.supportedModelOrDefault(container.prefs.selectedAIModel.first())
             val speech = container.prefs.selectedSpeechProvider.first()

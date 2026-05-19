@@ -84,6 +84,7 @@ private val PillInsetH = 8.dp
 private val PillInsetV = 6.dp
 
 val BottomNavScrollPadding = 132.dp
+val BottomNavDockedControlPadding = 104.dp
 
 /**
  * Floating Liquid Glass tab bar — capsule with translucent backdrop, glassy

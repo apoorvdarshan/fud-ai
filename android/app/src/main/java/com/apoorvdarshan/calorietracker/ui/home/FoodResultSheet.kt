@@ -13,8 +13,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.UnfoldMore
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -277,16 +275,16 @@ fun FoodResultSheet(
                                 tint = AppColors.Calorie
                             )
                         }
-                        DropdownMenu(
+                        SheetGlassDropdownMenu(
                             expanded = mealMenuExpanded,
-                            onDismissRequest = { mealMenuExpanded = false }
+                            onDismissRequest = { mealMenuExpanded = false },
+                            menuWidth = 184.dp
                         ) {
                             for (m in MealType.values()) {
-                                DropdownMenuItem(
-                                    leadingIcon = {
-                                        Icon(sheetMealIcon(m), contentDescription = null, tint = AppColors.Calorie)
-                                    },
-                                    text = { Text(stringResource(m.displayNameRes)) },
+                                SheetGlassDropdownMenuItem(
+                                    label = stringResource(m.displayNameRes),
+                                    leadingIcon = sheetMealIcon(m),
+                                    selected = m == mealType,
                                     onClick = {
                                         mealType = m
                                         mealMenuExpanded = false

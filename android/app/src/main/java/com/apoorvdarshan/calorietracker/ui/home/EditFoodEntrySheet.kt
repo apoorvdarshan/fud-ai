@@ -18,8 +18,6 @@ import androidx.compose.material.icons.filled.UnfoldMore
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -316,16 +314,16 @@ fun EditFoodEntrySheet(
                                 tint = AppColors.Calorie
                             )
                         }
-                        DropdownMenu(
+                        SheetGlassDropdownMenu(
                             expanded = mealMenuExpanded,
-                            onDismissRequest = { mealMenuExpanded = false }
+                            onDismissRequest = { mealMenuExpanded = false },
+                            menuWidth = 184.dp
                         ) {
                             for (m in MealType.values()) {
-                                DropdownMenuItem(
-                                    leadingIcon = {
-                                        Icon(sheetMealIcon(m), contentDescription = null, tint = AppColors.Calorie)
-                                    },
-                                    text = { Text(stringResource(m.displayNameRes)) },
+                                SheetGlassDropdownMenuItem(
+                                    label = stringResource(m.displayNameRes),
+                                    leadingIcon = sheetMealIcon(m),
+                                    selected = m == mealType,
                                     onClick = {
                                         mealType = m
                                         mealMenuExpanded = false

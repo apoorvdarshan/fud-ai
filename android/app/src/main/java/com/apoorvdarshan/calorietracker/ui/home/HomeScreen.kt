@@ -42,7 +42,6 @@ import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.CameraAlt
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material.icons.filled.Coffee
 import androidx.compose.material.icons.filled.Delete
@@ -69,7 +68,6 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -329,7 +327,7 @@ fun HomeScreen(container: AppContainer) {
                             containerColor = Color(0xF2141416),
                             shadowElevation = 22.dp,
                             modifier = Modifier
-                                .width(276.dp)
+                                .width(248.dp)
                                 .background(
                                     Brush.verticalGradient(
                                         listOf(
@@ -992,79 +990,22 @@ private fun MealSectionHeader(
                         color = AppColors.Calorie
                     )
                 }
-                DropdownMenu(
+                SheetGlassDropdownMenu(
                     expanded = sortMenuExpanded,
                     onDismissRequest = onSortDismiss,
-                    shape = RoundedCornerShape(26.dp),
-                    containerColor = Color(0xF2141416),
-                    shadowElevation = 22.dp,
-                    modifier = Modifier
-                        .width(258.dp)
-                        .background(
-                            Brush.verticalGradient(
-                                listOf(
-                                    Color.White.copy(alpha = 0.045f),
-                                    Color.White.copy(alpha = 0.015f),
-                                    AppColors.Calorie.copy(alpha = 0.025f)
-                                )
-                            ),
-                            RoundedCornerShape(26.dp)
-                        )
-                        .border(
-                            0.8.dp,
-                            Brush.linearGradient(
-                                listOf(
-                                    Color.White.copy(alpha = 0.18f),
-                                    Color.White.copy(alpha = 0.055f),
-                                    AppColors.Calorie.copy(alpha = 0.08f)
-                                )
-                            ),
-                            RoundedCornerShape(26.dp)
-                        )
-                        .padding(vertical = 6.dp)
+                    menuWidth = 226.dp
                 ) {
                     for (order in FoodLogSortOrder.values()) {
-                        SortMenuRow(
+                        SheetGlassDropdownMenuItem(
                             label = order.displayName,
                             selected = order == sortOrder,
+                            reserveSelectionSlot = true,
                             onClick = { onSortOrderSelected(order) }
                         )
                     }
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun SortMenuRow(label: String, selected: Boolean, onClick: () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 9.dp, vertical = 1.dp)
-            .clip(RoundedCornerShape(14.dp))
-            .clickable(onClick = onClick)
-            .padding(horizontal = 11.dp, vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
-    ) {
-        Box(Modifier.size(20.dp), contentAlignment = Alignment.Center) {
-            if (selected) {
-                Icon(
-                    Icons.Filled.Check,
-                    contentDescription = null,
-                    tint = Color.White,
-                    modifier = Modifier.size(18.dp)
-                )
-            }
-        }
-        Text(
-            label,
-            fontSize = 17.sp,
-            fontWeight = FontWeight.Medium,
-            color = Color.White.copy(alpha = 0.94f),
-            lineHeight = 20.sp
-        )
     }
 }
 
@@ -1803,16 +1744,16 @@ private fun ManualEntryDialog(
                                 fontWeight = FontWeight.Medium
                             )
                         }
-                        DropdownMenu(
+                        SheetGlassDropdownMenu(
                             expanded = mealMenuExpanded,
-                            onDismissRequest = { mealMenuExpanded = false }
+                            onDismissRequest = { mealMenuExpanded = false },
+                            menuWidth = 184.dp
                         ) {
                             for (m in MealType.values()) {
-                                DropdownMenuItem(
-                                    leadingIcon = {
-                                        Icon(sheetMealIcon(m), contentDescription = null, tint = AppColors.Calorie)
-                                    },
-                                    text = { Text(stringResource(m.displayNameRes)) },
+                                SheetGlassDropdownMenuItem(
+                                    label = stringResource(m.displayNameRes),
+                                    leadingIcon = sheetMealIcon(m),
+                                    selected = m == mealType,
                                     onClick = {
                                         mealType = m
                                         mealMenuExpanded = false

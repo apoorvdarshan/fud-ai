@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
@@ -20,12 +22,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -33,9 +36,11 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Bedtime
 import androidx.compose.material.icons.filled.LocalCafe
 import androidx.compose.material.icons.filled.Restaurant
@@ -189,19 +194,19 @@ internal fun ServingQuantityCard(
                             tint = AppColors.Calorie
                         )
                     }
-                    DropdownMenu(
+                    SheetGlassDropdownMenu(
                         expanded = menuExpanded,
-                        onDismissRequest = { onMenuExpandedChange(false) }
+                        onDismissRequest = { onMenuExpandedChange(false) },
+                        menuWidth = 150.dp
                     ) {
                         for (option in pickerOptions) {
-                            DropdownMenuItem(
-                                text = {
-                                    Text(
-                                        option.displayUnit(
-                                            if (option.id == selectedUnitId) parsedQuantity else null
-                                        )
-                                    )
-                                },
+                            val optionLabel = option.displayUnit(
+                                if (option.id == selectedUnitId) parsedQuantity else null
+                            )
+                            SheetGlassDropdownMenuItem(
+                                label = optionLabel,
+                                selected = option.id == selectedUnitId,
+                                reserveSelectionSlot = true,
                                 onClick = {
                                     onSelectedUnitChange(option.id)
                                     onMenuExpandedChange(false)
@@ -275,6 +280,115 @@ internal fun SheetHairline() {
             .height(0.5.dp)
             .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))
     )
+}
+
+@Composable
+internal fun SheetGlassDropdownMenu(
+    expanded: Boolean,
+    onDismissRequest: () -> Unit,
+    modifier: Modifier = Modifier,
+    menuWidth: Dp? = null,
+    content: @Composable ColumnScope.() -> Unit
+) {
+    val shape = RoundedCornerShape(22.dp)
+    val sizedModifier = if (menuWidth != null) modifier.width(menuWidth) else modifier
+
+    DropdownMenu(
+        expanded = expanded,
+        onDismissRequest = onDismissRequest,
+        shape = shape,
+        containerColor = Color(0xF2141416),
+        shadowElevation = 22.dp,
+        modifier = sizedModifier
+            .background(
+                Brush.verticalGradient(
+                    listOf(
+                        Color.White.copy(alpha = 0.045f),
+                        Color.White.copy(alpha = 0.015f),
+                        AppColors.Calorie.copy(alpha = 0.025f)
+                    )
+                ),
+                shape
+            )
+            .border(
+                0.8.dp,
+                Brush.linearGradient(
+                    listOf(
+                        Color.White.copy(alpha = 0.18f),
+                        Color.White.copy(alpha = 0.055f),
+                        AppColors.Calorie.copy(alpha = 0.08f)
+                    )
+                ),
+                shape
+            )
+            .padding(vertical = 5.dp),
+        content = content
+    )
+}
+
+@Composable
+internal fun SheetGlassDropdownMenuItem(
+    label: String,
+    selected: Boolean = false,
+    leadingIcon: ImageVector? = null,
+    reserveSelectionSlot: Boolean = false,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 7.dp, vertical = 1.dp)
+            .clip(RoundedCornerShape(14.dp))
+            .clickable(onClick = onClick)
+            .padding(horizontal = 10.dp, vertical = 7.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        when {
+            leadingIcon != null -> {
+                Icon(
+                    leadingIcon,
+                    contentDescription = null,
+                    tint = AppColors.Calorie,
+                    modifier = Modifier.size(19.dp)
+                )
+                Spacer(Modifier.width(10.dp))
+            }
+            reserveSelectionSlot -> {
+                Box(Modifier.size(20.dp), contentAlignment = Alignment.Center) {
+                    if (selected) {
+                        Icon(
+                            Icons.Filled.Check,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(17.dp)
+                        )
+                    }
+                }
+                Spacer(Modifier.width(8.dp))
+            }
+        }
+
+        Text(
+            label,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color.White.copy(alpha = 0.94f),
+            lineHeight = 19.sp,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.weight(1f)
+        )
+
+        if (selected && leadingIcon != null) {
+            Spacer(Modifier.width(8.dp))
+            Icon(
+                Icons.Filled.Check,
+                contentDescription = null,
+                tint = Color.White,
+                modifier = Modifier.size(17.dp)
+            )
+        }
+    }
 }
 
 internal fun sheetMealIcon(meal: MealType): ImageVector = when (meal) {

@@ -764,6 +764,7 @@
     <string name="speech_language_japanese">Японский</string>
     <string name="speech_language_chinese">Китайский</string>
     <string name="speech_language_korean">Корейский</string>
+    <string name="speech_language_czech">Чешский</string>
     <string name="about_update_checking">Проверка обновлений</string>
     <string name="about_update_available">Доступно обновление</string>
     <string name="about_update_details_format">Текущая %1$s -&gt; Новая %2$s</string>

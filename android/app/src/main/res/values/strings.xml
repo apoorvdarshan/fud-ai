@@ -880,6 +880,7 @@
     <string name="speech_language_japanese">Japanese</string>
     <string name="speech_language_chinese">Chinese</string>
     <string name="speech_language_korean">Korean</string>
+    <string name="speech_language_czech">Czech</string>
 
     <!-- About -->
     <string name="about_update_checking">Checking for Updates</string>

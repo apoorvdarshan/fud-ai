@@ -232,7 +232,9 @@
     <string name="onboarding_pace_recommended">おすすめ</string>
     <string name="onboarding_pace_fast">速い</string>
     <string name="onboarding_pace_reach_prefix">目標達成までの期間：</string>
-    <string name="onboarding_pace_days_format">%1$d日</string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="other">%1$d日</item>
+    </plurals>
     <string name="onboarding_pace_caption_slow">穏やかで持続可能。長期的な習慣に最適。</string>
     <string name="onboarding_pace_caption_fast">積極的だが実行可能。強い自制心が必要です。</string>
     <string name="onboarding_pace_caption_recommended">最もバランスの取れたペースで、モチベーションを保ち持続可能。</string>

@@ -232,7 +232,11 @@
     <string name="onboarding_pace_recommended">Recomandat</string>
     <string name="onboarding_pace_fast">Rapid</string>
     <string name="onboarding_pace_reach_prefix">Îți vei atinge obiectivul în </string>
-    <string name="onboarding_pace_days_format">%1$d zile</string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="one">%1$d zi</item>
+        <item quantity="few">%1$d zile</item>
+        <item quantity="other">%1$d de zile</item>
+    </plurals>
     <string name="onboarding_pace_caption_slow">Blând și sustenabil. Excelent pentru obiceiuri pe termen lung.</string>
     <string name="onboarding_pace_caption_fast">Agresiv, dar realizabil. Necesită disciplină puternică.</string>
     <string name="onboarding_pace_caption_recommended">Cel mai echilibrat ritm, motivant și sustenabil.</string>

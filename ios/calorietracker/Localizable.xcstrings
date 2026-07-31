@@ -4767,9 +4767,33 @@
     "%lld days": {
       "localizations": {
         "pl": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld dni"
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dzień"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dni"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dni"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dnia"
+                }
+              }
+            }
           }
         },
         "ru": {

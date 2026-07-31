@@ -232,7 +232,11 @@
     <string name="onboarding_pace_recommended">Consigliato</string>
     <string name="onboarding_pace_fast">Veloce</string>
     <string name="onboarding_pace_reach_prefix">Raggiungerai il tuo obiettivo in </string>
-    <string name="onboarding_pace_days_format">%1$d giorni</string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="one">%1$d giorno</item>
+        <item quantity="many">%1$d di giorni</item>
+        <item quantity="other">%1$d giorni</item>
+    </plurals>
     <string name="onboarding_pace_caption_slow">Delicato e sostenibile. Ottimo per abitudini a lungo termine.</string>
     <string name="onboarding_pace_caption_fast">Aggressivo ma fattibile. Richiede forte disciplina.</string>
     <string name="onboarding_pace_caption_recommended">Il ritmo più equilibrato, motivante e sostenibile.</string>

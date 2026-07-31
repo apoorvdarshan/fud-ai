@@ -232,7 +232,10 @@
     <string name="onboarding_pace_recommended">Aanbevolen</string>
     <string name="onboarding_pace_fast">Snel</string>
     <string name="onboarding_pace_reach_prefix">Je bereikt je doel in </string>
-    <string name="onboarding_pace_days_format">%1$d dagen</string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="one">%1$d dag</item>
+        <item quantity="other">%1$d dagen</item>
+    </plurals>
     <string name="onboarding_pace_caption_slow">Mild en duurzaam. Geweldig voor langetermijngewoonten.</string>
     <string name="onboarding_pace_caption_fast">Agressief maar haalbaar. Vereist sterke discipline.</string>
     <string name="onboarding_pace_caption_recommended">Het meest gebalanceerde tempo, motiverend en duurzaam.</string>

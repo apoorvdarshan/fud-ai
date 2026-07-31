@@ -232,7 +232,9 @@
     <string name="onboarding_pace_recommended">추천</string>
     <string name="onboarding_pace_fast">빠름</string>
     <string name="onboarding_pace_reach_prefix">목표 달성까지 </string>
-    <string name="onboarding_pace_days_format">%1$d일</string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="other">%1$d일</item>
+    </plurals>
     <string name="onboarding_pace_caption_slow">부드럽고 지속 가능합니다. 장기적인 습관에 적합해요.</string>
     <string name="onboarding_pace_caption_fast">공격적이지만 가능합니다. 강한 절제가 필요해요.</string>
     <string name="onboarding_pace_caption_recommended">가장 균형 잡힌 속도로 동기부여가 되고 지속 가능합니다.</string>

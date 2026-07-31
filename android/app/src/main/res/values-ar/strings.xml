@@ -232,7 +232,14 @@
     <string name="onboarding_pace_recommended">موصى به</string>
     <string name="onboarding_pace_fast">سريع</string>
     <string name="onboarding_pace_reach_prefix">ستصل إلى هدفك خلال </string>
-    <string name="onboarding_pace_days_format">%1$d يومًا</string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="zero">%1$d يوم</item>
+        <item quantity="one">يوم واحد</item>
+        <item quantity="two">يومين</item>
+        <item quantity="few">%1$d أيام</item>
+        <item quantity="many">%1$d يومًا</item>
+        <item quantity="other">%1$d يوم</item>
+    </plurals>
     <string name="onboarding_pace_caption_slow">لطيف ومستدام. رائع للعادات طويلة المدى.</string>
     <string name="onboarding_pace_caption_fast">حازم لكنه قابل للتنفيذ. يتطلب انضباطًا قويًا.</string>
     <string name="onboarding_pace_caption_recommended">الوتيرة الأكثر توازنًا، محفّزة ومستدامة.</string>

@@ -283,7 +283,10 @@
     <string name="onboarding_pace_recommended">Recommended</string>
     <string name="onboarding_pace_fast">Fast</string>
     <string name="onboarding_pace_reach_prefix">You\'ll reach your goal in </string>
-    <string name="onboarding_pace_days_format">%1$d days</string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="one">%1$d day</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
     <string name="onboarding_pace_caption_slow">Gentle and sustainable. Great for long-term habits.</string>
     <string name="onboarding_pace_caption_fast">Aggressive but doable. Requires strong discipline.</string>
     <string name="onboarding_pace_caption_recommended">The most balanced pace, motivating and sustainable.</string>

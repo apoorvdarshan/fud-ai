@@ -232,7 +232,12 @@
     <string name="onboarding_pace_recommended">Рекомендуется</string>
     <string name="onboarding_pace_fast">Быстро</string>
     <string name="onboarding_pace_reach_prefix">Вы достигнете цели через </string>
-    <string name="onboarding_pace_days_format">%1$d дн.</string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="one">%1$d дн.</item>
+        <item quantity="few">%1$d дн.</item>
+        <item quantity="many">%1$d дн.</item>
+        <item quantity="other">%1$d дн.</item>
+    </plurals>
     <string name="onboarding_pace_caption_slow">Мягко и устойчиво. Отлично для долгосрочных привычек.</string>
     <string name="onboarding_pace_caption_fast">Агрессивно, но реально. Требует строгой дисциплины.</string>
     <string name="onboarding_pace_caption_recommended">Самый сбалансированный темп — мотивирующий и устойчивый.</string>

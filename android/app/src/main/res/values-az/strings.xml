@@ -232,7 +232,10 @@
     <string name="onboarding_pace_recommended">Tövsiyə Olunur</string>
     <string name="onboarding_pace_fast">Sürətli</string>
     <string name="onboarding_pace_reach_prefix">Hədəfinizə bu müddətə çatacaqsınız: </string>
-    <string name="onboarding_pace_days_format">%1$d gün</string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="one">%1$d gün</item>
+        <item quantity="other">%1$d gün</item>
+    </plurals>
     <string name="onboarding_pace_caption_slow">Yumşaq və davamlı. Uzunmüddətli vərdişlər üçün əladır.</string>
     <string name="onboarding_pace_caption_fast">Aqressiv, lakin mümkündür. Güclü intizam tələb edir.</string>
     <string name="onboarding_pace_caption_recommended">Ən balanslı sürət, motivasiyaedici və davamlı.</string>

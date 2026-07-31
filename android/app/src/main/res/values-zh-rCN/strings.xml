@@ -232,7 +232,9 @@
     <string name="onboarding_pace_recommended">推荐</string>
     <string name="onboarding_pace_fast">快速</string>
     <string name="onboarding_pace_reach_prefix">你将达成目标，所需时间为 </string>
-    <string name="onboarding_pace_days_format">%1$d 天</string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="other">%1$d 天</item>
+    </plurals>
     <string name="onboarding_pace_caption_slow">温和且可持续。适合养成长期习惯。</string>
     <string name="onboarding_pace_caption_fast">激进但可行。需要较强的自律。</string>
     <string name="onboarding_pace_caption_recommended">最平衡的节奏，既有动力又可持续。</string>

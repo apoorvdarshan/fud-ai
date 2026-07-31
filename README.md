@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/kotlin-2.2-7F52FF?logo=kotlin" alt="Kotlin">
   <img src="https://img.shields.io/badge/UI-SwiftUI%20%2F%20Compose-purple" alt="UI">
   <img src="https://img.shields.io/badge/privacy-local--first-brightgreen" alt="Local-first privacy">
-  <img src="https://img.shields.io/badge/languages-iOS%2016%20%2F%20Android%2015-blue" alt="iOS 16 languages / Android 15 languages">
+  <img src="https://img.shields.io/badge/languages-iOS%2017%20%2F%20Android%2016-blue" alt="iOS 17 languages / Android 16 languages">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
   <a href="#credits"><img src="docs/assets/code-reviews.svg" alt="Code reviews by Qodo, GitHub Copilot, CodeRabbit, and Greptile"></a>
   <a href="https://www.bestpractices.dev/projects/14553"><img src="https://www.bestpractices.dev/projects/14553/badge" alt="OpenSSF Best Practices Passing"></a>

@@ -106,6 +106,12 @@
             "state": "translated",
             "value": "%@ 动作图示"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vizuál cviku: %@"
+          }
         }
       }
     },
@@ -196,6 +202,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@"
+          }
+        },
+        "cs": {
           "stringUnit": {
             "state": "translated",
             "value": "%@"
@@ -294,6 +306,12 @@
             "state": "translated",
             "value": "已选 %lld 项"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vybráno: %lld"
+          }
         }
       }
     },
@@ -389,6 +407,12 @@
             "state": "translated",
             "value": "新增 10 种主题色，现在可在设置中直接选择。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "10 nových barev motivu, nově vybíraných přímo v Nastavení."
+          }
         }
       }
     },
@@ -482,6 +506,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sİ təhlili"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI analýza"
           }
         }
       }
@@ -577,6 +607,12 @@
             "state": "translated",
             "value": "全部 %lld"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vše %lld"
+          }
         }
       }
     },
@@ -670,6 +706,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "全部类别"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Všechny kategorie"
           }
         }
       }
@@ -765,6 +807,12 @@
             "state": "translated",
             "value": "全部器械 (%lld)"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Veškeré vybavení (%lld)"
+          }
         }
       }
     },
@@ -858,6 +906,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "全部发力"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Všechny typy síly"
           }
         }
       }
@@ -953,6 +1007,12 @@
             "state": "translated",
             "value": "全部难度"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Všechny obtížnosti"
+          }
         }
       }
     },
@@ -1046,6 +1106,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "全部机制"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Všechny mechaniky"
           }
         }
       }
@@ -1141,6 +1207,12 @@
             "state": "translated",
             "value": "全部主要 (%lld)"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Všechny primární (%lld)"
+          }
         }
       }
     },
@@ -1235,6 +1307,12 @@
             "state": "translated",
             "value": "全部次要"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Všechny sekundární"
+          }
         }
       }
     },
@@ -1257,6 +1335,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rosa confetto"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Světle růžová"
           }
         }
       }
@@ -1358,6 +1442,12 @@
             "state": "translated",
             "value": "体脂历史"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historie tělesného tuku"
+          }
         }
       }
     },
@@ -1452,6 +1542,12 @@
             "state": "translated",
             "value": "类别"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kategorie"
+          }
         }
       }
     },
@@ -1474,6 +1570,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Corallo"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Korálová"
           }
         }
       }
@@ -1568,6 +1670,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "数据库元数据"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metadata databáze"
           }
         }
       }
@@ -1669,6 +1777,12 @@
             "state": "translated",
             "value": "删除体脂记录"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smazat záznam tělesného tuku"
+          }
         }
       }
     },
@@ -1762,6 +1876,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "器械"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vybavení"
           }
         }
       }
@@ -1857,6 +1977,12 @@
             "state": "translated",
             "value": "发力"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Síla"
+          }
         }
       }
     },
@@ -1879,6 +2005,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Grafite"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grafitová"
           }
         }
       }
@@ -1975,6 +2107,12 @@
             "state": "translated",
             "value": "身高单位"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jednotka výšky"
+          }
         }
       }
     },
@@ -2068,6 +2206,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "隐藏动作详情"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skrýt detaily cviku"
           }
         }
       }
@@ -2186,6 +2330,12 @@
             "state": "translated",
             "value": "动作说明"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Provedení"
+          }
         }
       }
     },
@@ -2208,6 +2358,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lavanda"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Levandulová"
           }
         }
       }
@@ -2303,6 +2459,12 @@
             "state": "translated",
             "value": "难度"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obtížnost"
+          }
         }
       }
     },
@@ -2325,6 +2487,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lime"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limetková"
           }
         }
       }
@@ -2420,6 +2588,12 @@
             "state": "translated",
             "value": "机制"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mechanika"
+          }
         }
       }
     },
@@ -2442,6 +2616,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Marrone moka"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mocca hnědá"
           }
         }
       }
@@ -2537,6 +2717,12 @@
             "state": "translated",
             "value": "没有匹配的动作"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žádné cviky neodpovídají"
+          }
         }
       }
     },
@@ -2631,6 +2817,12 @@
             "state": "translated",
             "value": "主要"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Primární"
+          }
         }
       }
     },
@@ -2653,6 +2845,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Oro rosa"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Růžové zlato"
           }
         }
       }
@@ -2748,6 +2946,12 @@
             "state": "translated",
             "value": "搜索"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hledat"
+          }
         }
       }
     },
@@ -2841,6 +3045,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "次要"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sekundární"
           }
         }
       }
@@ -2937,6 +3147,12 @@
             "state": "translated",
             "value": "设置你的 AI"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nastav si svou AI"
+          }
         }
       }
     },
@@ -3031,6 +3247,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fud AI 现在完全免费 — 可选的高级版订阅已移除。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI je teď úplně zdarma — volitelné předplatné Premium bylo odstraněno."
           }
         }
       }
@@ -3127,6 +3349,12 @@
             "state": "translated",
             "value": "AI 功能现在使用你自己的提供商密钥运行 — 在引导设置或设置中添加免费的 Gemini、OpenAI、Groq 或其他受支持的密钥。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI funkce běží na tvém vlastním klíči poskytovatele — přidej zdarma klíč Gemini, OpenAI, Groq nebo jiného podporovaného poskytovatele v úvodním nastavení nebo v Nastavení."
+          }
         }
       }
     },
@@ -3222,6 +3450,12 @@
             "state": "translated",
             "value": "设置 AI 更简单了：引导设置和设置现在专注于连接你自己的提供商密钥。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nastavení AI je jednodušší: úvodní nastavení i Nastavení se teď soustředí na připojení tvého vlastního klíče poskytovatele."
+          }
         }
       }
     },
@@ -3316,6 +3550,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "一如既往，你的饮食记录、体重和身体记录以及 API 密钥都保留在你的设备上。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jako vždy — deník jídel, historie váhy a tělesných měr i API klíče zůstávají v tvém zařízení."
           }
         }
       }
@@ -3469,6 +3709,12 @@
             "state": "translated",
             "value": "显示动作详情"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zobrazit detaily cviku"
+          }
         }
       }
     },
@@ -3491,6 +3737,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Azzurro cielo"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blankytná"
           }
         }
       }
@@ -3586,6 +3838,12 @@
             "state": "translated",
             "value": "试试其他肌肉、器械或搜索词，或重置上方的筛选条件。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkus jiný sval, vybavení nebo hledaný výraz — nebo resetuj filtry výše."
+          }
         }
       }
     },
@@ -3680,6 +3938,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "体重单位"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jednotka váhy"
           }
         }
       }
@@ -3781,6 +4045,12 @@
             "state": "translated",
             "value": "Workouts"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tréninky"
+          }
         }
       }
     },
@@ -3803,6 +4073,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Giallo"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žlutá"
           }
         }
       }
@@ -3897,6 +4173,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "动作"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cvik"
           }
         }
       }
@@ -4275,6 +4557,12 @@
             "state": "translated",
             "value": "%1$@%2$@ rimanenti"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "zbývá %1$@%2$@"
+          }
         }
       }
     },
@@ -4384,6 +4672,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld %2$@ · tocca per visualizzare o eliminare"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld %2$@ · klepnutím zobrazíš nebo smažeš"
           }
         }
       }
@@ -4843,6 +5137,36 @@
               }
             }
           }
+        },
+        "cs": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld den"
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dny"
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dne"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld dní"
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -4908,6 +5232,12 @@
                 }
               }
             }
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld produkt%2$@ se přidá do %3$@."
           }
         }
       }
@@ -5023,6 +5353,12 @@
             "state": "translated",
             "value": "%lld kcal / giorno"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld kcal / den"
+          }
         }
       }
     },
@@ -5044,6 +5380,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld rimanenti"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "zbývá %lld"
           }
         }
       }
@@ -5074,6 +5416,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld/%2$lld rimanenti"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "zbývá %1$lld/%2$lld"
           }
         }
       }
@@ -5170,6 +5518,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lldg · auto"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld g · auto"
           }
         }
       }
@@ -5355,6 +5709,12 @@
             "state": "translated",
             "value": "870+ məşq kitabxanası"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Knihovna 870+ cviků"
+          }
         }
       }
     },
@@ -5455,6 +5815,12 @@
             "state": "translated",
             "value": "关于"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O aplikaci"
+          }
         }
       }
     },
@@ -5477,6 +5843,12 @@
             "state": "translated",
             "value": "Info su Obiettivi adattivi"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Adaptivních cílech"
+          }
         }
       }
     },
@@ -5498,6 +5870,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Info su Grammi predefiniti"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O funkci Výchozí gramy"
           }
         }
       }
@@ -5593,6 +5971,12 @@
             "state": "translated",
             "value": "关于能量消耗"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Spálené energii"
+          }
         }
       }
     },
@@ -5615,6 +5999,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Info su Obiettivi consumo energetico"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O cílech podle spálené energie"
           }
         }
       }
@@ -5710,6 +6100,12 @@
             "state": "translated",
             "value": "Təxminən həftədə bir dəfə, tətbiqi açanda Fud AI profilinizə, son qeyd olunmuş yeməklərə və çəki trendinizə əsasən tam hədəf hesablamasını — Yenidən Hesabla düyməsinin istifadə etdiyi eyni hesablamanı — avtomatik yenidən işə salır. Energy Burn aktivdirsə, ölçülmüş sərfiyyatınız saxlanma kalorisi üçün istinad kimi istifadə olunur. Sİ əlçatan olmadıqda addım səssizcə ötürülür. Bunu söndürdükdə bu funksiyanın ilk dəyişikliyindən əvvəlki hədəflər bərpa olunur. Bu, tibbi məsləhət deyil."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přibližně jednou týdně při otevření aplikace Fud AI automaticky znovu spustí celý výpočet cílů — stejný, jaký používá tlačítko Přepočítat — z tvého profilu, nedávno zapsaného jídla a trendu váhy. Pokud je zapnutá Spálená energie, použije jako základ udržovacího příjmu naměřený výdej. Když AI není dostupná, kontrola se tiše přeskočí. Vypnutím se obnoví hodnoty z doby, než je Adaptivní cíle poprvé změnily. Nejde o lékařské doporučení."
+          }
         }
       }
     },
@@ -5734,6 +6130,12 @@
             "state": "translated",
             "value": "Accetta e continua"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přijmout a pokračovat"
+          }
         }
       }
     },
@@ -5756,6 +6158,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Attivo"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktivní"
           }
         }
       }
@@ -5857,6 +6265,12 @@
             "state": "translated",
             "value": "活动水平"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Úroveň aktivity"
+          }
         }
       }
     },
@@ -5951,6 +6365,12 @@
             "state": "translated",
             "value": "广告"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reklama"
+          }
         }
       }
     },
@@ -5972,6 +6392,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Obiettivi adattivi"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adaptivní cíle"
           }
         }
       }
@@ -6067,6 +6493,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "自适应目标和能量消耗已结束实验阶段，新安装默认开启。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Adaptivní cíle a Spálená energie opustily Experimentální a u nových instalací jsou zapnuté."
           }
         }
       }
@@ -6168,6 +6600,12 @@
             "state": "translated",
             "value": "添加上下文（可选）"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přidej kontext (volitelné)"
+          }
         }
       }
     },
@@ -6268,6 +6706,12 @@
             "state": "translated",
             "value": "添加描述"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přidat popis"
+          }
         }
       }
     },
@@ -6291,6 +6735,12 @@
             "state": "translated",
             "value": "Aggiunto"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přidáno"
+          }
         }
       }
     },
@@ -6313,6 +6763,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zuccheri aggiunti"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přidaný cukr"
           }
         }
       }
@@ -6414,6 +6870,12 @@
             "state": "translated",
             "value": "调整"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Korekce"
+          }
         }
       }
     },
@@ -6438,6 +6900,12 @@
             "state": "translated",
             "value": "Aggressivo ma fattibile. Richiede molta disciplina."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Agresivní, ale zvládnutelné. Vyžaduje pevnou disciplínu."
+          }
         }
       }
     },
@@ -6461,6 +6929,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Accesso IA"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přístup k AI"
           }
         }
       }
@@ -6562,6 +7036,12 @@
             "state": "translated",
             "value": "AI 提供商"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "AI poskytovatel"
+          }
         }
       }
     },
@@ -6662,6 +7142,12 @@
             "state": "translated",
             "value": "AI建议"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Návrh AI"
+          }
         }
       }
     },
@@ -6687,6 +7173,12 @@
             "state": "translated",
             "value": "Suggerimento IA non riuscito"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Návrh AI se nezdařil"
+          }
         }
       }
     },
@@ -6710,6 +7202,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tutti e quattro i promemoria sono intelligenti: non si attivano nei giorni in cui hai già registrato i dati. Quello per il grasso corporeo è disattivato di default poiché la maggior parte degli utenti non lo misura ogni giorno."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Všechna čtyři připomenutí jsou chytrá — ve dnech, kdy už máš zapsáno, se neozvou. Tělesný tuk je ve výchozím stavu vypnutý, protože ho většina lidí neměří denně."
           }
         }
       }
@@ -6811,6 +7309,12 @@
             "state": "translated",
             "value": "允许"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Povolit"
+          }
         }
       }
     },
@@ -6834,6 +7338,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Consenti promemoria pasti"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Povolit připomenutí jídel"
           }
         }
       }
@@ -6936,6 +7446,12 @@
             "state": "translated",
             "value": "我吃够了吗?"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jím dost?"
+          }
         }
       }
     },
@@ -7036,6 +7552,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "我吃得太多了吗?"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jím moc?"
           }
         }
       }
@@ -7138,6 +7660,12 @@
             "state": "translated",
             "value": "我的体重稳定吗?"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Držím si váhu?"
+          }
         }
       }
     },
@@ -7237,6 +7765,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "数量"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Množství"
           }
         }
       }
@@ -7338,6 +7872,12 @@
             "state": "translated",
             "value": "分析"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyzovat"
+          }
         }
       }
     },
@@ -7362,6 +7902,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Analisi in corso…"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyzuji"
           }
         }
       }
@@ -7464,6 +8010,12 @@
             "state": "translated",
             "value": "正在用AI分析…"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analyzuji s AI…"
+          }
         }
       }
     },
@@ -7487,6 +8039,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "e"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a"
           }
         }
       }
@@ -7588,6 +8146,12 @@
             "state": "translated",
             "value": "API 密钥"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API klíč"
+          }
         }
       }
     },
@@ -7683,6 +8247,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "应用"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aplikace"
           }
         }
       }
@@ -7784,6 +8354,12 @@
             "state": "translated",
             "value": "App 设置"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nastavení aplikace"
+          }
         }
       }
     },
@@ -7880,6 +8456,12 @@
             "state": "translated",
             "value": "应用更新"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktualizace aplikace"
+          }
         }
       }
     },
@@ -7903,6 +8485,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Versione dell'app"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verze aplikace"
           }
         }
       }
@@ -8003,6 +8591,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "外观"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vzhled"
           }
         }
       }
@@ -8205,6 +8799,12 @@
             "state": "translated",
             "value": "向AI寻求建议"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Požádat AI o návrh"
+          }
         }
       }
     },
@@ -8299,6 +8899,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "用新的内置录音条向教练语音提问。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ptej se kouče hlasem přes nový vestavěný rekordér."
           }
         }
       }
@@ -8400,6 +9006,12 @@
             "state": "translated",
             "value": "问教练…"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeptej se kouče…"
+          }
         }
       }
     },
@@ -8500,6 +9112,12 @@
             "state": "translated",
             "value": "问问你的教练"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zeptej se svého kouče"
+          }
         }
       }
     },
@@ -8593,6 +9211,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "一次最多只能锁定 2 个宏量营养素，需保留一个用于平衡。请先解锁另一个宏量营养素（点按其锁形图标）。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zamčená mohou být nejvýše 2 makra najednou, aby jedno zůstalo volné na dorovnání. Nejdřív odemkni jiné makro (klepni na jeho zámek)."
           }
         }
       }
@@ -8695,6 +9319,12 @@
             "state": "translated",
             "value": "一次最多只能固定 2 个宏量营养素。请先取消固定另一个（点按其锁定图标）。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Připnutá mohou být nejvýše 2 makra najednou. Nejdřív odepni jiné makro (klepni na jeho zámek)."
+          }
         }
       }
     },
@@ -8795,6 +9425,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "自动平衡"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automaticky dorovnáno"
           }
         }
       }
@@ -8897,6 +9533,12 @@
             "state": "translated",
             "value": "平均"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Průměr"
+          }
         }
       }
     },
@@ -8920,6 +9562,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Media: %lld kcal"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Průměr: %lld kcal"
           }
         }
       }
@@ -9021,6 +9669,12 @@
             "state": "translated",
             "value": "已设置平衡节奏"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyvážené tempo nastaveno"
+          }
         }
       }
     },
@@ -9042,6 +9696,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Codice a barre"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Čárový kód"
           }
         }
       }
@@ -9088,6 +9748,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ricevi promemoria per\nregistrare i pasti"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nech si připomenout\nzapisování jídel"
           }
         }
       }
@@ -9184,6 +9850,12 @@
             "state": "translated",
             "value": "在 Fud AI 向第三方 AI 提供商发送数据之前,我们需要获得你的许可。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Než Fud AI odešle data AI poskytovateli třetí strany, potřebujeme tvůj souhlas."
+          }
         }
       }
     },
@@ -9206,6 +9878,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Miglior serie"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nejdelší série"
           }
         }
       }
@@ -9307,6 +9985,12 @@
             "state": "translated",
             "value": "生日"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Narozeniny"
+          }
         }
       }
     },
@@ -9329,6 +10013,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Blu"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modrá"
           }
         }
       }
@@ -9531,6 +10221,12 @@
             "state": "translated",
             "value": "Body Fat"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tělesný tuk"
+          }
         }
       }
     },
@@ -9631,6 +10327,12 @@
             "state": "translated",
             "value": "体脂率 %"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tělesný tuk (%)"
+          }
         }
       }
     },
@@ -9725,6 +10427,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "体脂目标"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cíl tělesného tuku"
           }
         }
       }
@@ -9821,6 +10529,12 @@
             "state": "translated",
             "value": "体脂历史：像体重一样查看并删除单条记录。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historie tělesného tuku: prohlížej a maž jednotlivé záznamy, stejně jako u váhy."
+          }
         }
       }
     },
@@ -9843,6 +10557,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Misure corporee"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tělesné míry"
           }
         }
       }
@@ -9868,6 +10588,12 @@
             "state": "translated",
             "value": "Metriche corporee"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tělesné metriky"
+          }
         }
       }
     },
@@ -9891,6 +10617,12 @@
             "state": "translated",
             "value": "Colazione"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Snídaně"
+          }
         }
       }
     },
@@ -9913,6 +10645,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Colazione → Pranzo → Cena"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Snídaně → Oběd → Večeře"
           }
         }
       }
@@ -10015,6 +10753,12 @@
             "state": "translated",
             "value": "使用你自己的 AI"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přines si vlastní AI"
+          }
         }
       }
     },
@@ -10037,6 +10781,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Calcio"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vápník"
           }
         }
       }
@@ -10133,6 +10883,12 @@
             "state": "translated",
             "value": "计算方法"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metody výpočtu"
+          }
         }
       }
     },
@@ -10227,6 +10983,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "目标卡路里值"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kalorický cíl podle cíle"
           }
         }
       }
@@ -10328,6 +11090,12 @@
             "state": "translated",
             "value": "卡路里"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kalorie"
+          }
         }
       }
     },
@@ -10421,6 +11189,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "热量和另外两个宏量营养素都已锁定，没有任何项目可以吸收此更改。请解锁热量或另一个宏量营养素后重试。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kalorie jsou zamčené a obě zbylá makra také, takže změnu nemá co vyrovnat. Odemkni kalorie nebo jiné makro a zkus to znovu."
           }
         }
       }
@@ -10522,6 +11296,12 @@
             "state": "translated",
             "value": "相机"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fotoaparát"
+          }
         }
       }
     },
@@ -10543,6 +11323,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fotocamera + fotocamera"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fotoaparát + Fotoaparát"
           }
         }
       }
@@ -10638,6 +11424,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "相机 + 相机会保留两张照片，并排拼接。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fotoaparát + Fotoaparát zachová oba snímky, spojené vedle sebe."
           }
         }
       }
@@ -10739,6 +11531,12 @@
             "state": "translated",
             "value": "相机 + 备注"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fotoaparát + poznámka"
+          }
         }
       }
     },
@@ -10832,6 +11630,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "无法重新平衡"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nelze dorovnat"
           }
         }
       }
@@ -10933,6 +11737,12 @@
             "state": "translated",
             "value": "取消"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zrušit"
+          }
         }
       }
     },
@@ -10954,6 +11764,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Carboidrati"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sacharidy"
           }
         }
       }
@@ -10977,6 +11793,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Carboidrati (g)"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sacharidy (g)"
           }
         }
       }
@@ -11002,6 +11824,12 @@
             "state": "translated",
             "value": "Modifica il colore principale dell'app e l'icona della schermata Home usata per pannelli, pulsanti, icone, grafici e anelli di avanzamento."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Změní hlavní barvu aplikace a ikonu na ploše používané pro záložky, tlačítka, ikony, grafy a kruhy pokroku."
+          }
         }
       }
     },
@@ -11025,6 +11853,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Verifica aggiornamenti"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkontrolovat aktualizace"
           }
         }
       }
@@ -11127,6 +11961,12 @@
             "state": "translated",
             "value": "立即检查"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkontrolovat teď"
+          }
         }
       }
     },
@@ -11150,6 +11990,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Verifica compatibilità con i tuoi obiettivi..."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Porovnávám s tvými cíli…"
           }
         }
       }
@@ -11175,6 +12021,12 @@
             "state": "translated",
             "value": "Verifica aggiornamenti in corso…"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kontrola aktualizací"
+          }
         }
       }
     },
@@ -11197,6 +12049,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cinese"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Čínština"
           }
         }
       }
@@ -11244,6 +12102,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Scegli la tua IA"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyber si svou AI"
           }
         }
       }
@@ -11345,6 +12209,12 @@
             "state": "translated",
             "value": "领取折扣"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uplatnit slevu"
+          }
         }
       }
     },
@@ -11444,6 +12314,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "清除所有记录"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vymazat všechny záznamy"
           }
         }
       }
@@ -11545,6 +12421,12 @@
             "state": "translated",
             "value": "清除所有消息并重新开始？此操作无法撤销。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smazat všechny zprávy a začít znovu? Tohle nejde vrátit."
+          }
         }
       }
     },
@@ -11645,6 +12527,12 @@
             "state": "translated",
             "value": "清除饮食记录"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vymazat deník jídel"
+          }
         }
       }
     },
@@ -11668,6 +12556,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cancella quantità"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vymazat množství"
           }
         }
       }
@@ -11869,6 +12763,12 @@
             "state": "translated",
             "value": "教练"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kouč"
+          }
         }
       }
     },
@@ -11962,6 +12862,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Məlumatlarınızı bilən məşqçi"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kouč, který zná tvoje data"
           }
         }
       }
@@ -12063,6 +12969,12 @@
             "state": "translated",
             "value": "即将推出"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Již brzy"
+          }
         }
       }
     },
@@ -12163,6 +13075,12 @@
             "state": "translated",
             "value": "常见范围：男性 10–25%，女性 18–35%"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Běžné hodnoty: muži 10–25 %, ženy 18–35 %"
+          }
         }
       }
     },
@@ -12262,6 +13180,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "恭喜！"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gratulujeme!"
           }
         }
       }
@@ -12364,6 +13288,12 @@
             "state": "translated",
             "value": "连接"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Propojit"
+          }
         }
       }
     },
@@ -12387,6 +13317,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Connettiti ad\nApple Health"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Propoj se s\nApple Health"
           }
         }
       }
@@ -12488,6 +13424,12 @@
             "state": "translated",
             "value": "联系我们"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kontaktuj nás"
+          }
         }
       }
     },
@@ -12588,6 +13530,12 @@
             "state": "translated",
             "value": "继续"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokračovat"
+          }
         }
       }
     },
@@ -12611,6 +13559,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Copia %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkopírovat: %@"
           }
         }
       }
@@ -12636,6 +13590,12 @@
             "state": "translated",
             "value": "Copia tutti gli alimenti"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkopírovat všechna jídla"
+          }
         }
       }
     },
@@ -12660,6 +13620,12 @@
             "state": "translated",
             "value": "Copia da"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkopírovat z"
+          }
         }
       }
     },
@@ -12681,6 +13647,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Copia da un giorno"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkopírovat ze dne"
           }
         }
       }
@@ -12777,6 +13749,12 @@
             "state": "translated",
             "value": "当前"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktuální"
+          }
         }
       }
     },
@@ -12807,6 +13785,12 @@
             "state": "translated",
             "value": "Versione attuale %1$@ -> più recente %2$@"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktuální %1$@ -> nejnovější %2$@"
+          }
         }
       }
     },
@@ -12829,6 +13813,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Serie attuale"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktuální série"
           }
         }
       }
@@ -12853,6 +13843,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Attualmente %lld%%"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktuálně %lld%%"
           }
         }
       }
@@ -12955,6 +13951,12 @@
             "state": "translated",
             "value": "自定义 AI 指令"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vlastní instrukce pro AI"
+          }
         }
       }
     },
@@ -13056,6 +14058,12 @@
             "state": "translated",
             "value": "每日平衡"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Denní bilance"
+          }
         }
       }
     },
@@ -13156,6 +14164,12 @@
             "state": "translated",
             "value": "每日卡路里"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "kalorií denně"
+          }
         }
       }
     },
@@ -13251,6 +14265,12 @@
             "state": "translated",
             "value": "每日能量消耗 (TDEE)"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Denní energetický výdej (TDEE)"
+          }
         }
       }
     },
@@ -13273,6 +14293,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Esercizio quotidiano o intenso 3–4 volte a settimana"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cvičení denně, nebo intenzivně 3–4× týdně"
           }
         }
       }
@@ -13374,6 +14400,12 @@
             "state": "translated",
             "value": "每日推荐量"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Denní doporučení pro"
+          }
         }
       }
     },
@@ -13473,6 +14505,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "每日目标"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Denní cíl"
           }
         }
       }
@@ -13574,6 +14612,12 @@
             "state": "translated",
             "value": "深色"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tmavý"
+          }
         }
       }
     },
@@ -13674,6 +14718,12 @@
             "state": "translated",
             "value": "日期"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datum"
+          }
         }
       }
     },
@@ -13698,6 +14748,12 @@
             "state": "translated",
             "value": "Data e ora"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Datum a čas"
+          }
         }
       }
     },
@@ -13721,6 +14777,12 @@
             "state": "translated",
             "value": "Giorni in obiettivo"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dní v cíli"
+          }
         }
       }
     },
@@ -13743,6 +14805,12 @@
             "state": "translated",
             "value": "Decimale"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Desetiny"
+          }
         }
       }
     },
@@ -13764,6 +14832,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Grammi come predefiniti"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Výchozí gramy"
           }
         }
       }
@@ -13865,6 +14939,12 @@
             "state": "translated",
             "value": "删除"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smazat"
+          }
         }
       }
     },
@@ -13964,6 +15044,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "删除所有数据"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smazat všechna data"
           }
         }
       }
@@ -14065,6 +15151,12 @@
             "state": "translated",
             "value": "删除全部"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smazat všechno"
+          }
         }
       }
     },
@@ -14160,6 +15252,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "删除测量"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smazat měření"
           }
         }
       }
@@ -14261,6 +15359,12 @@
             "state": "translated",
             "value": "删除体重记录"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smazat záznam váhy"
+          }
         }
       }
     },
@@ -14276,6 +15380,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Delts Workout Tracker su App Store"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delts Workout Tracker na App Store"
           }
         }
       }
@@ -14372,6 +15482,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "推算值"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odvozené"
           }
         }
       }
@@ -14473,6 +15589,12 @@
             "state": "translated",
             "value": "详细营养"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podrobné nutriční hodnoty"
+          }
         }
       }
     },
@@ -14495,6 +15617,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cena"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Večeře"
           }
         }
       }
@@ -14596,6 +15724,12 @@
             "state": "translated",
             "value": "不允许"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nepovolit"
+          }
         }
       }
     },
@@ -14689,6 +15823,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Narahat olmayın — bəxşişlərdə sıfır kalori var."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neboj — spropitné má nula kalorií."
           }
         }
       }
@@ -14790,6 +15930,12 @@
             "state": "translated",
             "value": "完成"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hotovo"
+          }
         }
       }
     },
@@ -14890,6 +16036,12 @@
             "state": "translated",
             "value": "在卡片上滑动手指"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přejeď prstem po kartě"
+          }
         }
       }
     },
@@ -14913,6 +16065,12 @@
             "state": "translated",
             "value": "Olandese"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nizozemština"
+          }
         }
       }
     },
@@ -14934,6 +16092,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ad es. \"Questa è mezza porzione\" o \"Cotto con olio d'oliva\""
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "např. „Tohle je poloviční porce“ nebo „Vařeno na olivovém oleji“"
           }
         }
       }
@@ -14957,6 +16121,12 @@
             "state": "translated",
             "value": "ad es. anthropic/claude-sonnet-4"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "např. anthropic/claude-sonnet-4"
+          }
         }
       }
     },
@@ -14978,6 +16148,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "ad es. gpt-4o-mini"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "např. gpt-4o-mini"
           }
         }
       }
@@ -15079,6 +16255,12 @@
             "state": "translated",
             "value": "聪明饮食，"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jez chytře,"
+          }
         }
       }
     },
@@ -15178,6 +16360,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "编辑食物"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Upravit jídlo"
           }
         }
       }
@@ -15280,6 +16468,12 @@
             "state": "translated",
             "value": "启用备用方案"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapnout zálohu"
+          }
         }
       }
     },
@@ -15374,6 +16568,12 @@
             "state": "translated",
             "value": "能量消耗"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spálená energie"
+          }
         }
       }
     },
@@ -15396,6 +16596,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Obiettivi consumo energetico"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cíle podle spálené energie"
           }
         }
       }
@@ -15492,6 +16698,12 @@
             "state": "translated",
             "value": "“能量消耗目标”现已并入单一的“自适应目标”开关，会将你“健康”App 中消耗的卡路里纳入每周校正。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cíle podle spálené energie jsou teď součástí jediného přepínače Adaptivní cíle, který započítává kalorie spálené podle Apple Health do týdenní korekce."
+          }
         }
       }
     },
@@ -15514,6 +16726,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Inglese"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Angličtina"
           }
         }
       }
@@ -15615,6 +16833,12 @@
             "state": "translated",
             "value": "错误"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chyba"
+          }
         }
       }
     },
@@ -15715,6 +16939,12 @@
             "state": "translated",
             "value": "估算营养"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odhadované nutriční hodnoty"
+          }
         }
       }
     },
@@ -15810,6 +17040,12 @@
             "state": "translated",
             "value": "应用中显示的每一项代谢、卡路里目标和宏量营养素比例都来自经过同行评审的方程式。你的 AI 提供商仅估算每餐的营养;每日目标完全由你的个人资料数学计算得出。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Všechny hodnoty metabolismu, kalorické cíle i rozložení maker v aplikaci vychází z recenzovaných rovnic. Tvůj AI poskytovatel jen odhaduje nutriční hodnoty jednotlivých jídel; denní cíle jsou čistá matematika z tvého profilu."
+          }
         }
       }
     },
@@ -15833,6 +17069,12 @@
             "state": "translated",
             "value": "Esercizio 1–3 volte a settimana"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cvičení 1–3× týdně"
+          }
         }
       }
     },
@@ -15855,6 +17097,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Esercizio 4–5 volte a settimana"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cvičení 4–5× týdně"
           }
         }
       }
@@ -15957,6 +17205,12 @@
             "state": "translated",
             "value": "30天后预计"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Očekávání za 30 dní"
+          }
         }
       }
     },
@@ -16052,6 +17306,12 @@
             "state": "translated",
             "value": "在设置中将饮食日记导出为 JSON、Markdown 或 CSV。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Exportuj deník jídel jako JSON, Markdown nebo CSV z Nastavení."
+          }
         }
       }
     },
@@ -16074,6 +17334,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Estremamente attivo"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Extrémně aktivní"
           }
         }
       }
@@ -16176,6 +17442,12 @@
             "state": "translated",
             "value": "备用提供商"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Záložní poskytovatel"
+          }
         }
       }
     },
@@ -16275,6 +17547,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "快速"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rychle"
           }
         }
       }
@@ -16376,6 +17654,12 @@
             "state": "translated",
             "value": "快速（1.0 kg/周）"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rychle (1,0 kg/týd.)"
+          }
         }
       }
     },
@@ -16397,6 +17681,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Grassi"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuky"
           }
         }
       }
@@ -16421,6 +17711,12 @@
             "state": "translated",
             "value": "Grassi (g)"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuky (g)"
+          }
         }
       }
     },
@@ -16444,6 +17740,12 @@
             "state": "translated",
             "value": "Grassi"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tuky"
+          }
         }
       }
     },
@@ -16465,6 +17767,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Preferito"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oblíbit"
           }
         }
       }
@@ -16559,6 +17867,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ziyafət"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hostina"
           }
         }
       }
@@ -16661,6 +17975,12 @@
             "state": "translated",
             "value": "英尺"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stopy"
+          }
         }
       }
     },
@@ -16761,6 +18081,12 @@
             "state": "translated",
             "value": "女性"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žena"
+          }
         }
       }
     },
@@ -16783,6 +18109,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fibre"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vláknina"
           }
         }
       }
@@ -16884,6 +18216,12 @@
             "state": "translated",
             "value": "正在整理结果…"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dokončuji výsledky…"
+          }
         }
       }
     },
@@ -16906,6 +18244,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Folati"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kyselina listová"
           }
         }
       }
@@ -17007,6 +18351,12 @@
             "state": "translated",
             "value": "在 LinkedIn 上关注"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sledovat na LinkedInu"
+          }
         }
       }
     },
@@ -17107,6 +18457,12 @@
             "state": "translated",
             "value": "在 X 上关注"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sledovat na X"
+          }
         }
       }
     },
@@ -17128,6 +18484,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alimento"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jídlo"
           }
         }
       }
@@ -17229,6 +18591,12 @@
             "state": "translated",
             "value": "食物详情"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Detail jídla"
+          }
         }
       }
     },
@@ -17251,6 +18619,12 @@
             "state": "translated",
             "value": "Diario alimentare"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deník jídel"
+          }
         }
       }
     },
@@ -17272,6 +18646,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ordine diario alimentare"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Řazení deníku jídel"
           }
         }
       }
@@ -17373,6 +18753,12 @@
             "state": "translated",
             "value": "食物名称"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Název jídla"
+          }
         }
       }
     },
@@ -17467,6 +18853,12 @@
             "state": "translated",
             "value": "Yemək şəkilləri, səs transkriptləri və yazılmış yeməklər birbaşa seçdiyiniz Sİ provayderinə göndərilir."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fotky jídla, hlasové přepisy a napsaná jídla se posílají přímo tvému vybranému AI poskytovateli."
+          }
         }
       }
     },
@@ -17490,6 +18882,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gli alimenti verranno copiati in %@. Le voci originali rimarranno invariate."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jídla se zkopírují do: %@. Původní záznamy zůstanou beze změny."
           }
         }
       }
@@ -17592,6 +18990,12 @@
             "state": "translated",
             "value": "提供免费套餐，快速且准确"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bezplatná úroveň, rychlé a přesné"
+          }
         }
       }
     },
@@ -17614,6 +19018,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Francese"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Francouzština"
           }
         }
       }
@@ -17715,6 +19125,12 @@
             "state": "translated",
             "value": "从照片"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Z Fotek"
+          }
         }
       }
     },
@@ -17736,6 +19152,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Da foto + nota"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Z Fotek + poznámka"
           }
         }
       }
@@ -17938,6 +19360,12 @@
             "state": "translated",
             "value": "Fud AI — AI 卡路里追踪器"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI — AI počítadlo kalorií"
+          }
         }
       }
     },
@@ -18051,6 +19479,12 @@
             "state": "translated",
             "value": "Fud AI 是一款估算工具,而非临床设备。预测公式存在固有误差(BMR 通常约为 ±10%)。在对饮食做出重大改变之前,请咨询注册营养师、医生或运动医学专业人士 — 尤其是当你患有疾病、正在怀孕或哺乳、未满 18 岁或正在应对饮食失调问题时。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI je odhadovací nástroj, ne klinický přístroj. Predikční rovnice mají přirozenou chybu (u BMR typicky ±10 %). Před zásadními změnami stravy se poraď s nutričním terapeutem, lékařem nebo sportovním lékařem — zvlášť pokud máš zdravotní potíže, čekáš dítě nebo kojíš, je ti méně než 18, nebo řešíš poruchu příjmu potravy."
+          }
         }
       }
     },
@@ -18144,6 +19578,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fud AI pulsuz və açıq mənbəlidir — abunə yoxdur, ödəniş divarı yoxdur, hər şey artıq açıqdır. Sizə kömək edibsə, bəxşiş onu belə saxlayır."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI je zdarma a open source — žádné předplatné, žádné paywally, všechno už je odemčené. Pokud ti pomohla, spropitné ji tak pomůže udržet."
           }
         }
       }
@@ -18245,6 +19685,12 @@
             "state": "translated",
             "value": "Fud AI 想要向你发送通知"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI ti chce posílat oznámení"
+          }
         }
       }
     },
@@ -18267,6 +19713,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rosa Fud"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud růžová"
           }
         }
       }
@@ -18314,6 +19766,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aumentare di peso"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přibrat"
           }
         }
       }
@@ -18415,6 +19873,12 @@
             "state": "translated",
             "value": "性别"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pohlaví"
+          }
         }
       }
     },
@@ -18436,6 +19900,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Delicato e sostenibile. Ideale per abitudini a lungo termine."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Šetrné a udržitelné. Skvělé pro dlouhodobé návyky."
           }
         }
       }
@@ -18460,6 +19930,12 @@
             "state": "translated",
             "value": "Tedesco"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Němčina"
+          }
         }
       }
     },
@@ -18481,6 +19957,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ricevi promemoria discreti agli orari dei pasti\nper non dimenticare di registrarli."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dostávej jemná připomenutí v časech jídla,\nať nikdy nezapomeneš zapisovat."
           }
         }
       }
@@ -18577,6 +20059,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "有新版本时接收通知。点按通知即可打开 App Store。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dostaneš oznámení, když bude k dispozici nová verze. Klepnutím na oznámení otevřeš App Store."
           }
         }
       }
@@ -18678,6 +20166,12 @@
             "state": "translated",
             "value": "开始使用"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Začít"
+          }
         }
       }
     },
@@ -18701,6 +20195,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ottieni il totale odierno di calorie e proteine."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zjisti dnešní součet kalorií a bílkovin."
           }
         }
       }
@@ -18726,6 +20226,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Obiettivo"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cíl"
           }
         }
       }
@@ -18822,6 +20328,12 @@
             "state": "translated",
             "value": "目标(可选)"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cíl (volitelné)"
+          }
         }
       }
     },
@@ -18917,6 +20429,12 @@
             "state": "translated",
             "value": "目标体脂"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cílový tělesný tuk"
+          }
         }
       }
     },
@@ -18940,6 +20458,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Obiettivo % massa grassa"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cílový tělesný tuk (%)"
           }
         }
       }
@@ -19042,6 +20566,12 @@
             "state": "translated",
             "value": "目标日期"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cíl dne"
+          }
         }
       }
     },
@@ -19141,6 +20671,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "目标与营养"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cíle a výživa"
           }
         }
       }
@@ -19243,6 +20779,12 @@
             "state": "translated",
             "value": "知道了"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rozumím"
+          }
         }
       }
     },
@@ -19343,6 +20885,12 @@
             "state": "translated",
             "value": "克"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "gramy"
+          }
         }
       }
     },
@@ -19365,6 +20913,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Verde"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zelená"
           }
         }
       }
@@ -19466,6 +21020,12 @@
             "state": "translated",
             "value": "健康与数据"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zdraví a data"
+          }
         }
       }
     },
@@ -19488,6 +21048,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Punteggio salute"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skóre zdraví"
           }
         }
       }
@@ -19590,6 +21156,12 @@
             "state": "translated",
             "value": "身高"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Výška"
+          }
         }
       }
     },
@@ -19685,6 +21257,12 @@
             "state": "translated",
             "value": "身高和体重单位现在可以分别设置。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jednotky výšky a váhy jdou nastavit nezávisle."
+          }
         }
       }
     },
@@ -19731,6 +21309,12 @@
             "state": "translated",
             "value": "Nascondi i promemoria di colazione, pranzo e cena mentre questa Full immersion è attiva."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skrýt připomenutí snídaně, oběda a večeře, dokud je tento režim soustředění aktivní."
+          }
         }
       }
     },
@@ -19754,6 +21338,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nascondi i promemoria dei pasti di Fud AI mentre è attiva una Full immersion."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skrýt připomenutí jídel Fud AI, dokud je aktivní režim soustředění."
           }
         }
       }
@@ -19856,6 +21446,12 @@
             "state": "translated",
             "value": "可以加哪些高蛋白食物?"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jaké bílkovinové potraviny přidat?"
+          }
         }
       }
     },
@@ -19878,6 +21474,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hindi"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hindština"
           }
         }
       }
@@ -19980,6 +21582,12 @@
             "state": "translated",
             "value": "按当前节奏保持稳定"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Při současném tempu se drží"
+          }
         }
       }
     },
@@ -20080,6 +21688,12 @@
             "state": "translated",
             "value": "主页"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Domů"
+          }
         }
       }
     },
@@ -20104,6 +21718,12 @@
             "state": "translated",
             "value": "Schede nutrienti schermata Home"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Karty živin na Domů"
+          }
         }
       }
     },
@@ -20127,6 +21747,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nutrienti schermata Home"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Živiny na Domů"
           }
         }
       }
@@ -20222,6 +21848,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "主页焕新：仪表盘式卡路里表、竖向宏量条、四张营养卡片和悬浮添加按钮。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nový design Domů: tachometrový ukazatel kalorií, svislé sloupce maker, čtyři karty živin a plovoucí tlačítko přidání."
           }
         }
       }
@@ -20324,6 +21956,12 @@
             "state": "translated",
             "value": "如何健康增重?"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jak zdravě přibrat?"
+          }
         }
       }
     },
@@ -20425,6 +22063,12 @@
             "state": "translated",
             "value": "如何安全地更快减重?"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jak zhubnout rychleji a bezpečně?"
+          }
         }
       }
     },
@@ -20519,6 +22163,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fud AI 如何计算你的数据"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jak Fud AI počítá tvoje čísla"
           }
         }
       }
@@ -20616,6 +22266,12 @@
             "state": "translated",
             "value": "Fud AI 如何设定你的数值"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jak Fud AI nastavuje tvoje čísla"
+          }
         }
       }
     },
@@ -20710,6 +22366,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "这是如何计算的？"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jak se to počítá?"
           }
         }
       }
@@ -20810,6 +22472,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "你吃了多少？"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kolik toho jíš?"
           }
         }
       }
@@ -20912,6 +22580,12 @@
             "state": "translated",
             "value": "我的趋势如何?"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jaký je můj trend?"
+          }
         }
       }
     },
@@ -20936,6 +22610,12 @@
             "state": "translated",
             "value": "Accetto i Termini di servizio e l'Informativa sulla privacy, inclusa la condivisione dei dati con il provider IA descritta sopra."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přijímám Podmínky služby a Zásady ochrany soukromí, včetně výše popsaného sdílení dat s AI poskytovatelem."
+          }
         }
       }
     },
@@ -20959,6 +22639,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Impossibile registrare questo alimento. %@"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tohle jídlo se mi nepodařilo zapsat. %@"
           }
         }
       }
@@ -21061,6 +22747,12 @@
             "state": "translated",
             "value": "我住在德国，请按欧洲分量大小计算。我正在健美减脂期。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bydlím v Česku, počítej s evropskými velikostmi porcí. Jsem v rýsovací fázi."
+          }
         }
       }
     },
@@ -21161,6 +22853,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "我用 Fud AI 记录每一餐——拍照、说话或输入，AI 自动记录卡路里。完全免费、开源，所有数据都保存在你的设备上。\n\n下载：https://fud-ai.app"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sleduju svoje jídlo s Fud AI — vyfotíš, řekneš nebo napíšeš, a AI zapíše kalorie. Je zdarma, open source a data zůstávají v tvém zařízení.\n\nStáhnout: https://fud-ai.app"
           }
         }
       }
@@ -21263,6 +22961,12 @@
             "state": "translated",
             "value": "如果您的主提供商失败（过载、无积分、网络错误），请求将自动在此备用方案上重试。仅列出已保存 API 密钥的提供商。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Když primární poskytovatel selže (přetížení, došlé kredity, chyba sítě), požadavek se automaticky zopakuje přes tuto zálohu. V nabídce jsou jen poskytovatelé s uloženými API klíči."
+          }
         }
       }
     },
@@ -21363,6 +23067,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "如果您的主提供商失败（过载、无积分、网络错误），请求将自动在此备用方案上重试。允许与主提供商相同 — 只需选择不同的模型。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Když primární poskytovatel selže (přetížení, došlé kredity, chyba sítě), požadavek se automaticky zopakuje přes tuto zálohu. Může být stejný jako primární — jen vyber jiný model."
           }
         }
       }
@@ -21465,6 +23175,12 @@
             "state": "translated",
             "value": "如果您的主提供商失败（过载、无积分、网络错误），请求将自动在此备用方案上重试。当前选择的主提供商已从列表中排除。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Když primární poskytovatel selže (přetížení, došlé kredity, chyba sítě), požadavek se automaticky zopakuje přes tuto zálohu. Aktuálně vybraný primární poskytovatel v nabídce není."
+          }
         }
       }
     },
@@ -21489,6 +23205,12 @@
             "state": "translated",
             "value": "Immagine allegata"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obrázek přiložen"
+          }
         }
       }
     },
@@ -21512,6 +23234,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Impatto su oggi"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dopad na dnešek"
           }
         }
       }
@@ -21612,6 +23340,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "英制"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Imperiální"
           }
         }
       }
@@ -21814,6 +23548,12 @@
             "state": "translated",
             "value": "60天后"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Za 60 dní"
+          }
         }
       }
     },
@@ -21914,6 +23654,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "90天后"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Za 90 dní"
           }
         }
       }
@@ -22016,6 +23762,12 @@
             "state": "translated",
             "value": "英寸"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Palce"
+          }
         }
       }
     },
@@ -22038,6 +23790,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Esercizio intenso 6–7 volte a settimana"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intenzivní cvičení 6–7× týdně"
           }
         }
       }
@@ -22139,6 +23897,12 @@
             "state": "translated",
             "value": "目标体重无效"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neplatná cílová váha"
+          }
         }
       }
     },
@@ -22161,6 +23925,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ferro"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Železo"
           }
         }
       }
@@ -22185,6 +23955,12 @@
             "state": "translated",
             "value": "Italiano"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Italština"
+          }
         }
       }
     },
@@ -22208,6 +23984,12 @@
             "state": "translated",
             "value": "Giapponese"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Japonština"
+          }
         }
       }
     },
@@ -22229,6 +24011,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Scatta, registra e raggiungi i tuoi obiettivi.\nLa tua nutrizione, semplificata."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyfoť, zapisuj a měj se líp.\nTvoje výživa, jednoduše."
           }
         }
       }
@@ -22330,6 +24118,12 @@
             "state": "translated",
             "value": "继续"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jen tak dál"
+          }
         }
       }
     },
@@ -22351,6 +24145,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mantieni sincronizzati automaticamente\nnutrizione e misure corporee."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Udržuj výživu a tělesné míry\nautomaticky synchronizované."
           }
         }
       }
@@ -22375,6 +24175,12 @@
             "state": "translated",
             "value": "Coreano"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Korejština"
+          }
         }
       }
     },
@@ -22396,6 +24202,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lingua"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jazyk"
           }
         }
       }
@@ -22419,6 +24231,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Prima i pasti più recenti"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nejnovější jídla první"
           }
         }
       }
@@ -22513,6 +24331,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Bəxşiş verin"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nechat spropitné"
           }
         }
       }
@@ -22615,6 +24439,12 @@
             "state": "translated",
             "value": "开始吧！"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jdeme na to!"
+          }
         }
       }
     },
@@ -22710,6 +24540,12 @@
             "state": "translated",
             "value": "浅色"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Světlý"
+          }
         }
       }
     },
@@ -22726,6 +24562,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lekka"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lehce aktivní"
           }
         }
       }
@@ -22772,6 +24614,12 @@
             "state": "translated",
             "value": "Ascolto…"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poslouchám…"
+          }
         }
       }
     },
@@ -22794,6 +24642,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Poco o nessun esercizio fisico"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žádné nebo minimální cvičení"
           }
         }
       }
@@ -22895,6 +24749,12 @@
             "state": "translated",
             "value": "更好生活"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "žij lépe"
+          }
         }
       }
     },
@@ -22989,6 +24849,12 @@
             "state": "translated",
             "value": "Lokal məlumatlar"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Místní data"
+          }
         }
       }
     },
@@ -23010,6 +24876,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Blocca modifica valori nutrizionali"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zamknout úpravy nutričních hodnot"
           }
         }
       }
@@ -23106,6 +24978,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "已锁定"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zamčeno"
           }
         }
       }
@@ -23207,6 +25085,12 @@
             "state": "translated",
             "value": "记录"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapsat"
+          }
         }
       }
     },
@@ -23228,6 +25112,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra ${foodDescription}"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapiš ${foodDescription}"
           }
         }
       }
@@ -23252,6 +25142,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra un alimento in Fud AI descrivendo cosa hai mangiato."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapiš jídlo do Fud AI tak, že popíšeš, co bylo k jídlu."
           }
         }
       }
@@ -23354,6 +25250,12 @@
             "state": "translated",
             "value": "至少记录2天的饮食和2次体重,才能查看预测。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapiš alespoň 2 dny jídla a 2 vážení, aby se zobrazila předpověď."
+          }
         }
       }
     },
@@ -23449,6 +25351,12 @@
             "state": "translated",
             "value": "记录体脂"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapsat tělesný tuk"
+          }
         }
       }
     },
@@ -23472,6 +25380,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra alimento"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapsat jídlo"
           }
         }
       }
@@ -23573,6 +25487,12 @@
             "state": "translated",
             "value": "记录体重"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapsat váhu"
+          }
         }
       }
     },
@@ -23594,6 +25514,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra peso ${weightDescription}"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapiš váhu ${weightDescription}"
           }
         }
       }
@@ -23618,6 +25544,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registra il tuo peso attuale in Fud AI."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapiš svou aktuální váhu do Fud AI."
           }
         }
       }
@@ -23714,6 +25646,12 @@
             "state": "translated",
             "value": "记录你的第一个体脂百分比以查看趋势"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapiš první hodnotu tělesného tuku a sleduj trendy"
+          }
         }
       }
     },
@@ -23743,6 +25681,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Registrato %1$@ %2$@."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapsáno: %1$@ %2$@."
           }
         }
       }
@@ -23774,6 +25718,12 @@
             "state": "translated",
             "value": "Registrato %1$@: %2$lld calorie e %3$@ grammi di proteine."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapsáno %1$@: %2$lld kalorií a %3$@ gramů bílkovin."
+          }
         }
       }
     },
@@ -23796,6 +25746,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Perdere peso"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zhubnout"
           }
         }
       }
@@ -23891,6 +25847,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nahar"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oběd"
           }
         }
       }
@@ -23991,6 +25953,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "宏量平均值"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Průměry makroživin"
           }
         }
       }
@@ -24093,6 +26061,12 @@
             "state": "translated",
             "value": "宏量营养建议?"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doporučení k makrům?"
+          }
         }
       }
     },
@@ -24187,6 +26161,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "宏量营养素比例"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rozložení makroživin"
           }
         }
       }
@@ -24288,6 +26268,12 @@
             "state": "translated",
             "value": "宏量营养素"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Makroživiny"
+          }
         }
       }
     },
@@ -24388,6 +26374,12 @@
             "state": "translated",
             "value": "由 Apoorv Darshan 制作"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vytvořil Apoorv Darshan"
+          }
         }
       }
     },
@@ -24411,6 +26403,12 @@
             "state": "translated",
             "value": "Magnesio"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hořčík"
+          }
         }
       }
     },
@@ -24433,6 +26431,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Mantenimento"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Udržovat"
           }
         }
       }
@@ -24534,6 +26538,12 @@
             "state": "translated",
             "value": "男性"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muž"
+          }
         }
       }
     },
@@ -24555,6 +26565,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Inserimento manuale"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ruční zadání"
           }
         }
       }
@@ -24649,6 +26665,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "最多锁定 2 个宏量营养素"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Max. 2 zamčená makra"
           }
         }
       }
@@ -24751,6 +26773,12 @@
             "state": "translated",
             "value": "最多固定 2 个"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Max. 2 připnutá"
+          }
         }
       }
     },
@@ -24852,6 +26880,12 @@
             "state": "translated",
             "value": "餐食"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jídlo"
+          }
         }
       }
     },
@@ -24875,6 +26909,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Filtro promemoria pasti"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filtr připomenutí jídel"
           }
         }
       }
@@ -24976,6 +27016,12 @@
             "state": "translated",
             "value": "用餐提醒"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Připomenutí jídel"
+          }
         }
       }
     },
@@ -24997,6 +27043,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tipo di pasto"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Typ jídla"
           }
         }
       }
@@ -25094,6 +27146,12 @@
             "state": "translated",
             "value": "测量历史"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historie měření"
+          }
         }
       }
     },
@@ -25189,6 +27247,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "身体测量"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Míry"
           }
         }
       }
@@ -25290,6 +27354,12 @@
             "state": "translated",
             "value": "公制"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metrické"
+          }
         }
       }
     },
@@ -25390,6 +27460,12 @@
             "state": "translated",
             "value": "公制单位"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metrické jednotky"
+          }
         }
       }
     },
@@ -25485,6 +27561,12 @@
             "state": "translated",
             "value": "微量营养素值"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hodnoty mikroživin"
+          }
         }
       }
     },
@@ -25507,6 +27589,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Menta"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mátová"
           }
         }
       }
@@ -25531,6 +27619,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Modalità"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Režim"
           }
         }
       }
@@ -25655,6 +27749,12 @@
             "state": "translated",
             "value": "Moderato"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Středně aktivní"
+          }
         }
       }
     },
@@ -25754,6 +27854,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "中等（0.5 kg/周）"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Střední (0,5 kg/týd.)"
           }
         }
       }
@@ -25855,6 +27961,12 @@
             "state": "translated",
             "value": "星期一"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pondělí"
+          }
         }
       }
     },
@@ -25877,6 +27989,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Grassi monoinsaturi"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mono tuky"
           }
         }
       }
@@ -25901,6 +28019,12 @@
             "state": "translated",
             "value": "Grassi monoinsaturi"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mononenasyc. tuky"
+          }
         }
       }
     },
@@ -25922,6 +28046,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Altri valori nutrizionali"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Další nutriční hodnoty"
           }
         }
       }
@@ -25947,6 +28077,12 @@
             "state": "translated",
             "value": "Silenzia promemoria pasti"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ztlumit připomenutí jídel"
+          }
         }
       }
     },
@@ -25968,6 +28104,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Silenzia promemoria pasti: ${muteMealReminders}"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ztlumit připomenutí jídel: ${muteMealReminders}"
           }
         }
       }
@@ -26070,6 +28212,12 @@
             "state": "translated",
             "value": "名称"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Název"
+          }
         }
       }
     },
@@ -26164,6 +28312,12 @@
             "state": "translated",
             "value": "Apple Health tələb olunur"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyžaduje Apple Health"
+          }
         }
       }
     },
@@ -26186,6 +28340,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Variazione netta"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Změna celkem"
           }
         }
       }
@@ -26282,6 +28442,12 @@
             "state": "translated",
             "value": "全新“锻炼”标签页 — 浏览 873 个动作，配照片、肌群和器械筛选、搜索及详情页。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nová záložka Tréninky — 873 cviků s fotkami, filtry svalů a vybavení, hledáním a detaily."
+          }
         }
       }
     },
@@ -26306,6 +28472,12 @@
             "state": "translated",
             "value": "Nessuna chiave API richiesta.\nScansione alimenti con IA, inserimento vocale e Coach funzionano tramite Fud AI."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Není potřeba žádný API klíč.\nAI skenování jídla, hlasové zápisy i Kouč běží přes Fud AI."
+          }
         }
       }
     },
@@ -26329,6 +28501,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessun impegno — annulla quando vuoi"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bez závazků – zrušíš kdykoli"
           }
         }
       }
@@ -26430,6 +28608,12 @@
             "state": "translated",
             "value": "尚未记录食物"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žádná zapsaná jídla"
+          }
         }
       }
     },
@@ -26453,6 +28637,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessun alimento registrato in questo giorno"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "V tento den nejsou zapsaná žádná jídla"
           }
         }
       }
@@ -26549,6 +28739,12 @@
             "state": "translated",
             "value": "没有匹配的收藏"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žádná odpovídající oblíbená"
+          }
         }
       }
     },
@@ -26644,6 +28840,12 @@
             "state": "translated",
             "value": "没有匹配的食物"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Žádná odpovídající jídla"
+          }
         }
       }
     },
@@ -26665,6 +28867,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Nessun problema! Useremo una formula standard\nbasata su altezza, peso ed età."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "V pohodě! Použijeme standardní vzorec\npodle tvé výšky, váhy a věku."
           }
         }
       }
@@ -26761,6 +28969,12 @@
             "state": "translated",
             "value": "非医疗建议"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nejde o lékařské doporučení"
+          }
         }
       }
     },
@@ -26855,6 +29069,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "暂不"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teď ne"
           }
         }
       }
@@ -26956,6 +29176,12 @@
             "state": "translated",
             "value": "通知"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oznámení"
+          }
         }
       }
     },
@@ -27055,6 +29281,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "系统设置中已禁用通知。点按以打开“设置”。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oznámení jsou v systémovém nastavení vypnutá. Klepnutím otevřeš Nastavení."
           }
         }
       }
@@ -27156,6 +29388,12 @@
             "state": "translated",
             "value": "营养"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nutriční hodnoty"
+          }
         }
       }
     },
@@ -27178,6 +29416,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dati nutrizionali"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data o výživě"
           }
         }
       }
@@ -27279,6 +29523,12 @@
             "state": "translated",
             "value": "营养详情"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nutriční detaily"
+          }
         }
       }
     },
@@ -27378,6 +29628,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "营养成分表"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Výživový štítek"
           }
         }
       }
@@ -27480,6 +29736,12 @@
             "state": "translated",
             "value": "实际"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pozorováno"
+          }
         }
       }
     },
@@ -27501,6 +29763,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "su %lld kcal"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "z %lld kcal"
           }
         }
       }
@@ -27601,6 +29869,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "关"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "VYP."
           }
         }
       }
@@ -27771,6 +30045,12 @@
             "state": "translated",
             "value": "Attivo = Katch-McArdle (usa la massa magra per un BMR più accurato). Disattivo = Mifflin-St Jeor (solo altezza/peso/età). Disattiva se la misurazione della massa grassa non è recente."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapnuto = Katch-McArdle (počítá s aktivní tělesnou hmotou, přesnější BMR). Vypnuto = Mifflin-St Jeor (jen výška/váha/věk). Vypni, pokud je tvůj údaj o tělesném tuku zastaralý."
+          }
         }
       }
     },
@@ -27865,6 +30145,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "引导设置现在会使用你自己的服务商密钥配置你的 AI，并据此为你生成初始计划。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Úvodní nastavení teď nastaví AI s tvým vlastním klíčem poskytovatele a rovnou s ním sestaví tvůj počáteční plán."
           }
         }
       }
@@ -28061,6 +30347,12 @@
             "state": "translated",
             "value": "开源 (MIT)"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open source (MIT)"
+          }
         }
       }
     },
@@ -28162,6 +30454,12 @@
             "state": "translated",
             "value": "随每个 AI 请求发送的可选上下文 — 地区、饮食、运动目标等，否则您每次都需要重复输入。留空以禁用。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volitelný kontext posílaný s každým AI požadavkem — region, dieta, sportovní cíle a další věci, ať je nemusíš pokaždé psát znovu. Nech prázdné pro vypnutí."
+          }
         }
       }
     },
@@ -28258,6 +30556,12 @@
             "state": "translated",
             "value": "可选。Fud AI 会将这些数据换算为腰臀比、腰高比、体脂率和体型，并在重新计算目标和教练功能中使用。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volitelné. Fud AI z nich odvodí poměr pas/boky, pas/výška, tělesný tuk a konstituci a čte je při přepočtu cílů a v Kouči."
+          }
         }
       }
     },
@@ -28280,6 +30584,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Arancione"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oranžová"
           }
         }
       }
@@ -28381,6 +30691,12 @@
             "state": "translated",
             "value": "其他"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jiné"
+          }
         }
       }
     },
@@ -28402,6 +30718,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Altri nutrienti"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Další živiny"
           }
         }
       }
@@ -28503,6 +30825,12 @@
             "state": "translated",
             "value": "每周"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "za týden"
+          }
         }
       }
     },
@@ -28524,6 +30852,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Percentuale"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Procenta"
           }
         }
       }
@@ -28625,6 +30959,12 @@
             "state": "translated",
             "value": "个人信息"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Osobní údaje"
+          }
         }
       }
     },
@@ -28648,6 +30988,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Libreria foto"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Knihovna fotografií"
           }
         }
       }
@@ -28749,6 +31095,12 @@
             "state": "translated",
             "value": "请咨询医生"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poraď se prosím s lékařem"
+          }
         }
       }
     },
@@ -28771,6 +31123,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Grassi polinsaturi"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poly tuky"
           }
         }
       }
@@ -28795,6 +31153,12 @@
             "state": "translated",
             "value": "Grassi polinsaturi"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Polynenasyc. tuky"
+          }
         }
       }
     },
@@ -28818,6 +31182,12 @@
             "state": "translated",
             "value": "Portoghese"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Portugalština"
+          }
         }
       }
     },
@@ -28840,6 +31210,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Potassio"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Draslík"
           }
         }
       }
@@ -28942,6 +31318,12 @@
             "state": "translated",
             "value": "预测"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Předpověď"
+          }
         }
       }
     },
@@ -29041,6 +31423,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "隐私政策"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zásady ochrany soukromí"
           }
         }
       }
@@ -29142,6 +31530,12 @@
             "state": "translated",
             "value": "产品"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Produkt"
+          }
         }
       }
     },
@@ -29242,6 +31636,12 @@
             "state": "translated",
             "value": "进度"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokrok"
+          }
         }
       }
     },
@@ -29263,6 +31663,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Proteine"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bílkoviny"
           }
         }
       }
@@ -29286,6 +31692,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Proteine (g)"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bílkoviny (g)"
           }
         }
       }
@@ -29380,6 +31792,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Protein kokteyli"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proteinový koktejl"
           }
         }
       }
@@ -29481,6 +31899,12 @@
             "state": "translated",
             "value": "提供商"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poskytovatel"
+          }
         }
       }
     },
@@ -29504,6 +31928,12 @@
             "state": "translated",
             "value": "Automatico del provider"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auto (poskytovatel)"
+          }
         }
       }
     },
@@ -29526,6 +31956,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Viola"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fialová"
           }
         }
       }
@@ -29627,6 +32063,12 @@
             "state": "translated",
             "value": "数量"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Množství"
+          }
         }
       }
     },
@@ -29726,6 +32168,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "评价 App"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ohodnotit aplikaci"
           }
         }
       }
@@ -29828,6 +32276,12 @@
             "state": "translated",
             "value": "重新计算"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přepočítat"
+          }
         }
       }
     },
@@ -29922,6 +32376,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "重新计算还会同步更新你可选的营养目标，如纤维、糖和钠。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přepočet obnoví i volitelné cíle živin jako vláknina, cukr a sodík."
           }
         }
       }
@@ -30023,6 +32483,12 @@
             "state": "translated",
             "value": "重新计算目标"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přepočítat cíle"
+          }
         }
       }
     },
@@ -30117,6 +32583,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "“重新计算目标”现在会借助 AI，根据你的个人资料设定卡路里和宏量营养素，再依据你记录的摄入量和体重趋势进行调整。当 AI 不可用时，会回退到标准公式。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přepočet cílů teď používá AI: nastaví kalorie a makra z tvého profilu a zpřesní je podle zapsaného příjmu a trendu váhy. Když AI není dostupná, použije se standardní vzorec."
           }
         }
       }
@@ -30217,6 +32689,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "推荐"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doporučeno"
           }
         }
       }
@@ -30319,6 +32797,12 @@
             "state": "translated",
             "value": "推荐：Google Gemini"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doporučujeme: Google Gemini"
+          }
         }
       }
     },
@@ -30420,6 +32904,12 @@
             "state": "translated",
             "value": "根据你当前的体重、活动量和目标重新计算卡路里、蛋白质、碳水化合物和脂肪？你的自定义数值将被替换，自动平衡将重置为碳水化合物。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přepočítat kalorie, bílkoviny, sacharidy a tuky z aktuální váhy, aktivity a cíle? Tvoje vlastní hodnoty se nahradí a automatické dorovnání se vrátí na Sacharidy."
+          }
         }
       }
     },
@@ -30443,6 +32933,12 @@
             "state": "translated",
             "value": "Rosso"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Červená"
+          }
         }
       }
     },
@@ -30465,6 +32961,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aggiorna obiettivi consumo energetico"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obnovit cíle ze spálené energie"
           }
         }
       }
@@ -30490,6 +32992,12 @@
             "state": "translated",
             "value": "Aggiorna utilizzo"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obnovit využití"
+          }
         }
       }
     },
@@ -30513,6 +33021,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aggiornamento utilizzo in corso…"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obnovuji využití"
           }
         }
       }
@@ -30716,6 +33230,12 @@
             "state": "translated",
             "value": "移除"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odebrat"
+          }
         }
       }
     },
@@ -30743,6 +33263,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rimuovere la voce del %1$@ di %2$@? Verrà eliminato anche il campione corrispondente da Apple Health."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odebrat záznam z %1$@ s hodnotou %2$@? Smaže se tím i odpovídající vzorek z Apple Health."
           }
         }
       }
@@ -30839,6 +33365,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "要移除 %@ 的测量数据吗？"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odebrat měření z %@?"
           }
         }
       }
@@ -30940,6 +33472,12 @@
             "state": "translated",
             "value": "移除体脂率 %"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odebrat tělesný tuk (%)"
+          }
         }
       }
     },
@@ -31034,6 +33572,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "移除目标"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odebrat cíl"
           }
         }
       }
@@ -31135,6 +33679,12 @@
             "state": "translated",
             "value": "报告问题"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nahlásit chybu"
+          }
         }
       }
     },
@@ -31229,6 +33779,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "用 AI 重新处理已记录的餐食 — 调整名称、份量或备注后重新分析。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zpracuj zapsané jídlo znovu s AI — uprav název, porci nebo poznámku a nech ho přeanalyzovat."
           }
         }
       }
@@ -31330,6 +33886,12 @@
             "state": "translated",
             "value": "请求功能"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Navrhnout funkci"
+          }
         }
       }
     },
@@ -31429,6 +33991,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "重置"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resetovat"
           }
         }
       }
@@ -31530,6 +34098,12 @@
             "state": "translated",
             "value": "重置聊天"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resetovat chat"
+          }
         }
       }
     },
@@ -31554,6 +34128,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ripristina predefiniti"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obnovit výchozí"
           }
         }
       }
@@ -31656,6 +34236,12 @@
             "state": "translated",
             "value": "重置为自动平衡"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vrátit na automatické dorovnání"
+          }
         }
       }
     },
@@ -31751,6 +34337,12 @@
             "state": "translated",
             "value": "基础代谢率 (BMR)"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klidový metabolismus (BMR)"
+          }
         }
       }
     },
@@ -31774,6 +34366,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Riprova"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkusit znovu"
           }
         }
       }
@@ -31875,6 +34473,12 @@
             "state": "translated",
             "value": "核对食物"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkontrolovat jídlo"
+          }
         }
       }
     },
@@ -31898,6 +34502,12 @@
             "state": "translated",
             "value": "Grassi saturi"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nasyc. tuky"
+          }
         }
       }
     },
@@ -31920,6 +34530,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Grassi saturi"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nasycené tuky"
           }
         }
       }
@@ -32020,6 +34636,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "保存"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uložit"
           }
         }
       }
@@ -32122,6 +34744,12 @@
             "state": "translated",
             "value": "请先在上方保存至少一个其他提供商的 API 密钥，然后返回此处将其选为备用方案。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nejdřív ulož API klíč alespoň jednoho dalšího poskytovatele výše a pak se vrať a vyber ho jako zálohu."
+          }
         }
       }
     },
@@ -32223,6 +34851,12 @@
             "state": "translated",
             "value": "保存更改"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uložit změny"
+          }
         }
       }
     },
@@ -32323,6 +34957,12 @@
             "state": "translated",
             "value": "已保存的餐食"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uložená jídla"
+          }
         }
       }
     },
@@ -32346,6 +34986,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Pronuncia queste frasi a Siri per usare Fud AI a mani libere."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Říkej tyto fráze Siri a používej Fud AI bez rukou."
           }
         }
       }
@@ -32447,6 +35093,12 @@
             "state": "translated",
             "value": "在此刮开"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SETŘI ZDE"
+          }
         }
       }
     },
@@ -32468,6 +35120,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gratta per scoprire il tuo\nsconto speciale!"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Setři a odhal svou\nspeciální slevu!"
           }
         }
       }
@@ -32564,6 +35222,12 @@
             "state": "translated",
             "value": "搜索已保存的食物"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hledat v uložených jídlech"
+          }
         }
       }
     },
@@ -32586,6 +35250,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sedentario"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sedavý"
           }
         }
       }
@@ -32611,6 +35281,12 @@
             "state": "translated",
             "value": "Invia con il tuo messaggio al Coach"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odeslat se zprávou kouči"
+          }
         }
       }
     },
@@ -32635,6 +35311,12 @@
             "state": "translated",
             "value": "Separati dagli obiettivi di calorie, proteine, carboidrati e grassi."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odděleno od cílů kalorií, bílkovin, sacharidů a tuků."
+          }
         }
       }
     },
@@ -32656,6 +35338,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "URL del server"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "URL serveru"
           }
         }
       }
@@ -32757,6 +35445,12 @@
             "state": "translated",
             "value": "份量"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Porce"
+          }
         }
       }
     },
@@ -32857,6 +35551,12 @@
             "state": "translated",
             "value": "每份分量"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Velikost porce"
+          }
         }
       }
     },
@@ -32956,6 +35656,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "设置"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nastavení"
           }
         }
       }
@@ -33058,6 +35764,12 @@
             "state": "translated",
             "value": "分享应用"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sdílet aplikaci"
+          }
         }
       }
     },
@@ -33082,6 +35794,12 @@
             "state": "translated",
             "value": "Mostrati nella schermata Home"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zobrazeno na Domů"
+          }
         }
       }
     },
@@ -33105,6 +35823,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Frasi per Siri"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fráze pro Siri"
           }
         }
       }
@@ -33206,6 +35930,12 @@
             "state": "translated",
             "value": "跳过"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přeskočit"
+          }
         }
       }
     },
@@ -33305,6 +36035,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "缓慢"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pomalu"
           }
         }
       }
@@ -33406,6 +36142,12 @@
             "state": "translated",
             "value": "缓慢（0.25 kg/周）"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pomalu (0,25 kg/týd.)"
+          }
         }
       }
     },
@@ -33506,6 +36248,12 @@
             "state": "translated",
             "value": "智能通知"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chytrá oznámení"
+          }
         }
       }
     },
@@ -33601,6 +36349,12 @@
             "state": "translated",
             "value": "Qəlyanaltı"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Svačina"
+          }
         }
       }
     },
@@ -33695,6 +36449,12 @@
             "state": "translated",
             "value": "Şəkil çəkin — Sİ qeyd edir"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyfoť jídlo — AI ho zapíše"
+          }
         }
       }
     },
@@ -33718,6 +36478,12 @@
             "state": "translated",
             "value": "Sodio"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sodík"
+          }
         }
       }
     },
@@ -33739,6 +36505,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ordina"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Řadit"
           }
         }
       }
@@ -33835,6 +36607,12 @@
             "state": "translated",
             "value": "来源"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zdroj"
+          }
         }
       }
     },
@@ -33857,6 +36635,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Spagnolo"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Španělština"
           }
         }
       }
@@ -33958,6 +36742,12 @@
             "state": "translated",
             "value": "语音转文字"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Převod řeči na text"
+          }
         }
       }
     },
@@ -34057,6 +36847,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "在 GitHub 上加星"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dát hvězdu na GitHubu"
           }
         }
       }
@@ -34159,6 +36955,12 @@
             "state": "translated",
             "value": "连续记录和摘要通知会根据你记录的食物自动更新。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oznámení o sérii a souhrnu se aktualizují automaticky podle zapsaného jídla."
+          }
         }
       }
     },
@@ -34259,6 +37061,12 @@
             "state": "translated",
             "value": "连续记录与统计"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Série a statistiky"
+          }
         }
       }
     },
@@ -34282,6 +37090,12 @@
             "state": "translated",
             "value": "Zuccheri"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cukr"
+          }
         }
       }
     },
@@ -34303,6 +37117,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zuccheri, fibre, sodio"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cukr, vláknina, sodík"
           }
         }
       }
@@ -34328,6 +37148,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Suggerisci con IA"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Navrhnout s AI"
           }
         }
       }
@@ -34428,6 +37254,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "星期日"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Neděle"
           }
         }
       }
@@ -34530,6 +37362,12 @@
             "state": "translated",
             "value": "支持项目"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podpořit projekt"
+          }
         }
       }
     },
@@ -34630,6 +37468,12 @@
             "state": "translated",
             "value": "跟随系统"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Systémový"
+          }
         }
       }
     },
@@ -34725,6 +37569,12 @@
             "state": "translated",
             "value": "点击 \"允许\" 以启用 AI 食物分析。你随时可以使用手动输入,无需发送任何数据。你可以稍后通过删除应用或在 设置 → 删除所有数据 中撤销同意。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klepnutím na Povolit zapneš AI analýzu jídla. Ruční zadání je vždy dostupné bez odesílání dat kamkoli. Souhlas můžeš později odvolat smazáním aplikace nebo přes Nastavení → Smazat všechna data."
+          }
         }
       }
     },
@@ -34748,6 +37598,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Tocca il microfono per iniziare"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klepni na mikrofon a začni"
           }
         }
       }
@@ -34843,6 +37699,12 @@
             "state": "translated",
             "value": "点按以更新"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Klepni pro aktualizaci"
+          }
         }
       }
     },
@@ -34865,6 +37727,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Obiettivo"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cíl"
           }
         }
       }
@@ -34989,6 +37857,12 @@
             "state": "translated",
             "value": "Verde ottanio"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Petrolejová"
+          }
         }
       }
     },
@@ -35012,6 +37886,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "decimo"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "desetiny"
           }
         }
       }
@@ -35113,6 +37993,12 @@
             "state": "translated",
             "value": "服务条款"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Podmínky služby"
+          }
         }
       }
     },
@@ -35213,6 +38099,12 @@
             "state": "translated",
             "value": "文本输入"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zadat text"
+          }
         }
       }
     },
@@ -35306,6 +38198,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Təşəkkürlər!"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Děkujeme!"
           }
         }
       }
@@ -35407,6 +38305,12 @@
             "state": "translated",
             "value": "最低建议为每天 1,200 卡路里。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minimální doporučení je 1 200 kalorií denně."
+          }
         }
       }
     },
@@ -35429,6 +38333,12 @@
             "state": "translated",
             "value": "Il ritmo più equilibrato, motivante e sostenibile."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nejvyváženější tempo — motivující a udržitelné."
+          }
         }
       }
     },
@@ -35450,6 +38360,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Colore tema"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barva motivu"
           }
         }
       }
@@ -35474,6 +38390,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Questo non registra il pasto. Mostra come sarebbe la giornata di oggi se registrassi %@."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jídlo se tím nezapíše. Ukáže, jak by dnešek vypadal po zapsání jídla: %@."
           }
         }
       }
@@ -35576,6 +38498,12 @@
             "state": "translated",
             "value": "该宏量营养素会根据其他项自动平衡。点按锁定图标进行固定，然后点按该行以设置自定义数值。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Toto makro se automaticky dorovnává z ostatních. Klepnutím na zámek ho připneš, pak klepni na řádek a nastav vlastní hodnotu."
+          }
         }
       }
     },
@@ -35675,6 +38603,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "此操作将永久删除你的所有数据，包括饮食记录、体重记录和个人资料。此操作无法撤销。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trvale smaže všechna tvoje data včetně deníku jídel, záznamů váhy a profilu. Tuto akci nejde vrátit."
           }
         }
       }
@@ -35776,6 +38710,12 @@
             "state": "translated",
             "value": "此操作将永久删除你记录的所有食物条目。你的个人资料、体重记录和收藏将被保留。此操作无法撤销。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trvale smaže všechny zapsané záznamy jídel. Profil, záznamy váhy a oblíbená zůstanou. Tuto akci nejde vrátit."
+          }
         }
       }
     },
@@ -35800,6 +38740,12 @@
             "state": "translated",
             "value": "Ora"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Čas"
+          }
         }
       }
     },
@@ -35821,6 +38767,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Intervallo di tempo"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Časové období"
           }
         }
       }
@@ -35852,6 +38804,12 @@
             "state": "translated",
             "value": "Oggi hai registrato %1$lld calorie e %2$@ grammi di proteine."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dnes máš zapsáno %1$lld kalorií a %2$@ gramů bílkovin."
+          }
         }
       }
     },
@@ -35882,6 +38840,12 @@
             "state": "translated",
             "value": "Oggi hai registrato %1$lld di %2$lld calorie. %3$lld calorie rimanenti. Proteine: %4$@ grammi."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dnes máš zapsáno %1$lld z %2$lld kalorií. Zbývá %3$lld kalorií. Bílkoviny: %4$@ gramů."
+          }
         }
       }
     },
@@ -35906,6 +38870,12 @@
             "state": "translated",
             "value": "Calorie di oggi"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dnešní kalorie"
+          }
         }
       }
     },
@@ -35927,6 +38897,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Alimenti di oggi"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dnešní jídlo"
           }
         }
       }
@@ -36030,6 +39006,12 @@
             "state": "translated",
             "value": "总计"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Celkem"
+          }
         }
       },
       "extractionState": "manual"
@@ -36053,6 +39035,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Totale registrazioni"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Celkem záznamů"
           }
         }
       }
@@ -36100,6 +39088,12 @@
             "state": "translated",
             "value": "Grassi trans"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trans tuky"
+          }
         }
       }
     },
@@ -36121,6 +39115,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Trascrizione tramite %@…"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přepisuji přes %@…"
           }
         }
       }
@@ -36223,6 +39223,12 @@
             "state": "translated",
             "value": "重试"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zkusit znovu"
+          }
         }
       }
     },
@@ -36244,6 +39250,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Rimuovi dai preferiti"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odebrat z oblíbených"
           }
         }
       }
@@ -36267,6 +39279,12 @@
             "state": "translated",
             "value": "Unità"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jednotka"
+          }
         }
       }
     },
@@ -36288,6 +39306,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sblocca modifica valori nutrizionali"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odemknout úpravy nutričních hodnot"
           }
         }
       }
@@ -36385,6 +39409,12 @@
             "state": "translated",
             "value": "未锁定"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odemčeno"
+          }
         }
       }
     },
@@ -36408,6 +39438,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Aggiorna"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktualizovat"
           }
         }
       }
@@ -36433,6 +39469,12 @@
             "state": "translated",
             "value": "Aggiornamento disponibile"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktualizace k dispozici"
+          }
         }
       }
     },
@@ -36455,6 +39497,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Usa grasso corporeo per il BMR"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Počítat BMR z tělesného tuku"
           }
         }
       }
@@ -36479,6 +39527,12 @@
             "state": "translated",
             "value": "Usa la lingua dell'iPhone"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Použít jazyk iPhonu"
+          }
         }
       }
     },
@@ -36500,6 +39554,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Usato quando tocchi l'icona vocale per registrare un pasto. Ciascun provider memorizza la propria lingua. \"Automatico del provider\" mantiene quella predefinita del provider; \"Usa la lingua dell'iPhone\" invia la lingua corrente del tuo iPhone se supportata."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Použije se, když klepneš na ikonu mikrofonu pro zápis jídla. Každý poskytovatel si pamatuje vlastní jazyk. Auto (poskytovatel) nechá výchozí chování poskytovatele; Použít jazyk iPhonu pošle aktuální jazyk iPhonu, pokud je podporovaný."
           }
         }
       }
@@ -36602,6 +39662,12 @@
             "state": "translated",
             "value": "当你点按语音图标记录餐食时使用。原生 iOS 在设备端免费运行；第三方提供商在食物术语和口音方面通常准确度更高。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Použije se, když klepneš na ikonu mikrofonu pro zápis jídla. Nativní iOS běží v zařízení zdarma; poskytovatelé třetích stran bývají přesnější na názvy jídel a přízvuky."
+          }
         }
       }
     },
@@ -36697,6 +39763,12 @@
             "state": "translated",
             "value": "多项优化与问题修复。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Různá vylepšení a opravy."
+          }
         }
       }
     },
@@ -36721,6 +39793,12 @@
             "state": "translated",
             "value": "Versione %@"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verze %@"
+          }
         }
       }
     },
@@ -36743,6 +39821,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Molto attivo"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Velmi aktivní"
           }
         }
       }
@@ -36767,6 +39851,12 @@
             "state": "translated",
             "value": "Attività molto intensa quotidiana o lavoro fisico"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Velmi intenzivně denně, nebo fyzická práce"
+          }
         }
       }
     },
@@ -36790,6 +39880,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Visualizzazione"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zobrazení"
           }
         }
       }
@@ -36891,6 +39987,12 @@
             "state": "translated",
             "value": "查看更多"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zobrazit více"
+          }
         }
       }
     },
@@ -36986,6 +40088,12 @@
             "state": "translated",
             "value": "查看隐私政策"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zobrazit zásady ochrany soukromí"
+          }
         }
       }
     },
@@ -37005,6 +40113,12 @@
           }
         },
         "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vit. A"
+          }
+        },
+        "cs": {
           "stringUnit": {
             "state": "translated",
             "value": "Vit. A"
@@ -37032,6 +40146,12 @@
             "state": "translated",
             "value": "Vit. C"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vit. C"
+          }
         }
       }
     },
@@ -37051,6 +40171,12 @@
           }
         },
         "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vit. D"
+          }
+        },
+        "cs": {
           "stringUnit": {
             "state": "translated",
             "value": "Vit. D"
@@ -37078,6 +40204,12 @@
             "state": "translated",
             "value": "Vit. E"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vit. E"
+          }
         }
       }
     },
@@ -37097,6 +40229,12 @@
           }
         },
         "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vit. K"
+          }
+        },
+        "cs": {
           "stringUnit": {
             "state": "translated",
             "value": "Vit. K"
@@ -37124,6 +40262,12 @@
             "state": "translated",
             "value": "Vitamina A"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitamín A"
+          }
         }
       }
     },
@@ -37146,6 +40290,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vitamina B12"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitamín B12"
           }
         }
       }
@@ -37170,6 +40320,12 @@
             "state": "translated",
             "value": "Vitamina C"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitamín C"
+          }
         }
       }
     },
@@ -37192,6 +40348,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vitamina D"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitamín D"
           }
         }
       }
@@ -37216,6 +40378,12 @@
             "state": "translated",
             "value": "Vitamina E"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitamín E"
+          }
         }
       }
     },
@@ -37238,6 +40406,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Vitamina K"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitamín K"
           }
         }
       }
@@ -37339,6 +40513,12 @@
             "state": "translated",
             "value": "语音"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hlasem"
+          }
         }
       }
     },
@@ -37362,6 +40542,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Lingua vocale"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jazyk řeči"
           }
         }
       }
@@ -37463,6 +40649,12 @@
             "state": "translated",
             "value": "在 Product Hunt 上投票"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hlasovat na Product Huntu"
+          }
         }
       }
     },
@@ -37485,6 +40677,12 @@
             "state": "translated",
             "value": "Manterremo costanti le tue calorie\nper conservare il tuo peso attuale."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kalorie nastavíme tak,\naby tvoje váha zůstala stejná."
+          }
         }
       }
     },
@@ -37506,6 +40704,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Stiamo preparando\ntutto per te"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Všechno pro tebe\npřipravujeme"
           }
         }
       }
@@ -37607,6 +40811,12 @@
             "state": "translated",
             "value": "每周起始日"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Týden začíná"
+          }
         }
       }
     },
@@ -37707,6 +40917,12 @@
             "state": "translated",
             "value": "每周变化"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Týdenní změna"
+          }
         }
       }
     },
@@ -37806,6 +41022,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "体重"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Váha"
           }
         }
       }
@@ -37908,6 +41130,12 @@
             "state": "translated",
             "value": "体重预测"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Předpověď váhy"
+          }
         }
       }
     },
@@ -38007,6 +41235,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "体重目标"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Váhový cíl"
           }
         }
       }
@@ -38108,6 +41342,12 @@
             "state": "translated",
             "value": "体重历史"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Historie váhy"
+          }
         }
       }
     },
@@ -38130,6 +41370,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Sincronizzazione peso"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Synchronizace váhy"
           }
         }
       }
@@ -38155,6 +41401,12 @@
             "state": "translated",
             "value": "Cosa hai mangiato?"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co bylo k jídlu?"
+          }
         }
       }
     },
@@ -38176,6 +41428,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cosa succederebbe?"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co kdyby?"
           }
         }
       }
@@ -38272,6 +41530,12 @@
             "state": "translated",
             "value": "发送的内容"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co se odesílá"
+          }
         }
       }
     },
@@ -38293,6 +41557,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Qual è il tuo peso?"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jaká je tvoje váha?"
           }
         }
       }
@@ -38395,6 +41665,12 @@
             "state": "translated",
             "value": "晚餐吃什么?"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co si dát k večeři?"
+          }
         }
       }
     },
@@ -38490,6 +41766,12 @@
             "state": "translated",
             "value": "保留在本地的内容"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co zůstává v zařízení"
+          }
         }
       }
     },
@@ -38513,6 +41795,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cosa hai mangiato, ad esempio 100g di petto di pollo o due uova con pane tostato."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co bylo k jídlu, například 100 g kuřecích prsou nebo dvě vejce a toast."
           }
         }
       }
@@ -38615,6 +41903,12 @@
             "state": "translated",
             "value": "我的平均摄入量是多少?"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jaký je můj průměrný příjem?"
+          }
         }
       }
     },
@@ -38716,6 +42010,12 @@
             "state": "translated",
             "value": "30天后我的预期体重是多少?"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Jaká bude moje váha za 30 dní?"
+          }
         }
       }
     },
@@ -38738,6 +42038,12 @@
             "state": "translated",
             "value": "Novità"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Co je nového"
+          }
         }
       }
     },
@@ -38759,6 +42065,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Se abilitato, i nuovi risultati degli alimenti si apriranno con i grammi selezionati anche se l'IA rileva tazze, porzioni o porzionature. Puoi comunque cambiare unità per ciascun alimento."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Když je zapnuto, nové výsledky jídla se otevřou s vybranými gramy, i když AI rozpozná hrnky, porce nebo kusy. Jednotky můžeš u každého jídla stále přepnout."
           }
         }
       }
@@ -38949,6 +42261,12 @@
             "state": "translated",
             "value": "当你记录一餐时,照片、语音转写或文字描述会发送给你所选的 AI 提供商。个人资料数据(年龄、体重、目标)仅在 Coach 聊天中发送。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Když zapíšeš jídlo, odešle se fotka, hlasový přepis nebo textový popis tvému vybranému AI poskytovateli. Profilová data (věk, váha, cíle) se posílají jen pro chat s koučem."
+          }
         }
       }
     },
@@ -39044,6 +42362,12 @@
             "state": "translated",
             "value": "谁会收到"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kdo je příjemcem"
+          }
         }
       }
     },
@@ -39068,6 +42392,12 @@
             "state": "translated",
             "value": "intero"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "celé"
+          }
         }
       }
     },
@@ -39089,6 +42419,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Intero"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Celé"
           }
         }
       }
@@ -39184,6 +42520,12 @@
             "state": "translated",
             "value": "Vidcetlər və Apple Watch"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widgety a Apple Watch"
+          }
         }
       }
     },
@@ -39278,6 +42620,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "小组件、锁屏和 Apple Watch 采用全新仪表盘设计，并跟随你选择的营养卡片。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Widgety, zamčená obrazovka i Apple Watch odpovídají novému tachometrovému designu a řídí se tvými vybranými kartami živin."
           }
         }
       }
@@ -39379,6 +42727,12 @@
             "state": "translated",
             "value": "用心为每个人"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "s péčí, pro všechny"
+          }
         }
       }
     },
@@ -39473,6 +42827,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "稍后可以在设置中设置。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Můžeš nastavit později v Nastavení."
           }
         }
       }
@@ -39573,6 +42933,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "你的年度订阅享 **7.3 折**（**27% 折扣**）！"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Máš **27% slevu** na roční plán!"
           }
         }
       }
@@ -39675,6 +43041,12 @@
             "state": "translated",
             "value": "你将在此时间后达成目标"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cíle dosáhneš za"
+          }
         }
       }
     },
@@ -39698,6 +43070,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Raggiungerai il tuo obiettivo tra "
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cíle dosáhneš za "
           }
         }
       }
@@ -39799,6 +43177,12 @@
             "state": "translated",
             "value": "你已达到目标体重！前往“设置”切换目标（维持、减重或增重），然后点按“重新计算目标”以更新你的目标。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvoje cílová váha je tady! Přejdi do Nastavení, přepni svůj cíl (Udržovat, Zhubnout nebo Přibrat) a klepni na Přepočítat cíle pro nové hodnoty."
+          }
         }
       }
     },
@@ -39893,6 +43277,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "你的 API 密钥、体重记录、体脂记录和饮食日志都保留在本设备上。Fud AI 开发者永远不会收到你的任何数据 — 请求直接从你的设备发送到提供商。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvůj API klíč, historie váhy, historie tělesného tuku i deník jídel zůstávají v tomto zařízení. Vývojář Fud AI žádná tvoje data nedostává — požadavky jdou přímo z tvého zařízení k poskytovateli."
           }
         }
       }
@@ -39994,6 +43384,12 @@
             "state": "translated",
             "value": "你的教练可以查看你的体重记录、卡路里日志和目标。问问预期体重、吃什么或如何达成目标。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kouč vidí tvou historii váhy, deník kalorií a cíle. Zeptej se na očekávanou váhu, co jíst nebo jak dosáhnout cíle."
+          }
         }
       }
     },
@@ -40088,6 +43484,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "你当前选择的提供商:%@。你可以随时在 设置 → AI 提供商 中更改。每个提供商都有自己的隐私政策,并可能记录请求。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aktuálně vybraný poskytovatel: %@. Kdykoli ho můžeš změnit v Nastavení → AI poskytovatel. Každý poskytovatel má vlastní zásady ochrany soukromí a může logovat požadavky."
           }
         }
       }
@@ -40571,6 +43973,12 @@
             "state": "translated",
             "value": "你记录的卡路里与体重秤读数不太吻合。你可能少记了一些食物。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zapsané kalorie a naměřená váha si úplně nesedí. Možná zapisuješ méně, než skutečně sníš."
+          }
         }
       }
     },
@@ -40592,6 +44000,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Il tuo peso, ad esempio 75 chilogrammi o 165 libbre."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvoje váha, například 75 kilogramů nebo 165 liber."
           }
         }
       }
@@ -40615,6 +44029,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Zinco"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zinek"
           }
         }
       }
@@ -40711,6 +44131,12 @@
             "state": "translated",
             "value": "选择 4 种营养素"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyber 4 živiny"
+          }
         }
       }
     },
@@ -40805,6 +44231,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "请为主页摘要行恰好选择四种营养素。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vyber přesně čtyři živiny pro souhrnný řádek na Domů."
           }
         }
       }
@@ -40906,6 +44338,12 @@
             "state": "translated",
             "value": "最大响应令牌数"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Max. tokenů odpovědi"
+          }
         }
       }
     },
@@ -41005,6 +44443,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "分享餐食"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sdílet jídlo"
           }
         }
       }
@@ -41106,6 +44550,12 @@
             "state": "translated",
             "value": "将这份餐食发送给好友——只需轻点一下即可添加到他的 Fud AI 中。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pošli tohle jídlo kamarádovi — jedním klepnutím si ho přidá do svého Fud AI."
+          }
         }
       }
     },
@@ -41205,6 +44655,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "共享的餐食"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sdílené jídlo"
           }
         }
       }
@@ -41306,6 +44762,12 @@
             "state": "translated",
             "value": "%lld 份共享的餐食"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sdílená jídla: %lld"
+          }
         }
       }
     },
@@ -41405,6 +44867,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "以发送者提供的精确营养成分添加到你的记录中。不包含照片。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přidá se do tvého deníku s přesnými nutričními hodnotami od odesílatele. Fotka není součástí."
           }
         }
       }
@@ -41506,6 +44974,12 @@
             "state": "translated",
             "value": "添加共享的餐食"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přidat sdílené jídlo"
+          }
         }
       }
     },
@@ -41605,6 +45079,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "添加到记录"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přidat do deníku"
           }
         }
       }
@@ -41706,6 +45186,12 @@
             "state": "translated",
             "value": "添加 %lld 份到记录 · %lld kcal"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přidat %1$lld do deníku · %2$lld kcal"
+          }
         }
       }
     },
@@ -41799,6 +45285,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Yemək qeydləriniz, çəki və bədən yağı tarixçəniz və BYOK API açarlarınız bu cihazda qalır."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deník jídel, historie váhy, historie tělesného tuku i tvoje BYOK API klíče zůstávají v tomto zařízení."
           }
         }
       }
@@ -41894,6 +45386,12 @@
             "state": "translated",
             "value": "Planınız qeydlərinizə əsasən hər həftə avtomatik tənzimlənir — sabit saxlamaq üçün Parametrlərdə Adaptive Goals-u söndürün."
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvůj plán se každý týden sám upravuje podle zápisů — pokud ho chceš pevný, vypni Adaptivní cíle v Nastavení."
+          }
         }
       }
     },
@@ -41987,6 +45485,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dəstəyiniz Fud AI-ni hamı üçün pulsuz saxlayır."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tvoje podpora drží Fud AI zdarma pro všechny."
           }
         }
       }
@@ -42082,6 +45586,12 @@
             "state": "translated",
             "value": "重新安装或更换手机后，你的饮食记录、体重和体脂现在会从 Apple Health 自动恢复。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Přeinstalace nebo nový telefon? Deník jídel, váha i tělesný tuk se teď automaticky obnoví z Apple Health."
+          }
         }
       }
     },
@@ -42176,6 +45686,12 @@
             "state": "translated",
             "value": "将任意餐食分享为链接，直接在 Fud AI 中打开。"
           }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sdílej jakékoli jídlo jako odkaz, který se otevře přímo ve Fud AI."
+          }
         }
       }
     },
@@ -42269,6 +45785,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "设置 ← 关于中的可选打赏罐让你支持开发。"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volitelná kasička na spropitné v Nastavení → O aplikaci umožňuje podpořit vývoj."
           }
         }
       }

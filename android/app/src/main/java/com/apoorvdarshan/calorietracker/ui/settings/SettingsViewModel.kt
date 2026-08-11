@@ -1455,6 +1455,12 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         }
     }
 
+    fun setFallbackCustomBaseUrl(provider: AIProvider, url: String) {
+        viewModelScope.launch {
+            container.prefs.setFallbackCustomBaseUrl(provider, url.takeIf { it.isNotBlank() })
+        }
+    }
+
     private fun maskKey(key: String?): String =
         if (key.isNullOrBlank()) "" else key.take(4) + "..." + key.takeLast(4)
 

@@ -2759,12 +2759,12 @@ private fun SettingsSheets(
                     onSave = { vm.setFallbackApiKey(it); onDismiss() }
                 )
                 SettingsSheet.FALLBACK_BASE_URL -> {
-                    val existing = remember { runBlocking { vm.container.prefs.customBaseUrl(ui.fallbackProvider).first().orEmpty() } }
+                    val existing = remember { runBlocking { vm.container.prefs.fallbackCustomBaseUrl(ui.fallbackProvider).first().orEmpty() } }
                     TextFieldSheet(
                         title = stringResource(R.string.settings_custom_url_title),
                         initial = existing,
                         placeholder = stringResource(R.string.settings_custom_url_placeholder),
-                        onSave = { vm.setCustomBaseUrl(ui.fallbackProvider, it); onDismiss() }
+                        onSave = { vm.setFallbackCustomBaseUrl(ui.fallbackProvider, it); onDismiss() }
                     )
                 }
                 SettingsSheet.GENDER -> ListSheet(

@@ -36,6 +36,8 @@ import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.SetSerializer
@@ -94,6 +96,8 @@ class PreferencesStore(
 
     private val json = Json { ignoreUnknownKeys = true }
     private val ds get() = context.fudaiDataStore
+    private val fallbackBaseUrlMigrationMutex = Mutex()
+    @Volatile private var fallbackBaseUrlMigrationCompleted = false
 
     // -- User profile -----------------------------------------------------
     val userProfile: Flow<UserProfile?> = ds.data.map { prefs ->
@@ -746,12 +750,55 @@ class PreferencesStore(
     private fun storedSpeechProvider(rawValue: String?): SpeechProvider? =
         SpeechProvider.values().firstOrNull { it.name == rawValue }
 
+    /** Splits the fallback role's base URL off the shared per-provider key exactly once.
+     *  The fallback config historically read the same `customBaseURL_` entry as the primary,
+     *  so two configurations of the same provider type could never point at different servers.
+     *  Seeding the role-scoped key from the shared value keeps existing fallback setups
+     *  working after the split (Custom endpoints have no default URL to fall back to).
+     *  Idempotent and mutex-guarded so AI request paths can await completion before reading
+     *  fallback URLs on the first launch after upgrading. */
+    suspend fun migrateFallbackBaseUrls() {
+        if (fallbackBaseUrlMigrationCompleted) return
+        fallbackBaseUrlMigrationMutex.withLock {
+            if (fallbackBaseUrlMigrationCompleted) return
+            if ((ds.data.first()[Keys.FALLBACK_BASE_URL_MIGRATION_VERSION] ?: 0) >= 1) {
+                fallbackBaseUrlMigrationCompleted = true
+                return
+            }
+            ds.edit { prefs ->
+                AIProvider.values().forEach { provider ->
+                    val fallbackKey = stringPreferencesKey(FALLBACK_BASE_URL_PREFIX + provider.name)
+                    if (prefs[fallbackKey] == null) {
+                        prefs[stringPreferencesKey(CUSTOM_BASE_URL_PREFIX + provider.name)]
+                            ?.let { prefs[fallbackKey] = it }
+                    }
+                }
+                prefs[Keys.FALLBACK_BASE_URL_MIGRATION_VERSION] = 1
+            }
+            fallbackBaseUrlMigrationCompleted = true
+        }
+    }
+
     fun customBaseUrl(provider: AIProvider): Flow<String?> = ds.data.map {
         it[stringPreferencesKey(CUSTOM_BASE_URL_PREFIX + provider.name)]
     }
 
     suspend fun setCustomBaseUrl(provider: AIProvider, url: String?) {
         val key = stringPreferencesKey(CUSTOM_BASE_URL_PREFIX + provider.name)
+        ds.edit {
+            if (url.isNullOrEmpty()) it.remove(key) else it[key] = url
+        }
+    }
+
+    /** Base URL override used when the provider runs in the fallback role. Stored separately
+     *  from [customBaseUrl] so a primary and fallback of the same provider type can point at
+     *  different servers. */
+    fun fallbackCustomBaseUrl(provider: AIProvider): Flow<String?> = ds.data.map {
+        it[stringPreferencesKey(FALLBACK_BASE_URL_PREFIX + provider.name)]
+    }
+
+    suspend fun setFallbackCustomBaseUrl(provider: AIProvider, url: String?) {
+        val key = stringPreferencesKey(FALLBACK_BASE_URL_PREFIX + provider.name)
         ds.edit {
             if (url.isNullOrEmpty()) it.remove(key) else it[key] = url
         }
@@ -1177,6 +1224,7 @@ class PreferencesStore(
         val TEXT_FALLBACK_ENABLED = booleanPreferencesKey("textAIFallbackEnabled")
         val TEXT_FALLBACK_PROVIDER = stringPreferencesKey("selectedTextFallbackAIProvider")
         val TEXT_FALLBACK_MODEL = stringPreferencesKey("selectedTextFallbackAIModel")
+        val FALLBACK_BASE_URL_MIGRATION_VERSION = intPreferencesKey("fallbackBaseURLMigrationVersion")
         val SELECTED_SPEECH_PROVIDER = stringPreferencesKey("selectedSpeechProvider")
         val SPEECH_FALLBACK_ENABLED = booleanPreferencesKey("speechFallbackEnabled")
         val SPEECH_FALLBACK_PROVIDER = stringPreferencesKey("selectedSpeechFallbackProvider")
@@ -1197,6 +1245,7 @@ class PreferencesStore(
 
     companion object {
         private const val CUSTOM_BASE_URL_PREFIX = "customBaseURL_"
+        private const val FALLBACK_BASE_URL_PREFIX = "fallbackCustomBaseURL_"
         private const val MATCHING_SPEECH_PROVIDER_MIGRATION_VERSION = 1
     }
 }

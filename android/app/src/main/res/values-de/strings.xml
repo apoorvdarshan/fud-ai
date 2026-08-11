@@ -788,4 +788,5 @@
     <string name="photo_save_permission_denied">Fotozugriff verweigert</string>
     <string name="settings_save_photos_to_gallery">In Fotos speichern</string>
     <string name="settings_save_photos_to_gallery_subtitle">Mahlzeitfotos beim Protokollieren auch in deiner Galerie speichern</string>
+    <string name="settings_other_nutrients_note">Getrennt von den Zielen für Kalorien, Protein, Kohlenhydrate und Fett.</string>
 </resources>

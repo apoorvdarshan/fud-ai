@@ -789,4 +789,5 @@
     <string name="photo_save_permission_denied">Acceso a fotos denegado</string>
     <string name="settings_save_photos_to_gallery">Guardar en Fotos</string>
     <string name="settings_save_photos_to_gallery_subtitle">También guarda fotos de comidas en tu galería al registrar</string>
+    <string name="settings_other_nutrients_note">Independiente de los objetivos de calorías, proteínas, carbohidratos y grasas.</string>
 </resources>

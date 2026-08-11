@@ -787,4 +787,5 @@
     <string name="photo_save_permission_denied">写真へのアクセスが拒否されました</string>
     <string name="settings_save_photos_to_gallery">写真に保存</string>
     <string name="settings_save_photos_to_gallery_subtitle">記録時に食事写真をギャラリーにも保存</string>
+    <string name="settings_other_nutrients_note">カロリー・タンパク質・炭水化物・脂質の目標とは別です。</string>
 </resources>

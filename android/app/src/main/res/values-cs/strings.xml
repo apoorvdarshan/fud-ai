@@ -732,6 +732,7 @@
     <string name="export_action">Exportovat</string>
     <string name="settings_other_nutrients">Další živiny</string>
     <string name="settings_other_nutrient_goals">Cíle dalších živin</string>
+    <string name="settings_other_nutrients_note">Odděleno od cílů kalorií, bílkovin, sacharidů a tuků.</string>
     <string name="settings_reset_defaults">Obnovit výchozí</string>
     <string name="copy_from">Zkopírovat z</string>
     <string name="macro_protein_format">Bílkoviny: %1$s</string>

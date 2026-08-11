@@ -788,4 +788,5 @@
     <string name="photo_save_permission_denied">फ़ोटो एक्सेस अस्वीकृत</string>
     <string name="settings_save_photos_to_gallery">फ़ोटो में सहेजें</string>
     <string name="settings_save_photos_to_gallery_subtitle">लॉग करते समय भोजन की फ़ोटो गैलरी में भी सहेजें</string>
+    <string name="settings_other_nutrients_note">कैलोरी, प्रोटीन, कार्ब्स और वसा के लक्ष्यों से अलग।</string>
 </resources>

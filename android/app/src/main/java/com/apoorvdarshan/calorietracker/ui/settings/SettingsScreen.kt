@@ -2134,7 +2134,7 @@ fun OptionalNutrientGoalsScreen(
 
             item {
                 Text(
-                    "Separate from calorie, protein, carb, and fat goals.",
+                    stringResource(R.string.settings_other_nutrients_note),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f),
                     modifier = Modifier.padding(start = 4.dp, top = 4.dp)
@@ -3106,7 +3106,7 @@ private fun OptionalNutrientGoalsSheet(
         TextButton(onClick = onDismiss) { Text(stringResource(R.string.action_done), color = AppColors.Calorie) }
     }
     Text(
-        "Separate from calorie, protein, carbs, and fat targets.",
+        stringResource(R.string.settings_other_nutrients_note),
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
     )
@@ -4432,8 +4432,10 @@ private fun feetInchesLabel(cm: Int): String {
     return "$feet' $inches\""
 }
 
+@Composable
 private fun optionalNutrientSummary(goals: OptionalNutrientGoals): String =
-    "Fiber ${goals.fiber}g, Sodium ${goals.sodium}mg"
+    stringResource(R.string.nutrient_fiber_format, goals.fiber.toString()) + ", " +
+        stringResource(R.string.nutrient_sodium_format, goals.sodium.toString())
 
 private fun OptionalNutrient.pickerRange(): IntRange = when (this) {
     OptionalNutrient.SUGAR -> 0..200

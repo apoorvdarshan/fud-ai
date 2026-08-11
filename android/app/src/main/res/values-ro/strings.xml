@@ -792,4 +792,5 @@
     <string name="photo_save_permission_denied">Acces la fotografii refuzat</string>
     <string name="settings_save_photos_to_gallery">Salvează în Fotografii</string>
     <string name="settings_save_photos_to_gallery_subtitle">Salvează și fotografiile meselor în galerie la înregistrare</string>
+    <string name="settings_other_nutrients_note">Separat de obiectivele de calorii, proteine, carbohidrați și grăsimi.</string>
 </resources>

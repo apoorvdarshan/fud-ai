@@ -810,6 +810,7 @@
     <string name="export_action">Экспортировать</string>
     <string name="settings_other_nutrients">Другие нутриенты</string>
     <string name="settings_other_nutrient_goals">Цели по другим нутриентам</string>
+    <string name="settings_other_nutrients_note">Отдельно от целей по калориям, белкам, углеводам и жирам.</string>
     <string name="settings_reset_defaults">Сбросить по умолчанию</string>
     <string name="copy_from">Копировать из</string>
     <string name="macro_protein_format">Белки: %1$s</string>

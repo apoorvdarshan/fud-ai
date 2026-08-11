@@ -788,4 +788,5 @@
     <string name="photo_save_permission_denied">Foto girişinə icazə verilmədi</string>
     <string name="settings_save_photos_to_gallery">Fotolarda saxla</string>
     <string name="settings_save_photos_to_gallery_subtitle">Qeyd edərkən yemək fotolarını qalereyada da saxla</string>
+    <string name="settings_other_nutrients_note">Kalori, protein, karbohidrat və yağ hədəflərindən ayrıdır.</string>
 </resources>

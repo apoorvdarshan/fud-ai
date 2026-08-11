@@ -1014,6 +1014,7 @@
     <string name="export_action">Export</string>
     <string name="settings_other_nutrients">Other Nutrients</string>
     <string name="settings_other_nutrient_goals">Other Nutrient Goals</string>
+    <string name="settings_other_nutrients_note">Separate from calorie, protein, carb, and fat goals.</string>
     <string name="settings_reset_defaults">Reset to Defaults</string>
     <string name="copy_from">Copy From</string>
     <string name="macro_protein_format">Protein: %1$s</string>

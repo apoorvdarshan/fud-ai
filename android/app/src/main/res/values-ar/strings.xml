@@ -804,4 +804,5 @@
     <string name="photo_save_permission_denied">تم رفض الوصول إلى الصور</string>
     <string name="settings_save_photos_to_gallery">حفظ في الصور</string>
     <string name="settings_save_photos_to_gallery_subtitle">احفظ أيضًا صور الوجبات في المعرض عند التسجيل</string>
+    <string name="settings_other_nutrients_note">منفصل عن أهداف السعرات الحرارية والبروتين والكربوهيدرات والدهون.</string>
 </resources>

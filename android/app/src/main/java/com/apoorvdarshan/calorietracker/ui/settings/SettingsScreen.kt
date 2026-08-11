@@ -189,6 +189,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import com.apoorvdarshan.calorietracker.ui.components.DecimalWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
@@ -4517,12 +4518,11 @@ private fun OptionalNutrient.generalAdultUpperLimit(): Int? = when (this) {
 private fun OptionalNutrient.customValueDetail(value: Int): String? =
     if (this == OptionalNutrient.VITAMIN_D) "${value * 40} IU" else null
 
-private val birthdayFormatter: DateTimeFormatter =
-    DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.US)
-
+@Composable
 private fun birthdayDisplay(profile: UserProfile): String {
     val date = profile.birthday.atZone(ZoneId.systemDefault()).toLocalDate()
-    return "${date.format(birthdayFormatter)} (age ${profile.age})"
+    val formatted = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.getDefault()))
+    return stringResource(R.string.settings_birthday_age_format, formatted, profile.age)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

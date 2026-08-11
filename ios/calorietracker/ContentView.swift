@@ -4144,7 +4144,7 @@ struct ProfileView: View {
     @State private var selectedFallbackProvider: AIProvider = AIProviderSettings.selectedFallbackProvider
     @State private var selectedFallbackModel: String = AIProviderSettings.selectedFallbackModel
     @State private var fallbackApiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedFallbackProvider) ?? ""
-    @State private var fallbackBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedFallbackProvider) ?? ""
+    @State private var fallbackBaseURL: String = AIProviderSettings.fallbackCustomBaseURL(for: AIProviderSettings.selectedFallbackProvider) ?? ""
     @State private var showFallbackAPIKey = false
     @State private var textFallbackEnabled: Bool = AIProviderSettings.textFallbackEnabled
     @State private var selectedTextFallbackProvider: AIProvider = AIProviderSettings.selectedTextFallbackProvider
@@ -5430,7 +5430,8 @@ struct ProfileView: View {
                                     .textInputAutocapitalization(.never)
                                     .keyboardType(.URL)
                                     .onChange(of: fallbackBaseURL) { _, newValue in
-                                        AIProviderSettings.setCustomBaseURL(newValue.isEmpty ? nil : newValue, for: selectedFallbackProvider)
+                                        let t = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                                        AIProviderSettings.setFallbackCustomBaseURL(t.isEmpty ? nil : t, for: selectedFallbackProvider)
                                     }
                                 }
 
@@ -6310,7 +6311,7 @@ struct ProfileView: View {
             AIProviderSettings.selectedFallbackModel = alternateModel
         }
         fallbackApiKeyText = AIProviderSettings.apiKey(for: newProvider) ?? ""
-        fallbackBaseURL = AIProviderSettings.customBaseURL(for: newProvider) ?? ""
+        fallbackBaseURL = AIProviderSettings.fallbackCustomBaseURL(for: newProvider) ?? ""
     }
 
     private func selectTextFallbackProvider(_ newProvider: AIProvider) {

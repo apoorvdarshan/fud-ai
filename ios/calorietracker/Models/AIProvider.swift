@@ -457,6 +457,8 @@ struct AIProviderSettings {
     private static let textFallbackEnabledKey = "textAIFallbackEnabled"
     private static let textFallbackProviderKey = "selectedTextFallbackAIProvider"
     private static let textFallbackModelKey = "selectedTextFallbackAIModel"
+    private static let fallbackBaseURLKey = "fallbackCustomBaseURL_"
+    private static let fallbackBaseURLMigrationVersionKey = "fallbackBaseURLMigrationVersion"
     private static let geminiModelMigrationVersionKey = "geminiModelMigrationVersion"
     private static let modelRegistryMigrationVersionKey = "aiModelRegistryMigrationVersion"
     private static let currentModelRegistryMigrationVersion = 2
@@ -604,6 +606,25 @@ struct AIProviderSettings {
         return provider
     }
 
+    /// Splits the fallback role's base URL off the shared per-provider key exactly once.
+    /// The fallback config historically read the same `customBaseURL_` entry as the
+    /// primary, so two configurations of the same provider type could never point at
+    /// different servers. Seeding the role-scoped key from the shared value keeps
+    /// existing fallback setups working after the split (Custom endpoints have no
+    /// default URL to fall back to).
+    static func migrateFallbackBaseURLsIfNeeded() {
+        let defaults = UserDefaults.standard
+        guard defaults.integer(forKey: fallbackBaseURLMigrationVersionKey) < 1 else { return }
+
+        for provider in AIProvider.allCases where fallbackCustomBaseURL(for: provider) == nil {
+            if let shared = customBaseURL(for: provider) {
+                defaults.set(shared, forKey: fallbackBaseURLKey + provider.rawValue)
+            }
+        }
+
+        defaults.set(1, forKey: fallbackBaseURLMigrationVersionKey)
+    }
+
     static var selectedModel: String {
         get {
             let saved = UserDefaults.standard.string(forKey: modelKey)
@@ -642,6 +663,21 @@ struct AIProviderSettings {
             UserDefaults.standard.set(url, forKey: baseURLKey + provider.rawValue)
         } else {
             UserDefaults.standard.removeObject(forKey: baseURLKey + provider.rawValue)
+        }
+    }
+
+    /// Base URL override used when the provider runs in the fallback role. Stored
+    /// separately from `customBaseURL(for:)` so a primary and fallback of the same
+    /// provider type can point at different servers.
+    static func fallbackCustomBaseURL(for provider: AIProvider) -> String? {
+        UserDefaults.standard.string(forKey: fallbackBaseURLKey + provider.rawValue)
+    }
+
+    static func setFallbackCustomBaseURL(_ url: String?, for provider: AIProvider) {
+        if let url, !url.isEmpty {
+            UserDefaults.standard.set(url, forKey: fallbackBaseURLKey + provider.rawValue)
+        } else {
+            UserDefaults.standard.removeObject(forKey: fallbackBaseURLKey + provider.rawValue)
         }
     }
 
@@ -796,19 +832,22 @@ struct AIProviderSettings {
 
     /// Returns the resolved fallback config when (a) fallback is enabled, (b) the fallback
     /// provider has a usable key (or doesn't require one), and (c) the fallback config
-    /// isn't byte-for-byte identical to the primary (same provider + model = pointless retry).
-    /// Same provider with a *different* model IS allowed — common pattern is e.g. Gemini Pro
-    /// primary with Gemini Flash fallback for capacity-pool diversity within one provider.
+    /// isn't byte-for-byte identical to the primary (same provider + model + server =
+    /// pointless retry). Same provider with a *different* model IS allowed — common pattern
+    /// is e.g. Gemini Pro primary with Gemini Flash fallback for capacity-pool diversity
+    /// within one provider — and so is the same model on a *different* server.
     static func currentImageFallbackConfig(excludingPrimary primary: AIProvider, model primaryModel: String) -> FallbackConfig? {
         guard fallbackEnabled else { return nil }
         let provider = selectedFallbackProvider
         let model = selectedFallbackModel
-        if provider == primary, model == primaryModel { return nil }
+        let baseURL = fallbackCustomBaseURL(for: provider) ?? provider.baseURL
+        if provider == primary, model == primaryModel,
+           baseURL == (customBaseURL(for: primary) ?? primary.baseURL) { return nil }
         if provider.requiresAPIKey, apiKey(for: provider) == nil { return nil }
         return FallbackConfig(
             provider: provider,
             model: model,
-            baseURL: customBaseURL(for: provider) ?? provider.baseURL,
+            baseURL: baseURL,
             apiKey: apiKey(for: provider)
         )
     }
@@ -817,12 +856,14 @@ struct AIProviderSettings {
         guard textFallbackEnabled else { return nil }
         let provider = selectedTextFallbackProvider
         let model = selectedTextFallbackModel
-        if provider == primary, model == primaryModel { return nil }
+        let baseURL = fallbackCustomBaseURL(for: provider) ?? provider.baseURL
+        if provider == primary, model == primaryModel,
+           baseURL == (customBaseURL(for: primary) ?? primary.baseURL) { return nil }
         if provider.requiresAPIKey, apiKey(for: provider) == nil { return nil }
         return FallbackConfig(
             provider: provider,
             model: model,
-            baseURL: customBaseURL(for: provider) ?? provider.baseURL,
+            baseURL: baseURL,
             apiKey: apiKey(for: provider)
         )
     }
@@ -831,6 +872,7 @@ struct AIProviderSettings {
         for provider in AIProvider.allCases {
             setAPIKey(nil, for: provider)
             setCustomBaseURL(nil, for: provider)
+            setFallbackCustomBaseURL(nil, for: provider)
         }
         UserDefaults.standard.removeObject(forKey: providerKey)
         UserDefaults.standard.removeObject(forKey: modelKey)

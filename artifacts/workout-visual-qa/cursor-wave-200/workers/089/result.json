@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Donkey_Calf_Raises",
+  "shard": 9,
+  "index": 89,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Donkey_Calf_Raises_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Donkey_Calf_Raises_male_v2_0.png",
+      "sourceSha256": "6c0e2b0e45c323ea08c50ba1692c09ad2d476b13a04a6616bfc61856e456da4e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/089/Donkey_Calf_Raises_male_v2_0.png",
+      "candidateSha256": "e89886ce908bd8dd649408397da21bc28b146e0a6fa45dd9e4b505cde03234d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Donkey_Calf_Raises_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Donkey_Calf_Raises_male_v2_1.png",
+      "sourceSha256": "f58c54eb8e9a193dbbe515dc4d4555b787255a64e9f7f5f1529aa908282433bb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/089/Donkey_Calf_Raises_male_v2_1.png",
+      "candidateSha256": "cc61c88f719ced5e3b59e686fc5440e60fa70388300f4753cf939f964e4348e5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Donkey_Calf_Raises_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Donkey_Calf_Raises_male_v2_2.png",
+      "sourceSha256": "4d451d02545669a998e7e39b922a1ec1d26a4e7d870504eb43e642126c8d8a89",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/089/Donkey_Calf_Raises_male_v2_2.png",
+      "candidateSha256": "02d0495ed54f54b9adf7ea8d92c1d7865c7e199f47290323ead9bb52fe93169c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Donkey_Calf_Raises_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Donkey_Calf_Raises_male_v2_3.png",
+      "sourceSha256": "4f3ae0414ebae1d8409952503b1165d4cc17710c09e279b5d030e0b1bc082787",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/089/Donkey_Calf_Raises_male_v2_3.png",
+      "candidateSha256": "950384530c1723de2648c85656debd7743d93d5445765fe020efd6b526895bec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Donkey_Calf_Raises_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Donkey_Calf_Raises_female_v2_0.png",
+      "sourceSha256": "5adb54961e0bf89928b3b81f2ab6dd1d4cadba5c2348d83b5e63b2fffcd535d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/089/Donkey_Calf_Raises_female_v2_0.png",
+      "candidateSha256": "135a2a7388c1105aaa8fd914fe65c401203987072fc23d91cd67e7dd3060a737",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Donkey_Calf_Raises_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Donkey_Calf_Raises_female_v2_1.png",
+      "sourceSha256": "af2035f85ad265cff29d2b70968ad04881973e57f32585015cc4b08239355abe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/089/Donkey_Calf_Raises_female_v2_1.png",
+      "candidateSha256": "e6002f05f2100cab703bd75c811fd34d8674159ae2541ac4ba59e79ce566f8b4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Donkey_Calf_Raises_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Donkey_Calf_Raises_female_v2_2.png",
+      "sourceSha256": "f43d5fe1cfda9be9225ad67691b5326d0416e48a1404690aff90709ce40ce6c3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/089/Donkey_Calf_Raises_female_v2_2.png",
+      "candidateSha256": "8fa3be7eabd116a8c3d107a7db0f070ed9d203c5189efa57031484f36ede9e36",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Donkey_Calf_Raises_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Donkey_Calf_Raises_female_v2_3.png",
+      "sourceSha256": "534866de73976d1aa136dc0ce2d6a88d6450eea6d6fffdfd15321bc88ce4b346",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/089/Donkey_Calf_Raises_female_v2_3.png",
+      "candidateSha256": "9220e5eaecc73647e97bdc36f3b9b4f6952b4257892a1fe0aa4eb0408e4098ad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

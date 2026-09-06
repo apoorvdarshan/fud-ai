@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Deficit_Deadlift",
+  "shard": 9,
+  "index": 85,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Deficit_Deadlift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deficit_Deadlift_male_v2_0.png",
+      "sourceSha256": "5104651efd97bd947d3e046d08d23e3ba4321cb07d706b76e4601b561372ef06",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/085/Deficit_Deadlift_male_v2_0.png",
+      "candidateSha256": "0576b7b965b3252f27e35da249a5d15d2e97a0c6617b40ae9b3e4ae67b66f209",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deficit_Deadlift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deficit_Deadlift_male_v2_1.png",
+      "sourceSha256": "685c7cead9ace800b874b656cd96d2a0704bbfb3a5d25e34dad9a7eca411f2b1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/085/Deficit_Deadlift_male_v2_1.png",
+      "candidateSha256": "349eb5ad2fb3236b550e11aee54076a7b0b3590d93749df99eb4df70d898d1bf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deficit_Deadlift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deficit_Deadlift_male_v2_2.png",
+      "sourceSha256": "f7657a6367b8f59898971c1b0249f7eacdec6efc0d40223d216b5faba6232d53",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/085/Deficit_Deadlift_male_v2_2.png",
+      "candidateSha256": "e4c360c63b2cf97b844ed57fb4646cff2966abcd1d3b8c0340d8c94692e81697",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deficit_Deadlift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deficit_Deadlift_male_v2_3.png",
+      "sourceSha256": "b92877eeb1b233427bfd53f7245690e11745d58493227d41c8e77f457c8e3611",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/085/Deficit_Deadlift_male_v2_3.png",
+      "candidateSha256": "7658a16dedfa4cb618677b361dc1172e17c2ecb32cc84909fcf83ed9af3258db",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deficit_Deadlift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deficit_Deadlift_female_v2_0.png",
+      "sourceSha256": "b223f8dee2a998669e8c3bf93d4e181565b3a5cc78fc36b86ab5397f4d680020",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/085/Deficit_Deadlift_female_v2_0.png",
+      "candidateSha256": "1119370cf4a60c1d5b9da810830e9616911666484aa12c5e5bae2e9c138745bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deficit_Deadlift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deficit_Deadlift_female_v2_1.png",
+      "sourceSha256": "6d972c57ea8d8f1deb56e2487ebc6b8fadde442bca315fac4d1c68f2a51c2b81",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/085/Deficit_Deadlift_female_v2_1.png",
+      "candidateSha256": "76f5a69b5073a12695af4af0ca36867f07d3ab2194b8a0d8a467785a69bd510e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deficit_Deadlift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deficit_Deadlift_female_v2_2.png",
+      "sourceSha256": "51313fc13658d5506eb4d4db74defa2ccd0bf6f6605ca17ad714105b1d6dcb72",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/085/Deficit_Deadlift_female_v2_2.png",
+      "candidateSha256": "d7c1ee63494f016070057db86d38b9acffb1248c50109039e278359fe03512de",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deficit_Deadlift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deficit_Deadlift_female_v2_3.png",
+      "sourceSha256": "00fcfe92bc479ae029890b160db8ea990d135e77d1c59af38f0fc193477ae5bc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/085/Deficit_Deadlift_female_v2_3.png",
+      "candidateSha256": "89a50bd6819569026d6c9fa2bc762a57c73c28f07a7bf047cfd4ff1063f07b36",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

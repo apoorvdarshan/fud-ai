@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Dips_-_Triceps_Version",
+  "shard": 9,
+  "index": 88,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dips_-_Triceps_Version_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Triceps_Version_male_v2_0.png",
+      "sourceSha256": "5d9c06af98eda1dc984a04ebf0a14fc69a869ccb0c57ab16ba8c5d366ac2ed17",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/088/Dips_-_Triceps_Version_male_v2_0.png",
+      "candidateSha256": "4d53f6cb520cfc5a1c825394cb3e796bf11d8326b0ab80ff378babac581ce374",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Triceps_Version_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Triceps_Version_male_v2_1.png",
+      "sourceSha256": "6b130ac1bed29a992069c98a7484401fde141cb2106af06fce7cd68830ab1ca8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/088/Dips_-_Triceps_Version_male_v2_1.png",
+      "candidateSha256": "64460db3bbbc725378d65f634972c74d2f2c6d4acaac35c75260f5ba0cb1cfb7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Triceps_Version_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Triceps_Version_male_v2_2.png",
+      "sourceSha256": "1c2cdc1444ca93ff8693cf065fe47cfd3c9254ea90fca8d97224eab73911b760",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/088/Dips_-_Triceps_Version_male_v2_2.png",
+      "candidateSha256": "418a94e91bf647ab394a98d7bb9feb2db6240e95848615fe6cde3a080eaaf740",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Triceps_Version_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Triceps_Version_male_v2_3.png",
+      "sourceSha256": "f921cdc9b7679fd667ab70742e76711c42d0cb2b29319d2494335efd57b1f68b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/088/Dips_-_Triceps_Version_male_v2_3.png",
+      "candidateSha256": "9c65bae7d2ce761e6a58271693040236b02eb21358947e26a9ede1e5e1fa8710",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Triceps_Version_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Triceps_Version_female_v2_0.png",
+      "sourceSha256": "3ea8d8b287a93156b233eb3d89004d704678a1875e6ab29cef1b193524f7d3ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/088/Dips_-_Triceps_Version_female_v2_0.png",
+      "candidateSha256": "121b924bfa41e3eefde0b6ad1f388b2265c6272f1be4d983dfa12f5c7d91d60e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Triceps_Version_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Triceps_Version_female_v2_1.png",
+      "sourceSha256": "21d51e1dc682bc24ad037e22498ba7360f71b96f6b9c69f2e9f708889a7f5db7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/088/Dips_-_Triceps_Version_female_v2_1.png",
+      "candidateSha256": "ec1dd90070eea1fe525d2fd415b549b5541ff50202bde85b91523d57a9f9ee0d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Triceps_Version_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Triceps_Version_female_v2_2.png",
+      "sourceSha256": "e27b7b1bc395a06e10c96b66621068dca4e125fe33386549e829fe88f64f0a7a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/088/Dips_-_Triceps_Version_female_v2_2.png",
+      "candidateSha256": "19ad0d80f6939d6d40af52c9e8d63892665d78fe7092b453dc7f919b1d899143",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Triceps_Version_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Triceps_Version_female_v2_3.png",
+      "sourceSha256": "6860b421d8baa03eb61e56b482202487762b30c95a620927acdc64aadf25dd3d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/088/Dips_-_Triceps_Version_female_v2_3.png",
+      "candidateSha256": "3fdaa9ee35eb105c4252c1bac9a8dfec35aa0d1a1b546e2e806106f03c9d4a2f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

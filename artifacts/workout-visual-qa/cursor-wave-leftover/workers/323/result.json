@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_One-Arm_Cable_Curl",
+  "shard": 33,
+  "index": 323,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_One-Arm_Cable_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_male_v2_0.png",
+      "sourceSha256": "c6459b6a5ea5be23b82ae165a8b4f9b5f8712a4b12ea323c1c9fd79f308c45c6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_male_v2_0.png",
+      "candidateSha256": "2fd236eeb8ec2f3529dd3906619389a2aafdccb45c854df05a7aced28f16b809",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Cable_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_male_v2_1.png",
+      "sourceSha256": "2af76209ad24d76db00d93033382f223a6057d21afcb8d6a6a541679ef5942f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_male_v2_1.png",
+      "candidateSha256": "bc49316df2b1748bc8322ca281c31bc16d4915d8d39be7e095e4776d5a9e0c55",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Cable_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_male_v2_2.png",
+      "sourceSha256": "4cee37207b2a722605e38208ea4701ab386e4f201121b6d31109eb865be03a9d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_male_v2_2.png",
+      "candidateSha256": "87aacfa1838e70ad632d824ca08a9a5cd75913da10fe29fc05abbd018ad2c9e0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Cable_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_male_v2_3.png",
+      "sourceSha256": "92d49896c11315511f7734ab0853177223dc62d2e52d488e1cace7f2ee31f4fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_male_v2_3.png",
+      "candidateSha256": "d1bb3115e6152702560c72f6015c1398195a1b8cc234b0915e13396dc60a62d1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Cable_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_female_v2_0.png",
+      "sourceSha256": "d3efa0ee3a50f371ee72c4d085378468131bd1a6a0befb20fa206a6866225163",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_female_v2_0.png",
+      "candidateSha256": "7a71098c9f52a7e4430e86c3578661484c48fd1bd9125b8edc3b1b6ec75946fe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Cable_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_female_v2_1.png",
+      "sourceSha256": "cbf4f0f1a708a5d6fac5b43326902d0cf2d072cb852cea97ab3605a699fce8a1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_female_v2_1.png",
+      "candidateSha256": "a7c7a060fd12a23f6f292e33d2cee79cfb0c0abc6305ef4b08c96f458dace2ef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Cable_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_female_v2_2.png",
+      "sourceSha256": "131a77ce10be26c77d73480ffcd47e4250984333c85cd30fe4ab099e801650dc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_female_v2_2.png",
+      "candidateSha256": "e9c431b0b3baa7879d79b3f8c206fef937a4f1080d1224d0d5a5dec994282a3e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Cable_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_female_v2_3.png",
+      "sourceSha256": "a490f86c60342ced682d6a353ffd655cfac7dc0881de661d1b26965cd0cf9c30",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_female_v2_3.png",
+      "candidateSha256": "788456538a18a481f7f56515387e35eab8670e551e2e204aad910f81dd3a650b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

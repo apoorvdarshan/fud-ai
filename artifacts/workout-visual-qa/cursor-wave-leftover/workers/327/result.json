@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Palm-In_One-Arm_Dumbbell_Press",
+  "shard": 33,
+  "index": 327,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_0.png",
+      "sourceSha256": "d4cbc310c9cc4a77a9738f4070623e7567153e6c6bfb8f6275874fbd601d4419",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_0.png",
+      "candidateSha256": "41f5772a68aace3f16fa9dc220ca0175164d466ba86ece949cdd3b186b322a88",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_1.png",
+      "sourceSha256": "4624a7471ba5dc70d201a72ccc39b8317ae366f2d18a9cd75ed4efebe55548fb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_1.png",
+      "candidateSha256": "3634d2d7757bc783635ed730c8158d414acbef3e32efeaf7d5cd95e5e59a105b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_2.png",
+      "sourceSha256": "b45ec2a3420c8b175017ba0de43e37d7f03ecd568b143d55d6981aa682fcbd51",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_2.png",
+      "candidateSha256": "4b4949c54a5a502a98a1ddf4587f943b37f50f1609f0a74e3e10bb1cb394578e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_3.png",
+      "sourceSha256": "af2d5efdb90d74d09fdd80c2be1b16dedd539d0cc1c2bf81ebeec3c0dbf1ee81",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_3.png",
+      "candidateSha256": "2eeed2fb3b15051d82bd73a5c98e9044c1a77ef41befc6b1e541e0b4e2692ab5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_0.png",
+      "sourceSha256": "c4bf644811b17672c2a287157ffd17f63e2267e0972dc21780d562191b0a3af2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_0.png",
+      "candidateSha256": "9d54b79dbe5f0fbf7c9b6416589600b2605d960558c83b622a479297a76f0766",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_1.png",
+      "sourceSha256": "d8df35d647fdb4acb42348580f47856d1fe806bcb82fe9d69c678fd0889aa708",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_1.png",
+      "candidateSha256": "82b7ef71954e4c63163a07b58cc3169956ac273e4f74eed5cd60066c0314851a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_2.png",
+      "sourceSha256": "76301779194d9a0efd3a8c5502d8f13e35afa5a59f7640300f5b20370b86843f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_2.png",
+      "candidateSha256": "f0fea6474596a2aa4c478a3291fbdd359938cf4a06a8a42c596a2cb54e74e874",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_3.png",
+      "sourceSha256": "94b384f699b510516874732fbeb369222598d24a005d3af0f46204cdd0d731a0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_3.png",
+      "candidateSha256": "730b026c66e877d63b031be445386f1608994211c96bcf0deeeb6a4380faaedc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Military_Press",
+  "shard": 33,
+  "index": 321,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Military_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_male_v2_0.png",
+      "sourceSha256": "7acd0fba8ba0bf6a21fee9a7b2ce5c0e838937331107cc5bad6324d38f407d73",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_male_v2_0.png",
+      "candidateSha256": "e9028c60f75a13089913db2aa1cf2ad598d31042725b8caf351f2aebb01145fa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Military_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_male_v2_1.png",
+      "sourceSha256": "1c03ccb392263f6a7bad4745b64899ad2153264ed1c0a6a841637247e1db6a4c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_male_v2_1.png",
+      "candidateSha256": "6037b7536e5c54dd1eb5d934cb14c6c12a2e1463f44ef6603d5e8fd60a834c7f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Military_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_male_v2_2.png",
+      "sourceSha256": "706874737f40440432f46c6a8d2d0a3c19a5f0ba973887ace26ff329cfe40964",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_male_v2_2.png",
+      "candidateSha256": "9df95c370503ad5aba177f6d3032b680416ac8d3dd97142c81bf208d7796ee8c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Military_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_male_v2_3.png",
+      "sourceSha256": "419c0b308a3851c9c505376c9d5a2dabb0ed9567d6b7e89570ff11a9791eec3d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_male_v2_3.png",
+      "candidateSha256": "bdc1472b31510d987a0abd5259bf607193c6fc7eee7f70502119f07a59a02aa1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Military_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_female_v2_0.png",
+      "sourceSha256": "0004932902f93f084e5cf4a3b9c9ac8e03181db45cdf00290a654fed6926f903",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_female_v2_0.png",
+      "candidateSha256": "d609e744622b5844ae3c6bfebc3ba1e677fa8cf87ed3bb30f55f19d1107cd4d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Military_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_female_v2_1.png",
+      "sourceSha256": "b4e18c9b0b1d28c03abe9926e1e46548934fc5e813bdb0708b02dfbc745ced4a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_female_v2_1.png",
+      "candidateSha256": "aee75d6df63732f907cc527fd237fe9208055a673757622f73d4da13eea7ff89",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Military_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_female_v2_2.png",
+      "sourceSha256": "44d1c725af20d822e696488e5ef125ba5f78f87f26a9cca0d83985e69a46d15c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_female_v2_2.png",
+      "candidateSha256": "ffe65ccae8c679f8683fb37d29e046b6184231daf838159640d0b81db17b8831",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Military_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_female_v2_3.png",
+      "sourceSha256": "10db459bfb73bae0997c9cf8ba9d9bab66fa9e656332b440b31a92593bed0c05",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_female_v2_3.png",
+      "candidateSha256": "4bf3263cb91d56428c6508b4881dc1b925b0e5c3c0d9a1d16213373c2f01faee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

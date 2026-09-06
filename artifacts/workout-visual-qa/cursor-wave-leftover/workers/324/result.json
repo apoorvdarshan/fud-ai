@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench",
+  "shard": 33,
+  "index": 324,
+  "status": "ready_for_review",
+  "findings": [
+    "Baked grey checkerboard floor matte beneath bench/feet; GenerateImage surgical + green chroma key removed transparency grid."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_0.png",
+      "sourceSha256": "5d3449f046bedf27477a80b8086dfb86c8a095acbe589da5a2ec58317677d3d4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_0.png",
+      "candidateSha256": "12835913584bf3ef779a25ae57cbec14be7364b9696286bebee6e40aa7e92148",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_1.png",
+      "sourceSha256": "6439380a53c0c2207a9dea5ed3ab32cec2f4917bef46ac22f7cc57de9a60b047",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_1.png",
+      "candidateSha256": "9ef707a084610df12b0a948e3c6eafaece47e69446eecea9a023606e74418b8f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_2.png",
+      "sourceSha256": "149795b9db170feb3c34f571b623341922860f3dfbf26a7a346272c2771b1e68",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_2.png",
+      "candidateSha256": "fea7d075367c332f435a68c016b73071d053960a978b6f5c3e229298ec2968ad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_3.png",
+      "sourceSha256": "0a7628b8b7fff4c2c8231bcfcc0671f8e46d3d8e3a35fa1725590b53fd5c1dae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_3.png",
+      "candidateSha256": "3f0d1af0ae092657c164f8cbbaa311e5a3c94f463c13ef73c2baa98cbcb64547",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_0.png",
+      "sourceSha256": "be873e091dd58c6c274bcacfeda7807d4dd3a6e405df2e42e56b14683578f6f4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_0.png",
+      "candidateSha256": "29055332c709385b00c282be646946e4490c67829eaa9ddb3293990c01daa02a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_1.png",
+      "sourceSha256": "6e145b0ac183f1e6f3025ae6f29bccf2279074b122d4c7dfe9675c33eb92e26c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_1.png",
+      "candidateSha256": "ae242f34d3275ce25a586be85dfd95eb6c9c143edee5c4addfbad182b654cea4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_2.png",
+      "sourceSha256": "56a89fab8e601c0bcbc7246b43a03aed37e46732da4ae4d0b714729effb3a90e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_2.png",
+      "candidateSha256": "30fbea5530b2d1e36e406414a285f31d6c70b736fae3319210be8590469d4e78",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_3.png",
+      "sourceSha256": "0d99ebd3a37bebdabb65ddd8c7a6e2c9c1db869693fcb3b38c081d4946437fd1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_3.png",
+      "candidateSha256": "eef4962806280ff3076f83dd7effac40d8677937d5c890e6e2af6e2ee8f71908",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

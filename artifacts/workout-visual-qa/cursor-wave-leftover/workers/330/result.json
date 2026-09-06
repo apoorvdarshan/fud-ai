@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Pelvic_Tilt",
+  "shard": 33,
+  "index": 330,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Pelvic_Tilt_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_male_v2_0.png",
+      "sourceSha256": "35a8a058e5e988f7a2778383c84464a2039293021a2a6b6d3e1e9d8493427e2b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_male_v2_0.png",
+      "candidateSha256": "d73de8bbf5beb509381375d8330c05e9707e545cf42586ea821f955acb7f04e8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Pelvic_Tilt_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_male_v2_1.png",
+      "sourceSha256": "4e00ca6c172161b7c389b8e96a845a26854d2b7cf9b75c8acbc181056df3f0a0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_male_v2_1.png",
+      "candidateSha256": "01227b61fb43cf747b48aef1e46801918d44827b484fd991ab1c0938b3fd0f51",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Pelvic_Tilt_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_male_v2_2.png",
+      "sourceSha256": "67585cd15c809a59587b54a8190758dfd5778a61aad3d895e2192473d7e65b69",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_male_v2_2.png",
+      "candidateSha256": "0b60d28886c3780a125b657e9e90a4ccd142cad1c8cf50f24aac16284dd54d3b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Pelvic_Tilt_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_male_v2_3.png",
+      "sourceSha256": "d2fd1262cfed60f21b08f5e7afef8a0aa0a8ece3a97e0d33247933a2d5494e88",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_male_v2_3.png",
+      "candidateSha256": "327433886879864279c6b49b4ae357887a19784a73b0e97bf76b0c0da8be9711",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Pelvic_Tilt_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_female_v2_0.png",
+      "sourceSha256": "71292b87c14a910b0339f914c31f834be42f9ddca6badf05d2d9ddcf318e4a0c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_female_v2_0.png",
+      "candidateSha256": "baa1914ac7adec8592ead9e7afaf3365f83bfecce1d6515f887dc0223b2c9583",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Pelvic_Tilt_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_female_v2_1.png",
+      "sourceSha256": "52176c35d7b178e5ba4438c3e619d594e223f18bf0f9fdd70bd2715f4203eb4d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_female_v2_1.png",
+      "candidateSha256": "93c6edbe76cc3b986c6f33c0e4f69d271e8ac7af8bfed16a34fb8662da15edfc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Pelvic_Tilt_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_female_v2_2.png",
+      "sourceSha256": "75fe504ac854cb56a2abc5f6db0f69d26ad5cc5172d70cb1f386cd757d709be5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_female_v2_2.png",
+      "candidateSha256": "dd6bb87c6353c8c35f0b4b0ffc35868d79ce66afa568afb18c39658bfb6ae97f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Pelvic_Tilt_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_female_v2_3.png",
+      "sourceSha256": "efcf7b009cf0e27d51685c7d9e10be381160f4b6aa5059796535929caed09843",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_female_v2_3.png",
+      "candidateSha256": "15ae45d3db4de8b7df2de2fabf09c06c9cec816f65a0866c82b20b6ac21c7985",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Muscle_Up",
+  "shard": 2,
+  "index": 20,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical + green chroma on 2 dirty frame(s) after script pass."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Muscle_Up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Up_male_v2_0.png",
+      "sourceSha256": "b7e69ef306a05bead263867b0660dbdb6e5be886056bfcfd0bbf5ab0d38a4254",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/020/Muscle_Up_male_v2_0.png",
+      "candidateSha256": "d2e7faab58e1281f0e41e1a4c7ec6837b113e61f0588f7977baa6a58a14877a4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Up_male_v2_1.png",
+      "sourceSha256": "8eec971e5347bcafd3c7d79f492c8e1ba0a88d7a565bc1ece290a49cd1ceef9f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/020/Muscle_Up_male_v2_1.png",
+      "candidateSha256": "75a7315a25465aa179e2a887b710894a44889ca28100e1398a5cf4ca4da6080c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Up_male_v2_2.png",
+      "sourceSha256": "4cf2c507d926b4c913d1804b9a17c350b3336f1ad2e7289774d70174b4f6bdf1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/020/Muscle_Up_male_v2_2.png",
+      "candidateSha256": "cd513c4ff92970910a21b25f16e462fed85c1a75ea71f0638bdd2d5c112c38e3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Up_male_v2_3.png",
+      "sourceSha256": "4e216f5af0bb8075ea3bed913f8019136768573cc32d9870f03cd73d5d5220e1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/020/Muscle_Up_male_v2_3.png",
+      "candidateSha256": "4773ae249a906f2069820107969d6d3b341c885e3551de122fa12352a7ed4b88",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Up_female_v2_0.png",
+      "sourceSha256": "fe31a255b3403b0b111a96c3a63d7d19dc739371b9f15bf2b7363d569aca5fd7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/020/Muscle_Up_female_v2_0.png",
+      "candidateSha256": "4964c81c5408c382ff2066229dbcdb7a9c420d4139de78ef35ab1d735ec6f09b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Up_female_v2_1.png",
+      "sourceSha256": "304a81cfcc4fa1e8a6b6eb18a799a191675f9289427f4e6c3ebff08f0b1a355d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/020/Muscle_Up_female_v2_1.png",
+      "candidateSha256": "4adb7ff0de6b9b083e0592f18a3ed0734f5e6fdbef21338ebc6c4815fb6c3854",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Up_female_v2_2.png",
+      "sourceSha256": "df743fc3c025640adcf1471e2d2a086c8d45f833786ea129093ce495eacde5f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/020/Muscle_Up_female_v2_2.png",
+      "candidateSha256": "baeedaa712f563ea177a4a0e1700ea50b335659b0ad5c77ab351ebacbe7edeb0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Up_female_v2_3.png",
+      "sourceSha256": "9a9e98ffe7dd7a8532f359ee2d0e4a9f24c48e8e6d1c3eb16191f7aadab93caa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/020/Muscle_Up_female_v2_3.png",
+      "candidateSha256": "1219060ed0e8854cab9a3d551d5d957fd8685153fdc90b7889231a709dac81be",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

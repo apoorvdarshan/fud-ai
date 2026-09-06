@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Kettlebell_Turkish_Get-Up_Squat_style",
+  "shard": 2,
+  "index": 18,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical + green chroma on 8 dirty frame(s) after script pass."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Squat_style_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Squat_style_male_v2_0.png",
+      "sourceSha256": "6d4ebbe6ab76aa664aa093cad456f6fcf17d6811bb36f816cba32602192ce824",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/018/Kettlebell_Turkish_Get-Up_Squat_style_male_v2_0.png",
+      "candidateSha256": "26daa328952508ef2bf5ea01c3ce13b99759113c8f5c86155c4dec9639d8ba90",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Squat_style_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Squat_style_male_v2_1.png",
+      "sourceSha256": "fc97e5e776d7f5aac0871f47da4d6991c5fde28afa42c78462d752194046167d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/018/Kettlebell_Turkish_Get-Up_Squat_style_male_v2_1.png",
+      "candidateSha256": "920ee267227b5d2f82bd8d1409df8545acd6b9de2d70fda25c60e8bbbf5b3515",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Squat_style_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Squat_style_male_v2_2.png",
+      "sourceSha256": "a2f438e281049754b7270ffd755ec7ef713d1df6dde1aab285abe00491ba1bfb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/018/Kettlebell_Turkish_Get-Up_Squat_style_male_v2_2.png",
+      "candidateSha256": "b2177a1cbe7b7c96d88338df78e3607bc15560885ae0d5cf3e7a9c8ccaa7217e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Squat_style_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Squat_style_male_v2_3.png",
+      "sourceSha256": "8bf38e3cdb801eba854e6cdd90ad016b8ba0fdd9c4d4e4c23268829049274170",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/018/Kettlebell_Turkish_Get-Up_Squat_style_male_v2_3.png",
+      "candidateSha256": "2fad981aa0a609005d4cf4e9021d2765c9bdc3c7ff43aeb34ce850d55b3c0cab",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Squat_style_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Squat_style_female_v2_0.png",
+      "sourceSha256": "01c90f9109028f6898decd73f406e972a78a867042079f4f94809d75f7cb5f0f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/018/Kettlebell_Turkish_Get-Up_Squat_style_female_v2_0.png",
+      "candidateSha256": "a5000fc7df081f6462e9ae8f2627a8b52ba565f59a8b862999ab7b2c042b3b13",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Squat_style_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Squat_style_female_v2_1.png",
+      "sourceSha256": "587e93ce877e347d5691af1209a24866db6d882834a85c10db6934f30aee7806",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/018/Kettlebell_Turkish_Get-Up_Squat_style_female_v2_1.png",
+      "candidateSha256": "6c6086041aaf169fe985406b826173e14a05184a3c86d449ed4cd991acb16128",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Squat_style_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Squat_style_female_v2_2.png",
+      "sourceSha256": "869c9e8a559eb619ff008959338576e806ccd1e96d9ea3259d1c6eae910fe324",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/018/Kettlebell_Turkish_Get-Up_Squat_style_female_v2_2.png",
+      "candidateSha256": "a54ca37c51174fbb55a95fdf7002353676612def372cc2a65695d05f9533ec86",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Squat_style_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Squat_style_female_v2_3.png",
+      "sourceSha256": "91f5d3e24695941603bd1f3be01c14ac1708f312fe3fcb247802087a9bb106ba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/018/Kettlebell_Turkish_Get-Up_Squat_style_female_v2_3.png",
+      "candidateSha256": "9b20396fdda7b69db1283b1c5370877170a3e63341d649bca19998ed260f7c06",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

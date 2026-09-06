@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Muscle_Snatch",
+  "shard": 2,
+  "index": 19,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Muscle_Snatch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Snatch_male_v2_0.png",
+      "sourceSha256": "5335abc1c61f045a6648ab6d4620fb9d45270134617da32ac7d2b34fc6f248f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/019/Muscle_Snatch_male_v2_0.png",
+      "candidateSha256": "1a3452b816740146a0bce83a0cbb33196ea1dd0e3475f08d7d8000474e8aece0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Snatch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Snatch_male_v2_1.png",
+      "sourceSha256": "92b79384797fcb0d98fbf84c528772dd0454c4c146d95659a76016067096b279",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/019/Muscle_Snatch_male_v2_1.png",
+      "candidateSha256": "c7820a82c31ca8d740cfd626e8c2d0c23badf6223662ebdab7d83f8c50770476",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Snatch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Snatch_male_v2_2.png",
+      "sourceSha256": "2bdbf379b2be19fe73dbb9ad2c4aefd86b8efefb3055a882a2cde03512df6c8c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/019/Muscle_Snatch_male_v2_2.png",
+      "candidateSha256": "99142cabf773ecf06246a1462cce407f2b149f7f8a1365fa4d0bc93ae2185ce6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Snatch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Snatch_male_v2_3.png",
+      "sourceSha256": "d4408ab5f57e22f0573084e71799a0763578def2686c5ac45b9cc355ffc944da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/019/Muscle_Snatch_male_v2_3.png",
+      "candidateSha256": "4a1172d4cf7818c9333d7c025957d89cc7611e608ab3129ab30f0cf28cb5f1c1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Snatch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Snatch_female_v2_0.png",
+      "sourceSha256": "eeee0f1ddde95197e99d54c30afe637392686af8ed2a55c2876ecf4ad50133ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/019/Muscle_Snatch_female_v2_0.png",
+      "candidateSha256": "5ef4f86df39095274525557d1af04a1ea8b0612eea38d129a90aadc465b09ac4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Snatch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Snatch_female_v2_1.png",
+      "sourceSha256": "895f15b84aaca0ef44881cb00f547debd98f33272a57dfea39183829e1fd64b3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/019/Muscle_Snatch_female_v2_1.png",
+      "candidateSha256": "bf5325829c29505de6548769b724ba31493419cb70c5211ccc5caddddd799e00",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Snatch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Snatch_female_v2_2.png",
+      "sourceSha256": "ceecdd500798f37f8f5a8895a6df810bb9d88071b458ae7b5085fbc167b25bf9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/019/Muscle_Snatch_female_v2_2.png",
+      "candidateSha256": "fd6d40d3fdb5a36d1a6387d708bb7abbf1223677b13852874cc889277e933498",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Muscle_Snatch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Muscle_Snatch_female_v2_3.png",
+      "sourceSha256": "1b9bddd60dd9bdf90be321ed4581d87ef917e7855f49e547ff21b3a0cb0704bd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/019/Muscle_Snatch_female_v2_3.png",
+      "candidateSha256": "6c709b98f3ae24afd420335a45e90b4907f270116b0c02b84a2a26b8fd5fb406",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

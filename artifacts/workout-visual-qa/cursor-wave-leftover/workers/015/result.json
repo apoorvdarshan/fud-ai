@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Dumbbell_Tricep_Extension_-Pronated_Grip",
+  "shard": 2,
+  "index": 15,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dumbbell_Tricep_Extension_-Pronated_Grip_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Tricep_Extension_-Pronated_Grip_male_v2_0.png",
+      "sourceSha256": "cc91dff9232fc839b1ccec9799eeb1bc45c8633a703e10253fae1b4ea9572116",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/015/Dumbbell_Tricep_Extension_-Pronated_Grip_male_v2_0.png",
+      "candidateSha256": "f624418133cb4f42618e769e79a46fd8ecfeb5dffd6b578cbfd2bbaa99fa4f62",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Tricep_Extension_-Pronated_Grip_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Tricep_Extension_-Pronated_Grip_male_v2_1.png",
+      "sourceSha256": "bd86fd3402b97661fb547c0945d03a53f828204f6742ab65d47f19866d547075",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/015/Dumbbell_Tricep_Extension_-Pronated_Grip_male_v2_1.png",
+      "candidateSha256": "4e37569c0e34ef641078c97458c8083cd6e8f98c295dce4553ebcb33e7ea538e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Tricep_Extension_-Pronated_Grip_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Tricep_Extension_-Pronated_Grip_male_v2_2.png",
+      "sourceSha256": "dea2b2d4af448964b97844b04893bdb97af0ce8bd89f8bc4368302a8303e72f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/015/Dumbbell_Tricep_Extension_-Pronated_Grip_male_v2_2.png",
+      "candidateSha256": "02aed6cc5a1cc40ce78371dae274ca107670b030bf837d18158bfd5b727f34e2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Tricep_Extension_-Pronated_Grip_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Tricep_Extension_-Pronated_Grip_male_v2_3.png",
+      "sourceSha256": "cc1b7ff3252ace5d6ac75c1dc4e4de974d5f7e8da8f29027609dbe47e8db4ecf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/015/Dumbbell_Tricep_Extension_-Pronated_Grip_male_v2_3.png",
+      "candidateSha256": "54ef93d7d4743ca4e2e34a4d3168a2a3395f0395d132c0b88468314297936dbd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Tricep_Extension_-Pronated_Grip_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Tricep_Extension_-Pronated_Grip_female_v2_0.png",
+      "sourceSha256": "78698c7929bcfea3faa82bfbd0a840c3b477e96866af83707ba4bebff0700387",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/015/Dumbbell_Tricep_Extension_-Pronated_Grip_female_v2_0.png",
+      "candidateSha256": "9ea0849becb7976e03891deac7810cc2e9f325f0186528fb85e36f157d39d964",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Tricep_Extension_-Pronated_Grip_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Tricep_Extension_-Pronated_Grip_female_v2_1.png",
+      "sourceSha256": "abf67596402357cd425f5f1a4ed17a2ace074a79a3ab176a06d1e32b6abe4ed2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/015/Dumbbell_Tricep_Extension_-Pronated_Grip_female_v2_1.png",
+      "candidateSha256": "7054ae971d22004d637c091b9a48ce5d06c1d07a5a62cd07292075dc2289ef6f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Tricep_Extension_-Pronated_Grip_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Tricep_Extension_-Pronated_Grip_female_v2_2.png",
+      "sourceSha256": "e793e11ac86f6aa88e312f7963b4035245c1e45cb74f67f934f6a5e06b1db631",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/015/Dumbbell_Tricep_Extension_-Pronated_Grip_female_v2_2.png",
+      "candidateSha256": "1e8976327b9432a1591ac6a8b50941fc4b4482746407b4203ab2c546b6c72316",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Tricep_Extension_-Pronated_Grip_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Tricep_Extension_-Pronated_Grip_female_v2_3.png",
+      "sourceSha256": "bbb2fe542fd2d5d40c9ee525c81d30de2002b734857e98084c7394d062fbbf95",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/015/Dumbbell_Tricep_Extension_-Pronated_Grip_female_v2_3.png",
+      "candidateSha256": "994a373a21397b6105d13a0775d2a1f68651a5f2771fae08540e8d1703cc4297",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

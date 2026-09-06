@@ -1,0 +1,92 @@
+{
+  "exerciseId": "External_Rotation_with_Cable",
+  "shard": 11,
+  "index": 107,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical + green chroma key on 3 frame(s) with pale fringe/floor matte: External_Rotation_with_Cable_female_v2_1.png, External_Rotation_with_Cable_female_v2_2.png, External_Rotation_with_Cable_female_v2_3.png."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "External_Rotation_with_Cable_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_with_Cable_male_v2_0.png",
+      "sourceSha256": "0e2b4bb480f964bb9d9e0d3a9cbfefdb6ca7d2a65afd97ba22b6573193d990f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/107/External_Rotation_with_Cable_male_v2_0.png",
+      "candidateSha256": "df7cff8bc1b06ff21a819dec14fd0a51443254018cfb722e35c557f9107fec16",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_with_Cable_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_with_Cable_male_v2_1.png",
+      "sourceSha256": "0f7e01588cdadc5639e11a0f6626f56ec7433b49423730044871fc7a09808c2b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/107/External_Rotation_with_Cable_male_v2_1.png",
+      "candidateSha256": "3af2f1e0ec8e472f822089690ce032477955537b1a82771070231ad516f5b879",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_with_Cable_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_with_Cable_male_v2_2.png",
+      "sourceSha256": "123a1fc415d080eec782a0b298f79f7e57e4aa95a95ede85f63887923e7513b7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/107/External_Rotation_with_Cable_male_v2_2.png",
+      "candidateSha256": "bf9429be064e290b36cb1abaf9369d014bc592fb6441cfbed75bca0fb7715dce",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_with_Cable_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_with_Cable_male_v2_3.png",
+      "sourceSha256": "271c13b103faf558895a8e12e14013085dbbd05abf548a64e3cfc0f66deec4bc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/107/External_Rotation_with_Cable_male_v2_3.png",
+      "candidateSha256": "72b0763cb3f7f63be831850729e981870595e8979d4e32349411bd68310bb498",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_with_Cable_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_with_Cable_female_v2_0.png",
+      "sourceSha256": "0cb1d68621704427f9df5681e6a30bc0508f62e71280ad45b328bbb1b5ac970f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/107/External_Rotation_with_Cable_female_v2_0.png",
+      "candidateSha256": "98e079abd8dbb8ba5cca1aa55061eb8c4c93c40458e0d9b4f2dbce3142fe7d3f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_with_Cable_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_with_Cable_female_v2_1.png",
+      "sourceSha256": "f6da48c39aa94dfd12c7777b28dab7166bc48029cd4cf4c20d1f5e64e4c7654a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/107/External_Rotation_with_Cable_female_v2_1.png",
+      "candidateSha256": "063fbf83925ae79dd846611759b3670e9900f595167a9c677fcd9186c68a8fe9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_with_Cable_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_with_Cable_female_v2_2.png",
+      "sourceSha256": "8c7a66be101184e12dab222ca8671a980fd49cffae3fe5bd73c4a3236b9dc3b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/107/External_Rotation_with_Cable_female_v2_2.png",
+      "candidateSha256": "42a094e96e57face1103ce500fdf21c456f3d01a75cacc7d380ebd967c839a48",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_with_Cable_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_with_Cable_female_v2_3.png",
+      "sourceSha256": "7b62987f7dee45769ba8a1acaa24358ed8779a5ae7c416aac794f7139fffa305",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/107/External_Rotation_with_Cable_female_v2_3.png",
+      "candidateSha256": "980106f8de30d99b1da32a5ba799a836a650fa984669b749e5483944c360b148",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ]
+}

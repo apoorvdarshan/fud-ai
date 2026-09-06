@@ -1,0 +1,90 @@
+{
+  "exerciseId": "Exercise_Ball_Crunch",
+  "shard": 11,
+  "index": 103,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Exercise_Ball_Crunch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Crunch_male_v2_0.png",
+      "sourceSha256": "399b8c50fcb1a85701320d68f56a556a22366790bf9e9996c3a9a8f6fa5c5494",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/103/Exercise_Ball_Crunch_male_v2_0.png",
+      "candidateSha256": "9e48c90e06d9396707874f85404f9d12ce75668c91daa8ba3159e919c639887c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Crunch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Crunch_male_v2_1.png",
+      "sourceSha256": "c574fee3036c3d0360befa0ca9ce9936886e6d575918e247c7ab9e0e3f8d49c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/103/Exercise_Ball_Crunch_male_v2_1.png",
+      "candidateSha256": "0001f7079e25f5eb333a2a8c7e2190b7eac7873e91540d7945f568c2a72c224d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Crunch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Crunch_male_v2_2.png",
+      "sourceSha256": "ee596cf51a18369b4ed6ad7c6a06c80eec2f12157e4ce91796604ccc9baf8255",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/103/Exercise_Ball_Crunch_male_v2_2.png",
+      "candidateSha256": "b510c61714feacd1a07427e420143def1579bdcc96ef8a89becfad721ecd1466",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Crunch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Crunch_male_v2_3.png",
+      "sourceSha256": "312033a35a07d9385eb8a98ab0273393b5bfb86cf9e14cd153ebea59a1bd64a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/103/Exercise_Ball_Crunch_male_v2_3.png",
+      "candidateSha256": "b77a739f188a91e3c2b805d3a59813fcfbcc94c4882364fd48d1e9653cb9b328",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Crunch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Crunch_female_v2_0.png",
+      "sourceSha256": "ce2a4d06096b20998ce3d094da417a1842c2a174131286cd7909dbda5f09cc28",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/103/Exercise_Ball_Crunch_female_v2_0.png",
+      "candidateSha256": "d1b018ddf9288d348a80f762e201ae87dda0ac13af46cffa710105927f580c26",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Crunch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Crunch_female_v2_1.png",
+      "sourceSha256": "ed7f435280ce8e7f35778d02ed4721050d8b5b14fc54e31d7bed425eaa5f3d04",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/103/Exercise_Ball_Crunch_female_v2_1.png",
+      "candidateSha256": "c1cff87a0ee87d16400589afcce6b8ed9a3a8d2592b64e1279453fdfa91e8f6e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Crunch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Crunch_female_v2_2.png",
+      "sourceSha256": "cf3e62055d7bb66b93b37554420fcf5e3ebb740041a5af67bb776cee21ffa809",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/103/Exercise_Ball_Crunch_female_v2_2.png",
+      "candidateSha256": "fccf818996650a1501ddbb6086a434aa2bfc53e04cc1b5158299b7700ce3eb0b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Crunch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Crunch_female_v2_3.png",
+      "sourceSha256": "05514d766facdf3f608169726aa0c6b45360476b859745f821b111fea9de880e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/103/Exercise_Ball_Crunch_female_v2_3.png",
+      "candidateSha256": "53e976cfc8b1854ff2c70be8acda3cc3d9c116c1d760b49d10c742622a2b7845",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ]
+}

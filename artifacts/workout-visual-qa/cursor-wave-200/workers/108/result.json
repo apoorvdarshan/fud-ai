@@ -1,0 +1,90 @@
+{
+  "exerciseId": "Finger_Curls",
+  "shard": 11,
+  "index": 108,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Finger_Curls_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Finger_Curls_male_v2_0.png",
+      "sourceSha256": "7dab7ef9ea1929cead4c82e22012a014403d508effd93166d500527a12cb2542",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/108/Finger_Curls_male_v2_0.png",
+      "candidateSha256": "b7e23665c8ab4e13b870b69e1d5401a5caab85f4c3d8f0d149f6111459ec5ba1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Finger_Curls_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Finger_Curls_male_v2_1.png",
+      "sourceSha256": "9a242eee4aaca34a5fb881807df02480dd8fefbede264574ffcb5acccc99e9c9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/108/Finger_Curls_male_v2_1.png",
+      "candidateSha256": "8888661c7c38afd1cd300d168c1af8b60132a87e2ddbffe1c4b19dcf6c1e35b4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Finger_Curls_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Finger_Curls_male_v2_2.png",
+      "sourceSha256": "41b690b648dc3e3ec716b6d061d8e5d9958e4510d8b85be415063c6818e2238f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/108/Finger_Curls_male_v2_2.png",
+      "candidateSha256": "dddb1aca05e7aa10c11dc80fe4cce44babd05ea6b470e9d23e0550ec71a952b0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Finger_Curls_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Finger_Curls_male_v2_3.png",
+      "sourceSha256": "ae62c0cf59edc2a741d8c5e21478ef1087e6be35b85d311fa919ec801b6cb7f6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/108/Finger_Curls_male_v2_3.png",
+      "candidateSha256": "8a07bae12e0541b0c6e729c0be0748974e0ff63cbfa0153ae1db2ae69de2a43b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Finger_Curls_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Finger_Curls_female_v2_0.png",
+      "sourceSha256": "94dd57a0b5ed5f1317990b726ef7859f3a10ac6217f8ea38eb2ea95e58414c69",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/108/Finger_Curls_female_v2_0.png",
+      "candidateSha256": "fb4a4495aec0e282d7c8a28d888b98d149ba252c86ee96510e67253fa2cca0dc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Finger_Curls_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Finger_Curls_female_v2_1.png",
+      "sourceSha256": "a66dd41df6589e1d32450679262f04928f37295d581b0a5c47a43fb603322d7e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/108/Finger_Curls_female_v2_1.png",
+      "candidateSha256": "8de87e35fa52330301ef9d62dbf99030d23ccd2daf55f307ad7e1ad251e39f65",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Finger_Curls_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Finger_Curls_female_v2_2.png",
+      "sourceSha256": "9dd6932202a1f7fd5420f28ccac532e5212ffafc2066b8c974dfdfe088681d35",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/108/Finger_Curls_female_v2_2.png",
+      "candidateSha256": "ab2f9ffce53c078007e447695d2ff84b13e557b8de489f4a072872f5debe8f53",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Finger_Curls_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Finger_Curls_female_v2_3.png",
+      "sourceSha256": "66e92c268ec9c22fa7a7beb6e06afcf57c9feab2ed549a5439f04bca2fda4166",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/108/Finger_Curls_female_v2_3.png",
+      "candidateSha256": "48c890756f4a4cc7e42f15627c6d86862e14c284b10261ddbc8c22c59705c284",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ]
+}

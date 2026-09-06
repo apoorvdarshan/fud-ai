@@ -1,0 +1,92 @@
+{
+  "exerciseId": "Flat_Bench_Cable_Flyes",
+  "shard": 11,
+  "index": 109,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical + green chroma key on 4 frame(s) with pale fringe/floor matte: Flat_Bench_Cable_Flyes_male_v2_0.png, Flat_Bench_Cable_Flyes_male_v2_1.png, Flat_Bench_Cable_Flyes_male_v2_3.png, Flat_Bench_Cable_Flyes_female_v2_3.png."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Flat_Bench_Cable_Flyes_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Cable_Flyes_male_v2_0.png",
+      "sourceSha256": "47cdd18f403e3be9dba724e1c00a95665c81772ec5b65e861ac0e399f1a082e6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/109/Flat_Bench_Cable_Flyes_male_v2_0.png",
+      "candidateSha256": "f7409f5a4f4fe87a8af3149181daab2232224fdfa36405f1135c64689da1c044",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Flat_Bench_Cable_Flyes_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Cable_Flyes_male_v2_1.png",
+      "sourceSha256": "7943e57d73aa31cd5a07bafd7662c916355e7f7086682f85eb204a3eeb62acfa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/109/Flat_Bench_Cable_Flyes_male_v2_1.png",
+      "candidateSha256": "9644cdae74f065911057f8fd26ef247a0654c5b1f7a53269f5c632b2a8227342",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Flat_Bench_Cable_Flyes_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Cable_Flyes_male_v2_2.png",
+      "sourceSha256": "82f4379b1791cabbc77821c35a55579bf99567bf0f6b8aa1f47bee331c9e3178",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/109/Flat_Bench_Cable_Flyes_male_v2_2.png",
+      "candidateSha256": "76121e5a9f3cf7fb1c7145a81989b1a1a7f77292b54667ad7ad33af8f9b4bf4e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Flat_Bench_Cable_Flyes_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Cable_Flyes_male_v2_3.png",
+      "sourceSha256": "d364f1371583b1505599edbf6286c26976c083ad42426c3056b3b0ed8b6f6eb3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/109/Flat_Bench_Cable_Flyes_male_v2_3.png",
+      "candidateSha256": "8ee0b1f5c0440f1ecf2a06cf457c7e7b4c13add786bda07ad9d6a16dea37bc9c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Flat_Bench_Cable_Flyes_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Cable_Flyes_female_v2_0.png",
+      "sourceSha256": "4afb5121b97201634b76a7fe614d51c52d77a29d1dca0e2042530298de8bcf27",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/109/Flat_Bench_Cable_Flyes_female_v2_0.png",
+      "candidateSha256": "4d8fce111feb57348783d5815e39fa2ac251bbed127ca99c12b46d1c895f2279",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Flat_Bench_Cable_Flyes_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Cable_Flyes_female_v2_1.png",
+      "sourceSha256": "3134a01165b0319a76a29d176bf941de8e7be1e5dc0dcaee261e02600b14bdcf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/109/Flat_Bench_Cable_Flyes_female_v2_1.png",
+      "candidateSha256": "ecaeca608acdce7fc6ef7143259e1c6045ca39c45e493a32c7bd63a6ea03bda2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Flat_Bench_Cable_Flyes_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Cable_Flyes_female_v2_2.png",
+      "sourceSha256": "f817bc449325e28c626c88eeb34219d5e44df00c8363b924aae6fcba14fbea9f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/109/Flat_Bench_Cable_Flyes_female_v2_2.png",
+      "candidateSha256": "61cde43623c6d3efbb4f52b2c939deff0fe7795015be08072dd542ba5bfd2da8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Flat_Bench_Cable_Flyes_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Cable_Flyes_female_v2_3.png",
+      "sourceSha256": "57bb15a7058b86d67dd3882812292fe37dc7b1df5b583e4acca64a41822f7a3a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/109/Flat_Bench_Cable_Flyes_female_v2_3.png",
+      "candidateSha256": "f786d05a658feba0f22e8081a9e228530e7a17b897874c2a21f220ffc9c52bdb",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ]
+}

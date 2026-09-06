@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Dumbbell_Lunges",
+  "shard": 10,
+  "index": 96,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dumbbell_Lunges_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lunges_male_v2_0.png",
+      "sourceSha256": "8dbe5127120ec6af6ed39ea4b9821706484a37370712d40265b4e102539dd220",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/096/Dumbbell_Lunges_male_v2_0.png",
+      "candidateSha256": "8d2e70c1e6dec9ed811dba659415434a12396d6a3a9f4ab057e56abb3844de20",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lunges_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lunges_male_v2_1.png",
+      "sourceSha256": "c58aec758533f2c9ec1d2c2469f035537332428ce9eb5bc86cfcc39f43063304",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/096/Dumbbell_Lunges_male_v2_1.png",
+      "candidateSha256": "74a20fed2222f8ca586931f69c473275f3badc7370e21a505d5aa92b00fa0d72",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lunges_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lunges_male_v2_2.png",
+      "sourceSha256": "09fbbc6e3d3103af25f3cbbb6c104ce91c99c4e905f7a22d62ef0e5529d49574",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/096/Dumbbell_Lunges_male_v2_2.png",
+      "candidateSha256": "e743e2f94a14f48947c42ed5d8bab4fb535740a0664f3af0a02307fd2a2417b2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lunges_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lunges_male_v2_3.png",
+      "sourceSha256": "fbcbc4744e05a34f5dff39cfd497ce02ff4687093aa700697e0e38215a4aa3ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/096/Dumbbell_Lunges_male_v2_3.png",
+      "candidateSha256": "6769053aee297f865465e76624fdf70417669f010505b35680a07b6a04228764",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lunges_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lunges_female_v2_0.png",
+      "sourceSha256": "89d324811a106763307875e42a058de8d00f18613ef6ff076a7aa6dce8941fa2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/096/Dumbbell_Lunges_female_v2_0.png",
+      "candidateSha256": "ad02c5e4aa863ca19a52cf33d3b3ab74cfb39c21376cc340438e414971f21457",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lunges_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lunges_female_v2_1.png",
+      "sourceSha256": "661c1b5920365670b2449c15e32661794d97496738ceff6edb6bd00a87a31f36",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/096/Dumbbell_Lunges_female_v2_1.png",
+      "candidateSha256": "e98c1eb0b152ad1c9b02fb40ca8dce65c4165c1650f2ab5d02b11333ecdf6d90",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lunges_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lunges_female_v2_2.png",
+      "sourceSha256": "c65be034720d9f4a34f875bd828eecf38509fecef25feb722d8f2f2723de9905",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/096/Dumbbell_Lunges_female_v2_2.png",
+      "candidateSha256": "b84475c0369e6fef5dcc1af7bc0210036861cc1010a131d6737b07118b6fef2b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lunges_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lunges_female_v2_3.png",
+      "sourceSha256": "560a34c9823f1693c4ba48520df9b722ec4d920e8cb70f2aab6726b62c6f9dba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/096/Dumbbell_Lunges_female_v2_3.png",
+      "candidateSha256": "f9f8fda85200504dadaab0ac58b2fce9f9939375f15846819ee53a85deb566ff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

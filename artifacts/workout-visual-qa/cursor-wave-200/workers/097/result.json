@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Dumbbell_Lying_Pronation",
+  "shard": 10,
+  "index": 97,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dumbbell_Lying_Pronation_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Pronation_male_v2_0.png",
+      "sourceSha256": "522aec7a273cf8b77bd5b516e266b59129c66212947d450f02788d39664716cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/097/Dumbbell_Lying_Pronation_male_v2_0.png",
+      "candidateSha256": "09f3c812d737b8ea96e69047b8f8a353c4102717ddd04155f16c88989a79976a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Pronation_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Pronation_male_v2_1.png",
+      "sourceSha256": "0adc884fcf958c10f946e1c6295e6df9034504f0a3a1b0bd22f7af0639e0650f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/097/Dumbbell_Lying_Pronation_male_v2_1.png",
+      "candidateSha256": "c3ff4a6f2ba17a058cb944645a0316e3b2a1c23383c0da695b7770ded815d317",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Pronation_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Pronation_male_v2_2.png",
+      "sourceSha256": "791362468b4bb98739136d180499410465deeb49f936124ff6138bc2847b70f5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/097/Dumbbell_Lying_Pronation_male_v2_2.png",
+      "candidateSha256": "5d80830ec4373066af6aa682d909705dfdc68f93a47ae071bae94999eacbffb1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Pronation_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Pronation_male_v2_3.png",
+      "sourceSha256": "0612049dbcea8ce487f2c6dcf824f7a41fa2bddb4263eb3b93c4afb7e7472e66",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/097/Dumbbell_Lying_Pronation_male_v2_3.png",
+      "candidateSha256": "f8cae09085e9bfdca0c6ef0e6b600289a992186e40d2c23159886afd8141b9f1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Pronation_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Pronation_female_v2_0.png",
+      "sourceSha256": "8eedbc9b41c76ba9a1fc8ec67799a9de4a30799a44c8cfa6071b682153e32b2e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/097/Dumbbell_Lying_Pronation_female_v2_0.png",
+      "candidateSha256": "6f591a3bcc2b09eb146e01c87db861548da5193dc589150207722423864448b5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Pronation_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Pronation_female_v2_1.png",
+      "sourceSha256": "09ffa0690f8cc7a31657130141fce440b8b101415f7eab243fb5a78b3b60608e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/097/Dumbbell_Lying_Pronation_female_v2_1.png",
+      "candidateSha256": "4fbbdcf16ef60ccadbbcfb2c08edd543b36884bbbf9a65b848e26e739f88351a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Pronation_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Pronation_female_v2_2.png",
+      "sourceSha256": "9cb99604ad6c4512328289579f83651ed4cffad5efba85fe30b68c65e32f5389",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/097/Dumbbell_Lying_Pronation_female_v2_2.png",
+      "candidateSha256": "326e5c44b15bdffd357cad72008d134b3a84ac0e233ddddea72d8d069d73e92a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Pronation_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Pronation_female_v2_3.png",
+      "sourceSha256": "d7999dc3d6d4df1cb7db557a7526a20f90cd217eefa48edbf057fb760cf9b252",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/097/Dumbbell_Lying_Pronation_female_v2_3.png",
+      "candidateSha256": "c7f5d56440f35f45a24fa40a4cbdffbdda39be1868daccb740aba778c8833325",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

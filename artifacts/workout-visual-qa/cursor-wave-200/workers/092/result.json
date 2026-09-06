@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Double_Kettlebell_Windmill",
+  "shard": 10,
+  "index": 92,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Double_Kettlebell_Windmill_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Windmill_male_v2_0.png",
+      "sourceSha256": "4a4a7c058d56019eb26ef27ac3483c5c060df91f488d97a39a2930b195070f8e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/092/Double_Kettlebell_Windmill_male_v2_0.png",
+      "candidateSha256": "f1178bd8df6046a73453db5441e09945d6d6e955e3edd45ca8fc4efa558f6fe5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Windmill_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Windmill_male_v2_1.png",
+      "sourceSha256": "3e01a6bde244ba0dc76a79e157d74bac0abba8ba2a11b8922e4da02a2f7fa1b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/092/Double_Kettlebell_Windmill_male_v2_1.png",
+      "candidateSha256": "996681fd6071e858404badb46c9b4893271d100ce3b5bbd61a6b8b65fbf03ad4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Windmill_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Windmill_male_v2_2.png",
+      "sourceSha256": "9ee02788f41bf59823fc9d25bad428d60f08f58c779686ff9842b4c272c56537",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/092/Double_Kettlebell_Windmill_male_v2_2.png",
+      "candidateSha256": "bb778e47d36ad0061b60072868945481d7dfccc162720173a35567c515f2919e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Windmill_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Windmill_male_v2_3.png",
+      "sourceSha256": "3abb6413e2b4dbcf39e006f270eed773b70735dfd92506049474eb8abcb5acd0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/092/Double_Kettlebell_Windmill_male_v2_3.png",
+      "candidateSha256": "ba900a2fa4ae85539664370829c0b9d8fa8b196c44d2a66e0522a757c0ff27ad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Windmill_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Windmill_female_v2_0.png",
+      "sourceSha256": "31db0423eb3156557a4d06d5c81091b1a38e02930810afd14f4d76ed7241656d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/092/Double_Kettlebell_Windmill_female_v2_0.png",
+      "candidateSha256": "0aa5786c49813fadd1b26e6156ada46e85c0133477d85b7c38e008f7f6803759",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Windmill_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Windmill_female_v2_1.png",
+      "sourceSha256": "d763c452f287b8e4852c2ec863e59fba20e0b0e719da10e633921898e8f12b48",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/092/Double_Kettlebell_Windmill_female_v2_1.png",
+      "candidateSha256": "f0717efb5ad8cd8f6a7abb48e8c7b57be2a8ce74bb3fce888ea89675567d8786",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Windmill_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Windmill_female_v2_2.png",
+      "sourceSha256": "1144628c026dfd26455e9cbfa7ce2d585e524e909deac0ce157436327d90f5f3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/092/Double_Kettlebell_Windmill_female_v2_2.png",
+      "candidateSha256": "e4ff92cd7d5e0fea9c46ee2277314be99315128de02e761481c2851c4bfb055b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Windmill_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Windmill_female_v2_3.png",
+      "sourceSha256": "690df67bdba130d9625a7a72c19917a66790667d7f9906f1cae6a03b1570e732",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/092/Double_Kettlebell_Windmill_female_v2_3.png",
+      "candidateSha256": "fbf9490b75982f995110349a45d1936fc36a6880abfd3a175ca1003b3e907219",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

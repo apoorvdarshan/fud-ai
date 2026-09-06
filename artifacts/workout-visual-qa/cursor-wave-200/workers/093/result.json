@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Drop_Push",
+  "shard": 10,
+  "index": 93,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [
+    "Drop_Push_male_v2_1.png: GenerateImage still shows checkerboard in platform frames; kept script candidate",
+    "Drop_Push_female_v2_1.png: GenerateImage introduced white fill inside platform frames; kept script candidate"
+  ],
+  "frames": [
+    {
+      "filename": "Drop_Push_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Drop_Push_male_v2_0.png",
+      "sourceSha256": "3b4fcabb3dcc9e5b847d93095fde57eed59d2443594254ccbd8b6711de063013",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/093/Drop_Push_male_v2_0.png",
+      "candidateSha256": "73a946be57ddf30fbf7cbe33efb9a21f7a493b4adb51b002235833ae1855447c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Drop_Push_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Drop_Push_male_v2_1.png",
+      "sourceSha256": "6e198e97f1e90415c7f44e9cc80782cc497ed94700a4b4c831d488180da8e8cf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/093/Drop_Push_male_v2_1.png",
+      "candidateSha256": "336d963ef82e023fc4b2353abfb043754313dad3e058daa4149479cc8787612a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Drop_Push_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Drop_Push_male_v2_2.png",
+      "sourceSha256": "6484247f6c00eefafb4fd68ce416d027ae84232e4856381d1e45f4ad21083ed6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/093/Drop_Push_male_v2_2.png",
+      "candidateSha256": "42ecb6cd971f0d253780380cb36f0c2983699a7499d93ceab93c080e1af76f34",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Drop_Push_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Drop_Push_male_v2_3.png",
+      "sourceSha256": "9e6fb55345a0e6cb3967ab76e6184260a0f79094cc5f1280a53b05e0ef82495c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/093/Drop_Push_male_v2_3.png",
+      "candidateSha256": "39759f893d0cb4846cbd6491f41c72b1d71717736b84255583623e3136cf4ec6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Drop_Push_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Drop_Push_female_v2_0.png",
+      "sourceSha256": "561e5d6d3882928c0bba62ab5b7ce4438be4c1ea4122eaf9e3fa14616611c8cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/093/Drop_Push_female_v2_0.png",
+      "candidateSha256": "aa67db18a347813408318d9d3bb67d3e56dbde35e54c3146d8a272ae3762576e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Drop_Push_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Drop_Push_female_v2_1.png",
+      "sourceSha256": "2a5bb37937a6b2ffb5260808c16667219118f49db2e233cd790945205db39fc8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/093/Drop_Push_female_v2_1.png",
+      "candidateSha256": "09bfb378a74f1ba1f0af24ec98e3b76833a244b72b899207af1bddf6ce2b04ae",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Drop_Push_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Drop_Push_female_v2_2.png",
+      "sourceSha256": "140539f01588c7e9ac0eec7261782a9d6dddf0155a1932b67dc1d4cb29cfa188",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/093/Drop_Push_female_v2_2.png",
+      "candidateSha256": "92c9455f7c03bad4e179c827148dd3f7e700995a0624a04f951109d3ad95b7b7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Drop_Push_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Drop_Push_female_v2_3.png",
+      "sourceSha256": "3f69398b05c6f9b6d4559f51a35c1470593f1afcbbc1e87ca4a191e456c948cb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/093/Drop_Push_female_v2_3.png",
+      "candidateSha256": "96a0f6f9c73a171a171cbee76115d2193e34afaa483eafdd2a456c6a2c360c4d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

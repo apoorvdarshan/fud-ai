@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Smith_Machine_Close-Grip_Bench_Press",
+  "shard": 26,
+  "index": 251,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Smith_Machine_Close-Grip_Bench_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Close-Grip_Bench_Press_male_v2_0.png",
+      "sourceSha256": "7731b476dd53d4150b406697b0c59038be025f505cf7db2c6efaba5f3e8fbe6e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/251/Smith_Machine_Close-Grip_Bench_Press_male_v2_0.png",
+      "candidateSha256": "ba324e5badfe83b9be02799287f3b57a5c39f94dfd4f84bd0626187cf8637b1a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Close-Grip_Bench_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Close-Grip_Bench_Press_male_v2_1.png",
+      "sourceSha256": "aed35807db43bdf1418c0261c0f6bd71b9718fd15957428e3ad7aa6672d5d6a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/251/Smith_Machine_Close-Grip_Bench_Press_male_v2_1.png",
+      "candidateSha256": "06f57c5660844a82d4b6a0398f2fe927958d27ae2ebc9bfc098a2b292a4b2051",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Close-Grip_Bench_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Close-Grip_Bench_Press_male_v2_2.png",
+      "sourceSha256": "ceb630b9b3eafb9afbc88c9b5b70c5f8cc140ab1b6fc356f094914e935c01b22",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/251/Smith_Machine_Close-Grip_Bench_Press_male_v2_2.png",
+      "candidateSha256": "fdc196471b371861ab0f8ebbbc69918364483d4c02db2bc5669e3f4310064884",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Close-Grip_Bench_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Close-Grip_Bench_Press_male_v2_3.png",
+      "sourceSha256": "b79dcf2a33babbe56c30d9f68d7b58d86b840b93829a61b232312956f28fd0f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/251/Smith_Machine_Close-Grip_Bench_Press_male_v2_3.png",
+      "candidateSha256": "d842662699817ddcb4611d623d8dfa8ad91e4cd2fd414b3a00d600dffb362aeb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Close-Grip_Bench_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Close-Grip_Bench_Press_female_v2_0.png",
+      "sourceSha256": "ea48014b1c6d5c9bd5d0363b06cce6e6c740a048be6a0447e33ef9553f7e702c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/251/Smith_Machine_Close-Grip_Bench_Press_female_v2_0.png",
+      "candidateSha256": "30f419821645182b9d5694098c1cfbd1c5c4e7bccb6fad0b686f2a3be623b745",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Close-Grip_Bench_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Close-Grip_Bench_Press_female_v2_1.png",
+      "sourceSha256": "54a600efd192d2b9cb7d39454fe386c620748284642ee3cf29b1f455b6509d97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/251/Smith_Machine_Close-Grip_Bench_Press_female_v2_1.png",
+      "candidateSha256": "71642cf19be99fd76f5599f5a2cc3def716d92e5073ea2b5dc556c99ad5b362a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Close-Grip_Bench_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Close-Grip_Bench_Press_female_v2_2.png",
+      "sourceSha256": "fc7aa52f1906f10321c3c0467126f8f8a6445c61416e67ba7d1e741f812fee2a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/251/Smith_Machine_Close-Grip_Bench_Press_female_v2_2.png",
+      "candidateSha256": "173ff8b3778d4830fa6d1c0b067b203a80d51b794e6331764edcc251d3c08ca8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Close-Grip_Bench_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Close-Grip_Bench_Press_female_v2_3.png",
+      "sourceSha256": "110ae4de643a0921e119ed443768b261004679bef144a9db746fab011ac0e2c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/251/Smith_Machine_Close-Grip_Bench_Press_female_v2_3.png",
+      "candidateSha256": "1061d1f1c19b0c91f9c4cded0a7551e9eb819ac6327a3b50e4efa4aeec95273f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

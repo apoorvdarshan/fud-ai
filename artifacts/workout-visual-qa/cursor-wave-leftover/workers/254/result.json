@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Smith_Machine_Hip_Raise",
+  "shard": 26,
+  "index": 254,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Smith_Machine_Hip_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Hip_Raise_male_v2_0.png",
+      "sourceSha256": "36f39b7f74e7b52760f7d9045926e5b87190524c2a3e16af0f85cc8b8be8fec1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/254/Smith_Machine_Hip_Raise_male_v2_0.png",
+      "candidateSha256": "fa7c348f93288ee0cf5caece174617e4626e4a6dcfe556a1e0901ab3fdf10a6e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Hip_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Hip_Raise_male_v2_1.png",
+      "sourceSha256": "8a5a81e2810041c10d92177113d82d547626dae3bf7f814ceff3504761c72368",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/254/Smith_Machine_Hip_Raise_male_v2_1.png",
+      "candidateSha256": "db83e12aa459244f0276d9c200fae1016c3fcb979c5d1de35afde90bd77a28e9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Hip_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Hip_Raise_male_v2_2.png",
+      "sourceSha256": "4202c3e4e4dbeb232b6388bb9bfd772d698cd4023bd5a3f05c627377d1d818f5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/254/Smith_Machine_Hip_Raise_male_v2_2.png",
+      "candidateSha256": "554b43cd1be1dfca813e159536645e0faaad04edbb89b0c8a7987fb3870c2a16",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Hip_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Hip_Raise_male_v2_3.png",
+      "sourceSha256": "5559161e74e756c5b44321ea58668586f1160792eba781bd29dfd8444b2bc62d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/254/Smith_Machine_Hip_Raise_male_v2_3.png",
+      "candidateSha256": "0b4b1f4efb4290a00de583cd0f12da5a80e302793b349095bc53f1f1a4b2a3eb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Hip_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Hip_Raise_female_v2_0.png",
+      "sourceSha256": "501f3d11f9eadb404649efe4be7d13fcd7c4ab5ffb05a72d9624510a90655cbf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/254/Smith_Machine_Hip_Raise_female_v2_0.png",
+      "candidateSha256": "3ee25fc78f779e268258db6cca9c44478baab6e81b44c23135df12600a287282",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Hip_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Hip_Raise_female_v2_1.png",
+      "sourceSha256": "e14e68b17fd5fdc730eb3ff1d65f024c8c9d79f4b6786d7c3acf359f04324a35",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/254/Smith_Machine_Hip_Raise_female_v2_1.png",
+      "candidateSha256": "c52cc3b74bce96ee373280800773b81ecaf80a50d5c12435c2d692622e361ddf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Hip_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Hip_Raise_female_v2_2.png",
+      "sourceSha256": "b1086e6d31c8209df3e0ebc60edf22f55fc3febe01088bcc4b01b8f325e1c1a7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/254/Smith_Machine_Hip_Raise_female_v2_2.png",
+      "candidateSha256": "a053982a25374632420c3fd6d08793ff15acf9fb78237b456f1725bd0e4e0668",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Hip_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Hip_Raise_female_v2_3.png",
+      "sourceSha256": "063fe7af32753ddb0f87a2c2ffc5a52badf5202b122c1ad9be6758029fedb6a8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/254/Smith_Machine_Hip_Raise_female_v2_3.png",
+      "candidateSha256": "4815975886578caa0ecea683173f55e11c80785c177fe9e1e13d86c8f477fedf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

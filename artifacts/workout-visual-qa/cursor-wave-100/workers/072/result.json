@@ -3,7 +3,9 @@
   "shard": 8,
   "index": 72,
   "status": "ready_for_review",
-  "findings": [],
+  "findings": [
+    "GenerateImage surgical + green chroma key on 8 frame(s) with floor matte/shadow: Kettlebell_Figure_8_male_v2_0.png, Kettlebell_Figure_8_male_v2_1.png, Kettlebell_Figure_8_male_v2_2.png, Kettlebell_Figure_8_male_v2_3.png, Kettlebell_Figure_8_female_v2_0.png, Kettlebell_Figure_8_female_v2_1.png, Kettlebell_Figure_8_female_v2_2.png, Kettlebell_Figure_8_female_v2_3.png."
+  ],
   "unresolved": [],
   "frames": [
     {
@@ -11,72 +13,81 @@
       "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Figure_8_male_v2_0.png",
       "sourceSha256": "023555c7a489f1ba2cad0279b059a062ed804002dffbc4f4bc5ed9cc96afb25f",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/072/Kettlebell_Figure_8_male_v2_0.png",
-      "candidateSha256": "a7d719746987472b6fff71c5f025b4d4118a538286a952a41bb24000e6748fa4",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "ebb48583ce7b966590cb23bea144c716b62329712f60a8b421e9645eafd08f57",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Figure_8_male_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Figure_8_male_v2_1.png",
       "sourceSha256": "618ba7a38c76f1e7f44d62accc841afc50ac9feab457d691253b262359938c17",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/072/Kettlebell_Figure_8_male_v2_1.png",
-      "candidateSha256": "fce1a6e3dd5fb882d8e8c0ace89149c10f446daba85572e95eda84d5ebb29f3d",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "e5e55d6c4840e59872997e5eb5c1370786a39ce445c287282a3f85ce5dd37e1e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Figure_8_male_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Figure_8_male_v2_2.png",
       "sourceSha256": "26e5341ebf1b3887d9c8a81c1e3db22273f2eaafd5a6748eee639c9a720ae551",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/072/Kettlebell_Figure_8_male_v2_2.png",
-      "candidateSha256": "a038d2dc5e0194dc2e113499a75ecd7b229b726fb7f0106720dd63c740bc5692",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "8775b5c63c7a1eb6923cceb6d15ce02c443cf6865b1a966bf816097073a44759",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Figure_8_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Figure_8_male_v2_3.png",
       "sourceSha256": "72e441cd179929796b4d1563455857e764c357aa2332616a8229c833141069b5",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/072/Kettlebell_Figure_8_male_v2_3.png",
-      "candidateSha256": "76418a59a0bdb05d8707335d328d3412cc303fa19f1f5db8a742833904c1e63f",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "1cb94fe357205ced7a36a0966a6c43f86f3ae65e9e9716c019b1529bd9dc29d7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Figure_8_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Figure_8_female_v2_0.png",
       "sourceSha256": "8413e093e9ada96485a06100daf4c12ad6603748f1f4873c077b3d8196c16b30",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/072/Kettlebell_Figure_8_female_v2_0.png",
-      "candidateSha256": "45e11198877ce7ee1c41257bd45219ede9c21066f4cf5517be998536c1b2b141",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "cf2e7970f59de8ea4e4fefe27b69456da462306c5709ab2851e9bd2b7b79c8ca",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Figure_8_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Figure_8_female_v2_1.png",
       "sourceSha256": "3b77a2c88aec388540b194a11bc4ea04e155a86411ab1ea76612777b0ebe1c45",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/072/Kettlebell_Figure_8_female_v2_1.png",
-      "candidateSha256": "307b1fb6476f959e28e7205948bc0478e0c80b570d3f60b4957ebcd7e2d0eecf",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "bb54c2602546e6d9f97dc66effb9b36d8e599273e4225635165229230fdbae53",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Figure_8_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Figure_8_female_v2_2.png",
       "sourceSha256": "27a04608f56a6a6f56b05a16968d784af57eaaeee1c83c1338d5a2282e0b8839",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/072/Kettlebell_Figure_8_female_v2_2.png",
-      "candidateSha256": "25957dc9622e58e18f99779a53b2ea4ae931d801f3e1e196c8417aa91b4d71f2",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "43ae92454a86e0244ccf42f01a621e0badade93187dcc1bed2aaf6c4a64a1bf9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Figure_8_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Figure_8_female_v2_3.png",
       "sourceSha256": "a6cd76f7acd971fa3bb34450cdbc4c11bd80bd714db7d5b534a1d751e690702c",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/072/Kettlebell_Figure_8_female_v2_3.png",
-      "candidateSha256": "67f3aabb265c7bb5b11fe9fbbdb1abe4df81f44f9e90f64661c13bc151c54e4b",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "8a76d090fa552e49c0313bcc00d9c49257f8a6d11f8f43825cfff20342d78f47",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     }
-  ]
+  ],
+  "changedFrameCount": 8
 }

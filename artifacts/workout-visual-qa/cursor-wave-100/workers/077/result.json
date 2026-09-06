@@ -3,7 +3,9 @@
   "shard": 8,
   "index": 77,
   "status": "ready_for_review",
-  "findings": [],
+  "findings": [
+    "All frames clean after visual review on dark background; script candidates retained."
+  ],
   "unresolved": [],
   "frames": [
     {
@@ -13,7 +15,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_male_v2_0.png",
       "candidateSha256": "6d5b851ee10a872d42db8fbbc023bba7c8cb57e876b90d5a90e527ab19b2b1f4",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Pistol_Squat_male_v2_1.png",
@@ -22,7 +25,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_male_v2_1.png",
       "candidateSha256": "28f25686b9aa2baf3e9936ff462161f74cc85559b1a448171d74a0d47d57b1d5",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Pistol_Squat_male_v2_2.png",
@@ -31,7 +35,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_male_v2_2.png",
       "candidateSha256": "7e8a474a6cba5886d3a4ccb43e2cf47c635d086e4698e6607f791c2c4de06415",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Pistol_Squat_male_v2_3.png",
@@ -40,7 +45,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_male_v2_3.png",
       "candidateSha256": "0a26df37da77dc0ee7a3acfa437403bb2e9c955606030c596767523e6e9673f7",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Pistol_Squat_female_v2_0.png",
@@ -49,7 +55,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_female_v2_0.png",
       "candidateSha256": "c241ee489def29a0d7e802e7c82eacd6d8edc4d43325cecaa7a0aae2fd561830",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Pistol_Squat_female_v2_1.png",
@@ -58,7 +65,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_female_v2_1.png",
       "candidateSha256": "fb0fdddb78e50486290a7738283456e1c7d90934c6b76e3a421ac073e352b4b6",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Pistol_Squat_female_v2_2.png",
@@ -67,7 +75,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_female_v2_2.png",
       "candidateSha256": "a5ccd2c2d576fe2d20036583dc5d21c8dff0536755549f88513a7818c4ce83ce",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_Pistol_Squat_female_v2_3.png",
@@ -76,7 +85,9 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_female_v2_3.png",
       "candidateSha256": "4b7cd1ccfc39df280baef28b637c3eeaf8fee6ff2c53aac807ff66850f665e34",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     }
-  ]
+  ],
+  "changedFrameCount": 0
 }

@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Seated_Barbell_Twist",
+  "shard": 17,
+  "index": 170,
+  "status": "ready_for_review",
+  "findings": [
+    "Seated barbell twist vector frames clean on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Barbell_Twist_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Twist_male_v2_0.png",
+      "sourceSha256": "4496c2df5769c06cae700064873e9bc8df9259341d3089d1133aae83801d4d43",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/170/Seated_Barbell_Twist_male_v2_0.png",
+      "candidateSha256": "8797f6fa41b9274c53699c2eb513bdfea9d03bcac24581d951bb2a2e7c12222d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Twist_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Twist_male_v2_1.png",
+      "sourceSha256": "1d5f79898f2e5519979b96f1ab501c86ddc9ba037da207987fc0678b0a14f404",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/170/Seated_Barbell_Twist_male_v2_1.png",
+      "candidateSha256": "8af3edd66b011efc86af98c48dfe015a3d3aa12804691dfcd03bd182ebc30969",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Twist_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Twist_male_v2_2.png",
+      "sourceSha256": "b3f9eb184fe5128ce43062b27513352764b6060bc157abeba85f802f75dd9772",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/170/Seated_Barbell_Twist_male_v2_2.png",
+      "candidateSha256": "d83f5c0ff18125d6c3590b6d8060fc0d200aa92eb3da20f0d45ca4957c4e65fc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Twist_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Twist_male_v2_3.png",
+      "sourceSha256": "46d75f400baa89ccdb7b655db54b82f04f0422a1e884ca94188bf4503f89632a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/170/Seated_Barbell_Twist_male_v2_3.png",
+      "candidateSha256": "0b7fea4474dd31b3b2767171a7b4899aeb54fe49735b4490e55e2acf47cdeb2a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Twist_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Twist_female_v2_0.png",
+      "sourceSha256": "8ef6c1790bcfbd778d54786ee1d8ef5c08841f200d25722fdfb02c55eb9609c4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/170/Seated_Barbell_Twist_female_v2_0.png",
+      "candidateSha256": "9ab5ba993dee346adbd55d25f599145250549093c2ae0be9c7a8e4e2603af3a4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Twist_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Twist_female_v2_1.png",
+      "sourceSha256": "27bc393d3d80a781788ac2e874731f624ee76c4e744e821ffdf483ea3e311ab2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/170/Seated_Barbell_Twist_female_v2_1.png",
+      "candidateSha256": "ea2aceefc947df663c9a42ac9a4a3b6e527ecbb396ff05a412018c09db871aa8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Twist_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Twist_female_v2_2.png",
+      "sourceSha256": "fe7d2a4b3caa0a72c5d5d93f054cec8431c2de71829f663d252cd3d45ad6e8b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/170/Seated_Barbell_Twist_female_v2_2.png",
+      "candidateSha256": "808ba1edf3337d9d51d8600cffae79cc8e5cf5223ccaa8748d6b799446c64a42",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Twist_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Twist_female_v2_3.png",
+      "sourceSha256": "5e425970129e28408c899aa55739a7ea295c05c78946752f1e3be9b0c6811586",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/170/Seated_Barbell_Twist_female_v2_3.png",
+      "candidateSha256": "cd87b31439f68065b9eec38e8c5932df0513bb834f50c2df677360b22b0f5060",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

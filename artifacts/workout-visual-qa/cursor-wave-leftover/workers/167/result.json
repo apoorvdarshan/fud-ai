@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Scissors_Jump",
+  "shard": 17,
+  "index": 167,
+  "status": "ready_for_review",
+  "findings": [
+    "Scissors jump male frames 2-3 had floating debris artifacts; GenerateImage+green chroma accepted on male_v2_2 and male_v2_3."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Scissors_Jump_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissors_Jump_male_v2_0.png",
+      "sourceSha256": "2b10c0fc2a5046291ad189f400b56af4ce3c21e2c4555270234e6d2fba2111d2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/167/Scissors_Jump_male_v2_0.png",
+      "candidateSha256": "f8e6405545050e4cd0bba46cfbfceed26fe6f54dcc303d978f980b4fa4e56e90",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissors_Jump_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissors_Jump_male_v2_1.png",
+      "sourceSha256": "4537affbae98775615c1c26ef604b1921031aaece3902def61f9f379d6220739",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/167/Scissors_Jump_male_v2_1.png",
+      "candidateSha256": "40bd41eb41c2a3fd069f61bfc3fb1dd11c6658789e33125edf32c3ffc0aad15c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissors_Jump_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissors_Jump_male_v2_2.png",
+      "sourceSha256": "95dfd4ec2804afde985fa1e9570c283116e21355d04e6440256bbc0ab67e4f8d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/167/Scissors_Jump_male_v2_2.png",
+      "candidateSha256": "72c1b6b8b679715aa684306afd01249bc51d6b8f9ca6fdc18ee0667e56896768",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissors_Jump_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissors_Jump_male_v2_3.png",
+      "sourceSha256": "2cba73a4a8453941996fb78e7faf7d99157b531502a130333229cc9cc7fd8938",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/167/Scissors_Jump_male_v2_3.png",
+      "candidateSha256": "81a94ab9feb1daaf0ee0dd16bcb7a65fb4e39664c6dca47d2077204a3f601cc6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissors_Jump_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissors_Jump_female_v2_0.png",
+      "sourceSha256": "d03a5e659b82f96fa254d52c4130868329d7790dd5687b01d6b95780c82d557b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/167/Scissors_Jump_female_v2_0.png",
+      "candidateSha256": "2da7c04f214b4ad16ab9995f5a6139291b55f0b455202dd63785f8acc2c625fc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissors_Jump_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissors_Jump_female_v2_1.png",
+      "sourceSha256": "0be5369f613480582d8bce50ce7fd8f197ca7bba9b755fe7d2f077eae7d770d3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/167/Scissors_Jump_female_v2_1.png",
+      "candidateSha256": "5810c1105592898fc9b6eb17726fa7713d56d37ed71e1e10f17a6f0f75b1b90e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissors_Jump_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissors_Jump_female_v2_2.png",
+      "sourceSha256": "e293b59cea1ffb94a9561840003f9d682a7ec17bbc69dd97fdab2156927fc656",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/167/Scissors_Jump_female_v2_2.png",
+      "candidateSha256": "819d39d326b933aa9b081ee7430b9fc28a1dab4a97dd813c23c30720f0114c34",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissors_Jump_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissors_Jump_female_v2_3.png",
+      "sourceSha256": "1574eba2c917d2c2dc832560bc67043147fff3a98664b60ee980901b318ab8eb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/167/Scissors_Jump_female_v2_3.png",
+      "candidateSha256": "b81a13299c2f42b5244d8eed679b6e5735bfc9fc92497bfe92edbffc63848b18",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Seated_Barbell_Military_Press",
+  "shard": 17,
+  "index": 169,
+  "status": "ready_for_review",
+  "findings": [
+    "Seated barbell military press vector frames clean on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Barbell_Military_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Military_Press_male_v2_0.png",
+      "sourceSha256": "9ebb8c1f2693246168ab2d2de114d5ac19de0adf1f607bf34d442c2b6e709652",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/169/Seated_Barbell_Military_Press_male_v2_0.png",
+      "candidateSha256": "010ec32c9658ceda31b303b0a8df6708e2aefe25c23a2820a755d6eeb17d55f0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Military_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Military_Press_male_v2_1.png",
+      "sourceSha256": "83a26a9f4ce7c1a585d1b728cbb08e38847911d55983659a928db4f9172c4b7c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/169/Seated_Barbell_Military_Press_male_v2_1.png",
+      "candidateSha256": "519a24f6faeb1242673cbad110c10e1e3a2afe4805364907e49e32282e6851da",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Military_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Military_Press_male_v2_2.png",
+      "sourceSha256": "89d400ac886d7e5de6d68c206c47e90ab8ddb259539c71401231d44097f8c3f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/169/Seated_Barbell_Military_Press_male_v2_2.png",
+      "candidateSha256": "59219727dbed57aec5b2704ef507b86a6c985c5fc67d472a3257f64db610ce9a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Military_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Military_Press_male_v2_3.png",
+      "sourceSha256": "4b26028ccd532269a19415e78b122a34e845987e32df9340a9bf8454dd1e9334",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/169/Seated_Barbell_Military_Press_male_v2_3.png",
+      "candidateSha256": "b8e0bff6b22ffa43468cd522976d593cb0eec8d34c04ec9f4296bf48514930af",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Military_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Military_Press_female_v2_0.png",
+      "sourceSha256": "955097374999cbbc8ec2920aa476b651a2ab51fe31aa403525c7db1137da80da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/169/Seated_Barbell_Military_Press_female_v2_0.png",
+      "candidateSha256": "ae57c1a362d362a8f0cd464745514fca9c7a59bf69dbb609a8d9bbc870ba6bb5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Military_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Military_Press_female_v2_1.png",
+      "sourceSha256": "1e50d3462f395d755e33ae26e9be6c054eab06b0de4abcfc2ee49a8b87f15223",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/169/Seated_Barbell_Military_Press_female_v2_1.png",
+      "candidateSha256": "b0d075552ac59749ba76a599a7a4bb4d2faa22cc19afbc0c701be6344ce4d01d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Military_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Military_Press_female_v2_2.png",
+      "sourceSha256": "310b3fbecd57937431a74ebfd56f1e6e5a706720cec6c4c75c1d0f42d1577b0a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/169/Seated_Barbell_Military_Press_female_v2_2.png",
+      "candidateSha256": "f2c57d5843831dc85f9669fa13bcb5c792bbf93836870217fbd6d091689749c7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Barbell_Military_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Barbell_Military_Press_female_v2_3.png",
+      "sourceSha256": "41276587803625607743394a6825415e35526630df20ccfd91bfc675fcb27ca5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/169/Seated_Barbell_Military_Press_female_v2_3.png",
+      "candidateSha256": "218328efa8435bcc494344c866968119157e96452c735ef49f3b1648a89c1ea7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

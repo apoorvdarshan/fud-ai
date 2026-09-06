@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Running_Treadmill",
+  "shard": 17,
+  "index": 162,
+  "status": "ready_for_review",
+  "findings": [
+    "Treadmill sequence clean on dark background after script cleanup; no GenerateImage needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Running_Treadmill_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Running_Treadmill_male_v2_0.png",
+      "sourceSha256": "0b00ea52e6811e913178914830370262790066c49f3a47ce25cd51943e5b0520",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/162/Running_Treadmill_male_v2_0.png",
+      "candidateSha256": "66a8c26012598864786297f22e9b586e9f8a0ecd326c6f3554d789b70f2dac9e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Running_Treadmill_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Running_Treadmill_male_v2_1.png",
+      "sourceSha256": "2199c39ea96b6334016a868b5f53b64776e2c1e1902b12203f8665f980493d54",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/162/Running_Treadmill_male_v2_1.png",
+      "candidateSha256": "798f716294ca12ff05d89db822e8455123d81cea196e08f9e61c97b06b3f7a22",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Running_Treadmill_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Running_Treadmill_male_v2_2.png",
+      "sourceSha256": "18642b445a1b2d7e809615c563514809d81e9ddf84113c154f54eb909874a2b2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/162/Running_Treadmill_male_v2_2.png",
+      "candidateSha256": "a91412be42b66d06d84639ed1bb7bcb1b59496374222bdb2ae53b6bb22da9d46",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Running_Treadmill_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Running_Treadmill_male_v2_3.png",
+      "sourceSha256": "e8ef7207e282f61f3065cb243ec4314ccf9f5a8db67fd05ff0c022b107ab5053",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/162/Running_Treadmill_male_v2_3.png",
+      "candidateSha256": "ab98feb25fd45e44b3a560be125e3e6b83d0bf9e56b9ade3cdafee41abbcfce6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Running_Treadmill_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Running_Treadmill_female_v2_0.png",
+      "sourceSha256": "644a7eb22f86f1d2f298d7d5de6d67b954f1af7256c317fc4028ccb78adf10e0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/162/Running_Treadmill_female_v2_0.png",
+      "candidateSha256": "5c44cb0e6a230bb7d00e843eae5d9f4c9a126e00ba1fb75191cd59f44699b6db",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Running_Treadmill_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Running_Treadmill_female_v2_1.png",
+      "sourceSha256": "5b1b21ed12c2264fcd2cdb45e5832bc4240679a1d805326860b832a674ad2b84",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/162/Running_Treadmill_female_v2_1.png",
+      "candidateSha256": "0e3b6f39efe1520456ddbb7a4453f709025a32b76df58324ef362a34f79e5a7d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Running_Treadmill_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Running_Treadmill_female_v2_2.png",
+      "sourceSha256": "59b0dd9cbd9ff82fd48f252c03e4234aa0c817c0e7f9f34f22f19d4b4d61ef39",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/162/Running_Treadmill_female_v2_2.png",
+      "candidateSha256": "caae9e356ad81b986e5cdeea10c314a2442e1a29708c3b305f6693d4a8f50f18",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Running_Treadmill_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Running_Treadmill_female_v2_3.png",
+      "sourceSha256": "659b14fccfbc1b85a5a21e291ff158f42a768924659bfdc399a7506c4b4de365",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/162/Running_Treadmill_female_v2_3.png",
+      "candidateSha256": "793ab39ad70643c4190fd8d203bbbc73f0ab5a4695176a00ea9e500facce65ed",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Overhead_Squat",
+  "shard": 8,
+  "index": 72,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Overhead_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Squat_male_v2_0.png",
+      "sourceSha256": "d2dfa7b15adbee08c7676cf845db4f7d122a14c98e9eba949d62fbceed9d4558",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/072/Overhead_Squat_male_v2_0.png",
+      "candidateSha256": "8d23e6e38295b8eee4fc64ab11cb6089dbdafb766d64c23990999469b60ae18a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Squat_male_v2_1.png",
+      "sourceSha256": "ed72324f7759fb397181274d2af1d72015c9fd013622eed81b24ed5c7239cd6b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/072/Overhead_Squat_male_v2_1.png",
+      "candidateSha256": "d06c978bf999b1f24c93de2f7c2b70344782b9fbf3347dee1d535b17d8d99b21",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Squat_male_v2_2.png",
+      "sourceSha256": "838fb04ddb70819ac30a96c785b94d23da3d0f46688b976336b7c7f5d3d7c024",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/072/Overhead_Squat_male_v2_2.png",
+      "candidateSha256": "50b5a61d43e9a9fa0b0d84bbf45ebe46c17f8be35dbd0411fcc2fff86bfb2365",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Squat_male_v2_3.png",
+      "sourceSha256": "e12e0373ee12ae4e8b995626e1c658cdb4bb847757cd04731d23f022797a31b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/072/Overhead_Squat_male_v2_3.png",
+      "candidateSha256": "a974e5e7cae353363412a027975e9fe2e8ac3e079c669cb84d9ee5293b96d8f1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Squat_female_v2_0.png",
+      "sourceSha256": "7de4b59f25d81a46b7984133577f59b144b37467d97e53e9e6038743c6e25f29",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/072/Overhead_Squat_female_v2_0.png",
+      "candidateSha256": "cf638922d45c012273ceaf8bcfa7e8ab434affd159eada5f43b6bb0b5323cee0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Squat_female_v2_1.png",
+      "sourceSha256": "04824375b32f502be438947d565184b771b743865ee5a2b2c5d88c1b68d35cc7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/072/Overhead_Squat_female_v2_1.png",
+      "candidateSha256": "a83058f972625e9b07eccf5306c3717ea9bc09dbb532f75d31ac30ccf4cf464f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Squat_female_v2_2.png",
+      "sourceSha256": "0a80b1e50801cd09fe0c1b31ba21e80c02e9a9bfba687acaa2845740eff53d61",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/072/Overhead_Squat_female_v2_2.png",
+      "candidateSha256": "8edc509eb2ff2ac2f0db9c9e99d299ad489b9606468d4d5ecbdc160b1bd18685",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Squat_female_v2_3.png",
+      "sourceSha256": "2ab59abf7e9243adc508b42f6c19f1c4135216c9e5c503a9601e67b361408dbc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/072/Overhead_Squat_female_v2_3.png",
+      "candidateSha256": "49673416958ac123c6af4ba2c4d060b0a9cb02e3e4952556edb90b7a12f966b8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

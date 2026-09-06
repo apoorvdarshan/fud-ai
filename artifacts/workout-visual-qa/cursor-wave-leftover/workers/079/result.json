@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench",
+  "shard": 8,
+  "index": 79,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_male_v2_0.png",
+      "sourceSha256": "8b2fa768fae56e9192d9d8f9b228ee26136d517ef0df4acc27fcb5bdd67e29e9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/079/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_male_v2_0.png",
+      "candidateSha256": "010d5d902c4b93a5f3591305a7676118def3fdcc240df0e251435a54d22e9311",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_male_v2_1.png",
+      "sourceSha256": "c39e44bf8c801d626cea702502431556ebf4b7b3e5252e47fa5eb111b1aad3dd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/079/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_male_v2_1.png",
+      "candidateSha256": "81b605f21a6bb340fb81760e11ae018db7fb619b1833bc6da65ad7124d3ced81",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_male_v2_2.png",
+      "sourceSha256": "3521ae3dc6ae686a25b6e8f9075ccecdf0af95e44a328d43dccbf17527bd2ebf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/079/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_male_v2_2.png",
+      "candidateSha256": "707862d87723926de7d12015fb94f7d47af10b0ec42294b72d8df724fea4b505",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_male_v2_3.png",
+      "sourceSha256": "d8a99dcba3eccc4c85e04bfe4a2748aa372f26316136478d00486871777c2609",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/079/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_male_v2_3.png",
+      "candidateSha256": "b5919249bf409b81cce46d5cf8374016e3684d5861f49ea7f2c4477df00119b2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_female_v2_0.png",
+      "sourceSha256": "18b435f3efced0d2a106df897c97e2520b9bf77277dd79c00d4a181ab6426218",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/079/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_female_v2_0.png",
+      "candidateSha256": "bb61a2e2240da2f44ba9699e2d4b82044990b2a70d6027d76217c6c61cc450d5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_female_v2_1.png",
+      "sourceSha256": "f0d34e58dccaba51951eaabd8a662385076c557313639c530c90ec39011b4933",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/079/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_female_v2_1.png",
+      "candidateSha256": "bcb6846d4626277a3238e8685bee92ccbcb9d0ac2e3560c4859bb96834a8f2db",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_female_v2_2.png",
+      "sourceSha256": "6f155123ab61bef687d6baca397bf3ed7eb2acb535be46b3480a505dadf56662",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/079/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_female_v2_2.png",
+      "candidateSha256": "263926a7cab5addda3d2e4962b9bdbb825fda83e339eb455414915c722c34201",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_female_v2_3.png",
+      "sourceSha256": "44a861e578496136ae0547d6e24d92306ee304096434746515e9b4056c24a20d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/079/Palms-Up_Barbell_Wrist_Curl_Over_A_Bench_female_v2_3.png",
+      "candidateSha256": "a4742aaeba3a5033c50a2ff06f4b2d1c3e1d1caf10000798570aff132509ca4d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

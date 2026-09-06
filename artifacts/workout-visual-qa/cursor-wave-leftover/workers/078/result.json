@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Palms-Down_Wrist_Curl_Over_A_Bench",
+  "shard": 8,
+  "index": 78,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Palms-Down_Wrist_Curl_Over_A_Bench_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Down_Wrist_Curl_Over_A_Bench_male_v2_0.png",
+      "sourceSha256": "35089eaa99d41be168ad8c78976f0aebb0fa1ca293a27f176b74aa0d48b66f6b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/078/Palms-Down_Wrist_Curl_Over_A_Bench_male_v2_0.png",
+      "candidateSha256": "c6d866bdf7c0ee3c22097212e4e96fc69b5ab6eee4e58d7310b6d472b6485c06",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Down_Wrist_Curl_Over_A_Bench_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Down_Wrist_Curl_Over_A_Bench_male_v2_1.png",
+      "sourceSha256": "8f669db9d749faab57ce3b5208a8c9730a2fdb5aa21f35fc33a16c777069875b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/078/Palms-Down_Wrist_Curl_Over_A_Bench_male_v2_1.png",
+      "candidateSha256": "95bb4a5255323a54ac2b2a7afc4c9c362ee19d38b369b5845590e58b53bf119d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Down_Wrist_Curl_Over_A_Bench_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Down_Wrist_Curl_Over_A_Bench_male_v2_2.png",
+      "sourceSha256": "584c7d25a33264ef19c4bb2b060bbf8edb53ee80ca88e504b4f9f53cd6ed3545",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/078/Palms-Down_Wrist_Curl_Over_A_Bench_male_v2_2.png",
+      "candidateSha256": "03d3bd59a8a50d1c47863dd50b0c6c45ba601eefa68f9152623983b4cbf6c4fd",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Down_Wrist_Curl_Over_A_Bench_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Down_Wrist_Curl_Over_A_Bench_male_v2_3.png",
+      "sourceSha256": "b7918739979e38fc581b1955f84b25882db995320de56bf417af85847e3e72cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/078/Palms-Down_Wrist_Curl_Over_A_Bench_male_v2_3.png",
+      "candidateSha256": "1b3ff46b032fd33e60057c20757c1f668f6e11c7288900b346879b81a79b99a6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Down_Wrist_Curl_Over_A_Bench_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Down_Wrist_Curl_Over_A_Bench_female_v2_0.png",
+      "sourceSha256": "4e5107fe2e13fcc6b5f2f13445f07398a7b18074c8892e3d1081f67e7cc913b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/078/Palms-Down_Wrist_Curl_Over_A_Bench_female_v2_0.png",
+      "candidateSha256": "4f756aad76a2c8f311d5b0231979372df1d352ea4afdbc769fc9ea88a63d9bc0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Down_Wrist_Curl_Over_A_Bench_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Down_Wrist_Curl_Over_A_Bench_female_v2_1.png",
+      "sourceSha256": "eab4959f5dcf93d013639e0148a8c4ef2875b2085edae5cce8e08a467800803a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/078/Palms-Down_Wrist_Curl_Over_A_Bench_female_v2_1.png",
+      "candidateSha256": "9450015aab87a7797f38ee774af9d993b93524b6f1e32922cc26e2a1997dc96d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Down_Wrist_Curl_Over_A_Bench_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Down_Wrist_Curl_Over_A_Bench_female_v2_2.png",
+      "sourceSha256": "35acfcb53a353857c2aa5340f0f3275039475a83836040372b42ea6adc5f8b11",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/078/Palms-Down_Wrist_Curl_Over_A_Bench_female_v2_2.png",
+      "candidateSha256": "3efa147aa5f3e76084b9c0b927d369d655bb06991032b81ceb0f50b918519ed4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Palms-Down_Wrist_Curl_Over_A_Bench_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Palms-Down_Wrist_Curl_Over_A_Bench_female_v2_3.png",
+      "sourceSha256": "6e232594ff10f6be2775b1baa2c152b70d76ddb1fbd2747ecfc747c4d41e0438",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/078/Palms-Down_Wrist_Curl_Over_A_Bench_female_v2_3.png",
+      "candidateSha256": "df983148b75cfc5b20da85c35fac7e940456b8c36c02f16a7b8bdca35e72cd27",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

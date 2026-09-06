@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Overhead_Triceps",
+  "shard": 8,
+  "index": 74,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Overhead_Triceps_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Triceps_male_v2_0.png",
+      "sourceSha256": "42d223cd370a878dcef29ad983ceae3ae8a9a8bc481286034566eae6ab155c1d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/074/Overhead_Triceps_male_v2_0.png",
+      "candidateSha256": "31c8105ec73b4668c2993ec7e182fc47a602ff6b7f88d04f7b081e9ce5cfea54",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Triceps_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Triceps_male_v2_1.png",
+      "sourceSha256": "784bd2890334eec2088ded6afb16662e8b8c8ea0c0521d7896655ad8cbb7d764",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/074/Overhead_Triceps_male_v2_1.png",
+      "candidateSha256": "657d985aa5b78e8a132980a81cc29c24b83f9b6cbb8d76dc38838ff0e0a74814",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Triceps_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Triceps_male_v2_2.png",
+      "sourceSha256": "a3c60ee063bc33e785e91732dff3fe2d337fa67b89f0af65b12df7f635e3962d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/074/Overhead_Triceps_male_v2_2.png",
+      "candidateSha256": "14dda63dea69d86d8ac759422cd6b943d8786661bb9447b22ebb1ff566146b57",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Triceps_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Triceps_male_v2_3.png",
+      "sourceSha256": "481705d5410a4d0bb3e92f296411ed839ecb7c91bf8f93e28ce23d33f24cca91",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/074/Overhead_Triceps_male_v2_3.png",
+      "candidateSha256": "07a129990a1a48b4e80636648da57ae7f511d244fba9c52b4c7af7b3dc76043e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Triceps_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Triceps_female_v2_0.png",
+      "sourceSha256": "f9569c272791261d617fd10cc907bf1b60dab1a96f5728b4f97e2b06d75fd5a0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/074/Overhead_Triceps_female_v2_0.png",
+      "candidateSha256": "c5fff3e8d4239bcdefc5cbb95268a094efc89f6824430b455f0299714a7cda01",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Triceps_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Triceps_female_v2_1.png",
+      "sourceSha256": "af6a6505736b82e17e9a1aceb82ac47907e62db694b347e5dcdab65544015804",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/074/Overhead_Triceps_female_v2_1.png",
+      "candidateSha256": "b887f53c150e3d9bad6f73a77f0eebc28092ba2beecd2407e911f903c6c80f08",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Triceps_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Triceps_female_v2_2.png",
+      "sourceSha256": "9253474ab5dd8ac6cd792449f94c146600bf2dc97a2b2a9883179fbde7509764",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/074/Overhead_Triceps_female_v2_2.png",
+      "candidateSha256": "65d332e662dcd8dd9ba3593ecd63f59d610be091c5081df3b7d2a2b62425b816",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Triceps_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Triceps_female_v2_3.png",
+      "sourceSha256": "96c8ae5c32a69296e126d6cf89baef87db63f40170303748b7e255a02176ffa3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/074/Overhead_Triceps_female_v2_3.png",
+      "candidateSha256": "16f0a471a62039388547a8eab34b9beb06ab5694c46fd41f75a9977ffa69173a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Tricep_Dumbbell_Kickback",
+  "shard": 38,
+  "index": 371,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Tricep_Dumbbell_Kickback_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_male_v2_0.png",
+      "sourceSha256": "6ff97a7cba03d5e5a2ca38db1c855080098332d1141036dab3441b60437d5fb7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_male_v2_0.png",
+      "candidateSha256": "6dc0f5feb66de991983f68fee768e3ef14fd7fb5b597ed88529623083a202a34",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Dumbbell_Kickback_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_male_v2_1.png",
+      "sourceSha256": "5eee5b0bced2a25bd4f0e0df6bb97e128b53f45593fcec34797f99c556ad92eb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_male_v2_1.png",
+      "candidateSha256": "e029d6673fc6fa94f63b41f8a08f7a0701b3e858b1f7645ebae2a68d2d35406e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Dumbbell_Kickback_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_male_v2_2.png",
+      "sourceSha256": "8b288b6bf65c05e4c54d958db79af5f05c693798feb75ffdd9104a3dd552b0ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_male_v2_2.png",
+      "candidateSha256": "0c67a9307a379c91ac51779587c9564bb49755484ae1751f2a144a15f4777fe2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Dumbbell_Kickback_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_male_v2_3.png",
+      "sourceSha256": "07a33ab40323c87453175cedd49c2cd03e7766c8137aa7fb558e4408592337f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_male_v2_3.png",
+      "candidateSha256": "f215d0e03ae4af9f3e4d96f1fda74143ca4cb917a6980afc19b41fb98e627686",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Dumbbell_Kickback_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_female_v2_0.png",
+      "sourceSha256": "c11886dd6cf0bdbf7ebffb10c58217fe017777e884252023952bfbe21e1f5183",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_female_v2_0.png",
+      "candidateSha256": "6982cdf43156041ff949a2dd231db2d59abf3d9c2ab494928941bc2b264ba605",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Dumbbell_Kickback_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_female_v2_1.png",
+      "sourceSha256": "c916013459393bd9b04385de02ae2f8753ded1efd9451541e7e78de3148712d9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_female_v2_1.png",
+      "candidateSha256": "bdec7651e32735c6b217bbd87677f3fc5bad9615b38213e45773fef1a2874c54",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Dumbbell_Kickback_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_female_v2_2.png",
+      "sourceSha256": "12ae638a3ab6d9ba277eb70800a52bc18cf110dda29bfc5c328d81d109b518a9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_female_v2_2.png",
+      "candidateSha256": "8c6d066877ae478e35cd15e10372f06247c68ed437233c7d98b6379d327535e0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Dumbbell_Kickback_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_female_v2_3.png",
+      "sourceSha256": "6441ecfd04688a20d1dbc93d40b070659876eebb5724bdf853187d0a0a9d0ac7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_female_v2_3.png",
+      "candidateSha256": "91f9ea2c540a46d00d893fe1c6ab93d9866aef684c1079d122e092902ccdbedc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Triceps_Overhead_Extension_with_Rope",
+  "shard": 38,
+  "index": 373,
+  "status": "ready_for_review",
+  "findings": [
+    "White noise on overhead rope frames and checkerboard between legs on female frame 2; GenerateImage+green chroma cleaned 4 frames"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Triceps_Overhead_Extension_with_Rope_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_male_v2_0.png",
+      "sourceSha256": "d0b6ba3c21609a0d3dd096022bd1d064e7286def0d6585987f8a6a911f305517",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_male_v2_0.png",
+      "candidateSha256": "94b289ddbfd4df82bff58f9f88d726b9829f79d84aa473b39aa8685e6d8931b3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Overhead_Extension_with_Rope_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_male_v2_1.png",
+      "sourceSha256": "2dec9008fd097da909a6657eb45f8c76653b301d4f4ccbe70d23f43374f96af1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_male_v2_1.png",
+      "candidateSha256": "f803fca4b782cf85ab6eb825d4afa98a21c5d47122476f2dfdaa501870f810a8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Overhead_Extension_with_Rope_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_male_v2_2.png",
+      "sourceSha256": "19c637b915ad3181567ee375f256d656eacef550d770029fac586315eef81a6c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_male_v2_2.png",
+      "candidateSha256": "cfdee9fde5dc22d2d33748f693cd404b50713796f7edefb96b64fe1fc755c0b6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Overhead_Extension_with_Rope_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_male_v2_3.png",
+      "sourceSha256": "b8f1745e5dffed1d7518abc6cde98af02c6e9dd45a8e327cdcb9a7d222fbf9ff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_male_v2_3.png",
+      "candidateSha256": "9d4721e95009b3272259a131a6ed58b67f5538f7c39d35c1099c37fab7451d97",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Overhead_Extension_with_Rope_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_female_v2_0.png",
+      "sourceSha256": "021a9c5de39faa0d5178af5efd74bdcefb67f60d9cb3bcb42f02445c22d0cf7e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_female_v2_0.png",
+      "candidateSha256": "1ab69ef5c553b0e28f9231c3b46eb14b91a33de4a75e2237d2da2c4d5332bffe",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Overhead_Extension_with_Rope_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_female_v2_1.png",
+      "sourceSha256": "f216c6c56228e9d770de4d503bb6a3f5384374f2b7244771201239a3c70ae822",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_female_v2_1.png",
+      "candidateSha256": "10e052d365c8080b916374ad944b2bc36597845987a75d59fc651959752cd298",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Overhead_Extension_with_Rope_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_female_v2_2.png",
+      "sourceSha256": "a2b5621b7452fa196601ee1c8d41f67ddc2622dc9f49bbed08fa43632f058e46",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_female_v2_2.png",
+      "candidateSha256": "d18bce7bd2688ed18369a3c606d4ca23d08a891875c1a6de474929c73537f929",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Overhead_Extension_with_Rope_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_female_v2_3.png",
+      "sourceSha256": "00f05ca6bff8dfa8cc33e08009fcf413a26412d093b23f6f12ef8b23d4f0ab40",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_female_v2_3.png",
+      "candidateSha256": "179bb6ad5690a4612e8ac852a13e06058f9a8f5fbff462d18fa195871231f1d8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Tricep_Side_Stretch",
+  "shard": 38,
+  "index": 372,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Tricep_Side_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_male_v2_0.png",
+      "sourceSha256": "c5bcbcbbc0dbe97cef6a85ff5bc450d58d17f08031a9f2a4ccffe63dfdea932b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_male_v2_0.png",
+      "candidateSha256": "70c3ee686483579c2d1d3a6f29832a46b6154228f6eff1cfaab5333b22e76eff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Side_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_male_v2_1.png",
+      "sourceSha256": "80db5fad03d9dba6a16a57049ccebcc77157fa03b3cb73ae9c1484280e22a89f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_male_v2_1.png",
+      "candidateSha256": "180e2a70a5f80556d332cc08cafdcea330f316996a223414f20477cbc0b79996",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Side_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_male_v2_2.png",
+      "sourceSha256": "3c2fda80dcce14d78c068f931237a61ce59b115f57059ce34883da496877ff57",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_male_v2_2.png",
+      "candidateSha256": "0199ac12e37c219ae1de0bcd97bf7c3e8e057fa0fa9796eda05039b69caf0e64",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Side_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_male_v2_3.png",
+      "sourceSha256": "015e56e422c76c4c2f6b37d66e3784a8d579fdf444bdad011380eac753a5da54",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_male_v2_3.png",
+      "candidateSha256": "ef34eb18c11677e344eabb9204f6752dacb7ba8064e8b74223842d5defba58e3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Side_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_female_v2_0.png",
+      "sourceSha256": "4553f385e269f5b5d5973f04c767c85866212eda6e1e336d6fe72068f8a21bda",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_female_v2_0.png",
+      "candidateSha256": "43971c9131242bb296676ef8a594c950001bc2c4fbd24c272d067e999b6ccb28",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Side_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_female_v2_1.png",
+      "sourceSha256": "ace91e577e010fcc8a81c111e992e468412ea4caf3596ebfffb82e4691f58cf2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_female_v2_1.png",
+      "candidateSha256": "f4b815b10c017712a653fb8f9cdfe66932c289c45ae97f9b26f4b1a00140e88b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Side_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_female_v2_2.png",
+      "sourceSha256": "560fbcbdcafa46f2368a45e8afcc3cab77177c2f2dd3292a8f404e58fe91cde7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_female_v2_2.png",
+      "candidateSha256": "5d21c2358f1005f81145b2dec1d073f877f31dcc71fcd6dbfdedc0e6ae9a5edf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tricep_Side_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_female_v2_3.png",
+      "sourceSha256": "220ce1ac5e560dedcb7122ae7b2fe5cd23ff05b8167bfe68983f5c8d59f97415",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_female_v2_3.png",
+      "candidateSha256": "9b60062c3feb4ac0271c07fec5d03b3e1039f4121bf118a67ae3fd3f1b8c3571",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

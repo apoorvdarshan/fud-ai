@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Triceps_Pushdown",
+  "shard": 38,
+  "index": 374,
+  "status": "ready_for_review",
+  "findings": [
+    "Gray pulley artifact on female frame 1; GenerateImage+green chroma cleaned"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Triceps_Pushdown_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_male_v2_0.png",
+      "sourceSha256": "c6973a5b5b144c0a08e6fdac0c5ffd3bda6d0d0aefa3734c3ea9756b159ba240",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_male_v2_0.png",
+      "candidateSha256": "3c6e6b3faa596e86078d74e70601c2808b5c15791ba5d191b6273f1d124b2b94",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_male_v2_1.png",
+      "sourceSha256": "75a197dac1f3e410e75bf3b77fa04342d22d9b35032bae51b48bb53a4f251734",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_male_v2_1.png",
+      "candidateSha256": "a1b14288246ae4a34810df8b953915aa20c05551e74e3d7fca001f90ecb0adb1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_male_v2_2.png",
+      "sourceSha256": "f4e2de6c942ea7dafa3572249a6ab1ec5f6a73688dc9860871dda548dc82d025",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_male_v2_2.png",
+      "candidateSha256": "4108b90420ba55bebe32e47d4b8666c93a9d2c33cbd16c4ebb423ccc3bc45381",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_male_v2_3.png",
+      "sourceSha256": "f7ef0c23c929e85767d7f8f29dab0e994b21b528359e9cd02433b105f059dfa0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_male_v2_3.png",
+      "candidateSha256": "9c727ae1e94c9d9f67a8c242dff118bdc2da23595169aad75af64b759437cc5d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_female_v2_0.png",
+      "sourceSha256": "71532c45020e97ce50d798a84c244e677aa4bf9893d6aca1f564e388a4c63e30",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_female_v2_0.png",
+      "candidateSha256": "7e1483ea59df9a74ccf7608b984e79f5b90a201e104a2df3c4dd92731a4dac0a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_female_v2_1.png",
+      "sourceSha256": "0469038e89bca89c265abdf31f0423af631bdea47f3973f2996794b0ecf7764f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_female_v2_1.png",
+      "candidateSha256": "ecec32a23477158f29da2bfab4388cab163191c0f94672be7f8e6caa6794d483",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_female_v2_2.png",
+      "sourceSha256": "24d118e7a321ee2310c761eb6d1b6196c927cd4839e583f1aec2980a55b0363c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_female_v2_2.png",
+      "candidateSha256": "3aea67039e7ed9588183bfb1ff4c36f9369777b50487b5274551047635f7aa3f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_female_v2_3.png",
+      "sourceSha256": "33ecec9f65a077438215c49cad50563f9832da6dc82ce43bef8ad2ebde2ffa83",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_female_v2_3.png",
+      "candidateSha256": "1309bbd6fab182a0cb2bd8675326cb75618738627abf8483495912682fc5ff68",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,836 @@
+{
+  "shard": 38,
+  "batch": "cursor-wave-leftover",
+  "exercises": [
+    {
+      "exerciseId": "Tricep_Dumbbell_Kickback",
+      "shard": 38,
+      "index": 371,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Tricep_Dumbbell_Kickback_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_male_v2_0.png",
+          "sourceSha256": "6ff97a7cba03d5e5a2ca38db1c855080098332d1141036dab3441b60437d5fb7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_male_v2_0.png",
+          "candidateSha256": "6dc0f5feb66de991983f68fee768e3ef14fd7fb5b597ed88529623083a202a34",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Dumbbell_Kickback_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_male_v2_1.png",
+          "sourceSha256": "5eee5b0bced2a25bd4f0e0df6bb97e128b53f45593fcec34797f99c556ad92eb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_male_v2_1.png",
+          "candidateSha256": "e029d6673fc6fa94f63b41f8a08f7a0701b3e858b1f7645ebae2a68d2d35406e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Dumbbell_Kickback_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_male_v2_2.png",
+          "sourceSha256": "8b288b6bf65c05e4c54d958db79af5f05c693798feb75ffdd9104a3dd552b0ed",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_male_v2_2.png",
+          "candidateSha256": "0c67a9307a379c91ac51779587c9564bb49755484ae1751f2a144a15f4777fe2",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Dumbbell_Kickback_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_male_v2_3.png",
+          "sourceSha256": "07a33ab40323c87453175cedd49c2cd03e7766c8137aa7fb558e4408592337f8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_male_v2_3.png",
+          "candidateSha256": "f215d0e03ae4af9f3e4d96f1fda74143ca4cb917a6980afc19b41fb98e627686",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Dumbbell_Kickback_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_female_v2_0.png",
+          "sourceSha256": "c11886dd6cf0bdbf7ebffb10c58217fe017777e884252023952bfbe21e1f5183",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_female_v2_0.png",
+          "candidateSha256": "6982cdf43156041ff949a2dd231db2d59abf3d9c2ab494928941bc2b264ba605",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Dumbbell_Kickback_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_female_v2_1.png",
+          "sourceSha256": "c916013459393bd9b04385de02ae2f8753ded1efd9451541e7e78de3148712d9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_female_v2_1.png",
+          "candidateSha256": "bdec7651e32735c6b217bbd87677f3fc5bad9615b38213e45773fef1a2874c54",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Dumbbell_Kickback_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_female_v2_2.png",
+          "sourceSha256": "12ae638a3ab6d9ba277eb70800a52bc18cf110dda29bfc5c328d81d109b518a9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_female_v2_2.png",
+          "candidateSha256": "8c6d066877ae478e35cd15e10372f06247c68ed437233c7d98b6379d327535e0",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Dumbbell_Kickback_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Dumbbell_Kickback_female_v2_3.png",
+          "sourceSha256": "6441ecfd04688a20d1dbc93d40b070659876eebb5724bdf853187d0a0a9d0ac7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/371/Tricep_Dumbbell_Kickback_female_v2_3.png",
+          "candidateSha256": "91f9ea2c540a46d00d893fe1c6ab93d9866aef684c1079d122e092902ccdbedc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Tricep_Side_Stretch",
+      "shard": 38,
+      "index": 372,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Tricep_Side_Stretch_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_male_v2_0.png",
+          "sourceSha256": "c5bcbcbbc0dbe97cef6a85ff5bc450d58d17f08031a9f2a4ccffe63dfdea932b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_male_v2_0.png",
+          "candidateSha256": "70c3ee686483579c2d1d3a6f29832a46b6154228f6eff1cfaab5333b22e76eff",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Side_Stretch_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_male_v2_1.png",
+          "sourceSha256": "80db5fad03d9dba6a16a57049ccebcc77157fa03b3cb73ae9c1484280e22a89f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_male_v2_1.png",
+          "candidateSha256": "180e2a70a5f80556d332cc08cafdcea330f316996a223414f20477cbc0b79996",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Side_Stretch_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_male_v2_2.png",
+          "sourceSha256": "3c2fda80dcce14d78c068f931237a61ce59b115f57059ce34883da496877ff57",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_male_v2_2.png",
+          "candidateSha256": "0199ac12e37c219ae1de0bcd97bf7c3e8e057fa0fa9796eda05039b69caf0e64",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Side_Stretch_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_male_v2_3.png",
+          "sourceSha256": "015e56e422c76c4c2f6b37d66e3784a8d579fdf444bdad011380eac753a5da54",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_male_v2_3.png",
+          "candidateSha256": "ef34eb18c11677e344eabb9204f6752dacb7ba8064e8b74223842d5defba58e3",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Side_Stretch_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_female_v2_0.png",
+          "sourceSha256": "4553f385e269f5b5d5973f04c767c85866212eda6e1e336d6fe72068f8a21bda",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_female_v2_0.png",
+          "candidateSha256": "43971c9131242bb296676ef8a594c950001bc2c4fbd24c272d067e999b6ccb28",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Side_Stretch_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_female_v2_1.png",
+          "sourceSha256": "ace91e577e010fcc8a81c111e992e468412ea4caf3596ebfffb82e4691f58cf2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_female_v2_1.png",
+          "candidateSha256": "f4b815b10c017712a653fb8f9cdfe66932c289c45ae97f9b26f4b1a00140e88b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Side_Stretch_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_female_v2_2.png",
+          "sourceSha256": "560fbcbdcafa46f2368a45e8afcc3cab77177c2f2dd3292a8f404e58fe91cde7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_female_v2_2.png",
+          "candidateSha256": "5d21c2358f1005f81145b2dec1d073f877f31dcc71fcd6dbfdedc0e6ae9a5edf",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tricep_Side_Stretch_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tricep_Side_Stretch_female_v2_3.png",
+          "sourceSha256": "220ce1ac5e560dedcb7122ae7b2fe5cd23ff05b8167bfe68983f5c8d59f97415",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/372/Tricep_Side_Stretch_female_v2_3.png",
+          "candidateSha256": "9b60062c3feb4ac0271c07fec5d03b3e1039f4121bf118a67ae3fd3f1b8c3571",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Triceps_Overhead_Extension_with_Rope",
+      "shard": 38,
+      "index": 373,
+      "status": "ready_for_review",
+      "findings": [
+        "White noise on overhead rope frames and checkerboard between legs on female frame 2; GenerateImage+green chroma cleaned 4 frames"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Triceps_Overhead_Extension_with_Rope_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_male_v2_0.png",
+          "sourceSha256": "d0b6ba3c21609a0d3dd096022bd1d064e7286def0d6585987f8a6a911f305517",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_male_v2_0.png",
+          "candidateSha256": "94b289ddbfd4df82bff58f9f88d726b9829f79d84aa473b39aa8685e6d8931b3",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Overhead_Extension_with_Rope_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_male_v2_1.png",
+          "sourceSha256": "2dec9008fd097da909a6657eb45f8c76653b301d4f4ccbe70d23f43374f96af1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_male_v2_1.png",
+          "candidateSha256": "f803fca4b782cf85ab6eb825d4afa98a21c5d47122476f2dfdaa501870f810a8",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Overhead_Extension_with_Rope_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_male_v2_2.png",
+          "sourceSha256": "19c637b915ad3181567ee375f256d656eacef550d770029fac586315eef81a6c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_male_v2_2.png",
+          "candidateSha256": "cfdee9fde5dc22d2d33748f693cd404b50713796f7edefb96b64fe1fc755c0b6",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Overhead_Extension_with_Rope_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_male_v2_3.png",
+          "sourceSha256": "b8f1745e5dffed1d7518abc6cde98af02c6e9dd45a8e327cdcb9a7d222fbf9ff",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_male_v2_3.png",
+          "candidateSha256": "9d4721e95009b3272259a131a6ed58b67f5538f7c39d35c1099c37fab7451d97",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Overhead_Extension_with_Rope_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_female_v2_0.png",
+          "sourceSha256": "021a9c5de39faa0d5178af5efd74bdcefb67f60d9cb3bcb42f02445c22d0cf7e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_female_v2_0.png",
+          "candidateSha256": "1ab69ef5c553b0e28f9231c3b46eb14b91a33de4a75e2237d2da2c4d5332bffe",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Overhead_Extension_with_Rope_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_female_v2_1.png",
+          "sourceSha256": "f216c6c56228e9d770de4d503bb6a3f5384374f2b7244771201239a3c70ae822",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_female_v2_1.png",
+          "candidateSha256": "10e052d365c8080b916374ad944b2bc36597845987a75d59fc651959752cd298",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Overhead_Extension_with_Rope_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_female_v2_2.png",
+          "sourceSha256": "a2b5621b7452fa196601ee1c8d41f67ddc2622dc9f49bbed08fa43632f058e46",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_female_v2_2.png",
+          "candidateSha256": "d18bce7bd2688ed18369a3c606d4ca23d08a891875c1a6de474929c73537f929",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Overhead_Extension_with_Rope_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Overhead_Extension_with_Rope_female_v2_3.png",
+          "sourceSha256": "00f05ca6bff8dfa8cc33e08009fcf413a26412d093b23f6f12ef8b23d4f0ab40",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/373/Triceps_Overhead_Extension_with_Rope_female_v2_3.png",
+          "candidateSha256": "179bb6ad5690a4612e8ac852a13e06058f9a8f5fbff462d18fa195871231f1d8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Triceps_Pushdown",
+      "shard": 38,
+      "index": 374,
+      "status": "ready_for_review",
+      "findings": [
+        "Gray pulley artifact on female frame 1; GenerateImage+green chroma cleaned"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Triceps_Pushdown_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_male_v2_0.png",
+          "sourceSha256": "c6973a5b5b144c0a08e6fdac0c5ffd3bda6d0d0aefa3734c3ea9756b159ba240",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_male_v2_0.png",
+          "candidateSha256": "3c6e6b3faa596e86078d74e70601c2808b5c15791ba5d191b6273f1d124b2b94",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_male_v2_1.png",
+          "sourceSha256": "75a197dac1f3e410e75bf3b77fa04342d22d9b35032bae51b48bb53a4f251734",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_male_v2_1.png",
+          "candidateSha256": "a1b14288246ae4a34810df8b953915aa20c05551e74e3d7fca001f90ecb0adb1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_male_v2_2.png",
+          "sourceSha256": "f4e2de6c942ea7dafa3572249a6ab1ec5f6a73688dc9860871dda548dc82d025",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_male_v2_2.png",
+          "candidateSha256": "4108b90420ba55bebe32e47d4b8666c93a9d2c33cbd16c4ebb423ccc3bc45381",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_male_v2_3.png",
+          "sourceSha256": "f7ef0c23c929e85767d7f8f29dab0e994b21b528359e9cd02433b105f059dfa0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_male_v2_3.png",
+          "candidateSha256": "9c727ae1e94c9d9f67a8c242dff118bdc2da23595169aad75af64b759437cc5d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_female_v2_0.png",
+          "sourceSha256": "71532c45020e97ce50d798a84c244e677aa4bf9893d6aca1f564e388a4c63e30",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_female_v2_0.png",
+          "candidateSha256": "7e1483ea59df9a74ccf7608b984e79f5b90a201e104a2df3c4dd92731a4dac0a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_female_v2_1.png",
+          "sourceSha256": "0469038e89bca89c265abdf31f0423af631bdea47f3973f2996794b0ecf7764f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_female_v2_1.png",
+          "candidateSha256": "ecec32a23477158f29da2bfab4388cab163191c0f94672be7f8e6caa6794d483",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_female_v2_2.png",
+          "sourceSha256": "24d118e7a321ee2310c761eb6d1b6196c927cd4839e583f1aec2980a55b0363c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_female_v2_2.png",
+          "candidateSha256": "3aea67039e7ed9588183bfb1ff4c36f9369777b50487b5274551047635f7aa3f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_female_v2_3.png",
+          "sourceSha256": "33ecec9f65a077438215c49cad50563f9832da6dc82ce43bef8ad2ebde2ffa83",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/374/Triceps_Pushdown_female_v2_3.png",
+          "candidateSha256": "1309bbd6fab182a0cb2bd8675326cb75618738627abf8483495912682fc5ff68",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Triceps_Pushdown_-_Rope_Attachment",
+      "shard": 38,
+      "index": 375,
+      "status": "ready_for_review",
+      "findings": [
+        "Checkerboard in cable machine frame and white base blocks on all 8 frames; GenerateImage+green chroma cleaned"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Triceps_Pushdown_-_Rope_Attachment_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_male_v2_0.png",
+          "sourceSha256": "9810f4d5143acccc1a6524127f0638f93f6bd12c1f64c2927416a5e82413bf49",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_male_v2_0.png",
+          "candidateSha256": "74df363022a3e81711eb95dbe73861f5e765ae2436abc0d3db4be443182e172b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_Rope_Attachment_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_male_v2_1.png",
+          "sourceSha256": "3268ddb6add2e72477315e4964c12f30883e653055750711c2f24af5cbd906a5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_male_v2_1.png",
+          "candidateSha256": "fce954df9faed04b63bf94736de22fcee9bb6752020316e995b9bf5a8a0a0073",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_Rope_Attachment_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_male_v2_2.png",
+          "sourceSha256": "bdc87295a3c1018fcfc3116d890d8284ad5487806acdd96eb93eb6d5d3269a76",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_male_v2_2.png",
+          "candidateSha256": "2f56322798e5956c2dedc5d3cbdaa74823498b7c2728bd1b8d5079b484a4dd49",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_Rope_Attachment_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_male_v2_3.png",
+          "sourceSha256": "a46ad723c2c7450fc042c57e3a2716afad7583aec7fbc34a34225000edf9ad06",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_male_v2_3.png",
+          "candidateSha256": "0c85c2f76b6bfd3b321cb5ed961be48356c533edd71a05a2aff2c393518cdc73",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_Rope_Attachment_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_female_v2_0.png",
+          "sourceSha256": "ad5abb080832024f1d792a29f5298396bb45307aacdadfc9f649b45066867a00",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_female_v2_0.png",
+          "candidateSha256": "143847ee971af75ed75d7f4ef7177e86768640262ecc3efe6538cbbddf464534",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_Rope_Attachment_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_female_v2_1.png",
+          "sourceSha256": "327f32403af9a54f819d7b40e0d845cfe78ced964b818399eb098e038f984d29",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_female_v2_1.png",
+          "candidateSha256": "5bf1a40f71fcfc41198febbae8d3eadba29fcc5e83904fc64ffc9a618e61b933",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_Rope_Attachment_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_female_v2_2.png",
+          "sourceSha256": "871e071f37546e10256c551c3c51b0c1060762083fb48a0809de3e35f84d3f73",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_female_v2_2.png",
+          "candidateSha256": "ebab4804a2a0f7f17d78e8292f6427dba98e15b75e1ed347ef9f90b7e3e782ff",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_Rope_Attachment_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_female_v2_3.png",
+          "sourceSha256": "085a3322a37c7e565eebaff6b56a410503392a015b50e1712101ad0f7e03cdf1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_female_v2_3.png",
+          "candidateSha256": "8925188850ea434ca2b9319ca8d947da171739a0f6e93e676aed7f40d8d3306d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Triceps_Pushdown_-_V-Bar_Attachment",
+      "shard": 38,
+      "index": 376,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Triceps_Pushdown_-_V-Bar_Attachment_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_V-Bar_Attachment_male_v2_0.png",
+          "sourceSha256": "6d0e104f98e5920f65539202151757f07fa6ad51632adf66b7dfe017238f80f0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/376/Triceps_Pushdown_-_V-Bar_Attachment_male_v2_0.png",
+          "candidateSha256": "319d1056bac93c761b5bc469e91e3be965b477084d28226b9667a13b905218e8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_V-Bar_Attachment_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_V-Bar_Attachment_male_v2_1.png",
+          "sourceSha256": "c1a6addf785defb815026ad17fc1e59fc230ec5e0192880d8cb2e97004bff5b0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/376/Triceps_Pushdown_-_V-Bar_Attachment_male_v2_1.png",
+          "candidateSha256": "044595f9970735c7c5499582091dfcb1b2861d87c5347b8f91eb382e9f7f19ed",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_V-Bar_Attachment_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_V-Bar_Attachment_male_v2_2.png",
+          "sourceSha256": "32e939fbdb5d1273ad151bdccdd4c9868f67fc82b13ee862ac4c1c04b9419632",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/376/Triceps_Pushdown_-_V-Bar_Attachment_male_v2_2.png",
+          "candidateSha256": "5958dc919eb7161ced53b4949fa9dbf2ce2341d27ef624097d9f66d1da817cb9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_V-Bar_Attachment_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_V-Bar_Attachment_male_v2_3.png",
+          "sourceSha256": "e77c4d85e019d6d3f140905b6c6681e36398f8de80ceb9b08a06b3c91af708a1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/376/Triceps_Pushdown_-_V-Bar_Attachment_male_v2_3.png",
+          "candidateSha256": "02b7c574787d1c6b14c210a2cd6a8eab0aef4aa40eca4d7a0fddadce882403d9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_V-Bar_Attachment_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_V-Bar_Attachment_female_v2_0.png",
+          "sourceSha256": "6162f42c212ea4de5d8b0d831f246f299c1a0a7d5c8c72862f3097d0ba24a105",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/376/Triceps_Pushdown_-_V-Bar_Attachment_female_v2_0.png",
+          "candidateSha256": "4167ebccbda35cfa06fda2e78609163b5208a26bfa21a806b2933f580a18f0cd",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_V-Bar_Attachment_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_V-Bar_Attachment_female_v2_1.png",
+          "sourceSha256": "d0eaba33718134ad109c7ad25bdf2948943de34af1b1bdc3f0c2833eb1b0f1d2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/376/Triceps_Pushdown_-_V-Bar_Attachment_female_v2_1.png",
+          "candidateSha256": "361718c6bf04ed80c56d6fd8482758d7b88fe39a9e5bd3990d79230df7e04a25",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_V-Bar_Attachment_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_V-Bar_Attachment_female_v2_2.png",
+          "sourceSha256": "65cbdc1b0fb03c9cf679b899aac1394d2040b926212dd48d4e6be4a1ff7d75d4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/376/Triceps_Pushdown_-_V-Bar_Attachment_female_v2_2.png",
+          "candidateSha256": "7681272615f92b6802f8e8a11933b44c9aab03aba88c03b21c2855f62031d199",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Pushdown_-_V-Bar_Attachment_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_V-Bar_Attachment_female_v2_3.png",
+          "sourceSha256": "2edac1afc1d3cda983bd19b6bb6b793624eb3393a09bc5c738b8bd52f4f50ba9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/376/Triceps_Pushdown_-_V-Bar_Attachment_female_v2_3.png",
+          "candidateSha256": "1771e30c315ed7c77b9a236071ede4cb5067f83fc2c4decb638bcb5f35b45b1f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Triceps_Stretch",
+      "shard": 38,
+      "index": 377,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Triceps_Stretch_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Stretch_male_v2_0.png",
+          "sourceSha256": "61926c661f3e1560d858ddce34fe98313132ce232282535bce086fc4536a3e28",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/377/Triceps_Stretch_male_v2_0.png",
+          "candidateSha256": "e22a0b996188f913b2646661532803756e03856dad868ce17217187546a5ebd6",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Stretch_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Stretch_male_v2_1.png",
+          "sourceSha256": "92e8d61d58b3f70177280f0190a085d9bd046dc2a5eb5a622dda8d3bb8b2ba4b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/377/Triceps_Stretch_male_v2_1.png",
+          "candidateSha256": "4d98f30ce43107334364aaefb124d3eeae0f2e309553fcda4ca5748c21d9b985",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Stretch_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Stretch_male_v2_2.png",
+          "sourceSha256": "d7948a7eb9309f7cfdcfd28a004e646ea0c400af812d97b2144b765e3929e5c1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/377/Triceps_Stretch_male_v2_2.png",
+          "candidateSha256": "f2417ead76aeda342c1fe2d72606241357a77c7db8485ab90b90c4dd0aaba617",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Stretch_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Stretch_male_v2_3.png",
+          "sourceSha256": "ea0580b01872cb235deaec1e895f4f8945194eef8d44a280ffacd2c0da6b2288",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/377/Triceps_Stretch_male_v2_3.png",
+          "candidateSha256": "e84307d2d754d82e8a2b974b419fd04b4b100cbcf32587cae8cc96def6a36756",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Stretch_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Stretch_female_v2_0.png",
+          "sourceSha256": "682b1fe0e60b560b2ed3b6f5cdfcefabedaf53c0b7bf817c1a41b8c94a728f81",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/377/Triceps_Stretch_female_v2_0.png",
+          "candidateSha256": "94bbad23dc960659044547fed8161d3586a182c3d46a73e1bd43605fda9d5f3b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Stretch_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Stretch_female_v2_1.png",
+          "sourceSha256": "ad3f35020c6c930dd8af2ddc2e1d616e6617d2dc17de6836c10b34e08b8ffb65",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/377/Triceps_Stretch_female_v2_1.png",
+          "candidateSha256": "723b4f5a8f8ea4e89e94d4e112519dfd4d17ca88c50e569308c88fcf2df1febc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Stretch_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Stretch_female_v2_2.png",
+          "sourceSha256": "8215ad643ce952b49152e821933a6c21e62ad2e2be1215fabbf39c4727f747cb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/377/Triceps_Stretch_female_v2_2.png",
+          "candidateSha256": "c48a98ee6b7a5fce0b0bdc88bd428f2ec3238a4b69e7cfbdf7f50a3d42132a2d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Triceps_Stretch_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Triceps_Stretch_female_v2_3.png",
+          "sourceSha256": "3a5864cd6a7d69a46dfac7ecf538b35ad935e467617466d9b3b40beaf45672cf",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/377/Triceps_Stretch_female_v2_3.png",
+          "candidateSha256": "cdd925cb5dddb68cca6b9e350c0c8a38c0e1e966f0fa5ddc7b1c2ea9143af3c5",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Tuck_Crunch",
+      "shard": 38,
+      "index": 378,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Tuck_Crunch_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_male_v2_0.png",
+          "sourceSha256": "977c88b32079be6ee3461501c1812345d931555b4ca3214a53992e8f245a26b7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_male_v2_0.png",
+          "candidateSha256": "5000fb5081926f1395a606094831506dbb04432eaffb73b12c906fbae22df82b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tuck_Crunch_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_male_v2_1.png",
+          "sourceSha256": "6af465e88e841fe1a747ef10b37f897fcc5290f4f9a7e3604520353b00318f63",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_male_v2_1.png",
+          "candidateSha256": "2d72963055898245ea58791b0e4fca914339e83597903981d69d694dce4d122d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tuck_Crunch_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_male_v2_2.png",
+          "sourceSha256": "ba4cc3d34a736ee7e1dbdeb138a7bc2cda0dbfe4ccbb40d547a1c85056f52846",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_male_v2_2.png",
+          "candidateSha256": "e5f20b4ee22ab02a806e01025bebd3b4e159345870b0e5b7351cbae2f2f3ff41",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tuck_Crunch_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_male_v2_3.png",
+          "sourceSha256": "4ad14969fc72e1b71d520d735a288f82374231d5e757442226b2c3398ebd1ff2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_male_v2_3.png",
+          "candidateSha256": "9f67aad4f9326f8895947c2d8e3362d52774095479c3da17f7d300a4945fb640",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tuck_Crunch_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_female_v2_0.png",
+          "sourceSha256": "c8afa61c2b0280fa8f50e1bf3f8d7396332aa916081eb6b545feae685637d818",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_female_v2_0.png",
+          "candidateSha256": "6b396fb54d2a2a48bc389209e5d3900d7ecdb4720c24666febb88fe45ad7432f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tuck_Crunch_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_female_v2_1.png",
+          "sourceSha256": "f92fe15994ae1c74d0aa31a2c4083d25f0d895a9fdb45d541259d3c60f1c3124",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_female_v2_1.png",
+          "candidateSha256": "f0a58fc1f2bbb525d77dafc815c9aece0543a87437fc1dafa764d8c631bc198f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tuck_Crunch_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_female_v2_2.png",
+          "sourceSha256": "b5abbe88e2179bdf8a5bb8de55d2816cb39aaad09ddbdca2a50d04a315723245",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_female_v2_2.png",
+          "candidateSha256": "8b3779971b204df7d8ee65559456f6b19e500cedd1e0af762849d13dfc06f39e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Tuck_Crunch_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_female_v2_3.png",
+          "sourceSha256": "552533929a01ace57c3b6950725f224470e4e46f9ec13890508983e7288097ff",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_female_v2_3.png",
+          "candidateSha256": "b627b2cbc60a98141cf0d05eeb31da995f82fafe7f115b50484e7fedcde99b2a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Two-Arm_Dumbbell_Preacher_Curl",
+      "shard": 38,
+      "index": 379,
+      "status": "ready_for_review",
+      "findings": [
+        "White speckled edge halos on female preacher curl frames 1-3; GenerateImage+green chroma cleaned"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Two-Arm_Dumbbell_Preacher_Curl_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_male_v2_0.png",
+          "sourceSha256": "b7af6d468c95bfb7e68962400d3c255ee2f791a242ee000e33360d7c2a2365b0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_male_v2_0.png",
+          "candidateSha256": "e52d46c3a150f29eb60b72f5bd384841a260147b17d6d6bd490943d48ec1a254",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Dumbbell_Preacher_Curl_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_male_v2_1.png",
+          "sourceSha256": "9e49ac374668cadb8841f70eaa2e78b3e48208a7134d818370c0c087b2e3ef69",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_male_v2_1.png",
+          "candidateSha256": "1a5e563cb2c3d0dc83ec3bcb3a4a6af38b8d2c620d9ea7288973635d65029c15",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Dumbbell_Preacher_Curl_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_male_v2_2.png",
+          "sourceSha256": "067da7ca8bb229746dc8c827d2f263cd457b1a973273a105461cc60c8bd86457",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_male_v2_2.png",
+          "candidateSha256": "a8b722ed9085c6884b0a68fb2229310cb3f07ab06c9521c89249432ba46a8866",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Dumbbell_Preacher_Curl_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_male_v2_3.png",
+          "sourceSha256": "f2e76f852c558e1b81ae1dc16340c0b3ca7e0ec19e93cfb65dc20f06a6e45f61",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_male_v2_3.png",
+          "candidateSha256": "d9a8388f1d00806ff1f62ae0ba546bb6e7f7fabee9b054938b58de5597881f32",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Dumbbell_Preacher_Curl_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_female_v2_0.png",
+          "sourceSha256": "b6fe7af2f91d722dac72a0f950945b98c7ea0da7fc44ca1bcc80b79fd19dc9ba",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_female_v2_0.png",
+          "candidateSha256": "673320dafd8ba9c7def007640358b67de62ea5d6ff20d77b78e3066b9516ea80",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Dumbbell_Preacher_Curl_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_female_v2_1.png",
+          "sourceSha256": "aebbd2d62952015507af7d3dc2948391c39cf6d63a541dde8f871c19d5b98210",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_female_v2_1.png",
+          "candidateSha256": "eb18f6bc93a9f40bc64172da529958dff07c2e5e5f65243c06a43400686377a6",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Dumbbell_Preacher_Curl_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_female_v2_2.png",
+          "sourceSha256": "478e5a01b17a1a9a8ad11f7f0cf96a36dce8afc75e4b2476ef7491ccfbbf2734",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_female_v2_2.png",
+          "candidateSha256": "44b0d2578b15d211674b4655f06ac64d2c62e36576ca8a4bfc3a820a4ab4fcac",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Dumbbell_Preacher_Curl_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_female_v2_3.png",
+          "sourceSha256": "44d8053e4275f28d73c37b27901bcf56313bcf8588abfd5c9bbd916628e881b9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_female_v2_3.png",
+          "candidateSha256": "03be4dcedf6c525ea66febfc7fd7c7132189260512caabcef51af74cd1948a68",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Two-Arm_Kettlebell_Clean",
+      "shard": 38,
+      "index": 380,
+      "status": "ready_for_review",
+      "findings": [
+        "Jagged floor shadow on female frame 0; GenerateImage+green chroma cleaned"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Two-Arm_Kettlebell_Clean_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Clean_male_v2_0.png",
+          "sourceSha256": "8b108350d4265365143197fd40a61e8b61cd30511dcb29b5c17120fb305c5299",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/380/Two-Arm_Kettlebell_Clean_male_v2_0.png",
+          "candidateSha256": "96e0ffc00efe8ad20c11f27f6bc9aa8137ed83f15561623321144636df6a6f6d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Kettlebell_Clean_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Clean_male_v2_1.png",
+          "sourceSha256": "d0b970c4bbecfb9436fe47669172ff5c069849283c49bda689fb6ba974be7574",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/380/Two-Arm_Kettlebell_Clean_male_v2_1.png",
+          "candidateSha256": "24a4227c029d0a3f00367c6c9b7727706219417725b5f69f51b3143e8e5ccf0d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Kettlebell_Clean_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Clean_male_v2_2.png",
+          "sourceSha256": "feadda8034fca37541908ba95d3f2378ba9c2b94fc3dd0c4776a1f6244d5e922",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/380/Two-Arm_Kettlebell_Clean_male_v2_2.png",
+          "candidateSha256": "0b0c796bd79f6886069fca2eb83a48e78cc1b8bfdea3380b04708d6320114c04",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Kettlebell_Clean_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Clean_male_v2_3.png",
+          "sourceSha256": "690050f34d9f6f1b5515904cebb06ec603dc9ee100a9fbcf974b44275365938f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/380/Two-Arm_Kettlebell_Clean_male_v2_3.png",
+          "candidateSha256": "6413560eb9066414326c24aba2db304c7701e6dec9b90423ed7755cdb536bdca",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Kettlebell_Clean_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Clean_female_v2_0.png",
+          "sourceSha256": "ef443cb94d5efd836a946c7593fd735ad3abbefcb02cfbf8dd0f1726adc1d332",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/380/Two-Arm_Kettlebell_Clean_female_v2_0.png",
+          "candidateSha256": "99823319d853424ca2040dbe2acbbcd190259168712ca60ff35f46dcca8509ad",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Kettlebell_Clean_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Clean_female_v2_1.png",
+          "sourceSha256": "5b3a1d0b345eb724e83390b7db5c7cd73881a8055f8d3d6719cde8682cb198d1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/380/Two-Arm_Kettlebell_Clean_female_v2_1.png",
+          "candidateSha256": "b1179ccdb02bd7d29fc471c13854572b1a744f6df7b2fe7d5f9eff60225c844c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Kettlebell_Clean_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Clean_female_v2_2.png",
+          "sourceSha256": "0d6d65b19a979077f063dfcbeed436de1e474e231798bc9dc2f230cd3ae669d4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/380/Two-Arm_Kettlebell_Clean_female_v2_2.png",
+          "candidateSha256": "83c50951e74cae369b8e44338d90d2e5c36149b13b8059416a951d75ffeceffb",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Two-Arm_Kettlebell_Clean_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Clean_female_v2_3.png",
+          "sourceSha256": "91024b1fca9cac882fe099f198b4f7c6bfade6478c825ef7d57aaa0a23c19257",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/380/Two-Arm_Kettlebell_Clean_female_v2_3.png",
+          "candidateSha256": "26993deef253da5239a97262b72962d5c0118168ad005f21fbb5b39eb3843a3d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    }
+  ]
+}

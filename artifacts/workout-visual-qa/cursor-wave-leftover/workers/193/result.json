@@ -1,0 +1,92 @@
+{
+  "exerciseId": "Seated_Leg_Curl",
+  "shard": 20,
+  "index": 193,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical + green chroma key on 8 frame(s) with pale fringe/floor matte: Seated_Leg_Curl_male_v2_0.png, Seated_Leg_Curl_male_v2_1.png, Seated_Leg_Curl_male_v2_2.png, Seated_Leg_Curl_male_v2_3.png, Seated_Leg_Curl_female_v2_0.png, Seated_Leg_Curl_female_v2_1.png, Seated_Leg_Curl_female_v2_2.png, Seated_Leg_Curl_female_v2_3.png."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Leg_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Curl_male_v2_0.png",
+      "sourceSha256": "b0e6c8722bb654a7a7ba2032015ce437abf504b51178884da7f61ef03a434fc7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/193/Seated_Leg_Curl_male_v2_0.png",
+      "candidateSha256": "f7ad329bd95bcbc52dd4fc14ea2745f8db3144a1c3f4035ddb574279f0ac5f71",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Curl_male_v2_1.png",
+      "sourceSha256": "7b4b78b7ee7a602b371f4dcea82b090b52cc38980796c290db82e1a589441d53",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/193/Seated_Leg_Curl_male_v2_1.png",
+      "candidateSha256": "f36c73ebfcfa0ee3a4eae907dccb3bc115711e0b831f510515757c1fddcab3a8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Curl_male_v2_2.png",
+      "sourceSha256": "dd4c3797cd85b5b01e402ff25bde59eb2eea2923caaf0b600d27294bad04bbed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/193/Seated_Leg_Curl_male_v2_2.png",
+      "candidateSha256": "af1eaa75851810948751e560d95254cd5891f9160c66886025b6272d95b17b99",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Curl_male_v2_3.png",
+      "sourceSha256": "62be8530872155a22493badc78d752ef28872d307aa7c5b45d77f83c1938cedc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/193/Seated_Leg_Curl_male_v2_3.png",
+      "candidateSha256": "ff4f24a8d10998c850a59cadb188624bf80439fe026a19b1be1f147a31cda8d2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Curl_female_v2_0.png",
+      "sourceSha256": "37813a93efe310d1c6787f16150133838db7dbafe23619fe13aee46702591dcf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/193/Seated_Leg_Curl_female_v2_0.png",
+      "candidateSha256": "1243d366ebb97e7a13bfd4b3b1b768caa68650e4f8f1d713f3dbe08a2d949e3a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Curl_female_v2_1.png",
+      "sourceSha256": "f0ba5cc39e528fb406626825f27adae12468435331cf65486937b88d2dcbe11d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/193/Seated_Leg_Curl_female_v2_1.png",
+      "candidateSha256": "dd54cac12063dc9fcd7ed0b069043d1d7fd82272119cfd3ef3c9f81ad810b53d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Curl_female_v2_2.png",
+      "sourceSha256": "ff997845668dd3ceb2791790f2f344532d8a9d7e3874fc17f8b3f2917486c900",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/193/Seated_Leg_Curl_female_v2_2.png",
+      "candidateSha256": "a79531485732beebdb55c7fb2eb8e60cdefb086620182198bdeddb068d3aa1ec",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Curl_female_v2_3.png",
+      "sourceSha256": "b67f2069bd6bff8185466df0496554ccacb2e92e5c2d1f38756313e9117161e8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/193/Seated_Leg_Curl_female_v2_3.png",
+      "candidateSha256": "1627dc5eb3d4dc3cdeed00555125aba120fe08c8c9939c61563a77c63d84e971",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ]
+}

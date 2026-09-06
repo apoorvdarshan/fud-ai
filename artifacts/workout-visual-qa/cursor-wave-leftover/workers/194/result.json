@@ -1,0 +1,90 @@
+{
+  "exerciseId": "Seated_Leg_Tucks",
+  "shard": 20,
+  "index": 194,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Leg_Tucks_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Tucks_male_v2_0.png",
+      "sourceSha256": "1fb893157f4a2ede5fcb734cad4b4a3291fdc351fab8e4b172f92ec4ab77a2e0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/194/Seated_Leg_Tucks_male_v2_0.png",
+      "candidateSha256": "8141e126e3ceacf52a6a405e5f2b7da8c7f45a6dce337dc5e4bf5582ecfa260f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Tucks_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Tucks_male_v2_1.png",
+      "sourceSha256": "093255ba25befc60eaaedb8a2f46161c4e4204703b400186a7e57d21134baf7a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/194/Seated_Leg_Tucks_male_v2_1.png",
+      "candidateSha256": "bd9bc0a2c348c8edc14318290e22c4bf79f2ead8099f38553251187a138eb48d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Tucks_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Tucks_male_v2_2.png",
+      "sourceSha256": "947aa8f881362a8046fb8ca5cdb5e10cc452c080266c0c954d6fb9aaa18055b6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/194/Seated_Leg_Tucks_male_v2_2.png",
+      "candidateSha256": "b940bf7a9c3479c785b27388f1e1caf14e8d85cea1d7e8989aa2acde636d2869",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Tucks_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Tucks_male_v2_3.png",
+      "sourceSha256": "e945bd20afc7acae52fa0ae75c93e62475b326b204bd674cff0c115d503a62c6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/194/Seated_Leg_Tucks_male_v2_3.png",
+      "candidateSha256": "7ec04a0f9990d3eb0a89af850092ef20b091986c030790ef251752d637757015",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Tucks_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Tucks_female_v2_0.png",
+      "sourceSha256": "21c7ba4806ca30e138ee2e6345eade918b8f406eb39bf70ef492f7fc2bba7eba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/194/Seated_Leg_Tucks_female_v2_0.png",
+      "candidateSha256": "adc4218bcf478007ba54f9733f5e1e61d7da3fb500ffeee7fd0e45e53dd7f852",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Tucks_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Tucks_female_v2_1.png",
+      "sourceSha256": "94ba4ad8282d7a23bdd2f1297bc237e50062ebfcfada6484f4cb84031794f7d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/194/Seated_Leg_Tucks_female_v2_1.png",
+      "candidateSha256": "dd5f15c931ee3a786ce05d4a2130929f4314741d3b411872bc4dc974833fa4ab",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Tucks_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Tucks_female_v2_2.png",
+      "sourceSha256": "e81aa2370f6cfedb749aceb8fdaf39a8f246e68fae7321f0a4acc12d5105f7f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/194/Seated_Leg_Tucks_female_v2_2.png",
+      "candidateSha256": "5421b6e279baf61fdfa0ad9efb20e9c4bd5617f2d1749b1c67c528846e6f8f96",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Leg_Tucks_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Leg_Tucks_female_v2_3.png",
+      "sourceSha256": "0279d51f962f523fcc4dafad86321a21a5b4493dc86884040cd0c2f8d88abbe0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/194/Seated_Leg_Tucks_female_v2_3.png",
+      "candidateSha256": "76613516dc03e18ed5902908cf45b3c3b63ccc41e16f14aa083a0c32b02b8c0f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ]
+}

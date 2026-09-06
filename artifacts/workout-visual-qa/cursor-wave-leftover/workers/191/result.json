@@ -1,0 +1,92 @@
+{
+  "exerciseId": "Seated_Hamstring_and_Calf_Stretch",
+  "shard": 20,
+  "index": 191,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical + green chroma key on 8 frame(s) with pale fringe/floor matte: Seated_Hamstring_and_Calf_Stretch_male_v2_0.png, Seated_Hamstring_and_Calf_Stretch_male_v2_1.png, Seated_Hamstring_and_Calf_Stretch_male_v2_2.png, Seated_Hamstring_and_Calf_Stretch_male_v2_3.png, Seated_Hamstring_and_Calf_Stretch_female_v2_0.png, Seated_Hamstring_and_Calf_Stretch_female_v2_1.png, Seated_Hamstring_and_Calf_Stretch_female_v2_2.png, Seated_Hamstring_and_Calf_Stretch_female_v2_3.png."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Hamstring_and_Calf_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Hamstring_and_Calf_Stretch_male_v2_0.png",
+      "sourceSha256": "ef4e18e3ee403d5e0bd57e03807c3be700317f71c26da0b094c4adf32bb32e33",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/191/Seated_Hamstring_and_Calf_Stretch_male_v2_0.png",
+      "candidateSha256": "0a5f5a8a7f530b922075a4491a3c118c765ef74a830f1011c0f54481d02b2657",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Hamstring_and_Calf_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Hamstring_and_Calf_Stretch_male_v2_1.png",
+      "sourceSha256": "f89f14900be43c80b315c256a01aed3d31ee07fe9512af433629f75a3c8d6aa0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/191/Seated_Hamstring_and_Calf_Stretch_male_v2_1.png",
+      "candidateSha256": "0581eae1df08035949dcc548d3f902da79c34ed08e8804c87d76ecc068905442",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Hamstring_and_Calf_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Hamstring_and_Calf_Stretch_male_v2_2.png",
+      "sourceSha256": "8b9b10f5f2de8c4db3e42ce26cdb0ed535d51b5310206953bca83147dbad7e94",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/191/Seated_Hamstring_and_Calf_Stretch_male_v2_2.png",
+      "candidateSha256": "f77bf497075cadc8c03eedae00528e9f8552d9af29fea0bc36d2ad5a6643e722",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Hamstring_and_Calf_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Hamstring_and_Calf_Stretch_male_v2_3.png",
+      "sourceSha256": "4c6660a9cffd006f9f3003b2af0ac96595646ae4ea7a29921840f995dfe90a85",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/191/Seated_Hamstring_and_Calf_Stretch_male_v2_3.png",
+      "candidateSha256": "bf33d517ab1f3129f01ff4ab1f87352e2997e692b6e5299decbedbb59bdc5c0a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Hamstring_and_Calf_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Hamstring_and_Calf_Stretch_female_v2_0.png",
+      "sourceSha256": "7dd9e866ab478d7adf940c353dc05a384919b7b2e1bc240915890058811e2e2a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/191/Seated_Hamstring_and_Calf_Stretch_female_v2_0.png",
+      "candidateSha256": "8b6d59cc36f2912753c58e1c5570add739e8ea8827c70bbc9d354b4fdfb7c7f2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Hamstring_and_Calf_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Hamstring_and_Calf_Stretch_female_v2_1.png",
+      "sourceSha256": "4db1bfd8a22e494dc59b1adfe2d2100603fa5f4206e9e57d25d3138b5fcba86c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/191/Seated_Hamstring_and_Calf_Stretch_female_v2_1.png",
+      "candidateSha256": "2d6e7ee7e38040f99738e11f8c080ec3349b569c67d78f6d762d40c915019d8e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Hamstring_and_Calf_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Hamstring_and_Calf_Stretch_female_v2_2.png",
+      "sourceSha256": "0fbc9d6f249fe0fe7de6d9e8f7806c0c31ec7fd6b6efc40b3ece2f6e65899c38",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/191/Seated_Hamstring_and_Calf_Stretch_female_v2_2.png",
+      "candidateSha256": "d0319b791d49860c2c04d9b8b4ad2d448e64f08cba4d29c29bf51dec47b31755",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Hamstring_and_Calf_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Hamstring_and_Calf_Stretch_female_v2_3.png",
+      "sourceSha256": "4288428f0c2d9817c21dae9719297693e72d5e71d585cf9ff9c60e564b2e890b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/191/Seated_Hamstring_and_Calf_Stretch_female_v2_3.png",
+      "candidateSha256": "71b9000fef4b6804669049ce6f691673d66573162e89f2111d79cd0a68f21c13",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ]
+}

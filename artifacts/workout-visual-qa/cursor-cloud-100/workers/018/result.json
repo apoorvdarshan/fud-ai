@@ -1,0 +1,107 @@
+{
+  "exerciseId": "Dumbbell_Seated_Box_Jump",
+  "shard": 2,
+  "index": 18,
+  "status": "ready_for_review",
+  "changedFrameCount": 6,
+  "findings": [
+    "Script pale-neural-guard-v2 (BiRefNet-general-lite vote, not a full cutout) cleaned isolated pale residue on 6 of 8 frames. Visible alpha pixels removed: male 0/2/3 = 53/192/176; female 0/2/3 = 89/181/16. Male and female frame 1 had no eligible pale components. Original RGB is unchanged on every frame.",
+    "Reviewed all eight candidates on dark (#090909) and light (#eeeeee) composites. No painted checkerboard, no new opaque exterior field, no missing limbs/head/shoes, and no identity or equipment redraw.",
+    "Remaining pale-edge pixels after cleanup are mostly illustration anti-alias plus white shoe-sole and light metal highlights along bench feet, box corners, and contours. These were left by the neural foreground guard.",
+    "Stationary equipment still drifts across each sequence (bench right, box left). Male frame 3 still has a small shoe-to-box-top gap. Both are pre-existing layout/pose issues; GenerateImage was not used because a surgical rewrite would change identity or pose."
+  ],
+  "unresolved": [
+    "Cross-frame bench/box spacing drift remains; fixing it requires pose/layout redraw.",
+    "Male frame 3 landing still shows a small visible gap between shoes and the box top."
+  ],
+  "frames": [
+    {
+      "filename": "Dumbbell_Seated_Box_Jump_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_male_v2_0.png",
+      "sourceSha256": "beb66a3a3a41cd92b427721eb4a530bd3de345f18f8e59b53718f42b70e0ddc9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/018/Dumbbell_Seated_Box_Jump_male_v2_0.png",
+      "candidateSha256": "cc30a4f2fe5824258e624d3eb5a9481b0490d9f56cdc616f0a44e478d5df4c42",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 53,
+      "rgbChangedPixels": 0
+    },
+    {
+      "filename": "Dumbbell_Seated_Box_Jump_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_male_v2_1.png",
+      "sourceSha256": "cf19456401cc9a12fd253441ab1854da004314df74288f030d8aedf951405280",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/018/Dumbbell_Seated_Box_Jump_male_v2_1.png",
+      "candidateSha256": "fa205f633e8f906a5cd115861fba1d76e4de8e55fce6bf381261cad27843bbad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 0,
+      "rgbChangedPixels": 0
+    },
+    {
+      "filename": "Dumbbell_Seated_Box_Jump_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_male_v2_2.png",
+      "sourceSha256": "9f361da53539f3904f25dad2ee56e2bae127ba40628a1485a6158d3ca910e15a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/018/Dumbbell_Seated_Box_Jump_male_v2_2.png",
+      "candidateSha256": "fb10dff1a98f891befc92848d2813a248427c3a0810f0933e1bb10602db0414d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 192,
+      "rgbChangedPixels": 0
+    },
+    {
+      "filename": "Dumbbell_Seated_Box_Jump_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_male_v2_3.png",
+      "sourceSha256": "d495ee139dc8e34fb2d48340ba2493d537fd48b7de595ea2c776d2b878e0b128",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/018/Dumbbell_Seated_Box_Jump_male_v2_3.png",
+      "candidateSha256": "a2d4b285002196bd505af3690156ece493285243d9d0d694242386ee35c46ca2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 176,
+      "rgbChangedPixels": 0
+    },
+    {
+      "filename": "Dumbbell_Seated_Box_Jump_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_female_v2_0.png",
+      "sourceSha256": "4d6ccc2517a95d5908b8d98d7693220de9ad4c342d97a60e33a432b4cc3c5012",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/018/Dumbbell_Seated_Box_Jump_female_v2_0.png",
+      "candidateSha256": "dd30f8cf15a87caee996f9ac0a0efc0262be45ce3b78b3975b4e00b91cb012d2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 89,
+      "rgbChangedPixels": 0
+    },
+    {
+      "filename": "Dumbbell_Seated_Box_Jump_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_female_v2_1.png",
+      "sourceSha256": "9f5f9d9be06d650ad6f47529f44a3c30221079b7c64cb7706237bd5f945afd09",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/018/Dumbbell_Seated_Box_Jump_female_v2_1.png",
+      "candidateSha256": "439c6fca4416b53315373671c703af51c445aaea782227582d7f8cb0721215bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 0,
+      "rgbChangedPixels": 0
+    },
+    {
+      "filename": "Dumbbell_Seated_Box_Jump_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_female_v2_2.png",
+      "sourceSha256": "fd2398e676a8825c23550fee0709389f6607daf9b5b977db9dfa6b483b5d7859",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/018/Dumbbell_Seated_Box_Jump_female_v2_2.png",
+      "candidateSha256": "b75ad8923849e5fca23d0ddbcc85559202c47fde8f3ab259656fc6d67538217d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 181,
+      "rgbChangedPixels": 0
+    },
+    {
+      "filename": "Dumbbell_Seated_Box_Jump_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_female_v2_3.png",
+      "sourceSha256": "efac5a29c6c672a8d6c5dc65e7ae65ddf8e726703d8c43507a8382eedb7687fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/018/Dumbbell_Seated_Box_Jump_female_v2_3.png",
+      "candidateSha256": "dfe308af44e97ec603bb8a137065f857ae426e7327116d37da5175495961f19c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 16,
+      "rgbChangedPixels": 0
+    }
+  ]
+}

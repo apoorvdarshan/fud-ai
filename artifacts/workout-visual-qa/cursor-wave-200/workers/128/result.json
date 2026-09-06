@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kneeling_Hip_Flexor",
+  "shard": 13,
+  "index": 128,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kneeling_Hip_Flexor_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Hip_Flexor_male_v2_0.png",
+      "sourceSha256": "4dccf64669d42fac0ad6fa57c0a84458ef7c688bba9f99504c17bd14f411ee06",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/128/Kneeling_Hip_Flexor_male_v2_0.png",
+      "candidateSha256": "9dc899196411542bb95fa9ff07fe94b01fed398f72e8431e2b67148518c0528b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Hip_Flexor_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Hip_Flexor_male_v2_1.png",
+      "sourceSha256": "fbcc0c625e4eeb21db21491aa13f134012f8eea4a9fc8ba3be6515c7384ed58a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/128/Kneeling_Hip_Flexor_male_v2_1.png",
+      "candidateSha256": "75c72229263ac79b16e1c00faecff64835f4d22be212fdeb5106cdef6d2ed6c2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Hip_Flexor_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Hip_Flexor_male_v2_2.png",
+      "sourceSha256": "753ccbe0a3f84c83ee1167037345b4900c1b7406af8caa9b61564e70e6609626",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/128/Kneeling_Hip_Flexor_male_v2_2.png",
+      "candidateSha256": "e317f5021fc546b6bda0df93ed7a258ba42b831c39cd81568362a8e589da8d8e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Hip_Flexor_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Hip_Flexor_male_v2_3.png",
+      "sourceSha256": "22c87f689b018d938d5fbfc1597fd73f5294d771b6eb695aadfabd38e36b2dc2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/128/Kneeling_Hip_Flexor_male_v2_3.png",
+      "candidateSha256": "e77a39efbaf8f5f15fb5cd6c6f947b5876a3ae0869660e0387a610c88666badd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Hip_Flexor_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Hip_Flexor_female_v2_0.png",
+      "sourceSha256": "bde64a0064acaf31ef809399de742b68062b09f984b2afe586dee0e5081bcdb3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/128/Kneeling_Hip_Flexor_female_v2_0.png",
+      "candidateSha256": "2230a287c1a6dcaecdc38900d24134b7c4055489394d6e9c553b8d0b16dae12b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Hip_Flexor_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Hip_Flexor_female_v2_1.png",
+      "sourceSha256": "39a8a84df6771b72f4ae098d8ce03c86a89b6f4b76b66472792c0aee932f0d05",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/128/Kneeling_Hip_Flexor_female_v2_1.png",
+      "candidateSha256": "bb55cc16b58ed4bb0b5ec44d134905fe581810dae5c8338041bf3ff1679bb354",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Hip_Flexor_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Hip_Flexor_female_v2_2.png",
+      "sourceSha256": "241c1ec863cb2813447a123ae928c5fa6a039242b5508ada65e6059224a55f9a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/128/Kneeling_Hip_Flexor_female_v2_2.png",
+      "candidateSha256": "73391b3d3a55096ecb8a371b1cda5c0bbec9311cc8922612bd747a0d4961e96d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Hip_Flexor_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Hip_Flexor_female_v2_3.png",
+      "sourceSha256": "1d88e20c70bebb4b67f001bf1a6b99e9abfdff0fd541cbbd4b2c1b5830b26a68",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/128/Kneeling_Hip_Flexor_female_v2_3.png",
+      "candidateSha256": "cc28f869142d716064abd932fc8a5525aaa9e97a67a43a167dc804ccc5985b2f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

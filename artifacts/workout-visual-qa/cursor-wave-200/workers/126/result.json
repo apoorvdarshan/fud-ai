@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kneeling_Forearm_Stretch",
+  "shard": 13,
+  "index": 126,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kneeling_Forearm_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Forearm_Stretch_male_v2_0.png",
+      "sourceSha256": "1ced90e13001d78e2f386d41e41389cc8b5993f3f3f6c4626c9dd68054088bb5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/126/Kneeling_Forearm_Stretch_male_v2_0.png",
+      "candidateSha256": "e36d85304f3393d411cd1cd189084c6f9261be1387bc8c697f528fed2ffdc782",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Forearm_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Forearm_Stretch_male_v2_1.png",
+      "sourceSha256": "3d8e47dd9e9b09a718a31937645a7da8cde52056bb7dc333745907e13cb9307d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/126/Kneeling_Forearm_Stretch_male_v2_1.png",
+      "candidateSha256": "a1fbf380a52329703f0b04fc4c6e28e2dfb750062535b0dea8c033efcfbd050c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Forearm_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Forearm_Stretch_male_v2_2.png",
+      "sourceSha256": "6f42a8904bdaf7ed5b158470cae7c2a5d0bb28b75497c9951abad8912fdd83f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/126/Kneeling_Forearm_Stretch_male_v2_2.png",
+      "candidateSha256": "4b2df7d3f3385da6dd30665e884b6cf64dbd6e86962597d10c27f697a3b23733",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Forearm_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Forearm_Stretch_male_v2_3.png",
+      "sourceSha256": "9a375b35b9e5fa332799c45912427423918d33e333204a4a28587f5d1d2f50da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/126/Kneeling_Forearm_Stretch_male_v2_3.png",
+      "candidateSha256": "840e1e34e115da15def808553cb2f5f9c8eb46772fe20311bcf0ac8fe9f94c72",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Forearm_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Forearm_Stretch_female_v2_0.png",
+      "sourceSha256": "a5402f28dbe19de411f7bc016624d85e1c3b6f1b3cc9fd48478020cf4426d2b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/126/Kneeling_Forearm_Stretch_female_v2_0.png",
+      "candidateSha256": "8e3ef366dda048f4feeeea9146f6260fbc8bfcbe39c17c279eb3bf58de47a629",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Forearm_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Forearm_Stretch_female_v2_1.png",
+      "sourceSha256": "a3efd1db09e7c25b07b4aa2eb0278f4a8627e05798f408ea71e85ae720c51daf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/126/Kneeling_Forearm_Stretch_female_v2_1.png",
+      "candidateSha256": "874e3225571ebe4b623a68ec2cd6185c8b47feff551b53b7a7ee069be700129b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Forearm_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Forearm_Stretch_female_v2_2.png",
+      "sourceSha256": "9a3cf13afc87aa7df917817c77d607d5c32dadc29c8ec9dd933e6817abe3997c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/126/Kneeling_Forearm_Stretch_female_v2_2.png",
+      "candidateSha256": "6c5bc488fa3c543dd59a3a0b054600f177a64dfe8350831ee9b0bf9b14075e3b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Forearm_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Forearm_Stretch_female_v2_3.png",
+      "sourceSha256": "fd4f7211d19f96856697aea23d95ca4c4dd0248153d273c2e2979953890ca978",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/126/Kneeling_Forearm_Stretch_female_v2_3.png",
+      "candidateSha256": "0cbf62eaadcc8690be68770fcb9c3ec1865e12a8f0c537347fb45ac2cd878e0d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

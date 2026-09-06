@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kneeling_Cable_Triceps_Extension",
+  "shard": 13,
+  "index": 125,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kneeling_Cable_Triceps_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Triceps_Extension_male_v2_0.png",
+      "sourceSha256": "2c7366b2be59d94f62a001cb7f1b7aef41cff7286a5108a90432bcf2ab303241",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/125/Kneeling_Cable_Triceps_Extension_male_v2_0.png",
+      "candidateSha256": "e89813236a98bf7d5d643072e1c3874b3ffa725fa57250ee176a5cd1848b6fd6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Cable_Triceps_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Triceps_Extension_male_v2_1.png",
+      "sourceSha256": "1e0b94f9c99f970d7172b53478699c27bc46d4d82eec78781b6bba319cebba23",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/125/Kneeling_Cable_Triceps_Extension_male_v2_1.png",
+      "candidateSha256": "65de1aa4676fe0b7088359c5cdcda62fa1d0c18b92625a6d1ce373719d8c2b4f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Cable_Triceps_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Triceps_Extension_male_v2_2.png",
+      "sourceSha256": "2fd8019c8ae7a2c689dc6f43baf81c9e6d96831de93281e58ce116875bcc18ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/125/Kneeling_Cable_Triceps_Extension_male_v2_2.png",
+      "candidateSha256": "ad3044fb6d0a60049fb25eba7ac4401cc5b436d82fb0a149095fc753300b6352",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Cable_Triceps_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Triceps_Extension_male_v2_3.png",
+      "sourceSha256": "6f0a756803916383b0983769326b5c252ef80a1cd4cdd8f94c4e121512afc041",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/125/Kneeling_Cable_Triceps_Extension_male_v2_3.png",
+      "candidateSha256": "884cd3754de06297643d5726cdb2ce12b49d0001364415b246f98689c8a99efb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Cable_Triceps_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Triceps_Extension_female_v2_0.png",
+      "sourceSha256": "0a8e398ef3800c7667edc20297e8927cfe2848c4f9c13cd7965f57b2c256355c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/125/Kneeling_Cable_Triceps_Extension_female_v2_0.png",
+      "candidateSha256": "2c35130b6e9f1dee7a31ce47b6616c43fc9857370180bb27a156eb9ccd60c86d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Cable_Triceps_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Triceps_Extension_female_v2_1.png",
+      "sourceSha256": "95b66d3bc57b2a1d8d6d886b63b9587bb3fedf7ffd14cbe9612c7e287b29ed09",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/125/Kneeling_Cable_Triceps_Extension_female_v2_1.png",
+      "candidateSha256": "19200b17bd5a082914e18445607ea68fd4228319045325d734cc5e3300ce9d91",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Cable_Triceps_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Triceps_Extension_female_v2_2.png",
+      "sourceSha256": "86517709cddc49b4d9052a8d357fa61c2ce85293851545dd0edce6a308f7ecdd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/125/Kneeling_Cable_Triceps_Extension_female_v2_2.png",
+      "candidateSha256": "7a1afa223be1f0612ca9b44c8703a5096b57900bb4514a101fcbfe56b0d1f894",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Cable_Triceps_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Triceps_Extension_female_v2_3.png",
+      "sourceSha256": "1060e879aebbae9de32121a7fda1e990b61d2e5aa3698da35d3cb002eff1859c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/125/Kneeling_Cable_Triceps_Extension_female_v2_3.png",
+      "candidateSha256": "753f344ef4e31559749747b0f7bf3b1859ecf11a7fe9eb0d70d6bc64718c254e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

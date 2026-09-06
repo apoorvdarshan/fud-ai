@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Keg_Load",
+  "shard": 13,
+  "index": 123,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Keg_Load_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Keg_Load_male_v2_0.png",
+      "sourceSha256": "5784437279e446d0809eb8d9c4773cfe40d9d4cdd6e7a30d86990555c7ff3069",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/123/Keg_Load_male_v2_0.png",
+      "candidateSha256": "5fe639231cfa96d3f00ea8c58f95a2fa67bc8f40640a96bc1b02e357680512a9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Keg_Load_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Keg_Load_male_v2_1.png",
+      "sourceSha256": "5493fad9491f8c02dde401d62238c4cd500bc670972f60148c79153ee17376fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/123/Keg_Load_male_v2_1.png",
+      "candidateSha256": "357792d5a0e6375d746e5601bb8f2a090065ed665e8a8f2153b9ae184d59a0c1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Keg_Load_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Keg_Load_male_v2_2.png",
+      "sourceSha256": "d448d5329ef063e8024408ad3c593d6f901e223268e6097358b90843310fba56",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/123/Keg_Load_male_v2_2.png",
+      "candidateSha256": "60661be43bdd2815a9eb2da98842a196bf0b0537a118583375ce605bb5f97545",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Keg_Load_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Keg_Load_male_v2_3.png",
+      "sourceSha256": "d725bb3bc7fe10c3d7da336776d8e94e2b5be6bea7afc3543d49c89753761d77",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/123/Keg_Load_male_v2_3.png",
+      "candidateSha256": "f3f19fa8debb52df976871558317983418abc6b9e55ecf080a24631fee9cf5db",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Keg_Load_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Keg_Load_female_v2_0.png",
+      "sourceSha256": "ceda1cdbb8cb5e1b34e361d11c1b2f3d12c4fcd8c7b78cfc08f8bed309dde175",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/123/Keg_Load_female_v2_0.png",
+      "candidateSha256": "c7243fc2d0ef985edd0ef985654c5add49c0b40d1c496c32ace0573114a0428c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Keg_Load_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Keg_Load_female_v2_1.png",
+      "sourceSha256": "652de3becb47879654ce79d33ab2568ca0f7e8d326e894119beb22164877079e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/123/Keg_Load_female_v2_1.png",
+      "candidateSha256": "0781d50216b93eafb9b166e1d2062837945aee3ea9e5e05575b3f980eaba94b0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Keg_Load_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Keg_Load_female_v2_2.png",
+      "sourceSha256": "068b25074409d237ced3e00913231c7f3fca979e2229ba761913abe5fd4f1ae5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/123/Keg_Load_female_v2_2.png",
+      "candidateSha256": "b7188b744b849f4fdde4d21acf2d9e73bb1be8f69da67b110a094b1d7a877126",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Keg_Load_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Keg_Load_female_v2_3.png",
+      "sourceSha256": "d35e2916dc622ade6085500e68d5f7a958adc731a4294d5e0c0aa1eb8d17c8f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/123/Keg_Load_female_v2_3.png",
+      "candidateSha256": "fdbaeaa2db70fb4347a5af76202bcc43b75312533aa6a3870e9121d1c7a75d70",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

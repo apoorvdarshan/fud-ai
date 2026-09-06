@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kneeling_Single-Arm_High_Pulley_Row",
+  "shard": 13,
+  "index": 130,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kneeling_Single-Arm_High_Pulley_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Single-Arm_High_Pulley_Row_male_v2_0.png",
+      "sourceSha256": "dec77da2c0b0e43eb8a7524ff56c601054c0839bf070edf0107c126bf7f9e33e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/130/Kneeling_Single-Arm_High_Pulley_Row_male_v2_0.png",
+      "candidateSha256": "60bb0846ca733d5f3948434f3561c016faddb60c325b9e3a95ad5793fb302823",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Single-Arm_High_Pulley_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Single-Arm_High_Pulley_Row_male_v2_1.png",
+      "sourceSha256": "aca5e6a108cd0e4ff9f10b896e8ac4f8c08bfd0b655155056447dec3cdfca938",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/130/Kneeling_Single-Arm_High_Pulley_Row_male_v2_1.png",
+      "candidateSha256": "eacb7cbe9e6b6fb88edf7c3a1743c9dac8705bd8e1b6335d53bf3f945ef2cf27",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Single-Arm_High_Pulley_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Single-Arm_High_Pulley_Row_male_v2_2.png",
+      "sourceSha256": "f2b1f3519e6c9909a07426aedbf4e9753b4167a59338f3b70d6c28e8f46c6521",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/130/Kneeling_Single-Arm_High_Pulley_Row_male_v2_2.png",
+      "candidateSha256": "f5f6000fbda0f341ed03ee96e8d38337d21f04f7ccb43165e27a95ce903fbff3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Single-Arm_High_Pulley_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Single-Arm_High_Pulley_Row_male_v2_3.png",
+      "sourceSha256": "c31f14fc60d848287be7f137bfa86fac5aed8aa1f5bc347e7652acca7ed3a25b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/130/Kneeling_Single-Arm_High_Pulley_Row_male_v2_3.png",
+      "candidateSha256": "a9d542986a49cddc0d3914a9dbd862522515598ab81b7b369aa9e76befad1cdb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Single-Arm_High_Pulley_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Single-Arm_High_Pulley_Row_female_v2_0.png",
+      "sourceSha256": "bc7c411c440af90e8e1ce88cf7392ff6e7e9a8cbeba78afe0ef58d401ec776b1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/130/Kneeling_Single-Arm_High_Pulley_Row_female_v2_0.png",
+      "candidateSha256": "d9da2b49f9d556e15d0c17ee8bfcae936876940182bc0dec4b496b9f4f0e26d2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Single-Arm_High_Pulley_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Single-Arm_High_Pulley_Row_female_v2_1.png",
+      "sourceSha256": "2b611fede9bb97a10332276a403465644adb44ef7b5b3a47f48bf002cc37524f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/130/Kneeling_Single-Arm_High_Pulley_Row_female_v2_1.png",
+      "candidateSha256": "c8ca6ab848c42e8fa0c12570dc60a9a98279f1fec2baca81d7307f40ac8a1c7a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Single-Arm_High_Pulley_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Single-Arm_High_Pulley_Row_female_v2_2.png",
+      "sourceSha256": "59ffc0a54bc877b96c8ea45619678fc954c9a089807ccd477c91b3d31a276821",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/130/Kneeling_Single-Arm_High_Pulley_Row_female_v2_2.png",
+      "candidateSha256": "6918702458a0db6f1660e75e80b7392468f5c54cd0fd03ebb40e41266a4f48a2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Single-Arm_High_Pulley_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Single-Arm_High_Pulley_Row_female_v2_3.png",
+      "sourceSha256": "23efdf1299505449134238a9d386b8ba9ec58ff445be6098feafbad8063ae6a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/130/Kneeling_Single-Arm_High_Pulley_Row_female_v2_3.png",
+      "candidateSha256": "368c849f66919914062536af3bbd825882d7abb914e7f5c3255283b21e0b5b2b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

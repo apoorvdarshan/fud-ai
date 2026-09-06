@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_male_v2_0.png",
       "candidateSha256": "32649bd577a4eadd73b1982cc62ddc7ea6278b87041b69be287a66200aeb34a0",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Hammer_Curls_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_male_v2_1.png",
       "candidateSha256": "c800e1154df3c6073a8656937835b14d75e9c50eb60147ba52d62603c2373009",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Hammer_Curls_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_male_v2_2.png",
       "candidateSha256": "3ea5db74011fd2e87410e904a28d7bf0c1509dc0df4a71dc6605e74dfe69ce7a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Hammer_Curls_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_male_v2_3.png",
       "candidateSha256": "c7d0eb1ac7b01f38c6aeff75b38e08e9b2b73ddc91f3cc3896d0e25cd649cb8e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Hammer_Curls_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_female_v2_0.png",
       "candidateSha256": "65d13252cb8c423f85e3ea41615f7aa70f151750c3c336e327af8eeb9b0a82a0",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Hammer_Curls_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_female_v2_1.png",
       "candidateSha256": "93b4d6404774020c6c49d467514bb915ec0954cf0e1bec5ca869d7dba5320beb",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Hammer_Curls_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_female_v2_2.png",
       "candidateSha256": "b24194199a82c5ed3aca7997a6ca4fa6902f853659adc4efefad09f45435125d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Hammer_Curls_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_female_v2_3.png",
       "candidateSha256": "b9174a2a9e0c6efb7aa1da04bfd2c88a2260ed8ccdbe07452cc23ed5df057514",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

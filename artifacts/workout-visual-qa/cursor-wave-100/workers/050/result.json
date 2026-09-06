@@ -11,72 +11,72 @@
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_male_v2_0.png",
       "sourceSha256": "a9f22eaa9c1c167f6e852cae1b9b60a450b649a0779f4d7da8348d553a3c5601",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/050/Incline_Push-Up_Wide_male_v2_0.png",
-      "candidateSha256": "8064771216fa84c73e971d1fc7f5695fbf8fc1b92494b21276f02876af9e70c3",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "f3d90955eaa05a533b10dfc4a6d4b96cf31f2ba265ae7b5fd54dcd293be23a94",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Wide_male_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_male_v2_1.png",
       "sourceSha256": "53af81d4aa7a2f740d52958fdb5c671b50d5c333e23a6b83407b6ff0f78bd2fb",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/050/Incline_Push-Up_Wide_male_v2_1.png",
-      "candidateSha256": "59e1a590c44b95a666181318ba2155540af18baa58810c94d8b0bb73fdf41963",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "2ae82a6640009a79797df6606bb5bbb2f46ec99365c9d7137680c5eaedcb7e57",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Wide_male_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_male_v2_2.png",
       "sourceSha256": "a5cf4715f1394bd768748e46d43e36fbe34294a943ce8ab4646e583844a77f8d",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/050/Incline_Push-Up_Wide_male_v2_2.png",
-      "candidateSha256": "5a00c765dcb183147491729a401c7ed5b5d2f3b3c6dc0e26a56e7744b13949dc",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "cccbe7976021612bf8baa4049b4a8b4a55c48d1d284c550821b3c1786573bc40",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Wide_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_male_v2_3.png",
       "sourceSha256": "f7dc49d1a2b99930a026857b15727186f97163acb363e5ad5c226b5f9619a882",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/050/Incline_Push-Up_Wide_male_v2_3.png",
-      "candidateSha256": "554ca06ed98696582e4a08103144d4ee8c2a36a9c83fb506a4971df53f928e4a",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "d21960778710e2afa9964336dfd6b97d9130dd85b08ad2b38f56b186dacbc273",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Wide_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_female_v2_0.png",
       "sourceSha256": "335f1398c377390a79420300d72d9767556ee27f5eb6d7753cd9fe742ab5b135",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/050/Incline_Push-Up_Wide_female_v2_0.png",
-      "candidateSha256": "8a9a5a6b8fb49ec634a6ccee57e103c7b0d8e03b9d1bff6c1619249a75fa7626",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "6c8af7bf78018bb01ea0b59566f1fd3196c045f0534e33f2a3d0689e6e8130ab",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Wide_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_female_v2_1.png",
       "sourceSha256": "66a33e62ab8d4134ee053972cfe614103b3c4d1d9327cef81f884801a4e437ae",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/050/Incline_Push-Up_Wide_female_v2_1.png",
-      "candidateSha256": "254a9022f19b1b10657aea4cf2e69e361fcdd8ba59be76dbcddc46a1097f8518",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "58ec7fa368a58ac5935894dda2090b0eee712c3a50904b2c19f405b430018782",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Wide_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_female_v2_2.png",
       "sourceSha256": "a9703c17c6b70672588369f966b2d028ce255b11b9fc6e1c0a0dbdb53749802a",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/050/Incline_Push-Up_Wide_female_v2_2.png",
-      "candidateSha256": "c66cb10bfeaa45472efe4390b7bc78c0f7b9330d6beec2f2abab397b34025a51",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "8c9becce8822098e2b4c73dadc00fb7a49a0d8d03513b5d2090f0493db5c7bed",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Wide_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_female_v2_3.png",
       "sourceSha256": "20f1fcdace96ff8aee65d67bdd61e21d897aded5e59315cbab581f977f28a51f",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/050/Incline_Push-Up_Wide_female_v2_3.png",
-      "candidateSha256": "403ce878bb66861ba6e81eb001d55e79899304f9e1b4ed8071905d21d0fc6b01",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "6f68f972aaa03efbbd686aac7a543efb279f5d1ba55acb780514202961fb8972",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/041/Incline_Dumbbell_Flyes_-_With_A_Twist_male_v2_0.png",
       "candidateSha256": "96b97c7a6c7be9977eee4be864b2153a7699f151ffff7d1b1343bfaf3827cc8a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Flyes_-_With_A_Twist_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/041/Incline_Dumbbell_Flyes_-_With_A_Twist_male_v2_1.png",
       "candidateSha256": "cdbfc5fc0d83588a4a072ab13eadc7cdd44bc55eb6a21000af9cd8f012dc1456",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Flyes_-_With_A_Twist_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/041/Incline_Dumbbell_Flyes_-_With_A_Twist_male_v2_2.png",
       "candidateSha256": "f331df4e223e695081c928cecdb2fae7939e5c54ffe9533fafd5e35a564b6173",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Flyes_-_With_A_Twist_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/041/Incline_Dumbbell_Flyes_-_With_A_Twist_male_v2_3.png",
       "candidateSha256": "099c8e97274337243f1ac637be216e59c76421503301412b2c42103923593ed7",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Flyes_-_With_A_Twist_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/041/Incline_Dumbbell_Flyes_-_With_A_Twist_female_v2_0.png",
       "candidateSha256": "e10cecaf785f277d051b7d98c6992504b01707f33f532d2ae0a922f2af2b93dc",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Flyes_-_With_A_Twist_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/041/Incline_Dumbbell_Flyes_-_With_A_Twist_female_v2_1.png",
       "candidateSha256": "4e850a3294f56f250e3774c782859c60e17bde91e3213f732b07179030e471ac",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Flyes_-_With_A_Twist_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/041/Incline_Dumbbell_Flyes_-_With_A_Twist_female_v2_2.png",
       "candidateSha256": "3f26abb15f811906b689f0808c242298565b95bf32994cb81c402b0bd017f753",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Flyes_-_With_A_Twist_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/041/Incline_Dumbbell_Flyes_-_With_A_Twist_female_v2_3.png",
       "candidateSha256": "1b115b82613064987fd271d3cd702276bae7902ab11336770a02995928cda2f1",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

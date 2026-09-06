@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_male_v2_0.png",
       "candidateSha256": "aa2165a0aeb679b13f2be7a9afbf3f46ca66bdfb9aa8959bd69217e9622aa5bc",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Press_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_male_v2_1.png",
       "candidateSha256": "f321555ef4d69e5d09919f9c119da3e40c653830d07dd68b58888226e471f061",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Press_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_male_v2_2.png",
       "candidateSha256": "9becedf2ff91a00bf02780f615d4113771b508994c8ff92b65059dfd0cef28af",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Press_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_male_v2_3.png",
       "candidateSha256": "b66f0cb4725ceff0cfdd51ed06fc3b7d2c9b9e8632af583607fc5d9b2681a284",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Press_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_female_v2_0.png",
       "candidateSha256": "d17d591099a08191d48c8572d42c5d66a87f5786e5acd7202da489404982a3fa",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Press_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_female_v2_1.png",
       "candidateSha256": "846779a581958f09dca01c1fa6f9d8f9acd5ba6684dd7d8c4eda7266222da9bd",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Press_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_female_v2_2.png",
       "candidateSha256": "645ea6bb8566d0782131bea020775215b9e27eb09b631bc5d352da2168bf98bf",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Press_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_female_v2_3.png",
       "candidateSha256": "a2be60723fdb17336fc29fc0c7878de5d103400e7ded135b87e52c73cbcbcbd2",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

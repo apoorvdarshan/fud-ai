@@ -11,72 +11,72 @@
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_male_v2_0.png",
       "sourceSha256": "5285f1807c6f662a33f0f973908a3b0e106804194d093961885d6b1285bf199c",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/049/Incline_Push-Up_Reverse_Grip_male_v2_0.png",
-      "candidateSha256": "0cf06664d0161cd373ad4e96ec1af8bf00174a2bc7143e964f20085404199633",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "ab60521a83e335a46f8e3c7e2eb8fa95689a4f7be8876062590eea6851a2ed28",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Reverse_Grip_male_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_male_v2_1.png",
       "sourceSha256": "d2871b6860658415d90ecf25af52c62fa681810866d881855906becac6637ac5",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/049/Incline_Push-Up_Reverse_Grip_male_v2_1.png",
-      "candidateSha256": "2c1978ae8f496a1641303014d3b6a5578f5882be33e2c1c90e62852add4c61c8",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "a2494b5f2946e231695342fc09a9cd267fd8a4997466810127c3af09a136e915",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Reverse_Grip_male_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_male_v2_2.png",
       "sourceSha256": "1ebad96c67fddc3f1838c33603668c77b6680968fb6f0d3b9c7f000a7cd2ddb7",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/049/Incline_Push-Up_Reverse_Grip_male_v2_2.png",
-      "candidateSha256": "a6d29275decc82cdc75c1f4391c026599a3fbbeccda8432514e489f1b9a1ab4b",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "99c98baa9547e18670069bfb4ae72a9aad4d46e3a17c7d7c2eae07db4dee8990",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Reverse_Grip_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_male_v2_3.png",
       "sourceSha256": "639324e0255540c7db0231c4fd1e89553ebaa1c1b62039eb91921be9d66c33f3",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/049/Incline_Push-Up_Reverse_Grip_male_v2_3.png",
-      "candidateSha256": "d1cd3289b40d7ac902ba1993b2c0f9cf1886d3840756e74b59a5d229dd4bee84",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "f184a2e84f1147757324779afd1346701ceae4f7be465f7895b5eb457eae1812",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Reverse_Grip_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_female_v2_0.png",
       "sourceSha256": "35f4f28d7538a0c7af273ff8b329b8882ba4c91956b1357fffb7f70f81dd76dc",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/049/Incline_Push-Up_Reverse_Grip_female_v2_0.png",
-      "candidateSha256": "3ab097e7ad6419eacd7fd820a81c28f1143a30276120dec2afadd6f2fd1a516d",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "8addaadc0c45151f4c38bcc52b02feb87ee7f8bbe884296f9f81292047355a04",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Reverse_Grip_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_female_v2_1.png",
       "sourceSha256": "602fa70ed69395eb727769f2ca9db4965f99074ec7c001c2c445e138b92eb2a7",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/049/Incline_Push-Up_Reverse_Grip_female_v2_1.png",
-      "candidateSha256": "417636c92e7e6dda487e7ac477c99a5165c04691cdda9240dced716cb4c5567d",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "c10a3dd71303b8fe6281cb1ee97f5d1b7b2abb8f28739dcc70d696678b81ec67",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Reverse_Grip_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_female_v2_2.png",
       "sourceSha256": "ebd28dfa89b732d77b5f95c5aac99a582ecd70a6a090412a61a23393dfce4dd6",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/049/Incline_Push-Up_Reverse_Grip_female_v2_2.png",
-      "candidateSha256": "f6f2224755931ad9f57b44a4ca8d65b3753964a4dd6357c547bcf81851f5e4f4",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "c4ab1d2323452718111528be649267a2894c49d0bf9a070690f1e04ac7b0a8a7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Push-Up_Reverse_Grip_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_female_v2_3.png",
       "sourceSha256": "4855eafa4978126538d6fb91d5aa29a1d6b88d355a8d94fb6f3080a86defdd91",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/049/Incline_Push-Up_Reverse_Grip_female_v2_3.png",
-      "candidateSha256": "e90d4ce70e65fbc404fcd3a4ac40d7e96dc10e8ddd28961e5e223300bfbbcef8",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "08ff952530aa35d77bb724d43a02663e61f4a4dadc11456551b5d595945e3cb8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/044/Incline_Inner_Biceps_Curl_male_v2_0.png",
       "candidateSha256": "c617252b1d8cd3b631856f70b0ab157a19c676974decdc70ac521b3803e823b6",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Inner_Biceps_Curl_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/044/Incline_Inner_Biceps_Curl_male_v2_1.png",
       "candidateSha256": "f3c88ad0be8867831caaa98dcda4d7ec2510c2f520f7c1d838c6bbb8c218b464",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Inner_Biceps_Curl_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/044/Incline_Inner_Biceps_Curl_male_v2_2.png",
       "candidateSha256": "e7d513c94e9f7d1a3a5ef4b9329c9cae325c4c86609bc5e3f1562bb6a40b1830",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Inner_Biceps_Curl_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/044/Incline_Inner_Biceps_Curl_male_v2_3.png",
       "candidateSha256": "8a297865a0e643bf1a772ec82d369ab2633a379146db3e01b62dfa1baec662fd",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Inner_Biceps_Curl_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/044/Incline_Inner_Biceps_Curl_female_v2_0.png",
       "candidateSha256": "82b4b6d6c47e32be19b996c624ff70f063de8e8b7c204f0f6500886d603ffc4e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Inner_Biceps_Curl_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/044/Incline_Inner_Biceps_Curl_female_v2_1.png",
       "candidateSha256": "008a300f77abb26dcce7a00b82473b9f17bb1002b3327b1ecb014fa0322553ab",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Inner_Biceps_Curl_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/044/Incline_Inner_Biceps_Curl_female_v2_2.png",
       "candidateSha256": "919fb1631fb4cd5fec8cc08f6ef7178830db89b859f8f50e0bfad9e853640c14",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Inner_Biceps_Curl_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/044/Incline_Inner_Biceps_Curl_female_v2_3.png",
       "candidateSha256": "0910c44957d954877933caf9a447636ec68c9f7644b31c3391672e71115cd1de",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Knee_Tuck_Jump",
+  "shard": 9,
+  "index": 86,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Knee_Tuck_Jump_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_male_v2_0.png",
+      "sourceSha256": "a1c2091040c5f64e63047d40e1fd39a9aa5531b70fed3056397f653363b5f513",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_male_v2_0.png",
+      "candidateSha256": "ff788dd3b3de3ac9f0868c40d60fc01096713df06aac4724f7787c8b1037df8a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Tuck_Jump_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_male_v2_1.png",
+      "sourceSha256": "6383a1df36628dea78734efa3937e7670f153a39766b3cd73dcb5187df801321",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_male_v2_1.png",
+      "candidateSha256": "483bfa7e6312b1f8bd762661375454a18605f983dfa4fca8fa2c5f039480977a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Tuck_Jump_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_male_v2_2.png",
+      "sourceSha256": "5d7947197c213bf5ab2ba448b6a2f2e35d5f09c751108cb14247c2242dd27f8e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_male_v2_2.png",
+      "candidateSha256": "a8980ab447559ebd4566a7353ad91774e6554972270035f12dfcfb5d7c859b97",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Tuck_Jump_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_male_v2_3.png",
+      "sourceSha256": "08b4e8e1c1cd82b0e5b71fe3e68640ad4f706cf790eaf0f741e8c133c01efc8e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_male_v2_3.png",
+      "candidateSha256": "baf8b5026b3f91362803352e5a9b02409c576f11747abfa5eb4876d0a8c2efb2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Tuck_Jump_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_female_v2_0.png",
+      "sourceSha256": "fc98ea3698d5b4e9a81e185d6748095ee3be19ee56e934b74a15e95bca4c9ca3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_female_v2_0.png",
+      "candidateSha256": "ef4ea1c77870ab166ca4ca17dc4d3850708258f56dc86d934e4a567c9d97fae8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Tuck_Jump_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_female_v2_1.png",
+      "sourceSha256": "2c9cd5db57486a5b6ddc7b561408184089d3fb7facb2c057066348783f385955",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_female_v2_1.png",
+      "candidateSha256": "aca11439fac83fc855e7c2617c01c0597915bc72dbdd27557abbe215ebf5b007",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Tuck_Jump_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_female_v2_2.png",
+      "sourceSha256": "01155c826322ff208043eb45394e4511711428a7d0c934f4ca99e6ffcb13a419",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_female_v2_2.png",
+      "candidateSha256": "ca8e8004a8473fa415866fd65bf0cbff67b7c623944f1fcbd2e8be24c99ca4ed",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Tuck_Jump_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_female_v2_3.png",
+      "sourceSha256": "010f285d3e91b59a6d01fb1b23c215660d9e0eef691571656cb32665d86e5032",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_female_v2_3.png",
+      "candidateSha256": "216bdeeae97fe6ed7b18127762c27a5679fa297a6dd125952e0aa4880cee58bf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

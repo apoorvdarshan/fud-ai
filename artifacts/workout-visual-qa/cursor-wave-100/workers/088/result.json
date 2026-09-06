@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists",
+  "shard": 9,
+  "index": 88,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_0.png",
+      "sourceSha256": "cd91d01fc12d085dee83bf30fdd163e3e6e77355d56299ba8e2a232d15598638",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_0.png",
+      "candidateSha256": "ae9a00c45a8a5845f443050e0db5b50d400d587f4b5a8467d39f44e6f3ee8354",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_1.png",
+      "sourceSha256": "9492c62c555d8b1194fe84125deeb497be7830f491607930ed74f363d7755c0e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_1.png",
+      "candidateSha256": "7bc99a3b99074142176152d825fd91f1c4ff7ba8d9e71825e48daab51369f21e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_2.png",
+      "sourceSha256": "924a80c35b2ebf2be2590b4afa1fc904595cf5690be5b239d7e4409312e4599f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_2.png",
+      "candidateSha256": "7058bec9d24c7e8bcbc8091695ce192496f4ab36aea2d3603917d1fe129ce23f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_3.png",
+      "sourceSha256": "20222ccc71acdf0c1f71f7f48424b7bba34d5d8c50944cf2e8430988f30fa28f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_3.png",
+      "candidateSha256": "9295cab53dbbaf2b97a7eb5cccc0e81abd25dc12a4da52987967e6e47333c518",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_0.png",
+      "sourceSha256": "457f1f519c94d583cc48f16d154134634a83cac0610e3c799338fea98c71bf4c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_0.png",
+      "candidateSha256": "f99f48b2cbf59081b65c5d5f333f2e33846245fc6006b32bcd1a35ebc5806d38",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_1.png",
+      "sourceSha256": "a694338bd341f7b5804cb051d702aec8ef86719786ee35a34de6d34962eb5e4d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_1.png",
+      "candidateSha256": "a2fe4497de525264f5ccf5a17c7ef8f6ff94a778bb28cd8bac5b918298645bf4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_2.png",
+      "sourceSha256": "52fdec98e6ca26e958c3c19d4f4a71bf4b4194985ef665a79749b64b8c2b6452",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_2.png",
+      "candidateSha256": "aa475d326ffa745e9e91f6df4eda9505756f0b62c4a5c9108700c7414808ea29",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_3.png",
+      "sourceSha256": "4d820a039c5adebf317eb0ff61fe5409bf5dd523b32bef1d926687c83fa28500",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_3.png",
+      "candidateSha256": "5ba8bf138f1c4cfba13bee0f13a9b07a338fabb5c3eb0dff8583841d1dc37fbc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

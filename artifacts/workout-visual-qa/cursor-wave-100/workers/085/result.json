@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Knee_Hip_Raise_On_Parallel_Bars",
+  "shard": 9,
+  "index": 85,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Knee_Hip_Raise_On_Parallel_Bars_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_male_v2_0.png",
+      "sourceSha256": "e66e18a9bd2c5f7284645d04b368de4a00030690a1349314dee5691472a002c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_male_v2_0.png",
+      "candidateSha256": "72b36521b5919021fdec4cf45c8a4cb8b2d563cefb3f9c818886a6884b5faada",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Hip_Raise_On_Parallel_Bars_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_male_v2_1.png",
+      "sourceSha256": "5d56b9c83e531a95ec31be56622160149eb8e0e201b7743c064102e10f6d2f14",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_male_v2_1.png",
+      "candidateSha256": "bed969d15d9b9740c0329386ebf6e1344a485e5d8c19ba9a5f2d708e8d37d115",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Hip_Raise_On_Parallel_Bars_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_male_v2_2.png",
+      "sourceSha256": "702f5fa2e0850d8ea08314e6d89c8d8084bf943afedb6d76aa120873fbfe0112",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_male_v2_2.png",
+      "candidateSha256": "82cb69793983606cd2a86f873aa79499984b0a9b48379ee9642299bea87471f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Hip_Raise_On_Parallel_Bars_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_male_v2_3.png",
+      "sourceSha256": "eeaccda2a1b1ce3f4bf04547f9b00d64bb0354d3c3a3411002db836b29366171",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_male_v2_3.png",
+      "candidateSha256": "e25e95c2840439c8865f7c14455fd632ff2b673ffb53ff1642aa20cf4a6c3021",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Hip_Raise_On_Parallel_Bars_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_female_v2_0.png",
+      "sourceSha256": "630e3f19f782f072b088c38a37c68e09d397f8f9549d7335d785e6a69b30e45c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_female_v2_0.png",
+      "candidateSha256": "edce0abb214fd05f2d955807bafafa7cd336b9289c3a499c4f8096fdf98bb6b6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Hip_Raise_On_Parallel_Bars_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_female_v2_1.png",
+      "sourceSha256": "9b4d4d5e51b42a929c5831e47e4e9d9d1938ef464e81706aef7a922fb3b58b2e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_female_v2_1.png",
+      "candidateSha256": "b58d407c16ef6e5803e833fb86e40d40703f3425c47f1a14e4bf6a66ebbc93db",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Hip_Raise_On_Parallel_Bars_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_female_v2_2.png",
+      "sourceSha256": "e57abbce31e7b8e8c384a9740a08e890f6855037e1abec2898d4904cd8269ca5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_female_v2_2.png",
+      "candidateSha256": "ddcc8ea3649a25d7dcef3632957c295823881a1647619d14c0237ccc9b76d0e4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Hip_Raise_On_Parallel_Bars_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_female_v2_3.png",
+      "sourceSha256": "fdfce0b2e767d2b3df0ef18cb33ad9250be2edd847ffa7d946cc041fa87532b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_female_v2_3.png",
+      "candidateSha256": "64a6dcbdb48b36bd5201ff759a2db589cdb5116301b00dbc9660745e31bcd5e7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

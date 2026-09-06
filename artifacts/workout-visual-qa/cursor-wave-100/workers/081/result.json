@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kettlebell_Thruster",
+  "shard": 9,
+  "index": 81,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kettlebell_Thruster_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_male_v2_0.png",
+      "sourceSha256": "a213ff6adab797755dd74e1d9e314d91eeaa54ec36875ec28b4dc2223b1d1eaa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_male_v2_0.png",
+      "candidateSha256": "0a9eb7481b1d43fd99530250da1f7e7b2169e6179eaa200b468a0718957842ac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Thruster_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_male_v2_1.png",
+      "sourceSha256": "c0079304c0055891e53a2f6f4c99f7cf7271571e9c08cc67db0099afed1ff8cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_male_v2_1.png",
+      "candidateSha256": "b4ded4888dd89cb3f844643624bf11119fba8b6a879892e67bffc38ddb3a2132",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Thruster_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_male_v2_2.png",
+      "sourceSha256": "152d227d85198dcfc1008625f31892b8444f9f46e08efa607be80b8fd8b965e7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_male_v2_2.png",
+      "candidateSha256": "c1bff7d25b66ce0504f1ab7b7c507dfa1aad47ffcb297be556672296fe37945a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Thruster_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_male_v2_3.png",
+      "sourceSha256": "7d0826096c2a087dc561749cd58735c5e4e55360879795762257463beec6a857",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_male_v2_3.png",
+      "candidateSha256": "cb9a2b9ee4d70abbc8b2c13fca3e885d4e0adcfd20831e21ec2aacf02f38b593",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Thruster_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_female_v2_0.png",
+      "sourceSha256": "865a7c0ba1d95f32bd738ea8e8035a84efd79ecbdc6eb1ba55d39d3e4420be51",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_female_v2_0.png",
+      "candidateSha256": "ccf56f54a2c2f6ab39a0c20c70793d8c1ccd1e975eff27b3b872c8ec973a4b64",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Thruster_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_female_v2_1.png",
+      "sourceSha256": "35ed5220dac404321e01824ae866694d729c392511655ebc04c9904616201265",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_female_v2_1.png",
+      "candidateSha256": "6859908e08fa963cd52b51578ff2dd7d56ad6c697491a0cad8bddb4aae63c260",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Thruster_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_female_v2_2.png",
+      "sourceSha256": "021b6857dc0c2fd863a7d04bc795c916b138cb865be8aaeeafa3ab2b2f49adee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_female_v2_2.png",
+      "candidateSha256": "a64b000ed81c2bb462ee7a4349deee8d14692f12a433e6014a50a531cc8826f8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Thruster_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_female_v2_3.png",
+      "sourceSha256": "0adbe0eb92609db191b11e0e66f3449e61fa9c482adb27cb8643ba3b91330da6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_female_v2_3.png",
+      "candidateSha256": "8cdb043e2416af8d04a2b8a02c5d2361efbe769775595f36c73b3a29c2e8ca85",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

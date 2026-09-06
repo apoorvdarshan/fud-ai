@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Knee_Circles",
+  "shard": 9,
+  "index": 84,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Knee_Circles_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_male_v2_0.png",
+      "sourceSha256": "40b21e9fe4cd82e51badba157d9177913781fd01c4c623f73f5c84735f601e30",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_male_v2_0.png",
+      "candidateSha256": "29c2d19cf4b0ed6fc6e5f21eba2a7a3c014dd959f28f8e7ee4d210c0bfcc218a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Circles_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_male_v2_1.png",
+      "sourceSha256": "b9450d4b0cf892567cc80d9ed9d130ab371d45fabdd3181ff18f1b2849ec30c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_male_v2_1.png",
+      "candidateSha256": "6f019d8a5b7a28600e201360e7c7166f6a9453e657e94f6adb69cbdf52de2c6f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Circles_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_male_v2_2.png",
+      "sourceSha256": "b8c91be5b7d02cf01d1ac7cf486d56ca92a308a9bb552f8f99b6c88fb569bf70",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_male_v2_2.png",
+      "candidateSha256": "4416aa916d832a3bf16afa0bb2079b0d2c238c0d3a24da540bb2480bf95a7e47",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Circles_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_male_v2_3.png",
+      "sourceSha256": "a0e2d0a6d0a2533bd6de5a7f45a1bd314e45520b3fc49b94c52755d1bc5ee917",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_male_v2_3.png",
+      "candidateSha256": "c7baf88f19006498eb1d5f38f3136423f96fb57da096ad07b52773fc7ca9212d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Circles_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_female_v2_0.png",
+      "sourceSha256": "572f8b2147d79fde08db75cbd61dffb24b5f793c0388a65cc62b565cf896a140",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_female_v2_0.png",
+      "candidateSha256": "29558963142172001c8bb0ae54ac4ad8b57dc934c17462863448635a47605b16",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Circles_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_female_v2_1.png",
+      "sourceSha256": "41b47a1d9c27551dd3e5027d897ba6f2c51081241b1c0d2138c950828120a909",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_female_v2_1.png",
+      "candidateSha256": "56dec4cddc7f2ad2ed1acc10650247b220a07beec84072f31ab3536abaf784b2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Circles_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_female_v2_2.png",
+      "sourceSha256": "895ef72d0fbc5faca0628b9e3d4299282f2d958ed1756cfd962ddb7f26753ab8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_female_v2_2.png",
+      "candidateSha256": "2ff36a39c86a7e9f999827fc5cbccb3beb8255cc52d3ddc671cf47d29a2dbe98",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Knee_Circles_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_female_v2_3.png",
+      "sourceSha256": "7d6c185b38a697ecfaf102df45a19eb2ded3f29bc9e2b9d82d1190576bfaa15a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_female_v2_3.png",
+      "candidateSha256": "622a0e06b335b684566dd0eff52ddefd4a7ab6f1a9fae2a31011b4d3dd748fff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

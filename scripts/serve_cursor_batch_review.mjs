@@ -14,7 +14,7 @@ const batchRoot = path.join(root, 'artifacts/workout-visual-qa', batchName);
 const originals = path.join(root, 'shared/workout-vectors');
 const candidates = path.join(batchRoot, 'candidates/images');
 const decisionsFile = path.join(batchRoot, 'human-decisions.json');
-const defaultPorts = { 'cursor-pilot-10': 8766, 'cursor-cloud-100': 8767 };
+const defaultPorts = { 'cursor-pilot-10': 8766, 'cursor-cloud-100': 8767, 'cursor-cloud-100-done30': 8767 };
 const sha = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const images = new Map();
 

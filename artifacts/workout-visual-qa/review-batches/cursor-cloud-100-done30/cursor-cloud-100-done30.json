@@ -1,0 +1,554 @@
+{
+  "batchName": "cursor-cloud-100-done30",
+  "description": "First 30 completed cloud-100 exercises (shards 1,3,4)",
+  "exercises": [
+    {
+      "index": 1,
+      "exerciseId": "Clock_Push-Up",
+      "severity": "minor",
+      "findings": [
+        "Thin pale, slightly speckled fringe follows portions of the hair, clothing and limb contours on the dark background; limited to the cutout edge and does not obscure the illustration."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Clock_Push-Up_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Clock_Push-Up_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Clock_Push-Up_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Clock_Push-Up_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Clock_Push-Up_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Clock_Push-Up_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Clock_Push-Up_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Clock_Push-Up_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 2,
+      "exerciseId": "Close-Grip_Barbell_Bench_Press",
+      "severity": "minor",
+      "findings": [
+        "Thin pale broken fringe outlines portions of the rack, plates, bench and athlete on dark backgrounds; especially visible around female ponytails. Limited to edges, with no substantial opaque background or enclosed checkerboard visible.",
+        "Bench/rack uprights, base feet and planted shoes shift modestly horizontally between frames. These stationary anchor changes are separate from the intended bar and arm motion; overall scale and identity remain broadly consistent."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 3,
+      "exerciseId": "Close-Grip_Dumbbell_Press",
+      "severity": "minor",
+      "findings": [
+        "Thin light fringe follows parts of the athlete and bench contours on dark backgrounds. White shoe sole strips show irregular transparent breaks, most conspicuous in male frame 0, which also has small pale flecks beneath the soles. Illustration remains usable; no substantial background block or enclosed checkerboard is visible.",
+        "Female frame 0 places bench and feet slightly lower than subsequent frames; bench legs and foot positions vary slightly through the sequence. This is limited stationary-anchor drift rather than the intended arm press motion."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 4,
+      "exerciseId": "Close-Grip_EZ-Bar_Curl_with_Band",
+      "severity": "minor",
+      "findings": [
+        "The male bar changes apparent width and bend geometry across the curl, and its band connections change from wrapped loops in frame 0 to carabiner-like fittings in frames 1\u20133. Equipment remains recognizable and connected, but this produces a small continuity mismatch.",
+        "Male frame 3 and female frame 2 introduce visibly denser speckled clothing texture than the neighboring frames, causing a small shading/style discontinuity.",
+        "Foot outlines and stance width shift slightly across otherwise stationary standing poses, most evident in male frame 3 and female frames 1\u20133. Overall figure scale is similar and no severe jump or clipping is visible."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 5,
+      "exerciseId": "Close-Grip_Standing_Barbell_Curl",
+      "severity": "minor",
+      "findings": [
+        "Small opaque white wedges remain in the gap between the image-right arm and torso; frames 1 and 3 also show white in the opposite bent-arm gap. These remain white against the dark background. Localized remnants do not obscure the movement.",
+        "Thin pale fringe and scattered tiny edge flecks are visible around silhouettes on dark backgrounds, especially shoes and portions of head/limb contours. Female shoe edges have the clearest small stray marks. No large background field or clipping."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 6,
+      "exerciseId": "Cross_Over_-_With_Bands",
+      "severity": "minor",
+      "findings": [
+        "Thin pale outlines trace portions of the body, handles and bands against dark backgrounds. Artwork remains usable; no substantial exterior background remains.",
+        "The small opaque pale ground oval beneath the feet contains blocky/checker-like tonal patches and stands out on dark backgrounds. Its oval shape appears intentional, but its patterned texture warrants review."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 7,
+      "exerciseId": "Cross-Body_Crunch",
+      "severity": "minor",
+      "findings": [
+        "Fine light-gray/white contour residue is visible against black along portions of the body, shoes, hair, and enclosed gaps. It is narrow and does not obscure anatomy or materially compromise the illustration. Light-background presentation is substantially cleaner."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Cross-Body_Crunch_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Cross-Body_Crunch_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Cross-Body_Crunch_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Cross-Body_Crunch_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Cross-Body_Crunch_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Cross-Body_Crunch_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Cross-Body_Crunch_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Cross-Body_Crunch_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 8,
+      "exerciseId": "Crossover_Reverse_Lunge",
+      "severity": "minor",
+      "findings": [
+        "Thin pale, intermittently dotted fringe follows portions of the cutout contours on dark backgrounds, especially hair, arms, shoes and ground ellipses. Light-background rendering is largely clean; no substantial opaque background or checkerboard interiors observed.",
+        "Male ground ellipse and planted shoe rise modestly through frames 1 and 2, then return lower in frame 3. This creates a limited ground-anchor shift beyond the expected torso lowering during the lunge."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 9,
+      "exerciseId": "Crucifix",
+      "severity": "minor",
+      "findings": [
+        "Thin pale, intermittently dotted fringe traces portions of the hair, arms, torso, legs and equipment on dark backgrounds. Limited to the perimeter; illustrations remain usable. No large opaque background, enclosed checkerboard residue, substantial unwanted holes or clipping seen."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Crucifix_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Crucifix_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Crucifix_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Crucifix_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Crucifix_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Crucifix_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Crucifix_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Crucifix_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 10,
+      "exerciseId": "Crunch_-_Hands_Overhead",
+      "severity": "minor",
+      "findings": [
+        "Enclosed sole bands and lace details switch from light to dark with the preview background, indicating cut-out footwear interiors. The affected areas are small and the illustrations remain usable."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 21,
+      "exerciseId": "Dumbbell_Side_Bend",
+      "severity": "minor",
+      "findings": [
+        "Irregular pale gray/white patches extend beyond the shoe soles, especially at heels and along the ground edge, visibly separate from the intended sole contour on dark backgrounds. Thin intermittent pale edge speckling also occurs along skin/clothing and female hair contours. These are limited artifacts; figures remain usable."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 22,
+      "exerciseId": "Dumbbell_Squat",
+      "severity": "minor",
+      "findings": [
+        "Irregular pale gray/white residue extends beyond the shoe soles into the surrounding transparent floor area; thin intermittent light fringes also trace parts of the figure/equipment outlines. Visible on dark backgrounds, limited in area, with the illustrations otherwise usable."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Dumbbell_Squat_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Squat_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Squat_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Squat_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Squat_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Squat_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Squat_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Squat_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 23,
+      "exerciseId": "Elbow_Circles",
+      "severity": "minor",
+      "findings": [
+        "Both sequences show limited sideways drift of the planted shoes/lower body, most evident comparing frame 0 with frame 2 and the return frame. This is separate from the intended elbow motion. Scale remains broadly consistent; the shift is small and does not make the exercise unusable."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Elbow_Circles_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Elbow_Circles_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Elbow_Circles_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Elbow_Circles_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Elbow_Circles_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Elbow_Circles_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Elbow_Circles_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Elbow_Circles_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 24,
+      "exerciseId": "Elbow_to_Knee",
+      "severity": "minor",
+      "findings": [
+        "Small isolated skin-colored sliver near the far left edge, below the extended shoe, disconnected from the athlete. Visible on both backgrounds; the principal figure remains intact.",
+        "Small background-colored oval slots at the ponytail attachment in all female frames; additional tiny transparent spots in the bent-leg shoe upper in frames 2 and 3. These appear to remove small interior details, most evident on the light background."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Elbow_to_Knee_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Elbow_to_Knee_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Elbow_to_Knee_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Elbow_to_Knee_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Elbow_to_Knee_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Elbow_to_Knee_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Elbow_to_Knee_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Elbow_to_Knee_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 25,
+      "exerciseId": "Elbows_Back",
+      "severity": "minor",
+      "findings": [
+        "Female frame 0 has plain black shorts, while frames 1\u20133 show a conspicuous red side seam and split trim. The lower side panel remains visible below the lowered hand in frame 0, so occlusion does not fully explain the missing trim. This causes a small clothing-detail pop in the sequence; the illustration remains usable."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Elbows_Back_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Elbows_Back_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Elbows_Back_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Elbows_Back_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Elbows_Back_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Elbows_Back_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Elbows_Back_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Elbows_Back_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 26,
+      "exerciseId": "Elliptical_Trainer",
+      "severity": "minor",
+      "findings": [
+        "A narrow pale/gray fringe traces portions of the athlete and equipment contours on the dark previews, especially hair, arms and machine edges. It is small and does not obscure the illustration. No substantial enclosed checkerboard or white background residue was observed."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Elliptical_Trainer_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Elliptical_Trainer_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Elliptical_Trainer_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Elliptical_Trainer_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Elliptical_Trainer_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Elliptical_Trainer_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Elliptical_Trainer_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Elliptical_Trainer_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 27,
+      "exerciseId": "EZ-Bar_Curl",
+      "severity": "minor",
+      "findings": [
+        "The male sequence has limited horizontal drift of the planted shoes and body between phases, most evident from frame 1 to frame 2. Height and floor level remain broadly consistent; the small lateral shifts are separate from the intended elbow/bar motion and may cause mild animation jitter.",
+        "The female sequence has limited horizontal drift of the planted shoes and body between phases, most evident from frame 1 to frame 2. Height and floor level remain broadly consistent; the small lateral shifts are separate from the intended elbow/bar motion and may cause mild animation jitter."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/EZ-Bar_Curl_male_v2_0.png",
+        "/workspace/shared/workout-vectors/EZ-Bar_Curl_male_v2_1.png",
+        "/workspace/shared/workout-vectors/EZ-Bar_Curl_male_v2_2.png",
+        "/workspace/shared/workout-vectors/EZ-Bar_Curl_male_v2_3.png",
+        "/workspace/shared/workout-vectors/EZ-Bar_Curl_female_v2_0.png",
+        "/workspace/shared/workout-vectors/EZ-Bar_Curl_female_v2_1.png",
+        "/workspace/shared/workout-vectors/EZ-Bar_Curl_female_v2_2.png",
+        "/workspace/shared/workout-vectors/EZ-Bar_Curl_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 28,
+      "exerciseId": "Fast_Skipping",
+      "severity": "minor",
+      "findings": [
+        "Thin pale, intermittently dashed fringe follows the athlete outline and rope on the dark background. Most evident around hair, shoes and rope loop; illustrations remain usable and light-background display largely conceals it.",
+        "Male frame 3 is slightly smaller overall than the preceding frames, with a lower head and shorter torso/figure. The change exceeds the local leg movement but is limited, not a major animation mismatch."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Fast_Skipping_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Fast_Skipping_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Fast_Skipping_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Fast_Skipping_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Fast_Skipping_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Fast_Skipping_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Fast_Skipping_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Fast_Skipping_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 29,
+      "exerciseId": "Foot-SMR",
+      "severity": "minor",
+      "findings": [
+        "A thin flat gray/tan ground strip remains beneath the massage ball, visible on both backgrounds and absent from the other frames.",
+        "Female frame 0 has a cropped top and exposed waist; frames 1\u20133 show a longer top covering the waist. This creates a visible clothing change during playback.",
+        "Supporting hand, torso and bent-leg positions vary modestly between frames, with some changes in body proportions and massage-ball size. These exceed just the intended ankle/foot roll but remain limited; the exercise is readable throughout."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Foot-SMR_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Foot-SMR_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Foot-SMR_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Foot-SMR_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Foot-SMR_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Foot-SMR_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Foot-SMR_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Foot-SMR_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 30,
+      "exerciseId": "Frog_Hops",
+      "severity": "minor",
+      "findings": [
+        "The top ponytail tip is almost flush with the canvas edge, leaving only one pixel of transparent top padding. The contour remains visible, but this is unusually tight framing. No definite clipping is visible."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Frog_Hops_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Frog_Hops_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Frog_Hops_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Frog_Hops_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Frog_Hops_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Frog_Hops_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Frog_Hops_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Frog_Hops_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 31,
+      "exerciseId": "Front_Barbell_Squat",
+      "severity": "minor",
+      "findings": [
+        "Thin green edge residue is visible against dark and light backgrounds along portions of hair, skin, clothing, shoes and barbell outlines. Particularly evident throughout the female set; smaller traces appear in male frames 1\u20133. Illustration interiors remain intact and usable."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Front_Barbell_Squat_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Barbell_Squat_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Barbell_Squat_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Barbell_Squat_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Front_Barbell_Squat_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Barbell_Squat_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Barbell_Squat_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Barbell_Squat_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 32,
+      "exerciseId": "Front_Cable_Raise",
+      "severity": "minor",
+      "findings": [
+        "Thin pale, broken fringe follows portions of the hair, arms, legs, cable and ground-shadow perimeter in both return frames. It is visible on the dark background; artwork remains intact and usable.",
+        "Frame 0 has no continuous oval ground shadow (female frame 0 retains small dark patches at the feet/pulley), while frames 1\u20133 have an oval shadow joining the feet and pulley. This produces a small background pop at the loop boundary. Foot and pulley positions also drift slightly, without a large scale mismatch."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Front_Cable_Raise_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Cable_Raise_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Cable_Raise_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Cable_Raise_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Front_Cable_Raise_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Cable_Raise_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Cable_Raise_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Cable_Raise_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 33,
+      "exerciseId": "Front_Dumbbell_Raise",
+      "severity": "minor",
+      "findings": [
+        "Thin pale, occasionally dotted fringe follows portions of the outer contours, equipment edges and shoes on the dark background. Limited in extent; no substantial exterior residue or opaque background.",
+        "Male frame 1 has visibly flatter leg/knee shading and straighter, forward-facing shoes than the other three frames, with a slightly lower head position. This produces a limited visual pop; identity and exercise remain recognizable.",
+        "Female frame 1 has a slightly higher shoe baseline than frames 0, 2 and 3 despite the standing movement, creating modest vertical anchor drift."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Front_Dumbbell_Raise_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Dumbbell_Raise_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Dumbbell_Raise_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Dumbbell_Raise_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Front_Dumbbell_Raise_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Dumbbell_Raise_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Dumbbell_Raise_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Dumbbell_Raise_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 34,
+      "exerciseId": "Front_Incline_Dumbbell_Raise",
+      "severity": "minor",
+      "findings": [
+        "Small opaque white wedges remain between the hanging forearm and bench in female frame 0 and between the dumbbells above the lap in female frame 3. They remain white on the dark background.",
+        "Fine pale contour fringe is visible on dark backgrounds, with small detached flecks particularly beneath female shoes/bench and around the male frame 3 left shoe. Limited in area; illustrations remain usable.",
+        "Bench feet and planted shoes drift across each sequence, most visibly in male frames 2 and 3 compared with 0 and 1. Female bench support/adjustment-knob detail also changes from frame 0 to later frames. These stationary-object changes are separate from the intended arm raise; overall exercise remains recognizable."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Front_Incline_Dumbbell_Raise_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Incline_Dumbbell_Raise_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Incline_Dumbbell_Raise_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Incline_Dumbbell_Raise_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Front_Incline_Dumbbell_Raise_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Incline_Dumbbell_Raise_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Incline_Dumbbell_Raise_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Incline_Dumbbell_Raise_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 35,
+      "exerciseId": "Front_Leg_Raises",
+      "severity": "minor",
+      "findings": [
+        "White shoe sole/stripe details partially disappear into the dark background while appearing continuous against light, indicating small transparency losses within shoe artwork. Fine pale speckling traces some outlines, especially shoes. The figures remain usable; no substantial clothing holes or opaque checkerboard interiors were seen.",
+        "The planted foot and upper body drift modestly rightward from setup to later poses, more noticeably in the female sequence. Height and baseline are otherwise reasonably stable. This is limited anchor inconsistency rather than a large scale jump; some torso shift is natural for balance."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Front_Leg_Raises_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Leg_Raises_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Leg_Raises_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Leg_Raises_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Front_Leg_Raises_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Leg_Raises_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Leg_Raises_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Leg_Raises_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 36,
+      "exerciseId": "Advanced_Kettlebell_Windmill",
+      "severity": "clean",
+      "findings": [],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Advanced_Kettlebell_Windmill_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Advanced_Kettlebell_Windmill_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Advanced_Kettlebell_Windmill_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Advanced_Kettlebell_Windmill_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Advanced_Kettlebell_Windmill_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Advanced_Kettlebell_Windmill_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Advanced_Kettlebell_Windmill_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Advanced_Kettlebell_Windmill_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 37,
+      "exerciseId": "All_Fours_Quad_Stretch",
+      "severity": "clean",
+      "findings": [],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/All_Fours_Quad_Stretch_male_v2_0.png",
+        "/workspace/shared/workout-vectors/All_Fours_Quad_Stretch_male_v2_1.png",
+        "/workspace/shared/workout-vectors/All_Fours_Quad_Stretch_male_v2_2.png",
+        "/workspace/shared/workout-vectors/All_Fours_Quad_Stretch_male_v2_3.png",
+        "/workspace/shared/workout-vectors/All_Fours_Quad_Stretch_female_v2_0.png",
+        "/workspace/shared/workout-vectors/All_Fours_Quad_Stretch_female_v2_1.png",
+        "/workspace/shared/workout-vectors/All_Fours_Quad_Stretch_female_v2_2.png",
+        "/workspace/shared/workout-vectors/All_Fours_Quad_Stretch_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 38,
+      "exerciseId": "Alternate_Incline_Dumbbell_Curl",
+      "severity": "clean",
+      "findings": [],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Alternate_Incline_Dumbbell_Curl_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Alternate_Incline_Dumbbell_Curl_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Alternate_Incline_Dumbbell_Curl_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Alternate_Incline_Dumbbell_Curl_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Alternate_Incline_Dumbbell_Curl_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Alternate_Incline_Dumbbell_Curl_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Alternate_Incline_Dumbbell_Curl_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Alternate_Incline_Dumbbell_Curl_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 39,
+      "exerciseId": "Alternate_Leg_Diagonal_Bound",
+      "severity": "clean",
+      "findings": [],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Alternate_Leg_Diagonal_Bound_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Alternate_Leg_Diagonal_Bound_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Alternate_Leg_Diagonal_Bound_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Alternate_Leg_Diagonal_Bound_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Alternate_Leg_Diagonal_Bound_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Alternate_Leg_Diagonal_Bound_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Alternate_Leg_Diagonal_Bound_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Alternate_Leg_Diagonal_Bound_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 40,
+      "exerciseId": "Alternating_Kettlebell_Row",
+      "severity": "clean",
+      "findings": [],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Alternating_Kettlebell_Row_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Alternating_Kettlebell_Row_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Alternating_Kettlebell_Row_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Alternating_Kettlebell_Row_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Alternating_Kettlebell_Row_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Alternating_Kettlebell_Row_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Alternating_Kettlebell_Row_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Alternating_Kettlebell_Row_female_v2_3.png"
+      ]
+    }
+  ]
+}

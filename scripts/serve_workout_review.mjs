@@ -7,15 +7,24 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { collectReviewTotals, matchesFrames, readJson, validateDecision } from './workout_review_state.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const batchName = process.argv[2] || 'batch-01';
-if (!/^batch-\d{2}$/.test(batchName)) throw new Error('Expected batch-NN');
-const base = path.join(root, 'artifacts/workout-visual-qa/review-batches', batchName);
-const batch = JSON.parse(fs.readFileSync(path.join(base, batchName + '.json')));
-const stage = path.join(base, 'repair-pass-01');
+const batchName = process.argv[2] || 'all';
+if (batchName !== 'all' && !/^batch-\d{2}$/.test(batchName)) throw new Error('Expected all or batch-NN');
+const batchesRoot = path.join(root, 'artifacts/workout-visual-qa/review-batches');
+function reviewBatches() {
+  return fs.readdirSync(batchesRoot).filter(name => /^batch-\d{2}$/.test(name) && (batchName === 'all' || name === batchName)).sort().flatMap(name => {
+    const base = path.join(batchesRoot, name), stage = path.join(base, 'repair-pass-01');
+    const batch = readJson(path.join(base, name + '.json'), null);
+    return batch && fs.existsSync(stage) ? [{ name, stage, batch }] : [];
+  });
+}
 const sha = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const images = new Map();
 function manifest() {
   const nextImages = new Map();
+  const allRows = [], seen = new Set();
+  let batchTotal = 0;
+  for (const { name, stage, batch } of reviewBatches()) {
+  batchTotal += batch.exercises.length;
   const ledgerPath = path.join(stage, 'parent-review-passed.json');
   const passed = fs.existsSync(ledgerPath) ? JSON.parse(fs.readFileSync(ledgerPath)).checks : [];
   const approvals = fs.readdirSync(stage).filter(n => /^human-approval.*\.json$/.test(n)).flatMap(n => JSON.parse(fs.readFileSync(path.join(stage, n))).decisions || []);
@@ -54,13 +63,18 @@ function manifest() {
     const saved = webDecisions[e.exerciseId];
     const humanDecision = matchesFrames(saved, { sourceHashes, hashes }) ? saved.decision : chatApproved ? 'approve_candidate' : 'pending';
     const humanApproved = ['approve_candidate', 'keep_original'].includes(humanDecision);
-    return { id: e.exerciseId, index: e.index, severity: e.severity, findings: e.findings, suggestedRoute: e.suggestedRoute, sources, sourceHashes, candidates, hashes, methods, available,
+    return { id: e.exerciseId, batch: name, index: e.index, severity: e.severity, findings: e.findings, suggestedRoute: e.suggestedRoute, sources, sourceHashes, candidates, hashes, methods, available,
       humanApproved, humanDecision, savedNotes: saved?.notes || '', status: humanApproved ? 'Approved by you · Saved' : humanDecision === 'needs_more_work' ? 'In progress · Returned for correction' : 'Parent-reviewed · Awaiting your approval',
       warning: 'Review the full animation in both genders and backgrounds. Your decision does not replace app images automatically.' };
   }).filter(Boolean).sort((a, b) => Number(a.humanApproved) - Number(b.humanApproved) || a.index - b.index);
+  for (const row of rows) {
+    if (seen.has(row.id)) throw new Error('Duplicate exercise across review batches');
+    seen.add(row.id); allRows.push(row);
+  }
+  }
   images.clear();for (const [key, value] of nextImages) images.set(key, value);
-  const undecided = rows.filter(row => row.humanDecision === 'pending');
-  return { batch: batchName, count: undecided.length, batchTotal: batch.exercises.length, totals: collectReviewTotals(root), rows: undecided };
+  const undecided = allRows.filter(row => row.humanDecision === 'pending');
+  return { batch: batchName, count: undecided.length, batchTotal, totals: collectReviewTotals(root), rows: undecided };
 }
 const server = http.createServer(async (req, res) => {
   try {
@@ -73,8 +87,10 @@ const server = http.createServer(async (req, res) => {
     try {
       const input = JSON.parse(body), current = manifest(), row = current.rows.find(r => r.id === input.exerciseId);
       const decision = validateDecision(input, row);
+      // Derive the destination from the validated server row, never the request.
+      const stage = path.join(batchesRoot, row.batch, 'repair-pass-01');
       const file = path.join(stage, 'human-decisions.json');
-      const state = readJson(file, { batch: batchName, decisions: {} });
+      const state = readJson(file, { batch: row.batch, decisions: {} });
       state.decisions[decision.exerciseId] = decision;
       state.updatedAt = decision.reviewedAt;
       const temp = file + '.' + crypto.randomUUID() + '.tmp';
@@ -87,10 +103,12 @@ const server = http.createServer(async (req, res) => {
   if (req.method !== 'GET') { res.writeHead(405); res.end(); return; }
   if (url.pathname === '/decisions.json') {
     const decisions = {};
+    for (const { stage } of reviewBatches()) {
     for (const file of fs.readdirSync(stage).filter(n => /^human-approval.*\.json$/.test(n))) {
       for (const d of readJson(path.join(stage, file), {}).decisions || []) decisions[d.exerciseId] = d;
     }
     Object.assign(decisions, readJson(path.join(stage, 'human-decisions.json'), {}).decisions || {});
+    }
     res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
     res.end(JSON.stringify({ batch: batchName, exportedAt: new Date().toISOString(), approvalDoesNotPromote: true, decisions })); return;
   }

@@ -18,7 +18,7 @@ main{max-width:1380px;margin:auto;padding:20px}h2{font-size:clamp(20px,2.6vw,30p
 <main><section id="exercise"><div class="exercise-heading"><h2 id="name"></h2><span class="badge" id="status"></span></div><div class="views" id="views"></div>
 <div class="review"><p id="load-state" aria-live="polite"></p><p id="decision-state"></p><textarea id="notes" aria-label="Review notes" placeholder="What needs changing?"></textarea><div class="actions"><button id="repair">Needs more work</button><button id="keep">Keep original</button><button id="clear">Clear local decision</button></div><details><summary>Reported issues</summary><ul id="findings"></ul></details></div><nav class="exercise-navigation" aria-label="Exercise review"><span id="position"></span><button id="previous">← Previous</button><button id="approve">Approve</button><button id="next">Next →</button></nav></section><p id="empty" hidden>No new review sets yet. Refresh results shortly.</p></main>
 <script>
-let data,selectedId=null,frame=0,playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,slow=false,timer,busy=false,epoch=0,seen=new Set(),failed=false,panels=[],decisions={},storageKey,refreshing=false,saving=false;
+let data,selectedId=null,frame=0,playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,slow=false,timer,busy=false,epoch=0,seen=new Set(),failed=false,panels=[],decisions={},storageKey,refreshing=false,saving=false,decisionRevision=0;
 const $=id=>document.getElementById(id);
 const row=()=>data?.rows.find(r=>r.id===selectedId);
 function signature(r){return [...r.sourceHashes,...r.hashes].join('|')}
@@ -57,19 +57,24 @@ async function draw(){
 }
 function clock(){clearInterval(timer);$('play').textContent=playing?'Pause':'Play';if(playing&&!document.hidden)timer=setInterval(()=>{if(busy)return;frame=(frame+1)%4;draw()},slow?1100:650)}
 function move(delta){const i=data?.rows.findIndex(r=>r.id===selectedId),next=data?.rows[i+delta];if(!next)return;selectedId=next.id;frame=0;renderExercise()}
-async function decide(value){const r=row();if(!r||saving)return;if(value==='approve_candidate'&&(seen.size!==8||failed||r.available!==8))return;saving=true;approval();try{const payload={exerciseId:r.id,decision:value,notes:$('notes').value,sourceHashes:r.sourceHashes,candidateHashes:r.hashes};const response=await fetch('/decision',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await response.json();if(!response.ok)throw Error(result.error||'Could not save decision');decisions[r.id]={...result.saved,signature:signature(r)};r.humanDecision=value;r.humanApproved=['approve_candidate','keep_original'].includes(value);r.status=r.humanApproved?'Approved by you · Saved':value==='needs_more_work'?'In progress · Returned for correction':'Awaiting your approval';if(result.totals)data.totals=result.totals;$('error').textContent='';save();if(value!=='pending'){const index=data.rows.findIndex(x=>x.id===r.id);data.rows=data.rows.filter(x=>x.id!==r.id);data.count=data.rows.length;if(selectedId===r.id)selectedId=data.rows[Math.min(Math.max(index,0),data.rows.length-1)]?.id||null;frame=0;renderExercise();summary();}}catch(e){$('error').textContent=String(e)}finally{saving=false;approval()}}
-async function refresh(){
- if(refreshing)return;refreshing=true;
+async function decide(value){const r=row();if(!r||saving)return;if(value==='approve_candidate'&&(seen.size!==8||failed||r.available!==8))return;saving=true;decisionRevision++;approval();try{const payload={exerciseId:r.id,decision:value,notes:$('notes').value,sourceHashes:r.sourceHashes,candidateHashes:r.hashes};const response=await fetch('/decision',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const result=await response.json();if(!response.ok)throw Error(result.error||'Could not save decision');decisions[r.id]={...result.saved,signature:signature(r)};r.humanDecision=value;r.humanApproved=['approve_candidate','keep_original'].includes(value);r.status=r.humanApproved?'Approved by you · Saved':value==='needs_more_work'?'In progress · Returned for correction':'Awaiting your approval';if(result.totals)data.totals=result.totals;$('error').textContent='';save();if(value!=='pending'){const index=data.rows.findIndex(x=>x.id===r.id);data.rows=data.rows.filter(x=>x.id!==r.id);data.count=data.rows.length;if(selectedId===r.id)selectedId=data.rows[Math.min(Math.max(index,0),data.rows.length-1)]?.id||null;frame=0;renderExercise();summary();}}catch(e){$('error').textContent=String(e)}finally{saving=false;approval()}}
+async function refresh(background=false){
+ if(refreshing||saving)return;refreshing=true;const revision=decisionRevision;
  try{const res=await fetch('/manifest.json',{cache:'no-store'});if(!res.ok)throw Error('Could not load results');const next=await res.json(),key='fud-workout-'+next.batch+'-review-v1';
+ if(saving||revision!==decisionRevision)return;
  if(key!==storageKey){storageKey=key;try{const parsed=JSON.parse(localStorage.getItem(key)||'{}');decisions=parsed&&typeof parsed==='object'&&!Array.isArray(parsed)?parsed:{}}catch{decisions={}}}
- data=next;if(!data.rows.some(r=>r.id===selectedId))selectedId=data.rows.find(r=>effectiveDecision(r,decisions[r.id])!=='approve_candidate')?.id||data.rows[0]?.id;frame=0;renderExercise();$('error').textContent='';
+ const previous=row(),current=next.rows.find(r=>r.id===selectedId),unchanged=background&&previous&&current&&signature(previous)===signature(current);
+ data=next;if(!current)selectedId=data.rows[0]?.id||null;
+ if(unchanged){const i=data.rows.findIndex(r=>r.id===selectedId);$('position').textContent=(i+1)+' / '+data.rows.length;$('previous').disabled=i===0;$('next').disabled=i===data.rows.length-1;summary();}
+ else{frame=0;renderExercise();summary();}$('error').textContent='';
  }catch(e){$('error').textContent=String(e)}finally{refreshing=false}
 }
 $('previous').onclick=()=>move(-1);$('next').onclick=()=>move(1);$('play').onclick=()=>{playing=!playing;clock()};
 $('step').onclick=()=>{if(busy)return;playing=false;clock();frame=(frame+1)%4;draw()};$('speed').onclick=()=>{slow=!slow;$('speed').textContent=slow?'Normal playback':'Slow playback';clock()};
-$('refresh').onclick=refresh;$('approve').onclick=()=>decide('approve_candidate');$('repair').onclick=()=>decide('needs_more_work');$('keep').onclick=()=>decide('keep_original');$('clear').onclick=()=>decide('pending');
+$('refresh').onclick=()=>refresh();$('approve').onclick=()=>decide('approve_candidate');$('repair').onclick=()=>decide('needs_more_work');$('keep').onclick=()=>decide('keep_original');$('clear').onclick=()=>decide('pending');
 $('notes').oninput=()=>{const r=row();if(!r)return;const previous=decisions[r.id];decisions[r.id]={...(validDecision(r,previous)?previous:{decision:'pending',signature:signature(r)}),notes:$('notes').value};save()};
 $('export').onclick=async()=>{if(!data)return;try{const res=await fetch('/decisions.json',{cache:'no-store'});if(!res.ok)throw Error('Could not export saved decisions');const payload=await res.json(),url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'})),a=make('a');a.href=url;a.download='workout-'+data.batch+'-human-decisions.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}catch(e){$('error').textContent=String(e)}};
 document.addEventListener('visibilitychange',()=>{clock();if(document.hidden)release();else draw()});
-refresh();clock();
+function watchResults(){setInterval(()=>{if(!document.hidden&&!saving)refresh(true)},15000)}
+refresh();clock();watchResults();
 </script></body></html>

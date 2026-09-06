@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import test from 'node:test';
 const html=fs.readFileSync(new URL('./workout_review.html',import.meta.url),'utf8');
-const source=html.match(/<script>([\s\S]*?)<\/script>/)[1].replace(/refresh\(\);clock\(\);\s*$/,'');
+const source=html.match(/<script>([\s\S]*?)<\/script>/)[1].replace(/refresh\(\);clock\(\);watchResults\(\);\s*$/,'');
 function harness(){
  const jobs=[],timers=new Map(),listeners={};let tid=0;
  class Element{constructor(){this.children=[];this.value='';}append(...a){this.children.push(...a)}replaceChildren(...a){this.children=a}removeAttribute(k){delete this[k]}click(){}}
@@ -80,4 +80,20 @@ test('export preserves chat approval and invalidates stale local approvals',()=>
  assert.equal(out.decisions.First.decision,'approve_candidate');
  assert.equal(out.decisions.Second.decision,'pending');assert.equal(out.decisions.Second.notes,'keep note');
  assert.equal(out.approvalDoesNotPromote,true);
+});
+test('automatic arrivals preserve current frame, review progress and unsaved notes',async()=>{
+ const h=harness();h.run("renderExercise();frame=2;seen=new Set([0,1,2,3,4,5,6,7]);$('notes').value='my draft';fetch=async()=>({ok:true,json:async()=>({...data,count:3,rows:[...data.rows,{...data.rows[1],id:'Third'}]})})");
+ const epoch=h.run('epoch');await h.run('refresh(true)');
+ assert.equal(h.run('selectedId'),'First');assert.equal(h.run('frame'),2);assert.equal(h.run('seen.size'),8);
+ assert.equal(h.run('epoch'),epoch);assert.equal(h.controls.notes.value,'my draft');assert.equal(h.run('data.rows.length'),3);
+});
+test('automatic polling does not fetch while hidden or saving',async()=>{
+ const h=harness();h.run("let calls=0;fetch=async()=>{calls++;return {ok:true,json:async()=>data}};watchResults()");
+ h.document.hidden=true;for(const tick of h.timers.values())tick();await h.settle();assert.equal(h.run('calls'),0);
+ h.document.hidden=false;h.run('saving=true');for(const tick of h.timers.values())tick();await h.settle();assert.equal(h.run('calls'),0);
+ h.run('saving=false');for(const tick of h.timers.values())tick();await h.settle();assert.equal(h.run('calls'),1);
+});
+test('an in-flight refresh cannot restore a just-decided exercise',async()=>{
+ const h=harness();h.run("let finish;fetch=()=>new Promise(resolve=>finish=resolve);let inflight=refresh(true);decisionRevision++;data.rows=data.rows.filter(r=>r.id!=='First');finish({ok:true,json:async()=>({batch:'batch-01',count:1,rows:[{id:'First'}]})})");
+ await h.run('inflight');assert.equal(h.run("data.rows.some(r=>r.id==='First')"),false);
 });

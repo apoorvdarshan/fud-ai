@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Standing_Dumbbell_Upright_Row",
+  "shard": 31,
+  "index": 308,
+  "status": "ready_for_review",
+  "findings": [
+    "Script cleanup acceptable on dark background; no GenerateImage needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Dumbbell_Upright_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Upright_Row_male_v2_0.png",
+      "sourceSha256": "4007e176c9f54cac5d435f2b2750141da3f14c96ef47c665bbb051996ec55143",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/308/Standing_Dumbbell_Upright_Row_male_v2_0.png",
+      "candidateSha256": "0f33f29c48b5d7a220d100ff105fbc3699347a6dc37caac6f883d9feffba73a1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Upright_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Upright_Row_male_v2_1.png",
+      "sourceSha256": "5c2a6faa7cdcbbdd660d3265db81782be77e70d8fbdf448781e51cf05c9e24d3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/308/Standing_Dumbbell_Upright_Row_male_v2_1.png",
+      "candidateSha256": "e5ff020cf22dac7402dfef6a1e2f64474a21031695296db254b49e990a2934ca",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Upright_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Upright_Row_male_v2_2.png",
+      "sourceSha256": "941606044efd8d95b4fe7d2467c5a45dbd4b3657ce0493abf99656d6544a3877",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/308/Standing_Dumbbell_Upright_Row_male_v2_2.png",
+      "candidateSha256": "12af05e6076057f7b074d924f2b7e74d3dc4cbe3ddcde87560f6266962049263",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Upright_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Upright_Row_male_v2_3.png",
+      "sourceSha256": "687a0f26933f50a5814406ccf09ba6f654452d35eab288d6a135921ea0c685ce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/308/Standing_Dumbbell_Upright_Row_male_v2_3.png",
+      "candidateSha256": "45158f873b218368161d7ae39b35af12a28b47a9557b2e8f024f50e74deaee55",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Upright_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Upright_Row_female_v2_0.png",
+      "sourceSha256": "eb23fe5a9863bc549959f1252a889878ddc3c4ac99d43cedcba2c914f13d38f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/308/Standing_Dumbbell_Upright_Row_female_v2_0.png",
+      "candidateSha256": "f3ab4f92336bfe8a53ef1ebe8e23e629820cc1ee97f20273c3d0927db76d2c9d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Upright_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Upright_Row_female_v2_1.png",
+      "sourceSha256": "a132ffecf01a0be9760dd5ffc847aceb193693303d1ef145d52f735cb862b013",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/308/Standing_Dumbbell_Upright_Row_female_v2_1.png",
+      "candidateSha256": "894f34a73524f35a8477ddbec6c925845aa7ad2323fdf507d49300ae2ab86c4b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Upright_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Upright_Row_female_v2_2.png",
+      "sourceSha256": "ef8ec2e3d1ae39d193debdcbc815cf4a7239e647934600f027f15fd2edb368e3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/308/Standing_Dumbbell_Upright_Row_female_v2_2.png",
+      "candidateSha256": "26f5556f3cf2e12708553d55117dd43c5e0f8ca576cf8d08ba834ee6f91a50f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Upright_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Upright_Row_female_v2_3.png",
+      "sourceSha256": "c08f041be807fa49bfb51bbbbfaca30239ccb2082ad02600f04bab6d783f17df",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/308/Standing_Dumbbell_Upright_Row_female_v2_3.png",
+      "candidateSha256": "3c7525b81f76d3afab0447da01880b028d38b6589435addf7a92d85c5c41097c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Standing_Dumbbell_Calf_Raise",
+  "shard": 31,
+  "index": 303,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical on 1 dirty frame(s); remaining frames script cleanup acceptable on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Dumbbell_Calf_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Calf_Raise_male_v2_0.png",
+      "sourceSha256": "ae43b7be4783dcc5d98dbe98ac4e0dc923d09db198a7d796d2e3141289e0fff0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/303/Standing_Dumbbell_Calf_Raise_male_v2_0.png",
+      "candidateSha256": "9ed59783abe898374360291e68d7a44186a55d231ad516c2990298b536717ab2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Calf_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Calf_Raise_male_v2_1.png",
+      "sourceSha256": "3ee14205e2c60d8e7e37eae3e1a3fb5a6d34505af640866be60c5f506db44ecb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/303/Standing_Dumbbell_Calf_Raise_male_v2_1.png",
+      "candidateSha256": "a75ab8ce274113353a83f2ee254fe993bb876888e97e3aee5e78dfb85c481d89",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Calf_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Calf_Raise_male_v2_2.png",
+      "sourceSha256": "0b2eb7b9d28889e0201196ea940f02e97eaa783ec7efdeba4de86c0e33c9a6aa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/303/Standing_Dumbbell_Calf_Raise_male_v2_2.png",
+      "candidateSha256": "0ef6c343630d92178b8bed2252acdb54f2226db1a0eeeef7f2c9df26eb4f167f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Calf_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Calf_Raise_male_v2_3.png",
+      "sourceSha256": "835d43a8bcf1b8b667230ad1fbe01b461c9f9055f7deb2fc31fa7a1f4ebcbe73",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/303/Standing_Dumbbell_Calf_Raise_male_v2_3.png",
+      "candidateSha256": "57eccba7a0eb87e07813367c02b32c0a2db26892743a91d1af0eab750be2ac6e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Calf_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Calf_Raise_female_v2_0.png",
+      "sourceSha256": "67b8827bdcd393a0e6ecf4e8639a2a824af00dcd91e11399e3d99b9a6fb70a00",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/303/Standing_Dumbbell_Calf_Raise_female_v2_0.png",
+      "candidateSha256": "f5a5566d15cbc23475c7d49c60e1bfe9a05365087010e267d0195f963c7df396",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Calf_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Calf_Raise_female_v2_1.png",
+      "sourceSha256": "a5634ed75b7b6bc9ee4185199c2ebe2cb8b855c1b273d4a14ad4903711455ccc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/303/Standing_Dumbbell_Calf_Raise_female_v2_1.png",
+      "candidateSha256": "0462ab35a7789fcd7b787af2bc109ff58da55f6f170f6d7c0832778d15788a40",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Calf_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Calf_Raise_female_v2_2.png",
+      "sourceSha256": "6cad29ecf49460288c2bde111dbd524f3a378916d3bf11012f8328961c516059",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/303/Standing_Dumbbell_Calf_Raise_female_v2_2.png",
+      "candidateSha256": "0e0154c80891219c44ceee6a9ad9da78d76833233671c521cecd21686763e5d0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Calf_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Calf_Raise_female_v2_3.png",
+      "sourceSha256": "bf0ee22a47cbae752bb1125191b44a91339d5b8cc677a8d3da86891e095619b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/303/Standing_Dumbbell_Calf_Raise_female_v2_3.png",
+      "candidateSha256": "058bb0459dce6d658b540bc897ddd07d558a2d697c269db5f47682a7f02ae3d0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

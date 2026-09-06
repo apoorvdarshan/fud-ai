@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head",
+  "shard": 31,
+  "index": 306,
+  "status": "ready_for_review",
+  "findings": [
+    "Script cleanup acceptable on dark background; no GenerateImage needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_male_v2_0.png",
+      "sourceSha256": "44b8ba2595ad728e20918e4cfd13370346def7be3b3e2ea961c7f357fa87be3d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/306/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_male_v2_0.png",
+      "candidateSha256": "9065946041982570068569403fdf9fe7e218aced1b4c1fbb16daaf2cdd373133",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_male_v2_1.png",
+      "sourceSha256": "69ae5b70587ca825de4665ff3b4c6f7f6e5b85b4bdd8a4d26f4d4355e599b549",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/306/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_male_v2_1.png",
+      "candidateSha256": "180dea7f4c4d9637a4576e80a87a5917049c04817da0d1e4927ce592cb269919",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_male_v2_2.png",
+      "sourceSha256": "20c9f661d8b651670b7b69fd126154809d71f3c1638154ee4813db30e6c17abc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/306/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_male_v2_2.png",
+      "candidateSha256": "82f768f0b7dd804ca8c622ff2fc167bb3f06375cffe943010b77e724f3c4ccf1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_male_v2_3.png",
+      "sourceSha256": "de26f836a8f23a58d38f8e08c03faa17478ff3e1b580e5a97059e1682641e25b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/306/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_male_v2_3.png",
+      "candidateSha256": "18dd6e1f869607e94be20a0d3ed0bd68b57e218ade1ca0f28887095907fd6b66",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_female_v2_0.png",
+      "sourceSha256": "f6b451920e6acd431ee47144601e01224cb29b5b361b79f8b6e28c3291b1af53",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/306/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_female_v2_0.png",
+      "candidateSha256": "a1f3b2a0e3a3adff60e7efddf38ab9b0a2b9f8686c4cab8cfbe9ccea66f49326",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_female_v2_1.png",
+      "sourceSha256": "225080ba50145bf4f73b1e7c23f3dc2ea3f5d2075f2889ae9e9cec5c640a112f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/306/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_female_v2_1.png",
+      "candidateSha256": "3f3b6d6472b7cd93f194ed304cdc7a68e6d8ad3afdbb5a16495723d5591fee63",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_female_v2_2.png",
+      "sourceSha256": "83a93fb2882de1f77f1ee178b295b6e28d0d723107c50635112d623a45757cc6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/306/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_female_v2_2.png",
+      "candidateSha256": "589f0b5926ee378860eec1ef3f524d0d843c368f16a609c951ba8429292a0d3c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_female_v2_3.png",
+      "sourceSha256": "2d4d06d75394e5c861ddc05a5e72648ce997b25ce3672b49a6f694bbbdc3c50b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/306/Standing_Dumbbell_Straight-Arm_Front_Delt_Raise_Above_Head_female_v2_3.png",
+      "candidateSha256": "ab8c97034aa7a61c025c2e159f9eb22bb004e088fe8a42f3f49b192a02a8882e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

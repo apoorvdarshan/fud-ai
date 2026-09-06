@@ -1,0 +1,100 @@
+{
+  "exerciseId": "Crunches",
+  "shard": 2,
+  "index": 11,
+  "status": "ready_for_review",
+  "findings": [
+    "Official pale-neural-guard-v2 script removed 0px on all eight frames; candidates were re-encoded copies of source.",
+    "Female frame 0 had a concentrated gray/brown underside fringe (721 mid-tone 2px-ring pixels). Cursor GenerateImage surgical edit + key_workout_chroma.py removed the dirty matte strip; alignment stayed within ~2px (cx +0.5, cy -1.9). Residual 2px-ring count fell from 721 to 331 and is now spread along the silhouette rather than a torso/shorts band.",
+    "GenerateImage attempts on female 2 and male 0 increased 2px residue (33\u2192491, 14\u2192525) without a clear underside-strip win; those generations were rejected and script copies retained.",
+    "Male frame 2 still exposes a broader skin band around the abdominal highlight than frames 0/1/3. Left unresolved rather than a full torso redraw.",
+    "Planted shoes still shift modestly, especially female 0 to 1; illustrations remain usable."
+  ],
+  "unresolved": [
+    "Male frame 2 clothing continuity: skin-colored band around the abdominal highlight versus shirt-covered highlight on frames 0/1/3.",
+    "Modest planted-shoe drift remains across the sequence, especially female 0 to 1."
+  ],
+  "changedFrameCount": 1,
+  "frames": [
+    {
+      "filename": "Crunches_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunches_male_v2_0.png",
+      "sourceSha256": "9e709e41a91b1d7777c7a1630666666e0d2d71c80cd93722ec2d32aed5f5bcb8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/011/Crunches_male_v2_0.png",
+      "candidateSha256": "b3aaba6ff4e26b9562a168865e648aa22dc371dbac0f7e187e44742c073839de",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
+    },
+    {
+      "filename": "Crunches_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunches_male_v2_1.png",
+      "sourceSha256": "9669e466dfedf21943d0c8845860c1819e00416fcadacf3c2f8df4b3d4aa5b1f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/011/Crunches_male_v2_1.png",
+      "candidateSha256": "2c6120a94c3dc9a3fa36bcd02a13cdd00dd8ffc32d5ef04c7121b27940ffa30e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
+    },
+    {
+      "filename": "Crunches_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunches_male_v2_2.png",
+      "sourceSha256": "6a095e1a34980b33ec02a41387491406b4096cd2893c3f6d9dc34f85d5a97ce5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/011/Crunches_male_v2_2.png",
+      "candidateSha256": "35071ccc141f01730dbd883bb20508d3287786b9e7979af97200403caea9b59c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
+    },
+    {
+      "filename": "Crunches_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunches_male_v2_3.png",
+      "sourceSha256": "088e74d72bf45b2c54bb6a2e2e4628152816e8813536211b31410c6b45e8f77e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/011/Crunches_male_v2_3.png",
+      "candidateSha256": "baba29b2cd8ebc5e49276e327839287d84e7416951d17b22d4a6d0b81b3b226d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
+    },
+    {
+      "filename": "Crunches_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunches_female_v2_0.png",
+      "sourceSha256": "90167557849e88623253f525bd5000e5b0b55f478c601e95b8a9e2b17ac18c98",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/011/Crunches_female_v2_0.png",
+      "candidateSha256": "4c7e242b6af0b1c42c994f6acad87ba728b353365dd04b7d08c068854408bb3b",
+      "method": "built-in-imagegen-plus-known-green-chroma-v2",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Crunches_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunches_female_v2_1.png",
+      "sourceSha256": "3cf4abaa731ecc3653ed2f8a9abc7b6fc3f7d04536674948c040a6c2feebccba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/011/Crunches_female_v2_1.png",
+      "candidateSha256": "0cdb27ba6f8f148049d7a15184d55a6e47403935d2a10ef3c79beff4b6213074",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
+    },
+    {
+      "filename": "Crunches_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunches_female_v2_2.png",
+      "sourceSha256": "734667f7f0e0ce14c2342544ab7750e079e96e08d0a10184f7fa6e2e6713fddb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/011/Crunches_female_v2_2.png",
+      "candidateSha256": "232bdf9782c681586063d27c007eae7aadc66a9493d0fff33e96a56db0519925",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
+    },
+    {
+      "filename": "Crunches_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunches_female_v2_3.png",
+      "sourceSha256": "2b5d9f9ad8a8274c4e0d6bc52784416116abffd98b969086ee5bd8185b02ecd9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/011/Crunches_female_v2_3.png",
+      "candidateSha256": "0717338d0cc46a73d9bec8e501ef889b5b07c3eaa57b25995419fa72286f4a4d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
+    }
+  ]
+}

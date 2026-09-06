@@ -1,0 +1,16 @@
+{
+  "source_sha256": "aca39bb4f12390665270804510619ec40c9e0936a08a810900ba6b33f84e0771",
+  "candidate_sha256": "a2fde96907acf7e9727935003bb7b7275072092fff3f980620000cdc98706dd2",
+  "generated_sha256": "bce8e8ae049fcf19ae62d841c6615d236100d1b477f86160c1a41be2583d5932",
+  "generated_path": "/cursor/stores/bc-b166a6b7-232d-46d5-84c5-d6c8219e104d/artifacts/assets/100_Anterior_Tibialis-SMR_male_v2_3_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

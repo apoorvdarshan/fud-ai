@@ -1,0 +1,16 @@
+{
+  "source_sha256": "90e77a7e0e5c27f54a48774ab61be9a27b09148b8b14117543171ecfc7df9686",
+  "candidate_sha256": "3da8b2ef7ca383303023c7de1fcdf360fa39527315f5abb942285988ccee6821",
+  "generated_sha256": "f6964f42dd37e429149244f4c76a3eebcf42c8e472397504674b4a5f1c55482e",
+  "generated_path": "/cursor/stores/bc-b166a6b7-232d-46d5-84c5-d6c8219e104d/artifacts/assets/099_Ankle_On_The_Knee_male_v2_2_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

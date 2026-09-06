@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/097/Alternating_Kettlebell_Press_male_v2_0.png",
       "candidateSha256": "d3d88e66b5eac29632239f5ff16a972ef5c32a6270c59e2c9ac20b6939664079",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Kettlebell_Press_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/097/Alternating_Kettlebell_Press_male_v2_1.png",
       "candidateSha256": "017ddd83ce0fe7a3d2af20be9df36276f2db5da41105dad19080bcff4ca19052",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Kettlebell_Press_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/097/Alternating_Kettlebell_Press_male_v2_2.png",
       "candidateSha256": "ab3cc2c2e674df21a2f97d00024dda9533c7587a94106a0310d1f06eb3b2bf6d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Kettlebell_Press_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/097/Alternating_Kettlebell_Press_male_v2_3.png",
       "candidateSha256": "8933be41c259a1179534f1755b240eb69085b1d4a77891ef3cd7fdd3aa0cacf4",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Kettlebell_Press_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/097/Alternating_Kettlebell_Press_female_v2_0.png",
       "candidateSha256": "2dfd4c0076e38a95018efa18be7d9a0859368414442ae7ac7a653fac325015df",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Kettlebell_Press_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/097/Alternating_Kettlebell_Press_female_v2_1.png",
       "candidateSha256": "a19f8d2ff30a241117e629048b528c26a6bb4cdc01c9e260dabb5fe9ef417e60",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Kettlebell_Press_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/097/Alternating_Kettlebell_Press_female_v2_2.png",
       "candidateSha256": "963e47abbe7f5492063b35ff0f3acc3522bdf729a44256b3020d198e49fb5d11",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Kettlebell_Press_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/097/Alternating_Kettlebell_Press_female_v2_3.png",
       "candidateSha256": "01c591b476f2d840c30d76385ccfd4e08e7b3a188f003ab4f27140a1c5b5f8c0",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

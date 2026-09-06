@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/093/Air_Bike_male_v2_0.png",
       "candidateSha256": "212f13d029ca54ff68b7cfb412f0ea3316fd28064b7d5535c54dc66163576405",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Air_Bike_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/093/Air_Bike_male_v2_1.png",
       "candidateSha256": "fb80e71bd1a054e005fa04ecc9dcae17b2eac4f2ed87171513588422a4677a2d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Air_Bike_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/093/Air_Bike_male_v2_2.png",
       "candidateSha256": "c3d52fd3c092651e15632d88c030c04924c99f18218c7e1f4c17b1cb7a6f72ef",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Air_Bike_male_v2_3.png",
@@ -40,43 +40,43 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/093/Air_Bike_male_v2_3.png",
       "candidateSha256": "c7089b0ff2548350d56c19ccc9256644b97cc6fe998d489d3ed0f76e8036358a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Air_Bike_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Air_Bike_female_v2_0.png",
       "sourceSha256": "2d4d7876c94b88d43604b3f3e6e99cc8c0aaf65c92bf29e1d62eae465e699d28",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/093/Air_Bike_female_v2_0.png",
-      "candidateSha256": "282d47937dd07645316d0637e0b72ce6498e6e468734de2fdf956fa115bd37e3",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "f7342664f3a7d7914f9babec13af5360d048ae285bdcb3f1561be670a6a75a43",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Air_Bike_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Air_Bike_female_v2_1.png",
       "sourceSha256": "93280dfe2fcf941a410df5ee6e9de33c1369545b58aebda673234f6f60d92c27",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/093/Air_Bike_female_v2_1.png",
-      "candidateSha256": "4b4cef60a2922b208607ecd7a82e4b521bc7ced7526f5b0d841d02ce1e357d9a",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "bdb1303e18374348c86ab7ee02b544db8f24a0ccc17ceb1d96db9211a8f333ca",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Air_Bike_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Air_Bike_female_v2_2.png",
       "sourceSha256": "5663d8557dbc6bd8dc7dee56e0bbf890b58dc3da36f09c2f49df6aaf95f103ef",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/093/Air_Bike_female_v2_2.png",
-      "candidateSha256": "04659e510fe1505c68130781bccadcaed09f5903a6d27329ea3e7b82058fe603",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "93dc2cfe69d14996a56adfcbb54b2681e1b7b1796b3d30b527c1e6c017ac0e99",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Air_Bike_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Air_Bike_female_v2_3.png",
       "sourceSha256": "27aeb0b251d3a731202f232f2fee551133d12d4399ba22506c284322666f8a85",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/093/Air_Bike_female_v2_3.png",
-      "candidateSha256": "05d407f57a5a720a2a65d4834368d2aa00be0ebe975dcb3c9c79794ff54eb19d",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "ff5fe3aba33b95aae00543b482315a3d42c52ddd71105ed6372784cc4a5d7561",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

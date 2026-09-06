@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_male_v2_0.png",
       "candidateSha256": "dccde63e3fb12ba50e7e78337cc1f99e6f685fb2ab492ce2d4e58aabcdb497f3",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Renegade_Row_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_male_v2_1.png",
       "candidateSha256": "ac1328e20308aad9a80aae708cdb018a58df380a1704313a47d082ced02d3bbc",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Renegade_Row_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_male_v2_2.png",
       "candidateSha256": "0e6b947b8864b1653ee7120d693bf1f61b25a168e7e3231dbbcf074bc1ae0521",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Renegade_Row_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_male_v2_3.png",
       "candidateSha256": "b8777714a33193d8a1aa470db8938a0b89158af8cefaef67cbdbb1d554e8724d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Renegade_Row_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_female_v2_0.png",
       "candidateSha256": "5c98a9240570d386064aa37075842e78cd7a70143b77759ee334b267e41738ab",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Renegade_Row_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_female_v2_1.png",
       "candidateSha256": "e5353fc6e2e5e82df2fdcd72a88e2ab9f1e2735df34df1cc54e076ce4d355d5e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Renegade_Row_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_female_v2_2.png",
       "candidateSha256": "6af71123880a581456ea2d61ed14480957723fbf74060ae8598bb6fcc04a3804",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Alternating_Renegade_Row_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_female_v2_3.png",
       "candidateSha256": "dc859c3d7cd304bbe77b3b25b4d62bdad46515ab1b472f92ed15ad3e813438ed",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

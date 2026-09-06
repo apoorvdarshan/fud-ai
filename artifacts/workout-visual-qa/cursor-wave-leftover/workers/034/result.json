@@ -1,0 +1,94 @@
+{
+  "exerciseId": "One-Arm_High-Pulley_Cable_Side_Bends",
+  "shard": 4,
+  "index": 34,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 6 frame(s) with floor/fringe/artifact issues.",
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Arm_High-Pulley_Cable_Side_Bends_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_0.png",
+      "sourceSha256": "dff8d1db889282e194783b23fb64a793c2da8027f5c47863ae6094304174bfcd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_0.png",
+      "candidateSha256": "6bba9cb03f46208ce6981ec4d100346ea8601fd168b220a1b12d73ef803943d2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_High-Pulley_Cable_Side_Bends_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_1.png",
+      "sourceSha256": "bf13fc16dd62a5cd73c10d298acf55eefcd72931e70cd8f3be745a9b39a6304f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_1.png",
+      "candidateSha256": "8a9e13d45008393baf4180c0d0350278e73ec2efe7b09d6cb2b90534b6310868",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_High-Pulley_Cable_Side_Bends_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_2.png",
+      "sourceSha256": "a9ee5b2cb7c15c54f23aa2cbe9465577a38d709c59aec724de47dd0cafddaeae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_2.png",
+      "candidateSha256": "6d97186a745170d53576ee0f743e766eff285e97e6f02be7973877c48651bc70",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_High-Pulley_Cable_Side_Bends_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_3.png",
+      "sourceSha256": "4d5351657563e84e6453f1f9817d3d5d8a6677028d2c6d8620c7abdc2b0b35c4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_3.png",
+      "candidateSha256": "4a1b81545f14c07e071063c4b842cd568def2e9bdc210a444c82df007fd7006e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_High-Pulley_Cable_Side_Bends_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_0.png",
+      "sourceSha256": "3b31acc029ccd53b53b64c2bcb3313822770c73f93ef4e195e6bb005d8abbc0c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_0.png",
+      "candidateSha256": "b14d2980955c6ed1b76ecf4b27e890638dabf24960c11daf68a68bf446aa3a78",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_High-Pulley_Cable_Side_Bends_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_1.png",
+      "sourceSha256": "54662ada4f086e6c1ce732a9c7c9b17fa232c90da63fa94b541bec73f1ce2219",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_1.png",
+      "candidateSha256": "e11b8e993ed4851b5b8eacaed54e3055cafaa5c2eaa600261334019d31eb7f8a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_High-Pulley_Cable_Side_Bends_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_2.png",
+      "sourceSha256": "e1cbc596099a6b5322851d10b362b419373ec4be6f61002c6413175cb6152853",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_2.png",
+      "candidateSha256": "1a204adb9c3aa4078d68d0a9d36d9f1ddce9ab098c99e8605889986df3844152",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_High-Pulley_Cable_Side_Bends_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_3.png",
+      "sourceSha256": "7e151d7d2b3d46a0a4d1d7bd4f65c828b09bd653c40abbb9c9447f4430f03d90",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_3.png",
+      "candidateSha256": "b0585bb43cb212a20d4cd70ea9359376bfd065ffefb2b3296155eb772f2a5f60",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

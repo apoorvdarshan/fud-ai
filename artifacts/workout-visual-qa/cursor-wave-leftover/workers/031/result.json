@@ -1,0 +1,93 @@
+{
+  "exerciseId": "On_Your_Side_Quad_Stretch",
+  "shard": 4,
+  "index": 31,
+  "status": "ready_for_review",
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "On_Your_Side_Quad_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_male_v2_0.png",
+      "sourceSha256": "e7143677da427d37f2f2486e5037825adb3521bbb58d0bd7eb37db22ccb5ac03",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_male_v2_0.png",
+      "candidateSha256": "144b63b404942a0b0f4087121d1c75271ce0f90e03a8fd07f067766964f41fff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "On_Your_Side_Quad_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_male_v2_1.png",
+      "sourceSha256": "686dcc310004141bffe6b1a55ae00fc034f73724ff7d2005e5da3f0d20858e84",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_male_v2_1.png",
+      "candidateSha256": "c7a98813de60f5edfd14098e5877ca460d13d444f62ac95a9392e7210e51a554",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "On_Your_Side_Quad_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_male_v2_2.png",
+      "sourceSha256": "a5a0ccacda696c50e92e641eda48d8b8c9fa24ce4e9c8557874043340a1dbae6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_male_v2_2.png",
+      "candidateSha256": "031802ae20061991a0dc805cd39ffaf446a8bd96aca1d53c68b28c5b4d9cb421",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "On_Your_Side_Quad_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_male_v2_3.png",
+      "sourceSha256": "a3f5909ceca5cbe8febd3ad1f488da7ad04fb4b0a8ebde3d238817a52dd1d2a0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_male_v2_3.png",
+      "candidateSha256": "3f3c93c78e4c5712b3de378cfa71eedef2f9d3b35952ba96d27a96edaa19b950",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "On_Your_Side_Quad_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_female_v2_0.png",
+      "sourceSha256": "bbb974905c167d44042e6e7a280e5af296443db2adc4f1bd55b1491be5165cec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_female_v2_0.png",
+      "candidateSha256": "c53e9eadad19cae512f8bb126ec472ef90611f1931c87cf08fff5f691b50cb32",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "On_Your_Side_Quad_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_female_v2_1.png",
+      "sourceSha256": "a7f258e01bda3b025ea9ba6f7a4b05453ef69bf58f02a35f9bc6ac0dd99a5ccd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_female_v2_1.png",
+      "candidateSha256": "e49f3127a6f22f77f12ebb13bfea7b4f3e27700b3dcb6fca2d7a2c233aa18c6d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "On_Your_Side_Quad_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_female_v2_2.png",
+      "sourceSha256": "310b022c7f01d66c5bbb11406baed0c234c0566d624ddbd84124ce22f5c1261d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_female_v2_2.png",
+      "candidateSha256": "d55d42c4e6a963b9ec7bb2ce9851785640b25e6b9dbc7a9346bd9905b4a63acb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "On_Your_Side_Quad_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_female_v2_3.png",
+      "sourceSha256": "7987921a5f81b17390a00e4c152494200b60b346ff8a14e6043649c216f2eeb3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_female_v2_3.png",
+      "candidateSha256": "2de1d9de36eb61125d5558b5de62ef0baaa689592434b92f82140c09bacf5355",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

@@ -1,0 +1,93 @@
+{
+  "exerciseId": "One-Arm_Kettlebell_Clean_and_Jerk",
+  "shard": 4,
+  "index": 37,
+  "status": "ready_for_review",
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Arm_Kettlebell_Clean_and_Jerk_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_0.png",
+      "sourceSha256": "d0e33b8602d4abf8ec30e66f1228e62947eda12255729c85bef3bebd0416efb6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_0.png",
+      "candidateSha256": "43208a72281f78f96df63b6c788b2a0baee6772cfb1eeecc62c9525ebfc96b8e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Clean_and_Jerk_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_1.png",
+      "sourceSha256": "e1c51daa3256bf96dda1e2d5661de63350bf6c50e5cb203fa410e2b2c098cfac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_1.png",
+      "candidateSha256": "925a29057ff72fac38fa47296e1744d4036bb3e7733c6c18fc3b8695dc7168ac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Clean_and_Jerk_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_2.png",
+      "sourceSha256": "139605d2efbb70bbcd16a3a87f2fecd46e9c3bc946dd3418c5d3e4e4c4eda29f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_2.png",
+      "candidateSha256": "365fcb6004bf46fa3841000cd467c4f2822f8f2346f35aab2a2e69ae95bb153e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Clean_and_Jerk_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_3.png",
+      "sourceSha256": "21269f6857490b463bf0558b60b98cd9cf9defe2aff947626315f1367eecd451",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_3.png",
+      "candidateSha256": "f245cf3a9d222099945240486f5c59680e7326b9f7b773d27869e113d99753f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Clean_and_Jerk_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_0.png",
+      "sourceSha256": "5884256a8b1f7eb118dd279c4af5847eb0ab749d0cd36205c492452169ec87b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_0.png",
+      "candidateSha256": "318e0e7973c93d41cac8ddff6d67526ca8a56e038986ec051e936faffdcc1794",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Clean_and_Jerk_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_1.png",
+      "sourceSha256": "22cfe7512e6b27e79116447e4afbe25ae2f989e90296156ba2a928eb04f99e12",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_1.png",
+      "candidateSha256": "1d6754eb5e3d749b4821773bc26e5df28ddf55190b73d36c27e0de2009dba4be",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Clean_and_Jerk_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_2.png",
+      "sourceSha256": "370da676adf28afd1e043e16aa3be3502ac54aac55a0bc829eb326ef8255eea1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_2.png",
+      "candidateSha256": "69e03d5bd5831909f908f66ebba4f0a73001f130f0431be1783a0dcd1a4ccb8a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Clean_and_Jerk_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_3.png",
+      "sourceSha256": "32ff7fffed29b2e6dd224f16318a3cc97062674a202b7340d973653366fe6fbb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_3.png",
+      "candidateSha256": "65e106ce786483280d47c08eb1c9fa8ee6e4eae49d418cd0ef627ed5397fe70b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

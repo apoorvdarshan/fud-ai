@@ -1,0 +1,94 @@
+{
+  "exerciseId": "One-Arm_Incline_Lateral_Raise",
+  "shard": 4,
+  "index": 35,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 2 frame(s) with floor/fringe/artifact issues.",
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Arm_Incline_Lateral_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_male_v2_0.png",
+      "sourceSha256": "1cab24088f2c4d691273e381aedb9e022277811b723b1101409060ae57a952c7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_male_v2_0.png",
+      "candidateSha256": "390d231246311d65e82fab35fa0c56966cf5330ebeef067ee02b8d708eb9ff3a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Incline_Lateral_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_male_v2_1.png",
+      "sourceSha256": "05e4fad388872203e9418b953069ae9744ba0e62a285dd4ec3560159f443dd4f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_male_v2_1.png",
+      "candidateSha256": "5b09d95c4905cfae27ea35a0082dbe194043d5ec843c595bbcce16dc00deb528",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Incline_Lateral_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_male_v2_2.png",
+      "sourceSha256": "7ce7855a2972b898f710031061ffcb6f83784194a2a03260a1995fdc2327b4c5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_male_v2_2.png",
+      "candidateSha256": "44942a06908cb618b4177d24477c5d546c4f19a4086b985f514e7a4d07e0fd36",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Incline_Lateral_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_male_v2_3.png",
+      "sourceSha256": "b66f6a66c7e4563ca0b1b2b6afb2ee8b928e35b25778057a354a548714079522",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_male_v2_3.png",
+      "candidateSha256": "9f11f47088cb8ca75e9550060b09d17926c5b86c83c7105014ac730971772e1a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Incline_Lateral_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_female_v2_0.png",
+      "sourceSha256": "21dfc9d26409a555727ae4846f2d71ff0d154f83290dc4eebaf51a25db7435ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_female_v2_0.png",
+      "candidateSha256": "ab25c2977c69c0d82de776ff06b9ba9adf22da81277e92701517df1b2d0d7af6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Incline_Lateral_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_female_v2_1.png",
+      "sourceSha256": "8ae8e90374e0db555cf1c07ae7874e63eac2839004ceab42e7333d540a13e2af",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_female_v2_1.png",
+      "candidateSha256": "0d239933829d81af5556a8257a3ecaba994f26b094e4e97cb7632cbefcc5c8b4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Incline_Lateral_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_female_v2_2.png",
+      "sourceSha256": "7645bce3c4948a033e9853217027409cd90204fbd447656cfd3dd2f48c97bec0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_female_v2_2.png",
+      "candidateSha256": "47df25701426e68497941d9733a4c3ad5a9086aaf8ba5b3e56c85ed623eaaa17",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Incline_Lateral_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_female_v2_3.png",
+      "sourceSha256": "a660488051e61dc75eb1a4b1555b33ef930145ee3e8e7590ea04e71203657056",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_female_v2_3.png",
+      "candidateSha256": "888c3fd8103f3189e3fbbcfe6f71b3f9757c82879b791a60e6b88c53fe14b7ee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

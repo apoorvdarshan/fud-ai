@@ -1,0 +1,93 @@
+{
+  "exerciseId": "One-Arm_Kettlebell_Military_Press_To_The_Side",
+  "shard": 4,
+  "index": 40,
+  "status": "ready_for_review",
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_0.png",
+      "sourceSha256": "51baf6808197e9eaa776408ce1efa57b6e7e05404c7e91d9a6e8a0ac1f3df61f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_0.png",
+      "candidateSha256": "bcd9bd269a18e4f06e1a9a4a9a24311414b2da4305ca70d64b3b9be7051c0979",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_1.png",
+      "sourceSha256": "0663f7677d2456e26909428e20facce471383b578fd15c44fc4f1d4df6dbdc3d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_1.png",
+      "candidateSha256": "4a11e8eefde5c823a636b0ed556397c72140dc4a467532145a9d4fc028cf759e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_2.png",
+      "sourceSha256": "c9404cef133912c94d152e8d379c13bf60607fe1c3320e815f06d8e0438ebb3f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_2.png",
+      "candidateSha256": "93cc62d9a62efc0dd452198fb1a3c490384f8e4acd39280d16626c79dd6c971f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_3.png",
+      "sourceSha256": "536ab0dd22777f9533e03ec402f9f00c38374f14d2bda694f20b4dab962709f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_3.png",
+      "candidateSha256": "21e9121e2af8b098279b5854068a349ad07c0f47c215436ceec54d13d0b37d50",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_0.png",
+      "sourceSha256": "8b00e84f9b77842b8490e79338b48a111533f6adb6bc6dbf49eae2387ed18d72",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_0.png",
+      "candidateSha256": "21a17e1bad6e514fdf52333a12759503337c5fdc7155c59debd6f104df40bb6c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_1.png",
+      "sourceSha256": "978d75c6c8efd11d7bf026c9ea588c426fbe6a4f64f8ab7b3bc2736d9d0feb67",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_1.png",
+      "candidateSha256": "8e48485990d1254992ca0e2f13189ab4b5f43a64155dbecfdf7220de9df92c4f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_2.png",
+      "sourceSha256": "adaccec2809f071a27d539f2011d5d2600b4ae1dc8a0299f39973e15fad1591e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_2.png",
+      "candidateSha256": "7570cd0ce291e13275c7018e1d1b1c9697ff257df17caff31dcfd28fc73cd5c3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_3.png",
+      "sourceSha256": "db5062b5c0285319cf6bd7b480ca08f8032604852e4d443eee9255abe1f6c2b7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_3.png",
+      "candidateSha256": "63014bc047d2f73199439cb57562278e62da6ebff772b46fe19ccd843a29b0a3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

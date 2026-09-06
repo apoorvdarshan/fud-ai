@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Dumbbell_One-Arm_Shoulder_Press",
+  "shard": 10,
+  "index": 99,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dumbbell_One-Arm_Shoulder_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_One-Arm_Shoulder_Press_male_v2_0.png",
+      "sourceSha256": "f84650b1e5373ccb2728867325b2529100753d3f125f19fdbb10b5540fcb3ff7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/099/Dumbbell_One-Arm_Shoulder_Press_male_v2_0.png",
+      "candidateSha256": "456434981c1519309a304048f25edf69f8683bb787a6bb6239795c433bd600b1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_One-Arm_Shoulder_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_One-Arm_Shoulder_Press_male_v2_1.png",
+      "sourceSha256": "c98fe935b2352b2a7310943298002941a5fc339f30a7d76fc50a49d848ff5f1c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/099/Dumbbell_One-Arm_Shoulder_Press_male_v2_1.png",
+      "candidateSha256": "a5bb372509c49844d1c89836575b15ae25b33e5064c041903f944250f1175918",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_One-Arm_Shoulder_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_One-Arm_Shoulder_Press_male_v2_2.png",
+      "sourceSha256": "e995fd8744db1472153d49a3d94e74359b37f95942d631970febac6112c4f413",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/099/Dumbbell_One-Arm_Shoulder_Press_male_v2_2.png",
+      "candidateSha256": "74088622e9856279bc0f8b1810370a3b8b07bd88257dc2c1d45315c9743a7cda",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_One-Arm_Shoulder_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_One-Arm_Shoulder_Press_male_v2_3.png",
+      "sourceSha256": "b624984295d4b266354723a9d52d18d1e6350549cf84a862dc165a094a07a2d3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/099/Dumbbell_One-Arm_Shoulder_Press_male_v2_3.png",
+      "candidateSha256": "16509b967ad3fa252d004dbe7f096e1b8c608dd519bb307b2d7b12a0eba59741",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_One-Arm_Shoulder_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_One-Arm_Shoulder_Press_female_v2_0.png",
+      "sourceSha256": "4847ca343c1a974477f7b6afd6e7ed238c4407920308c73a35ca95b191745fb8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/099/Dumbbell_One-Arm_Shoulder_Press_female_v2_0.png",
+      "candidateSha256": "2bbed4d45bd2b2f631cedff89aaf86f31ec2e28bb3537ad724c9292b8faea154",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_One-Arm_Shoulder_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_One-Arm_Shoulder_Press_female_v2_1.png",
+      "sourceSha256": "ab4d8f77015e426048f5a0d6b91afc90e1296ecfad17db335dd7fe6a38ad7e42",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/099/Dumbbell_One-Arm_Shoulder_Press_female_v2_1.png",
+      "candidateSha256": "c2d200ce7145619116a8c5c74c5fd882fb7d154456253d84bdc52fb0f5204745",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_One-Arm_Shoulder_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_One-Arm_Shoulder_Press_female_v2_2.png",
+      "sourceSha256": "b865d4e7be8f0288ba88c7fa838b3c0e2699a913f61706324a28cd80d8d213fa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/099/Dumbbell_One-Arm_Shoulder_Press_female_v2_2.png",
+      "candidateSha256": "4b48ae0530338b7885a926b45af715fbdefa9a62809ae93f50e9f3b6ab325e60",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_One-Arm_Shoulder_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_One-Arm_Shoulder_Press_female_v2_3.png",
+      "sourceSha256": "6c7874b0ec798707abe030683a12750b88e31ca2de466d33a2a84fa183f8d9af",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/099/Dumbbell_One-Arm_Shoulder_Press_female_v2_3.png",
+      "candidateSha256": "f6b0ce405e3fc384715326f4d00a7ea2bf1b518555b0ec4eea03d8a137a2349d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

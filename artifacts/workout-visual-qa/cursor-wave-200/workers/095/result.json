@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Dumbbell_Flyes",
+  "shard": 10,
+  "index": 95,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dumbbell_Flyes_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Flyes_male_v2_0.png",
+      "sourceSha256": "7595e8b6658a508a518b04ccbc2a7a605c67f236acb936571d1ceb2855e931ff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/095/Dumbbell_Flyes_male_v2_0.png",
+      "candidateSha256": "55477dd9e3b55a7a83021e3179938ed794220c8675b387e80970342520fe84f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Flyes_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Flyes_male_v2_1.png",
+      "sourceSha256": "4b1171817a9889b5bbed5a44e0021cc68c343e9547e56d9b721750f26e028d3a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/095/Dumbbell_Flyes_male_v2_1.png",
+      "candidateSha256": "1110490d0d109b22776dae4f88f473fde5a1876f6767d47c5fbb75a8d8a9b8e0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Flyes_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Flyes_male_v2_2.png",
+      "sourceSha256": "781e73a172aafc78fa6a83c13b65605dfa3a1624ef1dbeca71b050917612cb1f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/095/Dumbbell_Flyes_male_v2_2.png",
+      "candidateSha256": "ef985bca76ee3f2adb9e7fe60838d361b8b166535304ae6afb02298eb5d06243",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Flyes_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Flyes_male_v2_3.png",
+      "sourceSha256": "4ce0dcfd9655a271c7e07214d4cec79ed337dc3fd8acd0a186ba799099aa024f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/095/Dumbbell_Flyes_male_v2_3.png",
+      "candidateSha256": "53666a34a3dd446241b4937d7c19f549304fd213e99e32408a50730afecf5d35",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Flyes_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Flyes_female_v2_0.png",
+      "sourceSha256": "0cefc1687b64712f72983026bdfdd8e98acd97cfa6e20932f5cb6c2941024437",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/095/Dumbbell_Flyes_female_v2_0.png",
+      "candidateSha256": "797081b1aa68c153be42579f54fec0ce905927421c744a9a4d9971e9d161892c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Flyes_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Flyes_female_v2_1.png",
+      "sourceSha256": "cab42d180e0abb52337e63bc22599ed52ec8e6dad4941721b797407b6573fea1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/095/Dumbbell_Flyes_female_v2_1.png",
+      "candidateSha256": "fda296605553fd74fd838c04a0d889ae75fd9b419f2e91c09dd75bb5484285b3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Flyes_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Flyes_female_v2_2.png",
+      "sourceSha256": "0623abf33d79551c573f36803c35f1e740305ae2cee851b79f538fafffb4ec1c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/095/Dumbbell_Flyes_female_v2_2.png",
+      "candidateSha256": "57a61c03b3b7e07f5e543b640c464064bd23468d387dd115b14d448101a090d9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Flyes_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Flyes_female_v2_3.png",
+      "sourceSha256": "fbdf2bc8e297c93ea173f205c72e93e7f67ca601c312a95d1a7c082ac2ee6ec6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/095/Dumbbell_Flyes_female_v2_3.png",
+      "candidateSha256": "3b9af6c245f3308ce5dc05d9b891c002c3374b794bb1d32ec56c68767fc523e6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

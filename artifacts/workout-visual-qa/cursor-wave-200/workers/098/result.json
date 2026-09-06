@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Dumbbell_Lying_Rear_Lateral_Raise",
+  "shard": 10,
+  "index": 98,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dumbbell_Lying_Rear_Lateral_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Rear_Lateral_Raise_male_v2_0.png",
+      "sourceSha256": "d0f36e0ca088ed5f2b758eef92c8e4cc6db1ac62333231486ab1cb8e633a10d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/098/Dumbbell_Lying_Rear_Lateral_Raise_male_v2_0.png",
+      "candidateSha256": "bdd6bda9184ba1aec3058399bdb481617cffc8b00accad86b8867292428b133c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Rear_Lateral_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Rear_Lateral_Raise_male_v2_1.png",
+      "sourceSha256": "8bd578b14d2cf384993cc7d9090989a9c82706643fc0b7f5b53776df3c043e9e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/098/Dumbbell_Lying_Rear_Lateral_Raise_male_v2_1.png",
+      "candidateSha256": "e15a5219e8279dbb6fbb75ab0f4609fd11e631f795b5a5563439397f0dddfa43",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Rear_Lateral_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Rear_Lateral_Raise_male_v2_2.png",
+      "sourceSha256": "860311cfe7a59e401ed56463a783aa09a7bb38a74d22fee8a2e042a6bad0bbc8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/098/Dumbbell_Lying_Rear_Lateral_Raise_male_v2_2.png",
+      "candidateSha256": "c311ae8d17a08ecd46dbd4155db184cbaaaad26160a2c6a788d6aaec7c9e3755",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Rear_Lateral_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Rear_Lateral_Raise_male_v2_3.png",
+      "sourceSha256": "3ba1d2e6f0865cdf56cf06ca999f3b6cdd091ae55b28fc1cdf082d76ff9b4ac6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/098/Dumbbell_Lying_Rear_Lateral_Raise_male_v2_3.png",
+      "candidateSha256": "2cdf3a3123248b27fc0160d0820066bf3fbe12de00c71d26edcab10ab5fe0e38",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Rear_Lateral_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Rear_Lateral_Raise_female_v2_0.png",
+      "sourceSha256": "78182fa60a3ba5c8a41fd8e37fcd23909cbe7f2e3f475d50b236ab2f0d34002b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/098/Dumbbell_Lying_Rear_Lateral_Raise_female_v2_0.png",
+      "candidateSha256": "12f62ea5a2487ab65232260b49f74e495ae118a1655700b1edd4e2cd37f5cd8a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Rear_Lateral_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Rear_Lateral_Raise_female_v2_1.png",
+      "sourceSha256": "71994187dbd3dc8d299db18555ae055818e644bed165cd487fd49457b67a86f5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/098/Dumbbell_Lying_Rear_Lateral_Raise_female_v2_1.png",
+      "candidateSha256": "7dce1c9374856036ca0f0b2f641d7fbce09d2e5525fe54892f34b6ba15950f9c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Rear_Lateral_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Rear_Lateral_Raise_female_v2_2.png",
+      "sourceSha256": "06d399793aa199f6de7bff49302ac57efdd0ac706bb50f850a6cb046649f150c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/098/Dumbbell_Lying_Rear_Lateral_Raise_female_v2_2.png",
+      "candidateSha256": "a6f497a10dff954645c7941441f5eec10be9cd3eafe555c23ac7e9199b9a45d0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_Rear_Lateral_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Lying_Rear_Lateral_Raise_female_v2_3.png",
+      "sourceSha256": "e028e877ed7e3b878871851af04d41a003e38e36c2323e87714b436709d57ed9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/098/Dumbbell_Lying_Rear_Lateral_Raise_female_v2_3.png",
+      "candidateSha256": "dc594617355289865417a8f9fb39151a27a98514a4853050803c5e5d90444603",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

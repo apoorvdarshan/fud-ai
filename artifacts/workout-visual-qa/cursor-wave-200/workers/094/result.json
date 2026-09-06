@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Dumbbell_Bench_Press_with_Neutral_Grip",
+  "shard": 10,
+  "index": 94,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_0.png",
+      "sourceSha256": "2e7f0ebaf631e6830026dc52e20398c2a1cc3a46ebf7c0d91fc6e68357636c00",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/094/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_0.png",
+      "candidateSha256": "6d91a60f590d5f466a1c318add696d84bf7e4b3f11decf928e15b738a9759028",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_1.png",
+      "sourceSha256": "9d006cccd2394bbbacf593e2162d64210de83dc84590e8b51f0b745e4e68470c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/094/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_1.png",
+      "candidateSha256": "5cc62f71b41515755b33c9dcf7e55be4858888afc068a27150ecb146e71e768f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_2.png",
+      "sourceSha256": "7de84c9e6ae29dc10c841e43b16db8cd8197d90817b470a3a20a42712509061f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/094/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_2.png",
+      "candidateSha256": "81b085a14792b424555bf0a01aefd5030e29bda6f0613d2d22bfd16224179aaa",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_3.png",
+      "sourceSha256": "404f676362fd4a29539a83710813e9b6328d83891025d4cbccef2ec0dfc3188e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/094/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_3.png",
+      "candidateSha256": "f19831e0c9634781677b6ddadb2f70fa265693be04e2a3002bb48821b7650be7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_0.png",
+      "sourceSha256": "3b860765cc15379a75f7de10e6b06eb6c4078baa4a5ba0a42c2e360b8019c574",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/094/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_0.png",
+      "candidateSha256": "73dc315470a5f9a9ee205de29a437e00044e04ff94641c1f6dcca53460a01e2e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_1.png",
+      "sourceSha256": "7dbeb38ebc7bc22503d30e1c977056687141111be9982265dca45aab4db2538d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/094/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_1.png",
+      "candidateSha256": "3a48f17b70a08c6bdbd53a8494c2b06fd8f1d3cafe132a86bde61ba2cf0eb655",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_2.png",
+      "sourceSha256": "79302cb716af9e474d6710f4cc63f82e7af8e204aba1c7a6d8c425d3a0764b5c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/094/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_2.png",
+      "candidateSha256": "80477df2e6d98693867ea63d2647399cb797378b511b2678b83a2a5f14ec55f8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_3.png",
+      "sourceSha256": "c721e09e0835d7add2f7db163f2cded4400d82d0c5df2f688e24ac4a92becf0b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/094/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_3.png",
+      "candidateSha256": "1fd69927c980a67e6cb33e72deab592510c6fdee79ef837e9bf000781f75657c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

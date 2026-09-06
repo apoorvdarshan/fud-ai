@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Dumbbell_Step_Ups",
+  "shard": 10,
+  "index": 100,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dumbbell_Step_Ups_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Step_Ups_male_v2_0.png",
+      "sourceSha256": "678faacb9cc4703b61a8445649c12ebf7381a3cf8b55baa8ee2fd49fc91a7119",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/100/Dumbbell_Step_Ups_male_v2_0.png",
+      "candidateSha256": "9d69f47d5f08d060d5ee42e189b919f2e6a1e5de82a2b10a2d47af2c80e50d2d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Step_Ups_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Step_Ups_male_v2_1.png",
+      "sourceSha256": "bd8aeb73426bbcbc61f6485f0dfd871ab46e809e2c02f5c5ed085efd52073b49",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/100/Dumbbell_Step_Ups_male_v2_1.png",
+      "candidateSha256": "0d1bbaa7f66620c3b8df3d308dba2c91101820ddbef01be68f93c231ef2c3b36",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Step_Ups_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Step_Ups_male_v2_2.png",
+      "sourceSha256": "d7faa82686415fdd466a1cb6fed3ef02867eb16392095075f677b0ae66fc1bd4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/100/Dumbbell_Step_Ups_male_v2_2.png",
+      "candidateSha256": "23565481aa2a3c652e7bb6ba75df0e1e0d01a57aece3592d008105f589edd71c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Step_Ups_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Step_Ups_male_v2_3.png",
+      "sourceSha256": "c76ebe4cb6cdcc58c971a0acffb4c131d9687ac539c8fb93db07efb7805246dc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/100/Dumbbell_Step_Ups_male_v2_3.png",
+      "candidateSha256": "542aa65477b5add7ca5ef360c7c2ce1211b72db1538994575e6d20822ee75194",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Step_Ups_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Step_Ups_female_v2_0.png",
+      "sourceSha256": "b29c88f53b4e09912cd346c31b5342cff26849d2d0d70bd3e887ec1c90c3f1fa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/100/Dumbbell_Step_Ups_female_v2_0.png",
+      "candidateSha256": "c3670a54f43559b9b330dcc80354879a3163c1bcef0f291b0d92778b4bc18a5f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Step_Ups_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Step_Ups_female_v2_1.png",
+      "sourceSha256": "3ef002389cf06e6f764277e7399c09f8ee0e8ef206cf6ec788d01eb39e10d380",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/100/Dumbbell_Step_Ups_female_v2_1.png",
+      "candidateSha256": "07b68ae8d17b98e4b1e7227b72f01a6fab850ca86240842800cdc6b45d185920",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Step_Ups_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Step_Ups_female_v2_2.png",
+      "sourceSha256": "b667c64d4a977593e5b59b47dbb5e2082e57fe9dee183fc2dbc5c84603e2f409",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/100/Dumbbell_Step_Ups_female_v2_2.png",
+      "candidateSha256": "2af0808cc8c03f75543906257044bae1c98aeceac7f61bd0de554177ca9abfdd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Step_Ups_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Step_Ups_female_v2_3.png",
+      "sourceSha256": "cc923c477703758d153a326fa96c18dbd2f1092235266966e9bbda6d2e543ea3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/100/Dumbbell_Step_Ups_female_v2_3.png",
+      "candidateSha256": "499ed2ff8596ba39f197c94942eb5520161a51714630828ce6860b1c68354020",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

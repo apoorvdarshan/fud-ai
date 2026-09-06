@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Double_Kettlebell_Jerk",
+  "shard": 10,
+  "index": 91,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Double_Kettlebell_Jerk_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Jerk_male_v2_0.png",
+      "sourceSha256": "f257acbb3c7e24463b155c6f7d8586f408635ee367e3ccd8a9a5f5494dd07a7e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/091/Double_Kettlebell_Jerk_male_v2_0.png",
+      "candidateSha256": "1dbd657dc1f55d3a34956ee61eaf7a2b9df01cc3161c803d7cba3556b333f381",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Jerk_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Jerk_male_v2_1.png",
+      "sourceSha256": "e53d29b1ba877519d203015c679f3eedbb78f577cc467da8d45f3dede5860b73",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/091/Double_Kettlebell_Jerk_male_v2_1.png",
+      "candidateSha256": "2cbbb02fad032278fcc1c43c0a9c20055914cd8ea2498c32c2801bb8c705041b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Jerk_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Jerk_male_v2_2.png",
+      "sourceSha256": "016678f1676f860c3af36e5e2c4c0f1a40e96fc3ffb6e9f2df7df8aacfafb836",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/091/Double_Kettlebell_Jerk_male_v2_2.png",
+      "candidateSha256": "404211eb0f95a2a606ef23c4696ede571bb520732a697fbedc25ffbbb8fac5c0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Jerk_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Jerk_male_v2_3.png",
+      "sourceSha256": "c290b7e71285f28525f7f99543e5af2ebe3c176a6725b2ae2df292a6a01dbd76",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/091/Double_Kettlebell_Jerk_male_v2_3.png",
+      "candidateSha256": "c37ccae17116dde7498e760cd6a97f1540103eb8a272f79039a90a55e15744a9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Jerk_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Jerk_female_v2_0.png",
+      "sourceSha256": "6685c0659cbb08ca157e60fb5225f723a079941886fef165037998129ae5fba5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/091/Double_Kettlebell_Jerk_female_v2_0.png",
+      "candidateSha256": "82fe172c75932166e447177e14f5c1b15ab7876727d6b6e4ff3dc3ba5f92948f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Jerk_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Jerk_female_v2_1.png",
+      "sourceSha256": "5876e8a2b4ea454adbc060dce2c858a78a4ee8ec1fdc766909eb1243620347a2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/091/Double_Kettlebell_Jerk_female_v2_1.png",
+      "candidateSha256": "08585ed72bf52d8b36689fa456f456bc4e4935b890b497ad6bb85d24240aabd5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Jerk_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Jerk_female_v2_2.png",
+      "sourceSha256": "c642540e3a414dc5b9a966b50c08058af607ddf5b7b71bc23a94dcc7850359e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/091/Double_Kettlebell_Jerk_female_v2_2.png",
+      "candidateSha256": "f60295832a051d70f3a7caa01fc710c63308e55cb1b5afea2398250161e3a103",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Jerk_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Jerk_female_v2_3.png",
+      "sourceSha256": "8468fc76b1772b0f7b92f70d3b1df5e3ae80ed9a0f3538988c7d2c468ecfec2f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/091/Double_Kettlebell_Jerk_female_v2_3.png",
+      "candidateSha256": "a226a3ffb0ecc60722a74f883869b94dfba414f219f03f644fa2eca7ab00df53",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

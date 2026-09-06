@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Stomach_Vacuum",
+  "shard": 35,
+  "index": 342,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Stomach_Vacuum_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stomach_Vacuum_male_v2_0.png",
+      "sourceSha256": "c0904df474d357db2520a733889e6e5fccd0c760cce8161c6dcbac81dc1607c4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/342/Stomach_Vacuum_male_v2_0.png",
+      "candidateSha256": "645b601b1cec3f74dab65771e034d0e8f5f223eb766e976d6dc34bde7543e3f4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stomach_Vacuum_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stomach_Vacuum_male_v2_1.png",
+      "sourceSha256": "b812b7d77011b3cbac1475b424cb5e5c7d6a7972c949458d85c3f2330050657e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/342/Stomach_Vacuum_male_v2_1.png",
+      "candidateSha256": "0e4dde5ac9699af03f7705de461849b738690dd34340472a98950cd8ffc12fca",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stomach_Vacuum_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stomach_Vacuum_male_v2_2.png",
+      "sourceSha256": "68b644a60d0814d9ac44c1f4bfd1c0733bec3614863c326515d57d517e12c965",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/342/Stomach_Vacuum_male_v2_2.png",
+      "candidateSha256": "aa655562f38a5670a4349ec524d4a9a670798f42c0925db247ea38248a39ca09",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stomach_Vacuum_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stomach_Vacuum_male_v2_3.png",
+      "sourceSha256": "dc20c18128bf68482081a0decd782c05ebb750ab8a7eb6bb8cf2630822783e4c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/342/Stomach_Vacuum_male_v2_3.png",
+      "candidateSha256": "b9cddcc5f44f56368eb0e8844870fd8635012a86add93f43978be32da596d7d3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stomach_Vacuum_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stomach_Vacuum_female_v2_0.png",
+      "sourceSha256": "b812921e8be59913af564b1fee9a680a55bd4e4b11835a51ed6bdbfad84e87e7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/342/Stomach_Vacuum_female_v2_0.png",
+      "candidateSha256": "e6f44d01441fa159381842137f675ba00cf2d65c938d81a86af493b03c501a3d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stomach_Vacuum_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stomach_Vacuum_female_v2_1.png",
+      "sourceSha256": "82394239202abce96d17d95d4fc7b7eeb074aae824c40f13303073969494f86d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/342/Stomach_Vacuum_female_v2_1.png",
+      "candidateSha256": "70623360d2924e740268180d5bfe696beb88750a2b30a4ba6ece9a574fc0d088",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stomach_Vacuum_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stomach_Vacuum_female_v2_2.png",
+      "sourceSha256": "784bdac0f4e896c54a4765e80545412a863ac5044a3d49c6016bfe0e803bf06d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/342/Stomach_Vacuum_female_v2_2.png",
+      "candidateSha256": "bf41a023e2be3e450eada8dde674fb679c48aed47a2cae1928a79bef1570e804",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stomach_Vacuum_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stomach_Vacuum_female_v2_3.png",
+      "sourceSha256": "967f2cd8ada7d80f6530c24fd9019d476fcedab71c90bcc4cfef40fab76280ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/342/Stomach_Vacuum_female_v2_3.png",
+      "candidateSha256": "782868de497dbcfe0a68ade55692c8a758d848e8471871fb8e68a260c9e22be7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

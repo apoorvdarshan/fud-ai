@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Stiff_Leg_Barbell_Good_Morning",
+  "shard": 35,
+  "index": 341,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Stiff_Leg_Barbell_Good_Morning_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff_Leg_Barbell_Good_Morning_male_v2_0.png",
+      "sourceSha256": "a9646a1f6948f8e9e3aafe9ba304197f205f730fa682268d67ce28c44e344da2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/341/Stiff_Leg_Barbell_Good_Morning_male_v2_0.png",
+      "candidateSha256": "bf99ba760438802504d065f7a53cc1e79c927218f98a06afb54fd091906d5cf9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff_Leg_Barbell_Good_Morning_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff_Leg_Barbell_Good_Morning_male_v2_1.png",
+      "sourceSha256": "d5a1a1d0599423b8b9639dea54005a0feb87d8ecbad0825001596e4befd082cb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/341/Stiff_Leg_Barbell_Good_Morning_male_v2_1.png",
+      "candidateSha256": "53b4c2f10f9db5adb5f46cbc5c208ef611fd16db3ae753169e1ead20f9c2efab",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff_Leg_Barbell_Good_Morning_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff_Leg_Barbell_Good_Morning_male_v2_2.png",
+      "sourceSha256": "9bbdfd30f95bd06cb8ec07c9027790f5c9d81166862a6ca50b529f028cdfb8af",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/341/Stiff_Leg_Barbell_Good_Morning_male_v2_2.png",
+      "candidateSha256": "b50d237ef01108a723b4a30c067c6c0426ec3552afd149f01820068f98f9c150",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff_Leg_Barbell_Good_Morning_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff_Leg_Barbell_Good_Morning_male_v2_3.png",
+      "sourceSha256": "5c0057e1f29cf29e330c8965736aa2e4fe225bd79f9bc2260de321887ca2bd62",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/341/Stiff_Leg_Barbell_Good_Morning_male_v2_3.png",
+      "candidateSha256": "7ad0bae742481560650cc6cd70eaa0a527e0d0f32a1b54c0e15b1ae80fc03840",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff_Leg_Barbell_Good_Morning_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff_Leg_Barbell_Good_Morning_female_v2_0.png",
+      "sourceSha256": "504571c2faa834db357717a7765e5ca76ad55602808e47b891ecd34ab2e94f4a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/341/Stiff_Leg_Barbell_Good_Morning_female_v2_0.png",
+      "candidateSha256": "65fe879106ce65d2a80ed7ae767c906802ffc10d92ee35948bde37e41ef38dc0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff_Leg_Barbell_Good_Morning_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff_Leg_Barbell_Good_Morning_female_v2_1.png",
+      "sourceSha256": "e1e12578f66b80ce77b05f1b7c4411d9cb12cdf63cd3753b082c000a3a812f29",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/341/Stiff_Leg_Barbell_Good_Morning_female_v2_1.png",
+      "candidateSha256": "198f3c31b3114f6ad2e088b40f8c6338cdb6745f05695e1344ee76c64399f251",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff_Leg_Barbell_Good_Morning_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff_Leg_Barbell_Good_Morning_female_v2_2.png",
+      "sourceSha256": "f3bbc01b4f71c49d1fd8b4d43146ef66eb72b171451d1721a9c3a1a0d6a34268",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/341/Stiff_Leg_Barbell_Good_Morning_female_v2_2.png",
+      "candidateSha256": "2449ee7801556d41c1319fb56fe9895a820b05bd15b541a64f0c8ea415ce7d12",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff_Leg_Barbell_Good_Morning_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff_Leg_Barbell_Good_Morning_female_v2_3.png",
+      "sourceSha256": "ec57cd5fb68485b54f59a543fcc1c9b9a77ab0482836d864700e0b9b9a72bd14",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/341/Stiff_Leg_Barbell_Good_Morning_female_v2_3.png",
+      "candidateSha256": "d94ea4bffeeb481c9d4d1561392220ca4507a31d3b168e6d73d85fb4bd0811b3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

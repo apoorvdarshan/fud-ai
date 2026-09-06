@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Stride_Jump_Crossover",
+  "shard": 35,
+  "index": 347,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Stride_Jump_Crossover_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stride_Jump_Crossover_male_v2_0.png",
+      "sourceSha256": "e5e3541af0bbc31fe14f4ff6d113f6fd51b46ec4093ac22980a5578c7131f502",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/347/Stride_Jump_Crossover_male_v2_0.png",
+      "candidateSha256": "a48f4bb3b0ddad6e07e6dddf5858aa4f07fe33ef3f64d41c8360377837215fb3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stride_Jump_Crossover_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stride_Jump_Crossover_male_v2_1.png",
+      "sourceSha256": "acd29e57d7801caff0729fbcf236d026ac4a8c8cbaa4e910c5650daca679e3b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/347/Stride_Jump_Crossover_male_v2_1.png",
+      "candidateSha256": "dc8284d84d033902f2b69863e53ae242d22e3fe375fc18c7b524b0c64df26630",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stride_Jump_Crossover_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stride_Jump_Crossover_male_v2_2.png",
+      "sourceSha256": "cae2af91778f20f83c785e228367cd3b83bea3e1cc81d89c5dcd24604a7ea3e4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/347/Stride_Jump_Crossover_male_v2_2.png",
+      "candidateSha256": "b6d9c7f2fd33c117ac476e1df67d27ce65274d1dcb33281bdd7570de94afc75a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stride_Jump_Crossover_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stride_Jump_Crossover_male_v2_3.png",
+      "sourceSha256": "efbfed7e845aba82b146b04bd6284a6885cca4d09977bc3efd446184bc6e6340",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/347/Stride_Jump_Crossover_male_v2_3.png",
+      "candidateSha256": "f30b48b56746a039949c4e4add6bbbcc0f87d799f183d7aa8e21ea763b220ebf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stride_Jump_Crossover_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stride_Jump_Crossover_female_v2_0.png",
+      "sourceSha256": "65a9632a1cabe59f46bc8e8515ad1f31067f00435384f38107da5041c54f5a6f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/347/Stride_Jump_Crossover_female_v2_0.png",
+      "candidateSha256": "3c960e6d3cb54900dfb7e962bdc01683ebd29560fe6845eda51e86dd0775c972",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stride_Jump_Crossover_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stride_Jump_Crossover_female_v2_1.png",
+      "sourceSha256": "10ffefac9f4d871d1ccf682497091d54f9ab96debde4741d7366e6bc09f917ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/347/Stride_Jump_Crossover_female_v2_1.png",
+      "candidateSha256": "1abf7667ae2c5ef00d291d2f1a6470c641c080ff641b6cee974ccd91e8d9c53b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stride_Jump_Crossover_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stride_Jump_Crossover_female_v2_2.png",
+      "sourceSha256": "e97f6fc6fc15a01bb2ea950dd01df5e11f97452406ce161861a58dcceff32a4d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/347/Stride_Jump_Crossover_female_v2_2.png",
+      "candidateSha256": "932d8b643478e2972e6ee0e1ec6cbf55487f430f5d0937e67c6cf7eb950e42d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stride_Jump_Crossover_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stride_Jump_Crossover_female_v2_3.png",
+      "sourceSha256": "ff5af2f2ead5f1f9464b5fbaae51bbca2f78cdcbc45df438e5333c921d716ee2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/347/Stride_Jump_Crossover_female_v2_3.png",
+      "candidateSha256": "3320640ed8b56cb0825036efe0aa768f01d4d4c48e6f8ee15bad5fb6e42ab55c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

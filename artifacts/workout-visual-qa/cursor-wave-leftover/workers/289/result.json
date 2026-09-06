@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Stairmaster",
+  "shard": 29,
+  "index": 289,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Stairmaster_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_male_v2_0.png",
+      "sourceSha256": "b3e8cf017b4ebf4c92c179d1bfe19c8fb8ccdecd858dc86a4137bc0d69af5dbe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_male_v2_0.png",
+      "candidateSha256": "f50508ffdbf3f19c2eda87fc6d0408960e1386dee541ec2a2f47cae79c0cba36",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stairmaster_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_male_v2_1.png",
+      "sourceSha256": "bc7a87932108e1e0434b68f578e650e7bbec9da5b7f25965dcad5b577dd6caf0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_male_v2_1.png",
+      "candidateSha256": "101bb7f70d76b08b4a9be1ae5292da20ca9b76a40d6110e834774bd2ad05dddb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stairmaster_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_male_v2_2.png",
+      "sourceSha256": "e55ea2cd8f7e78a02f1a8689be0941853a08e34ee41105316ee2467a1da1d05f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_male_v2_2.png",
+      "candidateSha256": "1d09f631b9d8a0f2cd02d36bd3d8cea96f42920cd7a8558dc3fe0a80bcf17e19",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stairmaster_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_male_v2_3.png",
+      "sourceSha256": "e7170904bf077ed44e1764772b4e4ae412eb54fdbfdad9fae19f8092e4fc5cc6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_male_v2_3.png",
+      "candidateSha256": "a719ab80fb1c9faf4a95c3882e3434ef0aa0fb993924a994b0276e68bd924938",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stairmaster_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_female_v2_0.png",
+      "sourceSha256": "f207413bd2019ab63f9610a0f214e586720bec1fa2d94c7b26efb76e0e384356",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_female_v2_0.png",
+      "candidateSha256": "35746c467096e78359bcc5e69364747604f3f481c220af6a4a6defeea41ddbdc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stairmaster_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_female_v2_1.png",
+      "sourceSha256": "99f1705e24d30bdbbb35be482f151ccccfd6d493d188cc755036f9cc88e5f949",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_female_v2_1.png",
+      "candidateSha256": "167f4dad759b58862a5b7b833c5059741cb4a1759936145bf02bebf42d7fde33",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stairmaster_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_female_v2_2.png",
+      "sourceSha256": "1e0d327989a80078ac912e6316ff63748aea2d03768330501ebdebfa3b55a69c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_female_v2_2.png",
+      "candidateSha256": "9c865314c9c72af077b924a2e6149260cc66522b80b11ba9f635010adaffb2e8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stairmaster_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_female_v2_3.png",
+      "sourceSha256": "0cf9c46a72e1da708051e80d7a8e0f5ca58458ca959eb61697ebf1719bb0651a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_female_v2_3.png",
+      "candidateSha256": "03172c60678f6addcfda1583d8f08a9949b4e49fdc08107019611012957b921e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

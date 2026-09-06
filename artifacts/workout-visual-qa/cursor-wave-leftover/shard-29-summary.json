@@ -1,0 +1,854 @@
+{
+  "shard": 29,
+  "batch": "cursor-wave-leftover",
+  "exercises": [
+    {
+      "exerciseId": "Split_Snatch",
+      "shard": 29,
+      "index": 281,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Split_Snatch_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_male_v2_0.png",
+          "sourceSha256": "c4d3ee1686dd2e0c243352d8689b7a9fc25bbc196c8ab43c6a2fe7df8bade4ff",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_male_v2_0.png",
+          "candidateSha256": "a8f658ef5a1041c9b5c851567bc2bb5033e7835f400d90843b138f11ff1deecf",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Snatch_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_male_v2_1.png",
+          "sourceSha256": "cfeb9a1595e3595d4ba62cf38bf77cc55fd3884b6260fd859750ecbf57ca5210",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_male_v2_1.png",
+          "candidateSha256": "526f36a6068f762db08ef7306b4794bd5eddbbf127dfc77417d075a8f5f804c1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Snatch_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_male_v2_2.png",
+          "sourceSha256": "ab1017756e8e8917a69f25c2eb24b4ceb7302885f687498e0787411fa7dcc252",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_male_v2_2.png",
+          "candidateSha256": "aff2683147119258e46060feac1242cceeee77dd14782abf95d31296ec184b24",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Snatch_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_male_v2_3.png",
+          "sourceSha256": "39340352882bc3bf1c81667650a4b0a06b5ef85210635e40306eed51d5f7589c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_male_v2_3.png",
+          "candidateSha256": "0afde3ffe3d1c6430b435d62214d2386685ca2a3d6b092e3fb36fbfa5d833ada",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Snatch_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_female_v2_0.png",
+          "sourceSha256": "7c804e168233ff5b8ed6e478f53ff2374d00f331b8d526617ed2b6e3b0592d73",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_female_v2_0.png",
+          "candidateSha256": "46698f026e18adeadd7dc42dff6f07589655f592a86e0d8dbe5f64c00f235f52",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Snatch_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_female_v2_1.png",
+          "sourceSha256": "719ff55f2a32bf985b6f3b37902d72a73ec1de9b1ca5fed228da124a22abb26d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_female_v2_1.png",
+          "candidateSha256": "628ae568cd3cb619a509c83ed40720a005d5bb66a1003fff14040a4c5a6f984c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Snatch_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_female_v2_2.png",
+          "sourceSha256": "30a562e65826310c54857cbba2f6aabcbc553549d5fa8255040132992cdc43f7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_female_v2_2.png",
+          "candidateSha256": "eecff578f3f8b3944ffd2cedb4a19022464038975098b01e3b2813337e2c71f3",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Snatch_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_female_v2_3.png",
+          "sourceSha256": "6efd2c40973a0e8da6805116f52f06fb456ae81f715fff44424fd6761bf48fbf",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_female_v2_3.png",
+          "candidateSha256": "0c1cc1fed07ea39afbbd708407dbd0f215e90dc129f1e989fd30847143b9e511",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Split_Squat_with_Dumbbells",
+      "shard": 29,
+      "index": 282,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Split_Squat_with_Dumbbells_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_male_v2_0.png",
+          "sourceSha256": "4447e378118de184ce30d7c26bf0336ad3d2f8493d4062688e29a251c25f7c0f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_male_v2_0.png",
+          "candidateSha256": "1eb348ac5c763708d131d13b7e84916f4a0cfad3c49f12b58fc535b196cd351b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squat_with_Dumbbells_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_male_v2_1.png",
+          "sourceSha256": "aa804b4e9d52e22cbd265670c5a5629619692bb34553d670a74deb08312c7935",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_male_v2_1.png",
+          "candidateSha256": "0600a5bc6cf7bc9fa96e07fe6ef40e656427e928b8db05149ff2323bd4c857f3",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squat_with_Dumbbells_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_male_v2_2.png",
+          "sourceSha256": "cf9a7f275c3611f588febb0135021cd2ad9ae9b4315d8d2f8c7420a08db3ae15",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_male_v2_2.png",
+          "candidateSha256": "cff1f8ca28218c1154f765c010e2fc7d19a5dbb14198e418a7d63e54e68f5baf",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squat_with_Dumbbells_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_male_v2_3.png",
+          "sourceSha256": "942896c32c243d2436f9d886e0e8721b7432799cdb5b99b3d69441de78a0c19d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_male_v2_3.png",
+          "candidateSha256": "a2d368dfc8c8223883fbf20e1e7e95289af948685d1eff9834c4208d34306801",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squat_with_Dumbbells_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_female_v2_0.png",
+          "sourceSha256": "4e1fc761d4d7628e07a21f5e176b8626abd213cdf883d07afc01a1379953b174",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_female_v2_0.png",
+          "candidateSha256": "6e7071e62129892da7b76d1a22c859603b5558de18d7c6bf2237c3e01a4abfb1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squat_with_Dumbbells_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_female_v2_1.png",
+          "sourceSha256": "755ee950d19e36f90f857262614f19cd9ac2a8720e9bb25e321bb1ddd501a33a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_female_v2_1.png",
+          "candidateSha256": "39124189654e6fa0222175c804e333b9ff9722ffd2db19c3dfb86c4add7e8981",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squat_with_Dumbbells_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_female_v2_2.png",
+          "sourceSha256": "3db5a6eca3167be77096b0b73834833dcf8444a524bb6e2375a3fb6608daf257",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_female_v2_2.png",
+          "candidateSha256": "5e1963310c2db8e72780860a80e601ea366fc393641289f3cf15d1a3adc571f0",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squat_with_Dumbbells_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_female_v2_3.png",
+          "sourceSha256": "b88adfb2e8758aa3e9938f4e68be3b1cb07f514dd2c02c9829dafca37909dbe5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_female_v2_3.png",
+          "candidateSha256": "566c06b6fe69a3063388c886c59f43e3d65a0e4d547962fb2299d9e078579c6c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Split_Squats",
+      "shard": 29,
+      "index": 283,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Split_Squats_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_male_v2_0.png",
+          "sourceSha256": "894593e0a4746b23ff5b05261929cbee1560eed25547c34b2480bba1e66796f2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_male_v2_0.png",
+          "candidateSha256": "d4237f0193ce0241054d2d430514431dee9563e990717cb0431b4e79233717f3",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squats_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_male_v2_1.png",
+          "sourceSha256": "79d643778d65623dcaffc821dde30b42da51b7665e19cc3ef8f8b666a010129a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_male_v2_1.png",
+          "candidateSha256": "1ed937054d9f2044e851f1cb839046ebceebaac3e773af557801e95040ad5fc3",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squats_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_male_v2_2.png",
+          "sourceSha256": "0c219df137f9e943decc3606a899ac5b98d70bcb4f847dc27f5c50f7a528f414",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_male_v2_2.png",
+          "candidateSha256": "879960deffde8529ae7c36d38c357f7260439930e48c292e10f3b59ec041013e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squats_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_male_v2_3.png",
+          "sourceSha256": "4a7084761f51b427f2788783d1544e3325649d8b1e62146aa508723b10e2e43f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_male_v2_3.png",
+          "candidateSha256": "261a63cf5fe8b0e80b6449896856fa1a80ad78657c564f71521685fc19995594",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squats_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_female_v2_0.png",
+          "sourceSha256": "aa279ac6f46e86e0003951f2d4ee44b5d5fa270fe208549395bb0d5494212171",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_female_v2_0.png",
+          "candidateSha256": "afed565690a6b53d60e4a77b5b7d2fb8bf9648eb0bffea88572ff338d907458a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squats_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_female_v2_1.png",
+          "sourceSha256": "8a81bbe0da2d16b38e00c8a08c76e2018290907701a2e02819b33e8749f7277a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_female_v2_1.png",
+          "candidateSha256": "fe6d398ea060087833afedbb1e6908a4bfd4f8fbc02c73f9457acea0d98839a6",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squats_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_female_v2_2.png",
+          "sourceSha256": "4af26788b2ece585c5113546cb3c3ce3ffcbd461c17d822e82f1a1d5c6cc3bde",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_female_v2_2.png",
+          "candidateSha256": "ac9b7129868f6e4ce8c506de60822286cdfe26aa836602ee6d42ded235348bdd",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Split_Squats_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_female_v2_3.png",
+          "sourceSha256": "432e5b5786947936599f3d5e18d4f6cac0821760177190f38993a333cbb92f7d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_female_v2_3.png",
+          "candidateSha256": "7da526bb896128037acb873b0f8afcb7451ab77cb1c48eb04f5d427a6eef1f14",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true,
+      "notes": [
+        "Cursor GenerateImage surgical edit + key_workout_chroma.py on 1 frame(s) with checkerboard/pale fringe artifacts."
+      ]
+    },
+    {
+      "exerciseId": "Squat_Jerk",
+      "shard": 29,
+      "index": 284,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Squat_Jerk_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_male_v2_0.png",
+          "sourceSha256": "7bbf6aa1fadf19f49bc7dd502c1b83da5cfc3731178540d051e353c5b235f3e4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_male_v2_0.png",
+          "candidateSha256": "f0cd4cdae4b9e1e30775ce0b22329cfbc053874b6cae2fcbf3dd2842a756c83d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_Jerk_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_male_v2_1.png",
+          "sourceSha256": "11e17f5ccdcdbe609d81e8b7400183fe070366d7dfe2127a575fda7a1ebc615c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_male_v2_1.png",
+          "candidateSha256": "e9a6ad39760e21b2989f2d0520cb7e6b3ea3e9729a3a98063cd7c6f6412a0d46",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_Jerk_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_male_v2_2.png",
+          "sourceSha256": "85c55ce5b07f2888a6b780d85cfe5aa02afaab3ee046395f1875c08896c1d8a4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_male_v2_2.png",
+          "candidateSha256": "0d3c3a761b8227f72f5e7c7f569437758c0d33063cfc97e96d64d2c7c225c96a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_Jerk_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_male_v2_3.png",
+          "sourceSha256": "b470f1dc714e68215b60272e0f7d2d3ba309bc7e0ff1810b86d2a7c6db3ed92c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_male_v2_3.png",
+          "candidateSha256": "4e8aaf2478f44d7643948b2787e928f598ed6644619328b5287a582402067f96",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_Jerk_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_female_v2_0.png",
+          "sourceSha256": "32b5799e1f793b15e458551ad7624c66bf207070420839ba695303267cc28c07",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_female_v2_0.png",
+          "candidateSha256": "f7484aa7d90dd14a4025cdbac6992745ee64e7d31f26092a98d26068ca3b023c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_Jerk_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_female_v2_1.png",
+          "sourceSha256": "bde368ab12c122d10712e7a7af692ebb56734fba7f9f8734273971e5f7ab813b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_female_v2_1.png",
+          "candidateSha256": "db03070f0ad3bf07c2fafdf16540d0c376a079068cf0c690dad5a42c1ea2c392",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_Jerk_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_female_v2_2.png",
+          "sourceSha256": "eada70e7079e53e4b590cf1f7960e2f8157fa07786f118457f617ee71816d3eb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_female_v2_2.png",
+          "candidateSha256": "59b25c9f9735b6c606c3c88479d2ae8f3a61079565c1ec9262afac2b77ecb165",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_Jerk_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_female_v2_3.png",
+          "sourceSha256": "61fdade9fc82b96913c60937d2c3b93d60d31f09f15ffeac17cd9757e80a4ee9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_female_v2_3.png",
+          "candidateSha256": "f8ecf669fdde41a477de31947937cbd190f7514fd615189dbda882caec2e058a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true,
+      "notes": [
+        "Cursor GenerateImage surgical edit + key_workout_chroma.py on 1 frame(s) with checkerboard/pale fringe artifacts."
+      ]
+    },
+    {
+      "exerciseId": "Squat_with_Bands",
+      "shard": 29,
+      "index": 285,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Squat_with_Bands_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Bands_male_v2_0.png",
+          "sourceSha256": "402e9d4838c7da9a8c364917056fdb001052ad066ca1a062ba34f4da2c465fd6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/285/Squat_with_Bands_male_v2_0.png",
+          "candidateSha256": "8974f99e92f979916ad2f8afb60e4e745bc075f5f7182d49bc7295d2af9f008d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Bands_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Bands_male_v2_1.png",
+          "sourceSha256": "c1e6e2e7e9edcea48513b8bfbba9150c3a42ebe0d798505c8d8651e1bfb42cf1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/285/Squat_with_Bands_male_v2_1.png",
+          "candidateSha256": "a762e2322092f07561700f21c0a4277cdbe3fa957bf9ba2b9aa27efc9eb0bdfd",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Bands_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Bands_male_v2_2.png",
+          "sourceSha256": "32e420b7e04fdea01e5956208b12c1a5b67e15ab85632ed94d555aee2320717b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/285/Squat_with_Bands_male_v2_2.png",
+          "candidateSha256": "d77de2b9cc57f789922f308a372b48c96b670db45801033a91e42603d45cfb36",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Bands_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Bands_male_v2_3.png",
+          "sourceSha256": "a2ff71cdcac5b4447aa717a98bed00c9d1fa71f86884a111f50665cd26254c4b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/285/Squat_with_Bands_male_v2_3.png",
+          "candidateSha256": "94a02954c9f3963b8be6eeacc781d98adb2ea9035f3bf0f08a71e22f0b814696",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Bands_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Bands_female_v2_0.png",
+          "sourceSha256": "1edbb5728d44ea00969528c5664bdc37ed02cbabc35de821eb6357a40f77597a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/285/Squat_with_Bands_female_v2_0.png",
+          "candidateSha256": "dd1a94693eb8b3954cf2b92ed1910b426db2d9adf9147d8827889699675788f4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Bands_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Bands_female_v2_1.png",
+          "sourceSha256": "3231c0a60741ab3a2432cd18ff4b2461d66b7e760efbebaafb9ea6e4166f98cc",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/285/Squat_with_Bands_female_v2_1.png",
+          "candidateSha256": "786d5341f65498a8b3ab6325014c1ca65cb92a72b1de5e6d648ced113f1711b9",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Bands_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Bands_female_v2_2.png",
+          "sourceSha256": "79281b77a9160a84360ab105238581fbc1bdf1046966d55d2a009a8cffce0286",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/285/Squat_with_Bands_female_v2_2.png",
+          "candidateSha256": "bd285beca2557aa5ecefec26c13f6dcbe7a704f719bef80ebb85a05ea795fc9c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Bands_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Bands_female_v2_3.png",
+          "sourceSha256": "acf7520ae100e4f676177f8dc9d9c4c82e647ddacc8247186c163f568e6e1119",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/285/Squat_with_Bands_female_v2_3.png",
+          "candidateSha256": "85118ec5bd968a039180d1c199b07539867be3eb50db70a077e7b27c3912f05c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true,
+      "notes": [
+        "Cursor GenerateImage surgical edit + key_workout_chroma.py on 5 frame(s) with checkerboard/pale fringe artifacts."
+      ]
+    },
+    {
+      "exerciseId": "Squat_with_Chains",
+      "shard": 29,
+      "index": 286,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Squat_with_Chains_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_male_v2_0.png",
+          "sourceSha256": "f72ba4e68e01430a8fc7cb77216f8e7684b57b17ca937cd196f51b47cdcd2110",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_male_v2_0.png",
+          "candidateSha256": "87afa67f9ce6476d0b4e240afadbf44f4e20c9b23889d990cb4b7150c9a299d3",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Chains_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_male_v2_1.png",
+          "sourceSha256": "b68a80f9f8de380ac5027010337877545e699c90864bf9e432551a88dd21a02f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_male_v2_1.png",
+          "candidateSha256": "1519cf0391bab2cd1a7dcdfc52fadc5b75cb03ddad23116091ab2bff9b5aa868",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Chains_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_male_v2_2.png",
+          "sourceSha256": "2da9036e035c22683b3a2c503fa4298fb60d2759d0078d5533e703018965bd48",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_male_v2_2.png",
+          "candidateSha256": "06de0af036875141a1ac8f409899a954bcfd048eb16a58ce78004105a282784e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Chains_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_male_v2_3.png",
+          "sourceSha256": "26720410243bf4db68764ca02d644367a32750fc88e6e10ede53fadb831a5f1e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_male_v2_3.png",
+          "candidateSha256": "07640ff3f7875ca7934f62ee5ea1268aed844597b4ded84cd9bf67d4b4f16646",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Chains_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_female_v2_0.png",
+          "sourceSha256": "6d0035d2348397a8739efbd941b5656b6f6ad02976af0d2b2170656c2f59b9e3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_female_v2_0.png",
+          "candidateSha256": "b3c6b763331c2354052ff893abdf9842170ba77c008c8a92ac74393c509bcb84",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Chains_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_female_v2_1.png",
+          "sourceSha256": "0293869fb6acc7bc4dee8ed03a142332282d5dddcb03889ebc7c7846d2e5f574",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_female_v2_1.png",
+          "candidateSha256": "ca0564900d4745f42c9f5cb61a11a71e6ef36c24cf3e98359f0470b10b5ff69b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Chains_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_female_v2_2.png",
+          "sourceSha256": "2074ea204967b6375b777eed3865360203815d1a6b420afda59a82748dcafde1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_female_v2_2.png",
+          "candidateSha256": "cdb17dcff6e13ebbf0b94d25ba47d80d97a5e1b1daf029ccca85419cad2d45c5",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Chains_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_female_v2_3.png",
+          "sourceSha256": "6ef97240d32ba8a7edf22df4f37dc799a8e2ac53130a5a74a504bf4bb2f6765c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_female_v2_3.png",
+          "candidateSha256": "67e710c548cbcb3bfc4e9e68d1a03899a6130d6b6a811b74ff1598dd067c2aca",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true,
+      "notes": [
+        "Cursor GenerateImage surgical edit + key_workout_chroma.py on 8 frame(s) with checkerboard/pale fringe artifacts."
+      ]
+    },
+    {
+      "exerciseId": "Squat_with_Plate_Movers",
+      "shard": 29,
+      "index": 287,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Squat_with_Plate_Movers_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_male_v2_0.png",
+          "sourceSha256": "aff1c2397d0f4316e0b5f1940f507494ed4a58025bfe26e5d8ecfa03312ff0f1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_male_v2_0.png",
+          "candidateSha256": "a20f0ae2ecb3e317ec16ff1726db919e6d00f7ec78263ae270a809ffae08e484",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Plate_Movers_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_male_v2_1.png",
+          "sourceSha256": "2e92caa1c7e91ab1fca363bd0bb0de7c60fdd33b215e85f3cf1128e0ad4b87ed",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_male_v2_1.png",
+          "candidateSha256": "a6db4628c1761e13157d52ba65dce56e8467c1be85e58f484a44d80684f08345",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Plate_Movers_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_male_v2_2.png",
+          "sourceSha256": "e5a5b3dc5a6850558aa4225bc1633d94c3d2e6c3c766c23eeba3709c3da4d32e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_male_v2_2.png",
+          "candidateSha256": "94d418fccb2583eca3eeffe18762bb747e17409f9d6fde509913830819d3933c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Plate_Movers_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_male_v2_3.png",
+          "sourceSha256": "35480d44d7e3ca097940edf319963ce04e9b6c492cdc33504d729737db1523e0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_male_v2_3.png",
+          "candidateSha256": "a7675078193bb213b258773daba3c95002ab363f748f4cf805a175ebcf72a49f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Plate_Movers_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_female_v2_0.png",
+          "sourceSha256": "f48038f3e89353bc9f8122755da01d2e1e179a60553bc4cf5e09f53a7a1d43f6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_female_v2_0.png",
+          "candidateSha256": "737b8d79eb5765a743d825fef367df85020ca9c91f0c35bf36d628c642c0c42d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Plate_Movers_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_female_v2_1.png",
+          "sourceSha256": "981999e16fe22e77d97f5e175c477880969da50e50fbfec49a6de02cdc80eea7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_female_v2_1.png",
+          "candidateSha256": "23b0dc51aef281913e07900b7a3ab4f18e2d55657d84c9dc6dac5f3793f2eec9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Plate_Movers_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_female_v2_2.png",
+          "sourceSha256": "2e518e2cd6fe2939334fa9053d0eb502aee27b63e855324af0d99e4280a1e741",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_female_v2_2.png",
+          "candidateSha256": "b1082c890597c11519bc23a25c8216a628d75d159146e3144146bf3de2dfe2d6",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squat_with_Plate_Movers_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_female_v2_3.png",
+          "sourceSha256": "dd2985ae3254edf2b324cff199bf5c1435802e62f6fb7105925c3ec35877af9d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_female_v2_3.png",
+          "candidateSha256": "1629c378a3950a068bc89895f25a55a2a51019eda783aa5015571c11e48a2d0a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Squats_-_With_Bands",
+      "shard": 29,
+      "index": 288,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Squats_-_With_Bands_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squats_-_With_Bands_male_v2_0.png",
+          "sourceSha256": "0ba30ccb92ceefd241b19a6bdd5460ac615f8bd20f5b2ddb8503295c6e26920b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/288/Squats_-_With_Bands_male_v2_0.png",
+          "candidateSha256": "eae66c801b75089d8c4d762e981d05cfae8a04592869c08c32b044d322315396",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squats_-_With_Bands_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squats_-_With_Bands_male_v2_1.png",
+          "sourceSha256": "2c2bc74656d6ad074d578e0279c6929f47c37538d1195419af2e08628939e391",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/288/Squats_-_With_Bands_male_v2_1.png",
+          "candidateSha256": "af5c0c48054456bcbd42e161afab9a0f32d5ae9267aa8b1d38f2f6389053dc46",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squats_-_With_Bands_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squats_-_With_Bands_male_v2_2.png",
+          "sourceSha256": "12984fdef228c3b3eeb73c46f5ee15308b48d3400e747ecab70a01b32d92efc5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/288/Squats_-_With_Bands_male_v2_2.png",
+          "candidateSha256": "4b284949538ccd5fa1ff1f250d1a8022ad1109948ee333a7e6cbd22202d00c57",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squats_-_With_Bands_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squats_-_With_Bands_male_v2_3.png",
+          "sourceSha256": "91f8cef7378d3dc8ecc4451e4a4b0435e02edd44ebee1682f4d2d5bf7879f6aa",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/288/Squats_-_With_Bands_male_v2_3.png",
+          "candidateSha256": "7d6bcf90c83ca7898123e7886b5565ccb11be6157ed031ebf34941da86b63543",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squats_-_With_Bands_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squats_-_With_Bands_female_v2_0.png",
+          "sourceSha256": "74a69c248d3ddf0a856635bb8b42a4e24905acf920cd68328e35cf0479a2f768",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/288/Squats_-_With_Bands_female_v2_0.png",
+          "candidateSha256": "49cd485b775fa8b27b73428627a284540fe6e9ba6b83d1e27a77938895f29d7d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squats_-_With_Bands_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squats_-_With_Bands_female_v2_1.png",
+          "sourceSha256": "1e87955d1abf7b32f11027a3cf121f81e02b48c76b09b22a3555604f2d8d25cf",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/288/Squats_-_With_Bands_female_v2_1.png",
+          "candidateSha256": "d656c1b7a5cd218e9d8d0c183ba0d3c3a927c1f47e514bea1ed2d2151a1ec478",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squats_-_With_Bands_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squats_-_With_Bands_female_v2_2.png",
+          "sourceSha256": "c5fc6b982301e3f135cf3ba7630dcb7170a9ff3c2538886f0b565b5f8b13ff16",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/288/Squats_-_With_Bands_female_v2_2.png",
+          "candidateSha256": "a4f5ee74411d5a515331ec418bdebd5d7f7bd16ea212444ed670992c4ab90132",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Squats_-_With_Bands_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Squats_-_With_Bands_female_v2_3.png",
+          "sourceSha256": "174e2ea3e2a488b98cbf3bf3722fddc0442f9901fd493894ad7bbb349febd083",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/288/Squats_-_With_Bands_female_v2_3.png",
+          "candidateSha256": "47b9d2e13e541acacd1e29ea089f028c28feb8ee3195a2a6ed74e468c2d3dd2f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true,
+      "notes": [
+        "Cursor GenerateImage surgical edit + key_workout_chroma.py on 1 frame(s) with checkerboard/pale fringe artifacts."
+      ]
+    },
+    {
+      "exerciseId": "Stairmaster",
+      "shard": 29,
+      "index": 289,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Stairmaster_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_male_v2_0.png",
+          "sourceSha256": "b3e8cf017b4ebf4c92c179d1bfe19c8fb8ccdecd858dc86a4137bc0d69af5dbe",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_male_v2_0.png",
+          "candidateSha256": "f50508ffdbf3f19c2eda87fc6d0408960e1386dee541ec2a2f47cae79c0cba36",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Stairmaster_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_male_v2_1.png",
+          "sourceSha256": "bc7a87932108e1e0434b68f578e650e7bbec9da5b7f25965dcad5b577dd6caf0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_male_v2_1.png",
+          "candidateSha256": "101bb7f70d76b08b4a9be1ae5292da20ca9b76a40d6110e834774bd2ad05dddb",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Stairmaster_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_male_v2_2.png",
+          "sourceSha256": "e55ea2cd8f7e78a02f1a8689be0941853a08e34ee41105316ee2467a1da1d05f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_male_v2_2.png",
+          "candidateSha256": "1d09f631b9d8a0f2cd02d36bd3d8cea96f42920cd7a8558dc3fe0a80bcf17e19",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Stairmaster_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_male_v2_3.png",
+          "sourceSha256": "e7170904bf077ed44e1764772b4e4ae412eb54fdbfdad9fae19f8092e4fc5cc6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_male_v2_3.png",
+          "candidateSha256": "a719ab80fb1c9faf4a95c3882e3434ef0aa0fb993924a994b0276e68bd924938",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Stairmaster_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_female_v2_0.png",
+          "sourceSha256": "f207413bd2019ab63f9610a0f214e586720bec1fa2d94c7b26efb76e0e384356",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_female_v2_0.png",
+          "candidateSha256": "35746c467096e78359bcc5e69364747604f3f481c220af6a4a6defeea41ddbdc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Stairmaster_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_female_v2_1.png",
+          "sourceSha256": "99f1705e24d30bdbbb35be482f151ccccfd6d493d188cc755036f9cc88e5f949",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_female_v2_1.png",
+          "candidateSha256": "167f4dad759b58862a5b7b833c5059741cb4a1759936145bf02bebf42d7fde33",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Stairmaster_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_female_v2_2.png",
+          "sourceSha256": "1e0d327989a80078ac912e6316ff63748aea2d03768330501ebdebfa3b55a69c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_female_v2_2.png",
+          "candidateSha256": "9c865314c9c72af077b924a2e6149260cc66522b80b11ba9f635010adaffb2e8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Stairmaster_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Stairmaster_female_v2_3.png",
+          "sourceSha256": "0cf9c46a72e1da708051e80d7a8e0f5ca58458ca959eb61697ebf1719bb0651a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/289/Stairmaster_female_v2_3.png",
+          "candidateSha256": "03172c60678f6addcfda1583d8f08a9949b4e49fdc08107019611012957b921e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Standing_Alternating_Dumbbell_Press",
+      "shard": 29,
+      "index": 290,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Standing_Alternating_Dumbbell_Press_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_male_v2_0.png",
+          "sourceSha256": "cc678e1d8c331487b44ea060cc61a916950cf64aedd602470223d026607ccc56",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_male_v2_0.png",
+          "candidateSha256": "1cb9aeb5f63bf9c93348703ce32ba507025b1245b075e76d50eae81a566f32dc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Alternating_Dumbbell_Press_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_male_v2_1.png",
+          "sourceSha256": "8416eb443e8d2ce96e08fe47b2b1a54e64d02924230add80ba70654ad9bee20f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_male_v2_1.png",
+          "candidateSha256": "a132d4d782a10e8688b53425b4f466458a19eab91bfc6ceb9a33b4bad4499a8b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Alternating_Dumbbell_Press_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_male_v2_2.png",
+          "sourceSha256": "10f5e8643417b0b3572c702460e63c7b66a447b2b69c6fe954923ff9f9b993c8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_male_v2_2.png",
+          "candidateSha256": "ee53fec2dbf51e6a45c348fd6860182018c2af2ed5614ead61e8147223b7dee4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Alternating_Dumbbell_Press_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_male_v2_3.png",
+          "sourceSha256": "95aa193c120f057d4293a083902fb37cfb218529cd1a4d1c26f4356523d176c8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_male_v2_3.png",
+          "candidateSha256": "d35d2b18d02033a6503e902ea1484c89aa08c9026d371d98f76a00cbeffdca23",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Alternating_Dumbbell_Press_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_female_v2_0.png",
+          "sourceSha256": "7df29fa3b4092ae261354aa183d918a94687895199fc40b8047b4b34b0913548",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_female_v2_0.png",
+          "candidateSha256": "74d7754e2d5a57f0644d726bce785c0a5219091172c75ce3c33da21b8f662585",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Alternating_Dumbbell_Press_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_female_v2_1.png",
+          "sourceSha256": "7bd00d9df06de06414fde6a922c00a6acce29cbde04e896122db2bcf1ab2bf7e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_female_v2_1.png",
+          "candidateSha256": "d2a5a8f2f9a59f0d8f801ff05337d9cc28d32683983ebddf6ae0317f8c263c89",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Alternating_Dumbbell_Press_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_female_v2_2.png",
+          "sourceSha256": "23a16c8aa30c478d9d39440260ed59f94567fd6110cc0520434a722aad292cad",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_female_v2_2.png",
+          "candidateSha256": "6ecdac50d43f18a5d795f841bfee20e1ae18a506ca6918972970f9b9f5fea59a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Alternating_Dumbbell_Press_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_female_v2_3.png",
+          "sourceSha256": "51b7838c42873e27e2eda7d8f22f3742a1e6c0444c115809bbc882cd00faa488",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_female_v2_3.png",
+          "candidateSha256": "43399a5d6c9c85547bcf149332986496ef5a53f1ebc1f7bd2e4bab346e5a3d43",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    }
+  ],
+  "notes": [
+    "Shard 29 visual review complete. GenerateImage surgical edits on 16 frames with checkerboard/pale fringe artifacts (workers 283,284,285,286,288)."
+  ]
+}

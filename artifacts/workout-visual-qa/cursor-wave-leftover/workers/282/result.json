@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Split_Squat_with_Dumbbells",
+  "shard": 29,
+  "index": 282,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Split_Squat_with_Dumbbells_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_male_v2_0.png",
+      "sourceSha256": "4447e378118de184ce30d7c26bf0336ad3d2f8493d4062688e29a251c25f7c0f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_male_v2_0.png",
+      "candidateSha256": "1eb348ac5c763708d131d13b7e84916f4a0cfad3c49f12b58fc535b196cd351b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squat_with_Dumbbells_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_male_v2_1.png",
+      "sourceSha256": "aa804b4e9d52e22cbd265670c5a5629619692bb34553d670a74deb08312c7935",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_male_v2_1.png",
+      "candidateSha256": "0600a5bc6cf7bc9fa96e07fe6ef40e656427e928b8db05149ff2323bd4c857f3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squat_with_Dumbbells_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_male_v2_2.png",
+      "sourceSha256": "cf9a7f275c3611f588febb0135021cd2ad9ae9b4315d8d2f8c7420a08db3ae15",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_male_v2_2.png",
+      "candidateSha256": "cff1f8ca28218c1154f765c010e2fc7d19a5dbb14198e418a7d63e54e68f5baf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squat_with_Dumbbells_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_male_v2_3.png",
+      "sourceSha256": "942896c32c243d2436f9d886e0e8721b7432799cdb5b99b3d69441de78a0c19d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_male_v2_3.png",
+      "candidateSha256": "a2d368dfc8c8223883fbf20e1e7e95289af948685d1eff9834c4208d34306801",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squat_with_Dumbbells_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_female_v2_0.png",
+      "sourceSha256": "4e1fc761d4d7628e07a21f5e176b8626abd213cdf883d07afc01a1379953b174",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_female_v2_0.png",
+      "candidateSha256": "6e7071e62129892da7b76d1a22c859603b5558de18d7c6bf2237c3e01a4abfb1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squat_with_Dumbbells_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_female_v2_1.png",
+      "sourceSha256": "755ee950d19e36f90f857262614f19cd9ac2a8720e9bb25e321bb1ddd501a33a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_female_v2_1.png",
+      "candidateSha256": "39124189654e6fa0222175c804e333b9ff9722ffd2db19c3dfb86c4add7e8981",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squat_with_Dumbbells_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_female_v2_2.png",
+      "sourceSha256": "3db5a6eca3167be77096b0b73834833dcf8444a524bb6e2375a3fb6608daf257",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_female_v2_2.png",
+      "candidateSha256": "5e1963310c2db8e72780860a80e601ea366fc393641289f3cf15d1a3adc571f0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squat_with_Dumbbells_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squat_with_Dumbbells_female_v2_3.png",
+      "sourceSha256": "b88adfb2e8758aa3e9938f4e68be3b1cb07f514dd2c02c9829dafca37909dbe5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/282/Split_Squat_with_Dumbbells_female_v2_3.png",
+      "candidateSha256": "566c06b6fe69a3063388c886c59f43e3d65a0e4d547962fb2299d9e078579c6c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Squat_Jerk",
+  "shard": 29,
+  "index": 284,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Squat_Jerk_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_male_v2_0.png",
+      "sourceSha256": "7bbf6aa1fadf19f49bc7dd502c1b83da5cfc3731178540d051e353c5b235f3e4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_male_v2_0.png",
+      "candidateSha256": "f0cd4cdae4b9e1e30775ce0b22329cfbc053874b6cae2fcbf3dd2842a756c83d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_Jerk_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_male_v2_1.png",
+      "sourceSha256": "11e17f5ccdcdbe609d81e8b7400183fe070366d7dfe2127a575fda7a1ebc615c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_male_v2_1.png",
+      "candidateSha256": "e9a6ad39760e21b2989f2d0520cb7e6b3ea3e9729a3a98063cd7c6f6412a0d46",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_Jerk_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_male_v2_2.png",
+      "sourceSha256": "85c55ce5b07f2888a6b780d85cfe5aa02afaab3ee046395f1875c08896c1d8a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_male_v2_2.png",
+      "candidateSha256": "0d3c3a761b8227f72f5e7c7f569437758c0d33063cfc97e96d64d2c7c225c96a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_Jerk_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_male_v2_3.png",
+      "sourceSha256": "b470f1dc714e68215b60272e0f7d2d3ba309bc7e0ff1810b86d2a7c6db3ed92c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_male_v2_3.png",
+      "candidateSha256": "4e8aaf2478f44d7643948b2787e928f598ed6644619328b5287a582402067f96",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_Jerk_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_female_v2_0.png",
+      "sourceSha256": "32b5799e1f793b15e458551ad7624c66bf207070420839ba695303267cc28c07",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_female_v2_0.png",
+      "candidateSha256": "f7484aa7d90dd14a4025cdbac6992745ee64e7d31f26092a98d26068ca3b023c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_Jerk_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_female_v2_1.png",
+      "sourceSha256": "bde368ab12c122d10712e7a7af692ebb56734fba7f9f8734273971e5f7ab813b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_female_v2_1.png",
+      "candidateSha256": "db03070f0ad3bf07c2fafdf16540d0c376a079068cf0c690dad5a42c1ea2c392",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_Jerk_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_female_v2_2.png",
+      "sourceSha256": "eada70e7079e53e4b590cf1f7960e2f8157fa07786f118457f617ee71816d3eb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_female_v2_2.png",
+      "candidateSha256": "59b25c9f9735b6c606c3c88479d2ae8f3a61079565c1ec9262afac2b77ecb165",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_Jerk_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_Jerk_female_v2_3.png",
+      "sourceSha256": "61fdade9fc82b96913c60937d2c3b93d60d31f09f15ffeac17cd9757e80a4ee9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/284/Squat_Jerk_female_v2_3.png",
+      "candidateSha256": "f8ecf669fdde41a477de31947937cbd190f7514fd615189dbda882caec2e058a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true,
+  "notes": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 1 frame(s) with checkerboard/pale fringe artifacts."
+  ]
+}

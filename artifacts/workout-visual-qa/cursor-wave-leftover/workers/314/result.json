@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Standing_Hip_Flexors",
+  "shard": 32,
+  "index": 314,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Hip_Flexors_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Flexors_male_v2_0.png",
+      "sourceSha256": "0a0509d863dabfa926777d338dca1112ecca490da2440d6c03883e6ee107cc26",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/314/Standing_Hip_Flexors_male_v2_0.png",
+      "candidateSha256": "5826c27c23b2c7d323c7c5fd5e96178cb47e36eb86a8a3719a678a20f2d4f81d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Flexors_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Flexors_male_v2_1.png",
+      "sourceSha256": "a49755895cd07d65663ff17f1150f716b842e173462c81ad3f61ced40f564992",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/314/Standing_Hip_Flexors_male_v2_1.png",
+      "candidateSha256": "82b248ae512884fb1c11fa9a7162e12e1ef7af248269d5c5d5c1ccbc221a2347",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Flexors_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Flexors_male_v2_2.png",
+      "sourceSha256": "bc716219370dfc350f1e6418fcb8dc3e2e8e4fe7e921a3cad9b68c145cf5683b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/314/Standing_Hip_Flexors_male_v2_2.png",
+      "candidateSha256": "ad409863841b69eed252143421890f008ce10a388ddab6e47ed40e6197af7e92",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Flexors_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Flexors_male_v2_3.png",
+      "sourceSha256": "fc5145d2147f71490e4fc7aff6165f6ad24c1d7ba958a923f0fc9c2ac9b67a6f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/314/Standing_Hip_Flexors_male_v2_3.png",
+      "candidateSha256": "7237fe3e865175e2de9bf0ef5aad04ecf97ad0c720eecd9f278d386e8f765738",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Flexors_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Flexors_female_v2_0.png",
+      "sourceSha256": "29d3e755f70eb34ca19be54ba7def60bbfc5085a0464b5da96ce4f23632c3598",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/314/Standing_Hip_Flexors_female_v2_0.png",
+      "candidateSha256": "743d789127075137c1e630c2d1fa2867d1ea7c3a307114b5a3d1f1e5a980625f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Flexors_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Flexors_female_v2_1.png",
+      "sourceSha256": "4f3f7510e4f6196958f29c337c892307ee76a2041898f48749ec4b495600df1a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/314/Standing_Hip_Flexors_female_v2_1.png",
+      "candidateSha256": "70697e921ea9ab5178b2c9f4f86187ab5c8df047014ce143a8d29ce77c3a1b83",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Flexors_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Flexors_female_v2_2.png",
+      "sourceSha256": "370db80ef1a5ab032609f16adbe36c186197d1159f9bdef6035134178c6ba565",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/314/Standing_Hip_Flexors_female_v2_2.png",
+      "candidateSha256": "e3b2d49ecfc2d94499ac78fd8e4c3fdaf7d5d290d1ffdd644f8816e8e2647a5c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Flexors_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Flexors_female_v2_3.png",
+      "sourceSha256": "6f90497f8ebe29c37ef8beb1edb1e5784ca01d844426208d9ccab8786c82f8ba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/314/Standing_Hip_Flexors_female_v2_3.png",
+      "candidateSha256": "5d532776e549a1b885e3f340d3f9ae2a804d0ddf216873424f92db363a2d4711",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

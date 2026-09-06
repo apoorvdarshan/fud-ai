@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Standing_Gastrocnemius_Calf_Stretch",
+  "shard": 32,
+  "index": 311,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Gastrocnemius_Calf_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Gastrocnemius_Calf_Stretch_male_v2_0.png",
+      "sourceSha256": "5e725f876038c930792263e66a2dd8bc2a2ea50541fdf746ae053545081d64f5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/311/Standing_Gastrocnemius_Calf_Stretch_male_v2_0.png",
+      "candidateSha256": "4ecd974cc6c1d1781e383a4d23c7f181e2344cfe7a86c18721d5051bc5d4ac85",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Gastrocnemius_Calf_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Gastrocnemius_Calf_Stretch_male_v2_1.png",
+      "sourceSha256": "f6292df34fec2a54a685d5caa9e7fbdfebea84c9d2ae7fff0b8ae078c6fc114c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/311/Standing_Gastrocnemius_Calf_Stretch_male_v2_1.png",
+      "candidateSha256": "dc60ab4042ef6f58c8aced033c7e4db163a1ac3f6898b65dfd9706385bfb9477",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Gastrocnemius_Calf_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Gastrocnemius_Calf_Stretch_male_v2_2.png",
+      "sourceSha256": "4893111168d1b8374d9d202b343b3363df3a090079ffbbe3917468a58ae35665",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/311/Standing_Gastrocnemius_Calf_Stretch_male_v2_2.png",
+      "candidateSha256": "a283fda5eea3334d5fdc8dd8b4f74bbae350a16e3339d206d6680fc30ed3a006",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Gastrocnemius_Calf_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Gastrocnemius_Calf_Stretch_male_v2_3.png",
+      "sourceSha256": "aac36d9125a48bbef8a782a923fdd78d688e7c888ef04cd882ee4fbbdcc82179",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/311/Standing_Gastrocnemius_Calf_Stretch_male_v2_3.png",
+      "candidateSha256": "6dd1a2ae0ace02ff71783e7dde6e0393591758c28e978575eae7415e0fb8abc1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Gastrocnemius_Calf_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Gastrocnemius_Calf_Stretch_female_v2_0.png",
+      "sourceSha256": "5cc6c444dfbf4990e9fad40f0bc8d89a6401a19da915157ecfd3efa523064aeb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/311/Standing_Gastrocnemius_Calf_Stretch_female_v2_0.png",
+      "candidateSha256": "48584af2c6665602bf49def8ffad32289d51ce5c68d7ecfd205de05704250443",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Gastrocnemius_Calf_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Gastrocnemius_Calf_Stretch_female_v2_1.png",
+      "sourceSha256": "65d37f282302ddc77a2d0acc252b718097592969af7361a9306a3220e9217a0c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/311/Standing_Gastrocnemius_Calf_Stretch_female_v2_1.png",
+      "candidateSha256": "e39149f3e9dc026efd949969bb1f79d8f25ae73c8039611b32370cb62d0a7b6c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Gastrocnemius_Calf_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Gastrocnemius_Calf_Stretch_female_v2_2.png",
+      "sourceSha256": "7f74069b0ff7b8e7f057c069319740ecb2997d2efd3c48624c401a05e12edf49",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/311/Standing_Gastrocnemius_Calf_Stretch_female_v2_2.png",
+      "candidateSha256": "ccfba60a57ff8b0c1fceeefa3eb753906ac095107658b3d718604fe6743a17ac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Gastrocnemius_Calf_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Gastrocnemius_Calf_Stretch_female_v2_3.png",
+      "sourceSha256": "5359364fffb1b7c87495cf60fdb344b03b4d7ca766b496167ffec4ccb13cb646",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/311/Standing_Gastrocnemius_Calf_Stretch_female_v2_3.png",
+      "candidateSha256": "5e54cc5045188da37378d4fd511f5a91bb77b4ea405d42e2d37668c0e284a929",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

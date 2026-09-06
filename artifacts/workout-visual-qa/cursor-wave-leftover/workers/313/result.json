@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Standing_Hip_Circles",
+  "shard": 32,
+  "index": 313,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Hip_Circles_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Circles_male_v2_0.png",
+      "sourceSha256": "b2b63b8bf3e0941673da93daad6cbd25c5cc6ad7d2bd08376d92668eadefc1ac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/313/Standing_Hip_Circles_male_v2_0.png",
+      "candidateSha256": "e62da44ad3c9b16f5f350815679fbe4d5fa11b851c3cae8533ace9406da4cf03",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Circles_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Circles_male_v2_1.png",
+      "sourceSha256": "34b83a604618d1c2e3db0086d1f79997edb92d52e84eaa1083dc1c6694c93379",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/313/Standing_Hip_Circles_male_v2_1.png",
+      "candidateSha256": "b74c2853ac8e97f61d49c74440947d394d9fb166e2ce833ba90fd74eb4f0a90d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Circles_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Circles_male_v2_2.png",
+      "sourceSha256": "fab8a54a2524fb307d4f5d19f4b20417d014b730fdbf8021bc5b6145ae4ea211",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/313/Standing_Hip_Circles_male_v2_2.png",
+      "candidateSha256": "e347402f636459052d3248649036eed676d0e0e4ad0d59ed01b54cce667b6a79",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Circles_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Circles_male_v2_3.png",
+      "sourceSha256": "d2fab1df8fa54d3b8445d6d872ff6e503421e2755f4c51d787d98a09556b2e31",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/313/Standing_Hip_Circles_male_v2_3.png",
+      "candidateSha256": "545a25ff87633cb821e7e87f4fe8b4c38c22daece2183b65bd3d629d4518e8c5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Circles_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Circles_female_v2_0.png",
+      "sourceSha256": "4c364248a04afde70707645b20b492057636d29110c8ac5c2ea80409da3299fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/313/Standing_Hip_Circles_female_v2_0.png",
+      "candidateSha256": "94ae8b2aa1e491ab7179b8d6c306e289468ce6c66c849439cae187d26237b086",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Circles_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Circles_female_v2_1.png",
+      "sourceSha256": "1a484eb53a3de138044bb1179f78352bc46689b7a9498fdbedcc04c29eaa5f1a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/313/Standing_Hip_Circles_female_v2_1.png",
+      "candidateSha256": "393703f659ca75438063ae100f30becf17719cafa9a5a03e97336ae9c68bf192",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Circles_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Circles_female_v2_2.png",
+      "sourceSha256": "89f38c9923de9cc556ed5d4466da7572a2d8b311132d04560695bcd59a6091c9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/313/Standing_Hip_Circles_female_v2_2.png",
+      "candidateSha256": "60e20b02546d76af6385757b7864e564f5e88a65f9f792176a0af5946df152be",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Hip_Circles_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Hip_Circles_female_v2_3.png",
+      "sourceSha256": "602389b56d821905af8dba67eb9774f614722f4dd03be5dbf3cafd0116b307d9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/313/Standing_Hip_Circles_female_v2_3.png",
+      "candidateSha256": "a8bd0ed72f9d38aa9362de061850a23c6168302f2e3e434d739b62f396593a87",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

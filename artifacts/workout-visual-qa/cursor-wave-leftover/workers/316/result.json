@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Standing_Lateral_Stretch",
+  "shard": 32,
+  "index": 316,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Lateral_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Lateral_Stretch_male_v2_0.png",
+      "sourceSha256": "b0638c3687ae8e9f6a13255b493fb462630756f53a5e34cc516d5c49eb9330d4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/316/Standing_Lateral_Stretch_male_v2_0.png",
+      "candidateSha256": "46082d2faff3c9f9480806bf1a380ff79cf73d31f2173cbaae45d990ea6d4795",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Lateral_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Lateral_Stretch_male_v2_1.png",
+      "sourceSha256": "fe3bb812988d3f85aa870f98bc47601caa3fd8877829a6887bf30fea042dbcd4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/316/Standing_Lateral_Stretch_male_v2_1.png",
+      "candidateSha256": "79b62987ec00fd98ca0d9cb6b6e65a74c93b2c395dc63855be1cc0deae057836",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Lateral_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Lateral_Stretch_male_v2_2.png",
+      "sourceSha256": "e4b6232b13ca200c3468d384c7fbb63ce76181de03392113f5f91ddb20b395cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/316/Standing_Lateral_Stretch_male_v2_2.png",
+      "candidateSha256": "fe3bd464074c5e98aaaaa23fde6609cd2f558ed26f0fa79c7b19db68a1bfa2aa",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Lateral_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Lateral_Stretch_male_v2_3.png",
+      "sourceSha256": "fca928df272bd06067eb5b17a60080fb4b1e68700085ff0efde06d7fefc7b03e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/316/Standing_Lateral_Stretch_male_v2_3.png",
+      "candidateSha256": "4a27fbd282fe30a135b25a4ad853019ef19b1ceb955e1593285769834bbf777f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Lateral_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Lateral_Stretch_female_v2_0.png",
+      "sourceSha256": "88858d663db93eb979d4b1abfceddbfb24c14c2e34c9239efc306220e148dbae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/316/Standing_Lateral_Stretch_female_v2_0.png",
+      "candidateSha256": "d9e096c44f8f438a5ba71cb7bae49c8dfed7a5bbd984aac5631fe09e3334fcd4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Lateral_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Lateral_Stretch_female_v2_1.png",
+      "sourceSha256": "cddc6a051c16d4a5bf99e6cb6ff90119bf2d19356403fd5fdf4a582a116064cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/316/Standing_Lateral_Stretch_female_v2_1.png",
+      "candidateSha256": "ec2cbc3b16f47d464c3ca42381770e07310dcc95ab20e68a2f76dbbf84aaad49",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Lateral_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Lateral_Stretch_female_v2_2.png",
+      "sourceSha256": "90773f3dfb315e12fccb5571e9cca6d6e501a6188a662de93c6a8536d3daebb6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/316/Standing_Lateral_Stretch_female_v2_2.png",
+      "candidateSha256": "0410e41f7266aaf0df58efa2537753d3c07ae7d8aeedd5e7f0171e7633947c69",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Lateral_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Lateral_Stretch_female_v2_3.png",
+      "sourceSha256": "63039e8fe8e270be644619e86777a2a642ae77cd8e6b998d2541ff3fb97ed6cf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/316/Standing_Lateral_Stretch_female_v2_3.png",
+      "candidateSha256": "41cfd52458adbc92cbc94d724ad1a2c199e88162181a533afa639eb6249f8232",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

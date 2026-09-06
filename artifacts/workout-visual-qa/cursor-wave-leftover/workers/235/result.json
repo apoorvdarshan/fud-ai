@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Single_Leg_Push-off",
+  "shard": 24,
+  "index": 235,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 1 frame(s) with floor/fringe/artifact issues."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Single_Leg_Push-off_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Push-off_male_v2_0.png",
+      "sourceSha256": "3ad4cf6ba739cbe1e83d2e5f0dad1e50865162a91a4b3cef13251fa3341ed4d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/235/Single_Leg_Push-off_male_v2_0.png",
+      "candidateSha256": "138ace2965086e56ceb57d7b626ae684bb850aae94702ae744576046f92b0f27",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Push-off_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Push-off_male_v2_1.png",
+      "sourceSha256": "ae9c50b9a05778fbca734e578fef577cf8c4acc8ab55872cc9b093fbe57935c8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/235/Single_Leg_Push-off_male_v2_1.png",
+      "candidateSha256": "db2092d1061190486968315d74114d2bb19077b3a7aee5a860cfbd0c2b2982f1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Push-off_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Push-off_male_v2_2.png",
+      "sourceSha256": "e5ff50407f0757b2c9bfce5f4ae9ffc5ef7af61917fb9c7958ffdab84f3cc11c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/235/Single_Leg_Push-off_male_v2_2.png",
+      "candidateSha256": "7fd6471f7c608a01361499173c544ccf5588c320fc2b7069adb1a4d432277abc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Push-off_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Push-off_male_v2_3.png",
+      "sourceSha256": "c1dbb6d99e7200db5b40ad0cd7060e320a84528b283885424b59056f5735baae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/235/Single_Leg_Push-off_male_v2_3.png",
+      "candidateSha256": "125a447dab4e923bd4c03694ee995038514b9fb758c4d7170e410a092c67fff4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Push-off_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Push-off_female_v2_0.png",
+      "sourceSha256": "b8066d7a7e2440d18d2bf18163bc08bdaadf254a765dba0b0e2089f11f51940f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/235/Single_Leg_Push-off_female_v2_0.png",
+      "candidateSha256": "7768355ea478ac5e5481bc8d64324c24532bba2f9739dcb053f43c7a475bf4e0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Push-off_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Push-off_female_v2_1.png",
+      "sourceSha256": "71ed071d8f6828d4f637376a85252e002b577f4d31dc13ba844ab6b41cc775eb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/235/Single_Leg_Push-off_female_v2_1.png",
+      "candidateSha256": "8ce0a58a02ccee57bb553effde64fc7c48ca71465991743ea1a4e723fb0ced6a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Push-off_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Push-off_female_v2_2.png",
+      "sourceSha256": "fb2782e57a8ca7ac2c59a99fd01633c43c105bdcf967f124176fcbea5913921b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/235/Single_Leg_Push-off_female_v2_2.png",
+      "candidateSha256": "6614b522416e215ab87feccd0f2a264780ce5ab22169456aaa9927b0975d2d80",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Push-off_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Push-off_female_v2_3.png",
+      "sourceSha256": "ef6db95d1fa08102d000eeeb8d8dd3d3f0051afbbc5b0a5b4a5f1b6f6b9ee32b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/235/Single_Leg_Push-off_female_v2_3.png",
+      "candidateSha256": "034e28b4224331418157f784c83e15aacff0099ab910ccab887d8a2206d910ce",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

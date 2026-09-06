@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Single-Leg_Stride_Jump",
+  "shard": 24,
+  "index": 231,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Single-Leg_Stride_Jump_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Stride_Jump_male_v2_0.png",
+      "sourceSha256": "e8e9167c493eeeeed47ab52363871a7610abdf20b61a3d0f815f73a538898eeb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/231/Single-Leg_Stride_Jump_male_v2_0.png",
+      "candidateSha256": "8c74ae27a242891bfd3e337e98f4c2d8c6b32f69635777e247aca18fbcc4094a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Stride_Jump_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Stride_Jump_male_v2_1.png",
+      "sourceSha256": "cbad399faf0274cb9672d5cb1bbca2e4f8c8e75f38be3096249e029a01fb2c9a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/231/Single-Leg_Stride_Jump_male_v2_1.png",
+      "candidateSha256": "ad1d91a3cd69e41281ee7b039d797972922455374429adacad3f6e7ef6ccae3c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Stride_Jump_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Stride_Jump_male_v2_2.png",
+      "sourceSha256": "1b8a38bbc451febde997abe4cbc18c747e9f24e61c33b3eaddcfe386ef6b66cf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/231/Single-Leg_Stride_Jump_male_v2_2.png",
+      "candidateSha256": "7a3db6729e275bb5f796744aaf577c67671a66136df5c92688d831ec0045b2b7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Stride_Jump_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Stride_Jump_male_v2_3.png",
+      "sourceSha256": "119ef176e33a6977770b348cbbe540e25ea530e746ad13594b032326576019f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/231/Single-Leg_Stride_Jump_male_v2_3.png",
+      "candidateSha256": "38e76a8fc7ca5f30106f9772c2dcdfb491e9b90e8966f0a1c4c96958a08affbf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Stride_Jump_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Stride_Jump_female_v2_0.png",
+      "sourceSha256": "63ff7a5392c9cea5af3a47ff1e189f8fcdbadcb0ebf4bb0d695f1447e669c2d9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/231/Single-Leg_Stride_Jump_female_v2_0.png",
+      "candidateSha256": "c454f9e6e4409a874acc82549aa703f3996453af8df4c516b35c49b7e8531505",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Stride_Jump_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Stride_Jump_female_v2_1.png",
+      "sourceSha256": "e8659e65108fe6695fbe9675f5d65f89681dd80a9ed68302e7c0348c0c98d2b1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/231/Single-Leg_Stride_Jump_female_v2_1.png",
+      "candidateSha256": "80f78542e7d5bdb440b3e961065cdc0828ebee68c91d99ef76fe556f2d87edac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Stride_Jump_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Stride_Jump_female_v2_2.png",
+      "sourceSha256": "9ea50acae57df1d3dd5ca2ef886a6ec61ce4626fb669494db847a6f95e093412",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/231/Single-Leg_Stride_Jump_female_v2_2.png",
+      "candidateSha256": "0a846b2f9b17fa357d34065839dd1fbacea100c73bf98d4f0c5e58c30c3bc25a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Stride_Jump_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Stride_Jump_female_v2_3.png",
+      "sourceSha256": "7966ec48eb76ba4a729bfba169b7f56406cdf01ce1bf7453eab80e474923396a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/231/Single-Leg_Stride_Jump_female_v2_3.png",
+      "candidateSha256": "eb2e834525ce936e24e4115cce7eff25c61d477fbfbc530b7ec7d8b04da12615",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Single_Dumbbell_Raise",
+  "shard": 24,
+  "index": 232,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Single_Dumbbell_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Dumbbell_Raise_male_v2_0.png",
+      "sourceSha256": "95a2cc4c441a7376d3ac2f17f7c92e06cea56ea20f41d7d1f980d14bbac3f022",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/232/Single_Dumbbell_Raise_male_v2_0.png",
+      "candidateSha256": "5ea9581573e88526203e76a22083818ee7f608d85e88f3eb9048363267a81254",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Dumbbell_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Dumbbell_Raise_male_v2_1.png",
+      "sourceSha256": "70a265a0c1efba11b9cf34584c0b94f03bab4b390fffecea571f89176ff51daa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/232/Single_Dumbbell_Raise_male_v2_1.png",
+      "candidateSha256": "48c904c82b4ab1a04819d236db044a2a4c1fb78ff55196c8e7afd5aba7ed608e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Dumbbell_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Dumbbell_Raise_male_v2_2.png",
+      "sourceSha256": "f81d092e8fb4399d9995388e5cd00c878cc7eb0f10eb1ae7500b4f152edccac3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/232/Single_Dumbbell_Raise_male_v2_2.png",
+      "candidateSha256": "f2d41206493bd30e9f79e113ddd4a8fed5bd1a2b4de3361fa05c106bdb40f155",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Dumbbell_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Dumbbell_Raise_male_v2_3.png",
+      "sourceSha256": "616e1fc7c15db7f1dcad2365797b8433f43296ded18fefdb449276a360ac4c65",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/232/Single_Dumbbell_Raise_male_v2_3.png",
+      "candidateSha256": "c1b8493d531b7812cb525a3f8bb34cbdef555df49a58785fab10db82acaddbd2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Dumbbell_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Dumbbell_Raise_female_v2_0.png",
+      "sourceSha256": "8efaf9ef372398f278ea28bda0849bb4141ac816041f02af0055d9a00f8021d3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/232/Single_Dumbbell_Raise_female_v2_0.png",
+      "candidateSha256": "59dadb65ca1f8f1678678490acf21113c38373bdccf65fa3b65d6c094ae19dd0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Dumbbell_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Dumbbell_Raise_female_v2_1.png",
+      "sourceSha256": "16b6e4c046abb73630081d6caeff77a80bab5c5a562a436bfbff9bdf06a6932b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/232/Single_Dumbbell_Raise_female_v2_1.png",
+      "candidateSha256": "364ca1e05c69aac4840f99f8a1b99cb0b119154b2b3fb9599f788ebe73989f63",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Dumbbell_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Dumbbell_Raise_female_v2_2.png",
+      "sourceSha256": "70787e0e81b407452c3681ad6697c53548d60950e6888c9a889c1841e922859f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/232/Single_Dumbbell_Raise_female_v2_2.png",
+      "candidateSha256": "757acc483abbe746ed1b2f26aff7f01b76ac003edad38257cd5d61bd1b6cc55f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Dumbbell_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Dumbbell_Raise_female_v2_3.png",
+      "sourceSha256": "728cf1d96526ebcdcfad79596fdd833969fab70ed204df90466831eda0c3bca6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/232/Single_Dumbbell_Raise_female_v2_3.png",
+      "candidateSha256": "047a8255b9d320b9ca38e2740ecdfe31d22824b830165e83fbfd62753c8172f6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

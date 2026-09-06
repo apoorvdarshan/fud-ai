@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Sled_Overhead_Backward_Walk",
+  "shard": 24,
+  "index": 240,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 8 frame(s) with floor/fringe/artifact issues."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Sled_Overhead_Backward_Walk_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Backward_Walk_male_v2_0.png",
+      "sourceSha256": "6ac4f9ca572bd515530447d594ca9f0a709bc9f073c1adba879546a66d9885a7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/240/Sled_Overhead_Backward_Walk_male_v2_0.png",
+      "candidateSha256": "6e055c98289af264485e1205751838b8833ea8753d48f8072a575345b093f5f7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Backward_Walk_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Backward_Walk_male_v2_1.png",
+      "sourceSha256": "6aa9fd5555e4e45db297187dec9495589e2e09c14bfe43d25104d9b7f619081f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/240/Sled_Overhead_Backward_Walk_male_v2_1.png",
+      "candidateSha256": "3566beae7fccff1b8303bd532c7bffce91cdfeb981528d6e3db53ebe31445ccf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Backward_Walk_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Backward_Walk_male_v2_2.png",
+      "sourceSha256": "902add5370fc320e8260ca32d4bdb124391b9bfaf5beb7e48fec291499c48f12",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/240/Sled_Overhead_Backward_Walk_male_v2_2.png",
+      "candidateSha256": "77064d32e84d1dd9f08a7f497477eb0edfa5a9ab835a2d99167fdf737b3719d2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Backward_Walk_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Backward_Walk_male_v2_3.png",
+      "sourceSha256": "cd41d6791b346204fccb97701dc7b9dd629c0127daeabda58e231e2c478e4b02",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/240/Sled_Overhead_Backward_Walk_male_v2_3.png",
+      "candidateSha256": "5e41775779ed142d51690641e89a92bcce9e855a8bee0facbf91e6ea53ea7d49",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Backward_Walk_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Backward_Walk_female_v2_0.png",
+      "sourceSha256": "7849610aeed8c563340c3513d24e0666f3cbd6ae22dc2e471103a57356818ea8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/240/Sled_Overhead_Backward_Walk_female_v2_0.png",
+      "candidateSha256": "1fd6d3772525520d410afcb6d03f6a4b7faf19a2000f752c23b6c20ab5a9c89d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Backward_Walk_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Backward_Walk_female_v2_1.png",
+      "sourceSha256": "9fd464fdffa40b7b99de12f391e7b5b839ca53453789c3038711a6e82c3c64f4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/240/Sled_Overhead_Backward_Walk_female_v2_1.png",
+      "candidateSha256": "5b158a66b21039dec76a36cf0c95f1dcc0adb4f830786c1c15b36b44e7a6c1c5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Backward_Walk_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Backward_Walk_female_v2_2.png",
+      "sourceSha256": "495eb2e611b8ababb9a4d46161b99bce358c2c5d59267d0ed1f31d06bb2892b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/240/Sled_Overhead_Backward_Walk_female_v2_2.png",
+      "candidateSha256": "3af28fb70862a3f004fd3904a09d05e1f5e5794a8daf81629a310e62abe55879",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Backward_Walk_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Backward_Walk_female_v2_3.png",
+      "sourceSha256": "2b7223413f5d878758280dd9675cef999281a26684f064993d2b0b3561246b44",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/240/Sled_Overhead_Backward_Walk_female_v2_3.png",
+      "candidateSha256": "3bc64d2e4e6c61b018635d249f0b58a7f50e4fd1c4e701afb26544dbc1e43f8e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

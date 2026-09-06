@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Sit-Up",
+  "shard": 24,
+  "index": 236,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Sit-Up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sit-Up_male_v2_0.png",
+      "sourceSha256": "5e79b83a77e2f6179ddf08f9d45041a229c15f3a1dc004217bbf8c8cea555790",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/236/Sit-Up_male_v2_0.png",
+      "candidateSha256": "f2ea45935896c63e40693488b7c67abbec564927217216610b086ebb3329a8f0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sit-Up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sit-Up_male_v2_1.png",
+      "sourceSha256": "607306e8fc9701a25ea096e7f9b7318b127597214bf5020421d868a217db5978",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/236/Sit-Up_male_v2_1.png",
+      "candidateSha256": "08afbb639ccf8ec93e1a187a5c0f7faa07252dc66fd798b9841f9a587717ebbe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sit-Up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sit-Up_male_v2_2.png",
+      "sourceSha256": "0e277d9fcabcf228e20965ebf97622af6da86f51c32edc5fa2f09b5a6eda4bb8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/236/Sit-Up_male_v2_2.png",
+      "candidateSha256": "59571b4fcf4c31fa9dd4f015df202db54b7cfaf282dee44fa6a94edf8eae404b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sit-Up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sit-Up_male_v2_3.png",
+      "sourceSha256": "648dd95d759ee5e23724658a9a8664e3dbd3350f22a9eb09d4f35e0e43a91d15",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/236/Sit-Up_male_v2_3.png",
+      "candidateSha256": "376b906b260acf27614432e9fc40b08321d08f5a9c6ec5b858c8b876d10387ff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sit-Up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sit-Up_female_v2_0.png",
+      "sourceSha256": "885059793b48ee5832005a30b2307d0185185a8b6a204a3f2e18b55d76cdde9f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/236/Sit-Up_female_v2_0.png",
+      "candidateSha256": "7fe15aad6796c85b00b65fd52cae4e64fa54a5f1b5b1a8b740f78c892aa1ac6e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sit-Up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sit-Up_female_v2_1.png",
+      "sourceSha256": "7e91118f9518e281372cbec7d164002dfecda33943caa5762e9ac4aa6b78f079",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/236/Sit-Up_female_v2_1.png",
+      "candidateSha256": "b992861ed642df6b018544a8130a79ca903a91c6ad827040fe21c67c208d3730",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sit-Up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sit-Up_female_v2_2.png",
+      "sourceSha256": "562101cca5af4c28192f8635086b1aab823b66c70fbbd1f49afcaeb4ac3e9d49",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/236/Sit-Up_female_v2_2.png",
+      "candidateSha256": "38dc0c6acb7ead5225b391ff3f4a734d8188cafd8a3450ed0bc12dd619e93366",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sit-Up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sit-Up_female_v2_3.png",
+      "sourceSha256": "50da7c8aa4ba44cca62d84d84183fcd474081197af3164af80bacaca3ff35c43",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/236/Sit-Up_female_v2_3.png",
+      "candidateSha256": "a31b12d46c2962075b38f8253639a03aaf2fbae59586b6766a044c0df336b14e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

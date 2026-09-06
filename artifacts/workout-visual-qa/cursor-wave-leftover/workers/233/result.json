@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Single_Leg_Butt_Kick",
+  "shard": 24,
+  "index": 233,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Single_Leg_Butt_Kick_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Butt_Kick_male_v2_0.png",
+      "sourceSha256": "8d6fd1d06504df0c66bb1e104a70bf5a9544de4f0f6d8dc174ec23576784f7e3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/233/Single_Leg_Butt_Kick_male_v2_0.png",
+      "candidateSha256": "451eee040b8867be16533bf0e6b33baccf854c505d58a855fce53a9dc97e78a9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Butt_Kick_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Butt_Kick_male_v2_1.png",
+      "sourceSha256": "1f4acf1adec808815adb77580478e0224b89b134f4e483d884e06521fff218da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/233/Single_Leg_Butt_Kick_male_v2_1.png",
+      "candidateSha256": "b9e49efe1163091959c5a24c4393f08aedf323f020d9069e1c58bf14855f358d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Butt_Kick_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Butt_Kick_male_v2_2.png",
+      "sourceSha256": "82336663f32beaff00e49b14e3727bed92bfe2ac26b90a0bfd1768a2ad3f6e73",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/233/Single_Leg_Butt_Kick_male_v2_2.png",
+      "candidateSha256": "eccc68e76675fbbb50f9b3629db156ce66230297aefd56452f3bee71c5d122c4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Butt_Kick_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Butt_Kick_male_v2_3.png",
+      "sourceSha256": "cf78cd1c77355d44aa3f8e51987f2270ac50b9acd04e49dda9dc36f4edf8fdeb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/233/Single_Leg_Butt_Kick_male_v2_3.png",
+      "candidateSha256": "2b117354535fd87545c7386bc0a9b147e970f51be9997188f5f8231fb322641c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Butt_Kick_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Butt_Kick_female_v2_0.png",
+      "sourceSha256": "c457bf48ada50e74f315dad6c69a83664ed20e45bda1ec121596f95016dcbf90",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/233/Single_Leg_Butt_Kick_female_v2_0.png",
+      "candidateSha256": "30a3dd77c660bf534358e2c92714c28cadb312f6b0811114b31744a74c51c96a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Butt_Kick_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Butt_Kick_female_v2_1.png",
+      "sourceSha256": "f085b38fccf52f6008dd839b51b0c55f13b2e10b56c5c98965b4ff7dee2099d9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/233/Single_Leg_Butt_Kick_female_v2_1.png",
+      "candidateSha256": "7c569eb7002a1c088a022a03845153cc63dfa2278fa63f506bd3c670d9013499",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Butt_Kick_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Butt_Kick_female_v2_2.png",
+      "sourceSha256": "e6e65702c6f13b29c743620e374b9af5ce8019ad8a01bc9ed7e514dea89752f4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/233/Single_Leg_Butt_Kick_female_v2_2.png",
+      "candidateSha256": "6ef1c377cf99f7c535871c41dbb21732e78908de2d17604d3c74009dc001a023",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Butt_Kick_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Butt_Kick_female_v2_3.png",
+      "sourceSha256": "b491e91c1e1aed419cbc7385296ed7f9fd67d28d1fa1ac96d1ee1cd4b44e6a09",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/233/Single_Leg_Butt_Kick_female_v2_3.png",
+      "candidateSha256": "7e014fa954f8109a120e35d3c0922355bd517c26ecf6785682427a19219d5698",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

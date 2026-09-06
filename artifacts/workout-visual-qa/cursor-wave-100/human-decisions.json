@@ -42,17 +42,2565 @@
         "f1f314ef54fc50ca8d4c3d8420b8f35ae6161d4cee3101d1ea45b7758a1fee0b"
       ],
       "candidateHashes": [
-        "41184c72d45043c471c3ab67efea1cd41a2bbbad8e37d78e454e167a3233807c",
-        "160380b2e209db7da4df5a52dc32412a7f7ade7710869da7bf22d6e0f466f7f1",
-        "b0e7d0a7bd79393cce7917e722bf3631df34f655390dd8111df2c5d34d7809c8",
-        "2f3e2fc5c5999cd03327243cdca01e8722ac904c7b0b20840fca3563a70eedc3",
-        "190c51aee8474f30ddf837db3b5073af42304c01249fa325320f88b3e484d94d",
-        "8c4c79edb6cf39790a02cb8aab7d56aab8977be516a5268b9fcde96d2feb3cce",
-        "1cf19238b7bf12fb30181068c07ff332236c0d1c6dca2551793237c35e8647a0",
-        "4a306b6f0973aede406c5b6099eeff7f8e458a21524c911178cb623e39e5b6f0"
+        "4135a527a598b793460515d7e0df8237f06dadce1ad0754112f99f9c35cf1658",
+        "d12beaff4a36def59470e05778a39f75a64ca172477b4327bc43bd05b89d883d",
+        "c4a8f5057d9151be09b0eaa23eb4e11e79dd883ea74be67b2a78f594178d79ce",
+        "4fcac28da2c812acdfe28c548ba5007533381d3462585c7cb42f3b0a7d8b1102",
+        "c67bcfc2de850af148c69fec49bf01d22b52a6f6b27eec83890b21cc447a0cb8",
+        "1688bc8cd76b31589b5be2b3b43fdc9ea6ee80db65aa214a41170801b7b59e0a",
+        "51119871fb75c4fa03280a04303961aa03f5ae365f8d63a59d90a27aacd0452c",
+        "33a73d8bc474ea381bd8c9ce756f84fca362608157720f1ae29fd0a2522be9f7"
       ],
-      "reviewedAt": "2026-09-06T22:01:05.136Z"
+      "reviewedAt": "2026-09-06T22:47:39.975Z"
+    },
+    "Gorilla_Chin_Crunch": {
+      "exerciseId": "Gorilla_Chin_Crunch",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "c674b9ae84a33aa340f4acd50d41aa2519c8fd79aea03f5c595ecf2537c8b9ed",
+        "07b99fe1ef2b76bb9f54f895c26db54ff5ac0f575da70f3af9116f139697bc1b",
+        "2f6680d4847946f46ea9ba75b1dc733c9372f9798c15abacc664e0b460cf418a",
+        "e6f1dc688392855cc6cc0e4a9a7c118bfbc05c6a23e174b65ac2a0713f8c295b",
+        "b450ab8efa3fcaa8f8ceef6d1c1668f9317526850c945c9687fbbccbd16fc9a0",
+        "7a05aba40c7c918632ae88b5e57a9b5a8611dbb57bcec03089ba6320931be02d",
+        "b95e8037d6f314fe9040dd411b6d9b776cfdb355259681a10d684a216a9160ca",
+        "5c3698742e186575c8d99308e6c365b12183cf9f3a68afa39b77b90297039cf6"
+      ],
+      "candidateHashes": [
+        "990c7bdd7cfb0a5ba84802b2d3fb1ab8f97c6db240f950ed52c4d29a864c5168",
+        "97aba15359566b889860abb13a8830a5e3fde9d27787c3c67d2fad50730472f8",
+        "5caa97430357dd2025d2c8f4b7641c6c7f8d26aa1102d9d47c7e7d496734907e",
+        "7f1cb108862a73d7c07e74b0e49238c5731f0793391440827751e3c0c2db7dc6",
+        "f3b719db202f89f8d243f582362a303013e4a94af20f224c140cef60b8973a80",
+        "a4dd42210db068cab146ad28ea9d9eb94720e8dd1e26577e5c4d9be896c2a41a",
+        "7014745a4dee186c0815085fa9e634ff903a48c66c4f14eccaaa9e76a256639d",
+        "6848586918d4b3e3c846d4d758239cd21fbc0ef3b0736bb0a744f54560649587"
+      ],
+      "reviewedAt": "2026-09-06T22:43:02.423Z"
+    },
+    "Groin_and_Back_Stretch": {
+      "exerciseId": "Groin_and_Back_Stretch",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "2ca79516ae05ba17a8776186c93e9c7932049ce780238668a9557511a2dde379",
+        "c6f7b68a24b5388cdb6cf38a31516caef576015b69a8dd3a2ee40dfb43715867",
+        "e561659bed02668f55f984cec8ac5c12b785b457bad3366adcdf7a7652962807",
+        "2706190a54db1ec9ac65837c4666c2b15d52fd4da0250f98c741b04dd13fbee6",
+        "97bb4f950470abdb61a9ee36ae6ae3e544e5d238bfde823efac779613eb7782c",
+        "56a67edde8e39fb99cdcb6f15d064de127d61c9d6075a10db447c6a9c479a52e",
+        "d68dfbd12eca85cbaf16cd4e0196f94dc860879f305f5a97f57d3d9344fa770c",
+        "f192a909383c1e91d737e7c8d01e05c5a0bae3878ce05b0bc92c43781bf5dd9c"
+      ],
+      "candidateHashes": [
+        "33253597b3c1cc89e6c53f7e7347cb07d437a64d966217c0813f0d5f2495cb90",
+        "3d8662f8086aeb768a7e49263b7913aefbe8082b8e242dafbc2d2b2288896921",
+        "1cde55f916eb1f08d2bb2d27501458fbe37939ba96e6429c451128276baeed5e",
+        "a5ada53fc51daa775b2f232cf5ccad80f2a8c67890150c1c6ae3fe5ecd9e9a4f",
+        "164817f835fc508fc435f6305207eed53c39860cd6b6db6e4fd1754ac5076103",
+        "6fcf11d857c6bca4eea707915052caa7365714d18f4b65d6920241e66379fd43",
+        "7426f1b40da2d7bd892dbeaecf31c74ed03f9a876455b6d22d341dca006c1acb",
+        "53878acfe8ef2a438690b7d49b3143f05d8408439d227769a3ccec632675b4a5"
+      ],
+      "reviewedAt": "2026-09-06T22:43:08.783Z"
+    },
+    "Groiners": {
+      "exerciseId": "Groiners",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "0b0cd1138880ffac8573a959ff91599d8cfa02e13dd0d3e59711fc7a9e5044f4",
+        "348769b4af0babf9bd7f9541bc26896507bfd7b00e0cabaa6c9bac5a7cfc10f9",
+        "6930894547886d8319ab2fe208d6518131eae7f72252bec75a974d7f8d39fcfb",
+        "f6c7cfccfdc0f2523e31ead21a129d51af41e2a59efeb101eead92dae40f5789",
+        "2d4964b2c8d1ec6c1b56dc0e4867e00e64633ecc0edf925dc39f33d8e78b3555",
+        "1fdf0578dc6744b3d79f9ab0e382cbb16793a3e3d6a12c35258dd28064c87359",
+        "cb657dfc75160285f73c8e2e660ba43c0fd4eb018f4d497ec04e77a386a10412",
+        "1aefcb578c7879ba69db23bf2c26aa3e78d9107ce0ab093b299a717cdf846e62"
+      ],
+      "candidateHashes": [
+        "7def4c367004ae6aa9f34abb564069662eac310ca9d9d2a00baacd8fbcfa1c61",
+        "6f82449b68d897409fc9f53822b5b41a8c44a7de09d7781d8d04fe9575139148",
+        "576cd2ad6c56970656623fb211a6597dbbf265cc73c2de50ff174427f3c359c6",
+        "61a0e5afd37808d2438151578bdb30b912f60060fd6ae94b8abb23fced475da7",
+        "47fe7b83c6dac5b61a84853ac16861201e84ce96966c6ba0d440decd303aecdf",
+        "7cc7b3ab415611e11430464c2526a20707b37132ab55720a0197f71551d920af",
+        "a4e808a114a08e909009c7e91bc18bdab1fdcee2f3d35b436cc84c5fa300d4bb",
+        "a1777de742b04fb09032d84412cd4e85a61e768287a6c683c9ee7794dbbbce93"
+      ],
+      "reviewedAt": "2026-09-06T22:43:21.710Z"
+    },
+    "Hack_Squat": {
+      "exerciseId": "Hack_Squat",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "3a91314be6e78c7e3d9b44ff7e26eaa662426940346acb3f815b8f9c6dc2e0de",
+        "4f7394bc1b0375d39eedbede402134ab7eeb234669775b2ac7c0ad89a2d1caa4",
+        "dd2fa84f565ec8da463736d39f547ae9c0fe1488db86dea7e48954f33bd5bae4",
+        "a75ddf2956fb042c347ef13248ea22eb6a68c419a1da610bee56a6092d449590",
+        "fd5c8aaebab0f50d5eb1f398a055404fa2242b1558fbff127740693f0789b8e5",
+        "f5921d77fd7e159b035ed8d9bde04cb27d496b73955bd31468fea485190263d0",
+        "488bf4142352fcf452ee88e8a0ea27941a054eafb9677fbf5ce8bb311e83173b",
+        "5bff77b0a28a4a8a4c3fa92c22817990eecbbeee18b9668f81e67f8d065a2e32"
+      ],
+      "candidateHashes": [
+        "1d1f7dab122be8f8bbde18729ff07727b38cee395fad1c22cf43e117c179830a",
+        "e70f40a4cb160de51a519c6f152fce6be968450c5723dab78f40e5a4e838bbd6",
+        "4e19caf288d5cbff2f4c38e8209f04d1ae21568edc2fee690928a0fe454dc0b4",
+        "a12614c175d572f7900cf77ec3932231bb693be4ffec5752b8818043fa69f2d5",
+        "4cf9664b5b908cbdc4c37686c881666a028dff60decbd811189edc76f08ff76e",
+        "f9be43df7305c99645cf188bb5108eae81b4a60548f9e5bf9308a06e017cdad3",
+        "0b1969c53b41dc7615259f129647094b9472d9c8da5c6a95e0489864ca7ebaf3",
+        "b5c7ea62ecaf3c9ca9ea80bae31f57d22d7337487785349d03456e9249d1d6a6"
+      ],
+      "reviewedAt": "2026-09-06T22:46:41.837Z"
+    },
+    "Hammer_Curls": {
+      "exerciseId": "Hammer_Curls",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "87e3fe60890d7a407fb2ddb3d8a70c42730a0af9366e9f53fd1875686bbd1b5c",
+        "75b2d44ea1047d7498bdc56d312a09d9db0a052c4477fb67f47df65974ec578c",
+        "ed7e9ab96daaf134c8295163bd7f7dbddb9f4d9b4642ff58bf72ec3e323c2233",
+        "6aae12b400b2d0a03dbecb57d5ea5e67ef5719a6aa0630e8c166704f33736e90",
+        "bdfdf2069c76d93bc73d1850445fd32dcd6df609d12a7b9780d9a56bd944cae6",
+        "9539c0e9328b9c97b9b0511d95d8b0f181acff36f1a3e36cda0719a33a2237a2",
+        "1b5b3f1a7b46c6acc6cc326f821b8f32390c400445d03ebee419490133f32e3a",
+        "8dec61f9b2ddfd141558f37ceb7f71399ded4ec5fdbcdd69886974eee9a58a28"
+      ],
+      "candidateHashes": [
+        "e7fb445b87cc7a841fba3f01f7198e90c0c58fb546f098d71f682d00385c5515",
+        "e06b62f0e7f3f79d02270392449e8a5dfb16556148953b0a825cb8aa3a2b8271",
+        "8c6d6855664e5df110a6ee7a1fdc9f78921bc155cd4a5f7cd90f5a678b71c9e6",
+        "cd1c6a6da014caa868d26fb74139505a9cc64aaeb58dcce2e2eddca7a652fd56",
+        "832f5d824a3e45f6715ff26486bac27fb87e49a13fe9b194348c3883fe27f3c2",
+        "734d1e037fe365ec970474af4d79119d969236367ae6fac41be3d680a4d53dcf",
+        "a5d474b11dc751cd9fc52cdb2b4bdad1b0105c0acbdb2d6174a0860dd27d8bca",
+        "109124bef28c6696e0097c80feff4f57503651887eb4cc71804a3ea6380ef346"
+      ],
+      "reviewedAt": "2026-09-06T22:47:03.671Z"
+    },
+    "Hamstring_Stretch": {
+      "exerciseId": "Hamstring_Stretch",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "5a742504d86750082b324ee8f8b93c523cac0818b17d6487b8ce2f21c370850b",
+        "905229c8241fba704196f8ea2ec703f77ba744d0c02d4faf86a784dc210a5499",
+        "5a9211de8dc8d91a944f6291b1be1f39177581a2347e87e97fcbc5d1a367a617",
+        "e2043c8f286790788a8a48979d10499cb87511f4e53e49143907105610f2de1c",
+        "cd9af3d616e21328629039d640c1d05099c9ee2881fc794e1986ad80da1643c5",
+        "f51f0e9845c8058daf025b7cf02a4febf8045138ffbfd67a1cfabe63bfbcd462",
+        "b78f3bd4be4910e87efcefd31d65749ae7d46faabfb0a2ff62ea761241b57fc5",
+        "c23ae7ccae9566f65e56da58874095068c7bc4462586a9a0e2950849b2d52e21"
+      ],
+      "candidateHashes": [
+        "136a9916af5ee755a2934a550efb7cee69881215b64d9a1374e398f4557d1e4b",
+        "c52a9a7d62b6e2c8d2d46f2ce52b99ee8424a0bda41c8018f64f5a52a0c0b554",
+        "56824c0344bcb99a0e09c3fccfc9bef346b1b32aed11e1909333464a13e52d12",
+        "1f54876e8063f1cccfdbcbfeaca8129567fb7a68a4244a5cce209b3c6b59986f",
+        "4b06b7637478cc4a3dfbad62807365f8ecbca10c653064faf616f6d612d7cf6d",
+        "182f2d8901ebd0aae4661d90addb5bce6a85d4fb9f6da1c0e99133aada74950c",
+        "cdec3dc9a8e93df38f3a60319e1cb26fd47f84110f2a2794b0f87535a4873086",
+        "451bc1f7985ca6c4fb9e5dc84b6bef5b1db9a8c5ca582b11074fe27deb834f60"
+      ],
+      "reviewedAt": "2026-09-06T22:47:30.981Z"
+    },
+    "Good_Morning_off_Pins": {
+      "exerciseId": "Good_Morning_off_Pins",
+      "decision": "needs_more_work",
+      "notes": "",
+      "sourceHashes": [
+        "60077c009ec446d2a68928beacffb7ff63254c2ee9c4167d649f402002000de1",
+        "8fda173ba0dc758fcb9968508a11acb4739f9cab02c79383b7e1039c2b40d764",
+        "510e28f955740c11ddd4725e32fd4fb37478045383d153f071c00a59d903df97",
+        "27e5485bb9b1b085494cac5757247413c547e1dc4dadbf1234e90b5827798142",
+        "042dba2c1fd8aec40c5fad06910057b87d3122a6eda07ba341eb86e64f28d0b8",
+        "483dcae9e5c0053e57ca2b7f004aca79270feb6af8602a9ea9773d79fc8a7fa9",
+        "e824c40144e6b382934f8f58cd7137c46d9054923d495c8afa14baf5c67e10f1",
+        "5690ed8c0c731efcde93e150582a68aa372099e8ceb800f5a9d74fa7b93d5d0d"
+      ],
+      "candidateHashes": [
+        "1acfe5a369e02e5409aaaad8951ab357f44794eccf5f090a5038486db2b392f8",
+        "9f56521d9079ea959638fa4be924fe52840de1711a4b168d1f7eee22996050a3",
+        "7cfd9c951145dd6ebed042650481744f08e1e795089e92763b463e3dfa9e7498",
+        "6b5b259370a5534542be84e0f18153e7c7e9fd4e6b9560da5f7de96ec3e6e760",
+        "719199b47a665690de24f6c40d6a763fc8fd595c7da6f52b374ac6898c0aab4f",
+        "4afefdc5ede2134e988cb863006a8ce5deac3f7adbe43e3ea6ef15af5ec45047",
+        "3faeeb823d690339d57220b5fba08dc36e31bf1ecaf7b6a8b355345b644290c7",
+        "b265c4b63490597e7a01263fe1a3658ed6348294f50cc6c6d32381c7768cd38b"
+      ],
+      "reviewedAt": "2026-09-06T22:47:41.572Z"
+    },
+    "Hammer_Grip_Incline_DB_Bench_Press": {
+      "exerciseId": "Hammer_Grip_Incline_DB_Bench_Press",
+      "decision": "needs_more_work",
+      "notes": "",
+      "sourceHashes": [
+        "f337f39df298f7f7c0cdea6b30045e04eef5cbd4984ea2d150bec8146427f711",
+        "25d06b33fcb83a96f62c2304a3a4159b813d5322fbfd67255cf1866fc68bd0c2",
+        "a807d43edb98006dab1861fb1ca5eb363574da3c27161f01007ca9d27c8343fd",
+        "b0e0439d21f76549b52d6aa76b8800925045730bcc447c1b1965985569675a59",
+        "522d587e04a84b30a02c64900692b200fe54b830be79c26ea69553e38e150fda",
+        "36729c317380e86cca8cd018a4f3790cc3aa87b94feefeae2fb6f89f214e95f7",
+        "08cc2a03604aa69baa2ebe0e1048652aa1527deb306437b2a6d0090e1bc9af14",
+        "2bd82a61f59845366c5a4f53f3b6d2b3f90076734123da119b42c141d97ca81c"
+      ],
+      "candidateHashes": [
+        "c52b291c8f0447893b53d506f07cd7a088259df3bc52c6b3f8f496b33344a460",
+        "500174757a2e6630a44d361221068f6ca46db2e8d25e7413067183401517b1bf",
+        "e29bd706ab4df69a4dc3afc745d2220159fc601ab3753e7b7f30b4fa70931791",
+        "8a5dc1a401de1210d621c2d9419a5b07e7b40594e172851cb8996c7b1b308a7d",
+        "a40c052e417f9af7e2de81e584a4e6e6739c756e55e938b2bb94f6b731faf4b3",
+        "cfd20845ebd4a236e6338bc8f463d1a6bf6c833ee68021a6215009aa51d025a5",
+        "88060c2c37fdfc793454d8e430a90539d3b267b874b8d6d28fd4f9d41f01778b",
+        "7f266972e0adcef7cbfaf04e8a9b336988cc78d16d8c5e03af1f6e088174039b"
+      ],
+      "reviewedAt": "2026-09-06T22:47:43.543Z"
+    },
+    "Hamstring-SMR": {
+      "exerciseId": "Hamstring-SMR",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "d62e1144f8ba3538bc89888e7e7ececbee1345c696ea0932324e7d87fa052f6e",
+        "7ef9b93346e1819c0b4c830fd79d8225b578bd51d7e9d3caedb7667353c2c1ec",
+        "c7df04eb29b11d1e04da777acabb3d5842e795f1d051d9e57c54c75ccbfa1f43",
+        "e0236a6ab21116cf236020a346e7fead146e3b7c79783513c8b674d044485398",
+        "a90f62c735f8b2e3a7640ca8d733c611ef591eaa88b9dd6e0ca61a77f2ca05d7",
+        "0318136174ba2691b0e863d31d22f8ee1f02d25a00782c288d9e8465ad6971c9",
+        "b003484e1264f238ba53eaea71c0ed90ee596cef4cc93d82a291db193853bb6b",
+        "a77f2808eb112db496bcdf209d0299044b1821183977ede94bbde3db4a21a471"
+      ],
+      "candidateHashes": [
+        "77db7d9cde4198aaaf9f940aa6dca720307aea621b9a76c27f9c6982b95c43d8",
+        "1d02d7e37f0fc12a5be6bcfed292e01c3789e6e2a8e8872636978fecf43ff4df",
+        "6bda3c900fdb940c9db23fd91c8de7cf816808f1aac943d49512f833a8157c96",
+        "f25226221b390e207365a4079c3d824de5afcb999f4d57e79fd121ad94698c26",
+        "61a5eaba70f1ff9c7989a9a49f876bb25be2236406238550cd9ab0d5fa28618d",
+        "e707c31ca2037d3803948083b1f52838a1eb7ed4c99966ab90356a237109e84f",
+        "bcdd00352a8bc8fa33f047b63805f4df84bde3e688e86067644ca1c17a41c8c4",
+        "354a6547a12e0a638eaa4ed880987999bdbc39a9c3eb71a36ffb4db9013742f6"
+      ],
+      "reviewedAt": "2026-09-06T22:50:35.479Z"
+    },
+    "Handstand_Push-Ups": {
+      "exerciseId": "Handstand_Push-Ups",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "0cde2afac1cd792308984aa3bcf70d92a3dee3b2d4b8aed274e30276a54e12d5",
+        "112e81679818341896efe5261b40d5e806e944ff88ac00e70d70b360f1eba24e",
+        "b728fa8f5415998257d871fa040c288f65f32facffb0b582eacdb0f5c8915786",
+        "c8b0e6e7724de5d728646bbb06055ab81261dce118777422a9adf6c2fbf5f111",
+        "81ff5f6e16b34c28fe58586ae7017c2c188b27f7d21712f2496eacf43ddda013",
+        "7826a0ff14485b4f9003939292d0ee8e2f33417a619aadec76b4f7f8bf243323",
+        "749e5d598dad954f32910d75c6f15880af5f9f03ce8c0c2fca2d1b721af4134c",
+        "c3a9484b3744cf596022d39865da018aeb9d502142cb25b66a5ea1f954134db1"
+      ],
+      "candidateHashes": [
+        "2a43abb742aab4caee11439c6e00ee4808a94dbd163016f559faaa485d39c1c8",
+        "c49d07c454c6e06ccd7d09676ce2bcb3b136f12f8ea8b4c6d03067c3c37a107a",
+        "4e663284cee6f1a24bf4f78675c9078cbd9ba32749d22c3a79f48a271dacd773",
+        "ac4adf78cd582df8025a6f6abee005e486a4d875399029a9f00d87beba3fe4d1",
+        "dd4db0d7a773ccf2efe95a5271c8cb6704cb7a8e18ad95a6417f5c2af9c5ca39",
+        "431b2a715f050826d7b9360fa70c386a98584c28703cfd670a5caf4b7d699c80",
+        "a1bb2b7b6d757701b0e45c50b05c07fe211bfceab8d346775df76c22932170fe",
+        "38b16f8cbb016529d1c3ca65ff34bf5fb4f8ae28377d5f2776ac9e41da5f7d86"
+      ],
+      "reviewedAt": "2026-09-06T22:50:51.016Z"
+    },
+    "Hang_Clean": {
+      "exerciseId": "Hang_Clean",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "4ff9b6e72944982346cc1996069ebcfa8e722a32e4a0b4e3eb1947de6d5f2286",
+        "ca20719e4c60d0885ded4915215f1342cbcd3e079a177447c774d4c64cf816fd",
+        "9e4b19d1c39e217d9780d51a871c95003bf3be7128550e52a78d67874e30dd0e",
+        "19c6d5543ff2ca76c0540aae2ef817aa35a64e3261eb5b8318630cedb6b6463c",
+        "ce361cda8fc7a9af39e250039787d1c363d08d83134f17b61391bf79824bbd4b",
+        "41f946b8d25bcc591ec2284a9a580bba1379ef104a357145fd518f674ab011d0",
+        "5187620071b54ce1bff7a55363b58eef3a820dfa1584c67e3b15dfce2ff197ad",
+        "cdb791641ebf0bf81ed3a182058d1c962fe8703e6572d64d0f7422fe217e2712"
+      ],
+      "candidateHashes": [
+        "fce236c32703c7f8993870c3162626f125560bc6f9a3766f84d3e5e75bb4deaa",
+        "a8bca862ec4130dd40f7bdb9f8e2ada68aa1fcb416cf2c3e040cd98c66b10513",
+        "4c15153727233a613c7949cbd284889ab0231a72fa046115a4b1d8c73f41ea20",
+        "134d16e7e87a1464d768eee9b5c23d8f325df08bef47e86f032c2fb4e2e5d8f7",
+        "605431b98397b8e97ac5f4e63f23d29342cab087aac2d61c35cb1ed1e96dce3a",
+        "cb217023e4724c5eb48e4e13433c3f995f7727ab820e8b89cbc90e2f33b4700f",
+        "8518b31c94cd2c67816eb3d42103446a4b2dafa14ecf6fac45ce54205e3c7ada",
+        "fb8840908123f60e6122ebfce9d4006d6e491f4d36c88b5e1cee2df509157063"
+      ],
+      "reviewedAt": "2026-09-06T22:50:58.642Z"
+    },
+    "Hang_Clean_-_Below_the_Knees": {
+      "exerciseId": "Hang_Clean_-_Below_the_Knees",
+      "decision": "needs_more_work",
+      "notes": "",
+      "sourceHashes": [
+        "29af9dacc92f0613e89e8cc7bf641822bdb673c80cc98e738faeb8ce317f3327",
+        "5f4f89a0c212ec524e02d344c646a9dd78abaad778ff06796cb4c45ea3688a9d",
+        "86e0ae2987ee289d2d66873a86a45a619fe1fab471b85995e3197268ddaddf06",
+        "07a03bcf3e84e385986b9ad24051890e317d57698efdedc0a83dbed7d40fc6fb",
+        "8d782ce9d3a86acc6ece574f8e80945c9e2805eb783c509b264bd5795f37227b",
+        "6fe700a4d7bbdec4b8f2bfcd0434d22764324fe146ea240e2658d2dece1f7743",
+        "05407efdd0320b0ba547a0d250ac72097375972f1a730b428a25fcad6a18e417",
+        "eb874584919bafc364ca6837cf232483ac0aa822985dc2f3d74cb8be328bbe5d"
+      ],
+      "candidateHashes": [
+        "b3cdaeff1a99637ea43a5544d49d193b835fb34e4e167db849fdab1f0229a254",
+        "02d41c6a2e924391682f130e14b0620708c2b64a07a91faca55aa49a498fe9ad",
+        "28cd7ee09c7020f79e1f5b5f7544a16e72e1db92a77fe80da92344d16f6f0602",
+        "d71ab20c3de6b1e488bfb2424fcf3a947c474dfb29aec7d8d1f0f16bd9c44238",
+        "110cbbde23d5c177b16202de680db6c77a40587f30a54c885cb3dc5d78f970b3",
+        "572667654d47ce0da5ed16b353e532c164007e95b7674afb4938113718b79d0f",
+        "fb9a90ac6af0f9b6b60903773f413bf60533f6ea0f59930d34e434ba1500d44b",
+        "ce946abebcc01ffcab301345bc3924fd7d9548c963aed8b6d87c109012e3d1b8"
+      ],
+      "reviewedAt": "2026-09-06T22:51:08.381Z"
+    },
+    "Hang_Snatch": {
+      "exerciseId": "Hang_Snatch",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "eb8607c24f23d03015074cadf7f6e943991d759542c0f5aa3c2a1cdb83e126d7",
+        "33faa1d742f3d446782a881fb47166ff4af748ece494b2dc97b37f6f1320aacc",
+        "fe4c2d4982bb732fc3dfb29f1601e3aea6943963ad95dfe8a5abdeb04d516bae",
+        "b596d086fc53654d6f586608b3fca523d89a77edb70c18522de0812d37f6249f",
+        "ea1dd319ea54d2ab6670b823c213ff0629f66b449fdce4b947eefa67415d71ab",
+        "b41a8f9d081ad5e2f4df18173b68422cae8c64cabae1b952283958dc430718b0",
+        "fdb1f208404692fb4fa08a0753ba334d05bb0b167b61a0bb588b12a203d5e915",
+        "60e94efde8ea5570dca7b145d47a800378240c21edacca4b3b04674a2be464df"
+      ],
+      "candidateHashes": [
+        "c77f5ecaba4b2f477143749be4dd0263c455cb9ceea5d78c6a223d125efa098c",
+        "2b40b8528caa900633739945ce9bc5ce1739086782f7bc3cd0dbfe03db529e11",
+        "53d9d771921834855d50beb9deb8c97bd0e2f52dba40d14af8a74a70b4649dbc",
+        "acbfa9ec17e92a80acdf126b829c7dc39488b8eff81aae8594e509c6cfa561ae",
+        "54ea384b4c037d15c83d78c0687ab4197812804e13c5567e1d8881ee4e0c8298",
+        "ec0f32c4692901146355875df6dd24cbf4aefecf326153c4adc15f6e47676c0c",
+        "96e370dd435c34c4095a3f88850a1ec27cd11ee2223184d2d6ddb50fe55b69cb",
+        "3ab8a1a1d65cb4c19f6621e8721937b80282cd62e52e0cd8c9194e5aa2444f3c"
+      ],
+      "reviewedAt": "2026-09-06T22:51:17.463Z"
+    },
+    "Hang_Snatch_-_Below_Knees": {
+      "exerciseId": "Hang_Snatch_-_Below_Knees",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "fc6f44901ef1218d1de17e80a5b77776ea4a72f74dfcd516c07187d73e83c8c1",
+        "57c9c60c8109e781188827b3db6ba4e914099126b82ea8b40e563ea7266f696f",
+        "9af7aedd5eed4cef62a1d25fd57c0fd4bebac1ea5971eafb7c484e57011288e8",
+        "4cd6e35e194d532649b8f57b6fd20579f4cf9037ebbafa13e5f9ec89ec7e02b4",
+        "fc4a31f9c3c85f234a95e4662deeac1adc3c4ef3339fdbfbfa62f8dad5cd83f1",
+        "7ed2be9b7fc50688cedc38fc490a72c73ee53e699c7df6aba804c8fbad214d19",
+        "320591a5966d308c69015d9d3e399a012f439ebbe518d405c1b9ce5415f54db7",
+        "8d5612320beadd3913e8ce14d3d59c87e38b838c8accaaa466812684f1c90d62"
+      ],
+      "candidateHashes": [
+        "6151f5953084c7f5f65aa8cf7a1e7fe3b3329c55ec821409dad6689d12652a6b",
+        "971671a049274ffd7557c3afe7cd6dfbbd9ff3347ed3c4cd488d8972d85a131b",
+        "18f60707b1d30970b06ddd04f6c5cb499a1c541bf54a0f34d120f3f2309ed407",
+        "9825b859cbdc2a626f015ba52bd6373311c00dfa793b714187dac87c6af70408",
+        "03263a57915e6c415e34591c6435567e7e00bd9fd77d74cf00ccd2b7404a6583",
+        "d4f6a3f2e2142e4867c626f5d131e473dd0bde983d0df044b28f4bf8aea05671",
+        "9e8acf92bd93d2982504b819d8ef13717c215855f52eef3471ff36c6f5002f41",
+        "55dfd9842fcc1cf276100d96adf838541ff057623fb503e31118c14486159d6b"
+      ],
+      "reviewedAt": "2026-09-06T22:51:25.140Z"
+    },
+    "Hanging_Bar_Good_Morning": {
+      "exerciseId": "Hanging_Bar_Good_Morning",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "fed73b1a61c04fe28481f4c3143b85a6bf529b1e3cc632d2b4e99599cdd98f6c",
+        "bd9a45a75e65e31257a53cff3db3abdc9fbef9faa0d99abf8fab990bef1c85c0",
+        "2b83e6c0f673ac467bb784f6608282be7a29af4970dde47f5ed865365421ee29",
+        "e7e386f92932a1e81a75f31a8726041a7df4ef0debece291d397ceeb38607775",
+        "84cb9c8598cfef95122996583e56bd46d563b5de7d74a8e1ffe1affa002bc068",
+        "8ca5e0e07176d49c4764a4802d1760a9a03c7542aaba7e40d49d2a50054acd5d",
+        "1ec0a4b4fc4f7b111b1f896bc6d8819e1d7b053ff70f1182e2b7419afe08d264",
+        "7d374911af1348d014fb74c692e04ae8058794b884025c870659f37a661339bd"
+      ],
+      "candidateHashes": [
+        "d031cd2ab97cd8a53ccddbac6b64738e1caac102d1ee81e7a35f01dba740ff1e",
+        "3be6e78e244a74f3b24acfdcc7c2ca2f30ba7f86d07c627d0ca90f188bcdfba6",
+        "0cf124505a1d41f1c14afb00149fd8da631bba1577f5e2c23b8fb4f7d794a995",
+        "49de55ddbf4b565900bf7f42770a6b19f610d73211cdf07c4af132a0bf181077",
+        "8606a127f31d856c17a7fc0bc9b75c964f255b88231021348b512ca4912cd803",
+        "b844189168c4df24a1d5b8cfda9258f20dd7e5a14d15b9cb0168657dbece57da",
+        "4fdcf21b5e938b99fc05effd851ba5a306a88da3b07f915bf208b6ef2bd10e92",
+        "6a2f1ad74095a2d54ede52ecbf81b7553c2939872c30cc47595c8e802969dca2"
+      ],
+      "reviewedAt": "2026-09-06T22:51:31.525Z"
+    },
+    "Hanging_Leg_Raise": {
+      "exerciseId": "Hanging_Leg_Raise",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "b0acb71f9b437a0356c85fa306d21ce841ee5df63e68e889596ef05190b3e47d",
+        "ae5641ac5ba6bea1dadb36bba51d58a6584c7abbf7514ab919d7745bb5e2a843",
+        "fc975641f04b9519d7f3ea0a265c76dcb113d7ddb0b101908d766ed0ca33f05f",
+        "f03c699537ca372f5143834b620dec59a55679057ed8641c7222aeb386771a94",
+        "6a3e2c19a801b3812c7cb2cfbfc1a8e808a8361aeba6528db13955817edd6f8e",
+        "e9307759a561278bf26f2db19b6f073af22e348dd3abdf821b89ceb0787e1a7a",
+        "18dc0c6ba3b01ab7db1be7a25639c309eb3424978c60e7005215151dc34e77f6",
+        "de58033937bc40bb2a29cd636a91ede742abf614af5adcf99490415e0cb96914"
+      ],
+      "candidateHashes": [
+        "66a2905de18797b4e0679fc35939d6b4b221a15957434a84b4715a1e3a5df65e",
+        "c40e4063dd01b90178dc32c254b676b9602090dbbb04d08d5588a9f395597170",
+        "f07e2d277e0e565ab690f8d72d5e3e9641fa3a06cd4327091e2cdb1ad4cb34a6",
+        "61c8d36366f8527535ea121b5d27eb81cb987ab4d26e5b5ef0efdf0dc28a4425",
+        "537a69563b1028cd2309cf0030581ea14aac73d308c9fcc88829d6e38d8c629a",
+        "a4adc29649ad1a3342662db6aec22fdc3eecd71038e279feec34f5ebbec5c45e",
+        "8bc02ab58f955db9abdf055905580237d76540cdd0116a125ace867cfa4e56c5",
+        "a5cb8ca8153998a02f5db4f0638a45046feb736aacfd079a5983ba004c18bbf9"
+      ],
+      "reviewedAt": "2026-09-06T22:51:37.865Z"
+    },
+    "Hanging_Pike": {
+      "exerciseId": "Hanging_Pike",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "ee9984d4576a24923ee8c363fca50a0932f5d46a6f3325966653a5816f8af13b",
+        "61c377ed1c59a54330d86365fb690662cbffde4c527598df4a8f2d0c071f76a9",
+        "7aaa684b5d5de4e2bcaa4eda5514c47780411fbc670844208dff126b0ba69d57",
+        "0730bb053887c994f1b594e633a72925c0da4a393751c484d9ec8bd1d541962b",
+        "8a15f359e4f82e03158fbb757808a4aff1f5a83b7716733e54b06ae52c7ba15e",
+        "2d2296f91968634672d7c8a46ed22ee44630c48f38116bf90c834acc3864aa60",
+        "799b85282639a03c92eb9d1ae0fa77e5cfd851f482c3c58b4b04b2e37996c470",
+        "5734be5cb50df83c7904cabf0e0e3dc392ebb93fe4c4a89df863303bf409d30f"
+      ],
+      "candidateHashes": [
+        "2a79c4197c8ce4045537e05d1e23b8d7fdedd13891d1baf21f5fe07d8ed22f31",
+        "9c5aade4e69a4eb3feb928fa20623c2b073b892a458c78a50aec00c589ac66df",
+        "9afd9ef9b87d485556a9ec73631002b4932a159fa95583b8886711813416c283",
+        "7239c508ba30f84f15b965e8e764406850f38eb0263f82f18f90a2045a43ec3f",
+        "c1a6e79132ea5babe71891da5e57f0e75f9842e24aa64cb38af0d0f23bb92f86",
+        "3b5db944443bc81072b6ad116daef06d2aa04d41975e29d780c49770c8b0dc04",
+        "0106ca6e52c0c7b208f40623568b105afa91b5abad9c2c9f9aaa4f9ff4d86b38",
+        "2794cade68abc72823c4f1a14d28718a26c0e70c0230f229bbf60d0c8e92bb06"
+      ],
+      "reviewedAt": "2026-09-06T22:51:43.847Z"
+    },
+    "Heaving_Snatch_Balance": {
+      "exerciseId": "Heaving_Snatch_Balance",
+      "decision": "needs_more_work",
+      "notes": "",
+      "sourceHashes": [
+        "aa438c3c387bcd0d3151868868c1b34c62728fbe1c64be9915518a9259126143",
+        "c6d0dfa9b3b4465766d86a4f4ea0108b6e6fb9542d6eca4ea3ee75d31cdd34cd",
+        "123378b009364562d19e2add7e573ec8431411f0ec0fff6be6ac7c2713fdb0db",
+        "bbe6273e2773d517fc113a6790578b683c7cfcf611d1f5097c3ec2be14dc4ea1",
+        "c4331009967974dec7d9dee2cbb6cb58eebf11132a307fd0b47cdf715b4e63f7",
+        "4553fe825cc38a248e61ac3212b9c3f43bee1218b1ff931064d1b57d9d2a02d4",
+        "b64595f2e24b200923a3468c21245dfea5edf697b95fc5a27d339ba9d0a4a0b1",
+        "32d2c388bda8b5d6e0a2a245fb58a4c93369e7708661e02d1d4b77c101aa2b1c"
+      ],
+      "candidateHashes": [
+        "ac59f22683e87633657a90dcf68f65552986e77582727bdb66a460d1b70b0ecc",
+        "70a6206fa95f0485fb293d0b4d160c2b5022a1628fd6993c30b300e026d6dc9d",
+        "f03523a3958787b4adb85225dafb1d1f8964c0aa268de595dcded0472661cf25",
+        "b6b691759b41508b42d055bdbef2803a1b55fb33885ae250ad375b256222d0f3",
+        "9cbc8cfe85871a0a4bedb99a09a861dfd6fbceb8822a7f66b6dd6d4512706679",
+        "02074fb83f6fa73ec7523cbff779f037f0d743e60297e439f4de24c6a42b16e8",
+        "9c0409a560431d4fefacc19b29933aadcca963d2d841ade24897fa6037154ed2",
+        "6be4cc5918f5cca1bdbb5585982ed3512fd9c303fffd061f7ca66f51590bcdd9"
+      ],
+      "reviewedAt": "2026-09-06T22:51:58.186Z"
+    },
+    "Heavy_Bag_Thrust": {
+      "exerciseId": "Heavy_Bag_Thrust",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "b2c7ad9a9ac21f24a5d96e8fd414a452ab240f9005588ba4873a5cbbb5f5026d",
+        "dd93f5dfd8ca0de7d9e9bc14396ac32aee9520e6b23022e8d40e7c581d11ddc5",
+        "10e1636a796961d97cdd2dbe6f51c713b9a54e829842ccdd8d81e9c1961c058f",
+        "6e68ff27cbc39086a48b4dd46152d7b375b0b5eb7f84daa641932dfabca1b433",
+        "7cda0b3be5f78a234802e1f6950956e2736979b24d8a06a868deb42d91c0e1df",
+        "c4485f0e14810de7f555abbdaa2e5805b8d40d619083d40bd8ac33efb9c3e5ec",
+        "c4dfabd0cb974030d6cac4cdf628c3c1e4a0a98dbb28cf314bff79225e48a365",
+        "3612f51e1406e100cd434ed860c16166f81bc063f566f5413539daee5b60d7e7"
+      ],
+      "candidateHashes": [
+        "2fde9f635fb283cc1820457ad8eed666d2374e4df4961777afc35735a9689eb5",
+        "d2c6ea69408a595cc9dd155a5682632234b4eb66bb76f0779c87d548c9102cd4",
+        "45a19826144b15a99b11847e4cb3812e8d4a84ff1547e3a8ee0e5b3851671189",
+        "ba57fca9a4aaf6f0d2c50352fba1b11cf8f2f4c862e3350cf723650d19824fae",
+        "2e2e0d272ae3514525fbc576ec6f9bbe16952219aaae0cd6f5af930de2ce37a5",
+        "f002f1615883871e3107837ee6869df5e0d436c76477f5feeb4ab278912cced0",
+        "a8cdd315a439ee4e476936c10e4f1efb334808c1f46d4932e2b39d3d8098bb07",
+        "508833b4c64a51227c85faf90c9379d7f4ce4c185b6e4cf3525f764475a8f0f5"
+      ],
+      "reviewedAt": "2026-09-06T22:52:06.667Z"
+    },
+    "High_Cable_Curls": {
+      "exerciseId": "High_Cable_Curls",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "aee8e23b227ad0258a2d0f44ebabc21cb09de42c3668c85c2b0891a316e71532",
+        "db941267493563a2caab6f9fbeda481d71facb77b6926bf5adcbabe5e0ce8057",
+        "ad21afe7e3f6bc5190fccae7da5d6abbd1101ded754c5d9763fdc319f463d643",
+        "4b21b9fc1270dada0f4ef6b74635f755e7d8aa1ba0addcdb772e780ffe78f096",
+        "7cc83cce6ca9304b24774eedfc067ac9293768b6fc6f2285cdadf90fbbeb93b4",
+        "8122a0121c83acfee7580f625d11facd08fb38d02ed9c43d61d312e40f186955",
+        "ff60b85d204e0e27841d7c533c907c47fa425e5823b01aac2abc7f202df97477",
+        "d931883ac31b3a7cc5e244ed036704fcb0e62c71a9ce6f958efdd6462c622dc3"
+      ],
+      "candidateHashes": [
+        "b05e4d94b4f5f5d0ed9b5ed0bf2638d72ab75720ca307216d42607532d17c0fe",
+        "af90e5a2df7f5df89b34241b242aac4eca7f0a0be3445c09db4f0a8bdcf11e8f",
+        "ad46110744f4ecb420e1d7b4df1e28ada350a7bbab7782cac7fdbe53fdf1a0c0",
+        "e731e1c9b06323d9a96b33a46501260276616d4c2b0461fbf7f4093dac8ba9cc",
+        "9dc50ab0d9fad2edd8de7025f57dfa28da395c70864dbabed59885fd7a82665e",
+        "692600e052c06bf4f26ad4bbe30f60a6af116892d49b9a58cfccfcd4a06e14c6",
+        "dc2fccc4f760fff53fd203e1e6e406a5eda465aaf69618b0dc0f51f4f19f4f7f",
+        "a697ed1da4f4d9dc7447e4b3ab2ad1c6a265b7a29678936ec541c1bbfe304297"
+      ],
+      "reviewedAt": "2026-09-06T22:52:12.888Z"
+    },
+    "Hip_Circles_prone": {
+      "exerciseId": "Hip_Circles_prone",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "f68a966bba7ee5fbdaf0f7dbda6e04a0061ad0b94374c5d198643d6bdb5de1da",
+        "81e17d7637d56f5b487e6552e70ee1d85c4eec1421c1ddd820a07c8aceab755e",
+        "bf6d9a99180f17e96341c4d0d14675ddedcdb14a9b73b61d24b3f7efb2da6ee9",
+        "52ebc888dfe7d24142973d84b696449c28b0af28708b0057f3dc4a2fe123e70a",
+        "a34377bfd36ee6e3d94730d453b85b140139eaf2b58711f74e044c44980a2b6b",
+        "d5aac96eea947030cdbfd9613c7305c914302870688315b55d9dc0554c69921a",
+        "73633bcd4b23e4454cabaf5c0d6cdd79f68c1527bdadd280959678ece5803078",
+        "8ecda6efbfcf6dd86830686359b3f0670a11b9c605fa4a37ea0392d4d1796307"
+      ],
+      "candidateHashes": [
+        "d26e49d0393d0646fcda7a0e0f123c80ad58e2e938bd940b630135463fdb5324",
+        "a69c4810a1779ba5d9601c4f3fadca01c9e82fc38c6caa012ae93764d8fe74b1",
+        "a494611c53a1ef6488de6f523ffa9763a03485851886c87cd58e8986d5a1ea80",
+        "dd2b93507e13b5ffdea49721204dd7143c48b4e646bc58758337714716b33743",
+        "4a4a3f52601f9d71160fdaa306189820acc21c651ba0cb13168dcfb210b592d4",
+        "cb03b7b6cfcd7c9e1357a6fc6ddbc11fdf868ae04e68f54e559c1db3e260bf53",
+        "f6bdc8d69402d55c31842bafb2f20e34b3199604b791746cc404fef9be7d5e0d",
+        "e6b53707abaeffff4218595c5c4ffd8736e933978262dbc199899408ac24a7c8"
+      ],
+      "reviewedAt": "2026-09-06T22:52:20.844Z"
+    },
+    "Hip_Extension_with_Bands": {
+      "exerciseId": "Hip_Extension_with_Bands",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "b99335ab67d5b3d825f9d70aab2921115dca1ec20fe52b0ef8dcae9b1ae592f0",
+        "96345a81d374a1638982fce76b47178bb6d86fd730c44fbca70f703b2918aade",
+        "6994193aa48d6f3debbc0d384b01e509f1f258a7fab9ae2c31255c8d1c941c65",
+        "91c6794556a8921d2e008d680d0233a2132b2a497ba734a1571daf9637ba48fa",
+        "9bf78d847a94288708aae13168d9a127cb26cd1b6f5f5207fd51db987f121d2d",
+        "1f613bd16f7502bd5ee695d5e2e4c8aa7fe00e910ca854e3ba88c815a05f3640",
+        "1047c856c18bb41373a3bb8ffaa92b65cfbc016d9b9dbd2ba788fa9b3f439d7b",
+        "b8a756462995b43aaf2bc99f839be2b5b8bf61d8bbaa50d75eb283ffe7e80580"
+      ],
+      "candidateHashes": [
+        "cc34f1133b2ac4c1a9419d87538f8a9672b8264a4bee81972d0bb9f8a694f298",
+        "5b2f9181ef29a4bcc6ef05d191ed399cc891eac7dde4e466d76be5a2866317c9",
+        "4d34824b0b30d2a569551a00a4aa9b262abbb321d390555b63463d036b93fc26",
+        "e34d2a53f20cf4320ff1a73a7a29eaa352624cada8c2a7be12b46d21ca8bc1aa",
+        "f382487b1ce9747316206f155470aa12e9abfa608e87b9fccc9e630bd51857a0",
+        "271f5d69997584335fff76b98ec0b0aa7fe87742c34e82ec903c7636a37ec1e1",
+        "ac88f3f943e0fc4ab7c202af4b7faca7d0e1fca7b936407fe8a84ea45a7488ea",
+        "92046b5f30f3df1bece027e024a70c3260985ca08b77f6e0b0f9e16b5d5a1106"
+      ],
+      "reviewedAt": "2026-09-06T22:52:25.699Z"
+    },
+    "Hip_Flexion_with_Band": {
+      "exerciseId": "Hip_Flexion_with_Band",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "0210a3bce7dadb25285c8114b001169fa854cb2adc36d8f88996951ca2deae6f",
+        "805eb58f6503ee3ea2bdb0178b327c14d163cd6bff83b7216f9b7ae6a2b93a2f",
+        "b99fec9e51801a6d36b7238720540ea5f98ee6a0899b69d195471a5598e79ee0",
+        "2248c4df01cfc517aedd25332bb24f5d045073ce4fd792f999edde20b8495dbf",
+        "55bbb6484e4476d4c18e281f6ab4de12fb83e3ad9bd7fe48441eaff27628f6de",
+        "add881e299a57ca8dd419a4911eeea431c41e80f2d3f49e375192d1736fc0ba4",
+        "a174fb39e934966f76dee10ea0cc7389029868233dc98222b96d04cf8fde647c",
+        "cc587ab5596a1f9973af707f9f78bac93d144b692f695a5047f4f816a12e1bd6"
+      ],
+      "candidateHashes": [
+        "954dca17f176629ba4c388f273d35b388d61de5fc39775bcdaf96e3b7e2d9799",
+        "8c40de51aab166a23c7fe4be7c1f79150c9b7848874ea27187117c625d603d46",
+        "21760082031cb2ae747a5ee00edb639ae3bb270ac18f7166eb4ee6c48472a971",
+        "4bc20a40101ed985d53a7390693fd779de9f87bd4087e2a7432e4b9d2dcf0f8f",
+        "ed75fe504a28cb321f65fdf3fa1f637f819fa6064f8c37c88834028f0aa34d9e",
+        "371c876455d37fc8ca7dc8575a6dbc26ae07599790dd3160e4567c7f5d0e8c24",
+        "2a35c6b32c4bc884d20935e676edf9562a033ececc2dd22c3c43d859f01963e3",
+        "e73f3f6507d73602f43ad5cf41b1d663c8239f90bccdca5e431557e19bd88864"
+      ],
+      "reviewedAt": "2026-09-06T22:52:32.475Z"
+    },
+    "Hip_Lift_with_Band": {
+      "exerciseId": "Hip_Lift_with_Band",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "854d015b89e7f46a7fb0d84ebce88a9f5f87dbdc8d2bcf573ad0fda39910807c",
+        "74afaff8eb252b4978c876531d1b104e32a51a26d7852e221735480f8078f862",
+        "af2f62f946488dbcc84474cff3f46fe799445fd74ba4d4f18c8847ff745ec3bd",
+        "8aa5aa011575b763fedf7d137a0408dc3e637d23017054412d04a1884f98f34e",
+        "d85a7e69cbdb9f92c56bbb80eabd32862e8b0520e57e4cdb5c4bfa1f9318b254",
+        "52b22efeb29a98aa097c8d40e9f28addf5eb8bd1e1d891b7c756239542a01d95",
+        "d15607d17ebf3d68f63842f6c2e1b846fc318aef44746b221f331d59f8b27e4c",
+        "61080ed8537ec9e87863d441212eea78828207efde3626b8d11d6f1c4cae791b"
+      ],
+      "candidateHashes": [
+        "a9b894d07752bb6db4e3f54575c305344dfc39067a62b33e2c9cfbbeca5ea00e",
+        "c382717d770f121f8fefcafb64fe49b6f6ebe423b2e0dcb305c7dc1fbca38b0d",
+        "e707d48ca06a2f8a547e523d865fa938d5be18aa1b5228f22edef2a62bf82e26",
+        "21b64cb23cfe04e8124fc72bf7d7d3df323bc28336ac744834fb16e4ec68368c",
+        "acb95007fddfff5278c03130b44a7c93abbda5dd8762f2742386e9216cfb5f71",
+        "870c7fe17a3857cbf9537f2425a98f95e5a7018f1dc372cfb48ebc45ce3b4d06",
+        "1decd7f559d721f50434d4f190fd954ae598d3d9b086d60c7a85674c93f47a0d",
+        "6d04bc728bee69ec4f0b73861f59a72ddcb36ac77011e5094a207e838f515517"
+      ],
+      "reviewedAt": "2026-09-06T22:52:38.765Z"
+    },
+    "Hug_A_Ball": {
+      "exerciseId": "Hug_A_Ball",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "a695b4795d51fdeab4f9e00a1109117a1ca9d9fc6dea628fd54b52baffd359f5",
+        "d2aa67701a5ce881f5a3123433886a500319311732d258d529885958df720260",
+        "c0609a17369cad757b2dff565be7f38ea510a49d7a2f370556003b2952f3ac81",
+        "dbe8ef6de231f7883872139629db81bf85a6e9b47c5430f6cde6f8df2e365c9d",
+        "119f0ee79e0a7548489febd7fefc6662cd4df52160cc034f9ca716abf4a956f3",
+        "e03c12d54714ba916c726c001be360d929e1233de5f7a70fcef0251799646d80",
+        "3abedc1ef917a3c926fa3106bf5164debe7b52145c50744088fc239384ad0433",
+        "94ffba0beb56562d13d72abea31503e627282e4c76d4e561461910170234b4d6"
+      ],
+      "candidateHashes": [
+        "c78a5e971302f41c421037a2843825ee4161f1a22c29a282836301e71e07b50d",
+        "8ed8f93fad0aade0d82a4c65ea643f2d5a9330d7d35c72636b3609f49fe0e5a9",
+        "a882e9449179a16ff84a90ee46d0b988241f7bace56d8a8c67658bd41a7a6f44",
+        "74c7fd188b03913dfb478ba83374ead997c730306e5b98f20e76b5c65c83312f",
+        "def4c0f695850010926c991a256fb9cf9b041e81e6003d436d19ea64c9ff229d",
+        "9360a4680415490b9b19355f9ed7316f6fde60d2af093f34ae643fb74372c468",
+        "47a85864ae31d32e80cea7c1e3879eb44f5af82573a205446a3a74253854ff71",
+        "80cfcd4733535fe5da2e5eaf6821dce8264f15bc17418b86cf3a9ff4f3203ca1"
+      ],
+      "reviewedAt": "2026-09-06T22:52:43.691Z"
+    },
+    "Hug_Knees_To_Chest": {
+      "exerciseId": "Hug_Knees_To_Chest",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "83b981983fb923609530df14e69c6026859636e0d585a182410ffdec42bc6921",
+        "eb0afb07788d5623c1da09cf33c1cb6f3ca0bc466b94fddcb760b5210cb7c2a7",
+        "5b999040b094d4ff3d1ede8d7be0260d2c1114d475ccf387eacb235b3f86aae1",
+        "1f87a5a5c427f3675293510a61b3a4fc30f1d2c484d4d5af77a615bef0fd8587",
+        "a2aeae58dfd0ef7105b966f5e9a8425611cf4def70a81453f448b506b008008e",
+        "d875e466e44e0b1d6470abc80e91f25097b99db70bb7a28c72f3cd07c87cb71f",
+        "07684ca362e9bba0a9537851bb7b469ed3894fab22a3ba5d7714c1de72436cfc",
+        "3b50291021e500b7e27392ca6aff6ee04d55c2632a78a62df7608e4a4045cbb1"
+      ],
+      "candidateHashes": [
+        "3d8586e8e73acc94eb88da485cadcb737c44efcde550d6744da56b5205eb0ce1",
+        "9d0368f0352d103a2602e0b984ee80bddb950edb7e8ecff77b57c242031abc04",
+        "238187de6ecbce5cde5c7a3339bdf6fb771df29ac7d713e42d9ca682ca1919cc",
+        "0285fb632fc5551896148277c4b692b1f7922432df0d6611d4f97cb22a170572",
+        "774bb2ff5357a2280dd5410a09d51f4d2d7db8275d4ba4518257a950fd56ab27",
+        "98dd2f9f7ab3b7d5419e51f8cf3b527ce6ba9930569975c26d1f9e92e3df31e9",
+        "e6dc4a84653085ae6259502a3bb4fc0d8b9937c2692cd7af5cb51d71c3c07779",
+        "085d646cc85dfc0a58c04c6fd5a363df93a8d51bfde445fe3c455d936b53b1f6"
+      ],
+      "reviewedAt": "2026-09-06T22:52:48.947Z"
+    },
+    "Hurdle_Hops": {
+      "exerciseId": "Hurdle_Hops",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "47a8c41fbe7592fdd10dc7ec4adfc738fa603653fad81af495a4936a12b921f0",
+        "f870e0ee3e1ca92e421683095359686d81c1c9a2dca47f424911fb450ee531a2",
+        "d68646e61b7a8e909c0f1b84f52211ddc5e5ef2b61b8d9ad9eb32d14099043ed",
+        "105a133db70704a86c36c139a2d71d93a4f6bad2d7770bf3c2a1ebc25fb819ce",
+        "92b613cd80fc2bafad9482f1abf4f645b2565e63d7c0e32a5f67e5c2feb5be39",
+        "5ebeb1d7af50039caee9ba01c93bfca76321b1fbd170e996164cb9b3ee3c58ab",
+        "13379d18b9b7b4532a55a8448446d0a83542c8bd5fd4ba21e8912ad7413d5424",
+        "a573f5aefc70735b0f3edeef71d2e3f9b7a76ea2319284500de942b369a68808"
+      ],
+      "candidateHashes": [
+        "85a5bf6fe5144657996160092b0e38a43c6887703707eab50fb2e48bf5936472",
+        "41354dba8b8d0d2f178d4bec63ad8e24c72a09f161d4d730717af7f133f67b91",
+        "5a4250349c5b36db2375cf336d928ba4bfd271d6896a9563b5362f36a8a75ff1",
+        "a5c455b01f494e53115cf4e6524b939544472848fc5c086557a1307987adeeac",
+        "382ab8d82fbc23c8e0606881da5e3f1d39d70549a7d3821baa7f956692211b92",
+        "67e3140868dc4f4bc56331b185aa90ec246b5a226898f27d2be08b3d890e1a4d",
+        "e8f6a4d909f5114ce34064168c62b6b86c77149eef823f87f2d24b6e8c1c0c9e",
+        "84dc83e1a0e2caecdf53e52df177d3324296edadec861ad9d943f3293ceaf12f"
+      ],
+      "reviewedAt": "2026-09-06T22:52:51.969Z"
+    },
+    "Hyperextensions_Back_Extensions": {
+      "exerciseId": "Hyperextensions_Back_Extensions",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "2e750bc0bcca4d0b29f1c2b003001594d67d63eb41e6a67f3fcb3168444dffba",
+        "12d5144bbbc0325c80aa05ce31f2354c0d4ff5e1a64e2616de0bd7dced42155e",
+        "8612858dd3930179f413ae19fcf5a530d50da57868471f8b517362825e5d3012",
+        "d0b80c88ed1ec147f3d780302abf5b92b3f2e3f254273fbe64a120a291c96606",
+        "ba07fdcc54c0b0a2e2233d5174d1a938d1d5e7156f678d3caee9a28a0ea54d7e",
+        "e1488f9d555fd0d7e11a8beec6bc79fd1cc8755d8783e234d39cfa3ece4b17cd",
+        "8255c4f5d6ae3338d71b771dee8cfc97edc3182cd96127dbaf779c563d186d95",
+        "d03096b5902da4099c3bca18ac5640cde7e00c5889e248b172f0d78f7d402716"
+      ],
+      "candidateHashes": [
+        "7d97c4c9bf1b01d71b20fc5791dedc259446703e1fc990d7b057fdabcb19419b",
+        "e70d502126c880a12098b33d3f9adfebf6dfaccb96e8d5dcba5b8343c44d0980",
+        "7bf0fcd71197e03c85ec34809474bb521dcdbe0df88fe6f9261d734c4eb24686",
+        "363064598e00265bfaa384bad3e29de43a9a0f12bc7cbd1495531e1367ca9ffb",
+        "8646df7cd7e415131a11859d05505ed6048735d740f51014414a8d4a3ebf32ff",
+        "047f86fbde6483c6ad1bda37a5ffeef095c92889a6cfa75ba55cd7fd6febf1b0",
+        "64de82c4face0ab8180a13c16bc8694cf6bea90e38af1e990b4c97db09c9b4a6",
+        "066680c961eadd0d3a0e5d3e154ae49f118db2bdb883c22d67c86616bc154628"
+      ],
+      "reviewedAt": "2026-09-06T22:53:36.569Z"
+    },
+    "Hyperextensions_With_No_Hyperextension_Bench": {
+      "exerciseId": "Hyperextensions_With_No_Hyperextension_Bench",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "ee71b47bcbbbd2341c7045bdc9bc4884cd434bb9d7069cc0a5b2396bb1cbaea8",
+        "7362f9109eb9b9d664682f0a65a5deb5bb80117a71e64b2a532bdb10b64d11be",
+        "5b824af9df5804b0c52d0a226f6127b7b9113e055cdea4af0b2ec1788138e77b",
+        "ff449552a0e750493003d703dfb373701e3f63d6523d4488fde404cb0c81274b",
+        "9d0b4a9a211cc308663a76129eb9fad905fb943d36f39754a97b1adfd471bdd2",
+        "53ab7b6d56269fb5035fcb75d213cab314ea40f3a5c89758298ec2b3d00f6e9b",
+        "952595528720b5f506ce3eb126fc1837d1ee6d8971028efe0cd01e927355033e",
+        "9c7e8abd84b15d9b0852d255d8f901bcad22112dc66b00a12fe96a667360a24a"
+      ],
+      "candidateHashes": [
+        "0e4e500638ab5a9230b0a7fc6acdbca5c2144ee69c0d59e656ebab016dd1eea8",
+        "f55e580312529edb3555add9b5d4250a1ff4e01606f48855ce6d5686b0917de3",
+        "7df712c60636fcb1af686e284ba039bd99fdea007c37bc0da31efadaf2403d04",
+        "2e1f71eb8eb74491af8fff7c86055ae9ee4df4e901dd07d07ad1380caa3f64a7",
+        "4efd9e69d1d48c4acc9d3aac00e7d3c18ca7637369322af4831785459b673bb7",
+        "87dcf6fb8fdcc90a53fd1bdce60f8769ab1bb7545640829caca2e3b9004ceec3",
+        "bbe67a7e787c824ac8353b68a73958d4fac6c9589660c90631f3129bb8db23e3",
+        "b402be63838560b095456d80076ffbdaeb247032e31bf5ebfe8002b067fcb49a"
+      ],
+      "reviewedAt": "2026-09-06T22:53:41.359Z"
+    },
+    "Iliotibial_Tract-SMR": {
+      "exerciseId": "Iliotibial_Tract-SMR",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "7407ca094b44a58915d7110908df64f0dd252ef39c68800059336071117caf14",
+        "e32ba15f15aae040eefb4b3defe2fd330bad3469e7c9157e17ffc01f01e9b361",
+        "4f6888d13a9042bb045f7f04fc88149d321c81d645dc8bfeb1657cc45be11fc3",
+        "7c8aa81fe91c53ce63216083811d6669534673ca648a8acdba945ec46ab5667a",
+        "26b00569c5078fd1717bc9ae2a8a93e8531b130977b108938679194fed8de96f",
+        "f7416479baa09b47cc133e7faba83f2eeb04d785700ae97376a908c9dc792f5d",
+        "5bc21271006c8bef6a8e5dfa17dd64583a0d9d44c6bcf76a6c194b75c46cd067",
+        "47e76d732cf0e66e1261286213b23c1382f4c595bf5eb22976da922ab5f75a2e"
+      ],
+      "candidateHashes": [
+        "4e02fc7b2efecd2ac62b3155a8c5a301f1e0fc39236d2bbdbdf8ceda81aef7c6",
+        "18303f975f3e53e2de014b82b40b52aa4bc252be67ec6b8091885149409ef88c",
+        "f880d80151031cffe96d504e0b408ead0b774dfc78962d9c271eb1045ad84b5d",
+        "8f85f5d6ba6653fedc87d68c7c65d83ed2b40aeb630d71008c3835c57d3077dd",
+        "42fb4e08765ad3f3753d933d3f43dc90eb6a23a39d5d32bf21328586f14d9f9d",
+        "a42cae5440d0d274f07c704f29c7e763e1a365827b368faee07555696107b5c8",
+        "4cc36e40743b029ca89bc0dc38458856415897fb49bdf4852bcb6114be5aa2ba",
+        "8d0ea723cff74cec281956cf079129e9794611b001238502469fd0bdf6c8c0ec"
+      ],
+      "reviewedAt": "2026-09-06T22:53:49.081Z"
+    },
+    "Inchworm": {
+      "exerciseId": "Inchworm",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "126c58e31a63952461dbae6a8f0085c566922ff8a615793898d88a0f3bcaf3b5",
+        "f901ff779041ad2f3e17bd17e4787c5c37fb6dc7b123d2c9c787e129dbc9838b",
+        "e483f1ff8466043c45e80c05f64b60c52baa1798595e7f162e5a0021dfef020d",
+        "15ec046782b8bc74c41fd750b9d9fa258d0f0fc53afb3f4d43ab71434f8ec0d4",
+        "ff37d2a9c29b39d4a9b4faf9506ad9c356350586f2fcb69a3221b30aa2e281d4",
+        "66856abb281fd18cc670efce0a7e131d9c5819cca161e09c78b98e59bc36ba1f",
+        "801bbfd8366f93a2a5d2419e8bdeb5e6c5c913e5d8995cbe178eb125de6a80fa",
+        "a57948bb7316555e4f261433c9cbea2816fb092fa98dbf36f0c22dcfd2f6438b"
+      ],
+      "candidateHashes": [
+        "ade327675bfc35679b690c29a6cb5c095c2c410cb292b94d435ced64abd56866",
+        "c201c4548e23c05863dd3d639f33d7a3f5508ab736936a4a7e85585caf3525e0",
+        "3acff24ad55a47d240b8bba5844935aa6ba4698f8be4748e5c573996f5c6f227",
+        "74f464e86344b91b0eeced9261826d513cd7ef0e9eac717b644b9320380ba92d",
+        "286ab2419c5e711fbf93d666bde5902def7f076829a2e2c1619db73e4bccfc9c",
+        "45c776fe46f25d3574f1083809b2e6c131de69217ac7f40f94fe443127e4ea33",
+        "79744513c2d767a108f102b77597ae5e1eb636aff88deffdd736f527f060be0f",
+        "df0b1e122f2931f0aa0899ddd119a71d5a24df235a209b5d435096cf3d1e36c3"
+      ],
+      "reviewedAt": "2026-09-06T22:53:53.665Z"
+    },
+    "Incline_Barbell_Triceps_Extension": {
+      "exerciseId": "Incline_Barbell_Triceps_Extension",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "4b09823889949d1819ae7fa6138cfbde3ed4ee088c2e9a6a1fd4a5cd29c9bbed",
+        "1576c5d57f2620e3597e021db381f84e57fa9488bb617915b9a8efa43c00f58e",
+        "8ee2884abbe8758d24c267e0b0f26cf4a6049b78d3561abd7445b9848cc74b0e",
+        "211c110f28d3932c04a95993b1ef9b0e0540f26b6c37e452b7996e921f793842",
+        "fa3478ce4b9e62272cc877a4317792b1ae1ae4857f5046ec1d96f839d0b3657f",
+        "a6652be741d4e3060dbbd6fe50282424f1683aa4adcadca1bb62632b1b4d222a",
+        "3d2c786c18924bb23dc0c37b7e894907bfb9d5add008c25272bb3b76837fa0ec",
+        "9c93cb431393a334b2f0499e3c823fd387e6771d0e6940486bc951f71da5adaf"
+      ],
+      "candidateHashes": [
+        "7aac1c2de5a50f7f04a666aced7ca6442f1c3a71c9e69f84eca6bd18d5ae45ea",
+        "6ae6b44b4e39ebfe03a85c84d8040d60056ed7db7b8a8020994d23acd316ab12",
+        "d93e68048fdd376ca75542be20186a7516e10dc1ff8a9b9fa736bc75cbd6725d",
+        "2c29bd214a73e5991174bee3f06095fd47169fddde4f46c19d8ba89fb77a32b8",
+        "e1ab4c81446b5ea5ace431ac8e815742ffd32427a9430f6968b2151e4f0266c6",
+        "aca2caee6d52f8c313cf3c7d41db27570e4924b63a817af2154bdf56899c4905",
+        "efaeda32d7c6b95200ab2d7055dcb568cc2d708dec3f7ea20d38801ae02a1498",
+        "991a12c60991b644861b0fb910582a727045cbdcaf38a9c764f2f235b3baa1de"
+      ],
+      "reviewedAt": "2026-09-06T22:53:57.824Z"
+    },
+    "Incline_Bench_Pull": {
+      "exerciseId": "Incline_Bench_Pull",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "19bdadcdcf1a7549f351f1342d995600fcd62751ce35f2b57dae9431115f4063",
+        "dda36eeca34714e674eea011962e0625949e1c979e50309351a2cbf3a3a6f118",
+        "60a0c2a4461ac8945196e0b2d07ce7d613f898ee3cf765c9098e5af23323e8cc",
+        "cb2ee0029dc05c10d1a18f3d85595f0a4512185feb117bded4b49be51681a194",
+        "e5a3e9e5647078ee669df8c52ff81a8d20b24fd0a6677b57308d579c94b3a32e",
+        "72377dc10a6d8bd022f84aadfc218589bd5951833400f64e71f92494a0f72911",
+        "16c498a3143f6322c875e2b6ef7142e542451a43e8131e145d5deb3590b74148",
+        "7094a05f562d162e369bb9a8374f26df77e2fafccdb33b4652f30e5b2699d6ad"
+      ],
+      "candidateHashes": [
+        "493eb776b6383edbb8c2dfb9d1901c1f311e0dbf5be2f8438d14ebaa04a18797",
+        "845cb4aed1e83e2c527093dcd77de8bd3a746e4d1e29c069d504148e6e671d15",
+        "ed284f39e763c3d7509797f730114ffb9349eab209af5ba8864fcf0b0926565c",
+        "ab228d1e5661767b69ebafe2ae006af9c83f9d55af8d6df9fe96c7c26f8d49b4",
+        "f03dd07265ce9a3accfbf46edcc356d5b93651f0f8121afc692da2e87f8d91bb",
+        "f22f20bb07ac6380ac3e10db72290c63d8be4d3513cb47f4dfee3d172585ed04",
+        "22cfcb85d7f68c049668d57e887dc08f9d9c7d1a514e7209763a5d265fb6619e",
+        "f2dfbec261eef31e16733a76d99e94177c57ee5c023788cb0eaf121ee66646ce"
+      ],
+      "reviewedAt": "2026-09-06T22:54:02.278Z"
+    },
+    "Incline_Cable_Chest_Press": {
+      "exerciseId": "Incline_Cable_Chest_Press",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "3be9a0df4e72f9f97d15d7f5d2afb5511a4690539497725593a0a1a26b59dc3f",
+        "7d68ce3f5b319fba2d53cedbb29c701b3ab000c883272404a5c78489c9ff6cf6",
+        "471514b3cceb261fd3789631c4f11170e0336461a6d2376f7977cb1de5588793",
+        "e1250469c72815bfc9059e92805f1fb4b524ca3d4217b834ac80263f1fb9506b",
+        "7ad04cd9015ca6882a0332acce79bd9b5061e6f0694f8489e36bbdf383687c23",
+        "1f30ca883bd14231f03c0ca240c5aa03f49a164f202b3c262caf78a11cf54727",
+        "4f1ad8b4cc0686a18a07ff1bd428fa5dea5866da7bac0f06f3565603603679dd",
+        "4c59469eefe833844b6571ba73c772e86b0e14bc70c348c89592346707dd0215"
+      ],
+      "candidateHashes": [
+        "3261f806c4d0c2fb04d6b81cbf60db48411eaf7c0f369e8ec9b07a6a2c5a7cf9",
+        "0c0f501d968783a3a29cedf45a7668d124f41125d606693772ab3d17055f549e",
+        "53d3b25887c3f714820f847ebc2046df163b4672e4401697bae3271cb3e68c20",
+        "b4fa836cfe278babee25cc9da357977292f4f7bc998077a2c813f100c10c72d9",
+        "4369275a5bfdb9d012e83778b8904073b4251a11a93c75f1b13d39a688e6fda6",
+        "bbee7eecc56217c1b07b69ef6e28f5f6a7c831980bd69238011af7a745976d1e",
+        "0432a0bc8d337fb8d330fa55947936491bbada67149266a8471f817cfba0d40f",
+        "ddca0a85c3c20db5cb1e30647f47b84335b3d2542bb0440dba914c9dadb839ff"
+      ],
+      "reviewedAt": "2026-09-06T22:54:08.269Z"
+    },
+    "Incline_Cable_Flye": {
+      "exerciseId": "Incline_Cable_Flye",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "605762b7edc530071f3d6cf3a6466b70356c1703c2d1bd2da677047d0897f501",
+        "3e238d19010ece26b2cf10335802a813c9a04d114e8aad3bca420c9b27181412",
+        "be0da75dfe7519b201f92f9964350149d78db57761c21b68d97c285319a74ac8",
+        "42805f22dd51173d022cd209e28bcdf3e491142db7a525fddce6c6b8e153bfcd",
+        "2fa14bd4360d8600bab8880e344de6340ba97ca2a2f544834611e44d0208c379",
+        "9c6c2180a8460f16988105e7f1b4eb17193eac6667200bc94b06e97c5168c1d7",
+        "af12a04d2cf08100a534088ae9617c25dcc89c9faf2f9157bbc70be249de8507",
+        "87ee4447aa6878d7b744e06ae1ece14c6e33e55049be7e27c85eea58b2564b38"
+      ],
+      "candidateHashes": [
+        "b0fa1821ec644b263b8121bcc8e0e583302c3fb2bc572f77420d0e2fd2d0395f",
+        "86d01383ddf3bba9db339d6d9075f844617138974338088a3b4fe9f9155a9c2b",
+        "01a4f394df94a6968b55d9d7f4f9ab3221081f426fee2002a023386a0bdbd830",
+        "8c0f3aad189f303a96c1c40071a4c955a7a79dc36c301f5b568361bc9fd4bfa5",
+        "a26d54b9307ea8d4c70b5974d236d2046527d5457182bbf5a22bba85cd6415b9",
+        "08ddd252e1489332af6000fe8ec4a192dd0aa3af8229a49461c017c01517f34f",
+        "36d7674ea15f38e843ce8cbc641d933840c19de80d7f319cbcd8bd834a6a4d22",
+        "9aa5264493358e6f1c5df3b2f611fea95b69c12393d0097d6d94b73cb0d43d38"
+      ],
+      "reviewedAt": "2026-09-06T22:54:12.532Z"
+    },
+    "Incline_Dumbbell_Bench_With_Palms_Facing_In": {
+      "exerciseId": "Incline_Dumbbell_Bench_With_Palms_Facing_In",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "44d802bbda1c4d690cc2b7da180cc53f2b429b04c27b5e4b32f095a80c542007",
+        "a4881a15987d87eebe6d49047dd2e51893150a19741644f7f1de7abaf5703c30",
+        "55ae1851053c2918d87293420754cde8d62b7160531899afd72e46e434485081",
+        "f542831819b8d10df94bb3c3d43ff9bcc7616c548fbf9207398094085d9e1ebd",
+        "eae69a8d94e4dd0da583aa08e80544bae9988d80c35bceb0b5c2d68d1ce074bd",
+        "4f411ea8935c221c53bac7d7a514fd315a76816df719b9ea7674819b01eb5bda",
+        "522bc0ee58936559260dd34c52498e55d4cbee07706a65030b6619b94edf5496",
+        "f024680ce42e490a688f7acfddb544cef79b0918efd9f8960f525e97abf074b5"
+      ],
+      "candidateHashes": [
+        "995e9dcf8acd5d23a402be9d282bb5dff7cd104a27474472dead050087a3bf06",
+        "376d6751d750ca6545bb23cf40b471164aa65ea15d4c4d9f24427c346e602a3d",
+        "e928741028fad62988b59434549075d5c9448cc667c76bfa537c054b2b8f9851",
+        "5cbea320a23b3c42627342820da092993f3e75632f5b8eebba6495262c49d10d",
+        "ce019082ee03fea4956e356c3b41eb2b71ff512615285a8d96c1cc2b51d9ede2",
+        "25eed76ec40ee9e05c4325b4ae6e6cde3a9490dc401e482aa3f4fc3f4f6b703d",
+        "31ca53c28cfdca2dab9fd37f5b2c34da9b7fe292e382bb6ce3d23ae4b409104e",
+        "4cf8533265229641fae15794e870e330a073481ad8a0f25abf28e2be81e490a6"
+      ],
+      "reviewedAt": "2026-09-06T22:54:19.198Z"
+    },
+    "Incline_Dumbbell_Curl": {
+      "exerciseId": "Incline_Dumbbell_Curl",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "372f4f5079d06c2ce5eda5a9ff4a1e53bd87f9fdaf20bdb349c915e21ac209f9",
+        "d427dda52c2de4e7ca8ae4370b83c6290bc6a80272aada91281c55c02f73dfb9",
+        "f9502e91b3c2ec60a25806b75990dc9a9c525970d1a49353f5f0a0874b518e80",
+        "45effb9cd592999e0ebe1e8ca31893d74e3bab22845360aa58ccd824754d550d",
+        "a4612acb493efeb9d39e9fd87fa67c890efbe21ebe7bdcda07b0e481b2799e0d",
+        "513e810c48f251a570c6eafdb9f7684ff77bae0a2b5d769071370b043ffa1693",
+        "4eb9c49862b8ea098d2f2778dbb9c2f43785871378dec9f6b3da77f3b5429e85",
+        "0d6d00452cded308a6f4b3f0474db24f9ba9b4ad5bb05aef889561d9c8182a8e"
+      ],
+      "candidateHashes": [
+        "be35804ed5fc212d8ef961a412dafe6068bc1319df27826ddd375eb0f2ada516",
+        "181a673f900e33264b10591428d4251afc6e14df61470263759317397cafad62",
+        "d13cb286feaf6c5223bbe61a42b8e562b19282cbe1514f75cea3f723893e4e10",
+        "ccc560f696f4743347f29b9ab96f0615f79461f13b0689cc67f385ae506e7ae5",
+        "9a3511f890421a22649e09f4b09a4c04e0b58a0c3ec507268c99d5f3b536951e",
+        "bd77c96345eae7cad635ff1163ae264ed33797c1dbee6e6e51dfde9bacb25f70",
+        "5915f544c7417b9232c57fc8fa41f09b5585dd7ea572cf77d3a5d254ce60b735",
+        "aa85c03923e473c470d81746a0711d1a0cac02311a88d1412aaf413ea0403e66"
+      ],
+      "reviewedAt": "2026-09-06T22:54:33.050Z"
+    },
+    "Incline_Dumbbell_Flyes": {
+      "exerciseId": "Incline_Dumbbell_Flyes",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "de841916cfa576c36359b391d851bcfbde3709b56f98be1cf9e21e1b949d787c",
+        "d74a29ce6f1cb047d759a81422add1b9f7cf3abfe264de339f892727d690b9a1",
+        "bc6aadb4b8d1236197f0dc8a63412adcca4e1127d3b1b2e09ceed144faef32c5",
+        "7d77207b42fc21caa4c0b3e35207e3c759b0cf2c848d35b8c3ba98deef0d11c7",
+        "d63118ec18fc02f55d5586358ddd06302e458ae2a7520d53ebf1424cb5f05af1",
+        "57aa74a0c83795a0f7ccd868073493dc31e63134435ecc10efb097f7b8f7a21f",
+        "c0357a1cea72219ae80978927fd981d7a47d79088dbd8448603f7ea4e93a9829",
+        "7d6eb988992956a403715f2907677a75181817a0d166c0d13daee9089e3c1eda"
+      ],
+      "candidateHashes": [
+        "2d6ac4d7f280c763b303bf7a0161c3f0132a63380bf238fc8b374cd60f54c4d1",
+        "a2e96e435f971082b07d1593803b2bbe18255ad6de653fb2000e5d9f3fc1cfc9",
+        "0661e109fee3cde6c2adcaaccc47ae60f86f710c74a199bc16fce33b833e0962",
+        "3394e70a651cc3bc33bb95b7857068a23245f45fc04352dad4e5c667f3a42396",
+        "dc0a825ec723923ac4c89c9825b50d660a9d075c22c1dc452ee805c116e4c50f",
+        "a7304dd8230b4eaf08d52036a3cc0981353f409a6d7961cac3c47fe4005cef84",
+        "6a3a0be0172b14d81031777fbf00b277b7d522b537603e606d35686ea649f00e",
+        "429aa0237b7f015c4766f08799f90216aadc17d54e1acbef6867f0a5a1b19194"
+      ],
+      "reviewedAt": "2026-09-06T22:54:37.397Z"
+    },
+    "Incline_Dumbbell_Flyes_-_With_A_Twist": {
+      "exerciseId": "Incline_Dumbbell_Flyes_-_With_A_Twist",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "fd80e711314fb209b9e9d8ca863c36a1020f14681802c44afa5ba5f55e4896e6",
+        "fd667e183c4aa447e18a39027098b4fe1346866d78acd2b8782c6c61a9fa5a8c",
+        "226954a6a491ff929817485e6109deb02841da2f7799bf7e3e50bf7999559e3c",
+        "067279f434451bb9da33c7500571eaa2c3cbe24de7f88d90b7e098e5741eb9b2",
+        "686228777e37c0bf12bfdbba25c8b54fdfb9815013554666e2963912ec1c79bc",
+        "abbd9db027c554610627e4624430a8e2f25c060af748c0475c535b3c2be51a3c",
+        "5c486f6b9d980ebd542f69e20a8e9db0559c88e3ba9e7088c087ce61bbfebd50",
+        "3978612b03929d330b08bf63239bc9a407ba95ea8d00ea61ade8b26f9e22031e"
+      ],
+      "candidateHashes": [
+        "96b97c7a6c7be9977eee4be864b2153a7699f151ffff7d1b1343bfaf3827cc8a",
+        "cdbfc5fc0d83588a4a072ab13eadc7cdd44bc55eb6a21000af9cd8f012dc1456",
+        "f331df4e223e695081c928cecdb2fae7939e5c54ffe9533fafd5e35a564b6173",
+        "099c8e97274337243f1ac637be216e59c76421503301412b2c42103923593ed7",
+        "e10cecaf785f277d051b7d98c6992504b01707f33f532d2ae0a922f2af2b93dc",
+        "4e850a3294f56f250e3774c782859c60e17bde91e3213f732b07179030e471ac",
+        "3f26abb15f811906b689f0808c242298565b95bf32994cb81c402b0bd017f753",
+        "1b115b82613064987fd271d3cd702276bae7902ab11336770a02995928cda2f1"
+      ],
+      "reviewedAt": "2026-09-06T22:54:45.305Z"
+    },
+    "Incline_Dumbbell_Press": {
+      "exerciseId": "Incline_Dumbbell_Press",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "fbeb95eb03336c2dd4e595cffe91d0e093040afc6209921a20af03c738986118",
+        "5d5968883b6adcb2483c4f3008fb5dcb60ef34c9e924d2331e56295c4aa4f42f",
+        "57e1bbb6d72cb6737b0369664720147cc3126c426ac64ce37400ea46909134d0",
+        "efad028f349d6f5140479ca39779812cc1b93e486c3a68ae81c8af6310184412",
+        "9cd075cba8fbe1b11988d56756eafd6f1a142c3559dc0aa00c2eb47896918699",
+        "94093456271c597906a2cf1130f2f1e0aa1c82b6005674a1559e7eb1a7939bcc",
+        "295e4b03ba0d26e0a359f1672ca5ccfc3e57116b19bbfeaf38ab61181a2a2c8d",
+        "63d82bd54b358e3f0bcebb2c3dcdad33a1514929182ebc220b89c2dd92e2ff89"
+      ],
+      "candidateHashes": [
+        "aa2165a0aeb679b13f2be7a9afbf3f46ca66bdfb9aa8959bd69217e9622aa5bc",
+        "f321555ef4d69e5d09919f9c119da3e40c653830d07dd68b58888226e471f061",
+        "9becedf2ff91a00bf02780f615d4113771b508994c8ff92b65059dfd0cef28af",
+        "b66f0cb4725ceff0cfdd51ed06fc3b7d2c9b9e8632af583607fc5d9b2681a284",
+        "d17d591099a08191d48c8572d42c5d66a87f5786e5acd7202da489404982a3fa",
+        "846779a581958f09dca01c1fa6f9d8f9acd5ba6684dd7d8c4eda7266222da9bd",
+        "645ea6bb8566d0782131bea020775215b9e27eb09b631bc5d352da2168bf98bf",
+        "a2be60723fdb17336fc29fc0c7878de5d103400e7ded135b87e52c73cbcbcbd2"
+      ],
+      "reviewedAt": "2026-09-06T22:54:50.063Z"
+    },
+    "Incline_Hammer_Curls": {
+      "exerciseId": "Incline_Hammer_Curls",
+      "decision": "needs_more_work",
+      "notes": "",
+      "sourceHashes": [
+        "fa579cbfd16f445019e6c3b4791b236d196a8434f4f517a5cb81cf84c4734a76",
+        "39d685bafee9f30305b652562c535605cca4d662e9096b62d5a6b32b9b571c33",
+        "758feea2dfd5941a0d2c5a48b81af9e3c2dfc3f637efb0f940fb489023a159e7",
+        "aaf5742ee4aa1dd2c9baeebe809432a19d010f694c3614349623d60e9f544bde",
+        "a4aab5d8f3d165567ef883e931e1bf6bd3ddf352b13d1fbb4d5fc530a3ef151b",
+        "72ac743208c776d93fdb99cdddab01a8713cac65f848714ff46437d1e141515a",
+        "933554467e4a140e151797b49e9c0daaaa9d2526aee9b286a824336a2e807b67",
+        "14f7df6479a23e733cd6ea4da0469e176b7ec06583af266c4fba5b6ea9db6171"
+      ],
+      "candidateHashes": [
+        "32649bd577a4eadd73b1982cc62ddc7ea6278b87041b69be287a66200aeb34a0",
+        "c800e1154df3c6073a8656937835b14d75e9c50eb60147ba52d62603c2373009",
+        "3ea5db74011fd2e87410e904a28d7bf0c1509dc0df4a71dc6605e74dfe69ce7a",
+        "c7d0eb1ac7b01f38c6aeff75b38e08e9b2b73ddc91f3cc3896d0e25cd649cb8e",
+        "65d13252cb8c423f85e3ea41615f7aa70f151750c3c336e327af8eeb9b0a82a0",
+        "93b4d6404774020c6c49d467514bb915ec0954cf0e1bec5ca869d7dba5320beb",
+        "b24194199a82c5ed3aca7997a6ca4fa6902f853659adc4efefad09f45435125d",
+        "b9174a2a9e0c6efb7aa1da04bfd2c88a2260ed8ccdbe07452cc23ed5df057514"
+      ],
+      "reviewedAt": "2026-09-06T22:55:04.820Z"
+    },
+    "Incline_Inner_Biceps_Curl": {
+      "exerciseId": "Incline_Inner_Biceps_Curl",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "2fc710545170b185ed61e1566148fe198c05483535995eb22b9188b31393653d",
+        "4ea91bbdaafda01cc8ecb91d9d6ce1e4e200aa7208814eec4e2b094b951c0c3e",
+        "97992a65a7e9ddf2c249e9ab7683a13eeac80f946f92192685aeb52f9fe8d268",
+        "6612cbc3960c1c93e2e1c9b80f49a0ea71d53fd53084af76eba94571d274e11e",
+        "8bec63c1ac3782655e100e5f222a34f47d3f78781cdcc54161e4558a6eca746d",
+        "5c617c09d229f63b8b627f87b9f080ddc508ac1249a7231615f060657c14dcf9",
+        "3255c18bda001f93b211a8f73e9b7fd943156ae16eb4c1e622cd4dd6ed6c6816",
+        "e2339049faccdbbd25ed612fbcd10450161ea12288cd647a4f0cb1666e9e8f77"
+      ],
+      "candidateHashes": [
+        "c617252b1d8cd3b631856f70b0ab157a19c676974decdc70ac521b3803e823b6",
+        "f3c88ad0be8867831caaa98dcda4d7ec2510c2f520f7c1d838c6bbb8c218b464",
+        "e7d513c94e9f7d1a3a5ef4b9329c9cae325c4c86609bc5e3f1562bb6a40b1830",
+        "8a297865a0e643bf1a772ec82d369ab2633a379146db3e01b62dfa1baec662fd",
+        "82b4b6d6c47e32be19b996c624ff70f063de8e8b7c204f0f6500886d603ffc4e",
+        "008a300f77abb26dcce7a00b82473b9f17bb1002b3327b1ecb014fa0322553ab",
+        "919fb1631fb4cd5fec8cc08f6ef7178830db89b859f8f50e0bfad9e853640c14",
+        "0910c44957d954877933caf9a447636ec68c9f7644b31c3391672e71115cd1de"
+      ],
+      "reviewedAt": "2026-09-06T22:55:12.182Z"
+    },
+    "Incline_Push-Up": {
+      "exerciseId": "Incline_Push-Up",
+      "decision": "needs_more_work",
+      "notes": "",
+      "sourceHashes": [
+        "ddd07ac4a17e3cda1ebd8af19aacb9a04e11d6a2181ced0cbc6308c81f37c230",
+        "ef67fe4dd6b6388ca000c31d88968a49466b6a351bcbe20418d35ae687eb745c",
+        "173d8bb3aa41d00c5b257185aaf75becef51951aad3f85ad12afd3c4c6cfde3b",
+        "68fcc7f7760985c250ec0965cf2ce97d8b25ff1d211fe80560d31388c1fdd4ec",
+        "66bd29dbabcda0d4488485e4320733aa8017751c38f4715122de7dec9ed0209f",
+        "ca024132c7acebedf1cd26be8f13676263a3a3b14c5e6eec7d9bd69744c647c5",
+        "38a2af420be374d3c56e931a2c7f89f6d00e4225b59d0c48c6b33681ba01364f",
+        "5b23a236d17ffe6719755cf77e600d979da69e60c921b3bc3c8524d5cff3b19d"
+      ],
+      "candidateHashes": [
+        "d865bb78c48b655267b77ed5ae45dfc0e1b5a59c255b4b77c9f331d7f9b2beed",
+        "8329824d0bb9e82dcd1436bcbf35851cb7f120a4e474f0d9e2a7549636cfb519",
+        "d826b5f53c40551b270a762c513b328e3625da29323766d25bd4dc76bfb0d2ec",
+        "1956b968a2c9150b593be8f4d4df6e65580ff5381817252774bafe274346593d",
+        "fa1a7826239f9d49d787fea19e59f6eb9ab58b8717ee811234b31ebdba2032c6",
+        "4452bf7fd6dd8f77a20d4582bb8b732c136c0608e134833f2801dc93b71998f8",
+        "08ed6ff80574495714a9e995cb83d37d173d2a9c864eb760cd668fd63839dbd6",
+        "5ddf12ac8875454907b83b2afcc5676c2f14723fbf8b27ca3be810e170d611e6"
+      ],
+      "reviewedAt": "2026-09-06T22:55:18.756Z"
+    },
+    "Incline_Push-Up_Close-Grip": {
+      "exerciseId": "Incline_Push-Up_Close-Grip",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "d4d567e2fc4e0491a28159b2b3a142a638100c0fca6981921e783c1eea409782",
+        "dba37ae7537b1f73e49e7e9dbe40dc3fe8b9f1c4959b366f53559e28a26a8d29",
+        "c895214cbcd1dbb2aee6b00b63f28fe8dc42864f80596a71a5a47fbb19ffde9f",
+        "d1e9999fd808dffe425bf5d46ad68aa06c0f727bd5f50f04d7a18b66c166ac91",
+        "d0578b99038a5040209ea71a832f2d21982d3da56ec376199bb634b4872eb912",
+        "f719519d0c387e75d6e37a12cf95a827793afadca34c84a50eba8e2cda836c31",
+        "d2047de98d019a8d293d5677978fedbebb4f8914ce7044380639e266a8f9c7a6",
+        "1fef69ce0fdd94eabef02a281d321530508b6721b2d2abe9c0b396aa1df8c996"
+      ],
+      "candidateHashes": [
+        "6356a5e1937713a0d8be070d7a880b1facbe8dfcad27da080ebc96777bbd79c3",
+        "dd0e7ffa23815424df475b814e5f5e4d8d28e647ac9cf1b5865e83e1ab1f2945",
+        "5c60ea5932b2f4795488dcc4580612ea413d8aeb3812afaf10fc413bc50c36c2",
+        "f00a44353c51f231c8ccd947e18fa41164661707c1cba8b8f4f2a0989f478bcb",
+        "82d206e4580ac936140346fcde8c2c74ea2330d429e624d1448ec82805de6f5b",
+        "d7536010e6bda3c8fc42584ef0aa7904643652da6a86afa36d08021c6f2bb107",
+        "56752ac8735c86e51e93e06ccd5d4d045df75567654c5a81595847d4f586ac76",
+        "7882670c25940e707f7031d966854d34c50f30013c40e2d3bcda1bdf3d0e9502"
+      ],
+      "reviewedAt": "2026-09-06T22:55:23.833Z"
+    },
+    "Incline_Push-Up_Depth_Jump": {
+      "exerciseId": "Incline_Push-Up_Depth_Jump",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "9a8349ebcfae880beeed0be91b47ec326c433f75a46bad206ad8f91748a1ec62",
+        "3ae0e12b7c2bcef30bd202d5e8f09bee5de39559356799a4ca75e3be632e180c",
+        "d430099cf40ae81d47c8244626e07f42c3ab5b259942248b80815484434ceb12",
+        "193c5b6d5662cee21e01f2e244ae6fe102539ee88ec4e706a634b3a40b6c29db",
+        "82ad32fa540366008c3aea27bf91d378e6f261994ae3d3f38e89815b7901a9b1",
+        "4dea7b1d8263e6b9239f8d56eb8864826285508128e63c2d0d9992c292dc9989",
+        "f09cb0fb9507946f9af7a8fc2e7aa8e8c5a167714300b6877a2e6c64c7d564b1",
+        "7ba9776e0896e4986581f4ceefed1a6698402eaa1c1a598d104971c89add47f6"
+      ],
+      "candidateHashes": [
+        "7da7954fb5884e6f4350e39521d1b14ca7d8d9b4acd2b28e52730058fd0d9d0b",
+        "470063dd59a851de4b0aea3d55550b2ccd708a03df4dd4a586be7a08e834eb77",
+        "663a0ff5022805be3cb3c424599e5aa05bb641e82e894df4a248f405263abcbf",
+        "93a9d32690e728942314ebf069d4d527428f3445ec1d22e377f9ce93ebe0ae3e",
+        "cf1fcf47d3984d6c830b0ea2c0b6aa024f9fcc050351f384b3ec1fe01b9982fa",
+        "6469a291d885eb449a774dbf9b4689c0502f60ac4e16890077bbfad8348ec836",
+        "ed51de2b0a2281e0c018145216595fb7d4bd7035f800cf1fba83ffb6d876ca24",
+        "361decbd50c2d6eb201a2ab04b4c1b847be3b7999c62221e4e7cb03c844b29b4"
+      ],
+      "reviewedAt": "2026-09-06T22:55:27.891Z"
+    },
+    "Incline_Push-Up_Medium": {
+      "exerciseId": "Incline_Push-Up_Medium",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "10f534120d7c5885cd721769e9030d4a8dd2122dd0b720920ea49686c96021b6",
+        "dde3b074f3d816f653f2484e9987b9af82e7efbf22c40e72c9ff5b375d896515",
+        "9e744a113d959c9f96c72797033a7321e20db5f96d0e328d6be4b3cc2d6a533d",
+        "222531d1c3ed2fdb2952ea4e660529987f706c019b319af7f2477da833cbafb1",
+        "f2cd91e8eede0c87c15bbcd37b774d77363d202508370a5d6aa7af4545b0177d",
+        "c7b64f62904d18bc1570b61f29990cb7fd5dea2de68f524961d6d263f93b6976",
+        "3195980ebad7994c281c27d10ca4ae1b8ecd8fa0459c5dfbde27c0b6d6296cc5",
+        "13fd62b7b587c10e83764f3603a22d2d8a3df78f0b2ac8b33bae18fd0ca87353"
+      ],
+      "candidateHashes": [
+        "625e0381a547bfb53722efec5a8597d2c635f10c10775de48f084f29c8dc26b9",
+        "3483a6f03463e2d6fabdc8552fc79d1bc9b4756c30b1876828ef52cf6117cc3a",
+        "30d27b7c9cf4fdbc4bca143c5138dcf547f002b57d4e9409b7e43f8085317bd1",
+        "b721015470ac44cfdde5b6aca0781d17d09d0caa4d328443e30e086e07c4f539",
+        "8c7bace0ab7a1ec208ea2b2af8fdf03ef5567835c4a1a9861d90488dcbd2cd5a",
+        "441d5584f31a50c86252d0656621f10c5e057b49d099d21aee1056bdf996103f",
+        "b88315e06ad0c0cf5bffbb50efffd647a1ea855dd544ba434a38badd428ce416",
+        "7ca722bf16d6a21112008b8351fc448e138a4eab5e0e389cdf4dd7546907480b"
+      ],
+      "reviewedAt": "2026-09-06T22:55:34.256Z"
+    },
+    "Incline_Push-Up_Reverse_Grip": {
+      "exerciseId": "Incline_Push-Up_Reverse_Grip",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "5285f1807c6f662a33f0f973908a3b0e106804194d093961885d6b1285bf199c",
+        "d2871b6860658415d90ecf25af52c62fa681810866d881855906becac6637ac5",
+        "1ebad96c67fddc3f1838c33603668c77b6680968fb6f0d3b9c7f000a7cd2ddb7",
+        "639324e0255540c7db0231c4fd1e89553ebaa1c1b62039eb91921be9d66c33f3",
+        "35f4f28d7538a0c7af273ff8b329b8882ba4c91956b1357fffb7f70f81dd76dc",
+        "602fa70ed69395eb727769f2ca9db4965f99074ec7c001c2c445e138b92eb2a7",
+        "ebd28dfa89b732d77b5f95c5aac99a582ecd70a6a090412a61a23393dfce4dd6",
+        "4855eafa4978126538d6fb91d5aa29a1d6b88d355a8d94fb6f3080a86defdd91"
+      ],
+      "candidateHashes": [
+        "ab60521a83e335a46f8e3c7e2eb8fa95689a4f7be8876062590eea6851a2ed28",
+        "a2494b5f2946e231695342fc09a9cd267fd8a4997466810127c3af09a136e915",
+        "99c98baa9547e18670069bfb4ae72a9aad4d46e3a17c7d7c2eae07db4dee8990",
+        "f184a2e84f1147757324779afd1346701ceae4f7be465f7895b5eb457eae1812",
+        "8addaadc0c45151f4c38bcc52b02feb87ee7f8bbe884296f9f81292047355a04",
+        "c10a3dd71303b8fe6281cb1ee97f5d1b7b2abb8f28739dcc70d696678b81ec67",
+        "c4ab1d2323452718111528be649267a2894c49d0bf9a070690f1e04ac7b0a8a7",
+        "08ff952530aa35d77bb724d43a02663e61f4a4dadc11456551b5d595945e3cb8"
+      ],
+      "reviewedAt": "2026-09-06T22:55:41.235Z"
+    },
+    "Incline_Push-Up_Wide": {
+      "exerciseId": "Incline_Push-Up_Wide",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "a9f22eaa9c1c167f6e852cae1b9b60a450b649a0779f4d7da8348d553a3c5601",
+        "53af81d4aa7a2f740d52958fdb5c671b50d5c333e23a6b83407b6ff0f78bd2fb",
+        "a5cf4715f1394bd768748e46d43e36fbe34294a943ce8ab4646e583844a77f8d",
+        "f7dc49d1a2b99930a026857b15727186f97163acb363e5ad5c226b5f9619a882",
+        "335f1398c377390a79420300d72d9767556ee27f5eb6d7753cd9fe742ab5b135",
+        "66a33e62ab8d4134ee053972cfe614103b3c4d1d9327cef81f884801a4e437ae",
+        "a9703c17c6b70672588369f966b2d028ce255b11b9fc6e1c0a0dbdb53749802a",
+        "20f1fcdace96ff8aee65d67bdd61e21d897aded5e59315cbab581f977f28a51f"
+      ],
+      "candidateHashes": [
+        "f3d90955eaa05a533b10dfc4a6d4b96cf31f2ba265ae7b5fd54dcd293be23a94",
+        "2ae82a6640009a79797df6606bb5bbb2f46ec99365c9d7137680c5eaedcb7e57",
+        "cccbe7976021612bf8baa4049b4a8b4a55c48d1d284c550821b3c1786573bc40",
+        "d21960778710e2afa9964336dfd6b97d9130dd85b08ad2b38f56b186dacbc273",
+        "6c8af7bf78018bb01ea0b59566f1fd3196c045f0534e33f2a3d0689e6e8130ab",
+        "58ec7fa368a58ac5935894dda2090b0eee712c3a50904b2c19f405b430018782",
+        "8c9becce8822098e2b4c73dadc00fb7a49a0d8d03513b5d2090f0493db5c7bed",
+        "6f68f972aaa03efbbd686aac7a543efb279f5d1ba55acb780514202961fb8972"
+      ],
+      "reviewedAt": "2026-09-06T22:55:53.661Z"
+    },
+    "Intermediate_Groin_Stretch": {
+      "exerciseId": "Intermediate_Groin_Stretch",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "e6e523fd65f605ea9d5f0ba5d47e74e4a063d2c55dcb30bec0b25bca549e0fa8",
+        "84c8c5152a76518bc24992adc1a30836f1372b959d7762119ffee6a4a964b686",
+        "5ecbd1e394b63d5153590b72e86257e22d951805da909f690bf7d69ec277b27b",
+        "c4536732140fefd1a68518430dcce51a39c870254c173daa7f436bf430d0a077",
+        "d1b8e389f68bfd0e336a1053d83652b963631f187af0ad624ef1eec9ab54bb42",
+        "58fd44feeb6fda09d29ab068e1a553a40341f9b2124a3f03394d9525bbea7a1e",
+        "ff60365a59a2f7488aad5a1388ec976732ccf2fc3b15dd565c16951a5575df3c",
+        "4eeb84171148a1800251b7da90b5b7efe28728f2ea2480513a9ca6170fcb6ba7"
+      ],
+      "candidateHashes": [
+        "49bec664ce023d0454d4f1c01d4dc4f7b95ae166e03845bd324e58ee0ec02814",
+        "230295fb77ad2d7c9b7ecf42a2ccf7aff1a385a6d2cda2c25e06fab1f82ee2b2",
+        "39d48570d1d436719a8084c936949c507297d86f0434ad7ca3cd668a7ef31574",
+        "2c1a23eb6f5c61d890635237763e249023103c63ede2cdf14da6ff425a804a6a",
+        "d6b1340ab60dde87f5fc71618a0a9f0adfbc8e9fbbb5f238f3cb8e802d3e8528",
+        "ef1cf67a87024b1e37cbc2e494654f2a3220bb2c4106f37c9ba21ff724532cf3",
+        "24a23bd0098a32d08da81320016795f9e97a9cc4226f76cc891faf7e379b0a6a",
+        "62cbfc2fc88ef440987b9260c7072bbd2d5edc47e385a0266b01b27b2bde70f2"
+      ],
+      "reviewedAt": "2026-09-06T22:56:00.791Z"
+    },
+    "Intermediate_Hip_Flexor_and_Quad_Stretch": {
+      "exerciseId": "Intermediate_Hip_Flexor_and_Quad_Stretch",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "faa4c820164c28ec9cf1854d1ae3c4d0fa64e933f85e541fecc40bf6b775fced",
+        "2d6b60f7e6665b6ebad83a5c820a45a80bce3cc8424e816d2f2dcbda4c95c0bb",
+        "e4a03b99ad2d60a9012be55f44e9bae205bee88da42752a99925d738b9917ac7",
+        "fe1b908a699a1031cac81bd375e29b26c18883ebc5a58c1060841c7163e1dfa2",
+        "e6ab28f4462d5b93d93779ab7b5ab1703756c9e37c652ef840812893422bb121",
+        "75ecf6e8ce48ca349051e226cf8e1956b8f881ba837eca547fa7eb9d802f3af9",
+        "7f0ac96f59027b4430cae3ea76351af190bbf78b7fb96a90977d7803c3fadba6",
+        "b2e1fcfff3c1b63998c3460d1a932dc550d529ae7980147c81514d2a80832b50"
+      ],
+      "candidateHashes": [
+        "560e7f33f251751a849563c0c8b4caface13333df2fc185052b806de541f5f22",
+        "79f7e1394b6a8840ab9b226dc075a05580f8dff849fb53f48c27e5d99a9dad02",
+        "f53cf857255bf93bae24f70dd26d1446b98885efd1d8e8fbd2ec8e0f934ab3d4",
+        "42260f5f0f0e494e2a2fccafab8a87dda377a68c01c180877cc949e39fb623c9",
+        "bca992ae7f835e52e8ef3e3ead9e296d91b87902e96b42c156e3f593ae50ae4c",
+        "d3f4d54e155a46abee5be58e111f498d8eda4536a7071c0ddcaeb3e2bfdbec72",
+        "b61a000d32db3b92e6f37c68b19d9f9ea52a63faa8e2cc88aff3ff8e4891aa19",
+        "63e54adca929bf0d7685fb36140861fe8e2ad97e5297164832a02a5141979d51"
+      ],
+      "reviewedAt": "2026-09-06T22:56:08.120Z"
+    },
+    "Internal_Rotation_with_Band": {
+      "exerciseId": "Internal_Rotation_with_Band",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "15c5f902f0953a5bc970186ca545f4ab9f3801c3fbf10828a7c0445ae2b2470b",
+        "0cf2b318880f5bf7c244e69e738bc2c0d060d8d79f841871223d2d3a63de1d35",
+        "82dcd23cbc723fba115b4a225efbe736fba7c379323736fe9f8a4a27aa227445",
+        "1a3824f521d86ab112376823d0e92d1d85b688c29560f95b587f95b8dac0f504",
+        "dddb82f82b2997e7e47f6dda779f08548956d1ab17301aedccca975f2907319f",
+        "d0c1f8b4535c8c8f84434188f12f3886179c8bdb9b09a4c69f05c7cef9b88a1e",
+        "95e736b6140f5f5ae502cf994ba2163e31219c6c5bd7a2deeb310d8a29640a02",
+        "b89f9c94fc51ea2521d853d51744d413c0000dd73c9c37175069da90db1d7221"
+      ],
+      "candidateHashes": [
+        "07fd1de22d430fd13db09284af0c51e05e8c21eb3dccf8274650e85ec478d2bf",
+        "66dc1f3850a66592d709f7c632c23f81a405fe7feb1b6788ac1bf27b40de8057",
+        "08b54247bd5edb83cb1ec5b6fcaecc152148a80f6306674e74bccde72c8bcd3c",
+        "c1b385bfa44caceb089a77b5c19b970f560caefc2dc9ff35e296dd9c66a8621b",
+        "5523b30f9312ac0fafccb8a2100b73abc3eecb8e99a9cf27143dcb8cc807f57d",
+        "91c44c1abde7ae890ff932b0dfae01680512ddd9aff3e5eb93534125e71d9a53",
+        "0ed22371f4fbd24adc23f206b2a5822af45cfd6d109302a9fa4ac0bc4dddee8e",
+        "6061ccde58384d5f2aaecb38e7c4bb5da5b87f66f309b7121881e478ca393b4e"
+      ],
+      "reviewedAt": "2026-09-06T22:56:14.070Z"
+    },
+    "Inverted_Row": {
+      "exerciseId": "Inverted_Row",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "d3f930e873319aa4f49e45058c1df779d7da5239dd6b2e803239bfd22afedf4f",
+        "31ad62d90f52496372eddf9803a3f15093eda8ba68c3cfc18ef008514f069cfa",
+        "c3d31f247ea434d6bd37ec0a5c41cccb0ff279eb7f8f1776935576117cf4de51",
+        "418d9f46a89f422e611a0d03e3dfa1fbf9ca82813140a0e993c512655e995b83",
+        "1798caaed157f95e08b18183a4c33fd5475fb4a24a07a2c4d5177fb278553f27",
+        "9a59aeb10e5b4dd670939848c07ee784f9802a043bbc6520aeae3777e67ff3a5",
+        "46db225b27828f80c568ec4ee19f921c44fb20ea9281a27059caa0a41963deb4",
+        "0a37b8eb099b0b12a49d678239f79dfa50458b089347c1e19523ff2bd4bf100d"
+      ],
+      "candidateHashes": [
+        "77cfbafe088b0b115e872031e198fa64b990504e4156fbb02c85d7e85781f48e",
+        "f9bbde021d73dd014c45112849a76092e285c9cde3bef60b9b96b6a831c7546a",
+        "1d2a68c2207a2cb44457e4a3ed4cbc5eebf407fba304093816b9d50b316673dd",
+        "8be49be68cd450983cd71b2d57c5c591b8d6d6dadaa137297e30a90bd2eb10e9",
+        "13449747e28049f990b5d0f8dd0eac34db6432add607c6e6c84168e8a4586809",
+        "8f71312da8c6a86b6f0698ae1c480b20b2601c9227b7fbabd7b8612f2f64e7be",
+        "690d2110623a166ee6f558d1865a42295eb5fc42b26563e96accdb85759e93dd",
+        "8d88ea45f7aceeb2f7f9a447bfdf196bd3402a7841ecf024eb12decd1c7bca63"
+      ],
+      "reviewedAt": "2026-09-06T22:56:18.678Z"
+    },
+    "Inverted_Row_with_Straps": {
+      "exerciseId": "Inverted_Row_with_Straps",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "88614794f6101c1b6d2078970ffe4de735245292e7a826e26569ac8d617894b2",
+        "3744f748152359a6d894eba9d6206dd56fa981d3cd5af727074a47e802adbaf9",
+        "43ea56e83324d7dfc7d95927b71cf7049b03d651f82809de1e637663805701aa",
+        "3fa63f90d80799fd191845141acd597a86f7bf435b0273b5cf8fcd03fcc8952f",
+        "cd10030483f67acf70c80be390e5561a2b78d3ef4e8c8f0958257e71b47ed2e2",
+        "4429940c968b2a7a81a0837694a3dcc7f96d7d221dae0d852fb55422b44aa236",
+        "1d303bab032826d9455efbe1434ee9ee7d4a7213419b1e8d379fb573b0d0b016",
+        "febc1877da400a9bc203ce16b1f19d1a90bb96a05c97d1cbf4a0ad5b20594f15"
+      ],
+      "candidateHashes": [
+        "86a725189dcb3bcd1a4ef57e4358d24e3be34656649095d4d3b339912df93531",
+        "aa53f1a1a7016e62dadc43fd8c8ec8b331f14a65809cb116e89d0c53edc62afc",
+        "cca55d1523cac784d9c88af6a102a745ed95e1538d8b16b7af7d64a8a0531097",
+        "4b31a9228956ce5b3bfe4bda38c8438cc8c58226949e22a8bb3ce26968c8371f",
+        "8e4d137ee0759c4a7d14c5afa52967386c30b0c41957bb7b0702e8c458220e13",
+        "97cb373937335a510e1270cae839f28b3578cfb70027d8ebef21aaa4e3e2377b",
+        "f13e3c3ee2fc1b2a59f2c4703723ac5b5e9b079715410b8de79577f9f57174e5",
+        "92c0e43e00364dc856da768a3d06c514b8f3218c99109e93836c60adf2bfbf0c"
+      ],
+      "reviewedAt": "2026-09-06T22:56:39.681Z"
+    },
+    "Iron_Cross": {
+      "exerciseId": "Iron_Cross",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "356c8cc88fe2205a547d33b29f8c4a7328a3cee05bc929a6f8d975f7d1b1e85e",
+        "f06a221fb4b374abc036c210eea4dd132715c095c9231baeca34668edee243f0",
+        "4bde3856ca3f8813d5210d309d35b8cfddebdd621636ab1854e0dca7de293cef",
+        "bce7f321a38dc709ffd76ef9d431a9db1fa6ac9fa6fb4114fc71df503a83782f",
+        "125d49c14addf022e181ad25327a561c8489fcf7d9e8a83fb62365da7ce99e51",
+        "53e4963c8dee74670a129de97a79d8597521bac411ab83c9761169b4de3899b7",
+        "b275e788fbcb71165ed75446c4a609596828cda4ed1143088a132d4b98a7dc0c",
+        "562d03c94b407330b3d80a3a78e54911740921d46b36d8b9b69cdecf936e2247"
+      ],
+      "candidateHashes": [
+        "e832f2f47791cfda1748d9fbcb19edd77a39c5b21822fad8c9e5a9c822dd1f66",
+        "ea5afaa7c32c3c010b447cad911cfc0c9f611226f25577feaf574f2823c3d7da",
+        "190b635c3ff183398aa0d4242bf56d8ad924b15130917f269b66eeccf4e3e56d",
+        "a224b829aed79748b7f3a733021665c95e690c1b5d167afd66c13a5fbc7a7bd9",
+        "561df15dc26942a18feed9fc68bb7b31f250a48b693d679b5c6fa103b51182fd",
+        "daf7cb2ebc7c95824b9781aceb2141d90d5eabdba5e22e893a186d6187480c01",
+        "4dd10e39984d1c30e418cb84dbcd3c48aa3cd94833b462243b72172be2d79a56",
+        "55a7045f44657daf69b35099eb71c821fdd9d950661a9daad4c4507e5c93b93e"
+      ],
+      "reviewedAt": "2026-09-06T22:56:45.638Z"
+    },
+    "Iron_Crosses_stretch": {
+      "exerciseId": "Iron_Crosses_stretch",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "40e6079a43db3313d960ecaa1721ec5a3316d3016c5502d80e53dc74cc73808c",
+        "5500ee96f24029aab0f702a5ff0b02b5458093a6639321a866e89ebafd2a8235",
+        "94575970f623538ab6235d7d087247350faf6adaffbe6247bf24895570b1e0bc",
+        "7fa73f18652765a01e5ba0f07017daba66a334ae0c3dc82f8d18019095f1c223",
+        "bf70450d355ebdb66d6da1c6311b5b4a5cdecf4089dde685f3d7d5ecebadf172",
+        "66e6d9b26e875df133ac62d416c1c22e9d4bb6bcadea920b686c0da82e30ae51",
+        "35031f8d02417a85ad5e6270333c777430a74012f04c0b3caf8b4018b16f8097",
+        "891b76a25c41a62814b9c83e6a39a11f675addcdc502c47af71a7e45520428ad"
+      ],
+      "candidateHashes": [
+        "8bf0995d450fe25b9384edcf4c92e9b8d4e664a4f0900227bdb98008b97b9b17",
+        "26ce6584c500ad92f55d7810fa88a63476e64045e13f653a53975e457c2165ac",
+        "9e810d1cab0c409ece99823a7aa4858cc1ee9120834ef797cf82b614700153fe",
+        "eeade6034a1e88ae6d09565f997134be39bf70455c664d78e5592bf2195d0e96",
+        "2d2e2f48e5da0de98ca34c9eeef1ab5cc392fa7feb03c18675de410429cbc19c",
+        "4a076dcd3054178675e3bedd229be3629ed12df5e80db000260dcb36a8d716fd",
+        "ca62bb661834676d9a283d87db2ad4e37c4b080f16d962aefd039374746604ee",
+        "752a34e7407a2a6c2929b349f58ee40c0d1760279dfbf5813e67d41cdf4f3d3a"
+      ],
+      "reviewedAt": "2026-09-06T22:56:57.259Z"
+    },
+    "Isometric_Chest_Squeezes": {
+      "exerciseId": "Isometric_Chest_Squeezes",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "e63929d8984238d1456e52798e89ca42965622a5dcc2b8a9e2f8af9958557472",
+        "bb8009d0b1ec1932f5ce4c8fb8c3cf0ef17aa4b660c9bac1c689e93e169018fe",
+        "bd39307d126f647dd49a0b72430e4fea22031307899c33fe605ef64fed32b583",
+        "676e845456130475b12f28b10b03375a9fb934a1652de52762b82a87a253989d",
+        "13fad62a536792fbc010938ee1cf66c01214ebe809cc8038512e9ecdd6019ad5",
+        "6d1535274841af4d10e0624777df3b2ea77e1edf686283ff10917444e7a0c895",
+        "dd1db00e2418800c651a260ee4ce95f8e265eb67486ff9210eb20b6002f594f7",
+        "b6756a5e27c861b552ae84863f269bd4980591822b27d3534dc7676ae26395fd"
+      ],
+      "candidateHashes": [
+        "18a17264a0efa240b521c136212a99c489b474e14d3d7fb4c158382efb83dc23",
+        "e2e9e63182e6b61e39b5cb3914ebe7e4ddbe5063428347c3f2dde06ee318626a",
+        "74ddf67210d1fee7511a6db055eb243d3e2ea074a69651a30d03bde12b2595c2",
+        "302a3ee399587fdd512c5c2e50e5252c8907762962b089e68ab2458a893b1cd7",
+        "870c1b94c3928d1ef5522b09658aea88fdb888f6acdeec38ca66141a65b601b5",
+        "bcb337e472f664661ac4ddd1e582920ed434d80179e8cd83a93b36ca7664c6bd",
+        "e5b58f798b21833850c08c04258b5f2e17c0fe684df0c92660ed2fa77bd1cbac",
+        "b80c59dcd95c6509833186058ebe9c2ed290537cac6291531ac15059be66d166"
+      ],
+      "reviewedAt": "2026-09-06T22:57:03.795Z"
+    },
+    "Isometric_Neck_Exercise_-_Front_And_Back": {
+      "exerciseId": "Isometric_Neck_Exercise_-_Front_And_Back",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "73b6a09bf4c1c77649e8ef02a6691ed3160e77f291ba07cce6d2602e11bf25eb",
+        "5e4af023696ed022c3490216ca287aeb560bc6cf121e340a63a9f1826b25c8f7",
+        "ffaf3b8f3a1bf27b8e43591344d7e664b5953f24585382a43cea863e10275727",
+        "e9941ec9d03d53a20be7be877305886be0f125e37a98c0a80505e1926b15a320",
+        "7589fc204d2c2199a851e86ed6394ed71a558aa2e254219598959eb23950800c",
+        "42541bcce0fa8e9e24044d89417f67f4a19b15774b7a2a812802b17bbb9cbfeb",
+        "c90052c3d6df8ef7c0dbb92f2191667e751fa8798eb7f176a76e8564d419c997",
+        "0048504291bfbc00a98ea16337baf59621cb80f77b1b0f27afecafcd2877f520"
+      ],
+      "candidateHashes": [
+        "1e235187a7f572ca9590b77a8331470ea98fe5b522461537e615d9a5a53442e3",
+        "08388d0ad9aaa3c79d04cc84f7c66c9637cea288342f7cda3fb28ae69a827cd2",
+        "31cdc8ddf52ab95b7544ec26ebdee860de7041d84d480f36a456cb52a7b8aac9",
+        "011ae517d97d914bc74cbcfcc702f9b6236266638c67ea1ef044992839b816d8",
+        "c53276ec6d3eb7f59961add7d836be50d8d1517ba6203ddb67d4266daf04947f",
+        "61ad4a17c22eb77b635e6fe94813bdad7fe4d9c65d6b796bf6b3b288751793f4",
+        "c33daefb632daf5d27bf1016e594cd23312363961c1c7c2d5db03be03022f772",
+        "97ed9f3ef25510777fcf90266f76a1db85952514741a51b6d86dc3f0da7ada39"
+      ],
+      "reviewedAt": "2026-09-06T22:57:07.570Z"
+    },
+    "Isometric_Neck_Exercise_-_Sides": {
+      "exerciseId": "Isometric_Neck_Exercise_-_Sides",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "19718b6b465f82343a9b19e6df8b09298398f6274a8b68b83e42575dd1782254",
+        "ccc17fb29022b56b1c31c4dabfe5730f7b0b929e3517f430645c49b38c87e00f",
+        "77a92319ea179b20ed55eb48db21b54bf4875c15404b5d86ef646c0af46be3ba",
+        "8256d4bdcce1fd23727c49cc65eeb960c5cae3a583f890fef43b66a698683b4d",
+        "4863868d6ba88cabecd3a697315053a1c418404dd2986c1a0d23b4e9969b86a7",
+        "204ae4ed39c168ee3ef5cd529f45cb8acc4404a9f71fad5aa4d3f91b60b17e20",
+        "badd4e59e57c2da0ef940bd04baafdfa149e3f5aee0a7d46ef7c5b59189ed709",
+        "3d433c499a3b5dc9f0d29e782ee8751738ef7f92ea09e8500d7f6d40840a995a"
+      ],
+      "candidateHashes": [
+        "78171d0f839f8fa6b48d960b4b8f5b1870fd2ae765ca5c032ed5626d3550c029",
+        "41a3f302a700e55604e6bf729a39e8b05c3f12ff98761519580212d7448c44c4",
+        "2cf59656dcc5f08e11ec6858f2a159d01c19816ffd3557824430b1019182fe31",
+        "8b992cde11344d46582ee65791f7edf17addc65bc6c4aef4946b76cb7c5adb7b",
+        "0b50329818ac129b19e3fcec2e9f5d6edc4280a632ab0ccab7c201f518c1df94",
+        "a1a44d6495da65b54217c7d381e3b83ea133c469bd9eddecf9c739f3a7d46121",
+        "cf811685fc6d33feecc74e617da33818c60fa773f9360dc1dd646c02c24613b4",
+        "a0d247e210f00b596d140cb825bb6878573dcb2162da34bee7a5ec5254137f92"
+      ],
+      "reviewedAt": "2026-09-06T22:57:11.394Z"
+    },
+    "Isometric_Wipers": {
+      "exerciseId": "Isometric_Wipers",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "22fe5de00997ae02da359352d087729a967884645528fee4fb7dd9fb8d838a02",
+        "7530bf9c0fa32ccf27d8c7e46364ba1c244c62fd5cb181143cc805b6beb81ecd",
+        "f7d175af5c6912b908a0f7e1dab56461f8d580f116ae9e29c9438d8be081d713",
+        "6cb96d2bbd19e8a5e139173e267d0be21ab9623a4a0654f36e9a0a7a2a95830e",
+        "c76140f47d2e9834d894c5e931a6d4c07f7ad787955a0bc22b3d64ce55dd1367",
+        "874d7bef07b7ec813190eea1440487b8b1abc3fe7434be827af1327d45960e37",
+        "7c0ec03aab462f63d1784b1f5a29a05a3a7c464aedbdb7e22a8bf4057d837f5f",
+        "3d2be7642e0abeaff9987d29e33b8207b09a8476d91ee4131bb7d01ed75155b1"
+      ],
+      "candidateHashes": [
+        "a4e50d439f1951a4f929933b59b813a53369638faaf27963464a28abe454f093",
+        "80bf0d18f1a8fcacdebdfb3737bbaaa78e764ca46886557c11175e190a8c5a76",
+        "bd459704b2724453ec063b445b6f44ed1403f2f4e5fca3fc0ee17743b25faa42",
+        "4a50ab04a9c91c8093315db81e29e957779a0a7232454676945a8d6d082f529b",
+        "20f4c4583a39113157d999d949eb447cbd7f58254297ec1fa84bb4db142e93fc",
+        "56d11aada8e2fe3826b228eb825773fd9d03ea4b0261f59316b24f1695641853",
+        "d20d20ac77460124972b0e8e123f7b83420727a2a7b6acc60801402d193794a6",
+        "76700b849a0f927906bf8995e3dc0cd2a52c2cf3cdce89e4d0896dabc9148187"
+      ],
+      "reviewedAt": "2026-09-06T22:57:16.184Z"
+    },
+    "IT_Band_and_Glute_Stretch": {
+      "exerciseId": "IT_Band_and_Glute_Stretch",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "f8ed25338d68566da07166907e688b84431a21ff737cd5ed99d84b1bc05df9a7",
+        "9beb6ac897d248ea09869cdeb523a59d37469372cd923ccedb09afa47ccb0cce",
+        "31305d70291dd4768606b2ff2facc52ad824e882d33f8bf6e2f08fae618c12c4",
+        "cd5076bdf72de5a1559d3e7755d09d5a8381731efc373ce5fd1277512c7a43fd",
+        "064cfc56e6e2dd579148d00e4e801b4969e7aa61da8e30ddd51e5e07ee943b7b",
+        "9340ee3d9f73f2b919e05f90133af4ee89cf25688e9902f4f96b6574ff40cce5",
+        "a26383c8d2072cbfeb0ff03431b233803302ed57fa0ac2dafffc3acfcf75d52e",
+        "39203b316c24345d4d334359d4f23fa4ead1cbb670a120c7fc00e72f2386fcb6"
+      ],
+      "candidateHashes": [
+        "380bd34d298264e26c5c6dc4e8fe65e2c3114f0782290046fc46e3cac1834c4d",
+        "fc0b6fe1d79957da1b3f644b61669ca6ad79baaae555bc2e1ddd9015b671f246",
+        "111e6a926e53a791e8ddd641860ab5bc77eaebef4fc6cfc182e03f5a8c72191c",
+        "8e8c5a74c05d621221cc6061db955299f8e295cbd2371aba73bb3bd1653041ae",
+        "dba9bcc5c127f4ab8cd69f00eda5ace11342b001cf8c67316eafba7c91e518c7",
+        "fd63e11fc1450978a41dd0de1d47491eef447e69b8b15817a72ebf109ff4f4c0",
+        "23b0fff55ed3e82414eead7326508fcb0dfd6e6b93db90a49a9a257c690b2a38",
+        "43e29001d2196f893ade471214c7bf5c6ac23e816106284c13044b98f5a86c35"
+      ],
+      "reviewedAt": "2026-09-06T22:57:20.747Z"
+    },
+    "Jackknife_Sit-Up": {
+      "exerciseId": "Jackknife_Sit-Up",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "15578e5e6230f2ceecf50f5cebd21fa00d42b8121a9dc656c5141521b80728ba",
+        "1a74cc0026ecd74fd7158496631901222d5a0c50287ba0c47d34e745d36efb83",
+        "a7ad661e5ca9a1c4a1cc7bfe9c29e580dab314d24c9d43a37fe4599421cc8fab",
+        "84e83fecb7018697b257df2b2f6cfb4ac7f71f0e4b8a1d4cbdf3b8f4ad76731f",
+        "058fb45bcfbb8c3e2c47fa52c4adc860dca6109480800376bf4d46a0c88c2042",
+        "1eec667463afb8affcca59d593ab24358263c9838a5498a67b4e6533478917cd",
+        "1f304ad71df12aeb347554edc744a835d6cbe9e63a7acc0f001479907c1833ec",
+        "7091ef7304f74b8139c79a6f57ab4055d884a0ecd24c4e459de54b5b81db335b"
+      ],
+      "candidateHashes": [
+        "feb33adb13d3c63773bb0fe2f664a883d32b8ffc9e9f6dd9a63cdc4e6e9d6090",
+        "e239b4375e22cf81b6184b7b30450774e1ee9baa7f841fb9e470918f5c2bc205",
+        "6e6ee4f488b63080668f174f9840b40217c5c3966c80ed503a3389dab461fe71",
+        "9e397bb0c8be79d5bbc21dc98f7abd00cd1e1f80900a28e7e0d92e7924431e18",
+        "75957fee61e9b81b247eb37079f4da15b4f13c6a7935ca624c14aab610184045",
+        "9ad2c62d6533a2ad5760fff739d86711eb8bbe22ea66f233170c25476f69f76a",
+        "ffb90158b678c692969895aefe4ec0d4097e33c60a30ec2dc23e410e48dd8442",
+        "23b4f4e8f9709884edd8260c9ccf79884f03b91a539996fd98a8312b65e011a3"
+      ],
+      "reviewedAt": "2026-09-06T22:57:24.118Z"
+    },
+    "Janda_Sit-Up": {
+      "exerciseId": "Janda_Sit-Up",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "cf105e52f602a11a3cfedc532f9b01755eee664122ba59ae28568ebff56beb66",
+        "6a7fc1b2c946ceb519349614836e11ede09718d4cdf9a3a30ea5264d3b9cc7bf",
+        "fa6f20a39ba54b3aeadec774e5b0ee6274be5d728efee0452b56923fffbca667",
+        "9b01b9a81f379913d8fe5b30fd3e103043c4ba7a5f08ebb4635d1d13dd76a17d",
+        "44e32e49b154588bd216bf63da64d5a2ad4e41a6789b53f57a2511b101dbfaaf",
+        "159594b98369021b8e39390c6406c8d156887b8a8a78e682451cf27675469e08",
+        "46293d34a7d69ded06305902a16adb5dcada7196637b159dba9a58bbb6abb950",
+        "3ca50e42856bd1eaeb9574e6a698770a751d00df7efdd6229eb93fa0cb711e47"
+      ],
+      "candidateHashes": [
+        "38f9ebd10a126322a441ff9a3e5ceb284509ce14bcfdcd9843e751e5b82ef7ba",
+        "9c26753919b36a9227668c081c986da0e27cf0bd2e21ea5c8ad0a1f39ed2a2ba",
+        "226f7cd63181db508543bf509086a74f9ccae3d2b1725046a0128337bc21a5f8",
+        "875bfa168adb15df833d634ca5eeb512ef0dc8e419b6822fb1dd26f69a83fa6e",
+        "e3ca7585a2a7db4d8fbd6b6788934c2a233c1644d53d85f25b0f9d432529516e",
+        "17af6e38e74e746b08a21160a03921e15b4962c8a1c23c7216c5827d8ae24bde",
+        "0b89bf5f5b211d09607c66d7e33d298242778d64853b31154af24d36533c08a1",
+        "95e5be77641cae79b26b058575935b28c481e3a10451cab1fe5d7107d0379c7e"
+      ],
+      "reviewedAt": "2026-09-06T22:57:28.533Z"
+    },
+    "Jefferson_Squats": {
+      "exerciseId": "Jefferson_Squats",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "028b9c900e09a49d0415823636c3067605a3ce071be3989e88605ce462e0927d",
+        "236289cd01ec7350f7a7b0725458f05a7f9dccbfe14862ab5074e52f436399ee",
+        "52f09999f78c5a2eab776419198cf619cd8dfc925ee89c0a834117c856d31a74",
+        "bb32cdad105252e48ee7c085964b5f221c22447b28e6be95f4369467f933051e",
+        "197e655691ff9d3c03a165cde32d0b6dbad71bcc88359aced142c5b83902146b",
+        "8a82a7027c4ee52668d52d380ae4cde19f496f934399ef6603b9ef1e6f93c120",
+        "2b280ddfc33ab162d69ce00e344161389aa3541d6500ac2132890d71d83982c5",
+        "a5e5587af385323ded94063a7de6678d1e26ebdaa879102d6d519602a59ea4e2"
+      ],
+      "candidateHashes": [
+        "feb41dbefb21ab2b3be9e89cb5206358e7bdcd7d99b5c24dc4043707604f0626",
+        "dc6233dd0ec700db538c60473ea63699a7d980f915f9b509792dbfcbb84c701f",
+        "25427894d88730f8cdd878fe2c9d36eeb7805d2df2d10acef17220e2611d35bd",
+        "23e1e50cef26cbf5a4b36131e0e7c4674451d5809711e6981543001a43ea3113",
+        "a15350a5f21d32976d970e20b9e07c6efa3686690ec03e264fd597de394332c3",
+        "b5f745a357b633a706ef8d58de00b2513811875b4c95530663da231e4ebfdf38",
+        "bfaaa7ee35e8e287495d65cbf75d7ca27478c44a803461b0a6b6fa4f29a427cd",
+        "d75c59c1a9535aa9a8c3c50492a725f8652354f2693475bbecc565fa71a409a7"
+      ],
+      "reviewedAt": "2026-09-06T22:57:40.037Z"
+    },
+    "Jerk_Balance": {
+      "exerciseId": "Jerk_Balance",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "95026bdf1be0d458eec9735a095d8b698ea2a96449588df1d0d2afe3a5614aec",
+        "7aa752600abac162a4a893ced19e681fdb27ea86dcf9dbb0aa13950dda9f1e20",
+        "fcab68daa40681dd16cf4dd5c57113de02e6081305eb9f3df447cb910025707d",
+        "8573c9352899e0291bdeaab2d4f5c8c6c34bbaad0b8c1b1148e80d349c8473d4",
+        "ed0626dd355e565317b89233d7e84d30b68c78399ca6ac22c1316b23143f711f",
+        "f1a3dbd7d56693c7ce7e6b823d271ba8ceda879aa8ee5f13f6662c988513e7ae",
+        "6a36e8d85d5b5e9fc3945dee91b7d3edb8a1f916e6fbaff8cff704ccad9e8aba",
+        "9f9430086ae5b67dbe73124f1d9f28cd9effc0fcbd0d2015751d2b7d18f1117e"
+      ],
+      "candidateHashes": [
+        "79f7854bd197a6ccdf6f53a4582660172e8832bca3359e115da6cff61f206e6d",
+        "49d0e9cbca28f6b615d5064b7f89261434345fcb784bcf9af838db63d4401d5a",
+        "323caa47233d4d30868569d62ec65b6d8421858c60958e1fd54ad36365071faf",
+        "0173c6c0946588ac2df41d649b69c1452f0c95299506d7f1ff04b61ab762ead8",
+        "2b69da1e530051427c5de789dd1dc47f6e3a21f8caf1bc07ed178cfc1bab5e7e",
+        "9f032518d199889531c2480ddd3c8c3aa4348f34bdd3deb7c9a59e883a9fcb58",
+        "d5f63df9faf00c4b3d9ff234697f45d8f0545fb9ea51dc1745652ac6cdc69072",
+        "501af5fd86d059332c7b9618b94fd8ac937966a0118e87fb12c9aeb9b41f6235"
+      ],
+      "reviewedAt": "2026-09-06T22:57:44.103Z"
+    },
+    "Jerk_Dip_Squat": {
+      "exerciseId": "Jerk_Dip_Squat",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "37d2f64a115b76e47c95d63344a427dcc83192d87f77d481c3e391c099976f14",
+        "9593ad87e90ad19b9483d44b27e4a8babc891fe0a901efd03d7fb526ef1ce597",
+        "d79e0f69dca91445143fcbc5d396ddd2ecf3fa77cea2228d70fbb81c2c2c1fd1",
+        "88118daf318d07aac940400de697e6305102d12f22aa359c3a9326753025927d",
+        "ae27f2a32a904c501de7255a084aecd0189e2514e7b0ea32bf397abdba779392",
+        "76aecbbab684c4603984f0bd9b44447c77695a089e3a8747cc71a3c7d0da69ab",
+        "234e08fca19038de8b6e0b33cc8d05ed077186bc298db06298bc626f157f8426",
+        "316a7feab58aa8a1241cbed2ac82714366e9e84b809c6d6300613bac50c36939"
+      ],
+      "candidateHashes": [
+        "ff238a9255d0566272c63094e8a773f7195c6c0ea79e28a5be278540fa0a5e2a",
+        "070e55eec6793ccb2b68600fd7fe1cb1f98bbb6e3bbafb4d2d7c6c0e97d35202",
+        "4760a8dba686a765701616b449dc15affaad37ad4d85fa56b6b62bcb01ad7bb6",
+        "d6d90016ecdef640e0daf7ec323d7796e1aed127f91712974bd984818691c589",
+        "2f488cb81d50ef19fdf56e0cec81f08628f3ea5a54da6efd1cb585b56461111c",
+        "19344ab1290ad1d15fd7413dcab274a75ea215eedfc192e169b10b771ebf4ca7",
+        "7e8e8a98d7bc622d0558e817ca7bd29c9c3f30cab768554b04c2b27e53db7a73",
+        "aa4228cdf9762825e6f4cb5e6e201249017f9663c5b9f718a0fdf3cb82ac6f64"
+      ],
+      "reviewedAt": "2026-09-06T22:57:47.457Z"
+    },
+    "JM_Press": {
+      "exerciseId": "JM_Press",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "b78176d3085bfd65fee9400e44815bb9d654b45bbe033fb741f96b96cbb492f0",
+        "61d75165def27be9f01fb13f8343aab800af0bdc3d01c33c7062dbb4695b49b5",
+        "ad3abfd81ed3e10d20362a5fc64ff4bef3c041d7cb6c5a918876bbc4867230c1",
+        "c1bd6350983cde3fced7fee44e12290e90e7d6f3e0c50d07498002a7a459e6d5",
+        "ce64f01e3e96b5eedaa90876b3b054c4482cbdfcec7ef9548f4753631d50f205",
+        "f443513bba1f9c5535eb3fb3de21602a7ab36c9ee0dd943dd539f8abfee4b5f7",
+        "e09020bfb88b87cefa36768beb84e1825fbd60ce1ac45afe2d98908d89f6343a",
+        "262f73b360748de19324a332fb61874f8ed67a47404c6f51bfb721549740e4f6"
+      ],
+      "candidateHashes": [
+        "a81b906cd5992d3e73963463e89e8c06be8684fb05ad9000b06bce479ddc05a9",
+        "fd6491b14eb2a84de4968c5a00095095865388b7a476940d190eb9ffb9dc9780",
+        "b4edc3d09d4ee0f0763bece21c529dad6c090122031fde90d64c46095d125171",
+        "d06c20156162395eec2c486eaf0ed1f392edf692953621e6d292d254eed21ec5",
+        "73f50e881bc3ea401f6d82aa18377a6a4af1a557cd805dbcb1b379602ae768d9",
+        "cf8d1097a2995e387626e57dd4c603c2130451a2e0a5ad9e52b5fac84129b45c",
+        "e9989e40beb696058e7208dcf87be7fc2faed8a5faa22b266fd1c62d21dde270",
+        "331dd588a11367c7eefbd1c6fe6fa378f6351560368edace586ebc6b0b39a5dd"
+      ],
+      "reviewedAt": "2026-09-06T22:57:52.253Z"
+    },
+    "Jogging_Treadmill": {
+      "exerciseId": "Jogging_Treadmill",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "ef48e6e974fe692305a84382ba9cf3eafb556f34a53776d58e6e6085a4d5a28d",
+        "a31e44755d6416323e53377c1d9b36f1913cf5239273841ea4b0e8ad40d18095",
+        "6d646525f3f17a43e754d9fd88c7d65de1299ba37b92d4402f8272b39a22a3e6",
+        "731bab1696b33a758d5e856916df390354c231427f83dd01c702cc49976f7a22",
+        "cca8435cb81b034ea48eb1a471c45954883bb5f6fe27cfa63e85bcdb8900bb97",
+        "0adeafe7399f05f2a868378174f41ff603e0b075ac2e9d24040ecea7bee56587",
+        "a7dc94d5221d99809547b94245054bca627f31d8c7455e7a661a4301c0553f0a",
+        "9ab72a64932a01fe350cb50d546886af616ea226f0e4ca0601923ad2f5577fe3"
+      ],
+      "candidateHashes": [
+        "a032f677b4c2c3ef63bbb777b1cd684083135079bf48a4a8825677390bf24ae8",
+        "0b56f3bad81a83d79d05df6a87dad7cf5d46f7fe4f768847cf6b61c25a195ad4",
+        "5c274221575f30554db2890ff6d79ea430d4967424ef63f71480ad3f5aa1f2d8",
+        "afc020c8b72c5891dbada684879315e2c46e34dd6309c19981b4be180fe998c9",
+        "a5f4516aec1b4c834f1d30f0867e176699fa9af547618d26501890d32cadfbfb",
+        "4e78dad90e4c2d261deaea5f31459ba0aa6a68be1c0a705d7367a96020313b9a",
+        "993a04d44c39e585fabf5077403e48265e1047e7d952089b9284c67483469a5b",
+        "bc3a01d8057b65662ef9784bb2aca70e51c686a19dc11fa08e837ecb57c250e5"
+      ],
+      "reviewedAt": "2026-09-06T22:57:56.620Z"
+    },
+    "Kettlebell_Arnold_Press": {
+      "exerciseId": "Kettlebell_Arnold_Press",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "3d1724ac1c841b37551abe0bc28a9a49fc20a8e3b7b9ec71348694db322170b0",
+        "a852315f544b75c3f9d423348c096ad96f6228e3351fe41ce3377512a39c59d5",
+        "2b4b20cc5e1a06675c4f41dcde129fd7bddf013003e6db5df42296879b55b9b5",
+        "916c26ebd6c115e5193742398eb942c02f4dabe1db2609ea4e09fa863979e90d",
+        "850bae355e693dcbed3441eaa0b57d9757df27ef7f2673dd34656f2748165e93",
+        "038a5fa913416d44deaa9b704b93584e85387bd9448a965fc106172122ea2753",
+        "55a8d3f2cc0101ecec0f91b640dc6ae4a1120e98453c12f551a5b47f9b6bf0bb",
+        "70a137d1be8734efacc6197517b2beac0fab7450e9bc10f54956ed0de9fca458"
+      ],
+      "candidateHashes": [
+        "07f6a232aa7c391822047618d67ed8077ff39dfea8fda13d85bb42e0f1265b50",
+        "3b1cd8fa7e77bc02d101dffad7f7751ee528b9725c7dcaedb3b2c9a3c2a882ea",
+        "af376aff6c3459d00692b7f640a87ed842e1836f059a8685232b7275c265127d",
+        "358f02751f8dbf1dc786a63127d9ca1b27fa392d9263af01f26867fa39c83b58",
+        "8d10454ae7ee586cea3566c5bd308491f8b3117037b1b71c4101201ee3c7d390",
+        "99962241d9e4fe0ff9cbeb0d3ba47cabc91b14af7246f4dc6cd6d756fe2332f9",
+        "d7b21ef8b12c855ad2f869ec6633826cc8b234dab95727ce0fd30dc0d471bc20",
+        "588249944d723f6770355ae08245cc44eb09a7cab693f21ec35a590c34f68ae1"
+      ],
+      "reviewedAt": "2026-09-06T22:58:00.582Z"
+    },
+    "Kettlebell_Dead_Clean": {
+      "exerciseId": "Kettlebell_Dead_Clean",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "4dd15dbfca02c31638fcbca4ae99cacfefbe4dccbd7c7e7feb6360a6a618d05f",
+        "0ccd9e1787bbf33098d105d500c20a77910ada986758cb9a35b1139281dc06dd",
+        "92232b5f8e6ddfa55b9736329eb88c7fe23e390612927e4ed1a0e6129ba45073",
+        "f69980e2ef08c6ca8bbfa4b6fe9ffafc5365d0d4227b34d16b06ecbaa9cd6be4",
+        "8b95229c5a0f0f39ec61ad8e36a37830710d20309ab29ac19c5c82998ad83177",
+        "9d479d0e5eb86a0565e1ecd1e4e9a3c842ccb94c40287c042adab6f2111da34f",
+        "13a46e7f6dab35e1c2479e6b3bd454f403b7fe75978a61563142d7c54bd08dd3",
+        "98afe81ccdf6c6bed73823f86dc3872298b3de4e571738561305985464938dd5"
+      ],
+      "candidateHashes": [
+        "60cd415fc81e267cfd0dfc93fb0eb76364d82eeb03c16b030642c12c28ecb3e7",
+        "9e3bcc629bbe15e6c14e45e7ba62476b13014df44439ba99ccfe8f1b1e63cfeb",
+        "b98a50b616f963e9838e3be5d131849eaad6f52c42f21ea946bf8d2cf1d4ca67",
+        "29f9797acce5c6b4143e0578f22673ea47d0bc6daa4051fb3cfd028a1808b5fe",
+        "38cd79ace9f697eeaffdb3f1efa6a2940d9f43413817863d0016cf1fdab5295d",
+        "02f3f65adc29a34391343f6952493cb0ce1fd6b4e066b0aff06815efc60231af",
+        "5f38312c83868e085c9eb56ce0860f5f562184fb8a1c96bfd31a9cd063eb7be8",
+        "434175b1d012a6016fe1f38fd1a9003720eb49d7264407f6d88b2169c4a45a1c"
+      ],
+      "reviewedAt": "2026-09-06T22:58:47.821Z"
+    },
+    "Kettlebell_Figure_8": {
+      "exerciseId": "Kettlebell_Figure_8",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "023555c7a489f1ba2cad0279b059a062ed804002dffbc4f4bc5ed9cc96afb25f",
+        "618ba7a38c76f1e7f44d62accc841afc50ac9feab457d691253b262359938c17",
+        "26e5341ebf1b3887d9c8a81c1e3db22273f2eaafd5a6748eee639c9a720ae551",
+        "72e441cd179929796b4d1563455857e764c357aa2332616a8229c833141069b5",
+        "8413e093e9ada96485a06100daf4c12ad6603748f1f4873c077b3d8196c16b30",
+        "3b77a2c88aec388540b194a11bc4ea04e155a86411ab1ea76612777b0ebe1c45",
+        "27a04608f56a6a6f56b05a16968d784af57eaaeee1c83c1338d5a2282e0b8839",
+        "a6cd76f7acd971fa3bb34450cdbc4c11bd80bd714db7d5b534a1d751e690702c"
+      ],
+      "candidateHashes": [
+        "ebb48583ce7b966590cb23bea144c716b62329712f60a8b421e9645eafd08f57",
+        "e5e55d6c4840e59872997e5eb5c1370786a39ce445c287282a3f85ce5dd37e1e",
+        "8775b5c63c7a1eb6923cceb6d15ce02c443cf6865b1a966bf816097073a44759",
+        "1cb94fe357205ced7a36a0966a6c43f86f3ae65e9e9716c019b1529bd9dc29d7",
+        "cf2e7970f59de8ea4e4fefe27b69456da462306c5709ab2851e9bd2b7b79c8ca",
+        "bb54c2602546e6d9f97dc66effb9b36d8e599273e4225635165229230fdbae53",
+        "43ae92454a86e0244ccf42f01a621e0badade93187dcc1bed2aaf6c4a64a1bf9",
+        "8a76d090fa552e49c0313bcc00d9c49257f8a6d11f8f43825cfff20342d78f47"
+      ],
+      "reviewedAt": "2026-09-06T22:58:59.353Z"
+    },
+    "Kettlebell_Hang_Clean": {
+      "exerciseId": "Kettlebell_Hang_Clean",
+      "decision": "needs_more_work",
+      "notes": "",
+      "sourceHashes": [
+        "858bc63a7b72510736210c587b7da476fc6a713766f20c0a3ac7b57952abe0de",
+        "17a8960e37bc8591635c3e4e6a08b6de937c1940a75bbe3ffa0b7e4f4ff5f6b8",
+        "10cf40136e3d586e20fc10f0ae61c2e09941762d0823dd4d19bd0acde7380886",
+        "d915278e656c283cea7ffae4c948aa32627a4c6dddb4e33866c3a9f72d225752",
+        "8a50ce33bd77277b0257a6f11b3d3b19c6bf9a79287eae5148cab1f9baf17183",
+        "de282c1daef79ea2388d2e796871896ddfc299d2c386e600c38604036cf25d09",
+        "80e297956f9d0959b427d833ef221b0d5851cfad201c16dae199d593a071d126",
+        "904a52e27abef8c5e53c049c69314025116e8bb7e51c5d7418c6c6b889f65a5c"
+      ],
+      "candidateHashes": [
+        "acb3c5ecc45b9101a1bbfaea5f4cc119595bf8ef434d72f447b83b23adc8e9c4",
+        "24b05aefa5e28528fe9b7f2c83c022b0b578cd44470fd9d27f447a56d8dfeea6",
+        "df8f8c01af62565cb3493d936e94bf08d3b15a191de6633d27c8ed473bf542eb",
+        "d476511623027fdb58b5efa6317c998b4d448495642a6e765744a4a324f6bcc0",
+        "bdc9d92457b06521fd0e3a0e23cc39e2ab1faec77bc3cd67c62d1847dbb08a71",
+        "f33809d04e87aea3d770abf3ebfea6f393a6ebe0b408384d586e45318a1bd7e1",
+        "7bab510fdb0f388cdf5d0afc0501ba130a9dd0916747fb712971b8a5e3682519",
+        "c942b8e3c934281c6b6d1989f2ff4bcbca5d1faaab1a86a27ab087d5f9b6b24e"
+      ],
+      "reviewedAt": "2026-09-06T22:59:15.546Z"
+    },
+    "Kettlebell_One-Legged_Deadlift": {
+      "exerciseId": "Kettlebell_One-Legged_Deadlift",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "9d1c79d4841202e4d47dac6417b0e62089d7c3cc43d8ae9ad067867de1bc94e1",
+        "4f9c656b8ca798d4225dbe15b9ac88e3ddd4c600bf910e1f18257e78d665e220",
+        "52396ead13481f48a1d1acc607c042da9df3eb29382a696734c9336eea6343e9",
+        "971fbd487c0d154d8fab33760db94543a76c62d941236750cebc11900539f3ab",
+        "b050839ca2c0cd5a6daaf986d875cb3337f07e51fc975cc82fe424082129a356",
+        "d883a9e158e7d44a32da19c2785d3f9109646e4674563c42ff00adadefaf797f",
+        "f3c93c1414792c2033f2fb6c618d0c065c1b9cb1b9deb38dddd26f84589ae436",
+        "f26b3e0018c9613f9ccd0f645e5bce628629c7d7fca9d1fb9bac19ad54b96a71"
+      ],
+      "candidateHashes": [
+        "4c44de79d587de1b3287793b41bdb504a6e1f615133050b880939b0f7306b71b",
+        "b1d3d7d058fd0624e0758769b721f126ae99522c1c877fee887a15ba5978c9ea",
+        "b25c57dd6bde1bec90c3deb85da745e82f68f228d17da53234b1c684427d274c",
+        "172a6b509894e827a38f90f79ebf2d37243dd85c2e73b79cb1bd0a9bd313860e",
+        "a35cfca5faf835da99e42ae7ff5aec8bb99a3c4e03d63dbd63d86fc5ce1d8e0e",
+        "d265bee1cd70886ba2221da3e96ac02fa985b2d93649b8ecec74ec8fcbb2e619",
+        "f3947776a908455521c5e29fd12a07a089210de05ca8444a1cd94a4d1b925995",
+        "5f069147fbf6b0e81dc1e0372428a23d911014e4ee744ca46cd46f73268be745"
+      ],
+      "reviewedAt": "2026-09-06T22:59:21.215Z"
+    },
+    "Kettlebell_Pass_Between_The_Legs": {
+      "exerciseId": "Kettlebell_Pass_Between_The_Legs",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "8383bb101387e5065c6152dbf575763c3198e03f40b7812b3ef5f9d9932c72b7",
+        "9f4bfc6ff9c53747130f28371c0228c363c87ce1f6b09354966e2e07ee8fce2a",
+        "389a98f69d351ce5b7e9aa116d8e385c09f08e38a13f0c7cbf65ddcd9d540159",
+        "802b722691066c3689723a2033da59ddba35e27f0962ab2e2d819e7458d08a6e",
+        "59b02dd324cf8099c4fbab05da4fdf0199bf8ec03ed695312246067b7c271269",
+        "c96c64eddd3c3f8438468f8051a4a9ddaf66c43e9ed3f4cd5d4361ced23bfda6",
+        "41fa0eb75f4055c1223434e4801751750005d382a906218e6dd9f415a59348e1",
+        "95dc56065519bbce27c8672cdce0ba84b050fb4f77530c2553e30d86ecf47ef3"
+      ],
+      "candidateHashes": [
+        "254414f4041a4cc86c2ea1f6f2a1b6a03540d659cb43f12d716250b26de2fdcc",
+        "b91b301d3bc68243f1ef79d495697bb262cd7b1f1153041d2096c95861ca10b4",
+        "946878fd6cd2c493280ce95daac932fa98c59613cd42541b2827fe3b3b98c8bd",
+        "06a998bf9363c389988b9cf711162933aedadfc98e31f4f6f2ffbe52a4a63f3f",
+        "a196196b4ad88b09d33aab010f52f1977fe521e390e7ee6e451f1e7a47c4e219",
+        "83cfa27c89615d665225bc0337071e0541bffed79d3ec8c94e0b3ec1d52c3356",
+        "7163bb45af40f8f20e91841a2f51ad3c8ca60f10cfdbc7ba6906f0e80a952f2a",
+        "1b8df40d2519c6d8dacd67e030355983f68b505c7ff6f766d5971effe13bc622"
+      ],
+      "reviewedAt": "2026-09-06T22:59:28.815Z"
+    },
+    "Kettlebell_Pirate_Ships": {
+      "exerciseId": "Kettlebell_Pirate_Ships",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "6d5eaa6ba0c43f842f35a53d6059c838dd1778534a3224f1bf54e33724a9ddc1",
+        "a55d9b2938f2982e691d1cb0758fd0d35ba42fc6d232207d9431e12153f38abe",
+        "c7e4d1cd1942c08ed61e37e1f082cbbc852b6967b90354625ef5efbe2dc19fcf",
+        "366223316ff1752d491d4f809808b65068dc4dbbb0a8ca5806df2c5428e7b2e3",
+        "78d73372754172f5fc624a4fd1841483810c6a1c80d855f1978c6b268f5a1ee7",
+        "77e1fa41ae60c71edb723475ed825017ca155fc7d1d225b31b4726e4d3e057f2",
+        "bdc10ca5ff454f236fac6187ed8b3a3830004eb6963c640a9577c959e7d10dd5",
+        "c67f76c9e49ac8bb2b7b4014b5a67db245ef9edca4f074ac99d8acc07d9a0e4b"
+      ],
+      "candidateHashes": [
+        "68f7e549a3ed20836cddb2e38838f29c4906849a5d811929f456011f169ba758",
+        "f0948c22fe4bfa8de976711f899b763388f5474dcb743a1f33d942be96d7224a",
+        "d535854a7e0d859d00d94ccdc7412e2d816666cba1787ab5e23fd86f5be565ed",
+        "3be762fa04b92fa135e4355b045b4f8ceab2f1ad0d36a03650b246bbc18fa584",
+        "33c61d9d98e610c0e9bd66b0c01479c0a0e74c4f14c1d35c180a42728dc258d4",
+        "fea5fe4fcf1659aa617216aa944a95a11ef109b97db5ad39e4ea8bec16e38512",
+        "6c387d4f92b7ad252955e5082ab569f53fc50f2124cf0338e93078e0d90e6d2d",
+        "e1157c8733067ac81786ae79556d454eb5d0be48e9c1586ad98d60d170f8a6ba"
+      ],
+      "reviewedAt": "2026-09-06T22:59:33.287Z"
+    },
+    "Kettlebell_Pistol_Squat": {
+      "exerciseId": "Kettlebell_Pistol_Squat",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "48649d4bcec2bc276c88a126cdafb17bf6e0600ec9b88a519910fa6d94936273",
+        "e04bc04e6e7c200b19957c3fd1b5fdfeadc6596bee65cdc01d87d479700ccb5f",
+        "ffa8fd58573b33a26a6252edc98595e50286d441ceb09d4102078c328a1502ee",
+        "c7f5c346859ea1f5d35f0cdf039b5a8dc16eb46b0075ec05fd8e2ccbcb8538fc",
+        "82c30a8d4ed0ef6b355f890f69872657899913d772dfd4cfdee3ea5f0bd1ee00",
+        "560ad9015c49ddd4c0ec6b16fc7b3b7cd658cada57353acb33d110a3178de598",
+        "fc8866ee4fa1ba7deaf573eaa27190eaf445efb0df2ed339f14fbfce35ee9657",
+        "0226937db5e301f80a1c4111af99798a783f4a46829ee5b0b0026fa7043d4ad8"
+      ],
+      "candidateHashes": [
+        "6d5b851ee10a872d42db8fbbc023bba7c8cb57e876b90d5a90e527ab19b2b1f4",
+        "28f25686b9aa2baf3e9936ff462161f74cc85559b1a448171d74a0d47d57b1d5",
+        "7e8a474a6cba5886d3a4ccb43e2cf47c635d086e4698e6607f791c2c4de06415",
+        "0a26df37da77dc0ee7a3acfa437403bb2e9c955606030c596767523e6e9673f7",
+        "c241ee489def29a0d7e802e7c82eacd6d8edc4d43325cecaa7a0aae2fd561830",
+        "fb0fdddb78e50486290a7738283456e1c7d90934c6b76e3a421ac073e352b4b6",
+        "a5ccd2c2d576fe2d20036583dc5d21c8dff0536755549f88513a7818c4ce83ce",
+        "4b7cd1ccfc39df280baef28b637c3eeaf8fee6ff2c53aac807ff66850f665e34"
+      ],
+      "reviewedAt": "2026-09-06T22:59:37.334Z"
+    },
+    "Kettlebell_Seated_Press": {
+      "exerciseId": "Kettlebell_Seated_Press",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "908d222d71a2fb070eb87f70e08333375f784eb66752a73003aa10aa8e573efc",
+        "67a21ff9b32a73589cdae77cac41d1644c98d6cac1585e372910914b8e2c38a8",
+        "a30e04a3a5e561e4964d25e927a617569d91adc35f59492c6af1535789d8b90e",
+        "092a58f29088b90806f8fd89f8ea417b205814673f7f69e21929f6897566db6f",
+        "1ae5739855ca4c9a1ce7c2cc2d347e30f86f4230473d0ae642b897f866c9b89d",
+        "4234c97d41d6ce27a4152660a3dff4d1f10636ae252cfc86a16301300e9259b1",
+        "3cd1edd8109cadb0bbcb3176dec8de957bb7bf8ec9303f9692e7972826ed274d",
+        "8a71641eb84017cf8c62551736eb3e34ce422793930c9d0b2704408679e3f963"
+      ],
+      "candidateHashes": [
+        "6db2ce710fbc66d0b0220964e82128d9b384e5256c7743ae198bc4a66c23cbf2",
+        "452e7da3cc36c530d69c5c07551f17ee6b4aa4e6da97f5d584e7afcefb57758d",
+        "b6aac168495172dfa75c4d96f79bb3530995ba895cd58ab9f9d601acf81a7001",
+        "a4200f04f0ae30d8a44b03540b7c2b6a8d256c57239ee6f3d400eff8acfd3f94",
+        "a135bb95e59451b05c9b1000789dea76dc833871526d1aada4b38f51460b5d41",
+        "159470944cab9ffd39ac5033bac508ecf95e1fe06009a1850aa7b285d44d9d8e",
+        "2b3cf4726514521a954f4da27ec07bb3fcb8bbfec3da43461b9741a874aae2d1",
+        "913c0c3464bd850b5d6e3466b4ac29446dd4807d0710204d5ce2acec4650f5e4"
+      ],
+      "reviewedAt": "2026-09-06T22:59:40.862Z"
+    },
+    "Kettlebell_Seesaw_Press": {
+      "exerciseId": "Kettlebell_Seesaw_Press",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "6358c7c6d16c2fd6fa195a2a4678d0252ebc0eb3f7d46c8414c3bfe492017c37",
+        "e7fdfcb78ff570a762a5fd86fea7b79cc052d7454b7452cd3a39e7eb991033d1",
+        "3feff11e569b0edad03140a0b7afbca617659bfba65414e33ba5b6660393eac3",
+        "8f39c074152266dea434d1327ab0ff5462cc836a4a7ed002bcd8707239242da0",
+        "631557e8c57671cbd8e4e18c1f7c8f914d51c114da073f1e34f7948d183012b0",
+        "2c99a15a7a8d02382f135db82a040b0a56c82da3c38ffa0e3b49f915e4352f44",
+        "4d09bff1eb0b8ba6ea020526bbd4701a9a7080b2c21898531904028333186116",
+        "4f0939b1f43bcd030dc8f75f452b5ab701f280250ce8dd338516bc9008cf8223"
+      ],
+      "candidateHashes": [
+        "15200b579eb3e7185407e013494bbc676c0c67caeb353c04e7fa77781669e89a",
+        "26842e9e64363388817b2adcfccd76f3a967074a8478126fc0e89db537f374ad",
+        "415ee34d06706d73fc44fcf939cac916cc51b887c3e8a4cedaba375eca497f13",
+        "70a95e2bddce0a3a1ddf64ab435d2dcae686f414fbafb3801fe1b0a03b85a25d",
+        "fda86195acc3206e7556fa72e6d45e142daa8b40a84f7974ac49925a5872e5ab",
+        "d4dc72b053a2bca6435e9fac99f4f775649c624aaaf3984d2c829133c949f88d",
+        "60516df2b13b68d7ae708dddc5a16ecdb644daf15f44883e91f3f1db0ce95ca9",
+        "087a7b4b6f86cc647735aeafaff7da8278d5a7d58f5bf52e12d20cae56588f16"
+      ],
+      "reviewedAt": "2026-09-06T22:59:49.666Z"
+    },
+    "Kettlebell_Sumo_High_Pull": {
+      "exerciseId": "Kettlebell_Sumo_High_Pull",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "f033e3bdac090e4021ff80b3979b3d641e754acb196066a3d7275d2f245eefcc",
+        "50b26a18dd12017501b3fb11482add40c11e4d7ebd6ced686121c200e21cf026",
+        "161f9a395b71e7a19160703551e1a58d9e282091435abb80eec85a02abf72d7d",
+        "35119123463fec362921c75a7f64627a1a819d2ef0120261780f37dc31466637",
+        "00f6071d53a1b6701789d903dc749dde3494722e7f028dc78ffd55edffd370d5",
+        "b14a57e67ad8e80e271f3e60d48f90550c5fddaef8837a1d8d56cf1a866bce2e",
+        "db544223d4a7220f17705fabaa89155fd17500703ff753bf35da3b2d1e6aed39",
+        "46c8fe563c41364c77b88f464c77415e5487d9318a4aa14151712a9fdf405e53"
+      ],
+      "candidateHashes": [
+        "6e0e285eac34ea38da6fa7437259fd14dd715c89570d8dce3c534ac7f645d532",
+        "e9ba27a3f4af3c76be1f9ca7a0f586ca87c470eb4a4d6d79e2323c6d7ff4dccd",
+        "fbbcb8af8bf05ef13647fde50b9bfa70b9be068c29ce05f2f9fdb3c38c3efedc",
+        "07fd9b601cd4e150923fb8cd44d31e4ead7dba71327975a383dbb0a71567aef0",
+        "af019a688d008bc9ef37b534183ea75e9a8c4b64578c4985ac55ebbe255a6590",
+        "29db4a33823376430f6ef393916b2592e10d57fa6a879940ef568c46f9326af5",
+        "d105c12b67a56a787b7021e4cbfcef5dd6746f605599f6ba5c3b7d144c9ac112",
+        "0f608fff0d022a73241732f9e486c4a5626548d15846ceba82550293b2b35597"
+      ],
+      "reviewedAt": "2026-09-06T23:00:02.216Z"
+    },
+    "Kettlebell_Thruster": {
+      "exerciseId": "Kettlebell_Thruster",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "a213ff6adab797755dd74e1d9e314d91eeaa54ec36875ec28b4dc2223b1d1eaa",
+        "c0079304c0055891e53a2f6f4c99f7cf7271571e9c08cc67db0099afed1ff8cd",
+        "152d227d85198dcfc1008625f31892b8444f9f46e08efa607be80b8fd8b965e7",
+        "7d0826096c2a087dc561749cd58735c5e4e55360879795762257463beec6a857",
+        "865a7c0ba1d95f32bd738ea8e8035a84efd79ecbdc6eb1ba55d39d3e4420be51",
+        "35ed5220dac404321e01824ae866694d729c392511655ebc04c9904616201265",
+        "021b6857dc0c2fd863a7d04bc795c916b138cb865be8aaeeafa3ab2b2f49adee",
+        "0adbe0eb92609db191b11e0e66f3449e61fa9c482adb27cb8643ba3b91330da6"
+      ],
+      "candidateHashes": [
+        "0a9eb7481b1d43fd99530250da1f7e7b2169e6179eaa200b468a0718957842ac",
+        "b4ded4888dd89cb3f844643624bf11119fba8b6a879892e67bffc38ddb3a2132",
+        "c1bff7d25b66ce0504f1ab7b7c507dfa1aad47ffcb297be556672296fe37945a",
+        "cb9a2b9ee4d70abbc8b2c13fca3e885d4e0adcfd20831e21ec2aacf02f38b593",
+        "ccf56f54a2c2f6ab39a0c20c70793d8c1ccd1e975eff27b3b872c8ec973a4b64",
+        "6859908e08fa963cd52b51578ff2dd7d56ad6c697491a0cad8bddb4aae63c260",
+        "a64b000ed81c2bb462ee7a4349deee8d14692f12a433e6014a50a531cc8826f8",
+        "8cdb043e2416af8d04a2b8a02c5d2361efbe769775595f36c73b3a29c2e8ca85"
+      ],
+      "reviewedAt": "2026-09-06T23:00:06.918Z"
+    },
+    "Kettlebell_Windmill": {
+      "exerciseId": "Kettlebell_Windmill",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "87eccf36dee3d0ca160355d6ce359d6099f23dc40238399eb290c18be05a27e6",
+        "27a74962be2a8c39a68abee45720de2e80721876da4f1ad504992532d7dac8c0",
+        "9243af5c19b0ebce88c501d9e81d3a23c43c1be8b482217797dec42a49363271",
+        "bb4876d4f15a0eb991190cdacc03d6e9d46bfc087a2920478afe310218101dea",
+        "c56681516b3f168f487984db3f3516d39b6d5e3754760e0b3a7ee788ca16cfeb",
+        "a46fddfcf2da5c3bf357d3ccd9a73a925a3a263dd56c08ec288151fbe9aec0b3",
+        "2a14c1ceb8a42dedddc37e0dbae0a360c5c5fc095fda686435db77186acb8733",
+        "a5c6bad27b897c0331ccae70933e62ceafd6101fc16fa840cb3da9e1eeb0f9a4"
+      ],
+      "candidateHashes": [
+        "a5b3135cd784d23306465c214a7fe0af996c8df91b9c027d0dc8c969d160feab",
+        "eb4c7dedf318c1ff0f0f2fa7ec9352181605895e5a3cf3b99c507ced1be9a9a7",
+        "883f7db3aacc05e9e7983f5de8e40a0c204f985cc46bb67ba149d8fac9f36ae6",
+        "7138b31ab7f96c6ded25657e21ca9357b478c614877a05d1c18d75dcf46afa27",
+        "8002598e1c9523d702e1477011022b77d1a7484a751ef8ce1189fb4a070f9c5e",
+        "229211be079f90f58d1af2928c4e55d676286291d2aae98c6fc960166f826c92",
+        "6bebd96036d0d7c93e574fdf2fd2649e4741088c23f6863b9a2afca6d1e57a60",
+        "dff7a3cfce92fa2928186fa3e37d61fc89fa644d04bed9c355dbccc3ef3c1a17"
+      ],
+      "reviewedAt": "2026-09-06T23:00:11.211Z"
+    },
+    "Knee_Across_The_Body": {
+      "exerciseId": "Knee_Across_The_Body",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "91683230a715be3a7a21b1375df1c90430dda8a2bd6c597c349e2bcc9a38bd24",
+        "8a1261a2b2cd2d950ec0769ed024d99d3e86b41659ad8710872baad9e180866a",
+        "35c119aa4172ca542ce3cf2b61efd57729f2b8cdb874390993adc8ecf77a762b",
+        "ff4102ae91d5f4784a59bcc2ead76e926a7bd9d963b34bded261cfd9210096b3",
+        "62618332634d10b2cb6b9e07c357dfd23066ce34e5da307aa0f83cbf96585913",
+        "921e2e02a6f379a5ef252946a612052990345fb03057501860ad3f8aa01eeea7",
+        "f0d197623a3e80bdecd6c35ee021425568ab5c88d12f0e2126da71286fb801b7",
+        "333f65e9f8de61c1767b15e3f38edb06f1b4643797309c2a1de11a50116e03c6"
+      ],
+      "candidateHashes": [
+        "c52ec4d8ea7fd733625eb3fc0aa291635d051b3641611dc92b5ef69902fda7b8",
+        "217e2ca787ddd636964ec16e29f20c39d3b56401ac25d50eba5a4de8ad3ee4a8",
+        "5cc00bb05e0e7895d06509a48c3d775671f19d4550863ebb3a1477be183c88ee",
+        "e1f9fc6533aa95246d79fd5c9fc1050e19158f203be3298b996c6b7e39698299",
+        "78cdd710a7e4bfff9b4e3b713d412b1529844f13b4f99cd253f149707fdc520c",
+        "328d520c7a5828eeaf89a89a1241170ab80e8d9a8cdf8ed6764d7f98b4f54c6f",
+        "f848a32d3f4f55d4f9e5df2af88cf762e4501b5a9d80bf847f91d6aac57b4570",
+        "1f1145b1679a013fd4dbbc62c84e6e9aa9bbc7ee0e9f990e36c7f12ab611f952"
+      ],
+      "reviewedAt": "2026-09-06T23:00:32.971Z"
+    },
+    "Knee_Circles": {
+      "exerciseId": "Knee_Circles",
+      "decision": "needs_more_work",
+      "notes": "",
+      "sourceHashes": [
+        "40b21e9fe4cd82e51badba157d9177913781fd01c4c623f73f5c84735f601e30",
+        "b9450d4b0cf892567cc80d9ed9d130ab371d45fabdd3181ff18f1b2849ec30c2",
+        "b8c91be5b7d02cf01d1ac7cf486d56ca92a308a9bb552f8f99b6c88fb569bf70",
+        "a0e2d0a6d0a2533bd6de5a7f45a1bd314e45520b3fc49b94c52755d1bc5ee917",
+        "572f8b2147d79fde08db75cbd61dffb24b5f793c0388a65cc62b565cf896a140",
+        "41b47a1d9c27551dd3e5027d897ba6f2c51081241b1c0d2138c950828120a909",
+        "895ef72d0fbc5faca0628b9e3d4299282f2d958ed1756cfd962ddb7f26753ab8",
+        "7d6c185b38a697ecfaf102df45a19eb2ded3f29bc9e2b9d82d1190576bfaa15a"
+      ],
+      "candidateHashes": [
+        "29c2d19cf4b0ed6fc6e5f21eba2a7a3c014dd959f28f8e7ee4d210c0bfcc218a",
+        "6f019d8a5b7a28600e201360e7c7166f6a9453e657e94f6adb69cbdf52de2c6f",
+        "4416aa916d832a3bf16afa0bb2079b0d2c238c0d3a24da540bb2480bf95a7e47",
+        "c7baf88f19006498eb1d5f38f3136423f96fb57da096ad07b52773fc7ca9212d",
+        "29558963142172001c8bb0ae54ac4ad8b57dc934c17462863448635a47605b16",
+        "56dec4cddc7f2ad2ed1acc10650247b220a07beec84072f31ab3536abaf784b2",
+        "2ff36a39c86a7e9f999827fc5cbccb3beb8255cc52d3ddc671cf47d29a2dbe98",
+        "622a0e06b335b684566dd0eff52ddefd4a7ab6f1a9fae2a31011b4d3dd748fff"
+      ],
+      "reviewedAt": "2026-09-06T23:00:44.236Z"
+    },
+    "Knee_Hip_Raise_On_Parallel_Bars": {
+      "exerciseId": "Knee_Hip_Raise_On_Parallel_Bars",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "e66e18a9bd2c5f7284645d04b368de4a00030690a1349314dee5691472a002c1",
+        "5d56b9c83e531a95ec31be56622160149eb8e0e201b7743c064102e10f6d2f14",
+        "702f5fa2e0850d8ea08314e6d89c8d8084bf943afedb6d76aa120873fbfe0112",
+        "eeaccda2a1b1ce3f4bf04547f9b00d64bb0354d3c3a3411002db836b29366171",
+        "630e3f19f782f072b088c38a37c68e09d397f8f9549d7335d785e6a69b30e45c",
+        "9b4d4d5e51b42a929c5831e47e4e9d9d1938ef464e81706aef7a922fb3b58b2e",
+        "e57abbce31e7b8e8c384a9740a08e890f6855037e1abec2898d4904cd8269ca5",
+        "fdfce0b2e767d2b3df0ef18cb33ad9250be2edd847ffa7d946cc041fa87532b8"
+      ],
+      "candidateHashes": [
+        "72b36521b5919021fdec4cf45c8a4cb8b2d563cefb3f9c818886a6884b5faada",
+        "bed969d15d9b9740c0329386ebf6e1344a485e5d8c19ba9a5f2d708e8d37d115",
+        "82cb69793983606cd2a86f873aa79499984b0a9b48379ee9642299bea87471f5",
+        "e25e95c2840439c8865f7c14455fd632ff2b673ffb53ff1642aa20cf4a6c3021",
+        "edce0abb214fd05f2d955807bafafa7cd336b9289c3a499c4f8096fdf98bb6b6",
+        "49694f22bd4085f18e3827681ccdeccc5feccc805681551d13adc1e0c7f35b1f",
+        "ddcc8ea3649a25d7dcef3632957c295823881a1647619d14c0237ccc9b76d0e4",
+        "64a6dcbdb48b36bd5201ff759a2db589cdb5116301b00dbc9660745e31bcd5e7"
+      ],
+      "reviewedAt": "2026-09-06T23:00:48.935Z"
+    },
+    "Knee_Tuck_Jump": {
+      "exerciseId": "Knee_Tuck_Jump",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "a1c2091040c5f64e63047d40e1fd39a9aa5531b70fed3056397f653363b5f513",
+        "6383a1df36628dea78734efa3937e7670f153a39766b3cd73dcb5187df801321",
+        "5d7947197c213bf5ab2ba448b6a2f2e35d5f09c751108cb14247c2242dd27f8e",
+        "08b4e8e1c1cd82b0e5b71fe3e68640ad4f706cf790eaf0f741e8c133c01efc8e",
+        "fc98ea3698d5b4e9a81e185d6748095ee3be19ee56e934b74a15e95bca4c9ca3",
+        "2c9cd5db57486a5b6ddc7b561408184089d3fb7facb2c057066348783f385955",
+        "01155c826322ff208043eb45394e4511711428a7d0c934f4ca99e6ffcb13a419",
+        "010f285d3e91b59a6d01fb1b23c215660d9e0eef691571656cb32665d86e5032"
+      ],
+      "candidateHashes": [
+        "ff788dd3b3de3ac9f0868c40d60fc01096713df06aac4724f7787c8b1037df8a",
+        "483bfa7e6312b1f8bd762661375454a18605f983dfa4fca8fa2c5f039480977a",
+        "a8980ab447559ebd4566a7353ad91774e6554972270035f12dfcfb5d7c859b97",
+        "baf8b5026b3f91362803352e5a9b02409c576f11747abfa5eb4876d0a8c2efb2",
+        "ef4ea1c77870ab166ca4ca17dc4d3850708258f56dc86d934e4a567c9d97fae8",
+        "aca11439fac83fc855e7c2617c01c0597915bc72dbdd27557abbe215ebf5b007",
+        "ca8e8004a8473fa415866fd65bf0cbff67b7c623944f1fcbd2e8be24c99ca4ed",
+        "216bdeeae97fe6ed7b18127762c27a5679fa297a6dd125952e0aa4880cee58bf"
+      ],
+      "reviewedAt": "2026-09-06T23:00:52.822Z"
+    },
+    "Kneeling_Arm_Drill": {
+      "exerciseId": "Kneeling_Arm_Drill",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "79d0ef78fb194fd6b7dee19c3a70d24ddecaa944904cd7462c83215208218689",
+        "14e9911c6e6037508769f69bc13320d0f99ad882cf518046866904c25884bc61",
+        "32895acf52a6c1b79ce37922a257ddb068e0f0881a23551f752d1ce85d1af653",
+        "77f40c54ea079b19e0d5ade0f2921d106fd1a8a3469bf2e6d98ba3109aea6b10",
+        "c4f5c27621f92026ea216ed039eafe35f156536712df62d7ba4877a050e10b9a",
+        "96a399901539cb0e5eb0df3deca15d27d15ac70aec543dff58a1c0cc6613d32f",
+        "d7a5ffaf38a2cb18fd04228e0b389331be6d5a1c0267c8d365ebb889978a9aee",
+        "0b5df571c2cca16b1238596ba3701d166f1fb515164dbc17198ca0572f94fdda"
+      ],
+      "candidateHashes": [
+        "ff20caba0c153a0239132f24aa563efd2323b062a74c529abc0434bb6563606b",
+        "a7a2c47ac449302e2c56d747bd8b4df249a5263aa6559df92a88b7f0ce384b09",
+        "45b60f3c1bf83fc3be72e1cde6657d226fd55586e18f4ae555a02eaca4a129ea",
+        "673086982222502e42fb70aeba5032c73e7372025fa57af60cf871fb73aa3cfc",
+        "0b2b2d26b37677f691e74ecf1e9b5916a9e3d701548ffb7214213b5336cd3024",
+        "3f80a1360a0f3f081e85b14be2a3051b942f2eb50aa5121ed9c07ec44924c67c",
+        "5c615b4e36a45f507b7feb917bb2f8d32a1e58d042270e761e489cc4522daabe",
+        "de396760205aca734ed09b1f604c940e7361b4d47c66bb72284c992c59f6857e"
+      ],
+      "reviewedAt": "2026-09-06T23:00:56.968Z"
+    },
+    "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists": {
+      "exerciseId": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "cd91d01fc12d085dee83bf30fdd163e3e6e77355d56299ba8e2a232d15598638",
+        "9492c62c555d8b1194fe84125deeb497be7830f491607930ed74f363d7755c0e",
+        "924a80c35b2ebf2be2590b4afa1fc904595cf5690be5b239d7e4409312e4599f",
+        "20222ccc71acdf0c1f71f7f48424b7bba34d5d8c50944cf2e8430988f30fa28f",
+        "457f1f519c94d583cc48f16d154134634a83cac0610e3c799338fea98c71bf4c",
+        "a694338bd341f7b5804cb051d702aec8ef86719786ee35a34de6d34962eb5e4d",
+        "52fdec98e6ca26e958c3c19d4f4a71bf4b4194985ef665a79749b64b8c2b6452",
+        "4d820a039c5adebf317eb0ff61fe5409bf5dd523b32bef1d926687c83fa28500"
+      ],
+      "candidateHashes": [
+        "ae9a00c45a8a5845f443050e0db5b50d400d587f4b5a8467d39f44e6f3ee8354",
+        "7bc99a3b99074142176152d825fd91f1c4ff7ba8d9e71825e48daab51369f21e",
+        "7058bec9d24c7e8bcbc8091695ce192496f4ab36aea2d3603917d1fe129ce23f",
+        "9295cab53dbbaf2b97a7eb5cccc0e81abd25dc12a4da52987967e6e47333c518",
+        "f99f48b2cbf59081b65c5d5f333f2e33846245fc6006b32bcd1a35ebc5806d38",
+        "a2fe4497de525264f5ccf5a17c7ef8f6ff94a778bb28cd8bac5b918298645bf4",
+        "aa475d326ffa745e9e91f6df4eda9505756f0b62c4a5c9108700c7414808ea29",
+        "5ba8bf138f1c4cfba13bee0f13a9b07a338fabb5c3eb0dff8583841d1dc37fbc"
+      ],
+      "reviewedAt": "2026-09-06T23:01:01.424Z"
+    },
+    "90_90_Hamstring": {
+      "exerciseId": "90_90_Hamstring",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "ad6d5562cb400919fda62f8b9ce374d06657917d20a6cabf7bd01793a619ae0d",
+        "2f6f8be18012d7cebb700744e7843f285f9a69e036acb2269dc919bc3ad157b1",
+        "01130c499aa8f3f5f6f2d916d265de270827089f787b86f6428b901d747054d8",
+        "b4d53adcbc1f2d349e2fb5f62b43a19d093009c52ec4247afe7f5989c993bbe7",
+        "47f3b6094712d63e4d24ac78cf96e3c7e26cc190c51c7a0b210ab63a915d7171",
+        "30d9cb8036079faa4a0b2ff85dc5465d252662936f4beb2612b4dcf656f83689",
+        "641d8c9ac4495fabb16731c1fc58b32990cb59e15ff9ce1db7146ef577c26662",
+        "8f7295d07133c81a243150faa95a22fafb4f0e2886ad66f5d3643245b25505f5"
+      ],
+      "candidateHashes": [
+        "b925de5514b027d638698436f03083ee19828dadb894074f039432315e892e4b",
+        "3afb8e603aa54980add0d5a3621d972bca721b2bf0863ae4cc4499272a89e8d3",
+        "1cbab531428ad03fa8364441d21ef91e1e10a58d693916a85a3bac49e8d8ac99",
+        "91517fce9bd6b859f2d355c56d34b86666c230412bcec8e97e40463ffd50d48d",
+        "6e718bab9860db71f030ee99b42b11ab27502995785a2f3cd125a6323e06dad3",
+        "7f7571f81cb32c957b5ce8439eb53cfddb465acc0b406bb9705ee12f0d632f6b",
+        "cde7af593b805ae3710858f8647f70a925bb20b12beea545c24ae6ccb839f3e4",
+        "3a574aeccbc0140bfa2443a2aafca8bb26c8c41a00e7782c3965bf623f366ba3"
+      ],
+      "reviewedAt": "2026-09-06T23:01:05.525Z"
+    },
+    "Ab_Crunch_Machine": {
+      "exerciseId": "Ab_Crunch_Machine",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "c6be93a479b34a67c84d8907e322a71f56c7a8763823e050d07c8b3f93f30cf2",
+        "d9c7c388c01b76bb801ea054164c2aed55cace9b11d2a39c1318ab5889c3e3f7",
+        "47706995aff157d87552ea552a218736710d5d141aa8014cfa1f889863810b9d",
+        "ff11a2ed0ea1d61838c12c378a373643ffde2358fadca23630be7a35c7821ea9",
+        "200e75f8924b3fe7aba03d175fb76c9475f0db96226cf83babfd549cf02025c2",
+        "2d359f6643d3a936ed0cfd46c02d2b089ca7be4e284f490501209ac42fabad47",
+        "3001822235277ca16eaacad32c1d806f854bbe3b8c8174439618f663c68f690c",
+        "0b6aff6141152aee91212a648df33bb165a099eb033c494ffbeca5a0fcc1705c"
+      ],
+      "candidateHashes": [
+        "8885fa477a4e855fcdb22a81b668258caa5acab5cca397b1818045eff65f7032",
+        "5834c1958c255b6fda8070ab4a728c9bf990384f6dde806a67338732a1ecf5e4",
+        "3e5375a056304843eefa0e3781066ed9c80665361d1b6312a05046cd15338038",
+        "d368fb9b3fa5a09db8f203db15adf9cb34dc8099657a58aa9cb8ed87b976033d",
+        "7c8f0eef863e6883e63c0f49db546a853245b859fd4517391845e30376677f33",
+        "30309c5b3b5cef1ad5ff05269d85b7924ff3184f5dae504c0f25f01ed66ff503",
+        "8620aa1b888f01b118129afce497329ed67df934377cef110e2834416d393cf0",
+        "4b869798fe56ee4a7a9dcd45b860cacf8feb23d099b34beb4d85b1d1bc3b551e"
+      ],
+      "reviewedAt": "2026-09-06T23:01:08.857Z"
+    },
+    "Ab_Roller": {
+      "exerciseId": "Ab_Roller",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "d1c5b5ba15ce73b484ec2687348001ffac952c21199ddd438999f0fe9080bdd4",
+        "9c1b8b467c4fb542c0ddbc021804f831e39a98fc21dbd7c2e9686c9e0070d756",
+        "aeed98a77fe739e3ce6a195cbf91282c5424153e4bc55bb3be9514fc9fe6edd9",
+        "2c30b6fce479927fb09ee0fc11c71369fd4164fe395db50d66bb2ee6cae371da",
+        "17697da8a2dd5d2f19d1a540863d5e247e0b4614ad6f30060583616e565a7e58",
+        "310eca6f057343ef75627a6306194ed03d4a4b671c2d7ebae532bc2c629b093e",
+        "f7951b9291a5188a8ac9b80020ab86c1a8dd110786bcba1c08843960d9dc4096",
+        "d400454cebc0b819f28b0da57869fd5dfc70e02d249fc8738d1a9bdfa3f3d791"
+      ],
+      "candidateHashes": [
+        "5a4938926f7edd344247fa3767f331e40dd89b3fbb7a86081faadcc0423d7506",
+        "50e4ee35f10b15a49ed44daea04a5567557a500bea973513d68a69bbaf4c521b",
+        "1f681bf46f044e1970b45bef3fea0401fac39268812a188abae659933a5b9a13",
+        "6148b59ad7be16408779eeae1bb26e7e87a31c176376d3ae199807de387ec342",
+        "fc7f50f25722b867f07774bb48b03a190b41a5003c35eed6b610decfb94bbf40",
+        "f9552af7a971fe07250d1d85e5b7af9ff8a068298d154d80739fa5566fbf96c0",
+        "f362902a6aa27cd62275503920910452d5d5ca5bd4d7b7f6a2916d9f6406c4b3",
+        "51cf30ff24ee55f4705fe5ee71fc0b846381aceb1a07c4af3c2af1880ba1366e"
+      ],
+      "reviewedAt": "2026-09-06T23:01:12.457Z"
+    },
+    "Adductor": {
+      "exerciseId": "Adductor",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "27c68793ec4de4b863c0183660e6ae99355a6c94912d64e3f5f09b22b2734ec6",
+        "6eda1084531f595064ba804f2dd0ac9f80f49d1d0d73766808ee788c87d73c40",
+        "8fe990538034782cca3d0b2743d533bfdf8b3249bff5b8a326b2ce1d8c2d0785",
+        "0a3f35fa88a486a98d14a0a9b03fce03c5f000119eb4fea4d2f4a2dd35ffadcb",
+        "2ad1ec9ef2f75a8005d14da5c962bc6b582d9029d8bbe57b4608402ed6a2a3b0",
+        "275f6c762215cb9f00dbb4f17d4343160efd03c2cafd0ec09cee46df0d176d30",
+        "9011a033157d7f768add6090d401fc1c61473d38cba9d357542ae07af1923b78",
+        "d89a5e87bb2116d3042cbe66aaa365d76c511d8e3b6a3271bad0b1f492416414"
+      ],
+      "candidateHashes": [
+        "3289f875522e640aca002d0743f75f79b245ebcb39c6176b33f240e56f736cf6",
+        "1d8639f2b9277834eb2621d77638a47a11a81a24a980ce1693af3ba3766200b2",
+        "0ef2eb0d10c288e8bae195ad94864c0f7d2de9fd5d3d5b21d5b385727188a48b",
+        "dad69f0f15559b484631544bbca867acd785529117626dc8eb04d17e44f00c4a",
+        "292aac81e3a90eb6657bbafa5b0e3494460440753c55e61ac8306a0f3c2c5cb5",
+        "084c2939d7cb44f8b886556af1cfebcdaf84d28c967d217f69ea805cedba761b",
+        "008752f58679fa6abcc914fe6ead10befcc328b58ae089d27e17601a3794cbde",
+        "9a949e5dc09aebf8d703b23c737dc78f13e4d33d09680a4cfd13be331dac9ac8"
+      ],
+      "reviewedAt": "2026-09-06T23:01:17.232Z"
+    },
+    "Air_Bike": {
+      "exerciseId": "Air_Bike",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "36c6cdef2e92f9d1ec90d16eb1c160f1693bdb1e460c018a57ec53e5b2582f1c",
+        "2cbc6fc8479f64594ab22262544eba10d7edba14e7523ee596ef7e0331c6217b",
+        "3b13735ef44ae151f72d9f2b903294cd74dd8aeee989e91965cd2979c402a940",
+        "6af3a8674ac743b5ed5583cce730da9076b7f86e26864f465c7531dda4723bca",
+        "2d4d7876c94b88d43604b3f3e6e99cc8c0aaf65c92bf29e1d62eae465e699d28",
+        "93280dfe2fcf941a410df5ee6e9de33c1369545b58aebda673234f6f60d92c27",
+        "5663d8557dbc6bd8dc7dee56e0bbf890b58dc3da36f09c2f49df6aaf95f103ef",
+        "27aeb0b251d3a731202f232f2fee551133d12d4399ba22506c284322666f8a85"
+      ],
+      "candidateHashes": [
+        "212f13d029ca54ff68b7cfb412f0ea3316fd28064b7d5535c54dc66163576405",
+        "fb80e71bd1a054e005fa04ecc9dcae17b2eac4f2ed87171513588422a4677a2d",
+        "c3d52fd3c092651e15632d88c030c04924c99f18218c7e1f4c17b1cb7a6f72ef",
+        "c7089b0ff2548350d56c19ccc9256644b97cc6fe998d489d3ed0f76e8036358a",
+        "f7342664f3a7d7914f9babec13af5360d048ae285bdcb3f1561be670a6a75a43",
+        "bdb1303e18374348c86ab7ee02b544db8f24a0ccc17ceb1d96db9211a8f333ca",
+        "93dc2cfe69d14996a56adfcbb54b2681e1b7b1796b3d30b527c1e6c017ac0e99",
+        "ff5fe3aba33b95aae00543b482315a3d42c52ddd71105ed6372784cc4a5d7561"
+      ],
+      "reviewedAt": "2026-09-06T23:01:22.102Z"
+    },
+    "Alternating_Cable_Shoulder_Press": {
+      "exerciseId": "Alternating_Cable_Shoulder_Press",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "cc70beb6004540c0cd9ddc4520235abab279c2ecfbc22a8678eab2e2f51fd16f",
+        "d34452ca07b17398c93d6a607735f16ac091458edcc2a194894fbe999dee4c0b",
+        "1ad0c0b477ff7d712cbc841d6520c65a68c88d323155aed6c55bb90aa25eaf36",
+        "e215bb8794cb62a4989b3f3bda01985a7c3c4b88982f9f09a705e85e5312bb84",
+        "426d7f73f874bb6719cd23f6783cbd5453435cfb55c3fce6d340344daccaf5ac",
+        "809440784f021370f8ca689fc9229cd0714dc0171174d33d45175d66c634b33a",
+        "4865e2eeabedec8fa92a7b9d8d3ce160be7c3b721f6630b30a5b065d60b90139",
+        "382a97c36a6e98f19cad2e313a2d5310981585a428b49ad7ef97b70f98f3d9ba"
+      ],
+      "candidateHashes": [
+        "38d4f03c2fa21472afc8e0f6e8222b18ebc28b77156c9d6edfb4614868440e1b",
+        "4525033a87ac024dcf08e57be292505d57fedebd12cdacc88fb86dedf8442fae",
+        "02517acd19c48321d09fbcea5b6e608ea1f29a1c01e05d536805613d84f2ae17",
+        "4077f61ed6c0cf8c910c5f3e5afe0c5b5fc04390a5c97470da4f67ce74d8095d",
+        "66d65646569e10073b65ae9e052394cf5bfd38988b867e62e167b3f89f43a124",
+        "b0aa04a8dadf0e39ed09d261247ddbb27edbe61ee769b1559d384f6abbdf710e",
+        "5891b4f8c3980fe5025981908bf6da75e158f76cd69ba67dd78a71c112cdc9bb",
+        "b4202b90e96b8d45f866479857d73acc6fe070e338e425950c2031d7c59af940"
+      ],
+      "reviewedAt": "2026-09-06T23:01:25.240Z"
+    },
+    "Alternating_Floor_Press": {
+      "exerciseId": "Alternating_Floor_Press",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "846d6204bfaebe1ee25605286682abb08ac3e1033db067edc743eae86181f134",
+        "35a8cac058be69db01749ba3bb5c17ba9bc274be5876229eba4da7fe6116306f",
+        "0ef88d6bd8525a30ed76e1ac5be0a71a0a931b4d44f455d664f17ed8bc240bba",
+        "28d30524768f5c048438a028d91b35b72fb38ed85d360f3efdc8a278ea667493",
+        "58a9ac7ecf2a34163345c0f9d7c992189964dc6333653e046c4a444865f0cf08",
+        "22b2c48e114e8abf3cf81b3b950ce9c29bb2220c6f8837001bf9de33ffcfa4a0",
+        "333ff8595248038b79435d3f9bd64d6672579aa97db514b7674a97cc9a6520da",
+        "9d1512c33bea26b66951a06d3fb44a5d161ceb5e545fc87dd0b3c32c6ff443b0"
+      ],
+      "candidateHashes": [
+        "4b3dc85b8ddc902289a674ac1cdc8e47d820edaa99cc79cfbf4ba68a9c7c3139",
+        "69e94446d8e049456207cd764178eea2fd20a243a4562757d3c87557f83d2395",
+        "a3dbb0d4077eb2393440db5c270bfe666b2bd0b75d93e5dd8603d501b574cb4b",
+        "fb6c6e6d774e7870c5a736673ce7c8566f99b2cf6f02198e45bb546c995b186a",
+        "252b5707cd83a82598e1d9101aa1a19396bf24366737011136fa6b93f5d1d09e",
+        "b7ab90bd3c3319185fd7699acec1cf45ba13ce75d36b54e74b17d9a8c36b1d91",
+        "252b5707cd83a82598e1d9101aa1a19396bf24366737011136fa6b93f5d1d09e",
+        "fc67d0c3e531dd6c95640fe2fa92a371e4886ebf1a3b1094c0cc4e1c5b0898fc"
+      ],
+      "reviewedAt": "2026-09-06T23:01:30.124Z"
+    },
+    "Alternating_Hang_Clean": {
+      "exerciseId": "Alternating_Hang_Clean",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "6e74e5f8b74bf426b23b084ddf0d064a40bf8b66b015694f278d3ebb921b4db3",
+        "c75546fb191e8d69b25cbe6d6c5795a329d9d9ddecb04d232f0ff91535fca6d5",
+        "c1b419c0cd9bec4bf227bbe3719050cc29ca43492747da702ab038dc8d0b60cf",
+        "edb19f3e316516336d7359cf06ca6ea9f140512fd1ef1eacda9b3c2983d26919",
+        "e763b4113496ad9293449d1b2caee5b53162d0c2f1d777b948fa0e2c03049974",
+        "55176c96d2d7e7fac343a90eb2df61aa38988434b25d3b2c3316ea2ed9d91191",
+        "48036963f59b02edb238cd44c43864a6d36be4665151133c1b5f75cc9edf969f",
+        "f85ac8b47ff9e07a5df11063303dbd9f7078d4fdd619c98c22067ded4f971651"
+      ],
+      "candidateHashes": [
+        "59cfc73c2ad6d00b55ec40a581c4a1652d4c72a7b1ef5902cae195a4b67da921",
+        "0fbb16db0efaf7820c63b744e5a57b5c879be635e851e0326f158b7b5826f005",
+        "b13682e28723c06b2898001f870f496c28039f10348273d402ff919d9b93fce7",
+        "421de712579128a97365b16d10b2d2f429f33a4c511634679571cd4485877bd8",
+        "93aa8de6643dee40376a06770cc153991d6eaf56d0caf28239640d7127a93dc8",
+        "68174259bc0e2a151e282ed52767fc923c81e1a5a523e455ebbcbfb4cbce1ed6",
+        "8cc1f57401cb0304392cab533d5b2c06259711bb1352a8c3908e3b983b8016a2",
+        "7a8c255a4b0cf90402f9279509c135aad714784015d98b658fa76e639abcfa6d"
+      ],
+      "reviewedAt": "2026-09-06T23:01:34.041Z"
+    },
+    "Alternating_Kettlebell_Press": {
+      "exerciseId": "Alternating_Kettlebell_Press",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "2374ded2e06b877b41eab10a01abaa529da3ebc2b61f1a6a08979e0ac19cf9c6",
+        "abbab796de0721d3cbda4c2a0f8e1b1bba1d81196aec81fa030224ca1fc14255",
+        "6f29213599b6fe9542183917387ef23f800bcd5f7f6b0ddb2085f6a74e861152",
+        "064b07f321e4be555b64ce86220302109cd2783397cc437ee96bc96b1805a65d",
+        "58596d73f63a301b848f17a6e837a9b1b5a8faa837500e1a930e42f5f72a8e3d",
+        "1e014108e173afadd512d4b14cccac54d7501b68286d5d32b50a3cffeac79038",
+        "0342bcab3eeed152be40f375e7a54da322044c6949a0f9d62cee671409e3eec1",
+        "09e4ca788ca44351d8cca2f205aa5aacf08e5392dbc701ba1cf95ed0f8138da4"
+      ],
+      "candidateHashes": [
+        "d3d88e66b5eac29632239f5ff16a972ef5c32a6270c59e2c9ac20b6939664079",
+        "017ddd83ce0fe7a3d2af20be9df36276f2db5da41105dad19080bcff4ca19052",
+        "ab3cc2c2e674df21a2f97d00024dda9533c7587a94106a0310d1f06eb3b2bf6d",
+        "8933be41c259a1179534f1755b240eb69085b1d4a77891ef3cd7fdd3aa0cacf4",
+        "2dfd4c0076e38a95018efa18be7d9a0859368414442ae7ac7a653fac325015df",
+        "a19f8d2ff30a241117e629048b528c26a6bb4cdc01c9e260dabb5fe9ef417e60",
+        "963e47abbe7f5492063b35ff0f3acc3522bdf729a44256b3020d198e49fb5d11",
+        "01c591b476f2d840c30d76385ccfd4e08e7b3a188f003ab4f27140a1c5b5f8c0"
+      ],
+      "reviewedAt": "2026-09-06T23:01:37.981Z"
+    },
+    "Alternating_Renegade_Row": {
+      "exerciseId": "Alternating_Renegade_Row",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "c03ecac67cbc89bbfc64b64078c8cc59a2fa3f4c3668afd2695836f937354ccd",
+        "f06e23ded8d536092893d744ba86f1c3b4959da6798d6cd0c29fbed07362b85f",
+        "4db324ab3bac42ab3eb2cf8be92e13b38baa27fa91d6609b134b7dca778a4608",
+        "7c7c157f973df1de7b265bedcc2fc66a96f424b88c690bac11f4600187e75535",
+        "9b97a73c451630d2712a51dcf7d9120609d48c99623a60688389f291c95fc652",
+        "5d9d25f679935eb1c643dc8a723aaca3898a448de16c72fba1c400635269c292",
+        "88eb10ed82f8996efeddc752dcbfc43342263538a6ee8f525a1f6e24981d33f2",
+        "0d0ca00c565196b987f8e472ed743dc72a2fd5561c1c9a806e3640d8dc8b366c"
+      ],
+      "candidateHashes": [
+        "dccde63e3fb12ba50e7e78337cc1f99e6f685fb2ab492ce2d4e58aabcdb497f3",
+        "ac1328e20308aad9a80aae708cdb018a58df380a1704313a47d082ced02d3bbc",
+        "0e6b947b8864b1653ee7120d693bf1f61b25a168e7e3231dbbcf074bc1ae0521",
+        "b8777714a33193d8a1aa470db8938a0b89158af8cefaef67cbdbb1d554e8724d",
+        "5c98a9240570d386064aa37075842e78cd7a70143b77759ee334b267e41738ab",
+        "e5353fc6e2e5e82df2fdcd72a88e2ab9f1e2735df34df1cc54e076ce4d355d5e",
+        "6af71123880a581456ea2d61ed14480957723fbf74060ae8598bb6fcc04a3804",
+        "dc859c3d7cd304bbe77b3b25b4d62bdad46515ab1b472f92ed15ad3e813438ed"
+      ],
+      "reviewedAt": "2026-09-06T23:01:41.134Z"
+    },
+    "Ankle_On_The_Knee": {
+      "exerciseId": "Ankle_On_The_Knee",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "6c3156777f926b8c342be1390aa5a97e000bc66db586396e7ef93a450ac50bc5",
+        "cfac5a299a1c24ded87a861a85af90f974f1fafc49b6adcd214bb1e2954406fb",
+        "90e77a7e0e5c27f54a48774ab61be9a27b09148b8b14117543171ecfc7df9686",
+        "439ddf2d4bc9f8fb3e419c56778cbd1ae50368c90f51340f47850c3c3f581517",
+        "a4474bdac31c442fe05cd0f172d751e51f5fcb29e52020867cdcc9dc1d6492af",
+        "4a6685776c644d45f10bdbf43daa87e4d79f3b82eea0cdbd9a63946ec243dd2d",
+        "63325ad74a78771382998e23614cde7dc947bed4b455c1e84e7a76b7e62b79ab",
+        "c5538415b0eff45f4fe7c38e6adbc8858ffba89265f681e46a0d5b48242ffb71"
+      ],
+      "candidateHashes": [
+        "a2bbb0e497fc67657bfc4abe5c5f3268f00133bd29a40daa61d44435d44a3403",
+        "93d1f979bc8d16ae3cc45e94c94c5a7f0bb7ecff908a5210325faa6e510466c6",
+        "3da8b2ef7ca383303023c7de1fcdf360fa39527315f5abb942285988ccee6821",
+        "54034048f0ad8b3195e229dd8f727a8c17a6923aa56851a5f4fe56756d7a926a",
+        "15f9f652517bf692f74edddbf612d0141926fca56f55f6f4c872c751bb2e67fe",
+        "ee00eb8b91ff26793543c653a57cc2d667c8680e0dd73fb1d3a507b05f723b7d",
+        "4f68b5d308bb8863c976e818d82aa6d9438ffaa8f207f904254b81f7a4153821",
+        "a6105a49861bc42dc31ca4e28f21080ff266333086a0d035718160cef72bbf9c"
+      ],
+      "reviewedAt": "2026-09-06T23:01:54.350Z"
+    },
+    "Anterior_Tibialis-SMR": {
+      "exerciseId": "Anterior_Tibialis-SMR",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "a90c9d408e24dd70fca68e8e29e83f1307f5fc376177e26979522eebfe82aaa7",
+        "e680770eb24aff1ce6f35be8a0d17703716a5f378eef46d2ff2fa7a29a5c3162",
+        "63b31552e1b37e087c6d731f3b7b7fa54a7da6acad041560fdeb92fee942b688",
+        "aca39bb4f12390665270804510619ec40c9e0936a08a810900ba6b33f84e0771",
+        "111cf6bcbafe02603d9e63146cf8bb99d82d27f46c5ebfff8b70609b729a637c",
+        "96e851db986fcd7d9365e1ee0b95fae7cc6e2ef5bb06889b2c3d3058224b5057",
+        "b14bd5e28d7c689cfcfede1987c5da45599c6a76c72018ceb83213b632e37f57",
+        "7d002729828f57e6c76cebc8145a03098f51b8a4b9f72f26330695522e64af79"
+      ],
+      "candidateHashes": [
+        "52c610d9a970f43d9b0b84595fb76dc83b20230cfb1712d9a3467be1600e8bdd",
+        "32314fc7369c0d43a4258fa9e1fa6ad48b8740b23ce29eb2f063f63ad0b05b26",
+        "54dd7b7a892a50529cb96fb3c6b07064c7ef0c2c966bc6775167e7a5e3bb02a3",
+        "a2fde96907acf7e9727935003bb7b7275072092fff3f980620000cdc98706dd2",
+        "337169a3626ccbf9c058ddd643de7191e4ab474e0fe69323b1c4758c1043ad4a",
+        "c1f01836033c5bff49d62f8af4dcbb91ea9b56e44da2659a18c9017b25325c68",
+        "29ddeaa6a0190704e9cd5bbd6d7e9751bc807170d259f61990a49a505e6d3c96",
+        "7a538e8208e42e04d949185fbbcedef960bcd875e808ff93a5c645fc2c90b105"
+      ],
+      "reviewedAt": "2026-09-06T23:02:00.171Z"
     }
   },
-  "updatedAt": "2026-09-06T22:01:05.136Z"
+  "updatedAt": "2026-09-06T23:02:00.171Z"
 }

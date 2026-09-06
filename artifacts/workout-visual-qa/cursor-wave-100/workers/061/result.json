@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Isometric_Wipers",
+  "shard": 7,
+  "index": 61,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Isometric_Wipers_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Wipers_male_v2_0.png",
+      "sourceSha256": "22fe5de00997ae02da359352d087729a967884645528fee4fb7dd9fb8d838a02",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/061/Isometric_Wipers_male_v2_0.png",
+      "candidateSha256": "a4e50d439f1951a4f929933b59b813a53369638faaf27963464a28abe454f093",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Wipers_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Wipers_male_v2_1.png",
+      "sourceSha256": "7530bf9c0fa32ccf27d8c7e46364ba1c244c62fd5cb181143cc805b6beb81ecd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/061/Isometric_Wipers_male_v2_1.png",
+      "candidateSha256": "80bf0d18f1a8fcacdebdfb3737bbaaa78e764ca46886557c11175e190a8c5a76",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Wipers_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Wipers_male_v2_2.png",
+      "sourceSha256": "f7d175af5c6912b908a0f7e1dab56461f8d580f116ae9e29c9438d8be081d713",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/061/Isometric_Wipers_male_v2_2.png",
+      "candidateSha256": "bd459704b2724453ec063b445b6f44ed1403f2f4e5fca3fc0ee17743b25faa42",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Wipers_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Wipers_male_v2_3.png",
+      "sourceSha256": "6cb96d2bbd19e8a5e139173e267d0be21ab9623a4a0654f36e9a0a7a2a95830e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/061/Isometric_Wipers_male_v2_3.png",
+      "candidateSha256": "4a50ab04a9c91c8093315db81e29e957779a0a7232454676945a8d6d082f529b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Wipers_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Wipers_female_v2_0.png",
+      "sourceSha256": "c76140f47d2e9834d894c5e931a6d4c07f7ad787955a0bc22b3d64ce55dd1367",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/061/Isometric_Wipers_female_v2_0.png",
+      "candidateSha256": "20f4c4583a39113157d999d949eb447cbd7f58254297ec1fa84bb4db142e93fc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Wipers_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Wipers_female_v2_1.png",
+      "sourceSha256": "874d7bef07b7ec813190eea1440487b8b1abc3fe7434be827af1327d45960e37",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/061/Isometric_Wipers_female_v2_1.png",
+      "candidateSha256": "56d11aada8e2fe3826b228eb825773fd9d03ea4b0261f59316b24f1695641853",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Wipers_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Wipers_female_v2_2.png",
+      "sourceSha256": "7c0ec03aab462f63d1784b1f5a29a05a3a7c464aedbdb7e22a8bf4057d837f5f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/061/Isometric_Wipers_female_v2_2.png",
+      "candidateSha256": "83ad82178f91f32348e48d8954df3db9bbe48f7b320bd2b62344f914a7e0045e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Wipers_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Wipers_female_v2_3.png",
+      "sourceSha256": "3d2be7642e0abeaff9987d29e33b8207b09a8476d91ee4131bb7d01ed75155b1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/061/Isometric_Wipers_female_v2_3.png",
+      "candidateSha256": "76700b849a0f927906bf8995e3dc0cd2a52c2cf3cdce89e4d0896dabc9148187",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Jerk_Dip_Squat",
+  "shard": 7,
+  "index": 67,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Jerk_Dip_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Jerk_Dip_Squat_male_v2_0.png",
+      "sourceSha256": "37d2f64a115b76e47c95d63344a427dcc83192d87f77d481c3e391c099976f14",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/067/Jerk_Dip_Squat_male_v2_0.png",
+      "candidateSha256": "9686942acadeb6e00ece66ff4b1cc6e2aaa5c2f4af4160bb581056200f36e1e0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Jerk_Dip_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Jerk_Dip_Squat_male_v2_1.png",
+      "sourceSha256": "9593ad87e90ad19b9483d44b27e4a8babc891fe0a901efd03d7fb526ef1ce597",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/067/Jerk_Dip_Squat_male_v2_1.png",
+      "candidateSha256": "92b7f7f2903bb83b8cdd0bad4d3c96c51b724434f59725e0a4ee4c1230d53087",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Jerk_Dip_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Jerk_Dip_Squat_male_v2_2.png",
+      "sourceSha256": "d79e0f69dca91445143fcbc5d396ddd2ecf3fa77cea2228d70fbb81c2c2c1fd1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/067/Jerk_Dip_Squat_male_v2_2.png",
+      "candidateSha256": "4d5aeaf1afa0f596994c3e6cd6f2719375315e53f1fb105aa4c1fb70ee4e5edf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Jerk_Dip_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Jerk_Dip_Squat_male_v2_3.png",
+      "sourceSha256": "88118daf318d07aac940400de697e6305102d12f22aa359c3a9326753025927d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/067/Jerk_Dip_Squat_male_v2_3.png",
+      "candidateSha256": "3b85ad21fb9795dd0fee69ce89049e11acaff542a93d26e595b5e4f039aa39ba",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Jerk_Dip_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Jerk_Dip_Squat_female_v2_0.png",
+      "sourceSha256": "ae27f2a32a904c501de7255a084aecd0189e2514e7b0ea32bf397abdba779392",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/067/Jerk_Dip_Squat_female_v2_0.png",
+      "candidateSha256": "13f88e9c5005da1691f4c21a3f95c8e8222b4dad5a86fdb76955a862aed399ee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Jerk_Dip_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Jerk_Dip_Squat_female_v2_1.png",
+      "sourceSha256": "76aecbbab684c4603984f0bd9b44447c77695a089e3a8747cc71a3c7d0da69ab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/067/Jerk_Dip_Squat_female_v2_1.png",
+      "candidateSha256": "02bc4732d60b598faf510acb19b40f0c74b4b148bba4c2709c4a4cd499c6cb25",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Jerk_Dip_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Jerk_Dip_Squat_female_v2_2.png",
+      "sourceSha256": "234e08fca19038de8b6e0b33cc8d05ed077186bc298db06298bc626f157f8426",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/067/Jerk_Dip_Squat_female_v2_2.png",
+      "candidateSha256": "6feea9aa3ee10beb9185aee46978da5df9c7afe8df505b0021e2364e1208f3ed",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Jerk_Dip_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Jerk_Dip_Squat_female_v2_3.png",
+      "sourceSha256": "316a7feab58aa8a1241cbed2ac82714366e9e84b809c6d6300613bac50c36939",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/067/Jerk_Dip_Squat_female_v2_3.png",
+      "candidateSha256": "0015b28ac12662442ab0c3b7803c3509f1a3a4168df95135cb5e8e7f17e6fdb4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

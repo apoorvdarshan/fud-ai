@@ -1,0 +1,16 @@
+{
+  "source_sha256": "c58532afa78464782a6c5a4b7d205590f795e02d5d5de4c29fee11b844a3bd30",
+  "candidate_sha256": "6afca1dc48395057447a213267bd493f19c6fb6d8db3951533254f9ba01b19cb",
+  "generated_sha256": "e07950d94ad5b3715e81ca8e09f8c0bf2922ef6b24ad07f920b1844c6c01e809",
+  "generated_path": "/cursor/stores/bc-da946f50-1df6-4c3b-9301-5df57c779a54/artifacts/assets/gen_207_Shoulder_Press_-_With_Bands_male_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

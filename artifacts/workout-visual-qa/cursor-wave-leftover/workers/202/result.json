@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Seated_Triceps_Press",
+  "shard": 21,
+  "index": 202,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Triceps_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_male_v2_0.png",
+      "sourceSha256": "b55534385a1b42df2129b345c1a621b5452786f86299583414b3721e19ded550",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_male_v2_0.png",
+      "candidateSha256": "47140d9adf7704448621cd2ea8642a0fd4a2d5876e08eb75bdc60249b935265c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Triceps_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_male_v2_1.png",
+      "sourceSha256": "6ac00b49c0ea28b5508f1c1623410ae052f1cf15e5eb40fbe5d405d0223ff825",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_male_v2_1.png",
+      "candidateSha256": "94934097b8081b1696c9f682f94a26ceb7c971eb18c153a95c76c7609bc584ef",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Triceps_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_male_v2_2.png",
+      "sourceSha256": "a5e37c87bd6a73539b7d589d8e1a1ae1b6df4e9dbb558eaad57e40e2f21f29d1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_male_v2_2.png",
+      "candidateSha256": "b1a30852746a7bada4e9235635bc1a1f2efb5d1b5f365d296314b999df1eabaf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Triceps_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_male_v2_3.png",
+      "sourceSha256": "8e87419f73160dce4a8ee6fdcff797856b6333d0b8494267d27b720747e8ed9d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_male_v2_3.png",
+      "candidateSha256": "301527dfbf6d6c4b2e451de30edcde6619385e9297f132fbaec16faf9a0fe547",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Triceps_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_female_v2_0.png",
+      "sourceSha256": "89c7164ef756046161b05df3dc60580f754ef2cde42a767caa88aa097c95cd59",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_female_v2_0.png",
+      "candidateSha256": "5b1bb87f71336c05124ee4de0379da5c4de6affde88c8c3b5ee3c622bfdf99e0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Triceps_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_female_v2_1.png",
+      "sourceSha256": "800b21eb479bacc421ecf4da30931d75749c38e84e8cf90d05646eb472e31cd9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_female_v2_1.png",
+      "candidateSha256": "b9a0d8e0b6fa52f9e15cc2f8032d477f052bc089f3e60d0b584545ac87a22a52",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Triceps_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_female_v2_2.png",
+      "sourceSha256": "099697060f0baf11c6d804e2ecfa7caafb0f68e14b6dbc82b99929a105c070d0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_female_v2_2.png",
+      "candidateSha256": "60fa50c61fea55a4b3260655d003c2f39f2ca405183d5ed2fec0b488a9e90c23",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Triceps_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_female_v2_3.png",
+      "sourceSha256": "5448a89f023c2357bd030ee769d675fcb74301e85f81a863dca0b4caea6c9c0c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_female_v2_3.png",
+      "candidateSha256": "d3659d5b1146c2e3112b690591c1f0fea663a61ac96027c0eb3a1589b75312f3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

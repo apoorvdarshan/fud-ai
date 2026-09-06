@@ -1,0 +1,16 @@
+{
+  "source_sha256": "7b8e6d3fededdf3d88dd720e2e6645afebebdac4c249189efcb7ca2d00420bd8",
+  "candidate_sha256": "cdee3df0e4d5cafe7caa14e1dfe0d89c362228b9f0c119ae7139fc965442ae89",
+  "generated_sha256": "7209aa5bbdcd4164186c9e4eb408b1ab04d5406c3b2fcb300b3721bac4b684ae",
+  "generated_path": "/cursor/stores/bc-da946f50-1df6-4c3b-9301-5df57c779a54/artifacts/assets/gen_210_Side-Lying_Floor_Stretch_female_v2_1.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

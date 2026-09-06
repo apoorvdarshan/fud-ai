@@ -1,0 +1,16 @@
+{
+  "source_sha256": "834a90ebcd34b4d4030d017ff02069883033e94b1ab4632af887909bd4e9cdbb",
+  "candidate_sha256": "ad5cabd224bb5b557860ac2ab65996046b981da5a845f04bce6d3c6edfea2962",
+  "generated_sha256": "a78c7060ebf6fa04a4b2100e57b8295f9a5cb0ab5f87dc64a76799becf0d61ec",
+  "generated_path": "/cursor/stores/bc-da946f50-1df6-4c3b-9301-5df57c779a54/artifacts/assets/gen_207_Shoulder_Press_-_With_Bands_female_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Seated_Side_Lateral_Raise",
+  "shard": 21,
+  "index": 201,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Side_Lateral_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_male_v2_0.png",
+      "sourceSha256": "2c052a018dbf6a073e98090224f21bb277d8fc4866903815feb86bf157951629",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_male_v2_0.png",
+      "candidateSha256": "e8c1ef63565403df265265ee99916a66ceb76cb75dab98dd5195d7aef16e984f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Side_Lateral_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_male_v2_1.png",
+      "sourceSha256": "be0ccf2b6c12fc7ea9e6ff0be4d617c27d854ad607d05a41e1ab1e2545939656",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_male_v2_1.png",
+      "candidateSha256": "c0ee723faabe10fac72899468e2e0a161eb5cf8f2359232c6eeac264141987af",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Side_Lateral_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_male_v2_2.png",
+      "sourceSha256": "e1947a59d41fe6514ab7759868216e9e5d8dd0c69fce3f2520d2748c69bfc394",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_male_v2_2.png",
+      "candidateSha256": "7d888f1a827bbd4bf251d1f33f46a913fb198b5ff6831e50b22ec96e772c343b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Side_Lateral_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_male_v2_3.png",
+      "sourceSha256": "f226aa82ef7e2a31a05cc8da5ecd557900ddfee872ea66aa0544658fac5df06b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_male_v2_3.png",
+      "candidateSha256": "280ad0762c933dee9a533c410f16f4d25b6c5cb38de98fea5004523b92dc772b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Side_Lateral_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_female_v2_0.png",
+      "sourceSha256": "240807fd545c753ecd6abf0ee2dbb1278627da4ead8dcd1838b0ef4d673e002c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_female_v2_0.png",
+      "candidateSha256": "78cf9cf53047d11ec017c043c56889d5f303bc84f4309b8d45c2055f34ab841d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Side_Lateral_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_female_v2_1.png",
+      "sourceSha256": "19e14e2bd89356f6fdf77a2ab89f14737b2051f12f572637f1717f7b31e7c59f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_female_v2_1.png",
+      "candidateSha256": "92137e475d8b8f0f64a89cc4383f83c374f9dc50cd8c3c974835c1f4dba70993",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Side_Lateral_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_female_v2_2.png",
+      "sourceSha256": "e8bc15dc91310fe302ec736ffc4ac7ae5a1337bd20718bf75eca23a7c5cceaf5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_female_v2_2.png",
+      "candidateSha256": "42b042ff471090a511ffccd68893bae3fb39f0bae208a9e133dc37bbce592398",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Side_Lateral_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_female_v2_3.png",
+      "sourceSha256": "ecb720225b5a122d6725e5cd46e8e60179657de8149a63e4fb1a8698bbebab96",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_female_v2_3.png",
+      "candidateSha256": "0d547b84a7d2c4cfc362d37e3c21064e57d82370ec24c110449f4193b6f35cc7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

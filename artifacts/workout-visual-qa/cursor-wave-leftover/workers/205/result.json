@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Shotgun_Row",
+  "shard": 21,
+  "index": 205,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Shotgun_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_male_v2_0.png",
+      "sourceSha256": "5f312dd9480e53311e3bdd88da0867c94a628b2531e747af162ad2d042dcd2fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_male_v2_0.png",
+      "candidateSha256": "028dd86b102bfaa78b476a0eac74c5b5ba9bf077c2586a75c592a801c385be7f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shotgun_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_male_v2_1.png",
+      "sourceSha256": "b46b911c2442e122e194763a60cdd1908b43d8e88fa50532cd2d13f2f5752608",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_male_v2_1.png",
+      "candidateSha256": "c84b224cdf8ddc738a6813e465c8babc328147d32e7c14ec897db5a6ef51a590",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shotgun_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_male_v2_2.png",
+      "sourceSha256": "0f4372a19a5b4a94f94ad397b1c9aed9f27c462aa4e077cfb079b7168b47ad25",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_male_v2_2.png",
+      "candidateSha256": "131cc94d727b1306b28cf184212c1539abfe08ad7b877d2dc0476e35aaccf7cf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shotgun_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_male_v2_3.png",
+      "sourceSha256": "3c51a6549f78c99ebfd43bbae3863e7a0c62d1f6522ac7046770cd6142b8ee1c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_male_v2_3.png",
+      "candidateSha256": "ae3a72bc620b775d2ae6c1c93aec283aea10941f0a8bfd513d95bb2a6abe9bed",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shotgun_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_female_v2_0.png",
+      "sourceSha256": "db1af369c632fd623c61aeebead777dc1e502cc5ee04824dc253af4753c6fd9a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_female_v2_0.png",
+      "candidateSha256": "9ac97f2e2476b43734194b7212f201b3a89795251d0eee49a0ded391cf557eb6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shotgun_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_female_v2_1.png",
+      "sourceSha256": "7ef119bd6b033284114eaaa207a572f227e2f2a7dee2c0a217c7cf94c24a194f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_female_v2_1.png",
+      "candidateSha256": "8e33bfc50458421c25e66507ce5a574b5022487e52cb46caa4c340952061a435",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shotgun_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_female_v2_2.png",
+      "sourceSha256": "9c59428f3f70ece098d062c44185fecdeae839f2c03413023d95ef7e4cb30e57",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_female_v2_2.png",
+      "candidateSha256": "cedc9f6c6ac76cc6e86d9492f1efd3aa62e7e07e127e03ec4e47bdcbc8e4339b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shotgun_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_female_v2_3.png",
+      "sourceSha256": "90816e867a44290c37cd59c1f6def78d91ffdb757599bd3542952421e2824879",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_female_v2_3.png",
+      "candidateSha256": "6279fb9fa1e578cfef550c4caeea3508f5cd02a779e0e266c592361031544328",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

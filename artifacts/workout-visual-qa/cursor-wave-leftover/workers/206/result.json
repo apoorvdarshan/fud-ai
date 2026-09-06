@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Shoulder_Circles",
+  "shard": 21,
+  "index": 206,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Shoulder_Circles_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_male_v2_0.png",
+      "sourceSha256": "da0a71c3bc3433daa48c1d5c1231a839916ea2ab5a61218a0c30c7a64fb13794",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_male_v2_0.png",
+      "candidateSha256": "75b823fe5746a43973dde1d247e925e087bcca97b223063a3be5f2c2c2d848a9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Circles_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_male_v2_1.png",
+      "sourceSha256": "0f9c75dab576b26a0bedd093aab22182d7c51fa543e87182f4f0e5290969dec4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_male_v2_1.png",
+      "candidateSha256": "671599eecc6b79e2d41a306a20d4c69a8421e644a213b31c4f575527caf177ac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Circles_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_male_v2_2.png",
+      "sourceSha256": "7a448e644b8e0ffd17bbea29c1cccafd941a2fbae8f4e18444a5b8142f2c6219",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_male_v2_2.png",
+      "candidateSha256": "5493adb5dd96597ed533c59928bdb3b64303bcca7e2b4318b79ec325678c5db4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Circles_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_male_v2_3.png",
+      "sourceSha256": "745f5161ac4b5857388be06f2e1656afa990ad28c0ed78c8209fb35859556662",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_male_v2_3.png",
+      "candidateSha256": "06125938698244a832835bd0cff45570f2e4efd3f40573015bccb910aa613bbd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Circles_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_female_v2_0.png",
+      "sourceSha256": "8d13104c62dcdf3d0cc1a3e7b2e2c2f55c6ccff942dc5166625b4bf0168900ae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_female_v2_0.png",
+      "candidateSha256": "f6ce34ff8c8b9ce0ebb912093352f7f96aa44a51da1de47a46f5c9be443ae7ff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Circles_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_female_v2_1.png",
+      "sourceSha256": "85dca06a314b93752e9313d40bf958d826226cc371dd3de26237f8a86dcb22c6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_female_v2_1.png",
+      "candidateSha256": "0dbab9f89a9224a815f9105effe13ac5b9177d88e76e3fe424f3e98c21b89cfe",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Circles_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_female_v2_2.png",
+      "sourceSha256": "b18fa62cb0ce77b9bdbe763d90a0349a9dba19ee1e95ea86c43a1d7896b236d1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_female_v2_2.png",
+      "candidateSha256": "b2ea0dbafd399af809d309454c9f7a229c498674b9418ee680a1b1d184cc7a25",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Circles_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_female_v2_3.png",
+      "sourceSha256": "e0b67368cd7347d030b2836d7290f5ce473efee4f37c945983f8332f9528acd1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_female_v2_3.png",
+      "candidateSha256": "86e655ef978959900daccbaeafdc4ab68b708a63a8388532f09d283e58c6e0e9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

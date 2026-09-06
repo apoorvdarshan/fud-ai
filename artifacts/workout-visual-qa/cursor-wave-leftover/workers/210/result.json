@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Side-Lying_Floor_Stretch",
+  "shard": 21,
+  "index": 210,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Side-Lying_Floor_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_male_v2_0.png",
+      "sourceSha256": "c37e97427fadd86a098eaeb407b75f51e4868aa37d36e2491912f02df5e53ab0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_male_v2_0.png",
+      "candidateSha256": "a661d2aa55800cae1055a11d51da3fc9bfd48f75d1176921fa97d853b64ab627",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side-Lying_Floor_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_male_v2_1.png",
+      "sourceSha256": "d4d95ac97d079ddac715e2d1b74a1fb2c4cc3f9bd214b1ff124f6805178433aa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_male_v2_1.png",
+      "candidateSha256": "dfb108bd5da75dc221eb5dd4cc1d2c609531714c8f24219125f15857df343488",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side-Lying_Floor_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_male_v2_2.png",
+      "sourceSha256": "dc17a122b0506ac9e6bcfff018aafaea7c70f92f34296ce11ae1b6ba21abc483",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_male_v2_2.png",
+      "candidateSha256": "242de65db0f2df87c06b392c5ab06d630ffb10e00f0387b50699b232f6fe28be",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side-Lying_Floor_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_male_v2_3.png",
+      "sourceSha256": "c87072cacadafc9547352fc5d3b4f79c4906759b2d74d6a5bc67bccdcd66caba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_male_v2_3.png",
+      "candidateSha256": "ee7f8025413335c8d4b34bbef100e2b7503cf6b6a4af9c72effaca3123961deb",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side-Lying_Floor_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_female_v2_0.png",
+      "sourceSha256": "8c707d6920d332be3980895f14f36e57bba3b44a1d29a72ec4d415515147cd9d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_female_v2_0.png",
+      "candidateSha256": "0c667bbd80534f5ba415161802c292a8c0b372174416e008165edbb23374dcad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side-Lying_Floor_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_female_v2_1.png",
+      "sourceSha256": "7b8e6d3fededdf3d88dd720e2e6645afebebdac4c249189efcb7ca2d00420bd8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_female_v2_1.png",
+      "candidateSha256": "cdee3df0e4d5cafe7caa14e1dfe0d89c362228b9f0c119ae7139fc965442ae89",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side-Lying_Floor_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_female_v2_2.png",
+      "sourceSha256": "e7581532038b1b5ded23d9c46e7928bbf7427560f061720baa7c1950a5a94f92",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_female_v2_2.png",
+      "candidateSha256": "9d4dfffae2131e181203ca466b9e38334cfb95ee3995bca445fb6c1ac0251ca4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side-Lying_Floor_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_female_v2_3.png",
+      "sourceSha256": "b7783de955859af6a29d47403204d88390adeff1079c612a6e21c7f4affab94a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_female_v2_3.png",
+      "candidateSha256": "c1cf849936168db9f2ac28af19a2bf8b757b8ef5edd8fbbb2d263325064c0987",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

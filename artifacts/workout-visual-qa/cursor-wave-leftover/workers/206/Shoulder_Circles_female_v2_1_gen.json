@@ -1,0 +1,16 @@
+{
+  "source_sha256": "85dca06a314b93752e9313d40bf958d826226cc371dd3de26237f8a86dcb22c6",
+  "candidate_sha256": "0dbab9f89a9224a815f9105effe13ac5b9177d88e76e3fe424f3e98c21b89cfe",
+  "generated_sha256": "b80e81d927e858b7b50fb37e89faf8f7a7e2b36a86a866ebd96f4e3661ea3ec3",
+  "generated_path": "/cursor/stores/bc-da946f50-1df6-4c3b-9301-5df57c779a54/artifacts/assets/gen_206_Shoulder_Circles_female_v2_1.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

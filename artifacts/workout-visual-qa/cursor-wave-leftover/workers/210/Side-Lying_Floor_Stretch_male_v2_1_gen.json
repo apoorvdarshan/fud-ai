@@ -1,0 +1,16 @@
+{
+  "source_sha256": "d4d95ac97d079ddac715e2d1b74a1fb2c4cc3f9bd214b1ff124f6805178433aa",
+  "candidate_sha256": "dfb108bd5da75dc221eb5dd4cc1d2c609531714c8f24219125f15857df343488",
+  "generated_sha256": "9b145a9a897fc5847e0f8db733aca2175f7f58266b3afc6048ba8e8fdc8a8597",
+  "generated_path": "/cursor/stores/bc-da946f50-1df6-4c3b-9301-5df57c779a54/artifacts/assets/gen_210_Side-Lying_Floor_Stretch_male_v2_1.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

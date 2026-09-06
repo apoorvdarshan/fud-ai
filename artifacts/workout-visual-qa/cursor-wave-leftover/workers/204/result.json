@@ -1,0 +1,83 @@
+{
+  "exerciseId": "See-Saw_Press_Alternating_Side_Press",
+  "shard": 21,
+  "index": 204,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "See-Saw_Press_Alternating_Side_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_male_v2_0.png",
+      "sourceSha256": "ba1471277bee4823e091731a0280b596b2197fd70dd868b6f3752d04df189f68",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_male_v2_0.png",
+      "candidateSha256": "598d330e5257700c8a8b5e03cdaa655367f427d5ca50967acdf9720401620ce1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "See-Saw_Press_Alternating_Side_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_male_v2_1.png",
+      "sourceSha256": "f7d646a9dbb5c1e2095117266e815523d2a82ea06697fef54083b46798f046ff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_male_v2_1.png",
+      "candidateSha256": "aa00415888c5c1e5fadab7ab4730f92fdd654de989e791f564e4b0f7c68c373a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "See-Saw_Press_Alternating_Side_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_male_v2_2.png",
+      "sourceSha256": "1f5b0f201808036e6706c22a9e07893cdab4663a9c9c515e51664e4837a7a1f3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_male_v2_2.png",
+      "candidateSha256": "87399071ff3930bd6ef3fee57f295bfcd43c7cf33c4220397301d2417cec2914",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "See-Saw_Press_Alternating_Side_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_male_v2_3.png",
+      "sourceSha256": "f7c403831b6e25bfecf18f937b639c0f950620ca65e65bb36bd7a86edd875d7f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_male_v2_3.png",
+      "candidateSha256": "609254b3d367224e46c6a71bc4ec08c8db31ba6470b316759ef6a6182cee98e1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "See-Saw_Press_Alternating_Side_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_female_v2_0.png",
+      "sourceSha256": "a7e109777cb59084a2b6da2699cc5ac2d899dac70d081e72bf5cbf84f240d3ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_female_v2_0.png",
+      "candidateSha256": "2fb237ad15a420f7999c1efb4784fcfcc8a42c7ed407524c39056092a1b09d98",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "See-Saw_Press_Alternating_Side_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_female_v2_1.png",
+      "sourceSha256": "35b1660037816c6b5f2c2402c5da60b7a024c12bb83dfe9f973e9ac0d4450cff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_female_v2_1.png",
+      "candidateSha256": "fd3e2f4942507d7cf1025db2668e8ed1c88446f00aebadfcf95c3893d3171607",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "See-Saw_Press_Alternating_Side_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_female_v2_2.png",
+      "sourceSha256": "9747d2cf91e9f49d16bfd97bcbd6969cf8bc79e953937db39a45a09b2a6fd882",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_female_v2_2.png",
+      "candidateSha256": "50e5367c9fce23ff5f5e018b5b5373fbe1aa591b710619c136d23d06b0928a3e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "See-Saw_Press_Alternating_Side_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_female_v2_3.png",
+      "sourceSha256": "af4e1060a4fbe74335a6728dfee507bd454de1c1cc7f1b4bb141f36e5b31377a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_female_v2_3.png",
+      "candidateSha256": "1fbffb958ae7ee88091d25446f4f9e98d31ea8d619d3a7fe9a91ea590143140a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

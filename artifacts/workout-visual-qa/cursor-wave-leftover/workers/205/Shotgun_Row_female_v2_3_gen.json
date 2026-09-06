@@ -1,0 +1,16 @@
+{
+  "source_sha256": "90816e867a44290c37cd59c1f6def78d91ffdb757599bd3542952421e2824879",
+  "candidate_sha256": "6279fb9fa1e578cfef550c4caeea3508f5cd02a779e0e266c592361031544328",
+  "generated_sha256": "094f2b3aeb440ed3ee85214763a7f4e5049778c3be9fbffc46e5e162b3365cc7",
+  "generated_path": "/cursor/stores/bc-da946f50-1df6-4c3b-9301-5df57c779a54/artifacts/assets/gen_205_Shotgun_Row_female_v2_3.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

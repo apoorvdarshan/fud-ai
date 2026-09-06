@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Shoulder_Press_-_With_Bands",
+  "shard": 21,
+  "index": 207,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Shoulder_Press_-_With_Bands_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_male_v2_0.png",
+      "sourceSha256": "325bb7440d08f5ba52a0fd3dc35b91672d8f62863796a1a4eb8cd1b48cf8aa66",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_male_v2_0.png",
+      "candidateSha256": "4cc17b87931e0da9cfc6cb11703a341c8f1855f52ade405162401d7bd30fb628",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Press_-_With_Bands_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_male_v2_1.png",
+      "sourceSha256": "d38be8a4df2544f22bde42d148c3bde79eb66b9c1d9270a489fd9872b2434897",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_male_v2_1.png",
+      "candidateSha256": "f96c85d400e4e3faaabdb3e3d201b48eec5e2e6ba83c49a3b5c94ff3ad62c923",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Press_-_With_Bands_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_male_v2_2.png",
+      "sourceSha256": "c58532afa78464782a6c5a4b7d205590f795e02d5d5de4c29fee11b844a3bd30",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_male_v2_2.png",
+      "candidateSha256": "6afca1dc48395057447a213267bd493f19c6fb6d8db3951533254f9ba01b19cb",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Press_-_With_Bands_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_male_v2_3.png",
+      "sourceSha256": "a7fe3947e31543724eda91480f00843d26a8503aac8e1930f02a621daf9c41cb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_male_v2_3.png",
+      "candidateSha256": "830c61850684d1cc1052131893c2476adc246ddfbe43193463f3d6f1ffacc798",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Press_-_With_Bands_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_female_v2_0.png",
+      "sourceSha256": "0efc5f7170a8f420040214feb0d5bfa27698dc0ead771e97095ed0b1bb1dda09",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_female_v2_0.png",
+      "candidateSha256": "ef52327daf10b05c15b8c0f492691c4a71f24fec501c07ab700575e961b3e139",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Press_-_With_Bands_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_female_v2_1.png",
+      "sourceSha256": "a678ec298a96d68e8d176e3756d0ee6e90c658e52086bdda216dbc2f030d1f41",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_female_v2_1.png",
+      "candidateSha256": "20a72d2f1ad773a8b5d845d0c38b525d7f0eb6a802dddf7b550caa496827e505",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Press_-_With_Bands_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_female_v2_2.png",
+      "sourceSha256": "834a90ebcd34b4d4030d017ff02069883033e94b1ab4632af887909bd4e9cdbb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_female_v2_2.png",
+      "candidateSha256": "ad5cabd224bb5b557860ac2ab65996046b981da5a845f04bce6d3c6edfea2962",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Press_-_With_Bands_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_female_v2_3.png",
+      "sourceSha256": "851e5f82ce6ecf826c3cd594dd6d5054bb36d6564f42fcf5c15d133f12309a3a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_female_v2_3.png",
+      "candidateSha256": "d5c283dac8a94411036a09c01b773118398b038532f91928aa9734ff971e53ba",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

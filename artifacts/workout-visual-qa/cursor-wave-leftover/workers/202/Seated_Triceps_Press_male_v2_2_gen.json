@@ -1,0 +1,16 @@
+{
+  "source_sha256": "a5e37c87bd6a73539b7d589d8e1a1ae1b6df4e9dbb558eaad57e40e2f21f29d1",
+  "candidate_sha256": "b1a30852746a7bada4e9235635bc1a1f2efb5d1b5f365d296314b999df1eabaf",
+  "generated_sha256": "e7b91b2435834cf3adc50615aef97f41d7183f55264c0218212d1d0136d1148c",
+  "generated_path": "/cursor/stores/bc-da946f50-1df6-4c3b-9301-5df57c779a54/artifacts/assets/gen_202_Seated_Triceps_Press_male_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

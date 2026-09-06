@@ -1,117 +1,66 @@
 #!/usr/bin/env node
-// No browser, server, real images, network, or model sessions: mocked DOM tests.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import test from 'node:test';
-
-const html = fs.readFileSync(new URL('./workout_review.html', import.meta.url), 'utf8');
-const source = html.match(/<script>([\s\S]*?)<\/script>/)[1].replace(/refresh\(\);clock\(\);\s*$/, '');
-
-function harness() {
-  const jobs = [], intervals = new Map(), listeners = new Map();
-  let exported, downloaded, intervalId = 0;
-  class Element {
-    constructor(tag = 'div') { this.tag = tag; this.children = []; this.value = ''; this.hidden = false; }
-    append(...children) { this.children.push(...children); }
-    replaceChildren(...children) { this.children = children; }
-    replaceWith(other) { this.replacedBy = other; }
-    removeAttribute(name) { delete this[name]; }
-    setAttribute(name, value) { this[name] = value; }
-    querySelector(selector) { return this.children.find(c => c.value === selector.match(/value="([^"]+)"/)[1]); }
-    click() { downloaded = this.download; }
-  }
-  const controls = Object.fromEntries(['gender', 'background', 'frame', 'frameNumber', 'play', 'speed', 'step', 'refresh', 'export', 'error', 'summary', 'grid'].map(id => [id, new Element()]));
-  Object.assign(controls.gender, { value: 'male' });
-  Object.assign(controls.background, { value: 'dark' });
-  Object.assign(controls.speed, { value: '650' });
-  const document = { hidden: false, getElementById: id => controls[id], createElement: tag => new Element(tag), addEventListener: (name, fn) => listeners.set(name, fn), querySelector: () => new Element() };
-  class Image extends Element {
-    constructor() { super('img'); this.naturalWidth = 1024; }
-    decode() { return new Promise((resolve, reject) => jobs.push({ image: this, resolve, reject })); }
-  }
-  const context = vm.createContext({ document, Image, matchMedia: () => ({ matches: false }), localStorage: { getItem: () => null, setItem() {} },
-    IntersectionObserver: class { observe() {} disconnect() {} }, Blob,
-    URL: { createObjectURL(blob) { exported = blob; return 'blob:test'; }, revokeObjectURL() {} },
-    setTimeout() {}, setInterval(fn) { intervals.set(++intervalId, fn); return intervalId; }, clearInterval(id) { intervals.delete(id); },
-  });
-  vm.runInContext(source, context);
-  const run = code => vm.runInContext(code, context);
-  run(`data={batch:'batch-02',count:1,rows:[{id:'Example',index:1,severity:'major',status:'candidate',warning:'Review',findings:[],methods:['cleanup'],available:8,
-    sources:Array.from({length:8},(_,i)=>'/original/'+i),candidates:Array.from({length:8},(_,i)=>'/candidate/'+i),sourceHashes:Array.from({length:8},(_,i)=>'s'+i),hashes:Array.from({length:8},(_,i)=>'c'+i)}]};render();`);
-  return { run, controls, document, jobs, intervals, listeners, view: run('views[0]'), exported: () => exported, downloaded: () => downloaded };
+const html=fs.readFileSync(new URL('./workout_review.html',import.meta.url),'utf8');
+const source=html.match(/<script>([\s\S]*?)<\/script>/)[1].replace(/refresh\(\);clock\(\);\s*$/,'');
+function harness(){
+ const jobs=[],timers=new Map(),listeners={};let tid=0;
+ class Element{constructor(){this.children=[];this.value='';}append(...a){this.children.push(...a)}replaceChildren(...a){this.children=a}removeAttribute(k){delete this[k]}click(){}}
+ const ids=['previous','next','play','step','speed','refresh','export','approve','repair','keep','clear','notes','summary','error','position','name','status','findings','views','exercise','empty','load-state','decision-state','frame-label'];
+ const controls=Object.fromEntries(ids.map(k=>[k,new Element()]));
+ const document={hidden:false,getElementById:k=>controls[k],createElement:()=>new Element(),addEventListener:(k,v)=>listeners[k]=v};
+ class Image extends Element{constructor(){super();this.naturalWidth=1024}decode(){return new Promise((resolve,reject)=>jobs.push({image:this,resolve,reject}))}}
+ const context=vm.createContext({document,Image,matchMedia:()=>({matches:false}),localStorage:{getItem:()=>null,setItem(){}},setInterval:fn=>{timers.set(++tid,fn);return tid},clearInterval:id=>timers.delete(id),setTimeout(){},URL:{createObjectURL:()=>'',revokeObjectURL(){}},Blob});
+ vm.runInContext(source,context);
+ const run=s=>vm.runInContext(s,context);
+ run("data={batch:'batch-01',count:2,rows:['First','Second'].map(id=>({id,index:1,status:'Review',findings:[],available:8,humanApproved:false,sources:Array.from({length:8},(_,i)=>'/original/'+id+'/'+i),candidates:Array.from({length:8},(_,i)=>'/candidate/'+id+'/'+i),sourceHashes:Array.from({length:8},(_,i)=>'s'+i),hashes:Array.from({length:8},(_,i)=>'c'+i)}))};selectedId='First';");
+ const settle=async()=>{await new Promise(resolve=>setImmediate(resolve))};
+ return {run,jobs,controls,document,listeners,timers,settle};
 }
-
-test('offscreen and hidden-tab cards do not decode; hidden tab releases images and stops timer', async () => {
-  const h = harness();
-  await h.run('drawView(views[0])');
-  assert.equal(h.jobs.length, 0);
-  h.view.visible = true; h.document.hidden = true;
-  await h.run('drawView(views[0])');
-  assert.equal(h.jobs.length, 0);
-  h.document.hidden = false; h.run('clock()');
-  assert.equal(h.intervals.size, 1);
-  h.view.before.src = '/held'; h.view.after.src = '/held-candidate';
-  h.document.hidden = true; h.listeners.get('visibilitychange')();
-  assert.equal(h.intervals.size, 0);
-  assert.equal(h.view.before.src, undefined);
-  assert.equal(h.view.after.src, undefined);
+test('one exercise has four simultaneous gender/background panels and no selectors',()=>{
+ const h=harness();h.run('renderExercise()');
+ assert.equal(h.run('panels.length'),4);assert.equal(h.jobs.length,4);
+ assert.deepEqual(h.jobs.map(j=>j.image.src),['/original/First/0','/candidate/First/0','/original/First/4','/candidate/First/4']);
+ assert.equal((html.match(/<select\b/g)||[]).length,0);
+ assert.match(html,/header\{background:#181c24/);assert.doesNotMatch(html,/position:sticky/);
 });
-
-test('matching pair waits for both decodes and preserves gender/frame alignment', async () => {
-  const h = harness(); h.view.visible = true; h.controls.gender.value = 'female';
-  const before = h.view.before, after = h.view.after;
-  const loading = h.run('frame=2;drawView(views[0])');
-  assert.equal(h.jobs.length, 2);
-  assert.equal(h.jobs[0].image.src, '/original/6');
-  assert.equal(h.jobs[1].image.src, '/candidate/6');
-  h.jobs[0].resolve(); await Promise.resolve(); await Promise.resolve();
-  assert.equal(h.view.before, before); assert.equal(h.view.after, after);
-  h.jobs[1].resolve(); await loading;
-  assert.equal(h.view.before, h.jobs[0].image); assert.equal(h.view.after, h.jobs[1].image);
-  assert.match(h.view.before.alt, /female frame 2$/); assert.match(h.view.after.alt, /female frame 2$/);
-  assert.equal(h.view.seen.has(6), true);
+test('all panels wait for the matched four-image frame set',async()=>{
+ const h=harness();h.run('renderExercise()');
+ for(const j of h.jobs.slice(0,3))j.resolve();await h.settle();
+ assert.equal(h.run('panels[0].before.src'),undefined);
+ h.jobs[3].resolve();await h.settle();
+ assert.equal(h.run('panels[0].before.src'),'/original/First/0');
+ assert.equal(h.run('panels[1].before.src'),'/original/First/0');
+ assert.equal(h.run('panels[2].before.src'),'/original/First/4');
+ assert.equal(h.run('seen.size'),2);
 });
-
-test('offscreen invalidation prevents pending old pair from painting', async () => {
-  const h = harness(); h.view.visible = true;
-  const before = h.view.before, loading = h.run('drawView(views[0])');
-  h.view.visible = false; h.run('release(views[0])');
-  for (const job of h.jobs) job.resolve();
-  await loading;
-  assert.equal(h.view.before, before); assert.equal(h.view.seen.size, 0);
-  assert.equal(h.view.before.hidden, true);
+test('navigation discards a late frame from the previous exercise',async()=>{
+ const h=harness();h.run('renderExercise();move(1)');
+ for(const j of h.jobs.slice(0,4))j.resolve();await h.settle();
+ assert.equal(h.run('selectedId'),'Second');assert.equal(h.run('panels[0].before.src'),undefined);
+ assert.equal(h.jobs.length,8);for(const j of h.jobs.slice(4))j.resolve();await h.settle();
+ assert.equal(h.run('panels[0].before.src'),'/original/Second/0');
 });
-
-test('export resets stale signatures, keeps current decisions, excludes other exercises and uses current batch', async () => {
-  const h = harness();
-  h.run(`decisions={Example:{decision:'approve_candidate',signature:'stale',notes:'preserve notes'},Unrelated:{decision:'approve_candidate'}};`);
-  h.controls.export.onclick();
-  let result = JSON.parse(await h.exported().text());
-  assert.equal(result.batch, 'batch-02'); assert.equal(h.downloaded(), 'workout-batch-02-human-decisions.json');
-  assert.deepEqual(Object.keys(result.decisions), ['Example']);
-  assert.equal(result.decisions.Example.decision, 'pending'); assert.equal(result.decisions.Example.stalePreviousDecision, true);
-  assert.equal(result.decisions.Example.notes, 'preserve notes');
-  assert.equal(result.decisions.Example.sourceHashes.length, 8); assert.equal(result.decisions.Example.candidateHashes.length, 8);
-  h.run(`decisions.Example={decision:'keep_original',signature:signature(data.rows[0])};`);
-  h.controls.export.onclick(); result = JSON.parse(await h.exported().text());
-  assert.equal(result.decisions.Example.decision, 'keep_original');
+test('approval requires all eight frames and a failure revokes local approval',async()=>{
+ const h=harness();h.run('renderExercise();decide("approve_candidate")');
+ assert.equal(h.run('decisions.First'),undefined);
+ for(let f=0;f<4;f++){if(f)h.run('frame='+f+';draw()');const js=h.jobs.slice(-4);js.forEach(j=>j.resolve());await h.settle();}
+ h.run('decide("approve_candidate")');assert.equal(h.run('decisions.First.decision'),'approve_candidate');
+ h.run('draw()');h.jobs.at(-1).reject(Error('changed'));for(const j of h.jobs.slice(-4,-1))j.resolve();await h.settle();
+ assert.equal(h.run('decisions.First.decision'),'pending');assert.equal(h.run('seen.size'),6);assert.equal(h.controls.approve.disabled,true);
 });
-
-test('failed image decode invalidates approval and exported decision', async () => {
-  const h = harness(); h.view.visible = true;
-  h.run(`views[0].seen=new Set([0,1,2,3,4,5,6,7]);approval(views[0]);views[0].choice.value='approve_candidate';views[0].update();`);
-  assert.equal(h.view.choice.querySelector('option[value="approve_candidate"]').disabled, false);
-  const loading = h.run('drawView(views[0])');
-  h.jobs[0].resolve(); h.jobs[1].reject(new Error('invalid PNG')); await loading;
-  assert.equal(h.view.choice.value, 'pending'); assert.equal(h.view.failed.has(0), true);
-  assert.equal(h.view.choice.querySelector('option[value="approve_candidate"]').disabled, true);
-  h.controls.export.onclick();
-  assert.equal(JSON.parse(await h.exported().text()).decisions.Example.decision, 'pending');
+test('hidden tab releases all displayed images and pauses animation',async()=>{
+ const h=harness();h.run('renderExercise();clock()');h.jobs.forEach(j=>j.resolve());await h.settle();
+ assert.equal(h.timers.size,1);h.document.hidden=true;h.listeners.visibilitychange();
+ assert.equal(h.timers.size,0);assert.equal(h.run('panels.every(p=>!p.before.src&&!p.after.src)'),true);
+ const count=h.jobs.length;h.run('draw()');assert.equal(h.jobs.length,count);
 });
-
-test('animation does not advance while visible matched pairs are decoding', () => {
-  const h = harness(); h.view.visible = true; h.view.busy = true; h.run('clock()');
-  for (const tick of h.intervals.values()) tick();
-  assert.equal(h.run('frame'), 0); assert.equal(h.jobs.length, 0);
+test('export preserves chat approval and invalidates stale local approvals',()=>{
+ const h=harness();h.run("data.rows[0].humanApproved=true;decisions.Second={decision:'approve_candidate',signature:'old',notes:'keep note'}");
+ const out=JSON.parse(h.run('JSON.stringify(decisionPayload(data,decisions))'));
+ assert.equal(out.decisions.First.decision,'approve_candidate');
+ assert.equal(out.decisions.Second.decision,'pending');assert.equal(out.decisions.Second.notes,'keep note');
+ assert.equal(out.approvalDoesNotPromote,true);
 });

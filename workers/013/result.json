@@ -1,0 +1,101 @@
+{
+  "exerciseId": "Decline_Dumbbell_Triceps_Extension",
+  "shard": 2,
+  "index": 13,
+  "status": "ready_for_review",
+  "findings": [
+    "Official pale-neural-guard-v2 pass ran on all eight frames and removed 0px: no component met the automatic pale gate (area>=16, lo>=185).",
+    "Optional matte-edge refine unmatted thin bright rim pixels on male frame 0 and female frames 2 and 3 only. Other frames had no eligible white-matte edge.",
+    "Visual review of all eight candidates on #090909 and #eeeeee: no painted checkerboard, no opaque leftover field, no interior holes. Illustration style, person, bench, dumbbells, red triceps highlight, and pose sequence preserved.",
+    "Thin gray dotted perimeter AA remains in places; it sits below the official pale threshold and is continuous with bench-metal / clothing anti-alias. GenerateImage was not used (surgical fringe edit would require a full-frame redraw risk).",
+    "Stationary bench feet and head support still drift between male frames 0 and 1/2. That is source-sequence geometry, out of background-cleanup scope, and left unresolved."
+  ],
+  "unresolved": [
+    "Male bench-foot and head-support anchor drift across frames 0 vs 1/2 remains (usable; not a background repair).",
+    "Residual low-luminance gray silhouette AA below official pale gates left in place to avoid eating gray bench metal."
+  ],
+  "changedFrameCount": 8,
+  "pixelChangedFrameCount": 3,
+  "frames": [
+    {
+      "filename": "Decline_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "sourceSha256": "737a037d3a64110d11e5f92c1300acb2ca102c981268dedadf2879435c15ad9f",
+      "candidatePath": "/workspace/workers/013/Decline_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "candidateSha256": "1328a9dc4634c6a9c12ba56842ae18d776fbfb44392b40ed26fe7578fa87bfb4",
+      "method": "script_background_cleanup+script_matte_edge_refine",
+      "visuallyReviewed": true,
+      "pixelChanged": true
+    },
+    {
+      "filename": "Decline_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "sourceSha256": "e78510503a2d95d36e8aa59cba419a78b8416a64af42405d8917b58b099c712c",
+      "candidatePath": "/workspace/workers/013/Decline_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "candidateSha256": "65a9bd4dd1e7c7a6831ba6a243fbb007f100c90a0816e1c2377eaedd71689774",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelChanged": false
+    },
+    {
+      "filename": "Decline_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "sourceSha256": "7ae1de8b8ff0fb4404b0469ec8b6b2695b20abcb80a5b18805e61a5215be9564",
+      "candidatePath": "/workspace/workers/013/Decline_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "candidateSha256": "1d5cfc8b9e9c4ca7110b507e40d93e0346f83cd144139458faa4c5c6211a3709",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelChanged": false
+    },
+    {
+      "filename": "Decline_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "sourceSha256": "7ef469d0ad84c48e9c7c83cac2b0a9c4c5bb1ff40e22a99a5dd6bee2fe3213c6",
+      "candidatePath": "/workspace/workers/013/Decline_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "candidateSha256": "43dc3b6764a2079d414c603d0112ce97e6fb69c030c8a475f4c98384480fe159",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelChanged": false
+    },
+    {
+      "filename": "Decline_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "sourceSha256": "d5144d7acb6a5aca22d5463119c956244a5810b48f4f1cf3bf6ab349a8bd6194",
+      "candidatePath": "/workspace/workers/013/Decline_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "candidateSha256": "3940f2b866ebf3da6fbf1289780992df256471973cde29d1fcd3c4dc43ed9881",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelChanged": false
+    },
+    {
+      "filename": "Decline_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "sourceSha256": "f4986d3f434f2332d14c1dbfc596a9882c8a70b8ba590a0f3fe6d6f1156df154",
+      "candidatePath": "/workspace/workers/013/Decline_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "candidateSha256": "9808e706d1af96ce4c44a97346045886edf1c939f86e9e279196c05877e23c4b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelChanged": false
+    },
+    {
+      "filename": "Decline_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "sourceSha256": "985e953f36a6cc195174b5fb52450c2fab95dbb9efefc24f43c8277b1784da3e",
+      "candidatePath": "/workspace/workers/013/Decline_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "candidateSha256": "ece9105745babdcb1a2a589bc278320f8c6b7a98779ef28e7e4e143a8119e4be",
+      "method": "script_background_cleanup+script_matte_edge_refine",
+      "visuallyReviewed": true,
+      "pixelChanged": true
+    },
+    {
+      "filename": "Decline_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "sourceSha256": "79d42bc5b3b8b3d55ff688cf0cc87d1743c5dff80d7a692bee0ffe779c252165",
+      "candidatePath": "/workspace/workers/013/Decline_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "candidateSha256": "5a19765054dc652d84f59195203c273df9e25f0ef1d9095519ea312f0960efa7",
+      "method": "script_background_cleanup+script_matte_edge_refine",
+      "visuallyReviewed": true,
+      "pixelChanged": true
+    }
+  ]
+}

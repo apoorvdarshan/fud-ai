@@ -65,8 +65,8 @@
       "sourcePath": "/workspace/shared/workout-vectors/Isometric_Wipers_female_v2_2.png",
       "sourceSha256": "7c0ec03aab462f63d1784b1f5a29a05a3a7c464aedbdb7e22a8bf4057d837f5f",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/061/Isometric_Wipers_female_v2_2.png",
-      "candidateSha256": "83ad82178f91f32348e48d8954df3db9bbe48f7b320bd2b62344f914a7e0045e",
-      "method": "script_background_cleanup",
+      "candidateSha256": "d20d20ac77460124972b0e8e123f7b83420727a2a7b6acc60801402d193794a6",
+      "method": "generateimage_surgical",
       "visuallyReviewed": true
     },
     {

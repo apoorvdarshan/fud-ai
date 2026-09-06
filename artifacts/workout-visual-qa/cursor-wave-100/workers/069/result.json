@@ -56,8 +56,8 @@
       "sourcePath": "/workspace/shared/workout-vectors/Jogging_Treadmill_female_v2_1.png",
       "sourceSha256": "0adeafe7399f05f2a868378174f41ff603e0b075ac2e9d24040ecea7bee56587",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/069/Jogging_Treadmill_female_v2_1.png",
-      "candidateSha256": "c8e236d711574892615a93fccd2f73107bbe6a74fd61345870f1c2b7b76b1f22",
-      "method": "script_background_cleanup",
+      "candidateSha256": "4e78dad90e4c2d261deaea5f31459ba0aa6a68be1c0a705d7367a96020313b9a",
+      "method": "generateimage_surgical",
       "visuallyReviewed": true
     },
     {

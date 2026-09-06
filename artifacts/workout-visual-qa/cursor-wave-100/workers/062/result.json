@@ -11,8 +11,8 @@
       "sourcePath": "/workspace/shared/workout-vectors/IT_Band_and_Glute_Stretch_male_v2_0.png",
       "sourceSha256": "f8ed25338d68566da07166907e688b84431a21ff737cd5ed99d84b1bc05df9a7",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/062/IT_Band_and_Glute_Stretch_male_v2_0.png",
-      "candidateSha256": "4eba88dbcda968e24cff4da950226d6c9f49ca02f16d920c1023417c36ca3bc8",
-      "method": "script_background_cleanup",
+      "candidateSha256": "380bd34d298264e26c5c6dc4e8fe65e2c3114f0782290046fc46e3cac1834c4d",
+      "method": "generateimage_surgical",
       "visuallyReviewed": true
     },
     {

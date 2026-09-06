@@ -11,8 +11,8 @@
       "sourcePath": "/workspace/shared/workout-vectors/Jefferson_Squats_male_v2_0.png",
       "sourceSha256": "028b9c900e09a49d0415823636c3067605a3ce071be3989e88605ce462e0927d",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/065/Jefferson_Squats_male_v2_0.png",
-      "candidateSha256": "5c011b1f47c20768d9734dd2ddc5921a45cb89970046374401ccd032c1c868d5",
-      "method": "script_background_cleanup",
+      "candidateSha256": "feb41dbefb21ab2b3be9e89cb5206358e7bdcd7d99b5c24dc4043707604f0626",
+      "method": "generateimage_surgical",
       "visuallyReviewed": true
     },
     {
@@ -20,8 +20,8 @@
       "sourcePath": "/workspace/shared/workout-vectors/Jefferson_Squats_male_v2_1.png",
       "sourceSha256": "236289cd01ec7350f7a7b0725458f05a7f9dccbfe14862ab5074e52f436399ee",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/065/Jefferson_Squats_male_v2_1.png",
-      "candidateSha256": "3597b5988126b7a9eb53e00aef2682b0e2bbd39667f4bb78e45ec8b43bc432ea",
-      "method": "script_background_cleanup",
+      "candidateSha256": "dc6233dd0ec700db538c60473ea63699a7d980f915f9b509792dbfcbb84c701f",
+      "method": "generateimage_surgical",
       "visuallyReviewed": true
     },
     {
@@ -29,8 +29,8 @@
       "sourcePath": "/workspace/shared/workout-vectors/Jefferson_Squats_male_v2_2.png",
       "sourceSha256": "52f09999f78c5a2eab776419198cf619cd8dfc925ee89c0a834117c856d31a74",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/065/Jefferson_Squats_male_v2_2.png",
-      "candidateSha256": "aab4ea6db0c217ffdc9490958aee0704a41983a46a3a962f693a37f8c02182f9",
-      "method": "script_background_cleanup",
+      "candidateSha256": "25427894d88730f8cdd878fe2c9d36eeb7805d2df2d10acef17220e2611d35bd",
+      "method": "generateimage_surgical",
       "visuallyReviewed": true
     },
     {
@@ -38,8 +38,8 @@
       "sourcePath": "/workspace/shared/workout-vectors/Jefferson_Squats_male_v2_3.png",
       "sourceSha256": "bb32cdad105252e48ee7c085964b5f221c22447b28e6be95f4369467f933051e",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/065/Jefferson_Squats_male_v2_3.png",
-      "candidateSha256": "fc74399e5ecda729049681d843917cd30f4a1cf72bbb39220f8c68de18663fec",
-      "method": "script_background_cleanup",
+      "candidateSha256": "23e1e50cef26cbf5a4b36131e0e7c4674451d5809711e6981543001a43ea3113",
+      "method": "generateimage_surgical",
       "visuallyReviewed": true
     },
     {
@@ -47,8 +47,8 @@
       "sourcePath": "/workspace/shared/workout-vectors/Jefferson_Squats_female_v2_0.png",
       "sourceSha256": "197e655691ff9d3c03a165cde32d0b6dbad71bcc88359aced142c5b83902146b",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/065/Jefferson_Squats_female_v2_0.png",
-      "candidateSha256": "b53e5358bebb6b8575d45eac8c0e9c24852716971619800e2ea7b467d42e63d7",
-      "method": "script_background_cleanup",
+      "candidateSha256": "a15350a5f21d32976d970e20b9e07c6efa3686690ec03e264fd597de394332c3",
+      "method": "generateimage_surgical",
       "visuallyReviewed": true
     },
     {
@@ -56,8 +56,8 @@
       "sourcePath": "/workspace/shared/workout-vectors/Jefferson_Squats_female_v2_1.png",
       "sourceSha256": "8a82a7027c4ee52668d52d380ae4cde19f496f934399ef6603b9ef1e6f93c120",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/065/Jefferson_Squats_female_v2_1.png",
-      "candidateSha256": "8aaa339b36c1a1f7be56b58119fa34e409df670886325178bec1c34b76c15e09",
-      "method": "script_background_cleanup",
+      "candidateSha256": "b5f745a357b633a706ef8d58de00b2513811875b4c95530663da231e4ebfdf38",
+      "method": "generateimage_surgical",
       "visuallyReviewed": true
     },
     {
@@ -65,8 +65,8 @@
       "sourcePath": "/workspace/shared/workout-vectors/Jefferson_Squats_female_v2_2.png",
       "sourceSha256": "2b280ddfc33ab162d69ce00e344161389aa3541d6500ac2132890d71d83982c5",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/065/Jefferson_Squats_female_v2_2.png",
-      "candidateSha256": "da2447bd99a6fc331a1b369c1c6d9d31dea72fcbcb89f178ce0f65cfc8fc9f76",
-      "method": "script_background_cleanup",
+      "candidateSha256": "bfaaa7ee35e8e287495d65cbf75d7ca27478c44a803461b0a6b6fa4f29a427cd",
+      "method": "generateimage_surgical",
       "visuallyReviewed": true
     },
     {
@@ -74,8 +74,8 @@
       "sourcePath": "/workspace/shared/workout-vectors/Jefferson_Squats_female_v2_3.png",
       "sourceSha256": "a5e5587af385323ded94063a7de6678d1e26ebdaa879102d6d519602a59ea4e2",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/065/Jefferson_Squats_female_v2_3.png",
-      "candidateSha256": "ca6206a1d9f566a93008e9954abbf0470b9070ded801e94001a0ac13e0680eb7",
-      "method": "script_background_cleanup",
+      "candidateSha256": "d75c59c1a9535aa9a8c3c50492a725f8652354f2693475bbecc565fa71a409a7",
+      "method": "generateimage_surgical",
       "visuallyReviewed": true
     }
   ]

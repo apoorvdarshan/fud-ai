@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Wide_Stance_Barbell_Squat",
+  "shard": 42,
+  "index": 411,
+  "status": "ready_for_review",
+  "findings": [
+    "Wide_Stance_Barbell_Squat male_v2_3: neck/shoulder misalignment cleaned via GenerateImage + green chroma key."
+  ],
+  "unresolved": [
+    "Wide_Stance_Barbell_Squat_male_v2_1.png: GenerateImage rejected (head still misaligned); script candidate retained."
+  ],
+  "frames": [
+    {
+      "filename": "Wide_Stance_Barbell_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Barbell_Squat_male_v2_0.png",
+      "sourceSha256": "aca2b4f66d584aad78983c464c56ed9b57a8a9a02cc9668f44fa4eafd2549324",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/411/Wide_Stance_Barbell_Squat_male_v2_0.png",
+      "candidateSha256": "8597b6d9b55ac25187499bb8e8cd4528dd1d177e9003e318f60c45ee769e3667",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Barbell_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Barbell_Squat_male_v2_1.png",
+      "sourceSha256": "ec29ff4b2645aebc4e244a5482b6611fea110c764dd86c094c29655456f01e3f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/411/Wide_Stance_Barbell_Squat_male_v2_1.png",
+      "candidateSha256": "f9a97d2da9d75dbba8d937266c9948d98457139c3bf4171ae9ec9ba205e4ff27",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Barbell_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Barbell_Squat_male_v2_2.png",
+      "sourceSha256": "f2a458f47372b2dac57c331588a87cecd08a1ecae1a783a5354093f6e31dbb76",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/411/Wide_Stance_Barbell_Squat_male_v2_2.png",
+      "candidateSha256": "83d7aef36c4d792a7293aacc06fb8e80cb8982c3b8216acef3f11563982851e0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Barbell_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Barbell_Squat_male_v2_3.png",
+      "sourceSha256": "a446195571a29534ae35bc84012fc0077549319b5f9e43b03cc0688d6e1d2eda",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/411/Wide_Stance_Barbell_Squat_male_v2_3.png",
+      "candidateSha256": "e49331ec9ef6b6d893c597b7f2cc6181f2cad19d094b6df72442c282bbee9ff3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Barbell_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Barbell_Squat_female_v2_0.png",
+      "sourceSha256": "76d5a8307a36b83ea06b2446ce9f8b0705315cf8c9d29acb2b51f3c91feca696",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/411/Wide_Stance_Barbell_Squat_female_v2_0.png",
+      "candidateSha256": "96411b737408efd34da7a1bc5eb1453cbf7ae81481d344426209440c08504991",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Barbell_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Barbell_Squat_female_v2_1.png",
+      "sourceSha256": "82c07fd58bc583fbad805a8149972589ddc8f1dcacbe6d6cb6c505136b0ba2b2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/411/Wide_Stance_Barbell_Squat_female_v2_1.png",
+      "candidateSha256": "b38a0b9c993c56ff31d7d61bc1f8e74c8d6034a8390a0c1a3dba2719a83ba5a3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Barbell_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Barbell_Squat_female_v2_2.png",
+      "sourceSha256": "045a0aa6a9a9296e5bbe5e3304d24eb4e1d623c58f125815c22d420e3122d014",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/411/Wide_Stance_Barbell_Squat_female_v2_2.png",
+      "candidateSha256": "f6d68d4ba282e4d77221a5d786d7ce8ef82893a3c08fd40cf6a0fc84ebe7195b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Barbell_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Barbell_Squat_female_v2_3.png",
+      "sourceSha256": "384a6f7189a529c5a98c5312c12e185e8572b0264aaf70d386deceadaf61cc5f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/411/Wide_Stance_Barbell_Squat_female_v2_3.png",
+      "candidateSha256": "ec4b6a6d341c1c8ad4be9a5f39d5d4c4328de45c6e7ed919a251a7d0997b7431",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

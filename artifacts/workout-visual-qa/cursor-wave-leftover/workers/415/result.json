@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Worlds_Greatest_Stretch",
+  "shard": 42,
+  "index": 415,
+  "status": "ready_for_review",
+  "findings": [
+    "Worlds_Greatest_Stretch male_v2_3: green finger spill and halo removed via GenerateImage + green chroma key."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Worlds_Greatest_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Worlds_Greatest_Stretch_male_v2_0.png",
+      "sourceSha256": "ac865377a7e1d4f193a1b5d230e170e700611e91d05007a2fa2e71a0c93bd295",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/415/Worlds_Greatest_Stretch_male_v2_0.png",
+      "candidateSha256": "8b386d3f07c37fbeaa39e63c891c0c2a4d39e6e2adfab580d667d868107d946a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Worlds_Greatest_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Worlds_Greatest_Stretch_male_v2_1.png",
+      "sourceSha256": "99a0acc423baef6124ecfae4ce826acdd42749b55bf02e6df530206c74ed41d2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/415/Worlds_Greatest_Stretch_male_v2_1.png",
+      "candidateSha256": "b8b875e1300801a6431487343a1f385c03699b5e4e1d01bba6360464205e549d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Worlds_Greatest_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Worlds_Greatest_Stretch_male_v2_2.png",
+      "sourceSha256": "3fb722d49a4f55f1a37af2fe98056c7a1716f067c4935a3be8d12007ef8a592a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/415/Worlds_Greatest_Stretch_male_v2_2.png",
+      "candidateSha256": "446d958626b778d84b6c15d796b4fe8b1d36b5627f5d3fe42b2137ca56bb1cfa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Worlds_Greatest_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Worlds_Greatest_Stretch_male_v2_3.png",
+      "sourceSha256": "45d4ffa4a50412dca5f94c6e3c97c543eb938fcedcaa1dcc7b2e6e6305115095",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/415/Worlds_Greatest_Stretch_male_v2_3.png",
+      "candidateSha256": "592e362c3a170e21916ee9aa7f224c704b46ba7230f7b7705b1499ad4ee65d83",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Worlds_Greatest_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Worlds_Greatest_Stretch_female_v2_0.png",
+      "sourceSha256": "1d5cf022687a20a2dbacf45488a1af1f38aa45da01a61d6b9b2e7cbd0e8742fa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/415/Worlds_Greatest_Stretch_female_v2_0.png",
+      "candidateSha256": "78b31372644d3ff1cb5dcd4ca069a08f6c32f499b134785b14ab32146fba9d98",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Worlds_Greatest_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Worlds_Greatest_Stretch_female_v2_1.png",
+      "sourceSha256": "f148aec460361f61422048cf038cd28c96c4ebe9dbac3942d0b8861c7fb06f1d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/415/Worlds_Greatest_Stretch_female_v2_1.png",
+      "candidateSha256": "5379e3b4027dab7d109f809d1eb090bcdbc0d6f9af4d31e01acaef99c38554b6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Worlds_Greatest_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Worlds_Greatest_Stretch_female_v2_2.png",
+      "sourceSha256": "07553dc3fc165770312289a054670b85b699d94eded4b978ca4ce6d46274bac2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/415/Worlds_Greatest_Stretch_female_v2_2.png",
+      "candidateSha256": "9f2e46e4bd7729bff02fa2f54009a54f10cee07bdcd8238eb1787dff5730706d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Worlds_Greatest_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Worlds_Greatest_Stretch_female_v2_3.png",
+      "sourceSha256": "0933bfcd3050f9d1259abc7910cc4ece6cd96ba7fa01f2ad5e9744872182e9d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/415/Worlds_Greatest_Stretch_female_v2_3.png",
+      "candidateSha256": "5bdf5e156e69d4086b0e01fead07a178a302ceaa29515ab1e4e2eca1a6a2a44c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

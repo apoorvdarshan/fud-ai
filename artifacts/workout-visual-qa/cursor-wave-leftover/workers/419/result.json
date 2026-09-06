@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Yoke_Walk",
+  "shard": 42,
+  "index": 419,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Yoke_Walk_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Yoke_Walk_male_v2_0.png",
+      "sourceSha256": "79a70224f17e134fc4de6f172d2f866126d7db73d770d9bd28bed98c60cffad8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/419/Yoke_Walk_male_v2_0.png",
+      "candidateSha256": "5e00842184b47713f2be3489b338b1fba2412b65e98b48b05c78a00a78d4107f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Yoke_Walk_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Yoke_Walk_male_v2_1.png",
+      "sourceSha256": "28a9326c193e4fec6c0b269e2a1dd9b1840cf1aca0abf3bd23b3db096b7e33cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/419/Yoke_Walk_male_v2_1.png",
+      "candidateSha256": "a1c16b81ae3a1d378415a160b92c7febe7d357e11cd50a2d3bdb89842bf83e72",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Yoke_Walk_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Yoke_Walk_male_v2_2.png",
+      "sourceSha256": "631d652d886a05c82ebe8d944ed6b15d9c6a0a525d257c0f7187261c087869ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/419/Yoke_Walk_male_v2_2.png",
+      "candidateSha256": "dbe9ff4fa59f38b6ea13a075bc067429a40e46346505470e6f8a90e51ae19445",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Yoke_Walk_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Yoke_Walk_male_v2_3.png",
+      "sourceSha256": "a83453f0f6cfd1d4d8f486ddf1f5830ab5f52cb2435990761d1c1a0501fbc056",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/419/Yoke_Walk_male_v2_3.png",
+      "candidateSha256": "cbea130b1d58cb96e054530aa0dc968cd5681e7f40f51dc5bd76e01aaad414c5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Yoke_Walk_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Yoke_Walk_female_v2_0.png",
+      "sourceSha256": "1af5953d6e3dfc31dd617c62299169a9a7cf2df9d2f7ae5f4f01d72ad8887876",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/419/Yoke_Walk_female_v2_0.png",
+      "candidateSha256": "659864e28d71dc454bf6ca0e9757a56108a5089995595dbea10220a00adb2b3d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Yoke_Walk_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Yoke_Walk_female_v2_1.png",
+      "sourceSha256": "de5077f9f0e76325f0aaacacd18e00dcb53e77c96e9c8b40093a6559b182f2ba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/419/Yoke_Walk_female_v2_1.png",
+      "candidateSha256": "498efb668ddbd02b774c78ee76f591171b05720fb79d7318ba3dfa4725740ae6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Yoke_Walk_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Yoke_Walk_female_v2_2.png",
+      "sourceSha256": "568d24ba253189a885f8b1db4c60cf0720273c21bbcfab33c9738d7231aaf571",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/419/Yoke_Walk_female_v2_2.png",
+      "candidateSha256": "ad7e12c54126bc273fd096c4a24121963d78c5896ce7455c3dd5968f5558f0ec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Yoke_Walk_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Yoke_Walk_female_v2_3.png",
+      "sourceSha256": "0df79b9e214be616c1564a0912338596bfba247194d88239770ce166199c544f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/419/Yoke_Walk_female_v2_3.png",
+      "candidateSha256": "66fa30ec9064cf0d1f2f2660820ff18bc822b010a1b2b06731c83ab4370c4e19",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

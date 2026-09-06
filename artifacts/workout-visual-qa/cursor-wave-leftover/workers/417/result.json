@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Wrist_Roller",
+  "shard": 42,
+  "index": 417,
+  "status": "ready_for_review",
+  "findings": [
+    "Wrist_Roller female_v2_3: cord/weight equipment restored via GenerateImage + green chroma key."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Wrist_Roller_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Roller_male_v2_0.png",
+      "sourceSha256": "4bd298750aa62b5ecd54b9035de7cfdf3898dafd2e2ca5f5c5e74d11a8300d6a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/417/Wrist_Roller_male_v2_0.png",
+      "candidateSha256": "904487cbafa36b29f2df53be9b02db0e8e033c6fd7491a41dc6315cf51cbb42d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Roller_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Roller_male_v2_1.png",
+      "sourceSha256": "ea34858552f1a6f9b89fb0e0e51e5f9d8c896a004bf77493757a296a9adf81a3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/417/Wrist_Roller_male_v2_1.png",
+      "candidateSha256": "18cf7fb14420d412051cea22d8edad4b3b1e68d884aeda5fe995d2e6b29488b9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Roller_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Roller_male_v2_2.png",
+      "sourceSha256": "18de3fe9bf16a9cf216cf0d0d151b0855a553e80104a4c116d66dc251dbd6a88",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/417/Wrist_Roller_male_v2_2.png",
+      "candidateSha256": "f2e58012ccbe5507c6aeca45fc0954313355da578b250cae53a84d0bf476c5c1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Roller_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Roller_male_v2_3.png",
+      "sourceSha256": "a49c75c8dafe920000edf1fda3410405c81aa403649086e68f99a66e2d19fd64",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/417/Wrist_Roller_male_v2_3.png",
+      "candidateSha256": "a02a6b2fc5439abab839d8ad89cc321a31ab128b18bf563b3efce7def84dcf9e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Roller_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Roller_female_v2_0.png",
+      "sourceSha256": "15e01243b074688e29190e07ff11878957364223adae48b8760a6060e7d6d31e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/417/Wrist_Roller_female_v2_0.png",
+      "candidateSha256": "9f777a584b3ecbff28fff1dde58698d4c850d4a2939fc9d9519cb809de9e8ba2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Roller_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Roller_female_v2_1.png",
+      "sourceSha256": "9db06fe58cecc32725a8a4e4b9df7079fda8646cd6273ebfa30507448f2256fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/417/Wrist_Roller_female_v2_1.png",
+      "candidateSha256": "a370f7279d86619c3b8e21d8b2a58e8c2bb8259ad9cef4e9798a44f05ad8df42",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Roller_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Roller_female_v2_2.png",
+      "sourceSha256": "c42c3578d3048bd026fefe625346099d4fcd0aa2b1916b51dba084519938824b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/417/Wrist_Roller_female_v2_2.png",
+      "candidateSha256": "410534c36348fffdb33bdb8ece1397977a34a38635d04160e18a4234f433b792",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Roller_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Roller_female_v2_3.png",
+      "sourceSha256": "d5b61043cbf898d99f3a967df717d9bd6f9fbf81fd470e67faf06de144369665",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/417/Wrist_Roller_female_v2_3.png",
+      "candidateSha256": "7e2f9dd651275d84c8157f6e5411085fec1cf0a93b56fc0d31d8eeecf2b83810",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Forward_Drag_with_Press",
+  "shard": 12,
+  "index": 117,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Forward_Drag_with_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Forward_Drag_with_Press_male_v2_0.png",
+      "sourceSha256": "1b3a7ceacaf29aaff65f2d54a33ecd7c621061c248f78c326479c8d005b00d21",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/117/Forward_Drag_with_Press_male_v2_0.png",
+      "candidateSha256": "acd6562ef6054626f935f56c196dee930f7fcbcbb24d4c290fba5bf065b1ca1b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Forward_Drag_with_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Forward_Drag_with_Press_male_v2_1.png",
+      "sourceSha256": "fca9d0d36548ce1ea57d98522dd082397af52f34c66fde8996de73db70fee6f6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/117/Forward_Drag_with_Press_male_v2_1.png",
+      "candidateSha256": "51f7f4ec2da53915da489ee881f110e3476daaaf8d96dd31339c2a21d488c528",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Forward_Drag_with_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Forward_Drag_with_Press_male_v2_2.png",
+      "sourceSha256": "e234a0ac01d170b387920bccbe6e8d8f0d74b7bcfa7f292c7095cc9c0e4272bf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/117/Forward_Drag_with_Press_male_v2_2.png",
+      "candidateSha256": "44adf30b8a12c9e5e36aff94d23afb2d246ab3984eda2914d6e203e9ce33413b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Forward_Drag_with_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Forward_Drag_with_Press_male_v2_3.png",
+      "sourceSha256": "7eeb624dd9d2ca3d9dc55b4a49cd955c6a628f9145f93dcd8de98e0d44f26ace",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/117/Forward_Drag_with_Press_male_v2_3.png",
+      "candidateSha256": "15ad7bc03bfed0f081dcf40a4f5b3d6a382a69663836016ad0a57f44cf0a8d4d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Forward_Drag_with_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Forward_Drag_with_Press_female_v2_0.png",
+      "sourceSha256": "bac9fff7aad22c186fc472318df20c867201e7427cee7896d11c6dc4d6e538a9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/117/Forward_Drag_with_Press_female_v2_0.png",
+      "candidateSha256": "6104549fbb892207dd6623b0636ba6dc8d5abe2423a9a61e0903e40b8ad2b6c6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Forward_Drag_with_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Forward_Drag_with_Press_female_v2_1.png",
+      "sourceSha256": "5c968bd190cafaca55b463f1fb419af6ac46ff7e87fce2589b2781c227bc5301",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/117/Forward_Drag_with_Press_female_v2_1.png",
+      "candidateSha256": "bf86b46e5c6cf0dddda8581379135a9edfd2f13091b5cfa529c44e3ec12ccdd9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Forward_Drag_with_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Forward_Drag_with_Press_female_v2_2.png",
+      "sourceSha256": "5f5c282e97f9b76c386bf5b54d8f167455801fd131cfab6215ee1928559e59d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/117/Forward_Drag_with_Press_female_v2_2.png",
+      "candidateSha256": "6772fd9709ef7eb6559d20081bbfce6cbdd7f67918962a830b4bdaa39a77ba41",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Forward_Drag_with_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Forward_Drag_with_Press_female_v2_3.png",
+      "sourceSha256": "4208ec30cdc8e100f7dede7c71eeb88c1d006691ad282bb0f8040916af9a9f33",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/117/Forward_Drag_with_Press_female_v2_3.png",
+      "candidateSha256": "c899af7c212df4aeebcfffb2f9e364ae5b7e9d43533373867d6014a71144e238",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

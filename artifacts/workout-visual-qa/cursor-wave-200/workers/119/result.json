@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Freehand_Jump_Squat",
+  "shard": 12,
+  "index": 119,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Freehand_Jump_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Freehand_Jump_Squat_male_v2_0.png",
+      "sourceSha256": "923c3198f68deaada6501d24f724cbfd06555571eddf209cec171598b4836883",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/119/Freehand_Jump_Squat_male_v2_0.png",
+      "candidateSha256": "1107779c26acafd5010dc1413c851df58ed015385a4e8b4acb195806e63aad85",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Freehand_Jump_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Freehand_Jump_Squat_male_v2_1.png",
+      "sourceSha256": "d0eea4dd4900d7ec7a0ccf517c9dfff704a3a746db5898c9821a9152ef4f03c7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/119/Freehand_Jump_Squat_male_v2_1.png",
+      "candidateSha256": "986aa30fbc1dec8e9a6c55005756d2243819c64a1af10e83ffde029e5bc15da9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Freehand_Jump_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Freehand_Jump_Squat_male_v2_2.png",
+      "sourceSha256": "d322ea134b2fba4f2164f91596d6c6b94c3abc82d0e4405e992520774d5f9b00",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/119/Freehand_Jump_Squat_male_v2_2.png",
+      "candidateSha256": "74511551c51f835293499c6f15bc2d7e07158ef9529f887b3fd1119feec22ca8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Freehand_Jump_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Freehand_Jump_Squat_male_v2_3.png",
+      "sourceSha256": "4d428c3ff13d34cede5afc907eed7c976210e3a471c45e42383a7a56f50e982a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/119/Freehand_Jump_Squat_male_v2_3.png",
+      "candidateSha256": "5e28f343725e43994d686fe902a644628adac754618a1537239012805c4a06de",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Freehand_Jump_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Freehand_Jump_Squat_female_v2_0.png",
+      "sourceSha256": "ad8281efa9599bb54026c4898af0ae837caf6604627415c2247dd989afa56882",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/119/Freehand_Jump_Squat_female_v2_0.png",
+      "candidateSha256": "b4d458db54aef6c001c10778446b491c4051443932e9767497fa59d3e479d5f8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Freehand_Jump_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Freehand_Jump_Squat_female_v2_1.png",
+      "sourceSha256": "5b7fadcc5e8eef7003671c98c112c4bdffbe570a20d0079fd081daa8e390d420",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/119/Freehand_Jump_Squat_female_v2_1.png",
+      "candidateSha256": "3bbbf08e2a3658a72bb4d7db514cf07f9e217da7c41e42edabecda69210f9a32",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Freehand_Jump_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Freehand_Jump_Squat_female_v2_2.png",
+      "sourceSha256": "a5b18c0f543c3e268004bc16237472105096455af722b7696a5b41f5f6a318fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/119/Freehand_Jump_Squat_female_v2_2.png",
+      "candidateSha256": "83ee9a24f6dd248799ada5e697df42b6769fe9eb6a5c820799cc59c24d3aeb7a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Freehand_Jump_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Freehand_Jump_Squat_female_v2_3.png",
+      "sourceSha256": "b8cd33b2bd8f402dab5d453cd082af12aed6a671d4a3e6c06dafcce9b31a2fe5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/119/Freehand_Jump_Squat_female_v2_3.png",
+      "candidateSha256": "ca5a25602103940fb1c18152b85c094bc68b57acea9860f0bcb2d7a40448602f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

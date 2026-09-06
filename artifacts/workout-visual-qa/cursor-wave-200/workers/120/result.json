@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Frog_Sit-Ups",
+  "shard": 12,
+  "index": 120,
+  "status": "ready_for_review",
+  "findings": [
+    "Frog_Sit-Ups female frame 0 had white jagged halo and speckled cutout fringe on dark background; GenerateImage surgical edit + green chroma key removed artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Frog_Sit-Ups_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Sit-Ups_male_v2_0.png",
+      "sourceSha256": "968bd9bdb4860734d244099e6430c2f8d43a1b8a30ce8f9451724529536facaf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/120/Frog_Sit-Ups_male_v2_0.png",
+      "candidateSha256": "c29185d2b68be29eb56a25d001b1d60120f1168db44b35edea3d80cdcb8b8fce",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frog_Sit-Ups_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Sit-Ups_male_v2_1.png",
+      "sourceSha256": "ae8dacffe62c2ad91f07bb3949c5563713948c7aac204ade60ff9da14d19647b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/120/Frog_Sit-Ups_male_v2_1.png",
+      "candidateSha256": "03820a402c0cebdad5ebfc4b975f87ebf6f79e81f7f8ba767d2064de0db2afa5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frog_Sit-Ups_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Sit-Ups_male_v2_2.png",
+      "sourceSha256": "e0ba4c6ce3f9f74ca0055a22d76fd5a3cb7ebc88d7e05c87537519c9180b5424",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/120/Frog_Sit-Ups_male_v2_2.png",
+      "candidateSha256": "2020bd1dd075c7fceb71d6d213321e31b6cb1c264893b5f7208255365e4165aa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frog_Sit-Ups_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Sit-Ups_male_v2_3.png",
+      "sourceSha256": "e47f49837dca0510292ca42187201c709d80eac3be95928f91813c572c924cde",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/120/Frog_Sit-Ups_male_v2_3.png",
+      "candidateSha256": "7a084fcbb1553cfb32d7b110d96791f7bff2c29a4837a88f6928b926181e517c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frog_Sit-Ups_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Sit-Ups_female_v2_0.png",
+      "sourceSha256": "a4639eb8a2855aaeffd2e83c6557258bc69dd088a0a64e1ffbd19c448c30c75e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/120/Frog_Sit-Ups_female_v2_0.png",
+      "candidateSha256": "f2e8273bf2d4443ac15744aaa6d6672ef0c86eb540ff16ed7542f4ea21fb4fc4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frog_Sit-Ups_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Sit-Ups_female_v2_1.png",
+      "sourceSha256": "e676a7f0d868ed447c6ee88eea54a484d18ca241292e5f2f503aa80d8ef96a7b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/120/Frog_Sit-Ups_female_v2_1.png",
+      "candidateSha256": "04df00e3012d7b5dd58e8260ea6c0d0742bfe1cc2ea9c24231e1a65ee2648013",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frog_Sit-Ups_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Sit-Ups_female_v2_2.png",
+      "sourceSha256": "8773cad409f64ff661822962a4410166752e09b1ae7683a18757a8108c3fff39",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/120/Frog_Sit-Ups_female_v2_2.png",
+      "candidateSha256": "ce31d0e53e87ee5cccbffceb9a46fe22cf0bfc04ae63ccc37cc7a684322e6a64",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frog_Sit-Ups_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Sit-Ups_female_v2_3.png",
+      "sourceSha256": "097e5ea6fb3eb672d13643bd8024b3fc437c1b94008d7ae8850d1b5c97eff6d2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/120/Frog_Sit-Ups_female_v2_3.png",
+      "candidateSha256": "788aa103857587ea86515dc8c19ecd0b566475ca5e368c5a9e70caceda814bc5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

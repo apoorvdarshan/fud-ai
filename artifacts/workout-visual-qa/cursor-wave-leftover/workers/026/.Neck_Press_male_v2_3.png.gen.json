@@ -1,0 +1,16 @@
+{
+  "source_sha256": "c06bcbe821da3a56c1e4ee7de9324f3707d332c316f05b5c0f2b33d7c0d36ec4",
+  "candidate_sha256": "e3fd5f5bf31859f078e8790c219cf9340911429dd173e6e2b8d62ac851012551",
+  "generated_sha256": "6764d4528b216c57a98cc9946248948f41c8adec02cef0192f722d5e05699823",
+  "generated_path": "/cursor/stores/bc-58e7d12d-a4d5-419b-a585-8e229449b2da/artifacts/assets/gen-026-Neck_Press_male_v2_3.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

@@ -1,0 +1,16 @@
+{
+  "source_sha256": "3c3beefcd441b6f216b4e5cf27d30e23e3146ff00b72120fef5938595d3961d5",
+  "candidate_sha256": "20cc0ca00fa040fb8d155d976bc90614dee6d25cb88e8b3280a6f728e72308fd",
+  "generated_sha256": "d006cbe2018b55eada9f8a7ff5c4743e6811a9265f7cede52e3d0d4dbd6d19be",
+  "generated_path": "/cursor/stores/bc-58e7d12d-a4d5-419b-a585-8e229449b2da/artifacts/assets/gen-030-On-Your-Back_Quad_Stretch_male_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

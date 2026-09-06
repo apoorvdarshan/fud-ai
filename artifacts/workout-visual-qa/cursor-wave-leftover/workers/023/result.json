@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Narrow_Stance_Squats",
+  "shard": 3,
+  "index": 23,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Narrow_Stance_Squats_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Squats_male_v2_0.png",
+      "sourceSha256": "feecde8d1482bb3e1128f4985234ccaf3c626fe994b9b1def86639fe3b0e2950",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/023/Narrow_Stance_Squats_male_v2_0.png",
+      "candidateSha256": "b320ee1f13c912adf968da8003e4c12f0d78ad85a0d73f3873acf7ab7e1ac7b4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Squats_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Squats_male_v2_1.png",
+      "sourceSha256": "6de221f8da714fb42554af5ea2bc3410515a24329d0c8e3009f2cc8c90330fc1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/023/Narrow_Stance_Squats_male_v2_1.png",
+      "candidateSha256": "93fd84ebffaaf5c9528db8eeee5cd625cdf74cae83a347133a0505193c31a41f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Squats_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Squats_male_v2_2.png",
+      "sourceSha256": "57d85becfc87b5c38bed480c6e0df5f1fbfe7bbff9aac065dc7488690a9e8e80",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/023/Narrow_Stance_Squats_male_v2_2.png",
+      "candidateSha256": "f03b9fab705b437ba185f4c8bb00e18bd14a2967f848c681e0ea6ab2aa97438d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Squats_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Squats_male_v2_3.png",
+      "sourceSha256": "94355afa24f939e13a2aceea9320a903a165e3daa8245447c04191130bd5cb0b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/023/Narrow_Stance_Squats_male_v2_3.png",
+      "candidateSha256": "8b9a4085e7be70685d3184ac5f2d8653a38b4a27753a8c15f15f74b0cda14636",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Squats_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Squats_female_v2_0.png",
+      "sourceSha256": "63acd69cafe72d5bc78a9b3f3d1afb83bd1ab0e94fcd2eaa1709a76e867c342f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/023/Narrow_Stance_Squats_female_v2_0.png",
+      "candidateSha256": "1883f4dd7529c03c4749521f53781768cd4658f3c6e062536067dc53108b2dde",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Squats_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Squats_female_v2_1.png",
+      "sourceSha256": "7bd571b6bdbbe604c1631321712acc67113d1931323064b800192053034f69f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/023/Narrow_Stance_Squats_female_v2_1.png",
+      "candidateSha256": "8a357bc3a494fd0a9f19d312789cbf96d9037f7ef0b02b3be963a4813a91a28e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Squats_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Squats_female_v2_2.png",
+      "sourceSha256": "43cc8135026006186b838b77958646e1333b8805c651b4ec48e570545bdacffd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/023/Narrow_Stance_Squats_female_v2_2.png",
+      "candidateSha256": "4c7bd6d3346622845e45acb950ed5635fe6eb3d26531a5f626b120dc7ace7b50",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Squats_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Squats_female_v2_3.png",
+      "sourceSha256": "b13cc977e0626bae91956fd1cf23fd32421c21b40f9639cb866a6ceb945f0427",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/023/Narrow_Stance_Squats_female_v2_3.png",
+      "candidateSha256": "ba6825a5454d14c2e3d7b3ab41f48ddc138842428a56adc6ea227663fb6c14e8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

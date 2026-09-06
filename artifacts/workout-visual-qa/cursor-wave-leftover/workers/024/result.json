@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Natural_Glute_Ham_Raise",
+  "shard": 3,
+  "index": 24,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Natural_Glute_Ham_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Natural_Glute_Ham_Raise_male_v2_0.png",
+      "sourceSha256": "5dd52cc5f8270c60af3f24ca983a0ffaac657b0c50a3b0a44eefe066df7ded23",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/024/Natural_Glute_Ham_Raise_male_v2_0.png",
+      "candidateSha256": "224927753c085ae4a52fdba29f30e8a34830741a6adcb16be7401a883f2b9b04",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Natural_Glute_Ham_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Natural_Glute_Ham_Raise_male_v2_1.png",
+      "sourceSha256": "7356e98afb7ba9715f536f551484932b3ceee2e1caf395e4921046e8c6174f4f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/024/Natural_Glute_Ham_Raise_male_v2_1.png",
+      "candidateSha256": "3775b6e805b1145dc0762e56c0b5dd1d3bb799386e872a380e3d5ca5cb6982a2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Natural_Glute_Ham_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Natural_Glute_Ham_Raise_male_v2_2.png",
+      "sourceSha256": "c6b1989a05449d33aeaaaa0aa88c614ea1b09d586f34eb3f3d23b85f43bd1678",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/024/Natural_Glute_Ham_Raise_male_v2_2.png",
+      "candidateSha256": "ce6daa1bcf9eb4827b7d2202c1e4a70e98615e10c92d16b26fcab22c6102f2e3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Natural_Glute_Ham_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Natural_Glute_Ham_Raise_male_v2_3.png",
+      "sourceSha256": "fb6dbdacc4c941c1381a2894776747e92d847e3aec319040e0b3ea560cd6fae7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/024/Natural_Glute_Ham_Raise_male_v2_3.png",
+      "candidateSha256": "eb09d0000966790b5435dd2328aa05e81e312c56897da443781d6c9574757f0b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Natural_Glute_Ham_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Natural_Glute_Ham_Raise_female_v2_0.png",
+      "sourceSha256": "6beaff70493eb911e3100fdccae79c58ec5f225fae46e993b77aeced069286d3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/024/Natural_Glute_Ham_Raise_female_v2_0.png",
+      "candidateSha256": "8edcf69922805712aef41708e058e2470280104240e12c5c52e238478d23d159",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Natural_Glute_Ham_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Natural_Glute_Ham_Raise_female_v2_1.png",
+      "sourceSha256": "e88c0c54bbd644df57d1b8ce9a9109637655a6523b816657b318ca393253f6ab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/024/Natural_Glute_Ham_Raise_female_v2_1.png",
+      "candidateSha256": "98412edc654fa9c0721b11d4b926e5ad218ab98fe26b2832b8e16b25025b6d9a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Natural_Glute_Ham_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Natural_Glute_Ham_Raise_female_v2_2.png",
+      "sourceSha256": "943f4bc8dfe24cb8037c3abba442d46cf5ef38dcc171e179d322933a083b19ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/024/Natural_Glute_Ham_Raise_female_v2_2.png",
+      "candidateSha256": "51bb7cc55adad7cf80724d0ceeddb3f190c534534c7133d5f4193892bcc1a2c1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Natural_Glute_Ham_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Natural_Glute_Ham_Raise_female_v2_3.png",
+      "sourceSha256": "2b095bbab35667071a65ba535980e25da667c1f400034d2fa370bdad2038b72d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/024/Natural_Glute_Ham_Raise_female_v2_3.png",
+      "candidateSha256": "ba3a0493820de06895a5e1a1020be0cb3da0cb69a0a8f87fe8eb25b9de2898e2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

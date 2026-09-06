@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Cable_Judo_Flip",
+  "shard": 5,
+  "index": 48,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cable_Judo_Flip_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_male_v2_0.png",
+      "sourceSha256": "3312cc672b740f743d04a317cb29213120a35c173186b5911fd0ca64ea6bd224",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_male_v2_0.png",
+      "candidateSha256": "27ff99c05254e70526c791f3be96d53ad92586507fa0c06b6552a4176740138a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Judo_Flip_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_male_v2_1.png",
+      "sourceSha256": "2ca9c4ee3f5b60a5b0c462cf5b5c853b41e0c557d3efd690f39c27cbf7b4f144",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_male_v2_1.png",
+      "candidateSha256": "19b147b2271de25af3dc619b898946407abe5880e1441edad78e5fcfb3f77cb5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Judo_Flip_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_male_v2_2.png",
+      "sourceSha256": "7b7fef162a8a7112261e0b6baf77f2f280f2d7adce860fd4e50d96d1110a87b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_male_v2_2.png",
+      "candidateSha256": "71e50a714e4818efe44bf1f5ee2337057c6ca1cf086be10da8677d0d0bf7b1c7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Judo_Flip_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_male_v2_3.png",
+      "sourceSha256": "fa58d5c5d1df5908471a0db4fea3371c3795c06f342c4aaad9ae45f94dfccefb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_male_v2_3.png",
+      "candidateSha256": "7fa59476947da9fe836a9c552a5ad4c566df3ec7ef5f2a0078a641745a98bae6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Judo_Flip_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_female_v2_0.png",
+      "sourceSha256": "fb6c4c6e73b33ec38939ae655456d459975f957fb356af4e7cd0714131e1d5fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_female_v2_0.png",
+      "candidateSha256": "3244c0d030fe5985bdf357edd09fd97f018a70f7e931a809263683f4e80d900a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Judo_Flip_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_female_v2_1.png",
+      "sourceSha256": "28082f242279c29ae2dd4eb02b38ab8bd5c0e06db0a29004e15072ff3df23285",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_female_v2_1.png",
+      "candidateSha256": "00c2a2893be36e83a787347ca15f16262322ff58ff76ddc7b44527c06638043e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Judo_Flip_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_female_v2_2.png",
+      "sourceSha256": "bf0285b5a31ed84a3571c2e17aaf9457de7bd14c4d3df82c38178434988f3b0a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_female_v2_2.png",
+      "candidateSha256": "9104fedb3b4b1b569ba4fbbef1e63398d1196b7df07f366c9a6fe58d64600fcf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Judo_Flip_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_female_v2_3.png",
+      "sourceSha256": "bd45fcb30fa825f0b5e1890933d6d24a8fa390be7f0719f6ef29da2d79cce975",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_female_v2_3.png",
+      "candidateSha256": "d4f9702e69f416eebbc3b145de3ee196d424a3660ff079d89f36ed39bc7beb00",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

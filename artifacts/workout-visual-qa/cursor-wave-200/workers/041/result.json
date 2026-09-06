@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bradford_Rocky_Presses",
+  "shard": 5,
+  "index": 41,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bradford_Rocky_Presses_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_male_v2_0.png",
+      "sourceSha256": "13115d4495b6b16eff0b010d1ae510e3ce0584008c0c9f5b5eb210635de7023b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_male_v2_0.png",
+      "candidateSha256": "366eca59aa056aa4c8cf0a888c44294e2a56db691643d36db2bc08201c39b87b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bradford_Rocky_Presses_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_male_v2_1.png",
+      "sourceSha256": "35a79104aeb55927203c0b68a481667062a9cb0bb02da4e958f25bcd08b30018",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_male_v2_1.png",
+      "candidateSha256": "2c7f8e487b0fb5f1d24557421f5128edcc821936733875cc66e3dc86ad432c27",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bradford_Rocky_Presses_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_male_v2_2.png",
+      "sourceSha256": "64ab1d828121ddada95109bc6f66454ecb2fb4ad52d7a7b8406dc98e19ee7127",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_male_v2_2.png",
+      "candidateSha256": "826b5e6eb66a1934e8a9fe4ffb90bf5f6085d082a949d99bd5676e6b46ada8a1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bradford_Rocky_Presses_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_male_v2_3.png",
+      "sourceSha256": "df46f610d6a891c41bb1bf82056ac4c22aa112dcf5833a023c0c40eb7b5ee72f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_male_v2_3.png",
+      "candidateSha256": "dc39d052e59ea3e94d5c5894bf31134667ffbbdbca6ab9a31dc54c2c8d556742",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bradford_Rocky_Presses_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_female_v2_0.png",
+      "sourceSha256": "190b04e0c8ebf6a9be9a56bc58a194fc9c164d5d2dc0a5a8b26913c5b427ac96",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_female_v2_0.png",
+      "candidateSha256": "11d44fb44c93d933ca1be0bb2dabc964be2d55e32ea375b053fc139b3ba95572",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bradford_Rocky_Presses_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_female_v2_1.png",
+      "sourceSha256": "5f4c8711f4d6bf1093a2be6afc8d20eae32daa7c9307aee427887172a7cca767",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_female_v2_1.png",
+      "candidateSha256": "b5fb377c7ad8402a396298f78373cbb0783b1f951f13b2efeab00c342ce6e03b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bradford_Rocky_Presses_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_female_v2_2.png",
+      "sourceSha256": "45cf0aa44982210fb6a55f3d52b25391592f0b45db4f265dc0784abca58cfeb8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_female_v2_2.png",
+      "candidateSha256": "892b8d177e8f100c5784b04293104d480a8f2511e32c6eb8dd7b9fd4c83056d1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bradford_Rocky_Presses_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_female_v2_3.png",
+      "sourceSha256": "051f4a3f52088388b8ce265c950c15bfc337cc7db923a7d681f476758c8124d8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_female_v2_3.png",
+      "candidateSha256": "08955e62d634bc65520785b703bfa8fc7e9539bd9cb9f71d3b465e33f7c7d7ff",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Butt_Lift_Bridge",
+  "shard": 5,
+  "index": 42,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Butt_Lift_Bridge_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_male_v2_0.png",
+      "sourceSha256": "d409ce0cd88bac569ea4f181dbfc95fb94c95f888e9ff4ef42180a7fa5ff3d58",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_male_v2_0.png",
+      "candidateSha256": "ae4ca8f2517deeb799231a5cf35a73fa666bd2456a85d8c18ddbb93b8e6bba5b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Butt_Lift_Bridge_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_male_v2_1.png",
+      "sourceSha256": "99e8e12fd4cc44699ade1c5fde1b080a579005506942f2f9d10538e2b944bd2b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_male_v2_1.png",
+      "candidateSha256": "39bab7bb03619b5e1a340c8465195c0cfd13421f501b78198ab4215c99ee4111",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Butt_Lift_Bridge_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_male_v2_2.png",
+      "sourceSha256": "049ebf82884a13fd987f10d541855a83ba327c7a2303d7074a7fc688f969fad9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_male_v2_2.png",
+      "candidateSha256": "e3e0a62bd27f15c4190c2109c5bb048b4174a87a53e3a7f86a555faccc209655",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Butt_Lift_Bridge_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_male_v2_3.png",
+      "sourceSha256": "7fc0e4ea2cae2f1b937eaeed57d41b4ae1253b2f5f7f20570e627fbe23fd6cf7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_male_v2_3.png",
+      "candidateSha256": "9c345a12a824f54df4bcb1bbb27e88702ba73b757752aec64a6759da4b9e8cb8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Butt_Lift_Bridge_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_female_v2_0.png",
+      "sourceSha256": "ed847ffcf9ea70b9df474dade13f4e227700e8709a6c3aeda19c4d55f4bb6d83",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_female_v2_0.png",
+      "candidateSha256": "8264bfcb97b4bb1a1f1913d7ff2d6b0a31ec487604fbe78baa19080bf498ecc2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Butt_Lift_Bridge_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_female_v2_1.png",
+      "sourceSha256": "724bcfa834f58fc3783e99776b9537b86d04a0a73b93ab012c1b2e5e6c5f0d7e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_female_v2_1.png",
+      "candidateSha256": "c37d08ef147203adf5ad16602959acfa7010b1b2d07c72cdbffe3f1273f8ff53",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Butt_Lift_Bridge_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_female_v2_2.png",
+      "sourceSha256": "8d7caec34cd0aedd7aa37906765ece8678e4dd4a17138d5362df56aad2da4a19",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_female_v2_2.png",
+      "candidateSha256": "5e6eae9b4aa8583b49218246b13f027148440ac62dca4366d3fab7340da29e62",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Butt_Lift_Bridge_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_female_v2_3.png",
+      "sourceSha256": "6202f7320cf6a8ececab972f2e88d9f938e9d793040d0b5f7aeae73ac1a91182",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_female_v2_3.png",
+      "candidateSha256": "b18d62b95d4b7db30f12976cdb5cfd94f9eff6c9af780f2e4981ee3e6a5cbd57",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

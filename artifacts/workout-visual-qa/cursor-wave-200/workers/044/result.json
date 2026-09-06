@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Cable_Deadlifts",
+  "shard": 5,
+  "index": 44,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cable_Deadlifts_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_male_v2_0.png",
+      "sourceSha256": "2c762ba021220f8da3abf2513e432900827b91802ab0b44039276e114a1fb833",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_male_v2_0.png",
+      "candidateSha256": "47c97aeaff415f0296d24c2df4a55b97163686a41aa1c1b590c64839c49d260b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Deadlifts_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_male_v2_1.png",
+      "sourceSha256": "894a25e819aeebd5f9eed3d62daf798ec53b43c69aefb77780c8b47bc258bfea",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_male_v2_1.png",
+      "candidateSha256": "3d93d00b98f081d785575d2190fa77fd1bafaf60bc202db04987ea8f578bb536",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Deadlifts_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_male_v2_2.png",
+      "sourceSha256": "8b6ed90dc9c654802ea9aca8c38f8854ea6a54f6b7a7e25b7bc60f54efc7c095",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_male_v2_2.png",
+      "candidateSha256": "30e206bf0c6d1e2011235f7d89268b703dc8781a97d4c27c7c2f3409973b3046",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Deadlifts_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_male_v2_3.png",
+      "sourceSha256": "561b208e218745738cfc68e96e5d886c3e835c680c080011662c69b7c1d6f3c7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_male_v2_3.png",
+      "candidateSha256": "4a4a15256b291d2a5f277606f5bd3d513d243a29ed7987fe7d5bdfff28a167de",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Deadlifts_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_female_v2_0.png",
+      "sourceSha256": "125cdd996ce3ea60b33b932edcbb8c0d9b3eeee59c619cb171b90f829fcd6af6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_female_v2_0.png",
+      "candidateSha256": "9e155aa191b3d0f4b70b2a5dbdfa0b81109fa2cb24a02f792dc65713b00b68c0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Deadlifts_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_female_v2_1.png",
+      "sourceSha256": "26a31a319a30bab55859b6678e3fdbfd9ca130d5e668f21c887e1116dba525d8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_female_v2_1.png",
+      "candidateSha256": "7f51a24e8f657f5654a4e6be91237f5df581ddfaa5d8e275af4f7e555292aade",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Deadlifts_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_female_v2_2.png",
+      "sourceSha256": "67755cfea3306a57dd72f70427ec7eeb0f225c21ca087db7f584afd920249343",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_female_v2_2.png",
+      "candidateSha256": "a06837e2a3a070352ae801d5c53034148ff49851d5e1f90ea61afe7a068cf39d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Deadlifts_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_female_v2_3.png",
+      "sourceSha256": "0e3d7c83a457f351fe269730d24841fac6ad45aefbd40f0542cf0f8c0ff74c90",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_female_v2_3.png",
+      "candidateSha256": "17d5eac89619675675f7e71dd8c1bdbace2f749db5a5e0bc50e97f38395da51a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

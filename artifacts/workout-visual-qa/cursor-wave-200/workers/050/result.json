@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Cable_Preacher_Curl",
+  "shard": 5,
+  "index": 50,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cable_Preacher_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_male_v2_0.png",
+      "sourceSha256": "e23377aba6140fc2ef5c132e83d05ea4b75fdfa364027a4cd04ed99ae382f5d6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_male_v2_0.png",
+      "candidateSha256": "78ddfb90adc9d1f65f5772eb2330bf4c77ccc80929b4b7e0d0bb28d379d9212d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Preacher_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_male_v2_1.png",
+      "sourceSha256": "bb7e629158242dddebae335d1710e1ee91a23aa5a527cdef91c55668b7e6ec78",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_male_v2_1.png",
+      "candidateSha256": "33966eb96842ce2d72af5279eac6922cbaa434f944f48ffe46f2dc03441b3c57",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Preacher_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_male_v2_2.png",
+      "sourceSha256": "7709e448aee3491c468c9fbf9ab80c10d7b0ba2df9ab29b8575a72a55644a8a8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_male_v2_2.png",
+      "candidateSha256": "67a90dcc06375a46c2537e660d4201e343f4082fea34daf70e1085c22a5d6fd7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Preacher_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_male_v2_3.png",
+      "sourceSha256": "04e37f46edb2a609072cf8b596b51e449470ce358528046899b511f737689bfc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_male_v2_3.png",
+      "candidateSha256": "64af40590a5123091d2c455d1824fad94ebd43bcdb75cdc7e5dbb119fad60004",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Preacher_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_female_v2_0.png",
+      "sourceSha256": "d5f9fed18b055d65f194c80ae4d2875ffb05da355a766d29fb39e4571444849e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_female_v2_0.png",
+      "candidateSha256": "87aff3647fb9f79d3c71a2b6d5d3946398eedf2028df6dae7d0fc32186abf6c7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Preacher_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_female_v2_1.png",
+      "sourceSha256": "6d9359ad70797f7b2c7a2c14f694dc5b536afb6fcf27fa36050eea50b38560ee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_female_v2_1.png",
+      "candidateSha256": "b68ff58d9b91bebfc8b6dba19ba8f708f616ae388ce8e460dd779682af277ccd",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Preacher_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_female_v2_2.png",
+      "sourceSha256": "cf5c123399231dcb3d09c37804094c144b8716a31c612e06af951c2ab3a0f2a5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_female_v2_2.png",
+      "candidateSha256": "ec2534342b1945e5b976b145e0739666608c7b15d9e8d6e32701080f6a135c37",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Preacher_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_female_v2_3.png",
+      "sourceSha256": "ba6ca5366695861b3ea2cb9b1803164ee448afd342bc3b51e2b1d65736638f67",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_female_v2_3.png",
+      "candidateSha256": "24f3844b7420ccac0338f28f92dde0fb3492dc38706c3bb0afaf0774900fb6ee",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

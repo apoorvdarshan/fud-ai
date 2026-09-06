@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Front_Deltoid",
+  "shard": 19,
+  "index": 187,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Front_Deltoid_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Front_Deltoid_male_v2_0.png",
+      "sourceSha256": "7b645ff8c5cafb4e6162c4dc77ebff17cdab26fb70ab70811e8bb6443434c6e0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/187/Seated_Front_Deltoid_male_v2_0.png",
+      "candidateSha256": "54aeecf423c39443560c6470ef07e056b0f98c2c233cdc0b9350e3410c38d423",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Front_Deltoid_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Front_Deltoid_male_v2_1.png",
+      "sourceSha256": "8d269fba3b6a62936d0052d6bb390eac261d1cb17c996504374d1d6fb5653aec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/187/Seated_Front_Deltoid_male_v2_1.png",
+      "candidateSha256": "e6254a34653db994d2ec19398778d73bfeeadeb9491e6a20ea2fc615d829efb8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Front_Deltoid_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Front_Deltoid_male_v2_2.png",
+      "sourceSha256": "a4b70044ee8b7c16fa09091a876af165483a3afd89f63bf6c1e742c16e2eaa19",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/187/Seated_Front_Deltoid_male_v2_2.png",
+      "candidateSha256": "6704f8d5cca59d18adc691e12fbf53af1f2a502c6faf0b40278150f47c900e63",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Front_Deltoid_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Front_Deltoid_male_v2_3.png",
+      "sourceSha256": "4d486fc98971ed29ed88120918495275dd8a16e2bbee766817f4d01752a4f3f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/187/Seated_Front_Deltoid_male_v2_3.png",
+      "candidateSha256": "4a73b045ecdfc13065e2df1b91d649d6b8394db0e0c224532d8e52ed1f275e63",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Front_Deltoid_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Front_Deltoid_female_v2_0.png",
+      "sourceSha256": "d3b934c1bda2ecffb82d2889ab2a6afe0ffb325c9a9914ada30e1e1deda17fcc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/187/Seated_Front_Deltoid_female_v2_0.png",
+      "candidateSha256": "4cedaba4388ea89fd161f7c91a8318de43bccd2ff87e0e54ec54140d890a7580",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Front_Deltoid_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Front_Deltoid_female_v2_1.png",
+      "sourceSha256": "08b8ce2aa912620ef0412ad22317142be7c3de997cdbe78cb20a2423db3fa695",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/187/Seated_Front_Deltoid_female_v2_1.png",
+      "candidateSha256": "830a3ae2cc8ae7d5fe414a9fa9a528f773c29b6543ec22723079ab22d3f8574c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Front_Deltoid_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Front_Deltoid_female_v2_2.png",
+      "sourceSha256": "f0f434a6800c899dbdfae7cff8226138b9f6e825be4e8f6e9dfde4f787de8107",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/187/Seated_Front_Deltoid_female_v2_2.png",
+      "candidateSha256": "3603bf729a35dbc1310ba963f70aa377f7c40120392a412c0e85b802e1a37516",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Front_Deltoid_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Front_Deltoid_female_v2_3.png",
+      "sourceSha256": "bd17c59cc2e33eed1ba0cb7706b2686c0f04e9f490993a985c2cabeda487be2e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/187/Seated_Front_Deltoid_female_v2_3.png",
+      "candidateSha256": "7cad6e9c4a789b1e0cdbdb789ec2bd372e7fb41bbcc19135379ca258fc584a96",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

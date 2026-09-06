@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Soleus_And_Achilles_Stretch",
+  "shard": 34,
+  "index": 332,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Soleus_And_Achilles_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Soleus_And_Achilles_Stretch_male_v2_0.png",
+      "sourceSha256": "0732559bfd8d6ddf6a620c2fc1a91dcbb1dfaa3068b3415f5711b429e831f429",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/332/Standing_Soleus_And_Achilles_Stretch_male_v2_0.png",
+      "candidateSha256": "af753bfee203139cd49996851025a6ac37a50c337f956e86fb659778929c0dc3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Soleus_And_Achilles_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Soleus_And_Achilles_Stretch_male_v2_1.png",
+      "sourceSha256": "b8beddd030331d565011d93332ce85a55f04ca37cefed4014df35fba3bc2d86b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/332/Standing_Soleus_And_Achilles_Stretch_male_v2_1.png",
+      "candidateSha256": "09e416c366752d58bf6ba84336e4786e48ae6e3b328f5ab6f426b1e29ac7c602",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Soleus_And_Achilles_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Soleus_And_Achilles_Stretch_male_v2_2.png",
+      "sourceSha256": "1a80c8f803b22c3fa58d9dc5f3a1ffaaa2adb1271603b1d1c2f1d266c98eb0f4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/332/Standing_Soleus_And_Achilles_Stretch_male_v2_2.png",
+      "candidateSha256": "6eb6a4d7a61906ceae6cbc10bfa28011cb896f56276a7d4547c66dbf594a3743",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Soleus_And_Achilles_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Soleus_And_Achilles_Stretch_male_v2_3.png",
+      "sourceSha256": "de74c9cfab8f4c3442e6f8930fb4b97be7989858926be30f10bddab8652f8c90",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/332/Standing_Soleus_And_Achilles_Stretch_male_v2_3.png",
+      "candidateSha256": "cd75d37e1a48a95be940821e52dc7cc3805f8c2b424d256c31297a4ebe588bb4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Soleus_And_Achilles_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Soleus_And_Achilles_Stretch_female_v2_0.png",
+      "sourceSha256": "6ad9d3b7b1aa71dab7fe2fc4728a09d5b7eb67ede9b74ff3ae2079f686413e1b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/332/Standing_Soleus_And_Achilles_Stretch_female_v2_0.png",
+      "candidateSha256": "f89185d61e4466d6c31c5c605001ebb6fede0df4d433bc1d7dc001057227f608",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Soleus_And_Achilles_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Soleus_And_Achilles_Stretch_female_v2_1.png",
+      "sourceSha256": "977a7ac892aab07f08ced3d1fab308b17ccd3424cf6c07b8fd1874872f140982",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/332/Standing_Soleus_And_Achilles_Stretch_female_v2_1.png",
+      "candidateSha256": "f4349d140a648426cb857891c26331c497f09270f8da9b3b00f326c908140cf2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Soleus_And_Achilles_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Soleus_And_Achilles_Stretch_female_v2_2.png",
+      "sourceSha256": "f226deba28aa900f436315ba20dec6fdfe4d3a1971a23e6e3ff16164f9124ad9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/332/Standing_Soleus_And_Achilles_Stretch_female_v2_2.png",
+      "candidateSha256": "c824f425d7f1d3e1c2d92e999095feef76392d3c67eceb27600603216b21aef6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Soleus_And_Achilles_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Soleus_And_Achilles_Stretch_female_v2_3.png",
+      "sourceSha256": "77f53f447c7a7f8e7ae707a4f153564b9495d969885b3bb3aa0cd6d60a81e1fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/332/Standing_Soleus_And_Achilles_Stretch_female_v2_3.png",
+      "candidateSha256": "a23d17321671063b227b45e1fe2dc9b76727e5d302b373320a90936d40dc89c5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

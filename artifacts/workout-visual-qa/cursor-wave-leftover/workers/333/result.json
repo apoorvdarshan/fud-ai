@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Toe_Touches",
+  "shard": 34,
+  "index": 333,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Toe_Touches_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Toe_Touches_male_v2_0.png",
+      "sourceSha256": "172bf04a4b2d900ebcc2fd2208c9d664af07efc4f8431274a1ff341a9d66f6fa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/333/Standing_Toe_Touches_male_v2_0.png",
+      "candidateSha256": "8bcdfa13ce261d5bde7467b108215e887e0250254b32a634fbe7cb595006f9d4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Toe_Touches_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Toe_Touches_male_v2_1.png",
+      "sourceSha256": "6f630f2b0eefe149ea66e89b39b17ae8937a80be268b847d2682b403560542ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/333/Standing_Toe_Touches_male_v2_1.png",
+      "candidateSha256": "0845a22bb8f7ea24c62f449b13dbffe71058ef7135cf64f272bce9b6d42c2802",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Toe_Touches_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Toe_Touches_male_v2_2.png",
+      "sourceSha256": "4ed3e06c44a4609588f1c7a4fee02e511b9ad9975c162a85a275a26fddd1eab6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/333/Standing_Toe_Touches_male_v2_2.png",
+      "candidateSha256": "0b94d84000a7efe73db2b00b434d41533299d3f9f0cafcc8af6bfa436fdb9ae1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Toe_Touches_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Toe_Touches_male_v2_3.png",
+      "sourceSha256": "926aaf6df78ae02843438240bdb3837dce3b64c5e81e25c938b32409ea0b8b74",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/333/Standing_Toe_Touches_male_v2_3.png",
+      "candidateSha256": "1ec1a0268e7d07e49d9cf5776f1ded6d832bb3f47742d74db2777d4532d50d5a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Toe_Touches_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Toe_Touches_female_v2_0.png",
+      "sourceSha256": "9d81a3ed2a81c2e9c0ddd2aa5991596ee42e843a0388642778e59523c1a69c4c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/333/Standing_Toe_Touches_female_v2_0.png",
+      "candidateSha256": "65e4936cb23ffa2983f4602c7baa45e7b83144267b7b2e7559161ad84ec147d7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Toe_Touches_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Toe_Touches_female_v2_1.png",
+      "sourceSha256": "879f3b969ba1ad8f84ac5dd58eabc155091d9a37091a3970a66fb13b5b68e986",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/333/Standing_Toe_Touches_female_v2_1.png",
+      "candidateSha256": "03a2ef685329ea964c1a1eac59d373852ff219096456bdfd31d7e668339f4aab",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Toe_Touches_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Toe_Touches_female_v2_2.png",
+      "sourceSha256": "7a6a935863d617d7c5c3832e576bf9b2ba7cfc8371ae16bebd9202be16a5914f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/333/Standing_Toe_Touches_female_v2_2.png",
+      "candidateSha256": "463444be0dfa3686a332d6d3b6d43151b4b9a7dae2c033a34e15750f062aa0d2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Toe_Touches_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Toe_Touches_female_v2_3.png",
+      "sourceSha256": "57df42dd1a4cf6c99c74e1b5c80a7010fefb4f5a6f2da55a3d9a36425bd802a8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/333/Standing_Toe_Touches_female_v2_3.png",
+      "candidateSha256": "f536d7b65ae4705a0529d72de9410e4530713c4ec8f5bca58d6af97f9ad4334c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

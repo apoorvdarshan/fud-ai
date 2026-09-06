@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Stiff-Legged_Dumbbell_Deadlift",
+  "shard": 34,
+  "index": 340,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Stiff-Legged_Dumbbell_Deadlift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff-Legged_Dumbbell_Deadlift_male_v2_0.png",
+      "sourceSha256": "e73aad1327076d553725980f858b21452f3756ff563e4bd2f5016851ed333159",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/340/Stiff-Legged_Dumbbell_Deadlift_male_v2_0.png",
+      "candidateSha256": "f262d5f17a7031d8879b06a98c35937dad7455520ad704438a0fc1d790fa3df5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff-Legged_Dumbbell_Deadlift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff-Legged_Dumbbell_Deadlift_male_v2_1.png",
+      "sourceSha256": "6160693f82fe7aba0026a9d08e7799ee3af24d0a90fa2ccb24da7a6e19839499",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/340/Stiff-Legged_Dumbbell_Deadlift_male_v2_1.png",
+      "candidateSha256": "6b2593a00a36a254ca7ff112271ef89037f700eca5141dc4dfe13214a5b59dec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff-Legged_Dumbbell_Deadlift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff-Legged_Dumbbell_Deadlift_male_v2_2.png",
+      "sourceSha256": "0f69fde2f84680ca19c81679cd45c972231bcf3366b86215a9bfdd8989981392",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/340/Stiff-Legged_Dumbbell_Deadlift_male_v2_2.png",
+      "candidateSha256": "6924bece4f9479cc3116bd271657dd6c61ee6bd173745868576e03d60c09f238",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff-Legged_Dumbbell_Deadlift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff-Legged_Dumbbell_Deadlift_male_v2_3.png",
+      "sourceSha256": "d1521224df7e913e5040e72e2c8134075bec91b51b965d8b263dea8d6b681431",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/340/Stiff-Legged_Dumbbell_Deadlift_male_v2_3.png",
+      "candidateSha256": "53bfcf1248aaa2c20652d0535b8a93d165b47e8a6b95e21d719b0ea340e03c82",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff-Legged_Dumbbell_Deadlift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff-Legged_Dumbbell_Deadlift_female_v2_0.png",
+      "sourceSha256": "f89c36bff3cff4e0a4f095cbac79f1496ee777997043d19440bf301ca01c8fcc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/340/Stiff-Legged_Dumbbell_Deadlift_female_v2_0.png",
+      "candidateSha256": "f466d8e8c3b3f441db883553e9c042b9f7ba460a1caed8079241c182344c15fa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff-Legged_Dumbbell_Deadlift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff-Legged_Dumbbell_Deadlift_female_v2_1.png",
+      "sourceSha256": "a26707826726e0e3ffdd1aac211410eb30737b46deea040374d5b7458a63e189",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/340/Stiff-Legged_Dumbbell_Deadlift_female_v2_1.png",
+      "candidateSha256": "b91f483fc45f194cbc357f0aef9917bd555e9ee0d008abe78474d5e626b75d33",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff-Legged_Dumbbell_Deadlift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff-Legged_Dumbbell_Deadlift_female_v2_2.png",
+      "sourceSha256": "88926d742ca21989a1444ea915d1d9f0ded60567a4abd57b99f28ffeb5d271f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/340/Stiff-Legged_Dumbbell_Deadlift_female_v2_2.png",
+      "candidateSha256": "337fa8ba2d59cbaa51a6c25fa42767f8033cbb006d71975ee51f64f304adab33",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Stiff-Legged_Dumbbell_Deadlift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Stiff-Legged_Dumbbell_Deadlift_female_v2_3.png",
+      "sourceSha256": "455b488431b84699452ae90694fd0c9b80f58e7fc61b7dd90a21a561593251f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/340/Stiff-Legged_Dumbbell_Deadlift_female_v2_3.png",
+      "candidateSha256": "93d8668ee488040b7e741cf145ac538b79f17d3b90481d42aecb84628c82be18",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Step-up_with_Knee_Raise",
+  "shard": 34,
+  "index": 337,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Step-up_with_Knee_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step-up_with_Knee_Raise_male_v2_0.png",
+      "sourceSha256": "6f654f17bfca4abf2dec28d61b69ec4d8fb143ca6e3b90f0f2275ff4edab1917",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/337/Step-up_with_Knee_Raise_male_v2_0.png",
+      "candidateSha256": "739c465918ec6659c472a1e0cc453cab5a272b23ae63de0f1c15fb4377c2bc3e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step-up_with_Knee_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step-up_with_Knee_Raise_male_v2_1.png",
+      "sourceSha256": "0dde2ec1e14a2f1f86d666f693a956398fe6b237b819388c940a507d3f5b14b3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/337/Step-up_with_Knee_Raise_male_v2_1.png",
+      "candidateSha256": "f77378510245f2abd059256e51ad5cedb4aac8588e9bfd6f4f0cbeb0053273ee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step-up_with_Knee_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step-up_with_Knee_Raise_male_v2_2.png",
+      "sourceSha256": "ecb6594160c14f4cd1e7b2e803bd11d4ec599140babd3226fc44fe35be157cfe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/337/Step-up_with_Knee_Raise_male_v2_2.png",
+      "candidateSha256": "5b9d98782cb010bb1b66d3b9e5a96fbcab6c084223e52f0b710e1f443938dcb7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step-up_with_Knee_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step-up_with_Knee_Raise_male_v2_3.png",
+      "sourceSha256": "989dbae5c64c36edb1b347fd8cd4195a03a973723087fe762e83f8c2cad4b977",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/337/Step-up_with_Knee_Raise_male_v2_3.png",
+      "candidateSha256": "0bb52a9ebbea388f03d7c8d83cfa7972ef16b67a92f8fb06cddc4a9bf26945f2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step-up_with_Knee_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step-up_with_Knee_Raise_female_v2_0.png",
+      "sourceSha256": "65b7b8b93c5439a86063933af1e73addeddef3423b088c506e82aa510f35c54d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/337/Step-up_with_Knee_Raise_female_v2_0.png",
+      "candidateSha256": "c2bc920a433757ebf918cf0cd198d35c71b53632ae1afbd09394809b337e6550",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step-up_with_Knee_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step-up_with_Knee_Raise_female_v2_1.png",
+      "sourceSha256": "0aee5ded77ba897bfb785236a03c56ee9efa064dc598b37671e16cb9d51b6369",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/337/Step-up_with_Knee_Raise_female_v2_1.png",
+      "candidateSha256": "134ca157874def00f57d2383233297074155f4206d0c9d4f73ad687a92ba929b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step-up_with_Knee_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step-up_with_Knee_Raise_female_v2_2.png",
+      "sourceSha256": "3d928efe1fdac1e66825a3608e5f74a04df7ab787829bc8bd09d2f231ed06cf2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/337/Step-up_with_Knee_Raise_female_v2_2.png",
+      "candidateSha256": "1af31574e94300d5559c57ab470a05bc7b97406a320656d8ef327f2ac20b0f94",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step-up_with_Knee_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step-up_with_Knee_Raise_female_v2_3.png",
+      "sourceSha256": "c69f76d10111736d4070bd483b27c33dd07c60d8d31e4d83b0e1e39b9b76d67c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/337/Step-up_with_Knee_Raise_female_v2_3.png",
+      "candidateSha256": "822df38a2493798ef595e4dbdb15269d47effe05536e428ab77a19e29c241897",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

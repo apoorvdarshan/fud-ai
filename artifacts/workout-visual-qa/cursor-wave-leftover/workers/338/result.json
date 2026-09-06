@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Step_Mill",
+  "shard": 34,
+  "index": 338,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Step_Mill_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step_Mill_male_v2_0.png",
+      "sourceSha256": "58de0a3d9a125e313822effa5a6bae28144ef9a904dfbf65552c731e70f2a4a6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/338/Step_Mill_male_v2_0.png",
+      "candidateSha256": "948e3a2bb8958fff783216c2f9648c0cade7b57afd508035c6c1155d67744b01",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step_Mill_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step_Mill_male_v2_1.png",
+      "sourceSha256": "e5d8a2d5f2f349e68a238ec664cae7535ef75b9bc70f39cc8c7f80a0d6526d03",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/338/Step_Mill_male_v2_1.png",
+      "candidateSha256": "37a51993a4696f842ed119ec62f2ff5e808bd39ef91015ede79cfd449d58cbd1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step_Mill_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step_Mill_male_v2_2.png",
+      "sourceSha256": "0852bfddd569bb1f0b7b9c5e753a61abf5cf7ea95f50dd58e2e7b8d15282c08c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/338/Step_Mill_male_v2_2.png",
+      "candidateSha256": "e396eda77eb62fac699f1c21429359bb5953fa4f523233cba474c5fb9fdbf0dd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step_Mill_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step_Mill_male_v2_3.png",
+      "sourceSha256": "9a9b438796153055a1f5827c3146603c31ba80e07c21d298217e7a1b916a66f5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/338/Step_Mill_male_v2_3.png",
+      "candidateSha256": "ddf96af393e41c61e7525ead8d19793afb943e8873eddd597f9437264af18915",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step_Mill_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step_Mill_female_v2_0.png",
+      "sourceSha256": "dc960f9c3fae8348a31ee82a4f86d1418f1730cbf008e1331208cfbfd4d081e8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/338/Step_Mill_female_v2_0.png",
+      "candidateSha256": "68b034856711b2b9e37f9445f8099b5fc1e5123f855916cefe48f7826f4404cd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step_Mill_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step_Mill_female_v2_1.png",
+      "sourceSha256": "3780560d555b4a5f6edadf1acff0eac6daf444ec5c433d3c6f42e61b28bb9312",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/338/Step_Mill_female_v2_1.png",
+      "candidateSha256": "de10acd8d5e17fc2d86b593dcbae76b33d30e06443ac3d6acc7d868d3993d12e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step_Mill_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step_Mill_female_v2_2.png",
+      "sourceSha256": "a5f2824f096c95e38746c5411973edec28b6bf624702509d75cb4bd83d779474",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/338/Step_Mill_female_v2_2.png",
+      "candidateSha256": "67abd0205a2339a341fe338a2699f21ba0ea15072df8bc24be9381c8bf070294",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Step_Mill_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Step_Mill_female_v2_3.png",
+      "sourceSha256": "793aa82816678f8da8279352a97adb9d1e0a2029e25bdc89fa5f950d6d1c2e14",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/338/Step_Mill_female_v2_3.png",
+      "candidateSha256": "ace5a5278a6c01d287b67de14f8487d0df220414248cf28cfce64d80bc7d84c9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

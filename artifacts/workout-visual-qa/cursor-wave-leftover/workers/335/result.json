@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Two-Arm_Overhead_Throw",
+  "shard": 34,
+  "index": 335,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Two-Arm_Overhead_Throw_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Two-Arm_Overhead_Throw_male_v2_0.png",
+      "sourceSha256": "e16b7c886f877166cc19ae06456cf088a54a5e27c24f8dfa9ef7177acaf9384d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/335/Standing_Two-Arm_Overhead_Throw_male_v2_0.png",
+      "candidateSha256": "6d84f22f53492ce9c4d592dfb1e7b62a4325018037c7a851e9d991bc63393a87",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Two-Arm_Overhead_Throw_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Two-Arm_Overhead_Throw_male_v2_1.png",
+      "sourceSha256": "ce0daf6258a3ae1ad0a1a8df613bfccdc2d8546c0d0f12923016bd4c6998e025",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/335/Standing_Two-Arm_Overhead_Throw_male_v2_1.png",
+      "candidateSha256": "dc3ff6ec124f9e8b84e231d1c5a00afbb105d5ae5de734a43d2f69e5522398d4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Two-Arm_Overhead_Throw_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Two-Arm_Overhead_Throw_male_v2_2.png",
+      "sourceSha256": "9f33f2447aa9c60965f5e893c4d2e535d5c3a7f9a862f7580f6a8c244a152e31",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/335/Standing_Two-Arm_Overhead_Throw_male_v2_2.png",
+      "candidateSha256": "d168b887063108a2e73f6abfdd23f5b9ac35e7a7727fc753b37c652d8bf1d968",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Two-Arm_Overhead_Throw_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Two-Arm_Overhead_Throw_male_v2_3.png",
+      "sourceSha256": "e7cdeec78e1d37a1404700cf108a1457f88a33a1771bbb47edf986f6ea84c2b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/335/Standing_Two-Arm_Overhead_Throw_male_v2_3.png",
+      "candidateSha256": "a58861cf3252424c6ac2b12f03bf3629226de143ce47c2f967b7158b1a252083",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Two-Arm_Overhead_Throw_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Two-Arm_Overhead_Throw_female_v2_0.png",
+      "sourceSha256": "c19743524e256dff00d0decbf4d12a8263e5e3c15a1a5c9c6bb39bceb2a36a80",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/335/Standing_Two-Arm_Overhead_Throw_female_v2_0.png",
+      "candidateSha256": "156eca4cef3543d76ee132f5d5193e8e91de9136d591f3b8c979f6dad44df36d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Two-Arm_Overhead_Throw_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Two-Arm_Overhead_Throw_female_v2_1.png",
+      "sourceSha256": "6bd427f4f7708e343b813278186be5043656b8e3b0dbc6fcb97a40bc9c2ad047",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/335/Standing_Two-Arm_Overhead_Throw_female_v2_1.png",
+      "candidateSha256": "410788c07092cf2a150d292241ef9eee3a2526e2b3f5dde160e6f068de51a4c0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Two-Arm_Overhead_Throw_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Two-Arm_Overhead_Throw_female_v2_2.png",
+      "sourceSha256": "acc94d0da471abe97bdb73e3aadf45743ae686288a1159c60064ab8072dc0a57",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/335/Standing_Two-Arm_Overhead_Throw_female_v2_2.png",
+      "candidateSha256": "798447516f45082586d5f93f0b2af9da27701746d646d66926b2eb5a009876d4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Two-Arm_Overhead_Throw_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Two-Arm_Overhead_Throw_female_v2_3.png",
+      "sourceSha256": "9b73945f3355c63a14c4cdf13b7819a20f5d0d12af1cfe2f8d81f53371b2f646",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/335/Standing_Two-Arm_Overhead_Throw_female_v2_3.png",
+      "candidateSha256": "58a75742e888d68823d739610cd3bf0bc1152a1d10352d048e4ccb27ed294d6e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

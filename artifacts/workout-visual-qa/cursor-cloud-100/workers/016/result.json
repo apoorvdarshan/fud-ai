@@ -1,0 +1,100 @@
+{
+  "exerciseId": "Dumbbell_Rear_Lunge",
+  "shard": 2,
+  "index": 16,
+  "status": "ready_for_review",
+  "changedFrameCount": 8,
+  "removedVisiblePixels": 1977,
+  "findings": [
+    "Script pale-neural-guard-v2 removed leftover pale cutout pixels on all 8 frames (1977 px total). RGB of the illustration was unchanged.",
+    "Largest removals were the pale patches beneath the lowered rear knee and beyond the soles in frame 2 (male 539 px, female 630 px), matching the batch finding.",
+    "Remaining pale components are mostly original shoe-sole, stripe, and lace highlights. Thin edge anti-aliasing can still read as a faint outline on a dark background.",
+    "Pose, person, dumbbells, and the standing-to-rear-lunge sequence are preserved. No baked checkerboard or opaque exterior field.",
+    "GenerateImage was not used: remaining defects are the same minor fringe class the conservative script declined to cut, and a redraw would risk style/identity change."
+  ],
+  "unresolved": [
+    "Minor pale fringe/AA remains along some shoe-sole edges, especially female frame 3 where the script removed only 20 px."
+  ],
+  "frames": [
+    {
+      "filename": "Dumbbell_Rear_Lunge_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_male_v2_0.png",
+      "sourceSha256": "82c398e080d2e0fece6214718ef7326dca11996ab98feb3fe270fded7608e219",
+      "candidatePath": "/workspace/workers/016/Dumbbell_Rear_Lunge_male_v2_0.png",
+      "candidateSha256": "a24932208ef084bcba8497ff3c46b3385e769eb9654a41774e322f5dcb37dd20",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 24
+    },
+    {
+      "filename": "Dumbbell_Rear_Lunge_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_male_v2_1.png",
+      "sourceSha256": "851b3101222c1a79181214c5b4ba5fe8693fc170b0484958270942b318f6ff6b",
+      "candidatePath": "/workspace/workers/016/Dumbbell_Rear_Lunge_male_v2_1.png",
+      "candidateSha256": "03f05a7cba0ca61a13a9533bf9243efc7742a8c0b68d4a7f8ca2f6dab2efaa43",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 221
+    },
+    {
+      "filename": "Dumbbell_Rear_Lunge_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_male_v2_2.png",
+      "sourceSha256": "17b64e1ce045fe112b1f397fae86919dc6aa0d22e5c4fe23ba5173053a68f0c2",
+      "candidatePath": "/workspace/workers/016/Dumbbell_Rear_Lunge_male_v2_2.png",
+      "candidateSha256": "3349b32696e9c8e1ca3b93fbe4519e431b363605adcc69342b9cff00192fc3d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 539
+    },
+    {
+      "filename": "Dumbbell_Rear_Lunge_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_male_v2_3.png",
+      "sourceSha256": "ee8590e75ee6ea67a436c5e54360118e6ebb3f5870a34b85a13e95d1030f17f1",
+      "candidatePath": "/workspace/workers/016/Dumbbell_Rear_Lunge_male_v2_3.png",
+      "candidateSha256": "cc31fcd904d8953f6d98eedce57fb7763445283137d623875cc5d9c4a83bfdbd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 339
+    },
+    {
+      "filename": "Dumbbell_Rear_Lunge_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_female_v2_0.png",
+      "sourceSha256": "5907d8ad4cb96cb0565e973bfee3516875931c80febc443e8a0167b4f3f2413b",
+      "candidatePath": "/workspace/workers/016/Dumbbell_Rear_Lunge_female_v2_0.png",
+      "candidateSha256": "56fd016dbe8fdef0768eb78d1e668aecc547d1d3e5dbc2f2da6d9a89a0ea7d7a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 31
+    },
+    {
+      "filename": "Dumbbell_Rear_Lunge_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_female_v2_1.png",
+      "sourceSha256": "4aa90a7698d7e7d778184781b53905b497cddb5ed4af4376002f1bcb7ba8faf0",
+      "candidatePath": "/workspace/workers/016/Dumbbell_Rear_Lunge_female_v2_1.png",
+      "candidateSha256": "5011f161b458403aff604695ad7cf0a5e08ba112bd078d2aeae917bfbff5afc5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 173
+    },
+    {
+      "filename": "Dumbbell_Rear_Lunge_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_female_v2_2.png",
+      "sourceSha256": "12e435921b721468b3e296733bf9e89f110a06087a4e33b3430cbec8c4f73d2e",
+      "candidatePath": "/workspace/workers/016/Dumbbell_Rear_Lunge_female_v2_2.png",
+      "candidateSha256": "ad8cd162697985b149708bc120a021f6746e024d6b053790f9b211bd331aafee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 630
+    },
+    {
+      "filename": "Dumbbell_Rear_Lunge_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_female_v2_3.png",
+      "sourceSha256": "a2dd7da71cf2165777b4e93e784124d9550f979746a8f2a9bf83c5083e9f3669",
+      "candidatePath": "/workspace/workers/016/Dumbbell_Rear_Lunge_female_v2_3.png",
+      "candidateSha256": "0fd20039e4469f493587bce9e4b093d4b496d60e0ff189407388027f67cac1bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "removedVisiblePixels": 20
+    }
+  ]
+}

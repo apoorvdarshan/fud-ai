@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Side_Hop-Sprint",
+  "shard": 22,
+  "index": 212,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Side_Hop-Sprint_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Hop-Sprint_male_v2_0.png",
+      "sourceSha256": "3b42786878766604a8b55bc31284566225c8614964130b4c1786b211d59d5831",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/212/Side_Hop-Sprint_male_v2_0.png",
+      "candidateSha256": "36257a50edd5d42dbfd659c7ae75c572a8390ae18322361bfd21e73b90554df7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Hop-Sprint_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Hop-Sprint_male_v2_1.png",
+      "sourceSha256": "7a162499e9c7cf74f3ebdc0f816028bb827911d6441e444d6d617306b3d031d6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/212/Side_Hop-Sprint_male_v2_1.png",
+      "candidateSha256": "ad0234eeb2eb894d043ac07dcae989637878ff745b5ecb12a98991bfc0c3004a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Hop-Sprint_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Hop-Sprint_male_v2_2.png",
+      "sourceSha256": "c27c58674784014e74f8a4eec3476b923183809ae42886254f73d6dae27002ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/212/Side_Hop-Sprint_male_v2_2.png",
+      "candidateSha256": "4c9c9f9d07f49fdbb1386a3a4b704f5d94c65e259cce0a4d6b0a5c8133269bd8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Hop-Sprint_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Hop-Sprint_male_v2_3.png",
+      "sourceSha256": "e091d62c4a6cb48c8be4a8f5390464aa7ef8b44e320195523280541e0510f774",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/212/Side_Hop-Sprint_male_v2_3.png",
+      "candidateSha256": "53ca0539ddc2acd63b2e1b3bd612670e6ca28829bea0d4d7bbee139487a89796",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Hop-Sprint_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Hop-Sprint_female_v2_0.png",
+      "sourceSha256": "e8656d2bb2d54d226d72c7404acdb7c3d832b956ef6919f72e20ddf7997ef586",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/212/Side_Hop-Sprint_female_v2_0.png",
+      "candidateSha256": "3860c31a86aa67a7eabcadda28e0495dba1c9d1cd74c79ab57081679b3337069",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Hop-Sprint_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Hop-Sprint_female_v2_1.png",
+      "sourceSha256": "7d4f905bd9b4b79b3e4dbeb290f78d3b99ef87b10fc7256e3192bf138d19bae6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/212/Side_Hop-Sprint_female_v2_1.png",
+      "candidateSha256": "2a6959c1d5676bade27f936073f656fae745fe044a0a8e914e28b9fa818d24d9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Hop-Sprint_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Hop-Sprint_female_v2_2.png",
+      "sourceSha256": "20f32f45cc6f152763b4bb6f02f5a25946000907e0aa6794201546e327b232c4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/212/Side_Hop-Sprint_female_v2_2.png",
+      "candidateSha256": "a92e6dd8f43944230a6fb6acf0b1a13b4eeeeee91262b3b4eee64f67d8a47812",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Hop-Sprint_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Hop-Sprint_female_v2_3.png",
+      "sourceSha256": "074e2ee39579a5e4cc85404b1fd7d55f75b56588cd393d8b5277d84cae5e8649",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/212/Side_Hop-Sprint_female_v2_3.png",
+      "candidateSha256": "24ec9a1ca837dbb702c8229ec575c100ed06e7aed09643065f7b8259d3558638",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

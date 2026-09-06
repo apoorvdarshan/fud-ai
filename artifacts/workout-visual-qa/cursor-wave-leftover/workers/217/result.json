@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Side_Lying_Groin_Stretch",
+  "shard": 22,
+  "index": 217,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Side_Lying_Groin_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Lying_Groin_Stretch_male_v2_0.png",
+      "sourceSha256": "42f1c4390ea1ce0f04d6e3a5bac9829cfbf72af198a8ddc73428d673090dd418",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/217/Side_Lying_Groin_Stretch_male_v2_0.png",
+      "candidateSha256": "967ff3129c348938931a7b291b036fb3ff2baf7cc19c99d7b4e62f34da85750a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Lying_Groin_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Lying_Groin_Stretch_male_v2_1.png",
+      "sourceSha256": "5adce16f7e885918afabe4dcb80ad74cf9377d713eb21ad7ed9cab623f363fa9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/217/Side_Lying_Groin_Stretch_male_v2_1.png",
+      "candidateSha256": "5c73fd08d81fe2ee222a820c8927496545dec8607b691be2f7ea27e54b13f6c9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Lying_Groin_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Lying_Groin_Stretch_male_v2_2.png",
+      "sourceSha256": "c52ba827c55cda6bcfbff4efe049d5612a2a60e7f9a2259289a4edbb746d7454",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/217/Side_Lying_Groin_Stretch_male_v2_2.png",
+      "candidateSha256": "977d433e1546b6642da1796ce80dff696071e0abcc5b4f18e0260b98afef7448",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Lying_Groin_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Lying_Groin_Stretch_male_v2_3.png",
+      "sourceSha256": "08230fb4c127a118a96d8981db3697b21328e08579f7ca247cd07f0827b7da2f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/217/Side_Lying_Groin_Stretch_male_v2_3.png",
+      "candidateSha256": "5088851160c3b63f18573f0c75617bca2920d53a1439245fea99171af59b9569",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Lying_Groin_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Lying_Groin_Stretch_female_v2_0.png",
+      "sourceSha256": "c4907cbdc20b318481901ab4bc88a13de420d76e80ed23333829068215c2d3c7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/217/Side_Lying_Groin_Stretch_female_v2_0.png",
+      "candidateSha256": "df56f70b638a4d257bbea2554ddd3ee1207a079d378f33f4f057f4fb9c1dac17",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Lying_Groin_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Lying_Groin_Stretch_female_v2_1.png",
+      "sourceSha256": "7ae9b1b23345ce540d30582a369001fc4f57380b9957fcaca8f163bcd896714b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/217/Side_Lying_Groin_Stretch_female_v2_1.png",
+      "candidateSha256": "069a38437380a81819884fd34a3591097a8c02428e743317ac19ae0d3e034ec0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Lying_Groin_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Lying_Groin_Stretch_female_v2_2.png",
+      "sourceSha256": "eb67f86a2792d2e9b442184f284e19a8d3bed3a18ce1ee0d42f752c1d857f48d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/217/Side_Lying_Groin_Stretch_female_v2_2.png",
+      "candidateSha256": "74cfd79e58d3ab35b85d92c853649d904748292e31d95f71d4f3de0af2786e60",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Lying_Groin_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Lying_Groin_Stretch_female_v2_3.png",
+      "sourceSha256": "0e7ca967aba472af79563ca4faabb8e23e8e544c85d5270e1d5d4c0bd92ca2b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/217/Side_Lying_Groin_Stretch_female_v2_3.png",
+      "candidateSha256": "dafa5b6b63cd23729273311e9b82373776fa67e55e55953f50d57fa0e4c9e008",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

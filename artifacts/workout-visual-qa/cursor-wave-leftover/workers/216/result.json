@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Side_Leg_Raises",
+  "shard": 22,
+  "index": 216,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Side_Leg_Raises_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Leg_Raises_male_v2_0.png",
+      "sourceSha256": "a39774e20f65a21bba96cb9aa4aed96c5fdf47d6fcd6256822f52720a7b45003",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/216/Side_Leg_Raises_male_v2_0.png",
+      "candidateSha256": "028b83b32e3b7eb83bb3373067bd2067760f55c5b18782c02106f79121dbf0ea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Leg_Raises_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Leg_Raises_male_v2_1.png",
+      "sourceSha256": "aa7d1691a40b4ffeedaaa99d8da3812ed2dbebd40f05f2d47d8630538f91210c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/216/Side_Leg_Raises_male_v2_1.png",
+      "candidateSha256": "928847b499f85257cd12dfc9d41835aa6817a6daba77964ee9a9bb7cfc07156a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Leg_Raises_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Leg_Raises_male_v2_2.png",
+      "sourceSha256": "8a83173f637bcab4f35261f03462a4f0e722c2fb16bb7d0d8e665bc80862c37e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/216/Side_Leg_Raises_male_v2_2.png",
+      "candidateSha256": "36aa163c0b0cd54a30a0ccaa80e34de29f28c68eaad710aa03d5638e77ec1e37",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Leg_Raises_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Leg_Raises_male_v2_3.png",
+      "sourceSha256": "0eb6af72bd55f9f169b56e08adf99778d71fec3873db6cb6e6320c4bcd60ed6d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/216/Side_Leg_Raises_male_v2_3.png",
+      "candidateSha256": "ef4b84b31fdbd4800861243575efeedda6d8aae3cc7d807612ca2924d68f512b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Leg_Raises_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Leg_Raises_female_v2_0.png",
+      "sourceSha256": "e0c9c4023abe14e7609dce8a07fe1a240783b4a8b568dddbf0eea54d84b603b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/216/Side_Leg_Raises_female_v2_0.png",
+      "candidateSha256": "d0d3d08b828cffa21beced2b35bcf8cb1a429cb68e22c68a3f4a022d45649270",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Leg_Raises_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Leg_Raises_female_v2_1.png",
+      "sourceSha256": "b38b2cad9082e427d965c99b80da8e66236c38943c1b872ca824cbafce42ed42",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/216/Side_Leg_Raises_female_v2_1.png",
+      "candidateSha256": "0c73ab2df90796e584e29cee31b3f08e488a875c1862f9051841178eb93c7429",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Leg_Raises_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Leg_Raises_female_v2_2.png",
+      "sourceSha256": "935203c5bc547a686a3ebda066a1a90e2ff0d51f9d8e5fdfe683512807a9ec82",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/216/Side_Leg_Raises_female_v2_2.png",
+      "candidateSha256": "d69190e68d981339ae1d2669afe91a4c7a49f048b50961476b829e7d851fd426",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Leg_Raises_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Leg_Raises_female_v2_3.png",
+      "sourceSha256": "4c4f5caf0fea372eacf1a7e2de14f6ef3cffa9e8d7f23a64415ad24576ff72c9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/216/Side_Leg_Raises_female_v2_3.png",
+      "candidateSha256": "b840a6c9d10724dbc6ec1791db0bed9e45ffeae3c5930f594449d437928818fa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

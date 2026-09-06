@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Barbell_Calf_Raise",
+  "shard": 30,
+  "index": 291,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Barbell_Calf_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Calf_Raise_male_v2_0.png",
+      "sourceSha256": "2e3affa7fd7703aea20780ad4c3891b70a46d6273b37d0f2552a8e93a43a8e7f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/291/Standing_Barbell_Calf_Raise_male_v2_0.png",
+      "candidateSha256": "868081a5afb2ff4edfce2193eaaeca8bae5b59abade942f3af62393cd7a64d94",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Calf_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Calf_Raise_male_v2_1.png",
+      "sourceSha256": "ed76450007bb9056902efd77e7794313a250ced44be5c5642698830d4dcd8bb8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/291/Standing_Barbell_Calf_Raise_male_v2_1.png",
+      "candidateSha256": "d64a9ef5cf5230f12f803e4891a64bce8effbb29f1f501a4e63a431256da4e9a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Calf_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Calf_Raise_male_v2_2.png",
+      "sourceSha256": "b5cddd23dfe893413737581a3442b6796acde01f69851e3e0be3ff6c0b00333c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/291/Standing_Barbell_Calf_Raise_male_v2_2.png",
+      "candidateSha256": "73c6fb0b87c44bf06e3acb7507d2be09f6445e399cb2ccf484dc15b37c7b1d76",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Calf_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Calf_Raise_male_v2_3.png",
+      "sourceSha256": "3cbd5a8620fa238eab45c83cdfb865f9f3e08e0268bdc4ff86d8f9a39289538e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/291/Standing_Barbell_Calf_Raise_male_v2_3.png",
+      "candidateSha256": "70f7b4b90da0e9b6a482d15470e9d2b227c322d15522a9b249dac2fec1630a6b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Calf_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Calf_Raise_female_v2_0.png",
+      "sourceSha256": "c341b968d4f67ae89d2db8e433027cdafb1bddcd49cd92b97ffb8b69cc735813",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/291/Standing_Barbell_Calf_Raise_female_v2_0.png",
+      "candidateSha256": "c8e1f622b5a9013fb46a8b28cf92b990eab51c95eacfe6ee341aa9ef300d9553",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Calf_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Calf_Raise_female_v2_1.png",
+      "sourceSha256": "2239ea91304feb01a38a0cd3288905ba045a5857d07677b6d62802041a3fdf0d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/291/Standing_Barbell_Calf_Raise_female_v2_1.png",
+      "candidateSha256": "b8712ada0d8d880a4c4ef535067cda7834c41f9db3fa4741537fd71a7aa1b866",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Calf_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Calf_Raise_female_v2_2.png",
+      "sourceSha256": "5606e0977f8bed0a1b11d428990821eaae7ba496dfd90f6093b25ff5379314b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/291/Standing_Barbell_Calf_Raise_female_v2_2.png",
+      "candidateSha256": "80f8debe3978ab0657d45cf5445635c1099da45f4eb5be8d8162eb6e10639a9a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Calf_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Calf_Raise_female_v2_3.png",
+      "sourceSha256": "cf9e672024e972ebee2bc9e98efefa665769edfabef0e5968103f64478bfb961",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/291/Standing_Barbell_Calf_Raise_female_v2_3.png",
+      "candidateSha256": "dba5ae0acbaa8bfbacd452add9e7694ea98ad75ee442f4cadc1d14a2be8d50de",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Cable_Lift",
+  "shard": 30,
+  "index": 299,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Cable_Lift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Lift_male_v2_0.png",
+      "sourceSha256": "adcf9d492a181ccf33b51a14ab269d439b42462254777e15cb370d758994db1c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/299/Standing_Cable_Lift_male_v2_0.png",
+      "candidateSha256": "0e9534737b97d8497996a57e5833bd3eb26e8ca2b61f39e5801c96fc8e1741c4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Lift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Lift_male_v2_1.png",
+      "sourceSha256": "916e35d24c8184b6c81dc2fc11ea3fce3aa8e8666cf9bf693ddacfd893b1d344",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/299/Standing_Cable_Lift_male_v2_1.png",
+      "candidateSha256": "5cb13e5e8adc6ebe24f296aabe46c14a27c045a1bbb9f438efa5d7af7009d96e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Lift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Lift_male_v2_2.png",
+      "sourceSha256": "cb1d1515fa409e6afa904409d870ade1a7c4d935c6d70f7cc0e78d4be1e6280f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/299/Standing_Cable_Lift_male_v2_2.png",
+      "candidateSha256": "a77bfd82c9b0cc7039e02b571547b54753b74ed9a5a7de4c0348fba315919158",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Lift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Lift_male_v2_3.png",
+      "sourceSha256": "3ecd3e59416885d4b557730de192488a7819315779dfbb92473360c380b6416b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/299/Standing_Cable_Lift_male_v2_3.png",
+      "candidateSha256": "d4becd85babe3eafc4373246eb5ff3a93c89e1a75fdad36b4b20fd1d35bddbd8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Lift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Lift_female_v2_0.png",
+      "sourceSha256": "7726122c49dcd3f3271a808455938da3661a82a2d5e1b3c700e974891dda66f5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/299/Standing_Cable_Lift_female_v2_0.png",
+      "candidateSha256": "928002814e836ab6edbbc3b4b13f02b202613cc6cc001f27a5e80f85c1e2ee62",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Lift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Lift_female_v2_1.png",
+      "sourceSha256": "ec3d2e753e1d33d890c87148cf67e01eba8c10c7a74510f7aa03dbac8ad71774",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/299/Standing_Cable_Lift_female_v2_1.png",
+      "candidateSha256": "90500b412711fa3082f45680a9898b3bf088ece59d055f4a3c52e23906e36ed3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Lift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Lift_female_v2_2.png",
+      "sourceSha256": "1cc5ce38872cb8ffa86807b3a144e0aa53e429db7a735e358961b99b033e4a8e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/299/Standing_Cable_Lift_female_v2_2.png",
+      "candidateSha256": "e674b8ceca3f845036af0d2b123ad878c126c9078a81ccf64d90d101e3ad4898",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Lift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Lift_female_v2_3.png",
+      "sourceSha256": "acda04c9ca50eee58613a42265d1068d5a0ba98e782a0dae654d9187946072d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/299/Standing_Cable_Lift_female_v2_3.png",
+      "candidateSha256": "f2f587826e27fdc1abcdc0ee6ba20d758299659e58e659f1e0acf0c9b83afc9a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

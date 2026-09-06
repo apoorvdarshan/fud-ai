@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Cable_Chest_Press",
+  "shard": 30,
+  "index": 298,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Cable_Chest_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Chest_Press_male_v2_0.png",
+      "sourceSha256": "e384f8206e1d1ff30542dbfe44618b95fa9e2bfc2bd357eaa4d2f3d02294b193",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/298/Standing_Cable_Chest_Press_male_v2_0.png",
+      "candidateSha256": "62b0a1166543c37e97bfb865587a50318b06cd3941c358f649a1b830b92f59bd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Chest_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Chest_Press_male_v2_1.png",
+      "sourceSha256": "dc0bc9bc70e691139829ec0f3b4286e49e44dd765a3ac258e47ae119e5500ed7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/298/Standing_Cable_Chest_Press_male_v2_1.png",
+      "candidateSha256": "0da3fd092a3d9026de3d05809c7f6f2fefceb36fcef3f8c0bc889d55e100169e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Chest_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Chest_Press_male_v2_2.png",
+      "sourceSha256": "691707c49db6641ce71bde07a0da79edd39b741cd65f6a17cace57f1220986e2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/298/Standing_Cable_Chest_Press_male_v2_2.png",
+      "candidateSha256": "7ae41d9bf3f45d217b67fcd42e5143e97fc7bdcf8147a50346374f509af96c11",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Chest_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Chest_Press_male_v2_3.png",
+      "sourceSha256": "63747539d203b09ff7ca2abefc7ccf27bdf74c1b48c72c84ee7ae54c9e48ce14",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/298/Standing_Cable_Chest_Press_male_v2_3.png",
+      "candidateSha256": "8472936f1c488105793c70939d2f58be1a9e5333e5b746d600f26e16709fa339",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Chest_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Chest_Press_female_v2_0.png",
+      "sourceSha256": "9ad4fb85873ecf3f920878b6a9fdb969b3cc1f3ce7ec37689993a44c7b68e64a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/298/Standing_Cable_Chest_Press_female_v2_0.png",
+      "candidateSha256": "815a774c548e32ab5895da398a353695205c231410b88759bb8c00f4a317d056",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Chest_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Chest_Press_female_v2_1.png",
+      "sourceSha256": "869133ef0451401c53cf66c9cb4b87b4f43d4eeb1d2d02942d4b20b629cc7a7d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/298/Standing_Cable_Chest_Press_female_v2_1.png",
+      "candidateSha256": "c314985dff67f45e55421c746b6a538d5561e431ce7030b701f4106b479273f2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Chest_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Chest_Press_female_v2_2.png",
+      "sourceSha256": "f77990d2a1d1d2cf9dfce0f36c8794d0e3518ccb8d3e72ee15b20406512638c3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/298/Standing_Cable_Chest_Press_female_v2_2.png",
+      "candidateSha256": "667ad0540cdff97f6422b8a924ad4dffbc1df8209aac0f6c578d67cbfee32b9d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Chest_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Chest_Press_female_v2_3.png",
+      "sourceSha256": "11e0705c2cf7e879cdd0da648fd816bed83449155ccb7d2d9071a5178afa65c0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/298/Standing_Cable_Chest_Press_female_v2_3.png",
+      "candidateSha256": "5354a11c1a59d0fd5409a5ba17f3c2efec4f200554115f7213aeb2a746a6f26a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Cable_Wood_Chop",
+  "shard": 30,
+  "index": 300,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Cable_Wood_Chop_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Wood_Chop_male_v2_0.png",
+      "sourceSha256": "ed01eebd14616b68b361b3c7aaccb992a067b53cca7722c08c99b7c85adb84fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/300/Standing_Cable_Wood_Chop_male_v2_0.png",
+      "candidateSha256": "ad582d83acfec3d155fd36226b1750ab289910814c2fe685505a98ba3bf52bdd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Wood_Chop_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Wood_Chop_male_v2_1.png",
+      "sourceSha256": "a291d81fbffe86f90f843ec8a32c8df1f040bfddd727d0e6e11fa2b68277caf3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/300/Standing_Cable_Wood_Chop_male_v2_1.png",
+      "candidateSha256": "f3b03ca4e9e45fd8c9bb3961781a54625958feda8c9376c4ee65b4685be75642",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Wood_Chop_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Wood_Chop_male_v2_2.png",
+      "sourceSha256": "ee1a13e50843c689c08449cc57d78bdc8ab016362f6d6db9359a963c10b3ea3c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/300/Standing_Cable_Wood_Chop_male_v2_2.png",
+      "candidateSha256": "0f6d1eb7ee452417a3cd5febef656917f57e3a7d5cdb2517c0ab640ddf427b16",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Wood_Chop_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Wood_Chop_male_v2_3.png",
+      "sourceSha256": "e7d67dec2849eec720f5850b3ba26d7ffe776b33f3d95021aee8bf412053cdef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/300/Standing_Cable_Wood_Chop_male_v2_3.png",
+      "candidateSha256": "c752f803f5d2057e864f2f8bb7ad9937507145e704152159fbe6e3a974bf4dfb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Wood_Chop_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Wood_Chop_female_v2_0.png",
+      "sourceSha256": "720cda0a363fcadfd60ad9f8352eab2ad55640f99b4e32902cf07320ba80e201",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/300/Standing_Cable_Wood_Chop_female_v2_0.png",
+      "candidateSha256": "98f0dc154454e5844a1eb4382fbe1e15a9fd96d9ea878087c290872b97c353e2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Wood_Chop_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Wood_Chop_female_v2_1.png",
+      "sourceSha256": "0570b9b4141ea3bf716e04efcd288415e4f6b7c2e9c935bb5005f381d7620612",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/300/Standing_Cable_Wood_Chop_female_v2_1.png",
+      "candidateSha256": "56f175fb03baea37bd83459e447cab3e2182a6c6167af98a7ef280e2cef20e0c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Wood_Chop_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Wood_Chop_female_v2_2.png",
+      "sourceSha256": "9970b7f1434aea4635e5cddbe5ce172bae956af2e5b588c4d75d8f97010f041d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/300/Standing_Cable_Wood_Chop_female_v2_2.png",
+      "candidateSha256": "5702539489533e20402aa5eeda005db65f50172401c58df07324cb32e63e717b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Cable_Wood_Chop_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Cable_Wood_Chop_female_v2_3.png",
+      "sourceSha256": "78a0a50bac3b547f8e5c50318d9b1d61fda1a07c9e2613ea96a96e9233e6066f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/300/Standing_Cable_Wood_Chop_female_v2_3.png",
+      "candidateSha256": "a84a0300cc9439791bc7bdc100500cc3fbd569d06633d51d6257ee3801f4a71a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

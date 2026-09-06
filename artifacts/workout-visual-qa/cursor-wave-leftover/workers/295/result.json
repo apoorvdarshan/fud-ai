@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Biceps_Cable_Curl",
+  "shard": 30,
+  "index": 295,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Biceps_Cable_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Cable_Curl_male_v2_0.png",
+      "sourceSha256": "cc0f862d45d334e908670a437404b58ead7670abfda52a6f4d2d1a442b91075e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/295/Standing_Biceps_Cable_Curl_male_v2_0.png",
+      "candidateSha256": "ec500a5d0e1b43998127e34479f7e95e4e0ee96f6f0cc8c66c4808b698074857",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Cable_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Cable_Curl_male_v2_1.png",
+      "sourceSha256": "6657361cb63fafb1897cd0a3141133edf155be16639af64903ecc5220d4cb896",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/295/Standing_Biceps_Cable_Curl_male_v2_1.png",
+      "candidateSha256": "c0348a4d71097dac62724320698635dd228c16f627a64f12c06365d72791708b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Cable_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Cable_Curl_male_v2_2.png",
+      "sourceSha256": "f7acfb44bc60e1ae25b689f604b2261fc42ce68d053cd7481c6ba2c4f3f10c34",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/295/Standing_Biceps_Cable_Curl_male_v2_2.png",
+      "candidateSha256": "6445dbee954f4d0759ed65b2051e84f3e4e13efe6511451c0ea257371d57d6d7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Cable_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Cable_Curl_male_v2_3.png",
+      "sourceSha256": "9a82b21ded7f43dd57fb6a1e9307c535598ed8daf19a67b1fd195b7b67ef3355",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/295/Standing_Biceps_Cable_Curl_male_v2_3.png",
+      "candidateSha256": "8ae34828714a281333879447d1530dc53e143282949292771ea527093a34e759",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Cable_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Cable_Curl_female_v2_0.png",
+      "sourceSha256": "8200bb5bfb4b609c4cd2e4758541bc009275106db7c34b03e91470e8e9fd132b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/295/Standing_Biceps_Cable_Curl_female_v2_0.png",
+      "candidateSha256": "098e28459cec56f0b13268924494a4596ac9f29bc7f4599a74e10ce56784bb78",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Cable_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Cable_Curl_female_v2_1.png",
+      "sourceSha256": "bd836a6d7d94c261b3081790a72008fc92f3d4ec3c95d5cbf0fd40a5fdb75d3a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/295/Standing_Biceps_Cable_Curl_female_v2_1.png",
+      "candidateSha256": "f4bc7fd4a3e25e2b7cb8d900d3ec53be9e1c709d9a0124a203e4fb4dac78a9c7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Cable_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Cable_Curl_female_v2_2.png",
+      "sourceSha256": "d8a5384c2d2268a92e436643f89d27d80871fb7206a83741bfe78ef931a39046",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/295/Standing_Biceps_Cable_Curl_female_v2_2.png",
+      "candidateSha256": "cb04b787b68b95bead158a7bd2453d9ada1b7877f0b09ab32bedf24ba51582f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Cable_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Cable_Curl_female_v2_3.png",
+      "sourceSha256": "3e2bf7dd9bd86c59fb54b364d2bdac0c90ffcb573cdf21d10747c7c381e75d1f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/295/Standing_Biceps_Cable_Curl_female_v2_3.png",
+      "candidateSha256": "1fc58b4964bc48d79abdc6a2138273f5d4b28ef04ca18a95fb59b1e0c5c198e9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_male_v2_0.png",
       "candidateSha256": "ff788dd3b3de3ac9f0868c40d60fc01096713df06aac4724f7787c8b1037df8a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Tuck_Jump_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_male_v2_1.png",
       "candidateSha256": "483bfa7e6312b1f8bd762661375454a18605f983dfa4fca8fa2c5f039480977a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Tuck_Jump_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_male_v2_2.png",
       "candidateSha256": "a8980ab447559ebd4566a7353ad91774e6554972270035f12dfcfb5d7c859b97",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Tuck_Jump_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_male_v2_3.png",
       "candidateSha256": "baf8b5026b3f91362803352e5a9b02409c576f11747abfa5eb4876d0a8c2efb2",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Tuck_Jump_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_female_v2_0.png",
       "candidateSha256": "ef4ea1c77870ab166ca4ca17dc4d3850708258f56dc86d934e4a567c9d97fae8",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Tuck_Jump_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_female_v2_1.png",
       "candidateSha256": "aca11439fac83fc855e7c2617c01c0597915bc72dbdd27557abbe215ebf5b007",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Tuck_Jump_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_female_v2_2.png",
       "candidateSha256": "ca8e8004a8473fa415866fd65bf0cbff67b7c623944f1fcbd2e8be24c99ca4ed",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Tuck_Jump_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_female_v2_3.png",
       "candidateSha256": "216bdeeae97fe6ed7b18127762c27a5679fa297a6dd125952e0aa4880cee58bf",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

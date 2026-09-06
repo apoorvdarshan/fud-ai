@@ -3,7 +3,10 @@
   "shard": 9,
   "index": 83,
   "status": "ready_for_review",
-  "findings": [],
+  "findings": [
+    "Removed floating limb fragments and duplicated hands at knee edges.",
+    "Removed floating shoe fragment on left edge."
+  ],
   "unresolved": [],
   "frames": [
     {
@@ -13,25 +16,25 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_male_v2_0.png",
       "candidateSha256": "c52ec4d8ea7fd733625eb3fc0aa291635d051b3641611dc92b5ef69902fda7b8",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Across_The_Body_male_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Knee_Across_The_Body_male_v2_1.png",
       "sourceSha256": "8a1261a2b2cd2d950ec0769ed024d99d3e86b41659ad8710872baad9e180866a",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_male_v2_1.png",
-      "candidateSha256": "323076b6e6d2e069c0866c184a3dbdddd3193e9b811fff99cb236ea02343c11e",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "217e2ca787ddd636964ec16e29f20c39d3b56401ac25d50eba5a4de8ad3ee4a8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Across_The_Body_male_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Knee_Across_The_Body_male_v2_2.png",
       "sourceSha256": "35c119aa4172ca542ce3cf2b61efd57729f2b8cdb874390993adc8ecf77a762b",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_male_v2_2.png",
-      "candidateSha256": "2011e73798eab7e39bf571c9766a4bd0dc714fcc5b4fa9c4f022ae5b71d7bf5e",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "5cc00bb05e0e7895d06509a48c3d775671f19d4550863ebb3a1477be183c88ee",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Across_The_Body_male_v2_3.png",
@@ -40,7 +43,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_male_v2_3.png",
       "candidateSha256": "e1f9fc6533aa95246d79fd5c9fc1050e19158f203be3298b996c6b7e39698299",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Across_The_Body_female_v2_0.png",
@@ -49,7 +52,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_female_v2_0.png",
       "candidateSha256": "78cdd710a7e4bfff9b4e3b713d412b1529844f13b4f99cd253f149707fdc520c",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Across_The_Body_female_v2_1.png",
@@ -58,7 +61,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_female_v2_1.png",
       "candidateSha256": "328d520c7a5828eeaf89a89a1241170ab80e8d9a8cdf8ed6764d7f98b4f54c6f",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Across_The_Body_female_v2_2.png",
@@ -67,7 +70,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_female_v2_2.png",
       "candidateSha256": "f848a32d3f4f55d4f9e5df2af88cf762e4501b5a9d80bf847f91d6aac57b4570",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Knee_Across_The_Body_female_v2_3.png",
@@ -76,7 +79,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_female_v2_3.png",
       "candidateSha256": "1f1145b1679a013fd4dbbc62c84e6e9aa9bbc7ee0e9f990e36c7f12ab611f952",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

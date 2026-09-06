@@ -1,0 +1,101 @@
+{
+  "batchName": "cursor-promoted-5",
+  "description": "Five exercises already promoted into shared/workout-vectors. Review only \u2014 no auto-promote.",
+  "exercises": [
+    {
+      "index": 1,
+      "exerciseId": "Band_Pull_Apart",
+      "severity": "promoted",
+      "findings": [
+        "Already promoted into the app. Left = pre-promotion original. Right = current app image."
+      ],
+      "suggestedRoute": "already_in_app",
+      "sourceFramePaths": [
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Pull_Apart_male_v2_0.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Pull_Apart_male_v2_1.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Pull_Apart_male_v2_2.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Pull_Apart_male_v2_3.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Pull_Apart_female_v2_0.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Pull_Apart_female_v2_1.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Pull_Apart_female_v2_2.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Pull_Apart_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 2,
+      "exerciseId": "Band_Skull_Crusher",
+      "severity": "promoted",
+      "findings": [
+        "Already promoted into the app. Left = pre-promotion original. Right = current app image."
+      ],
+      "suggestedRoute": "already_in_app",
+      "sourceFramePaths": [
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Skull_Crusher_male_v2_0.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Skull_Crusher_male_v2_1.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Skull_Crusher_male_v2_2.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Skull_Crusher_male_v2_3.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Skull_Crusher_female_v2_0.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Skull_Crusher_female_v2_1.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Skull_Crusher_female_v2_2.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Band_Skull_Crusher_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 3,
+      "exerciseId": "Alternate_Hammer_Curl",
+      "severity": "promoted",
+      "findings": [
+        "Already promoted into the app. Left = pre-promotion original. Right = current app image."
+      ],
+      "suggestedRoute": "already_in_app",
+      "sourceFramePaths": [
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Alternate_Hammer_Curl_male_v2_0.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Alternate_Hammer_Curl_male_v2_1.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Alternate_Hammer_Curl_male_v2_2.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Alternate_Hammer_Curl_male_v2_3.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Alternate_Hammer_Curl_female_v2_0.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Alternate_Hammer_Curl_female_v2_1.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Alternate_Hammer_Curl_female_v2_2.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Alternate_Hammer_Curl_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 4,
+      "exerciseId": "Barbell_Full_Squat",
+      "severity": "promoted",
+      "findings": [
+        "Already promoted into the app. Left = pre-promotion original. Right = current app image."
+      ],
+      "suggestedRoute": "already_in_app",
+      "sourceFramePaths": [
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Full_Squat_male_v2_0.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Full_Squat_male_v2_1.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Full_Squat_male_v2_2.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Full_Squat_male_v2_3.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Full_Squat_female_v2_0.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Full_Squat_female_v2_1.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Full_Squat_female_v2_2.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Full_Squat_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 5,
+      "exerciseId": "Barbell_Ab_Rollout_-_On_Knees",
+      "severity": "promoted",
+      "findings": [
+        "Already promoted into the app. Left = pre-promotion original. Right = current app image."
+      ],
+      "suggestedRoute": "already_in_app",
+      "sourceFramePaths": [
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Ab_Rollout_-_On_Knees_male_v2_0.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Ab_Rollout_-_On_Knees_male_v2_1.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Ab_Rollout_-_On_Knees_male_v2_2.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Ab_Rollout_-_On_Knees_male_v2_3.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Ab_Rollout_-_On_Knees_female_v2_0.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Ab_Rollout_-_On_Knees_female_v2_1.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Ab_Rollout_-_On_Knees_female_v2_2.png",
+        "artifacts/workout-visual-qa/cursor-promoted-5/originals/Barbell_Ab_Rollout_-_On_Knees_female_v2_3.png"
+      ]
+    }
+  ]
+}

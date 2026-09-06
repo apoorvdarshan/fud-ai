@@ -11,10 +11,11 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const batchName = process.argv[2] || 'cursor-cloud-100';
 const batchJson = path.join(root, 'artifacts/workout-visual-qa/review-batches', batchName, `${batchName}.json`);
 const batchRoot = path.join(root, 'artifacts/workout-visual-qa', batchName);
-const originals = path.join(root, 'shared/workout-vectors');
+const originalsOverride = path.join(batchRoot, 'originals');
+const originals = fs.existsSync(originalsOverride) ? originalsOverride : path.join(root, 'shared/workout-vectors');
 const candidates = path.join(batchRoot, 'candidates/images');
 const decisionsFile = path.join(batchRoot, 'human-decisions.json');
-const defaultPorts = { 'cursor-pilot-10': 8766, 'cursor-cloud-100': 8767, 'cursor-cloud-100-done30': 8766 };
+const defaultPorts = { 'cursor-pilot-10': 8766, 'cursor-cloud-100': 8767, 'cursor-cloud-100-done30': 8766, 'cursor-promoted-5': 8766 };
 const sha = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const images = new Map();
 

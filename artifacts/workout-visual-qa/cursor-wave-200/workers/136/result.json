@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Lateral_Cone_Hops",
+  "shard": 14,
+  "index": 136,
+  "status": "ready_for_review",
+  "findings": [
+    "Script cleanup acceptable on dark background; no GenerateImage needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lateral_Cone_Hops_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Cone_Hops_male_v2_0.png",
+      "sourceSha256": "910faba1fbb6b5ef1261473c9070af3348ed3784abfde7574de266a093dd2e7d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/136/Lateral_Cone_Hops_male_v2_0.png",
+      "candidateSha256": "32501a8403d347ce7f8deccb17a00617ef9c8ae7fa773657e4ea7050ca409049",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Cone_Hops_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Cone_Hops_male_v2_1.png",
+      "sourceSha256": "2d560d39a43060d8838a525993253678ef02869e9207b68ab12ac607893513fb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/136/Lateral_Cone_Hops_male_v2_1.png",
+      "candidateSha256": "cbf2c19c4b68b25b6d932b281b4f388c481cc7dadfcede1b405bf19035814b7c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Cone_Hops_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Cone_Hops_male_v2_2.png",
+      "sourceSha256": "c19ec6c7f57d30602c9a5d3fee013d198401e94599f93d1f81a9655111032a95",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/136/Lateral_Cone_Hops_male_v2_2.png",
+      "candidateSha256": "20155e981aa9a5c3bd42ad3b79e1c044eca19bdc1f4465d51beb8b359054a2fa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Cone_Hops_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Cone_Hops_male_v2_3.png",
+      "sourceSha256": "6ee8573384c5f45e7a278718cc03d0a7e33c928bf7c142f9223baa48d16c088c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/136/Lateral_Cone_Hops_male_v2_3.png",
+      "candidateSha256": "bdffd992a2dd004250e6cbbd2c9f74678a4f34631acda3c1e47b9bb5a90d12c6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Cone_Hops_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Cone_Hops_female_v2_0.png",
+      "sourceSha256": "f5d264e72669295ed9a3c4b08f324f4bb90d86c097e21f4e0abde59662e979d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/136/Lateral_Cone_Hops_female_v2_0.png",
+      "candidateSha256": "37a75a0f013fb2a2489d01406e3511f23acbe40d237c1cb6984db8372cea6943",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Cone_Hops_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Cone_Hops_female_v2_1.png",
+      "sourceSha256": "6753e8c4b0b9aadd2782ca0130bfdc2c50a572e847514bda57459df99ab8144d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/136/Lateral_Cone_Hops_female_v2_1.png",
+      "candidateSha256": "408f5450d3c5d55aa4040ab0cc524d847f06ee4e55df3ba2ca282f414fe63092",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Cone_Hops_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Cone_Hops_female_v2_2.png",
+      "sourceSha256": "af024973fb1039577b878a7aa703c40cad6bf44290f083923cc58ba54af9b45b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/136/Lateral_Cone_Hops_female_v2_2.png",
+      "candidateSha256": "16203d9b14406b6575464fa85c0ad039560a2a50677b6e74ce2aa6dbf2431ae9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Cone_Hops_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Cone_Hops_female_v2_3.png",
+      "sourceSha256": "f25df30612fbda7ec82edf698f5f8a2e6a2372d9243d4655347ed8a7c51e81f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/136/Lateral_Cone_Hops_female_v2_3.png",
+      "candidateSha256": "438f2a4765d095c6a5b9bf494c40f4df049a8ba594f3a9cd18e13240f4d32d20",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

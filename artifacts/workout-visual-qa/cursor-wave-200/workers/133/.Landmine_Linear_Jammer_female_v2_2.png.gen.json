@@ -1,0 +1,16 @@
+{
+  "source_sha256": "910d7c933f7e0ced0c17fa8f28d06896f20d8dd42baabaa2f326e08e2872e31a",
+  "candidate_sha256": "dea28afba205d174150ebb6ef66c53e85b1992428e2df7e43df2bea42289144d",
+  "generated_sha256": "4db4f66274bed0d0b396701f8511a4a45520f2a970414a44ba161c0923e2c375",
+  "generated_path": "/cursor/stores/bc-59499722-18da-4492-8181-bb578828eece/artifacts/assets/gen-133-Landmine_Linear_Jammer_female_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

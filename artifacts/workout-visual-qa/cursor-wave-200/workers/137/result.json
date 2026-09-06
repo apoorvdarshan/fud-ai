@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Lateral_Raise_-_With_Bands",
+  "shard": 14,
+  "index": 137,
+  "status": "ready_for_review",
+  "findings": [
+    "Script cleanup acceptable on dark background; no GenerateImage needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lateral_Raise_-_With_Bands_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Raise_-_With_Bands_male_v2_0.png",
+      "sourceSha256": "fc117683fa45835ef98a24e8b3af8138d449f65859fb33d307b83bcdec663c0c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/137/Lateral_Raise_-_With_Bands_male_v2_0.png",
+      "candidateSha256": "14824240f4538befa88dfc9a651fa0631dd316c88cb5093600a52bec01b07dc1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Raise_-_With_Bands_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Raise_-_With_Bands_male_v2_1.png",
+      "sourceSha256": "bd689ff4988bd10348ac1a1852e5661993bcd89df13cb611c178234c9f248a15",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/137/Lateral_Raise_-_With_Bands_male_v2_1.png",
+      "candidateSha256": "5ba0641a7550df31c86f1bd15b04f8f084f2e53a6b00fb4964375acd44506f46",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Raise_-_With_Bands_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Raise_-_With_Bands_male_v2_2.png",
+      "sourceSha256": "309281f729e7a258de1adcc7491341b817ca742e0b977f6a198f9e8a2f19408e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/137/Lateral_Raise_-_With_Bands_male_v2_2.png",
+      "candidateSha256": "e861f905315ea5ed76bd3466bb477c304dff1b110f24c3657cd7a6de80b61c3a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Raise_-_With_Bands_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Raise_-_With_Bands_male_v2_3.png",
+      "sourceSha256": "49126d1eec19c3a88d194defa5c3f88ad9574755b4a5b2395cdf71f8cca3932f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/137/Lateral_Raise_-_With_Bands_male_v2_3.png",
+      "candidateSha256": "0990fd4cbb34de2d91db0655f14ffed5773eac354154d725e38fc900b5702c07",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Raise_-_With_Bands_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Raise_-_With_Bands_female_v2_0.png",
+      "sourceSha256": "c6a5d0322699e8b2bd76709ffb67d65ca8826b438550bd4ffaedc2968faad848",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/137/Lateral_Raise_-_With_Bands_female_v2_0.png",
+      "candidateSha256": "224944bab38c52d39d13f5f9777ab2df349dcc0b7f3bc7e4be1df68b5d201763",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Raise_-_With_Bands_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Raise_-_With_Bands_female_v2_1.png",
+      "sourceSha256": "e81e611bb390103a609b9fcfbf0c81efd55a790370eee3ac8e3620710a9a0279",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/137/Lateral_Raise_-_With_Bands_female_v2_1.png",
+      "candidateSha256": "20e56a089650377682c06a4b8eabf5d9df4e031e45b9c9efb57a0036fc2f9c0c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Raise_-_With_Bands_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Raise_-_With_Bands_female_v2_2.png",
+      "sourceSha256": "a0a22361c7bf0ea798917efbce8c9a9d55b792d2acafeae2813300eac4c3babd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/137/Lateral_Raise_-_With_Bands_female_v2_2.png",
+      "candidateSha256": "f0880926a2bcc3a9bcb1b24c29d8be997cd3e2bc2db2bc88a695c0c26af94d1e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Raise_-_With_Bands_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Raise_-_With_Bands_female_v2_3.png",
+      "sourceSha256": "b472a4dc0c043ba01afe237ca212261ab3edad129ba1cac8c1d01bb7d8d9bb37",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/137/Lateral_Raise_-_With_Bands_female_v2_3.png",
+      "candidateSha256": "57de9467f43602cb88ac131f2846758ab0739a896ec7993e3062cd2aea4f151e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

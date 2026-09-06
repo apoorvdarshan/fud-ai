@@ -1,0 +1,16 @@
+{
+  "source_sha256": "ae480c2e5d7872f1a2a82a511702f5af8afa7cf5adb3249062b800fc275da067",
+  "candidate_sha256": "7c62ed54bb7d9ecc8cf5f49a2c5bf2425c0d93ab20ba51ee64a37ff99ae88c33",
+  "generated_sha256": "fc6f1f47c09b644a8bda501b025b785f0750f2f05bc1bd245f8aa2e2f5c0686e",
+  "generated_path": "/cursor/stores/bc-59499722-18da-4492-8181-bb578828eece/artifacts/assets/gen-140-Leg-Up_Hamstring_Stretch_male_v2_1.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

@@ -1,0 +1,16 @@
+{
+  "source_sha256": "b3477c70c2b877d8e548778bb75c2dfa3a5f2870b768700f272e22853e95d557",
+  "candidate_sha256": "ae4917a64ebfefa35afcfc85dd4e18cf87eeef8f742ca84b543e1b89c019ac58",
+  "generated_sha256": "6ff197cdfddad7b84a271c01262fe32402e8f7914116ecdd2ea118464b3cefd8",
+  "generated_path": "/cursor/stores/bc-59499722-18da-4492-8181-bb578828eece/artifacts/assets/gen-134-Lateral_Bound_female_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

@@ -1,0 +1,16 @@
+{
+  "source_sha256": "a9ee78c31c1e6ae3247bf7aca9641c127754f858025cbb28e0b17bf61dc98ec6",
+  "candidate_sha256": "66dd5d6915dd791ef2137cc1e227f02cbe838a8a2a974c52688885768b40cc6b",
+  "generated_sha256": "f534f7f750ac8d6983f87f8b92269dcb4d7c366bb5201803f97f669b749f501d",
+  "generated_path": "/cursor/stores/bc-59499722-18da-4492-8181-bb578828eece/artifacts/assets/gen-135-Lateral_Box_Jump_male_v2_0.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

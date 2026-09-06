@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Kneeling_Squat",
+  "shard": 14,
+  "index": 131,
+  "status": "ready_for_review",
+  "findings": [
+    "Script cleanup acceptable on dark background; no GenerateImage needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kneeling_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Squat_male_v2_0.png",
+      "sourceSha256": "dd57b28249d3855db65dee43707888fa96e2994585b667792277b4cd47a14b9b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/131/Kneeling_Squat_male_v2_0.png",
+      "candidateSha256": "ea5472ab7a7b04d5f6cd78d041fb24bcbaea0384b5781358e4348286d3226410",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Squat_male_v2_1.png",
+      "sourceSha256": "8c44d7aa991bf81ea2746f645fa4c1cbcb35c133e6910b5839e87b132f6d04b3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/131/Kneeling_Squat_male_v2_1.png",
+      "candidateSha256": "f657d1dded32cc26446e114af493cef555be262a5c57d12adf944a0f1d399c2e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Squat_male_v2_2.png",
+      "sourceSha256": "b55dea6f37a3a9a680c2c256dad41aa79173d2f39bfdaaf5503b04f418fdbf53",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/131/Kneeling_Squat_male_v2_2.png",
+      "candidateSha256": "aaf12c3904422844c07f14b2a8517569b208354664c33476a043db74d05e7008",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Squat_male_v2_3.png",
+      "sourceSha256": "532391bb848f40675230c23837d6a92c1e51703d10506951a7963f7d1bbb789e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/131/Kneeling_Squat_male_v2_3.png",
+      "candidateSha256": "b5c8a03921f9e9b426fb9bf831ad1b2df13056398aee9a9e120c8543bc467e74",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Squat_female_v2_0.png",
+      "sourceSha256": "1fb98549b4cd38c1f8d900c6134fde577e0367d51d08a46f28fbb5396b7d6ec6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/131/Kneeling_Squat_female_v2_0.png",
+      "candidateSha256": "7745b63326d45e6726ea4d327b44a5007eb41b3bc8112aa336a182e36c1416af",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Squat_female_v2_1.png",
+      "sourceSha256": "4652429be58dc191c457b55668e20d0102a2e99cc28db29878144a3ac3869db6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/131/Kneeling_Squat_female_v2_1.png",
+      "candidateSha256": "540ceca42cbb382042b00e56d231b178cece9efc90a48965aa2f8fd478879bc5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Squat_female_v2_2.png",
+      "sourceSha256": "e1eda417338d528681bffe364d795d4168a6bd75cb8fa8d8924b2fd24f6f408f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/131/Kneeling_Squat_female_v2_2.png",
+      "candidateSha256": "e9f471c7a6d59ea9bb4ce5c2f223f2449ed9de582be7f47c81195aeb83935db0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Squat_female_v2_3.png",
+      "sourceSha256": "97690bb50074ef6d9a855ab5cd4b3d878f660273014af5ae60607fc819dd6b08",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/131/Kneeling_Squat_female_v2_3.png",
+      "candidateSha256": "a57ea57191d5e98b94765cc2b44484b274c5368a6ff17e9765d41892576a87e8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

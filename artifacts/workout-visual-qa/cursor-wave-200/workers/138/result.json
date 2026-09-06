@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Latissimus_Dorsi-SMR",
+  "shard": 14,
+  "index": 138,
+  "status": "ready_for_review",
+  "findings": [
+    "Script cleanup acceptable on dark background; no GenerateImage needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Latissimus_Dorsi-SMR_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Latissimus_Dorsi-SMR_male_v2_0.png",
+      "sourceSha256": "a0662190a607da31135883c81840a9571d7078104ff8fedaaf3779331d386b9f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/138/Latissimus_Dorsi-SMR_male_v2_0.png",
+      "candidateSha256": "0f5dd3503df5cd178ff782d6ae6543ca2fc77b867fce76c9fdd8c4af30496e71",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Latissimus_Dorsi-SMR_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Latissimus_Dorsi-SMR_male_v2_1.png",
+      "sourceSha256": "5a64d95c5af5f0223d4104ce092737cee53b33c876abef7a7b460574e474c23e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/138/Latissimus_Dorsi-SMR_male_v2_1.png",
+      "candidateSha256": "f0000458333546068dc36286beb65cb788aaa4c61c73b1274d28b0e2272352f6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Latissimus_Dorsi-SMR_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Latissimus_Dorsi-SMR_male_v2_2.png",
+      "sourceSha256": "59fb58fa0d10daa8abbc0ec7bf8bed41cccaff96b6eb8e822b62fdadc7855357",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/138/Latissimus_Dorsi-SMR_male_v2_2.png",
+      "candidateSha256": "e01e87ec66158966dfd8997973be89dbc46dc1326dae975d94475bff3a68900c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Latissimus_Dorsi-SMR_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Latissimus_Dorsi-SMR_male_v2_3.png",
+      "sourceSha256": "e101caa0cf6aa7c9df4561d2e77b1646633d0a4b63f9c5753d920b2d87e90809",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/138/Latissimus_Dorsi-SMR_male_v2_3.png",
+      "candidateSha256": "85ee50bd58c24d0dba965b1d1cdcf712e82cf45ae5f254de267afd03d93b3992",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Latissimus_Dorsi-SMR_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Latissimus_Dorsi-SMR_female_v2_0.png",
+      "sourceSha256": "4e5e758d5fa9e2153104adda69d82e5b31dc1e379cc4e4b7dcb06112256ef09d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/138/Latissimus_Dorsi-SMR_female_v2_0.png",
+      "candidateSha256": "fca89d67ccdbd052da6e3d4f021962bc49ea68926c23d09263edf3157e11911c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Latissimus_Dorsi-SMR_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Latissimus_Dorsi-SMR_female_v2_1.png",
+      "sourceSha256": "ad8c5fb51ad2eedf5700af8b34dc169e31e57ca3ee71cbdc4da17d37752dc377",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/138/Latissimus_Dorsi-SMR_female_v2_1.png",
+      "candidateSha256": "c2eeeda7717a8ac0d83845dc224d143c7e1a346af883acea5b44ca1d5b939067",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Latissimus_Dorsi-SMR_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Latissimus_Dorsi-SMR_female_v2_2.png",
+      "sourceSha256": "bc7232a0c871a9de69dd1b8dd62de705a9cc562473afe0a471caed428333105d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/138/Latissimus_Dorsi-SMR_female_v2_2.png",
+      "candidateSha256": "0871816fa2346c1f6808522547c40191cc203879d04f4dcf6a2a5afb7bd3bf28",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Latissimus_Dorsi-SMR_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Latissimus_Dorsi-SMR_female_v2_3.png",
+      "sourceSha256": "ec68877f35c2b65b2d1207dbd8d25c0854eda25f26ef8e4e4b9dcf039d19cbf4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/138/Latissimus_Dorsi-SMR_female_v2_3.png",
+      "candidateSha256": "7a0a734796a43054b0f7950ebffd1d62d0b780d4373f3909799950f82d9c823c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

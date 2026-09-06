@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bent_Over_Two-Arm_Long_Bar_Row",
+  "shard": 1,
+  "index": 6,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bent_Over_Two-Arm_Long_Bar_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_0.png",
+      "sourceSha256": "8c3dd9fbe0f05968489fba0d6e6e1e81f353d252ecd88c58dc6bd02f4f7e295e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_0.png",
+      "candidateSha256": "c6a6e7a9124f52dd05423a3f37e095d6ed95ad23b99ab20399f399cdade02d27",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Arm_Long_Bar_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_1.png",
+      "sourceSha256": "11e757f6e6565c25523d355f94745e5aa8c08c48658e9c6f037fab3301e0573e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_1.png",
+      "candidateSha256": "1f6941df51f4337dabe073f893a4860b97f228b4cc15146d23a40279912115bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Arm_Long_Bar_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_2.png",
+      "sourceSha256": "83c19a509f8374db55e06a3331f69df9de956d066d246b563b44a5823c72716d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_2.png",
+      "candidateSha256": "ecc319e32ecb52bbe6703c0478cbabaddead7140733eedd442f92ac605ccd504",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Arm_Long_Bar_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_3.png",
+      "sourceSha256": "1cb407ea95a9b9b3717d37a974d1e2b7505883cac81fda97f019004773f72018",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_3.png",
+      "candidateSha256": "283bda4949815841a76c88ff0bbbacc2af0c1fee64543341348c155bb4e22081",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Arm_Long_Bar_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_0.png",
+      "sourceSha256": "378ffb84574de5bffe6cbdfbf9f61e247aeaf7dda8788c44317b1ff43a559895",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_0.png",
+      "candidateSha256": "a88e3953ea9105834e9be30b702258a37faad7c9ddf2a50318ba3a2100182f89",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Arm_Long_Bar_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_1.png",
+      "sourceSha256": "9335b05f3f97378394aac492f731db1753280898c3de6a606bbda7bba391a50e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_1.png",
+      "candidateSha256": "3120b57c4b82f5e972c1aec5578af4761af59a6703043ce04f612765667a4a2d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Arm_Long_Bar_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_2.png",
+      "sourceSha256": "c921f9405aa2f4719a5ccab13070237a58bbf7c55178a53b34624ef81617cea7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_2.png",
+      "candidateSha256": "c1680dabc251f7d493ebb476346a665b6a3d5c4795ecc6d1ab8a6101c4d06cef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Arm_Long_Bar_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_3.png",
+      "sourceSha256": "1bda54de34bbb32497409189d03e9400ae2e2f294973f5f171053f5d4dd06d55",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_3.png",
+      "candidateSha256": "0de2b23d8cb89218b93307233d8c93fe6cfedf9b18ab97bde6b5dd72843af443",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

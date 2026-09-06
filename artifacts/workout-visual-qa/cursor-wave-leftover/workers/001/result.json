@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Barbell_Hack_Squat",
+  "shard": 1,
+  "index": 1,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Hack_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_male_v2_0.png",
+      "sourceSha256": "7fa19f62c5ced11c3e3fcb8305d1c006986c99f30c6ae456a1e5596f4fdc4fbd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_male_v2_0.png",
+      "candidateSha256": "a93488aa35174171bbafc6e0044c71320120ea3a771c446016aa73ff52d27840",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hack_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_male_v2_1.png",
+      "sourceSha256": "48833ab61948a68de54967b10d1144c8a2e797e0d217f025bf0434f2979b842c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_male_v2_1.png",
+      "candidateSha256": "58d6e4a432794053825923a37a05b0c100aabed0c66d177e443cdeeb3ec69403",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hack_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_male_v2_2.png",
+      "sourceSha256": "497c4a6a12b6d4cc114e4e07bea6a45bba7b021191f7eda4d0b3775f47e5f0f3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_male_v2_2.png",
+      "candidateSha256": "09dcad6f33ec0d2e814e0c3821b33b08a4940e095492797e2c71a5588182e897",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hack_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_male_v2_3.png",
+      "sourceSha256": "204634884affc237c5835556c4a68ba6900c1247f06c36f8776b51cf9f3ecc07",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_male_v2_3.png",
+      "candidateSha256": "263fc1bd2fe489f53c22808eb36e8f5859d6f3119c83800b344dbb1c77ac9c96",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hack_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_female_v2_0.png",
+      "sourceSha256": "927641a74b630cd9d67215bd9e97aedd6eca0aa15bb28b9adda5cbb092af6aed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_female_v2_0.png",
+      "candidateSha256": "8a3a5a321a5cfb7e8de65bd8a606c73ff0b432914c0cceab3560e05c0190e108",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hack_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_female_v2_1.png",
+      "sourceSha256": "10a643264ab55a7cca14fd779044c097ee25468c7fb81b3e6a904879765cf70c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_female_v2_1.png",
+      "candidateSha256": "57ff2d0a6ee76bdc84984496567b2aeede7996637ac7fd2ecdf7d2266849f838",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hack_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_female_v2_2.png",
+      "sourceSha256": "6ef56652d704ea8fa237314debd5e6cb5d2a15748241ca885557c8d034917e19",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_female_v2_2.png",
+      "candidateSha256": "e4693c1aa0f1ed51de1173bb8102189154e147f77e862a3b50033ba7b4996ec1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hack_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_female_v2_3.png",
+      "sourceSha256": "7ecd3c798f48bc4c1d74fafccdaed61f5c82d8f9df232bad48ad04abb7a41a16",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_female_v2_3.png",
+      "candidateSha256": "8bacc46ec66e3269658a615da6b5b64680bc9904421f90927030306d09b32602",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

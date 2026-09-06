@@ -1,0 +1,834 @@
+{
+  "shard": 1,
+  "batch": "cursor-wave-leftover",
+  "status": "ready_for_review",
+  "branch": "cursor/wave-leftover-shard-01",
+  "generateImageFrameCount": 56,
+  "findings": [
+    "Visual QA pass on shard 1 exercises 001-010 (80 frames).",
+    "GenerateImage surgical edits on 56 frames with pale fringe, floor shadow, or matte artifacts on dark background.",
+    "Exercises 001, 005, 006 passed visual review with script candidates only."
+  ],
+  "exercises": [
+    {
+      "exerciseId": "Barbell_Hack_Squat",
+      "shard": 1,
+      "index": 1,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Barbell_Hack_Squat_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_male_v2_0.png",
+          "sourceSha256": "7fa19f62c5ced11c3e3fcb8305d1c006986c99f30c6ae456a1e5596f4fdc4fbd",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_male_v2_0.png",
+          "candidateSha256": "a93488aa35174171bbafc6e0044c71320120ea3a771c446016aa73ff52d27840",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Hack_Squat_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_male_v2_1.png",
+          "sourceSha256": "48833ab61948a68de54967b10d1144c8a2e797e0d217f025bf0434f2979b842c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_male_v2_1.png",
+          "candidateSha256": "58d6e4a432794053825923a37a05b0c100aabed0c66d177e443cdeeb3ec69403",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Hack_Squat_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_male_v2_2.png",
+          "sourceSha256": "497c4a6a12b6d4cc114e4e07bea6a45bba7b021191f7eda4d0b3775f47e5f0f3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_male_v2_2.png",
+          "candidateSha256": "09dcad6f33ec0d2e814e0c3821b33b08a4940e095492797e2c71a5588182e897",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Hack_Squat_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_male_v2_3.png",
+          "sourceSha256": "204634884affc237c5835556c4a68ba6900c1247f06c36f8776b51cf9f3ecc07",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_male_v2_3.png",
+          "candidateSha256": "263fc1bd2fe489f53c22808eb36e8f5859d6f3119c83800b344dbb1c77ac9c96",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Hack_Squat_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_female_v2_0.png",
+          "sourceSha256": "927641a74b630cd9d67215bd9e97aedd6eca0aa15bb28b9adda5cbb092af6aed",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_female_v2_0.png",
+          "candidateSha256": "8a3a5a321a5cfb7e8de65bd8a606c73ff0b432914c0cceab3560e05c0190e108",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Hack_Squat_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_female_v2_1.png",
+          "sourceSha256": "10a643264ab55a7cca14fd779044c097ee25468c7fb81b3e6a904879765cf70c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_female_v2_1.png",
+          "candidateSha256": "57ff2d0a6ee76bdc84984496567b2aeede7996637ac7fd2ecdf7d2266849f838",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Hack_Squat_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_female_v2_2.png",
+          "sourceSha256": "6ef56652d704ea8fa237314debd5e6cb5d2a15748241ca885557c8d034917e19",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_female_v2_2.png",
+          "candidateSha256": "e4693c1aa0f1ed51de1173bb8102189154e147f77e862a3b50033ba7b4996ec1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Hack_Squat_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hack_Squat_female_v2_3.png",
+          "sourceSha256": "7ecd3c798f48bc4c1d74fafccdaed61f5c82d8f9df232bad48ad04abb7a41a16",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/001/Barbell_Hack_Squat_female_v2_3.png",
+          "candidateSha256": "8bacc46ec66e3269658a615da6b5b64680bc9904421f90927030306d09b32602",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Barbell_Seated_Calf_Raise",
+      "shard": 1,
+      "index": 2,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Barbell_Seated_Calf_Raise_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_male_v2_0.png",
+          "sourceSha256": "19eb997aa2705d308c0c7ef239def4f08bab3ffd548e46855716fbfb5b84fa8b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_male_v2_0.png",
+          "candidateSha256": "4081df4beb0af14beef63581789b8d988e4e6b0db2cadd41ade4a50dc92c8ec5",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Seated_Calf_Raise_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_male_v2_1.png",
+          "sourceSha256": "df3f627c23dd92a2637b18401ccba5b49a10631cbff36d664897b52b8e9f2892",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_male_v2_1.png",
+          "candidateSha256": "28bc24de641de98e810d20606652fca44518a9c66ab47dab3e9027b0c4bf8d65",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Seated_Calf_Raise_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_male_v2_2.png",
+          "sourceSha256": "77f5c95474aa627ba4f5bfcfab24093b8841e82cba496e06d140ba031aa8943a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_male_v2_2.png",
+          "candidateSha256": "391c0ead6a7d41ddf176f6f12ca7342235182721898bb7cb53efac43c0008719",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Seated_Calf_Raise_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_male_v2_3.png",
+          "sourceSha256": "7a9d83350e7aa175d523a135644fa8505b2ab1251fe43631c8b9cb3afd49d210",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_male_v2_3.png",
+          "candidateSha256": "a2539bad8769a4fac886a24428b8c0a2bbc6d08554af33a8204e5f386f0ebd1c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Seated_Calf_Raise_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_female_v2_0.png",
+          "sourceSha256": "8d2a912400294aa055a183c7e76b2c746231be320e2a5869a6302fa52323b906",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_female_v2_0.png",
+          "candidateSha256": "a5a6a9e90cc7913a6629cbb14990563ec68e447cc715a623a9e4139317b7050e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Seated_Calf_Raise_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_female_v2_1.png",
+          "sourceSha256": "adc883028d35ba3e2e87fd0264cc16d2526c75bec8ee39c18aa2a785c56e2f5d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_female_v2_1.png",
+          "candidateSha256": "ac6edf7adbc3c13e213a3e911b14de65e8a724a1f29ce6bab3004708bfede90a",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Seated_Calf_Raise_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_female_v2_2.png",
+          "sourceSha256": "8907b3f265d32ba9cbfc074c4c64e0a1ad03f2129e48b33982a4c274c0d4f993",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_female_v2_2.png",
+          "candidateSha256": "71ce91af59f00401a8b072ce3b89b89c8e740419c03ef7afdf9172153b9b670d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Seated_Calf_Raise_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_female_v2_3.png",
+          "sourceSha256": "c422d5ed2430c3ced88088004a9854ccf983847c345416654f6af155a148d48b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_female_v2_3.png",
+          "candidateSha256": "2a73f9d660fbaa23a3453df3c619e4f60b4f41df38ec5a618b9bf95d03fc330c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Barbell_Side_Bend",
+      "shard": 1,
+      "index": 3,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Barbell_Side_Bend_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_male_v2_0.png",
+          "sourceSha256": "5db03368c66094f82da042fd1fc10d394f4944c376e2c5d5bc0e1f16a8e9abed",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_male_v2_0.png",
+          "candidateSha256": "dd2c25a617b30cbb64df321f473ba4d8d9c3f686f6bad8b8c02cf0be7190f8ba",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Side_Bend_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_male_v2_1.png",
+          "sourceSha256": "9bd32496f3735dea41a7a6c4f358a2502a6e1382a138da6445eab9b3ffd58b2f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_male_v2_1.png",
+          "candidateSha256": "327709f0a8060e61fda80d1466dc5ca11dc4718a63879f139c1b823fd1d04872",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Side_Bend_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_male_v2_2.png",
+          "sourceSha256": "eb4c3297933a789a647288eba5a2e6b9bc779e8e95118ad87ff0605c3d79fc2b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_male_v2_2.png",
+          "candidateSha256": "775b25d57ae7d31c948d447ffc38f90141a0fc072ce16d5c6902eb1e95daede1",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Side_Bend_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_male_v2_3.png",
+          "sourceSha256": "e0b7893dc54cf850c844ad40527538cc28963d44dae3af03db8e5a4f96295c67",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_male_v2_3.png",
+          "candidateSha256": "f45e6270e6c6ac35ba4a43b20da6e9b362b60ec9a35c8808e6da5b1720836f0c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Side_Bend_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_female_v2_0.png",
+          "sourceSha256": "d13b51437649551175d8b122d28df34e7d5fbf14d68d3849d493ccad0c2eb494",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_female_v2_0.png",
+          "candidateSha256": "396fef0577bdaa384e42ceef3b098f5096bf300f7052c4de088672a21ec7e66b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Side_Bend_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_female_v2_1.png",
+          "sourceSha256": "90367c9ca43764cf193da8233ebf04812ddbc7f58b2827803fb6ef9a8b8ff290",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_female_v2_1.png",
+          "candidateSha256": "d520a774058aae7f5a8237065d5b363a16cb60e0afa06a372fd0394bc06a735f",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Side_Bend_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_female_v2_2.png",
+          "sourceSha256": "4a283b8816a3f6192d211eb2db89c67355fa166f99cec5bd1655e4c62514a303",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_female_v2_2.png",
+          "candidateSha256": "3ee3244411dd5e33b689ed6f0d5066c5abf706446e13230d85895bd2fe5734a6",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Side_Bend_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_female_v2_3.png",
+          "sourceSha256": "521a6e446ff529e386556acfa66a05f2ad9a6f6e60e9eb5dd3a42be4816766a9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_female_v2_3.png",
+          "candidateSha256": "b1b951a59aecb54dbba4f9d48d057a17ff0c71a247ab7acc4bc8844713c3b79b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Barbell_Walking_Lunge",
+      "shard": 1,
+      "index": 4,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Barbell_Walking_Lunge_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_male_v2_0.png",
+          "sourceSha256": "8ef1c9da5f86e7a85aa4b2c527c49311bf4764d3ce338ee248605f294e261cb1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_male_v2_0.png",
+          "candidateSha256": "89766e91872ad3bc4e1a2bde8054715a3e35baee8c7036da917d1ba1fdbf561f",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Walking_Lunge_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_male_v2_1.png",
+          "sourceSha256": "b0a010f8402a3a534eadd1fa36700ca1c035585ce3b8c2592f9ed07c8f1407a7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_male_v2_1.png",
+          "candidateSha256": "f8202b0bbb63a8c823ee58110af8386dc3bd25d6499c9c708c85672bd214e09f",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Walking_Lunge_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_male_v2_2.png",
+          "sourceSha256": "7aa51ddc7293a9f17f157c109508ddd571d29c45582753aeafc6cf47b82d61a3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_male_v2_2.png",
+          "candidateSha256": "5fb10f9ffe51864a1f1e683371e5bb5902202e56d3b960b4bd3f4b9a84603214",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Walking_Lunge_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_male_v2_3.png",
+          "sourceSha256": "da2ae88be3e87fa3914e4c1f5eacf214195fe96c522c8a0f1d21ad643074b339",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_male_v2_3.png",
+          "candidateSha256": "d3209af37f2e8eb5dc4a400ad10976ffddd87d5237a383c7456ecd974345574e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Walking_Lunge_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_female_v2_0.png",
+          "sourceSha256": "ebbc8175ca5aab8eb72689ceb90a11d58971a510361b17d45add98f9667bed7c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_female_v2_0.png",
+          "candidateSha256": "92e76a476714a5c267dbfd129c2382aefe4468774d60ec71832725c2c1a0bd4f",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Walking_Lunge_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_female_v2_1.png",
+          "sourceSha256": "8fcb070027e78f354d4ea220e533c8952c9b9728a16467f8eb27ef0932d8d190",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_female_v2_1.png",
+          "candidateSha256": "2b1d5f666aa847de120d7316bb927cba15868aefb1af9856851baf70a6f48c78",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Walking_Lunge_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_female_v2_2.png",
+          "sourceSha256": "8e0daf573e79abd65754412ec1170c54822a673869f287c7d4cc25131ce8e6fd",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_female_v2_2.png",
+          "candidateSha256": "53b96f5999a86d477c9d8453360a30d58bb556841a8b794ceebb0104ed992378",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Walking_Lunge_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_female_v2_3.png",
+          "sourceSha256": "8528ccf51e24da7dbd50a69733dfbad58bca00e4a2cd17757e76eb733da5dea3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_female_v2_3.png",
+          "candidateSha256": "83c6e08d9f91b233eae3da79eadd12201c45ccfe13bddbe11faa954057ef840e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Behind_The_Back_Cable_Wrist_Curl",
+      "shard": 1,
+      "index": 5,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Behind_The_Back_Cable_Wrist_Curl_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Behind_The_Back_Cable_Wrist_Curl_male_v2_0.png",
+          "sourceSha256": "41f062dae1458741491a7cd2f2f103315d63def1095fff6792a894756cf0b9f4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/005/Behind_The_Back_Cable_Wrist_Curl_male_v2_0.png",
+          "candidateSha256": "b90d2e43f4f32d7a2d8e69a1b12dbd4bc2834f136d1d7c5afdca850e005d72c7",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Behind_The_Back_Cable_Wrist_Curl_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Behind_The_Back_Cable_Wrist_Curl_male_v2_1.png",
+          "sourceSha256": "b6d34690e6222681c35ed6635a11432c396ad16d8f933aba9d6484fa83985694",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/005/Behind_The_Back_Cable_Wrist_Curl_male_v2_1.png",
+          "candidateSha256": "a4bda92a24c7f577eee2cab72e2691edd4c1e44e0961a3c835579ad56c53b4f1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Behind_The_Back_Cable_Wrist_Curl_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Behind_The_Back_Cable_Wrist_Curl_male_v2_2.png",
+          "sourceSha256": "860970a3d0547b9dee0975f85ada21c2f0022dd4a1879be459418469c3fe831d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/005/Behind_The_Back_Cable_Wrist_Curl_male_v2_2.png",
+          "candidateSha256": "405082a9255e1601757dfbb06ec1d0f0dba270f24365869384edf3fdc2a61a46",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Behind_The_Back_Cable_Wrist_Curl_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Behind_The_Back_Cable_Wrist_Curl_male_v2_3.png",
+          "sourceSha256": "b42ed0965c2f128490b87788fc69c7f7d1ed05b23926fdc5c638878f1bbd3e90",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/005/Behind_The_Back_Cable_Wrist_Curl_male_v2_3.png",
+          "candidateSha256": "eaa60558cb31b93ca14a2ad73845baceee67b43f1f427e01701019c69f541a46",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Behind_The_Back_Cable_Wrist_Curl_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Behind_The_Back_Cable_Wrist_Curl_female_v2_0.png",
+          "sourceSha256": "55ccb5a06a6a89df33f9afb035fe4a98beb91604f10c46179237b3633a489841",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/005/Behind_The_Back_Cable_Wrist_Curl_female_v2_0.png",
+          "candidateSha256": "0e364edbfcd7705c7dfbe1d5595075426bcfa13da1cad7d0502a636fe5356648",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Behind_The_Back_Cable_Wrist_Curl_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Behind_The_Back_Cable_Wrist_Curl_female_v2_1.png",
+          "sourceSha256": "31c8eb03c838ac5d4c3e20dd05ab2b64fd59accfe452ef3ba6a815fc65e4b581",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/005/Behind_The_Back_Cable_Wrist_Curl_female_v2_1.png",
+          "candidateSha256": "48063ee30ce1c74f63a431975a44d838e1d760c96f0b3a3c86d5459f6372ac70",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Behind_The_Back_Cable_Wrist_Curl_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Behind_The_Back_Cable_Wrist_Curl_female_v2_2.png",
+          "sourceSha256": "5ffd098c97bc8e8946025d50c668d17f97726631380b0d1ce910aed7ac6d9186",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/005/Behind_The_Back_Cable_Wrist_Curl_female_v2_2.png",
+          "candidateSha256": "ae9aa11367ad35f09c81ba404b62fd0c6c15f1c9ff313280c649861d6af4ba3d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Behind_The_Back_Cable_Wrist_Curl_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Behind_The_Back_Cable_Wrist_Curl_female_v2_3.png",
+          "sourceSha256": "41a93e4a4a519ef16dcd79d58b7acb29c5e475bd85a817ecf4eac18e9cc88bd2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/005/Behind_The_Back_Cable_Wrist_Curl_female_v2_3.png",
+          "candidateSha256": "bc9d82e28548cd6284e6b8beabaa5a69bfbc5ee979ca77314bf923ceb90b5d1a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Bent_Over_Two-Arm_Long_Bar_Row",
+      "shard": 1,
+      "index": 6,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Bent_Over_Two-Arm_Long_Bar_Row_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_0.png",
+          "sourceSha256": "8c3dd9fbe0f05968489fba0d6e6e1e81f353d252ecd88c58dc6bd02f4f7e295e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_0.png",
+          "candidateSha256": "c6a6e7a9124f52dd05423a3f37e095d6ed95ad23b99ab20399f399cdade02d27",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Two-Arm_Long_Bar_Row_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_1.png",
+          "sourceSha256": "11e757f6e6565c25523d355f94745e5aa8c08c48658e9c6f037fab3301e0573e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_1.png",
+          "candidateSha256": "1f6941df51f4337dabe073f893a4860b97f228b4cc15146d23a40279912115bc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Two-Arm_Long_Bar_Row_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_2.png",
+          "sourceSha256": "83c19a509f8374db55e06a3331f69df9de956d066d246b563b44a5823c72716d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_2.png",
+          "candidateSha256": "ecc319e32ecb52bbe6703c0478cbabaddead7140733eedd442f92ac605ccd504",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Two-Arm_Long_Bar_Row_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_3.png",
+          "sourceSha256": "1cb407ea95a9b9b3717d37a974d1e2b7505883cac81fda97f019004773f72018",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_male_v2_3.png",
+          "candidateSha256": "283bda4949815841a76c88ff0bbbacc2af0c1fee64543341348c155bb4e22081",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Two-Arm_Long_Bar_Row_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_0.png",
+          "sourceSha256": "378ffb84574de5bffe6cbdfbf9f61e247aeaf7dda8788c44317b1ff43a559895",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_0.png",
+          "candidateSha256": "a88e3953ea9105834e9be30b702258a37faad7c9ddf2a50318ba3a2100182f89",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Two-Arm_Long_Bar_Row_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_1.png",
+          "sourceSha256": "9335b05f3f97378394aac492f731db1753280898c3de6a606bbda7bba391a50e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_1.png",
+          "candidateSha256": "3120b57c4b82f5e972c1aec5578af4761af59a6703043ce04f612765667a4a2d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Two-Arm_Long_Bar_Row_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_2.png",
+          "sourceSha256": "c921f9405aa2f4719a5ccab13070237a58bbf7c55178a53b34624ef81617cea7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_2.png",
+          "candidateSha256": "c1680dabc251f7d493ebb476346a665b6a3d5c4795ecc6d1ab8a6101c4d06cef",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Two-Arm_Long_Bar_Row_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_3.png",
+          "sourceSha256": "1bda54de34bbb32497409189d03e9400ae2e2f294973f5f171053f5d4dd06d55",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/006/Bent_Over_Two-Arm_Long_Bar_Row_female_v2_3.png",
+          "candidateSha256": "0de2b23d8cb89218b93307233d8c93fe6cfedf9b18ab97bde6b5dd72843af443",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Cable_Rope_Overhead_Triceps_Extension",
+      "shard": 1,
+      "index": 7,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Cable_Rope_Overhead_Triceps_Extension_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Rope_Overhead_Triceps_Extension_male_v2_0.png",
+          "sourceSha256": "a727aa36ad3ba3985e2b38c91c7286d7b475517d4ef6289b83a5ff3bb5bb5eeb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/007/Cable_Rope_Overhead_Triceps_Extension_male_v2_0.png",
+          "candidateSha256": "06009786246b50086a93b3181df74dd10bdabdec287cf5d6791e6d79398e0820",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Rope_Overhead_Triceps_Extension_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Rope_Overhead_Triceps_Extension_male_v2_1.png",
+          "sourceSha256": "7d939911e70c0e561a536ef63999ad647c2b8c1e06c206cf566d4e6148c10736",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/007/Cable_Rope_Overhead_Triceps_Extension_male_v2_1.png",
+          "candidateSha256": "da820b68be93f12c8cf20b7728ca3c496fb40b35ecc357bd212b659017461c79",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Rope_Overhead_Triceps_Extension_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Rope_Overhead_Triceps_Extension_male_v2_2.png",
+          "sourceSha256": "fc1508603af19999c9bb9ba5120f36f5af1519e9b7248db06e0c28ce8d08c17e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/007/Cable_Rope_Overhead_Triceps_Extension_male_v2_2.png",
+          "candidateSha256": "7eeff3d7e7bea75a99644e631fcce23f6fcefbfd1ac50c0930c7d1701a960f7c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Rope_Overhead_Triceps_Extension_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Rope_Overhead_Triceps_Extension_male_v2_3.png",
+          "sourceSha256": "893d58ad39aa33416de31415c5c0090b114ba54da6331f98fd072d3681f6add6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/007/Cable_Rope_Overhead_Triceps_Extension_male_v2_3.png",
+          "candidateSha256": "a1cdbbab93d49a38766224714591c55a706fc663c05f347b1655834d64c0eaa3",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Rope_Overhead_Triceps_Extension_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Rope_Overhead_Triceps_Extension_female_v2_0.png",
+          "sourceSha256": "ec5b93bf1ad5b57e4238fbe6b899777507ceb49448762b6c4d081ede7bf41de7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/007/Cable_Rope_Overhead_Triceps_Extension_female_v2_0.png",
+          "candidateSha256": "97b778dd65c8fb1659e89a3ed7e9b739eb3260f068050b16dfd367e3d57f55c0",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Rope_Overhead_Triceps_Extension_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Rope_Overhead_Triceps_Extension_female_v2_1.png",
+          "sourceSha256": "6abf59665a2c077a97ca80969a78b99d51eb391d529dc7a55c69dd0cb5e6b264",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/007/Cable_Rope_Overhead_Triceps_Extension_female_v2_1.png",
+          "candidateSha256": "9f3a25d89e3dc999ad88a23afe844dd6bfd33a5376ba415abc794889ae01f5bc",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Rope_Overhead_Triceps_Extension_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Rope_Overhead_Triceps_Extension_female_v2_2.png",
+          "sourceSha256": "f5c9b2707e5a5f9691a14fb3082d6556ee1da808c3dbfdabd47fb44882dbe0d4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/007/Cable_Rope_Overhead_Triceps_Extension_female_v2_2.png",
+          "candidateSha256": "8144cf264298a085ccff0831ced52b9b49fbd44a77780015ab832f9f55ae5712",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Rope_Overhead_Triceps_Extension_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Rope_Overhead_Triceps_Extension_female_v2_3.png",
+          "sourceSha256": "dbc02fdbb137feea486ab93fb62e39413c5c4749f11e59cf3325c4b159796486",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/007/Cable_Rope_Overhead_Triceps_Extension_female_v2_3.png",
+          "candidateSha256": "55f67eb406d3802a8f76eb18d8a9f8ef3270f9b39b5937e72b2745a0e66557c2",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Calf_Press_On_The_Leg_Press_Machine",
+      "shard": 1,
+      "index": 8,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Calf_Press_On_The_Leg_Press_Machine_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_male_v2_0.png",
+          "sourceSha256": "8f82a05a5d672a25184b5a7f3b8aac79a0607e981ec7cca32a4b8baaa0895e7a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_male_v2_0.png",
+          "candidateSha256": "fc5e97ce276407025675cbc365ca6074e34d13c91619622d36a7ec57db3683a0",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Calf_Press_On_The_Leg_Press_Machine_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_male_v2_1.png",
+          "sourceSha256": "a906d99a8eff5e29da9e46dcb6810a9c7ec267e2097e483ea4aecde92596f5c3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_male_v2_1.png",
+          "candidateSha256": "e9574f71ba35f3dc0bc1ff6ad313c4d8af4908c0a7b72e733fccb0d5f5046436",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Calf_Press_On_The_Leg_Press_Machine_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_male_v2_2.png",
+          "sourceSha256": "b8eb429c17acb643a2f4f61ade5d7e60088866c8585f266bec5ffdc8ca0e616e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_male_v2_2.png",
+          "candidateSha256": "2e31f3bec05f3acbd286a9a7dfa970fa100384b684f75c98778bc35506ed83de",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Calf_Press_On_The_Leg_Press_Machine_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_male_v2_3.png",
+          "sourceSha256": "bb437c2943cad3a613e7cd72876386fcfa460dbe1883ef0aef7149c36381fba3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_male_v2_3.png",
+          "candidateSha256": "3236de26f3eb3505b211bd32567afbf4ca21a09c82c8c4afdde2d3ae3037bb16",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Calf_Press_On_The_Leg_Press_Machine_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_female_v2_0.png",
+          "sourceSha256": "3ec0ae65c0f5534ad288f8accee205d6abe640ccf6e9edfe5b105fee040fd9e5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_female_v2_0.png",
+          "candidateSha256": "06b066e2862c0e9e276de82768c70b5e7a1aec8e014ca90b0afd0ff686dad67e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Calf_Press_On_The_Leg_Press_Machine_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_female_v2_1.png",
+          "sourceSha256": "64059cbc25fa4417bd1d1176531f8600ae2f02b1936c0283cc3f60f9574da416",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_female_v2_1.png",
+          "candidateSha256": "f349c846a6dcac1a155d8329618602cc814af2e5582570933cb924b783384dbe",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Calf_Press_On_The_Leg_Press_Machine_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_female_v2_2.png",
+          "sourceSha256": "9d902d1781e3f28c6a5c0fadd9d74e09c209339a431e87a853731c3d6f314fd6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_female_v2_2.png",
+          "candidateSha256": "3c3032430419f51351ccad00bad465ec2c3acce80c2244181e39e5fa4aa6532f",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Calf_Press_On_The_Leg_Press_Machine_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_female_v2_3.png",
+          "sourceSha256": "33240839b5afe786838d54e3b21ce79af3fe45b865a376e97cb957c1a93540d6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_female_v2_3.png",
+          "candidateSha256": "2665537de396d1b831b5b510902ee8f59b149d6e33e27e7ddd085424b29e90ba",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Clean_and_Jerk",
+      "shard": 1,
+      "index": 9,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Clean_and_Jerk_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_male_v2_0.png",
+          "sourceSha256": "0674acc0ab8b081a2756ce63153a05a30e79da94ba36e33c36071c2eada11a23",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_male_v2_0.png",
+          "candidateSha256": "5535ef93088bd48f0ec59bc5e9ab31cf39eed151b5e970c4a34ac8bd7b4f3a44",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Clean_and_Jerk_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_male_v2_1.png",
+          "sourceSha256": "2d7ba8ddf56f3178ebdfb54268808e4db2de34c7c4a8f21df7dbb0489741498f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_male_v2_1.png",
+          "candidateSha256": "baa59adfe0c82fc68c95146fb3ce11ace53f9743db5fe8c956f7f97ccc8415c4",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Clean_and_Jerk_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_male_v2_2.png",
+          "sourceSha256": "46773bbf09d8d63fe24c07cead5e30a4f5933d46518b28d916fdb0f5988f4198",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_male_v2_2.png",
+          "candidateSha256": "ee39d10c0937fd20762ea1856f9503e0188ca8b470d4e08b452f5bb81bd3fec9",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Clean_and_Jerk_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_male_v2_3.png",
+          "sourceSha256": "464049d5053b7ffe89545ea5963dfc0ee3aefe83b986ced2d6bde81525efcecb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_male_v2_3.png",
+          "candidateSha256": "e2f824d1e266d16903045a55c08b26ad397a8748636524fbc9ca82ddf9bb0633",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Clean_and_Jerk_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_female_v2_0.png",
+          "sourceSha256": "21047f104e17b6ac3ef5f986608771b273e504b824078bdb01a6c35832eb8c07",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_female_v2_0.png",
+          "candidateSha256": "9b6a5fc3d0a5eb50919eac9e0622acf332f68d11859a5255c3a7b841d06305bf",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Clean_and_Jerk_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_female_v2_1.png",
+          "sourceSha256": "37abcbca2e52bdf219a638565f16dbcbea8ac135fea82efff78f6ec902ecf4be",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_female_v2_1.png",
+          "candidateSha256": "b5a52f81a5f7d30ecf8545c627fde2f6a75625a87fcc00f3b4d12f9d51aaf35b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Clean_and_Jerk_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_female_v2_2.png",
+          "sourceSha256": "46aa4b7dbd3b9a6a235b271e034955d75e00b7e46af3d13195cc9a54d20de883",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_female_v2_2.png",
+          "candidateSha256": "0b1d89cb16804e6d3050da071c95da99c6dbef95ca18678a95add436748d8999",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Clean_and_Jerk_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_female_v2_3.png",
+          "sourceSha256": "be02bc72e59087a530843c24789e701fc61f0bb251157274573ddfe69028a36c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_female_v2_3.png",
+          "candidateSha256": "21f6739fa28bf9e3066d6493a3985d7b582661a56dda0ce892c5c109d91d0cff",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Close-Grip_Barbell_Bench_Press",
+      "shard": 1,
+      "index": 10,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Close-Grip_Barbell_Bench_Press_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_male_v2_0.png",
+          "sourceSha256": "e21cc0e75c5d6ba72068d7a4f7922fdab5e6c496f7f787ac7e7cce3e836d6332",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/010/Close-Grip_Barbell_Bench_Press_male_v2_0.png",
+          "candidateSha256": "94b9dfe3ff12c4c06d76fc9f144435e03f0576be46128f281b8e17c158dd4109",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Close-Grip_Barbell_Bench_Press_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_male_v2_1.png",
+          "sourceSha256": "ab20a9978861416b095e86591f48785dbbcb9ec680d245bf0af95befc9d52613",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/010/Close-Grip_Barbell_Bench_Press_male_v2_1.png",
+          "candidateSha256": "81c780d62e9372f9cce565c70cc482373446c28ff1851f9813cd6ffb6b8b3850",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Close-Grip_Barbell_Bench_Press_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_male_v2_2.png",
+          "sourceSha256": "0f043d93097204f5a5cf77b61a8bb840190f3fd22623f40dfaee2590beadbe76",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/010/Close-Grip_Barbell_Bench_Press_male_v2_2.png",
+          "candidateSha256": "01bc177478da3ba9fe4513adb4ff15ed2cc20bfb2756f2907b2257a046d8b177",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Close-Grip_Barbell_Bench_Press_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_male_v2_3.png",
+          "sourceSha256": "9aebc78165888ca14025deef96cfb947815b75d3c145f77b7a733d0cd8dbf216",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/010/Close-Grip_Barbell_Bench_Press_male_v2_3.png",
+          "candidateSha256": "0b14a15c69c4fdcd963f45bf2c673575c3a206d3ac7122239f6289e894bafa7b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Close-Grip_Barbell_Bench_Press_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_female_v2_0.png",
+          "sourceSha256": "6d3a9993532b6d26ecbde62287181988678a48149d25fa7df3d6961ea4a521fc",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/010/Close-Grip_Barbell_Bench_Press_female_v2_0.png",
+          "candidateSha256": "70bc4797b985e60fde18ef7af460bb9f0d205b9cab40f340e4e110b1c3e4d768",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Close-Grip_Barbell_Bench_Press_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_female_v2_1.png",
+          "sourceSha256": "69ef3f58abd58fdf7f00dff3fd54c7aa4406f7cc4cc5d509350e8f80a31f218c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/010/Close-Grip_Barbell_Bench_Press_female_v2_1.png",
+          "candidateSha256": "cc886d74e0c94c0827112f276e39be7a7fb0d53fa4e81415a1acf29448cb0f2f",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Close-Grip_Barbell_Bench_Press_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_female_v2_2.png",
+          "sourceSha256": "1ab731945dc328e68cd5c649d75ab28c74b0f19f60d2fb71a6b98c49d3342282",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/010/Close-Grip_Barbell_Bench_Press_female_v2_2.png",
+          "candidateSha256": "e5c717a1da8de344f7705e91b49f30f4e9d895d7d1259aa003afc4314c3a7778",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Close-Grip_Barbell_Bench_Press_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_female_v2_3.png",
+          "sourceSha256": "30d1aabd9ce5870ecfec181a323c171fff3f2352619e606c9e90039b771365b0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/010/Close-Grip_Barbell_Bench_Press_female_v2_3.png",
+          "candidateSha256": "558642752164b7bbd6a69395b285ffc748e02b241468c12021ad96371a2d1a0f",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    }
+  ]
+}

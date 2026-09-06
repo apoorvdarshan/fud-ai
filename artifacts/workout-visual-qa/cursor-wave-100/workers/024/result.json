@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Hip_Extension_with_Bands",
+  "shard": 3,
+  "index": 24,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Hip_Extension_with_Bands_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_male_v2_0.png",
+      "sourceSha256": "b99335ab67d5b3d825f9d70aab2921115dca1ec20fe52b0ef8dcae9b1ae592f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_male_v2_0.png",
+      "candidateSha256": "cc34f1133b2ac4c1a9419d87538f8a9672b8264a4bee81972d0bb9f8a694f298",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Extension_with_Bands_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_male_v2_1.png",
+      "sourceSha256": "96345a81d374a1638982fce76b47178bb6d86fd730c44fbca70f703b2918aade",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_male_v2_1.png",
+      "candidateSha256": "5b2f9181ef29a4bcc6ef05d191ed399cc891eac7dde4e466d76be5a2866317c9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Extension_with_Bands_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_male_v2_2.png",
+      "sourceSha256": "6994193aa48d6f3debbc0d384b01e509f1f258a7fab9ae2c31255c8d1c941c65",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_male_v2_2.png",
+      "candidateSha256": "4d34824b0b30d2a569551a00a4aa9b262abbb321d390555b63463d036b93fc26",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Extension_with_Bands_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_male_v2_3.png",
+      "sourceSha256": "91c6794556a8921d2e008d680d0233a2132b2a497ba734a1571daf9637ba48fa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_male_v2_3.png",
+      "candidateSha256": "e34d2a53f20cf4320ff1a73a7a29eaa352624cada8c2a7be12b46d21ca8bc1aa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Extension_with_Bands_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_female_v2_0.png",
+      "sourceSha256": "9bf78d847a94288708aae13168d9a127cb26cd1b6f5f5207fd51db987f121d2d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_female_v2_0.png",
+      "candidateSha256": "f382487b1ce9747316206f155470aa12e9abfa608e87b9fccc9e630bd51857a0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Extension_with_Bands_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_female_v2_1.png",
+      "sourceSha256": "1f613bd16f7502bd5ee695d5e2e4c8aa7fe00e910ca854e3ba88c815a05f3640",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_female_v2_1.png",
+      "candidateSha256": "f53cb67c4a8fb8e81bd6bf2846c85fed65a9be02cb43af21efd929722fef7680",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Extension_with_Bands_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_female_v2_2.png",
+      "sourceSha256": "1047c856c18bb41373a3bb8ffaa92b65cfbc016d9b9dbd2ba788fa9b3f439d7b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_female_v2_2.png",
+      "candidateSha256": "983e1f1a603ed87a664f64412744c0bfff696c6bbb9c0d3cc9df73dc4b1f143b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Extension_with_Bands_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_female_v2_3.png",
+      "sourceSha256": "b8a756462995b43aaf2bc99f839be2b5b8bf61d8bbaa50d75eb283ffe7e80580",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_female_v2_3.png",
+      "candidateSha256": "92046b5f30f3df1bece027e024a70c3260985ca08b77f6e0b0f9e16b5d5a1106",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

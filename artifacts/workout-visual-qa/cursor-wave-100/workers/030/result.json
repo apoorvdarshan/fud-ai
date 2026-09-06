@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Hyperextensions_Back_Extensions",
+  "shard": 3,
+  "index": 30,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Hyperextensions_Back_Extensions_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_male_v2_0.png",
+      "sourceSha256": "2e750bc0bcca4d0b29f1c2b003001594d67d63eb41e6a67f3fcb3168444dffba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_male_v2_0.png",
+      "candidateSha256": "7d97c4c9bf1b01d71b20fc5791dedc259446703e1fc990d7b057fdabcb19419b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hyperextensions_Back_Extensions_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_male_v2_1.png",
+      "sourceSha256": "12d5144bbbc0325c80aa05ce31f2354c0d4ff5e1a64e2616de0bd7dced42155e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_male_v2_1.png",
+      "candidateSha256": "e70d502126c880a12098b33d3f9adfebf6dfaccb96e8d5dcba5b8343c44d0980",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hyperextensions_Back_Extensions_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_male_v2_2.png",
+      "sourceSha256": "8612858dd3930179f413ae19fcf5a530d50da57868471f8b517362825e5d3012",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_male_v2_2.png",
+      "candidateSha256": "7bf0fcd71197e03c85ec34809474bb521dcdbe0df88fe6f9261d734c4eb24686",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hyperextensions_Back_Extensions_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_male_v2_3.png",
+      "sourceSha256": "d0b80c88ed1ec147f3d780302abf5b92b3f2e3f254273fbe64a120a291c96606",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_male_v2_3.png",
+      "candidateSha256": "363064598e00265bfaa384bad3e29de43a9a0f12bc7cbd1495531e1367ca9ffb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hyperextensions_Back_Extensions_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_female_v2_0.png",
+      "sourceSha256": "ba07fdcc54c0b0a2e2233d5174d1a938d1d5e7156f678d3caee9a28a0ea54d7e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_female_v2_0.png",
+      "candidateSha256": "8646df7cd7e415131a11859d05505ed6048735d740f51014414a8d4a3ebf32ff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hyperextensions_Back_Extensions_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_female_v2_1.png",
+      "sourceSha256": "e1488f9d555fd0d7e11a8beec6bc79fd1cc8755d8783e234d39cfa3ece4b17cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_female_v2_1.png",
+      "candidateSha256": "047f86fbde6483c6ad1bda37a5ffeef095c92889a6cfa75ba55cd7fd6febf1b0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hyperextensions_Back_Extensions_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_female_v2_2.png",
+      "sourceSha256": "8255c4f5d6ae3338d71b771dee8cfc97edc3182cd96127dbaf779c563d186d95",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_female_v2_2.png",
+      "candidateSha256": "64de82c4face0ab8180a13c16bc8694cf6bea90e38af1e990b4c97db09c9b4a6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hyperextensions_Back_Extensions_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_female_v2_3.png",
+      "sourceSha256": "d03096b5902da4099c3bca18ac5640cde7e00c5889e248b172f0d78f7d402716",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_female_v2_3.png",
+      "candidateSha256": "066680c961eadd0d3a0e5d3e154ae49f118db2bdb883c22d67c86616bc154628",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

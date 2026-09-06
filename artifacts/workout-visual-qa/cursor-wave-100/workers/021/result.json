@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Heavy_Bag_Thrust",
+  "shard": 3,
+  "index": 21,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Heavy_Bag_Thrust_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_male_v2_0.png",
+      "sourceSha256": "b2c7ad9a9ac21f24a5d96e8fd414a452ab240f9005588ba4873a5cbbb5f5026d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/021/Heavy_Bag_Thrust_male_v2_0.png",
+      "candidateSha256": "081264067eb39c6ea64d30dbdbb5e4d2864abd4ce2565547f0a763cd8ff25437",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Heavy_Bag_Thrust_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_male_v2_1.png",
+      "sourceSha256": "dd93f5dfd8ca0de7d9e9bc14396ac32aee9520e6b23022e8d40e7c581d11ddc5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/021/Heavy_Bag_Thrust_male_v2_1.png",
+      "candidateSha256": "d2c6ea69408a595cc9dd155a5682632234b4eb66bb76f0779c87d548c9102cd4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Heavy_Bag_Thrust_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_male_v2_2.png",
+      "sourceSha256": "10e1636a796961d97cdd2dbe6f51c713b9a54e829842ccdd8d81e9c1961c058f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/021/Heavy_Bag_Thrust_male_v2_2.png",
+      "candidateSha256": "45a19826144b15a99b11847e4cb3812e8d4a84ff1547e3a8ee0e5b3851671189",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Heavy_Bag_Thrust_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_male_v2_3.png",
+      "sourceSha256": "6e68ff27cbc39086a48b4dd46152d7b375b0b5eb7f84daa641932dfabca1b433",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/021/Heavy_Bag_Thrust_male_v2_3.png",
+      "candidateSha256": "c8f5d7e03b8e30f09418bf7e48e27e3048a4db4d9315b0715e6e1dd0fd7d139b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Heavy_Bag_Thrust_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_female_v2_0.png",
+      "sourceSha256": "7cda0b3be5f78a234802e1f6950956e2736979b24d8a06a868deb42d91c0e1df",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/021/Heavy_Bag_Thrust_female_v2_0.png",
+      "candidateSha256": "e309df8a68dea93c5871e0142737aa52e52111021d1f97d572f77fc10d56bb58",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Heavy_Bag_Thrust_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_female_v2_1.png",
+      "sourceSha256": "c4485f0e14810de7f555abbdaa2e5805b8d40d619083d40bd8ac33efb9c3e5ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/021/Heavy_Bag_Thrust_female_v2_1.png",
+      "candidateSha256": "f002f1615883871e3107837ee6869df5e0d436c76477f5feeb4ab278912cced0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Heavy_Bag_Thrust_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_female_v2_2.png",
+      "sourceSha256": "c4dfabd0cb974030d6cac4cdf628c3c1e4a0a98dbb28cf314bff79225e48a365",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/021/Heavy_Bag_Thrust_female_v2_2.png",
+      "candidateSha256": "a8cdd315a439ee4e476936c10e4f1efb334808c1f46d4932e2b39d3d8098bb07",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Heavy_Bag_Thrust_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_female_v2_3.png",
+      "sourceSha256": "3612f51e1406e100cd434ed860c16166f81bc063f566f5413539daee5b60d7e7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/021/Heavy_Bag_Thrust_female_v2_3.png",
+      "candidateSha256": "92c38a787ae05ee37ff6d7b5ece22c2892cdaa1ae14653f06e230ae876c0202d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

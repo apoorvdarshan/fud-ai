@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Hip_Lift_with_Band",
+  "shard": 3,
+  "index": 26,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Hip_Lift_with_Band_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Lift_with_Band_male_v2_0.png",
+      "sourceSha256": "854d015b89e7f46a7fb0d84ebce88a9f5f87dbdc8d2bcf573ad0fda39910807c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_male_v2_0.png",
+      "candidateSha256": "a9b894d07752bb6db4e3f54575c305344dfc39067a62b33e2c9cfbbeca5ea00e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Lift_with_Band_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Lift_with_Band_male_v2_1.png",
+      "sourceSha256": "74afaff8eb252b4978c876531d1b104e32a51a26d7852e221735480f8078f862",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_male_v2_1.png",
+      "candidateSha256": "c382717d770f121f8fefcafb64fe49b6f6ebe423b2e0dcb305c7dc1fbca38b0d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Lift_with_Band_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Lift_with_Band_male_v2_2.png",
+      "sourceSha256": "af2f62f946488dbcc84474cff3f46fe799445fd74ba4d4f18c8847ff745ec3bd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_male_v2_2.png",
+      "candidateSha256": "e707d48ca06a2f8a547e523d865fa938d5be18aa1b5228f22edef2a62bf82e26",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Lift_with_Band_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Lift_with_Band_male_v2_3.png",
+      "sourceSha256": "8aa5aa011575b763fedf7d137a0408dc3e637d23017054412d04a1884f98f34e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_male_v2_3.png",
+      "candidateSha256": "21b64cb23cfe04e8124fc72bf7d7d3df323bc28336ac744834fb16e4ec68368c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Lift_with_Band_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Lift_with_Band_female_v2_0.png",
+      "sourceSha256": "d85a7e69cbdb9f92c56bbb80eabd32862e8b0520e57e4cdb5c4bfa1f9318b254",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_female_v2_0.png",
+      "candidateSha256": "1c603836d0ad056e4b64f42b794614b2a453cb51bf45987a5be2e9cb0940bc1c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Lift_with_Band_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Lift_with_Band_female_v2_1.png",
+      "sourceSha256": "52b22efeb29a98aa097c8d40e9f28addf5eb8bd1e1d891b7c756239542a01d95",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_female_v2_1.png",
+      "candidateSha256": "6d2a61556f7d5231e73542b4bfce2b799deca4376e03339cc8e74a760eb90075",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Lift_with_Band_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Lift_with_Band_female_v2_2.png",
+      "sourceSha256": "d15607d17ebf3d68f63842f6c2e1b846fc318aef44746b221f331d59f8b27e4c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_female_v2_2.png",
+      "candidateSha256": "c5f280a39bb0627371d3c0b432bdaa97fd277050b5f78afd769b21f31249be90",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hip_Lift_with_Band_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hip_Lift_with_Band_female_v2_3.png",
+      "sourceSha256": "61080ed8537ec9e87863d441212eea78828207efde3626b8d11d6f1c4cae791b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_female_v2_3.png",
+      "candidateSha256": "1ba2f0fd7e406972f90fee464f4d5fa45f47e0401d9d7c89b794fbcd36aa6633",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

@@ -11,72 +11,72 @@
       "sourcePath": "/workspace/shared/workout-vectors/Jerk_Balance_male_v2_0.png",
       "sourceSha256": "95026bdf1be0d458eec9735a095d8b698ea2a96449588df1d0d2afe3a5614aec",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_male_v2_0.png",
-      "candidateSha256": "e495c7dcffee8a920374f14f9d90804f4b166fb99802c630ee20f60942eed7ab",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "79f7854bd197a6ccdf6f53a4582660172e8832bca3359e115da6cff61f206e6d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_male_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Jerk_Balance_male_v2_1.png",
       "sourceSha256": "7aa752600abac162a4a893ced19e681fdb27ea86dcf9dbb0aa13950dda9f1e20",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_male_v2_1.png",
-      "candidateSha256": "d2a0169df40547794acea53a35569f036c8ccde30ac14ff06493dab623a95ad3",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "49d0e9cbca28f6b615d5064b7f89261434345fcb784bcf9af838db63d4401d5a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_male_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Jerk_Balance_male_v2_2.png",
       "sourceSha256": "fcab68daa40681dd16cf4dd5c57113de02e6081305eb9f3df447cb910025707d",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_male_v2_2.png",
-      "candidateSha256": "ec6ea960d5211e4bba8f4ce6b6ea233f930e14c3bdf44b8447f1c76b10f04263",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "323caa47233d4d30868569d62ec65b6d8421858c60958e1fd54ad36365071faf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Jerk_Balance_male_v2_3.png",
       "sourceSha256": "8573c9352899e0291bdeaab2d4f5c8c6c34bbaad0b8c1b1148e80d349c8473d4",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_male_v2_3.png",
-      "candidateSha256": "0fc31968153e1901236f999597e42c51055ed81e65674ce85f9299c60fe1ea9d",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "0173c6c0946588ac2df41d649b69c1452f0c95299506d7f1ff04b61ab762ead8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Jerk_Balance_female_v2_0.png",
       "sourceSha256": "ed0626dd355e565317b89233d7e84d30b68c78399ca6ac22c1316b23143f711f",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_female_v2_0.png",
-      "candidateSha256": "c46f462106b2e4d56a7fff758879280ea7d4411732e668cbf90211bafe08d27a",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "2b69da1e530051427c5de789dd1dc47f6e3a21f8caf1bc07ed178cfc1bab5e7e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Jerk_Balance_female_v2_1.png",
       "sourceSha256": "f1a3dbd7d56693c7ce7e6b823d271ba8ceda879aa8ee5f13f6662c988513e7ae",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_female_v2_1.png",
-      "candidateSha256": "528a69911c51db39887d17adc089b7bdebf1a11c28ea88b69322ef766d64626f",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "9f032518d199889531c2480ddd3c8c3aa4348f34bdd3deb7c9a59e883a9fcb58",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Jerk_Balance_female_v2_2.png",
       "sourceSha256": "6a36e8d85d5b5e9fc3945dee91b7d3edb8a1f916e6fbaff8cff704ccad9e8aba",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_female_v2_2.png",
-      "candidateSha256": "f51609704a9b99f4688663b5e3de3bb7ae3f7d8aa73766e3dc0187112d828113",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "d5f63df9faf00c4b3d9ff234697f45d8f0545fb9ea51dc1745652ac6cdc69072",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Jerk_Balance_female_v2_3.png",
       "sourceSha256": "9f9430086ae5b67dbe73124f1d9f28cd9effc0fcbd0d2015751d2b7d18f1117e",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_female_v2_3.png",
-      "candidateSha256": "f86659c54f39137ee4295806f9c44c0f748eded878842d357ceea28dda05d24f",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "501af5fd86d059332c7b9618b94fd8ac937966a0118e87fb12c9aeb9b41f6235",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

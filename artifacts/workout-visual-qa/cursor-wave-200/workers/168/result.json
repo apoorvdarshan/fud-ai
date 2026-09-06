@@ -1,0 +1,94 @@
+{
+  "exerciseId": "Lying_Cambered_Barbell_Row",
+  "shard": 17,
+  "index": 168,
+  "status": "ready_for_review",
+  "findings": [
+    "Script removed heavy pale floor/matte on prone cambered barbell row frames.",
+    "Visual review: row sequence intact; minor shoulder halos only; GenerateImage not needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Cambered_Barbell_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cambered_Barbell_Row_male_v2_0.png",
+      "sourceSha256": "f712e46a76820e0a7ec9f1dc9de5c95b22c402b875aa1dfb75d0edc2d72c2be1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/168/Lying_Cambered_Barbell_Row_male_v2_0.png",
+      "candidateSha256": "980c6a95d2da6a23b051b2b51e41ed931b0e767cb7f5ae0f48ce5c9c1cb09988",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cambered_Barbell_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cambered_Barbell_Row_male_v2_1.png",
+      "sourceSha256": "10bd9d951ae51b5ec2659991b604ad1ca8811e64f7dac895f376bc3789e20a62",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/168/Lying_Cambered_Barbell_Row_male_v2_1.png",
+      "candidateSha256": "a75ba56f2f13c2c916fc4e11c2a20bf293903c81fcb60507178cc1502909a6f3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cambered_Barbell_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cambered_Barbell_Row_male_v2_2.png",
+      "sourceSha256": "6a309603d79d8ba99d842c4d30663b01188309efbd9d7015ab55dff61a54aba1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/168/Lying_Cambered_Barbell_Row_male_v2_2.png",
+      "candidateSha256": "587e216f0058d3fc28dc8b732fe0d2ada58311facdffe48802f23e61ebc66da4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cambered_Barbell_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cambered_Barbell_Row_male_v2_3.png",
+      "sourceSha256": "7e64b6973900b02cabecd8a3f26324c6a3c3b640a64f915bed5a917c212b973a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/168/Lying_Cambered_Barbell_Row_male_v2_3.png",
+      "candidateSha256": "de4bb5f0abccc183115810d801e28ff3557a1c2b62f4a6a16c645e3141caa087",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cambered_Barbell_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cambered_Barbell_Row_female_v2_0.png",
+      "sourceSha256": "21902a8d3382841759e29e83bba575c750f68609c29246aae1772dde6145880c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/168/Lying_Cambered_Barbell_Row_female_v2_0.png",
+      "candidateSha256": "1101237f1f78191f756bd04cdd0888bb40f4dbcc65a4fe7535ff28e7a5c00019",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cambered_Barbell_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cambered_Barbell_Row_female_v2_1.png",
+      "sourceSha256": "43dd5363ba19451b622e246f190eb46a0d0e47ccc4443f7368d4c6a966d7c247",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/168/Lying_Cambered_Barbell_Row_female_v2_1.png",
+      "candidateSha256": "3eeae9522bf7c97be38ca97ab0593acf3d9f23090bdc32c886811e9cc803740f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cambered_Barbell_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cambered_Barbell_Row_female_v2_2.png",
+      "sourceSha256": "fee6ccb857bda0d987a00da0820258d63ae57276f039ba5a8094006437539214",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/168/Lying_Cambered_Barbell_Row_female_v2_2.png",
+      "candidateSha256": "c1c9952d25809d22cbe228f35aba931399a4ea4ee2daffff4a826efcc381b548",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cambered_Barbell_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cambered_Barbell_Row_female_v2_3.png",
+      "sourceSha256": "b727a22679f6189297d8e58b5aa3e818ef1084c49e8054d141d16ddc1a1897ea",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/168/Lying_Cambered_Barbell_Row_female_v2_3.png",
+      "candidateSha256": "e32a5ed02bcf99c429735dd3da174487b56e6d7250a44bf669df46f018cede25",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

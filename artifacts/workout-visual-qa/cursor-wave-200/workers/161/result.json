@@ -1,0 +1,94 @@
+{
+  "exerciseId": "Low_Pulley_Row_To_Neck",
+  "shard": 17,
+  "index": 161,
+  "status": "ready_for_review",
+  "findings": [
+    "Script pale-neural-guard-v2 removed floor/matte islands on all eight frames.",
+    "Visual review on dark composites: seated cable row sequence intact. Minor pulley-edge speckles remain on frame 2 (male/female) but no blocking artifacts; GenerateImage not needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Low_Pulley_Row_To_Neck_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Pulley_Row_To_Neck_male_v2_0.png",
+      "sourceSha256": "b32c021b068d280852766d7b48e2045a6ccf46fc64284dc0d1862bea47a34753",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/161/Low_Pulley_Row_To_Neck_male_v2_0.png",
+      "candidateSha256": "882e6d2039ff427816fd21862f66558def4d47a2362e1d11d1aabc962c297627",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Low_Pulley_Row_To_Neck_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Pulley_Row_To_Neck_male_v2_1.png",
+      "sourceSha256": "9e629782702043a02bc0507ec9f94eba2c9df6ea30b6270d97a897ea8236e5b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/161/Low_Pulley_Row_To_Neck_male_v2_1.png",
+      "candidateSha256": "490de251d545f9d691e32bb0bc4e287f3a0e972b1d391af193d3e63b86eb50b4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Low_Pulley_Row_To_Neck_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Pulley_Row_To_Neck_male_v2_2.png",
+      "sourceSha256": "ed995b68bb7ed6dcf536567fc5c10fe13680e3bbf33253b682fc7cacba2e7998",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/161/Low_Pulley_Row_To_Neck_male_v2_2.png",
+      "candidateSha256": "215326e254b07394db20fa85bf6a717a15415639c4f4a3076ff48dce83ac9908",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Low_Pulley_Row_To_Neck_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Pulley_Row_To_Neck_male_v2_3.png",
+      "sourceSha256": "e275dbdce2ff4f2495991d67f94a2e307e9aa15cbab78302ea68ce9ff925b80a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/161/Low_Pulley_Row_To_Neck_male_v2_3.png",
+      "candidateSha256": "071036fbfd4eb5aed3c36be4b102459783b113b86b50f6fa48c03b6b2cb8ef92",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Low_Pulley_Row_To_Neck_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Pulley_Row_To_Neck_female_v2_0.png",
+      "sourceSha256": "a008fb0c7dc093e6f06a10df8e5d1591c6b515fdc4f3738e1a62828aa912a547",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/161/Low_Pulley_Row_To_Neck_female_v2_0.png",
+      "candidateSha256": "a88872ac69f8dde562aca9bb2eb37c8abd5dc584de0c15889fe4dc40dfe5fa35",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Low_Pulley_Row_To_Neck_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Pulley_Row_To_Neck_female_v2_1.png",
+      "sourceSha256": "069166a0cf8575b17f57c89a56602ab49c53ce6a73568ab0a9a106b2fd3b148a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/161/Low_Pulley_Row_To_Neck_female_v2_1.png",
+      "candidateSha256": "1627bb66789e5b96c62f6440daf82c29ca114a1534999ecbc131fb978f56e96d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Low_Pulley_Row_To_Neck_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Pulley_Row_To_Neck_female_v2_2.png",
+      "sourceSha256": "79b848e7b2e0a176d8ef206e254057721d3a2159e7ca37d6c317556d278b6dc6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/161/Low_Pulley_Row_To_Neck_female_v2_2.png",
+      "candidateSha256": "e2d240b5689fdea0c1a9cc9aa6f68092f249260bbcce132e8f7938ac639f9b93",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Low_Pulley_Row_To_Neck_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Pulley_Row_To_Neck_female_v2_3.png",
+      "sourceSha256": "06157b8d5c2fbaf08d8d227a8fcba384ad86245a385ee74efe8828649fef8385",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/161/Low_Pulley_Row_To_Neck_female_v2_3.png",
+      "candidateSha256": "2e1de4bdba417bf3d070f6114b9bbfe9592f2abb701fd76e562fed3138ff927e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

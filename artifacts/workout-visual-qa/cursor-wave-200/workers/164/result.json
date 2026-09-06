@@ -1,0 +1,94 @@
+{
+  "exerciseId": "Lunge_Pass_Through",
+  "shard": 17,
+  "index": 164,
+  "status": "ready_for_review",
+  "findings": [
+    "Script removed floor/matte specks on kettlebell lunge pass-through frames.",
+    "Visual review: figure-eight sequence clean; GenerateImage not needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lunge_Pass_Through_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Pass_Through_male_v2_0.png",
+      "sourceSha256": "6ddb51d42035afb58e2ad670556c009111480c86569cae8710281c4e75590a6d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/164/Lunge_Pass_Through_male_v2_0.png",
+      "candidateSha256": "3c410b2f2ee1883ad7e948351ea99067925e6a47d3de3f464a81f07eb9b5afb5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Pass_Through_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Pass_Through_male_v2_1.png",
+      "sourceSha256": "10a9ce1862bea19fb9d15c2064f1c888aafc072bbc130d0b4677ea712b307301",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/164/Lunge_Pass_Through_male_v2_1.png",
+      "candidateSha256": "f9b43dc5f0be86fe0519fd46116bed1cbea78d2d159c3d496f7b8c7e8c4cbe63",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Pass_Through_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Pass_Through_male_v2_2.png",
+      "sourceSha256": "678b1fc54ce57e667af277d8c2b676a4847dc96a5a9be17f1ceb1812f3ac3096",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/164/Lunge_Pass_Through_male_v2_2.png",
+      "candidateSha256": "1c4ca5ffd39c75cc48e6e5640389f9e987b330ac1c511b1eda5b47f82b3afe8a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Pass_Through_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Pass_Through_male_v2_3.png",
+      "sourceSha256": "8474519b465f21adf804aa25e124d9971db146618e15e7b44b7ea275b6ab80b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/164/Lunge_Pass_Through_male_v2_3.png",
+      "candidateSha256": "e5396c88e30b5f3d05a9348fd0fbd8643d730742447c65b687807eef90849779",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Pass_Through_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Pass_Through_female_v2_0.png",
+      "sourceSha256": "dc23a74c9b40c5cd86b296ef56b4acac675a3296d035c617c7459056ca692a6e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/164/Lunge_Pass_Through_female_v2_0.png",
+      "candidateSha256": "4c8ab6adc62287ab7ef26140d6818ef718e6cd4b251d2a7b0bf7415c1dda06c7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Pass_Through_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Pass_Through_female_v2_1.png",
+      "sourceSha256": "42509fc8af2ebe09c25e078d3bd274baf510b14200093e9ad5cdaa5472549cf7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/164/Lunge_Pass_Through_female_v2_1.png",
+      "candidateSha256": "1e6be514f3cb424ec7a52e27ac8d23e0e1869e9fdf2bd2cd1e58ef2fb3bd5b42",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Pass_Through_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Pass_Through_female_v2_2.png",
+      "sourceSha256": "450521b3b6706fdb624c5af5992909c2177200a21bc3ea759c3b2b4d2ea7a6c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/164/Lunge_Pass_Through_female_v2_2.png",
+      "candidateSha256": "1abf9e74e9e49250498b0df737cc1c128db3fbbdb61bcc9295db471bdeb9485a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Pass_Through_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Pass_Through_female_v2_3.png",
+      "sourceSha256": "0546bab46b44e9822367f8adf900493bffe9ece382ad1c980c4deddcca61515e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/164/Lunge_Pass_Through_female_v2_3.png",
+      "candidateSha256": "8cb40cfc51dcca403f5998415cc3f7af108923cc8ed457831490ad2bb5df385b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Ankle_On_The_Knee",
+  "shard": 10,
+  "index": 99,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Ankle_On_The_Knee_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ankle_On_The_Knee_male_v2_0.png",
+      "sourceSha256": "6c3156777f926b8c342be1390aa5a97e000bc66db586396e7ef93a450ac50bc5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/099/Ankle_On_The_Knee_male_v2_0.png",
+      "candidateSha256": "220a0554a093a6646d4c249156233c949853df8f524806f5a46ef2baf21a38d9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ankle_On_The_Knee_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ankle_On_The_Knee_male_v2_1.png",
+      "sourceSha256": "cfac5a299a1c24ded87a861a85af90f974f1fafc49b6adcd214bb1e2954406fb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/099/Ankle_On_The_Knee_male_v2_1.png",
+      "candidateSha256": "e30e9c5599ff125b9ab15bfbfe03aac32d0d73f7412f3c787b32b4133be1ae3e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ankle_On_The_Knee_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ankle_On_The_Knee_male_v2_2.png",
+      "sourceSha256": "90e77a7e0e5c27f54a48774ab61be9a27b09148b8b14117543171ecfc7df9686",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/099/Ankle_On_The_Knee_male_v2_2.png",
+      "candidateSha256": "6b5433c39929a692861c7e04f8d66ee346e138f982e19178fa218183fd1ab99b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ankle_On_The_Knee_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ankle_On_The_Knee_male_v2_3.png",
+      "sourceSha256": "439ddf2d4bc9f8fb3e419c56778cbd1ae50368c90f51340f47850c3c3f581517",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/099/Ankle_On_The_Knee_male_v2_3.png",
+      "candidateSha256": "b3c78211ee9585080d4af808b3276a4a02082db785e37c39956d6f059e0aa9af",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ankle_On_The_Knee_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ankle_On_The_Knee_female_v2_0.png",
+      "sourceSha256": "a4474bdac31c442fe05cd0f172d751e51f5fcb29e52020867cdcc9dc1d6492af",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/099/Ankle_On_The_Knee_female_v2_0.png",
+      "candidateSha256": "2914c7df441f656828d083aa089618b1bc93ebe871f1dfa37384d76213dc9f44",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ankle_On_The_Knee_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ankle_On_The_Knee_female_v2_1.png",
+      "sourceSha256": "4a6685776c644d45f10bdbf43daa87e4d79f3b82eea0cdbd9a63946ec243dd2d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/099/Ankle_On_The_Knee_female_v2_1.png",
+      "candidateSha256": "090f89cecceb07cf73dc241eecfbf25fcb69fdd68c386616b11e07fa598d04f8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ankle_On_The_Knee_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ankle_On_The_Knee_female_v2_2.png",
+      "sourceSha256": "63325ad74a78771382998e23614cde7dc947bed4b455c1e84e7a76b7e62b79ab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/099/Ankle_On_The_Knee_female_v2_2.png",
+      "candidateSha256": "6769ce01aa802324ab6bec00f40c848d6daf40f415c8dc9cb1d6e51e783f94cf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ankle_On_The_Knee_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ankle_On_The_Knee_female_v2_3.png",
+      "sourceSha256": "c5538415b0eff45f4fe7c38e6adbc8858ffba89265f681e46a0d5b48242ffb71",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/099/Ankle_On_The_Knee_female_v2_3.png",
+      "candidateSha256": "167e7f06ca3e4f76b5d89bace8a58dba37d64996c79c772eedc1e3bb58a8cdb4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Adductor",
+  "shard": 10,
+  "index": 92,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Adductor_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Adductor_male_v2_0.png",
+      "sourceSha256": "27c68793ec4de4b863c0183660e6ae99355a6c94912d64e3f5f09b22b2734ec6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/092/Adductor_male_v2_0.png",
+      "candidateSha256": "3289f875522e640aca002d0743f75f79b245ebcb39c6176b33f240e56f736cf6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Adductor_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Adductor_male_v2_1.png",
+      "sourceSha256": "6eda1084531f595064ba804f2dd0ac9f80f49d1d0d73766808ee788c87d73c40",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/092/Adductor_male_v2_1.png",
+      "candidateSha256": "1d8639f2b9277834eb2621d77638a47a11a81a24a980ce1693af3ba3766200b2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Adductor_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Adductor_male_v2_2.png",
+      "sourceSha256": "8fe990538034782cca3d0b2743d533bfdf8b3249bff5b8a326b2ce1d8c2d0785",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/092/Adductor_male_v2_2.png",
+      "candidateSha256": "0ef2eb0d10c288e8bae195ad94864c0f7d2de9fd5d3d5b21d5b385727188a48b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Adductor_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Adductor_male_v2_3.png",
+      "sourceSha256": "0a3f35fa88a486a98d14a0a9b03fce03c5f000119eb4fea4d2f4a2dd35ffadcb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/092/Adductor_male_v2_3.png",
+      "candidateSha256": "dad69f0f15559b484631544bbca867acd785529117626dc8eb04d17e44f00c4a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Adductor_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Adductor_female_v2_0.png",
+      "sourceSha256": "2ad1ec9ef2f75a8005d14da5c962bc6b582d9029d8bbe57b4608402ed6a2a3b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/092/Adductor_female_v2_0.png",
+      "candidateSha256": "292aac81e3a90eb6657bbafa5b0e3494460440753c55e61ac8306a0f3c2c5cb5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Adductor_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Adductor_female_v2_1.png",
+      "sourceSha256": "275f6c762215cb9f00dbb4f17d4343160efd03c2cafd0ec09cee46df0d176d30",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/092/Adductor_female_v2_1.png",
+      "candidateSha256": "084c2939d7cb44f8b886556af1cfebcdaf84d28c967d217f69ea805cedba761b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Adductor_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Adductor_female_v2_2.png",
+      "sourceSha256": "9011a033157d7f768add6090d401fc1c61473d38cba9d357542ae07af1923b78",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/092/Adductor_female_v2_2.png",
+      "candidateSha256": "008752f58679fa6abcc914fe6ead10befcc328b58ae089d27e17601a3794cbde",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Adductor_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Adductor_female_v2_3.png",
+      "sourceSha256": "d89a5e87bb2116d3042cbe66aaa365d76c511d8e3b6a3271bad0b1f492416414",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/092/Adductor_female_v2_3.png",
+      "candidateSha256": "9a949e5dc09aebf8d703b23c737dc78f13e4d33d09680a4cfd13be331dac9ac8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

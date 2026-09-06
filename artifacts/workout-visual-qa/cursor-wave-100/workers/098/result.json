@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Alternating_Renegade_Row",
+  "shard": 10,
+  "index": 98,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Alternating_Renegade_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Renegade_Row_male_v2_0.png",
+      "sourceSha256": "c03ecac67cbc89bbfc64b64078c8cc59a2fa3f4c3668afd2695836f937354ccd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_male_v2_0.png",
+      "candidateSha256": "dccde63e3fb12ba50e7e78337cc1f99e6f685fb2ab492ce2d4e58aabcdb497f3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Renegade_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Renegade_Row_male_v2_1.png",
+      "sourceSha256": "f06e23ded8d536092893d744ba86f1c3b4959da6798d6cd0c29fbed07362b85f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_male_v2_1.png",
+      "candidateSha256": "ac1328e20308aad9a80aae708cdb018a58df380a1704313a47d082ced02d3bbc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Renegade_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Renegade_Row_male_v2_2.png",
+      "sourceSha256": "4db324ab3bac42ab3eb2cf8be92e13b38baa27fa91d6609b134b7dca778a4608",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_male_v2_2.png",
+      "candidateSha256": "0e6b947b8864b1653ee7120d693bf1f61b25a168e7e3231dbbcf074bc1ae0521",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Renegade_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Renegade_Row_male_v2_3.png",
+      "sourceSha256": "7c7c157f973df1de7b265bedcc2fc66a96f424b88c690bac11f4600187e75535",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_male_v2_3.png",
+      "candidateSha256": "b8777714a33193d8a1aa470db8938a0b89158af8cefaef67cbdbb1d554e8724d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Renegade_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Renegade_Row_female_v2_0.png",
+      "sourceSha256": "9b97a73c451630d2712a51dcf7d9120609d48c99623a60688389f291c95fc652",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_female_v2_0.png",
+      "candidateSha256": "5c98a9240570d386064aa37075842e78cd7a70143b77759ee334b267e41738ab",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Renegade_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Renegade_Row_female_v2_1.png",
+      "sourceSha256": "5d9d25f679935eb1c643dc8a723aaca3898a448de16c72fba1c400635269c292",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_female_v2_1.png",
+      "candidateSha256": "e5353fc6e2e5e82df2fdcd72a88e2ab9f1e2735df34df1cc54e076ce4d355d5e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Renegade_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Renegade_Row_female_v2_2.png",
+      "sourceSha256": "88eb10ed82f8996efeddc752dcbfc43342263538a6ee8f525a1f6e24981d33f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_female_v2_2.png",
+      "candidateSha256": "6af71123880a581456ea2d61ed14480957723fbf74060ae8598bb6fcc04a3804",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Renegade_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Renegade_Row_female_v2_3.png",
+      "sourceSha256": "0d0ca00c565196b987f8e472ed743dc72a2fd5561c1c9a806e3640d8dc8b366c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/098/Alternating_Renegade_Row_female_v2_3.png",
+      "candidateSha256": "dc859c3d7cd304bbe77b3b25b4d62bdad46515ab1b472f92ed15ad3e813438ed",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

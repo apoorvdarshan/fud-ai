@@ -1,0 +1,85 @@
+{
+  "exerciseId": "EZ-Bar_Curl",
+  "shard": 3,
+  "index": 27,
+  "status": "ready_for_review",
+  "findings": [
+    "The male sequence has limited horizontal drift of the planted shoes and body between phases, most evident from frame 1 to frame 2. Height and floor level remain broadly consistent; the small lateral shifts are separate from the intended elbow/bar motion and may cause mild animation jitter.",
+    "The female sequence has limited horizontal drift of the planted shoes and body between phases, most evident from frame 1 to frame 2. Height and floor level remain broadly consistent; the small lateral shifts are separate from the intended elbow/bar motion and may cause mild animation jitter."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "EZ-Bar_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Curl_male_v2_0.png",
+      "sourceSha256": "41ae5435963130da27b52ee534bbe6f2040ec43c6ce6a420f58461931cb6d60c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/027/EZ-Bar_Curl_male_v2_0.png",
+      "candidateSha256": "21b9ed306a3e5f5f644e5a65b01f26706c2237ad51389573f0fb9895ba19e05e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "EZ-Bar_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Curl_male_v2_1.png",
+      "sourceSha256": "685fb53f99cb364a359eb686344e50a122610d84d03862f164375e3c7f616089",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/027/EZ-Bar_Curl_male_v2_1.png",
+      "candidateSha256": "3a8b4d063370816b396155fe9beeeca1de20f8fb3225d7331e3ffcdc9532fb40",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "EZ-Bar_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Curl_male_v2_2.png",
+      "sourceSha256": "9b88004c49a1641b388ae1a196e7d297138e7d0583593de30ee6c250b12a170b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/027/EZ-Bar_Curl_male_v2_2.png",
+      "candidateSha256": "f2deb84e8f53aae9d6b64d11200c29a98566c0b408af1e82d80cde921e8835cd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "EZ-Bar_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Curl_male_v2_3.png",
+      "sourceSha256": "55bb9f57eef2e74535affb212f9839f6f4a04da36d2cc03e7f2e3208419af184",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/027/EZ-Bar_Curl_male_v2_3.png",
+      "candidateSha256": "d9ac46639641cb9add30925c7908acb801d6743b12114a0b6cc322609629cb06",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "EZ-Bar_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Curl_female_v2_0.png",
+      "sourceSha256": "f8df25d5e09b2081737168a38901f31f3d76764dd789862641482f5e5fb59329",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/027/EZ-Bar_Curl_female_v2_0.png",
+      "candidateSha256": "ef626a36d99dd40be0ddd282ab42140018edcb74fdbc3776b52a173518b39459",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "EZ-Bar_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Curl_female_v2_1.png",
+      "sourceSha256": "bb4a5708068ea8b666f02c8ce25439b431e9e418c716d63e27a33c765291f0e0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/027/EZ-Bar_Curl_female_v2_1.png",
+      "candidateSha256": "840a100e633dc6c1462007beba7c93ebc96562d1c2ef6c83928b952ec9ae046b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "EZ-Bar_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Curl_female_v2_2.png",
+      "sourceSha256": "b620096f753c4b5fd4fa8201b5222b518f1a2bd3b8d078ef6c16804d56eeae55",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/027/EZ-Bar_Curl_female_v2_2.png",
+      "candidateSha256": "7f3129937df7f3a08ccd7132505dc2f436604fd3275861277fe1d7fa0e72dcea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "EZ-Bar_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Curl_female_v2_3.png",
+      "sourceSha256": "a0872d2a42643e48c1e407a605b54a3488f1b5cee0319ca35d148c6e9d913bd1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/027/EZ-Bar_Curl_female_v2_3.png",
+      "candidateSha256": "59eed40d9ce74a2f1ecf2883551e7ded26f7a01bdbc3c132d177dc9abfbbac0c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

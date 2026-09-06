@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Fast_Skipping",
+  "shard": 3,
+  "index": 28,
+  "status": "ready_for_review",
+  "findings": [
+    "Thin pale, intermittently dashed fringe follows the athlete outline and rope on the dark background. Most evident around hair, shoes and rope loop; illustrations remain usable and light-background display largely conceals it.",
+    "Male frame 3 is slightly smaller overall than the preceding frames, with a lower head and shorter torso/figure. The change exceeds the local leg movement but is limited, not a major animation mismatch."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Fast_Skipping_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Fast_Skipping_male_v2_0.png",
+      "sourceSha256": "d198ee9977ad741d6181110d2b4147b04be3a7178b3eeec7f2201f355870f6b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/028/Fast_Skipping_male_v2_0.png",
+      "candidateSha256": "25253f513a6c5ece8a45c6232ace7caf5b260cc17de1a38a5fcee6b81496c5a2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Fast_Skipping_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Fast_Skipping_male_v2_1.png",
+      "sourceSha256": "9e3df3d5819ef98bf3d383f4636be74741be3f21bfa827a98c206cde9c9a8750",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/028/Fast_Skipping_male_v2_1.png",
+      "candidateSha256": "f1ab038a297a33d0fa42ab012604f222c836b51a650db84667e64062d4c7e53d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Fast_Skipping_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Fast_Skipping_male_v2_2.png",
+      "sourceSha256": "650935c4392b913f21f1c0dfc04b8ee936c2ce999abcab9d6dfa960d2ba929af",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/028/Fast_Skipping_male_v2_2.png",
+      "candidateSha256": "742e3c2b4b10d36842e543e4c2ecaeac0e6a43917d7c1f4ac2f68069914c9d42",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Fast_Skipping_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Fast_Skipping_male_v2_3.png",
+      "sourceSha256": "5c3d474aa2b2941d52adcef0ad5394dcecf068f6907754283002f6e9b55057f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/028/Fast_Skipping_male_v2_3.png",
+      "candidateSha256": "8e3bb13399ccc2d54feb4e9872ac18b8bb125df803e882aae76868f73cf08bd0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Fast_Skipping_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Fast_Skipping_female_v2_0.png",
+      "sourceSha256": "d616c0808d791eac1af8a4eca8d55cc691fc2900122f664efde85a5d5eb0fcca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/028/Fast_Skipping_female_v2_0.png",
+      "candidateSha256": "bf382facf11cae72862cd2f0b89c7fa71d79c7375d2bf13672889016f50f8d85",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Fast_Skipping_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Fast_Skipping_female_v2_1.png",
+      "sourceSha256": "02fc0d276314897ca40655762c56ead13ff0959f0231891a7089add30018cb28",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/028/Fast_Skipping_female_v2_1.png",
+      "candidateSha256": "0d222146875236513905f3044ed50d7d3ae9bd301f6afce38430be4bd4bcaf6a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Fast_Skipping_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Fast_Skipping_female_v2_2.png",
+      "sourceSha256": "7a94a5c9dfa90aa51a776fe5850481bdd735b378df46676ca18d7bd50313be63",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/028/Fast_Skipping_female_v2_2.png",
+      "candidateSha256": "0d666306dc4aec2d255072cf93ed9cccbb94dd7d74b943deb96a3118263da956",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Fast_Skipping_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Fast_Skipping_female_v2_3.png",
+      "sourceSha256": "c39b9c1051d567b245737e0639c4aa6029795ff775f111ce8a7f9d502e7a65b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/028/Fast_Skipping_female_v2_3.png",
+      "candidateSha256": "a2b3ea75c677e346b42b71cc4ce4dac8141684071b333ea941a402286bfcfb51",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

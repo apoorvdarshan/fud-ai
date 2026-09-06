@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Dumbbell_Squat",
+  "shard": 3,
+  "index": 22,
+  "status": "ready_for_review",
+  "findings": [
+    "Irregular pale gray/white residue extends beyond the shoe soles into the surrounding transparent floor area; thin intermittent light fringes also trace parts of the figure/equipment outlines. Visible on dark backgrounds, limited in area, with the illustrations otherwise usable."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dumbbell_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Squat_male_v2_0.png",
+      "sourceSha256": "ad30cb5e485e50b6c7d74610879afaede37020a549c0b749f7f7c53a5426496a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/022/Dumbbell_Squat_male_v2_0.png",
+      "candidateSha256": "5c00782bdf3f434f1f45da1377c07081e514c598f0e7bed24813bfc073d54c39",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Squat_male_v2_1.png",
+      "sourceSha256": "55d94f719e86028720f9b75afbd9bb5652fce841168ad5942ce520b4ef7a15bf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/022/Dumbbell_Squat_male_v2_1.png",
+      "candidateSha256": "8a46d5a0de102efaa959763155162372b1fb52f952f37e77c57a8d0fd7d297c3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Squat_male_v2_2.png",
+      "sourceSha256": "3cd623dd69a7a39b71b6f11fd516b70f0e48895efd1864baa8dd0605ee38b4ce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/022/Dumbbell_Squat_male_v2_2.png",
+      "candidateSha256": "aa16eb1a0fc7531120e1ba11e342da90ff5275eed579f01bc2b781fdb8d4d874",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Squat_male_v2_3.png",
+      "sourceSha256": "74ed8368ce829da7a476115c52ebd1d9b9a8f8b7e1bae475b8c74feac9ed7c5b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/022/Dumbbell_Squat_male_v2_3.png",
+      "candidateSha256": "9ef340ee11b78b4f2c9b2d900d9c3eaa64605c43a759702f73748bb1b07f72d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Squat_female_v2_0.png",
+      "sourceSha256": "3e71a20c455286f6909625cfbdc349ce9392c9b40dd5e034f92e116ab888746a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/022/Dumbbell_Squat_female_v2_0.png",
+      "candidateSha256": "420a927ecf817579829e63664a67c9fa8d257ad59ad0aba1907a6b58f38e1765",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Squat_female_v2_1.png",
+      "sourceSha256": "de83581d71acea138c9be21960537a57c94ef1032590b335b9b47c7c85920a8e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/022/Dumbbell_Squat_female_v2_1.png",
+      "candidateSha256": "28bb62cdfa848881ab3394b80758eb9691fae226d582a408b3913b9575bdcacc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Squat_female_v2_2.png",
+      "sourceSha256": "9a9ca6232d8a894c4d0b374bc025d6d4aa207185d6479915aa33652d55aa78e3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/022/Dumbbell_Squat_female_v2_2.png",
+      "candidateSha256": "5dec78feee390dcd9f2cecc87811bf65e8e2a82d153f30ce48267583a13f890a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Squat_female_v2_3.png",
+      "sourceSha256": "b0ba6ec3713d103f4d25dc3624be42fd39940874cfeb74231c3a12a270e71a34",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/022/Dumbbell_Squat_female_v2_3.png",
+      "candidateSha256": "1590067e1a95d0066258be859647a5b5922e2808c01517e5eff6ebeb95f23667",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

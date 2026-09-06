@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Elliptical_Trainer",
+  "shard": 3,
+  "index": 26,
+  "status": "ready_for_review",
+  "findings": [
+    "A narrow pale/gray fringe traces portions of the athlete and equipment contours on the dark previews, especially hair, arms and machine edges. It is small and does not obscure the illustration. No substantial enclosed checkerboard or white background residue was observed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Elliptical_Trainer_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elliptical_Trainer_male_v2_0.png",
+      "sourceSha256": "1986b3ad1f5defee30a1789c0cf847837012e3b208062da68f37a3d9ddb55fe4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/026/Elliptical_Trainer_male_v2_0.png",
+      "candidateSha256": "887e8defcfedefea78127920891562d20d77775b6365e83517c177b668369cbc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elliptical_Trainer_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elliptical_Trainer_male_v2_1.png",
+      "sourceSha256": "92390919ec8c25e1842a3bed1a50370134fce66f596c79e79a5516a160b4e8fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/026/Elliptical_Trainer_male_v2_1.png",
+      "candidateSha256": "5256c774fabad013cfc33bce6fc575e43219a40af04741a1fb263b18f84a5f7f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elliptical_Trainer_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elliptical_Trainer_male_v2_2.png",
+      "sourceSha256": "7fa4c817d658cbeefa75549449921980c56d734811a583af154953d587f39567",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/026/Elliptical_Trainer_male_v2_2.png",
+      "candidateSha256": "d8be420eac63b3bc4974e8250d71ba7187b148355bcbd8ffd7ffbb1fa3c8e982",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elliptical_Trainer_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elliptical_Trainer_male_v2_3.png",
+      "sourceSha256": "43736cb1f42b94e0f599383df9d5a2983ad5273264c82e70f61083bcd5768932",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/026/Elliptical_Trainer_male_v2_3.png",
+      "candidateSha256": "e58e782fdf296f5b01661638b94580001ad0f0cecf625047d31c5875983ce2d5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elliptical_Trainer_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elliptical_Trainer_female_v2_0.png",
+      "sourceSha256": "a99f33ac7f4e3e2d82805d821b849d60316e75defe4716a5112539d0d73c5fe7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/026/Elliptical_Trainer_female_v2_0.png",
+      "candidateSha256": "2ba5c17ccdb8306ebd7882f43ec5a65d4e768d2f245c0e6630db119bfeb5f0a9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elliptical_Trainer_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elliptical_Trainer_female_v2_1.png",
+      "sourceSha256": "db727b9cac0224642ac2ce5744d4223c7a421e2010b931b55c144b98e48b54c6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/026/Elliptical_Trainer_female_v2_1.png",
+      "candidateSha256": "7423b3c01b1c82528f43b398dfe4c038c20f655cfcf38530dbc7925189284e9b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elliptical_Trainer_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elliptical_Trainer_female_v2_2.png",
+      "sourceSha256": "ea1dfd6256c72a37d37c8e0b63f3514cd0b1768edff1db1ed25fc0b2d0919379",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/026/Elliptical_Trainer_female_v2_2.png",
+      "candidateSha256": "e92e270898a9255628e8ab47038c05b550cccbc919ec37bd1517147483fd5188",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elliptical_Trainer_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elliptical_Trainer_female_v2_3.png",
+      "sourceSha256": "b4922c5f7d319007a945dd06a23293e34ff4930e3693c83ff9bca2baceabaef6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/026/Elliptical_Trainer_female_v2_3.png",
+      "candidateSha256": "16f268f68b3bbfe701bcd419eadb2d835899edbce7c6f07bb962337cc1df883b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Foot-SMR",
+  "shard": 3,
+  "index": 29,
+  "status": "ready_for_review",
+  "findings": [
+    "A thin flat gray/tan ground strip remains beneath the massage ball, visible on both backgrounds and absent from the other frames.",
+    "Female frame 0 has a cropped top and exposed waist; frames 1\u20133 show a longer top covering the waist. This creates a visible clothing change during playback.",
+    "Supporting hand, torso and bent-leg positions vary modestly between frames, with some changes in body proportions and massage-ball size. These exceed just the intended ankle/foot roll but remain limited; the exercise is readable throughout."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Foot-SMR_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Foot-SMR_male_v2_0.png",
+      "sourceSha256": "8a9ea3c3e50f2473feae4b4e5be86ce7fc06e732759609b45f7d2e30584658de",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/029/Foot-SMR_male_v2_0.png",
+      "candidateSha256": "9ba20a80c30d40aedaf739e4e5da6589eb7b4942d7305049a9ec48944b79743d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Foot-SMR_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Foot-SMR_male_v2_1.png",
+      "sourceSha256": "7084fdbc64ce7664d8ad1c4ba08b063025a17660527d0402eda7054ba7286b4c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/029/Foot-SMR_male_v2_1.png",
+      "candidateSha256": "8ab27b4143d7cb88e818ca412fc4e4154aad9e44f52f05b670cbea5eec1ffbc1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Foot-SMR_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Foot-SMR_male_v2_2.png",
+      "sourceSha256": "c4e98c38b16be5294e897afa33d46be4023c5afa9fa19020872fed10c8ae76cf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/029/Foot-SMR_male_v2_2.png",
+      "candidateSha256": "47befa88eb5b912568b88d6b691751fa5292c062d98d1fd7169952ac32bb3f9e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Foot-SMR_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Foot-SMR_male_v2_3.png",
+      "sourceSha256": "b97ade1b645158e845e4976e7a736da3c0b13e59623ab86505af140440daeccb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/029/Foot-SMR_male_v2_3.png",
+      "candidateSha256": "247c486f81ac583971fb67ea95ea749dd965cd144040dd42fc90a7480d91a0bb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Foot-SMR_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Foot-SMR_female_v2_0.png",
+      "sourceSha256": "8883e2076ee116c3177db1a48c22f08334d586113d81bb7adc37885f5662149c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/029/Foot-SMR_female_v2_0.png",
+      "candidateSha256": "6949de435055c4f51e6ce4e7213856117161d8deb32c5514bd2b0c9b12c27208",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Foot-SMR_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Foot-SMR_female_v2_1.png",
+      "sourceSha256": "9d00ae9677356ba42602b417461c37f87095c52eda7e702fc6019dadf63607ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/029/Foot-SMR_female_v2_1.png",
+      "candidateSha256": "527da4246441eb7ca79eef8e8d029f1143a75298e59d305ef06bbae5502ce78d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Foot-SMR_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Foot-SMR_female_v2_2.png",
+      "sourceSha256": "c8b5db6fba5d3ea91d08f9ea54c308bf6c36cf31034a25b8582a9fa3ad5433c8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/029/Foot-SMR_female_v2_2.png",
+      "candidateSha256": "cb8340b8dd8d9ef7b722978b98e928234de00b6984f92badf9075fc933151edf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Foot-SMR_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Foot-SMR_female_v2_3.png",
+      "sourceSha256": "3eaa70716c271f60556d1d7cf7b343eace04f00145120accbadf4334bfb521ff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/029/Foot-SMR_female_v2_3.png",
+      "candidateSha256": "4454e6ac7dfe13b2b5b9c032b59907108f40fa97a2ad925915ed0a27504a2471",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

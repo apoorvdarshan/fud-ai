@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Dumbbell_Side_Bend",
+  "shard": 3,
+  "index": 21,
+  "status": "ready_for_review",
+  "findings": [
+    "Irregular pale gray/white patches extend beyond the shoe soles, especially at heels and along the ground edge, visibly separate from the intended sole contour on dark backgrounds. Thin intermittent pale edge speckling also occurs along skin/clothing and female hair contours. These are limited artifacts; figures remain usable."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dumbbell_Side_Bend_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_male_v2_0.png",
+      "sourceSha256": "c60f90224b0c9b0d0ccb83ef3145a7beb3dc3d36f5befc3ce137c2180c054c5f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/021/Dumbbell_Side_Bend_male_v2_0.png",
+      "candidateSha256": "d7e623607485c03dc090886b9f636d1d2df183749885c99b5839d898cc9017a0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Side_Bend_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_male_v2_1.png",
+      "sourceSha256": "aa899eb8b931a5435a2776985e0b18e6bbed7da56588afc05cfdc5d88b8049f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/021/Dumbbell_Side_Bend_male_v2_1.png",
+      "candidateSha256": "783b2744ef413aa52d8639ec5fb900f33d50315c1b4ebcca2ad8cd6de7b06eb9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Side_Bend_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_male_v2_2.png",
+      "sourceSha256": "1e033aaa44f0d863e5533c9013fe2f91cdd944cae09ca278f119e0eeca0c788a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/021/Dumbbell_Side_Bend_male_v2_2.png",
+      "candidateSha256": "3a8f782f65e75e14aaf154a8b84441df0061ec88a9180f659047ea2fa2f90d6c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Side_Bend_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_male_v2_3.png",
+      "sourceSha256": "88f397bc50af17c49b337d6da7ff7301cf3e54dcf726b2ed7b55d76753eb5cb1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/021/Dumbbell_Side_Bend_male_v2_3.png",
+      "candidateSha256": "d813f37f1ff8e8e552a1e7151eb843bf00d70a47054f578372888a3405c8d302",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Side_Bend_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_female_v2_0.png",
+      "sourceSha256": "5fcd0b677217369a31a1200ca9dddf6582ff1dff7bbf6e0e272a57e15d2dd990",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/021/Dumbbell_Side_Bend_female_v2_0.png",
+      "candidateSha256": "0d48200024018a8a94aa8d143ff0b8bf1d8cf27bd5e5eed44747562940172f2c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Side_Bend_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_female_v2_1.png",
+      "sourceSha256": "c178b6a7df7f701922aef247deaa4bdf781a7de2e119161e7f062fde5bc276b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/021/Dumbbell_Side_Bend_female_v2_1.png",
+      "candidateSha256": "d64576ff15a8c63ee11bcece0308c64de7f6a7b278f0c231075eddd9a010f65e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Side_Bend_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_female_v2_2.png",
+      "sourceSha256": "4d6afb847997bcf8e143ee446ab31ef2511d53a405a0b5d4328e8bb037dd4d27",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/021/Dumbbell_Side_Bend_female_v2_2.png",
+      "candidateSha256": "f79453efe179390bea1276cb0ff4b93d014f1050a4204f1280a90ed02922331b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Dumbbell_Side_Bend_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Side_Bend_female_v2_3.png",
+      "sourceSha256": "94b53d677a69f958cd60fe3d1c038f6c0d60dfb1cf9ea7c49c8f0154c4596e4f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/021/Dumbbell_Side_Bend_female_v2_3.png",
+      "candidateSha256": "bf5e098c4237fad314455616fc5293435484d53441eddca3dd51809a44b9ede0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

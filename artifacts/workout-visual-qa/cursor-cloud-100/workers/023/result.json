@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Elbow_Circles",
+  "shard": 3,
+  "index": 23,
+  "status": "ready_for_review",
+  "findings": [
+    "Both sequences show limited sideways drift of the planted shoes/lower body, most evident comparing frame 0 with frame 2 and the return frame. This is separate from the intended elbow motion. Scale remains broadly consistent; the shift is small and does not make the exercise unusable."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Elbow_Circles_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_Circles_male_v2_0.png",
+      "sourceSha256": "cdc93a65d535781bd18f62c4ab64243cd7953511842630c70709e767dc81be1d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/023/Elbow_Circles_male_v2_0.png",
+      "candidateSha256": "ee7f2623844f01ff92128fd61ea1e408ace744a25d080c8e619f03e5230782a0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_Circles_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_Circles_male_v2_1.png",
+      "sourceSha256": "85025b7c8b50cf8d672ac6345cad518cdd8787d86fb095399f4b0a442ab6b8ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/023/Elbow_Circles_male_v2_1.png",
+      "candidateSha256": "5bed1137b341d22969788b2d8a4e18cb63bbcf90e729eeed0d3cec0ab73a4024",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_Circles_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_Circles_male_v2_2.png",
+      "sourceSha256": "e51b1653dde29d57146b0f2e795d3cdf1f9387b0af9087ebaf71340f0543de6f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/023/Elbow_Circles_male_v2_2.png",
+      "candidateSha256": "2959cc55ab253c1aacc8627333bd827a14d7b32f551c0928b6bb05e7d7a632f9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_Circles_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_Circles_male_v2_3.png",
+      "sourceSha256": "ff1db8f1028203a2b0cd73050b0ad2891b1e0fc09fc67a3d97cda0eebdb71e54",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/023/Elbow_Circles_male_v2_3.png",
+      "candidateSha256": "2f248d83270132e3e772375b7814be8846cca18aa3ee1cdb2358383522d44e37",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_Circles_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_Circles_female_v2_0.png",
+      "sourceSha256": "0f1ec067467d147c5ae4ecf103ba16201e790e5b9e78a3ea975a0936abfdf492",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/023/Elbow_Circles_female_v2_0.png",
+      "candidateSha256": "480c2f35fb190350bf170652d131e28b6a8662d570d56295a9189aae523460d8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_Circles_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_Circles_female_v2_1.png",
+      "sourceSha256": "40ca8c1ec9e01d3c263db46197f8f9dfe399b13c272ced44ef13cdb7b6a19021",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/023/Elbow_Circles_female_v2_1.png",
+      "candidateSha256": "66006234a49f7c020ad191a4c94d1582002bc6ecc1165e1a24e787594255c478",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_Circles_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_Circles_female_v2_2.png",
+      "sourceSha256": "8f2e4489e61555eaae893a4eb782b27644f2e5c0457f7f47d1f4d02b1f90c606",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/023/Elbow_Circles_female_v2_2.png",
+      "candidateSha256": "685441026e955769d32e8e4a56a8edbd5d3d9274d90b7055aae9a86ea6c25652",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_Circles_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_Circles_female_v2_3.png",
+      "sourceSha256": "00ff3b3f3f1d1cc1f412f9247e6d2c46208d1fc484c5c3092ba075f985944a74",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/023/Elbow_Circles_female_v2_3.png",
+      "candidateSha256": "8a3d54c991fbb5ef472356e59774a4b74fbae4adc6ad2e8ecbbc863ec32a7f42",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

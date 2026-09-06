@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Elbows_Back",
+  "shard": 3,
+  "index": 25,
+  "status": "ready_for_review",
+  "findings": [
+    "Female frame 0 has plain black shorts, while frames 1\u20133 show a conspicuous red side seam and split trim. The lower side panel remains visible below the lowered hand in frame 0, so occlusion does not fully explain the missing trim. This causes a small clothing-detail pop in the sequence; the illustration remains usable."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Elbows_Back_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbows_Back_male_v2_0.png",
+      "sourceSha256": "1e07da0fc6fa4900cb2c2d6766ab1574d3de45ed76e057e58ada685ec88b10ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/025/Elbows_Back_male_v2_0.png",
+      "candidateSha256": "b0eec23203cb64d7eb1829c47e8cb752419ab08f09f9587b20c846b2819d0981",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbows_Back_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbows_Back_male_v2_1.png",
+      "sourceSha256": "d53711d29cc71642a5a8265107d1ae180117d67ed74ccf1036ed339262b24c27",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/025/Elbows_Back_male_v2_1.png",
+      "candidateSha256": "5178a070826915317913116922240c9a96c381d387a3c3e0d0399d12a63a0abe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbows_Back_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbows_Back_male_v2_2.png",
+      "sourceSha256": "dbab136f561e87f634293495aa1f61b0582724ca83fc2eeb6de6f0955801621e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/025/Elbows_Back_male_v2_2.png",
+      "candidateSha256": "724294e492779f3ce3e9532622cf4c9cd8d2f77baa580ac5afe263513cddfb9e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbows_Back_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbows_Back_male_v2_3.png",
+      "sourceSha256": "32ce04595b96131b766e4100d4e9f8f89f341936a700274622224511f1ea8c83",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/025/Elbows_Back_male_v2_3.png",
+      "candidateSha256": "d63ca2d2285590625625174a17ecd3a271fb216950af8e8983da0870e53221a1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbows_Back_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbows_Back_female_v2_0.png",
+      "sourceSha256": "1f43fa557b4a4e29b1bced6a7ea364390cfdf469e63d49bc34eabcfab71d03ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/025/Elbows_Back_female_v2_0.png",
+      "candidateSha256": "34653978591db7e147a10c1ea0fce61ca9b3b57b5056adf442227bcd80691bda",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbows_Back_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbows_Back_female_v2_1.png",
+      "sourceSha256": "f83770289bdc67f065281e12060c70d84c7a2c488e80dfb59870645b4c3c092e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/025/Elbows_Back_female_v2_1.png",
+      "candidateSha256": "2886d6652e8a7d6a7066234ac67ac2be3f8b7d92525cb3cdd518185952d8e013",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbows_Back_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbows_Back_female_v2_2.png",
+      "sourceSha256": "072ff2e7a1816aab5f25eac1ff17037a377a585f10d92a0767648db88781c940",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/025/Elbows_Back_female_v2_2.png",
+      "candidateSha256": "be193b7591777fd8a951074a288ae211f5d6d12327f4d92f8c10d9f1dd3cd88a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbows_Back_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbows_Back_female_v2_3.png",
+      "sourceSha256": "6c3b1b92fac7a2c3a81fc94c2181c9468781a0cf7e8435f8fa4e350e45bf4ce8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/025/Elbows_Back_female_v2_3.png",
+      "candidateSha256": "6ea2130327c1d767711f978a344f383bf2f35a1affc2a23fd4df34503861c37a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

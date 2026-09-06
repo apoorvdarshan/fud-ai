@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Frog_Hops",
+  "shard": 3,
+  "index": 30,
+  "status": "ready_for_review",
+  "findings": [
+    "The top ponytail tip is almost flush with the canvas edge, leaving only one pixel of transparent top padding. The contour remains visible, but this is unusually tight framing. No definite clipping is visible."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Frog_Hops_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Hops_male_v2_0.png",
+      "sourceSha256": "7a3e7ca666557d9b281dea05cdf7919cee3013db4f4481badc7ca6faf6ed954e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/030/Frog_Hops_male_v2_0.png",
+      "candidateSha256": "d1b180ea298b94a8d2a00eb274e5a5ea4fccf821bdafafb2e3ebc7325c295883",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Frog_Hops_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Hops_male_v2_1.png",
+      "sourceSha256": "5b09a1146c0dba5ac3078688813451ff50a2b2a66268f09bf0b6f1ec1f074d77",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/030/Frog_Hops_male_v2_1.png",
+      "candidateSha256": "d74cc49ec17f113c28e9d92340e0f0cf590f6942cab253ca6aeda7ab9d1097c0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Frog_Hops_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Hops_male_v2_2.png",
+      "sourceSha256": "5ba23d4e075989ac279cbbae6871ff81619e49b4c6ab6d03baa2f1a4129b598e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/030/Frog_Hops_male_v2_2.png",
+      "candidateSha256": "64a40d915c095462a565e8f18faa0b805f68caecf13f786f13de5bd0d7173a9f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Frog_Hops_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Hops_male_v2_3.png",
+      "sourceSha256": "9b68f49ae32a5fc0e9b99556be83a7a5a2e6f2dadc37e04af594fb9d6abcc2bf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/030/Frog_Hops_male_v2_3.png",
+      "candidateSha256": "0186d82c40cc50d8c7ba33f2628a1ef5d7fca90942ed165b1dc513b985d44dea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Frog_Hops_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Hops_female_v2_0.png",
+      "sourceSha256": "6c15ebab1418eea592051497b2e311bffea1460d10b8ac53e2b50c2d6b186a79",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/030/Frog_Hops_female_v2_0.png",
+      "candidateSha256": "6b0a44897cfd81fa6ac0e1582f4ded3b7cea162ce5fd868c1e9b76cd95e303f4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Frog_Hops_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Hops_female_v2_1.png",
+      "sourceSha256": "ae3d3f35dbc91ad38829272b9426fc6d6ed37f92fa245e5a6e2d0a34b30d6537",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/030/Frog_Hops_female_v2_1.png",
+      "candidateSha256": "96a2b1801430f32641b57dcd9b627dfbecaf851b5f1c33c2a38a5919baa18ff0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Frog_Hops_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Hops_female_v2_2.png",
+      "sourceSha256": "a4de1f20ee8d28842bd0429125ee23bee59fc4a670a525284a3bfa33b5d50fce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/030/Frog_Hops_female_v2_2.png",
+      "candidateSha256": "6bf00904a760f0ee7507fcfecc545a0fc31b93b1afc5edb1ab8caa8dba921203",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Frog_Hops_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frog_Hops_female_v2_3.png",
+      "sourceSha256": "f244eb676a9c9fbcbf323b70533b9d0b34540cfe9d89374d7f324ed6b879e6c7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/030/Frog_Hops_female_v2_3.png",
+      "candidateSha256": "fe05f2ebfd92075acd87737a98ed063c08bc0e6261d3acd5483548110fb03322",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

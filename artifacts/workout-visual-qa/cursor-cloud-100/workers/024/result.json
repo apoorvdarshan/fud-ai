@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Elbow_to_Knee",
+  "shard": 3,
+  "index": 24,
+  "status": "ready_for_review",
+  "findings": [
+    "Small isolated skin-colored sliver near the far left edge, below the extended shoe, disconnected from the athlete. Visible on both backgrounds; the principal figure remains intact.",
+    "Small background-colored oval slots at the ponytail attachment in all female frames; additional tiny transparent spots in the bent-leg shoe upper in frames 2 and 3. These appear to remove small interior details, most evident on the light background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Elbow_to_Knee_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_to_Knee_male_v2_0.png",
+      "sourceSha256": "bb88e9650cba9024df170e57f5922a038d8d82f451f7bc16e16b35f73f897afb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/024/Elbow_to_Knee_male_v2_0.png",
+      "candidateSha256": "9bab8ed8faf8c9ec04331e9b50ced4d58708ecfb3681cb314a016121a2ee48b6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_to_Knee_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_to_Knee_male_v2_1.png",
+      "sourceSha256": "239a99c2dbbc0ab86b74fc9939d2ea01b3a29c5c4021f7bce69ee75d87f980c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/024/Elbow_to_Knee_male_v2_1.png",
+      "candidateSha256": "c50e2e70621755337ee0e4a213564dd6805c9da018151124af24be2009075dde",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_to_Knee_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_to_Knee_male_v2_2.png",
+      "sourceSha256": "2e768ed1b06c25825f8b134346da7ff2b8838089598643dd383762ee3a4f863a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/024/Elbow_to_Knee_male_v2_2.png",
+      "candidateSha256": "58e3ead73b75e0dd71db290ab6540c9ceccb498d7ef1530201f7e44e63fc93d0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_to_Knee_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_to_Knee_male_v2_3.png",
+      "sourceSha256": "aeeb7c4c3aca2c51fc998eecd64d12975edec8bf50c8af14469d7c5ac7167774",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/024/Elbow_to_Knee_male_v2_3.png",
+      "candidateSha256": "cffc0249f461f7bc86274d060c20b7a826aa8413c4fd017ab3d3e2400254ad8c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_to_Knee_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_to_Knee_female_v2_0.png",
+      "sourceSha256": "e37c9f34ec43439ce2de0e7456b5008a7785f38d9cf2c7fff582bcc0fb2a5c81",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/024/Elbow_to_Knee_female_v2_0.png",
+      "candidateSha256": "1a78feda79993f232a53689e424cb8da006285663a2747b62f11c6126c723c34",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_to_Knee_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_to_Knee_female_v2_1.png",
+      "sourceSha256": "4cc2d703f9a762f5245ea970780b44be3ad66974ddc6db5b3e7474a0355cde36",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/024/Elbow_to_Knee_female_v2_1.png",
+      "candidateSha256": "91228834335624277a59fc458b46ca4d98be9dba7c7a7e3adf401cd35122539c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_to_Knee_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_to_Knee_female_v2_2.png",
+      "sourceSha256": "e17d8e3eba65be75d7c1b69fecdb82fbad1d5138d74a652adab1099a79cb1097",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/024/Elbow_to_Knee_female_v2_2.png",
+      "candidateSha256": "a894da9e08d1887468050820e53325678bb13bcbcdd4dfc53615ab2b5ec3c311",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Elbow_to_Knee_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elbow_to_Knee_female_v2_3.png",
+      "sourceSha256": "36b972e29ace456cafa51d657b6980bd77438a1b3560847b76b371b84512a839",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/024/Elbow_to_Knee_female_v2_3.png",
+      "candidateSha256": "a9bc58d5cf9f9d524e48d2215532e4b3dd5bb252bccd019091653fe2d428f8dd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

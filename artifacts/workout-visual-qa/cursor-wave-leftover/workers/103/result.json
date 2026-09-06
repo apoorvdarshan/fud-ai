@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Preacher_Curl",
+  "shard": 11,
+  "index": 103,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on 1 dirty frame(s)"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Preacher_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Curl_male_v2_0.png",
+      "sourceSha256": "7d7e2b25047a2027093887f6c3229ca0c9e70ef5eb364d7679eb5f494235c777",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/103/Preacher_Curl_male_v2_0.png",
+      "candidateSha256": "6bd89a56e510553215c3ef34064e03ca45d112084ebf36d22f4470c5fe65406e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Curl_male_v2_1.png",
+      "sourceSha256": "810e46c1130a625a8a49ebfec1486620e3c0aa87dce3c5084529cae4735d1511",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/103/Preacher_Curl_male_v2_1.png",
+      "candidateSha256": "29369b64266d4063d657ced37be4a4ef34396c760ee323896aa45d2dbf4305ac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Curl_male_v2_2.png",
+      "sourceSha256": "a965ff83916cc2d77e3828569cb54c569a80e3af944c820cfb3d592214506bf2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/103/Preacher_Curl_male_v2_2.png",
+      "candidateSha256": "b2be97ad78547a7b3383ece771d9b0b8fdfdd80c45bb7d3aeab05d88292a6d06",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Curl_male_v2_3.png",
+      "sourceSha256": "cf9041f4f58dc7fad9670ef4c10dfb26b67c42d540f132bc7798260e363bcb98",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/103/Preacher_Curl_male_v2_3.png",
+      "candidateSha256": "7a6bec393931247160dba53f856dffb7dcf4e3a9b7aeb529fabb3fe667d3ba9b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Curl_female_v2_0.png",
+      "sourceSha256": "eaaf42a94eafc4bae8852f2f7b925854e37358d70fae2f33b7354c76fdf11c6d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/103/Preacher_Curl_female_v2_0.png",
+      "candidateSha256": "3e307dd7d896b2b2d1b4c5af043fe4e2604b73abce0f607ec174fdaf4c68cc65",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Curl_female_v2_1.png",
+      "sourceSha256": "035ac792c4563d3fc6e6f29e7b427f2e40231c8c0d9ced0acc89ef2d718509b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/103/Preacher_Curl_female_v2_1.png",
+      "candidateSha256": "992479320d8acd833a0d76b569b695bdab80890eee6c2b9d5a7a515605e824c2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Curl_female_v2_2.png",
+      "sourceSha256": "91e36e98a473ddb047dbbb26bb2b42dea91115b56af9a03459486d3881110e9e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/103/Preacher_Curl_female_v2_2.png",
+      "candidateSha256": "996dcb58a7f2a13741ee78f5de20013cd6e0610e905ad1444c6cf5db8b82aa8d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Curl_female_v2_3.png",
+      "sourceSha256": "16d98e34eb0e185657e3847fc4a83fb2aeb372dd8821b5982db72af517ab0bd3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/103/Preacher_Curl_female_v2_3.png",
+      "candidateSha256": "75370456e00eb25f1ed1ae80cb7d2dc0dac27264f6b0d6d898de3e0521e7494f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

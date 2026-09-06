@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Prowler_Sprint",
+  "shard": 11,
+  "index": 107,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on 8 dirty frame(s)"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Prowler_Sprint_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prowler_Sprint_male_v2_0.png",
+      "sourceSha256": "df78b3d33d8f4aa8aa986cc30f83d6abab2fe3498448c76fb610650808c1d6c6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/107/Prowler_Sprint_male_v2_0.png",
+      "candidateSha256": "e24f74a2e6657377eef12e300007f84e24996d6d0200883c21505bce7356a367",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prowler_Sprint_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prowler_Sprint_male_v2_1.png",
+      "sourceSha256": "f448af22cdb6eef79aeb816873b7372334dc67a09b69290d474486695768c94f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/107/Prowler_Sprint_male_v2_1.png",
+      "candidateSha256": "c9b4f06aff9062fae14aa511cb9e6494322771619b2f964b951987d53855187d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prowler_Sprint_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prowler_Sprint_male_v2_2.png",
+      "sourceSha256": "4d7a403b7b45537bdbaf4a12e985ec6a92a20ca6ba9bfafb8eab5159b5c9bdc6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/107/Prowler_Sprint_male_v2_2.png",
+      "candidateSha256": "40c5239598707cffd187f36115e78e205ecbe035b1742728778895d2ab439b04",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prowler_Sprint_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prowler_Sprint_male_v2_3.png",
+      "sourceSha256": "a7826e650f09ebe9541150632a32f722447f3082b9c2e588c4997f75524b6559",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/107/Prowler_Sprint_male_v2_3.png",
+      "candidateSha256": "baebdd28884216e29dd3665e950f9a14ba072e070c82049d9d255abfefff9a20",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prowler_Sprint_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prowler_Sprint_female_v2_0.png",
+      "sourceSha256": "c753f9c3c47321de42ec84f561b2da7f6296009e48fb0fa8d08251c2b504f27b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/107/Prowler_Sprint_female_v2_0.png",
+      "candidateSha256": "0c52c755a67d827b1ef9d3959595b05e3afd546220503136aff8e549034f6b2f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prowler_Sprint_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prowler_Sprint_female_v2_1.png",
+      "sourceSha256": "e39d2b40c01e73a36e291bf04f78e254b8ed637a23ee92b6a23b0328ccf31363",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/107/Prowler_Sprint_female_v2_1.png",
+      "candidateSha256": "6f3ac59d3b2fba79e44aefab9c9e1f5bec3b7e3d0a30c73b95c0bd9131a70abe",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prowler_Sprint_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prowler_Sprint_female_v2_2.png",
+      "sourceSha256": "a9481c9d353c6a64bb49c86cd84cc254ca6fcbc5f57fd8255715010afa24d693",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/107/Prowler_Sprint_female_v2_2.png",
+      "candidateSha256": "9baf3855a767fca89a3ab5890c083569fec29d0094d9f9014dc985c0f49d5764",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prowler_Sprint_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prowler_Sprint_female_v2_3.png",
+      "sourceSha256": "54568b1682d28c90e6e054e8870c91ffc3204191ab98438d3e003196a3cc3257",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/107/Prowler_Sprint_female_v2_3.png",
+      "candidateSha256": "ca345882d80e4bc7f41c6f35f2a00870c78fd720cadecc3d4b2ce2feeb33656f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Prone_Manual_Hamstring",
+  "shard": 11,
+  "index": 106,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on 2 dirty frame(s)"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Prone_Manual_Hamstring_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prone_Manual_Hamstring_male_v2_0.png",
+      "sourceSha256": "cf66e7808433874925594f68bc74e01118a78f9297e021cc6d82f7e01259acb6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/106/Prone_Manual_Hamstring_male_v2_0.png",
+      "candidateSha256": "dc7f2235e207b11c4387f888f66425ea579349f5ae076a5dd7bbb9c04fd6e0b3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prone_Manual_Hamstring_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prone_Manual_Hamstring_male_v2_1.png",
+      "sourceSha256": "70523e048f9a4317cea28084c75d7903d7ca3c68d491eee9bfaeb521c6408959",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/106/Prone_Manual_Hamstring_male_v2_1.png",
+      "candidateSha256": "ac1bcc4b37f6a97ef52df172a9ce7d14ffde66fba2362f14e7d6d9b928f54969",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prone_Manual_Hamstring_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prone_Manual_Hamstring_male_v2_2.png",
+      "sourceSha256": "a3e9e9bb736a841cad40238439dd415f78b9fbd65bdf1916f5166a2d82a91097",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/106/Prone_Manual_Hamstring_male_v2_2.png",
+      "candidateSha256": "77b9423f382bd727a67931bb835bf56dd9c43b756a53a2d19663342d5a785ca1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prone_Manual_Hamstring_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prone_Manual_Hamstring_male_v2_3.png",
+      "sourceSha256": "8d1e05c9c8c93b982264990897555dd71aaec75c26e05b3a30d4e493601bef6e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/106/Prone_Manual_Hamstring_male_v2_3.png",
+      "candidateSha256": "620ab88208b69322ade5a71977130843ddbaa481d4a09ff0920ecbb4312589cb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prone_Manual_Hamstring_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prone_Manual_Hamstring_female_v2_0.png",
+      "sourceSha256": "dce103ea97d764cf647bfdd19217b02be2c763672f606c946eafeed11ac04b56",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/106/Prone_Manual_Hamstring_female_v2_0.png",
+      "candidateSha256": "d9da634a63c3cc6b635640921999ed548490ece0ae7c6dddb5dd9f3b2366abab",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prone_Manual_Hamstring_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prone_Manual_Hamstring_female_v2_1.png",
+      "sourceSha256": "3eba779f5bfd4a27aadca4aee1b429091d0b5cdf01247e2fdd443d5af34e780c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/106/Prone_Manual_Hamstring_female_v2_1.png",
+      "candidateSha256": "6a58313c532380e2ca2e7995612745c8e5f6a4da0d56c3d75144a0ef34c26462",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prone_Manual_Hamstring_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prone_Manual_Hamstring_female_v2_2.png",
+      "sourceSha256": "d647d68341a8b65a33b430aa0a032bb45f6e7a24e7765960868b66df12d38e1c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/106/Prone_Manual_Hamstring_female_v2_2.png",
+      "candidateSha256": "ebed2fe70843630fed07e0bfbce2aa5c93cfd4b0d37c5c4d46c9ef5f8b514e4e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Prone_Manual_Hamstring_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Prone_Manual_Hamstring_female_v2_3.png",
+      "sourceSha256": "b4ca52c0ec378ccafb0f0e8170bed34de8b6143d1640681516c567bba36cb002",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/106/Prone_Manual_Hamstring_female_v2_3.png",
+      "candidateSha256": "a536cadd8a2ecca64fa67c84b038d20363be9eba8744850c0e43bd75e9a328dd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

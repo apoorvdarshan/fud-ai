@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Pullups",
+  "shard": 11,
+  "index": 109,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Pullups_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pullups_male_v2_0.png",
+      "sourceSha256": "c0543e7498ff5cfb498a7ded0ac725b80d4bca4eef261243bd5435edba22218c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/109/Pullups_male_v2_0.png",
+      "candidateSha256": "70fe4c80a5a0d017dd8eaccc5ee9e93ddcafb229e190332478c3231785eda671",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pullups_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pullups_male_v2_1.png",
+      "sourceSha256": "8b41cdf572f84cbf08e3a9346758dad5703d88a539f6493eb5dbfcbdd59f9e23",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/109/Pullups_male_v2_1.png",
+      "candidateSha256": "3d65ac420cd633014811c3faf0de515ae8ff99b790c239566cb57784751d062c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pullups_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pullups_male_v2_2.png",
+      "sourceSha256": "9ba244dcda02a2c064c0a5f82e02b9e277d31fe170400fad00081ad5f18d4b55",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/109/Pullups_male_v2_2.png",
+      "candidateSha256": "5f226393ed390c882fab8da51cf0c6e85d329e84ea40b9c57c98432f89f6041c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pullups_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pullups_male_v2_3.png",
+      "sourceSha256": "b82c233fcc20d47a7536c281fae1caed8008885f7bd84b20009b890ba3cd4395",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/109/Pullups_male_v2_3.png",
+      "candidateSha256": "1c2cd71a26e1b5f52167b1ab3c6fd0d32b6cffa2810b0799b53ecee5914daaa4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pullups_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pullups_female_v2_0.png",
+      "sourceSha256": "331fb495fe66bca3e77869ee3e56c72b50a9b8de4924eec7411daa647ce23628",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/109/Pullups_female_v2_0.png",
+      "candidateSha256": "2d2b15534ac60d6e85e248caa6f7daaa82769f3715d60286d151f998d6900afa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pullups_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pullups_female_v2_1.png",
+      "sourceSha256": "03a7debc26932827c641be89a958018f860a27ff33bb3b6e33960844b2c0756f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/109/Pullups_female_v2_1.png",
+      "candidateSha256": "120d8e073e7cc64f4d4535d6ecf800ed9add76e5317180ce69a08aad4cdc266c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pullups_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pullups_female_v2_2.png",
+      "sourceSha256": "7f8e8fb34e950dc60c77aacc660a0e1a76263e3008d73f1bb4058467a724416a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/109/Pullups_female_v2_2.png",
+      "candidateSha256": "644a7966e0e7e6b96113af504e0b67f8531eccb8e7c9195827d00754d09668a2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pullups_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pullups_female_v2_3.png",
+      "sourceSha256": "c3303b15899fe37eea8a2b4dc12238f3adf01118dfb34880b273869052a8d218",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/109/Pullups_female_v2_3.png",
+      "candidateSha256": "b6808afa9a674a2629d0d9a38f9293d1af65e726749d3ee56b4d3313e924c9e2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

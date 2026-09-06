@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Rocking_Standing_Calf_Raise",
+  "shard": 16,
+  "index": 151,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Rocking_Standing_Calf_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocking_Standing_Calf_Raise_male_v2_0.png",
+      "sourceSha256": "d69eb3454929601d773f9f1733b3b4f859abf0a75e19c6dca8df2b47791e08a6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/151/Rocking_Standing_Calf_Raise_male_v2_0.png",
+      "candidateSha256": "0489351973006736c8cd18096ce726afe415c363fe7204c6e8d990b438499153",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocking_Standing_Calf_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocking_Standing_Calf_Raise_male_v2_1.png",
+      "sourceSha256": "b96e052287724f299100a66290da12ef8b78ae4d03b8ad42787e34333b5f58ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/151/Rocking_Standing_Calf_Raise_male_v2_1.png",
+      "candidateSha256": "f904d9eeb3906fb2f56b758a9bce9666815ec246580aba725352d7c2e1f97616",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocking_Standing_Calf_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocking_Standing_Calf_Raise_male_v2_2.png",
+      "sourceSha256": "8d430f6f9545fb1eb4653b6ef910f6bb2bf5352e23685fe30fc7670e1fcade73",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/151/Rocking_Standing_Calf_Raise_male_v2_2.png",
+      "candidateSha256": "da87503b381914375350358db99aea896c56f84a1e39ba783e99ab1da6fe645a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocking_Standing_Calf_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocking_Standing_Calf_Raise_male_v2_3.png",
+      "sourceSha256": "d7971b2d6e7f371fff8e4873c8eb15a887b4995a7f2e6b15b42faefc3d31b214",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/151/Rocking_Standing_Calf_Raise_male_v2_3.png",
+      "candidateSha256": "4781ba700d1e4d7d9eba3a62be3b074bab34c0fb1b5f4de953ac1d5ee6d76c23",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocking_Standing_Calf_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocking_Standing_Calf_Raise_female_v2_0.png",
+      "sourceSha256": "4bb3580535d85c9d1be3ef7d47d96a6a6297e4592f8290f16c1943f69fccb34a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/151/Rocking_Standing_Calf_Raise_female_v2_0.png",
+      "candidateSha256": "27630f2454a409ecb7df6d0b4e959e28acb7aef6954c23b53945ddf982f7c5e9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocking_Standing_Calf_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocking_Standing_Calf_Raise_female_v2_1.png",
+      "sourceSha256": "0615cf92279032c71072e300f5262e09614c1367865dfb5cbc58e561ca8e58f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/151/Rocking_Standing_Calf_Raise_female_v2_1.png",
+      "candidateSha256": "08b38aa65dfca9c65f98d4e27ac236ef6e92e13a62033228021188a1242c1466",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocking_Standing_Calf_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocking_Standing_Calf_Raise_female_v2_2.png",
+      "sourceSha256": "a901d4ad1ba6d02c168ef42d8f30f1b21f7d601830d67c4a5c860863800796d8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/151/Rocking_Standing_Calf_Raise_female_v2_2.png",
+      "candidateSha256": "8614811e97c6a7f094790e5428753aa94ed85a3d371c4286be5f9afc6502e70c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocking_Standing_Calf_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocking_Standing_Calf_Raise_female_v2_3.png",
+      "sourceSha256": "ae0cf6ccb791ff45999d5e213a10bb7b742fb7eab9301bd6e78a956b58cf4942",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/151/Rocking_Standing_Calf_Raise_female_v2_3.png",
+      "candidateSha256": "9d27b7cdc865a6d85be7dcd6827a190bc7b966a29b89ca6b1c99f06ad7594a38",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

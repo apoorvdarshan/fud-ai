@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Rocky_Pull-Ups_Pulldowns",
+  "shard": 16,
+  "index": 152,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 2 frame(s) with floor/fringe/noise artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Rocky_Pull-Ups_Pulldowns_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocky_Pull-Ups_Pulldowns_male_v2_0.png",
+      "sourceSha256": "d0fd2f5913a0acbef9abcb0837ce0cdfcd8ea2b1c8a66cb411f53dd88415a7ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/152/Rocky_Pull-Ups_Pulldowns_male_v2_0.png",
+      "candidateSha256": "16c9c33707055c038873e6aa22233f2e0c761449ff54f999f3b9b82d42a9782a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocky_Pull-Ups_Pulldowns_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocky_Pull-Ups_Pulldowns_male_v2_1.png",
+      "sourceSha256": "b375b8f2df1818f2c2a574a7baabe58eb2a15e8e0cecaf7e97b7fb6b93d20549",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/152/Rocky_Pull-Ups_Pulldowns_male_v2_1.png",
+      "candidateSha256": "e6c576e401915a112401ac423d1bb8860add8377150dbf122748eb1fa4beac6c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocky_Pull-Ups_Pulldowns_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocky_Pull-Ups_Pulldowns_male_v2_2.png",
+      "sourceSha256": "27ba63f3c92c7af03c819d1fb76edb011fc9ba5689bb0263cdcfff536c8d7eee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/152/Rocky_Pull-Ups_Pulldowns_male_v2_2.png",
+      "candidateSha256": "9ba4a70560b81db40c2d23a5c8667ca44efce876ee88eba2d83bdcf342ff1f1b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocky_Pull-Ups_Pulldowns_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocky_Pull-Ups_Pulldowns_male_v2_3.png",
+      "sourceSha256": "efd6c4a471804e13e6222bdfee31208ea764d83a94f1f562cfbe8949edf98ae0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/152/Rocky_Pull-Ups_Pulldowns_male_v2_3.png",
+      "candidateSha256": "07b19e363d76323fe9350f1bb1ba0cd5444ae506648deb9268b36c50c8010a0b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocky_Pull-Ups_Pulldowns_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocky_Pull-Ups_Pulldowns_female_v2_0.png",
+      "sourceSha256": "874fab9db31456446f6fd0c39f7ba47efa9742f26000b4e0c9d569adcc98b047",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/152/Rocky_Pull-Ups_Pulldowns_female_v2_0.png",
+      "candidateSha256": "3d02de6440280deecc1edc3d8bc8a27a5a52c2fb9fa63ec370f34f46be604b3b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocky_Pull-Ups_Pulldowns_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocky_Pull-Ups_Pulldowns_female_v2_1.png",
+      "sourceSha256": "0d1bf93dbffa2454a8d141c63c4934e90fcb69e21499cb4f3abf9a47784757d8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/152/Rocky_Pull-Ups_Pulldowns_female_v2_1.png",
+      "candidateSha256": "dba70e7b65c4282b0995925b19cb7846e84d2fb597e305b042d45c74384439e6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocky_Pull-Ups_Pulldowns_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocky_Pull-Ups_Pulldowns_female_v2_2.png",
+      "sourceSha256": "449c8633ea4ae0123a8b7a0e552d35024773060698071691c4bf99cea7d30edb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/152/Rocky_Pull-Ups_Pulldowns_female_v2_2.png",
+      "candidateSha256": "4b257e70c289c9c4ebf4adc9a6859099dd52516b75ebc32e938e567e743e847d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocky_Pull-Ups_Pulldowns_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocky_Pull-Ups_Pulldowns_female_v2_3.png",
+      "sourceSha256": "e0708395364d53a69ac766361fc9a8ca63ba82bc15e73b65d1e8b46f3bde6659",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/152/Rocky_Pull-Ups_Pulldowns_female_v2_3.png",
+      "candidateSha256": "37bb5943af03119fb82a417a85f9e6fcdf550f98f3fa055b54919e426385d7eb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

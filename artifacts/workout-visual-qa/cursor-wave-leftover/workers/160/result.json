@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Rowing_Stationary",
+  "shard": 16,
+  "index": 160,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 8 frame(s) with floor/fringe/noise artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Rowing_Stationary_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rowing_Stationary_male_v2_0.png",
+      "sourceSha256": "e0138ef677e28fd99953fdead87c8b670c9d510d9b518702a6495e359221f986",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/160/Rowing_Stationary_male_v2_0.png",
+      "candidateSha256": "e2f2a116c299154eda5b44460000808439e7402110f517824eb51baa1ba088c8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rowing_Stationary_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rowing_Stationary_male_v2_1.png",
+      "sourceSha256": "66fff9b8235593d1768b069ab223e97d81043955a573be826ae48f7b82a6eeed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/160/Rowing_Stationary_male_v2_1.png",
+      "candidateSha256": "7ed46ee12b8cbdd6124f3b57c3082c955db6f56ac48bcf991d9390ecdbc9beeb",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rowing_Stationary_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rowing_Stationary_male_v2_2.png",
+      "sourceSha256": "1581ee1e963e75d1cf70ee5ae2bdeb95677f10925fca9697d0bdd87e0b5304f6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/160/Rowing_Stationary_male_v2_2.png",
+      "candidateSha256": "c42ee205f9579730f7edf1bfc8d7115b38ed832b619a49b10915b743fbb084ae",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rowing_Stationary_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rowing_Stationary_male_v2_3.png",
+      "sourceSha256": "79fedaeb728b393cb8c4c539ec7ea94fb78a6e14b109afa3b6664e6c08f99ae1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/160/Rowing_Stationary_male_v2_3.png",
+      "candidateSha256": "8432b9c0ef6d7bd58c1a7ad1c1bf3583f141a2527f97baada18a002caa97e5e7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rowing_Stationary_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rowing_Stationary_female_v2_0.png",
+      "sourceSha256": "c6ff4283a3bb37a7e83fd03e6f585b410df60d5a75d4710368333db92c7825f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/160/Rowing_Stationary_female_v2_0.png",
+      "candidateSha256": "5a8f3251eab94d7d9a43b354ebb7afd0191656d940568ded15dc6dd0f70ff8a5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rowing_Stationary_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rowing_Stationary_female_v2_1.png",
+      "sourceSha256": "00364ac4d0833c72580173c8492b1d44ab2cbebca53f9e9abbd45c2b12564837",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/160/Rowing_Stationary_female_v2_1.png",
+      "candidateSha256": "cce81566f451d5be944b94c47a8f4a0a8823e025f53ab70e95fbdab8c02a5de6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rowing_Stationary_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rowing_Stationary_female_v2_2.png",
+      "sourceSha256": "5973afa2ce00555d88ab82cabdf0e89a4c1027772739266ee13d19121f87ec18",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/160/Rowing_Stationary_female_v2_2.png",
+      "candidateSha256": "dac74036334cdb370367a036bedc4d93648ec3038a3aeef7e97226d1328852f0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rowing_Stationary_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rowing_Stationary_female_v2_3.png",
+      "sourceSha256": "7dc5e4db5b94baed4c988a30fd880f09bffca1736d2623a6e742d38893476511",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/160/Rowing_Stationary_female_v2_3.png",
+      "candidateSha256": "a43fb468216383519b153ee87c04f7329b27d69d8317f5bcb04504cec47fb6df",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

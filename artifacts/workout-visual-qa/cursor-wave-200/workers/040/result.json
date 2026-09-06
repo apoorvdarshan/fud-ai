@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Brachialis-SMR",
+  "shard": 4,
+  "index": 40,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Brachialis-SMR_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Brachialis-SMR_male_v2_0.png",
+      "sourceSha256": "ddb1918b1318b3a27c123385a5d17e8617d4092180d678e5df38d109a5bdef21",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/040/Brachialis-SMR_male_v2_0.png",
+      "candidateSha256": "ec75f722273c79d0815b07a41b4d3258b8cd194351086fda72f621662e47af32",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Brachialis-SMR_male_v2_1.png",
+      "sourceSha256": "96f348bf2843586f199106497d5fa2ee5339096f9867e01a8a00cde8e1ef5281",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/040/Brachialis-SMR_male_v2_1.png",
+      "candidateSha256": "d1ef49fefc64d6d55396e302703951ed8264f06c2cca94f13064de33421ac2bf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Brachialis-SMR_male_v2_2.png",
+      "sourceSha256": "560fd8f4449f4e68beb79f9d0c230f330e09397afa880e12d152e2b801751fe0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/040/Brachialis-SMR_male_v2_2.png",
+      "candidateSha256": "fb403e66c10c89e741297411945ed0038660b54455b1f17f803b77b2e09fe8e0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Brachialis-SMR_male_v2_3.png",
+      "sourceSha256": "40e110cf09e4c75e7170c61ae7205851d4c284cb59d2f4fffc56adcf9b60b38b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/040/Brachialis-SMR_male_v2_3.png",
+      "candidateSha256": "889211fa470ef871f540f766086f222b152028c10062be6e099e19ceeaab7f33",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Brachialis-SMR_female_v2_0.png",
+      "sourceSha256": "0888d61aea4f3c7d6e6716b919d4ca820e8b18948c6151989ba1cd405622dc41",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/040/Brachialis-SMR_female_v2_0.png",
+      "candidateSha256": "1426d11e8f3c9821eb8dd182cb41934edd34a59266db7a51bba71b73e682f502",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Brachialis-SMR_female_v2_1.png",
+      "sourceSha256": "cf018639a0898e9c4ea7cb29f1aab0093e86ca6fb01221be46fdd8e3a4d06c2e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/040/Brachialis-SMR_female_v2_1.png",
+      "candidateSha256": "ab5f409828a18ea09e60acae7153f28fc09f04b350d1ccf7b5861ca4f28a1b68",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Brachialis-SMR_female_v2_2.png",
+      "sourceSha256": "cf7073661c32bf6bf8d9ee0528dbab693d431ecab170d6348e2c0082e751707c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/040/Brachialis-SMR_female_v2_2.png",
+      "candidateSha256": "9ddadf705e04a3162a334e89606da76d01c2ea65152342768c8ed6b2560bd8ea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Brachialis-SMR_female_v2_3.png",
+      "sourceSha256": "ea99e19b2c4a5bbfc317b871e758ed96708be7452162b9c008daaa8bc0381dd7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/040/Brachialis-SMR_female_v2_3.png",
+      "candidateSha256": "6907780d689ffff725083ba7e1594b437a474bf211f6b7c6ba2d7e426163ad2c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

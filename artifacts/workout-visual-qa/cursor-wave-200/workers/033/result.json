@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Bosu_Ball_Cable_Crunch_With_Side_Bends",
+  "shard": 4,
+  "index": 33,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical + green chroma on 8 dirty frame(s) after script regression or halo artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bosu_Ball_Cable_Crunch_With_Side_Bends_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bosu_Ball_Cable_Crunch_With_Side_Bends_male_v2_0.png",
+      "sourceSha256": "1edef2a844629adcead5660ec9a472e31b9ddf86da3a75c6d5f0ded7ef4d54a8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/033/Bosu_Ball_Cable_Crunch_With_Side_Bends_male_v2_0.png",
+      "candidateSha256": "2b596c8e24050ccddc369f8238f255c7efd035b8e86b4f811602d2b1989db943",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bosu_Ball_Cable_Crunch_With_Side_Bends_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bosu_Ball_Cable_Crunch_With_Side_Bends_male_v2_1.png",
+      "sourceSha256": "07a8ecfc96768dca5cfd9d846ee7d16b1b2b77c791c144797225da11fb7d65fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/033/Bosu_Ball_Cable_Crunch_With_Side_Bends_male_v2_1.png",
+      "candidateSha256": "515ee022c97ba89330db33afccdff8331799b12ee63ca90c14cddf334bba08fa",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bosu_Ball_Cable_Crunch_With_Side_Bends_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bosu_Ball_Cable_Crunch_With_Side_Bends_male_v2_2.png",
+      "sourceSha256": "dddcae94f07f356b4d83e7e442649a086093bdf916e6d10dcb0e0279cc62fb3f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/033/Bosu_Ball_Cable_Crunch_With_Side_Bends_male_v2_2.png",
+      "candidateSha256": "f2b0ad4fcd626d1f8ea97ff5711727d5dee899b29d33387820c87b73c21b8587",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bosu_Ball_Cable_Crunch_With_Side_Bends_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bosu_Ball_Cable_Crunch_With_Side_Bends_male_v2_3.png",
+      "sourceSha256": "bbf6f9a377d671822aa4d8782e0a66d59a0473475317f845c4b601c11e4e3fac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/033/Bosu_Ball_Cable_Crunch_With_Side_Bends_male_v2_3.png",
+      "candidateSha256": "800113fe55b5842d0500b8b337f7f8d171af3c2bdd1dc548a3633ad65cb27f37",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bosu_Ball_Cable_Crunch_With_Side_Bends_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bosu_Ball_Cable_Crunch_With_Side_Bends_female_v2_0.png",
+      "sourceSha256": "261c7c88b476662bca5ecd4c47a77e4c4986b55d111833948f898abf4cf4162d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/033/Bosu_Ball_Cable_Crunch_With_Side_Bends_female_v2_0.png",
+      "candidateSha256": "4bf399aca9cdf5af6375e5af1d63b139776823449e2154bcdbd73150ef098d1c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bosu_Ball_Cable_Crunch_With_Side_Bends_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bosu_Ball_Cable_Crunch_With_Side_Bends_female_v2_1.png",
+      "sourceSha256": "3579052c99b1ecb9e2b499cf1720a90133059566439949686f37feede7d02947",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/033/Bosu_Ball_Cable_Crunch_With_Side_Bends_female_v2_1.png",
+      "candidateSha256": "8a434f05b49169b4cacb6ac240c5abb7fa71dd8ae16b95b7645f1ffec05b8a0e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bosu_Ball_Cable_Crunch_With_Side_Bends_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bosu_Ball_Cable_Crunch_With_Side_Bends_female_v2_2.png",
+      "sourceSha256": "fedc774c66c1337b455a38b4be253c1b287d7eb8fe2fad9c4a4d80a82668ed35",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/033/Bosu_Ball_Cable_Crunch_With_Side_Bends_female_v2_2.png",
+      "candidateSha256": "b8a7277e9670d4bf4bfe69584a658b9e7cb5e7399b32f30249791d353445c6d8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bosu_Ball_Cable_Crunch_With_Side_Bends_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bosu_Ball_Cable_Crunch_With_Side_Bends_female_v2_3.png",
+      "sourceSha256": "88e61c4f1103fa9b38b9e325cf53512f7ce26440d7fab48c1ee6aeea05132dfb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/033/Bosu_Ball_Cable_Crunch_With_Side_Bends_female_v2_3.png",
+      "candidateSha256": "95a516e81265483862e038390e8e28bfe1b21e78bf593442248d14b8766a949c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

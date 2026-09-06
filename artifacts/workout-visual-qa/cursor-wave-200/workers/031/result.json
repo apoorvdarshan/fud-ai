@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bodyweight_Mid_Row",
+  "shard": 4,
+  "index": 31,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bodyweight_Mid_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Mid_Row_male_v2_0.png",
+      "sourceSha256": "41477f921ccebb96b012a8ee987ad57063ce6365d7adb3a7cf09dc21bdda310e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/031/Bodyweight_Mid_Row_male_v2_0.png",
+      "candidateSha256": "82266634a87f7cf01b143eb1e8c430644c0027a48214168479795cb3c1d1a866",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Mid_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Mid_Row_male_v2_1.png",
+      "sourceSha256": "9910a1338658e8497528d0aaee01cd3763a7995d21f21ec898a50e1623c20939",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/031/Bodyweight_Mid_Row_male_v2_1.png",
+      "candidateSha256": "e8b77ab8e407a6aa49c80f09739a25787d6206a294b77045cb19ead9efec2ad3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Mid_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Mid_Row_male_v2_2.png",
+      "sourceSha256": "86479666d05cece6608571f0c0f6f87b304970aaa2b63b2b9df91bcea7c3dc9a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/031/Bodyweight_Mid_Row_male_v2_2.png",
+      "candidateSha256": "c5d267db90fd104098221e4b560921d3301d789c26cfd9bc02a7282100cce2ca",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Mid_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Mid_Row_male_v2_3.png",
+      "sourceSha256": "18bc5513ef0ffc6109b81c434a1c54c2f64d6df05666efbec386fbaf934d71ac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/031/Bodyweight_Mid_Row_male_v2_3.png",
+      "candidateSha256": "ec4970ac04afc154dd2ab4fdcf379672a933c014fa882e681c03df25159fd3a8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Mid_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Mid_Row_female_v2_0.png",
+      "sourceSha256": "3e873df9a816703bde6e721a5c4c4f2b3a198795335eac2632ea3771dbe67a93",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/031/Bodyweight_Mid_Row_female_v2_0.png",
+      "candidateSha256": "364edc3a0eaac1e78da6051c3447cd02c0fbdf74a48bc90059778761ced339ec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Mid_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Mid_Row_female_v2_1.png",
+      "sourceSha256": "73b5d5979c200814feed0133fe55d363dbcceb445f13a740caa99c8ad56b9c5a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/031/Bodyweight_Mid_Row_female_v2_1.png",
+      "candidateSha256": "9e590a60f79a784f37a4b553a569942a40f27a89597887a0fd4511b1d030957a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Mid_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Mid_Row_female_v2_2.png",
+      "sourceSha256": "d22ecb0ef45b031fafde65ded2bfcbcc371036bae1436664769a13644530a17e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/031/Bodyweight_Mid_Row_female_v2_2.png",
+      "candidateSha256": "a347434b2bcda5d6f9da6b33c9301d64b84e2149dfd9a70c6e5ff1f03b8d16e3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Mid_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Mid_Row_female_v2_3.png",
+      "sourceSha256": "d46e09da4c477cfbc70b9dcb3181b8c5b17c60f5f3400194b176df349d05bff6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/031/Bodyweight_Mid_Row_female_v2_3.png",
+      "candidateSha256": "62912ed6ffe4845e0e991a6fb20151740acfc1cfb32f3c69bdf5832d9014d8e7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

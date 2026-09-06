@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bodyweight_Squat",
+  "shard": 4,
+  "index": 32,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bodyweight_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Squat_male_v2_0.png",
+      "sourceSha256": "4315158c5161ffd9e829a9a04e2ca5b12b93b4a36aee928ab734faf8e8081299",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/032/Bodyweight_Squat_male_v2_0.png",
+      "candidateSha256": "dfe8e5f0be2ae7f531f1253e78ad682540ff50c4641eedd87562a8550a6d2086",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Squat_male_v2_1.png",
+      "sourceSha256": "ffb636d84a04a39560a2dcfae827997471d5cb61b93081ea58499e6676b17740",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/032/Bodyweight_Squat_male_v2_1.png",
+      "candidateSha256": "06037e343a7797c670bb727f048094d98968844bfdf6a14ad1a1eecfd2705980",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Squat_male_v2_2.png",
+      "sourceSha256": "454fc2b870ee493a0aff7d8227cf6177989e95e32f69612d53770a13edbb4cf1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/032/Bodyweight_Squat_male_v2_2.png",
+      "candidateSha256": "f1420645a33bd318088b44ca8c2a34f480310a3fe636c7ff78511ce2d5766c44",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Squat_male_v2_3.png",
+      "sourceSha256": "65366c5705c57596c7262815dbe09b3ddb26cfe1b53a25441c658422da9aa236",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/032/Bodyweight_Squat_male_v2_3.png",
+      "candidateSha256": "afdf685b30a941b17fccc4be58a981bfddc126ce27a09ead9f8d4091cf856a66",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Squat_female_v2_0.png",
+      "sourceSha256": "9b4725b1a3cd695484b277878f7ddccfed4709d16516a6a5cf7d534a3221f881",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/032/Bodyweight_Squat_female_v2_0.png",
+      "candidateSha256": "965e72c133fcc59c6d5e18504ce9c502f8e9a637b619093b859c1ea3005ff6b9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Squat_female_v2_1.png",
+      "sourceSha256": "109f906c92138728dc08d1ba2e92f33b9a5c1695902930d40c68c07aac6f8af7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/032/Bodyweight_Squat_female_v2_1.png",
+      "candidateSha256": "9346b67e5cbd99a08434ee85f194b27f1d6404e360e404cc5a1743633f3b54bb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Squat_female_v2_2.png",
+      "sourceSha256": "63ce1a5b329b19becda61f25ac4cd381a82392d8c4b37cdfda9d29eba7e6b6d0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/032/Bodyweight_Squat_female_v2_2.png",
+      "candidateSha256": "a7c834e2a4d97e6a1642dfbea9de0d524fbe735cad162adb9e2117aa1760ca2b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Squat_female_v2_3.png",
+      "sourceSha256": "82a1ca39da62dd4c2dc9e7331249fdf5f6549bec0c5b6477cba86bad690ab04d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/032/Bodyweight_Squat_female_v2_3.png",
+      "candidateSha256": "1e174110a848ffea63b37a50d69aa789066b165ac934edbdf765c79a780be144",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

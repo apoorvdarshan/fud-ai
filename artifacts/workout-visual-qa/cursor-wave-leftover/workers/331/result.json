@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Rope_Crunch",
+  "shard": 34,
+  "index": 331,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Rope_Crunch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Rope_Crunch_male_v2_0.png",
+      "sourceSha256": "9a6147771bdec2bcba6cc2ae030b175bc54f1fd1a00140497508b11b730d2536",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/331/Standing_Rope_Crunch_male_v2_0.png",
+      "candidateSha256": "b4d6fdea75e1a0da87002fe6a49ebf212c95da0bf4150a0eca0805de9b6b3098",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Rope_Crunch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Rope_Crunch_male_v2_1.png",
+      "sourceSha256": "54da312d3955c4f2315f27a72539adb18db482c26ea5d18336e60f3474756c48",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/331/Standing_Rope_Crunch_male_v2_1.png",
+      "candidateSha256": "b351c027baaaa126eb3279fe7fc56f400d75e5566ad5d48da2bbb6cc1ba53ebe",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Rope_Crunch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Rope_Crunch_male_v2_2.png",
+      "sourceSha256": "90fe70128c3bb985292af5e2fa5024d59994b2a652630a0f936869f9f7f5b97f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/331/Standing_Rope_Crunch_male_v2_2.png",
+      "candidateSha256": "bc4763919b80f9b1c7d3ddf51ef11e6833c467b85ec1f99cf1b3b0eb8c4dc6cf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Rope_Crunch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Rope_Crunch_male_v2_3.png",
+      "sourceSha256": "b1a4dc05b90f820b84e6991f5cf3a5dc91957141f0f8340bef582a671476dea4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/331/Standing_Rope_Crunch_male_v2_3.png",
+      "candidateSha256": "22a95ed748ae1c526d1aeea9f0cf19743bcf3ad1dee7913d3388c862540f5fe1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Rope_Crunch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Rope_Crunch_female_v2_0.png",
+      "sourceSha256": "3c5c9d1b8bbc27acf3894edc58507473a52f005dbab88a38ca303c71bac623fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/331/Standing_Rope_Crunch_female_v2_0.png",
+      "candidateSha256": "96412f517128ae2362b0b862c0510defb2b96712461178ca3529047e8f192da8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Rope_Crunch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Rope_Crunch_female_v2_1.png",
+      "sourceSha256": "0b900157d94de76b66a595e0b140a4c5e53ec16cb9db5c040626bdf007ba254b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/331/Standing_Rope_Crunch_female_v2_1.png",
+      "candidateSha256": "9d8a04f77ea434428f0c4a3feede73897c3925b061d3ccf53b899201f5eaa56e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Rope_Crunch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Rope_Crunch_female_v2_2.png",
+      "sourceSha256": "4fc743bb3850e62861b5f35a839066afaad1b95bd9e3177c94cefce5f21c8f97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/331/Standing_Rope_Crunch_female_v2_2.png",
+      "candidateSha256": "bbe73102e9a10c267809220a19eba88faf0648afa68e1c0b8d0e9831355ce071",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Rope_Crunch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Rope_Crunch_female_v2_3.png",
+      "sourceSha256": "f6fb5ab4de962864ad23fc87843de1ed95352872113fd49a6664602192b57bc6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/331/Standing_Rope_Crunch_female_v2_3.png",
+      "candidateSha256": "2436e3013418976a83b928760fae9dca9037d0cf6b21dbf73668956695b727e1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

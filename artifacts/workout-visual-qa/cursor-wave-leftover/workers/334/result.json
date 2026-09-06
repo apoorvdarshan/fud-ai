@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Towel_Triceps_Extension",
+  "shard": 34,
+  "index": 334,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Towel_Triceps_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Towel_Triceps_Extension_male_v2_0.png",
+      "sourceSha256": "ffa1d55a4f8f50eec4cfcfbe3e1c9d7359ad80fe3fc0dce44ba9c9c9c188963c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/334/Standing_Towel_Triceps_Extension_male_v2_0.png",
+      "candidateSha256": "c058815e0b4875319221bc9afd1a2c1658116a253a68206d5e103b7fe7b9b6db",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Towel_Triceps_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Towel_Triceps_Extension_male_v2_1.png",
+      "sourceSha256": "1f2a7446d29e3420f4230f0567b6936723794fa9d283c09ecb7f79cd368ab323",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/334/Standing_Towel_Triceps_Extension_male_v2_1.png",
+      "candidateSha256": "4494513ffee3f9452bcd723674fc52e400723162e1541c6050712b09dfb5d20c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Towel_Triceps_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Towel_Triceps_Extension_male_v2_2.png",
+      "sourceSha256": "0d4078b91cd341eccaee4c95b9b6c4488b74308a3dc3ac294c43e832a5f82f6e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/334/Standing_Towel_Triceps_Extension_male_v2_2.png",
+      "candidateSha256": "8a231d1ced304ee191662589c2e88fcaf84188ceabf0c78ee68013414cc6ca06",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Towel_Triceps_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Towel_Triceps_Extension_male_v2_3.png",
+      "sourceSha256": "81a2243cba1dadacbbc5ffb86151b28b959e8c7aeb6be11d91cdf50a391886ac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/334/Standing_Towel_Triceps_Extension_male_v2_3.png",
+      "candidateSha256": "9b63bfa56811ae4caf16d0a006ee7254ebf85cf43698e90dc7b9f3ceff16a327",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Towel_Triceps_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Towel_Triceps_Extension_female_v2_0.png",
+      "sourceSha256": "a94200fa43fce8e21c0316aa79c62267b160d3bb8b0f76401ff9442448bbbdca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/334/Standing_Towel_Triceps_Extension_female_v2_0.png",
+      "candidateSha256": "0c5d6d8291f64a0f2424e5ebd0dff4af8c4ecbf6f8219bf6e2ee53b18c7803c2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Towel_Triceps_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Towel_Triceps_Extension_female_v2_1.png",
+      "sourceSha256": "c34ca955cb230e93698022101455b9c5749ed43e93c0c0e34d03ef6d68d31bdc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/334/Standing_Towel_Triceps_Extension_female_v2_1.png",
+      "candidateSha256": "29f8ec6227386aa6d8d09ab37b9179949ab58881123b11f129c191208ebe0c1f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Towel_Triceps_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Towel_Triceps_Extension_female_v2_2.png",
+      "sourceSha256": "17e4faf2f8ac38ec951026446eae807754162a6adaa401a74288499e44d789f3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/334/Standing_Towel_Triceps_Extension_female_v2_2.png",
+      "candidateSha256": "ffb1f702142b04e6e68a739ddba90daa7c52785151803e02dd8c3c3ea878b56f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Towel_Triceps_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Towel_Triceps_Extension_female_v2_3.png",
+      "sourceSha256": "0de3f12d38705c7f46eb7a25da3469dab95ab1a020b32567faa030a110fd6632",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/334/Standing_Towel_Triceps_Extension_female_v2_3.png",
+      "candidateSha256": "a0df4a684a21f7250a638133e0bbf65f8fa2ded360b2f53e45f2e615192fe434",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Star_Jump",
+  "shard": 34,
+  "index": 336,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Star_Jump_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Star_Jump_male_v2_0.png",
+      "sourceSha256": "5280ae9652a5905bfbfbcff1aa3a357ffbe6fc716c7dccc0605c11b77f266ab9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/336/Star_Jump_male_v2_0.png",
+      "candidateSha256": "0f084f6d4be4b538d2e7c3989e682390c430b0a1ceccae0ec1c5ee9937460cc4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Star_Jump_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Star_Jump_male_v2_1.png",
+      "sourceSha256": "16231b874e559d5c5ffc95c25406854cb121645b09faeb9d924b5e15e4e5946a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/336/Star_Jump_male_v2_1.png",
+      "candidateSha256": "cc58cc7c904ef722003a2ea91c8874464e43831ba21e1a31683f2ced3dbb09f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Star_Jump_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Star_Jump_male_v2_2.png",
+      "sourceSha256": "a75df5ffba6707e7bc28ab198dfb13e9234e041548f7a1a0af98b98e8c579d07",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/336/Star_Jump_male_v2_2.png",
+      "candidateSha256": "3362cd162aab4d1ed1d0ad01dd3f7dfa70995d58425b059ff5fb5b16dbb82f32",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Star_Jump_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Star_Jump_male_v2_3.png",
+      "sourceSha256": "c0769d5cf34196b09b4a234eda689474c53cc9092f28894754464cf1f0733046",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/336/Star_Jump_male_v2_3.png",
+      "candidateSha256": "0d03d67258888f2d3b58281b6ab47d604b5753ca55923ec03a7ad27c22bdafb1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Star_Jump_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Star_Jump_female_v2_0.png",
+      "sourceSha256": "595e2f03978021d5590d8a7ee5cd064b8709c906b7b9bc23751a99c1ec47c6e1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/336/Star_Jump_female_v2_0.png",
+      "candidateSha256": "51fc75081ad1e0d78e04fcfdb55b6f03ab0e62d78f14d18c341ed928048ac0ba",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Star_Jump_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Star_Jump_female_v2_1.png",
+      "sourceSha256": "f09f01c9361a22f4076e3632939a7115a867b2b6a86b67204a7ba8d203e7387b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/336/Star_Jump_female_v2_1.png",
+      "candidateSha256": "2990649a6c2b33b6e83f5ef68c64dcb1f70b2826f1cb1be2d112c7fbb6eb0f5d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Star_Jump_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Star_Jump_female_v2_2.png",
+      "sourceSha256": "3e68d3ab4455831889fa03f542e1858f9a344489bce5336565416ab958b4e4a8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/336/Star_Jump_female_v2_2.png",
+      "candidateSha256": "ba673446dd1c7980bb57d084d2b03de3736a44ce9d52814160d4800ad72d6665",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Star_Jump_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Star_Jump_female_v2_3.png",
+      "sourceSha256": "4100a87457f4587de66f7763ad19daf6d57516413737c24e8833979337fe07ae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/336/Star_Jump_female_v2_3.png",
+      "candidateSha256": "183286f0aa2824ca5404ecb11396dea3e13427d73d2ba2743d85bff4f5e48b2a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

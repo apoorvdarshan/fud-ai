@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Single-Arm_Cable_Crossover",
+  "shard": 23,
+  "index": 223,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Single-Arm_Cable_Crossover_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Cable_Crossover_male_v2_0.png",
+      "sourceSha256": "a77602fa4d8f32c5be8c032b97495369677a0dab0e428940f2f4dac53eae1dde",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/223/Single-Arm_Cable_Crossover_male_v2_0.png",
+      "candidateSha256": "d8f88d1f5101eea5b293a015712ab422f442bb6ea2a8ab5d71a504ba6741e897",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Cable_Crossover_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Cable_Crossover_male_v2_1.png",
+      "sourceSha256": "cb0cbad897c98cab81f377832fa9d1eef1eff484a6fe35cc180b121156c64c17",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/223/Single-Arm_Cable_Crossover_male_v2_1.png",
+      "candidateSha256": "489551e1d74dfc58d88e21035511b09bcf126f8719b57d02f73c7a745faddb05",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Cable_Crossover_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Cable_Crossover_male_v2_2.png",
+      "sourceSha256": "3051c34b2984323087aaf2bdb880fa00c7d08de2158dd8aa305ece15d91d6b08",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/223/Single-Arm_Cable_Crossover_male_v2_2.png",
+      "candidateSha256": "29f037d0ff1d74552afa25d279fefbb157aa074f08e8bf03fb5cacf0a6a782e4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Cable_Crossover_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Cable_Crossover_male_v2_3.png",
+      "sourceSha256": "34832b3bde66564d61d94b2b98e58663a82ab15bc47f3953c94d7f4997b12356",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/223/Single-Arm_Cable_Crossover_male_v2_3.png",
+      "candidateSha256": "ea3d15784208376c102c154f9889207522e2024649bd867feb2fe69f9d681dde",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Cable_Crossover_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Cable_Crossover_female_v2_0.png",
+      "sourceSha256": "b3ec66725e2323c36e2f240c8aa1a6dd1ec1e7d5f7776ba4b81fc37d194c6162",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/223/Single-Arm_Cable_Crossover_female_v2_0.png",
+      "candidateSha256": "f8db8a962ec539929893cc43166eaa08235e66b77b7480326c42fc9aeb6a21e1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Cable_Crossover_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Cable_Crossover_female_v2_1.png",
+      "sourceSha256": "ae02b37f35bddb3f3f6070d89fd897cdc6539325edfbb8cb57d0ccebc4dd7786",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/223/Single-Arm_Cable_Crossover_female_v2_1.png",
+      "candidateSha256": "f479fb7063e1893839df7d471599affa2b214a28c89a75da4ee5c4ceb9e90e79",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Cable_Crossover_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Cable_Crossover_female_v2_2.png",
+      "sourceSha256": "96661686e5d253b59ec426133121d28a64050a47e6d30b31e1a0caf9cd43b999",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/223/Single-Arm_Cable_Crossover_female_v2_2.png",
+      "candidateSha256": "f64c136b7197057984fc800f05303f3cc698807acc4dc256838b819358c593b9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Cable_Crossover_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Cable_Crossover_female_v2_3.png",
+      "sourceSha256": "49ebe5e928ee002bd44d79a1d3af5a1dba0fd93d94e8dc7ed715b2d9ed1738d3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/223/Single-Arm_Cable_Crossover_female_v2_3.png",
+      "candidateSha256": "23d48fc78ce8e1cb20663d1f25215ce5e03e4d2db4e45eca378bde2409c333bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

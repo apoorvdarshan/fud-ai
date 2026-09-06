@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Single-Arm_Linear_Jammer",
+  "shard": 23,
+  "index": 224,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Single-Arm_Linear_Jammer_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Linear_Jammer_male_v2_0.png",
+      "sourceSha256": "31cbe7060360d8d855462ba2d7a734464b07f891e95540ffb382da6077462de9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/224/Single-Arm_Linear_Jammer_male_v2_0.png",
+      "candidateSha256": "52cf3f2901bb6112acd0b8ad685db1c99a1e874cd1b24d9fa462d5b5c2e6458d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Linear_Jammer_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Linear_Jammer_male_v2_1.png",
+      "sourceSha256": "a0ffa11d5fa2fc0185e4e76bab77546fefd8beb5b6d509cb5ccca2f247ef6c42",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/224/Single-Arm_Linear_Jammer_male_v2_1.png",
+      "candidateSha256": "411e5fb12dd7a17f348ac5bcd504469263beffa244ac7df0e4a7484ec12c90e7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Linear_Jammer_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Linear_Jammer_male_v2_2.png",
+      "sourceSha256": "ba4a51c27d265d2f5e4b76a37b754fd34947c23f33db4d7fb985ae05d019cbdb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/224/Single-Arm_Linear_Jammer_male_v2_2.png",
+      "candidateSha256": "334f92dd397d542ffc9d3b021413f613445e3431b4a5fb66a9ae79dd678d40cc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Linear_Jammer_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Linear_Jammer_male_v2_3.png",
+      "sourceSha256": "40652cba303727032072aba82ea81876b6d6ef9436ad123e85df3a30baef8472",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/224/Single-Arm_Linear_Jammer_male_v2_3.png",
+      "candidateSha256": "15e7559edc082b8dc7be93ef2c80c92a8543a45d21deb892a7e91459e775b078",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Linear_Jammer_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Linear_Jammer_female_v2_0.png",
+      "sourceSha256": "22ca72b4abea69c248c3fbc30bdc1c0694b6ac918fc8da940dff019b7169fee1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/224/Single-Arm_Linear_Jammer_female_v2_0.png",
+      "candidateSha256": "f2e0d040032c0bdd9b41c596f1f160eb2ebe094e1d81743ebf035d07353816a7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Linear_Jammer_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Linear_Jammer_female_v2_1.png",
+      "sourceSha256": "b7a1883e7045e23e218b3aa6d4a433ba5c85319e34cbb5e3153590b40596e2a6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/224/Single-Arm_Linear_Jammer_female_v2_1.png",
+      "candidateSha256": "7e0f77fef7c92560c5d0947253c55f698c877dfc655f901a1a02710f5ddac15a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Linear_Jammer_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Linear_Jammer_female_v2_2.png",
+      "sourceSha256": "5dae5f5fd3cc982af27b1f697332109054d1bae7158799379eebaa72c24a9120",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/224/Single-Arm_Linear_Jammer_female_v2_2.png",
+      "candidateSha256": "546d37ed706456eda67530d1593a8042088e78a385e76d7650acb611d3afe895",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Linear_Jammer_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Linear_Jammer_female_v2_3.png",
+      "sourceSha256": "400c63c57bc91871910256d6eacd50a943a7522feddfd34943fb711192f678cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/224/Single-Arm_Linear_Jammer_female_v2_3.png",
+      "candidateSha256": "ce7f26a909277c788346c7666ce8a80a8c51bd9f88432514c8c76a7013f2f6d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

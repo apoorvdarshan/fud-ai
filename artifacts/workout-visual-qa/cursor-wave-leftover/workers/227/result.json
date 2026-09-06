@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Single-Leg_High_Box_Squat",
+  "shard": 23,
+  "index": 227,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Single-Leg_High_Box_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_High_Box_Squat_male_v2_0.png",
+      "sourceSha256": "1f484f5f0efb8a8deb8042418e1fd697a4a7005546389c69360fb29c5c539910",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/227/Single-Leg_High_Box_Squat_male_v2_0.png",
+      "candidateSha256": "75220ec4b42cde00090f0468a4046ab3229cdc8185007587e67da65a49599626",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_High_Box_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_High_Box_Squat_male_v2_1.png",
+      "sourceSha256": "621f66b6d9caa8f002926d3fa1606e0fc31d5022bb3d3e3c5894476b75dbfce2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/227/Single-Leg_High_Box_Squat_male_v2_1.png",
+      "candidateSha256": "e8c9359bd1898d693e5739af0e78629b789609fbfb8b8f242cb6ad6d7393614f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_High_Box_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_High_Box_Squat_male_v2_2.png",
+      "sourceSha256": "fe6302b0dc27de3cbae45cd966c7652f7de7686cb187bad02549d3deb8602111",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/227/Single-Leg_High_Box_Squat_male_v2_2.png",
+      "candidateSha256": "24241baa3cf7f4213bdf844ee36830f6a10f9dc0bd28c7e943262b87a3cfd80c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_High_Box_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_High_Box_Squat_male_v2_3.png",
+      "sourceSha256": "d75881b8690888000867115d1c4bc64853545079558494132640e45afc0a4f42",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/227/Single-Leg_High_Box_Squat_male_v2_3.png",
+      "candidateSha256": "03d7f6dc8246bcb9eea7d9baed37f94fef6456fca50bb2b06f42c3de6bae68b7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_High_Box_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_High_Box_Squat_female_v2_0.png",
+      "sourceSha256": "f1c6bed10149bd55907e72676065514d3d9fdc04718f1a4292013ae456cfc3b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/227/Single-Leg_High_Box_Squat_female_v2_0.png",
+      "candidateSha256": "a8c16a1e1a390e56427a69254a84fc1f922b2087d3e3c079f45fdf1eed0fde78",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_High_Box_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_High_Box_Squat_female_v2_1.png",
+      "sourceSha256": "f267671637ac7f68da4bdfc64083e5b42dbfb8f3f27249f201845e182c5ad235",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/227/Single-Leg_High_Box_Squat_female_v2_1.png",
+      "candidateSha256": "cf8f3ef013853b8940a89bf90f8b2e1dc50382d6e777af2f813b13117ee963c7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_High_Box_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_High_Box_Squat_female_v2_2.png",
+      "sourceSha256": "4e01be130c2f6141cb94e8bae57ba2617ff7a5ded1e9edf4f4b8ac0d8fd4c810",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/227/Single-Leg_High_Box_Squat_female_v2_2.png",
+      "candidateSha256": "7073f2acc58e2cead4a0acae93ab383c6849f0e0729bf4517c060ffe5cae34b3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_High_Box_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_High_Box_Squat_female_v2_3.png",
+      "sourceSha256": "ea45a38a2ddd45a2f238e47b11a71758ba3f38dd419db5172f6e01eab42bd460",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/227/Single-Leg_High_Box_Squat_female_v2_3.png",
+      "candidateSha256": "103e867ebd9c182cf1fec4f87626ec11bbb73584edb0dca462333fc77f238bd7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

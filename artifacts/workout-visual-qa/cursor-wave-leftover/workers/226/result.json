@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Single-Cone_Sprint_Drill",
+  "shard": 23,
+  "index": 226,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Single-Cone_Sprint_Drill_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Cone_Sprint_Drill_male_v2_0.png",
+      "sourceSha256": "e5884fb079d8e001673bda0a1264017a42820bc0a88f76563d851d1466f7249f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/226/Single-Cone_Sprint_Drill_male_v2_0.png",
+      "candidateSha256": "67df0b25a49851c3ab81fe725f9ba3d493b006395f36d091dd2743cd6c776057",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Cone_Sprint_Drill_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Cone_Sprint_Drill_male_v2_1.png",
+      "sourceSha256": "68033bf3112b035e7852bed830c8f25ad5c314bc2f3b27dd531f1f7cd676dc53",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/226/Single-Cone_Sprint_Drill_male_v2_1.png",
+      "candidateSha256": "39a6863399cf0874a38a011beadbecb1f2cd92ec9d827cb85ac38cd26dd40ca1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Cone_Sprint_Drill_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Cone_Sprint_Drill_male_v2_2.png",
+      "sourceSha256": "26bf17843575b67c30fd93c25b4c6ff9235a4462fc9acac0e7c15bb30d0cc18b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/226/Single-Cone_Sprint_Drill_male_v2_2.png",
+      "candidateSha256": "37f92deed5a72357b3685596a7e803f3d1fcb6a3b5647dc34b2784bfaec2ae31",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Cone_Sprint_Drill_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Cone_Sprint_Drill_male_v2_3.png",
+      "sourceSha256": "43c884981146421edb62ce1f0794cc6799af45699d2de47cd5de638c3f38daa3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/226/Single-Cone_Sprint_Drill_male_v2_3.png",
+      "candidateSha256": "f80dc44b9926519b2a488b060a2d76c43b29a18b1be04b7f3673a144a870701c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Cone_Sprint_Drill_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Cone_Sprint_Drill_female_v2_0.png",
+      "sourceSha256": "5614c77e90f7d9e5732cd02d6ebacbdb2ccf6d6c81a7185623bab8211b756c3b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/226/Single-Cone_Sprint_Drill_female_v2_0.png",
+      "candidateSha256": "c571b62f7b9543b4e9745021419df141edf7118ad0fcf569e9d2c3afdba7bfcd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Cone_Sprint_Drill_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Cone_Sprint_Drill_female_v2_1.png",
+      "sourceSha256": "8284ab694036df7202336a64a9987455d2c2919a91365645de98e91ab211d858",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/226/Single-Cone_Sprint_Drill_female_v2_1.png",
+      "candidateSha256": "7a39a756e070aaeb7138a92900781fcfd5d1ae59077171f5452bd1614dec16b7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Cone_Sprint_Drill_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Cone_Sprint_Drill_female_v2_2.png",
+      "sourceSha256": "a13946327318b4556823da325670399fcd7f705933d104d6f2b78e184e7981df",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/226/Single-Cone_Sprint_Drill_female_v2_2.png",
+      "candidateSha256": "52b9292909f464a671a3e413bf3834be9333567e45fdc71e08b03fd5c101cdbe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Cone_Sprint_Drill_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Cone_Sprint_Drill_female_v2_3.png",
+      "sourceSha256": "ae16ea0523e634f29b6eb24dafbcf0e36aefdf5c975bd71868bbcf2dc309fee8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/226/Single-Cone_Sprint_Drill_female_v2_3.png",
+      "candidateSha256": "f57f0a459924d0b8efa606a2463898b90c8110ebe505d4397334d2695617a483",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

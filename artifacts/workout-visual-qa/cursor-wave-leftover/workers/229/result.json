@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Single-Leg_Lateral_Hop",
+  "shard": 23,
+  "index": 229,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Single-Leg_Lateral_Hop_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Lateral_Hop_male_v2_0.png",
+      "sourceSha256": "46a1c0575530b7dbb59cae4c588b002c7840d2e6aa3a5a96cd53703eec05ecf7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/229/Single-Leg_Lateral_Hop_male_v2_0.png",
+      "candidateSha256": "28cad6feda6fb55e471069a2453e6001fdabfb91204b7fafc150fe9d342f46b8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Lateral_Hop_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Lateral_Hop_male_v2_1.png",
+      "sourceSha256": "d3d9acd9a2d34435cb0fa1224e6835340b4d4bfebeca96e4aa99e5885329eb97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/229/Single-Leg_Lateral_Hop_male_v2_1.png",
+      "candidateSha256": "04730e0e9d6ccafb09336ab359fc44ca3aaf652449ced2a8b521c4ce22973826",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Lateral_Hop_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Lateral_Hop_male_v2_2.png",
+      "sourceSha256": "81e92dfe24b41930dbf5a7ee0f7e139c2927b298a0403c9e2dcfe21548dc9014",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/229/Single-Leg_Lateral_Hop_male_v2_2.png",
+      "candidateSha256": "c8fb62e13311264a0a7e944421964185a678800b19adf0711b5e3844259cd84a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Lateral_Hop_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Lateral_Hop_male_v2_3.png",
+      "sourceSha256": "56f0365493a662e4e0a70bd248c859de5cf26b000b37535105e5afd8da896cfa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/229/Single-Leg_Lateral_Hop_male_v2_3.png",
+      "candidateSha256": "a65884f9dcb2b85a7b3eb8e90b71290ffa8c85a81ed678fd0636b6758ad48e68",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Lateral_Hop_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Lateral_Hop_female_v2_0.png",
+      "sourceSha256": "551e01732a1e8095c42494fdc7b6e8a68ef440208586ced36234183bcf6afc9a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/229/Single-Leg_Lateral_Hop_female_v2_0.png",
+      "candidateSha256": "467b361d19d8a4b3d62f5a992a212e74b410233ec6819ba10dddbf05e586c706",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Lateral_Hop_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Lateral_Hop_female_v2_1.png",
+      "sourceSha256": "9d126012fbd65dec2563e139b18ec930580ece521ba0299b5563b91351486f64",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/229/Single-Leg_Lateral_Hop_female_v2_1.png",
+      "candidateSha256": "e9236640fdefc9d0579af6094f37203b2806225e7d09ef6d4b579ca0bc9d2da8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Lateral_Hop_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Lateral_Hop_female_v2_2.png",
+      "sourceSha256": "496ecfcb844227dc69fdf803ebe255392546c19c92f9f1285dced54a252af2e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/229/Single-Leg_Lateral_Hop_female_v2_2.png",
+      "candidateSha256": "14dff3c729666bf33c59d40e9bef28ef8265234dfc6ea1cc17a176c5509d2d10",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Lateral_Hop_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Lateral_Hop_female_v2_3.png",
+      "sourceSha256": "519e6dea6ae4f080a2fb41404c835ae06c2b16af37a69ce809b8a78d43ff3222",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/229/Single-Leg_Lateral_Hop_female_v2_3.png",
+      "candidateSha256": "46e6deac0f9dcba24d76e34275bd69adb33ce4d9854f6dc02b5727c1e9fb3bb8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

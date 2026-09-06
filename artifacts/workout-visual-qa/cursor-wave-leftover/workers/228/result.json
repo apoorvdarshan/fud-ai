@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Single-Leg_Hop_Progression",
+  "shard": 23,
+  "index": 228,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Single-Leg_Hop_Progression_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Hop_Progression_male_v2_0.png",
+      "sourceSha256": "9bf3cd65d33ce6f5d50e15b8eaea4c44fc4dbae4c955ce6bdeb3ff824aaee28d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/228/Single-Leg_Hop_Progression_male_v2_0.png",
+      "candidateSha256": "ef39e4d2d5491d6f08d98a544f968d266fd6d5770aaf38d09729da6ab4886d17",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Hop_Progression_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Hop_Progression_male_v2_1.png",
+      "sourceSha256": "9be1345119d715bc0884e8e3b53f455fd828038b5d285dde222f09b4324ecce7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/228/Single-Leg_Hop_Progression_male_v2_1.png",
+      "candidateSha256": "345f6fd172981d96633d44d9a6f0fb8c6217de77b784f3383d0cf9a531e235b8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Hop_Progression_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Hop_Progression_male_v2_2.png",
+      "sourceSha256": "f36186cb46a820af02c8af662790e8179125e39ab7d3fdf78eaa9dbe0a42cb03",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/228/Single-Leg_Hop_Progression_male_v2_2.png",
+      "candidateSha256": "a49cf3a77445b70b44bace02446980dd88e5f97d87e281e4da5b484a92c6b554",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Hop_Progression_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Hop_Progression_male_v2_3.png",
+      "sourceSha256": "cb749a91f626998255ec143cdf33b5192ebc91e76469af8cfbbc7abf887d8b3d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/228/Single-Leg_Hop_Progression_male_v2_3.png",
+      "candidateSha256": "5fc2f0fed8a6b73a75823c66ad8f5550701d4570dcbeae4c97121e61bd9823ce",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Hop_Progression_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Hop_Progression_female_v2_0.png",
+      "sourceSha256": "3e8c904e8bdaa651eaa583af093014ae0d8ce7fbd20bc880e4e68fdbb00aaa28",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/228/Single-Leg_Hop_Progression_female_v2_0.png",
+      "candidateSha256": "ece628673bcf8ebc36871ce73b712606a320d622228522087b2c582c661d2c9a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Hop_Progression_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Hop_Progression_female_v2_1.png",
+      "sourceSha256": "3c3f5ab6c603ffbd9f2e31c4f0da9d29a041c5aa28b2e98c58f76af2f8d4ddad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/228/Single-Leg_Hop_Progression_female_v2_1.png",
+      "candidateSha256": "a0bc119bd71bf5a5bd23bb0117ba59fa94c3f2e58c36a37d3283002e6bbace27",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Hop_Progression_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Hop_Progression_female_v2_2.png",
+      "sourceSha256": "8bdd1a7d7691c7ce679e6808d5c1eecce05369a5a8462b9c793413df8c3ceb4e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/228/Single-Leg_Hop_Progression_female_v2_2.png",
+      "candidateSha256": "a8e53f099c38a109a0f5b26185a8f09b67ed668595c513feffd121b5370d2886",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Leg_Hop_Progression_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Leg_Hop_Progression_female_v2_3.png",
+      "sourceSha256": "0c10cfba121c63c571fdffb14385d690e5abbf1c26e614f02269e6d6c7aa183f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/228/Single-Leg_Hop_Progression_female_v2_3.png",
+      "candidateSha256": "67da27c7f49ae6349a7d6e52709864a680a972252e1f1f20873a743162d1afae",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

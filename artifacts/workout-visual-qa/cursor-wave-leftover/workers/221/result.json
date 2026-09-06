@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Side_Wrist_Pull",
+  "shard": 23,
+  "index": 221,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Side_Wrist_Pull_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Wrist_Pull_male_v2_0.png",
+      "sourceSha256": "5c839517b992ad3f258bcf96fb7c4323ebc8b61a50dddec25db87d48ab1f68bf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/221/Side_Wrist_Pull_male_v2_0.png",
+      "candidateSha256": "a9e3014b1db5a6552d18c8d0d9b6056281a88b8103320591a7a4c0dfe2e13f27",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Wrist_Pull_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Wrist_Pull_male_v2_1.png",
+      "sourceSha256": "0902e45dee2e09ae1bf5369e808c05a7315935a2bdc47183c09fcf15eef51c0d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/221/Side_Wrist_Pull_male_v2_1.png",
+      "candidateSha256": "8e3ae6a3c983fac3016ac16fa1bc3da8a07cffa65e71e3ccc36cdcc8a8ca6eab",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Wrist_Pull_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Wrist_Pull_male_v2_2.png",
+      "sourceSha256": "2761f9f987ef6195c0ea13af40b28d98d869c1e3b3c250855098e2f914222b23",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/221/Side_Wrist_Pull_male_v2_2.png",
+      "candidateSha256": "cb5e6f5601c568122e4bb0398c3282f6eec5884791c316d01134c9f60a08f697",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Wrist_Pull_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Wrist_Pull_male_v2_3.png",
+      "sourceSha256": "1c2a40fc79764e0bd311c5f78e552aead2d8960f60c83806b433b39ef3a76a9a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/221/Side_Wrist_Pull_male_v2_3.png",
+      "candidateSha256": "4a4c2600c4037d21ff47d856041f3354c7c15fdee8dbfa92dd4bdc08bdf79491",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Wrist_Pull_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Wrist_Pull_female_v2_0.png",
+      "sourceSha256": "3cfac10f5da8d35ee05b9817c9e717a6d45e563324f2912f1425aec4e8a717a9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/221/Side_Wrist_Pull_female_v2_0.png",
+      "candidateSha256": "3f2cddd3cd3459b569fce6f6711761fffd073201956d5f594cae7d64e45d9e68",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Wrist_Pull_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Wrist_Pull_female_v2_1.png",
+      "sourceSha256": "7eca7be37b902ac2b52dfac53e14a538ced44b0c6301fda5894a0689309192ab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/221/Side_Wrist_Pull_female_v2_1.png",
+      "candidateSha256": "a340108936cfaea738c9fbe26e3dbe6d204dc3851cf7b6fefff53ce74ce3897a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Wrist_Pull_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Wrist_Pull_female_v2_2.png",
+      "sourceSha256": "7cc19b3c0f4dcbb183c06779484754856288aeb2ce2bcd1e877a171fb7c7550d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/221/Side_Wrist_Pull_female_v2_2.png",
+      "candidateSha256": "4acf94e2682b541fdb4dac078b434bda7126cb393e7769a83037d7a0c10623aa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Wrist_Pull_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Wrist_Pull_female_v2_3.png",
+      "sourceSha256": "63a52feb7e876f56932de036fd1d9944ca9a45e5e1b80016eba02a58219e3b00",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/221/Side_Wrist_Pull_female_v2_3.png",
+      "candidateSha256": "fd8b5a6ab3e49651a33ae1eb302092616d75836bd43563293dbf36bb8249a2ab",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

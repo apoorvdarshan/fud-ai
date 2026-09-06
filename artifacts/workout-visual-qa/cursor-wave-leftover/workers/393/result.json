@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Vertical_Swing",
+  "shard": 40,
+  "index": 393,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Vertical_Swing_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Vertical_Swing_male_v2_0.png",
+      "sourceSha256": "a22a352f208246bdf5724c65bdccdb74f99473a2e3c33790cd10baac044a2af0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/393/Vertical_Swing_male_v2_0.png",
+      "candidateSha256": "9ef641ad84653bbeefa40eee6c3bf6ac7270828e151b221a1b48941fb5c97bfb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Vertical_Swing_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Vertical_Swing_male_v2_1.png",
+      "sourceSha256": "b8cb514ef37e9314d28ec0c8bd412bf610ce59820561ddb280e5a398d009268f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/393/Vertical_Swing_male_v2_1.png",
+      "candidateSha256": "7823d3fa31e4e208513ff8f74e3cd732a070b661d2a8acebcea0c5f372572c45",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Vertical_Swing_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Vertical_Swing_male_v2_2.png",
+      "sourceSha256": "76cfdec0c9a22ceaa975c209fee5182b846fb4eecda9cecf4597129cfd6d394a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/393/Vertical_Swing_male_v2_2.png",
+      "candidateSha256": "c27d7a3194b9730ef123d0241144063a2d4f9f9ad762157e9ba8e20615d37ad0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Vertical_Swing_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Vertical_Swing_male_v2_3.png",
+      "sourceSha256": "7377a41570204e2061d9c252acfefe41642ce538a3b9d6328a797d980e9fe159",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/393/Vertical_Swing_male_v2_3.png",
+      "candidateSha256": "d2306cd1c05ccaef1a92a9cbde1bf9680abaa20fcbc714a5e54f1fa86c625b31",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Vertical_Swing_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Vertical_Swing_female_v2_0.png",
+      "sourceSha256": "7ea2696f973c87c8b21a9fe4c73f5ac492847cf075a1851d411cf825ac2aa6b1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/393/Vertical_Swing_female_v2_0.png",
+      "candidateSha256": "0271ead596a6fc08e4e933234a30af18ec8bb53ba354a5b66c379d826025467e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Vertical_Swing_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Vertical_Swing_female_v2_1.png",
+      "sourceSha256": "c1c74abd5d9fc24a92cb44fa4e34034e62783647f5421f8ace0b30309a271cec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/393/Vertical_Swing_female_v2_1.png",
+      "candidateSha256": "541b9b2173a5b2c096be3181eb8d014c814a96dfbdc4780ef02dd31588d559ee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Vertical_Swing_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Vertical_Swing_female_v2_2.png",
+      "sourceSha256": "5bcaf019ca9e2c5e1764af9d1cd4b2d05ad26ac28ef0dc9d71f7a84eb6a6a366",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/393/Vertical_Swing_female_v2_2.png",
+      "candidateSha256": "6b9b47c9620de6ddf5b3800dc149c10ad8175b154dbd8f2edc37aac81c732d06",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Vertical_Swing_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Vertical_Swing_female_v2_3.png",
+      "sourceSha256": "90481e84c08786f3758f8397280db1b5002ceb13483fa2a2665d0c44e340ae05",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/393/Vertical_Swing_female_v2_3.png",
+      "candidateSha256": "7f8efdf2e8607f23e878d7b2c80d30eb81f840ab542293f03b397c869d4cabf3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Weighted_Pull_Ups",
+  "shard": 40,
+  "index": 400,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Weighted_Pull_Ups_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Pull_Ups_male_v2_0.png",
+      "sourceSha256": "e7205b937f74379aadd191e1d8766e5c8d173eeac9b9bdc0edaa8d12f2bba35d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/400/Weighted_Pull_Ups_male_v2_0.png",
+      "candidateSha256": "e5ed3d91af71fde8ca6e0746d05607c9384460d74a5076ab9df22308c3c436b5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Pull_Ups_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Pull_Ups_male_v2_1.png",
+      "sourceSha256": "b1c85d67552f6968e20be9a8735140f5bcc97da2a7cbd63638b80c8ffc7736ac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/400/Weighted_Pull_Ups_male_v2_1.png",
+      "candidateSha256": "021da3ad72d1d129d0a06cb124c8bc7a8a19e4c94d7cbd90d8062d4a0ad433c7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Pull_Ups_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Pull_Ups_male_v2_2.png",
+      "sourceSha256": "0c783042e89b8d1e7860e4707d753bac988ecca11bb20513cd0f8446c23e9663",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/400/Weighted_Pull_Ups_male_v2_2.png",
+      "candidateSha256": "56c2782a63dae7c7d48ab7865dd0529b95c666578f3a6dfe73f5562c2b04850d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Pull_Ups_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Pull_Ups_male_v2_3.png",
+      "sourceSha256": "4af840a4088c187e6f9fc71282e64b81771519db070f8fec21e33945d00e31f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/400/Weighted_Pull_Ups_male_v2_3.png",
+      "candidateSha256": "165701a2f8286500718135ad046ab7cd752ad6de520b3eb5a18ce34b16590e21",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Pull_Ups_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Pull_Ups_female_v2_0.png",
+      "sourceSha256": "ffc4aeed285823a2e9540f98df46b856bcfb80385aa6ad0c2e9bb14c3d840d4c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/400/Weighted_Pull_Ups_female_v2_0.png",
+      "candidateSha256": "4d826a4949a829ca30b9ba82eb3489463044f8acdacf5ad1936c027d7c33a057",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Pull_Ups_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Pull_Ups_female_v2_1.png",
+      "sourceSha256": "b8eeeec90eacfc433449f1ee82b2ee1558f64fb3bbb78c67e8a72dd9ade2372a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/400/Weighted_Pull_Ups_female_v2_1.png",
+      "candidateSha256": "4c481cbffe63c4d05c27354824368f3414507c9f30c36c6ed2b7c1dcb98dbbb2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Pull_Ups_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Pull_Ups_female_v2_2.png",
+      "sourceSha256": "d2513d6cc1dd5d9bffe42ffa2c5af53c1ab2e99a44baed8d54f50952e8bc5ca9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/400/Weighted_Pull_Ups_female_v2_2.png",
+      "candidateSha256": "893b55280351c91520d44f3286372270d9bef40b5a0480332dc85d9d8ec15ef7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Pull_Ups_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Pull_Ups_female_v2_3.png",
+      "sourceSha256": "e3735c0b72e1f92aaec02eee18acdf187a13787e9eefbdd6ed138b495ee4a647",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/400/Weighted_Pull_Ups_female_v2_3.png",
+      "candidateSha256": "1e069d3a6227fb7d90e61ec936dcabb473ed10b78828c16f2f93e9b6273ab342",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -1,0 +1,83 @@
+{
+  "exerciseId": "V-Bar_Pulldown",
+  "shard": 40,
+  "index": 391,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "V-Bar_Pulldown_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pulldown_male_v2_0.png",
+      "sourceSha256": "4f3e97c2a8824d589211be9f11dcd4baeaef9384704ae4125735f1d4f8fe4f78",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/391/V-Bar_Pulldown_male_v2_0.png",
+      "candidateSha256": "2896bf4381013345ea4af56fd36d9865a5c30f09d084ad5982db547b099b1731",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pulldown_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pulldown_male_v2_1.png",
+      "sourceSha256": "f9a2f57e99bee7d76e06c40d476c945e636f46a17a3c610297cf91910aca2ed3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/391/V-Bar_Pulldown_male_v2_1.png",
+      "candidateSha256": "3e8687f92404474450ea4e9dd966bd44ea06aef857ce28a3b3c0df089baa56c2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pulldown_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pulldown_male_v2_2.png",
+      "sourceSha256": "1a4f672ca5f78a8a09ae84935300fe342778dc26ea6cbe6b74440badcb6e4578",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/391/V-Bar_Pulldown_male_v2_2.png",
+      "candidateSha256": "ddfc437fad208f61b6f5567d0a421cfeab138a66ab87d8d11b576b14ca5f2b10",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pulldown_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pulldown_male_v2_3.png",
+      "sourceSha256": "31855ddf89f18cd54a67a2f7e5cbbbb6e01f22cbe88e632c510f9eb0545217a6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/391/V-Bar_Pulldown_male_v2_3.png",
+      "candidateSha256": "8e3d94e767cb210184872df70ab5348fc61e87791246139d7a049f03974c5f00",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pulldown_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pulldown_female_v2_0.png",
+      "sourceSha256": "7bb083cd77408716e974cb0a1510b8c902482fed44b411417230b3a820f529b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/391/V-Bar_Pulldown_female_v2_0.png",
+      "candidateSha256": "5a005e60f3b94c41d98f92abe26d45a0306265f94352659cea0dc494b6f0dbf7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pulldown_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pulldown_female_v2_1.png",
+      "sourceSha256": "f3b2560adc6b58eddbde28592ec843e32efa11d0098556d876677eb48d3675f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/391/V-Bar_Pulldown_female_v2_1.png",
+      "candidateSha256": "f88134f0de9489aa8f496547f3da1aa275c3afa93074d087e8d93f5152220a9f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pulldown_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pulldown_female_v2_2.png",
+      "sourceSha256": "7d8ca06d071ca7e41dea84482bd0080894ccbce0c4a133328d58fe05bfc925d3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/391/V-Bar_Pulldown_female_v2_2.png",
+      "candidateSha256": "df8296436b34657f68afe5b77d5936462fb732556dd713a61cb5b0c3956d3f67",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pulldown_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pulldown_female_v2_3.png",
+      "sourceSha256": "e021aaa3b51ed2e51500bdbe9c31ef3b1afffaad52fe6a9eb0c4b6a2f094f82f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/391/V-Bar_Pulldown_female_v2_3.png",
+      "candidateSha256": "dc82a3b4d05055ec74529be1d12960dad853e8ea69dbba523428bd57341da1c2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

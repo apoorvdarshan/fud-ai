@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Calf_Raises_-_With_Bands",
+  "shard": 6,
+  "index": 56,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [
+    "GenerateImage worsened leg artifact on male_v2_0; kept script candidate"
+  ],
+  "frames": [
+    {
+      "filename": "Calf_Raises_-_With_Bands_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Raises_-_With_Bands_male_v2_0.png",
+      "sourceSha256": "e5f39bcd526200306947cd33c6be365adeac3b06cc5195766d5ead076a9629ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/056/Calf_Raises_-_With_Bands_male_v2_0.png",
+      "candidateSha256": "f7567f7fbccf573488ca937f24508489db0b1ebc6fc4ede7b510cab403c3fd7d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Raises_-_With_Bands_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Raises_-_With_Bands_male_v2_1.png",
+      "sourceSha256": "2a80383b7d273d3cec35efeb6f23ec713d021123e20e2ad971625743a666507d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/056/Calf_Raises_-_With_Bands_male_v2_1.png",
+      "candidateSha256": "ba31fd325e2fa7aee5226cd36ca3ac7ee3a716dc5641a7aaeb2cd1e3ce839e86",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Raises_-_With_Bands_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Raises_-_With_Bands_male_v2_2.png",
+      "sourceSha256": "9445d8977190d619f06993621ea10b55ee6dc4193257a653deb2a4ee8f2a42ac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/056/Calf_Raises_-_With_Bands_male_v2_2.png",
+      "candidateSha256": "06cd3590d410fc2943fdcab24ea961aca7d407864ff57cd79a9ae2318dfa68b4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Raises_-_With_Bands_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Raises_-_With_Bands_male_v2_3.png",
+      "sourceSha256": "03e3fa4570749150377ba6803bce91b8b7ee15cf40ee921b35fe53cb7edd9584",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/056/Calf_Raises_-_With_Bands_male_v2_3.png",
+      "candidateSha256": "c3e85695634db42a83b561ce5ddf27cfe6126f033991277750ed87ac2119bfa1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Raises_-_With_Bands_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Raises_-_With_Bands_female_v2_0.png",
+      "sourceSha256": "320193c3589bbaa878678c9d4d0b8a1831902e47732a8cbc81bf786b122ebc6e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/056/Calf_Raises_-_With_Bands_female_v2_0.png",
+      "candidateSha256": "ceae32ebc2fe71545a76bf285fe475972a6aff7dccf6bd085ea4b214aa040336",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Raises_-_With_Bands_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Raises_-_With_Bands_female_v2_1.png",
+      "sourceSha256": "8bcba4d357f9c1a6b2e4a3940fd65e9527c1ba7424a67b5a2c0cea810cd4958c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/056/Calf_Raises_-_With_Bands_female_v2_1.png",
+      "candidateSha256": "ce62b8354372e9ef27cec3d1bf7cdd19cea61880af94a81ae2aa23bfd9ce6a57",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Raises_-_With_Bands_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Raises_-_With_Bands_female_v2_2.png",
+      "sourceSha256": "aa3a7a78a68a5bf620fb702c299b94aa82c95655f8b0c1468424967377896490",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/056/Calf_Raises_-_With_Bands_female_v2_2.png",
+      "candidateSha256": "911e4d931d6f4a34af0c7f210b2b5ebbb4f456fe9a097d557cfe17ed1c5f4613",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Raises_-_With_Bands_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Raises_-_With_Bands_female_v2_3.png",
+      "sourceSha256": "4e54acf2102577c29585bb70dab4e34293db5324b04df516f13363838eb11d6d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/056/Calf_Raises_-_With_Bands_female_v2_3.png",
+      "candidateSha256": "15f795d3cdf1189c5a0a82dd0b9503f8c914b6d8c97253cba018eabace61b3f8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

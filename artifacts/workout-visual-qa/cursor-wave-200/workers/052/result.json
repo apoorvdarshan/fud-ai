@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Cable_Reverse_Crunch",
+  "shard": 6,
+  "index": 52,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cable_Reverse_Crunch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Crunch_male_v2_0.png",
+      "sourceSha256": "8d9337aa674db4658efcc7cd7d40424b32ec56a28a11a7974e346e1dc7d82786",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/052/Cable_Reverse_Crunch_male_v2_0.png",
+      "candidateSha256": "b3988874b5d846246ae7989a461115bf4c34601f150db1891e12371e21e25dc6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Crunch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Crunch_male_v2_1.png",
+      "sourceSha256": "258bfb13fa95f77396d09afd58357e7828a6fd67e3faec74d8dadcdde4092317",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/052/Cable_Reverse_Crunch_male_v2_1.png",
+      "candidateSha256": "9694e854b2873846827b10ada7114f4b71486a092895c2ba353676ec97960db5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Crunch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Crunch_male_v2_2.png",
+      "sourceSha256": "03ad34976bfda48aab5140b07f828faedded3578f52c909903941563328381d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/052/Cable_Reverse_Crunch_male_v2_2.png",
+      "candidateSha256": "62a435fddb12a0ac0cc4ef9bbe483a2533b58f9750a3206a1c2badfb0ed67582",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Crunch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Crunch_male_v2_3.png",
+      "sourceSha256": "fcae6870d6da2f49fcba57460db16e010a7dbd69967b979337be6de662b61218",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/052/Cable_Reverse_Crunch_male_v2_3.png",
+      "candidateSha256": "0d3cfebef3c1d709e06505900b35cd6cfd761c2783ead401cc9150aaaccdf0ca",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Crunch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Crunch_female_v2_0.png",
+      "sourceSha256": "c74b1ad6632c21e2cf541ecc638e898a17080f9348456be4ddf638f42abac076",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/052/Cable_Reverse_Crunch_female_v2_0.png",
+      "candidateSha256": "ea992ecb11c38ff1ef99589d792ef55402d780cf84c8d8670bb61be7b6904cd5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Crunch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Crunch_female_v2_1.png",
+      "sourceSha256": "47b6f1ed78fb4a98c7c590a5e6cc926f664b4de74f148e36276a0fecb4916d62",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/052/Cable_Reverse_Crunch_female_v2_1.png",
+      "candidateSha256": "bdad2c6ad9f06a28b857ed27463a979b97ffe404a22e40d7b6aa15d85c72b6a7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Crunch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Crunch_female_v2_2.png",
+      "sourceSha256": "7d4ebb49e867b084349d6f1034176155a0c03f0b17dd6b37ec7e8d98898049d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/052/Cable_Reverse_Crunch_female_v2_2.png",
+      "candidateSha256": "5445f257f748a127f4eef483c42c61f08c1608ca24065a5c9e770cc400d69bba",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Crunch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Crunch_female_v2_3.png",
+      "sourceSha256": "e11614b3a2f2adc9f9d0603e7945e79d5ea6e7febc0cdc9bb5852769a479cef8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/052/Cable_Reverse_Crunch_female_v2_3.png",
+      "candidateSha256": "10a87687af21f5e751c0b55459bb8e3cda591811b99ec797e2e7b45493834dc6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

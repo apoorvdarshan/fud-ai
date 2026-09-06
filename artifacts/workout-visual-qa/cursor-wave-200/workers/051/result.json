@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Cable_Rear_Delt_Fly",
+  "shard": 6,
+  "index": 51,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cable_Rear_Delt_Fly_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Rear_Delt_Fly_male_v2_0.png",
+      "sourceSha256": "652fa8371c2e87e1b2685a963d45cda40766d0ad0d132243cffd234ae0d3bd67",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/051/Cable_Rear_Delt_Fly_male_v2_0.png",
+      "candidateSha256": "e6b54566ff6edf890b1286db1282b08368d190e003f848dd3e89bb16c2465a83",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Rear_Delt_Fly_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Rear_Delt_Fly_male_v2_1.png",
+      "sourceSha256": "5c559ccfa3fd40140dab0bce651f1fdf0db9ddf50e386c2399415592fa0d8848",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/051/Cable_Rear_Delt_Fly_male_v2_1.png",
+      "candidateSha256": "d35dee0025cc27de991256475efdbc7a6d0b785328b6241c1e309f2bb6b14c0f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Rear_Delt_Fly_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Rear_Delt_Fly_male_v2_2.png",
+      "sourceSha256": "9cae4e67c55ba74473a0c065246e85d46b11ebf9ea5d0fab22c847fc55b2623c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/051/Cable_Rear_Delt_Fly_male_v2_2.png",
+      "candidateSha256": "7a08955b452fa3416dae4c35fb6356c95be47b29506042fde64b8b84dc06dc85",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Rear_Delt_Fly_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Rear_Delt_Fly_male_v2_3.png",
+      "sourceSha256": "7093ed57d1c88f0ce9bf3f79bb57b698bcecf3a8ae9fe8632b3c1fe433ef56a1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/051/Cable_Rear_Delt_Fly_male_v2_3.png",
+      "candidateSha256": "fb535d2d40e17557b4f9f223cd2ddc03d3b8005ddeb59db73cb77283eb1acdda",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Rear_Delt_Fly_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Rear_Delt_Fly_female_v2_0.png",
+      "sourceSha256": "bb7e3138039f3d34c606b308726034daa99962dbb5ccc2468f20f6d53b0ffdd8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/051/Cable_Rear_Delt_Fly_female_v2_0.png",
+      "candidateSha256": "8d031b77e589facd20f2fda1846c51c4545415a031937b88f986616d35ec7c97",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Rear_Delt_Fly_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Rear_Delt_Fly_female_v2_1.png",
+      "sourceSha256": "db24d98ba2634b64bb27e21966fef84c1fa909046a728ff41d430c341a6bbd54",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/051/Cable_Rear_Delt_Fly_female_v2_1.png",
+      "candidateSha256": "f3a1b21f4cdbae89214056336e2a49f96adff07bcc4cfc1d9a39139c06cbca8b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Rear_Delt_Fly_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Rear_Delt_Fly_female_v2_2.png",
+      "sourceSha256": "670cf83c8e2026227e39c6599b9cd17b8834e9b73430ca69a5861560cafd0dea",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/051/Cable_Rear_Delt_Fly_female_v2_2.png",
+      "candidateSha256": "f2ec514328e8674093b96383fba26c3c5e5f6d16f4e3c0da0091d45324ffaaa3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Rear_Delt_Fly_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Rear_Delt_Fly_female_v2_3.png",
+      "sourceSha256": "c93900865764bdbce1f568bbd63d7bb575534ab3839f806e6b679a71fe0da817",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/051/Cable_Rear_Delt_Fly_female_v2_3.png",
+      "candidateSha256": "4d4d04bb23a3ca2a6947a199397c82c45265bbf536b4ff2dbd84b15f064854ed",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

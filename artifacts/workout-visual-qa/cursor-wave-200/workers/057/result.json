@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Calves-SMR",
+  "shard": 6,
+  "index": 57,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Calves-SMR_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calves-SMR_male_v2_0.png",
+      "sourceSha256": "ffc0d019e8165fbadcd5c275fb2e2ea023c174739d7af6776dc6351abff0b4b7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/057/Calves-SMR_male_v2_0.png",
+      "candidateSha256": "3b7e39e8395ae298c823a6d197694f4d181e916c21136cdacc5dd3201b37ef33",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calves-SMR_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calves-SMR_male_v2_1.png",
+      "sourceSha256": "ffd2259c87d4d9ec1a15cf256ed9b7a56a8aa8592cb8f28ed5c86d5d57a228ac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/057/Calves-SMR_male_v2_1.png",
+      "candidateSha256": "616fa16b252578cdee0018a1d9aa1a16a61a5e278b8eed2415981c9a968046d9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calves-SMR_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calves-SMR_male_v2_2.png",
+      "sourceSha256": "d8a4827f730c81bffbe91cf725a8670f3d336bceaae8ea9344b4115ec903ce9c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/057/Calves-SMR_male_v2_2.png",
+      "candidateSha256": "e15ebac75fa93b527a61514b659cfb44a74ba043647124d518c6a0f41f96403d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calves-SMR_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calves-SMR_male_v2_3.png",
+      "sourceSha256": "4549dd3b6801d51b74d3d5cf898032448b193f98201547cb86317c1c8a4a4535",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/057/Calves-SMR_male_v2_3.png",
+      "candidateSha256": "522dec5b47979186109789658ab52dd510c53cb04b7b3efbe2c2b3d194cd7def",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calves-SMR_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calves-SMR_female_v2_0.png",
+      "sourceSha256": "1726003a5144af9dfd6271baedb0ff54d81912568f5837c252419e8ed6ce1f91",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/057/Calves-SMR_female_v2_0.png",
+      "candidateSha256": "e2e3237274d2af3ab1e12400cb32c7492e006377ba5e69c46893fb5142d5b8a2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calves-SMR_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calves-SMR_female_v2_1.png",
+      "sourceSha256": "0f883c237d008614cd1a0013d7f57225d0596fd8eb8e530e7dd72745bafaf396",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/057/Calves-SMR_female_v2_1.png",
+      "candidateSha256": "e7cfd377a51be49092689e2c903ec01249b8926039c6dd8135cb66f58f7803ec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calves-SMR_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calves-SMR_female_v2_2.png",
+      "sourceSha256": "35dc0642cc27242937d916fed1498c961a0bb38da6eb5a2f01e3f820df0638dc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/057/Calves-SMR_female_v2_2.png",
+      "candidateSha256": "c578dd59297e050da93f0ed8b8092725640753edf5f365fdd7e1fb1578abff14",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calves-SMR_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calves-SMR_female_v2_3.png",
+      "sourceSha256": "7de031ecc315a35fb45bc9b70321aa23c35b6a4cd310f21d9884fcc1eb1a5105",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/057/Calves-SMR_female_v2_3.png",
+      "candidateSha256": "3c2872e68bfd82252ab70d0a7710248b40f37079da506128ab4545fd92aa84d8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

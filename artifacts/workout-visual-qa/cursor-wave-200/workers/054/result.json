@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Cable_Russian_Twists",
+  "shard": 6,
+  "index": 54,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cable_Russian_Twists_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Russian_Twists_male_v2_0.png",
+      "sourceSha256": "1bf8cc332a65d955badfe310027083ec2793ed1d185a11f0a62889f5939b7b43",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/054/Cable_Russian_Twists_male_v2_0.png",
+      "candidateSha256": "94c2dbc6d176246fc68554217976ba20cc4e8d80ad8bf9d625ff4c0404b33211",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Russian_Twists_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Russian_Twists_male_v2_1.png",
+      "sourceSha256": "f69aa9b2ba33fe777c58c5ee1d4860929eed0c0305cfde643455a658dec5bf3b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/054/Cable_Russian_Twists_male_v2_1.png",
+      "candidateSha256": "22c47484e6ace20cf22f896ee06b7cdbe426475f181d9e8740a1e4a036da2c24",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Russian_Twists_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Russian_Twists_male_v2_2.png",
+      "sourceSha256": "fce7a8a3c22e301058fe762ec33c39f5e1c3ed9f430bbc5f1686cbc5cf1722ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/054/Cable_Russian_Twists_male_v2_2.png",
+      "candidateSha256": "84f5b3acca6945f660c2fca3e82bb27d446a93c993e90e31274e9ed9aedaae5f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Russian_Twists_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Russian_Twists_male_v2_3.png",
+      "sourceSha256": "4591f116052f33375fbc76fcb8c05475947096b611330ff25999c926ff6d0f10",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/054/Cable_Russian_Twists_male_v2_3.png",
+      "candidateSha256": "ad26b157dd3eb9e5b9f0283f5f6ca922cc681fc7db096736c9fdd9876b4cb5ec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Russian_Twists_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Russian_Twists_female_v2_0.png",
+      "sourceSha256": "1b5ed54299277cedf685f4804162e5bbf744c7ccb98ff1e593fc1828c7f5828f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/054/Cable_Russian_Twists_female_v2_0.png",
+      "candidateSha256": "73281d76fd5159cb492944b5ffe2bbb9fddd99408f6d21eb756d0f91c7ca6705",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Russian_Twists_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Russian_Twists_female_v2_1.png",
+      "sourceSha256": "d92b56e400d56255b1f4b9892fe36122a5c9670a03cee37eb4810aada07808da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/054/Cable_Russian_Twists_female_v2_1.png",
+      "candidateSha256": "c6b773c042e564372d507819d1d4638a4835f3ec59d4009d8ff9bc4ab1415c71",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Russian_Twists_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Russian_Twists_female_v2_2.png",
+      "sourceSha256": "c38e4270627f26b2f051921fe2e6c74b26dfff418cb0a09ba5a9b880352bee07",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/054/Cable_Russian_Twists_female_v2_2.png",
+      "candidateSha256": "d00aff3636eb595829263135cf26c6b7f05961b51d5f9fc6cee2219ad4a49595",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Russian_Twists_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Russian_Twists_female_v2_3.png",
+      "sourceSha256": "6e5af6b9da01fba23883fa233c62a600a6ae6beb9e01e64bb8919dcac67b998e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/054/Cable_Russian_Twists_female_v2_3.png",
+      "candidateSha256": "fa674eaf2d2f87a5bd16bac84a6e9fd6a2b916ec7938416d1268f7e7114277cb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

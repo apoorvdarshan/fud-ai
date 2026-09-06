@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Chair_Leg_Extended_Stretch",
+  "shard": 6,
+  "index": 60,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Chair_Leg_Extended_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Leg_Extended_Stretch_male_v2_0.png",
+      "sourceSha256": "862987f3160ebbca1b48cee216210840037e990ff8ac1dbf0cc0a229fdb71ebb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/060/Chair_Leg_Extended_Stretch_male_v2_0.png",
+      "candidateSha256": "a7852f717aca9bde13f72c0edacd0005f8bdd3364b4515bafee58dd644d1ad9e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Leg_Extended_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Leg_Extended_Stretch_male_v2_1.png",
+      "sourceSha256": "38bb42e83c15efd80d2c5b11d96cc17ada57dcc6f3c64b4ff34a2eaf6009c766",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/060/Chair_Leg_Extended_Stretch_male_v2_1.png",
+      "candidateSha256": "66e962df9446a8f6e001013bcd282f64e8c88dc857af3b4f90b23b5ecf9fc709",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Leg_Extended_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Leg_Extended_Stretch_male_v2_2.png",
+      "sourceSha256": "38470227c4648b46c5b5312ddd8770e7c5607b40249098ae07ba08dc90158bdc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/060/Chair_Leg_Extended_Stretch_male_v2_2.png",
+      "candidateSha256": "0ab1a40e68609b5cfd08020877e84f77d9cdaaeebee51000bfb0f237c168a53f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Leg_Extended_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Leg_Extended_Stretch_male_v2_3.png",
+      "sourceSha256": "c7af87536ef976b7a7299fa20958e2f02fe8d093cb63449dd07e3c55cba201fb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/060/Chair_Leg_Extended_Stretch_male_v2_3.png",
+      "candidateSha256": "4c70b6f396d7d9e7267482d2401e8223b112f0d594924da4b141e0aac071f589",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Leg_Extended_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Leg_Extended_Stretch_female_v2_0.png",
+      "sourceSha256": "4b7d098430cb8bdba4cb9aecfe2c56446b8b252a00e8b9336ce6bae0ea7bcb8a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/060/Chair_Leg_Extended_Stretch_female_v2_0.png",
+      "candidateSha256": "e17354e56813e85450b00498a16c9c2fd86cd9aedad69936a63391e53f193575",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Leg_Extended_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Leg_Extended_Stretch_female_v2_1.png",
+      "sourceSha256": "d7b58672087a24097d33666be130126e2974a4a9478ede1b7d4c5a713bc44460",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/060/Chair_Leg_Extended_Stretch_female_v2_1.png",
+      "candidateSha256": "c02ab8f366db386874c7356ee43395e3e9d32361fd4a2f9ed944d8ef0ba86ed2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Leg_Extended_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Leg_Extended_Stretch_female_v2_2.png",
+      "sourceSha256": "e759f62f85025430d5c1dfdd6fa69f868eb301bafa29028a50f355ddd1c69965",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/060/Chair_Leg_Extended_Stretch_female_v2_2.png",
+      "candidateSha256": "3b71d988a4e9568ba8d36a3716ba9883f3bf8389bad3f47b8c7f31027be37132",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Leg_Extended_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Leg_Extended_Stretch_female_v2_3.png",
+      "sourceSha256": "840673ace5352ee6b62385cea6077b6ea94823768c57677ea88253a2e540bc0b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/060/Chair_Leg_Extended_Stretch_female_v2_3.png",
+      "candidateSha256": "d8d66ba3f572f23a2dec3d539071cc0956edbc21e88ddb55e7a00875f2ff53bb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

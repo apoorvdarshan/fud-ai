@@ -17,7 +17,8 @@ VECTORS = ROOT / "shared/workout-vectors"
 BATCH_ROOT = ROOT / "artifacts/workout-visual-qa/cursor-cloud-100"
 WORKERS = BATCH_ROOT / "workers"
 STAGING = BATCH_ROOT / "staging"
-VENV = Path("/tmp/workout-repair-venv/bin/python")
+VENV_ROOT = Path("/tmp/workout-repair-venv")
+VENV = VENV_ROOT / "bin" / "python"
 REPAIR = ROOT / "scripts/repair_workout_visual_backgrounds.py"
 AUDIT = ROOT / "artifacts/workout-visual-qa/audit.json"
 
@@ -34,8 +35,13 @@ def repair_python() -> str:
 
 def ensure_venv() -> None:
     if VENV.is_file():
-        return
-    subprocess.run([sys.executable, "-m", "venv", "/tmp/workout-repair-venv"], check=True)
+        try:
+            subprocess.run([str(VENV), "-c", "import cv2"], check=True, capture_output=True)
+            return
+        except subprocess.CalledProcessError:
+            shutil.rmtree(VENV_ROOT)
+    python = shutil.which("python3.13") or shutil.which("python3.12") or shutil.which("python3.11") or sys.executable
+    subprocess.run([python, "-m", "venv", str(VENV_ROOT)], check=True)
     subprocess.run(
         [str(VENV), "-m", "pip", "install", "-q", "-r", str(ROOT / "scripts/requirements-workout-repair.txt")],
         check=True,
@@ -117,11 +123,23 @@ def run_exercise(entry: dict, shard: int) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--shard", type=int, required=True, help="Shard number 1–10")
+    parser.add_argument("--shard", type=int, help="Shard number 1–10")
+    parser.add_argument("--index", type=int, help="Single manifest index (1–100)")
     args = parser.parse_args()
+    if bool(args.shard) == bool(args.index):
+        raise SystemExit("pass exactly one of --shard or --index")
+    ensure_venv()
+    batch = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    if args.index:
+        entries = [e for e in batch["exercises"] if e["index"] == args.index]
+        if len(entries) != 1:
+            raise SystemExit(f"expected 1 exercise for index {args.index}, got {len(entries)}")
+        shard = (args.index - 1) // 10 + 1
+        result = run_exercise(entries[0], shard)
+        print(f"index {args.index}: {entries[0]['exerciseId']} -> {result['status']}")
+        return
     if not 1 <= args.shard <= 10:
         raise SystemExit("shard must be 1–10")
-    ensure_venv()
     entries = shard_exercises(args.shard)
     if len(entries) != 10:
         raise SystemExit(f"expected 10 exercises, got {len(entries)}")

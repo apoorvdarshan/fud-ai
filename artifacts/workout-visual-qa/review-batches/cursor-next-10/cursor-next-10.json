@@ -1,0 +1,196 @@
+{
+  "batchName": "cursor-next-10",
+  "description": "Trial 10 after done30: cloud-100 indices 11-20. Excludes 132 approved.",
+  "exercises": [
+    {
+      "index": 11,
+      "exerciseId": "Crunches",
+      "severity": "minor",
+      "findings": [
+        "A thin gray/brown strip follows the underside of the shorts and torso, visible on the dark background. It is limited perimeter residue rather than a large opaque background.",
+        "Male frame 2 exposes a broad skin-colored band around the abdominal highlight while frames 0, 1 and 3 show a full shirt with the highlight over it. This produces a visible clothing continuity change.",
+        "Planted shoes shift in position and change shape modestly between frames, especially female 0 to 1; the torso rise is legitimate crunch motion, but the feet do not remain fully anchored. Illustrations remain usable."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Crunches_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Crunches_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Crunches_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Crunches_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Crunches_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Crunches_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Crunches_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Crunches_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 12,
+      "exerciseId": "Decline_Dumbbell_Bench_Press",
+      "severity": "minor",
+      "findings": [
+        "Thin pale fringe follows portions of athlete, dumbbell and bench contours on the dark background. Limited to narrow edges; no opaque background blocks or substantial interior residue observed.",
+        "The stationary bench shifts modestly between frames: male frames 2 and 3 sit higher than 0 and 1, and female frame 0 sits slightly lower than subsequent frames. Bench feet and supports move along with the body, independently of the intended arm movement. Overall scale remains similar and all artwork stays within the canvas."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 13,
+      "exerciseId": "Decline_Dumbbell_Triceps_Extension",
+      "severity": "minor",
+      "findings": [
+        "Thin pale dotted fringe remains along portions of the athlete and bench contours on dark backgrounds. It is limited to the perimeter; no opaque background or substantial interior residue is visible.",
+        "Stationary bench feet and head support shift between male frames, particularly from frame 0 to frames 1/2. This is visible anchor drift beyond the intended arm movement, but the illustration remains usable."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Decline_Dumbbell_Triceps_Extension_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 14,
+      "exerciseId": "Dip_Machine",
+      "severity": "minor",
+      "findings": [
+        "Shoe sole bands and lace details, plus thin strips on the machine base/uprights, take on the comparison background color and disappear on dark backgrounds. These are limited cutouts of apparent material highlights, not opaque white residue. Both circular grip ends also take on the background; whether those ends were intended as open tubes is uncertain and is not the basis for severity. Illustration remains usable.",
+        "The stationary seat/backrest geometry changes height and shape across the ordered frames, most visibly in frame 2, while the floor base stays broadly anchored. This introduces limited machine wobble beyond the intended torso and arm movement; no large overall scale jump."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Dip_Machine_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Dip_Machine_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Dip_Machine_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Dip_Machine_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Dip_Machine_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Dip_Machine_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Dip_Machine_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Dip_Machine_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 15,
+      "exerciseId": "Dumbbell_Raise",
+      "severity": "minor",
+      "findings": [
+        "Male frame 3 uses hexagonal dumbbell heads, whereas male frames 0\u20132 use round plate dumbbells. Equipment remains complete and usable, but its design changes during the sequence.",
+        "Small changes in foot spacing, shoe angles and lower-body contours occur between otherwise stationary standing poses, most noticeable from male frame 0 to 1 and female frame 0 to 1. Overall height and floor position stay close; this is limited animation continuity variation rather than a large scale shift."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Dumbbell_Raise_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Raise_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Raise_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Raise_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Raise_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Raise_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Raise_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Raise_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 16,
+      "exerciseId": "Dumbbell_Rear_Lunge",
+      "severity": "minor",
+      "findings": [
+        "Thin pale outlining remains around portions of the athletes and equipment. Small irregular light-gray patches extend beyond the soles; frame 2 in both variants also has a pale patch beneath the lowered knee. These are conspicuous on dark backgrounds but limited in area; the artwork remains usable."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Rear_Lunge_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 17,
+      "exerciseId": "Dumbbell_Scaption",
+      "severity": "minor",
+      "findings": [
+        "Irregular pale gray/white ground patches remain around and between the shoes in every frame. Fine light edge speckles also surround portions of hair, limbs and dumbbells. These are conspicuous against dark backgrounds but limited in area; the figures remain usable."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Dumbbell_Scaption_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Scaption_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Scaption_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Scaption_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Scaption_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Scaption_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Scaption_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Scaption_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 18,
+      "exerciseId": "Dumbbell_Seated_Box_Jump",
+      "severity": "minor",
+      "findings": [
+        "Pale ragged edging and small residual light patches are visible on the dark background around equipment feet, shoe edges and some athlete contours. Bench support undersides and the left bottom corner of the red box show the clearest residue. No broad opaque background or checkerboard interior is visible.",
+        "Across each sequence the bench moves right and the target box moves left, narrowing their spacing despite both being stationary equipment. This is distinct from the athlete's intended forward/upward jump. The drift is noticeable but the movement remains understandable.",
+        "Male frame 3 shows a small visible gap between the straight-legged athlete's shoes and the box top, making the final standing/landing pose appear to hover."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_Box_Jump_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 19,
+      "exerciseId": "Dumbbell_Seated_One-Leg_Calf_Raise",
+      "severity": "minor",
+      "findings": [
+        "Thin pale, irregular fringe and small dashed remnants remain around parts of the cutout, most clearly beneath the bench feet and around shoe soles on the dark background. No opaque exterior field or enclosed checkerboard is visible.",
+        "Bench feet, seat and step shift slightly between frames in both sequences; frame 3 also lowers the seated figure relative to earlier frames. These stationary-equipment changes are separate from the intended heel lift, but are limited and leave the exercise readable."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 20,
+      "exerciseId": "Dumbbell_Shoulder_Press",
+      "severity": "minor",
+      "findings": [
+        "Small irregular pale/white remnants between and beneath shoes and around bench feet, with thin light fringe on portions of the cutout perimeter. Most visible against dark background; limited in area and does not obscure the movement.",
+        "Tiny isolated spots on knees (male 1 and 3; female 0 and 2) and face (female 3) change from dark to light with the preview background, consistent with small unintended transparent pinholes. These are limited specks, not substantial anatomy loss."
+      ],
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_female_v2_3.png"
+      ]
+    }
+  ]
+}

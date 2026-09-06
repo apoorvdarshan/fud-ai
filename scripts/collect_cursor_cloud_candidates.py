@@ -36,7 +36,7 @@ def main() -> None:
         result = json.loads(result_path.read_text(encoding="utf-8"))
         if allowed is not None and result.get("index") not in allowed:
             continue
-        if result.get("status") != "ready_for_review":
+        if allowed is None and result.get("status") != "ready_for_review":
             skipped += 1
             continue
         for frame in result.get("frames", []):

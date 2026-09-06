@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Leverage_Deadlift",
+  "shard": 15,
+  "index": 146,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Leverage_Deadlift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Deadlift_male_v2_0.png",
+      "sourceSha256": "7a24f0c173848a86935e1eccf51d65caf1c43099315fdb47c81a59b854bd6460",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/146/Leverage_Deadlift_male_v2_0.png",
+      "candidateSha256": "a03c14c341ca440ad38e551a8fcadddbdc268c9ba187a40b3f71c3d3b525c35b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Deadlift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Deadlift_male_v2_1.png",
+      "sourceSha256": "2b002b8ae079a4196cfc73d6fcd7a45fe2f5d49f9e7960bb7911998ff0c0e18e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/146/Leverage_Deadlift_male_v2_1.png",
+      "candidateSha256": "95ae11e82bf69d3ffb7178d68a4a563db79146484f2142e7e39246eb6e739494",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Deadlift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Deadlift_male_v2_2.png",
+      "sourceSha256": "ac2b27b40e251978a09aabd9d90a87285184d24b269c8f5304b0bf7603089002",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/146/Leverage_Deadlift_male_v2_2.png",
+      "candidateSha256": "ad0f681e172a13e6157ee466d79dc5c7d347b6ab74a6b2c331185f68c4f595b7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Deadlift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Deadlift_male_v2_3.png",
+      "sourceSha256": "bcb7b9dbae346e9fb6d89a53d651b82ece7d4d1566e6bf6d22849f95ee649a0c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/146/Leverage_Deadlift_male_v2_3.png",
+      "candidateSha256": "5b8981ca4ebab02b2ae1ebb2a1fa57a5b070f9172578f0021c3c72385529c259",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Deadlift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Deadlift_female_v2_0.png",
+      "sourceSha256": "90f6e889b5177b59f355c5a4fc7e4598f785db1df42d3ba4027a110bf763bef7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/146/Leverage_Deadlift_female_v2_0.png",
+      "candidateSha256": "49d6db583ac2b32ac8ad6787f728c813a8e489427b94a26ccb96b8085ab7141d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Deadlift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Deadlift_female_v2_1.png",
+      "sourceSha256": "4bb2f7b2b2f2f8120e11658261a2cb888933f4914e41f9f1d02d72eef75c7868",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/146/Leverage_Deadlift_female_v2_1.png",
+      "candidateSha256": "ed55c5af99a079dd89b9c26c9b38767b383de16c1d9c0e680d61ac24c12056ec",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Deadlift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Deadlift_female_v2_2.png",
+      "sourceSha256": "ec3d3f0c83a691c52f5c6fc9cc7156a55c77707b592546fa43cb36976c5faeea",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/146/Leverage_Deadlift_female_v2_2.png",
+      "candidateSha256": "94d3c1f23f2ec253f891bee5fdab8fe8353772f89cf96f44240be0cd5a7af385",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Deadlift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Deadlift_female_v2_3.png",
+      "sourceSha256": "53209f384c2318ea751e58c8a840947de2beae31e3f9ed76639cce0d369b9a13",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/146/Leverage_Deadlift_female_v2_3.png",
+      "candidateSha256": "f52575969902fe6e1c19d7d38a279d2fd1bd0760a5fa3a73490cec7a6b762449",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Leverage_Decline_Chest_Press",
+  "shard": 15,
+  "index": 147,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Leverage_Decline_Chest_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Decline_Chest_Press_male_v2_0.png",
+      "sourceSha256": "75b2a78c1382fa7837325b6aacef698512f230fd8ecbbaa7471b7c1ae4197317",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/147/Leverage_Decline_Chest_Press_male_v2_0.png",
+      "candidateSha256": "6632b4c23f0e6520038dd130d34f72dfb10f07333c1a0ee8b9dea2083ecf428f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Decline_Chest_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Decline_Chest_Press_male_v2_1.png",
+      "sourceSha256": "b3d32b57b63d0d53d2eb50bc05efe4ea45c9e534afcf5771b2816212a81add6a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/147/Leverage_Decline_Chest_Press_male_v2_1.png",
+      "candidateSha256": "3004637fc73ea77bdd32a5d2379b95099cd9fe7369e24a1800561ef0473ec056",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Decline_Chest_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Decline_Chest_Press_male_v2_2.png",
+      "sourceSha256": "a4033a0918c6f9f655ac3388e8fd711216d61f9dbf807b05b8936c19793f62e6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/147/Leverage_Decline_Chest_Press_male_v2_2.png",
+      "candidateSha256": "a8bd3adb7a5232c0675ce8c6ea4e6ea59303cc90247b68b2463245065eb35951",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Decline_Chest_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Decline_Chest_Press_male_v2_3.png",
+      "sourceSha256": "b8010acba6b5f8c5d4aa57cab77773b37f3ed93492c30e87917725a9d2d5e1ae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/147/Leverage_Decline_Chest_Press_male_v2_3.png",
+      "candidateSha256": "86b94637a49260b4030612deead86c5c33851256cc9e7fa4848bbd1349efd2fd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Decline_Chest_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Decline_Chest_Press_female_v2_0.png",
+      "sourceSha256": "6942114a780abefd17bb4f3052db21858c5f6e99a4c9010b3e70c789880585ba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/147/Leverage_Decline_Chest_Press_female_v2_0.png",
+      "candidateSha256": "8e3b3d8538645fe0eff56b50615d7f35db05b6787050a8cf86bbc7baf1fff6e2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Decline_Chest_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Decline_Chest_Press_female_v2_1.png",
+      "sourceSha256": "2ad7a116a270ce24e5901f133b0f6b925358cfbf0fe053a3e59c03f2780842d8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/147/Leverage_Decline_Chest_Press_female_v2_1.png",
+      "candidateSha256": "7bacca624836583bb32f58b6e7cdf02b442368b4cebbb6e41d33ae511d8975e4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Decline_Chest_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Decline_Chest_Press_female_v2_2.png",
+      "sourceSha256": "6300c51473e776ea073f263ef8807179fb49e3f5d87a8854fc3de56b1a7484e2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/147/Leverage_Decline_Chest_Press_female_v2_2.png",
+      "candidateSha256": "d4377f1b5f6ca9c1c0a6b65047b279d9ad9fe9aeb143d31ae77810c6a6693aef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Decline_Chest_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Decline_Chest_Press_female_v2_3.png",
+      "sourceSha256": "82f35516c7223c909a0cee5664a9434f50503ea14f80aca8f6f036782141d631",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/147/Leverage_Decline_Chest_Press_female_v2_3.png",
+      "candidateSha256": "9baa81b47d9c617b52f3ac1612c6b4baa757a6b26a9cc268b393eddd7dade0b2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

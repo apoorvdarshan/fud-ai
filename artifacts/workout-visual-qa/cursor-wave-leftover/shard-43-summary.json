@@ -1,0 +1,170 @@
+{
+  "shard": 43,
+  "batch": "cursor-wave-leftover",
+  "exercises": [
+    {
+      "exerciseId": "Zottman_Curl",
+      "shard": 43,
+      "index": 421,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Zottman_Curl_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Curl_male_v2_0.png",
+          "sourceSha256": "be04d4ef71b948aec28aaaff59736a7908bf2874296291569e2456dab59b05e4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/421/Zottman_Curl_male_v2_0.png",
+          "candidateSha256": "ccc4a177ccdd680735388be63aaac673104aa5aa6258e50dea4d390e5ffd227e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Curl_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Curl_male_v2_1.png",
+          "sourceSha256": "c93591737f62c19e95d08782b319cc8085ccaf0d8708f8d760dbb9379789197d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/421/Zottman_Curl_male_v2_1.png",
+          "candidateSha256": "64c325ef51c1414647aec9f2a086a7dd225971e2bd4056c6b87df2bc4c9490e5",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Curl_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Curl_male_v2_2.png",
+          "sourceSha256": "24844d7c7c5a8a709a7e84fc376807379d190d41f2121392a285ca91fb79fedb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/421/Zottman_Curl_male_v2_2.png",
+          "candidateSha256": "85823c5d480500463f622cd47da2ae125d6186cf1792c077233c37af5cc4e58d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Curl_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Curl_male_v2_3.png",
+          "sourceSha256": "4e180f3cb4ecab758ed8bb9b408b33db715d6233a772090c6a69d2373317900c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/421/Zottman_Curl_male_v2_3.png",
+          "candidateSha256": "54f7027a96d25e4db50cee0a7f84a1aa9b369eacd4c4c726e8743684a326bae8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Curl_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Curl_female_v2_0.png",
+          "sourceSha256": "15028992aa4efd382045d9ee2d2b25a5544af81a35660ee1a893bae46a30099e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/421/Zottman_Curl_female_v2_0.png",
+          "candidateSha256": "15ddde122cac651413c5485138b113b1876a70506fcb5cdf64c7836f2d80a0d9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Curl_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Curl_female_v2_1.png",
+          "sourceSha256": "370acfa85c3604872a9b724b38d7885ee7335f352702e960f471857e30a81fe7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/421/Zottman_Curl_female_v2_1.png",
+          "candidateSha256": "c05ba5abcf3ef49813643986fe9acf16c8d630acac71edb52b55c6e00efa2e0f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Curl_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Curl_female_v2_2.png",
+          "sourceSha256": "2dd2b7bc140f4e38dccdf6daba9f287f955f53115f96301c03bd324f8b57a4f4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/421/Zottman_Curl_female_v2_2.png",
+          "candidateSha256": "445dc04d997919ecad08855bb21f37c5df6ccf8acf1885002c8cb7521806a424",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Curl_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Curl_female_v2_3.png",
+          "sourceSha256": "4f70f0d89367c3c2d7dbbbb8d4c8dbabd98eb56bf154e895e9efb19a62112fc2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/421/Zottman_Curl_female_v2_3.png",
+          "candidateSha256": "d2fddd0782ca4477432df0f144ab365086cf06e23e13086fc2e1c0ddffa57eb1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Zottman_Preacher_Curl",
+      "shard": 43,
+      "index": 422,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Zottman_Preacher_Curl_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Preacher_Curl_male_v2_0.png",
+          "sourceSha256": "bfd53a727c734fa4838060899d36b783a9b86f770ef4f4eb0ad42fe57e020d85",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/422/Zottman_Preacher_Curl_male_v2_0.png",
+          "candidateSha256": "9a77abd2e5bfd0b0927da5956add6d0e3abe5d9123913994e915a2027c9edd43",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Preacher_Curl_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Preacher_Curl_male_v2_1.png",
+          "sourceSha256": "d7d515b63f148cc916b7c40fd0ac0dbee46499ea98e17438b9eb964130ccd452",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/422/Zottman_Preacher_Curl_male_v2_1.png",
+          "candidateSha256": "795db31c7c79484a429dd6b0747c2d94e6421c7c7f0a3a00c56c5b084975c012",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Preacher_Curl_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Preacher_Curl_male_v2_2.png",
+          "sourceSha256": "80caa7187292bd97f2c03d93c9e5209621f18d7780b89ab069c420b8c85f3c2d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/422/Zottman_Preacher_Curl_male_v2_2.png",
+          "candidateSha256": "4f0ea3951a724109764dfe43a0bbb2013a9d9339bc675e6d65f6936a0270421b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Preacher_Curl_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Preacher_Curl_male_v2_3.png",
+          "sourceSha256": "bd4e2765c65874ec6c8f36eea73e0789604869e6f53f4d423dc6fcb8b699c6ad",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/422/Zottman_Preacher_Curl_male_v2_3.png",
+          "candidateSha256": "03104b4453cf7ff7bbe91315de7dbc9f03c8cb25e92e74077c5b2d82eb3b42a4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Preacher_Curl_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Preacher_Curl_female_v2_0.png",
+          "sourceSha256": "28df24679c82c0d664a45391052b348e412d9045d17ce7a478632517ea5e741a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/422/Zottman_Preacher_Curl_female_v2_0.png",
+          "candidateSha256": "e48c468e0acfbdfedf0147284c507385f17b485e497a8626f4cd3470a3a6a5a8",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Preacher_Curl_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Preacher_Curl_female_v2_1.png",
+          "sourceSha256": "3918224f66d6457fc36445ddb9988e28776792a6574e747e6b46a6eddfdb9c87",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/422/Zottman_Preacher_Curl_female_v2_1.png",
+          "candidateSha256": "d8392751ac72fc15d359b6f8eadc405a8aaade95c0fa07b303251c9f7b25fb47",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Preacher_Curl_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Preacher_Curl_female_v2_2.png",
+          "sourceSha256": "9ec0479fec48c19851d104b70d7f09bb8acb4c96169bb49828fc3bfcc7b33f45",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/422/Zottman_Preacher_Curl_female_v2_2.png",
+          "candidateSha256": "2ad1b0f32cbdf704f7a1d473e8156af949120b91546009eaa556fa64dda86b11",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Zottman_Preacher_Curl_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Zottman_Preacher_Curl_female_v2_3.png",
+          "sourceSha256": "6203b3093a788aa30a718b1082db72a9d1245f2d91815ddf50379f42ef1eea81",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/422/Zottman_Preacher_Curl_female_v2_3.png",
+          "candidateSha256": "fb2cd77bc597f028f9ecca721b2d9b97694de480ed2e351d0e5551d2ca1ea813",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    }
+  ]
+}

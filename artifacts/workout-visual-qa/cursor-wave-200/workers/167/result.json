@@ -1,0 +1,96 @@
+{
+  "exerciseId": "Lying_Cable_Curl",
+  "shard": 17,
+  "index": 167,
+  "status": "ready_for_review",
+  "findings": [
+    "Script removed floor matte; male/female frames 1-2 had stray white/grey edge line artifacts.",
+    "GenerateImage + chroma on male_v2_1, female_v2_1, female_v2_2 removed edge garbage; male_v2_2 generation dropped cable so script candidate retained."
+  ],
+  "unresolved": [
+    "Lying_Cable_Curl_male_v2_2: GenerateImage attempt lost cable connection; script candidate retained with minor left-edge specks."
+  ],
+  "frames": [
+    {
+      "filename": "Lying_Cable_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cable_Curl_male_v2_0.png",
+      "sourceSha256": "81e321d5af7404051eae688e717aa5f314cfbdc0c5e0587bc8b55298a1cfd477",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/167/Lying_Cable_Curl_male_v2_0.png",
+      "candidateSha256": "951db318c13026104a1344fe47b3aa14ea4bfe19a89affc52d43cdda841537a6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cable_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cable_Curl_male_v2_1.png",
+      "sourceSha256": "8d55497245595bb6b8e40e3b6bf3015186118595096ea8ad70fe5850f0174272",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/167/Lying_Cable_Curl_male_v2_1.png",
+      "candidateSha256": "376019d3d57306638bbc07c515083a2dcf47595614d7309f98a91299148ed6d4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cable_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cable_Curl_male_v2_2.png",
+      "sourceSha256": "4d0c7f4e6346037317b39effffd290be7f5140ab65a6c450a856ea27dabb1fa8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/167/Lying_Cable_Curl_male_v2_2.png",
+      "candidateSha256": "6ca3db81940014b7a58d7fc47995ecc31e28af0520b5e845d0b0d8b2cb02fbdd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cable_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cable_Curl_male_v2_3.png",
+      "sourceSha256": "3495860bf13a8ad3416f3faf4fbb4031076a8845936be6d9eb5e6fb384d11ed8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/167/Lying_Cable_Curl_male_v2_3.png",
+      "candidateSha256": "76351bfbf22360f196a73a2dc179d6dd3bdf890b13ca69189e1245f4f9c66d84",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cable_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cable_Curl_female_v2_0.png",
+      "sourceSha256": "a6674def252ea450c57cd7dfff4ddee5dbcddd405bfc711d8a29c65e1d577584",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/167/Lying_Cable_Curl_female_v2_0.png",
+      "candidateSha256": "ffeb79fba6cd3a862797cbc4aa300db0ff1e11398ffd8f7160f8b49a6d719f4f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cable_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cable_Curl_female_v2_1.png",
+      "sourceSha256": "da40169f2d97a5078da219bc0032f5ba238e6118b9808baa67dd2e4f6d53fb09",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/167/Lying_Cable_Curl_female_v2_1.png",
+      "candidateSha256": "454ac092e6971606bc863438dd7ca85df62defe6d9a55f9d2eb369bf32edad90",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cable_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cable_Curl_female_v2_2.png",
+      "sourceSha256": "53afe995106e49c0e15307fe047ed2ab5c09387d1309c913ea0404fbfeee3bce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/167/Lying_Cable_Curl_female_v2_2.png",
+      "candidateSha256": "2a25accd6b1c3812e17f48cb87d8ae1cafd527097ec51ec1237dc59bc3087db4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Cable_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Cable_Curl_female_v2_3.png",
+      "sourceSha256": "1bd060808ff4be084c3a059f70a3b32221bef89c4db0521f7529d31d1050e5d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/167/Lying_Cable_Curl_female_v2_3.png",
+      "candidateSha256": "351696cda74b3bb7ed0baf96345328162b8bc95680eb5f19be77cacfb581a2db",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

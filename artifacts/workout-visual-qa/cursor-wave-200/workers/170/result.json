@@ -1,0 +1,94 @@
+{
+  "exerciseId": "Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head",
+  "shard": 17,
+  "index": 170,
+  "status": "ready_for_review",
+  "findings": [
+    "Script made no pixel changes (0px removed); candidates are source copies.",
+    "Visual review on dark composites: skull-crusher sequence clean with intentional triceps highlights; GenerateImage not needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_male_v2_0.png",
+      "sourceSha256": "409db500e71fd6a765ac1d9369d94e8938ffe4d0e9098e5ae95048e0bc3bd427",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/170/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_male_v2_0.png",
+      "candidateSha256": "6301886c12b3884781e57519c53620d4a4910cd2b463aa0505a37d7a274e1e47",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_male_v2_1.png",
+      "sourceSha256": "8c06ce1d868807b65e46a785f457cbe660c2367bf365fa3709f9f8386591bbb8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/170/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_male_v2_1.png",
+      "candidateSha256": "8cdb1e90586eaae6b8da621e2d63da4ed2d45a09dd89f95d3c6beb597669a459",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_male_v2_2.png",
+      "sourceSha256": "ecf855b8ff2f5b4ebcc99e6209547fbd14286464648f18522a01018ce65b0784",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/170/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_male_v2_2.png",
+      "candidateSha256": "61aa9e77662fcdea24fa0c60d5fc25e68986b3b4ff55d843beceed6f327a36eb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_male_v2_3.png",
+      "sourceSha256": "86c8e807cf0ff6084757838c97042f4100f9b69427a603e7b0b152e04e2fedb5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/170/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_male_v2_3.png",
+      "candidateSha256": "15d3d173226acc0b83f3a6276ac307d01fca0ccbebf9e3ad40d45b4487593683",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_female_v2_0.png",
+      "sourceSha256": "a6510d3aab589bbf72ab6286326616fec6c7c973f035179c768c04276d0ae9d2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/170/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_female_v2_0.png",
+      "candidateSha256": "381f99c3f24a13b7fefa58b19bddaae24e2e68c77e2d115c8af233d5a1bd8164",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_female_v2_1.png",
+      "sourceSha256": "6d6de5d9f3c3115be78104a8d70a6e2744869c084ef3620d4c5689e4408a6e65",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/170/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_female_v2_1.png",
+      "candidateSha256": "acbbe0fe999a722ba75c739814c3fccd7fe67b196bd85c71b3057c9b7b392b8e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_female_v2_2.png",
+      "sourceSha256": "be2184bbf201c3d6b5e2e92df3675cc310b63cde9413f9a53e09bf5f5b7b6a60",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/170/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_female_v2_2.png",
+      "candidateSha256": "7c025c58a10cf9520b7798a447ba2b9970b7b43248a91fe6c232bedd5ce68929",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_female_v2_3.png",
+      "sourceSha256": "c05401508ce43faac895e8063321d7cc21140db630eb5c7af7be5689436d488d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/170/Lying_Close-Grip_Barbell_Triceps_Extension_Behind_The_Head_female_v2_3.png",
+      "candidateSha256": "0214c8e2486673a9288dfac2261b26518383b871940302b64fb2ffa238064ea7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

@@ -1,0 +1,94 @@
+{
+  "exerciseId": "Lying_Close-Grip_Bar_Curl_On_High_Pulley",
+  "shard": 17,
+  "index": 169,
+  "status": "ready_for_review",
+  "findings": [
+    "Script removed floor matte on lying close-grip cable curl frames.",
+    "Visual review: triceps-highlight sequence intact; red muscle highlights intentional; GenerateImage not needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Close-Grip_Bar_Curl_On_High_Pulley_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Bar_Curl_On_High_Pulley_male_v2_0.png",
+      "sourceSha256": "2fef29e75473ff9cf7cd1e294d6f05cef75422c2b57ac393fb7fc1f6823d6dcf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/169/Lying_Close-Grip_Bar_Curl_On_High_Pulley_male_v2_0.png",
+      "candidateSha256": "ef9c18a6e598d678e970d814719ac9435b76c872fd473a91d826104b34b46a45",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Bar_Curl_On_High_Pulley_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Bar_Curl_On_High_Pulley_male_v2_1.png",
+      "sourceSha256": "5c2e0b28d8f1c4fc34030b83dae82a2eb83818873ff2941d6410a130b7b058ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/169/Lying_Close-Grip_Bar_Curl_On_High_Pulley_male_v2_1.png",
+      "candidateSha256": "e9ddae99e72f299a8bc4a26876e134f693aa34147bec3547aa0b222791975842",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Bar_Curl_On_High_Pulley_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Bar_Curl_On_High_Pulley_male_v2_2.png",
+      "sourceSha256": "cd30a958cedcaba9a5ed2ba2c4bf79a0450cd7c263e3fa7f5d943b813e05dc8b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/169/Lying_Close-Grip_Bar_Curl_On_High_Pulley_male_v2_2.png",
+      "candidateSha256": "c6497584e6fb26caad293fbed1b53014e89255075ff9830221fb8e737400fc77",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Bar_Curl_On_High_Pulley_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Bar_Curl_On_High_Pulley_male_v2_3.png",
+      "sourceSha256": "13514afb55e32725dfd1ca42ba560a98825fac361020e3148f0b4a32ae2f258e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/169/Lying_Close-Grip_Bar_Curl_On_High_Pulley_male_v2_3.png",
+      "candidateSha256": "1b1c3253d014087f13cdf589d601fedb9c4dcbce8491464062295415b78ade41",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Bar_Curl_On_High_Pulley_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Bar_Curl_On_High_Pulley_female_v2_0.png",
+      "sourceSha256": "46048d260302f0f64d12d376aff1a8a8f67b05d293ad42e6e7a83255b6b6e92c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/169/Lying_Close-Grip_Bar_Curl_On_High_Pulley_female_v2_0.png",
+      "candidateSha256": "cea03a3de814d4a0a0902a881b0914120130c4d76df37e6b44b7de3a7ce3694a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Bar_Curl_On_High_Pulley_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Bar_Curl_On_High_Pulley_female_v2_1.png",
+      "sourceSha256": "ba797c0b3b86c60384b72c2aa3da805cbe958ef0bfd4098602f9497003eb23f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/169/Lying_Close-Grip_Bar_Curl_On_High_Pulley_female_v2_1.png",
+      "candidateSha256": "bd6ab2b5b7acc3368f17ec074bfd40d83dc6714d92673eca2b2b1fd23709ad7c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Bar_Curl_On_High_Pulley_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Bar_Curl_On_High_Pulley_female_v2_2.png",
+      "sourceSha256": "141a98b6ffb8cb83901bda0999d39ddda171c799ab78cff5a9e8635dec863da5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/169/Lying_Close-Grip_Bar_Curl_On_High_Pulley_female_v2_2.png",
+      "candidateSha256": "312a233537412113db7d8b3a79c806e8558fcabe8fbbebe819528fd5bcb18183",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Bar_Curl_On_High_Pulley_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Bar_Curl_On_High_Pulley_female_v2_3.png",
+      "sourceSha256": "40b3e3f5e256654450be02a4c4d151ac82d114713f09cda36c40b54e08502ba0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/169/Lying_Close-Grip_Bar_Curl_On_High_Pulley_female_v2_3.png",
+      "candidateSha256": "df6b9816a6816d391cc8f087fd3f15e525fbebee472e2ddea62b09ca88d35eec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

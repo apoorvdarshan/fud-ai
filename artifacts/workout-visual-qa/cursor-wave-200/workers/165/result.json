@@ -1,0 +1,94 @@
+{
+  "exerciseId": "Lunge_Sprint",
+  "shard": 17,
+  "index": 165,
+  "status": "ready_for_review",
+  "findings": [
+    "Script removed floor matte; male 1/2 and female 2 still had stray floating barbell-collar fragments.",
+    "GenerateImage surgical + green chroma on male_v2_1, male_v2_2, female_v2_2 removed stray blobs; pose and barbell preserved."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lunge_Sprint_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Sprint_male_v2_0.png",
+      "sourceSha256": "1414cb6268bb97c51fe689f796412bff81e35967ca77891c401c4aa8c8c9aedd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/165/Lunge_Sprint_male_v2_0.png",
+      "candidateSha256": "e13c165013142384b4124ecda963a80c50b43b3d2fa28512003064b2451cd889",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Sprint_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Sprint_male_v2_1.png",
+      "sourceSha256": "77c70f0e420e6a7020abcf92202bd854bf0fd27dabdedd7177ecd6e11be7a716",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/165/Lunge_Sprint_male_v2_1.png",
+      "candidateSha256": "6e99e284584b57de0640d502a5fb4cacc795aae1fd22ea630b37bf48419d0950",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Sprint_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Sprint_male_v2_2.png",
+      "sourceSha256": "2b3576f25f0751975fb66f7a14fd1fb8d7971f6d77355ec3be6a9968504528a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/165/Lunge_Sprint_male_v2_2.png",
+      "candidateSha256": "94f9cdaa27787e8654049e10e893525c59a5ba50c6bc1e97c9993c7db59d99fd",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Sprint_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Sprint_male_v2_3.png",
+      "sourceSha256": "795d7cdc2d3d6c354cf66d50de759ac186351715e59d39e994b2c8a3ff232280",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/165/Lunge_Sprint_male_v2_3.png",
+      "candidateSha256": "12f448468ae7277ac8f373d12eaf675e049255cdcbf4f042d65584c08b5cbeab",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Sprint_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Sprint_female_v2_0.png",
+      "sourceSha256": "e69776398766a1e0759e4575bc9743ab970f76793ae45243b034c8163b26a266",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/165/Lunge_Sprint_female_v2_0.png",
+      "candidateSha256": "e9a410f5b9332b309cbf5c14ff0f6bcb98f8b75334da737727784ffb2114a8c1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Sprint_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Sprint_female_v2_1.png",
+      "sourceSha256": "24b9f1cc66391a6b5232665508e652c0a6c07dbeb462ec3c3bb7b893a90a5969",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/165/Lunge_Sprint_female_v2_1.png",
+      "candidateSha256": "9d0933215f938294502da228056f29833f1e37dcfb0958e7448e76256f1441a2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Sprint_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Sprint_female_v2_2.png",
+      "sourceSha256": "599402b975185820f27c1c5427a33a6caa2ef2430eb56484a4daa08f8bed89bf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/165/Lunge_Sprint_female_v2_2.png",
+      "candidateSha256": "6eefcdd1b9b1d9a706b37604ceb87056cc4bf04f8fecbd8a6b5ea8d98243a249",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lunge_Sprint_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lunge_Sprint_female_v2_3.png",
+      "sourceSha256": "526de544db2e508e28120cb3d3d8fc137f74462b31e6f91a4451704acc3848fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/165/Lunge_Sprint_female_v2_3.png",
+      "candidateSha256": "d06fde689c899f19efa04d02e9b0d69b65df5148153952a0eb1fe2d5b402f2a4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

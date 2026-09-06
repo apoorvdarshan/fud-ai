@@ -1,0 +1,94 @@
+{
+  "exerciseId": "Lying_Bent_Leg_Groin",
+  "shard": 17,
+  "index": 166,
+  "status": "ready_for_review",
+  "findings": [
+    "Script removed large pale mat patches on assisted groin stretch frames.",
+    "Visual review: two-person stretch sequence clean on dark background; GenerateImage not needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Bent_Leg_Groin_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Bent_Leg_Groin_male_v2_0.png",
+      "sourceSha256": "a93632abf20e0fa80188f7ccdef165cf2e4631ea1a53bdad0c5863729468eeb3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/166/Lying_Bent_Leg_Groin_male_v2_0.png",
+      "candidateSha256": "03b16fe1456ad819d80b378f4b9285d9a5aae1333504fb28f1563a9b5b1f75d2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Bent_Leg_Groin_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Bent_Leg_Groin_male_v2_1.png",
+      "sourceSha256": "f4ba199446e4162c1b17e246e32dae0ca68cdeb8d99c07aa7ae96e36b396feb2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/166/Lying_Bent_Leg_Groin_male_v2_1.png",
+      "candidateSha256": "2cec1a8244e0e09690365f04ca80c1892a5bcd0cfc794efca12ef10f67718ee5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Bent_Leg_Groin_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Bent_Leg_Groin_male_v2_2.png",
+      "sourceSha256": "ddaa065b6f9c12aec16485972feb331022e4caee1710fee0f5798e1ad250113b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/166/Lying_Bent_Leg_Groin_male_v2_2.png",
+      "candidateSha256": "9bb5d22a1f2ff676e6c875f067f9b471e1434ec16f0d1d0bc9042aebad5591fa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Bent_Leg_Groin_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Bent_Leg_Groin_male_v2_3.png",
+      "sourceSha256": "d921460f408caf00341b1a4d1ee9a817981daaa29f963bff534ff11d403272f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/166/Lying_Bent_Leg_Groin_male_v2_3.png",
+      "candidateSha256": "014b018684b456732eb73f087b2c18b7401a5e405a1aa3ccd1a41efe8fa91da0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Bent_Leg_Groin_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Bent_Leg_Groin_female_v2_0.png",
+      "sourceSha256": "9187a0b5a774902b667584824d4823973b13ec0956a933c5082cfbb72bb3ef46",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/166/Lying_Bent_Leg_Groin_female_v2_0.png",
+      "candidateSha256": "7f76d03957a54cd1672c51bbd7ace6498d2fd9f9a374730a1a51503fcde0081d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Bent_Leg_Groin_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Bent_Leg_Groin_female_v2_1.png",
+      "sourceSha256": "bbaca167085adda0a5cfd527597e7c53646b899cf1cb7c3cc7e53e782152aea2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/166/Lying_Bent_Leg_Groin_female_v2_1.png",
+      "candidateSha256": "da70ce342bcf8102c290640a39d658edb0acfaab72677c6f15215aab04d4f246",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Bent_Leg_Groin_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Bent_Leg_Groin_female_v2_2.png",
+      "sourceSha256": "8ab52364b13339dce18aa6e32c46d8bdb8855e66dbbd8d41d6c6952cf1938b43",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/166/Lying_Bent_Leg_Groin_female_v2_2.png",
+      "candidateSha256": "80df11160eeaa14d1c335f7a0c8e272f147f615cac1329298979ca4d8f72e91b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lying_Bent_Leg_Groin_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Bent_Leg_Groin_female_v2_3.png",
+      "sourceSha256": "0ba91ee72ef4ed4b2c964f326395d5dab211836e5bd40bd0d34f7a4a4232bf1a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/166/Lying_Bent_Leg_Groin_female_v2_3.png",
+      "candidateSha256": "7b0db26c329092b7354eda6c76178f68cd371476c964d980eb1b26998cf21db1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

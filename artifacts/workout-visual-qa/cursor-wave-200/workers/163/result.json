@@ -1,0 +1,94 @@
+{
+  "exerciseId": "Lower_Back_Curl",
+  "shard": 17,
+  "index": 163,
+  "status": "ready_for_review",
+  "findings": [
+    "Script removed ground matte on all eight lower-back curl frames.",
+    "Visual review: prone back-extension sequence intact on dark background; no GenerateImage needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lower_Back_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back_Curl_male_v2_0.png",
+      "sourceSha256": "0056b96936cc9590a72118dff2f0a2b15303e32e782ce04b840146271c08030b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/163/Lower_Back_Curl_male_v2_0.png",
+      "candidateSha256": "94083a2dede4963914a6b3508f581ed8624839f21e9647c1e0e2096b877960c8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back_Curl_male_v2_1.png",
+      "sourceSha256": "718d85b1510797d5f669e996dcd72759803b07b7cacc13ff15920abc98471ed6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/163/Lower_Back_Curl_male_v2_1.png",
+      "candidateSha256": "f9373f75e8948f4fa68badf1546c6799f6936a3c85119456dc5550c36d6f3b88",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back_Curl_male_v2_2.png",
+      "sourceSha256": "eccd5c26e22413d7e629a99a8531b91923f68f4101002021c0bca9e49bd061a5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/163/Lower_Back_Curl_male_v2_2.png",
+      "candidateSha256": "c89c66521c3c21a36302901e2caa77f3563a0d07d4c222606f872364fd49271d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back_Curl_male_v2_3.png",
+      "sourceSha256": "4caacd10e6add4be5cce769480490ee8a22e96f741952643316d11657c870316",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/163/Lower_Back_Curl_male_v2_3.png",
+      "candidateSha256": "0455efac395decde4b8fdba23578ec080fc210123a9bfeef1fc859b6c0f678b6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back_Curl_female_v2_0.png",
+      "sourceSha256": "a453b137d0feef935cc411021f9ff9ce96e739f50c029dde79a228d177cf8f6b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/163/Lower_Back_Curl_female_v2_0.png",
+      "candidateSha256": "5e2a3859ff1efb44d33b7061cd255166bb23b7f11ace31f1ed91eecfe14cd1b9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back_Curl_female_v2_1.png",
+      "sourceSha256": "677f76532206a30ff19959c37f2e37fc4a5f42652c9650e2103d8b828afa2acc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/163/Lower_Back_Curl_female_v2_1.png",
+      "candidateSha256": "6fdb1737c0e3b5df5dccba3cd6d7b59cba5d42bd5a17e307925943eb79424c22",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back_Curl_female_v2_2.png",
+      "sourceSha256": "b97fd955c5ef45868e17b7635f6ea033ae621e905c25dd2082980f8b5e7e4a73",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/163/Lower_Back_Curl_female_v2_2.png",
+      "candidateSha256": "eaeb3b87b6cd75393f025e832812d414f0aa7c3981a98c6ec153824c60187ffb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back_Curl_female_v2_3.png",
+      "sourceSha256": "44cb3c8da9cfe33fc84532d8e205c31894f67e73d4d048e78dc5207dbc94dad6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/163/Lower_Back_Curl_female_v2_3.png",
+      "candidateSha256": "44dcdc0a869e5f2f20b762a7bd8c35a23e91612848405d24a7d402fce6e84ec9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

@@ -1,0 +1,94 @@
+{
+  "exerciseId": "Lower_Back-SMR",
+  "shard": 17,
+  "index": 162,
+  "status": "ready_for_review",
+  "findings": [
+    "Script removed pale floor patches around foam roller and feet on all frames.",
+    "Dark-background review: foam-rolling sequence clean; residual edge halos are 1-2px and acceptable without GenerateImage."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lower_Back-SMR_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back-SMR_male_v2_0.png",
+      "sourceSha256": "c890f5c07f19515d037d716f67b3c9cd49f1df93c2d9a4a127cc0a7accccd3be",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/162/Lower_Back-SMR_male_v2_0.png",
+      "candidateSha256": "d06ad968df7a3c56f2401a3f3efb0836cda05e699ee5177c321ee5782ab731fe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back-SMR_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back-SMR_male_v2_1.png",
+      "sourceSha256": "b279d8d726f7822658a94a68bfb03acb7a00019c4a2ea8d511ac4e3491198792",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/162/Lower_Back-SMR_male_v2_1.png",
+      "candidateSha256": "31c7ba16a529dd56f80b3db910d1392f5541fee89d0b694d0be70860b5c3601d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back-SMR_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back-SMR_male_v2_2.png",
+      "sourceSha256": "581a5e546916ec31aa804feeb379f226be1df773a297ba09940ee6511cdd187f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/162/Lower_Back-SMR_male_v2_2.png",
+      "candidateSha256": "9a240690cd9b1601c5ffe71ab349e82fc05010396f63c8317596cf46f6722e0a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back-SMR_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back-SMR_male_v2_3.png",
+      "sourceSha256": "78fd6bf05a476b8dc84dda88a60dfcdb0d15736f23dc377fac632e1c3f7a2fb8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/162/Lower_Back-SMR_male_v2_3.png",
+      "candidateSha256": "29df2a685beefa4f0cc5cb449728108acc6d60f2da6433e40abc27e781c00d73",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back-SMR_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back-SMR_female_v2_0.png",
+      "sourceSha256": "b798831f2ade6c88fb110875c18ff9db9972a9d5bffb20d3289903dce436b9e6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/162/Lower_Back-SMR_female_v2_0.png",
+      "candidateSha256": "b6f76a4f7bc9e8f734380e4d1c7417220393ed46b176920744f7477653e3aa67",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back-SMR_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back-SMR_female_v2_1.png",
+      "sourceSha256": "98e34c3548813d1f8dc57d914c06ea187179d996310e831e63d1cf5bb8a1a7ab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/162/Lower_Back-SMR_female_v2_1.png",
+      "candidateSha256": "36fbb79fdd9d1cb85393df84e46098f38cb52674d0b78699e73463f18ac2954d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back-SMR_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back-SMR_female_v2_2.png",
+      "sourceSha256": "97e479c3762cf69557d5fe45b962688541cb3d493e4d8769ebb6e1a1d3347ba3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/162/Lower_Back-SMR_female_v2_2.png",
+      "candidateSha256": "9855e589d6667071c12d1792f515336a9457a8197816c83b404b67c69c72a964",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Lower_Back-SMR_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lower_Back-SMR_female_v2_3.png",
+      "sourceSha256": "108cedf3f4c3b319d5ee514ca0423583e9a12425c2d05db1c30606c7845dc13d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/162/Lower_Back-SMR_female_v2_3.png",
+      "candidateSha256": "af125e8f2b8de832413ba4937d19c3f31ef074c4ddc55ea1824519ad4315577a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

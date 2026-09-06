@@ -3,7 +3,10 @@
   "shard": 2,
   "index": 20,
   "status": "ready_for_review",
-  "findings": [],
+  "findings": [
+    "GenerateImage surgical edit + key_workout_chroma.py on 4 frame(s) with floor/fringe/plate/bar artifacts.",
+    "All 8 frames visually reviewed on dark background."
+  ],
   "unresolved": [],
   "frames": [
     {
@@ -13,25 +16,28 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/020/Heaving_Snatch_Balance_male_v2_0.png",
       "candidateSha256": "ac59f22683e87633657a90dcf68f65552986e77582727bdb66a460d1b70b0ecc",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Heaving_Snatch_Balance_male_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Heaving_Snatch_Balance_male_v2_1.png",
       "sourceSha256": "c6d0dfa9b3b4465766d86a4f4ea0108b6e6fb9542d6eca4ea3ee75d31cdd34cd",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/020/Heaving_Snatch_Balance_male_v2_1.png",
-      "candidateSha256": "e453bfeff039f5527921f97adf835f1a518dfba3305d80b76ce4a381fe39176d",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "70a6206fa95f0485fb293d0b4d160c2b5022a1628fd6993c30b300e026d6dc9d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Heaving_Snatch_Balance_male_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Heaving_Snatch_Balance_male_v2_2.png",
       "sourceSha256": "123378b009364562d19e2add7e573ec8431411f0ec0fff6be6ac7c2713fdb0db",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/020/Heaving_Snatch_Balance_male_v2_2.png",
-      "candidateSha256": "fa07d3ca3e52bf13b571138c72713d51f705f15fcb8f3056ea6621b4015f48af",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "f03523a3958787b4adb85225dafb1d1f8964c0aa268de595dcded0472661cf25",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Heaving_Snatch_Balance_male_v2_3.png",
@@ -40,7 +46,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/020/Heaving_Snatch_Balance_male_v2_3.png",
       "candidateSha256": "b6b691759b41508b42d055bdbef2803a1b55fb33885ae250ad375b256222d0f3",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Heaving_Snatch_Balance_female_v2_0.png",
@@ -49,25 +56,28 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/020/Heaving_Snatch_Balance_female_v2_0.png",
       "candidateSha256": "9cbc8cfe85871a0a4bedb99a09a861dfd6fbceb8822a7f66b6dd6d4512706679",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Heaving_Snatch_Balance_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Heaving_Snatch_Balance_female_v2_1.png",
       "sourceSha256": "4553fe825cc38a248e61ac3212b9c3f43bee1218b1ff931064d1b57d9d2a02d4",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/020/Heaving_Snatch_Balance_female_v2_1.png",
-      "candidateSha256": "009184585a6a3864e93941c89f2053eadc86aab043be473e2e0ac5745054339a",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "02074fb83f6fa73ec7523cbff779f037f0d743e60297e439f4de24c6a42b16e8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Heaving_Snatch_Balance_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Heaving_Snatch_Balance_female_v2_2.png",
       "sourceSha256": "b64595f2e24b200923a3468c21245dfea5edf697b95fc5a27d339ba9d0a4a0b1",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/020/Heaving_Snatch_Balance_female_v2_2.png",
-      "candidateSha256": "d4d0b6144579f8be23f61e4baf5977e5eb91445f11e11a92b6f1321feea9ffae",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "9c0409a560431d4fefacc19b29933aadcca963d2d841ade24897fa6037154ed2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Heaving_Snatch_Balance_female_v2_3.png",
@@ -76,7 +86,9 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/020/Heaving_Snatch_Balance_female_v2_3.png",
       "candidateSha256": "6be4cc5918f5cca1bdbb5585982ed3512fd9c303fffd061f7ca66f51590bcdd9",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     }
-  ]
+  ],
+  "changedFrameCount": 4
 }

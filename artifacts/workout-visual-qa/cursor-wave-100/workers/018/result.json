@@ -3,7 +3,9 @@
   "shard": 2,
   "index": 18,
   "status": "ready_for_review",
-  "findings": [],
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
   "unresolved": [],
   "frames": [
     {
@@ -13,7 +15,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_male_v2_0.png",
       "candidateSha256": "66a2905de18797b4e0679fc35939d6b4b221a15957434a84b4715a1e3a5df65e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hanging_Leg_Raise_male_v2_1.png",
@@ -22,7 +25,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_male_v2_1.png",
       "candidateSha256": "c40e4063dd01b90178dc32c254b676b9602090dbbb04d08d5588a9f395597170",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hanging_Leg_Raise_male_v2_2.png",
@@ -31,7 +35,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_male_v2_2.png",
       "candidateSha256": "f07e2d277e0e565ab690f8d72d5e3e9641fa3a06cd4327091e2cdb1ad4cb34a6",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hanging_Leg_Raise_male_v2_3.png",
@@ -40,7 +45,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_male_v2_3.png",
       "candidateSha256": "61c8d36366f8527535ea121b5d27eb81cb987ab4d26e5b5ef0efdf0dc28a4425",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hanging_Leg_Raise_female_v2_0.png",
@@ -49,7 +55,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_female_v2_0.png",
       "candidateSha256": "537a69563b1028cd2309cf0030581ea14aac73d308c9fcc88829d6e38d8c629a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hanging_Leg_Raise_female_v2_1.png",
@@ -58,7 +65,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_female_v2_1.png",
       "candidateSha256": "a4adc29649ad1a3342662db6aec22fdc3eecd71038e279feec34f5ebbec5c45e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hanging_Leg_Raise_female_v2_2.png",
@@ -67,7 +75,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_female_v2_2.png",
       "candidateSha256": "8bc02ab58f955db9abdf055905580237d76540cdd0116a125ace867cfa4e56c5",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hanging_Leg_Raise_female_v2_3.png",
@@ -76,7 +85,9 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_female_v2_3.png",
       "candidateSha256": "a5cb8ca8153998a02f5db4f0638a45046feb736aacfd079a5983ba004c18bbf9",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     }
-  ]
+  ],
+  "changedFrameCount": 0
 }

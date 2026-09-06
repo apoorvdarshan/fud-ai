@@ -3,7 +3,10 @@
   "shard": 2,
   "index": 19,
   "status": "ready_for_review",
-  "findings": [],
+  "findings": [
+    "GenerateImage surgical edit + key_workout_chroma.py on 2 frame(s) with floor/fringe/plate/bar artifacts.",
+    "All 8 frames visually reviewed on dark background."
+  ],
   "unresolved": [],
   "frames": [
     {
@@ -13,7 +16,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/019/Hanging_Pike_male_v2_0.png",
       "candidateSha256": "2a79c4197c8ce4045537e05d1e23b8d7fdedd13891d1baf21f5fe07d8ed22f31",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hanging_Pike_male_v2_1.png",
@@ -22,7 +26,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/019/Hanging_Pike_male_v2_1.png",
       "candidateSha256": "9c5aade4e69a4eb3feb928fa20623c2b073b892a458c78a50aec00c589ac66df",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hanging_Pike_male_v2_2.png",
@@ -31,16 +36,18 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/019/Hanging_Pike_male_v2_2.png",
       "candidateSha256": "9afd9ef9b87d485556a9ec73631002b4932a159fa95583b8886711813416c283",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hanging_Pike_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hanging_Pike_male_v2_3.png",
       "sourceSha256": "0730bb053887c994f1b594e633a72925c0da4a393751c484d9ec8bd1d541962b",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/019/Hanging_Pike_male_v2_3.png",
-      "candidateSha256": "9878aab89811a047212f8394032f1da242bfd4506ca0033cb334cf0377a189ae",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "7239c508ba30f84f15b965e8e764406850f38eb0263f82f18f90a2045a43ec3f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Hanging_Pike_female_v2_0.png",
@@ -49,7 +56,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/019/Hanging_Pike_female_v2_0.png",
       "candidateSha256": "c1a6e79132ea5babe71891da5e57f0e75f9842e24aa64cb38af0d0f23bb92f86",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hanging_Pike_female_v2_1.png",
@@ -58,16 +66,18 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/019/Hanging_Pike_female_v2_1.png",
       "candidateSha256": "3b5db944443bc81072b6ad116daef06d2aa04d41975e29d780c49770c8b0dc04",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hanging_Pike_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hanging_Pike_female_v2_2.png",
       "sourceSha256": "799b85282639a03c92eb9d1ae0fa77e5cfd851f482c3c58b4b04b2e37996c470",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/019/Hanging_Pike_female_v2_2.png",
-      "candidateSha256": "3e6fdd006ed8ae33c507011c74978982ebc84d927ff1aa64771580f422b8d22b",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "0106ca6e52c0c7b208f40623568b105afa91b5abad9c2c9f9aaa4f9ff4d86b38",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Hanging_Pike_female_v2_3.png",
@@ -76,7 +86,9 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/019/Hanging_Pike_female_v2_3.png",
       "candidateSha256": "2794cade68abc72823c4f1a14d28718a26c0e70c0230f229bbf60d0c8e92bb06",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     }
-  ]
+  ],
+  "changedFrameCount": 2
 }

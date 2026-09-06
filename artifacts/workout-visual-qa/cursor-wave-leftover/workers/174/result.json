@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Biceps",
+  "shard": 18,
+  "index": 174,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Biceps_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Biceps_male_v2_0.png",
+      "sourceSha256": "80a5f8ac1595e424a0f4cb1ee157d485f781e7407d9574f909aa99e9ef2d6a5b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/174/Seated_Biceps_male_v2_0.png",
+      "candidateSha256": "d2106e442d78acaa2745d24385ad6667d4ea242aec560bb2d4a335c1d9a979ce",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Biceps_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Biceps_male_v2_1.png",
+      "sourceSha256": "d24f9e4cb1c7984ed9f8997f1ddb2c1ffbaed505ff9aea667112e8dd115c525f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/174/Seated_Biceps_male_v2_1.png",
+      "candidateSha256": "32723530a9c2df2d3a1ff4c3fe5900350c979de666234aa6374e3f64bbf8b348",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Biceps_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Biceps_male_v2_2.png",
+      "sourceSha256": "1b0a3a4305522f34bba5f685279e70537a8f5baf866345e077534fbd0c53afe8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/174/Seated_Biceps_male_v2_2.png",
+      "candidateSha256": "ec19592302e8f0e894863affcce47fde875838a177e0c400d8bf3e3353049b79",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Biceps_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Biceps_male_v2_3.png",
+      "sourceSha256": "7aaddae8bb4d28b3106b468011d02e3aab395b4a4c2757ac1177caf40fdc2a97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/174/Seated_Biceps_male_v2_3.png",
+      "candidateSha256": "242d74d3061b068a60959a56e4bc40b6340dcd4857b80a19046f5dddec4e9059",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Biceps_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Biceps_female_v2_0.png",
+      "sourceSha256": "47c57729991763ef50cd8bb89d23118848aae15799fac7e7210237fc8a63a2b3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/174/Seated_Biceps_female_v2_0.png",
+      "candidateSha256": "cf6b62d13de08cd9db072656605388dfbf0774bba610709cfd334633e1005096",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Biceps_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Biceps_female_v2_1.png",
+      "sourceSha256": "80cd4dc55d021a11876cc60d9e0c58a196845cb08b4a36898f127cdf5a180116",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/174/Seated_Biceps_female_v2_1.png",
+      "candidateSha256": "ce6657b5394efb9db78e5df969f43463c4ded96db3c8efcb70659bf1028bd8c7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Biceps_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Biceps_female_v2_2.png",
+      "sourceSha256": "4490e33dc38ccccd702588cc620662187dcc42691bf9f3db274f51ad51a76739",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/174/Seated_Biceps_female_v2_2.png",
+      "candidateSha256": "71a38a0bf10ae38393ec2fd3e8f053fa61a9f75c57892642a44008e0f7cac7bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Biceps_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Biceps_female_v2_3.png",
+      "sourceSha256": "8844ed58f1a0c353992d2f8aab5d9a6bb0732b3d5202fa7fc4bbd0d3ff703167",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/174/Seated_Biceps_female_v2_3.png",
+      "candidateSha256": "d0ba4d841a61f0105897379eb069caeeff4091e35e37a2178e192b4fb5e8f2f1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

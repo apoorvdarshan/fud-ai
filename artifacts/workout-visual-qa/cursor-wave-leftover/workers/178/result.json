@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Calf_Stretch",
+  "shard": 18,
+  "index": 178,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Calf_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Stretch_male_v2_0.png",
+      "sourceSha256": "200eef889250ba6b706f0002d00ba8c70eda2b523af3a79fe4c66d2e6520012b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/178/Seated_Calf_Stretch_male_v2_0.png",
+      "candidateSha256": "55924fca4ad49971af322ff14b55d47e707eecfbddc17fcaffec786c8daca71f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Stretch_male_v2_1.png",
+      "sourceSha256": "e118abf91a349c68bd2523fd00d64fd8fc88bd7667fdb4bd3cddcd0da04d7dd3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/178/Seated_Calf_Stretch_male_v2_1.png",
+      "candidateSha256": "262074cf6844f0436eb69516345e9070a415046fd2c342c3ed25d297a87396f7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Stretch_male_v2_2.png",
+      "sourceSha256": "f301b1b968bdf5624ac468b7b83d16195f02f8e67378e4bbda83d9b840e254ce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/178/Seated_Calf_Stretch_male_v2_2.png",
+      "candidateSha256": "72a90bfcebec349408742682a9f96888cbf7ad524e890f8e973cc58abf720111",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Stretch_male_v2_3.png",
+      "sourceSha256": "4c48a9ccc483786fb000a97e50c1ee2e4c77eda6484baa45d09158dd5a4d17ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/178/Seated_Calf_Stretch_male_v2_3.png",
+      "candidateSha256": "97850bfd3f4bc7bc2a9fbc5c37f9e6c84f12141e3222f70a2409d817f932dd81",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Stretch_female_v2_0.png",
+      "sourceSha256": "3666ab4ea5df37d8943421ed3df3c0ebb9a7e1acf0be412a05446f091b71d43a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/178/Seated_Calf_Stretch_female_v2_0.png",
+      "candidateSha256": "fc81fd8dad85b4da59607da3dcae14488d9fd1d36c273d2c0e69c0cf45d285a9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Stretch_female_v2_1.png",
+      "sourceSha256": "308c90ddb85115ad10624aa21a4f19192e6fc3da1b682dc403bd15409d6a668a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/178/Seated_Calf_Stretch_female_v2_1.png",
+      "candidateSha256": "f20ac0457d74ae1a48b91f53c3f50eb6ba9e78a04e7de713cd6fef19956cff1e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Stretch_female_v2_2.png",
+      "sourceSha256": "371a01496d105d431f2bb36041105f6f84bb683ee8e88d8d762880ccc647e888",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/178/Seated_Calf_Stretch_female_v2_2.png",
+      "candidateSha256": "f849ad25ca4948cce0dffb974cc576376fe1103119dfa3e78bc306d12595ff23",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Stretch_female_v2_3.png",
+      "sourceSha256": "0732e161768081adfeefef6803670a0f087dfbfcca0b4d7bb07b0cb67a8b9168",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/178/Seated_Calf_Stretch_female_v2_3.png",
+      "candidateSha256": "4ab023efde8d9da3d311556bfca8988e593bb1ef8865b25edda23cd6f57299cd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

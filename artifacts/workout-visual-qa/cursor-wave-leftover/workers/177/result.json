@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Calf_Raise",
+  "shard": 18,
+  "index": 177,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Calf_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Raise_male_v2_0.png",
+      "sourceSha256": "87da1c98dd11bd6503c23c8fcf4cf1e5811e3cf9fbe1c27847714821161f994a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/177/Seated_Calf_Raise_male_v2_0.png",
+      "candidateSha256": "2831ff584bb9020504604c72c85f149d5f0c6ceeae89457ee913e306f2181092",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Raise_male_v2_1.png",
+      "sourceSha256": "caa1118afd870cf682e6082c455ade674a0e30364ed8cc9319bfdc5d6efc70f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/177/Seated_Calf_Raise_male_v2_1.png",
+      "candidateSha256": "f89426393aed57735da95ecc075f16913b97c815142cf0b4a97c59f6017717b3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Raise_male_v2_2.png",
+      "sourceSha256": "5c60c73d4711af30f27df293177bf70a4ceedc9fa8ca887ece191e151552fe46",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/177/Seated_Calf_Raise_male_v2_2.png",
+      "candidateSha256": "c270fdb5f7289e8ec07510b32a9ba2dc0762180d0d8bbacf4026258ac5feebc4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Raise_male_v2_3.png",
+      "sourceSha256": "40bfc5c982467c4e7ea6d66fc353239bd7565d7c175c5178b5ebe1cd7676c227",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/177/Seated_Calf_Raise_male_v2_3.png",
+      "candidateSha256": "2a4b8b489cc3431d885704f0c3f7e144a07a65826fb32e7ac7df010951bcb93e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Raise_female_v2_0.png",
+      "sourceSha256": "d6333f8830b0c8c67c17093060bd0f74a73a838bfc04ccdbf938f16a91089161",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/177/Seated_Calf_Raise_female_v2_0.png",
+      "candidateSha256": "a1c45fe8c01b475de3f07ef3d1b315c8c64c40672675c1dbcd2afc31d2027428",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Raise_female_v2_1.png",
+      "sourceSha256": "3b82d6635d1bd4c280286a4142f5cb90035fc597807766cac9a30d5aebfb1c4b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/177/Seated_Calf_Raise_female_v2_1.png",
+      "candidateSha256": "77ea5053345392adf66c8f111e4ecc0da826ed3f6817e2d1293c25f34517753c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Raise_female_v2_2.png",
+      "sourceSha256": "576b7190db91a97ccd395d698839a67ddb637f175ba3822ebcf403838c65161d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/177/Seated_Calf_Raise_female_v2_2.png",
+      "candidateSha256": "d02e009cc3ac7447a107f35a51dc87f77fdd62c46c2dc051953858ce0bf39471",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Calf_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Calf_Raise_female_v2_3.png",
+      "sourceSha256": "7c73babe9e05fdbbb83a34763a4f3abbf5fd200e19b0138c3e85b7c8f7968537",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/177/Seated_Calf_Raise_female_v2_3.png",
+      "candidateSha256": "5263ba8b7098d43b99290f472095a7b9fac092d91528a85ea62de79851664b43",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

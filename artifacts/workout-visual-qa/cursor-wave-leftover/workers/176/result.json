@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Cable_Shoulder_Press",
+  "shard": 18,
+  "index": 176,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Cable_Shoulder_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Shoulder_Press_male_v2_0.png",
+      "sourceSha256": "9926bbe580e08d2cf017d541b9d5a09d23ed2d79981128ff5fe3a32251994d38",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/176/Seated_Cable_Shoulder_Press_male_v2_0.png",
+      "candidateSha256": "cd257f7dfb4c130914e933201f583b703c4dab973337b305006b90680404e32b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Shoulder_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Shoulder_Press_male_v2_1.png",
+      "sourceSha256": "3f0b803f6a98c68f2636663791be471f491fda77dc8ed0b0f441a61b0608c707",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/176/Seated_Cable_Shoulder_Press_male_v2_1.png",
+      "candidateSha256": "ec6173c7187ac8245c8c19aaf092180dc83f3a2d9c86479c231d06a1576bb854",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Shoulder_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Shoulder_Press_male_v2_2.png",
+      "sourceSha256": "45f2240c4f344be40ba540f053b20b49e98454c3bd6f32f71ad5f75d2ce19828",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/176/Seated_Cable_Shoulder_Press_male_v2_2.png",
+      "candidateSha256": "4a9fdfc56e42c4975219c30463fab5bcab6d9351058de0984b370e5a6d7e2bd2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Shoulder_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Shoulder_Press_male_v2_3.png",
+      "sourceSha256": "2b5a3800b84234dd599ad98c50368e98a9b9cba49320856c67a03fab5941e9d1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/176/Seated_Cable_Shoulder_Press_male_v2_3.png",
+      "candidateSha256": "54e0f3b7028e40b1e3ae38d189853a0ec533a8b5069ef0748b287a10c9aa1fb2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Shoulder_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Shoulder_Press_female_v2_0.png",
+      "sourceSha256": "7e98d396bca34b8ac2a3ce11a8fcc8037860cb49d1f1f986bb2492d36f5bb694",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/176/Seated_Cable_Shoulder_Press_female_v2_0.png",
+      "candidateSha256": "5877a52ab2c24d5d41ce885221adf339a3b8aa23ab78ff35d559709da1005f0d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Shoulder_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Shoulder_Press_female_v2_1.png",
+      "sourceSha256": "3a2f9b39891845d3b29e275165a1748e414dc12066d0d1c3eef6682660a34427",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/176/Seated_Cable_Shoulder_Press_female_v2_1.png",
+      "candidateSha256": "e1c091218b806c5e19c047b70bcba1d528e0fdc43230db30f0ea336989f960b9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Shoulder_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Shoulder_Press_female_v2_2.png",
+      "sourceSha256": "d856cd087c0aae6ae914ce5d60eba4ac002679dfe8e1c526650b44e8cba28d54",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/176/Seated_Cable_Shoulder_Press_female_v2_2.png",
+      "candidateSha256": "995c3eaca91b49c75539730997ed52cd88a52efd97bc126b28a64ce5f149dff5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Shoulder_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Shoulder_Press_female_v2_3.png",
+      "sourceSha256": "33c34820a18c9d285940cddf850fc71bff99b366d082980013066d5583f1fe65",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/176/Seated_Cable_Shoulder_Press_female_v2_3.png",
+      "candidateSha256": "b85b2a7de6c2e26b13b7834e4e7eebf3444bfa9247ccdc22a23177fbf57aa8ff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

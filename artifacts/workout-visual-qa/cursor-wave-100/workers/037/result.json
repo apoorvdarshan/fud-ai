@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_male_v2_0.png",
       "candidateSha256": "b0fa1821ec644b263b8121bcc8e0e583302c3fb2bc572f77420d0e2fd2d0395f",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Flye_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_male_v2_1.png",
       "candidateSha256": "86d01383ddf3bba9db339d6d9075f844617138974338088a3b4fe9f9155a9c2b",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Flye_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_male_v2_2.png",
       "candidateSha256": "01a4f394df94a6968b55d9d7f4f9ab3221081f426fee2002a023386a0bdbd830",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Flye_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_male_v2_3.png",
       "candidateSha256": "8c0f3aad189f303a96c1c40071a4c955a7a79dc36c301f5b568361bc9fd4bfa5",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Flye_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_female_v2_0.png",
       "candidateSha256": "a26d54b9307ea8d4c70b5974d236d2046527d5457182bbf5a22bba85cd6415b9",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Flye_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_female_v2_1.png",
       "candidateSha256": "08ddd252e1489332af6000fe8ec4a192dd0aa3af8229a49461c017c01517f34f",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Flye_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_female_v2_2.png",
       "candidateSha256": "36d7674ea15f38e843ce8cbc641d933840c19de80d7f319cbcd8bd834a6a4d22",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Flye_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_female_v2_3.png",
       "candidateSha256": "9aa5264493358e6f1c5df3b2f611fea95b69c12393d0097d6d94b73cb0d43d38",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

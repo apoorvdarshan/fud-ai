@@ -11,72 +11,72 @@
       "sourcePath": "/workspace/shared/workout-vectors/Inchworm_male_v2_0.png",
       "sourceSha256": "126c58e31a63952461dbae6a8f0085c566922ff8a615793898d88a0f3bcaf3b5",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_male_v2_0.png",
-      "candidateSha256": "63804bf2870c92660339eae21516725255866305587599346af19cbfea5a45a4",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "ade327675bfc35679b690c29a6cb5c095c2c410cb292b94d435ced64abd56866",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Inchworm_male_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Inchworm_male_v2_1.png",
       "sourceSha256": "f901ff779041ad2f3e17bd17e4787c5c37fb6dc7b123d2c9c787e129dbc9838b",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_male_v2_1.png",
-      "candidateSha256": "65753c08ef97ffbb821bb294a7281ad3f313a61d3ef59a738367b0e870c129ca",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "c201c4548e23c05863dd3d639f33d7a3f5508ab736936a4a7e85585caf3525e0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Inchworm_male_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Inchworm_male_v2_2.png",
       "sourceSha256": "e483f1ff8466043c45e80c05f64b60c52baa1798595e7f162e5a0021dfef020d",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_male_v2_2.png",
-      "candidateSha256": "40c9fb472a7f023072a3397d04ae7f8aae667b10958ac466903fc66cf78cb6f8",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "3acff24ad55a47d240b8bba5844935aa6ba4698f8be4748e5c573996f5c6f227",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Inchworm_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Inchworm_male_v2_3.png",
       "sourceSha256": "15ec046782b8bc74c41fd750b9d9fa258d0f0fc53afb3f4d43ab71434f8ec0d4",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_male_v2_3.png",
-      "candidateSha256": "59d60148eb7b8f1643cdc38fc25857c1191d3dbb308404a4301f4a8a92dbaef5",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "74f464e86344b91b0eeced9261826d513cd7ef0e9eac717b644b9320380ba92d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Inchworm_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Inchworm_female_v2_0.png",
       "sourceSha256": "ff37d2a9c29b39d4a9b4faf9506ad9c356350586f2fcb69a3221b30aa2e281d4",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_female_v2_0.png",
-      "candidateSha256": "1bc0b02253a35b6ce5bdb9b3ae949dd1b74c9240402d19729a72a65aaceae502",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "286ab2419c5e711fbf93d666bde5902def7f076829a2e2c1619db73e4bccfc9c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Inchworm_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Inchworm_female_v2_1.png",
       "sourceSha256": "66856abb281fd18cc670efce0a7e131d9c5819cca161e09c78b98e59bc36ba1f",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_female_v2_1.png",
-      "candidateSha256": "6ec6c6b5bf418a83346e6eb0c584d7968ab4d83f6625aed5edc3cbe020e50e30",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "45c776fe46f25d3574f1083809b2e6c131de69217ac7f40f94fe443127e4ea33",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Inchworm_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Inchworm_female_v2_2.png",
       "sourceSha256": "801bbfd8366f93a2a5d2419e8bdeb5e6c5c913e5d8995cbe178eb125de6a80fa",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_female_v2_2.png",
-      "candidateSha256": "a5c068426b57d921dd68461c534f35f931d184a9dd0dbaa1eb0b9e167e058e31",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "79744513c2d767a108f102b77597ae5e1eb636aff88deffdd736f527f060be0f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Inchworm_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Inchworm_female_v2_3.png",
       "sourceSha256": "a57948bb7316555e4f261433c9cbea2816fb092fa98dbf36f0c22dcfd2f6438b",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_female_v2_3.png",
-      "candidateSha256": "6f6be8093e4ce81480f5974aba77280d64f5115567e4a45e6707a887aa7e47e5",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "df0b1e122f2931f0aa0899ddd119a71d5a24df235a209b5d435096cf3d1e36c3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

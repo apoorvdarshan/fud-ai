@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_male_v2_0.png",
       "candidateSha256": "4e02fc7b2efecd2ac62b3155a8c5a301f1e0fc39236d2bbdbdf8ceda81aef7c6",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Iliotibial_Tract-SMR_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_male_v2_1.png",
       "candidateSha256": "18303f975f3e53e2de014b82b40b52aa4bc252be67ec6b8091885149409ef88c",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Iliotibial_Tract-SMR_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_male_v2_2.png",
       "candidateSha256": "f880d80151031cffe96d504e0b408ead0b774dfc78962d9c271eb1045ad84b5d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Iliotibial_Tract-SMR_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_male_v2_3.png",
       "candidateSha256": "8f85f5d6ba6653fedc87d68c7c65d83ed2b40aeb630d71008c3835c57d3077dd",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Iliotibial_Tract-SMR_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_female_v2_0.png",
       "candidateSha256": "42fb4e08765ad3f3753d933d3f43dc90eb6a23a39d5d32bf21328586f14d9f9d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Iliotibial_Tract-SMR_female_v2_1.png",
@@ -58,16 +58,16 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_female_v2_1.png",
       "candidateSha256": "a42cae5440d0d274f07c704f29c7e763e1a365827b368faee07555696107b5c8",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Iliotibial_Tract-SMR_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iliotibial_Tract-SMR_female_v2_2.png",
       "sourceSha256": "5bc21271006c8bef6a8e5dfa17dd64583a0d9d44c6bcf76a6c194b75c46cd067",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_female_v2_2.png",
-      "candidateSha256": "e06104d72368b395d4e07cc6c94623056d7b5d559e87a1c9cc7454aaf14afa8d",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "4cc36e40743b029ca89bc0dc38458856415897fb49bdf4852bcb6114be5aa2ba",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iliotibial_Tract-SMR_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_female_v2_3.png",
       "candidateSha256": "8d0ea723cff74cec281956cf079129e9794611b001238502469fd0bdf6c8c0ec",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

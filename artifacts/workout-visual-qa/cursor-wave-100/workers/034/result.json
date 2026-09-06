@@ -11,36 +11,36 @@
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_male_v2_0.png",
       "sourceSha256": "4b09823889949d1819ae7fa6138cfbde3ed4ee088c2e9a6a1fd4a5cd29c9bbed",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_male_v2_0.png",
-      "candidateSha256": "64f1436e53def692b9ad0abea8039e86765b5bc0366d9f89c9f5617c00897f61",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "7aac1c2de5a50f7f04a666aced7ca6442f1c3a71c9e69f84eca6bd18d5ae45ea",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Barbell_Triceps_Extension_male_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_male_v2_1.png",
       "sourceSha256": "1576c5d57f2620e3597e021db381f84e57fa9488bb617915b9a8efa43c00f58e",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_male_v2_1.png",
-      "candidateSha256": "ec2699f644b35086b045637d202e51e382c30dd30f0fd7f1914a9567308cf19c",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "6ae6b44b4e39ebfe03a85c84d8040d60056ed7db7b8a8020994d23acd316ab12",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Barbell_Triceps_Extension_male_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_male_v2_2.png",
       "sourceSha256": "8ee2884abbe8758d24c267e0b0f26cf4a6049b78d3561abd7445b9848cc74b0e",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_male_v2_2.png",
-      "candidateSha256": "99e47d8d081db18ce1a2482e5ab5ecf34dc69008c6f82b2e3187320e19fdd06e",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "d93e68048fdd376ca75542be20186a7516e10dc1ff8a9b9fa736bc75cbd6725d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Barbell_Triceps_Extension_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_male_v2_3.png",
       "sourceSha256": "211c110f28d3932c04a95993b1ef9b0e0540f26b6c37e452b7996e921f793842",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_male_v2_3.png",
-      "candidateSha256": "36f0532d8e529a0e195a7c6087ed4aa163e317f51ed71e4fdd63a5cbc8af91f4",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "2c29bd214a73e5991174bee3f06095fd47169fddde4f46c19d8ba89fb77a32b8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Barbell_Triceps_Extension_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_female_v2_0.png",
       "candidateSha256": "e1ab4c81446b5ea5ace431ac8e815742ffd32427a9430f6968b2151e4f0266c6",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Barbell_Triceps_Extension_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_female_v2_1.png",
       "candidateSha256": "aca2caee6d52f8c313cf3c7d41db27570e4924b63a817af2154bdf56899c4905",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Barbell_Triceps_Extension_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_female_v2_2.png",
       "candidateSha256": "efaeda32d7c6b95200ab2d7055dcb568cc2d708dec3f7ea20d38801ae02a1498",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Barbell_Triceps_Extension_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_female_v2_3.png",
       "candidateSha256": "991a12c60991b644861b0fb910582a727045cbdcaf38a9c764f2f235b3baa1de",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

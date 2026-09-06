@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_male_v2_0.png",
       "candidateSha256": "3261f806c4d0c2fb04d6b81cbf60db48411eaf7c0f369e8ec9b07a6a2c5a7cf9",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Chest_Press_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_male_v2_1.png",
       "candidateSha256": "0c0f501d968783a3a29cedf45a7668d124f41125d606693772ab3d17055f549e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Chest_Press_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_male_v2_2.png",
       "candidateSha256": "53d3b25887c3f714820f847ebc2046df163b4672e4401697bae3271cb3e68c20",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Chest_Press_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_male_v2_3.png",
       "candidateSha256": "b4fa836cfe278babee25cc9da357977292f4f7bc998077a2c813f100c10c72d9",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Chest_Press_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_female_v2_0.png",
       "candidateSha256": "4369275a5bfdb9d012e83778b8904073b4251a11a93c75f1b13d39a688e6fda6",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Chest_Press_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_female_v2_1.png",
       "candidateSha256": "bbee7eecc56217c1b07b69ef6e28f5f6a7c831980bd69238011af7a745976d1e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Chest_Press_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_female_v2_2.png",
       "candidateSha256": "0432a0bc8d337fb8d330fa55947936491bbada67149266a8471f817cfba0d40f",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Cable_Chest_Press_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_female_v2_3.png",
       "candidateSha256": "ddca0a85c3c20db5cb1e30647f47b84335b3d2542bb0440dba914c9dadb839ff",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

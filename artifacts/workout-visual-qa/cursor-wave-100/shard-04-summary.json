@@ -17,7 +17,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/031/Hyperextensions_With_No_Hyperextension_Bench_male_v2_0.png",
           "candidateSha256": "0e4e500638ab5a9230b0a7fc6acdbca5c2144ee69c0d59e656ebab016dd1eea8",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Hyperextensions_With_No_Hyperextension_Bench_male_v2_1.png",
@@ -26,7 +26,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/031/Hyperextensions_With_No_Hyperextension_Bench_male_v2_1.png",
           "candidateSha256": "f55e580312529edb3555add9b5d4250a1ff4e01606f48855ce6d5686b0917de3",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Hyperextensions_With_No_Hyperextension_Bench_male_v2_2.png",
@@ -35,7 +35,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/031/Hyperextensions_With_No_Hyperextension_Bench_male_v2_2.png",
           "candidateSha256": "7df712c60636fcb1af686e284ba039bd99fdea007c37bc0da31efadaf2403d04",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Hyperextensions_With_No_Hyperextension_Bench_male_v2_3.png",
@@ -44,7 +44,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/031/Hyperextensions_With_No_Hyperextension_Bench_male_v2_3.png",
           "candidateSha256": "2e1f71eb8eb74491af8fff7c86055ae9ee4df4e901dd07d07ad1380caa3f64a7",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Hyperextensions_With_No_Hyperextension_Bench_female_v2_0.png",
@@ -53,7 +53,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/031/Hyperextensions_With_No_Hyperextension_Bench_female_v2_0.png",
           "candidateSha256": "4efd9e69d1d48c4acc9d3aac00e7d3c18ca7637369322af4831785459b673bb7",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Hyperextensions_With_No_Hyperextension_Bench_female_v2_1.png",
@@ -62,7 +62,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/031/Hyperextensions_With_No_Hyperextension_Bench_female_v2_1.png",
           "candidateSha256": "87dcf6fb8fdcc90a53fd1bdce60f8769ab1bb7545640829caca2e3b9004ceec3",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Hyperextensions_With_No_Hyperextension_Bench_female_v2_2.png",
@@ -71,7 +71,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/031/Hyperextensions_With_No_Hyperextension_Bench_female_v2_2.png",
           "candidateSha256": "bbe67a7e787c824ac8353b68a73958d4fac6c9589660c90631f3129bb8db23e3",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Hyperextensions_With_No_Hyperextension_Bench_female_v2_3.png",
@@ -80,7 +80,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/031/Hyperextensions_With_No_Hyperextension_Bench_female_v2_3.png",
           "candidateSha256": "b402be63838560b095456d80076ffbdaeb247032e31bf5ebfe8002b067fcb49a",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         }
       ]
     },
@@ -99,7 +99,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_male_v2_0.png",
           "candidateSha256": "4e02fc7b2efecd2ac62b3155a8c5a301f1e0fc39236d2bbdbdf8ceda81aef7c6",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Iliotibial_Tract-SMR_male_v2_1.png",
@@ -108,7 +108,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_male_v2_1.png",
           "candidateSha256": "18303f975f3e53e2de014b82b40b52aa4bc252be67ec6b8091885149409ef88c",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Iliotibial_Tract-SMR_male_v2_2.png",
@@ -117,7 +117,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_male_v2_2.png",
           "candidateSha256": "f880d80151031cffe96d504e0b408ead0b774dfc78962d9c271eb1045ad84b5d",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Iliotibial_Tract-SMR_male_v2_3.png",
@@ -126,7 +126,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_male_v2_3.png",
           "candidateSha256": "8f85f5d6ba6653fedc87d68c7c65d83ed2b40aeb630d71008c3835c57d3077dd",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Iliotibial_Tract-SMR_female_v2_0.png",
@@ -135,7 +135,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_female_v2_0.png",
           "candidateSha256": "42fb4e08765ad3f3753d933d3f43dc90eb6a23a39d5d32bf21328586f14d9f9d",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Iliotibial_Tract-SMR_female_v2_1.png",
@@ -144,16 +144,16 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_female_v2_1.png",
           "candidateSha256": "a42cae5440d0d274f07c704f29c7e763e1a365827b368faee07555696107b5c8",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Iliotibial_Tract-SMR_female_v2_2.png",
           "sourcePath": "/workspace/shared/workout-vectors/Iliotibial_Tract-SMR_female_v2_2.png",
           "sourceSha256": "5bc21271006c8bef6a8e5dfa17dd64583a0d9d44c6bcf76a6c194b75c46cd067",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_female_v2_2.png",
-          "candidateSha256": "e06104d72368b395d4e07cc6c94623056d7b5d559e87a1c9cc7454aaf14afa8d",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "4cc36e40743b029ca89bc0dc38458856415897fb49bdf4852bcb6114be5aa2ba",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         },
         {
           "filename": "Iliotibial_Tract-SMR_female_v2_3.png",
@@ -162,7 +162,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/032/Iliotibial_Tract-SMR_female_v2_3.png",
           "candidateSha256": "8d0ea723cff74cec281956cf079129e9794611b001238502469fd0bdf6c8c0ec",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         }
       ]
     },
@@ -179,72 +179,72 @@
           "sourcePath": "/workspace/shared/workout-vectors/Inchworm_male_v2_0.png",
           "sourceSha256": "126c58e31a63952461dbae6a8f0085c566922ff8a615793898d88a0f3bcaf3b5",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_male_v2_0.png",
-          "candidateSha256": "63804bf2870c92660339eae21516725255866305587599346af19cbfea5a45a4",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "ade327675bfc35679b690c29a6cb5c095c2c410cb292b94d435ced64abd56866",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         },
         {
           "filename": "Inchworm_male_v2_1.png",
           "sourcePath": "/workspace/shared/workout-vectors/Inchworm_male_v2_1.png",
           "sourceSha256": "f901ff779041ad2f3e17bd17e4787c5c37fb6dc7b123d2c9c787e129dbc9838b",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_male_v2_1.png",
-          "candidateSha256": "65753c08ef97ffbb821bb294a7281ad3f313a61d3ef59a738367b0e870c129ca",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "c201c4548e23c05863dd3d639f33d7a3f5508ab736936a4a7e85585caf3525e0",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         },
         {
           "filename": "Inchworm_male_v2_2.png",
           "sourcePath": "/workspace/shared/workout-vectors/Inchworm_male_v2_2.png",
           "sourceSha256": "e483f1ff8466043c45e80c05f64b60c52baa1798595e7f162e5a0021dfef020d",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_male_v2_2.png",
-          "candidateSha256": "40c9fb472a7f023072a3397d04ae7f8aae667b10958ac466903fc66cf78cb6f8",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "3acff24ad55a47d240b8bba5844935aa6ba4698f8be4748e5c573996f5c6f227",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         },
         {
           "filename": "Inchworm_male_v2_3.png",
           "sourcePath": "/workspace/shared/workout-vectors/Inchworm_male_v2_3.png",
           "sourceSha256": "15ec046782b8bc74c41fd750b9d9fa258d0f0fc53afb3f4d43ab71434f8ec0d4",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_male_v2_3.png",
-          "candidateSha256": "59d60148eb7b8f1643cdc38fc25857c1191d3dbb308404a4301f4a8a92dbaef5",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "74f464e86344b91b0eeced9261826d513cd7ef0e9eac717b644b9320380ba92d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         },
         {
           "filename": "Inchworm_female_v2_0.png",
           "sourcePath": "/workspace/shared/workout-vectors/Inchworm_female_v2_0.png",
           "sourceSha256": "ff37d2a9c29b39d4a9b4faf9506ad9c356350586f2fcb69a3221b30aa2e281d4",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_female_v2_0.png",
-          "candidateSha256": "1bc0b02253a35b6ce5bdb9b3ae949dd1b74c9240402d19729a72a65aaceae502",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "286ab2419c5e711fbf93d666bde5902def7f076829a2e2c1619db73e4bccfc9c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         },
         {
           "filename": "Inchworm_female_v2_1.png",
           "sourcePath": "/workspace/shared/workout-vectors/Inchworm_female_v2_1.png",
           "sourceSha256": "66856abb281fd18cc670efce0a7e131d9c5819cca161e09c78b98e59bc36ba1f",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_female_v2_1.png",
-          "candidateSha256": "6ec6c6b5bf418a83346e6eb0c584d7968ab4d83f6625aed5edc3cbe020e50e30",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "45c776fe46f25d3574f1083809b2e6c131de69217ac7f40f94fe443127e4ea33",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         },
         {
           "filename": "Inchworm_female_v2_2.png",
           "sourcePath": "/workspace/shared/workout-vectors/Inchworm_female_v2_2.png",
           "sourceSha256": "801bbfd8366f93a2a5d2419e8bdeb5e6c5c913e5d8995cbe178eb125de6a80fa",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_female_v2_2.png",
-          "candidateSha256": "a5c068426b57d921dd68461c534f35f931d184a9dd0dbaa1eb0b9e167e058e31",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "79744513c2d767a108f102b77597ae5e1eb636aff88deffdd736f527f060be0f",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         },
         {
           "filename": "Inchworm_female_v2_3.png",
           "sourcePath": "/workspace/shared/workout-vectors/Inchworm_female_v2_3.png",
           "sourceSha256": "a57948bb7316555e4f261433c9cbea2816fb092fa98dbf36f0c22dcfd2f6438b",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/033/Inchworm_female_v2_3.png",
-          "candidateSha256": "6f6be8093e4ce81480f5974aba77280d64f5115567e4a45e6707a887aa7e47e5",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "df0b1e122f2931f0aa0899ddd119a71d5a24df235a209b5d435096cf3d1e36c3",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         }
       ]
     },
@@ -261,36 +261,36 @@
           "sourcePath": "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_male_v2_0.png",
           "sourceSha256": "4b09823889949d1819ae7fa6138cfbde3ed4ee088c2e9a6a1fd4a5cd29c9bbed",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_male_v2_0.png",
-          "candidateSha256": "64f1436e53def692b9ad0abea8039e86765b5bc0366d9f89c9f5617c00897f61",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "7aac1c2de5a50f7f04a666aced7ca6442f1c3a71c9e69f84eca6bd18d5ae45ea",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Barbell_Triceps_Extension_male_v2_1.png",
           "sourcePath": "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_male_v2_1.png",
           "sourceSha256": "1576c5d57f2620e3597e021db381f84e57fa9488bb617915b9a8efa43c00f58e",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_male_v2_1.png",
-          "candidateSha256": "ec2699f644b35086b045637d202e51e382c30dd30f0fd7f1914a9567308cf19c",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "6ae6b44b4e39ebfe03a85c84d8040d60056ed7db7b8a8020994d23acd316ab12",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Barbell_Triceps_Extension_male_v2_2.png",
           "sourcePath": "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_male_v2_2.png",
           "sourceSha256": "8ee2884abbe8758d24c267e0b0f26cf4a6049b78d3561abd7445b9848cc74b0e",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_male_v2_2.png",
-          "candidateSha256": "99e47d8d081db18ce1a2482e5ab5ecf34dc69008c6f82b2e3187320e19fdd06e",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "d93e68048fdd376ca75542be20186a7516e10dc1ff8a9b9fa736bc75cbd6725d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Barbell_Triceps_Extension_male_v2_3.png",
           "sourcePath": "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_male_v2_3.png",
           "sourceSha256": "211c110f28d3932c04a95993b1ef9b0e0540f26b6c37e452b7996e921f793842",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_male_v2_3.png",
-          "candidateSha256": "36f0532d8e529a0e195a7c6087ed4aa163e317f51ed71e4fdd63a5cbc8af91f4",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "2c29bd214a73e5991174bee3f06095fd47169fddde4f46c19d8ba89fb77a32b8",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Barbell_Triceps_Extension_female_v2_0.png",
@@ -299,7 +299,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_female_v2_0.png",
           "candidateSha256": "e1ab4c81446b5ea5ace431ac8e815742ffd32427a9430f6968b2151e4f0266c6",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Barbell_Triceps_Extension_female_v2_1.png",
@@ -308,7 +308,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_female_v2_1.png",
           "candidateSha256": "aca2caee6d52f8c313cf3c7d41db27570e4924b63a817af2154bdf56899c4905",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Barbell_Triceps_Extension_female_v2_2.png",
@@ -317,7 +317,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_female_v2_2.png",
           "candidateSha256": "efaeda32d7c6b95200ab2d7055dcb568cc2d708dec3f7ea20d38801ae02a1498",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Barbell_Triceps_Extension_female_v2_3.png",
@@ -326,7 +326,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/034/Incline_Barbell_Triceps_Extension_female_v2_3.png",
           "candidateSha256": "991a12c60991b644861b0fb910582a727045cbdcaf38a9c764f2f235b3baa1de",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         }
       ]
     },
@@ -345,7 +345,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_male_v2_0.png",
           "candidateSha256": "493eb776b6383edbb8c2dfb9d1901c1f311e0dbf5be2f8438d14ebaa04a18797",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Bench_Pull_male_v2_1.png",
@@ -354,7 +354,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_male_v2_1.png",
           "candidateSha256": "845cb4aed1e83e2c527093dcd77de8bd3a746e4d1e29c069d504148e6e671d15",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Bench_Pull_male_v2_2.png",
@@ -363,7 +363,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_male_v2_2.png",
           "candidateSha256": "ed284f39e763c3d7509797f730114ffb9349eab209af5ba8864fcf0b0926565c",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Bench_Pull_male_v2_3.png",
@@ -372,7 +372,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_male_v2_3.png",
           "candidateSha256": "ab228d1e5661767b69ebafe2ae006af9c83f9d55af8d6df9fe96c7c26f8d49b4",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Bench_Pull_female_v2_0.png",
@@ -381,7 +381,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_female_v2_0.png",
           "candidateSha256": "f03dd07265ce9a3accfbf46edcc356d5b93651f0f8121afc692da2e87f8d91bb",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Bench_Pull_female_v2_1.png",
@@ -390,7 +390,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_female_v2_1.png",
           "candidateSha256": "f22f20bb07ac6380ac3e10db72290c63d8be4d3513cb47f4dfee3d172585ed04",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Bench_Pull_female_v2_2.png",
@@ -399,7 +399,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_female_v2_2.png",
           "candidateSha256": "22cfcb85d7f68c049668d57e887dc08f9d9c7d1a514e7209763a5d265fb6619e",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Bench_Pull_female_v2_3.png",
@@ -408,7 +408,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_female_v2_3.png",
           "candidateSha256": "f2dfbec261eef31e16733a76d99e94177c57ee5c023788cb0eaf121ee66646ce",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         }
       ]
     },
@@ -427,7 +427,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_male_v2_0.png",
           "candidateSha256": "3261f806c4d0c2fb04d6b81cbf60db48411eaf7c0f369e8ec9b07a6a2c5a7cf9",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Chest_Press_male_v2_1.png",
@@ -436,7 +436,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_male_v2_1.png",
           "candidateSha256": "0c0f501d968783a3a29cedf45a7668d124f41125d606693772ab3d17055f549e",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Chest_Press_male_v2_2.png",
@@ -445,7 +445,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_male_v2_2.png",
           "candidateSha256": "53d3b25887c3f714820f847ebc2046df163b4672e4401697bae3271cb3e68c20",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Chest_Press_male_v2_3.png",
@@ -454,7 +454,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_male_v2_3.png",
           "candidateSha256": "b4fa836cfe278babee25cc9da357977292f4f7bc998077a2c813f100c10c72d9",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Chest_Press_female_v2_0.png",
@@ -463,7 +463,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_female_v2_0.png",
           "candidateSha256": "4369275a5bfdb9d012e83778b8904073b4251a11a93c75f1b13d39a688e6fda6",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Chest_Press_female_v2_1.png",
@@ -472,7 +472,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_female_v2_1.png",
           "candidateSha256": "bbee7eecc56217c1b07b69ef6e28f5f6a7c831980bd69238011af7a745976d1e",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Chest_Press_female_v2_2.png",
@@ -481,7 +481,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_female_v2_2.png",
           "candidateSha256": "0432a0bc8d337fb8d330fa55947936491bbada67149266a8471f817cfba0d40f",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Chest_Press_female_v2_3.png",
@@ -490,7 +490,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_female_v2_3.png",
           "candidateSha256": "ddca0a85c3c20db5cb1e30647f47b84335b3d2542bb0440dba914c9dadb839ff",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         }
       ]
     },
@@ -509,7 +509,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_male_v2_0.png",
           "candidateSha256": "b0fa1821ec644b263b8121bcc8e0e583302c3fb2bc572f77420d0e2fd2d0395f",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Flye_male_v2_1.png",
@@ -518,7 +518,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_male_v2_1.png",
           "candidateSha256": "86d01383ddf3bba9db339d6d9075f844617138974338088a3b4fe9f9155a9c2b",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Flye_male_v2_2.png",
@@ -527,7 +527,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_male_v2_2.png",
           "candidateSha256": "01a4f394df94a6968b55d9d7f4f9ab3221081f426fee2002a023386a0bdbd830",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Flye_male_v2_3.png",
@@ -536,7 +536,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_male_v2_3.png",
           "candidateSha256": "8c0f3aad189f303a96c1c40071a4c955a7a79dc36c301f5b568361bc9fd4bfa5",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Flye_female_v2_0.png",
@@ -545,7 +545,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_female_v2_0.png",
           "candidateSha256": "a26d54b9307ea8d4c70b5974d236d2046527d5457182bbf5a22bba85cd6415b9",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Flye_female_v2_1.png",
@@ -554,7 +554,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_female_v2_1.png",
           "candidateSha256": "08ddd252e1489332af6000fe8ec4a192dd0aa3af8229a49461c017c01517f34f",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Flye_female_v2_2.png",
@@ -563,7 +563,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_female_v2_2.png",
           "candidateSha256": "36d7674ea15f38e843ce8cbc641d933840c19de80d7f319cbcd8bd834a6a4d22",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Cable_Flye_female_v2_3.png",
@@ -572,7 +572,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/037/Incline_Cable_Flye_female_v2_3.png",
           "candidateSha256": "9aa5264493358e6f1c5df3b2f611fea95b69c12393d0097d6d94b73cb0d43d38",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         }
       ]
     },
@@ -591,7 +591,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_0.png",
           "candidateSha256": "995e9dcf8acd5d23a402be9d282bb5dff7cd104a27474472dead050087a3bf06",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_1.png",
@@ -600,7 +600,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_1.png",
           "candidateSha256": "376d6751d750ca6545bb23cf40b471164aa65ea15d4c4d9f24427c346e602a3d",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_2.png",
@@ -609,7 +609,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_2.png",
           "candidateSha256": "e928741028fad62988b59434549075d5c9448cc667c76bfa537c054b2b8f9851",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_3.png",
@@ -618,7 +618,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_3.png",
           "candidateSha256": "5cbea320a23b3c42627342820da092993f3e75632f5b8eebba6495262c49d10d",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_0.png",
@@ -627,7 +627,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_0.png",
           "candidateSha256": "ce019082ee03fea4956e356c3b41eb2b71ff512615285a8d96c1cc2b51d9ede2",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_1.png",
@@ -636,7 +636,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_1.png",
           "candidateSha256": "25eed76ec40ee9e05c4325b4ae6e6cde3a9490dc401e482aa3f4fc3f4f6b703d",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_2.png",
@@ -645,7 +645,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_2.png",
           "candidateSha256": "31ca53c28cfdca2dab9fd37f5b2c34da9b7fe292e382bb6ce3d23ae4b409104e",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_3.png",
@@ -654,7 +654,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_3.png",
           "candidateSha256": "4cf8533265229641fae15794e870e330a073481ad8a0f25abf28e2be81e490a6",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         }
       ]
     },
@@ -673,7 +673,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_male_v2_0.png",
           "candidateSha256": "be35804ed5fc212d8ef961a412dafe6068bc1319df27826ddd375eb0f2ada516",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Curl_male_v2_1.png",
@@ -682,7 +682,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_male_v2_1.png",
           "candidateSha256": "181a673f900e33264b10591428d4251afc6e14df61470263759317397cafad62",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Curl_male_v2_2.png",
@@ -691,16 +691,16 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_male_v2_2.png",
           "candidateSha256": "d13cb286feaf6c5223bbe61a42b8e562b19282cbe1514f75cea3f723893e4e10",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Curl_male_v2_3.png",
           "sourcePath": "/workspace/shared/workout-vectors/Incline_Dumbbell_Curl_male_v2_3.png",
           "sourceSha256": "45effb9cd592999e0ebe1e8ca31893d74e3bab22845360aa58ccd824754d550d",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_male_v2_3.png",
-          "candidateSha256": "3d8d001eab8666c87d0c7d14e5c9de99c3f8e2148e55590c4caee0bb6cdd5cc8",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "ccc560f696f4743347f29b9ab96f0615f79461f13b0689cc67f385ae506e7ae5",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Curl_female_v2_0.png",
@@ -709,7 +709,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_female_v2_0.png",
           "candidateSha256": "9a3511f890421a22649e09f4b09a4c04e0b58a0c3ec507268c99d5f3b536951e",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Curl_female_v2_1.png",
@@ -718,7 +718,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_female_v2_1.png",
           "candidateSha256": "bd77c96345eae7cad635ff1163ae264ed33797c1dbee6e6e51dfde9bacb25f70",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Curl_female_v2_2.png",
@@ -727,16 +727,16 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_female_v2_2.png",
           "candidateSha256": "5915f544c7417b9232c57fc8fa41f09b5585dd7ea572cf77d3a5d254ce60b735",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Curl_female_v2_3.png",
           "sourcePath": "/workspace/shared/workout-vectors/Incline_Dumbbell_Curl_female_v2_3.png",
           "sourceSha256": "0d6d00452cded308a6f4b3f0474db24f9ba9b4ad5bb05aef889561d9c8182a8e",
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_female_v2_3.png",
-          "candidateSha256": "9dbce87babd94e36e045154055429ea1b51e323a13e04ddc423b4ad7c404a7a8",
-          "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "candidateSha256": "aa85c03923e473c470d81746a0711d1a0cac02311a88d1412aaf413ea0403e66",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
         }
       ]
     },
@@ -755,7 +755,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/040/Incline_Dumbbell_Flyes_male_v2_0.png",
           "candidateSha256": "2d6ac4d7f280c763b303bf7a0161c3f0132a63380bf238fc8b374cd60f54c4d1",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Flyes_male_v2_1.png",
@@ -764,7 +764,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/040/Incline_Dumbbell_Flyes_male_v2_1.png",
           "candidateSha256": "a2e96e435f971082b07d1593803b2bbe18255ad6de653fb2000e5d9f3fc1cfc9",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Flyes_male_v2_2.png",
@@ -773,7 +773,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/040/Incline_Dumbbell_Flyes_male_v2_2.png",
           "candidateSha256": "0661e109fee3cde6c2adcaaccc47ae60f86f710c74a199bc16fce33b833e0962",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Flyes_male_v2_3.png",
@@ -782,7 +782,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/040/Incline_Dumbbell_Flyes_male_v2_3.png",
           "candidateSha256": "3394e70a651cc3bc33bb95b7857068a23245f45fc04352dad4e5c667f3a42396",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Flyes_female_v2_0.png",
@@ -791,7 +791,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/040/Incline_Dumbbell_Flyes_female_v2_0.png",
           "candidateSha256": "dc0a825ec723923ac4c89c9825b50d660a9d075c22c1dc452ee805c116e4c50f",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Flyes_female_v2_1.png",
@@ -800,7 +800,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/040/Incline_Dumbbell_Flyes_female_v2_1.png",
           "candidateSha256": "a7304dd8230b4eaf08d52036a3cc0981353f409a6d7961cac3c47fe4005cef84",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Flyes_female_v2_2.png",
@@ -809,7 +809,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/040/Incline_Dumbbell_Flyes_female_v2_2.png",
           "candidateSha256": "6a3a0be0172b14d81031777fbf00b277b7d522b537603e606d35686ea649f00e",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         },
         {
           "filename": "Incline_Dumbbell_Flyes_female_v2_3.png",
@@ -818,7 +818,7 @@
           "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/040/Incline_Dumbbell_Flyes_female_v2_3.png",
           "candidateSha256": "429aa0237b7f015c4766f08799f90216aadc17d54e1acbef6867f0a5a1b19194",
           "method": "script_background_cleanup",
-          "visuallyReviewed": false
+          "visuallyReviewed": true
         }
       ]
     }

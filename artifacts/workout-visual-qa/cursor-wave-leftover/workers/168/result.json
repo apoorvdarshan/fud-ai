@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Seated_Band_Hamstring_Curl",
+  "shard": 17,
+  "index": 168,
+  "status": "ready_for_review",
+  "findings": [
+    "Seated band hamstring curl vector frames clean on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Band_Hamstring_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Band_Hamstring_Curl_male_v2_0.png",
+      "sourceSha256": "44001e01d361a75e8ca4f802372a653315f6188158029e835f77c61ed271d193",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/168/Seated_Band_Hamstring_Curl_male_v2_0.png",
+      "candidateSha256": "d2cf3a1264d75b1c22b2fed9c3b15e4a885b235b6c16d02643e130cdff8952b2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Band_Hamstring_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Band_Hamstring_Curl_male_v2_1.png",
+      "sourceSha256": "aeab4525d03b37a45fae9b5551dc7dd738e97452e1d6b86d623d0d5812b7a08e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/168/Seated_Band_Hamstring_Curl_male_v2_1.png",
+      "candidateSha256": "ca29ecb0902877f1392dfdb454657849b19c650f5188fc5bcc6ad2024aab9f43",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Band_Hamstring_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Band_Hamstring_Curl_male_v2_2.png",
+      "sourceSha256": "0980d549aeb98d3f2cf836a129c6967770a194360f8057f192dbb987b5571808",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/168/Seated_Band_Hamstring_Curl_male_v2_2.png",
+      "candidateSha256": "8587c10dda7536f7840407da7257a8a132328ced997333e389e540b07d17f92e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Band_Hamstring_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Band_Hamstring_Curl_male_v2_3.png",
+      "sourceSha256": "e8e8c28ef0f2accf3ecf6eff31ec7e3a074f6742a2afed3b394059a356132530",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/168/Seated_Band_Hamstring_Curl_male_v2_3.png",
+      "candidateSha256": "b8294292471fe98ff3d4f735d726108fe7d0ed00b5a62eae2dbf2df39e47e29e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Band_Hamstring_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Band_Hamstring_Curl_female_v2_0.png",
+      "sourceSha256": "0bc1911124c821f1fb0d0434df9f11b53401d71c0995a27eee64914f01e81a1d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/168/Seated_Band_Hamstring_Curl_female_v2_0.png",
+      "candidateSha256": "896f8a9e2171cc3218ad626be9d9c5e663f5fb8a1eb6f2abb0db38e228c38c66",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Band_Hamstring_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Band_Hamstring_Curl_female_v2_1.png",
+      "sourceSha256": "5dce686a6e1e36b9656f747d87a5ecaa53fbfe2edf3b03dc66b6b47b5cde0253",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/168/Seated_Band_Hamstring_Curl_female_v2_1.png",
+      "candidateSha256": "2d55c229c3ef7962100f070efe23639eccd07976b3d3ac0868837dbdfd122e36",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Band_Hamstring_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Band_Hamstring_Curl_female_v2_2.png",
+      "sourceSha256": "0ef667885b5d286384a3da730160c5761fce78f0bd89d8e2ff36b32812263bec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/168/Seated_Band_Hamstring_Curl_female_v2_2.png",
+      "candidateSha256": "f60501586e42b96017dcf4f2116570e98581776e5fd1424a809a144c592a2059",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Band_Hamstring_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Band_Hamstring_Curl_female_v2_3.png",
+      "sourceSha256": "f0f1a2344b877f01c1059be49825ac0ee4ecefb0dee58eb7d367c2a192b26b14",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/168/Seated_Band_Hamstring_Curl_female_v2_3.png",
+      "candidateSha256": "d11bffe7283c1fc90f817c77a2a5f04be2a6cbd52588bf4c148cad0bc89c2c13",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

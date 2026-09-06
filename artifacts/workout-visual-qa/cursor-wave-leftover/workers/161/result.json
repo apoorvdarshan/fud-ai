@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Runners_Stretch",
+  "shard": 17,
+  "index": 161,
+  "status": "ready_for_review",
+  "findings": [
+    "Script cleanup on runner stretch frames; minor 1-2px edge halos on bent-over frames acceptable on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Runners_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Runners_Stretch_male_v2_0.png",
+      "sourceSha256": "dbe2bd8db98a8ffb07a645602ac686e7b96071cb3aac6f5fba4e585e5949d05e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/161/Runners_Stretch_male_v2_0.png",
+      "candidateSha256": "632d76274a383bf9804c571f80f511cd9adae72b84c95c439a1b8c78d9aa3b30",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Runners_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Runners_Stretch_male_v2_1.png",
+      "sourceSha256": "96a2a454b447c065b2a514a8b23a0559945997385d667c7e6601be31d3366b36",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/161/Runners_Stretch_male_v2_1.png",
+      "candidateSha256": "9caf9c811b2f6f43d612452000f03751ff1315ef7ce9c7311cf894a288178a67",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Runners_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Runners_Stretch_male_v2_2.png",
+      "sourceSha256": "d28bf40494616db173209fd7e89c52cf1bb848c7971216babdf2812a59332025",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/161/Runners_Stretch_male_v2_2.png",
+      "candidateSha256": "1be6bd5de07dab76d57a3e2580c69e11d41e0a54db8ff56f79a756982c509171",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Runners_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Runners_Stretch_male_v2_3.png",
+      "sourceSha256": "8e8038d94b4ae75197930446469efda59e62d77c0abf6ef061fbb6b825893bd3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/161/Runners_Stretch_male_v2_3.png",
+      "candidateSha256": "d3bad41a0d468c40538abddf6bb38baddd5a1204772bd1e3c0992badfa48a406",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Runners_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Runners_Stretch_female_v2_0.png",
+      "sourceSha256": "13fc30ab54947186f013744b714b260ecdd1940cc38a6a54469c3e267130387c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/161/Runners_Stretch_female_v2_0.png",
+      "candidateSha256": "b080a8c4dd2898cda8bbf750bbe07d63fdc705e1947a65e08e0dfff184262b1f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Runners_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Runners_Stretch_female_v2_1.png",
+      "sourceSha256": "e7e5f4877e9d651cd87cf43a559387ba55de0c042342b68c7b5ee02c0fcd25b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/161/Runners_Stretch_female_v2_1.png",
+      "candidateSha256": "43ae520e5b86da4b7cb1ea492df791c82859933652ddbe6a93cdf23d18fb70b9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Runners_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Runners_Stretch_female_v2_2.png",
+      "sourceSha256": "f133feed3a0b7c5b9e6a185f19cbc22620b8e9c695fae42d1a3399ebc1443f00",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/161/Runners_Stretch_female_v2_2.png",
+      "candidateSha256": "c64cde112849718252f4fff95c399195d14582270246eb004228747d15d70267",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Runners_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Runners_Stretch_female_v2_3.png",
+      "sourceSha256": "f43aa267fb70c5281db30bf0fc0094ee22b7fa799c943ceed08cb0f593af6385",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/161/Runners_Stretch_female_v2_3.png",
+      "candidateSha256": "20e1aff6b4d609601e53917004b0886215576e1bb62ef24192344cce0e2c9034",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

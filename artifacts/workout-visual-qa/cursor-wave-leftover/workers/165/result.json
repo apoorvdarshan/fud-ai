@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Scapular_Pull-Up",
+  "shard": 17,
+  "index": 165,
+  "status": "ready_for_review",
+  "findings": [
+    "Scapular pull-up frames clean after script; minor bar-edge speckles acceptable without GenerateImage."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Scapular_Pull-Up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scapular_Pull-Up_male_v2_0.png",
+      "sourceSha256": "f111ac1dd5017c94deb8a4927b07064150c453a887417778d847e9da31bbd298",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/165/Scapular_Pull-Up_male_v2_0.png",
+      "candidateSha256": "0c730ed7153b76a6644414dff842bd27744780a319458d3ee924433cb9b173f2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scapular_Pull-Up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scapular_Pull-Up_male_v2_1.png",
+      "sourceSha256": "8b5f95332c15896035240ab24660e7035545c747bb4a472ddcc520e805870100",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/165/Scapular_Pull-Up_male_v2_1.png",
+      "candidateSha256": "0439ab3db1d685cac3e7cf72bbc183345ca42eee544843ed79916eb74d3df8fc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scapular_Pull-Up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scapular_Pull-Up_male_v2_2.png",
+      "sourceSha256": "66cbc44588fac54183e8e4159a34188c2aef2d28d9610d679a36211d2a368167",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/165/Scapular_Pull-Up_male_v2_2.png",
+      "candidateSha256": "6f51886cbee206f1de130149fdfa83788441b02c677ba7570363cfd1c47dd261",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scapular_Pull-Up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scapular_Pull-Up_male_v2_3.png",
+      "sourceSha256": "9a8d7e5bbef476dbbee7cedad7d24d1e15033e5d2b99e2c0b9e5b2b21fe2d340",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/165/Scapular_Pull-Up_male_v2_3.png",
+      "candidateSha256": "00ced352eb8a4127d57f502b89a3495b56967c8b39067d716b9b663ee752e041",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scapular_Pull-Up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scapular_Pull-Up_female_v2_0.png",
+      "sourceSha256": "12ccc4a68325de2e9b5bfa6c0a935ac518b4a502317355046f0162e2c30f52eb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/165/Scapular_Pull-Up_female_v2_0.png",
+      "candidateSha256": "85b187c6bc555ba4efe4e01ccf096b5b6354aa37b00b438be9ec16827424fc6f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scapular_Pull-Up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scapular_Pull-Up_female_v2_1.png",
+      "sourceSha256": "803e01b08f327ca59e860a8896b20f8e79eed7c8a8d705742793dd7650071cff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/165/Scapular_Pull-Up_female_v2_1.png",
+      "candidateSha256": "6d5dac44ae94f6fe11e9cc36a2f6df58b224d680bd34f1bd97bdc1e9b2ee73a6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scapular_Pull-Up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scapular_Pull-Up_female_v2_2.png",
+      "sourceSha256": "6202200cfc8844df1191e6e71e9c8d3f43418ebf878ca9062917c2068843a4f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/165/Scapular_Pull-Up_female_v2_2.png",
+      "candidateSha256": "a1ae13357449eeabc119f9655e018b051ee27be4b6a61f24e3ffb500547b1e15",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scapular_Pull-Up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scapular_Pull-Up_female_v2_3.png",
+      "sourceSha256": "d590dae1b1ebe71a62c519ed9887b38763ef7f11fb2cddcb9a330ffaee1335bc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/165/Scapular_Pull-Up_female_v2_3.png",
+      "candidateSha256": "5badfe93c0abce6f0e8176d958a18baddfd9077211502a7374baf7066c4d312d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

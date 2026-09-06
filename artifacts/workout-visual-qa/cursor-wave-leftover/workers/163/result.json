@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Russian_Twist",
+  "shard": 17,
+  "index": 163,
+  "status": "ready_for_review",
+  "findings": [
+    "Russian twist sequence clean on dark background; weight-plate highlights intentional."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Russian_Twist_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Russian_Twist_male_v2_0.png",
+      "sourceSha256": "9e5d4f9b0845d05e12dc79e521acfb1c476a0a1717817630792175b0cb38e66b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/163/Russian_Twist_male_v2_0.png",
+      "candidateSha256": "96f4299dfd4ac76b15fbab176c8eeae232ff837a7e4da4f24ae02e7597e39818",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Russian_Twist_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Russian_Twist_male_v2_1.png",
+      "sourceSha256": "862d408f3e9423b66ee5d520cb6ab73e8993a95902e5e59d41858b24d96f9008",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/163/Russian_Twist_male_v2_1.png",
+      "candidateSha256": "9b6e186dee5fc6b297bbc243c0da4ec1b07f0d6fac8b97d70d647fdea01e7b5c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Russian_Twist_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Russian_Twist_male_v2_2.png",
+      "sourceSha256": "9c1341fbf1786ea8d227fd308cc51770ecbb4dcfe650f04586f5601e011421f5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/163/Russian_Twist_male_v2_2.png",
+      "candidateSha256": "568f1a499e3976409455c42082001341ed004aeb9484313c89fd09e40a6853fe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Russian_Twist_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Russian_Twist_male_v2_3.png",
+      "sourceSha256": "629d2b616908179c75bc837b7bcb5af88bc452b329a84219003987b3e999e5b6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/163/Russian_Twist_male_v2_3.png",
+      "candidateSha256": "b23d8ff63fde2ff6d4725c66a014f4ae82c6c4482a888cf19c4411debf35417c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Russian_Twist_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Russian_Twist_female_v2_0.png",
+      "sourceSha256": "cd868bd7ca943900199bf171ae224eb3a0df80b7aecd857bd626b00d6f8748f3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/163/Russian_Twist_female_v2_0.png",
+      "candidateSha256": "7ef84fb45f663c2fda9368c0fc557d7a8cff207632a5829c19d43ef49616b808",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Russian_Twist_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Russian_Twist_female_v2_1.png",
+      "sourceSha256": "314db2a6c81076924afb27a7a2e2aa3d5f6cbd3b6322bf46780b499180c4ffa8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/163/Russian_Twist_female_v2_1.png",
+      "candidateSha256": "7e3872c4efc83b7d588ec504530a84f36647a3b637addbfaaa91f70b725e65e9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Russian_Twist_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Russian_Twist_female_v2_2.png",
+      "sourceSha256": "27f44a4d7e6ba9dc9dc3e91e3ade7629b1f5afb9f8b6999c0f6c4fab486e2d2e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/163/Russian_Twist_female_v2_2.png",
+      "candidateSha256": "a6d09ef337c9e4249816937be5b7389c11c075a1843d08dfbf9949f901c234ec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Russian_Twist_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Russian_Twist_female_v2_3.png",
+      "sourceSha256": "1e458da693276bc55956bacca7580c961bf42dd1b473048e80d92d85af2061f5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/163/Russian_Twist_female_v2_3.png",
+      "candidateSha256": "e384b9154ef33da6226820392b6f16bb97ad8b37ca0fb9e5292f4773b2c19085",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

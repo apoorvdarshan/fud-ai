@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Scissor_Kick",
+  "shard": 17,
+  "index": 166,
+  "status": "ready_for_review",
+  "findings": [
+    "Scissor kick had heavy pale fringe and floor matte on all 8 frames; GenerateImage+green chroma on all 8."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Scissor_Kick_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissor_Kick_male_v2_0.png",
+      "sourceSha256": "20d2df843852bd67104798c97001cea13c33fca50e3647e1672de9db54c2221f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/166/Scissor_Kick_male_v2_0.png",
+      "candidateSha256": "4f9567d3e2142ac7f5b36c854f04e7bb3baf5a54941e00530e6aee845382b520",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissor_Kick_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissor_Kick_male_v2_1.png",
+      "sourceSha256": "6d141eb26d55814846bf00192073bca47a40acc4a177049bb788b6d222059ac0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/166/Scissor_Kick_male_v2_1.png",
+      "candidateSha256": "bd4d2bfd9711eeaf76542969124ef75ac284a811be9cc799cb1f90d599f27a8f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissor_Kick_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissor_Kick_male_v2_2.png",
+      "sourceSha256": "dfcff3ff70ff8a88780df0cc85625ae9028b77feb77ddbb81511c4f54de6581e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/166/Scissor_Kick_male_v2_2.png",
+      "candidateSha256": "deea1a768bd98407c4b038f1160c29906b852844c1c341118e8d44444bb3020e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissor_Kick_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissor_Kick_male_v2_3.png",
+      "sourceSha256": "574c6c93dda525239bafa121b972f3cfeb344cdb62b62cb022fd18538bec5b94",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/166/Scissor_Kick_male_v2_3.png",
+      "candidateSha256": "bc2cc079aaabe7317d2d84ec68d174350c4a0e166734f3403c2783a40f77ce39",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissor_Kick_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissor_Kick_female_v2_0.png",
+      "sourceSha256": "6e5163430244ff24074ca7ac08b8a0d4ab17fbc1de14b2c50663cf62c9d27a9b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/166/Scissor_Kick_female_v2_0.png",
+      "candidateSha256": "29eb0b19e8bc4c52f93199fed029d01bf87c5eda80123e5c263731097332ae0e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissor_Kick_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissor_Kick_female_v2_1.png",
+      "sourceSha256": "8c778e592dd48d41eff3a601dfbcbae41fec09f8d1b63c2c1be81ebc32591f14",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/166/Scissor_Kick_female_v2_1.png",
+      "candidateSha256": "a316c8feace826326b2a52beea5a72df66e76b77b68d3533727cbd8c51fffb10",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissor_Kick_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissor_Kick_female_v2_2.png",
+      "sourceSha256": "50b1c39a4ad340e1d5532b75412d0b1a71cde3dfdab07687f052387fc6048687",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/166/Scissor_Kick_female_v2_2.png",
+      "candidateSha256": "c0be01cb990e3dd915cdd192552e87df87368379f51254c197b497e821f69141",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Scissor_Kick_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Scissor_Kick_female_v2_3.png",
+      "sourceSha256": "1fa80abc640d1c9e8fa8b00f83a81b4824c33eb8f14d6807f341a86bc7e41490",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/166/Scissor_Kick_female_v2_3.png",
+      "candidateSha256": "c6ac15e5cc74b5013c34a30651db5c0b79503123ff6d0d5f71fe3396b78d1ad9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

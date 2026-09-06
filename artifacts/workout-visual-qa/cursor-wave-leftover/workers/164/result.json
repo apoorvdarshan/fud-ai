@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Sandbag_Load",
+  "shard": 17,
+  "index": 164,
+  "status": "ready_for_review",
+  "findings": [
+    "Sandbag load sequence clean on dark background after script cleanup."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Sandbag_Load_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sandbag_Load_male_v2_0.png",
+      "sourceSha256": "cd7788d326cea093f11c87680fece0d2f84338ad32972db054b7e77a00434f76",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/164/Sandbag_Load_male_v2_0.png",
+      "candidateSha256": "16660a110a24e88377eaa8982f18e706cdc20437a13b1ac1e1d9a5ba30f738e0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sandbag_Load_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sandbag_Load_male_v2_1.png",
+      "sourceSha256": "c9b199c935dcb5b836dd9ca099f72a310d0aad8e95be0bdd31291987e6ed9fd5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/164/Sandbag_Load_male_v2_1.png",
+      "candidateSha256": "32d114e03ce5a85865c7e3eb0a352c8eb626f9f51d2ead03d1621075a3c8f1b9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sandbag_Load_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sandbag_Load_male_v2_2.png",
+      "sourceSha256": "852ec43679d4f6117984922d387e99496790650c3007a97855bd50a01b5fd01c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/164/Sandbag_Load_male_v2_2.png",
+      "candidateSha256": "28eac29b46fd3c38d07015c730a3e1cb9550b4f1b45dbfdc2c6ccf5f112c727e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sandbag_Load_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sandbag_Load_male_v2_3.png",
+      "sourceSha256": "f421e23767a8f2e1f51b1060a11fe2569af67a4717a8f5a3692f48734b1f1389",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/164/Sandbag_Load_male_v2_3.png",
+      "candidateSha256": "0454e932acaeb9ac702be1176d28e7795657487c96b34fb86e591b85ac0dad28",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sandbag_Load_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sandbag_Load_female_v2_0.png",
+      "sourceSha256": "c35eefd1b82a3e6e9afa747d3821aba917cc70e8366616f86113bfe545020ae2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/164/Sandbag_Load_female_v2_0.png",
+      "candidateSha256": "0f7ad76b7c6b6dd07e3d4bc7384edf05b7ca25947f8d78a6803194c40ce7bb65",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sandbag_Load_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sandbag_Load_female_v2_1.png",
+      "sourceSha256": "259b4f195386f9deaf2f38db11d64d8bcfbe6af4b71431fb845b9847e5ed0cda",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/164/Sandbag_Load_female_v2_1.png",
+      "candidateSha256": "24eba7c83f5d8a72b4c2706b51ae54a48423463ed6ec54f9e5218941a02d1d18",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sandbag_Load_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sandbag_Load_female_v2_2.png",
+      "sourceSha256": "8195914bba8b4bd6655e8c8092776f891f41ad176e321e0259c51ed289d5a584",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/164/Sandbag_Load_female_v2_2.png",
+      "candidateSha256": "707932ba0f1ae1d700ce997ac574a0000a8a983f59aee504bdc79782cdb1ab5b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sandbag_Load_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sandbag_Load_female_v2_3.png",
+      "sourceSha256": "d267dfc9fabf15cf920c3826f49f35efa7d02c270b3b56f79f078e3344a945b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/164/Sandbag_Load_female_v2_3.png",
+      "candidateSha256": "8a2f6d6efba3d9efff124741b2eb68a30248598ed4af73cf252509ca499ac5a2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Sled_Reverse_Flye",
+  "shard": 25,
+  "index": 243,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Sled_Reverse_Flye_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Reverse_Flye_male_v2_0.png",
+      "sourceSha256": "dab4a99ce2178f1e6aac72d202ee0dac5b1624f75c730689ef61ad7d067b347b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/243/Sled_Reverse_Flye_male_v2_0.png",
+      "candidateSha256": "1d612282a73dceff804fa8990bf2426c8252d60305b9ce4e37368ae92d1e37f9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Reverse_Flye_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Reverse_Flye_male_v2_1.png",
+      "sourceSha256": "0af7be29155e64c934cc7d3682543140af5e7bc99fe1f9bb6f73163bbb78f173",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/243/Sled_Reverse_Flye_male_v2_1.png",
+      "candidateSha256": "b2604e1a08e3fbb9708c4cb7060e9d1d10f5e4ea496f491e1b8d5864b6d8478a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Reverse_Flye_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Reverse_Flye_male_v2_2.png",
+      "sourceSha256": "6cdd3354778ab68dc224d797372f5297d58bed06bed85a50054bf92a190ba393",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/243/Sled_Reverse_Flye_male_v2_2.png",
+      "candidateSha256": "584513b3d75fd7a95a57eb991122fb4d658f51a2c605b642731b857a911eb838",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Reverse_Flye_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Reverse_Flye_male_v2_3.png",
+      "sourceSha256": "dd6c48d3d189a413f71632ca57d0835291d5011f15ed681c2ad2293434991491",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/243/Sled_Reverse_Flye_male_v2_3.png",
+      "candidateSha256": "ba1712923df61d8049b29eab3d7cdc7e0ea1ab2bf3967c1e801f3dc5fe4290cf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Reverse_Flye_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Reverse_Flye_female_v2_0.png",
+      "sourceSha256": "4019b1bf7b531e5ad22dd90d9b7ec5b263d4348a79458f119c34bc7747b16ec3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/243/Sled_Reverse_Flye_female_v2_0.png",
+      "candidateSha256": "10045d3cfc86dc767ad2cc125fce121fefcd51378b2a12ce4575105314aac09c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Reverse_Flye_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Reverse_Flye_female_v2_1.png",
+      "sourceSha256": "6fab4941c4a3c837f9b60a91a54d7a2c74b794da975b17a248534370c72487a3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/243/Sled_Reverse_Flye_female_v2_1.png",
+      "candidateSha256": "416672d2b6d06e16d6c4373a7710f55c6c6a2951f10b25b37671ad4bd69f1ab4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Reverse_Flye_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Reverse_Flye_female_v2_2.png",
+      "sourceSha256": "b7f6a1fa9dfc0ef2c819b301c4b89b45591fcb395481e03c05ee09b0a8ab020b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/243/Sled_Reverse_Flye_female_v2_2.png",
+      "candidateSha256": "70881960310fbd2bc24898d3b421ff543b6fca2088fb682afadc5d077d43a0fa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Reverse_Flye_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Reverse_Flye_female_v2_3.png",
+      "sourceSha256": "e1cbb12f750dcba8b13e1467ac5985f0730ca752c6e3948a72b61f1b1590c49c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/243/Sled_Reverse_Flye_female_v2_3.png",
+      "candidateSha256": "65b68cdf5141913d61546636721d247cbd7d681b9f1a4d52daf13cdbd2b0a10d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

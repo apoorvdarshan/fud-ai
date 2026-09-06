@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Smith_Machine_Behind_the_Back_Shrug",
+  "shard": 25,
+  "index": 247,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Smith_Machine_Behind_the_Back_Shrug_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Behind_the_Back_Shrug_male_v2_0.png",
+      "sourceSha256": "7692af0f6e9b29eabbb9ceff49d32934230c8957544d16e135b1e3eef9f044ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/247/Smith_Machine_Behind_the_Back_Shrug_male_v2_0.png",
+      "candidateSha256": "380991965476bf19eb2b9a1cce08052e613c0a6026d36d802aba82aa7cadf365",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Behind_the_Back_Shrug_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Behind_the_Back_Shrug_male_v2_1.png",
+      "sourceSha256": "b87c53642d0a410c0b929a6ae8ea383121e7571808a620f17a4429456dd9057b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/247/Smith_Machine_Behind_the_Back_Shrug_male_v2_1.png",
+      "candidateSha256": "3e882e67fb03152de718b175bd0e17fdbf43dfcc730794e47d41e0f487c809e8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Behind_the_Back_Shrug_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Behind_the_Back_Shrug_male_v2_2.png",
+      "sourceSha256": "03041a3de577d635782e6fc41c391531a4c93a4b4592e6845c9b11753d091e4f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/247/Smith_Machine_Behind_the_Back_Shrug_male_v2_2.png",
+      "candidateSha256": "cb41038124b51199a71ca111c34759c67518f2334279a89b733150ed8a00d538",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Behind_the_Back_Shrug_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Behind_the_Back_Shrug_male_v2_3.png",
+      "sourceSha256": "53dc3acbf290c65159ca69123808fe69ae0fc29827309cba7b23e37c643aac98",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/247/Smith_Machine_Behind_the_Back_Shrug_male_v2_3.png",
+      "candidateSha256": "0e3f8cf459cba6e8f7efb9fc6fefbcfa3862dadddf18cbc9d47d7d2dcd971f39",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Behind_the_Back_Shrug_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Behind_the_Back_Shrug_female_v2_0.png",
+      "sourceSha256": "58ef376248d88a75aa53a7102b8fc231d348669b2e509d4a6c5acd05dda0dd2a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/247/Smith_Machine_Behind_the_Back_Shrug_female_v2_0.png",
+      "candidateSha256": "6db7268a4db897aa237d77b2f425a07793b71cdaa61cc8f62052503450ba4841",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Behind_the_Back_Shrug_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Behind_the_Back_Shrug_female_v2_1.png",
+      "sourceSha256": "eb2eb4abed99eaf949fd8657a384ff0182a301ac51625e410d17e4aa739306c3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/247/Smith_Machine_Behind_the_Back_Shrug_female_v2_1.png",
+      "candidateSha256": "cf3d29fcb2eb9c153948ca03bf4132f97aaae2ae249caaab7112b5614ca4892a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Behind_the_Back_Shrug_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Behind_the_Back_Shrug_female_v2_2.png",
+      "sourceSha256": "bbb8f298fe524b74116def25031b52dd038914d8092fb4e6f58744915294e788",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/247/Smith_Machine_Behind_the_Back_Shrug_female_v2_2.png",
+      "candidateSha256": "6384080c18764d90911e88e767a8432623a9218d3d368ad0996fae7193dc4c2a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Behind_the_Back_Shrug_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Behind_the_Back_Shrug_female_v2_3.png",
+      "sourceSha256": "11422b5b48c64e47c66c0b34d0f21503afcdd958c3cdb4083b6bce76c07c0056",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/247/Smith_Machine_Behind_the_Back_Shrug_female_v2_3.png",
+      "candidateSha256": "661fff59009bff4cf0e22a91a53014cda34728482ed85bc08f35382f2e5125f4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

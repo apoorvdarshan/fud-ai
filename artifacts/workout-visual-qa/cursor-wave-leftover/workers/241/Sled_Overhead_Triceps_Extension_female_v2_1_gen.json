@@ -1,0 +1,16 @@
+{
+  "source_sha256": "0ebaf74afbc84759df1b3e715f2cdbcda7869667756705ab494d1f53bd12924e",
+  "candidate_sha256": "ae2c8c7d7c770f9d83cd5a0aab43f61d7ca26245af75b1858df5b660291535fd",
+  "generated_sha256": "e294eb99f3f909b54a9d47f6ec6cddcc1dab0c319f632847d4268c7479df91f1",
+  "generated_path": "/cursor/stores/bc-180dc721-7b82-4e4e-b5c8-5bdd5f895eeb/artifacts/assets/gen_Sled_Overhead_Triceps_Extension_female_v2_1.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

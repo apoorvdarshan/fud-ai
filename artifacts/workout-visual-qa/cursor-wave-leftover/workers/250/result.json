@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Smith_Machine_Calf_Raise",
+  "shard": 25,
+  "index": 250,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Smith_Machine_Calf_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Calf_Raise_male_v2_0.png",
+      "sourceSha256": "432273498127549206944d4b443c8ae87cba07160f0387e0e5e42e8f60f7637b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/250/Smith_Machine_Calf_Raise_male_v2_0.png",
+      "candidateSha256": "5151072a00f1fb0a2614e999210c2ce6fbdf936e728d47c71830bafbb7c7ea99",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Calf_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Calf_Raise_male_v2_1.png",
+      "sourceSha256": "ab5018cce743e2b1190585edf2cc8df456a37a2d3bafafd72082d335e68317e0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/250/Smith_Machine_Calf_Raise_male_v2_1.png",
+      "candidateSha256": "db146c745cb3cf7fbd7ffa09a531f8ee90ac025a5a5b07628cc3d3d4af8789fb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Calf_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Calf_Raise_male_v2_2.png",
+      "sourceSha256": "5d56b9c24e13f1cecaddf6eb5b010414790a7ccef524ef10ca62a04bdc9057a5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/250/Smith_Machine_Calf_Raise_male_v2_2.png",
+      "candidateSha256": "663ea18521814b675d259f5836a9c4425cd677356402f0a1dc606c09199b43f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Calf_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Calf_Raise_male_v2_3.png",
+      "sourceSha256": "bc324ea1dcfca6045a5b8965cddecd23b5cd650f6f966cc27edfd9841f674d28",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/250/Smith_Machine_Calf_Raise_male_v2_3.png",
+      "candidateSha256": "e8e0594607abebccc8e1f3b3ff91036c5b33d7a3277604ff46f3abde0d28dd2c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Calf_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Calf_Raise_female_v2_0.png",
+      "sourceSha256": "9cc34f3d2cbe9ac5467e9187dfe4a3f10381f2af3ca2a684bde57b84c2ecd037",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/250/Smith_Machine_Calf_Raise_female_v2_0.png",
+      "candidateSha256": "1322ec2f388aab08562be9d578bbed18506ae1ef4bff5dd74e25d18e86589065",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Calf_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Calf_Raise_female_v2_1.png",
+      "sourceSha256": "6e2e27db97a15e6c48dd3574fb72984a6f88962d5e5c7bbbdbe738a492878bb5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/250/Smith_Machine_Calf_Raise_female_v2_1.png",
+      "candidateSha256": "60e191c3cffa0c7736e65f2f989a9cae9b7aa5b05a490d27e78de97d17f19841",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Calf_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Calf_Raise_female_v2_2.png",
+      "sourceSha256": "bbb9a22d1324b5ae8dba13e54d1557e95da32265befea0f73c2a7e7dc08902fa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/250/Smith_Machine_Calf_Raise_female_v2_2.png",
+      "candidateSha256": "28d54ec3b8efba4974695f3e06263f928f4a8e7769c6e22941dc2a11da5a8aec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Calf_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Calf_Raise_female_v2_3.png",
+      "sourceSha256": "df857a81818d5809d42ac7c18b39060eecdb3294c9e26e1c113a90961f808da4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/250/Smith_Machine_Calf_Raise_female_v2_3.png",
+      "candidateSha256": "c5b36dd4b94b54ffbd440ca23190cd3e0b5a816064b8c27743e7cc1344d1ee3f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

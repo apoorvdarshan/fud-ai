@@ -1,0 +1,16 @@
+{
+  "source_sha256": "ccbede0cd42153cb970d64a2d31131b656befd9bb0ab314bc2f33fe7c206a814",
+  "candidate_sha256": "d74ee8275d25374575b7846ec970fea63b1ba12eb2e54a47667b339a8df1365a",
+  "generated_sha256": "93981657b4eacd623c7446e9cabea026a5f20492176f61b1ffe003ca59f15c06",
+  "generated_path": "/cursor/stores/bc-180dc721-7b82-4e4e-b5c8-5bdd5f895eeb/artifacts/assets/gen_Sled_Overhead_Triceps_Extension_male_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

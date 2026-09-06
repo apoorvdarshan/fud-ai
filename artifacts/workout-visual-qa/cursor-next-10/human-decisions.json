@@ -1,0 +1,266 @@
+{
+  "batch": "cursor-next-10",
+  "decisions": {
+    "Crunches": {
+      "exerciseId": "Crunches",
+      "decision": "needs_more_work",
+      "notes": "the boy belly is shown in one fram liek fix this ",
+      "sourceHashes": [
+        "9e709e41a91b1d7777c7a1630666666e0d2d71c80cd93722ec2d32aed5f5bcb8",
+        "9669e466dfedf21943d0c8845860c1819e00416fcadacf3c2f8df4b3d4aa5b1f",
+        "6a095e1a34980b33ec02a41387491406b4096cd2893c3f6d9dc34f85d5a97ce5",
+        "088e74d72bf45b2c54bb6a2e2e4628152816e8813536211b31410c6b45e8f77e",
+        "90167557849e88623253f525bd5000e5b0b55f478c601e95b8a9e2b17ac18c98",
+        "3cf4abaa731ecc3653ed2f8a9abc7b6fc3f7d04536674948c040a6c2feebccba",
+        "734667f7f0e0ce14c2342544ab7750e079e96e08d0a10184f7fa6e2e6713fddb",
+        "2b5d9f9ad8a8274c4e0d6bc52784416116abffd98b969086ee5bd8185b02ecd9"
+      ],
+      "candidateHashes": [
+        "9e709e41a91b1d7777c7a1630666666e0d2d71c80cd93722ec2d32aed5f5bcb8",
+        "9669e466dfedf21943d0c8845860c1819e00416fcadacf3c2f8df4b3d4aa5b1f",
+        "6a095e1a34980b33ec02a41387491406b4096cd2893c3f6d9dc34f85d5a97ce5",
+        "088e74d72bf45b2c54bb6a2e2e4628152816e8813536211b31410c6b45e8f77e",
+        "90167557849e88623253f525bd5000e5b0b55f478c601e95b8a9e2b17ac18c98",
+        "3cf4abaa731ecc3653ed2f8a9abc7b6fc3f7d04536674948c040a6c2feebccba",
+        "734667f7f0e0ce14c2342544ab7750e079e96e08d0a10184f7fa6e2e6713fddb",
+        "2b5d9f9ad8a8274c4e0d6bc52784416116abffd98b969086ee5bd8185b02ecd9"
+      ],
+      "reviewedAt": "2026-09-06T21:00:11.586Z"
+    },
+    "Decline_Dumbbell_Bench_Press": {
+      "exerciseId": "Decline_Dumbbell_Bench_Press",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "12972b67ac9b7bb9444238d838c479db59d8260995c2296e0b6e52a9a1336ab2",
+        "576340088d8c839710deb74c43327a14577ea358170e9e0c28a7645098558b90",
+        "73919ee6fa3bf3091be69b3675c050e90fa1184a2a142c45ac3aa7114049c0c1",
+        "d9407e5b8f6f82c663c8d98baab28215ea9b06d1cc9eabafbf9e7bd6f6c13970",
+        "61cf5c7f5c48e6c718ba2cbea645d95336a6dc4b6c3e22b6fb3ae0c80d77e445",
+        "28128170f365837ee6eab309b5d36b3bfa93c9f3472ce5c9995f736bc14763c7",
+        "ee357a62fd3734c1cf6caf97da39ddd6548323eab8dd132e27f898c25d4b7092",
+        "02c16cc4481d4a6d2c3cb7c2bbc2e3288d0ed83d840fe4e6c35d8fa337bc9569"
+      ],
+      "candidateHashes": [
+        "15111a7aea0d838012eca7ac053806c5a1fdb83627f280f4b392fe19fe27ca8b",
+        "d5f466df4d7c939e5e53ca09edc074376cb82695b8b198cd74fd752466d93514",
+        "0c2a26a4d28977f92d29da7d09296ba7474c09233a811e883b9d0775ce7c5224",
+        "3f608dc8fa64365486d4ebf18efe310c405b4397a4de560e02f5e49e1d518d58",
+        "fd1a85bb07ecc9e2812f4ab3a14816fb02ea44f9157f15146d9c67323869b068",
+        "c7051beb99ed0f0172b5d073d0ee418eda9bffae50e7e196007e43d992b350e8",
+        "a7b9d082c84ee99f4afbb2c5452643ccd521af325b0130862340144340515fa2",
+        "176d07b5a4d8ba06e652886e20dc125cb547837ef8b19b31a4679d22400c365d"
+      ],
+      "reviewedAt": "2026-09-06T21:00:20.452Z"
+    },
+    "Decline_Dumbbell_Triceps_Extension": {
+      "exerciseId": "Decline_Dumbbell_Triceps_Extension",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "737a037d3a64110d11e5f92c1300acb2ca102c981268dedadf2879435c15ad9f",
+        "e78510503a2d95d36e8aa59cba419a78b8416a64af42405d8917b58b099c712c",
+        "7ae1de8b8ff0fb4404b0469ec8b6b2695b20abcb80a5b18805e61a5215be9564",
+        "7ef469d0ad84c48e9c7c83cac2b0a9c4c5bb1ff40e22a99a5dd6bee2fe3213c6",
+        "d5144d7acb6a5aca22d5463119c956244a5810b48f4f1cf3bf6ab349a8bd6194",
+        "f4986d3f434f2332d14c1dbfc596a9882c8a70b8ba590a0f3fe6d6f1156df154",
+        "985e953f36a6cc195174b5fb52450c2fab95dbb9efefc24f43c8277b1784da3e",
+        "79d42bc5b3b8b3d55ff688cf0cc87d1743c5dff80d7a692bee0ffe779c252165"
+      ],
+      "candidateHashes": [
+        "1328a9dc4634c6a9c12ba56842ae18d776fbfb44392b40ed26fe7578fa87bfb4",
+        "65a9bd4dd1e7c7a6831ba6a243fbb007f100c90a0816e1c2377eaedd71689774",
+        "1d5cfc8b9e9c4ca7110b507e40d93e0346f83cd144139458faa4c5c6211a3709",
+        "43dc3b6764a2079d414c603d0112ce97e6fb69c030c8a475f4c98384480fe159",
+        "3940f2b866ebf3da6fbf1289780992df256471973cde29d1fcd3c4dc43ed9881",
+        "9808e706d1af96ce4c44a97346045886edf1c939f86e9e279196c05877e23c4b",
+        "ece9105745babdcb1a2a589bc278320f8c6b7a98779ef28e7e4e143a8119e4be",
+        "5a19765054dc652d84f59195203c273df9e25f0ef1d9095519ea312f0960efa7"
+      ],
+      "reviewedAt": "2026-09-06T21:00:38.418Z"
+    },
+    "Dip_Machine": {
+      "exerciseId": "Dip_Machine",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "3578368aa28978d1d34add091908143f4125a98960fc07fe869304d66d7b407d",
+        "7298f07412729f2fc9dd44acdf6a968873b681d425d937b313dba19fa5805954",
+        "4f0f881995011457c3d75ebbc84d80f3cf667b7ff2ab5285f033a9aba395d6e6",
+        "39e70d3d508242d54b07b7c0d823b06802d48ad2ae5e9072d5708285c55c5231",
+        "dffb928705604467c0063a9fe2efcaf2e555aa0742cba6ecd6bc968e9fd59c9a",
+        "7ae23e5511685c58b469dbc039821220a9c38e29df328e5860b4c5d951384b59",
+        "476cf38bb6d4577ab712c834f5d65dc7adc6be62963732a74565170f4eee0cab",
+        "a209f5fbddb9361d8a9faf0f2dc06d8ffdd2ab767d9219921d0610457ffb7903"
+      ],
+      "candidateHashes": [
+        "3a8ca6a36c2d1ce7e418b1a2412a8d6e5250fe9abcfee2aab22c48332eebbb64",
+        "bc0b30bd4bac30a9a7029b4cc0dae5280da02fc854ad23b284190cd281e7a1c5",
+        "d414152657e1b4264a81b45e2f88e0bcf2609da3827146f1e27b1d69ae59fa39",
+        "c02e6955d84993a340a643756f37af89c7a8aaf467379136794c2f350a0838d2",
+        "0bbccefbbb6095c208c5d8508abe7a9f8267c18bed356cbb601c6e6414cb3308",
+        "627c97abe0e7860b406ea672c0c1ac36cd60c7ef163b2db13e75e2bb4f1b31a9",
+        "78296babf570f02a11aee973175ad6ea9ca5766c9f3701446f28f242a3745483",
+        "95480210af999c8346a36a2a42c6538087b449d3fe4890d8c9ab4286f56ce9ab"
+      ],
+      "reviewedAt": "2026-09-06T21:01:04.237Z"
+    },
+    "Dumbbell_Raise": {
+      "exerciseId": "Dumbbell_Raise",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "550e18106dd686cdc03362f87ada3174fb3212cc3454bf274af27c78c55bbac0",
+        "0d21285602380542791b1034e27ea7e75ad1f400011f7078cd1597dd2c6b59da",
+        "8e2ece6089a9dd7f5e57da3d64b2542c0e1e308bd0995e4f572ce527f30680a2",
+        "9a68f206c2bab397f73e284637c0917d0d799fda1369ed4b1b1cb260f7a7ddea",
+        "90df33d71fc69a78a4a10a0d24aad12686d32130e0576ee75f6604fb7d348929",
+        "fca07cf73774fd58f2a1a08e1dd5861f55d1747646ee8d726f2ee6273b36d11e",
+        "1c587296edb64e839dbb1a059a782c8d99618a1ca79c9adfb4f381960ed329d8",
+        "580e81e71db6efbca3e68230c972d0bd99e43e159668a2f57925affa1a84121e"
+      ],
+      "candidateHashes": [
+        "eb6791c24ace33901238726dc92821c46a07bdce8787aa9ae3e8edb42a86af1c",
+        "61971a97c784d56336d9837afb955bccdea6d0b5c9489148640b448d85ae20bc",
+        "e2dd01c6d2d078a4ae2778715c7260625e47451d81c63a1956816b8c2aa2df05",
+        "f5e84a0fd1e53109ab489a264e20730116b61c6ba06a117d6251deb3c1649dff",
+        "222335af2185fbd121afea5a607f53d2edeb4219e8c6a1fd486ea5a11fa3d155",
+        "a1a51d67696bfa8cff168566d8b2cbf428f12957b9e87e032210ec2343d4a7fe",
+        "b2bb43bdc8ed5c2fc872755f88f66db195d13d802c7e240ebc760bff5b30872a",
+        "d01e2a94afdf17cf3c69ee56640daa965842b0522c41b3e024ff72a05cfcf0bc"
+      ],
+      "reviewedAt": "2026-09-06T21:01:12.351Z"
+    },
+    "Dumbbell_Rear_Lunge": {
+      "exerciseId": "Dumbbell_Rear_Lunge",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "82c398e080d2e0fece6214718ef7326dca11996ab98feb3fe270fded7608e219",
+        "851b3101222c1a79181214c5b4ba5fe8693fc170b0484958270942b318f6ff6b",
+        "17b64e1ce045fe112b1f397fae86919dc6aa0d22e5c4fe23ba5173053a68f0c2",
+        "ee8590e75ee6ea67a436c5e54360118e6ebb3f5870a34b85a13e95d1030f17f1",
+        "5907d8ad4cb96cb0565e973bfee3516875931c80febc443e8a0167b4f3f2413b",
+        "4aa90a7698d7e7d778184781b53905b497cddb5ed4af4376002f1bcb7ba8faf0",
+        "12e435921b721468b3e296733bf9e89f110a06087a4e33b3430cbec8c4f73d2e",
+        "a2dd7da71cf2165777b4e93e784124d9550f979746a8f2a9bf83c5083e9f3669"
+      ],
+      "candidateHashes": [
+        "a24932208ef084bcba8497ff3c46b3385e769eb9654a41774e322f5dcb37dd20",
+        "03f05a7cba0ca61a13a9533bf9243efc7742a8c0b68d4a7f8ca2f6dab2efaa43",
+        "3349b32696e9c8e1ca3b93fbe4519e431b363605adcc69342b9cff00192fc3d6",
+        "cc31fcd904d8953f6d98eedce57fb7763445283137d623875cc5d9c4a83bfdbd",
+        "56fd016dbe8fdef0768eb78d1e668aecc547d1d3e5dbc2f2da6d9a89a0ea7d7a",
+        "5011f161b458403aff604695ad7cf0a5e08ba112bd078d2aeae917bfbff5afc5",
+        "ad8cd162697985b149708bc120a021f6746e024d6b053790f9b211bd331aafee",
+        "0fd20039e4469f493587bce9e4b093d4b496d60e0ff189407388027f67cac1bc"
+      ],
+      "reviewedAt": "2026-09-06T21:01:22.805Z"
+    },
+    "Dumbbell_Scaption": {
+      "exerciseId": "Dumbbell_Scaption",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "fbeb029c973b06a4d706ed1ed6b632b8a214d6675d8d6214ade422788374a491",
+        "05c21f69a5e1aacb04478f49fe507950f74ae10e4953750d9b2a283d712144ef",
+        "8563a73bc55cd238723873c894e96c37f0bc85c4744f8d4f98b04e964b34b8ca",
+        "baec2330cf42e3d67f1cdfd86069bbce1bc2e0bdd881f83c04a7af62c2c720fe",
+        "dde96115602acb006d3774040cf3751c8e75ca3e2e5fda133f2534d54535fb31",
+        "fe2ae22a61f3584a4a5bc333d0389d43f0d31f6ea49a7ea35195cfe85b3ba262",
+        "cde843500ef6943cbe87f9380862027034312545adcf4178afd6b795b99b0574",
+        "72878c7d544e534a1c824e68d0821599c723eeb294da227c86164c7617a40898"
+      ],
+      "candidateHashes": [
+        "7eb75925b611a69d2d3ca081bccb91eb8d4f70b56c6fa2d27eba6b4e8e1ca5f7",
+        "45db48672d7a05f73f37b97434f1fe8f63fded5a7a871365b4df2b4e0b252dd8",
+        "6dd86f45d222051bb8f284d301b68fa995e90c7f5f514b66526f8c96ae558ea0",
+        "6770f4d726f66edee912ad08e1b82f77a1e0cfcc40740d5d2b15a17e71d1a6b9",
+        "81874b596e971462aca3875bdcdf744cec13b115d7ecbc97ca0e61351db979f7",
+        "4d4301226a3689302bd68c6e60c5b59a164b5f7e655c4c27f401bf8a0b009990",
+        "0a5331726284bd00c3c8ab198cb0b8fa4b9abe159615df625b6dcd2228230dcd",
+        "ed0b5d6de06715f1e1277f9bfdf8c8c222373fc9a1268a9d06c995c07ea17c8f"
+      ],
+      "reviewedAt": "2026-09-06T21:01:31.370Z"
+    },
+    "Dumbbell_Seated_Box_Jump": {
+      "exerciseId": "Dumbbell_Seated_Box_Jump",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "beb66a3a3a41cd92b427721eb4a530bd3de345f18f8e59b53718f42b70e0ddc9",
+        "cf19456401cc9a12fd253441ab1854da004314df74288f030d8aedf951405280",
+        "9f361da53539f3904f25dad2ee56e2bae127ba40628a1485a6158d3ca910e15a",
+        "d495ee139dc8e34fb2d48340ba2493d537fd48b7de595ea2c776d2b878e0b128",
+        "4d6ccc2517a95d5908b8d98d7693220de9ad4c342d97a60e33a432b4cc3c5012",
+        "9f5f9d9be06d650ad6f47529f44a3c30221079b7c64cb7706237bd5f945afd09",
+        "fd2398e676a8825c23550fee0709389f6607daf9b5b977db9dfa6b483b5d7859",
+        "efac5a29c6c672a8d6c5dc65e7ae65ddf8e726703d8c43507a8382eedb7687fe"
+      ],
+      "candidateHashes": [
+        "cc30a4f2fe5824258e624d3eb5a9481b0490d9f56cdc616f0a44e478d5df4c42",
+        "fa205f633e8f906a5cd115861fba1d76e4de8e55fce6bf381261cad27843bbad",
+        "fb10dff1a98f891befc92848d2813a248427c3a0810f0933e1bb10602db0414d",
+        "a2d4b285002196bd505af3690156ece493285243d9d0d694242386ee35c46ca2",
+        "dd30f8cf15a87caee996f9ac0a0efc0262be45ce3b78b3975b4e00b91cb012d2",
+        "439c6fca4416b53315373671c703af51c445aaea782227582d7f8cb0721215bc",
+        "b75ad8923849e5fca23d0ddbcc85559202c47fde8f3ab259656fc6d67538217d",
+        "dfe308af44e97ec603bb8a137065f857ae426e7327116d37da5175495961f19c"
+      ],
+      "reviewedAt": "2026-09-06T21:01:39.935Z"
+    },
+    "Dumbbell_Seated_One-Leg_Calf_Raise": {
+      "exerciseId": "Dumbbell_Seated_One-Leg_Calf_Raise",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "159e67384639f5a3d6e7d1027853b7a952c62c45c5817e043a234f0b175ebf26",
+        "33fef02f2f91fb0e02f0257d147085117de7a38de5bd554cdcf4b03c6356ef2d",
+        "6d35697304dbfe6a81423be800bc36de388f7082550b069b97aece23f9c82102",
+        "e61b22e1a4bd265b051f5974a1e07148c86ebab8d00239f29477e845d0716090",
+        "63a84dfaddd9d8fdebdd953ddebc37f0ebb62f484014a4d7ad22c0238b5e76f3",
+        "63587f040edd98d4cadf3265f488c13c504a582b8ea47d7ec767b99ed538e103",
+        "98decb429b0feea9ebf78559e60f4c3f18d5b3701659b09bc1ca4637d2db2734",
+        "aec715fc0f3d1f3a75d3ea307061f21561458f7d6220df1fac34a99d82180213"
+      ],
+      "candidateHashes": [
+        "dc111bc3736171c4c6f4f6dea9aa8eb5267573216cde51e837d026e9ac161753",
+        "33fef02f2f91fb0e02f0257d147085117de7a38de5bd554cdcf4b03c6356ef2d",
+        "bf4884f886754794f630c8ae49c9474100618fb6fd8f63918ee4bcd566d44b34",
+        "e61b22e1a4bd265b051f5974a1e07148c86ebab8d00239f29477e845d0716090",
+        "63a84dfaddd9d8fdebdd953ddebc37f0ebb62f484014a4d7ad22c0238b5e76f3",
+        "47e2d9f4e961dd725c5d02f3d1a176d83d7c4b05c254cbba4b743099c061ac26",
+        "86bfd7851af646ae536e43419a4b186d3158595d727d84d357ef0b199296f375",
+        "4f2ede5678a043bcdb42892904040f97211983cb18ef5da334c32554448b76ad"
+      ],
+      "reviewedAt": "2026-09-06T21:01:47.552Z"
+    },
+    "Dumbbell_Shoulder_Press": {
+      "exerciseId": "Dumbbell_Shoulder_Press",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "b1ad1004df00c2a9e977e8308c98df3dbbbae992c2e2ab91a9f8c5f355e7739b",
+        "2e6dd790a3a3b1e669695327e2d1773857ea57bec201ff87c5f318d3267a0ff3",
+        "ff279f2dd6ac705bef069416632eb26454d72cbe1ecd8e5f74bcb14010ba57b5",
+        "01392a78e8e7af54fd6bd7b53ec54e68b5e5c67e041fe8e356f4c7c3ea0bf84a",
+        "204492eb62d0ce79374b7a1b56483e6df8493a5d267d7bfee58d162867fbb610",
+        "acb22787452fe77289493e94de8b9b7d3d74eb26952ac04909a3851efef366b1",
+        "8e0db75e85a3769ad31112527c9eb405460717f6110fb6b3bacab4845b38f861",
+        "0191095f9346b7f72ceb365532c563bfb144782cb1d5eb162608b921819f21dc"
+      ],
+      "candidateHashes": [
+        "1889da074c7f9b800ffc2bbffe4c4ab533940b0941fc6795a54c31ed097cb09d",
+        "32b6ffb8284a438b68da7f9018e28a52785e27eff484fd433d572e5bbeea05b0",
+        "d8dd080cb580806ee610d4f6dbab74eb65ad04e47da9a1abb3db5028d3c08dd4",
+        "86fc17558c8373f81558ccefc93a8c299288fe6ce76b283e1ddb39443a021363",
+        "5c34e76a2168ee72fb8638177c42457598bbd12a61ed32e5816f5b7710a671dc",
+        "c8bfd47ece7026234d6e456d4d97a391419ab2596948eb44582cf56e708dbe7d",
+        "285517b01cd4edad5e2a58e83ee8a6f9c6345698faf32c6750fd7cf87fa71093",
+        "86ffb5d6f4ca0f7f6761b226fcfd9bac3576c88b4421761e19f249168c443ec7"
+      ],
+      "reviewedAt": "2026-09-06T21:01:55.536Z"
+    }
+  },
+  "updatedAt": "2026-09-06T21:01:55.536Z"
+}

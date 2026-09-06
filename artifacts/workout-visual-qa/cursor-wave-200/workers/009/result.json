@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Barbell_Glute_Bridge",
+  "shard": 1,
+  "index": 9,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Glute_Bridge_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Glute_Bridge_male_v2_0.png",
+      "sourceSha256": "c202b00afa6885c8926f764051b57497d66227002df2b4c27bfe0de9ad2f65d0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/009/Barbell_Glute_Bridge_male_v2_0.png",
+      "candidateSha256": "135e5e6abe4908f194a9180ec179d71d3d0c6ad12b56ee5d8b0b4eeb6d89adf6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Glute_Bridge_male_v2_1.png",
+      "sourceSha256": "f3794e3e885b1e57ca902735cdf1ccba82b48af2397f11123c7ba24c2c605993",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/009/Barbell_Glute_Bridge_male_v2_1.png",
+      "candidateSha256": "3e1e36d501ebc3ee57b3fca64d2aa4e77192dec755c70c9b76bc0f1677aa8e78",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Glute_Bridge_male_v2_2.png",
+      "sourceSha256": "41b02b053cfc8f052ad9d3e58c3331be88dba9917843b6973f9c8e598b0502f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/009/Barbell_Glute_Bridge_male_v2_2.png",
+      "candidateSha256": "09e1e4e1c54ddda66d7fd0e1780039617c771fc001e795cf511dd57bf0ac66fa",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Glute_Bridge_male_v2_3.png",
+      "sourceSha256": "8c70f7bd0d1b55830d83fbbe0b007b5e1d237a7641921c2bd608df96b092e7c6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/009/Barbell_Glute_Bridge_male_v2_3.png",
+      "candidateSha256": "66b0b10c88ed054325ac03cc389944fd189ee7e8a8b67da9ed3672f6530d09e4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Glute_Bridge_female_v2_0.png",
+      "sourceSha256": "90815cec061f886eb3c4860c9cb88ff30611060765b1683d25b9019d58e9c5fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/009/Barbell_Glute_Bridge_female_v2_0.png",
+      "candidateSha256": "b1d8bff199f37eeff89ee937920652ffbf9ffc8fd3c1f1aa3d8aa54fc831982e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Glute_Bridge_female_v2_1.png",
+      "sourceSha256": "8fa09215a5c8d3004f272b3514655d8d52d3218396ce577134bc8674a26bd61f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/009/Barbell_Glute_Bridge_female_v2_1.png",
+      "candidateSha256": "b586b1e9259f26be10302cbf1ef93a62d31d9bf71f9d00458dfc72d4afac7a39",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Glute_Bridge_female_v2_2.png",
+      "sourceSha256": "2462846167b955d140c59ff21ba2c5a98e90a1de2fbc973ae17708dc98865fa0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/009/Barbell_Glute_Bridge_female_v2_2.png",
+      "candidateSha256": "d016acd2129866c701649ceeb2d07ba3253dd6926889a0312969080f4764ec20",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Glute_Bridge_female_v2_3.png",
+      "sourceSha256": "78edb7eeda8a2f12d0810db50cda5d91f01d59aeb0ee7419c5f4fd0a48a27b26",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/009/Barbell_Glute_Bridge_female_v2_3.png",
+      "candidateSha256": "c702f403c48a308b4e1c5306d7c3f4ba79ca9bb56f38402a924ca80d0ec4b42e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

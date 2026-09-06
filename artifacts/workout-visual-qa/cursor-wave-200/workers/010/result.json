@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Barbell_Hip_Thrust",
+  "shard": 1,
+  "index": 10,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Hip_Thrust_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hip_Thrust_male_v2_0.png",
+      "sourceSha256": "d5f12f5e9541b2967b65946973096924de8de971ba26e972dd27c6a79deefff3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/010/Barbell_Hip_Thrust_male_v2_0.png",
+      "candidateSha256": "66d0631c1b0f8b419a2c4aba3a4a3ba61cd62254dcdf435d3280534728851000",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hip_Thrust_male_v2_1.png",
+      "sourceSha256": "13a985ca1c59f7112488282cf1464733b95bc33d609057dec04f82ec8223cac0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/010/Barbell_Hip_Thrust_male_v2_1.png",
+      "candidateSha256": "336ffe1edcc7fea8f55fb3b5008d0ea773f17d53c9343e3ee8d177f0c9727500",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hip_Thrust_male_v2_2.png",
+      "sourceSha256": "cc19ddda753c5b14f8bff4a1ed500624bc980bbb99bc30d9e3d2977d04e9b636",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/010/Barbell_Hip_Thrust_male_v2_2.png",
+      "candidateSha256": "334faf9eec5a8f119dd48e518f31d11d026e896a3f8436c10e3014e96bee79e5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hip_Thrust_male_v2_3.png",
+      "sourceSha256": "20195de79f63332a70cfa1ad4b9561b0076f583e4ed249965f8a6a2e6a63b463",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/010/Barbell_Hip_Thrust_male_v2_3.png",
+      "candidateSha256": "914c9b8cb8f641402eb64789bb3fb80f568b831bd09331ae65e99977aba38120",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hip_Thrust_female_v2_0.png",
+      "sourceSha256": "a6ad97f135992a9fe20f9f1b083bea3cb1125d1ba2d61b077c3dc00fae0dc5f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/010/Barbell_Hip_Thrust_female_v2_0.png",
+      "candidateSha256": "63830cc84c8a0827ce08748c25a933c878863185c7abd3f57fb59ba9b90bbbec",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hip_Thrust_female_v2_1.png",
+      "sourceSha256": "b01e52a047d09e388402432475232b886d0c5ab0fd942310cb6c9af7c3810eff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/010/Barbell_Hip_Thrust_female_v2_1.png",
+      "candidateSha256": "7af61932a7d90f40629030390b1eb951139422a8ccfbef5f63edc28dc6915c81",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hip_Thrust_female_v2_2.png",
+      "sourceSha256": "ce054dc9da44ccf3da3b6a7ec7c8884703e71e2ccb4fbc7211e67d58606e6d21",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/010/Barbell_Hip_Thrust_female_v2_2.png",
+      "candidateSha256": "0d1316d72deda5cc55621b0be6ffd520dc170b8cc8607cc8125442e14f5ef139",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Hip_Thrust_female_v2_3.png",
+      "sourceSha256": "c046cf5efb3445f7ef67aad65e9045f7b2422a3b4990a3e5e59dbbfcb651eb4d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/010/Barbell_Hip_Thrust_female_v2_3.png",
+      "candidateSha256": "71b338fb5758347fabf1814188d3961487b351c23dc99f2433be4f4fa1d33c76",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

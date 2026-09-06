@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Around_The_Worlds",
+  "shard": 1,
+  "index": 1,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Around_The_Worlds_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Around_The_Worlds_male_v2_0.png",
+      "sourceSha256": "208f7d84d91c087023b9f79cbdbc4cd9072f69f77858139b81a830dff4543b5e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/001/Around_The_Worlds_male_v2_0.png",
+      "candidateSha256": "a2a4ca70fb3c42397425faf2d757103d8cde8e998b9784cb5d3fbd1832cd9cc1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Around_The_Worlds_male_v2_1.png",
+      "sourceSha256": "528d35612f6a532124ede36be48a075d5d0a49f89c90627cd757ad701359ebb6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/001/Around_The_Worlds_male_v2_1.png",
+      "candidateSha256": "5810957e86e2ddc11f97f1bd17baa70b9bda9c44bd45dac1de83d09afc0a05fa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Around_The_Worlds_male_v2_2.png",
+      "sourceSha256": "6c533fa3188eba9bc707bc153a5f49f774f1ef4d1fe852ff11ba2b6ace0b6e42",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/001/Around_The_Worlds_male_v2_2.png",
+      "candidateSha256": "ec71b7a068c75c7e989867b1eaa15f024c59c5ebbaa8b864d23707016e0f4dd9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Around_The_Worlds_male_v2_3.png",
+      "sourceSha256": "4a5545f3cb90ed2d8a809ee7f86ffc224c060a9383af382798810092753ff23c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/001/Around_The_Worlds_male_v2_3.png",
+      "candidateSha256": "cc8528ac3eadbc1bc5cde4bc63e56b57898d38e93abd347eeedbe2cbf052d948",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Around_The_Worlds_female_v2_0.png",
+      "sourceSha256": "6eb84449e89642a694eea6306e59142a3aed4bdb3e2c91f8c6efae1f34069b19",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/001/Around_The_Worlds_female_v2_0.png",
+      "candidateSha256": "aa73bbbd4212076ef62bf453a73f58b803edfbecfc3e103cd1f9dd60bbaca165",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Around_The_Worlds_female_v2_1.png",
+      "sourceSha256": "90ca22760b0cfa5e89e68b4b4f74568f4cafbe4b2513490737b417d378d8b88a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/001/Around_The_Worlds_female_v2_1.png",
+      "candidateSha256": "c967b2e6befa0309d2d0e0d259f677dacce2207cd2771a42b35ba34b73821cda",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Around_The_Worlds_female_v2_2.png",
+      "sourceSha256": "49fcb7d94c1c74a3974536fe351aa6ff3531a99a84e6a8f1f80eae9cb6c1eba1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/001/Around_The_Worlds_female_v2_2.png",
+      "candidateSha256": "806aed389d59e79359f7487590be894890b3b76018072fe3c90a7d193870255d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Around_The_Worlds_female_v2_3.png",
+      "sourceSha256": "9a2d357e5c1df070d4c27e71e773ec67006de4c3a9ee25fc0a62fd1c7345e9f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/001/Around_The_Worlds_female_v2_3.png",
+      "candidateSha256": "bf3786e1df0bf38b485cbe075f62092fc893cde127eb5ebe683284c0a4aec883",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

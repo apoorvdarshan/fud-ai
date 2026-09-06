@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Backward_Medicine_Ball_Throw",
+  "shard": 1,
+  "index": 2,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Backward_Medicine_Ball_Throw_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Backward_Medicine_Ball_Throw_male_v2_0.png",
+      "sourceSha256": "4c05669b7b83b0884f3de02ec738de0fcc5a782177a29d922bd448d7f453d23f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/002/Backward_Medicine_Ball_Throw_male_v2_0.png",
+      "candidateSha256": "5506e8004150eff2f254e1d4635cbcd9592ec2117d25f5c4ef02e24ca5b03b44",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Backward_Medicine_Ball_Throw_male_v2_1.png",
+      "sourceSha256": "22bc831789007f8e392989357c32699130b92ee86cef18c13973f38122d4b693",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/002/Backward_Medicine_Ball_Throw_male_v2_1.png",
+      "candidateSha256": "ca4eb122d6c3cf16d07977968010c70ef6942581c037d79e1302d333c2a887fb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Backward_Medicine_Ball_Throw_male_v2_2.png",
+      "sourceSha256": "c8955fa56abbea80567ebab6584286200c1f74b0808b81be2c012bc10c6d8514",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/002/Backward_Medicine_Ball_Throw_male_v2_2.png",
+      "candidateSha256": "56ee1ad7a4a9cbfb2aa2cd776a9d09d3c5a813c9cb9085a2de504a322adaa810",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Backward_Medicine_Ball_Throw_male_v2_3.png",
+      "sourceSha256": "5a80fa09bc9d648d09a63c348807f4fb7d0919c906bb41e8e4f4764e52dc9a9f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/002/Backward_Medicine_Ball_Throw_male_v2_3.png",
+      "candidateSha256": "786194d505e93548436f564a2263ae389ee6ea5e9d7d64b75747201991a4f17a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Backward_Medicine_Ball_Throw_female_v2_0.png",
+      "sourceSha256": "551b661cf7acb6d813a40cf16ec0d0e1bca94ea8d1c67d9e3339fffdac1210d4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/002/Backward_Medicine_Ball_Throw_female_v2_0.png",
+      "candidateSha256": "74d26a6a2fd35ffa8ba67add7d60386dfbceccfffb343adbcba9cb703ecda065",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Backward_Medicine_Ball_Throw_female_v2_1.png",
+      "sourceSha256": "e2d715b23a730bdb5ea230905afa8cb17821e03f42875b0d4f4bbb356fb3f60d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/002/Backward_Medicine_Ball_Throw_female_v2_1.png",
+      "candidateSha256": "d92636c65c5b9ebaed43b343f4952683383b0421a2d19d4b6eaa97c3691828f1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Backward_Medicine_Ball_Throw_female_v2_2.png",
+      "sourceSha256": "4c3397c441d5fb799449bd3262d62006218489b0d02015cb536b7f5bad5ddd70",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/002/Backward_Medicine_Ball_Throw_female_v2_2.png",
+      "candidateSha256": "4bf58355336610dcb6affd5f100e2d17d01914df5e4b67f7ead47fa8435ed4bf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Backward_Medicine_Ball_Throw_female_v2_3.png",
+      "sourceSha256": "931d2fadb116552b36449b673d7250117798d24614e050862e96a5c75bad1052",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/002/Backward_Medicine_Ball_Throw_female_v2_3.png",
+      "candidateSha256": "c645abdf9a31569a429d84d8f06ceef8ea3d1d6510636735b6ef8bf69b7b1bf2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

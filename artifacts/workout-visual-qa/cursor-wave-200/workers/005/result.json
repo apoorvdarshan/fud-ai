@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Band_Good_Morning",
+  "shard": 1,
+  "index": 5,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Band_Good_Morning_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Band_Good_Morning_male_v2_0.png",
+      "sourceSha256": "e67c8b5ef6ed961804a4f36e5fa6d3989478692f554f2ed55e0329fe0bf0beb3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/005/Band_Good_Morning_male_v2_0.png",
+      "candidateSha256": "b8c94dcf0b2fa9dd56c8581bdbe3fb48278d1e2d270d622fb2a76644cdc7f349",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Band_Good_Morning_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Band_Good_Morning_male_v2_1.png",
+      "sourceSha256": "7c26c28e02bc3dbec86ab7f997e52455cb41cccfee80774368b238f885feadba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/005/Band_Good_Morning_male_v2_1.png",
+      "candidateSha256": "e40a33c09aee287ffa82de61247a913f2e46095ddd86808ad0c35384a7ab57d8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Band_Good_Morning_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Band_Good_Morning_male_v2_2.png",
+      "sourceSha256": "e98fc288160a4d24fd0eed1478572b3dcb3358de24e22e5a7d57b66ef11b1fa6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/005/Band_Good_Morning_male_v2_2.png",
+      "candidateSha256": "2efa20fcc234a6057967d49d3974923f504a99b3eebc8e4bf59f0247a753992a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Band_Good_Morning_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Band_Good_Morning_male_v2_3.png",
+      "sourceSha256": "413683c839d028fa4d0a8af4752cb30f88f3628eadbcfe1efd889ca8f250f052",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/005/Band_Good_Morning_male_v2_3.png",
+      "candidateSha256": "00d52e499d090d107dadc19700b4dea85fae0aa112737032c28c0e7a8105eae3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Band_Good_Morning_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Band_Good_Morning_female_v2_0.png",
+      "sourceSha256": "9e85ff660d3b467d86c3bca8eb025273219658c556b5c0d7a87078c951243203",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/005/Band_Good_Morning_female_v2_0.png",
+      "candidateSha256": "1cff74f8644f3bab34cdf35b32e61af79a3a958ac4c29cb6989dc0dc970e0d81",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Band_Good_Morning_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Band_Good_Morning_female_v2_1.png",
+      "sourceSha256": "3aff436a4c41458017ec76e18d8353feb8828eb34509288820ef9c4481222dc3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/005/Band_Good_Morning_female_v2_1.png",
+      "candidateSha256": "139ddab108c60f556fb52a96b93e44c76c61d10b0b56521394192100c970d9e9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Band_Good_Morning_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Band_Good_Morning_female_v2_2.png",
+      "sourceSha256": "9975870d3c84da30f4da833bca145e53383186ea353dbaad9cc118a2cca6ee4f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/005/Band_Good_Morning_female_v2_2.png",
+      "candidateSha256": "e7c357e0e1c6b4c03fa6e8e6e27db08fdca1d85f7b8ec810571c6d704c27bb3e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Band_Good_Morning_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Band_Good_Morning_female_v2_3.png",
+      "sourceSha256": "a552b378454413741302d3aa25afa7b4543faf0a91f2783cac0ff6d02c813bd5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/005/Band_Good_Morning_female_v2_3.png",
+      "candidateSha256": "f416b69b7ab90a96d439d4a356c2139d4632f796a525f5a41c929c575204b841",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

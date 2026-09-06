@@ -11,9 +11,9 @@
       "sourcePath": "/workspace/shared/workout-vectors/Hug_Knees_To_Chest_male_v2_0.png",
       "sourceSha256": "83b981983fb923609530df14e69c6026859636e0d585a182410ffdec42bc6921",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/028/Hug_Knees_To_Chest_male_v2_0.png",
-      "candidateSha256": "4e50dd36750cc994a6af16c06d1c2d7ed687f30cc6f9a664e6e52b39e2604559",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "3d8586e8e73acc94eb88da485cadcb737c44efcde550d6744da56b5205eb0ce1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_Knees_To_Chest_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/028/Hug_Knees_To_Chest_male_v2_1.png",
       "candidateSha256": "9d0368f0352d103a2602e0b984ee80bddb950edb7e8ecff77b57c242031abc04",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_Knees_To_Chest_male_v2_2.png",
@@ -31,25 +31,25 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/028/Hug_Knees_To_Chest_male_v2_2.png",
       "candidateSha256": "238187de6ecbce5cde5c7a3339bdf6fb771df29ac7d713e42d9ca682ca1919cc",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_Knees_To_Chest_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hug_Knees_To_Chest_male_v2_3.png",
       "sourceSha256": "1f87a5a5c427f3675293510a61b3a4fc30f1d2c484d4d5af77a615bef0fd8587",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/028/Hug_Knees_To_Chest_male_v2_3.png",
-      "candidateSha256": "19002e3e064f67806b33478fbb912f9e2837bb90f7c75e5b06d6b9da6fc19321",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "0285fb632fc5551896148277c4b692b1f7922432df0d6611d4f97cb22a170572",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_Knees_To_Chest_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hug_Knees_To_Chest_female_v2_0.png",
       "sourceSha256": "a2aeae58dfd0ef7105b966f5e9a8425611cf4def70a81453f448b506b008008e",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/028/Hug_Knees_To_Chest_female_v2_0.png",
-      "candidateSha256": "2768174cb9c94a8f3aacdce9816d6c04c759fca2a4825546dbb070c7cadb9691",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "774bb2ff5357a2280dd5410a09d51f4d2d7db8275d4ba4518257a950fd56ab27",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_Knees_To_Chest_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/028/Hug_Knees_To_Chest_female_v2_1.png",
       "candidateSha256": "98dd2f9f7ab3b7d5419e51f8cf3b527ce6ba9930569975c26d1f9e92e3df31e9",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_Knees_To_Chest_female_v2_2.png",
@@ -67,16 +67,16 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/028/Hug_Knees_To_Chest_female_v2_2.png",
       "candidateSha256": "e6dc4a84653085ae6259502a3bb4fc0d8b9937c2692cd7af5cb51d71c3c07779",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_Knees_To_Chest_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hug_Knees_To_Chest_female_v2_3.png",
       "sourceSha256": "3b50291021e500b7e27392ca6aff6ee04d55c2632a78a62df7608e4a4045cbb1",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/028/Hug_Knees_To_Chest_female_v2_3.png",
-      "candidateSha256": "f4d8d2b4691d20cbe0b8b98f530562f59a6607e900ebaa1a13b953586aff7c85",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "085d646cc85dfc0a58c04c6fd5a363df93a8d51bfde445fe3c455d936b53b1f6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

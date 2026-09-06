@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Dumbbell_Palms-Up_Wrist_Curl",
+  "shard": 19,
+  "index": 183,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Dumbbell_Palms-Up_Wrist_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Palms-Up_Wrist_Curl_male_v2_0.png",
+      "sourceSha256": "dd3652532a6a2130ef2c54419abce113fe4215ce33af3c82f0d7a8c85e16daf5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/183/Seated_Dumbbell_Palms-Up_Wrist_Curl_male_v2_0.png",
+      "candidateSha256": "62af48b3ded5edff41d5a40c0e89e1283954af7e173f95c69f38849f473ed69a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Palms-Up_Wrist_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Palms-Up_Wrist_Curl_male_v2_1.png",
+      "sourceSha256": "767cd2f2e64645e62f05abea054fbd23d3c9060ac2072e8baa0d4c3b2d68c0fa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/183/Seated_Dumbbell_Palms-Up_Wrist_Curl_male_v2_1.png",
+      "candidateSha256": "b0cb9aac36aed4ea361e3a2a887b20b4201fc2d53334abff70ffaa124c070778",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Palms-Up_Wrist_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Palms-Up_Wrist_Curl_male_v2_2.png",
+      "sourceSha256": "cf72ca0a1f7ac66e3954975d66979a81b596b90f69c111cfdce327a83bc0e3bf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/183/Seated_Dumbbell_Palms-Up_Wrist_Curl_male_v2_2.png",
+      "candidateSha256": "2800ffd99eafdc06276ffa41e32e98d532226dfee690acb852031f3016f60719",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Palms-Up_Wrist_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Palms-Up_Wrist_Curl_male_v2_3.png",
+      "sourceSha256": "3e5ce2347b6d848074a2c14a298db61a5366d15e3507bc78d8ac7b114f328c4d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/183/Seated_Dumbbell_Palms-Up_Wrist_Curl_male_v2_3.png",
+      "candidateSha256": "b65011f6f97dd32e5571c907eaae0b2a76e1883c9ac251a0c9a49a650cbc4eac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Palms-Up_Wrist_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Palms-Up_Wrist_Curl_female_v2_0.png",
+      "sourceSha256": "55964854c22af40bd22927941addc54a92ed1920a56c0d8c57139b8285b4a9c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/183/Seated_Dumbbell_Palms-Up_Wrist_Curl_female_v2_0.png",
+      "candidateSha256": "6d827df6f1eb09a20a128b14857995ed104d424288436640d6108817e27e98de",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Palms-Up_Wrist_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Palms-Up_Wrist_Curl_female_v2_1.png",
+      "sourceSha256": "f1fb1c618f90455557b297d02221d747d808f989966fab4623533efbfce3e4ff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/183/Seated_Dumbbell_Palms-Up_Wrist_Curl_female_v2_1.png",
+      "candidateSha256": "1faf9eca47c5c632f91ddae95f69d5fc42f4107588fb35af2b407d1e3dbe5a56",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Palms-Up_Wrist_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Palms-Up_Wrist_Curl_female_v2_2.png",
+      "sourceSha256": "03ee701a9f8d67a15bba5c0c0199d4cc018f940bf7c82fb713f9e4beb1c6ddc3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/183/Seated_Dumbbell_Palms-Up_Wrist_Curl_female_v2_2.png",
+      "candidateSha256": "f0a33058b005e1c4d84b40246dd1ede899fdc09ee3785c85a94dffe9e6b7dfbf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Palms-Up_Wrist_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Palms-Up_Wrist_Curl_female_v2_3.png",
+      "sourceSha256": "6254aa17af685a4d53802e236c832708f9a239c526012a73441039870a7ac6e8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/183/Seated_Dumbbell_Palms-Up_Wrist_Curl_female_v2_3.png",
+      "candidateSha256": "cfbac04f80fc30dbcc5ecf2263318b67df4b614b790725d48ffb070eb8bf8adc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

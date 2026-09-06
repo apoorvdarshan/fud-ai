@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Floor_Hamstring_Stretch",
+  "shard": 19,
+  "index": 186,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Floor_Hamstring_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Floor_Hamstring_Stretch_male_v2_0.png",
+      "sourceSha256": "c64fcba8855d15a83af69e77a65ce194199437fff45c560e80b2e7a9c97d3e5c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/186/Seated_Floor_Hamstring_Stretch_male_v2_0.png",
+      "candidateSha256": "d54692acc106b2ac640522fcf1b20390d65df573723b34d44f1e7493f5318ed5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Floor_Hamstring_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Floor_Hamstring_Stretch_male_v2_1.png",
+      "sourceSha256": "3280da8f50b75822ef52b18bd41f2859f85b66425d48e8f11aba54a50a2f41cf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/186/Seated_Floor_Hamstring_Stretch_male_v2_1.png",
+      "candidateSha256": "30bdb478f6bdf5729a67bb8005feca3a21a47501badce96cb9df50b4184bcaf3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Floor_Hamstring_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Floor_Hamstring_Stretch_male_v2_2.png",
+      "sourceSha256": "b1c6896ed388833841e764b21e3ee683fed565a70ed1c56a2a19379b80ef80b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/186/Seated_Floor_Hamstring_Stretch_male_v2_2.png",
+      "candidateSha256": "f1aaed59ed8c76f902f192572c1a00a2f08fb60f78a0858297c4d5017099056c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Floor_Hamstring_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Floor_Hamstring_Stretch_male_v2_3.png",
+      "sourceSha256": "39ff4c5e81c4c90351a6f1ff255ba001af53c42ab582b01500a43b06c56b0c7b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/186/Seated_Floor_Hamstring_Stretch_male_v2_3.png",
+      "candidateSha256": "c07112c9b2216de139bd593115990d0c9a1414b8bf0881f2b29bb3679b1eeaa7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Floor_Hamstring_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Floor_Hamstring_Stretch_female_v2_0.png",
+      "sourceSha256": "5f14a0d41507c7dbca1a3881fe67d97729a5c3c74c5b9cf5a214c870adce7c7c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/186/Seated_Floor_Hamstring_Stretch_female_v2_0.png",
+      "candidateSha256": "cfd93b986cf5ff28c015d52cf9a21562b9bcd51805fa490207763d78729a3900",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Floor_Hamstring_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Floor_Hamstring_Stretch_female_v2_1.png",
+      "sourceSha256": "4fb2a246423bdc5ae0d632658cdf8ca361614f7acf2000f848af159ca8cdd894",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/186/Seated_Floor_Hamstring_Stretch_female_v2_1.png",
+      "candidateSha256": "107254c6344f0a3a92eba5eea76810a13b61361da1a2aaf563a17c08feffab25",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Floor_Hamstring_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Floor_Hamstring_Stretch_female_v2_2.png",
+      "sourceSha256": "79b28e91d2a4524d79596595866f072cee857f805036896722612de8c14bae80",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/186/Seated_Floor_Hamstring_Stretch_female_v2_2.png",
+      "candidateSha256": "cb16a5ea1ac42b2fe57aac685702797811a1aca938933d7cb6bdad2d2d485e54",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Floor_Hamstring_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Floor_Hamstring_Stretch_female_v2_3.png",
+      "sourceSha256": "9a76c38855fb207b6996ebfe6962dbd2b4e1bf69ece2ee32585d114821082632",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/186/Seated_Floor_Hamstring_Stretch_female_v2_3.png",
+      "candidateSha256": "ed8973f59fb0d2683958e47e8bd0dc8170f72db2720fdaca4154a05d6886e41f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

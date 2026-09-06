@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Flat_Bench_Leg_Pull-In",
+  "shard": 19,
+  "index": 185,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Flat_Bench_Leg_Pull-In_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Flat_Bench_Leg_Pull-In_male_v2_0.png",
+      "sourceSha256": "a7d4e9abc0cebaa1771975191f89cf8012680fa023430bc205c10eccaa1e2387",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/185/Seated_Flat_Bench_Leg_Pull-In_male_v2_0.png",
+      "candidateSha256": "83e5d5f518646703372966898640e126155531926ccabbbcaf839d3144d38a9c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Flat_Bench_Leg_Pull-In_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Flat_Bench_Leg_Pull-In_male_v2_1.png",
+      "sourceSha256": "2a278e01c66eebad63fd19519502cdf367d0956277b2d8673ce698aa7b51a137",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/185/Seated_Flat_Bench_Leg_Pull-In_male_v2_1.png",
+      "candidateSha256": "9db8956f6b732409d358a29e1f275bb6db35a6f39f5df6945d468f9940f90102",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Flat_Bench_Leg_Pull-In_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Flat_Bench_Leg_Pull-In_male_v2_2.png",
+      "sourceSha256": "7f2301afec963ffdb68c1310f624759cdd21d3e1cb4aba6bb1ab6431501186a5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/185/Seated_Flat_Bench_Leg_Pull-In_male_v2_2.png",
+      "candidateSha256": "51f455a72259d330f887d10d122905f3597d7b02b77cdc0549fd9144027e23b5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Flat_Bench_Leg_Pull-In_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Flat_Bench_Leg_Pull-In_male_v2_3.png",
+      "sourceSha256": "78f9cc9ce00614e80dbe13cb486722d08626d69cbe746268aa8beae5877bd3f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/185/Seated_Flat_Bench_Leg_Pull-In_male_v2_3.png",
+      "candidateSha256": "5d3a6d679deeec2a916505792e9967263e7a5d2ce792bd2887e3db5936b3035a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Flat_Bench_Leg_Pull-In_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Flat_Bench_Leg_Pull-In_female_v2_0.png",
+      "sourceSha256": "2f5f942a5a119973f1b5a2088286604e32699fbeaaefc7a6f750cc8570604ded",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/185/Seated_Flat_Bench_Leg_Pull-In_female_v2_0.png",
+      "candidateSha256": "2dd29ad39306678d066de13e6cb5f910685c5ce76750d266fe92400d70644312",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Flat_Bench_Leg_Pull-In_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Flat_Bench_Leg_Pull-In_female_v2_1.png",
+      "sourceSha256": "b4c24317ef4d02bdbdb0d35f736e5f2601a6f049b395b39bb3bf0f5aeff1efd3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/185/Seated_Flat_Bench_Leg_Pull-In_female_v2_1.png",
+      "candidateSha256": "bb0ee4a3fea3171ac43a6bbbdbdf965e3ce54c1275d8484a50cbe75404655e75",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Flat_Bench_Leg_Pull-In_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Flat_Bench_Leg_Pull-In_female_v2_2.png",
+      "sourceSha256": "586355d0753b17a62785069881c62dec165e58927d1c523bd6707b782e229505",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/185/Seated_Flat_Bench_Leg_Pull-In_female_v2_2.png",
+      "candidateSha256": "dab0d6024e5cdf18d78452ebb227b63f9c79b05c0857adc466f48a16f6aa698a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Flat_Bench_Leg_Pull-In_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Flat_Bench_Leg_Pull-In_female_v2_3.png",
+      "sourceSha256": "264d12d4bf6b0148f0a27a682e4d5914ec6da6211aaee93bbed42a700da754db",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/185/Seated_Flat_Bench_Leg_Pull-In_female_v2_3.png",
+      "candidateSha256": "d98ffeda99c32b28d4333ea6f136aafdfdb356dd816dd8e73f65274e8f7baecc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

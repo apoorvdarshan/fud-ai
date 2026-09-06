@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Glute",
+  "shard": 19,
+  "index": 188,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Glute_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Glute_male_v2_0.png",
+      "sourceSha256": "2d638e37046dc99358bee4196649b5ffc4e27ba041179bdf70a65b0927c8ec74",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/188/Seated_Glute_male_v2_0.png",
+      "candidateSha256": "a154e71cce98f2546385123d2052ea17b1c01a5f99bb9040c8c3ea008512af29",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Glute_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Glute_male_v2_1.png",
+      "sourceSha256": "90195e20ece8076ed8adf713ec054f84a1c582f07a23b94eb168f661fc839d80",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/188/Seated_Glute_male_v2_1.png",
+      "candidateSha256": "d96886b8997071fef463d03b4cb5ec35fbc678ae215dea04463dedc85b9723dd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Glute_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Glute_male_v2_2.png",
+      "sourceSha256": "5316d2ed31738124a5351915bc8ec5627380851128ad4af7932efbbeb7f76866",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/188/Seated_Glute_male_v2_2.png",
+      "candidateSha256": "9b283cdee5fc70fe8d191e7dcf18acca14eb19d69ab6b58bb982d3b6054ee030",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Glute_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Glute_male_v2_3.png",
+      "sourceSha256": "3f36785128063f9fa031852296d0f8ab5c43e3d8e604ca0184e288d48037b78c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/188/Seated_Glute_male_v2_3.png",
+      "candidateSha256": "9ee904b76f0c761a753dad14f68a938547e0c17f68e5054dea2fa3ea549f4feb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Glute_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Glute_female_v2_0.png",
+      "sourceSha256": "317b2f78ee0342b56230f536856a8e3575571eba22d4ad8d51bc1b9e698a7287",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/188/Seated_Glute_female_v2_0.png",
+      "candidateSha256": "caa07c4a589ffb41aef4bfdd43802e92c5abef02785143e44d31158b60f54417",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Glute_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Glute_female_v2_1.png",
+      "sourceSha256": "b90f990190c18e9fb22a263b90e7ad55d50bb687355c30d20139c7aee283aa06",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/188/Seated_Glute_female_v2_1.png",
+      "candidateSha256": "2450ab656cd90cb94e91f2b003e1f2694a37b08032a5973da7a138d22e083bbb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Glute_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Glute_female_v2_2.png",
+      "sourceSha256": "293362f805d29bb680d5f7769e4c01247fc75df4e954f5de5f1a43b465ec5fd8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/188/Seated_Glute_female_v2_2.png",
+      "candidateSha256": "4da74a36c18939b489fe87be5e76fd4471e2c065c3efea3885428ad2c0bc8fed",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Glute_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Glute_female_v2_3.png",
+      "sourceSha256": "fbdbc84bae2b5afc311334fa6e1989ff950e19289d3d79094e67e04a02d3cbb6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/188/Seated_Glute_female_v2_3.png",
+      "candidateSha256": "9c7e0499ce6b450c929caa83f95d4dd199dbdf29a2121f4e8e3810a692b308a3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

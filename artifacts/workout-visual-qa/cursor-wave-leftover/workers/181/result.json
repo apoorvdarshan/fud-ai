@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Dumbbell_Inner_Biceps_Curl",
+  "shard": 19,
+  "index": 181,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Dumbbell_Inner_Biceps_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Inner_Biceps_Curl_male_v2_0.png",
+      "sourceSha256": "d5d7fd148343b47c949ef2dbd5f99cb787dad3e8e73f867e699b8b60fab6ddfa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/181/Seated_Dumbbell_Inner_Biceps_Curl_male_v2_0.png",
+      "candidateSha256": "a84811141a0d83aca47ffec98ee2ed480760aef626a4a632c0ca3466a16fb2cf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Inner_Biceps_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Inner_Biceps_Curl_male_v2_1.png",
+      "sourceSha256": "04dd345bdb383842a3da8b38163a940682eec96f1139c768c86c0b85085bdb3b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/181/Seated_Dumbbell_Inner_Biceps_Curl_male_v2_1.png",
+      "candidateSha256": "95561f993b1a526d4d4eaf0d7dc5001d918b23246d6a37e5ed4a580eb1267295",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Inner_Biceps_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Inner_Biceps_Curl_male_v2_2.png",
+      "sourceSha256": "e3b8f85c3ae81f955f9ca363e7342f271e9e9e26a7648c92b932a52600841193",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/181/Seated_Dumbbell_Inner_Biceps_Curl_male_v2_2.png",
+      "candidateSha256": "7c620cdd02567d90f57b957cb086d247e857f8be65c204b85bcda7cf62fe2cfd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Inner_Biceps_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Inner_Biceps_Curl_male_v2_3.png",
+      "sourceSha256": "4dcb8f71c9755818446f3b31ec87c188dc544b06c173fcd7da3ba8971f983047",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/181/Seated_Dumbbell_Inner_Biceps_Curl_male_v2_3.png",
+      "candidateSha256": "f9f8382810cd21005008461c75dfd1ff4135e7d26fa97ecd7a1f33c0c237f397",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Inner_Biceps_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Inner_Biceps_Curl_female_v2_0.png",
+      "sourceSha256": "fa79f39743809d30a6e62947d728f99519d18df9307db58ce5dc42504b185334",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/181/Seated_Dumbbell_Inner_Biceps_Curl_female_v2_0.png",
+      "candidateSha256": "6719028d81d5d1a342a9ab1dea71ca20b5c071fe27edcdff2ced9313ae1f067d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Inner_Biceps_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Inner_Biceps_Curl_female_v2_1.png",
+      "sourceSha256": "19f36b0d91e977249e8b51dfe01cd526b5de7004f2b6aaabc9be5225098ad04f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/181/Seated_Dumbbell_Inner_Biceps_Curl_female_v2_1.png",
+      "candidateSha256": "5a5f16b52ee4b81b159b19eeed01c9ea9c5ae2d317d39eb83518615866d87c8a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Inner_Biceps_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Inner_Biceps_Curl_female_v2_2.png",
+      "sourceSha256": "5f913096981b9e4e0fb95a6b8c14b1622b4da965b50c13e00206176097229205",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/181/Seated_Dumbbell_Inner_Biceps_Curl_female_v2_2.png",
+      "candidateSha256": "7c7f29cb9ba089627df528f54013090aeb24f0a0a909a9185a2a195ce3063297",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Inner_Biceps_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Inner_Biceps_Curl_female_v2_3.png",
+      "sourceSha256": "cfe70a0af06bafd22c6ac4899e8651e825cccac15b7d1a98ea91ce8175a147a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/181/Seated_Dumbbell_Inner_Biceps_Curl_female_v2_3.png",
+      "candidateSha256": "a205db9e1954bc899aa9779e445d3ad8ca43683cce4705383e4cd08b4b26f242",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

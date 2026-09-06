@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Wrist_Circles",
+  "shard": 42,
+  "index": 416,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Wrist_Circles_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Circles_male_v2_0.png",
+      "sourceSha256": "f3241ded012e6d7076b0999e21a4abbd6225492d49a4abd2742e9d5ce7a5d2c9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/416/Wrist_Circles_male_v2_0.png",
+      "candidateSha256": "c4046e82ad821831ce6e5201f766f27881dea9d9a2a4cf286469b948eb133a89",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Circles_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Circles_male_v2_1.png",
+      "sourceSha256": "03d66134dc7744716e0f1e6fc302e954c7dbe988400cbf044610c99443f7950d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/416/Wrist_Circles_male_v2_1.png",
+      "candidateSha256": "12f5010c070795c99acdbf59d00e18ed19eab62113f222c56209ad85a92ea810",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Circles_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Circles_male_v2_2.png",
+      "sourceSha256": "1ea4e0faf7a96f4511a7645c96fae1ec5ac4a23245f476242ef6f08f86c9eda3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/416/Wrist_Circles_male_v2_2.png",
+      "candidateSha256": "b3c23aed53e96a38aa6dfd9eb93c2b4ec3026a84fba65a2365fa12a865eaf00f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Circles_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Circles_male_v2_3.png",
+      "sourceSha256": "bb838a9e5bd494a4d7833b566dfdc0b58459ccd56bb0c893c90edec8b934b4e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/416/Wrist_Circles_male_v2_3.png",
+      "candidateSha256": "603d5ea21fbf0c224e42aeadd09c96acbf4fca2a120d026af638907aa78a9348",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Circles_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Circles_female_v2_0.png",
+      "sourceSha256": "2fb1ff95c4ae7c4cb42778877c0b222e4fcb7be76dec7ab24baf5faab34febff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/416/Wrist_Circles_female_v2_0.png",
+      "candidateSha256": "7f1a4058f3245bc259a8529c1d3d9433f53ad531cd1e7f3f5857b6bf543e7eb9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Circles_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Circles_female_v2_1.png",
+      "sourceSha256": "c8bafa6cfbdec066bc00852a7ecb57b68728bc81ea2e2a8bcd3404c585716b62",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/416/Wrist_Circles_female_v2_1.png",
+      "candidateSha256": "aeb4cc5e1617e191970ff3fe7bbf737060c2908efeae2b3529c60a5dd7b215b0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Circles_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Circles_female_v2_2.png",
+      "sourceSha256": "38258c66a956838f280dad71f2c44cbc2a5127fbc01da9f40f03cbb375b402d9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/416/Wrist_Circles_female_v2_2.png",
+      "candidateSha256": "52e988155edb92b884973b102dbfdb05a9181b350f09b7e7cb20f1e4d0b1c51f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Circles_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Circles_female_v2_3.png",
+      "sourceSha256": "bfe8c830bbfbc1e411bca1cdb86a08ab8ea071b9a1a86dbcee4bb9513d3cfa96",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/416/Wrist_Circles_female_v2_3.png",
+      "candidateSha256": "c96491563cee076b74a4fa9b570fd4e7e29b36ec99c2bdc64b97dbeedcb64ffb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

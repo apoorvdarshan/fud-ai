@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Wrist_Rotations_with_Straight_Bar",
+  "shard": 42,
+  "index": 418,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Wrist_Rotations_with_Straight_Bar_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Rotations_with_Straight_Bar_male_v2_0.png",
+      "sourceSha256": "c7c19882d5104d6d30e66e852e0b3d38c27b2a3365d3d1282eab73f4e83f2ff4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/418/Wrist_Rotations_with_Straight_Bar_male_v2_0.png",
+      "candidateSha256": "5ea9b0f7dcbeccc379d6a449d8d22acc9265abfd049759851dce3f9bb750c24d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Rotations_with_Straight_Bar_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Rotations_with_Straight_Bar_male_v2_1.png",
+      "sourceSha256": "b4c25813582c0d352b0cd8ab08ca10f69245e666e5ecf89c40f49148585cc017",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/418/Wrist_Rotations_with_Straight_Bar_male_v2_1.png",
+      "candidateSha256": "87e01fac4cebeb4d0e35e429617e9a59333e0ca556707a8ebe27373987257939",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Rotations_with_Straight_Bar_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Rotations_with_Straight_Bar_male_v2_2.png",
+      "sourceSha256": "96a602e4be817aaee0ffd4d3c6991a8a761ff104f179ccc301fcb451729571da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/418/Wrist_Rotations_with_Straight_Bar_male_v2_2.png",
+      "candidateSha256": "7ffdc80e74664208f51a5434dd6d6553bd8517f512d5f4c2a034001ab9baecdc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Rotations_with_Straight_Bar_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Rotations_with_Straight_Bar_male_v2_3.png",
+      "sourceSha256": "bce90b2b33dc12b3aebe9930e18d6dd1a0e632bffad1b2417d28f19315e06e96",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/418/Wrist_Rotations_with_Straight_Bar_male_v2_3.png",
+      "candidateSha256": "13cb3cea83552b4f3771b48230b1def59e0070ac0cd39973881e0903f0daf2e0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Rotations_with_Straight_Bar_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Rotations_with_Straight_Bar_female_v2_0.png",
+      "sourceSha256": "ebb579c277ca42b5f87731645a2057ae6f51c3a2984e0d0a63b98a4ad6d0ec93",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/418/Wrist_Rotations_with_Straight_Bar_female_v2_0.png",
+      "candidateSha256": "8af6676425d82f6eb3e4fcbd00c610499a287028e87d027a9bbdadd0404f111a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Rotations_with_Straight_Bar_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Rotations_with_Straight_Bar_female_v2_1.png",
+      "sourceSha256": "4aa801015dd1c40dffdede77bb1e98d9968940eeeeccf20b2f73c6b35dc49217",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/418/Wrist_Rotations_with_Straight_Bar_female_v2_1.png",
+      "candidateSha256": "e1288628216ff78854f66ad464b5618e1cf1e507aa064b1e9e130eaf869edd12",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Rotations_with_Straight_Bar_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Rotations_with_Straight_Bar_female_v2_2.png",
+      "sourceSha256": "2a1baa8cf1de8257d263aa5132595fa5e49c0bc9d751d9270e36867c00d74a94",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/418/Wrist_Rotations_with_Straight_Bar_female_v2_2.png",
+      "candidateSha256": "567552e624c6175f1ca5fad8fcaf4f5f0976d5a09bdc8699b96f8305eb6204b6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wrist_Rotations_with_Straight_Bar_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wrist_Rotations_with_Straight_Bar_female_v2_3.png",
+      "sourceSha256": "4b47d3dc33f46656529b0c07fed7ce94af7a1a9e0af8e6c659d9d82428e9fb1f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/418/Wrist_Rotations_with_Straight_Bar_female_v2_3.png",
+      "candidateSha256": "1c5e86807bee3f27fe8b7aa600c4567326cbd8535a6f97ec8d0377554f330907",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

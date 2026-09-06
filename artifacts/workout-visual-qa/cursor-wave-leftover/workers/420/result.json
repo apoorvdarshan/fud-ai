@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Zercher_Squats",
+  "shard": 42,
+  "index": 420,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Zercher_Squats_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Zercher_Squats_male_v2_0.png",
+      "sourceSha256": "05b6896a6ce683f1d6a172fae586951b37c2a45af4cc86de82516030a47fd65b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/420/Zercher_Squats_male_v2_0.png",
+      "candidateSha256": "2774ff28e2d3eadd6fb02e43a919a0211182fdc33375f7e4b690c1810437178b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Zercher_Squats_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Zercher_Squats_male_v2_1.png",
+      "sourceSha256": "a049132fe3d91d666ae8e7f41170a528cc9676e3366abd3e77d5f55f43e4c6ee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/420/Zercher_Squats_male_v2_1.png",
+      "candidateSha256": "b3a4d032b5a58ae71d74e877ffd536af722e86235c2bd957aeb316174dba4698",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Zercher_Squats_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Zercher_Squats_male_v2_2.png",
+      "sourceSha256": "f9143dd31b99ab87e0313b92d8b9951d3976da16bc6af5f212c33044564bd9a3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/420/Zercher_Squats_male_v2_2.png",
+      "candidateSha256": "49ed704c03540f37d67c49bff5457ec648abb644fdcb50337521971537fe2af4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Zercher_Squats_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Zercher_Squats_male_v2_3.png",
+      "sourceSha256": "6ce6f243c9923c7a905215ec9ca69912202be092057e7ceb0d77a394ae2e1831",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/420/Zercher_Squats_male_v2_3.png",
+      "candidateSha256": "e6aca840cf6d8901791634d6f702cdf3678fc2aea69a067cfbdfc9510738ebc2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Zercher_Squats_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Zercher_Squats_female_v2_0.png",
+      "sourceSha256": "f93abc873a92ef294876d2c9c0a9bb73552ffaa1511225304b80a48e9be8c5f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/420/Zercher_Squats_female_v2_0.png",
+      "candidateSha256": "e19352085c2dad0bc43f66faa9dfaf86ad3bf096cb9bba85b04cff3b4f79b0f1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Zercher_Squats_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Zercher_Squats_female_v2_1.png",
+      "sourceSha256": "3390fd70c2de2e4bb83dbd8ece0bb0bca3d5f73c09f75f674f3e25eb75258923",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/420/Zercher_Squats_female_v2_1.png",
+      "candidateSha256": "98acfb66513086d85655c815d8d4381841a07023529137b4ebbf15ab3f40046a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Zercher_Squats_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Zercher_Squats_female_v2_2.png",
+      "sourceSha256": "f3fce9387cb9e933ec14716423c3034228b24fd2b4f17bd0b262cf7243c2afb1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/420/Zercher_Squats_female_v2_2.png",
+      "candidateSha256": "69e9644c8129f4abb3e1df18573d24f0454b934a414800ff3b4189f60ffe6fec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Zercher_Squats_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Zercher_Squats_female_v2_3.png",
+      "sourceSha256": "fcb651095326963b447facfee4c3a87eb63b9887dc75668d707cdb04742d7164",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/420/Zercher_Squats_female_v2_3.png",
+      "candidateSha256": "38ffe00385b5ef00f52d0a95474dff8027548e3ca07a1f0abc55962cd25882f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

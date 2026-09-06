@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Wind_Sprints",
+  "shard": 42,
+  "index": 413,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Wind_Sprints_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wind_Sprints_male_v2_0.png",
+      "sourceSha256": "804f37ccd05a03ff7b5f811d25c6bb4bbe548a59fd2c286a76a58166cb9bf8c8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/413/Wind_Sprints_male_v2_0.png",
+      "candidateSha256": "60cc5ab3cbf42aa35bde7bc2cfe7de513c4e3daaef09c264cf6dc9b4bb053f99",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wind_Sprints_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wind_Sprints_male_v2_1.png",
+      "sourceSha256": "a7e49942dcffce2b9bc8e387b99975e1016fcf72658e0336ff6279518a70e3cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/413/Wind_Sprints_male_v2_1.png",
+      "candidateSha256": "a98f498d008d4de833f45efbdf1b6d352195a481df74c0fce6b6547074489e05",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wind_Sprints_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wind_Sprints_male_v2_2.png",
+      "sourceSha256": "e3154acd3662720f683ad33c17379bf0bb6f444e9520a7681d5e83c27efe1229",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/413/Wind_Sprints_male_v2_2.png",
+      "candidateSha256": "bf31f94796233f1eb3514189f1d1f226ed6d23b7ed85e15df75c40772f382ee7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wind_Sprints_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wind_Sprints_male_v2_3.png",
+      "sourceSha256": "d3514e3c6ab18ee703b6d48cfc9c11e186486b68f2cf0b8c51b3060a85efb8d6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/413/Wind_Sprints_male_v2_3.png",
+      "candidateSha256": "65d0249d3be2ba69cf6b93b230dc27ea90c530a39d6e390d7949e39a56ef91f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wind_Sprints_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wind_Sprints_female_v2_0.png",
+      "sourceSha256": "25cd992414166ccf01a76b8c21c984eaeb81dbc5697ba694cf271c5943bb541b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/413/Wind_Sprints_female_v2_0.png",
+      "candidateSha256": "10128defc5625e10c20cb103f0f33120b6d8fa8cd28108103e5bce2403716548",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wind_Sprints_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wind_Sprints_female_v2_1.png",
+      "sourceSha256": "182b99ba1938a6a0d8a11a7f4742c4406d555cc394764d62bf0c2631fdcacac3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/413/Wind_Sprints_female_v2_1.png",
+      "candidateSha256": "4871b83acbeb79600e183bde209a1fbe9834d48a6348fd6b873512a83df4116b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wind_Sprints_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wind_Sprints_female_v2_2.png",
+      "sourceSha256": "afed23dfb7839e9abe3a1e212c67f4893766092e3e949d687bd7c05e28dc0594",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/413/Wind_Sprints_female_v2_2.png",
+      "candidateSha256": "96b9cc7434ee3954f9627fff2aacebe01acf1b9152998e982a2270225a2ab491",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wind_Sprints_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wind_Sprints_female_v2_3.png",
+      "sourceSha256": "df9f0cf7d89987d3819937dc4348f39276eca7978e73d5e5ed1e2b33d072fc28",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/413/Wind_Sprints_female_v2_3.png",
+      "candidateSha256": "06aa060017d8d06980d3031e98815919710444e903f53e9ab097d046b2f7689d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

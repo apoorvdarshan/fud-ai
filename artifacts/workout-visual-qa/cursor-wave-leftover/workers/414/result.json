@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Windmills",
+  "shard": 42,
+  "index": 414,
+  "status": "ready_for_review",
+  "findings": [
+    "Windmills male_v2_1: gray matte removed via GenerateImage + green chroma key.",
+    "Windmills female_v2_3: duplicated legs fixed via GenerateImage + green chroma key."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Windmills_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Windmills_male_v2_0.png",
+      "sourceSha256": "a0678f0641242ac7c3181e1d6d5dfa80f013cf59adca13af818c981bb13baefa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/414/Windmills_male_v2_0.png",
+      "candidateSha256": "c1995bc490bb13f4be4aa59cc747d90f01e34e33db863c9f89938f8ac1ffed5d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Windmills_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Windmills_male_v2_1.png",
+      "sourceSha256": "bf87d3134ac507f733e0d8871a47b4055735cdc979c5915c7188af2e9cd67772",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/414/Windmills_male_v2_1.png",
+      "candidateSha256": "269a94dd97eba8532420befabd919e1526cd6c1991bfa23e4eb70eefb7ec9ea3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Windmills_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Windmills_male_v2_2.png",
+      "sourceSha256": "e1bc229c82fd0ab1dc3e96da5081616d023be908fd2e3f6dc97ff80b6655879b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/414/Windmills_male_v2_2.png",
+      "candidateSha256": "4718ea08b650a80940d3ab92f6e73d8506b540b9c53779efa3778a3787cc7ba7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Windmills_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Windmills_male_v2_3.png",
+      "sourceSha256": "d6bcd4d24ae6c8407a2febb59413f904ede906672c1511193bb2302a4120fac3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/414/Windmills_male_v2_3.png",
+      "candidateSha256": "f50aedd9a3dd8e92531ef8e34e67a83795c8b4ea7565d04ea0979f71cd2560c8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Windmills_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Windmills_female_v2_0.png",
+      "sourceSha256": "101cc1e470801c935c818286837372940b12416ef7cf3d7fc585e95656323a46",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/414/Windmills_female_v2_0.png",
+      "candidateSha256": "b4a53a44fe1e358b073a17b36f64393e371a03aa223b66777367a2e400388542",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Windmills_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Windmills_female_v2_1.png",
+      "sourceSha256": "914d08d0f35fd97a9cded22994a15b3b53fb18171d6bf6e51bcf0fc1a211f6f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/414/Windmills_female_v2_1.png",
+      "candidateSha256": "c9fb5ce95faaf2650b6c511e61f97f75735e90bed54d482265e645dbd20ce31a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Windmills_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Windmills_female_v2_2.png",
+      "sourceSha256": "d61ac2b0c771c22f3175d6f752860a6702849a7cac00bee10140b0cde0031586",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/414/Windmills_female_v2_2.png",
+      "candidateSha256": "695e31a9d727ce467935510c4fdd8f7a824cf0677deeb30d0a4a14d8964e61bf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Windmills_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Windmills_female_v2_3.png",
+      "sourceSha256": "1d176b95dc2ff06c3b58ab10c70182e57ce04cacfa92123d4205846186efa02b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/414/Windmills_female_v2_3.png",
+      "candidateSha256": "73b27d76509e53d7634488577cc7560ab914952337dd339d243b64d9271a0bea",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

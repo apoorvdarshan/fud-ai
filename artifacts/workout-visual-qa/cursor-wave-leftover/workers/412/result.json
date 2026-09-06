@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Wide_Stance_Stiff_Legs",
+  "shard": 42,
+  "index": 412,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Wide_Stance_Stiff_Legs_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Stiff_Legs_male_v2_0.png",
+      "sourceSha256": "cd66e4f16d3b1df824c2a9807014640f26a8ac44788008a7ced6f2cdba028dda",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/412/Wide_Stance_Stiff_Legs_male_v2_0.png",
+      "candidateSha256": "9d26167cf2f9baa2ca447dc51782a2571f33317d2b637587982ba91316c7ae3b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Stiff_Legs_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Stiff_Legs_male_v2_1.png",
+      "sourceSha256": "ba1cbe0da17ea3c1f877622239df710f018ded6f97563f5c5ae12d529b11ea11",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/412/Wide_Stance_Stiff_Legs_male_v2_1.png",
+      "candidateSha256": "116514e446669b07e0afcb9bd6f299bf7686cc283519b2715c5f553c79048346",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Stiff_Legs_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Stiff_Legs_male_v2_2.png",
+      "sourceSha256": "e6516011ea78f0b13fccc662035e566b78e38fecd306e95d6b39ba6363ae21e2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/412/Wide_Stance_Stiff_Legs_male_v2_2.png",
+      "candidateSha256": "213f9698ccd141876fea0dfd5a7fc78cb646b129e80e4ebdd7833d21990b9f54",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Stiff_Legs_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Stiff_Legs_male_v2_3.png",
+      "sourceSha256": "b415527ea7649a461b05fb79d733c71e2c4ba7a580b8bd87a363ac0d7ab1857a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/412/Wide_Stance_Stiff_Legs_male_v2_3.png",
+      "candidateSha256": "c6a0335cce932904a0c6cd8dbc6273f2e3546b62f2f7f14418b261629dac2685",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Stiff_Legs_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Stiff_Legs_female_v2_0.png",
+      "sourceSha256": "6b6d9e831059bd7560656adc62d981f0e2c1671126e23b2c320d27c8933186ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/412/Wide_Stance_Stiff_Legs_female_v2_0.png",
+      "candidateSha256": "a19793c7fb0986bbf2452e12ae3b85e6c75e679cba0f439c97421f023a4c47ad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Stiff_Legs_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Stiff_Legs_female_v2_1.png",
+      "sourceSha256": "cf2541d6bc2c202d386e47071b0f25f7b0a43ddabcb96f447e55b78b64e9a785",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/412/Wide_Stance_Stiff_Legs_female_v2_1.png",
+      "candidateSha256": "1a0201aeca7e070ddc246f54466c2ad2ec5d5fedd64fb922fdd2019c8bd1d4ca",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Stiff_Legs_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Stiff_Legs_female_v2_2.png",
+      "sourceSha256": "42ba7e2a59336cefc41ef53703b62bd0cfe51164b6fb3f3678b339b9c8220e21",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/412/Wide_Stance_Stiff_Legs_female_v2_2.png",
+      "candidateSha256": "a5b6a9cdc998876b2b7317759a77cb2b3d1d0428ce1c4729295e5073ac1c3e5a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Wide_Stance_Stiff_Legs_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide_Stance_Stiff_Legs_female_v2_3.png",
+      "sourceSha256": "db9113b3530030b70e935633dc1f018219ba2a80b5d16339cb6dcd1d448df187",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/412/Wide_Stance_Stiff_Legs_female_v2_3.png",
+      "candidateSha256": "60faf3b5521e10bd12ade05054099e88c153638f89668297c52f54e619157b94",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

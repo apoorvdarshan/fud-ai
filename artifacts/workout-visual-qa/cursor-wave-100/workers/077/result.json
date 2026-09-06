@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kettlebell_Pistol_Squat",
+  "shard": 8,
+  "index": 77,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kettlebell_Pistol_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_male_v2_0.png",
+      "sourceSha256": "48649d4bcec2bc276c88a126cdafb17bf6e0600ec9b88a519910fa6d94936273",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_male_v2_0.png",
+      "candidateSha256": "6d5b851ee10a872d42db8fbbc023bba7c8cb57e876b90d5a90e527ab19b2b1f4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pistol_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_male_v2_1.png",
+      "sourceSha256": "e04bc04e6e7c200b19957c3fd1b5fdfeadc6596bee65cdc01d87d479700ccb5f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_male_v2_1.png",
+      "candidateSha256": "28f25686b9aa2baf3e9936ff462161f74cc85559b1a448171d74a0d47d57b1d5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pistol_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_male_v2_2.png",
+      "sourceSha256": "ffa8fd58573b33a26a6252edc98595e50286d441ceb09d4102078c328a1502ee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_male_v2_2.png",
+      "candidateSha256": "7e8a474a6cba5886d3a4ccb43e2cf47c635d086e4698e6607f791c2c4de06415",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pistol_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_male_v2_3.png",
+      "sourceSha256": "c7f5c346859ea1f5d35f0cdf039b5a8dc16eb46b0075ec05fd8e2ccbcb8538fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_male_v2_3.png",
+      "candidateSha256": "0a26df37da77dc0ee7a3acfa437403bb2e9c955606030c596767523e6e9673f7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pistol_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_female_v2_0.png",
+      "sourceSha256": "82c30a8d4ed0ef6b355f890f69872657899913d772dfd4cfdee3ea5f0bd1ee00",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_female_v2_0.png",
+      "candidateSha256": "c241ee489def29a0d7e802e7c82eacd6d8edc4d43325cecaa7a0aae2fd561830",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pistol_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_female_v2_1.png",
+      "sourceSha256": "560ad9015c49ddd4c0ec6b16fc7b3b7cd658cada57353acb33d110a3178de598",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_female_v2_1.png",
+      "candidateSha256": "fb0fdddb78e50486290a7738283456e1c7d90934c6b76e3a421ac073e352b4b6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pistol_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_female_v2_2.png",
+      "sourceSha256": "fc8866ee4fa1ba7deaf573eaa27190eaf445efb0df2ed339f14fbfce35ee9657",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_female_v2_2.png",
+      "candidateSha256": "a5ccd2c2d576fe2d20036583dc5d21c8dff0536755549f88513a7818c4ce83ce",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pistol_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_female_v2_3.png",
+      "sourceSha256": "0226937db5e301f80a1c4111af99798a783f4a46829ee5b0b0026fa7043d4ad8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/077/Kettlebell_Pistol_Squat_female_v2_3.png",
+      "candidateSha256": "4b7cd1ccfc39df280baef28b637c3eeaf8fee6ff2c53aac807ff66850f665e34",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

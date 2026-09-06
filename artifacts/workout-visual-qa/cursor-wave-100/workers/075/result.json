@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kettlebell_Pass_Between_The_Legs",
+  "shard": 8,
+  "index": 75,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kettlebell_Pass_Between_The_Legs_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_male_v2_0.png",
+      "sourceSha256": "8383bb101387e5065c6152dbf575763c3198e03f40b7812b3ef5f9d9932c72b7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/075/Kettlebell_Pass_Between_The_Legs_male_v2_0.png",
+      "candidateSha256": "254414f4041a4cc86c2ea1f6f2a1b6a03540d659cb43f12d716250b26de2fdcc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pass_Between_The_Legs_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_male_v2_1.png",
+      "sourceSha256": "9f4bfc6ff9c53747130f28371c0228c363c87ce1f6b09354966e2e07ee8fce2a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/075/Kettlebell_Pass_Between_The_Legs_male_v2_1.png",
+      "candidateSha256": "b91b301d3bc68243f1ef79d495697bb262cd7b1f1153041d2096c95861ca10b4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pass_Between_The_Legs_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_male_v2_2.png",
+      "sourceSha256": "389a98f69d351ce5b7e9aa116d8e385c09f08e38a13f0c7cbf65ddcd9d540159",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/075/Kettlebell_Pass_Between_The_Legs_male_v2_2.png",
+      "candidateSha256": "2610369c985ebb3accd7ff98c0633648df0944bdcc191673aee4215179047e5d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pass_Between_The_Legs_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_male_v2_3.png",
+      "sourceSha256": "802b722691066c3689723a2033da59ddba35e27f0962ab2e2d819e7458d08a6e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/075/Kettlebell_Pass_Between_The_Legs_male_v2_3.png",
+      "candidateSha256": "06a998bf9363c389988b9cf711162933aedadfc98e31f4f6f2ffbe52a4a63f3f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pass_Between_The_Legs_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_female_v2_0.png",
+      "sourceSha256": "59b02dd324cf8099c4fbab05da4fdf0199bf8ec03ed695312246067b7c271269",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/075/Kettlebell_Pass_Between_The_Legs_female_v2_0.png",
+      "candidateSha256": "a196196b4ad88b09d33aab010f52f1977fe521e390e7ee6e451f1e7a47c4e219",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pass_Between_The_Legs_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_female_v2_1.png",
+      "sourceSha256": "c96c64eddd3c3f8438468f8051a4a9ddaf66c43e9ed3f4cd5d4361ced23bfda6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/075/Kettlebell_Pass_Between_The_Legs_female_v2_1.png",
+      "candidateSha256": "83cfa27c89615d665225bc0337071e0541bffed79d3ec8c94e0b3ec1d52c3356",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pass_Between_The_Legs_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_female_v2_2.png",
+      "sourceSha256": "41fa0eb75f4055c1223434e4801751750005d382a906218e6dd9f415a59348e1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/075/Kettlebell_Pass_Between_The_Legs_female_v2_2.png",
+      "candidateSha256": "7163bb45af40f8f20e91841a2f51ad3c8ca60f10cfdbc7ba6906f0e80a952f2a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pass_Between_The_Legs_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_female_v2_3.png",
+      "sourceSha256": "95dc56065519bbce27c8672cdce0ba84b050fb4f77530c2553e30d86ecf47ef3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/075/Kettlebell_Pass_Between_The_Legs_female_v2_3.png",
+      "candidateSha256": "1b8df40d2519c6d8dacd67e030355983f68b505c7ff6f766d5971effe13bc622",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

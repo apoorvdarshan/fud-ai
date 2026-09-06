@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Otis-Up",
+  "shard": 7,
+  "index": 68,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Otis-Up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Otis-Up_male_v2_0.png",
+      "sourceSha256": "769f20ac1e13606284851d21cfe4c87bbda536ea051a04e0b3d0b3b73e4e2d8f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/068/Otis-Up_male_v2_0.png",
+      "candidateSha256": "ff416396322a76a6de28859c4bd7a72a8209715b29b6029b458e1c285c2b7b74",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Otis-Up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Otis-Up_male_v2_1.png",
+      "sourceSha256": "79e1edefc42d06a99cbdc9c93202bec9380877384ebf787797a9d615cb692cb6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/068/Otis-Up_male_v2_1.png",
+      "candidateSha256": "a18d174127ab93a0cc1d4fa2b7b6ae0e8f24d98838a13aa3410a5d8fdc5158ee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Otis-Up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Otis-Up_male_v2_2.png",
+      "sourceSha256": "f461d59c28d12afc55397f66bae84dfa133351c97a30f6964cad92686e5ca71d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/068/Otis-Up_male_v2_2.png",
+      "candidateSha256": "41755a305af688a3a02b111908e5774900e2a70a80b8c7dab87ed685cc73a833",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Otis-Up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Otis-Up_male_v2_3.png",
+      "sourceSha256": "29d825bf62dd32b48746e10d640e67e42f7307a1fd0fd2ebd15e07377a39b1f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/068/Otis-Up_male_v2_3.png",
+      "candidateSha256": "e1a5fd0d8974f432cd553373d2372d1184d15327e4a6d97f91f17565032d9b11",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Otis-Up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Otis-Up_female_v2_0.png",
+      "sourceSha256": "303c072810443d84c3f591ed4f3dc62e6034440b77c215f8ad315a936b30dd1a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/068/Otis-Up_female_v2_0.png",
+      "candidateSha256": "3eece21e5d4aa6b32e4af1e1977197d9a42f0d8f76ed7fc7cf443663ff1421d1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Otis-Up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Otis-Up_female_v2_1.png",
+      "sourceSha256": "5c56b1baeac4aa353c685cd0b193bd092a3763b9e60e541fb0a4df81a5305ce7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/068/Otis-Up_female_v2_1.png",
+      "candidateSha256": "82b2c331d13ba1cde72982ab6773ebde4f05c37b6d3c914fc4159314df7e5175",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Otis-Up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Otis-Up_female_v2_2.png",
+      "sourceSha256": "bc9eef2d432d19f6233cae3505e975a3d0374acd57118b7e3cfb3598eca9327b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/068/Otis-Up_female_v2_2.png",
+      "candidateSha256": "654e28678fb9b533b709bc7963ca9ab35f354532cb3cc2f6ea47904434c7fbdc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Otis-Up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Otis-Up_female_v2_3.png",
+      "sourceSha256": "86d77ff275555557d11dc277de7b6b41caf00985e950ba8686389cf9b02894da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/068/Otis-Up_female_v2_3.png",
+      "candidateSha256": "7c41cc8b1812fa54b159399f3ca9276d4d7aa946235e09970f2ddce423b7d92c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

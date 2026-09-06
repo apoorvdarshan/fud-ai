@@ -1,0 +1,83 @@
+{
+  "exerciseId": "One_Knee_To_Chest",
+  "shard": 7,
+  "index": 65,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One_Knee_To_Chest_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Knee_To_Chest_male_v2_0.png",
+      "sourceSha256": "3ca47b67af692e486f09d32e85fc398fc832630935a3d9bfc8cb4ef1dfca6a21",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/065/One_Knee_To_Chest_male_v2_0.png",
+      "candidateSha256": "0861e21fe583f781c86275cbd756914ea3a077c579e698f7c4db34d762971f4e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Knee_To_Chest_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Knee_To_Chest_male_v2_1.png",
+      "sourceSha256": "01e7eb4021b0ed1b342f14f2a13716b9e3ac388f50278aedef16a889b80bb966",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/065/One_Knee_To_Chest_male_v2_1.png",
+      "candidateSha256": "fcdc2d9be775194308df04645f5b08b6e5aa2fcf6c34fbceb53db1f78a9e749f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Knee_To_Chest_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Knee_To_Chest_male_v2_2.png",
+      "sourceSha256": "270f2e984047b3a3ea2ce237fcf6aadb84f18c40f28ab73756686e40cbfe58fa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/065/One_Knee_To_Chest_male_v2_2.png",
+      "candidateSha256": "76a09a582f3b9d9c4c2a0cc65818122094089024b908067ac74392597b7c8684",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Knee_To_Chest_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Knee_To_Chest_male_v2_3.png",
+      "sourceSha256": "cb0caab96f361af1b9bd0fd98da3d8121aecb61de52d6b055e0e8c86cb867edc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/065/One_Knee_To_Chest_male_v2_3.png",
+      "candidateSha256": "2bfdd8ae5dc8a19974789cb42cf51ed2734195809a59cf2995a8438797e51156",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Knee_To_Chest_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Knee_To_Chest_female_v2_0.png",
+      "sourceSha256": "ed997d9ad5e7ede043ba18c0dcacce5dc5aef5ba61b6b8b8434cf6770acfb2c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/065/One_Knee_To_Chest_female_v2_0.png",
+      "candidateSha256": "7f371a6a4aa658c4b57d262adcdd7f0900534e6e6f46a87b69e439e125bef01b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Knee_To_Chest_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Knee_To_Chest_female_v2_1.png",
+      "sourceSha256": "3b13bf8d4ab98d4af193a02d10a93640af1eca542fc955685a74424130d297cb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/065/One_Knee_To_Chest_female_v2_1.png",
+      "candidateSha256": "d2201ce4daf712b1cd075f82c20db93ee745d769aca822389a6fec35d4095458",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Knee_To_Chest_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Knee_To_Chest_female_v2_2.png",
+      "sourceSha256": "a902ea1fd18500b0a942e73d38d0df875556247150199db220c2893b312fa362",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/065/One_Knee_To_Chest_female_v2_2.png",
+      "candidateSha256": "823227edd1fef937426d4faab97e8f1390ec438f41c0fc144cecf63a18cf3f3e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Knee_To_Chest_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Knee_To_Chest_female_v2_3.png",
+      "sourceSha256": "7772327bfe3a6e1c552790dc9224d60ebdb6c98a12ee9b9b23348c73447dbbcb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/065/One_Knee_To_Chest_female_v2_3.png",
+      "candidateSha256": "133d4ab48e0a7141ced7994f0f9a79ccb894463de10b148496c9ce889138cc01",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

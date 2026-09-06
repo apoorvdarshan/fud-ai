@@ -1,0 +1,83 @@
+{
+  "exerciseId": "One_Leg_Barbell_Squat",
+  "shard": 7,
+  "index": 66,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One_Leg_Barbell_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Leg_Barbell_Squat_male_v2_0.png",
+      "sourceSha256": "6037a96b4e632d3985b3d7e88b97675c7a7f9dfe525eee067330a09f1fd74d62",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/066/One_Leg_Barbell_Squat_male_v2_0.png",
+      "candidateSha256": "5e1a3ffa696d6b177de156a4fb9a29094f11d4aa0a52a90f7a4fd8712961f461",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Leg_Barbell_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Leg_Barbell_Squat_male_v2_1.png",
+      "sourceSha256": "3e399aa407958b6dbe1c09c439a9571e9319e3287960756f2e69e4e114dd70c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/066/One_Leg_Barbell_Squat_male_v2_1.png",
+      "candidateSha256": "afe06d8d6a4a98a2a8bfa100ad737df5d7c882555e58444159a59a9d85b96dfb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Leg_Barbell_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Leg_Barbell_Squat_male_v2_2.png",
+      "sourceSha256": "075da4d399e40f10411f2bb9d04dd5f9eb154d3ff45448cbb29cef01487866fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/066/One_Leg_Barbell_Squat_male_v2_2.png",
+      "candidateSha256": "115447ba1a03cb9e07116ccad1aa80f1aa770f36777f95664554cb4df9bf5be9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Leg_Barbell_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Leg_Barbell_Squat_male_v2_3.png",
+      "sourceSha256": "c5a4ac0ab4cc5b331de9c3188e94b1a8fe1eb2862fb0f2c725d56432621f5988",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/066/One_Leg_Barbell_Squat_male_v2_3.png",
+      "candidateSha256": "a461fbc7458fa4ccc1dc5e29c4852ca5a4c56ea7903e8967560e46e67e42663c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Leg_Barbell_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Leg_Barbell_Squat_female_v2_0.png",
+      "sourceSha256": "b374304d3176806c5acdbebf64ec7a7197fb9be2f5250f6d6b479d99ddaa8610",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/066/One_Leg_Barbell_Squat_female_v2_0.png",
+      "candidateSha256": "a2fef9c3a646a0cc6266a482fc3320f9ae05a811c468c0f94c998e0027f6eaf0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Leg_Barbell_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Leg_Barbell_Squat_female_v2_1.png",
+      "sourceSha256": "45a4bd0120ea0f8f4f7278ff14376ea1e07068b56c3dea41bd6b26ca170633ae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/066/One_Leg_Barbell_Squat_female_v2_1.png",
+      "candidateSha256": "8ccb3bd6d2f038e8ddd459b880a96d20fc4fb4b5aea532e51d9fb4e2101ba4ea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Leg_Barbell_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Leg_Barbell_Squat_female_v2_2.png",
+      "sourceSha256": "a67f6cc5fc3661841b82a6c115909d8aa371912eadc03c05850571b14f36502c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/066/One_Leg_Barbell_Squat_female_v2_2.png",
+      "candidateSha256": "9c5450ddb4daa517159d85a5c5c61f6399e7a4eb23b3fd09962be825e40515b2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Leg_Barbell_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Leg_Barbell_Squat_female_v2_3.png",
+      "sourceSha256": "e47085af7e9a0561ea41a8edd778ed3f841473b59a4d590f2ddb29c097a56d1e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/066/One_Leg_Barbell_Squat_female_v2_3.png",
+      "candidateSha256": "65cf14a684619ba44ed3869c6f26adaf23f357f9b53d9dcf4cf6f2a186e3d2c2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

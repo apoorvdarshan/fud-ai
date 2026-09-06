@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Cocoons",
+  "shard": 8,
+  "index": 72,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cocoons_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cocoons_male_v2_0.png",
+      "sourceSha256": "b400b807683349f73aa4d2d2dce8aa382fe46acc786d3e2522c3f337bbb4e638",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/072/Cocoons_male_v2_0.png",
+      "candidateSha256": "0a4f76f3b4ff7fac06710cfc8a50e8d37cc20e4c4f32b1fff10273111bb790cc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cocoons_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cocoons_male_v2_1.png",
+      "sourceSha256": "675226f0dcf1ce1bf0499c0263fcacfcba64e5704ff35dc89395fdf7f72838d9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/072/Cocoons_male_v2_1.png",
+      "candidateSha256": "4fbe8abc609912f32848a27ff16a10b9fd3eda285508af0a97d32de5b11e3b1c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cocoons_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cocoons_male_v2_2.png",
+      "sourceSha256": "4ccb4e37ab30249cd3ec688412f354ee630fe86decf2dc075d1321d42466ef85",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/072/Cocoons_male_v2_2.png",
+      "candidateSha256": "181009adbb2211d2818db351a8634f5380c6304eb68e5abf466d308706b86664",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cocoons_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cocoons_male_v2_3.png",
+      "sourceSha256": "85736feea51139143c3b6e6d892182d8b63a0a6331c731d06170d4032ad908b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/072/Cocoons_male_v2_3.png",
+      "candidateSha256": "981306768aae2841744ed667df5b663cf8366e02a9a1915bf6e2f718ef512c44",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cocoons_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cocoons_female_v2_0.png",
+      "sourceSha256": "3c4c42168a4bbbd897b87538f5f16abdc3603207d7c69495b34ed5a305989543",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/072/Cocoons_female_v2_0.png",
+      "candidateSha256": "8f4e48dbfa80c7cc0ae3e2c5de8367e5e7ec4be22bf2dc08c2537ab852d20790",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cocoons_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cocoons_female_v2_1.png",
+      "sourceSha256": "c67673cfe731b591f84580f691751a37c02d28e279ea894610b12a631ebb330c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/072/Cocoons_female_v2_1.png",
+      "candidateSha256": "56d81912ce196582e44afca9deea06d21bdc8c159889a3bbafb12b9fcead5163",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cocoons_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cocoons_female_v2_2.png",
+      "sourceSha256": "d02bc17a2868d02458849eee3c9527da88a89aaf416887f913addefaffb51350",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/072/Cocoons_female_v2_2.png",
+      "candidateSha256": "9dc4098ecde7e88e91dc9836759cd3ee7fc8acd53207393cf22efc4ebc83a451",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cocoons_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cocoons_female_v2_3.png",
+      "sourceSha256": "042cf360d217ec840dc5e53aaaec1e6d33cd82615fe318c20a5e7404e0ccf29c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/072/Cocoons_female_v2_3.png",
+      "candidateSha256": "05113058b8c0000d398876f77243fc81d432800d9ae5eb4da9f799f9a624fc43",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

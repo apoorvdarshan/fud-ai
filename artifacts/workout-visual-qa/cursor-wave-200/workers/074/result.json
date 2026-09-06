@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Concentration_Curls",
+  "shard": 8,
+  "index": 74,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Concentration_Curls_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Concentration_Curls_male_v2_0.png",
+      "sourceSha256": "671dd3a578c365e675769cdafa8d87f7f2c577bbe199b3983d48c30119a163d8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/074/Concentration_Curls_male_v2_0.png",
+      "candidateSha256": "33d85ef614411c9bf53c5b7a85bcf0ecfbf4682d9a4df867ab5a547100ad8d87",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Concentration_Curls_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Concentration_Curls_male_v2_1.png",
+      "sourceSha256": "4e3791d27c9dfcd787ed25b8dea5a64cbd40633ebdbda9aa7e38899988fe8ff2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/074/Concentration_Curls_male_v2_1.png",
+      "candidateSha256": "c169da9b539c71ae628c6a89add92aeb41bcf6314894e93d474abf2abcfa59cb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Concentration_Curls_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Concentration_Curls_male_v2_2.png",
+      "sourceSha256": "f08aa598297929b569cb00c037d6ce01e21a799bc4845e1d7bdd8379a85cf3a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/074/Concentration_Curls_male_v2_2.png",
+      "candidateSha256": "a33ea0e43b1b2944b44c1f3356f1a579805d82e99ed4fc186af776e938621f38",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Concentration_Curls_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Concentration_Curls_male_v2_3.png",
+      "sourceSha256": "fc1578e4df59441e4a27f6db0ac59a2fd34ab43e285c6842025766d08a6b4d72",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/074/Concentration_Curls_male_v2_3.png",
+      "candidateSha256": "a65c61523a039e5e2e8fb2471f76a23d678b7e2ee6502764aeecd4d812493362",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Concentration_Curls_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Concentration_Curls_female_v2_0.png",
+      "sourceSha256": "636be28a95c26fe2ddf5430cedc864288df228c6110657152f2c0210ffbbb7ee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/074/Concentration_Curls_female_v2_0.png",
+      "candidateSha256": "bf61198c2b7d53c10d0a91acb9d50166b25ee148ea37c9b07908bdd39f31ca3e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Concentration_Curls_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Concentration_Curls_female_v2_1.png",
+      "sourceSha256": "3ee9864450e78508e88ea50b998e74491a5218c40d47898d0469ea92c03c1b86",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/074/Concentration_Curls_female_v2_1.png",
+      "candidateSha256": "16a69bb0e2bbda4838a3cc911820b3c68c582c24d601e40476d5996791459913",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Concentration_Curls_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Concentration_Curls_female_v2_2.png",
+      "sourceSha256": "21b44deffaa1dfe2f7eeb4da32d09fd92cfb886016f23995c3086bc8de10c11d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/074/Concentration_Curls_female_v2_2.png",
+      "candidateSha256": "5fadb86ae8b03107ed7fe59493622cfd8243896587a521c691a7b0bca250f94a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Concentration_Curls_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Concentration_Curls_female_v2_3.png",
+      "sourceSha256": "bb13adea6c0a7f24911bdd5c3e294a116e543386c1b827ff246f0f36129ca85e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/074/Concentration_Curls_female_v2_3.png",
+      "candidateSha256": "a3f25befcfb6306fcc923abf98f8cd476608445a04c68b31620a26f464b8267b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

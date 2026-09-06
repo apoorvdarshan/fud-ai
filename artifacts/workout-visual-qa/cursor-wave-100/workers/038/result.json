@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_0.png",
       "candidateSha256": "995e9dcf8acd5d23a402be9d282bb5dff7cd104a27474472dead050087a3bf06",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_1.png",
       "candidateSha256": "376d6751d750ca6545bb23cf40b471164aa65ea15d4c4d9f24427c346e602a3d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_2.png",
       "candidateSha256": "e928741028fad62988b59434549075d5c9448cc667c76bfa537c054b2b8f9851",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_3.png",
       "candidateSha256": "5cbea320a23b3c42627342820da092993f3e75632f5b8eebba6495262c49d10d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_0.png",
       "candidateSha256": "ce019082ee03fea4956e356c3b41eb2b71ff512615285a8d96c1cc2b51d9ede2",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_1.png",
       "candidateSha256": "25eed76ec40ee9e05c4325b4ae6e6cde3a9490dc401e482aa3f4fc3f4f6b703d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_2.png",
       "candidateSha256": "31ca53c28cfdca2dab9fd37f5b2c34da9b7fe292e382bb6ce3d23ae4b409104e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/038/Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_3.png",
       "candidateSha256": "4cf8533265229641fae15794e870e330a073481ad8a0f25abf28e2be81e490a6",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

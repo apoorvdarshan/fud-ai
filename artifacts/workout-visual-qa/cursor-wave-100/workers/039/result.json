@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_male_v2_0.png",
       "candidateSha256": "be35804ed5fc212d8ef961a412dafe6068bc1319df27826ddd375eb0f2ada516",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Curl_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_male_v2_1.png",
       "candidateSha256": "181a673f900e33264b10591428d4251afc6e14df61470263759317397cafad62",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Curl_male_v2_2.png",
@@ -31,16 +31,16 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_male_v2_2.png",
       "candidateSha256": "d13cb286feaf6c5223bbe61a42b8e562b19282cbe1514f75cea3f723893e4e10",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Curl_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Dumbbell_Curl_male_v2_3.png",
       "sourceSha256": "45effb9cd592999e0ebe1e8ca31893d74e3bab22845360aa58ccd824754d550d",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_male_v2_3.png",
-      "candidateSha256": "3d8d001eab8666c87d0c7d14e5c9de99c3f8e2148e55590c4caee0bb6cdd5cc8",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "ccc560f696f4743347f29b9ab96f0615f79461f13b0689cc67f385ae506e7ae5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Curl_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_female_v2_0.png",
       "candidateSha256": "9a3511f890421a22649e09f4b09a4c04e0b58a0c3ec507268c99d5f3b536951e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Curl_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_female_v2_1.png",
       "candidateSha256": "bd77c96345eae7cad635ff1163ae264ed33797c1dbee6e6e51dfde9bacb25f70",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Curl_female_v2_2.png",
@@ -67,16 +67,16 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_female_v2_2.png",
       "candidateSha256": "5915f544c7417b9232c57fc8fa41f09b5585dd7ea572cf77d3a5d254ce60b735",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Dumbbell_Curl_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Incline_Dumbbell_Curl_female_v2_3.png",
       "sourceSha256": "0d6d00452cded308a6f4b3f0474db24f9ba9b4ad5bb05aef889561d9c8182a8e",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/039/Incline_Dumbbell_Curl_female_v2_3.png",
-      "candidateSha256": "9dbce87babd94e36e045154055429ea1b51e323a13e04ddc423b4ad7c404a7a8",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "aa85c03923e473c470d81746a0711d1a0cac02311a88d1412aaf413ea0403e66",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

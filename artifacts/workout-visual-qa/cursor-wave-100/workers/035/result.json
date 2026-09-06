@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_male_v2_0.png",
       "candidateSha256": "493eb776b6383edbb8c2dfb9d1901c1f311e0dbf5be2f8438d14ebaa04a18797",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Bench_Pull_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_male_v2_1.png",
       "candidateSha256": "845cb4aed1e83e2c527093dcd77de8bd3a746e4d1e29c069d504148e6e671d15",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Bench_Pull_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_male_v2_2.png",
       "candidateSha256": "ed284f39e763c3d7509797f730114ffb9349eab209af5ba8864fcf0b0926565c",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Bench_Pull_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_male_v2_3.png",
       "candidateSha256": "ab228d1e5661767b69ebafe2ae006af9c83f9d55af8d6df9fe96c7c26f8d49b4",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Bench_Pull_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_female_v2_0.png",
       "candidateSha256": "f03dd07265ce9a3accfbf46edcc356d5b93651f0f8121afc692da2e87f8d91bb",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Bench_Pull_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_female_v2_1.png",
       "candidateSha256": "f22f20bb07ac6380ac3e10db72290c63d8be4d3513cb47f4dfee3d172585ed04",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Bench_Pull_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_female_v2_2.png",
       "candidateSha256": "22cfcb85d7f68c049668d57e887dc08f9d9c7d1a514e7209763a5d265fb6619e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Incline_Bench_Pull_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/035/Incline_Bench_Pull_female_v2_3.png",
       "candidateSha256": "f2dfbec261eef31e16733a76d99e94177c57ee5c023788cb0eaf121ee66646ce",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

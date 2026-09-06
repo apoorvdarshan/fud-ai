@@ -1,0 +1,830 @@
+{
+  "shard": 33,
+  "batch": "cursor-wave-leftover",
+  "exercises": [
+    {
+      "exerciseId": "Standing_Military_Press",
+      "shard": 33,
+      "index": 321,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Standing_Military_Press_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_male_v2_0.png",
+          "sourceSha256": "7acd0fba8ba0bf6a21fee9a7b2ce5c0e838937331107cc5bad6324d38f407d73",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_male_v2_0.png",
+          "candidateSha256": "e9028c60f75a13089913db2aa1cf2ad598d31042725b8caf351f2aebb01145fa",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Military_Press_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_male_v2_1.png",
+          "sourceSha256": "1c03ccb392263f6a7bad4745b64899ad2153264ed1c0a6a841637247e1db6a4c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_male_v2_1.png",
+          "candidateSha256": "6037b7536e5c54dd1eb5d934cb14c6c12a2e1463f44ef6603d5e8fd60a834c7f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Military_Press_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_male_v2_2.png",
+          "sourceSha256": "706874737f40440432f46c6a8d2d0a3c19a5f0ba973887ace26ff329cfe40964",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_male_v2_2.png",
+          "candidateSha256": "9df95c370503ad5aba177f6d3032b680416ac8d3dd97142c81bf208d7796ee8c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Military_Press_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_male_v2_3.png",
+          "sourceSha256": "419c0b308a3851c9c505376c9d5a2dabb0ed9567d6b7e89570ff11a9791eec3d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_male_v2_3.png",
+          "candidateSha256": "bdc1472b31510d987a0abd5259bf607193c6fc7eee7f70502119f07a59a02aa1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Military_Press_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_female_v2_0.png",
+          "sourceSha256": "0004932902f93f084e5cf4a3b9c9ac8e03181db45cdf00290a654fed6926f903",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_female_v2_0.png",
+          "candidateSha256": "d609e744622b5844ae3c6bfebc3ba1e677fa8cf87ed3bb30f55f19d1107cd4d6",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Military_Press_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_female_v2_1.png",
+          "sourceSha256": "b4e18c9b0b1d28c03abe9926e1e46548934fc5e813bdb0708b02dfbc745ced4a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_female_v2_1.png",
+          "candidateSha256": "aee75d6df63732f907cc527fd237fe9208055a673757622f73d4da13eea7ff89",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Military_Press_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_female_v2_2.png",
+          "sourceSha256": "44d1c725af20d822e696488e5ef125ba5f78f87f26a9cca0d83985e69a46d15c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_female_v2_2.png",
+          "candidateSha256": "ffe65ccae8c679f8683fb37d29e046b6184231daf838159640d0b81db17b8831",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Military_Press_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Military_Press_female_v2_3.png",
+          "sourceSha256": "10db459bfb73bae0997c9cf8ba9d9bab66fa9e656332b440b31a92593bed0c05",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/321/Standing_Military_Press_female_v2_3.png",
+          "candidateSha256": "4bf3263cb91d56428c6508b4881dc1b925b0e5c3c0d9a1d16213373c2f01faee",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Standing_Olympic_Plate_Hand_Squeeze",
+      "shard": 33,
+      "index": 322,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Standing_Olympic_Plate_Hand_Squeeze_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_male_v2_0.png",
+          "sourceSha256": "abc34498262dd1ff190e5952b2a9652a86a84b15e521c42b14703f6e4f997a69",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_male_v2_0.png",
+          "candidateSha256": "40f5ef6c7593c07d6d126f56f973879439b942e7146fc91eeec08cb4add431dc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Olympic_Plate_Hand_Squeeze_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_male_v2_1.png",
+          "sourceSha256": "ae30ada9202d2e350a71298a35af56c94c63b08ad4b910550e09940b4de0dfab",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_male_v2_1.png",
+          "candidateSha256": "d229d1889ebc312daf0077d64c625583ad72d5cd67a702a1fdd2a12163a5c671",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Olympic_Plate_Hand_Squeeze_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_male_v2_2.png",
+          "sourceSha256": "38dfbcc68c318af26c5f1fb73a6d7bcfa55240a7241a3eb3010c447e2fd01f2b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_male_v2_2.png",
+          "candidateSha256": "83b4e85a5ac38b9ae4976b0fc1ce0e896a8c6a5bddfe522d0c8e3cbba656bf88",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Olympic_Plate_Hand_Squeeze_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_male_v2_3.png",
+          "sourceSha256": "0723fe0220be32901c3b5d52270c5da1a9efe546b37c8c773cfbd597439b23f9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_male_v2_3.png",
+          "candidateSha256": "1e6a21db339dddb6789365bf042546b2b116a752b17dc395586afc693245e1ac",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Olympic_Plate_Hand_Squeeze_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_female_v2_0.png",
+          "sourceSha256": "a3ebb9d958bf756ed9af54141e4ddbe018846148083572f2e5c862c149f5f7bf",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_female_v2_0.png",
+          "candidateSha256": "81c01910e28e79fa0dae541fcc19c52844e6fd930e765c26a70a5f9489e9b3b2",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Olympic_Plate_Hand_Squeeze_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_female_v2_1.png",
+          "sourceSha256": "1b1be4745c9490c42af467c0da3bf555d35a3f07f6e1357a9c9531c7d4ecc742",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_female_v2_1.png",
+          "candidateSha256": "e72ac7956d06033dc724dab249cb0fbe1e5b1b22d6d6c55803b914fd3aad42c4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Olympic_Plate_Hand_Squeeze_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_female_v2_2.png",
+          "sourceSha256": "04309cf86ee214f1518b27bf085dbc7c761808a69e27731647c202a25fa74de1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_female_v2_2.png",
+          "candidateSha256": "75682dcd3e0f0fa70957f2f1db2c29f12aa6c25404580be5304cdefeeb03eefa",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Olympic_Plate_Hand_Squeeze_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_female_v2_3.png",
+          "sourceSha256": "2e7c766b081d1ecccc29b687c3e23983859c616f1f269b935eaabf9d3ad53543",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_female_v2_3.png",
+          "candidateSha256": "db199c8b76f053e1ff701c4a07bf3a5f110891e54f9d7e853f85386d4caba16a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Standing_One-Arm_Cable_Curl",
+      "shard": 33,
+      "index": 323,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Standing_One-Arm_Cable_Curl_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_male_v2_0.png",
+          "sourceSha256": "c6459b6a5ea5be23b82ae165a8b4f9b5f8712a4b12ea323c1c9fd79f308c45c6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_male_v2_0.png",
+          "candidateSha256": "2fd236eeb8ec2f3529dd3906619389a2aafdccb45c854df05a7aced28f16b809",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Cable_Curl_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_male_v2_1.png",
+          "sourceSha256": "2af76209ad24d76db00d93033382f223a6057d21afcb8d6a6a541679ef5942f9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_male_v2_1.png",
+          "candidateSha256": "bc49316df2b1748bc8322ca281c31bc16d4915d8d39be7e095e4776d5a9e0c55",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Cable_Curl_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_male_v2_2.png",
+          "sourceSha256": "4cee37207b2a722605e38208ea4701ab386e4f201121b6d31109eb865be03a9d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_male_v2_2.png",
+          "candidateSha256": "87aacfa1838e70ad632d824ca08a9a5cd75913da10fe29fc05abbd018ad2c9e0",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Cable_Curl_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_male_v2_3.png",
+          "sourceSha256": "92d49896c11315511f7734ab0853177223dc62d2e52d488e1cace7f2ee31f4fd",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_male_v2_3.png",
+          "candidateSha256": "d1bb3115e6152702560c72f6015c1398195a1b8cc234b0915e13396dc60a62d1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Cable_Curl_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_female_v2_0.png",
+          "sourceSha256": "d3efa0ee3a50f371ee72c4d085378468131bd1a6a0befb20fa206a6866225163",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_female_v2_0.png",
+          "candidateSha256": "7a71098c9f52a7e4430e86c3578661484c48fd1bd9125b8edc3b1b6ec75946fe",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Cable_Curl_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_female_v2_1.png",
+          "sourceSha256": "cbf4f0f1a708a5d6fac5b43326902d0cf2d072cb852cea97ab3605a699fce8a1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_female_v2_1.png",
+          "candidateSha256": "a7c7a060fd12a23f6f292e33d2cee79cfb0c0abc6305ef4b08c96f458dace2ef",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Cable_Curl_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_female_v2_2.png",
+          "sourceSha256": "131a77ce10be26c77d73480ffcd47e4250984333c85cd30fe4ab099e801650dc",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_female_v2_2.png",
+          "candidateSha256": "e9c431b0b3baa7879d79b3f8c206fef937a4f1080d1224d0d5a5dec994282a3e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Cable_Curl_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Cable_Curl_female_v2_3.png",
+          "sourceSha256": "a490f86c60342ced682d6a353ffd655cfac7dc0881de661d1b26965cd0cf9c30",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/323/Standing_One-Arm_Cable_Curl_female_v2_3.png",
+          "candidateSha256": "788456538a18a481f7f56515387e35eab8670e551e2e204aad910f81dd3a650b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench",
+      "shard": 33,
+      "index": 324,
+      "status": "ready_for_review",
+      "findings": [
+        "Baked grey checkerboard floor matte beneath bench/feet; GenerateImage surgical + green chroma key removed transparency grid."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_0.png",
+          "sourceSha256": "5d3449f046bedf27477a80b8086dfb86c8a095acbe589da5a2ec58317677d3d4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_0.png",
+          "candidateSha256": "12835913584bf3ef779a25ae57cbec14be7364b9696286bebee6e40aa7e92148",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_1.png",
+          "sourceSha256": "6439380a53c0c2207a9dea5ed3ab32cec2f4917bef46ac22f7cc57de9a60b047",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_1.png",
+          "candidateSha256": "9ef707a084610df12b0a948e3c6eafaece47e69446eecea9a023606e74418b8f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_2.png",
+          "sourceSha256": "149795b9db170feb3c34f571b623341922860f3dfbf26a7a346272c2771b1e68",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_2.png",
+          "candidateSha256": "fea7d075367c332f435a68c016b73071d053960a978b6f5c3e229298ec2968ad",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_3.png",
+          "sourceSha256": "0a7628b8b7fff4c2c8231bcfcc0671f8e46d3d8e3a35fa1725590b53fd5c1dae",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_male_v2_3.png",
+          "candidateSha256": "3f0d1af0ae092657c164f8cbbaa311e5a3c94f463c13ef73c2baa98cbcb64547",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_0.png",
+          "sourceSha256": "be873e091dd58c6c274bcacfeda7807d4dd3a6e405df2e42e56b14683578f6f4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_0.png",
+          "candidateSha256": "29055332c709385b00c282be646946e4490c67829eaa9ddb3293990c01daa02a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_1.png",
+          "sourceSha256": "6e145b0ac183f1e6f3025ae6f29bccf2279074b122d4c7dfe9675c33eb92e26c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_1.png",
+          "candidateSha256": "ae242f34d3275ce25a586be85dfd95eb6c9c143edee5c4addfbad182b654cea4",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_2.png",
+          "sourceSha256": "56a89fab8e601c0bcbc7246b43a03aed37e46732da4ae4d0b714729effb3a90e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_2.png",
+          "candidateSha256": "30fbea5530b2d1e36e406414a285f31d6c70b736fae3319210be8590469d4e78",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_3.png",
+          "sourceSha256": "0d99ebd3a37bebdabb65ddd8c7a6e2c9c1db869693fcb3b38c081d4946437fd1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/324/Standing_One-Arm_Dumbbell_Curl_Over_Incline_Bench_female_v2_3.png",
+          "candidateSha256": "eef4962806280ff3076f83dd7effac40d8677937d5c890e6e2af6e2ee8f71908",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Standing_One-Arm_Dumbbell_Triceps_Extension",
+      "shard": 33,
+      "index": 325,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Triceps_Extension_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Triceps_Extension_male_v2_0.png",
+          "sourceSha256": "a6dceb4e77f3bd067dab3390645a957a84217141b004929cb3a9bdddeb362da5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/325/Standing_One-Arm_Dumbbell_Triceps_Extension_male_v2_0.png",
+          "candidateSha256": "6c2055e8978b3d9cabcb557edf8da2752bb9018b0f0e20d79e16bb150c610f3c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Triceps_Extension_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Triceps_Extension_male_v2_1.png",
+          "sourceSha256": "bf6f38998629dad539fcf4006d01258158d7a903da7d5ca8c8b6aba8d793232f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/325/Standing_One-Arm_Dumbbell_Triceps_Extension_male_v2_1.png",
+          "candidateSha256": "b1e87b860385464bb7a18ddc5a06d945521e5b1ea5565467b10089651ae632a7",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Triceps_Extension_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Triceps_Extension_male_v2_2.png",
+          "sourceSha256": "2650d30a158be68a2a0a818a7cfedf6bbb29143e4008ccef98f2a1b3bccccffd",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/325/Standing_One-Arm_Dumbbell_Triceps_Extension_male_v2_2.png",
+          "candidateSha256": "1d9ac631ff1ead3ca6ca78f923b1d995e9ab6e7c5d0b817d37b802f913a1d827",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Triceps_Extension_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Triceps_Extension_male_v2_3.png",
+          "sourceSha256": "74dc0098b02c3d1e36687a300aa5aadd754137f55fd9de3edc7995c0c93e6b32",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/325/Standing_One-Arm_Dumbbell_Triceps_Extension_male_v2_3.png",
+          "candidateSha256": "16debbfe973feff520c30fc345f045df0f618651028a59d1c0d4769a44a19a70",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Triceps_Extension_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Triceps_Extension_female_v2_0.png",
+          "sourceSha256": "88547ad5a30caa46208c0b24ec4fe854fa46273942650953626a76fe1a66c3de",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/325/Standing_One-Arm_Dumbbell_Triceps_Extension_female_v2_0.png",
+          "candidateSha256": "f4031eb0d85f6798f2b873828c70554996a859ec51eedfec9b0aea40fa6b525d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Triceps_Extension_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Triceps_Extension_female_v2_1.png",
+          "sourceSha256": "4534af77b5f3711d0835da1d1c1e2dd6f22c19ac144015e976aec7a9d07804fd",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/325/Standing_One-Arm_Dumbbell_Triceps_Extension_female_v2_1.png",
+          "candidateSha256": "d79f4fabd9e3854e323613067d106608acffe88c7afea34367f2365a1387be0d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Triceps_Extension_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Triceps_Extension_female_v2_2.png",
+          "sourceSha256": "83a9740d29afcb2d2c3e9d5bf544082353d9631dfc2e5e49d2aef951be8e3c6b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/325/Standing_One-Arm_Dumbbell_Triceps_Extension_female_v2_2.png",
+          "candidateSha256": "c5a41f5d4f1c3850bd27f0e261d900301612636846722c043a2d5790f9bb198c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_One-Arm_Dumbbell_Triceps_Extension_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_One-Arm_Dumbbell_Triceps_Extension_female_v2_3.png",
+          "sourceSha256": "ee0f837514f78e410a694390377c6e6441daa386f14352c17d06553d0c64be6d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/325/Standing_One-Arm_Dumbbell_Triceps_Extension_female_v2_3.png",
+          "candidateSha256": "5ef9888b00fa5ff4b197378b18def6cdf55ed9108c2ee9a4ac8fd157cd555809",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Standing_Overhead_Barbell_Triceps_Extension",
+      "shard": 33,
+      "index": 326,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Standing_Overhead_Barbell_Triceps_Extension_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_male_v2_0.png",
+          "sourceSha256": "8a6e9f302432f3a91bcad52f9d8913d9fe3f91c25211f5a93e806a7542be6990",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_male_v2_0.png",
+          "candidateSha256": "6c8367f4eb332a2a1b9b1b5e7392b7a8cbcf488258a178f224ca7ad674cf9ea9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Overhead_Barbell_Triceps_Extension_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_male_v2_1.png",
+          "sourceSha256": "2c640d6ab549375c0061f159f54e380c3be5e674f97a3e0df3193d2598a67a48",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_male_v2_1.png",
+          "candidateSha256": "cd9213131c4c7f278d06b0ae93dbe1709b91bfb1e68c72cca1644cb56b2c96ce",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Overhead_Barbell_Triceps_Extension_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_male_v2_2.png",
+          "sourceSha256": "32ec863ca5ccab3bc0dbfac2dd4c2bf08884cab08507314747a8bce8d7d032b7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_male_v2_2.png",
+          "candidateSha256": "dc5034bf8695ac3b865b9d7ba1c45c5e047fb7d5def8c97c4c423d0bbb03779b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Overhead_Barbell_Triceps_Extension_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_male_v2_3.png",
+          "sourceSha256": "cd5004d9457d822c93741982a721484aa75e9efc3bb6e0ac8479285556c98f28",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_male_v2_3.png",
+          "candidateSha256": "1db7f3332bbdf926ccbb4855e8fe499c9937b3c219fd240f9001890fc1875a6a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Overhead_Barbell_Triceps_Extension_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_female_v2_0.png",
+          "sourceSha256": "81ecdcb8c6ec47ba245e7692febee162531b749395f0df11978a459de6a93a0e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_female_v2_0.png",
+          "candidateSha256": "58d59c07c64675e21707a2683e3fe659eee784da2ea61d8af97b429cbe7b1f14",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Overhead_Barbell_Triceps_Extension_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_female_v2_1.png",
+          "sourceSha256": "54bd5734eb133535ce5a4d7a1f28279cb369b7c0a3bb3e5e07d5ed9e352ac8da",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_female_v2_1.png",
+          "candidateSha256": "ea9bf39045be00109030a7fb0a0637055d8eeabb6da1d020da7fc3bde0376561",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Overhead_Barbell_Triceps_Extension_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_female_v2_2.png",
+          "sourceSha256": "f9cc01f47272724d7629b09d7f05ba4078e929be2408ffc924349701b7aa04d5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_female_v2_2.png",
+          "candidateSha256": "c5eefaebec37a4c80013b96aab3bd10157900b74eedeca36a902eeab76529311",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Overhead_Barbell_Triceps_Extension_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_female_v2_3.png",
+          "sourceSha256": "f3b9910dcfe3949eed0d82378babfd5da4efcb8342523214b27801b67f582289",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_female_v2_3.png",
+          "candidateSha256": "c6582f81e3967296a1c615a9e4074b58312d525a0131340d876fb171f2e8df61",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Standing_Palm-In_One-Arm_Dumbbell_Press",
+      "shard": 33,
+      "index": 327,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_0.png",
+          "sourceSha256": "d4cbc310c9cc4a77a9738f4070623e7567153e6c6bfb8f6275874fbd601d4419",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_0.png",
+          "candidateSha256": "41f5772a68aace3f16fa9dc220ca0175164d466ba86ece949cdd3b186b322a88",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_1.png",
+          "sourceSha256": "4624a7471ba5dc70d201a72ccc39b8317ae366f2d18a9cd75ed4efebe55548fb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_1.png",
+          "candidateSha256": "3634d2d7757bc783635ed730c8158d414acbef3e32efeaf7d5cd95e5e59a105b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_2.png",
+          "sourceSha256": "b45ec2a3420c8b175017ba0de43e37d7f03ecd568b143d55d6981aa682fcbd51",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_2.png",
+          "candidateSha256": "4b4949c54a5a502a98a1ddf4587f943b37f50f1609f0a74e3e10bb1cb394578e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_3.png",
+          "sourceSha256": "af2d5efdb90d74d09fdd80c2be1b16dedd539d0cc1c2bf81ebeec3c0dbf1ee81",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_male_v2_3.png",
+          "candidateSha256": "2eeed2fb3b15051d82bd73a5c98e9044c1a77ef41befc6b1e541e0b4e2692ab5",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_0.png",
+          "sourceSha256": "c4bf644811b17672c2a287157ffd17f63e2267e0972dc21780d562191b0a3af2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_0.png",
+          "candidateSha256": "9d54b79dbe5f0fbf7c9b6416589600b2605d960558c83b622a479297a76f0766",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_1.png",
+          "sourceSha256": "d8df35d647fdb4acb42348580f47856d1fe806bcb82fe9d69c678fd0889aa708",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_1.png",
+          "candidateSha256": "82b7ef71954e4c63163a07b58cc3169956ac273e4f74eed5cd60066c0314851a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_2.png",
+          "sourceSha256": "76301779194d9a0efd3a8c5502d8f13e35afa5a59f7640300f5b20370b86843f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_2.png",
+          "candidateSha256": "f0fea6474596a2aa4c478a3291fbdd359938cf4a06a8a42c596a2cb54e74e874",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_3.png",
+          "sourceSha256": "94b384f699b510516874732fbeb369222598d24a005d3af0f46204cdd0d731a0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/327/Standing_Palm-In_One-Arm_Dumbbell_Press_female_v2_3.png",
+          "candidateSha256": "730b026c66e877d63b031be445386f1608994211c96bcf0deeeb6a4380faaedc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Standing_Palms-In_Dumbbell_Press",
+      "shard": 33,
+      "index": 328,
+      "status": "ready_for_review",
+      "findings": [
+        "Black-and-white checkerboard floor artifact under feet; GenerateImage surgical + green chroma key cleaned matte."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Standing_Palms-In_Dumbbell_Press_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_male_v2_0.png",
+          "sourceSha256": "0f36a57fc1a4019cf5ae24556c32f72a743e649ec034d27e1fc4f98f026ffbbe",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_male_v2_0.png",
+          "candidateSha256": "599af0911c6051f7bdb8ab3c1a8527bd4ef92b4ffe88e6141fb95c859abd5a44",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-In_Dumbbell_Press_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_male_v2_1.png",
+          "sourceSha256": "2f29397cad72e4e7bfcaa646e3bd54779f763e6f96923a91b805336d5b220824",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_male_v2_1.png",
+          "candidateSha256": "79427b63bdcf2db863946534d111d61eb5bdb72678441b672b646b7c2627d086",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-In_Dumbbell_Press_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_male_v2_2.png",
+          "sourceSha256": "af72f941cb905630d0652d58eeb4db96d8507aa74807eacf89867a4f1a653b25",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_male_v2_2.png",
+          "candidateSha256": "fb3a3ac81cc5f19896ed66609d65978a7d3497b89b16ccd0e3b62fedca68c1d6",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-In_Dumbbell_Press_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_male_v2_3.png",
+          "sourceSha256": "0a9a566250bbfb44cbf68e04f2805212bbe4d6eec771066ac163c16c1726c41e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_male_v2_3.png",
+          "candidateSha256": "05aa00ed1a9230e7cc2f75d76164f34ebe07261611a85f297c2b90cc771da0f4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-In_Dumbbell_Press_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_female_v2_0.png",
+          "sourceSha256": "c2730884d66e4018f28a839c42c288819b77a0d6120748db5f126c582374f68b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_female_v2_0.png",
+          "candidateSha256": "6d1261105b17e0a6564ef8c068dfce3c6868e47c8667615644d1ff65d91973c8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-In_Dumbbell_Press_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_female_v2_1.png",
+          "sourceSha256": "5517d8b4afa31e2118763c85d613409ad4c81b8992be817aa83218332514affa",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_female_v2_1.png",
+          "candidateSha256": "59e04429cdae6a893d05d3322c008efb6293199209936142fa98ee63f4c0ce65",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-In_Dumbbell_Press_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_female_v2_2.png",
+          "sourceSha256": "b9ffc10334107f0867f7a739fc37ce55a9d0daf64a54be166b2fce56745900d2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_female_v2_2.png",
+          "candidateSha256": "4783dcf6effca4384d2a5071c4fe1dc7afa123a92bd59f9bb5a3a73dc35641a8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-In_Dumbbell_Press_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_female_v2_3.png",
+          "sourceSha256": "fcaf435ee00dbae45654bdd1f93a94d21bd30e204e7b18c1c1498c1ed14022cc",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_female_v2_3.png",
+          "candidateSha256": "bea388129861fdbb2c107da20c2c5fe0191a38640e145bc64c04510c7b3e0a23",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl",
+      "shard": 33,
+      "index": 329,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_0.png",
+          "sourceSha256": "1cc48c48b27595286faac92e421fac765f4e88b71304280dee230c35477320a6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_0.png",
+          "candidateSha256": "5b22ec77e409c08739e575c475e24034eda7ba29ea089fdb1a20ed15053a42b7",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_1.png",
+          "sourceSha256": "65eb8f2c18396176025db65f59ee619d14e403ff9795fee422e0c1ce9930132b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_1.png",
+          "candidateSha256": "0445b8f92f53762bebe2ad02909496a3a00138d711916edab7ca3deb8eace3b1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_2.png",
+          "sourceSha256": "74c120599ba0de7d59517f78da4734114124eaa0352d39f6084b640960856c48",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_2.png",
+          "candidateSha256": "d569edc05b546b9ae145f67b80fe36e13d81f092edc77a00ff7dd010e14bc89a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_3.png",
+          "sourceSha256": "6b7d4f88c2b8b36748e794e64bda50d07adc97883ec963b952f2d0c35ab40b59",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_3.png",
+          "candidateSha256": "2fd2a4db6c7eff3d274c97e21fd4a388eca40c434e78c6ab4613c68b17b84ee6",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_0.png",
+          "sourceSha256": "2b5a14a995e70bc6f8c0e14fdc5d92e891cf49a2942bf2f0d765693d988cebbb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_0.png",
+          "candidateSha256": "0d142863cacb2889bad7426484c953560c7cb7c717d7c6f0fb59961beb988381",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_1.png",
+          "sourceSha256": "9356002791ff35ab64c029e9f496de13a338667b5ba83674a832b8ef3bd0454a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_1.png",
+          "candidateSha256": "187dc7a03501b62c3f58060c118c31eaf40313e78fadb003595ec9af86dc6205",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_2.png",
+          "sourceSha256": "82856789d277c2e29942dd7da8c07f600f26ea17f025bc9e66f9b67be8b4e329",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_2.png",
+          "candidateSha256": "6308efba8ed41e62ff3236ec43c095dc88132c14e7aceed0ec8a963f8efd64c7",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_3.png",
+          "sourceSha256": "82406f2bba2c5f7e64de404545cf84d55efa093fcb36851e1f1d3a430db2b459",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_3.png",
+          "candidateSha256": "7275426873f7499616fb1a2b0f1a096fe69e772a15237d96e6de1c74523302e2",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Standing_Pelvic_Tilt",
+      "shard": 33,
+      "index": 330,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Standing_Pelvic_Tilt_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_male_v2_0.png",
+          "sourceSha256": "35a8a058e5e988f7a2778383c84464a2039293021a2a6b6d3e1e9d8493427e2b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_male_v2_0.png",
+          "candidateSha256": "d73de8bbf5beb509381375d8330c05e9707e545cf42586ea821f955acb7f04e8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Pelvic_Tilt_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_male_v2_1.png",
+          "sourceSha256": "4e00ca6c172161b7c389b8e96a845a26854d2b7cf9b75c8acbc181056df3f0a0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_male_v2_1.png",
+          "candidateSha256": "01227b61fb43cf747b48aef1e46801918d44827b484fd991ab1c0938b3fd0f51",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Pelvic_Tilt_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_male_v2_2.png",
+          "sourceSha256": "67585cd15c809a59587b54a8190758dfd5778a61aad3d895e2192473d7e65b69",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_male_v2_2.png",
+          "candidateSha256": "0b60d28886c3780a125b657e9e90a4ccd142cad1c8cf50f24aac16284dd54d3b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Pelvic_Tilt_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_male_v2_3.png",
+          "sourceSha256": "d2fd1262cfed60f21b08f5e7afef8a0aa0a8ece3a97e0d33247933a2d5494e88",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_male_v2_3.png",
+          "candidateSha256": "327433886879864279c6b49b4ae357887a19784a73b0e97bf76b0c0da8be9711",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Pelvic_Tilt_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_female_v2_0.png",
+          "sourceSha256": "71292b87c14a910b0339f914c31f834be42f9ddca6badf05d2d9ddcf318e4a0c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_female_v2_0.png",
+          "candidateSha256": "baa1914ac7adec8592ead9e7afaf3365f83bfecce1d6515f887dc0223b2c9583",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Pelvic_Tilt_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_female_v2_1.png",
+          "sourceSha256": "52176c35d7b178e5ba4438c3e619d594e223f18bf0f9fdd70bd2715f4203eb4d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_female_v2_1.png",
+          "candidateSha256": "93c6edbe76cc3b986c6f33c0e4f69d271e8ac7af8bfed16a34fb8662da15edfc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Pelvic_Tilt_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_female_v2_2.png",
+          "sourceSha256": "75fe504ac854cb56a2abc5f6db0f69d26ad5cc5172d70cb1f386cd757d709be5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_female_v2_2.png",
+          "candidateSha256": "dd6bb87c6353c8c35f0b4b0ffc35868d79ce66afa568afb18c39658bfb6ae97f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Standing_Pelvic_Tilt_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Standing_Pelvic_Tilt_female_v2_3.png",
+          "sourceSha256": "efcf7b009cf0e27d51685c7d9e10be381160f4b6aa5059796535929caed09843",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/330/Standing_Pelvic_Tilt_female_v2_3.png",
+          "candidateSha256": "15ae45d3db4de8b7df2de2fabf09c06c9cec816f65a0866c82b20b6ac21c7985",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    }
+  ]
+}

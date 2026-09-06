@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Overhead_Barbell_Triceps_Extension",
+  "shard": 33,
+  "index": 326,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Overhead_Barbell_Triceps_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_male_v2_0.png",
+      "sourceSha256": "8a6e9f302432f3a91bcad52f9d8913d9fe3f91c25211f5a93e806a7542be6990",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_male_v2_0.png",
+      "candidateSha256": "6c8367f4eb332a2a1b9b1b5e7392b7a8cbcf488258a178f224ca7ad674cf9ea9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Overhead_Barbell_Triceps_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_male_v2_1.png",
+      "sourceSha256": "2c640d6ab549375c0061f159f54e380c3be5e674f97a3e0df3193d2598a67a48",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_male_v2_1.png",
+      "candidateSha256": "cd9213131c4c7f278d06b0ae93dbe1709b91bfb1e68c72cca1644cb56b2c96ce",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Overhead_Barbell_Triceps_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_male_v2_2.png",
+      "sourceSha256": "32ec863ca5ccab3bc0dbfac2dd4c2bf08884cab08507314747a8bce8d7d032b7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_male_v2_2.png",
+      "candidateSha256": "dc5034bf8695ac3b865b9d7ba1c45c5e047fb7d5def8c97c4c423d0bbb03779b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Overhead_Barbell_Triceps_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_male_v2_3.png",
+      "sourceSha256": "cd5004d9457d822c93741982a721484aa75e9efc3bb6e0ac8479285556c98f28",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_male_v2_3.png",
+      "candidateSha256": "1db7f3332bbdf926ccbb4855e8fe499c9937b3c219fd240f9001890fc1875a6a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Overhead_Barbell_Triceps_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_female_v2_0.png",
+      "sourceSha256": "81ecdcb8c6ec47ba245e7692febee162531b749395f0df11978a459de6a93a0e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_female_v2_0.png",
+      "candidateSha256": "58d59c07c64675e21707a2683e3fe659eee784da2ea61d8af97b429cbe7b1f14",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Overhead_Barbell_Triceps_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_female_v2_1.png",
+      "sourceSha256": "54bd5734eb133535ce5a4d7a1f28279cb369b7c0a3bb3e5e07d5ed9e352ac8da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_female_v2_1.png",
+      "candidateSha256": "ea9bf39045be00109030a7fb0a0637055d8eeabb6da1d020da7fc3bde0376561",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Overhead_Barbell_Triceps_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_female_v2_2.png",
+      "sourceSha256": "f9cc01f47272724d7629b09d7f05ba4078e929be2408ffc924349701b7aa04d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_female_v2_2.png",
+      "candidateSha256": "c5eefaebec37a4c80013b96aab3bd10157900b74eedeca36a902eeab76529311",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Overhead_Barbell_Triceps_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Overhead_Barbell_Triceps_Extension_female_v2_3.png",
+      "sourceSha256": "f3b9910dcfe3949eed0d82378babfd5da4efcb8342523214b27801b67f582289",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/326/Standing_Overhead_Barbell_Triceps_Extension_female_v2_3.png",
+      "candidateSha256": "c6582f81e3967296a1c615a9e4074b58312d525a0131340d876fb171f2e8df61",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

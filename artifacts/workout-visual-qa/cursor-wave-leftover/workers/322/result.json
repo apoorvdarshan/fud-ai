@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Olympic_Plate_Hand_Squeeze",
+  "shard": 33,
+  "index": 322,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Olympic_Plate_Hand_Squeeze_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_male_v2_0.png",
+      "sourceSha256": "abc34498262dd1ff190e5952b2a9652a86a84b15e521c42b14703f6e4f997a69",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_male_v2_0.png",
+      "candidateSha256": "40f5ef6c7593c07d6d126f56f973879439b942e7146fc91eeec08cb4add431dc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Olympic_Plate_Hand_Squeeze_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_male_v2_1.png",
+      "sourceSha256": "ae30ada9202d2e350a71298a35af56c94c63b08ad4b910550e09940b4de0dfab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_male_v2_1.png",
+      "candidateSha256": "d229d1889ebc312daf0077d64c625583ad72d5cd67a702a1fdd2a12163a5c671",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Olympic_Plate_Hand_Squeeze_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_male_v2_2.png",
+      "sourceSha256": "38dfbcc68c318af26c5f1fb73a6d7bcfa55240a7241a3eb3010c447e2fd01f2b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_male_v2_2.png",
+      "candidateSha256": "83b4e85a5ac38b9ae4976b0fc1ce0e896a8c6a5bddfe522d0c8e3cbba656bf88",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Olympic_Plate_Hand_Squeeze_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_male_v2_3.png",
+      "sourceSha256": "0723fe0220be32901c3b5d52270c5da1a9efe546b37c8c773cfbd597439b23f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_male_v2_3.png",
+      "candidateSha256": "1e6a21db339dddb6789365bf042546b2b116a752b17dc395586afc693245e1ac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Olympic_Plate_Hand_Squeeze_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_female_v2_0.png",
+      "sourceSha256": "a3ebb9d958bf756ed9af54141e4ddbe018846148083572f2e5c862c149f5f7bf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_female_v2_0.png",
+      "candidateSha256": "81c01910e28e79fa0dae541fcc19c52844e6fd930e765c26a70a5f9489e9b3b2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Olympic_Plate_Hand_Squeeze_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_female_v2_1.png",
+      "sourceSha256": "1b1be4745c9490c42af467c0da3bf555d35a3f07f6e1357a9c9531c7d4ecc742",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_female_v2_1.png",
+      "candidateSha256": "e72ac7956d06033dc724dab249cb0fbe1e5b1b22d6d6c55803b914fd3aad42c4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Olympic_Plate_Hand_Squeeze_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_female_v2_2.png",
+      "sourceSha256": "04309cf86ee214f1518b27bf085dbc7c761808a69e27731647c202a25fa74de1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_female_v2_2.png",
+      "candidateSha256": "75682dcd3e0f0fa70957f2f1db2c29f12aa6c25404580be5304cdefeeb03eefa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Olympic_Plate_Hand_Squeeze_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Olympic_Plate_Hand_Squeeze_female_v2_3.png",
+      "sourceSha256": "2e7c766b081d1ecccc29b687c3e23983859c616f1f269b935eaabf9d3ad53543",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/322/Standing_Olympic_Plate_Hand_Squeeze_female_v2_3.png",
+      "candidateSha256": "db199c8b76f053e1ff701c4a07bf3a5f110891e54f9d7e853f85386d4caba16a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

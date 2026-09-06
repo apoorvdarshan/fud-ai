@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl",
+  "shard": 33,
+  "index": 329,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_0.png",
+      "sourceSha256": "1cc48c48b27595286faac92e421fac765f4e88b71304280dee230c35477320a6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_0.png",
+      "candidateSha256": "5b22ec77e409c08739e575c475e24034eda7ba29ea089fdb1a20ed15053a42b7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_1.png",
+      "sourceSha256": "65eb8f2c18396176025db65f59ee619d14e403ff9795fee422e0c1ce9930132b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_1.png",
+      "candidateSha256": "0445b8f92f53762bebe2ad02909496a3a00138d711916edab7ca3deb8eace3b1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_2.png",
+      "sourceSha256": "74c120599ba0de7d59517f78da4734114124eaa0352d39f6084b640960856c48",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_2.png",
+      "candidateSha256": "d569edc05b546b9ae145f67b80fe36e13d81f092edc77a00ff7dd010e14bc89a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_3.png",
+      "sourceSha256": "6b7d4f88c2b8b36748e794e64bda50d07adc97883ec963b952f2d0c35ab40b59",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_male_v2_3.png",
+      "candidateSha256": "2fd2a4db6c7eff3d274c97e21fd4a388eca40c434e78c6ab4613c68b17b84ee6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_0.png",
+      "sourceSha256": "2b5a14a995e70bc6f8c0e14fdc5d92e891cf49a2942bf2f0d765693d988cebbb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_0.png",
+      "candidateSha256": "0d142863cacb2889bad7426484c953560c7cb7c717d7c6f0fb59961beb988381",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_1.png",
+      "sourceSha256": "9356002791ff35ab64c029e9f496de13a338667b5ba83674a832b8ef3bd0454a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_1.png",
+      "candidateSha256": "187dc7a03501b62c3f58060c118c31eaf40313e78fadb003595ec9af86dc6205",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_2.png",
+      "sourceSha256": "82856789d277c2e29942dd7da8c07f600f26ea17f025bc9e66f9b67be8b4e329",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_2.png",
+      "candidateSha256": "6308efba8ed41e62ff3236ec43c095dc88132c14e7aceed0ec8a963f8efd64c7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_3.png",
+      "sourceSha256": "82406f2bba2c5f7e64de404545cf84d55efa093fcb36851e1f1d3a430db2b459",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/329/Standing_Palms-Up_Barbell_Behind_The_Back_Wrist_Curl_female_v2_3.png",
+      "candidateSha256": "7275426873f7499616fb1a2b0f1a096fe69e772a15237d96e6de1c74523302e2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Standing_Palms-In_Dumbbell_Press",
+  "shard": 33,
+  "index": 328,
+  "status": "ready_for_review",
+  "findings": [
+    "Black-and-white checkerboard floor artifact under feet; GenerateImage surgical + green chroma key cleaned matte."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Palms-In_Dumbbell_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_male_v2_0.png",
+      "sourceSha256": "0f36a57fc1a4019cf5ae24556c32f72a743e649ec034d27e1fc4f98f026ffbbe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_male_v2_0.png",
+      "candidateSha256": "599af0911c6051f7bdb8ab3c1a8527bd4ef92b4ffe88e6141fb95c859abd5a44",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-In_Dumbbell_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_male_v2_1.png",
+      "sourceSha256": "2f29397cad72e4e7bfcaa646e3bd54779f763e6f96923a91b805336d5b220824",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_male_v2_1.png",
+      "candidateSha256": "79427b63bdcf2db863946534d111d61eb5bdb72678441b672b646b7c2627d086",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-In_Dumbbell_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_male_v2_2.png",
+      "sourceSha256": "af72f941cb905630d0652d58eeb4db96d8507aa74807eacf89867a4f1a653b25",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_male_v2_2.png",
+      "candidateSha256": "fb3a3ac81cc5f19896ed66609d65978a7d3497b89b16ccd0e3b62fedca68c1d6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-In_Dumbbell_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_male_v2_3.png",
+      "sourceSha256": "0a9a566250bbfb44cbf68e04f2805212bbe4d6eec771066ac163c16c1726c41e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_male_v2_3.png",
+      "candidateSha256": "05aa00ed1a9230e7cc2f75d76164f34ebe07261611a85f297c2b90cc771da0f4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-In_Dumbbell_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_female_v2_0.png",
+      "sourceSha256": "c2730884d66e4018f28a839c42c288819b77a0d6120748db5f126c582374f68b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_female_v2_0.png",
+      "candidateSha256": "6d1261105b17e0a6564ef8c068dfce3c6868e47c8667615644d1ff65d91973c8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-In_Dumbbell_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_female_v2_1.png",
+      "sourceSha256": "5517d8b4afa31e2118763c85d613409ad4c81b8992be817aa83218332514affa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_female_v2_1.png",
+      "candidateSha256": "59e04429cdae6a893d05d3322c008efb6293199209936142fa98ee63f4c0ce65",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-In_Dumbbell_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_female_v2_2.png",
+      "sourceSha256": "b9ffc10334107f0867f7a739fc37ce55a9d0daf64a54be166b2fce56745900d2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_female_v2_2.png",
+      "candidateSha256": "4783dcf6effca4384d2a5071c4fe1dc7afa123a92bd59f9bb5a3a73dc35641a8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Palms-In_Dumbbell_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Palms-In_Dumbbell_Press_female_v2_3.png",
+      "sourceSha256": "fcaf435ee00dbae45654bdd1f93a94d21bd30e204e7b18c1c1498c1ed14022cc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/328/Standing_Palms-In_Dumbbell_Press_female_v2_3.png",
+      "candidateSha256": "bea388129861fdbb2c107da20c2c5fe0191a38640e145bc64c04510c7b3e0a23",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

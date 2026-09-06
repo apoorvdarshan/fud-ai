@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Cable_One_Arm_Tricep_Extension",
+  "shard": 5,
+  "index": 49,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cable_One_Arm_Tricep_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_male_v2_0.png",
+      "sourceSha256": "ee706760fbeddc67642db51255dabdf739566bbd2bc08ce2e3cd3b5b4bc46079",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_male_v2_0.png",
+      "candidateSha256": "efeef726a8b615accfc42d23e9d12d639ff3737a628f7ad4276a516618064567",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_One_Arm_Tricep_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_male_v2_1.png",
+      "sourceSha256": "ec7e4ff0c1f68b7513eca37aa0e4706a0916a67d6765970100ceeb252c093183",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_male_v2_1.png",
+      "candidateSha256": "3b6712047db392d215b0f54e85c228385a5ead5761b14556d432a9fd0ec93626",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_One_Arm_Tricep_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_male_v2_2.png",
+      "sourceSha256": "2dab22f30d42f35c225e9ed8e7e661c1eee055342e58779c97d7481baa1f8223",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_male_v2_2.png",
+      "candidateSha256": "4a6243c6ce0130f45ffcfc5fb083f60592e4617332701be9f58b7f7342d27440",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_One_Arm_Tricep_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_male_v2_3.png",
+      "sourceSha256": "893f08766343268665329ee4a8d2f84a9fc1de2e3f48a778ac163bf21d2ee7c4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_male_v2_3.png",
+      "candidateSha256": "1d54b995f9cefe826af777ef8d42dee5caefc9f76c7f0e0c077d7e89c8d8a8d0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_One_Arm_Tricep_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_female_v2_0.png",
+      "sourceSha256": "703eea5af8effd15b9649bf06463d8eafe87c045edf55e354af5a86fc4549c0a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_female_v2_0.png",
+      "candidateSha256": "2f4fcf9d4ebdbf9fa0294c1bdff1602f7472b0428f34b50967f2de02ad0a6e05",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_One_Arm_Tricep_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_female_v2_1.png",
+      "sourceSha256": "bd1f397927300434715cf1793a5656c7a296aa6f14c3762ddd724c5540faf381",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_female_v2_1.png",
+      "candidateSha256": "7cb5ae8e922c2d7e8fb795866e2c9d728468499a538e161edfd122a61a0d2eac",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_One_Arm_Tricep_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_female_v2_2.png",
+      "sourceSha256": "0000a14bde60aac7e693bed9cc385b837fecf5c3334a5a401b20465b96ea79d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_female_v2_2.png",
+      "candidateSha256": "e3aad968d33a8044aae8a71b21e574a42f7bc10f4ed55a419b19cb1241d579f1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_One_Arm_Tricep_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_female_v2_3.png",
+      "sourceSha256": "9b29fd17aae28e61c17d74a0b1e610dbeeb186ea978288fed76e6a57de80f04a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_female_v2_3.png",
+      "candidateSha256": "fc8b1cb53fee1e154c33c67fa5eb662d6abeed1e38a343e62b475d0c33b047be",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

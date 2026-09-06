@@ -1,0 +1,826 @@
+{
+  "shard": 5,
+  "batch": "cursor-wave-200",
+  "exercises": [
+    {
+      "exerciseId": "Bradford_Rocky_Presses",
+      "shard": 5,
+      "index": 41,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Bradford_Rocky_Presses_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_male_v2_0.png",
+          "sourceSha256": "13115d4495b6b16eff0b010d1ae510e3ce0584008c0c9f5b5eb210635de7023b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_male_v2_0.png",
+          "candidateSha256": "366eca59aa056aa4c8cf0a888c44294e2a56db691643d36db2bc08201c39b87b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bradford_Rocky_Presses_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_male_v2_1.png",
+          "sourceSha256": "35a79104aeb55927203c0b68a481667062a9cb0bb02da4e958f25bcd08b30018",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_male_v2_1.png",
+          "candidateSha256": "2c7f8e487b0fb5f1d24557421f5128edcc821936733875cc66e3dc86ad432c27",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bradford_Rocky_Presses_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_male_v2_2.png",
+          "sourceSha256": "64ab1d828121ddada95109bc6f66454ecb2fb4ad52d7a7b8406dc98e19ee7127",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_male_v2_2.png",
+          "candidateSha256": "826b5e6eb66a1934e8a9fe4ffb90bf5f6085d082a949d99bd5676e6b46ada8a1",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bradford_Rocky_Presses_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_male_v2_3.png",
+          "sourceSha256": "df46f610d6a891c41bb1bf82056ac4c22aa112dcf5833a023c0c40eb7b5ee72f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_male_v2_3.png",
+          "candidateSha256": "dc39d052e59ea3e94d5c5894bf31134667ffbbdbca6ab9a31dc54c2c8d556742",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bradford_Rocky_Presses_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_female_v2_0.png",
+          "sourceSha256": "190b04e0c8ebf6a9be9a56bc58a194fc9c164d5d2dc0a5a8b26913c5b427ac96",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_female_v2_0.png",
+          "candidateSha256": "11d44fb44c93d933ca1be0bb2dabc964be2d55e32ea375b053fc139b3ba95572",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bradford_Rocky_Presses_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_female_v2_1.png",
+          "sourceSha256": "5f4c8711f4d6bf1093a2be6afc8d20eae32daa7c9307aee427887172a7cca767",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_female_v2_1.png",
+          "candidateSha256": "b5fb377c7ad8402a396298f78373cbb0783b1f951f13b2efeab00c342ce6e03b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bradford_Rocky_Presses_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_female_v2_2.png",
+          "sourceSha256": "45cf0aa44982210fb6a55f3d52b25391592f0b45db4f265dc0784abca58cfeb8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_female_v2_2.png",
+          "candidateSha256": "892b8d177e8f100c5784b04293104d480a8f2511e32c6eb8dd7b9fd4c83056d1",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bradford_Rocky_Presses_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bradford_Rocky_Presses_female_v2_3.png",
+          "sourceSha256": "051f4a3f52088388b8ce265c950c15bfc337cc7db923a7d681f476758c8124d8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/041/Bradford_Rocky_Presses_female_v2_3.png",
+          "candidateSha256": "08955e62d634bc65520785b703bfa8fc7e9539bd9cb9f71d3b465e33f7c7d7ff",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Butt_Lift_Bridge",
+      "shard": 5,
+      "index": 42,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Butt_Lift_Bridge_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_male_v2_0.png",
+          "sourceSha256": "d409ce0cd88bac569ea4f181dbfc95fb94c95f888e9ff4ef42180a7fa5ff3d58",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_male_v2_0.png",
+          "candidateSha256": "ae4ca8f2517deeb799231a5cf35a73fa666bd2456a85d8c18ddbb93b8e6bba5b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Butt_Lift_Bridge_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_male_v2_1.png",
+          "sourceSha256": "99e8e12fd4cc44699ade1c5fde1b080a579005506942f2f9d10538e2b944bd2b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_male_v2_1.png",
+          "candidateSha256": "39bab7bb03619b5e1a340c8465195c0cfd13421f501b78198ab4215c99ee4111",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Butt_Lift_Bridge_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_male_v2_2.png",
+          "sourceSha256": "049ebf82884a13fd987f10d541855a83ba327c7a2303d7074a7fc688f969fad9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_male_v2_2.png",
+          "candidateSha256": "e3e0a62bd27f15c4190c2109c5bb048b4174a87a53e3a7f86a555faccc209655",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Butt_Lift_Bridge_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_male_v2_3.png",
+          "sourceSha256": "7fc0e4ea2cae2f1b937eaeed57d41b4ae1253b2f5f7f20570e627fbe23fd6cf7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_male_v2_3.png",
+          "candidateSha256": "9c345a12a824f54df4bcb1bbb27e88702ba73b757752aec64a6759da4b9e8cb8",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Butt_Lift_Bridge_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_female_v2_0.png",
+          "sourceSha256": "ed847ffcf9ea70b9df474dade13f4e227700e8709a6c3aeda19c4d55f4bb6d83",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_female_v2_0.png",
+          "candidateSha256": "8264bfcb97b4bb1a1f1913d7ff2d6b0a31ec487604fbe78baa19080bf498ecc2",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Butt_Lift_Bridge_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_female_v2_1.png",
+          "sourceSha256": "724bcfa834f58fc3783e99776b9537b86d04a0a73b93ab012c1b2e5e6c5f0d7e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_female_v2_1.png",
+          "candidateSha256": "c37d08ef147203adf5ad16602959acfa7010b1b2d07c72cdbffe3f1273f8ff53",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Butt_Lift_Bridge_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_female_v2_2.png",
+          "sourceSha256": "8d7caec34cd0aedd7aa37906765ece8678e4dd4a17138d5362df56aad2da4a19",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_female_v2_2.png",
+          "candidateSha256": "5e6eae9b4aa8583b49218246b13f027148440ac62dca4366d3fab7340da29e62",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Butt_Lift_Bridge_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Butt_Lift_Bridge_female_v2_3.png",
+          "sourceSha256": "6202f7320cf6a8ececab972f2e88d9f938e9d793040d0b5f7aeae73ac1a91182",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/042/Butt_Lift_Bridge_female_v2_3.png",
+          "candidateSha256": "b18d62b95d4b7db30f12976cdb5cfd94f9eff6c9af780f2e4981ee3e6a5cbd57",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Cable_Chest_Press",
+      "shard": 5,
+      "index": 43,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Cable_Chest_Press_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Chest_Press_male_v2_0.png",
+          "sourceSha256": "78057b0f55f0740fa716f084e6657fab72634f9cee13066c8b8e936a3aad5440",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/043/Cable_Chest_Press_male_v2_0.png",
+          "candidateSha256": "fa729bbc0140b8468dbffc6d34633faf29113109770f2e3f7431251a1f91579b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Chest_Press_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Chest_Press_male_v2_1.png",
+          "sourceSha256": "4d640903186bfd7e3a4826accc95d8402a97c029e496903f9b3570d0df94ea95",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/043/Cable_Chest_Press_male_v2_1.png",
+          "candidateSha256": "e2f3f99e5b29c4d89f05d2cb48ad7db1d8675bdecdaea08e7269358b30449f95",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Chest_Press_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Chest_Press_male_v2_2.png",
+          "sourceSha256": "b17808cbf02e107466bece12f3fc9b2029dad1a2d04cdd8d34392d1528547791",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/043/Cable_Chest_Press_male_v2_2.png",
+          "candidateSha256": "2ba8fa97d76fcc736bef0fc6ffe012bf4b6182edacf3de6f32dfcd13b0625405",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Chest_Press_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Chest_Press_male_v2_3.png",
+          "sourceSha256": "a63ff8db45697981a2083f9f8f6758d547e939266e957915e131fec3cb9cbd59",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/043/Cable_Chest_Press_male_v2_3.png",
+          "candidateSha256": "dded5dcdc89a9272a03d5bed7651bc07346d2d9203b163a13ad80a064f0efa1f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Chest_Press_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Chest_Press_female_v2_0.png",
+          "sourceSha256": "8ed169cadff14db4ec341813a6fbe69399df8c2606d58736a1a2f630b5f0471f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/043/Cable_Chest_Press_female_v2_0.png",
+          "candidateSha256": "21ea714c0e8ea1fa796dc60701b5d867ed7a2ad3637e2c2ddb602cf4ccb3d88a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Chest_Press_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Chest_Press_female_v2_1.png",
+          "sourceSha256": "ae9ca9c352db8a20ec907084740d362ea8a97f99350e22a3b2fcede2b177d400",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/043/Cable_Chest_Press_female_v2_1.png",
+          "candidateSha256": "a4a77c6c01ea2dc29c7044560783539fd929d71f9cc911ca8b7651494c379419",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Chest_Press_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Chest_Press_female_v2_2.png",
+          "sourceSha256": "58acc9488d97ca25036b9aa35a4e735a64d62dce831809fbe6bafa7ad948f7c2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/043/Cable_Chest_Press_female_v2_2.png",
+          "candidateSha256": "6bbec27223b0fc3607c054f4e62cd6e8e8aa7d7f210b0cb0998692fbe4eb1931",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Chest_Press_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Chest_Press_female_v2_3.png",
+          "sourceSha256": "a8a4fb45ac76e2a8133cc71830fa1e836da4c400ba3f8998c373ef54af72bfe7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/043/Cable_Chest_Press_female_v2_3.png",
+          "candidateSha256": "c4314d148bfd0ca17168ea51d7732dcac50a93875dc2c3017411a2801259eb54",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Cable_Deadlifts",
+      "shard": 5,
+      "index": 44,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Cable_Deadlifts_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_male_v2_0.png",
+          "sourceSha256": "2c762ba021220f8da3abf2513e432900827b91802ab0b44039276e114a1fb833",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_male_v2_0.png",
+          "candidateSha256": "47c97aeaff415f0296d24c2df4a55b97163686a41aa1c1b590c64839c49d260b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Deadlifts_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_male_v2_1.png",
+          "sourceSha256": "894a25e819aeebd5f9eed3d62daf798ec53b43c69aefb77780c8b47bc258bfea",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_male_v2_1.png",
+          "candidateSha256": "3d93d00b98f081d785575d2190fa77fd1bafaf60bc202db04987ea8f578bb536",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Deadlifts_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_male_v2_2.png",
+          "sourceSha256": "8b6ed90dc9c654802ea9aca8c38f8854ea6a54f6b7a7e25b7bc60f54efc7c095",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_male_v2_2.png",
+          "candidateSha256": "30e206bf0c6d1e2011235f7d89268b703dc8781a97d4c27c7c2f3409973b3046",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Deadlifts_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_male_v2_3.png",
+          "sourceSha256": "561b208e218745738cfc68e96e5d886c3e835c680c080011662c69b7c1d6f3c7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_male_v2_3.png",
+          "candidateSha256": "4a4a15256b291d2a5f277606f5bd3d513d243a29ed7987fe7d5bdfff28a167de",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Deadlifts_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_female_v2_0.png",
+          "sourceSha256": "125cdd996ce3ea60b33b932edcbb8c0d9b3eeee59c619cb171b90f829fcd6af6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_female_v2_0.png",
+          "candidateSha256": "9e155aa191b3d0f4b70b2a5dbdfa0b81109fa2cb24a02f792dc65713b00b68c0",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Deadlifts_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_female_v2_1.png",
+          "sourceSha256": "26a31a319a30bab55859b6678e3fdbfd9ca130d5e668f21c887e1116dba525d8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_female_v2_1.png",
+          "candidateSha256": "7f51a24e8f657f5654a4e6be91237f5df581ddfaa5d8e275af4f7e555292aade",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Deadlifts_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_female_v2_2.png",
+          "sourceSha256": "67755cfea3306a57dd72f70427ec7eeb0f225c21ca087db7f584afd920249343",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_female_v2_2.png",
+          "candidateSha256": "a06837e2a3a070352ae801d5c53034148ff49851d5e1f90ea61afe7a068cf39d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Deadlifts_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Deadlifts_female_v2_3.png",
+          "sourceSha256": "0e3d7c83a457f351fe269730d24841fac6ad45aefbd40f0542cf0f8c0ff74c90",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/044/Cable_Deadlifts_female_v2_3.png",
+          "candidateSha256": "17d5eac89619675675f7e71dd8c1bdbace2f749db5a5e0bc50e97f38395da51a",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Cable_Incline_Pushdown",
+      "shard": 5,
+      "index": 45,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Cable_Incline_Pushdown_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_male_v2_0.png",
+          "sourceSha256": "8029fe4882ff421bc3a13bd4a5c98be108df20e534b996349a1fce1fe04923d6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_male_v2_0.png",
+          "candidateSha256": "e6af3ec3e211f6fb6f9206f48145ee6db15293bc8bdc4418e50bb8b2373369e9",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Incline_Pushdown_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_male_v2_1.png",
+          "sourceSha256": "b7501e9de04293a7c3ab6c412f0c7c2db8552ded66eaa51ae86f93576285906c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_male_v2_1.png",
+          "candidateSha256": "4733413d87ea414dc5d149c4048c48e7291e3742bfeaedc4f197f1869cc699d1",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Incline_Pushdown_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_male_v2_2.png",
+          "sourceSha256": "496c1e8c20189509af99fe205fd4af0d6077e9712a2ca209002ef840eadb34a4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_male_v2_2.png",
+          "candidateSha256": "b446f0ddba4dde93f5209a9be1e6313b9cb6d2d91cdc4efa748e2572b8807b7c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Incline_Pushdown_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_male_v2_3.png",
+          "sourceSha256": "d13b39cc58e7585324f1b83845970f9f2df12a55a21bb1dacd4ce958e8c9c365",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_male_v2_3.png",
+          "candidateSha256": "2c3f35e5f1c6b08d63eb0aeb958dfe7d463ed27e9e9e826bc5c3157f3178ef1b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Incline_Pushdown_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_female_v2_0.png",
+          "sourceSha256": "73d0d1aa74c90d15421e8faec127c03fc96eaefda21488df4aaaa5a0b1682679",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_female_v2_0.png",
+          "candidateSha256": "1357cb928854062010ff30b8d2877b517f234143e3abd7ef9e8acd8560802013",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Incline_Pushdown_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_female_v2_1.png",
+          "sourceSha256": "8363cc98eeae355048fe6af37536ddb06eaf363cdb23841690654d9c255c2849",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_female_v2_1.png",
+          "candidateSha256": "cf0149a5d1c9e124c33c3e0ec85d78701b54092fe4f061ae5671b0569831a51b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Incline_Pushdown_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_female_v2_2.png",
+          "sourceSha256": "5bb3359813ee39b5f076bb9f66d2b67702f24052523eaadaab3e62784d4bcebc",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_female_v2_2.png",
+          "candidateSha256": "aca2a1e8979e91a22a9bbc738bfc285240e5a90ef07eea96015b1217ebcba80d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Incline_Pushdown_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_female_v2_3.png",
+          "sourceSha256": "d118656e9ca1d1761ec9ad26db11d467c22e52c591f8088c3fb48ecd9369583f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_female_v2_3.png",
+          "candidateSha256": "fd8eaff5c290c9ba4143e4decca89e015072db1d5bc672cfb45e73e389416b6b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Cable_Internal_Rotation",
+      "shard": 5,
+      "index": 46,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Cable_Internal_Rotation_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Internal_Rotation_male_v2_0.png",
+          "sourceSha256": "6a25dc25ca3d1d4691b2eb31eee03d600c8cc5ac6f6a6d6ae726c81837735d94",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/046/Cable_Internal_Rotation_male_v2_0.png",
+          "candidateSha256": "685d10587908ee4b8c60b29bdf34c0cf7481f74af76c8256fedad7450aa3cbab",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Internal_Rotation_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Internal_Rotation_male_v2_1.png",
+          "sourceSha256": "fe13fe06e385db02720adee526c7cea8ada2af10295e83510f4dad7dff699ea0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/046/Cable_Internal_Rotation_male_v2_1.png",
+          "candidateSha256": "c55fec4429842e36fc02b0653f5715950b07b483a6de57ffdde366fb1db4ed94",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Internal_Rotation_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Internal_Rotation_male_v2_2.png",
+          "sourceSha256": "56a95a46e62f07097fe496b2c9aebde64c1cfa4758dfc4042143317c44531d82",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/046/Cable_Internal_Rotation_male_v2_2.png",
+          "candidateSha256": "534575becb630fdd8e4df7393a4535bd303b68d429873023f42303a355ffea01",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Internal_Rotation_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Internal_Rotation_male_v2_3.png",
+          "sourceSha256": "e39298a0f5ee8d1126e693ec1106a6c566885836df7a9e4f80e8bcf6b2e99bf2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/046/Cable_Internal_Rotation_male_v2_3.png",
+          "candidateSha256": "37e25cac15a6eedceacda5d3e6127c321c8abb651d43f3516a44d13f1142672e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Internal_Rotation_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Internal_Rotation_female_v2_0.png",
+          "sourceSha256": "5e0f0ea4f5115672f5980944d0e48a2bd36a005d3b00e54da633343dc2541bbb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/046/Cable_Internal_Rotation_female_v2_0.png",
+          "candidateSha256": "06984d935805fc54815cb4725da2ac7dde8665500a9d27dfe0072abc7fe9c3e9",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Internal_Rotation_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Internal_Rotation_female_v2_1.png",
+          "sourceSha256": "85d9b5188cc7bf77a9976fdd36d6d35c7626661a50ef05808336d7fd62d0952f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/046/Cable_Internal_Rotation_female_v2_1.png",
+          "candidateSha256": "5a56aac622f189b5c019c308644589dd6e19e42a82a9e7f031ed603549b9e80d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Internal_Rotation_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Internal_Rotation_female_v2_2.png",
+          "sourceSha256": "f74470c3592f0863c35b2bd9127dceec3a946b1935aed398478dadaeba4b43e9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/046/Cable_Internal_Rotation_female_v2_2.png",
+          "candidateSha256": "014ac2bcad89819a690450db278df5748e3ba6390973eb60ed0e91e701603faa",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Internal_Rotation_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Internal_Rotation_female_v2_3.png",
+          "sourceSha256": "97e482766f2fc9d15642a281b62948fb8ea626c46f99de522d9840443d1ab59b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/046/Cable_Internal_Rotation_female_v2_3.png",
+          "candidateSha256": "16e4b0af1c20fa457983f680e3099eef9c3f23b9c2f4f1f5876b4a786fae32a4",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Cable_Iron_Cross",
+      "shard": 5,
+      "index": 47,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Cable_Iron_Cross_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_male_v2_0.png",
+          "sourceSha256": "521d2c2ceb617b4207e9113f21d3df5873ec80ce70161d4cfcdcbbdeac3cd4a0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_male_v2_0.png",
+          "candidateSha256": "5ec9c6104b0dbc2e94ac2d6d28492b41ef73ff90c225590b765e682a2e3a8df4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Iron_Cross_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_male_v2_1.png",
+          "sourceSha256": "b076b686c921dafaa1d714122cdc98841121ae3f1d32778ce91aee91b546a80d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_male_v2_1.png",
+          "candidateSha256": "9d0e9d16107be7b6227bb3c79e25e627a0f19642abc9fab20844a60c3b7ba13f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Iron_Cross_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_male_v2_2.png",
+          "sourceSha256": "236fedcc31e3ccc60c305bcb1ea569044d68526ad7635cc178fa77df938a807e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_male_v2_2.png",
+          "candidateSha256": "52b3375d164caffec60f8b3e922c932e8ad12b8872e522878c92d0dc090f7de9",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Iron_Cross_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_male_v2_3.png",
+          "sourceSha256": "00a56b1d6150e41ddd56ad05eb0f3ed7db5d00d270fdaef04657762dfce85f8b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_male_v2_3.png",
+          "candidateSha256": "0a9a4f49c071de3e94fa0aa0c726a55ceb9754badbbeb1afd49653289f9480f9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Iron_Cross_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_female_v2_0.png",
+          "sourceSha256": "1acfb040476fa45e3e160eb31a76c662de1b2e566926db79edf3616566b47db9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_female_v2_0.png",
+          "candidateSha256": "368d3439d053be09ee461e32843308456aba136b6c955f9e1d91ab5b76beab9d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Iron_Cross_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_female_v2_1.png",
+          "sourceSha256": "5be2b1474410f112df2dadbe8ba946246512bea36caeacbe589c65c2cd8b4a6d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_female_v2_1.png",
+          "candidateSha256": "ba36f89b35641f708325f9da48ee9b3bf5de14789853895eaed3b2297b8d48c0",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Iron_Cross_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_female_v2_2.png",
+          "sourceSha256": "259be3667c9e00993f0becc5581e1b097007fb7ae8888b936c81e8402497283c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_female_v2_2.png",
+          "candidateSha256": "46aa9d03413429f7cd336b5733964ad725534bcac5c70ee160785d24c4371863",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Iron_Cross_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_female_v2_3.png",
+          "sourceSha256": "9495990cf0d260a9b1851190847837eb1aa03d04f5992610428db0c862f0d440",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_female_v2_3.png",
+          "candidateSha256": "a7cca5285782ad3e8626ec2ce5064702e8e46d5fe6c9a7cd28da6fe487983a82",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Cable_Judo_Flip",
+      "shard": 5,
+      "index": 48,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Cable_Judo_Flip_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_male_v2_0.png",
+          "sourceSha256": "3312cc672b740f743d04a317cb29213120a35c173186b5911fd0ca64ea6bd224",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_male_v2_0.png",
+          "candidateSha256": "27ff99c05254e70526c791f3be96d53ad92586507fa0c06b6552a4176740138a",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Judo_Flip_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_male_v2_1.png",
+          "sourceSha256": "2ca9c4ee3f5b60a5b0c462cf5b5c853b41e0c557d3efd690f39c27cbf7b4f144",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_male_v2_1.png",
+          "candidateSha256": "19b147b2271de25af3dc619b898946407abe5880e1441edad78e5fcfb3f77cb5",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Judo_Flip_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_male_v2_2.png",
+          "sourceSha256": "7b7fef162a8a7112261e0b6baf77f2f280f2d7adce860fd4e50d96d1110a87b0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_male_v2_2.png",
+          "candidateSha256": "71e50a714e4818efe44bf1f5ee2337057c6ca1cf086be10da8677d0d0bf7b1c7",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Judo_Flip_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_male_v2_3.png",
+          "sourceSha256": "fa58d5c5d1df5908471a0db4fea3371c3795c06f342c4aaad9ae45f94dfccefb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_male_v2_3.png",
+          "candidateSha256": "7fa59476947da9fe836a9c552a5ad4c566df3ec7ef5f2a0078a641745a98bae6",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Judo_Flip_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_female_v2_0.png",
+          "sourceSha256": "fb6c4c6e73b33ec38939ae655456d459975f957fb356af4e7cd0714131e1d5fe",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_female_v2_0.png",
+          "candidateSha256": "3244c0d030fe5985bdf357edd09fd97f018a70f7e931a809263683f4e80d900a",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Judo_Flip_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_female_v2_1.png",
+          "sourceSha256": "28082f242279c29ae2dd4eb02b38ab8bd5c0e06db0a29004e15072ff3df23285",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_female_v2_1.png",
+          "candidateSha256": "00c2a2893be36e83a787347ca15f16262322ff58ff76ddc7b44527c06638043e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Judo_Flip_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_female_v2_2.png",
+          "sourceSha256": "bf0285b5a31ed84a3571c2e17aaf9457de7bd14c4d3df82c38178434988f3b0a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_female_v2_2.png",
+          "candidateSha256": "9104fedb3b4b1b569ba4fbbef1e63398d1196b7df07f366c9a6fe58d64600fcf",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Judo_Flip_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Judo_Flip_female_v2_3.png",
+          "sourceSha256": "bd45fcb30fa825f0b5e1890933d6d24a8fa390be7f0719f6ef29da2d79cce975",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/048/Cable_Judo_Flip_female_v2_3.png",
+          "candidateSha256": "d4f9702e69f416eebbc3b145de3ee196d424a3660ff079d89f36ed39bc7beb00",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Cable_One_Arm_Tricep_Extension",
+      "shard": 5,
+      "index": 49,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Cable_One_Arm_Tricep_Extension_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_male_v2_0.png",
+          "sourceSha256": "ee706760fbeddc67642db51255dabdf739566bbd2bc08ce2e3cd3b5b4bc46079",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_male_v2_0.png",
+          "candidateSha256": "efeef726a8b615accfc42d23e9d12d639ff3737a628f7ad4276a516618064567",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_One_Arm_Tricep_Extension_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_male_v2_1.png",
+          "sourceSha256": "ec7e4ff0c1f68b7513eca37aa0e4706a0916a67d6765970100ceeb252c093183",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_male_v2_1.png",
+          "candidateSha256": "3b6712047db392d215b0f54e85c228385a5ead5761b14556d432a9fd0ec93626",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_One_Arm_Tricep_Extension_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_male_v2_2.png",
+          "sourceSha256": "2dab22f30d42f35c225e9ed8e7e661c1eee055342e58779c97d7481baa1f8223",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_male_v2_2.png",
+          "candidateSha256": "4a6243c6ce0130f45ffcfc5fb083f60592e4617332701be9f58b7f7342d27440",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_One_Arm_Tricep_Extension_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_male_v2_3.png",
+          "sourceSha256": "893f08766343268665329ee4a8d2f84a9fc1de2e3f48a778ac163bf21d2ee7c4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_male_v2_3.png",
+          "candidateSha256": "1d54b995f9cefe826af777ef8d42dee5caefc9f76c7f0e0c077d7e89c8d8a8d0",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_One_Arm_Tricep_Extension_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_female_v2_0.png",
+          "sourceSha256": "703eea5af8effd15b9649bf06463d8eafe87c045edf55e354af5a86fc4549c0a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_female_v2_0.png",
+          "candidateSha256": "2f4fcf9d4ebdbf9fa0294c1bdff1602f7472b0428f34b50967f2de02ad0a6e05",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_One_Arm_Tricep_Extension_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_female_v2_1.png",
+          "sourceSha256": "bd1f397927300434715cf1793a5656c7a296aa6f14c3762ddd724c5540faf381",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_female_v2_1.png",
+          "candidateSha256": "7cb5ae8e922c2d7e8fb795866e2c9d728468499a538e161edfd122a61a0d2eac",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_One_Arm_Tricep_Extension_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_female_v2_2.png",
+          "sourceSha256": "0000a14bde60aac7e693bed9cc385b837fecf5c3334a5a401b20465b96ea79d7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_female_v2_2.png",
+          "candidateSha256": "e3aad968d33a8044aae8a71b21e574a42f7bc10f4ed55a419b19cb1241d579f1",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_One_Arm_Tricep_Extension_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_One_Arm_Tricep_Extension_female_v2_3.png",
+          "sourceSha256": "9b29fd17aae28e61c17d74a0b1e610dbeeb186ea978288fed76e6a57de80f04a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/049/Cable_One_Arm_Tricep_Extension_female_v2_3.png",
+          "candidateSha256": "fc8b1cb53fee1e154c33c67fa5eb662d6abeed1e38a343e62b475d0c33b047be",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Cable_Preacher_Curl",
+      "shard": 5,
+      "index": 50,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Cable_Preacher_Curl_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_male_v2_0.png",
+          "sourceSha256": "e23377aba6140fc2ef5c132e83d05ea4b75fdfa364027a4cd04ed99ae382f5d6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_male_v2_0.png",
+          "candidateSha256": "78ddfb90adc9d1f65f5772eb2330bf4c77ccc80929b4b7e0d0bb28d379d9212d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Preacher_Curl_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_male_v2_1.png",
+          "sourceSha256": "bb7e629158242dddebae335d1710e1ee91a23aa5a527cdef91c55668b7e6ec78",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_male_v2_1.png",
+          "candidateSha256": "33966eb96842ce2d72af5279eac6922cbaa434f944f48ffe46f2dc03441b3c57",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Preacher_Curl_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_male_v2_2.png",
+          "sourceSha256": "7709e448aee3491c468c9fbf9ab80c10d7b0ba2df9ab29b8575a72a55644a8a8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_male_v2_2.png",
+          "candidateSha256": "67a90dcc06375a46c2537e660d4201e343f4082fea34daf70e1085c22a5d6fd7",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Preacher_Curl_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_male_v2_3.png",
+          "sourceSha256": "04e37f46edb2a609072cf8b596b51e449470ce358528046899b511f737689bfc",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_male_v2_3.png",
+          "candidateSha256": "64af40590a5123091d2c455d1824fad94ebd43bcdb75cdc7e5dbb119fad60004",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Preacher_Curl_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_female_v2_0.png",
+          "sourceSha256": "d5f9fed18b055d65f194c80ae4d2875ffb05da355a766d29fb39e4571444849e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_female_v2_0.png",
+          "candidateSha256": "87aff3647fb9f79d3c71a2b6d5d3946398eedf2028df6dae7d0fc32186abf6c7",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Preacher_Curl_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_female_v2_1.png",
+          "sourceSha256": "6d9359ad70797f7b2c7a2c14f694dc5b536afb6fcf27fa36050eea50b38560ee",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_female_v2_1.png",
+          "candidateSha256": "b68ff58d9b91bebfc8b6dba19ba8f708f616ae388ce8e460dd779682af277ccd",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Preacher_Curl_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_female_v2_2.png",
+          "sourceSha256": "cf5c123399231dcb3d09c37804094c144b8716a31c612e06af951c2ab3a0f2a5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_female_v2_2.png",
+          "candidateSha256": "ec2534342b1945e5b976b145e0739666608c7b15d9e8d6e32701080f6a135c37",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Cable_Preacher_Curl_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Cable_Preacher_Curl_female_v2_3.png",
+          "sourceSha256": "ba6ca5366695861b3ea2cb9b1803164ee448afd342bc3b51e2b1d65736638f67",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/050/Cable_Preacher_Curl_female_v2_3.png",
+          "candidateSha256": "24f3844b7420ccac0338f28f92dde0fb3492dc38706c3bb0afaf0774900fb6ee",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    }
+  ]
+}

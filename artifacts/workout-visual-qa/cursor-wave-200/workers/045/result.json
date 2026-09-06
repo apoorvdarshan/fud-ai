@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Cable_Incline_Pushdown",
+  "shard": 5,
+  "index": 45,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cable_Incline_Pushdown_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_male_v2_0.png",
+      "sourceSha256": "8029fe4882ff421bc3a13bd4a5c98be108df20e534b996349a1fce1fe04923d6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_male_v2_0.png",
+      "candidateSha256": "e6af3ec3e211f6fb6f9206f48145ee6db15293bc8bdc4418e50bb8b2373369e9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Incline_Pushdown_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_male_v2_1.png",
+      "sourceSha256": "b7501e9de04293a7c3ab6c412f0c7c2db8552ded66eaa51ae86f93576285906c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_male_v2_1.png",
+      "candidateSha256": "4733413d87ea414dc5d149c4048c48e7291e3742bfeaedc4f197f1869cc699d1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Incline_Pushdown_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_male_v2_2.png",
+      "sourceSha256": "496c1e8c20189509af99fe205fd4af0d6077e9712a2ca209002ef840eadb34a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_male_v2_2.png",
+      "candidateSha256": "b446f0ddba4dde93f5209a9be1e6313b9cb6d2d91cdc4efa748e2572b8807b7c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Incline_Pushdown_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_male_v2_3.png",
+      "sourceSha256": "d13b39cc58e7585324f1b83845970f9f2df12a55a21bb1dacd4ce958e8c9c365",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_male_v2_3.png",
+      "candidateSha256": "2c3f35e5f1c6b08d63eb0aeb958dfe7d463ed27e9e9e826bc5c3157f3178ef1b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Incline_Pushdown_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_female_v2_0.png",
+      "sourceSha256": "73d0d1aa74c90d15421e8faec127c03fc96eaefda21488df4aaaa5a0b1682679",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_female_v2_0.png",
+      "candidateSha256": "1357cb928854062010ff30b8d2877b517f234143e3abd7ef9e8acd8560802013",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Incline_Pushdown_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_female_v2_1.png",
+      "sourceSha256": "8363cc98eeae355048fe6af37536ddb06eaf363cdb23841690654d9c255c2849",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_female_v2_1.png",
+      "candidateSha256": "cf0149a5d1c9e124c33c3e0ec85d78701b54092fe4f061ae5671b0569831a51b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Incline_Pushdown_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_female_v2_2.png",
+      "sourceSha256": "5bb3359813ee39b5f076bb9f66d2b67702f24052523eaadaab3e62784d4bcebc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_female_v2_2.png",
+      "candidateSha256": "aca2a1e8979e91a22a9bbc738bfc285240e5a90ef07eea96015b1217ebcba80d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Incline_Pushdown_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Incline_Pushdown_female_v2_3.png",
+      "sourceSha256": "d118656e9ca1d1761ec9ad26db11d467c22e52c591f8088c3fb48ecd9369583f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/045/Cable_Incline_Pushdown_female_v2_3.png",
+      "candidateSha256": "fd8eaff5c290c9ba4143e4decca89e015072db1d5bc672cfb45e73e389416b6b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

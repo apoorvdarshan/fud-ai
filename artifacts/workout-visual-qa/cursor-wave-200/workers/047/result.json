@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Cable_Iron_Cross",
+  "shard": 5,
+  "index": 47,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cable_Iron_Cross_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_male_v2_0.png",
+      "sourceSha256": "521d2c2ceb617b4207e9113f21d3df5873ec80ce70161d4cfcdcbbdeac3cd4a0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_male_v2_0.png",
+      "candidateSha256": "5ec9c6104b0dbc2e94ac2d6d28492b41ef73ff90c225590b765e682a2e3a8df4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Iron_Cross_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_male_v2_1.png",
+      "sourceSha256": "b076b686c921dafaa1d714122cdc98841121ae3f1d32778ce91aee91b546a80d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_male_v2_1.png",
+      "candidateSha256": "9d0e9d16107be7b6227bb3c79e25e627a0f19642abc9fab20844a60c3b7ba13f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Iron_Cross_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_male_v2_2.png",
+      "sourceSha256": "236fedcc31e3ccc60c305bcb1ea569044d68526ad7635cc178fa77df938a807e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_male_v2_2.png",
+      "candidateSha256": "52b3375d164caffec60f8b3e922c932e8ad12b8872e522878c92d0dc090f7de9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Iron_Cross_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_male_v2_3.png",
+      "sourceSha256": "00a56b1d6150e41ddd56ad05eb0f3ed7db5d00d270fdaef04657762dfce85f8b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_male_v2_3.png",
+      "candidateSha256": "0a9a4f49c071de3e94fa0aa0c726a55ceb9754badbbeb1afd49653289f9480f9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Iron_Cross_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_female_v2_0.png",
+      "sourceSha256": "1acfb040476fa45e3e160eb31a76c662de1b2e566926db79edf3616566b47db9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_female_v2_0.png",
+      "candidateSha256": "368d3439d053be09ee461e32843308456aba136b6c955f9e1d91ab5b76beab9d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Iron_Cross_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_female_v2_1.png",
+      "sourceSha256": "5be2b1474410f112df2dadbe8ba946246512bea36caeacbe589c65c2cd8b4a6d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_female_v2_1.png",
+      "candidateSha256": "ba36f89b35641f708325f9da48ee9b3bf5de14789853895eaed3b2297b8d48c0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Iron_Cross_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_female_v2_2.png",
+      "sourceSha256": "259be3667c9e00993f0becc5581e1b097007fb7ae8888b936c81e8402497283c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_female_v2_2.png",
+      "candidateSha256": "46aa9d03413429f7cd336b5733964ad725534bcac5c70ee160785d24c4371863",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Iron_Cross_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Iron_Cross_female_v2_3.png",
+      "sourceSha256": "9495990cf0d260a9b1851190847837eb1aa03d04f5992610428db0c862f0d440",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/047/Cable_Iron_Cross_female_v2_3.png",
+      "candidateSha256": "a7cca5285782ad3e8626ec2ce5064702e8e46d5fe6c9a7cd28da6fe487983a82",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Workout review — batch 01</title>
+<style>
+:root{color-scheme:dark;font:15px system-ui;background:#101114;color:#f6f6f7}*{box-sizing:border-box}body{margin:0}header{position:sticky;top:0;z-index:2;background:#17181cf5;padding:18px 24px;border-bottom:1px solid #393b42}h1{font-size:22px;margin:0 0 10px}button,select,input,textarea{font:inherit;border:1px solid #555966;border-radius:7px;padding:8px;background:#24262d;color:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible{outline:3px solid #ff547e}.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}main{padding:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,570px),1fr));gap:24px}article{border:1px solid #3c3e45;border-radius:12px;padding:16px;background:#191b20}h2{font-size:18px;margin:0 0 10px}.meta{color:#ffadbf}.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.stage{position:relative;aspect-ratio:4/3;background:#090909;overflow:hidden}.stage img{position:absolute;width:100%;height:100%;object-fit:contain}.stage.light{background:#eee}.stage.checker{background:repeating-conic-gradient(#aaa 0 25%,#ddd 0 50%) 0/20px 20px}figure{margin:0}figcaption{padding:6px 0;color:#d4d4d8}.empty{position:absolute;inset:0;display:grid;place-items:center;padding:20px;text-align:center;color:#ddd;background:#292b31}.warning{font-size:13px;color:#ffc774}details{margin:10px 0}li{margin:5px 0}.decision{display:flex;gap:10px;flex-wrap:wrap}textarea{width:100%;margin-top:10px;min-height:58px}.muted{color:#c0c2cc;font-size:13px}#error{color:#ffb6b6}#summary{margin:8px 0}.label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#b5b6be}a{color:#ff92ac}
+[hidden]{display:none!important}
+</style></head><body>
+<header><h1>Workout review · Batch 01</h1><p class="muted">Originals remain untouched. Candidates are not approved repairs. Review both genders, dark/light backgrounds and all four frames before deciding.</p>
+<div class="controls"><button id="play">Pause</button><button id="step">Next frame</button><label>Frame <input id="frame" type="range" min="0" max="3" value="0"><span id="frameNumber">0</span></label><label>Speed <select id="speed"><option value="650">Normal</option><option value="1100">Slow</option><option value="350">Fast</option></select></label><label>Gender <select id="gender"><option value="male">Male</option><option value="female">Female</option></select></label><label>Background <select id="background"><option value="dark">Dark</option><option value="light">Light</option><option value="checker">Checkerboard</option></select></label><button id="refresh">Refresh candidates</button><button id="export">Export my decisions</button></div>
+<p id="summary" aria-live="polite"></p><div id="error" role="alert"></div></header><main id="grid"></main>
+<script>
+let data,frame=0,playing=!matchMedia('(prefers-reduced-motion: reduce)').matches,timer,views=[],decisions={},key,observer;
+const $=id=>document.getElementById(id);
+function signature(row){return [...row.sourceHashes,...row.hashes].join('|')}
+function save(){try{localStorage.setItem(key,JSON.stringify(decisions))}catch{$('error').textContent='Local saving unavailable. Export your decisions before closing.'}summary()}
+function summary(){if(!data)return;const count=data.rows.filter(r=>decisions[r.id]?.decision!=='pending'&&decisions[r.id]?.decision&&decisions[r.id]?.signature===signature(r)).length;$('summary').textContent=`${data.count} exercises · ${data.rows.filter(r=>r.available===8).length} complete candidate sets · ${count} decisions recorded · No app images replaced`}
+function release(v){v.token++;v.before.removeAttribute('src');v.after.removeAttribute('src');v.before.hidden=v.after.hidden=true;v.empty.hidden=false;v.empty.textContent='Scroll into view to load';}
+function approval(v){const ready=v.row.available===8&&v.seen.size===8&&!v.failed.size;v.choice.querySelector('option[value="approve_candidate"]').disabled=!ready;v.loadState.textContent=ready?'All eight pairs decoded. Review dark/light backgrounds before approving.':`${v.seen.size}/8 pairs checked for display · view both genders before approving${v.failed.size?' · image load failed; refresh required':''}`;}
+async function drawView(v){
+  if(!v.visible||document.hidden)return;
+  v.wanted=($('gender').value==='female'?4:0)+frame;
+  v.stages.forEach(s=>s.className='stage '+$('background').value);
+  if(v.busy)return;
+  const index=v.wanted,token=++v.token,source=v.row.sources[index],candidate=v.row.candidates[index];
+  v.busy=true;v.empty.textContent='Loading matched frame pair…';v.empty.hidden=false;
+  const loaded=[];
+  const load=async(url)=>{if(!url)throw Error('Frame unavailable');const img=new Image();loaded.push(img);img.src=url;await img.decode();if(!img.naturalWidth)throw Error('Invalid image');return img;};
+  try{
+    const [before,after]=await Promise.all([load(source),candidate?load(candidate):Promise.resolve(null)]);
+    if(token!==v.token||!v.visible||document.hidden||index!==v.wanted)return;
+    before.alt=v.row.id+' original '+(index<4?'male':'female')+' frame '+index%4;
+    v.before.replaceWith(before);v.before=before;
+    if(after){after.alt=v.row.id+' candidate '+(index<4?'male':'female')+' frame '+index%4;v.after.replaceWith(after);v.after=after;v.empty.hidden=true;v.seen.add(index);v.failed.delete(index);}
+    else{v.after.hidden=true;v.empty.textContent='No candidate for this frame yet';}
+    approval(v);
+  }catch(e){
+    if(token!==v.token||!v.visible||index!==v.wanted)return;
+    v.failed.add(index);v.seen.delete(index);v.before.hidden=v.after.hidden=true;v.empty.hidden=false;v.empty.textContent='Frame unavailable or changed. Refresh candidates.';
+    if(v.choice.value==='approve_candidate'){v.choice.value='pending';v.update();}approval(v);
+  }finally{
+    for(const img of loaded)if(img!==v.before&&img!==v.after)img.removeAttribute('src');
+    v.busy=false;if(v.visible&&!document.hidden&&(index!==v.wanted||token!==v.token))drawView(v);
+  }
+}
+function draw(){for(const v of views)drawView(v);$('frame').value=frame;$('frameNumber').textContent=frame}
+function clock(){clearInterval(timer);$('play').textContent=playing?'Pause':'Play';if(playing&&!document.hidden)timer=setInterval(()=>{if(views.some(v=>v.visible&&v.busy))return;frame=(frame+1)%4;draw()},Number($('speed').value))}
+function element(tag,text){const el=document.createElement(tag);if(text)el.textContent=text;return el}
+function render(){
+  observer?.disconnect();for(const v of views)release(v);views=[];$('grid').replaceChildren();
+  observer=new IntersectionObserver(entries=>{for(const entry of entries){const v=entry.target.reviewView;v.visible=entry.isIntersecting;if(v.visible)drawView(v);else release(v);}},{rootMargin:'0px'});
+  for(const row of data.rows){
+    const card=element('article');card.append(element('h2',`${row.index}. ${row.id.replaceAll('_',' ')}`));
+    const meta=element('div',`${row.severity.toUpperCase()} · ${row.status}`);meta.className='meta';card.append(meta);
+    const pair=element('div');pair.className='compare';const view={row,stages:[],visible:false,token:0,busy:false,seen:new Set(),failed:new Set()};
+    for(const side of ['before','after']){
+      const fig=element('figure');fig.append(element('figcaption',side==='before'?'Original':'Candidate · '+[...new Set(row.methods.filter(Boolean))].join(' + ')));
+      const stage=element('div');stage.className='stage';const img=element('img');img.hidden=true;stage.append(img);view[side]=img;view.stages.push(stage);
+      if(side==='after'){view.empty=element('div','Scroll into view to load');view.empty.className='empty';stage.append(view.empty);}
+      fig.append(stage);pair.append(fig);
+    }
+    card.append(pair);const warning=element('p',row.warning);warning.className='warning';card.append(warning);
+    const details=element('details');details.append(element('summary','Reported issues'));const ul=element('ul');row.findings.forEach(f=>ul.append(element('li',f)));details.append(ul);card.append(details);
+    const choice=element('select');choice.setAttribute('aria-label','Decision for '+row.id);
+    for(const [value,label] of [['pending','Not reviewed'],['approve_candidate','Approve candidate'],['keep_original','Keep original'],['needs_more_work','Needs more work'],['defer','Defer']]){const option=element('option',label);option.value=value;choice.append(option);}
+    const old=decisions[row.id];choice.value=old?.signature===signature(row)?old.decision:'pending';
+    const notes=element('textarea');notes.placeholder='What needs changing?';notes.setAttribute('aria-label','Review notes for '+row.id);notes.value=old?.notes||'';
+    const update=()=>{
+      if(choice.value==='approve_candidate'&&(view.seen.size!==8||view.failed.size||row.available!==8))choice.value='pending';
+      decisions[row.id]={decision:choice.value,notes:notes.value,signature:signature(row),sourceHashes:row.sourceHashes,candidateHashes:row.hashes,reviewedAt:new Date().toISOString()};save();
+    };
+    view.choice=choice;view.update=update;view.loadState=element('p');view.loadState.className='muted';approval(view);
+    choice.onchange=update;notes.oninput=update;card.append(view.loadState,choice,notes);views.push(view);card.reviewView=view;$('grid').append(card);observer.observe(card);
+  }
+  draw();summary();
+}
+let refreshing=false;
+async function refresh(){
+  if(refreshing)return;refreshing=true;
+  try{
+    const res=await fetch('/manifest.json',{cache:'no-store'});if(!res.ok)throw Error('Manifest request failed');
+    const next=await res.json(),nextKey='fud-workout-'+next.batch+'-review-v1';
+    if(nextKey!==key){key=nextKey;try{const parsed=JSON.parse(localStorage.getItem(key)||'{}');decisions=parsed&&typeof parsed==='object'&&!Array.isArray(parsed)?parsed:{};}catch{decisions={};}}
+    data=next;document.title='Workout review — '+data.batch;document.querySelector('h1').textContent='Workout review · '+data.batch;
+    $('error').textContent='';render();
+  }catch(e){$('error').textContent=String(e);}finally{refreshing=false;}
+}
+$('play').onclick=()=>{playing=!playing;clock();};
+$('step').onclick=()=>{playing=false;clock();frame=(frame+1)%4;draw();};
+$('frame').oninput=()=>{playing=false;clock();frame=Number($('frame').value);draw();};
+$('gender').onchange=draw;$('background').onchange=draw;$('speed').onchange=clock;$('refresh').onclick=refresh;
+document.addEventListener('visibilitychange',()=>{clock();if(document.hidden){for(const v of views)release(v);}else draw();});
+$('export').onclick=()=>{
+  if(!data)return;
+  const current={};
+  for(const row of data.rows){
+    const old=decisions[row.id];const valid=old?.signature===signature(row)&&['pending','approve_candidate','keep_original','needs_more_work','defer'].includes(old.decision);
+    current[row.id]={...(valid?old:{decision:'pending',notes:old?.notes||'',stalePreviousDecision:!!old}),signature:signature(row),sourceHashes:row.sourceHashes,candidateHashes:row.hashes};
+    if(current[row.id].decision==='approve_candidate'&&(row.available!==8||views.find(v=>v.row.id===row.id)?.failed.size))current[row.id].decision='pending';
+  }
+  const payload={batch:data.batch,exportedAt:new Date().toISOString(),approvalDoesNotPromote:true,decisions:current};
+  const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const a=element('a');a.href=url;a.download='workout-'+data.batch+'-human-decisions.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+refresh();clock();
+</script></body></html>

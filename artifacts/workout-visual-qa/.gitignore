@@ -41,3 +41,5 @@ squat-reviewed-final/*-full-review.png
 !squat-reviewed-final/contact-dark.png
 !squat-reviewed-final/contact-light.png
 !squat-reviewed-final/original-contact-dark.png
+# Unapproved batch candidates, masks and logs remain local until human review.
+review-batches/batch-*/repair-pass-*/

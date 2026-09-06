@@ -1,0 +1,82 @@
+{
+  "exerciseId": "One-Arm_Kettlebell_Swings",
+  "shard": 5,
+  "index": 47,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Arm_Kettlebell_Swings_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Swings_male_v2_0.png",
+      "sourceSha256": "c47a1aa422aa35aa1087ad0467557e8f8190e2e64f5d98880ae8e8ec4cac747f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/047/One-Arm_Kettlebell_Swings_male_v2_0.png",
+      "candidateSha256": "2da87200398a4994a2143904a5f9e9d5afd4c81944a379a1b0c378cb234cef79",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Swings_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Swings_male_v2_1.png",
+      "sourceSha256": "ad192ca5da9e46953fde4c727ea4f570e338da7c4b125d23ad1c89779615e915",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/047/One-Arm_Kettlebell_Swings_male_v2_1.png",
+      "candidateSha256": "262f7e0a0dbddbacede67a6d732f7bcf2aeb03fbff480fda53a3f340addf643e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Swings_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Swings_male_v2_2.png",
+      "sourceSha256": "9121833e433f98311486f3f296ccd8b35a82a96ea7ac1ed545eeafa56664f089",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/047/One-Arm_Kettlebell_Swings_male_v2_2.png",
+      "candidateSha256": "e611f42900f1cc25069f80c53e68b1e4c3fd98c441dc5e7bf0548ce46970de4e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Swings_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Swings_male_v2_3.png",
+      "sourceSha256": "4ae38e686b9bb92120830289fb7b75fc7da3ddd585c70d6a953d4b4b3af75938",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/047/One-Arm_Kettlebell_Swings_male_v2_3.png",
+      "candidateSha256": "b205c48f9eac0884f8e59c1385cadf1743523706669a2b908eb9ec0b1c8a14ba",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Swings_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Swings_female_v2_0.png",
+      "sourceSha256": "e4f4d951bd0c16c431bbbae74d2c44ba54e138c1fa2957577ec46da9822883f3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/047/One-Arm_Kettlebell_Swings_female_v2_0.png",
+      "candidateSha256": "7eaf6a64332e5b41528219d86f95655725219fda1b2ef44be8fb705dbbc11965",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Swings_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Swings_female_v2_1.png",
+      "sourceSha256": "0a85c4023a2622742563b91f0dc2bdbf41400d836361951146ae5d1860e52d81",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/047/One-Arm_Kettlebell_Swings_female_v2_1.png",
+      "candidateSha256": "b1b9aa6bc488c44033e3b0aa4182068b488fffced7b1e3c21d22719c3834a42f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Swings_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Swings_female_v2_2.png",
+      "sourceSha256": "199d74e437873f444ac9ebadc54495b51c7b71b4f18fc74fda3a138a7b5ac482",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/047/One-Arm_Kettlebell_Swings_female_v2_2.png",
+      "candidateSha256": "619183af9c34353e84b847211a1a21f733d45caf74e39722a91b8a7574c3439f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Swings_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Swings_female_v2_3.png",
+      "sourceSha256": "10a9ab0dba805bfb41f502bdcacdc5111518807047ec9834096597186856fd62",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/047/One-Arm_Kettlebell_Swings_female_v2_3.png",
+      "candidateSha256": "dc3c398e37d1cfe385a48f04a2bfdf04f1adae16c6793e7b883f541fa73093ae",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "One-Arm_Medicine_Ball_Slam",
+  "shard": 5,
+  "index": 49,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Arm_Medicine_Ball_Slam_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Medicine_Ball_Slam_male_v2_0.png",
+      "sourceSha256": "41b72a18cf1416dda233983dafb0b7025b84110dd4d91b79cb6fc6e2c2c19577",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/049/One-Arm_Medicine_Ball_Slam_male_v2_0.png",
+      "candidateSha256": "e1e03e60c62c66f4e3a533f2e85ba6b46ca41150aa2b794ac5125e85e13b46f3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Medicine_Ball_Slam_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Medicine_Ball_Slam_male_v2_1.png",
+      "sourceSha256": "6b232d57c06ebc9fa9bbb49680f4c1a59a2c6102ba36d0d1aee3a1e838e12f3b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/049/One-Arm_Medicine_Ball_Slam_male_v2_1.png",
+      "candidateSha256": "c798fa8def98145edba66419d934b4a3835412cbb8cee62fdb02aa51c430b3f4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Medicine_Ball_Slam_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Medicine_Ball_Slam_male_v2_2.png",
+      "sourceSha256": "14984c41bff79fadd4cbc962a3a9931373e695714afe5168b907282e9069eb9e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/049/One-Arm_Medicine_Ball_Slam_male_v2_2.png",
+      "candidateSha256": "1d4ecfcf3cd5aa58e10dcd56147e3e58a404dc57cd9690798e90f524ebb4bcf1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Medicine_Ball_Slam_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Medicine_Ball_Slam_male_v2_3.png",
+      "sourceSha256": "b5474cd31eb0514d697023f5b5dcff7bc87495d63cce5d9807b340bac0cfb847",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/049/One-Arm_Medicine_Ball_Slam_male_v2_3.png",
+      "candidateSha256": "bd86e6e509f21161ba8f1e2267f4077d7dbfd3bac077ff8d55c33fd4c0d2db0b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Medicine_Ball_Slam_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Medicine_Ball_Slam_female_v2_0.png",
+      "sourceSha256": "cf725e8ebcdad4bc8836ec5cc98c8c49e9de6605a7339686d178bfbac18745ce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/049/One-Arm_Medicine_Ball_Slam_female_v2_0.png",
+      "candidateSha256": "0882e58ab16e284554ed6054dcbf979f51fce43ad34ad0f37c0c81ddd6e85acf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Medicine_Ball_Slam_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Medicine_Ball_Slam_female_v2_1.png",
+      "sourceSha256": "dc78feb0b7bd76eff59d7602e6cfcdea0f6cb02a95178a24d0d9eeb42eb8abb8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/049/One-Arm_Medicine_Ball_Slam_female_v2_1.png",
+      "candidateSha256": "3f15f9e86d347ddde26b7b2cb13826197fe789df1e52d41c2d0f27b581c7d377",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Medicine_Ball_Slam_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Medicine_Ball_Slam_female_v2_2.png",
+      "sourceSha256": "65db240d3d5c545f39bde1596bd36e20531a22d53e49d92a5929ee2c424e3ab0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/049/One-Arm_Medicine_Ball_Slam_female_v2_2.png",
+      "candidateSha256": "f759ae67c5b7212e551f9b5fb355195b4a8c53fc39cbb466f2fcb28f508ac308",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Medicine_Ball_Slam_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Medicine_Ball_Slam_female_v2_3.png",
+      "sourceSha256": "2c10db39a13c0b43157a723d1065463cc391637222499f90bcdcb834bbb3f0ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/049/One-Arm_Medicine_Ball_Slam_female_v2_3.png",
+      "candidateSha256": "e3b3dba8219370fe568cbcae247dd92ed59a4d9c516186b406dc3abf5f63dd14",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

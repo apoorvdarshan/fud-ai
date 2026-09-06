@@ -1,0 +1,82 @@
+{
+  "exerciseId": "One-Arm_Long_Bar_Row",
+  "shard": 5,
+  "index": 48,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Arm_Long_Bar_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Long_Bar_Row_male_v2_0.png",
+      "sourceSha256": "3906bcfa611bada62864ecb3d0bf2d71aeb2919e3485584aaa7ca86608b8f03b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/048/One-Arm_Long_Bar_Row_male_v2_0.png",
+      "candidateSha256": "31289b707fb2d44182f50cba1dd175419f2d825799763855050c7fecd21d4e04",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Long_Bar_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Long_Bar_Row_male_v2_1.png",
+      "sourceSha256": "b06843bc28612c30ad739f9983b8b510b758ddd8a40bf57d5825c0eadcbca9ff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/048/One-Arm_Long_Bar_Row_male_v2_1.png",
+      "candidateSha256": "6ef0d00b2f2253f4bcf569a0347c4ad20a4836a2ded33837310d7253b0ad85a2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Long_Bar_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Long_Bar_Row_male_v2_2.png",
+      "sourceSha256": "a27b180c798652f8fe54fbaa6f9131b6abc4a493b8db5679bc84e7316605513d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/048/One-Arm_Long_Bar_Row_male_v2_2.png",
+      "candidateSha256": "4be587cf85cca9227559305e0dea3535be5080ceec623a7bf4b2eccc94447ef7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Long_Bar_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Long_Bar_Row_male_v2_3.png",
+      "sourceSha256": "b90e0e10737f1c510993ab2bb314ce8a764b888016698d6f3c141e00a5bd22c6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/048/One-Arm_Long_Bar_Row_male_v2_3.png",
+      "candidateSha256": "7427784471d3c00da2f5fc8c936be354ed424ebd6f6bf28fb6df33eff21a2db9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Long_Bar_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Long_Bar_Row_female_v2_0.png",
+      "sourceSha256": "ea1ec368f286bf37e6da65eca07c066c1579959ade233b0229b3b7b61871c419",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/048/One-Arm_Long_Bar_Row_female_v2_0.png",
+      "candidateSha256": "c9a87dfee16eff913185d66e2642c7d93d8f2f24c670941cfd712659bc215a5a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Long_Bar_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Long_Bar_Row_female_v2_1.png",
+      "sourceSha256": "a917c107f422c8ca8695a703273f441ed13302eb4a3fd6cea712bd609e171bcc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/048/One-Arm_Long_Bar_Row_female_v2_1.png",
+      "candidateSha256": "1caf3a76d2ff44142f09b5585f394b983147de7c91e3603c38cc3d470d05f1ef",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Long_Bar_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Long_Bar_Row_female_v2_2.png",
+      "sourceSha256": "03ef2ac14032987692cff0e6830d4aa3479cd8d528356ea18b644a59997964dd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/048/One-Arm_Long_Bar_Row_female_v2_2.png",
+      "candidateSha256": "40846cad6ff1a54f4f47f01a11b3c0676f3dafead05606ff5c4216dd1764b286",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Long_Bar_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Long_Bar_Row_female_v2_3.png",
+      "sourceSha256": "21271882fb828a9ab0c88d90cb58bf2331fc9be2b5556ee324c64d7d0c17a79b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/048/One-Arm_Long_Bar_Row_female_v2_3.png",
+      "candidateSha256": "6207287302e9541511b3f54517bd0574c0295a8eaccbe3f2e9d38650af25caeb",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

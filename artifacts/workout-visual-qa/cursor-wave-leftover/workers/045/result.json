@@ -1,0 +1,82 @@
+{
+  "exerciseId": "One-Arm_Kettlebell_Split_Jerk",
+  "shard": 5,
+  "index": 45,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Arm_Kettlebell_Split_Jerk_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Split_Jerk_male_v2_0.png",
+      "sourceSha256": "96b533f33ba85cb0808111bd035405d71b79f0cf180fd18398a8af80972b28ee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/045/One-Arm_Kettlebell_Split_Jerk_male_v2_0.png",
+      "candidateSha256": "5adedee88fcd82c2d2b7fca8e9d93206d52e2dc14b07ece8cbf532290189b17e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Split_Jerk_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Split_Jerk_male_v2_1.png",
+      "sourceSha256": "79185d92105726ae5d14f1f37cf4819dbc145203bf9b2a9042c80cd8aef42f6c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/045/One-Arm_Kettlebell_Split_Jerk_male_v2_1.png",
+      "candidateSha256": "70571be34838721d48e376e26a1a32a5b0f8698e668cecb7d1b7fd9b657c44e6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Split_Jerk_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Split_Jerk_male_v2_2.png",
+      "sourceSha256": "c79b531178071c8ba4bd47f36cd8ed242726cb489d0a8e5271fdd3ebd2fae93e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/045/One-Arm_Kettlebell_Split_Jerk_male_v2_2.png",
+      "candidateSha256": "b0ccfdd9ce8c0f8e5b5ff001dbd67d7c456f3b15cc2a9c98982d631e05b56719",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Split_Jerk_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Split_Jerk_male_v2_3.png",
+      "sourceSha256": "b0659aec660ff04e481471cc68089de7eab590281fd6b23b7a6413d996384c93",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/045/One-Arm_Kettlebell_Split_Jerk_male_v2_3.png",
+      "candidateSha256": "38ecf822a8d0e46a9ddd1e8188b3beb84d58100809f482de967fac3525b49a98",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Split_Jerk_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Split_Jerk_female_v2_0.png",
+      "sourceSha256": "927f82cf65f37a63e877cfd7dbd37a51a6640b1d7ceb4cfb8313c5e5aee41cf1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/045/One-Arm_Kettlebell_Split_Jerk_female_v2_0.png",
+      "candidateSha256": "e5769a2f0973c17433862a518b17af2d3432a2daa5eea56f48f1ddb4eebabe01",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Split_Jerk_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Split_Jerk_female_v2_1.png",
+      "sourceSha256": "da614ba095a720e29318638b3517677297366977dff8727fa80dbb9f25595afd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/045/One-Arm_Kettlebell_Split_Jerk_female_v2_1.png",
+      "candidateSha256": "234272e0e578e229854e21b879bec055478dd1eeab23e672488b8429c2da2035",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Split_Jerk_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Split_Jerk_female_v2_2.png",
+      "sourceSha256": "1f098f14889283bacb59e2278af097e13d783ee699be9b6bec9fd3e89290f153",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/045/One-Arm_Kettlebell_Split_Jerk_female_v2_2.png",
+      "candidateSha256": "575137cdc60dd5991d750b24ef2719010646399d4cf069c39f1f276f3088602e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Split_Jerk_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Split_Jerk_female_v2_3.png",
+      "sourceSha256": "8d35d321c91b651f4f31f5e3cab81e2f2ea2d6a4be2fdc49714a5eb386ae7613",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/045/One-Arm_Kettlebell_Split_Jerk_female_v2_3.png",
+      "candidateSha256": "b3e0e4c67cc0df4aa6e89b200976d22749709f4df682a1f4e8c7c2f89d5bfc8f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

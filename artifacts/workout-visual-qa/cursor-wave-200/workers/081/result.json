@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Decline_Oblique_Crunch",
+  "shard": 9,
+  "index": 81,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Decline_Oblique_Crunch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Oblique_Crunch_male_v2_0.png",
+      "sourceSha256": "52ab38d5b14015d3253979c1438f40439fa0873114e80aa36dea2baeea09ba39",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/081/Decline_Oblique_Crunch_male_v2_0.png",
+      "candidateSha256": "0ab040b1b84c22f439edd9c4ca5d6e6366a44a1bb5e6e938316b6cc9c5730f01",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Oblique_Crunch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Oblique_Crunch_male_v2_1.png",
+      "sourceSha256": "00d8fe58ca1ae86c7bf458a8308f1462a913df71bee373a653dba382e6e7de62",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/081/Decline_Oblique_Crunch_male_v2_1.png",
+      "candidateSha256": "b48017cbf4e773a0c0989901e4ec95b2be383cd561dc73e54ae7a70ae67a4bc6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Oblique_Crunch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Oblique_Crunch_male_v2_2.png",
+      "sourceSha256": "d388ce12a2ce53e3a138e201d221184080572e6c47afee8587a3b711c71b15a1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/081/Decline_Oblique_Crunch_male_v2_2.png",
+      "candidateSha256": "faa07ef3394394718042b056b090ed400b992aa1bc3dab0a515be5b5c059293f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Oblique_Crunch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Oblique_Crunch_male_v2_3.png",
+      "sourceSha256": "d203d38e13aa025bb5ecfd61ff63610c776a263f59180656da5bfc8aeef4b6c9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/081/Decline_Oblique_Crunch_male_v2_3.png",
+      "candidateSha256": "dc8aebe0d800fd5b187e75b694ba5b82364cb254d4e10a84027b778f064c7661",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Oblique_Crunch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Oblique_Crunch_female_v2_0.png",
+      "sourceSha256": "325180e911425e52b9d81628f3344a0cd6ccdfa04abaadaecfbef5ef7f087872",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/081/Decline_Oblique_Crunch_female_v2_0.png",
+      "candidateSha256": "61d9e5804779272e733ea337b64da9837321db2ec12d1ff5a5eaa2ed40b6d433",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Oblique_Crunch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Oblique_Crunch_female_v2_1.png",
+      "sourceSha256": "fdd7ac11e869a2c853ae615fe11fb1aa8ef7ad7718775468d1a06b09c7a284a6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/081/Decline_Oblique_Crunch_female_v2_1.png",
+      "candidateSha256": "8a55da0a4bfe00f37e536f3ea58208326183e35118dd06e93a00e36dd3460d50",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Oblique_Crunch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Oblique_Crunch_female_v2_2.png",
+      "sourceSha256": "3a1f2ad791ed807e4881aeff719f24a93c98dea332606b1c81dd9f6f858f503a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/081/Decline_Oblique_Crunch_female_v2_2.png",
+      "candidateSha256": "1ce70be4a8e66c30dd25e81e7b59ba250a9ac977616bd5b5e2342ff46f40293c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Oblique_Crunch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Oblique_Crunch_female_v2_3.png",
+      "sourceSha256": "1bfb9e895b0a400e2610ddec7b0f197edd13755f27ddbc91620a983f8b9f591b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/081/Decline_Oblique_Crunch_female_v2_3.png",
+      "candidateSha256": "710c4d5e36b59806fb4f6f0b51273409b518471c06788cf7099f27acbe8341a6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Double_Kettlebell_Alternating_Hang_Clean",
+  "shard": 9,
+  "index": 90,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Double_Kettlebell_Alternating_Hang_Clean_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Alternating_Hang_Clean_male_v2_0.png",
+      "sourceSha256": "1b91a22f4f3abcb8b142a85ee105ca4cb4d4e5116e94775e12ec24825e774736",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/090/Double_Kettlebell_Alternating_Hang_Clean_male_v2_0.png",
+      "candidateSha256": "d3bf9226eda91f9ff3df0ec321219460ab55991857bb7bb39a3cebb1deb64d54",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Alternating_Hang_Clean_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Alternating_Hang_Clean_male_v2_1.png",
+      "sourceSha256": "e40d48979776f9587f4a3dedb104d17d6245a6b34052652328c02296e7fac016",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/090/Double_Kettlebell_Alternating_Hang_Clean_male_v2_1.png",
+      "candidateSha256": "d944e87fb2f8deff0a4339e605a638c0f3a19e3821fc1fe14b227a5b309d2140",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Alternating_Hang_Clean_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Alternating_Hang_Clean_male_v2_2.png",
+      "sourceSha256": "d55d93726568b256260ff220cb3122a26c30e764be94b7ceae752c4457115466",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/090/Double_Kettlebell_Alternating_Hang_Clean_male_v2_2.png",
+      "candidateSha256": "bb40089d43e694cd1f2227606747fe44872428a41afed3b94a1f42fb3581f945",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Alternating_Hang_Clean_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Alternating_Hang_Clean_male_v2_3.png",
+      "sourceSha256": "0aa1e9d9af7d83587ca0c292fecd78781a3ec61639a8f9ab79efa2511aaa69a8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/090/Double_Kettlebell_Alternating_Hang_Clean_male_v2_3.png",
+      "candidateSha256": "ff90094d2a5b525ea2ad38c00348dcf9694b7799710b0a1cc356825409fad289",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Alternating_Hang_Clean_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Alternating_Hang_Clean_female_v2_0.png",
+      "sourceSha256": "b854290410e643f38109030dda0b313ee13b98cc66782c005a334e8a9755ab53",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/090/Double_Kettlebell_Alternating_Hang_Clean_female_v2_0.png",
+      "candidateSha256": "326d0e52761ae63e77c2261e50330c3e218cb1910b352ab9bc5fe6c42e05187b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Alternating_Hang_Clean_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Alternating_Hang_Clean_female_v2_1.png",
+      "sourceSha256": "27799905d6c460a18193b7d918ff952319549baaaa1f4e35f6e7cf7e93519634",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/090/Double_Kettlebell_Alternating_Hang_Clean_female_v2_1.png",
+      "candidateSha256": "3a66a17f4e6ff08984108f4af56c0dff994b8fb935234efa5b05c0f1029343d9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Alternating_Hang_Clean_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Alternating_Hang_Clean_female_v2_2.png",
+      "sourceSha256": "b7becbfcd0aa1e798b7f3e14d23585dd199566dc3e26d16052d2bebe6d5a8b7d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/090/Double_Kettlebell_Alternating_Hang_Clean_female_v2_2.png",
+      "candidateSha256": "8c2c49c21bf34f2020511251a7412db34c8d8f2c4b56d979446cdfd89807aa2c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Double_Kettlebell_Alternating_Hang_Clean_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Double_Kettlebell_Alternating_Hang_Clean_female_v2_3.png",
+      "sourceSha256": "a33ba1c941038fb3fd63539e93662a22b9d0d1b272d1bb8ac90dd6784b60a827",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/090/Double_Kettlebell_Alternating_Hang_Clean_female_v2_3.png",
+      "candidateSha256": "72e20af132c4a363fa9a417c783044d198fb7a92c0a03e49afcecf73d345eb60",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

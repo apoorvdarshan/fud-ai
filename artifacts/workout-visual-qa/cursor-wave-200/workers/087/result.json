@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Dips_-_Chest_Version",
+  "shard": 9,
+  "index": 87,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dips_-_Chest_Version_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Chest_Version_male_v2_0.png",
+      "sourceSha256": "06b89fbb8187d73299ff0d0cc8e072d78a082b1c620bcad74bcaa50a35351492",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/087/Dips_-_Chest_Version_male_v2_0.png",
+      "candidateSha256": "25eaf0c3c028062dc28807f74edeb443b75f7ef96e7f2dffe44baa5a0956695e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Chest_Version_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Chest_Version_male_v2_1.png",
+      "sourceSha256": "aa02146075a2290315ae3411f93034ad51fe70bad0ff282d3fe829a75e521e97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/087/Dips_-_Chest_Version_male_v2_1.png",
+      "candidateSha256": "ad27f7eca61004912e52ba0014dd47c3bda9b9ee5b26c636dd2bfaee3e44bffd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Chest_Version_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Chest_Version_male_v2_2.png",
+      "sourceSha256": "6dbaad464b9ca4db1150dcbcf80d76d8f9160c6bc3c5a1a28c2091acb58cdbc3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/087/Dips_-_Chest_Version_male_v2_2.png",
+      "candidateSha256": "0ea8b3468e6ec0e4c951518bb51e416e1c5895d97a16df9a810b352f2393b1b9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Chest_Version_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Chest_Version_male_v2_3.png",
+      "sourceSha256": "07e2fc8bae9828165d750f9255cb20ebb966d2a03261bf769f6eebcf95644915",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/087/Dips_-_Chest_Version_male_v2_3.png",
+      "candidateSha256": "6d320311aeeb6768bbd3badc7bbaaafd4c948b818bc2d703bf9cd90bf2db893f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Chest_Version_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Chest_Version_female_v2_0.png",
+      "sourceSha256": "8650fd51ebc123bd251a16ea9f7b6980b1b6c95ddc737fd1d2ad6eb71c358268",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/087/Dips_-_Chest_Version_female_v2_0.png",
+      "candidateSha256": "f997b0a4b971b925a8aa84cd61c27c8c4bfe6fc0135cfe089437f3c12b6fae7b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Chest_Version_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Chest_Version_female_v2_1.png",
+      "sourceSha256": "86fcbca655360d858e22f6e808a8e0209d88ff635ad285733529bc1457bab69e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/087/Dips_-_Chest_Version_female_v2_1.png",
+      "candidateSha256": "2fd2eb7426d4eedaa5e081235dbf7f8e15d4ecaf6f70a42b45d91b7b33aeb427",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Chest_Version_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Chest_Version_female_v2_2.png",
+      "sourceSha256": "d8a802265187abe4fe984bf9d7465cc89c2bfd7f5c7a1e7e9c29ab2287c9f6dc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/087/Dips_-_Chest_Version_female_v2_2.png",
+      "candidateSha256": "3ba9dcbb9b581be48ad74a77966dc9ce1082db42cc73cf2b039827e33309ac4b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dips_-_Chest_Version_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dips_-_Chest_Version_female_v2_3.png",
+      "sourceSha256": "dc869dabde975175a9b0ffa7e327c0075b0281ce4adcc2aa4e17575a5c7af7a3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/087/Dips_-_Chest_Version_female_v2_3.png",
+      "candidateSha256": "903d6b085e338787603c35327964f929dc3071db99939fa8d34c6d5d4df07fec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

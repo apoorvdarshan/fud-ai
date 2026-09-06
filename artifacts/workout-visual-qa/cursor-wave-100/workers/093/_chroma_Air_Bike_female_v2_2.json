@@ -1,0 +1,16 @@
+{
+  "source_sha256": "5663d8557dbc6bd8dc7dee56e0bbf890b58dc3da36f09c2f49df6aaf95f103ef",
+  "candidate_sha256": "93dc2cfe69d14996a56adfcbb54b2681e1b7b1796b3d30b527c1e6c017ac0e99",
+  "generated_sha256": "d3b901e6bdc255c75582f08d49acd50620b67eea3e9434abef95ca75307d1aa9",
+  "generated_path": "/cursor/stores/bc-b166a6b7-232d-46d5-84c5-d6c8219e104d/artifacts/assets/093_Air_Bike_female_v2_2_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

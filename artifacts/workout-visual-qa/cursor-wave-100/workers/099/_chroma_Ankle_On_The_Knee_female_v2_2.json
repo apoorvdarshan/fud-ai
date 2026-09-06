@@ -1,0 +1,16 @@
+{
+  "source_sha256": "63325ad74a78771382998e23614cde7dc947bed4b455c1e84e7a76b7e62b79ab",
+  "candidate_sha256": "4f68b5d308bb8863c976e818d82aa6d9438ffaa8f207f904254b81f7a4153821",
+  "generated_sha256": "da209d8e790bbd25bdfbcdbc17171a1c8b7cbe9010248c074a8a6967d98e5c2c",
+  "generated_path": "/cursor/stores/bc-b166a6b7-232d-46d5-84c5-d6c8219e104d/artifacts/assets/099_Ankle_On_The_Knee_female_v2_2_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

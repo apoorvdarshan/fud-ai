@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/100/Anterior_Tibialis-SMR_male_v2_0.png",
       "candidateSha256": "52c610d9a970f43d9b0b84595fb76dc83b20230cfb1712d9a3467be1600e8bdd",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Anterior_Tibialis-SMR_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/100/Anterior_Tibialis-SMR_male_v2_1.png",
       "candidateSha256": "32314fc7369c0d43a4258fa9e1fa6ad48b8740b23ce29eb2f063f63ad0b05b26",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Anterior_Tibialis-SMR_male_v2_2.png",
@@ -31,16 +31,16 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/100/Anterior_Tibialis-SMR_male_v2_2.png",
       "candidateSha256": "54dd7b7a892a50529cb96fb3c6b07064c7ef0c2c966bc6775167e7a5e3bb02a3",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Anterior_Tibialis-SMR_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Anterior_Tibialis-SMR_male_v2_3.png",
       "sourceSha256": "aca39bb4f12390665270804510619ec40c9e0936a08a810900ba6b33f84e0771",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/100/Anterior_Tibialis-SMR_male_v2_3.png",
-      "candidateSha256": "6e760658c27e980529865bf2e89b5fe751ef40d72a582910863a78f1a81a1a57",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "a2fde96907acf7e9727935003bb7b7275072092fff3f980620000cdc98706dd2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Anterior_Tibialis-SMR_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/100/Anterior_Tibialis-SMR_female_v2_0.png",
       "candidateSha256": "337169a3626ccbf9c058ddd643de7191e4ab474e0fe69323b1c4758c1043ad4a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Anterior_Tibialis-SMR_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/100/Anterior_Tibialis-SMR_female_v2_1.png",
       "candidateSha256": "c1f01836033c5bff49d62f8af4dcbb91ea9b56e44da2659a18c9017b25325c68",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Anterior_Tibialis-SMR_female_v2_2.png",
@@ -67,16 +67,16 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/100/Anterior_Tibialis-SMR_female_v2_2.png",
       "candidateSha256": "29ddeaa6a0190704e9cd5bbd6d7e9751bc807170d259f61990a49a505e6d3c96",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Anterior_Tibialis-SMR_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Anterior_Tibialis-SMR_female_v2_3.png",
       "sourceSha256": "7d002729828f57e6c76cebc8145a03098f51b8a4b9f72f26330695522e64af79",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/100/Anterior_Tibialis-SMR_female_v2_3.png",
-      "candidateSha256": "ceab58a5ea60117ae678f01025f75c4dfb12bc6424e1b97d98917f1ee2958554",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "7a538e8208e42e04d949185fbbcedef960bcd875e808ff93a5c645fc2c90b105",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

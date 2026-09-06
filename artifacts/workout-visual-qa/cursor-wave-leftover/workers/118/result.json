@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Pushups_Close_and_Wide_Hand_Positions",
+  "shard": 12,
+  "index": 118,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left floor matte on close/wide pushup frames; GenerateImage+green chroma cleaned all 8 frames"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Pushups_Close_and_Wide_Hand_Positions_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_male_v2_0.png",
+      "sourceSha256": "c41e58c31fb91c80014db1f4938e79b02386cc0002f1e4ca4b7dbc816baa7213",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_male_v2_0.png",
+      "candidateSha256": "618a12accbad337ad8e62a906500ea3a760bfe666299cddf5fb25ad18ab077cf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_Close_and_Wide_Hand_Positions_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_male_v2_1.png",
+      "sourceSha256": "50bfea17fd6c6e2d320283a88b0097af1f32f06b9d80ebb77cf45bc40a3cddae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_male_v2_1.png",
+      "candidateSha256": "be5fbab3eb2212acef189725f857a71ac6b96df600f0e76a006e59b72646c88f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_Close_and_Wide_Hand_Positions_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_male_v2_2.png",
+      "sourceSha256": "5716d18c7f782815e6f93b789a9ccbb36218fdac92181d7af07ba4aeac9719f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_male_v2_2.png",
+      "candidateSha256": "c583c25fbaf0f5fd04f7ba21f497a657ae673d0ad8c357b21cac8c7d9884cc3d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_Close_and_Wide_Hand_Positions_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_male_v2_3.png",
+      "sourceSha256": "a6297b923bb4f66330576d86c3a8cf19fa85a8002eec0c6e0b044b2ad0b40bf1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_male_v2_3.png",
+      "candidateSha256": "e86554d975d9ce9db848b6ec0374796e251da903a773875443d0a57945abea09",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_Close_and_Wide_Hand_Positions_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_female_v2_0.png",
+      "sourceSha256": "92cb8228e0b08ed47f900430fff211570f86b029cf18d6c897751f11f806bcdd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_female_v2_0.png",
+      "candidateSha256": "a78d624cd0ecd78e339e2fe4146d7cc4cf8975c43dc06180f7a65e75549503b4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_Close_and_Wide_Hand_Positions_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_female_v2_1.png",
+      "sourceSha256": "d2129c5ee02aa7d76c454100bc695614e9828f09544cf8522027d820ac94bf65",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_female_v2_1.png",
+      "candidateSha256": "5ac6a771f79bc0045beb233c2754e63bdd8c181468f132bc546a4bd9c72a4137",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_Close_and_Wide_Hand_Positions_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_female_v2_2.png",
+      "sourceSha256": "6072e138650e6737579606a07f3da501a916a651659ac47bd23b7bdd8f9d7785",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_female_v2_2.png",
+      "candidateSha256": "80a2874b9f91f34c1be84eb7cb2e747e203378ca7f36d7eecce97e0735b221d2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_Close_and_Wide_Hand_Positions_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_female_v2_3.png",
+      "sourceSha256": "bcd1f6404ec571e22cf7ba609faba19929c490451d827dfad079c2c7d5939182",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_female_v2_3.png",
+      "candidateSha256": "057ba74a0c4560dbfa91d0b683ee025b79d8a5b5dc2d45c8af3394798505ded8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

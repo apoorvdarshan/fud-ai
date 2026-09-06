@@ -1,0 +1,927 @@
+{
+  "shard": 12,
+  "batch": "cursor-wave-leftover",
+  "status": "ready_for_review",
+  "generateImageFrames": [
+    "Push-Ups_-_Close_Triceps_Position_female_v2_0.png",
+    "Push-Ups_-_Close_Triceps_Position_female_v2_1.png",
+    "Push-Ups_-_Close_Triceps_Position_female_v2_2.png",
+    "Push-Ups_-_Close_Triceps_Position_female_v2_3.png",
+    "Push-Ups_-_Close_Triceps_Position_male_v2_0.png",
+    "Push-Ups_-_Close_Triceps_Position_male_v2_1.png",
+    "Push-Ups_-_Close_Triceps_Position_male_v2_2.png",
+    "Push-Ups_-_Close_Triceps_Position_male_v2_3.png",
+    "Push-Ups_With_Feet_Elevated_female_v2_0.png",
+    "Push-Ups_With_Feet_Elevated_female_v2_1.png",
+    "Push-Ups_With_Feet_Elevated_female_v2_2.png",
+    "Push-Ups_With_Feet_Elevated_female_v2_3.png",
+    "Push-Ups_With_Feet_Elevated_male_v2_0.png",
+    "Push-Ups_With_Feet_Elevated_male_v2_1.png",
+    "Push-Ups_With_Feet_Elevated_male_v2_2.png",
+    "Push-Ups_With_Feet_Elevated_male_v2_3.png",
+    "Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_0.png",
+    "Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_1.png",
+    "Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_2.png",
+    "Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_3.png",
+    "Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_0.png",
+    "Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_1.png",
+    "Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_2.png",
+    "Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_3.png",
+    "Push_Press_-_Behind_the_Neck_female_v2_0.png",
+    "Push_Press_-_Behind_the_Neck_female_v2_1.png",
+    "Push_Press_-_Behind_the_Neck_female_v2_2.png",
+    "Push_Press_-_Behind_the_Neck_female_v2_3.png",
+    "Push_Up_to_Side_Plank_female_v2_0.png",
+    "Push_Up_to_Side_Plank_female_v2_1.png",
+    "Push_Up_to_Side_Plank_female_v2_2.png",
+    "Push_Up_to_Side_Plank_female_v2_3.png",
+    "Push_Up_to_Side_Plank_male_v2_0.png",
+    "Push_Up_to_Side_Plank_male_v2_1.png",
+    "Push_Up_to_Side_Plank_male_v2_2.png",
+    "Push_Up_to_Side_Plank_male_v2_3.png",
+    "Pushups_Close_and_Wide_Hand_Positions_female_v2_0.png",
+    "Pushups_Close_and_Wide_Hand_Positions_female_v2_1.png",
+    "Pushups_Close_and_Wide_Hand_Positions_female_v2_2.png",
+    "Pushups_Close_and_Wide_Hand_Positions_female_v2_3.png",
+    "Pushups_Close_and_Wide_Hand_Positions_male_v2_0.png",
+    "Pushups_Close_and_Wide_Hand_Positions_male_v2_1.png",
+    "Pushups_Close_and_Wide_Hand_Positions_male_v2_2.png",
+    "Pushups_Close_and_Wide_Hand_Positions_male_v2_3.png",
+    "Pushups_female_v2_0.png",
+    "Pushups_female_v2_1.png",
+    "Pushups_female_v2_2.png",
+    "Pushups_female_v2_3.png",
+    "Pushups_male_v2_0.png",
+    "Pushups_male_v2_1.png",
+    "Pushups_male_v2_2.png",
+    "Pushups_male_v2_3.png",
+    "Pyramid_female_v2_0.png",
+    "Pyramid_female_v2_1.png",
+    "Pyramid_female_v2_2.png",
+    "Pyramid_female_v2_3.png",
+    "Pyramid_male_v2_0.png",
+    "Pyramid_male_v2_1.png",
+    "Pyramid_male_v2_2.png",
+    "Pyramid_male_v2_3.png",
+    "Quad_Stretch_female_v2_0.png",
+    "Quad_Stretch_female_v2_1.png",
+    "Quad_Stretch_female_v2_2.png",
+    "Quad_Stretch_female_v2_3.png",
+    "Quad_Stretch_male_v2_0.png",
+    "Quad_Stretch_male_v2_1.png",
+    "Quad_Stretch_male_v2_2.png",
+    "Quad_Stretch_male_v2_3.png"
+  ],
+  "exercises": [
+    {
+      "exerciseId": "Push-Ups_-_Close_Triceps_Position",
+      "shard": 12,
+      "index": 111,
+      "status": "ready_for_review",
+      "findings": [
+        "Script left floor matte on close-triceps push-up frames; GenerateImage+green chroma removed floor shadow on all 8 frames"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Push-Ups_-_Close_Triceps_Position_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_male_v2_0.png",
+          "sourceSha256": "48f33c305a32a9611890d9f66915b5182e89822098daae2be9a20595157729ef",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_male_v2_0.png",
+          "candidateSha256": "f0c63a189a1d426117298f0d59343015d7dc55ed2fa75925a9336691980125b1",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_-_Close_Triceps_Position_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_male_v2_1.png",
+          "sourceSha256": "7c456cd6411b64fbb48c26389e773b842af465b38f083dff0195678762b94abb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_male_v2_1.png",
+          "candidateSha256": "85b2ff8e753d93d73e4ae410397a73d9c9ea6334abfe6e6daabe04e45a600170",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_-_Close_Triceps_Position_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_male_v2_2.png",
+          "sourceSha256": "c0b742874dbebc026a02ba1e6643e71bedfac640bd011e076600a0f30979409f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_male_v2_2.png",
+          "candidateSha256": "3bd93f772652e6bc7ecdb2263a98e3af8a1c0a471dfecde9c24e8e01859ad9ac",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_-_Close_Triceps_Position_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_male_v2_3.png",
+          "sourceSha256": "77d61f18f890af1db5735d91918f82e1e26f755d3381e5b5c0dc7d0cf9fcecaa",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_male_v2_3.png",
+          "candidateSha256": "fc0ba88b92eddd44786ac83616efbe46cecc610c07ab8f6a0fd52cb0379d3aa8",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_-_Close_Triceps_Position_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_female_v2_0.png",
+          "sourceSha256": "a33cb07b71686abe50991abf44c8b44bd5f504136b1aba3e4c0949914f29097b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_female_v2_0.png",
+          "candidateSha256": "a6d4495e47bbcda23b3bc61d40b93c613c52fbe71c6e784c663c2da981a71a10",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_-_Close_Triceps_Position_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_female_v2_1.png",
+          "sourceSha256": "6399cc51f9e82d1101e498a42de0d98b943e85f01d9de7c6160c658ad9e9ca66",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_female_v2_1.png",
+          "candidateSha256": "8464b4f68523d2594c3ad576f2618cf2402c01acbfb18b3ce02fb01c1ce72a1b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_-_Close_Triceps_Position_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_female_v2_2.png",
+          "sourceSha256": "2459128ba3383186448d33297f24bec196f332013341dc342d2b9ac61052d9c1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_female_v2_2.png",
+          "candidateSha256": "da1d8a64ce822d28cab20dfce4b66c662e8aecebb689191de43272fb8efa803e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_-_Close_Triceps_Position_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_female_v2_3.png",
+          "sourceSha256": "4e912317fd629673cfcb9659348ac3b9a1370d1d0b2e10d7f1706ad0e46aafa8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_female_v2_3.png",
+          "candidateSha256": "8fd2b63096d5725a24f24a198a42513212f34c3343c31bc187bcd07d01f1eb9a",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Push-Ups_With_Feet_Elevated",
+      "shard": 12,
+      "index": 112,
+      "status": "ready_for_review",
+      "findings": [
+        "Script left floor/step shadow on feet-elevated push-up frames; GenerateImage+green chroma cleaned all 8 frames"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Push-Ups_With_Feet_Elevated_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_male_v2_0.png",
+          "sourceSha256": "633e4efab30e55dea7131739328c0344e1771dd797d58e73c3392c981cac09c0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_male_v2_0.png",
+          "candidateSha256": "9c902e3339173355c26d81b604cf71dde2a8cd4ab41cde15ee8101b383225068",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_Elevated_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_male_v2_1.png",
+          "sourceSha256": "be0f31626b87eb482e37dfe3ff1fd07ab948c245e8dd388c0421830a883ccad6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_male_v2_1.png",
+          "candidateSha256": "841b3eaba89486b68cac59f09a80b30209ac5dbf4b8a3d60d1fe30d2ebba71d8",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_Elevated_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_male_v2_2.png",
+          "sourceSha256": "8c8a2cd54f2165b8c55d8a11326d8772da4ff826dec2f1013524e3315c3a59e1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_male_v2_2.png",
+          "candidateSha256": "94e4e7c992dc33d844cb389820aa336add94fc4971575486ae338323a1b7abec",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_Elevated_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_male_v2_3.png",
+          "sourceSha256": "e0690970edd4d09e586536f2901b2f537175003557e3cfa29dfcaec622550744",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_male_v2_3.png",
+          "candidateSha256": "0e22a894805c608b4d32eb03c58ccd0774ac834ac9090179141634e811ef8fac",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_Elevated_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_female_v2_0.png",
+          "sourceSha256": "f7d2c5b158277320dbeb1e910f63355e919252fee619496810be70d4b9cd1f3c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_female_v2_0.png",
+          "candidateSha256": "b723e30fa450673b15095f80be699e32cb0f4c3081a2e57ba3f71c245e6e3cba",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_Elevated_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_female_v2_1.png",
+          "sourceSha256": "d343b5c2b66d8a3855ebce031b98171844570c4c03da4e597f51a6a087e817db",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_female_v2_1.png",
+          "candidateSha256": "7e86d87cf0e8d05f3be65cb63ae81755d1470bc219cd3828300e8e6436d82b18",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_Elevated_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_female_v2_2.png",
+          "sourceSha256": "14120bf4d97f3cba7b517c97729c9be00d1c2f25cd0a4b38533c2807d3911cc6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_female_v2_2.png",
+          "candidateSha256": "dd68cb28546bec81c9f12bde2301a8d94569039e9e19c3da51e1e9b436b5061b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_Elevated_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_female_v2_3.png",
+          "sourceSha256": "d781d18b70cdf9e0de1806bf422a5e6a6dc5e28cdafebd18efa48ed8378e9aa1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_female_v2_3.png",
+          "candidateSha256": "fd5a352bac6ab6094b40ff278cad9a5c2b074eff055a31b99aa444447a16441f",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Push-Ups_With_Feet_On_An_Exercise_Ball",
+      "shard": 12,
+      "index": 113,
+      "status": "ready_for_review",
+      "findings": [
+        "Script left heavy floor/ball shadow noise on exercise-ball push-up frames; GenerateImage+green chroma cleaned all 8 frames"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_0.png",
+          "sourceSha256": "1a022de43238b6807af9d39b7f5f9091b8040096a3f5cde834e66477c988ed0a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/113/Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_0.png",
+          "candidateSha256": "e5df3bfb20eac7f37f76c3e0752e7b5b679452b267eff84ebe3ed0c9ff05bc1d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_1.png",
+          "sourceSha256": "b51368f05b327e110c9dd7011af75dd0e69662e395c3f552917b593ba964313a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/113/Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_1.png",
+          "candidateSha256": "077a57008cc8a734f116fdfc0756a2cb5a8d37512acc35177d9b009e12d81d45",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_2.png",
+          "sourceSha256": "dfe4aa181263bba659125d926d27e04e2b548b19711749cebe212670f503babe",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/113/Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_2.png",
+          "candidateSha256": "fe4eae44a00024518f2a2b975d520e31aaa5f84046ed5992f8933138ecf06491",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_3.png",
+          "sourceSha256": "e91f214674b73c799adfc4bf78ffacfce8e7090df94b4146f73ae29d4d8c88f6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/113/Push-Ups_With_Feet_On_An_Exercise_Ball_male_v2_3.png",
+          "candidateSha256": "018eec0176a661bc6187aaaeafdf7b59cb2ce840f1b56d3f81c23407df4f5dcd",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_0.png",
+          "sourceSha256": "812f895b26feefb21b2c14346a8e6975a89f83de7213393c20774a2641bb0463",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/113/Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_0.png",
+          "candidateSha256": "8f8169c1da8286c9004129011c1a953bab60cc16f3ce5959633fff7cceb335da",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_1.png",
+          "sourceSha256": "1abd128455e00835e5a0524ec785a317d0087357116c5f594700c3ba89320071",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/113/Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_1.png",
+          "candidateSha256": "90876c9e136da60715a631703b5b8ad13e3e1b2fee0e52700aba777859e36014",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_2.png",
+          "sourceSha256": "989e1131f8ff8ffebe54006ef3142c25e0fc74e4c75b4a588978ebd5a2ea0cd8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/113/Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_2.png",
+          "candidateSha256": "ad3bef2b84dff05576a025b19b397c878fd4afa462984df297155c6c21ba194b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_3.png",
+          "sourceSha256": "fa0b645e845ba0bde87034cea17043b34ce426aadf02155d230a75b0ee53d1bb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/113/Push-Ups_With_Feet_On_An_Exercise_Ball_female_v2_3.png",
+          "candidateSha256": "ad3bcdeb674901c5292d91668232fc60fc7b41804cc75c25fb6ea800779ba9e5",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Push_Press",
+      "shard": 12,
+      "index": 114,
+      "status": "ready_for_review",
+      "findings": [
+        "Script candidates clean on dark background; no GenerateImage needed"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Push_Press_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_male_v2_0.png",
+          "sourceSha256": "8e6740975bfd24d6efc71bf6ca93b5ba227ea1de5e8b26fd197eabf319ee33a8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/114/Push_Press_male_v2_0.png",
+          "candidateSha256": "9e3540b6bc86c948a716fdd5d068141e0cc6a700771dd07c2fb9fe8acbd66e6e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_male_v2_1.png",
+          "sourceSha256": "fd90fe162a43eebb8ed5b55f42d35b55243594a15213d81eafae4fea80e31027",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/114/Push_Press_male_v2_1.png",
+          "candidateSha256": "3bb5d95073eda82f7c8b5c76372ae0a2f218bdf11893ae6a37833132d7ab1694",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_male_v2_2.png",
+          "sourceSha256": "78563944d9a7289ffacc809423c89867135c2248dfe21e8366e6c55bf47448ab",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/114/Push_Press_male_v2_2.png",
+          "candidateSha256": "7df6fcb269b3bb802ce0765a7c21d8b2065dfb3d6f0d48b5ad6eee61825df925",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_male_v2_3.png",
+          "sourceSha256": "651b73e6c6c7ff9467320db02ef261cec94da2d885b9ac8792527c64c9d688c2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/114/Push_Press_male_v2_3.png",
+          "candidateSha256": "eeaabc0003a2ea1d35fd3f50132889b1272b62fb995935a6ef618773535250af",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_female_v2_0.png",
+          "sourceSha256": "481d307f340441064776f666001a4deb12c3b4ec54f0bff53a2b3aabe592a3d0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/114/Push_Press_female_v2_0.png",
+          "candidateSha256": "673bebf90590b4fda7d961efd1aa0b6dba426cf54e57166a06757140b1455e3a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_female_v2_1.png",
+          "sourceSha256": "323cf1551b815aaf043e4aca316f0b4591eced30f6ecb1ddc4045afc0df47d45",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/114/Push_Press_female_v2_1.png",
+          "candidateSha256": "8e630384dd9fe214f2afa9f20efb6bc577575c9b7c9a72d75e0e791a3fec971c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_female_v2_2.png",
+          "sourceSha256": "3276eecbd8a667c5d10aefcc6938938c150a5f1c5e9822eb651e3a4d6493f154",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/114/Push_Press_female_v2_2.png",
+          "candidateSha256": "74a6a305f31dddbf8d8f6fa9cbf04218806a0991c45894a2b56b89aca659e06d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_female_v2_3.png",
+          "sourceSha256": "82f25210214847191d41c3d6e8c697aff9041639cb064a2e8a3655fed6ff6b93",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/114/Push_Press_female_v2_3.png",
+          "candidateSha256": "e7c5af9558a80192fbb5394b61ccd43f03266d8faf373d444b930845a578ef1d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Push_Press_-_Behind_the_Neck",
+      "shard": 12,
+      "index": 115,
+      "status": "ready_for_review",
+      "findings": [
+        "Script left white line artifacts under female feet on behind-neck push press; GenerateImage cleaned 4/8 female frames, male frames clean"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Push_Press_-_Behind_the_Neck_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_male_v2_0.png",
+          "sourceSha256": "10b7f6f3e7cffe3df2dbc5efc51c185e885636ebe4b90ffebdd438d2263863e7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_male_v2_0.png",
+          "candidateSha256": "573a491651809ad27b1971b92bb7cc83394ccf352c14dc0359a478cc71571cd3",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_-_Behind_the_Neck_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_male_v2_1.png",
+          "sourceSha256": "02d5715fe0dd301331cff1ae81d417beb19fe1e7cbe538a6cdd2d75756a51b66",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_male_v2_1.png",
+          "candidateSha256": "8fb3d10300dbe93b96ccce90e2718f52670a11ae7e2c6a7d8cb217c77826f000",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_-_Behind_the_Neck_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_male_v2_2.png",
+          "sourceSha256": "c8505fddd1314e65e315c0bae72c72e8f31fd35102e099f20c845055af4bd4da",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_male_v2_2.png",
+          "candidateSha256": "a21a1cff6293606ad81065ae3273129447cffcb90ee17fc5a4219b84bf2ac64d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_-_Behind_the_Neck_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_male_v2_3.png",
+          "sourceSha256": "6560f8d0c2df0291cc1a6ff0abbd774f8f63a993be22a211e96d25993b1788e8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_male_v2_3.png",
+          "candidateSha256": "9ce1ac92f48e4101bdf4991f02a07914ca6a8920efc6c96dbc88037816794a2e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_-_Behind_the_Neck_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_female_v2_0.png",
+          "sourceSha256": "a35f9a048074d4441382b8f4d404a99a3f190a9ec0c23c05f5e5faf0828467f5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_female_v2_0.png",
+          "candidateSha256": "7f501a06b8b2a2516bb2d47a1e26b6ab6d57c454d6014128bde062979b09e350",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_-_Behind_the_Neck_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_female_v2_1.png",
+          "sourceSha256": "a81b0f4c2c2eb1409dff9f8dd1751ef6c959199098889cfbf59667c5d40a2572",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_female_v2_1.png",
+          "candidateSha256": "abb03c9d5decc91b8d718e0ec5413db185ab80ef495c31642acd78e3f068505d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_-_Behind_the_Neck_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_female_v2_2.png",
+          "sourceSha256": "092f5e767b9fc6b9f26e1ce628494808a367517ac1794f5d4c1845ccc56cffdc",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_female_v2_2.png",
+          "candidateSha256": "05845c2bc5927049ae047f4e7c6156f7140bd334626b343c7eca46c7d4ae1665",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Press_-_Behind_the_Neck_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_female_v2_3.png",
+          "sourceSha256": "e35544c36320b9fc8a728a2ead14dd49e702ca0b2321ad5c54b382729ce79e77",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_female_v2_3.png",
+          "candidateSha256": "5bb79dbb2445eba8e4349045cf7430bd39a119427dc7caafde93becec6f87919",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Push_Up_to_Side_Plank",
+      "shard": 12,
+      "index": 116,
+      "status": "ready_for_review",
+      "findings": [
+        "Script left floor matte on push-up-to-side-plank frames; GenerateImage+green chroma cleaned all 8 frames"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Push_Up_to_Side_Plank_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_male_v2_0.png",
+          "sourceSha256": "3f04e6a4b34214ffb7724c037673af3a0887366bf08d9cb4758c3968b759ab18",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_male_v2_0.png",
+          "candidateSha256": "a327a87744c010e218d0868884b03f7a9087fae032eeeba6b8c42a198585a0cb",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Up_to_Side_Plank_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_male_v2_1.png",
+          "sourceSha256": "d4ea330b563bbeb482c8e838353740d95eaf953edc20d73de99d1fd8a336f0ed",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_male_v2_1.png",
+          "candidateSha256": "28097cb905770f5bd76d6f1d9148a3abf38a34fd986a23357b41c736588d5744",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Up_to_Side_Plank_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_male_v2_2.png",
+          "sourceSha256": "4ba436f663ec1fbaafbc4494db42f215a9f094c72f5eedbc362bf2ffe3505dae",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_male_v2_2.png",
+          "candidateSha256": "400d0b45c2ede3fb9f91cc4b3492a2a22093afd29262b440f33cb438fb37bdb9",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Up_to_Side_Plank_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_male_v2_3.png",
+          "sourceSha256": "9905738f618013dade823f46cdbf1209125aab1b1a073575fba6643cc2b8bc93",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_male_v2_3.png",
+          "candidateSha256": "1dea13a9ea4ad2ebab57eaa0c38f8f6d61b33dab3a6f4dbf93dcad9cb6d0a90b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Up_to_Side_Plank_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_female_v2_0.png",
+          "sourceSha256": "563898f53d61d3271577a24e8a7eae5ab5aa3541ec3e8d763f1dcee50ed46bc3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_female_v2_0.png",
+          "candidateSha256": "e7bc9da2185c8dd60a025beea86ab45aea53fd5ad6f149e5251c81207abc70f3",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Up_to_Side_Plank_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_female_v2_1.png",
+          "sourceSha256": "148e1dc2f437050d0bd736ba54c6d7cd20f8dc5c936022f6f413bba34eb38b26",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_female_v2_1.png",
+          "candidateSha256": "29f04d4533a54420b0dd96b6715fed16f4e7e25731a87178690e8024c7cd8313",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Up_to_Side_Plank_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_female_v2_2.png",
+          "sourceSha256": "0c79f0ba7812c45883abbc382d12b7ca79bb621d17fea8b0cae118147a2939c5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_female_v2_2.png",
+          "candidateSha256": "69c16fbba3384067a8ee35cbf499db6c40c708e2f936460ead05ab376701913e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Push_Up_to_Side_Plank_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_female_v2_3.png",
+          "sourceSha256": "5019b6bd7b47b93704cc386e199789b3590148cffc1b0ce6d3a3ef0a24c7a302",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_female_v2_3.png",
+          "candidateSha256": "a9f8deb99ffb7637dd5b8d5ff7c72458c27e0609989eaa54f53a9c5a983bddbd",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Pushups",
+      "shard": 12,
+      "index": 117,
+      "status": "ready_for_review",
+      "findings": [
+        "Script left floor matte on pushup frames; GenerateImage+green chroma cleaned all 8 frames"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Pushups_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_male_v2_0.png",
+          "sourceSha256": "27bcd01810a9c449351486dd46fa0a4291f3ce2acece934d62f8740fe959e6b1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_male_v2_0.png",
+          "candidateSha256": "8cf8701188054175fc398ce92c4143bce6decfb5a348951e944d55ea4470602a",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_male_v2_1.png",
+          "sourceSha256": "dbe5797caaea6aecbe98b551caae882ba9815ac25422fe75dcd7d2dcd587e9da",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_male_v2_1.png",
+          "candidateSha256": "eb9cb97170dcdaf8918ac57d0af5a0a051b088232e2d7d4df833b1253adc0a2d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_male_v2_2.png",
+          "sourceSha256": "4a7f0fdfd8f2e4e3e1fe63f55c93c2a8fa47dfb3fbcc08849a4c48c3ebd49b21",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_male_v2_2.png",
+          "candidateSha256": "06f5711fe8530b5b8feef6eee56784f41962177099d0078367ac90ad5d0812ab",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_male_v2_3.png",
+          "sourceSha256": "767273487e80d1d38ac23e4103a628a084394aed8cc6528875b0b61a4c018d65",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_male_v2_3.png",
+          "candidateSha256": "c51d5f17bddeb4c67803c0fd9606cda080b9fbbafa0cbab04416ce1f1247f9cf",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_female_v2_0.png",
+          "sourceSha256": "fbe7e393ea74f762222ea7e1acf954f02ac7d3c4bb5dfd94bd29c9be5cee3c28",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_female_v2_0.png",
+          "candidateSha256": "ab3cad91e7ba6bd733f58129c36031f0fc4bbdad7583ab8524af7b46794298bb",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_female_v2_1.png",
+          "sourceSha256": "96b3243bda13e219103636762e2b4145efe7caa267e5b40d2571191ae8db4505",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_female_v2_1.png",
+          "candidateSha256": "4b9e4980fa49ab42c955ddfc7e908b6fcf620cdc6a626123ed736be66f2dc5d6",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_female_v2_2.png",
+          "sourceSha256": "0d4793b0a0fcd87979ca69c46b8991fe63a5415364ed862d3184a06755465ddf",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_female_v2_2.png",
+          "candidateSha256": "cea89103f8773c6e02bddd57b624bfc1024b96b8b3bb65d2acb61dc886eb2e43",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_female_v2_3.png",
+          "sourceSha256": "b19973f1541d0f8578f46bcd878b46f195ddc4fc79c212da44d72cabaa548138",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_female_v2_3.png",
+          "candidateSha256": "56d415fc01b999d2842f144e70c11f946cbbf7d6ca2ff5b48f0e6a7e91c7a8be",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Pushups_Close_and_Wide_Hand_Positions",
+      "shard": 12,
+      "index": 118,
+      "status": "ready_for_review",
+      "findings": [
+        "Script left floor matte on close/wide pushup frames; GenerateImage+green chroma cleaned all 8 frames"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Pushups_Close_and_Wide_Hand_Positions_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_male_v2_0.png",
+          "sourceSha256": "c41e58c31fb91c80014db1f4938e79b02386cc0002f1e4ca4b7dbc816baa7213",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_male_v2_0.png",
+          "candidateSha256": "618a12accbad337ad8e62a906500ea3a760bfe666299cddf5fb25ad18ab077cf",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_Close_and_Wide_Hand_Positions_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_male_v2_1.png",
+          "sourceSha256": "50bfea17fd6c6e2d320283a88b0097af1f32f06b9d80ebb77cf45bc40a3cddae",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_male_v2_1.png",
+          "candidateSha256": "be5fbab3eb2212acef189725f857a71ac6b96df600f0e76a006e59b72646c88f",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_Close_and_Wide_Hand_Positions_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_male_v2_2.png",
+          "sourceSha256": "5716d18c7f782815e6f93b789a9ccbb36218fdac92181d7af07ba4aeac9719f2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_male_v2_2.png",
+          "candidateSha256": "c583c25fbaf0f5fd04f7ba21f497a657ae673d0ad8c357b21cac8c7d9884cc3d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_Close_and_Wide_Hand_Positions_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_male_v2_3.png",
+          "sourceSha256": "a6297b923bb4f66330576d86c3a8cf19fa85a8002eec0c6e0b044b2ad0b40bf1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_male_v2_3.png",
+          "candidateSha256": "e86554d975d9ce9db848b6ec0374796e251da903a773875443d0a57945abea09",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_Close_and_Wide_Hand_Positions_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_female_v2_0.png",
+          "sourceSha256": "92cb8228e0b08ed47f900430fff211570f86b029cf18d6c897751f11f806bcdd",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_female_v2_0.png",
+          "candidateSha256": "a78d624cd0ecd78e339e2fe4146d7cc4cf8975c43dc06180f7a65e75549503b4",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_Close_and_Wide_Hand_Positions_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_female_v2_1.png",
+          "sourceSha256": "d2129c5ee02aa7d76c454100bc695614e9828f09544cf8522027d820ac94bf65",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_female_v2_1.png",
+          "candidateSha256": "5ac6a771f79bc0045beb233c2754e63bdd8c181468f132bc546a4bd9c72a4137",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_Close_and_Wide_Hand_Positions_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_female_v2_2.png",
+          "sourceSha256": "6072e138650e6737579606a07f3da501a916a651659ac47bd23b7bdd8f9d7785",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_female_v2_2.png",
+          "candidateSha256": "80a2874b9f91f34c1be84eb7cb2e747e203378ca7f36d7eecce97e0735b221d2",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pushups_Close_and_Wide_Hand_Positions_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pushups_Close_and_Wide_Hand_Positions_female_v2_3.png",
+          "sourceSha256": "bcd1f6404ec571e22cf7ba609faba19929c490451d827dfad079c2c7d5939182",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/118/Pushups_Close_and_Wide_Hand_Positions_female_v2_3.png",
+          "candidateSha256": "057ba74a0c4560dbfa91d0b683ee025b79d8a5b5dc2d45c8af3394798505ded8",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Pyramid",
+      "shard": 12,
+      "index": 119,
+      "status": "ready_for_review",
+      "findings": [
+        "Script left heavy shadow noise/dithering on pyramid ball stretch frames; GenerateImage+green chroma cleaned all 8 frames"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Pyramid_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pyramid_male_v2_0.png",
+          "sourceSha256": "06f8763ab88eb27e8d59dde6fb0333c0cf89ffcb74739e7407279e948bceda21",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_male_v2_0.png",
+          "candidateSha256": "2acbed452c06558bafa64c148ffe1824a7b5f4cfce69f14fe718a68050e96778",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pyramid_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pyramid_male_v2_1.png",
+          "sourceSha256": "5fa33441488e55ae41ae214073b2fb376891e5810d09f195c4c9976750ba97b9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_male_v2_1.png",
+          "candidateSha256": "9f471aeba0bf91edb98d56f632b654ca3ba1510d2ae22d910b363f6f9508eebd",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pyramid_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pyramid_male_v2_2.png",
+          "sourceSha256": "d41250481eeb298aeec813dd153279c5ab59d3751d0e353a02aee8a67c1101b9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_male_v2_2.png",
+          "candidateSha256": "3e56942a3bfce472f3aa3293b104a9dd07e847da2baf1ca55923bd9b4953ac7c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pyramid_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pyramid_male_v2_3.png",
+          "sourceSha256": "ce6ba69297b847e0f6b47b941ddd13886bfbbf802b6a44defdd050cead006588",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_male_v2_3.png",
+          "candidateSha256": "eba89447f12193a8e0f7340738d64856abc47074c978cef05a4f7ff797ae5af6",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pyramid_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pyramid_female_v2_0.png",
+          "sourceSha256": "ba27657d1b1b85c82c7d3b43484bcbebcbcf69ed5f42813390960dc4e270daca",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_female_v2_0.png",
+          "candidateSha256": "81d12fa3854c40d0a290c29d20736b3ac244a559b2fa3f56f9ac89eb8e959f22",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pyramid_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pyramid_female_v2_1.png",
+          "sourceSha256": "75cecce64cb1b1d06fef2e79e8abfc42a9897d9e027bfc38f6898c8dc049c3d4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_female_v2_1.png",
+          "candidateSha256": "890634797e9540a5ce63bf511caae7c26e90967a2d3476b54fd589f47b152aa7",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pyramid_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pyramid_female_v2_2.png",
+          "sourceSha256": "abe0ca121733fecbbb32f26f87d2b53a468d51cf8cebb8381f22c98f91e0fb24",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_female_v2_2.png",
+          "candidateSha256": "e09ccee1d24cdb57231e15f35cbf3a9c33d87d335bee02b5ac821f0b8a32975d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Pyramid_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Pyramid_female_v2_3.png",
+          "sourceSha256": "581863e710abe458f44fa01e7478093b0a67836b1f1d8fee617ff89062eb1bd7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_female_v2_3.png",
+          "candidateSha256": "2e0bd1d4fcff1bfdaf73bf5db142d4fe53e97e3c475ce79c27ccb19e3926ed39",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Quad_Stretch",
+      "shard": 12,
+      "index": 120,
+      "status": "ready_for_review",
+      "findings": [
+        "Script left mat edge and ring artifacts on quad stretch frames; GenerateImage+green chroma cleaned all 8 frames"
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Quad_Stretch_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_male_v2_0.png",
+          "sourceSha256": "4bb59d76f0a81c217ec29c5e68ded518452e20880f406b2783c7a91d89666759",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_male_v2_0.png",
+          "candidateSha256": "4c56b5de7c08c777e2e73349305ccdaccd486b9c64fc806085c6a3ca377b3690",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Quad_Stretch_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_male_v2_1.png",
+          "sourceSha256": "27589eac6eac11f6b581f6229508dd5908c1f1098394d537c3d57b7767c2a7ad",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_male_v2_1.png",
+          "candidateSha256": "74b54930de07e18695e160dfa6b9aef51aa2a3e36dc1a01f56422957082ecf54",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Quad_Stretch_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_male_v2_2.png",
+          "sourceSha256": "152788ba4f1fbf33cf2607d8f8cc8b662cb4b908db17fd46c6025b026a5ef8b3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_male_v2_2.png",
+          "candidateSha256": "b02fa960b702a6650b295c83ce916686227b1929a6278d17a824a7d7d851636c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Quad_Stretch_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_male_v2_3.png",
+          "sourceSha256": "5e4c7cef25a9150328d8bccdf1fcecaedda66db196ae97d707413c4aab9de869",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_male_v2_3.png",
+          "candidateSha256": "f2788e3914d22220de571b903a3aaf41ba67ac85f23e8bfd6b4143c23fb26b25",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Quad_Stretch_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_female_v2_0.png",
+          "sourceSha256": "0da52889b44c55860931d00a0c9cbf43db60bcb2f7bbaaa7ab0d54dc4c1f8888",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_female_v2_0.png",
+          "candidateSha256": "0afe0b34a0f121bd3f2c3baa6c296e1f9b16f17e2d869730f93c81d3722f82c2",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Quad_Stretch_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_female_v2_1.png",
+          "sourceSha256": "d27957f72e10a7a52ff87dc20be17dc973c470891136f48187dfd34f4f0d79c6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_female_v2_1.png",
+          "candidateSha256": "b54aaef997c223de2e858764fa95df39104d3c55bb5f7f437ad0152eb15480c4",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Quad_Stretch_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_female_v2_2.png",
+          "sourceSha256": "ee4aee5deb1bc4b7f63aacbe57f7f5f426e9ea09db3ac6a19e3f26885900e063",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_female_v2_2.png",
+          "candidateSha256": "2d0713ea83faf19040ecab4fd4bcd26964cc363a704cf1c4016f8a1c037c2eb2",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Quad_Stretch_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_female_v2_3.png",
+          "sourceSha256": "4a622e75c83711bc9e259520a793fcadb9800d4a1143e763a96f734c7c09adb4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_female_v2_3.png",
+          "candidateSha256": "6da7ce6e228dc5dcea6eac742d0016c4aba7bc674b64dfb7d0ac94c5a30e3115",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    }
+  ]
+}

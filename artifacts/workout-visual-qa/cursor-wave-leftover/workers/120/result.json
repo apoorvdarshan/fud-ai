@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Quad_Stretch",
+  "shard": 12,
+  "index": 120,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left mat edge and ring artifacts on quad stretch frames; GenerateImage+green chroma cleaned all 8 frames"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Quad_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_male_v2_0.png",
+      "sourceSha256": "4bb59d76f0a81c217ec29c5e68ded518452e20880f406b2783c7a91d89666759",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_male_v2_0.png",
+      "candidateSha256": "4c56b5de7c08c777e2e73349305ccdaccd486b9c64fc806085c6a3ca377b3690",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quad_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_male_v2_1.png",
+      "sourceSha256": "27589eac6eac11f6b581f6229508dd5908c1f1098394d537c3d57b7767c2a7ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_male_v2_1.png",
+      "candidateSha256": "74b54930de07e18695e160dfa6b9aef51aa2a3e36dc1a01f56422957082ecf54",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quad_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_male_v2_2.png",
+      "sourceSha256": "152788ba4f1fbf33cf2607d8f8cc8b662cb4b908db17fd46c6025b026a5ef8b3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_male_v2_2.png",
+      "candidateSha256": "b02fa960b702a6650b295c83ce916686227b1929a6278d17a824a7d7d851636c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quad_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_male_v2_3.png",
+      "sourceSha256": "5e4c7cef25a9150328d8bccdf1fcecaedda66db196ae97d707413c4aab9de869",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_male_v2_3.png",
+      "candidateSha256": "f2788e3914d22220de571b903a3aaf41ba67ac85f23e8bfd6b4143c23fb26b25",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quad_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_female_v2_0.png",
+      "sourceSha256": "0da52889b44c55860931d00a0c9cbf43db60bcb2f7bbaaa7ab0d54dc4c1f8888",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_female_v2_0.png",
+      "candidateSha256": "0afe0b34a0f121bd3f2c3baa6c296e1f9b16f17e2d869730f93c81d3722f82c2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quad_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_female_v2_1.png",
+      "sourceSha256": "d27957f72e10a7a52ff87dc20be17dc973c470891136f48187dfd34f4f0d79c6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_female_v2_1.png",
+      "candidateSha256": "b54aaef997c223de2e858764fa95df39104d3c55bb5f7f437ad0152eb15480c4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quad_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_female_v2_2.png",
+      "sourceSha256": "ee4aee5deb1bc4b7f63aacbe57f7f5f426e9ea09db3ac6a19e3f26885900e063",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_female_v2_2.png",
+      "candidateSha256": "2d0713ea83faf19040ecab4fd4bcd26964cc363a704cf1c4016f8a1c037c2eb2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quad_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quad_Stretch_female_v2_3.png",
+      "sourceSha256": "4a622e75c83711bc9e259520a793fcadb9800d4a1143e763a96f734c7c09adb4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/120/Quad_Stretch_female_v2_3.png",
+      "candidateSha256": "6da7ce6e228dc5dcea6eac742d0016c4aba7bc674b64dfb7d0ac94c5a30e3115",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

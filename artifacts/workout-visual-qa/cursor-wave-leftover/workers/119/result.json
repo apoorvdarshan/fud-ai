@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Pyramid",
+  "shard": 12,
+  "index": 119,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left heavy shadow noise/dithering on pyramid ball stretch frames; GenerateImage+green chroma cleaned all 8 frames"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Pyramid_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pyramid_male_v2_0.png",
+      "sourceSha256": "06f8763ab88eb27e8d59dde6fb0333c0cf89ffcb74739e7407279e948bceda21",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_male_v2_0.png",
+      "candidateSha256": "2acbed452c06558bafa64c148ffe1824a7b5f4cfce69f14fe718a68050e96778",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pyramid_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pyramid_male_v2_1.png",
+      "sourceSha256": "5fa33441488e55ae41ae214073b2fb376891e5810d09f195c4c9976750ba97b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_male_v2_1.png",
+      "candidateSha256": "9f471aeba0bf91edb98d56f632b654ca3ba1510d2ae22d910b363f6f9508eebd",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pyramid_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pyramid_male_v2_2.png",
+      "sourceSha256": "d41250481eeb298aeec813dd153279c5ab59d3751d0e353a02aee8a67c1101b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_male_v2_2.png",
+      "candidateSha256": "3e56942a3bfce472f3aa3293b104a9dd07e847da2baf1ca55923bd9b4953ac7c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pyramid_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pyramid_male_v2_3.png",
+      "sourceSha256": "ce6ba69297b847e0f6b47b941ddd13886bfbbf802b6a44defdd050cead006588",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_male_v2_3.png",
+      "candidateSha256": "eba89447f12193a8e0f7340738d64856abc47074c978cef05a4f7ff797ae5af6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pyramid_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pyramid_female_v2_0.png",
+      "sourceSha256": "ba27657d1b1b85c82c7d3b43484bcbebcbcf69ed5f42813390960dc4e270daca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_female_v2_0.png",
+      "candidateSha256": "81d12fa3854c40d0a290c29d20736b3ac244a559b2fa3f56f9ac89eb8e959f22",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pyramid_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pyramid_female_v2_1.png",
+      "sourceSha256": "75cecce64cb1b1d06fef2e79e8abfc42a9897d9e027bfc38f6898c8dc049c3d4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_female_v2_1.png",
+      "candidateSha256": "890634797e9540a5ce63bf511caae7c26e90967a2d3476b54fd589f47b152aa7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pyramid_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pyramid_female_v2_2.png",
+      "sourceSha256": "abe0ca121733fecbbb32f26f87d2b53a468d51cf8cebb8381f22c98f91e0fb24",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_female_v2_2.png",
+      "candidateSha256": "e09ccee1d24cdb57231e15f35cbf3a9c33d87d335bee02b5ac821f0b8a32975d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pyramid_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pyramid_female_v2_3.png",
+      "sourceSha256": "581863e710abe458f44fa01e7478093b0a67836b1f1d8fee617ff89062eb1bd7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/119/Pyramid_female_v2_3.png",
+      "candidateSha256": "2e0bd1d4fcff1bfdaf73bf5db142d4fe53e97e3c475ce79c27ccb19e3926ed39",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

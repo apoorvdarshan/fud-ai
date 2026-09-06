@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Push-Ups_With_Feet_Elevated",
+  "shard": 12,
+  "index": 112,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left floor/step shadow on feet-elevated push-up frames; GenerateImage+green chroma cleaned all 8 frames"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Push-Ups_With_Feet_Elevated_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_male_v2_0.png",
+      "sourceSha256": "633e4efab30e55dea7131739328c0344e1771dd797d58e73c3392c981cac09c0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_male_v2_0.png",
+      "candidateSha256": "9c902e3339173355c26d81b604cf71dde2a8cd4ab41cde15ee8101b383225068",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_With_Feet_Elevated_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_male_v2_1.png",
+      "sourceSha256": "be0f31626b87eb482e37dfe3ff1fd07ab948c245e8dd388c0421830a883ccad6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_male_v2_1.png",
+      "candidateSha256": "841b3eaba89486b68cac59f09a80b30209ac5dbf4b8a3d60d1fe30d2ebba71d8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_With_Feet_Elevated_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_male_v2_2.png",
+      "sourceSha256": "8c8a2cd54f2165b8c55d8a11326d8772da4ff826dec2f1013524e3315c3a59e1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_male_v2_2.png",
+      "candidateSha256": "94e4e7c992dc33d844cb389820aa336add94fc4971575486ae338323a1b7abec",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_With_Feet_Elevated_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_male_v2_3.png",
+      "sourceSha256": "e0690970edd4d09e586536f2901b2f537175003557e3cfa29dfcaec622550744",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_male_v2_3.png",
+      "candidateSha256": "0e22a894805c608b4d32eb03c58ccd0774ac834ac9090179141634e811ef8fac",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_With_Feet_Elevated_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_female_v2_0.png",
+      "sourceSha256": "f7d2c5b158277320dbeb1e910f63355e919252fee619496810be70d4b9cd1f3c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_female_v2_0.png",
+      "candidateSha256": "b723e30fa450673b15095f80be699e32cb0f4c3081a2e57ba3f71c245e6e3cba",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_With_Feet_Elevated_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_female_v2_1.png",
+      "sourceSha256": "d343b5c2b66d8a3855ebce031b98171844570c4c03da4e597f51a6a087e817db",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_female_v2_1.png",
+      "candidateSha256": "7e86d87cf0e8d05f3be65cb63ae81755d1470bc219cd3828300e8e6436d82b18",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_With_Feet_Elevated_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_female_v2_2.png",
+      "sourceSha256": "14120bf4d97f3cba7b517c97729c9be00d1c2f25cd0a4b38533c2807d3911cc6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_female_v2_2.png",
+      "candidateSha256": "dd68cb28546bec81c9f12bde2301a8d94569039e9e19c3da51e1e9b436b5061b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_With_Feet_Elevated_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_With_Feet_Elevated_female_v2_3.png",
+      "sourceSha256": "d781d18b70cdf9e0de1806bf422a5e6a6dc5e28cdafebd18efa48ed8378e9aa1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/112/Push-Ups_With_Feet_Elevated_female_v2_3.png",
+      "candidateSha256": "fd5a352bac6ab6094b40ff278cad9a5c2b074eff055a31b99aa444447a16441f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

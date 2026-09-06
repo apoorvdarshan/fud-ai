@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Pushups",
+  "shard": 12,
+  "index": 117,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left floor matte on pushup frames; GenerateImage+green chroma cleaned all 8 frames"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Pushups_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_male_v2_0.png",
+      "sourceSha256": "27bcd01810a9c449351486dd46fa0a4291f3ce2acece934d62f8740fe959e6b1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_male_v2_0.png",
+      "candidateSha256": "8cf8701188054175fc398ce92c4143bce6decfb5a348951e944d55ea4470602a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_male_v2_1.png",
+      "sourceSha256": "dbe5797caaea6aecbe98b551caae882ba9815ac25422fe75dcd7d2dcd587e9da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_male_v2_1.png",
+      "candidateSha256": "eb9cb97170dcdaf8918ac57d0af5a0a051b088232e2d7d4df833b1253adc0a2d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_male_v2_2.png",
+      "sourceSha256": "4a7f0fdfd8f2e4e3e1fe63f55c93c2a8fa47dfb3fbcc08849a4c48c3ebd49b21",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_male_v2_2.png",
+      "candidateSha256": "06f5711fe8530b5b8feef6eee56784f41962177099d0078367ac90ad5d0812ab",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_male_v2_3.png",
+      "sourceSha256": "767273487e80d1d38ac23e4103a628a084394aed8cc6528875b0b61a4c018d65",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_male_v2_3.png",
+      "candidateSha256": "c51d5f17bddeb4c67803c0fd9606cda080b9fbbafa0cbab04416ce1f1247f9cf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_female_v2_0.png",
+      "sourceSha256": "fbe7e393ea74f762222ea7e1acf954f02ac7d3c4bb5dfd94bd29c9be5cee3c28",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_female_v2_0.png",
+      "candidateSha256": "ab3cad91e7ba6bd733f58129c36031f0fc4bbdad7583ab8524af7b46794298bb",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_female_v2_1.png",
+      "sourceSha256": "96b3243bda13e219103636762e2b4145efe7caa267e5b40d2571191ae8db4505",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_female_v2_1.png",
+      "candidateSha256": "4b9e4980fa49ab42c955ddfc7e908b6fcf620cdc6a626123ed736be66f2dc5d6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_female_v2_2.png",
+      "sourceSha256": "0d4793b0a0fcd87979ca69c46b8991fe63a5415364ed862d3184a06755465ddf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_female_v2_2.png",
+      "candidateSha256": "cea89103f8773c6e02bddd57b624bfc1024b96b8b3bb65d2acb61dc886eb2e43",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pushups_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pushups_female_v2_3.png",
+      "sourceSha256": "b19973f1541d0f8578f46bcd878b46f195ddc4fc79c212da44d72cabaa548138",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/117/Pushups_female_v2_3.png",
+      "candidateSha256": "56d415fc01b999d2842f144e70c11f946cbbf7d6ca2ff5b48f0e6a7e91c7a8be",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

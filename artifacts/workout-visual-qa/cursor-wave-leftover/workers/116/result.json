@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Push_Up_to_Side_Plank",
+  "shard": 12,
+  "index": 116,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left floor matte on push-up-to-side-plank frames; GenerateImage+green chroma cleaned all 8 frames"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Push_Up_to_Side_Plank_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_male_v2_0.png",
+      "sourceSha256": "3f04e6a4b34214ffb7724c037673af3a0887366bf08d9cb4758c3968b759ab18",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_male_v2_0.png",
+      "candidateSha256": "a327a87744c010e218d0868884b03f7a9087fae032eeeba6b8c42a198585a0cb",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Up_to_Side_Plank_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_male_v2_1.png",
+      "sourceSha256": "d4ea330b563bbeb482c8e838353740d95eaf953edc20d73de99d1fd8a336f0ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_male_v2_1.png",
+      "candidateSha256": "28097cb905770f5bd76d6f1d9148a3abf38a34fd986a23357b41c736588d5744",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Up_to_Side_Plank_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_male_v2_2.png",
+      "sourceSha256": "4ba436f663ec1fbaafbc4494db42f215a9f094c72f5eedbc362bf2ffe3505dae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_male_v2_2.png",
+      "candidateSha256": "400d0b45c2ede3fb9f91cc4b3492a2a22093afd29262b440f33cb438fb37bdb9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Up_to_Side_Plank_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_male_v2_3.png",
+      "sourceSha256": "9905738f618013dade823f46cdbf1209125aab1b1a073575fba6643cc2b8bc93",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_male_v2_3.png",
+      "candidateSha256": "1dea13a9ea4ad2ebab57eaa0c38f8f6d61b33dab3a6f4dbf93dcad9cb6d0a90b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Up_to_Side_Plank_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_female_v2_0.png",
+      "sourceSha256": "563898f53d61d3271577a24e8a7eae5ab5aa3541ec3e8d763f1dcee50ed46bc3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_female_v2_0.png",
+      "candidateSha256": "e7bc9da2185c8dd60a025beea86ab45aea53fd5ad6f149e5251c81207abc70f3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Up_to_Side_Plank_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_female_v2_1.png",
+      "sourceSha256": "148e1dc2f437050d0bd736ba54c6d7cd20f8dc5c936022f6f413bba34eb38b26",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_female_v2_1.png",
+      "candidateSha256": "29f04d4533a54420b0dd96b6715fed16f4e7e25731a87178690e8024c7cd8313",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Up_to_Side_Plank_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_female_v2_2.png",
+      "sourceSha256": "0c79f0ba7812c45883abbc382d12b7ca79bb621d17fea8b0cae118147a2939c5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_female_v2_2.png",
+      "candidateSha256": "69c16fbba3384067a8ee35cbf499db6c40c708e2f936460ead05ab376701913e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Up_to_Side_Plank_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Up_to_Side_Plank_female_v2_3.png",
+      "sourceSha256": "5019b6bd7b47b93704cc386e199789b3590148cffc1b0ce6d3a3ef0a24c7a302",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/116/Push_Up_to_Side_Plank_female_v2_3.png",
+      "candidateSha256": "a9f8deb99ffb7637dd5b8d5ff7c72458c27e0609989eaa54f53a9c5a983bddbd",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

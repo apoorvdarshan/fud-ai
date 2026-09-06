@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Push-Ups_-_Close_Triceps_Position",
+  "shard": 12,
+  "index": 111,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left floor matte on close-triceps push-up frames; GenerateImage+green chroma removed floor shadow on all 8 frames"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Push-Ups_-_Close_Triceps_Position_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_male_v2_0.png",
+      "sourceSha256": "48f33c305a32a9611890d9f66915b5182e89822098daae2be9a20595157729ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_male_v2_0.png",
+      "candidateSha256": "f0c63a189a1d426117298f0d59343015d7dc55ed2fa75925a9336691980125b1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_-_Close_Triceps_Position_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_male_v2_1.png",
+      "sourceSha256": "7c456cd6411b64fbb48c26389e773b842af465b38f083dff0195678762b94abb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_male_v2_1.png",
+      "candidateSha256": "85b2ff8e753d93d73e4ae410397a73d9c9ea6334abfe6e6daabe04e45a600170",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_-_Close_Triceps_Position_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_male_v2_2.png",
+      "sourceSha256": "c0b742874dbebc026a02ba1e6643e71bedfac640bd011e076600a0f30979409f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_male_v2_2.png",
+      "candidateSha256": "3bd93f772652e6bc7ecdb2263a98e3af8a1c0a471dfecde9c24e8e01859ad9ac",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_-_Close_Triceps_Position_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_male_v2_3.png",
+      "sourceSha256": "77d61f18f890af1db5735d91918f82e1e26f755d3381e5b5c0dc7d0cf9fcecaa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_male_v2_3.png",
+      "candidateSha256": "fc0ba88b92eddd44786ac83616efbe46cecc610c07ab8f6a0fd52cb0379d3aa8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_-_Close_Triceps_Position_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_female_v2_0.png",
+      "sourceSha256": "a33cb07b71686abe50991abf44c8b44bd5f504136b1aba3e4c0949914f29097b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_female_v2_0.png",
+      "candidateSha256": "a6d4495e47bbcda23b3bc61d40b93c613c52fbe71c6e784c663c2da981a71a10",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_-_Close_Triceps_Position_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_female_v2_1.png",
+      "sourceSha256": "6399cc51f9e82d1101e498a42de0d98b943e85f01d9de7c6160c658ad9e9ca66",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_female_v2_1.png",
+      "candidateSha256": "8464b4f68523d2594c3ad576f2618cf2402c01acbfb18b3ce02fb01c1ce72a1b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_-_Close_Triceps_Position_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_female_v2_2.png",
+      "sourceSha256": "2459128ba3383186448d33297f24bec196f332013341dc342d2b9ac61052d9c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_female_v2_2.png",
+      "candidateSha256": "da1d8a64ce822d28cab20dfce4b66c662e8aecebb689191de43272fb8efa803e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push-Ups_-_Close_Triceps_Position_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push-Ups_-_Close_Triceps_Position_female_v2_3.png",
+      "sourceSha256": "4e912317fd629673cfcb9659348ac3b9a1370d1d0b2e10d7f1706ad0e46aafa8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/111/Push-Ups_-_Close_Triceps_Position_female_v2_3.png",
+      "candidateSha256": "8fd2b63096d5725a24f24a198a42513212f34c3343c31bc187bcd07d01f1eb9a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

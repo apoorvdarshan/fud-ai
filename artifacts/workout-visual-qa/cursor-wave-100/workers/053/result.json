@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/053/Internal_Rotation_with_Band_male_v2_0.png",
       "candidateSha256": "07fd1de22d430fd13db09284af0c51e05e8c21eb3dccf8274650e85ec478d2bf",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Internal_Rotation_with_Band_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/053/Internal_Rotation_with_Band_male_v2_1.png",
       "candidateSha256": "66dc1f3850a66592d709f7c632c23f81a405fe7feb1b6788ac1bf27b40de8057",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Internal_Rotation_with_Band_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/053/Internal_Rotation_with_Band_male_v2_2.png",
       "candidateSha256": "08b54247bd5edb83cb1ec5b6fcaecc152148a80f6306674e74bccde72c8bcd3c",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Internal_Rotation_with_Band_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/053/Internal_Rotation_with_Band_male_v2_3.png",
       "candidateSha256": "c1b385bfa44caceb089a77b5c19b970f560caefc2dc9ff35e296dd9c66a8621b",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Internal_Rotation_with_Band_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/053/Internal_Rotation_with_Band_female_v2_0.png",
       "candidateSha256": "5523b30f9312ac0fafccb8a2100b73abc3eecb8e99a9cf27143dcb8cc807f57d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Internal_Rotation_with_Band_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/053/Internal_Rotation_with_Band_female_v2_1.png",
       "candidateSha256": "91c44c1abde7ae890ff932b0dfae01680512ddd9aff3e5eb93534125e71d9a53",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Internal_Rotation_with_Band_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/053/Internal_Rotation_with_Band_female_v2_2.png",
       "candidateSha256": "0ed22371f4fbd24adc23f206b2a5822af45cfd6d109302a9fa4ac0bc4dddee8e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Internal_Rotation_with_Band_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/053/Internal_Rotation_with_Band_female_v2_3.png",
       "candidateSha256": "6061ccde58384d5f2aaecb38e7c4bb5da5b87f66f309b7121881e478ca393b4e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

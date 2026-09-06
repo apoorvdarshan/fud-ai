@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Quadriceps-SMR",
+  "shard": 13,
+  "index": 121,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Quadriceps-SMR_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quadriceps-SMR_male_v2_0.png",
+      "sourceSha256": "13d51d6b052572f1134fc6fcb9a16bb5f8c31c4861d1658a0ab3c98c9bfa31b2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/121/Quadriceps-SMR_male_v2_0.png",
+      "candidateSha256": "703b9a98043602909b8c63679214c975529864567da8794e220d98138a3c9546",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quadriceps-SMR_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quadriceps-SMR_male_v2_1.png",
+      "sourceSha256": "a591b359cb08304f649045b3e14bfbf8296fcb58ac737ca9b69ae34c7e73243b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/121/Quadriceps-SMR_male_v2_1.png",
+      "candidateSha256": "c0fa467fe85776deda4dabbbe7cffd4d0951173bffe3c87a442de5a5155bdd45",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quadriceps-SMR_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quadriceps-SMR_male_v2_2.png",
+      "sourceSha256": "33431cf4117082d0e7e8c0ae6ca6303825d1a82bc34c8833cd861177dbe088c3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/121/Quadriceps-SMR_male_v2_2.png",
+      "candidateSha256": "9483ca457f06190575d979d6f57ef1e7146cad45395d6bfa2b08be50ceb2653c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quadriceps-SMR_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quadriceps-SMR_male_v2_3.png",
+      "sourceSha256": "c54d383447f857c1568fff6df8f0333d61e906a17e8da3b3f8a0a92b2158f498",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/121/Quadriceps-SMR_male_v2_3.png",
+      "candidateSha256": "31701065b5e231b1e048e73c13bb37152b09b8a23681b7e11c254eb066f05b43",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quadriceps-SMR_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quadriceps-SMR_female_v2_0.png",
+      "sourceSha256": "25e87cc408eeb7e245bc1fa70395fb90efdc1f92c45bbfde4823c130f00b1676",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/121/Quadriceps-SMR_female_v2_0.png",
+      "candidateSha256": "1cda7a0456d755441f6a9a8506f53fb621394965fdaa8d5b54127dd621ec1cf9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quadriceps-SMR_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quadriceps-SMR_female_v2_1.png",
+      "sourceSha256": "5585d5e8c2243acc78f6eb338fa4605c02cbf70dd3381f51fd99b9d2e83f67b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/121/Quadriceps-SMR_female_v2_1.png",
+      "candidateSha256": "0a24a335e876c33755862818e39a6fa442ce2551fa2d2d747da07a6a88e74912",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quadriceps-SMR_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quadriceps-SMR_female_v2_2.png",
+      "sourceSha256": "5d4a916e49a5776a1586bffdba8bf8c9a9467c618a1e495c3378444db0b165eb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/121/Quadriceps-SMR_female_v2_2.png",
+      "candidateSha256": "95f154315de057d700d17b13f7fb5418616fac713c1c374562a71c45b4a5f2f1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quadriceps-SMR_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quadriceps-SMR_female_v2_3.png",
+      "sourceSha256": "d2bb1e760add156aeab1eff6fc550e4bdbd9c6cd145e7d01b4c2e6438d6dac11",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/121/Quadriceps-SMR_female_v2_3.png",
+      "candidateSha256": "b2438153d39a538aa09bfad20a68d3919461012e504a9a713bb898009b791579",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

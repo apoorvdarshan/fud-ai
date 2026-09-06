@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Rear_Leg_Raises",
+  "shard": 13,
+  "index": 126,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Rear_Leg_Raises_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rear_Leg_Raises_male_v2_0.png",
+      "sourceSha256": "82628803592a13cedf89d21b3239bfad766cb89ca6b159fbd68326df92327c75",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/126/Rear_Leg_Raises_male_v2_0.png",
+      "candidateSha256": "7c02fe52063909d53a0251275513e6d3d9c1b3437e12a3b048c18aeca336c6ea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rear_Leg_Raises_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rear_Leg_Raises_male_v2_1.png",
+      "sourceSha256": "e24a56f575c0bba78ed6116dc5f41e33d5ae4c026c937c963fd1bbf8cdbf9f10",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/126/Rear_Leg_Raises_male_v2_1.png",
+      "candidateSha256": "e6c67c1ee4c47b06602090c8cd4b718309af274d53ed9f79384604e7533dc96c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rear_Leg_Raises_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rear_Leg_Raises_male_v2_2.png",
+      "sourceSha256": "162bd4feba561529ce257a0e8295588dc1d54b67df99173b29088022d1d1836c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/126/Rear_Leg_Raises_male_v2_2.png",
+      "candidateSha256": "9d91bad6cb35919ef1b8101603d99b10297739b7b479a40ca585f3e38fbe2f85",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rear_Leg_Raises_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rear_Leg_Raises_male_v2_3.png",
+      "sourceSha256": "f0d74dd026a0b6632f8da82a01ee4b0d9ce0d49510f79bff1b1f97c30a20b839",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/126/Rear_Leg_Raises_male_v2_3.png",
+      "candidateSha256": "5616e3e667be2c93d92783ea2f071228ac94c137d7bf6482b8a5ace66b9f83be",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rear_Leg_Raises_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rear_Leg_Raises_female_v2_0.png",
+      "sourceSha256": "8f1f81412c8ec664f476c08e4bd5993032bdcf8dcac7e9b63f4a52748061aae0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/126/Rear_Leg_Raises_female_v2_0.png",
+      "candidateSha256": "897295be3098a4c05c5d038dfc61f207282cb5a143b9d35d2045ab801fe20116",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rear_Leg_Raises_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rear_Leg_Raises_female_v2_1.png",
+      "sourceSha256": "c84bd65d7e86a768559bdf163ceb7114b3a8e0726161409c3b6c940d311c6845",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/126/Rear_Leg_Raises_female_v2_1.png",
+      "candidateSha256": "9c90cbdaff144ac4ad313186e979400ea6abf2a88aa4562a1d33735ea8996863",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rear_Leg_Raises_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rear_Leg_Raises_female_v2_2.png",
+      "sourceSha256": "2bb59319d3c77b3d1b990cff3d1ed400452e0ca2d480eeedce3db3e028f15c58",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/126/Rear_Leg_Raises_female_v2_2.png",
+      "candidateSha256": "dea4f9263f1f0442d837c00db5407f60ed36f59b78b4c8fcd9b2a15bf0a2c50b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rear_Leg_Raises_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rear_Leg_Raises_female_v2_3.png",
+      "sourceSha256": "6af7288a1631fc10809a13ad636f2909edff7c9606455e2bd409decd175f2f29",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/126/Rear_Leg_Raises_female_v2_3.png",
+      "candidateSha256": "ee2c921d4a3d77ecf22790a9fa72a7a29e22bea5c372b1d6e3d725804233abbc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

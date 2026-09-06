@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Reverse_Band_Bench_Press",
+  "shard": 13,
+  "index": 129,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Reverse_Band_Bench_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Bench_Press_male_v2_0.png",
+      "sourceSha256": "ecb39af16600872f188b895a09260e011b01a07e9500294345b05648109f962b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/129/Reverse_Band_Bench_Press_male_v2_0.png",
+      "candidateSha256": "fc607296c3b51a324387eb18ca01bbe96d7e6e49d422d493919ca5d97b2645ac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Bench_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Bench_Press_male_v2_1.png",
+      "sourceSha256": "2c8cc1d595c49e09fd7b70ce0c9ca070490909e2a24ae3138918cbe1c1b6fb96",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/129/Reverse_Band_Bench_Press_male_v2_1.png",
+      "candidateSha256": "ed99a38f1ac5ba9ed22002f50e33e234a40e2cca75ceb6bb2dbe171bc3247daf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Bench_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Bench_Press_male_v2_2.png",
+      "sourceSha256": "56df4916ee07750a4e868dfd8ef83cf5825229ff36146b352f43e99048aec8a5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/129/Reverse_Band_Bench_Press_male_v2_2.png",
+      "candidateSha256": "c10e0daf28e828fd83d6a979d5970573ec0b14028b3522556c9f079de2099d1d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Bench_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Bench_Press_male_v2_3.png",
+      "sourceSha256": "a05720401ade6283d21d9001102d1873cbcf92b25acc7cd12efaf5a81aa9a0df",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/129/Reverse_Band_Bench_Press_male_v2_3.png",
+      "candidateSha256": "c4cf86d902ddfe56a3deca425bc07f6381658a95bea5199b755b62fb5f479d7f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Bench_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Bench_Press_female_v2_0.png",
+      "sourceSha256": "5833e9547a86495fd2d945753aa9c96550bae94c78cd03c68e18ba47c6900d5d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/129/Reverse_Band_Bench_Press_female_v2_0.png",
+      "candidateSha256": "0b9bab29be7f54d00fb48e8747c8cc5674dd94873075ac65d3a42ce9c0c663d8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Bench_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Bench_Press_female_v2_1.png",
+      "sourceSha256": "b86624ad776a0bf9ba80cb2609b8a61be865111e04e42940500046f89fb26149",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/129/Reverse_Band_Bench_Press_female_v2_1.png",
+      "candidateSha256": "3d40c00d82b1171ddd5c47f5795ba63c9d9fd71c53c4f6309864f39a527db3ba",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Bench_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Bench_Press_female_v2_2.png",
+      "sourceSha256": "c823a48ea28983a777052653316b6d00b023d2dc113612605897d0258f65a592",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/129/Reverse_Band_Bench_Press_female_v2_2.png",
+      "candidateSha256": "202cbfe40fdf7ae373e2633cbbd098fcf1e1459f7b44c372cb33679aa673fa47",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Bench_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Bench_Press_female_v2_3.png",
+      "sourceSha256": "d730ed3ff959770b8b0de73b5ecd09924584d393f3de4d49ea097c8fd0c2a56a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/129/Reverse_Band_Bench_Press_female_v2_3.png",
+      "candidateSha256": "9c6b045e70ddf3b0e8dd1dd3821cff02dc0870fbbc1ee97872539c92718f713b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

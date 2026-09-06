@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Reverse_Band_Box_Squat",
+  "shard": 13,
+  "index": 130,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Reverse_Band_Box_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Box_Squat_male_v2_0.png",
+      "sourceSha256": "bbffe3df9fec6526ee656ffe7095547f45b46836cbcba9c55351a0d9545985fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/130/Reverse_Band_Box_Squat_male_v2_0.png",
+      "candidateSha256": "81fe94c4447c43a006554f078d9a2a371d7b7a9bc8fbb232e7946f7418392e14",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Box_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Box_Squat_male_v2_1.png",
+      "sourceSha256": "9caea51d1d19422c3fd99f4406be268601fd8ea4875c6f68b927b4c03e1a15ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/130/Reverse_Band_Box_Squat_male_v2_1.png",
+      "candidateSha256": "8c0eb8597dbf0314efc4418b6389dac65f286b51a532fb8369362d243b8cdab0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Box_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Box_Squat_male_v2_2.png",
+      "sourceSha256": "2b9354649fe1fb524b9a6b279784c3f4e12431d7cf285272041ea07d12818224",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/130/Reverse_Band_Box_Squat_male_v2_2.png",
+      "candidateSha256": "90fc45a994d5c00c46d8b5e5064d5b1e0130e67e0b5c092c68742a8156f88b2a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Box_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Box_Squat_male_v2_3.png",
+      "sourceSha256": "4c16235d3a4770482c020acfdba3206e8d38805422a3b2aef7058bafb69294d1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/130/Reverse_Band_Box_Squat_male_v2_3.png",
+      "candidateSha256": "f81c025a3b67b6073ff2c6dc19b34a62228cd0c011ec0df0dc8de279b10f7559",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Box_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Box_Squat_female_v2_0.png",
+      "sourceSha256": "8c6de90bd80984fbe62258e1135ac3774944039b2a7cf76f388c5f2bb7030826",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/130/Reverse_Band_Box_Squat_female_v2_0.png",
+      "candidateSha256": "c516650543dbeeebb757c1713085ee8da47a394348df4015a63e41e9453e1782",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Box_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Box_Squat_female_v2_1.png",
+      "sourceSha256": "c8178212ea0153add81fbcf3d49d037adcee131b881f7239d1d0394655a1aa63",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/130/Reverse_Band_Box_Squat_female_v2_1.png",
+      "candidateSha256": "f39ca41d349d22809f0a11ffea45ab88043f09cb94b6d098ab726adf8e8e2d94",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Box_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Box_Squat_female_v2_2.png",
+      "sourceSha256": "45a068a2b5f16b6cb1758ad325864263733021b8a4369e1cc65db0cd355d6ed1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/130/Reverse_Band_Box_Squat_female_v2_2.png",
+      "candidateSha256": "112eab272e1998bdf3019f8b70f5cedc5433e09777ff868fa41dc96bc9262083",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Box_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Box_Squat_female_v2_3.png",
+      "sourceSha256": "e86d71fe0a00b1892dfd94d36d08545a3abcfef7ad71ae78d0f5bdbe3b8d1fa9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/130/Reverse_Band_Box_Squat_female_v2_3.png",
+      "candidateSha256": "88c2ae59bc5e57b65f416897cd84c7f0aa25bf80e3fb895f170789718491bc9b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

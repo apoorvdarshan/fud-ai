@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Squat_with_Chains",
+  "shard": 29,
+  "index": 286,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Squat_with_Chains_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_male_v2_0.png",
+      "sourceSha256": "f72ba4e68e01430a8fc7cb77216f8e7684b57b17ca937cd196f51b47cdcd2110",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_male_v2_0.png",
+      "candidateSha256": "87afa67f9ce6476d0b4e240afadbf44f4e20c9b23889d990cb4b7150c9a299d3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Chains_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_male_v2_1.png",
+      "sourceSha256": "b68a80f9f8de380ac5027010337877545e699c90864bf9e432551a88dd21a02f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_male_v2_1.png",
+      "candidateSha256": "1519cf0391bab2cd1a7dcdfc52fadc5b75cb03ddad23116091ab2bff9b5aa868",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Chains_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_male_v2_2.png",
+      "sourceSha256": "2da9036e035c22683b3a2c503fa4298fb60d2759d0078d5533e703018965bd48",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_male_v2_2.png",
+      "candidateSha256": "06de0af036875141a1ac8f409899a954bcfd048eb16a58ce78004105a282784e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Chains_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_male_v2_3.png",
+      "sourceSha256": "26720410243bf4db68764ca02d644367a32750fc88e6e10ede53fadb831a5f1e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_male_v2_3.png",
+      "candidateSha256": "07640ff3f7875ca7934f62ee5ea1268aed844597b4ded84cd9bf67d4b4f16646",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Chains_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_female_v2_0.png",
+      "sourceSha256": "6d0035d2348397a8739efbd941b5656b6f6ad02976af0d2b2170656c2f59b9e3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_female_v2_0.png",
+      "candidateSha256": "b3c6b763331c2354052ff893abdf9842170ba77c008c8a92ac74393c509bcb84",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Chains_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_female_v2_1.png",
+      "sourceSha256": "0293869fb6acc7bc4dee8ed03a142332282d5dddcb03889ebc7c7846d2e5f574",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_female_v2_1.png",
+      "candidateSha256": "ca0564900d4745f42c9f5cb61a11a71e6ef36c24cf3e98359f0470b10b5ff69b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Chains_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_female_v2_2.png",
+      "sourceSha256": "2074ea204967b6375b777eed3865360203815d1a6b420afda59a82748dcafde1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_female_v2_2.png",
+      "candidateSha256": "cdb17dcff6e13ebbf0b94d25ba47d80d97a5e1b1daf029ccca85419cad2d45c5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Chains_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Chains_female_v2_3.png",
+      "sourceSha256": "6ef97240d32ba8a7edf22df4f37dc799a8e2ac53130a5a74a504bf4bb2f6765c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/286/Squat_with_Chains_female_v2_3.png",
+      "candidateSha256": "67e710c548cbcb3bfc4e9e68d1a03899a6130d6b6a811b74ff1598dd067c2aca",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true,
+  "notes": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 8 frame(s) with checkerboard/pale fringe artifacts."
+  ]
+}

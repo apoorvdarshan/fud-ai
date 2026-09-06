@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Standing_Alternating_Dumbbell_Press",
+  "shard": 29,
+  "index": 290,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Alternating_Dumbbell_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_male_v2_0.png",
+      "sourceSha256": "cc678e1d8c331487b44ea060cc61a916950cf64aedd602470223d026607ccc56",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_male_v2_0.png",
+      "candidateSha256": "1cb9aeb5f63bf9c93348703ce32ba507025b1245b075e76d50eae81a566f32dc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Alternating_Dumbbell_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_male_v2_1.png",
+      "sourceSha256": "8416eb443e8d2ce96e08fe47b2b1a54e64d02924230add80ba70654ad9bee20f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_male_v2_1.png",
+      "candidateSha256": "a132d4d782a10e8688b53425b4f466458a19eab91bfc6ceb9a33b4bad4499a8b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Alternating_Dumbbell_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_male_v2_2.png",
+      "sourceSha256": "10f5e8643417b0b3572c702460e63c7b66a447b2b69c6fe954923ff9f9b993c8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_male_v2_2.png",
+      "candidateSha256": "ee53fec2dbf51e6a45c348fd6860182018c2af2ed5614ead61e8147223b7dee4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Alternating_Dumbbell_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_male_v2_3.png",
+      "sourceSha256": "95aa193c120f057d4293a083902fb37cfb218529cd1a4d1c26f4356523d176c8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_male_v2_3.png",
+      "candidateSha256": "d35d2b18d02033a6503e902ea1484c89aa08c9026d371d98f76a00cbeffdca23",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Alternating_Dumbbell_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_female_v2_0.png",
+      "sourceSha256": "7df29fa3b4092ae261354aa183d918a94687895199fc40b8047b4b34b0913548",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_female_v2_0.png",
+      "candidateSha256": "74d7754e2d5a57f0644d726bce785c0a5219091172c75ce3c33da21b8f662585",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Alternating_Dumbbell_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_female_v2_1.png",
+      "sourceSha256": "7bd00d9df06de06414fde6a922c00a6acce29cbde04e896122db2bcf1ab2bf7e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_female_v2_1.png",
+      "candidateSha256": "d2a5a8f2f9a59f0d8f801ff05337d9cc28d32683983ebddf6ae0317f8c263c89",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Alternating_Dumbbell_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_female_v2_2.png",
+      "sourceSha256": "23a16c8aa30c478d9d39440260ed59f94567fd6110cc0520434a722aad292cad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_female_v2_2.png",
+      "candidateSha256": "6ecdac50d43f18a5d795f841bfee20e1ae18a506ca6918972970f9b9f5fea59a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Alternating_Dumbbell_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Alternating_Dumbbell_Press_female_v2_3.png",
+      "sourceSha256": "51b7838c42873e27e2eda7d8f22f3742a1e6c0444c115809bbc882cd00faa488",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/290/Standing_Alternating_Dumbbell_Press_female_v2_3.png",
+      "candidateSha256": "43399a5d6c9c85547bcf149332986496ef5a53f1ebc1f7bd2e4bab346e5a3d43",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Split_Snatch",
+  "shard": 29,
+  "index": 281,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Split_Snatch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_male_v2_0.png",
+      "sourceSha256": "c4d3ee1686dd2e0c243352d8689b7a9fc25bbc196c8ab43c6a2fe7df8bade4ff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_male_v2_0.png",
+      "candidateSha256": "a8f658ef5a1041c9b5c851567bc2bb5033e7835f400d90843b138f11ff1deecf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Snatch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_male_v2_1.png",
+      "sourceSha256": "cfeb9a1595e3595d4ba62cf38bf77cc55fd3884b6260fd859750ecbf57ca5210",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_male_v2_1.png",
+      "candidateSha256": "526f36a6068f762db08ef7306b4794bd5eddbbf127dfc77417d075a8f5f804c1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Snatch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_male_v2_2.png",
+      "sourceSha256": "ab1017756e8e8917a69f25c2eb24b4ceb7302885f687498e0787411fa7dcc252",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_male_v2_2.png",
+      "candidateSha256": "aff2683147119258e46060feac1242cceeee77dd14782abf95d31296ec184b24",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Snatch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_male_v2_3.png",
+      "sourceSha256": "39340352882bc3bf1c81667650a4b0a06b5ef85210635e40306eed51d5f7589c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_male_v2_3.png",
+      "candidateSha256": "0afde3ffe3d1c6430b435d62214d2386685ca2a3d6b092e3fb36fbfa5d833ada",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Snatch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_female_v2_0.png",
+      "sourceSha256": "7c804e168233ff5b8ed6e478f53ff2374d00f331b8d526617ed2b6e3b0592d73",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_female_v2_0.png",
+      "candidateSha256": "46698f026e18adeadd7dc42dff6f07589655f592a86e0d8dbe5f64c00f235f52",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Snatch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_female_v2_1.png",
+      "sourceSha256": "719ff55f2a32bf985b6f3b37902d72a73ec1de9b1ca5fed228da124a22abb26d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_female_v2_1.png",
+      "candidateSha256": "628ae568cd3cb619a509c83ed40720a005d5bb66a1003fff14040a4c5a6f984c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Snatch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_female_v2_2.png",
+      "sourceSha256": "30a562e65826310c54857cbba2f6aabcbc553549d5fa8255040132992cdc43f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_female_v2_2.png",
+      "candidateSha256": "eecff578f3f8b3944ffd2cedb4a19022464038975098b01e3b2813337e2c71f3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Snatch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Snatch_female_v2_3.png",
+      "sourceSha256": "6efd2c40973a0e8da6805116f52f06fb456ae81f715fff44424fd6761bf48fbf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/281/Split_Snatch_female_v2_3.png",
+      "candidateSha256": "0c1cc1fed07ea39afbbd708407dbd0f215e90dc129f1e989fd30847143b9e511",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Squat_with_Plate_Movers",
+  "shard": 29,
+  "index": 287,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Squat_with_Plate_Movers_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_male_v2_0.png",
+      "sourceSha256": "aff1c2397d0f4316e0b5f1940f507494ed4a58025bfe26e5d8ecfa03312ff0f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_male_v2_0.png",
+      "candidateSha256": "a20f0ae2ecb3e317ec16ff1726db919e6d00f7ec78263ae270a809ffae08e484",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Plate_Movers_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_male_v2_1.png",
+      "sourceSha256": "2e92caa1c7e91ab1fca363bd0bb0de7c60fdd33b215e85f3cf1128e0ad4b87ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_male_v2_1.png",
+      "candidateSha256": "a6db4628c1761e13157d52ba65dce56e8467c1be85e58f484a44d80684f08345",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Plate_Movers_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_male_v2_2.png",
+      "sourceSha256": "e5a5b3dc5a6850558aa4225bc1633d94c3d2e6c3c766c23eeba3709c3da4d32e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_male_v2_2.png",
+      "candidateSha256": "94d418fccb2583eca3eeffe18762bb747e17409f9d6fde509913830819d3933c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Plate_Movers_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_male_v2_3.png",
+      "sourceSha256": "35480d44d7e3ca097940edf319963ce04e9b6c492cdc33504d729737db1523e0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_male_v2_3.png",
+      "candidateSha256": "a7675078193bb213b258773daba3c95002ab363f748f4cf805a175ebcf72a49f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Plate_Movers_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_female_v2_0.png",
+      "sourceSha256": "f48038f3e89353bc9f8122755da01d2e1e179a60553bc4cf5e09f53a7a1d43f6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_female_v2_0.png",
+      "candidateSha256": "737b8d79eb5765a743d825fef367df85020ca9c91f0c35bf36d628c642c0c42d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Plate_Movers_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_female_v2_1.png",
+      "sourceSha256": "981999e16fe22e77d97f5e175c477880969da50e50fbfec49a6de02cdc80eea7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_female_v2_1.png",
+      "candidateSha256": "23b0dc51aef281913e07900b7a3ab4f18e2d55657d84c9dc6dac5f3793f2eec9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Plate_Movers_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_female_v2_2.png",
+      "sourceSha256": "2e518e2cd6fe2939334fa9053d0eb502aee27b63e855324af0d99e4280a1e741",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_female_v2_2.png",
+      "candidateSha256": "b1082c890597c11519bc23a25c8216a628d75d159146e3144146bf3de2dfe2d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Squat_with_Plate_Movers_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Squat_with_Plate_Movers_female_v2_3.png",
+      "sourceSha256": "dd2985ae3254edf2b324cff199bf5c1435802e62f6fb7105925c3ec35877af9d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/287/Squat_with_Plate_Movers_female_v2_3.png",
+      "candidateSha256": "1629c378a3950a068bc89895f25a55a2a51019eda783aa5015571c11e48a2d0a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Split_Squats",
+  "shard": 29,
+  "index": 283,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Split_Squats_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_male_v2_0.png",
+      "sourceSha256": "894593e0a4746b23ff5b05261929cbee1560eed25547c34b2480bba1e66796f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_male_v2_0.png",
+      "candidateSha256": "d4237f0193ce0241054d2d430514431dee9563e990717cb0431b4e79233717f3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squats_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_male_v2_1.png",
+      "sourceSha256": "79d643778d65623dcaffc821dde30b42da51b7665e19cc3ef8f8b666a010129a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_male_v2_1.png",
+      "candidateSha256": "1ed937054d9f2044e851f1cb839046ebceebaac3e773af557801e95040ad5fc3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squats_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_male_v2_2.png",
+      "sourceSha256": "0c219df137f9e943decc3606a899ac5b98d70bcb4f847dc27f5c50f7a528f414",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_male_v2_2.png",
+      "candidateSha256": "879960deffde8529ae7c36d38c357f7260439930e48c292e10f3b59ec041013e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squats_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_male_v2_3.png",
+      "sourceSha256": "4a7084761f51b427f2788783d1544e3325649d8b1e62146aa508723b10e2e43f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_male_v2_3.png",
+      "candidateSha256": "261a63cf5fe8b0e80b6449896856fa1a80ad78657c564f71521685fc19995594",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squats_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_female_v2_0.png",
+      "sourceSha256": "aa279ac6f46e86e0003951f2d4ee44b5d5fa270fe208549395bb0d5494212171",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_female_v2_0.png",
+      "candidateSha256": "afed565690a6b53d60e4a77b5b7d2fb8bf9648eb0bffea88572ff338d907458a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squats_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_female_v2_1.png",
+      "sourceSha256": "8a81bbe0da2d16b38e00c8a08c76e2018290907701a2e02819b33e8749f7277a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_female_v2_1.png",
+      "candidateSha256": "fe6d398ea060087833afedbb1e6908a4bfd4f8fbc02c73f9457acea0d98839a6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squats_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_female_v2_2.png",
+      "sourceSha256": "4af26788b2ece585c5113546cb3c3ce3ffcbd461c17d822e82f1a1d5c6cc3bde",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_female_v2_2.png",
+      "candidateSha256": "ac9b7129868f6e4ce8c506de60822286cdfe26aa836602ee6d42ded235348bdd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Split_Squats_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Split_Squats_female_v2_3.png",
+      "sourceSha256": "432e5b5786947936599f3d5e18d4f6cac0821760177190f38993a333cbb92f7d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/283/Split_Squats_female_v2_3.png",
+      "candidateSha256": "7da526bb896128037acb873b0f8afcb7451ab77cb1c48eb04f5d427a6eef1f14",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true,
+  "notes": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 1 frame(s) with checkerboard/pale fringe artifacts."
+  ]
+}

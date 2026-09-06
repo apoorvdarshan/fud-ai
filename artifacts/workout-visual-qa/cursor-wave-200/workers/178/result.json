@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Lying_High_Bench_Barbell_Curl",
+  "shard": 18,
+  "index": 178,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_High_Bench_Barbell_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_male_v2_0.png",
+      "sourceSha256": "53f06b6c47800c231efde13593effc3bd20066d3f86edf0b93de51288a1ea6b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_male_v2_0.png",
+      "candidateSha256": "70f99fc94d9fadd31c850f546c22cd6d5066fa5fcee9feff8e2170e5dde9599d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_High_Bench_Barbell_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_male_v2_1.png",
+      "sourceSha256": "da3cf8dc342f7c48a3278b7797d2baed4a1a99613d66e414bfd301e611203064",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_male_v2_1.png",
+      "candidateSha256": "597253e27b83f82fac97b676391194eeaa1e74c16664f685f44ee716254acd7e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_High_Bench_Barbell_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_male_v2_2.png",
+      "sourceSha256": "d22e8f38ba500bc3351f5688a2e8d463fccb87517acfb25f6698db2c6345d8c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_male_v2_2.png",
+      "candidateSha256": "45eecd5329a2354d1ceb9f82eaedc26444671ce5ef35895612289a5c4dbf4867",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_High_Bench_Barbell_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_male_v2_3.png",
+      "sourceSha256": "92547ed458bcc779d878f8a7eaf6179acb586e059f6de1885801f3834d11eead",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_male_v2_3.png",
+      "candidateSha256": "9cd80cc84e36a41b9c1b5ebab8f99e48dc66a1f7960834877d34164e01edde50",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_High_Bench_Barbell_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_female_v2_0.png",
+      "sourceSha256": "c03848b28175a6f45b65b02100c1ddf69700e3d82f2f453ff766f02b70a76441",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_female_v2_0.png",
+      "candidateSha256": "e2581e241f8f037926d442651461f453ae1249b1674d6a58b627e5057c5b4ea5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_High_Bench_Barbell_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_female_v2_1.png",
+      "sourceSha256": "80ede0156533032008ae76215f7e230dbe53a2a938818bed4d2d92a62340c996",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_female_v2_1.png",
+      "candidateSha256": "0e10d132589a6e0a09f6b627de795c1ea535270b19921662fbdb41017773eba4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_High_Bench_Barbell_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_female_v2_2.png",
+      "sourceSha256": "f5977b3bb0e7ee4678783476a8eeeedc942886468fbb029911514ecb7df0366e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_female_v2_2.png",
+      "candidateSha256": "771a5a6bcb3d789f4ecb8eea914183c872152e517717258e955e3c9e89d08175",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_High_Bench_Barbell_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_female_v2_3.png",
+      "sourceSha256": "e6773df6c9f62e96f50be298d0c879c623846b51eaca30fcbf72a845543a494f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_female_v2_3.png",
+      "candidateSha256": "7538adc7a50b143e3b75b8b45202133f1fec3fc279dd38dfa7de958f8de1b410",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

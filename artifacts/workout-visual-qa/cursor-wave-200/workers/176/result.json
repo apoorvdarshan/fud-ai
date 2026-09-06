@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Lying_Glute",
+  "shard": 18,
+  "index": 176,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Glute_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_male_v2_0.png",
+      "sourceSha256": "ec8ba2592eb704df9fba642a9081f8c3fa3b35f78ec4d9f3cefef79b628a6473",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_male_v2_0.png",
+      "candidateSha256": "a8d287eb12a0d7446dc77e3c14d1447949c83d3e4ded6668f4ea4fbe419f8518",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Glute_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_male_v2_1.png",
+      "sourceSha256": "f2c647a35338739eaa5eee26806a3263c16646a92b0743066ca0998675119cc9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_male_v2_1.png",
+      "candidateSha256": "a83601d567620b4de1aaba08a965675e1f6fd50fc9dda8d7785c4b6605e06131",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Glute_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_male_v2_2.png",
+      "sourceSha256": "34f89529dc0955dd436b51654e94aebbcc6774e44b7035454eea8bf5791469ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_male_v2_2.png",
+      "candidateSha256": "52a8ca6d98f49518081860f37a936994605a445e5d7ec185e50d6d07369198bb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Glute_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_male_v2_3.png",
+      "sourceSha256": "c278e02ac60e8425ce00875d81cb2420e08b2feb7e1e925558d11a5ed7d62ad0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_male_v2_3.png",
+      "candidateSha256": "78f51890132fb62ec28356ecbc923580437ac93482959c60e577bc73677a4d29",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Glute_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_female_v2_0.png",
+      "sourceSha256": "887925dc2f75443768e4e09005ae304570028abe72ab2104f60f81318d4b3736",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_female_v2_0.png",
+      "candidateSha256": "3b294c44f548c947b3cfcb6d17b53564bd36a795baa5e9f2d604bb0659709fc9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Glute_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_female_v2_1.png",
+      "sourceSha256": "2e65b30767a3ece244a058aebe888af5e823455244d7e6ae301726afd611a5f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_female_v2_1.png",
+      "candidateSha256": "4839d34250e6f326a40cfda4ca42b36a4986ba7a61338a7b02f935b48c97e141",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Glute_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_female_v2_2.png",
+      "sourceSha256": "b4718867af4284c743364422210d6367be42a605fca6afc25d2c5b995798ec15",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_female_v2_2.png",
+      "candidateSha256": "9d909126a1dbc6fdaeaf1ec1c5766488782cbd39f3d7bfa1b981e823e4f1b866",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Glute_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_female_v2_3.png",
+      "sourceSha256": "9ee992ca09a4363cfccfc12017d5a6bb0320c324dd85a73219b302d8a4babe7e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_female_v2_3.png",
+      "candidateSha256": "8d3d8ee17c72da8b9546a28cc1b2ee9661846efc545a370b2d5b9deeb69b4c58",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

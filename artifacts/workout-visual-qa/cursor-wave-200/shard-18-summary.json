@@ -1,0 +1,834 @@
+{
+  "shard": 18,
+  "batch": "cursor-wave-200",
+  "status": "ready_for_review",
+  "branch": "cursor/wave-200-shard-18",
+  "generateImageFrameCount": 2,
+  "findings": [
+    "Visual QA pass on exercises 171-180 (80 frames). Script background cleanup first.",
+    "GenerateImage surgical edits on 2 frames: Lying_Crossover barefoot inconsistency (172 female_v2_2, male_v2_0).",
+    "Remaining 78 frames passed visual review with script candidates."
+  ],
+  "exercises": [
+    {
+      "exerciseId": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin",
+      "shard": 18,
+      "index": 171,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_0.png",
+          "sourceSha256": "32d7eefcbe8eb020b3830048ce37670ed817689300484db48a472f7008236c09",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_0.png",
+          "candidateSha256": "15f385502d09f96c1c4542bbe05569bb71b36365e37f31be307ec201d3e74d45",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_1.png",
+          "sourceSha256": "09b984205875afa02dcdb2cffbf751c40fbe3f3466216899dee1e3fd3d117236",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_1.png",
+          "candidateSha256": "e17a6621cf376107fb74faa8e29eebfe09e87d3942a7170acbd78c16367b2799",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_2.png",
+          "sourceSha256": "8065848a8dcdf4c6325a55be648f0b5ecfc558bd1ba0027f0d44a7b39bb70528",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_2.png",
+          "candidateSha256": "77b7c97841363c8d4fbe2ad9c8fd664650fc5c408fe1fdb48d687b007e05d11a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_3.png",
+          "sourceSha256": "6e5837b2a63e3b7394f7542db8719eaf0974b4e5eb8d7afa6b11a6e41aad0d17",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_3.png",
+          "candidateSha256": "ff639d0608c5e6719d956419aa00bacb3e049aa6f0389a1fe2cedc08c412419c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_0.png",
+          "sourceSha256": "f6a759059f6eee9eef2587dc92777aa9949bd4c01e04c3d85c85e389f5d45006",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_0.png",
+          "candidateSha256": "9cb2a0dd2611966f2f0292b5370e945ef22f0674627bcf48ec853500a028e8ea",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_1.png",
+          "sourceSha256": "6ff3509a2ddb50772343fe712b9587b560841a8ddf186b88b44022a490f0369d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_1.png",
+          "candidateSha256": "29d3540aab2d66864c1d177cc164ae994779fc19d5426641cb552d2d28c8d32d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_2.png",
+          "sourceSha256": "feb2848eebb1c6d00d74d5ca26700aa578831504d377d4509685ff2d360d328e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_2.png",
+          "candidateSha256": "06dc74fc4049cdc8add78e7b0057560fa1be82e09a8fdf8954f1925aa9fff221",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_3.png",
+          "sourceSha256": "3f1e5797a2fe17ce3ac3d1c7e71d35418459d4baf9a3440710df4294f9336ceb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_3.png",
+          "candidateSha256": "1e2e5ee54a5c5f9e9603aa3ad4a1d675329050eafd52904ddb0099facac537c0",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Lying_Crossover",
+      "shard": 18,
+      "index": 172,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Lying_Crossover_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_male_v2_0.png",
+          "sourceSha256": "802ed3c4ab470beb04ff484e23a1b6a5153142f479d990a91baad9841243fd38",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_male_v2_0.png",
+          "candidateSha256": "29deff3530a0c622b5667cdf6a0a7d5f086a97a2911fe938d06d66b987aa0971",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Crossover_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_male_v2_1.png",
+          "sourceSha256": "f4903537f335020da1575d2b4465e9332ec33c20bd413527184a939f0b159058",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_male_v2_1.png",
+          "candidateSha256": "decb4dde104c5b4188d80d315b094362dbfb6cc5fa43258d90e960d3bffe3f94",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Crossover_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_male_v2_2.png",
+          "sourceSha256": "c4152f53a006ff5703832e4140756211f5852412df3a10af6c72412409daef41",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_male_v2_2.png",
+          "candidateSha256": "f711378b3692619b10e51e063719fe1d085082c253444c4573a190a7a9957d54",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Crossover_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_male_v2_3.png",
+          "sourceSha256": "d28d1248ec00bb9e0237de72363f7c4864bd85b0b460db0f794aa87abc583e50",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_male_v2_3.png",
+          "candidateSha256": "5f3646597e0eb929af986d6bd3dc2287632044143294bcedbc305390f049aaee",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Crossover_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_female_v2_0.png",
+          "sourceSha256": "435b5472db7a608821bc24d34051f3d8bd663191d71be45b55e07b037f45ef7a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_female_v2_0.png",
+          "candidateSha256": "d6701ced084aba5544e59cf059b7d1153efb5216f4027593ab6d3ea045d7d9dd",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Crossover_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_female_v2_1.png",
+          "sourceSha256": "470013637364d5d6566034e9cb41d5236d6e8fef200a1ac5471716b37bb20601",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_female_v2_1.png",
+          "candidateSha256": "901946b711be2c95f2cde4ad4f2621f1884b5ad0d9deb891d407fea2274bd6dd",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Crossover_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_female_v2_2.png",
+          "sourceSha256": "3c26b2d079c101162ea87d6c3aab0c3cf3c0e9a59b6846b75fe85608f3c1b4ec",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_female_v2_2.png",
+          "candidateSha256": "523fd583f41ec3ab3ea91af8be7170d2ff663b7f31d8ef5d48964c6a9a9ba193",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Crossover_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_female_v2_3.png",
+          "sourceSha256": "afd970c08eed6a927a28d73c9f737f77142ce1a8c3ffad59d72b5b3c75506dd5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_female_v2_3.png",
+          "candidateSha256": "93f8bc9b8e23414791d5be5bce01224fa5ffbb2cf7240ebe2a9507d115f8d1a0",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Lying_Dumbbell_Tricep_Extension",
+      "shard": 18,
+      "index": 173,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Lying_Dumbbell_Tricep_Extension_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_male_v2_0.png",
+          "sourceSha256": "8a87e4762eae4733c7b342e0fd9c6051e3f73c662c64da1a9b3a56da62b4762f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_male_v2_0.png",
+          "candidateSha256": "3a8505da31927e21c22f8122dbc9e1f3c3b013c529f538113a627ef1af8fe5ff",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Dumbbell_Tricep_Extension_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_male_v2_1.png",
+          "sourceSha256": "c956a757e7f0d1485ba8f5351a49a773906607df8e6ca4371fe5e58a10f51fd2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_male_v2_1.png",
+          "candidateSha256": "53826ff2e0a2253f4b33037008efbdcac45d622a1202a2fd41c038e7c4511162",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Dumbbell_Tricep_Extension_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_male_v2_2.png",
+          "sourceSha256": "b25c6be324bfa379b6bd4efeb014d035ef71d45c1177b37033637be84bb4e1dc",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_male_v2_2.png",
+          "candidateSha256": "9fbdca058393e3d6f1f05aa6ec5b2a4335228920ca7aa6de6a340974fc46c9ee",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Dumbbell_Tricep_Extension_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_male_v2_3.png",
+          "sourceSha256": "6f654f67deb935ff839f8792619062e942a10d4fedec0e35239630a1b22a28a0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_male_v2_3.png",
+          "candidateSha256": "6d890522e31af0171672ce09d1566239da871d6f4978d3394d68a9b7bb553a36",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Dumbbell_Tricep_Extension_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_female_v2_0.png",
+          "sourceSha256": "23e78f5dfe5f02044173b9b23fe0242ab0e1b3d712dcb21c9d31b1b6860dbf4b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_female_v2_0.png",
+          "candidateSha256": "bcf52a31a00f3e9021c594122b16a414475023cf863fb073292e3406996ad591",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Dumbbell_Tricep_Extension_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_female_v2_1.png",
+          "sourceSha256": "447832c15be87f3b4afd1933ea71bd108a1d96da4f613b4c0753543b5b9b6b8b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_female_v2_1.png",
+          "candidateSha256": "80341dd53b4af726c8cc03338e30ea88deca59844e0acafd9b68c2abc2b81063",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Dumbbell_Tricep_Extension_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_female_v2_2.png",
+          "sourceSha256": "3eea93d92ac0b36cbbc99484726f41ac71e5a92f2c28dd58d9889bb26be2d56c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_female_v2_2.png",
+          "candidateSha256": "64ea3c7de5e1f52e5dc815fedbcf53f86625e71b63335fa833bcb85efc35f758",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Dumbbell_Tricep_Extension_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_female_v2_3.png",
+          "sourceSha256": "828a54f4f878cc520709c1417691afa7bc1ef697efb4bb76939312b60eb6ba16",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_female_v2_3.png",
+          "candidateSha256": "01dbee87b44795eee81330273ed29220be68d991a01e7cc7bdb00ec42c8a269d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Lying_Face_Down_Plate_Neck_Resistance",
+      "shard": 18,
+      "index": 174,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Lying_Face_Down_Plate_Neck_Resistance_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Down_Plate_Neck_Resistance_male_v2_0.png",
+          "sourceSha256": "7e98d44075701a5188d5dfab3394c9570079975c8370c570aaa28ed0876193e3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/174/Lying_Face_Down_Plate_Neck_Resistance_male_v2_0.png",
+          "candidateSha256": "26fd2ffa1b027a3ab096e9391809f954e1f1900d1f6ce4a95237fbba2b11f85d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Down_Plate_Neck_Resistance_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Down_Plate_Neck_Resistance_male_v2_1.png",
+          "sourceSha256": "077322c5d726276fd4c9fa3b6a2514d9d042c528d5bdcf1791254abb31b274e6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/174/Lying_Face_Down_Plate_Neck_Resistance_male_v2_1.png",
+          "candidateSha256": "fd88f07c53cd38c3f9b69edc9da703beef3dc6e9acd2b65d2705bb506eb4c73d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Down_Plate_Neck_Resistance_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Down_Plate_Neck_Resistance_male_v2_2.png",
+          "sourceSha256": "96d6601a6684b815657c621a89599b8d37924950ef6a6345843a7a3c31b70c4d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/174/Lying_Face_Down_Plate_Neck_Resistance_male_v2_2.png",
+          "candidateSha256": "05b14c0df790de7bc0c7b61db98c1d5f7ec3d6f77ca2c56bdf63c07b8f559e9c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Down_Plate_Neck_Resistance_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Down_Plate_Neck_Resistance_male_v2_3.png",
+          "sourceSha256": "5cfdc386c52e870a77bacfcf59732a38191ead3c1e75a99d7df98d74c9239667",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/174/Lying_Face_Down_Plate_Neck_Resistance_male_v2_3.png",
+          "candidateSha256": "bfb0f9d34474fd9822b972fd6f8aad47f15f73166ddb116eb3bde073ba94d715",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Down_Plate_Neck_Resistance_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Down_Plate_Neck_Resistance_female_v2_0.png",
+          "sourceSha256": "c074f1be61e3c808dfde0ffb7c9f8b72057a327ee398a1f815e13a5bdd702732",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/174/Lying_Face_Down_Plate_Neck_Resistance_female_v2_0.png",
+          "candidateSha256": "977c2a6052e35be87ce3fd711477fb36add36f7063dca4c0c519aca4f8d9a080",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Down_Plate_Neck_Resistance_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Down_Plate_Neck_Resistance_female_v2_1.png",
+          "sourceSha256": "a5e13789779377190172762e00b1f05935f2db832fc390c0c268c0ad244291fc",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/174/Lying_Face_Down_Plate_Neck_Resistance_female_v2_1.png",
+          "candidateSha256": "76039ea623cc8f567e375ec592411e085b955c27b05b8a93726dc61384b2791e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Down_Plate_Neck_Resistance_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Down_Plate_Neck_Resistance_female_v2_2.png",
+          "sourceSha256": "d871db7ef43fe116c8066572fd5e9fa2db681191ba8e778458c613f1278ecab0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/174/Lying_Face_Down_Plate_Neck_Resistance_female_v2_2.png",
+          "candidateSha256": "7c3a0c19ddc0a5a5c44afbcd5329134205443eff5cf4a5c2fd7e304391c26e46",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Down_Plate_Neck_Resistance_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Down_Plate_Neck_Resistance_female_v2_3.png",
+          "sourceSha256": "c89d185bed5842feaf8e5129c8b3a15d5f50386943b7329158d7d2a4085a8151",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/174/Lying_Face_Down_Plate_Neck_Resistance_female_v2_3.png",
+          "candidateSha256": "e9a6aaa3d8e5171fcfc30519be7e6d46512d2c9f37e31fc466337e3e4b31c157",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Lying_Face_Up_Plate_Neck_Resistance",
+      "shard": 18,
+      "index": 175,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Lying_Face_Up_Plate_Neck_Resistance_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_male_v2_0.png",
+          "sourceSha256": "2f87c2eeb217552a3f8f0cb8edb1ca472bd7265079b865055be119b260f01f77",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_male_v2_0.png",
+          "candidateSha256": "bac6649674a362182f3fc0892b2a87a7235eca4161311807cfce81b4fce43170",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Up_Plate_Neck_Resistance_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_male_v2_1.png",
+          "sourceSha256": "d1387d6f21d4b758ed8ecd58c4714abb480d8cb22c798e3131f6bde41fec0c8b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_male_v2_1.png",
+          "candidateSha256": "741c13aae156603b2be15ef2ebcef55d1798ff79768f5848df422c306605d8cc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Up_Plate_Neck_Resistance_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_male_v2_2.png",
+          "sourceSha256": "db4d99c9cafe35353fdf72141b56204a9d9013185d45ea7f88475d63f020db73",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_male_v2_2.png",
+          "candidateSha256": "4aa865351942976510947abcd3505a626c786c7cbf936aaaaba145d1952e96ca",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Up_Plate_Neck_Resistance_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_male_v2_3.png",
+          "sourceSha256": "2b943b92a07da8a4e220bd17ca98d25bdc3120edbe7265e1c1d4ca41b9c229db",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_male_v2_3.png",
+          "candidateSha256": "84a078843933ce857680da03a54ca3183220e0661ca71898db42f08f4739413e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Up_Plate_Neck_Resistance_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_female_v2_0.png",
+          "sourceSha256": "1922729c2f357fe2926236cdce683796da2c046ca27f86cd78eb6f5c9571f928",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_female_v2_0.png",
+          "candidateSha256": "207a47b4730f3eb1a0644eb6a9f52d8ef43b4e7bbc4fdf2c7289c61b491fecfb",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Up_Plate_Neck_Resistance_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_female_v2_1.png",
+          "sourceSha256": "a934d1c4eaf5f335a2800a3fec353eed9556cd4935a7042e5e12628ca9eb68a2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_female_v2_1.png",
+          "candidateSha256": "3ee673f510ffb5bbb4cfeba3ff3c216a08218736137ac1814f276c2a9fd57f98",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Up_Plate_Neck_Resistance_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_female_v2_2.png",
+          "sourceSha256": "1553ca6bd0b246e4656d331520893212271bc78b0e7edabae219a4ca4425401d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_female_v2_2.png",
+          "candidateSha256": "ebc02860ec2a2f3a81812f01c9670e711778f74e21f96896f47ee9f0e4d28d1b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Face_Up_Plate_Neck_Resistance_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_female_v2_3.png",
+          "sourceSha256": "34a880603bc58d1ea0c07b36fa0a2d43ba3b68d00bbea6ac13d43dd416b2c120",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_female_v2_3.png",
+          "candidateSha256": "818a5da8bb5ea450bb31f56b3a4b5bb4e308bd44464b49eb1eb488c0e378a27b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Lying_Glute",
+      "shard": 18,
+      "index": 176,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Lying_Glute_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_male_v2_0.png",
+          "sourceSha256": "ec8ba2592eb704df9fba642a9081f8c3fa3b35f78ec4d9f3cefef79b628a6473",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_male_v2_0.png",
+          "candidateSha256": "a8d287eb12a0d7446dc77e3c14d1447949c83d3e4ded6668f4ea4fbe419f8518",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Glute_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_male_v2_1.png",
+          "sourceSha256": "f2c647a35338739eaa5eee26806a3263c16646a92b0743066ca0998675119cc9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_male_v2_1.png",
+          "candidateSha256": "a83601d567620b4de1aaba08a965675e1f6fd50fc9dda8d7785c4b6605e06131",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Glute_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_male_v2_2.png",
+          "sourceSha256": "34f89529dc0955dd436b51654e94aebbcc6774e44b7035454eea8bf5791469ad",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_male_v2_2.png",
+          "candidateSha256": "52a8ca6d98f49518081860f37a936994605a445e5d7ec185e50d6d07369198bb",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Glute_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_male_v2_3.png",
+          "sourceSha256": "c278e02ac60e8425ce00875d81cb2420e08b2feb7e1e925558d11a5ed7d62ad0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_male_v2_3.png",
+          "candidateSha256": "78f51890132fb62ec28356ecbc923580437ac93482959c60e577bc73677a4d29",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Glute_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_female_v2_0.png",
+          "sourceSha256": "887925dc2f75443768e4e09005ae304570028abe72ab2104f60f81318d4b3736",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_female_v2_0.png",
+          "candidateSha256": "3b294c44f548c947b3cfcb6d17b53564bd36a795baa5e9f2d604bb0659709fc9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Glute_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_female_v2_1.png",
+          "sourceSha256": "2e65b30767a3ece244a058aebe888af5e823455244d7e6ae301726afd611a5f2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_female_v2_1.png",
+          "candidateSha256": "4839d34250e6f326a40cfda4ca42b36a4986ba7a61338a7b02f935b48c97e141",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Glute_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_female_v2_2.png",
+          "sourceSha256": "b4718867af4284c743364422210d6367be42a605fca6afc25d2c5b995798ec15",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_female_v2_2.png",
+          "candidateSha256": "9d909126a1dbc6fdaeaf1ec1c5766488782cbd39f3d7bfa1b981e823e4f1b866",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Glute_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Glute_female_v2_3.png",
+          "sourceSha256": "9ee992ca09a4363cfccfc12017d5a6bb0320c324dd85a73219b302d8a4babe7e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/176/Lying_Glute_female_v2_3.png",
+          "candidateSha256": "8d3d8ee17c72da8b9546a28cc1b2ee9661846efc545a370b2d5b9deeb69b4c58",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Lying_Hamstring",
+      "shard": 18,
+      "index": 177,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Lying_Hamstring_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_male_v2_0.png",
+          "sourceSha256": "d52018fbe052d9609334cd8d1145ee5c2e3d9e9a4aa0f664a00fd4ff1c036e45",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_male_v2_0.png",
+          "candidateSha256": "a81ff3e5b7faa7e5ad1c1c8b570f92061ba1ac1642160bc0d380cb42bb7b4dac",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Hamstring_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_male_v2_1.png",
+          "sourceSha256": "cba748bb65ddbca1916d19390f00a607b6b58a4d2ea4026f46dfc768d2e3e8c3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_male_v2_1.png",
+          "candidateSha256": "bc42da3007840f410a68d37524205c15417ee0b264bd874e18675a9f9dc4efe5",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Hamstring_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_male_v2_2.png",
+          "sourceSha256": "899fce4917974efa7ca08480ec2975fecb706d520edcb1a91b4e74cec95a9998",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_male_v2_2.png",
+          "candidateSha256": "63e6d376d3bab9ad84b66fa726c7b3a18dfa743c75b48736b53a912681226cde",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Hamstring_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_male_v2_3.png",
+          "sourceSha256": "eba3d307dafecf5bb16637cdb057f1a4d79b2b5de9ed478488b711c88215af8c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_male_v2_3.png",
+          "candidateSha256": "f8066dac8d54781ae72f542ba3b4be008c8822c06e6263586e84d149f3abf09a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Hamstring_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_female_v2_0.png",
+          "sourceSha256": "5e731fb9793fac8bc6cd78932322bd4b602d6b20eabfb7d798538e6edac109b9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_female_v2_0.png",
+          "candidateSha256": "cd636930e50d83681111fc25fbf9fb804b06952c345bbe2fc79d089c0de7f821",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Hamstring_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_female_v2_1.png",
+          "sourceSha256": "b7930f83e9210b483b42950ef72193c719a37f2882555355217a09aab3979d8e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_female_v2_1.png",
+          "candidateSha256": "502e6c91689f741abfb4b7c290a0bbac0183d4649f567478c511f9af628647a4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Hamstring_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_female_v2_2.png",
+          "sourceSha256": "69b02b71c5ed768a5d574af44bac068cd113c883d5a00c621887b3da145139ae",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_female_v2_2.png",
+          "candidateSha256": "a0985584b3e187d44d51dc46cac0804dfe5c9107ad6dc8e701fcdd407c61ffa8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Hamstring_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_female_v2_3.png",
+          "sourceSha256": "9990a93b909f5869476d7a1d58506ec5a64d004ba545f11b76ff0c4a26b24681",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_female_v2_3.png",
+          "candidateSha256": "0fab9ccc5124d26f8fce5a3125c5bb72ba402895c54b273f39460fab5c872cb9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Lying_High_Bench_Barbell_Curl",
+      "shard": 18,
+      "index": 178,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Lying_High_Bench_Barbell_Curl_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_male_v2_0.png",
+          "sourceSha256": "53f06b6c47800c231efde13593effc3bd20066d3f86edf0b93de51288a1ea6b9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_male_v2_0.png",
+          "candidateSha256": "70f99fc94d9fadd31c850f546c22cd6d5066fa5fcee9feff8e2170e5dde9599d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_High_Bench_Barbell_Curl_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_male_v2_1.png",
+          "sourceSha256": "da3cf8dc342f7c48a3278b7797d2baed4a1a99613d66e414bfd301e611203064",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_male_v2_1.png",
+          "candidateSha256": "597253e27b83f82fac97b676391194eeaa1e74c16664f685f44ee716254acd7e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_High_Bench_Barbell_Curl_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_male_v2_2.png",
+          "sourceSha256": "d22e8f38ba500bc3351f5688a2e8d463fccb87517acfb25f6698db2c6345d8c2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_male_v2_2.png",
+          "candidateSha256": "45eecd5329a2354d1ceb9f82eaedc26444671ce5ef35895612289a5c4dbf4867",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_High_Bench_Barbell_Curl_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_male_v2_3.png",
+          "sourceSha256": "92547ed458bcc779d878f8a7eaf6179acb586e059f6de1885801f3834d11eead",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_male_v2_3.png",
+          "candidateSha256": "9cd80cc84e36a41b9c1b5ebab8f99e48dc66a1f7960834877d34164e01edde50",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_High_Bench_Barbell_Curl_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_female_v2_0.png",
+          "sourceSha256": "c03848b28175a6f45b65b02100c1ddf69700e3d82f2f453ff766f02b70a76441",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_female_v2_0.png",
+          "candidateSha256": "e2581e241f8f037926d442651461f453ae1249b1674d6a58b627e5057c5b4ea5",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_High_Bench_Barbell_Curl_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_female_v2_1.png",
+          "sourceSha256": "80ede0156533032008ae76215f7e230dbe53a2a938818bed4d2d92a62340c996",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_female_v2_1.png",
+          "candidateSha256": "0e10d132589a6e0a09f6b627de795c1ea535270b19921662fbdb41017773eba4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_High_Bench_Barbell_Curl_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_female_v2_2.png",
+          "sourceSha256": "f5977b3bb0e7ee4678783476a8eeeedc942886468fbb029911514ecb7df0366e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_female_v2_2.png",
+          "candidateSha256": "771a5a6bcb3d789f4ecb8eea914183c872152e517717258e955e3c9e89d08175",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_High_Bench_Barbell_Curl_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_High_Bench_Barbell_Curl_female_v2_3.png",
+          "sourceSha256": "e6773df6c9f62e96f50be298d0c879c623846b51eaca30fcbf72a845543a494f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/178/Lying_High_Bench_Barbell_Curl_female_v2_3.png",
+          "candidateSha256": "7538adc7a50b143e3b75b8b45202133f1fec3fc279dd38dfa7de958f8de1b410",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Lying_Leg_Curls",
+      "shard": 18,
+      "index": 179,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Lying_Leg_Curls_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_male_v2_0.png",
+          "sourceSha256": "f1d5281d0d3f55f39426a1191f36eb5a5ae0936ef197a52cbb7e1b9b3e131404",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_male_v2_0.png",
+          "candidateSha256": "443c96084ad81f673bcc1fb66d7e7d1d8d04dc57abc6aebd74ffd3440aa46007",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Leg_Curls_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_male_v2_1.png",
+          "sourceSha256": "6fe297558330930754fad32caca5f8d417d20e51092e576d0783d057b20f0b74",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_male_v2_1.png",
+          "candidateSha256": "dff9d3fe4e9f8f3fae9dddb5b027729ad154421278e63ddaa0de0dc853b88c28",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Leg_Curls_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_male_v2_2.png",
+          "sourceSha256": "cb9ea98f76945c58ff18653f65f2d7ebb78c1d6f7cc7ec81b5fcdcc28b4bfd63",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_male_v2_2.png",
+          "candidateSha256": "068800a77871a23b0908474f9b5297a5d858624b0967cb6639c5d64dd55ec88d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Leg_Curls_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_male_v2_3.png",
+          "sourceSha256": "7141318701a8a1f85a385847ed1b4dd5a3d90bbe81e428d6d3048159f743c566",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_male_v2_3.png",
+          "candidateSha256": "d1fc6ce6a569fda6d93218fd879a9a097aea80c80b6539e9f5b22d8f125ae751",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Leg_Curls_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_female_v2_0.png",
+          "sourceSha256": "536b7de3eae790f8f5ae9aa60e1010ba422fa6754029c3035443c9afb2ee7d69",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_female_v2_0.png",
+          "candidateSha256": "9ad535204c245c3f40443766254ed9106959b52e0df874cb79b0e87deec95776",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Leg_Curls_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_female_v2_1.png",
+          "sourceSha256": "e1b6419318d25ba3f65e58f95a35d06986a71ec46e2b3c942be48fbf85cb2f2d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_female_v2_1.png",
+          "candidateSha256": "0a27acb27ef0ce38f1063492a3150c042cacf536e404d01a21e52e2e9238c0c9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Leg_Curls_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_female_v2_2.png",
+          "sourceSha256": "ac84d119507fe3b9efcc0930f9c123740593bf892f3bfcb5e1756ea9847516e5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_female_v2_2.png",
+          "candidateSha256": "a5b6e925a6a83a9cf42541eb78ddd8551bface07a976df39b6a0d83af0841e6d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Leg_Curls_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_female_v2_3.png",
+          "sourceSha256": "fd456a742e5b0fd6f025248bbf8ac53f6e4644e5c07b1b4ac7aa3da5f28711f9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_female_v2_3.png",
+          "candidateSha256": "50e8659041837547820b3ffae9559a966a3ebdc0e329b61df8c2da4940cb56a7",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Lying_Machine_Squat",
+      "shard": 18,
+      "index": 180,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Lying_Machine_Squat_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_male_v2_0.png",
+          "sourceSha256": "905c7ea809ceab16159220521c0efbd29aff7c470046b692f43440a65be30e54",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_male_v2_0.png",
+          "candidateSha256": "eb4b5240ba234033e649ca621fd22e4ba112982154819c1bb9e9a8bbe1fd95cb",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Machine_Squat_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_male_v2_1.png",
+          "sourceSha256": "6b76ae01c3df7dd4d7704cdd27d9b569d033abd98dcff697723af3126410ac9d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_male_v2_1.png",
+          "candidateSha256": "ca130678743391f036a68f36b7ee1e23ed88b8f6ab7533ec42bcd4682306ad11",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Machine_Squat_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_male_v2_2.png",
+          "sourceSha256": "1e92cea3c9da9528bd7a33729090ad9a576d723d43e53d9f21d240e8499798a5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_male_v2_2.png",
+          "candidateSha256": "5ec224b5977b1d33a34befeeb9e8eb388934ac41f2934a55cb29fb68d2c50ebb",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Machine_Squat_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_male_v2_3.png",
+          "sourceSha256": "fdb89fb00a67157b01c5af3e3ef50f360e172a9e34c392b9e22d5d3df9635396",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_male_v2_3.png",
+          "candidateSha256": "75d88c4d54dd1adfb845ac3e8fd3bc8f2f6e9357dc4e29865befb3511e27c02e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Machine_Squat_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_female_v2_0.png",
+          "sourceSha256": "5654b0cdd75aa648622f0bba40ef4bde209157fbaf45ffab174dd0d7ee7fefe5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_female_v2_0.png",
+          "candidateSha256": "e667f09207804ef08cbbb85dcb68b86ac65cb29e1328a7403168abd565df2c44",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Machine_Squat_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_female_v2_1.png",
+          "sourceSha256": "8ea59979d503297a047fcc6b1d85204655a33ac532df6bd22f86fdc611ee84c8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_female_v2_1.png",
+          "candidateSha256": "caf5f703298eeff7eec3c1fb91d620adeb49b1b573b58367774ff17dc3d458e9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Machine_Squat_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_female_v2_2.png",
+          "sourceSha256": "24f019c865379b0256f53633f0145c8c0c67405ffa07db587abc39c4e3717ff2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_female_v2_2.png",
+          "candidateSha256": "4363f894f2371ce947dc400c407290706a3127554d6ef0830bf293ab4d1f0dee",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Lying_Machine_Squat_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_female_v2_3.png",
+          "sourceSha256": "854e15a63ec9fe5a682c93832c52c49e49ce0d36a8ca4a7ddc32dd87bbaa4c3e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_female_v2_3.png",
+          "candidateSha256": "3c5f4631587097b7ac9ea8c8eb85d07e5aba9b920fe2f454321e560267075252",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    }
+  ]
+}

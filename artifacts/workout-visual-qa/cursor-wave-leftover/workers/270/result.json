@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Snatch_from_Blocks",
+  "shard": 27,
+  "index": 270,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Snatch_from_Blocks_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_from_Blocks_male_v2_0.png",
+      "sourceSha256": "71cc909c344ee4507e66a337611f8f839a3fc68515edcad282884a354899cb7d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/270/Snatch_from_Blocks_male_v2_0.png",
+      "candidateSha256": "842ea206a7853f8b796ee8bb55177e0eb8e90a64689b79f54fbeeec7b7d74d83",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_from_Blocks_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_from_Blocks_male_v2_1.png",
+      "sourceSha256": "2105dcf8af97d081cf5e6d5f9fdff113281eb6173e64f54b656874a918519941",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/270/Snatch_from_Blocks_male_v2_1.png",
+      "candidateSha256": "1e2d28d0f09885111ca008e4ee1d709ed11cf3f5a539b62811520afccf9047bb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_from_Blocks_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_from_Blocks_male_v2_2.png",
+      "sourceSha256": "65cd2860fe37098937b2984bbe7646ff56decf4764a9a8ab7492ede6f48eac61",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/270/Snatch_from_Blocks_male_v2_2.png",
+      "candidateSha256": "77703333d9ad1b91ae8a02fc0e6c3e3073b93ac3ef35dd4e59bcf76d7b1c79ef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_from_Blocks_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_from_Blocks_male_v2_3.png",
+      "sourceSha256": "9f2c333784e2a74c41fe1f4131a823d8373cb4acbc7f65228a1f8a51ae8e772b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/270/Snatch_from_Blocks_male_v2_3.png",
+      "candidateSha256": "af6a54af042f1e72dd52b905865d8255e721b134cb97df10089e0404e04140cf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_from_Blocks_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_from_Blocks_female_v2_0.png",
+      "sourceSha256": "1e36fb97f8e8e6c37f6c3fef654aa579383ea20abdf587da6d4491cf31c427cc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/270/Snatch_from_Blocks_female_v2_0.png",
+      "candidateSha256": "2df08eb940d8d279fdd352ae08377169b260e4919f34c69de52506d982f46cf0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_from_Blocks_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_from_Blocks_female_v2_1.png",
+      "sourceSha256": "f57e4e02ae0fb69640e40bf4a57fa5c9bc86be354c0720b0082d2158cae539fa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/270/Snatch_from_Blocks_female_v2_1.png",
+      "candidateSha256": "39002f4909a8eac405bc204a33aeb3e8c423aaf1fd093dd94d4ce14607042e8c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_from_Blocks_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_from_Blocks_female_v2_2.png",
+      "sourceSha256": "d0c13f13f7363d1ed625415199bd876a6a5a2172bd1c0ddf31bb3503782f334e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/270/Snatch_from_Blocks_female_v2_2.png",
+      "candidateSha256": "146a0e81d7752d0b887bbb5ffa5688725b2e1ed9bcd888f2c0d1e25299238d2c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_from_Blocks_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_from_Blocks_female_v2_3.png",
+      "sourceSha256": "051c150ada27cf76ce9c1f20298ce74c68951333b8697aeb7e7becf5ac4f6856",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/270/Snatch_from_Blocks_female_v2_3.png",
+      "candidateSha256": "28a22db4e76d3cc9b204576694dbd9361d5d78e7586f36e37c3dcd3e3efade88",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

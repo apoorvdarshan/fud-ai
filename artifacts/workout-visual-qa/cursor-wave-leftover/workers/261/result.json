@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Smith_Machine_Squat",
+  "shard": 27,
+  "index": 261,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Smith_Machine_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Squat_male_v2_0.png",
+      "sourceSha256": "10c5146c785c211b773b51c4dcd8e32424838f398c14f71f0f6f034d84039e52",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/261/Smith_Machine_Squat_male_v2_0.png",
+      "candidateSha256": "3b25378907b7032f84094221db051736c4f72588e4b589e536079ee1ea4a45a7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Squat_male_v2_1.png",
+      "sourceSha256": "f48d106ddf1d1bb5166e0fd1bba411104898d9abbaa127480fb20ab40a68a037",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/261/Smith_Machine_Squat_male_v2_1.png",
+      "candidateSha256": "20cfe129fa1b02b48f70301deed4e199843df82f42466bf351d4cfc3b02045fa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Squat_male_v2_2.png",
+      "sourceSha256": "34a19a44022f349252d904164c6a31f3b7a086ae1a7872a52f8f6d6c78f4e7ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/261/Smith_Machine_Squat_male_v2_2.png",
+      "candidateSha256": "3456d87e4561ff0944cf8768b376b5d5aea8e265395de644e310b13de005292f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Squat_male_v2_3.png",
+      "sourceSha256": "ed44f838a9148d609404e29e8436d252153d043d4b68bd46957f6c6bad9aab5c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/261/Smith_Machine_Squat_male_v2_3.png",
+      "candidateSha256": "cc68481cc66fd9cb899f599fee9547b17e156478294d7f3d32646d1c25e3cc8a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Squat_female_v2_0.png",
+      "sourceSha256": "d60e6fa88c3818d53664581481d0484ab2a2c5e4ce0af9f8fb3fcc8f5d17a11d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/261/Smith_Machine_Squat_female_v2_0.png",
+      "candidateSha256": "377c3118570891f8bd812b027bd9922fd23f0ae6a1b7d7c87e5cc17dec10aeff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Squat_female_v2_1.png",
+      "sourceSha256": "ad9cb9696ef2fc609371362762f675f539e198ddd488d79526c89bd4689e3718",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/261/Smith_Machine_Squat_female_v2_1.png",
+      "candidateSha256": "da6dd75b8a10739146dd7a9682155d1c8553fc67c7f65cf34a6f06be04dafe8b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Squat_female_v2_2.png",
+      "sourceSha256": "5af555499987dd9a44e92545a297f9a52567037f9225c872585e1d209fb7e66f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/261/Smith_Machine_Squat_female_v2_2.png",
+      "candidateSha256": "519a583ec8e3e70b5b78fd682d7ed6755d068d5da5b0a52d969d3b1e87c8770f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Squat_female_v2_3.png",
+      "sourceSha256": "4eef162d9601b7a7dd2f74b89b61b71afc63273ac03d273c7595291f03a14bba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/261/Smith_Machine_Squat_female_v2_3.png",
+      "candidateSha256": "abeb84476c85a771d32e96d04f6da4049775986710080164c0e1ca403b186801",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

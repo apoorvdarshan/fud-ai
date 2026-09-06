@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Smith_Single-Leg_Split_Squat",
+  "shard": 27,
+  "index": 264,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Smith_Single-Leg_Split_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Single-Leg_Split_Squat_male_v2_0.png",
+      "sourceSha256": "95260cf341c77b27238e66bcc09ea0949ee4e532960fdb3ad66685c403b26254",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/264/Smith_Single-Leg_Split_Squat_male_v2_0.png",
+      "candidateSha256": "6e6ca31dc58cb0df1d8e0153ef05b20c3d5ebb4ccdf89f41fcbf74dc858d5992",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Single-Leg_Split_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Single-Leg_Split_Squat_male_v2_1.png",
+      "sourceSha256": "d93b20d60f105662acbc4d0c4c13208bb6a6f679fc2b3f3e7f3faa557d6599c7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/264/Smith_Single-Leg_Split_Squat_male_v2_1.png",
+      "candidateSha256": "2f642b1f7ddb2aab010359c95bec49cd1e7405b684f49bba853adf1a1f937bc3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Single-Leg_Split_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Single-Leg_Split_Squat_male_v2_2.png",
+      "sourceSha256": "a284de2050da06665550a82c93a63273db5305d6d9448b892fe1dfa53c8f9ee7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/264/Smith_Single-Leg_Split_Squat_male_v2_2.png",
+      "candidateSha256": "6cd5c7a3875f1f93689a95b612651c9d657d45c161f70a7013ef9b6ecd54e9e5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Single-Leg_Split_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Single-Leg_Split_Squat_male_v2_3.png",
+      "sourceSha256": "93c3638126ecf723c480169b185e33d7fe5e151718285c17558ae5741eccede6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/264/Smith_Single-Leg_Split_Squat_male_v2_3.png",
+      "candidateSha256": "87d79a277ee5821874d1814aa057410056c8a871e53e232db4410c4318b6382e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Single-Leg_Split_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Single-Leg_Split_Squat_female_v2_0.png",
+      "sourceSha256": "abf4b00e4bc1ae5fe603241a67dd38c2dbcca30f4c1de3ed781212b9d7a55792",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/264/Smith_Single-Leg_Split_Squat_female_v2_0.png",
+      "candidateSha256": "5abff1958981fa107832b3133e3be10ff899803196d84de23faee0dda20bc6b8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Single-Leg_Split_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Single-Leg_Split_Squat_female_v2_1.png",
+      "sourceSha256": "0d1b762efa77ad44bc8dabf601c86bf8b8c1972453ae6c5c044d5278954cffc1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/264/Smith_Single-Leg_Split_Squat_female_v2_1.png",
+      "candidateSha256": "01eda2f4399a9747f28b6237ec5d7853e928345d0bb5e1832a90bffebac077f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Single-Leg_Split_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Single-Leg_Split_Squat_female_v2_2.png",
+      "sourceSha256": "ff6debf6ead64480c4e7205e708d99ae4fe018a36d176b39745c8f40534061fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/264/Smith_Single-Leg_Split_Squat_female_v2_2.png",
+      "candidateSha256": "2e9fcdb1ec192b716be9cce3a842a642debf7b791ef623597d81cd732b077e37",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Single-Leg_Split_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Single-Leg_Split_Squat_female_v2_3.png",
+      "sourceSha256": "84cf45a792b79346be5052a9b6a0f67c98af1dfa98c70ad0b58dbd9fb2c34f53",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/264/Smith_Single-Leg_Split_Squat_female_v2_3.png",
+      "candidateSha256": "4470a828f246908787a959c3228b4c7226e3027280292964e95a322a02b83b3d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

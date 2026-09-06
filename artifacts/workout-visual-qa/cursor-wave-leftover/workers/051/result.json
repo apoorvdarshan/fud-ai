@@ -1,0 +1,82 @@
+{
+  "exerciseId": "One-Arm_Overhead_Kettlebell_Squats",
+  "shard": 6,
+  "index": 51,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Arm_Overhead_Kettlebell_Squats_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Overhead_Kettlebell_Squats_male_v2_0.png",
+      "sourceSha256": "a44620d7e3229fbca58b9451193c30f54afb3d8013e0e3444ab6b44043593e6c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/051/One-Arm_Overhead_Kettlebell_Squats_male_v2_0.png",
+      "candidateSha256": "c58b45ed890bbc2eb57a6cc1a2e449162887cabe22ee3b74fa91b7fcc6709fce",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Overhead_Kettlebell_Squats_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Overhead_Kettlebell_Squats_male_v2_1.png",
+      "sourceSha256": "20e17e17bb741247ba60fef5cdaceaa3d112b23cd3a3072b1a4d7d011fc4a157",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/051/One-Arm_Overhead_Kettlebell_Squats_male_v2_1.png",
+      "candidateSha256": "7dc96d2a273c7ca8504a97363a460798bf7db29678fb27a6898fb09eda18c7bb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Overhead_Kettlebell_Squats_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Overhead_Kettlebell_Squats_male_v2_2.png",
+      "sourceSha256": "616e2ad254106072d48aa160f4f1eadf59bf2e7c57a4f977f9be366e46b59521",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/051/One-Arm_Overhead_Kettlebell_Squats_male_v2_2.png",
+      "candidateSha256": "3b64e6c46e88708dbca283dcaf504ba7b27359f0be542ac28ba68c0572f9059a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Overhead_Kettlebell_Squats_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Overhead_Kettlebell_Squats_male_v2_3.png",
+      "sourceSha256": "654f5536128a26481bd681378bf63e8a9143db2cddca890fc9c5dccf45f1bb06",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/051/One-Arm_Overhead_Kettlebell_Squats_male_v2_3.png",
+      "candidateSha256": "524a0fce2150976352e640b2107ea7358cb0872ac5c2e343f9864cff02b7918f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Overhead_Kettlebell_Squats_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Overhead_Kettlebell_Squats_female_v2_0.png",
+      "sourceSha256": "80e6659f40b2518026b410aea99d90be3f5b756dc5bce90f4ec7e14983d6c350",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/051/One-Arm_Overhead_Kettlebell_Squats_female_v2_0.png",
+      "candidateSha256": "462ebe2aa22755cd62f401cdc6cd2a32096368cca303df10f280be55dbd00b25",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Overhead_Kettlebell_Squats_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Overhead_Kettlebell_Squats_female_v2_1.png",
+      "sourceSha256": "40d5ed6cdad8ea1677a683de413c29ae68600cefb61a4fa26b73afe948cf43e2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/051/One-Arm_Overhead_Kettlebell_Squats_female_v2_1.png",
+      "candidateSha256": "c09765d81ec9130ba7dca05fa4a6ce14c3940b97092fafa1773d59bdcd0d7898",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Overhead_Kettlebell_Squats_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Overhead_Kettlebell_Squats_female_v2_2.png",
+      "sourceSha256": "8eb5825e84b1b12f4db7156747cb529e3917a016c53d3a92768902b35a938538",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/051/One-Arm_Overhead_Kettlebell_Squats_female_v2_2.png",
+      "candidateSha256": "ca2d173425503ee807c1ec57b15f91069e306991e8c38533b5e379b14606c951",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Overhead_Kettlebell_Squats_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Overhead_Kettlebell_Squats_female_v2_3.png",
+      "sourceSha256": "8012555bd6de9f6c64d56c63d614c37b7def6956136f5776ef458b4eb02b3b98",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/051/One-Arm_Overhead_Kettlebell_Squats_female_v2_3.png",
+      "candidateSha256": "f990a4dfec05333866bc277f51750b93bb45fe8344e82835bb1ab0761ddae035",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

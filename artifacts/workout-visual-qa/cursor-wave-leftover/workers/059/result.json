@@ -1,0 +1,82 @@
+{
+  "exerciseId": "One_Arm_Floor_Press",
+  "shard": 6,
+  "index": 59,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One_Arm_Floor_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Floor_Press_male_v2_0.png",
+      "sourceSha256": "e83e082264998fd26a3730fbd1485c808cb7cc957f4b7061f44e56fc1546e98f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/059/One_Arm_Floor_Press_male_v2_0.png",
+      "candidateSha256": "72ddcca391dff13d86d346dad8011453a1ceb1cb0f6df43321cea9b8ee20a85a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Floor_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Floor_Press_male_v2_1.png",
+      "sourceSha256": "f7220c213e6cae58ac9125b688d2a05990521d99092f04199aabf58ef4a7b174",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/059/One_Arm_Floor_Press_male_v2_1.png",
+      "candidateSha256": "dba970a5c6cd6310228ca56a7aafe2b6339ec5263dfaa6356ba02f26bc61db0a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Floor_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Floor_Press_male_v2_2.png",
+      "sourceSha256": "b15e335503fce77b8c40b301a9a6954beb5f68abf76d2a35a8e6e1ea79e7d28d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/059/One_Arm_Floor_Press_male_v2_2.png",
+      "candidateSha256": "0720dc10c7a167f5c0e0a564df6c858c759098a0c40f3ab8d7fab250e71c93e7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Floor_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Floor_Press_male_v2_3.png",
+      "sourceSha256": "6f397fa431ac6f83bb6f17e988ca7377d8afcdc938e613c64bc32d5f52978097",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/059/One_Arm_Floor_Press_male_v2_3.png",
+      "candidateSha256": "407423f707fecfe62d5b9d46129f1574d0b53599fa0231a9e4ebd463df0fe490",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Floor_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Floor_Press_female_v2_0.png",
+      "sourceSha256": "f16366c0763edb361bc89c97702cf9002389f58c724b6cdcec5868476ef05990",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/059/One_Arm_Floor_Press_female_v2_0.png",
+      "candidateSha256": "f09d49728545a412a3a4ad35b155e07b85d2bf935921b09a22be364d69dda129",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Floor_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Floor_Press_female_v2_1.png",
+      "sourceSha256": "30caab46b489d91dbca4492df16e13739ddf707c7a240c34a641e661607c07ab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/059/One_Arm_Floor_Press_female_v2_1.png",
+      "candidateSha256": "6a6350a0a13dbabb0e1b39763936cba1f762d58a35d0631e6c7d020f5a6db59e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Floor_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Floor_Press_female_v2_2.png",
+      "sourceSha256": "d15203d3d07172dd8a08fcb6e9cd04d678df62dc606e8c7441f5d34639a55a85",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/059/One_Arm_Floor_Press_female_v2_2.png",
+      "candidateSha256": "cc2b728c7f537dbff71e8724191ebd455cef7ae020e5faada774b218a1f964fe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Floor_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Floor_Press_female_v2_3.png",
+      "sourceSha256": "1ba49a5c304620f5daa8c201f1c2b8342935463ec1b177dba2c12e047feaa370",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/059/One_Arm_Floor_Press_female_v2_3.png",
+      "candidateSha256": "7121bc6cc60129be649b09547072b7bda5f336720be7f6604697b6bfaf741c7f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

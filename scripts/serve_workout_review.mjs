@@ -21,27 +21,27 @@ function pythonJson(value) {
 }
 function manifest() {
   const nextImages = new Map();
-  const overrides = JSON.parse(fs.readFileSync(path.join(root, 'artifacts/workout-visual-qa/background-reviewed-overrides.json')));
+  const ledgerPath = path.join(stage, 'parent-review-passed.json');
+  const passed = fs.existsSync(ledgerPath) ? JSON.parse(fs.readFileSync(ledgerPath)).checks : [];
   const rows = batch.exercises.map((e, index) => {
+    const accepted = passed.find(r => r.index === e.index && r.exerciseId === e.exerciseId && r.status === 'parent_pass_human_pending');
+    if (!accepted) return null;
+    const collected = path.join(stage, 'parent-collected', String(e.index).padStart(3, '0'));
+    const reportPath = path.join(collected, 'worker-result.json');
+    if (!fs.existsSync(reportPath) || sha(reportPath) !== accepted.reportSha256) return null;
+    const report = JSON.parse(fs.readFileSync(reportPath));
     const sources = [], sourceHashes = [], candidates = [], hashes = [], methods = [];
     for (const p of e.sourceFramePaths) {
       const name = path.basename(p), original = path.join(root, 'shared/workout-vectors', name);
       const sourceHash = sha(original);
       const sourceUrl = '/image/original/' + name + '?v=' + sourceHash;
       nextImages.set(sourceUrl.split('?')[0], { file: original, hash: sourceHash }); sources.push(sourceUrl); sourceHashes.push(sourceHash);
-      const generated = path.join(stage, 'imagegen', name);
-      const generatedRecord = generated.replace(/\.png$/, '.json');
-      const cleaned = path.join(stage, 'shard-' + index % 4, 'images', name);
-      const recordPath = path.join(stage, 'shard-' + index % 4, 'records', name.replace(/\.png$/, '.json'));
       let chosen = null, method = null;
-      for (const [candidate, record, kind] of [[generated, generatedRecord, 'imagegen'], [cleaned, recordPath, 'background cleanup']]) {
-        if (!fs.existsSync(candidate) || !fs.existsSync(record)) continue;
-        try {
-          const r = JSON.parse(fs.readFileSync(record));
-          const configHash = crypto.createHash('sha256').update(pythonJson(overrides[name] || {})).digest('hex');
-          if (kind === 'background cleanup' && (r.recipe !== 'pale-neural-guard-v2' || r.override_sha256 !== configHash)) continue;
-          if (r.source_sha256 === sourceHash && r.candidate_sha256 === sha(candidate)) { chosen = candidate; method = kind; break; }
-        } catch { /* A worker may be writing; incomplete candidates stay unavailable. */ }
+      const record = report.frames.find(f => f.filename === name);
+      const checked = accepted.frames.find(f => f.filename === name);
+      const candidate = path.join(collected, name);
+      if (record && checked && fs.existsSync(candidate) && record.sourceSha256 === sourceHash && checked.sourceSha256 === sourceHash && record.candidateSha256 === checked.candidateSha256 && sha(candidate) === checked.candidateSha256) {
+        chosen = candidate; method = record.method;
       }
       if (chosen) {
         const digest = sha(chosen), url = '/image/candidate/' + name + '?v=' + digest;
@@ -49,12 +49,13 @@ function manifest() {
       } else { candidates.push(null); hashes.push(null); methods.push(null); }
     }
     const available = candidates.filter(Boolean).length;
+    if (available !== 8) return null;
     return { id: e.exerciseId, index: e.index, severity: e.severity, findings: e.findings, suggestedRoute: e.suggestedRoute, sources, sourceHashes, candidates, hashes, methods, available,
-      status: available === 8 ? 'Candidate set — NOT verified or approved' : `Pending repair: ${available}/8 candidate frames`,
-      warning: e.severity === 'critical' ? 'Critical source issue: cleanup alone cannot establish a repair. Inspect anatomy and exercise mechanics.' : 'Check all reported issues; cleanup may leave alignment or interior remnants unresolved.' };
-  });
+      status: 'Parent-reviewed · Awaiting your approval',
+      warning: 'Review the full animation in both genders and backgrounds. Your decision does not replace app images automatically.' };
+  }).filter(Boolean);
   images.clear();for (const [key, value] of nextImages) images.set(key, value);
-  return { batch: batchName, count: rows.length, rows };
+  return { batch: batchName, count: rows.length, batchTotal: batch.exercises.length, rows };
 }
 const server = http.createServer((req, res) => {
   try {

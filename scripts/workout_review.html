@@ -12,7 +12,7 @@ let data,frame=0,playing=!matchMedia('(prefers-reduced-motion: reduce)').matches
 const $=id=>document.getElementById(id);
 function signature(row){return [...row.sourceHashes,...row.hashes].join('|')}
 function save(){try{localStorage.setItem(key,JSON.stringify(decisions))}catch{$('error').textContent='Local saving unavailable. Export your decisions before closing.'}summary()}
-function summary(){if(!data)return;const count=data.rows.filter(r=>decisions[r.id]?.decision!=='pending'&&decisions[r.id]?.decision&&decisions[r.id]?.signature===signature(r)).length;$('summary').textContent=`${data.count} exercises · ${data.rows.filter(r=>r.available===8).length} complete candidate sets · ${count} decisions recorded · No app images replaced`}
+function summary(){if(!data)return;const count=data.rows.filter(r=>decisions[r.id]?.decision!=='pending'&&decisions[r.id]?.decision&&decisions[r.id]?.signature===signature(r)).length;$('summary').textContent=`${data.count} of ${data.batchTotal||data.count} exercises ready for your review · ${count} decisions recorded · More added as reviewed · No app images replaced`}
 function release(v){v.token++;v.before.removeAttribute('src');v.after.removeAttribute('src');v.before.hidden=v.after.hidden=true;v.empty.hidden=false;v.empty.textContent='Scroll into view to load';}
 function approval(v){const ready=v.row.available===8&&v.seen.size===8&&!v.failed.size;v.choice.querySelector('option[value="approve_candidate"]').disabled=!ready;v.loadState.textContent=ready?'All eight pairs decoded. Review dark/light backgrounds before approving.':`${v.seen.size}/8 pairs checked for display · view both genders before approving${v.failed.size?' · image load failed; refresh required':''}`;}
 async function drawView(v){

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Lying_Machine_Squat",
+  "shard": 18,
+  "index": 180,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Machine_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_male_v2_0.png",
+      "sourceSha256": "905c7ea809ceab16159220521c0efbd29aff7c470046b692f43440a65be30e54",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_male_v2_0.png",
+      "candidateSha256": "eb4b5240ba234033e649ca621fd22e4ba112982154819c1bb9e9a8bbe1fd95cb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Machine_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_male_v2_1.png",
+      "sourceSha256": "6b76ae01c3df7dd4d7704cdd27d9b569d033abd98dcff697723af3126410ac9d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_male_v2_1.png",
+      "candidateSha256": "ca130678743391f036a68f36b7ee1e23ed88b8f6ab7533ec42bcd4682306ad11",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Machine_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_male_v2_2.png",
+      "sourceSha256": "1e92cea3c9da9528bd7a33729090ad9a576d723d43e53d9f21d240e8499798a5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_male_v2_2.png",
+      "candidateSha256": "5ec224b5977b1d33a34befeeb9e8eb388934ac41f2934a55cb29fb68d2c50ebb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Machine_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_male_v2_3.png",
+      "sourceSha256": "fdb89fb00a67157b01c5af3e3ef50f360e172a9e34c392b9e22d5d3df9635396",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_male_v2_3.png",
+      "candidateSha256": "75d88c4d54dd1adfb845ac3e8fd3bc8f2f6e9357dc4e29865befb3511e27c02e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Machine_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_female_v2_0.png",
+      "sourceSha256": "5654b0cdd75aa648622f0bba40ef4bde209157fbaf45ffab174dd0d7ee7fefe5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_female_v2_0.png",
+      "candidateSha256": "e667f09207804ef08cbbb85dcb68b86ac65cb29e1328a7403168abd565df2c44",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Machine_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_female_v2_1.png",
+      "sourceSha256": "8ea59979d503297a047fcc6b1d85204655a33ac532df6bd22f86fdc611ee84c8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_female_v2_1.png",
+      "candidateSha256": "caf5f703298eeff7eec3c1fb91d620adeb49b1b573b58367774ff17dc3d458e9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Machine_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_female_v2_2.png",
+      "sourceSha256": "24f019c865379b0256f53633f0145c8c0c67405ffa07db587abc39c4e3717ff2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_female_v2_2.png",
+      "candidateSha256": "4363f894f2371ce947dc400c407290706a3127554d6ef0830bf293ab4d1f0dee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Machine_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Machine_Squat_female_v2_3.png",
+      "sourceSha256": "854e15a63ec9fe5a682c93832c52c49e49ce0d36a8ca4a7ddc32dd87bbaa4c3e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/180/Lying_Machine_Squat_female_v2_3.png",
+      "candidateSha256": "3c5f4631587097b7ac9ea8c8eb85d07e5aba9b920fe2f454321e560267075252",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Lying_Crossover",
+  "shard": 18,
+  "index": 172,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Crossover_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_male_v2_0.png",
+      "sourceSha256": "802ed3c4ab470beb04ff484e23a1b6a5153142f479d990a91baad9841243fd38",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_male_v2_0.png",
+      "candidateSha256": "29deff3530a0c622b5667cdf6a0a7d5f086a97a2911fe938d06d66b987aa0971",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Crossover_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_male_v2_1.png",
+      "sourceSha256": "f4903537f335020da1575d2b4465e9332ec33c20bd413527184a939f0b159058",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_male_v2_1.png",
+      "candidateSha256": "decb4dde104c5b4188d80d315b094362dbfb6cc5fa43258d90e960d3bffe3f94",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Crossover_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_male_v2_2.png",
+      "sourceSha256": "c4152f53a006ff5703832e4140756211f5852412df3a10af6c72412409daef41",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_male_v2_2.png",
+      "candidateSha256": "f711378b3692619b10e51e063719fe1d085082c253444c4573a190a7a9957d54",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Crossover_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_male_v2_3.png",
+      "sourceSha256": "d28d1248ec00bb9e0237de72363f7c4864bd85b0b460db0f794aa87abc583e50",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_male_v2_3.png",
+      "candidateSha256": "5f3646597e0eb929af986d6bd3dc2287632044143294bcedbc305390f049aaee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Crossover_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_female_v2_0.png",
+      "sourceSha256": "435b5472db7a608821bc24d34051f3d8bd663191d71be45b55e07b037f45ef7a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_female_v2_0.png",
+      "candidateSha256": "d6701ced084aba5544e59cf059b7d1153efb5216f4027593ab6d3ea045d7d9dd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Crossover_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_female_v2_1.png",
+      "sourceSha256": "470013637364d5d6566034e9cb41d5236d6e8fef200a1ac5471716b37bb20601",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_female_v2_1.png",
+      "candidateSha256": "901946b711be2c95f2cde4ad4f2621f1884b5ad0d9deb891d407fea2274bd6dd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Crossover_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_female_v2_2.png",
+      "sourceSha256": "3c26b2d079c101162ea87d6c3aab0c3cf3c0e9a59b6846b75fe85608f3c1b4ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_female_v2_2.png",
+      "candidateSha256": "523fd583f41ec3ab3ea91af8be7170d2ff663b7f31d8ef5d48964c6a9a9ba193",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Crossover_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Crossover_female_v2_3.png",
+      "sourceSha256": "afd970c08eed6a927a28d73c9f737f77142ce1a8c3ffad59d72b5b3c75506dd5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/172/Lying_Crossover_female_v2_3.png",
+      "candidateSha256": "93f8bc9b8e23414791d5be5bce01224fa5ffbb2cf7240ebe2a9507d115f8d1a0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

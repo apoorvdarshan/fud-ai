@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Lying_Face_Up_Plate_Neck_Resistance",
+  "shard": 18,
+  "index": 175,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Face_Up_Plate_Neck_Resistance_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_male_v2_0.png",
+      "sourceSha256": "2f87c2eeb217552a3f8f0cb8edb1ca472bd7265079b865055be119b260f01f77",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_male_v2_0.png",
+      "candidateSha256": "bac6649674a362182f3fc0892b2a87a7235eca4161311807cfce81b4fce43170",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Face_Up_Plate_Neck_Resistance_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_male_v2_1.png",
+      "sourceSha256": "d1387d6f21d4b758ed8ecd58c4714abb480d8cb22c798e3131f6bde41fec0c8b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_male_v2_1.png",
+      "candidateSha256": "741c13aae156603b2be15ef2ebcef55d1798ff79768f5848df422c306605d8cc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Face_Up_Plate_Neck_Resistance_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_male_v2_2.png",
+      "sourceSha256": "db4d99c9cafe35353fdf72141b56204a9d9013185d45ea7f88475d63f020db73",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_male_v2_2.png",
+      "candidateSha256": "4aa865351942976510947abcd3505a626c786c7cbf936aaaaba145d1952e96ca",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Face_Up_Plate_Neck_Resistance_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_male_v2_3.png",
+      "sourceSha256": "2b943b92a07da8a4e220bd17ca98d25bdc3120edbe7265e1c1d4ca41b9c229db",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_male_v2_3.png",
+      "candidateSha256": "84a078843933ce857680da03a54ca3183220e0661ca71898db42f08f4739413e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Face_Up_Plate_Neck_Resistance_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_female_v2_0.png",
+      "sourceSha256": "1922729c2f357fe2926236cdce683796da2c046ca27f86cd78eb6f5c9571f928",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_female_v2_0.png",
+      "candidateSha256": "207a47b4730f3eb1a0644eb6a9f52d8ef43b4e7bbc4fdf2c7289c61b491fecfb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Face_Up_Plate_Neck_Resistance_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_female_v2_1.png",
+      "sourceSha256": "a934d1c4eaf5f335a2800a3fec353eed9556cd4935a7042e5e12628ca9eb68a2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_female_v2_1.png",
+      "candidateSha256": "3ee673f510ffb5bbb4cfeba3ff3c216a08218736137ac1814f276c2a9fd57f98",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Face_Up_Plate_Neck_Resistance_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_female_v2_2.png",
+      "sourceSha256": "1553ca6bd0b246e4656d331520893212271bc78b0e7edabae219a4ca4425401d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_female_v2_2.png",
+      "candidateSha256": "ebc02860ec2a2f3a81812f01c9670e711778f74e21f96896f47ee9f0e4d28d1b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Face_Up_Plate_Neck_Resistance_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Face_Up_Plate_Neck_Resistance_female_v2_3.png",
+      "sourceSha256": "34a880603bc58d1ea0c07b36fa0a2d43ba3b68d00bbea6ac13d43dd416b2c120",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/175/Lying_Face_Up_Plate_Neck_Resistance_female_v2_3.png",
+      "candidateSha256": "818a5da8bb5ea450bb31f56b3a4b5bb4e308bd44464b49eb1eb488c0e378a27b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

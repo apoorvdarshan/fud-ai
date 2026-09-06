@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin",
+  "shard": 18,
+  "index": 171,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_0.png",
+      "sourceSha256": "32d7eefcbe8eb020b3830048ce37670ed817689300484db48a472f7008236c09",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_0.png",
+      "candidateSha256": "15f385502d09f96c1c4542bbe05569bb71b36365e37f31be307ec201d3e74d45",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_1.png",
+      "sourceSha256": "09b984205875afa02dcdb2cffbf751c40fbe3f3466216899dee1e3fd3d117236",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_1.png",
+      "candidateSha256": "e17a6621cf376107fb74faa8e29eebfe09e87d3942a7170acbd78c16367b2799",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_2.png",
+      "sourceSha256": "8065848a8dcdf4c6325a55be648f0b5ecfc558bd1ba0027f0d44a7b39bb70528",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_2.png",
+      "candidateSha256": "77b7c97841363c8d4fbe2ad9c8fd664650fc5c408fe1fdb48d687b007e05d11a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_3.png",
+      "sourceSha256": "6e5837b2a63e3b7394f7542db8719eaf0974b4e5eb8d7afa6b11a6e41aad0d17",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_male_v2_3.png",
+      "candidateSha256": "ff639d0608c5e6719d956419aa00bacb3e049aa6f0389a1fe2cedc08c412419c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_0.png",
+      "sourceSha256": "f6a759059f6eee9eef2587dc92777aa9949bd4c01e04c3d85c85e389f5d45006",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_0.png",
+      "candidateSha256": "9cb2a0dd2611966f2f0292b5370e945ef22f0674627bcf48ec853500a028e8ea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_1.png",
+      "sourceSha256": "6ff3509a2ddb50772343fe712b9587b560841a8ddf186b88b44022a490f0369d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_1.png",
+      "candidateSha256": "29d3540aab2d66864c1d177cc164ae994779fc19d5426641cb552d2d28c8d32d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_2.png",
+      "sourceSha256": "feb2848eebb1c6d00d74d5ca26700aa578831504d377d4509685ff2d360d328e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_2.png",
+      "candidateSha256": "06dc74fc4049cdc8add78e7b0057560fa1be82e09a8fdf8954f1925aa9fff221",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_3.png",
+      "sourceSha256": "3f1e5797a2fe17ce3ac3d1c7e71d35418459d4baf9a3440710df4294f9336ceb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/171/Lying_Close-Grip_Barbell_Triceps_Press_To_Chin_female_v2_3.png",
+      "candidateSha256": "1e2e5ee54a5c5f9e9603aa3ad4a1d675329050eafd52904ddb0099facac537c0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

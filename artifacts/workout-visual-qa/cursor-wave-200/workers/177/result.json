@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Lying_Hamstring",
+  "shard": 18,
+  "index": 177,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Hamstring_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_male_v2_0.png",
+      "sourceSha256": "d52018fbe052d9609334cd8d1145ee5c2e3d9e9a4aa0f664a00fd4ff1c036e45",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_male_v2_0.png",
+      "candidateSha256": "a81ff3e5b7faa7e5ad1c1c8b570f92061ba1ac1642160bc0d380cb42bb7b4dac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Hamstring_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_male_v2_1.png",
+      "sourceSha256": "cba748bb65ddbca1916d19390f00a607b6b58a4d2ea4026f46dfc768d2e3e8c3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_male_v2_1.png",
+      "candidateSha256": "bc42da3007840f410a68d37524205c15417ee0b264bd874e18675a9f9dc4efe5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Hamstring_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_male_v2_2.png",
+      "sourceSha256": "899fce4917974efa7ca08480ec2975fecb706d520edcb1a91b4e74cec95a9998",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_male_v2_2.png",
+      "candidateSha256": "63e6d376d3bab9ad84b66fa726c7b3a18dfa743c75b48736b53a912681226cde",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Hamstring_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_male_v2_3.png",
+      "sourceSha256": "eba3d307dafecf5bb16637cdb057f1a4d79b2b5de9ed478488b711c88215af8c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_male_v2_3.png",
+      "candidateSha256": "f8066dac8d54781ae72f542ba3b4be008c8822c06e6263586e84d149f3abf09a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Hamstring_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_female_v2_0.png",
+      "sourceSha256": "5e731fb9793fac8bc6cd78932322bd4b602d6b20eabfb7d798538e6edac109b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_female_v2_0.png",
+      "candidateSha256": "cd636930e50d83681111fc25fbf9fb804b06952c345bbe2fc79d089c0de7f821",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Hamstring_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_female_v2_1.png",
+      "sourceSha256": "b7930f83e9210b483b42950ef72193c719a37f2882555355217a09aab3979d8e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_female_v2_1.png",
+      "candidateSha256": "502e6c91689f741abfb4b7c290a0bbac0183d4649f567478c511f9af628647a4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Hamstring_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_female_v2_2.png",
+      "sourceSha256": "69b02b71c5ed768a5d574af44bac068cd113c883d5a00c621887b3da145139ae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_female_v2_2.png",
+      "candidateSha256": "a0985584b3e187d44d51dc46cac0804dfe5c9107ad6dc8e701fcdd407c61ffa8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Hamstring_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Hamstring_female_v2_3.png",
+      "sourceSha256": "9990a93b909f5869476d7a1d58506ec5a64d004ba545f11b76ff0c4a26b24681",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/177/Lying_Hamstring_female_v2_3.png",
+      "candidateSha256": "0fab9ccc5124d26f8fce5a3125c5bb72ba402895c54b273f39460fab5c872cb9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

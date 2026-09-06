@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Lying_Leg_Curls",
+  "shard": 18,
+  "index": 179,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Leg_Curls_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_male_v2_0.png",
+      "sourceSha256": "f1d5281d0d3f55f39426a1191f36eb5a5ae0936ef197a52cbb7e1b9b3e131404",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_male_v2_0.png",
+      "candidateSha256": "443c96084ad81f673bcc1fb66d7e7d1d8d04dc57abc6aebd74ffd3440aa46007",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Leg_Curls_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_male_v2_1.png",
+      "sourceSha256": "6fe297558330930754fad32caca5f8d417d20e51092e576d0783d057b20f0b74",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_male_v2_1.png",
+      "candidateSha256": "dff9d3fe4e9f8f3fae9dddb5b027729ad154421278e63ddaa0de0dc853b88c28",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Leg_Curls_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_male_v2_2.png",
+      "sourceSha256": "cb9ea98f76945c58ff18653f65f2d7ebb78c1d6f7cc7ec81b5fcdcc28b4bfd63",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_male_v2_2.png",
+      "candidateSha256": "068800a77871a23b0908474f9b5297a5d858624b0967cb6639c5d64dd55ec88d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Leg_Curls_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_male_v2_3.png",
+      "sourceSha256": "7141318701a8a1f85a385847ed1b4dd5a3d90bbe81e428d6d3048159f743c566",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_male_v2_3.png",
+      "candidateSha256": "d1fc6ce6a569fda6d93218fd879a9a097aea80c80b6539e9f5b22d8f125ae751",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Leg_Curls_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_female_v2_0.png",
+      "sourceSha256": "536b7de3eae790f8f5ae9aa60e1010ba422fa6754029c3035443c9afb2ee7d69",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_female_v2_0.png",
+      "candidateSha256": "9ad535204c245c3f40443766254ed9106959b52e0df874cb79b0e87deec95776",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Leg_Curls_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_female_v2_1.png",
+      "sourceSha256": "e1b6419318d25ba3f65e58f95a35d06986a71ec46e2b3c942be48fbf85cb2f2d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_female_v2_1.png",
+      "candidateSha256": "0a27acb27ef0ce38f1063492a3150c042cacf536e404d01a21e52e2e9238c0c9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Leg_Curls_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_female_v2_2.png",
+      "sourceSha256": "ac84d119507fe3b9efcc0930f9c123740593bf892f3bfcb5e1756ea9847516e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_female_v2_2.png",
+      "candidateSha256": "a5b6e925a6a83a9cf42541eb78ddd8551bface07a976df39b6a0d83af0841e6d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Leg_Curls_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Leg_Curls_female_v2_3.png",
+      "sourceSha256": "fd456a742e5b0fd6f025248bbf8ac53f6e4644e5c07b1b4ac7aa3da5f28711f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/179/Lying_Leg_Curls_female_v2_3.png",
+      "candidateSha256": "50e8659041837547820b3ffae9559a966a3ebdc0e329b61df8c2da4940cb56a7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

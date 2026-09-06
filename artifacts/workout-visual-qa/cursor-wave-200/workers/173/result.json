@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Lying_Dumbbell_Tricep_Extension",
+  "shard": 18,
+  "index": 173,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Dumbbell_Tricep_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_male_v2_0.png",
+      "sourceSha256": "8a87e4762eae4733c7b342e0fd9c6051e3f73c662c64da1a9b3a56da62b4762f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_male_v2_0.png",
+      "candidateSha256": "3a8505da31927e21c22f8122dbc9e1f3c3b013c529f538113a627ef1af8fe5ff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Dumbbell_Tricep_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_male_v2_1.png",
+      "sourceSha256": "c956a757e7f0d1485ba8f5351a49a773906607df8e6ca4371fe5e58a10f51fd2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_male_v2_1.png",
+      "candidateSha256": "53826ff2e0a2253f4b33037008efbdcac45d622a1202a2fd41c038e7c4511162",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Dumbbell_Tricep_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_male_v2_2.png",
+      "sourceSha256": "b25c6be324bfa379b6bd4efeb014d035ef71d45c1177b37033637be84bb4e1dc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_male_v2_2.png",
+      "candidateSha256": "9fbdca058393e3d6f1f05aa6ec5b2a4335228920ca7aa6de6a340974fc46c9ee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Dumbbell_Tricep_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_male_v2_3.png",
+      "sourceSha256": "6f654f67deb935ff839f8792619062e942a10d4fedec0e35239630a1b22a28a0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_male_v2_3.png",
+      "candidateSha256": "6d890522e31af0171672ce09d1566239da871d6f4978d3394d68a9b7bb553a36",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Dumbbell_Tricep_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_female_v2_0.png",
+      "sourceSha256": "23e78f5dfe5f02044173b9b23fe0242ab0e1b3d712dcb21c9d31b1b6860dbf4b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_female_v2_0.png",
+      "candidateSha256": "bcf52a31a00f3e9021c594122b16a414475023cf863fb073292e3406996ad591",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Dumbbell_Tricep_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_female_v2_1.png",
+      "sourceSha256": "447832c15be87f3b4afd1933ea71bd108a1d96da4f613b4c0753543b5b9b6b8b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_female_v2_1.png",
+      "candidateSha256": "80341dd53b4af726c8cc03338e30ea88deca59844e0acafd9b68c2abc2b81063",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Dumbbell_Tricep_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_female_v2_2.png",
+      "sourceSha256": "3eea93d92ac0b36cbbc99484726f41ac71e5a92f2c28dd58d9889bb26be2d56c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_female_v2_2.png",
+      "candidateSha256": "64ea3c7de5e1f52e5dc815fedbcf53f86625e71b63335fa833bcb85efc35f758",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Dumbbell_Tricep_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Dumbbell_Tricep_Extension_female_v2_3.png",
+      "sourceSha256": "828a54f4f878cc520709c1417691afa7bc1ef697efb4bb76939312b60eb6ba16",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/173/Lying_Dumbbell_Tricep_Extension_female_v2_3.png",
+      "candidateSha256": "01dbee87b44795eee81330273ed29220be68d991a01e7cc7bdb00ec42c8a269d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

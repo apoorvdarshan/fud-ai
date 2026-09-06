@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Single-Arm_Push-Up",
+  "shard": 23,
+  "index": 225,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Single-Arm_Push-Up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Push-Up_male_v2_0.png",
+      "sourceSha256": "b9a71a6042619b45491b532873d71aa82889e36615f603f07293a3ec167c9305",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/225/Single-Arm_Push-Up_male_v2_0.png",
+      "candidateSha256": "7dc7921392ba52e980b1c8afcb5e47a55be9b697648b2aaff4f0e3a5d52e6194",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Push-Up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Push-Up_male_v2_1.png",
+      "sourceSha256": "efc7dc959632e6cb4acb27634ccbe2ce08498d77b014f6c55248999dd854a052",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/225/Single-Arm_Push-Up_male_v2_1.png",
+      "candidateSha256": "77c9e3a9d2acc50d2a1622ce995622154414eb7e783a247defd1df84bb633a8f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Push-Up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Push-Up_male_v2_2.png",
+      "sourceSha256": "c6882236a708d55f674a45090be9f24d78cc1136038e2b95a2dabeffb1870a63",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/225/Single-Arm_Push-Up_male_v2_2.png",
+      "candidateSha256": "6799452d261e15670ed9f4760852a65da7c0b97f7e48bd0e7d95cddca807a758",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Push-Up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Push-Up_male_v2_3.png",
+      "sourceSha256": "43629fb1ce5c88ce4f61d9e59b03dab030f55693b1d3aa523e7e73e90f05c4c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/225/Single-Arm_Push-Up_male_v2_3.png",
+      "candidateSha256": "976ec7391514a23e4a3141a65129aa0591419f23265d3e0d557f46de01b41f45",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Push-Up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Push-Up_female_v2_0.png",
+      "sourceSha256": "73bba01575f317937ea98089f86baabd4eb851cd3790253cbd36e106556b9700",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/225/Single-Arm_Push-Up_female_v2_0.png",
+      "candidateSha256": "464d747ae89daf471a572741d849beb5826dd877f81ffb8fa647e95e56f6bf5e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Push-Up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Push-Up_female_v2_1.png",
+      "sourceSha256": "d51ec0dc6ec294713308634fbbb3497f182a3fc6c801a362074191cc43a5c663",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/225/Single-Arm_Push-Up_female_v2_1.png",
+      "candidateSha256": "d0a67b6857e1f9178250b35cccaa1b69ac281401bf66f11ef5c199f3d58851f6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Push-Up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Push-Up_female_v2_2.png",
+      "sourceSha256": "b63ffd3b4acfeef32a83557a25168551556c93f0a879f149877e6ddb45de6145",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/225/Single-Arm_Push-Up_female_v2_2.png",
+      "candidateSha256": "f49f5710df2f0c155e768c9573a2b96a89d45581809577b9ad0df9eb4e71bd3a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single-Arm_Push-Up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single-Arm_Push-Up_female_v2_3.png",
+      "sourceSha256": "3b22f6eeeeabf41cc9129bb03017b091f30c459814776fa6137313ea797ec60b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/225/Single-Arm_Push-Up_female_v2_3.png",
+      "candidateSha256": "87a292e46407d64507a3f36b647e82277880f5e7b86b872453506777f707784e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

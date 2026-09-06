@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Standing_Low-Pulley_Deltoid_Raise",
+  "shard": 32,
+  "index": 319,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Low-Pulley_Deltoid_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_Deltoid_Raise_male_v2_0.png",
+      "sourceSha256": "df0c065dad0abbcf42dc219a81e9f031028b11793bf05e6db3c4500d20347505",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/319/Standing_Low-Pulley_Deltoid_Raise_male_v2_0.png",
+      "candidateSha256": "f8170ecedffa6c3b62a1df40fda1528c24f4497c2874bf799453211905ccae26",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_Deltoid_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_Deltoid_Raise_male_v2_1.png",
+      "sourceSha256": "fc2d8bcb68c33131a5da904571cc933b5bebae78fc87f5ede9b2cf970a6eebc4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/319/Standing_Low-Pulley_Deltoid_Raise_male_v2_1.png",
+      "candidateSha256": "53b8cd3a50370a7e6906a5d2a60d8540446563137c26bc1501f531a7e4c517a7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_Deltoid_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_Deltoid_Raise_male_v2_2.png",
+      "sourceSha256": "e4c7f9d2b4d0668ab4715880571b061249bb0e6fdea0d1618574268a3898bb05",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/319/Standing_Low-Pulley_Deltoid_Raise_male_v2_2.png",
+      "candidateSha256": "62ad7fa689beb265a86e11b5b3717bc6ef0921d4e0a95c9c6fa6226d6cf7f04a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_Deltoid_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_Deltoid_Raise_male_v2_3.png",
+      "sourceSha256": "8430392e4323f6270c39905da756b2704d2ecaa3aa7bd61c2ef0a5dc55fc6a79",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/319/Standing_Low-Pulley_Deltoid_Raise_male_v2_3.png",
+      "candidateSha256": "36709f30f6787824e95eae59b0d0d12eef84ffa1554dfc718f5101d54560a9cf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_Deltoid_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_Deltoid_Raise_female_v2_0.png",
+      "sourceSha256": "cfffb7377ad6c1451d607c426227a8ec5079959f8c887b79a157452f12e34af0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/319/Standing_Low-Pulley_Deltoid_Raise_female_v2_0.png",
+      "candidateSha256": "21873bd8c8ed682450451b9c7c33ba67554969ce10ffffd64a7b7a1bb0c0daaf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_Deltoid_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_Deltoid_Raise_female_v2_1.png",
+      "sourceSha256": "c24639dbc0ec6efe5d89e0835e43a5b1c777a7fe2115a9e95ac57c06167de9d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/319/Standing_Low-Pulley_Deltoid_Raise_female_v2_1.png",
+      "candidateSha256": "42f4b7052ab8a750121c9593f9cf0e679762188184f143e1f572afbe84570a0a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_Deltoid_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_Deltoid_Raise_female_v2_2.png",
+      "sourceSha256": "a962af094615559d70256f4a86122b1de0c27f6418ae62620d682679388af328",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/319/Standing_Low-Pulley_Deltoid_Raise_female_v2_2.png",
+      "candidateSha256": "05c1088fe42443eaa6461d41ff673ccc3a25fb07e7fc75f1ae0e0cd464e5507f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_Deltoid_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_Deltoid_Raise_female_v2_3.png",
+      "sourceSha256": "0f10f30e75048fb5331056b3b6108da2c7ab3e3d4fcf1db004ee7c032c6d2c89",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/319/Standing_Low-Pulley_Deltoid_Raise_female_v2_3.png",
+      "candidateSha256": "5e12d3b00605c69566ddae0468fc49a11939fa179d3303901b1cfcaf5aa473b2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

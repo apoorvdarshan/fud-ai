@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Standing_Inner-Biceps_Curl",
+  "shard": 32,
+  "index": 315,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Inner-Biceps_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Inner-Biceps_Curl_male_v2_0.png",
+      "sourceSha256": "febcec7dc3f9a1e9cdc076666ed817407e552fb28a0da77b740f621fa989c900",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/315/Standing_Inner-Biceps_Curl_male_v2_0.png",
+      "candidateSha256": "418c47ad7f96b710346045b0b26c510560134f66b0e49c02fdd613a3759fefb9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Inner-Biceps_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Inner-Biceps_Curl_male_v2_1.png",
+      "sourceSha256": "4450d3283690a1c7c12c2b9dbccfff180bc02b9764a0eac47adb6009b1016aaf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/315/Standing_Inner-Biceps_Curl_male_v2_1.png",
+      "candidateSha256": "c1f4adf21a41965cb1d39383df7c6a2949a48c3b1b3d55a9311dd30a46cdaba2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Inner-Biceps_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Inner-Biceps_Curl_male_v2_2.png",
+      "sourceSha256": "93660a7fe295fd01037acaf5cad6b80a3918f802af6a2a399f60cd2f9fab8b04",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/315/Standing_Inner-Biceps_Curl_male_v2_2.png",
+      "candidateSha256": "e36e347acb248971108786f08b6a2d85485e54b253366403127d0c73eed4cefc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Inner-Biceps_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Inner-Biceps_Curl_male_v2_3.png",
+      "sourceSha256": "cb9867c178f9b3c9c990bfbe065f923acee9a9e0dd83f8851279b9bbc230fa97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/315/Standing_Inner-Biceps_Curl_male_v2_3.png",
+      "candidateSha256": "7aa0b5cd917825e40cafc77a8838bfe73e30dd6461d01965434f752e5f8c3b0c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Inner-Biceps_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Inner-Biceps_Curl_female_v2_0.png",
+      "sourceSha256": "85ada016d35aa23101193f895f59700ab5b106ee2aff865b667166c56b45cd9b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/315/Standing_Inner-Biceps_Curl_female_v2_0.png",
+      "candidateSha256": "9ddfe1a24b88f94ffdb75d43ab704bc0e6cc55a76598488d0d75c5408b0689f0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Inner-Biceps_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Inner-Biceps_Curl_female_v2_1.png",
+      "sourceSha256": "e4bb577ae158eb3a782476b2cefe639f8621cd52f578c190836b8156b17a270a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/315/Standing_Inner-Biceps_Curl_female_v2_1.png",
+      "candidateSha256": "d7d68634999effa7f25c1dbf0bacc72671eea4ba18c1d44cdb32b45033048438",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Inner-Biceps_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Inner-Biceps_Curl_female_v2_2.png",
+      "sourceSha256": "6460b24e010a5f914e3ca0a533d39df50dbef98e97bd078c7c9b0bfe099c2c5a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/315/Standing_Inner-Biceps_Curl_female_v2_2.png",
+      "candidateSha256": "284e89d7ffb718cb4a486f0354078bef5cee58199730b84dc0a01a779719abf4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Inner-Biceps_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Inner-Biceps_Curl_female_v2_3.png",
+      "sourceSha256": "0ea8c5892f3e2d1a7f3581a61d08dfc162f31f360f21b2e006c27fb38b464bb0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/315/Standing_Inner-Biceps_Curl_female_v2_3.png",
+      "candidateSha256": "7d3489a007fdfa09363ec3ad5ff3edf257cdecf1c3ac9b7c4aa3f552a620e5f0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

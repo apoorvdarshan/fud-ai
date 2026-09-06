@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Standing_Low-Pulley_One-Arm_Triceps_Extension",
+  "shard": 32,
+  "index": 320,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Low-Pulley_One-Arm_Triceps_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_One-Arm_Triceps_Extension_male_v2_0.png",
+      "sourceSha256": "138df062dde9a31d5a0e95b383728cc43529b26584de3ad9c16d3e81e7c14881",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/320/Standing_Low-Pulley_One-Arm_Triceps_Extension_male_v2_0.png",
+      "candidateSha256": "99064ac2a14c72675db27ec6a00f81bf7bc57f382f22b38b574797dadcfa62e3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_One-Arm_Triceps_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_One-Arm_Triceps_Extension_male_v2_1.png",
+      "sourceSha256": "522449b42d53d62cd59cfb992606a4e6bcd3c1ffaf3aebc2e5af33f82f916396",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/320/Standing_Low-Pulley_One-Arm_Triceps_Extension_male_v2_1.png",
+      "candidateSha256": "747c398816e3fce63a350d3962594394072cbb0f5d314a7264eb6e41b325e61d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_One-Arm_Triceps_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_One-Arm_Triceps_Extension_male_v2_2.png",
+      "sourceSha256": "31ef9f50477e763721b6238ae0932f5a9876eb89ef2a85b2dacf46dde8916289",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/320/Standing_Low-Pulley_One-Arm_Triceps_Extension_male_v2_2.png",
+      "candidateSha256": "85be89626151ea397a7e33aa6c4ab21d3f8716f40e39c7f4bd7cd21e1090d2c3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_One-Arm_Triceps_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_One-Arm_Triceps_Extension_male_v2_3.png",
+      "sourceSha256": "f5c04dc4c3c365a9b4cd03fdceab395a64b753f0459c031b4122743734998ba1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/320/Standing_Low-Pulley_One-Arm_Triceps_Extension_male_v2_3.png",
+      "candidateSha256": "57846cff19ce53ff6c7547568544e45706c5750101ce37763323564d2be89e7b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_One-Arm_Triceps_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_One-Arm_Triceps_Extension_female_v2_0.png",
+      "sourceSha256": "86e01b0ee5225898e4dba96da2283073ab2caecb288f53c2f5bd4a9ff7e8725a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/320/Standing_Low-Pulley_One-Arm_Triceps_Extension_female_v2_0.png",
+      "candidateSha256": "d4b029f8fbdd9984b154f9ae8edc1f62c791ae73b5b6b03ebe57feee64485a75",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_One-Arm_Triceps_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_One-Arm_Triceps_Extension_female_v2_1.png",
+      "sourceSha256": "53cde276d259b596a311ef6b36efdf211859b16f69e86178f2af9039403a56e9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/320/Standing_Low-Pulley_One-Arm_Triceps_Extension_female_v2_1.png",
+      "candidateSha256": "07036a23afd84bb47e733e8b309cbaac920472dd5759934392ebd8f48f3ac3eb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_One-Arm_Triceps_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_One-Arm_Triceps_Extension_female_v2_2.png",
+      "sourceSha256": "e434fac828a44347076e9b0a7b33e537de7a131b289e2105e560965dca18e251",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/320/Standing_Low-Pulley_One-Arm_Triceps_Extension_female_v2_2.png",
+      "candidateSha256": "9e9ab789fcd8b6474756537c356a23fe6008c76698f98d094f7b815e44586c4d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Low-Pulley_One-Arm_Triceps_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Low-Pulley_One-Arm_Triceps_Extension_female_v2_3.png",
+      "sourceSha256": "d2238bf0e4e969df37e396d07cb037a51e70dad93c7a886d628af42ee8ce6549",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/320/Standing_Low-Pulley_One-Arm_Triceps_Extension_female_v2_3.png",
+      "candidateSha256": "9260cf7eae68b3fbe650b74e0f67fec58906f9158ad8f9b6a65b76644f517bfe",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

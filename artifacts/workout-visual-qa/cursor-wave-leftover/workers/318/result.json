@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Standing_Long_Jump",
+  "shard": 32,
+  "index": 318,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Long_Jump_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Long_Jump_male_v2_0.png",
+      "sourceSha256": "3a4e3a8f372370f41f803a5a8aadbfdef38434cd874be00b26fc8b67d1f6947f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/318/Standing_Long_Jump_male_v2_0.png",
+      "candidateSha256": "350c44f6a6a6aefde25b85e74662a6e636abe4b344d56eb16998c8e9f34963ad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Long_Jump_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Long_Jump_male_v2_1.png",
+      "sourceSha256": "c9b648c6d3063f69a4b305413de0cc708e3ce9e3dc94a722586c93d234abd8df",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/318/Standing_Long_Jump_male_v2_1.png",
+      "candidateSha256": "bce9294f2f22ad57ef13314472d0f9c570c7d291ae4c543e7fd3b7d6a7c4c1b0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Long_Jump_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Long_Jump_male_v2_2.png",
+      "sourceSha256": "996cac48bb629dd4185887979a74268c06c06778f42dc1b2487529a9cb3bb606",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/318/Standing_Long_Jump_male_v2_2.png",
+      "candidateSha256": "999df424fe1fc345c875587b16ebc1dbc84b90fa0181e83fafe80530bc111aa1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Long_Jump_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Long_Jump_male_v2_3.png",
+      "sourceSha256": "6096c41e8bfb32835776a037dec4bc7cbd568049aea30ec7a99897fc00c6c713",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/318/Standing_Long_Jump_male_v2_3.png",
+      "candidateSha256": "79304fc03f38c4467b1e6daf0916c0b271407d6fbdb43eb328e07b8e8f8d5fb5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Long_Jump_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Long_Jump_female_v2_0.png",
+      "sourceSha256": "4319eb2e53ab9056f9a8f047b2eb4eb6ad2b4ec105f390600ebf88778d136461",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/318/Standing_Long_Jump_female_v2_0.png",
+      "candidateSha256": "c709f3417fc8455e76a1fab241b2ccbf2a075e4bd0944f7afc3a2e3e214547d2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Long_Jump_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Long_Jump_female_v2_1.png",
+      "sourceSha256": "1e2fb42c329af9f3451192d2718e9c6beace767572d75f3fa62c9bb04a43e844",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/318/Standing_Long_Jump_female_v2_1.png",
+      "candidateSha256": "4cb072b8fe5a0144b5d89a1dbb613a0ce3da8d33ca798928596d5008f4354bbb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Long_Jump_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Long_Jump_female_v2_2.png",
+      "sourceSha256": "6b18a8c7ce85c3e031a9caa0d5cb6e18635767f8086462817cd4ac28a02a4a6b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/318/Standing_Long_Jump_female_v2_2.png",
+      "candidateSha256": "0fb32ab9b9bb7f3e05caf012d0fb82103e8414a0c01307ffa04ab60c89d38396",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Long_Jump_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Long_Jump_female_v2_3.png",
+      "sourceSha256": "9307d16da316f9a2d2ef160f297e05491e3ecb344e99e3971085c27fabeab3a9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/318/Standing_Long_Jump_female_v2_3.png",
+      "candidateSha256": "a4c0efea0068e9e725cad26f9958a5bbd73ba5f0059cc216c53a553d8e0c662d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

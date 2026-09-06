@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Standing_Leg_Curl",
+  "shard": 32,
+  "index": 317,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Leg_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Leg_Curl_male_v2_0.png",
+      "sourceSha256": "b70d407cca2c9fa427bcfc313f62ca75ead9955b944ce8a366acb2d51268bada",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/317/Standing_Leg_Curl_male_v2_0.png",
+      "candidateSha256": "d16ae2b437eed3b832da011b67afba3c19ee3bba95bfb2565ad8e60d096b795e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Leg_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Leg_Curl_male_v2_1.png",
+      "sourceSha256": "f931c3f6f39f187ff572efb89a6755b958a59caef6ed1858cc36c77da3b888aa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/317/Standing_Leg_Curl_male_v2_1.png",
+      "candidateSha256": "937e26e63fc2acd282cac39fa989b0046bcdf8d53306884918542f341471cadf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Leg_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Leg_Curl_male_v2_2.png",
+      "sourceSha256": "0334b68a7525b905956ea0ef4004ccd288330139cd1c362ae16a6304ca50f0e9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/317/Standing_Leg_Curl_male_v2_2.png",
+      "candidateSha256": "6589b967a1cb5f976cc9a9c4dfc694e1b8d52d0a4cdcc6b5c6cbdb6c89f96e97",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Leg_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Leg_Curl_male_v2_3.png",
+      "sourceSha256": "4aeb9b835d1cb791dd132f54c71fe3160b2d91f1efff1fe31b3de479bdbe0c92",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/317/Standing_Leg_Curl_male_v2_3.png",
+      "candidateSha256": "4888204b3dd81ac60231dab95bacf4b19ae3d8ee468c01b353ad8cc460cf878d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Leg_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Leg_Curl_female_v2_0.png",
+      "sourceSha256": "7d255f32c56336f771f92473df43523ddc737028cb91728a864a02d22f7eb910",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/317/Standing_Leg_Curl_female_v2_0.png",
+      "candidateSha256": "755415b56483d5af47192c40e9c416877c5601ee1ab56315bb06ecc50534c9b2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Leg_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Leg_Curl_female_v2_1.png",
+      "sourceSha256": "40eb36673123c88012c029cf15ccea3d63051f4af5ea241b4376defa3475ca36",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/317/Standing_Leg_Curl_female_v2_1.png",
+      "candidateSha256": "8f36115c4fccba4da9327be89fa5eb440a40afb346bf013563e319665a88f755",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Leg_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Leg_Curl_female_v2_2.png",
+      "sourceSha256": "29b49bde0ca8f19b7623901200506210631b43d8aedfdd598a48943e1525d26b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/317/Standing_Leg_Curl_female_v2_2.png",
+      "candidateSha256": "68abb6d89c55ee6f2ee130c0630ac49c71d456c9e5e97d1d2a6d0ce7e3d18c88",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Leg_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Leg_Curl_female_v2_3.png",
+      "sourceSha256": "5528e1d010dc86576e9cb79938d81ef76add70711711bd3708d8254991558bb4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/317/Standing_Leg_Curl_female_v2_3.png",
+      "candidateSha256": "b51a23d1852cd84ec62baa1ee723c58350279a199d70d7a05f27ee30b0366896",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

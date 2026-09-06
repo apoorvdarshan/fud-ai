@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Decline_EZ_Bar_Triceps_Extension",
+  "shard": 8,
+  "index": 80,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Decline_EZ_Bar_Triceps_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_EZ_Bar_Triceps_Extension_male_v2_0.png",
+      "sourceSha256": "9816ed3357313d6b7a3362afe00023d4c6bc2ccbf72ea27e13875688dd32c9ea",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/080/Decline_EZ_Bar_Triceps_Extension_male_v2_0.png",
+      "candidateSha256": "b7d40130b14c3b936fd09b196cf0d318aa199c3fb6a3171a150458a3b0286c8f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_EZ_Bar_Triceps_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_EZ_Bar_Triceps_Extension_male_v2_1.png",
+      "sourceSha256": "9b7e63d878b01dc03101b1f67a70bb72f5802125a167a9e2569383ba162c551d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/080/Decline_EZ_Bar_Triceps_Extension_male_v2_1.png",
+      "candidateSha256": "945173ac5c787c6d855b383a234de1fa774d4791db0cf1b09b7bc05ac9583884",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_EZ_Bar_Triceps_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_EZ_Bar_Triceps_Extension_male_v2_2.png",
+      "sourceSha256": "981caf52ad838e6c7d824d44a86d34abe7fa63791a182ff3e0fbe0913af10dc7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/080/Decline_EZ_Bar_Triceps_Extension_male_v2_2.png",
+      "candidateSha256": "66b21c6327d1f80b998cb978c42196a857b74f522942046bbc6cd3e3c5bbafe6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_EZ_Bar_Triceps_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_EZ_Bar_Triceps_Extension_male_v2_3.png",
+      "sourceSha256": "0dbfee8d5aceaed08dc2a730da915b2922522a33b5765de3d1d54bd8342df0cb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/080/Decline_EZ_Bar_Triceps_Extension_male_v2_3.png",
+      "candidateSha256": "f428cb26ac7a34812bbd85e1ac8c0bb90c499e23b3f14220cc4ed9302974815e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_EZ_Bar_Triceps_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_EZ_Bar_Triceps_Extension_female_v2_0.png",
+      "sourceSha256": "bec446d50bbe55b1e781a9adbfcbc40df3e5f5d79d0567883ea065b9fff029cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/080/Decline_EZ_Bar_Triceps_Extension_female_v2_0.png",
+      "candidateSha256": "fe23ec4ddf3d00ef5f1b2c188d8df4d79daef2c70faf578e23bfd2bdd66caae6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_EZ_Bar_Triceps_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_EZ_Bar_Triceps_Extension_female_v2_1.png",
+      "sourceSha256": "466478943f916cf5f1a7b69ad7f28706bcfe46ed4820df0a46dca7c4f0206a5b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/080/Decline_EZ_Bar_Triceps_Extension_female_v2_1.png",
+      "candidateSha256": "5a156d23ae157ea52a8c5c1e4ac93cc6261020d4eb0d8f132db82642f0d31b9f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_EZ_Bar_Triceps_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_EZ_Bar_Triceps_Extension_female_v2_2.png",
+      "sourceSha256": "9f2dbeba5fbfe956bc339729439c40e12050088560cb08f4339a0d8f6c5e5ce0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/080/Decline_EZ_Bar_Triceps_Extension_female_v2_2.png",
+      "candidateSha256": "8a59050bdb4e27dd46e901daa8575ec8140db856b22cc4f8047a9783f48732ed",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_EZ_Bar_Triceps_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_EZ_Bar_Triceps_Extension_female_v2_3.png",
+      "sourceSha256": "f059430dbc9ed5ff8083b2b44d07c1820dd4e4ec3e401a3bad794ccb6093e5b7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/080/Decline_EZ_Bar_Triceps_Extension_female_v2_3.png",
+      "candidateSha256": "b05d6c1b5e9efdf7803b7012d8454c49ebc862064b5343f4a246e38ae66b8f70",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

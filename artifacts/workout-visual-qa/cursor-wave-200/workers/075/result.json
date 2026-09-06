@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Cuban_Press",
+  "shard": 8,
+  "index": 75,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cuban_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cuban_Press_male_v2_0.png",
+      "sourceSha256": "17165b82d4863fa3a6bf444084bb90734bcf0302aa0e0c184cbdb613a9fe0f1d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/075/Cuban_Press_male_v2_0.png",
+      "candidateSha256": "75a3c1bdcf5b524330f5df7f971906611f27921f2ec6b1d6278439ec54979995",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cuban_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cuban_Press_male_v2_1.png",
+      "sourceSha256": "99b4663a70e66817d8512568d376aa10d015485c4369310443c51b16c83b02ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/075/Cuban_Press_male_v2_1.png",
+      "candidateSha256": "5fc42eb2bbf474f968aaa9113ffe3fb89f0708e3259329cc7bb2512773cc2a23",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cuban_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cuban_Press_male_v2_2.png",
+      "sourceSha256": "be39c57d2f1b0dd29409223bf731e6fe73a5c50d1046b5f7d9561ae19ad2b745",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/075/Cuban_Press_male_v2_2.png",
+      "candidateSha256": "fa2e4da88ccf89936c6adbbe7b5c21372733d0653701ee75dfbb629be8c18412",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cuban_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cuban_Press_male_v2_3.png",
+      "sourceSha256": "54c82eeaf5862f543a02e201e532d8190fd3ac5f4b6203f90f4eb25453dabc89",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/075/Cuban_Press_male_v2_3.png",
+      "candidateSha256": "07e187b672f50555e6863a650e2f35ebadca55ca4653f07b6aa8968001e753de",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cuban_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cuban_Press_female_v2_0.png",
+      "sourceSha256": "fa62e14c02dcc3200cbc66abc35b6a3eee65d0d9ded914a3d94508216d997c17",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/075/Cuban_Press_female_v2_0.png",
+      "candidateSha256": "a940aa834d9ad27d072b051f499bb786cda7b7a2044098182e70803d186f3c1a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cuban_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cuban_Press_female_v2_1.png",
+      "sourceSha256": "471c9166326075a4afd99fcc10ad3e13c60386ccc9a3930e9b2a479bb43b7e8c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/075/Cuban_Press_female_v2_1.png",
+      "candidateSha256": "30a9e4d2d1397546a1a70d0383f7b89a28dcb53b20e3ff5b6c6ab3fbc2b90e2c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cuban_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cuban_Press_female_v2_2.png",
+      "sourceSha256": "eab34742c23756b9c9cbe0a203f51c91cb5accf66ad2393a0017f9322111a7f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/075/Cuban_Press_female_v2_2.png",
+      "candidateSha256": "c76ed77f91627d39e025df08eb4818be5a411089e9bd7a6fda4874caefb703a5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cuban_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cuban_Press_female_v2_3.png",
+      "sourceSha256": "4ec54f872173f0677755a73f8a0649d78bb061ae794685257cf0e3096b0a441e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/075/Cuban_Press_female_v2_3.png",
+      "candidateSha256": "ea66ad0d3b776e63014443386914648c8df8857e69a138923e817f5dcc6f4d98",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Decline_Barbell_Bench_Press",
+  "shard": 8,
+  "index": 79,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Decline_Barbell_Bench_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Barbell_Bench_Press_male_v2_0.png",
+      "sourceSha256": "b5686dd51221c0d0df8dcf0b22b52489510a1647428281aeeeda65f6e6765960",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/079/Decline_Barbell_Bench_Press_male_v2_0.png",
+      "candidateSha256": "085b58fdd958a8d312940462006b96a86184d389018a0751235c939950e792ea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Barbell_Bench_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Barbell_Bench_Press_male_v2_1.png",
+      "sourceSha256": "a49d09d71956b7af983359def5e52deb18ce1fa7e6bdf17030118bb711a0ce22",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/079/Decline_Barbell_Bench_Press_male_v2_1.png",
+      "candidateSha256": "181f6f0fa46259d38e9e646e888d4160841e96ab407774873c544ab74c4bebc0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Barbell_Bench_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Barbell_Bench_Press_male_v2_2.png",
+      "sourceSha256": "9908c6c323f88941c23813d9061e932ad95ed0a751f5ada2212d7a67cb657d20",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/079/Decline_Barbell_Bench_Press_male_v2_2.png",
+      "candidateSha256": "60a8f813e7b9e849fc99d1171facc70d41871eb9ff02ae0d26f9f3974e5d0ccd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Barbell_Bench_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Barbell_Bench_Press_male_v2_3.png",
+      "sourceSha256": "2f1bdde3381fd6ccd48652ab4ecc249a17004f47eafe8fcd5311ddf64ea59ad0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/079/Decline_Barbell_Bench_Press_male_v2_3.png",
+      "candidateSha256": "ba1125881f74277141861185348c6c5ec8d81d2620a346e5edf0782a53b1bd9e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Barbell_Bench_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Barbell_Bench_Press_female_v2_0.png",
+      "sourceSha256": "8b1de1ae86cdea058be338c5c810bc5e0224a3b821b556819a002e7bfb588758",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/079/Decline_Barbell_Bench_Press_female_v2_0.png",
+      "candidateSha256": "9fc2938d9edc9a18ecc11acada33c966f40f8e5ac6e43b07a19490d848a3a8d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Barbell_Bench_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Barbell_Bench_Press_female_v2_1.png",
+      "sourceSha256": "d9c94add49971a754dc6f2f4884c12c7aee96ec0babdc493baf33eed378c4da2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/079/Decline_Barbell_Bench_Press_female_v2_1.png",
+      "candidateSha256": "d4e2ef4ece1f6469b4052a51ca00fae4a4e5b4ea1ce957c91bdbf231585eb8a9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Barbell_Bench_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Barbell_Bench_Press_female_v2_2.png",
+      "sourceSha256": "3fc228e1ff19d7fc9a8db810c3c51c274c7782288155633dd531d3da28a55e50",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/079/Decline_Barbell_Bench_Press_female_v2_2.png",
+      "candidateSha256": "50cb2b579c1497206c55122a98e3a1ba42e2e0ff2cd4f860f006f9187de5fb5c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Barbell_Bench_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Barbell_Bench_Press_female_v2_3.png",
+      "sourceSha256": "efa8eee9333f6967391fc68b692b513105671ea4b0e2aae47c9ac402279f49f6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/079/Decline_Barbell_Bench_Press_female_v2_3.png",
+      "candidateSha256": "e78b49645c3214262f385b5a1d6d20d28ef442bda669f4614059c1729cd12f2c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

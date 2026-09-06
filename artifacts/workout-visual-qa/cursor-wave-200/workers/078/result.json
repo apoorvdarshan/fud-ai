@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Deadlift_with_Chains",
+  "shard": 8,
+  "index": 78,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Deadlift_with_Chains_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Chains_male_v2_0.png",
+      "sourceSha256": "ee13536de3787be9b9479a0d376d92fdf98fdaf7ddb0150c3674473e59accd4c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/078/Deadlift_with_Chains_male_v2_0.png",
+      "candidateSha256": "1b95c2ded962c082050b72ecc55b2e93231b511e7cab5f14de9012c66fa5f4cd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Chains_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Chains_male_v2_1.png",
+      "sourceSha256": "25cf03c845ea19939dcfc1e2a0ba360d3cc3bbb1edac933f38567fe9eda42827",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/078/Deadlift_with_Chains_male_v2_1.png",
+      "candidateSha256": "fff92631ed7f46ccdf1707548948be1ece55be3c9881b8f8071021c7c64f032c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Chains_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Chains_male_v2_2.png",
+      "sourceSha256": "5cbeead6d0f857b299bd81d140afb888a0693033d471559e216946d0298b7d93",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/078/Deadlift_with_Chains_male_v2_2.png",
+      "candidateSha256": "5b4d31912d577bb246751b4ec9bd2a55079947b97fe5cfa6fd48ed204c0bb8c8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Chains_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Chains_male_v2_3.png",
+      "sourceSha256": "c1727841649f290cbc51b5380982e2f4c745fae69c9751c7622a75103af6d98f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/078/Deadlift_with_Chains_male_v2_3.png",
+      "candidateSha256": "4b3015c3a4ea6ccc52060dc8b9e796b1569f2a3a71a39e21e77f7f22f6497931",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Chains_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Chains_female_v2_0.png",
+      "sourceSha256": "1fd01ce318e6e479c701710e288cbcb456dcca054d70d3b02cb0e13fa715af95",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/078/Deadlift_with_Chains_female_v2_0.png",
+      "candidateSha256": "6c181897322d4f5d3f7c2ce58b8e99409ab6b68022d09f1980348c639b7a092b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Chains_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Chains_female_v2_1.png",
+      "sourceSha256": "dc8ce745144143c63073a2dee96ae7676fb002369a7322b73ff92d1cfeb3197f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/078/Deadlift_with_Chains_female_v2_1.png",
+      "candidateSha256": "ac12b07bcf199cee6f532a67f655bca4d1c600670d5cb6fe40d07b316abcc59b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Chains_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Chains_female_v2_2.png",
+      "sourceSha256": "d12a7201299f4fa650c64f00b03e6c0ed82be7365ec03bae96e5aadb10f8f60c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/078/Deadlift_with_Chains_female_v2_2.png",
+      "candidateSha256": "3dac7417a18ec3cd29ec186005f070ad580807203dff2a334f21fc43cd4a9ff0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Chains_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Chains_female_v2_3.png",
+      "sourceSha256": "a4584657e6d1ec113768c1a9e8681fe5ad632172259806e7b751c104f2b4e228",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/078/Deadlift_with_Chains_female_v2_3.png",
+      "candidateSha256": "01e128d1bb10506378abb2a4d06220e90c9eea13ed06b7165f801cfb896fe1c1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

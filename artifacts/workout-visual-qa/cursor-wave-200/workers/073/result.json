@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Conans_Wheel",
+  "shard": 8,
+  "index": 73,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Conans_Wheel_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Conans_Wheel_male_v2_0.png",
+      "sourceSha256": "95127243877705a42d9a91fd54cdb053a0cd2fe1b6ed73cb6ab2135564ed94e1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/073/Conans_Wheel_male_v2_0.png",
+      "candidateSha256": "c0005c000d95b1604c8272f072a5a2204994075889cc7d8428fcf6382e84bf67",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Conans_Wheel_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Conans_Wheel_male_v2_1.png",
+      "sourceSha256": "501cb0b0736c497741e59fc7355ec10fbb9155721780859f2733014f4c3405ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/073/Conans_Wheel_male_v2_1.png",
+      "candidateSha256": "15da80f0004f5126a80f2c94c12fdbb065f8e49bb06c8bf20f912f90f3d19a3d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Conans_Wheel_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Conans_Wheel_male_v2_2.png",
+      "sourceSha256": "7032f1250bc5540c34c5bb89821b3d680d8bb729c385bbe56d1e6db8f8b5d892",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/073/Conans_Wheel_male_v2_2.png",
+      "candidateSha256": "28c7ad9109c932ef0e01b0d8422b62e3af852f39a69bbbfdd62c545b78042683",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Conans_Wheel_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Conans_Wheel_male_v2_3.png",
+      "sourceSha256": "5ea2d59757a28e97c8f252e3cff222531350a3a6d31832511acd2c7af9d0346a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/073/Conans_Wheel_male_v2_3.png",
+      "candidateSha256": "e7ea3317bb93f65b5814872cd959a4d8db53583d90baf11fd2fa4f01179f5926",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Conans_Wheel_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Conans_Wheel_female_v2_0.png",
+      "sourceSha256": "e59f93191efa42411db2a98875a4fdf3f5c4016e09a2bfd6e94cf8a8c08ace56",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/073/Conans_Wheel_female_v2_0.png",
+      "candidateSha256": "b043234d6f8fabb0775a7d5c63e733722cff2cc17e1415fc3d3d790ede7a66e3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Conans_Wheel_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Conans_Wheel_female_v2_1.png",
+      "sourceSha256": "f0ba3f7c9d09bb0cabcd11429ac1162bfe36edc9f17c43e7ca002218be5c40b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/073/Conans_Wheel_female_v2_1.png",
+      "candidateSha256": "ec0a9134f8136f298ce7a620d5cbfb47e1fc29ca3c74e54077b34feb1816c539",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Conans_Wheel_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Conans_Wheel_female_v2_2.png",
+      "sourceSha256": "ba7bdf76b7ccc0bfe9e87a10db2dc771dd8d4a2783a611c520e5b1c7f5f3d2ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/073/Conans_Wheel_female_v2_2.png",
+      "candidateSha256": "51804ddd83fc07ecdbca31f2a83b6e9b710d28811eb353ea9092ab802f71039e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Conans_Wheel_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Conans_Wheel_female_v2_3.png",
+      "sourceSha256": "f80a21f6dceb0e1aa957191417a55fba8a8febed426aff354fc81a89e1f1e0a2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/073/Conans_Wheel_female_v2_3.png",
+      "candidateSha256": "b7340f39a70d9e908af05b7d5d7f179e787ecac7a7a59f00674ef37fea2f6232",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Dead_Bug",
+  "shard": 8,
+  "index": 76,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dead_Bug_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dead_Bug_male_v2_0.png",
+      "sourceSha256": "38a35207299490dff7e5b85597365f69a62fb20e67505e3488dab4dab096d400",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/076/Dead_Bug_male_v2_0.png",
+      "candidateSha256": "e5dd7199652074a187ab1f8a1bc04844bddfbd7cf2794e20d7933358189577c7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dead_Bug_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dead_Bug_male_v2_1.png",
+      "sourceSha256": "6090dc9130e64f2840bfcc9462b7f6fff7a1d2f3d3cd1d38efb71cfc703c4959",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/076/Dead_Bug_male_v2_1.png",
+      "candidateSha256": "099fe42c1b90848a94a33d4d1affa75a0271aea8323a3f12285ce747ecdc6c1d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dead_Bug_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dead_Bug_male_v2_2.png",
+      "sourceSha256": "929f5dc6c5c510ca90a7db9d2d793f26fa89b67db471c82e89594353fd511858",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/076/Dead_Bug_male_v2_2.png",
+      "candidateSha256": "04625ba969c37e70c93e31d9d6d3a0c0399ee418a7edf896a23e092ccdb3c812",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dead_Bug_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dead_Bug_male_v2_3.png",
+      "sourceSha256": "f91580120650c524855f956666ac97f24b3c10da078ed63259e8fc947eda4b78",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/076/Dead_Bug_male_v2_3.png",
+      "candidateSha256": "afaa9d0ec82248a77ba5cfe7eaef998ad68abda6d0485f1320280c57eae39bbc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dead_Bug_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dead_Bug_female_v2_0.png",
+      "sourceSha256": "269aa6856dde7dc601698f61d7fe6274a0465ddf5af27dc15e9f2e64290b902b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/076/Dead_Bug_female_v2_0.png",
+      "candidateSha256": "f48f80cca3d200402537b0615c4dc8a4a194173edecf797606d71b45d0ca8047",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dead_Bug_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dead_Bug_female_v2_1.png",
+      "sourceSha256": "1b13dd76093a5aa8d7ce88aca2a1a7f49cfc34a1cea757cb7f8252309e8d53db",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/076/Dead_Bug_female_v2_1.png",
+      "candidateSha256": "cdc408f4c65f72d6bab277b4bfbfdfd4fc78ad01c17dd6fe8485ce09e5b3e8a4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dead_Bug_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dead_Bug_female_v2_2.png",
+      "sourceSha256": "1ee75649528e04b8f2b9461b1e296d910484641e4138a4581190f06dc335fe9f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/076/Dead_Bug_female_v2_2.png",
+      "candidateSha256": "fc88ce89ee25b8766147d508594de01793da331d71be0ca5b4774f575846aa17",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dead_Bug_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dead_Bug_female_v2_3.png",
+      "sourceSha256": "a98a2e293fa104fb0f4ee5eeb7b03e3e4f89bf83c53b6c6d08023df5905a79e7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/076/Dead_Bug_female_v2_3.png",
+      "candidateSha256": "048573cc7816a00163143a0c490d0856ff4568ceafb76060c3fa33af627b0530",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

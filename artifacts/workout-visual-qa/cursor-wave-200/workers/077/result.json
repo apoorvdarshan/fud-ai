@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Deadlift_with_Bands",
+  "shard": 8,
+  "index": 77,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Deadlift_with_Bands_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Bands_male_v2_0.png",
+      "sourceSha256": "a2801c17704b1ad3cf1e31f8dfbd4ab950a12ba88dc07dc2d47cec42621ced06",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/077/Deadlift_with_Bands_male_v2_0.png",
+      "candidateSha256": "28c3857040cdec8599487ec60bcae6f51eb5a610365e710cd2999135343a9d81",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Bands_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Bands_male_v2_1.png",
+      "sourceSha256": "2fdf557658b23dfd96c0dfd7cd89689ffc5c5eaa563bcdda339c6d34cd3c07b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/077/Deadlift_with_Bands_male_v2_1.png",
+      "candidateSha256": "dc58599da3a124d3517ac1227d8af57eaea8e3a57a557ca163017b648df74e99",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Bands_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Bands_male_v2_2.png",
+      "sourceSha256": "cbe400737d3a14fef37cc8694438f01f1c89077d606658e85992aabd986f34d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/077/Deadlift_with_Bands_male_v2_2.png",
+      "candidateSha256": "ddba5d2a96a18de59acfb5fb3289abcb245166010f7b8b8eda02874e38ca6224",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Bands_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Bands_male_v2_3.png",
+      "sourceSha256": "c22d598d2e48615083540621a4a2186820dc9b738e42523bf2a91f5994a32b60",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/077/Deadlift_with_Bands_male_v2_3.png",
+      "candidateSha256": "a1ece05e1ff41f633116c3f3cc2fc3218612298b4b55e151835e72fcf40543ef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Bands_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Bands_female_v2_0.png",
+      "sourceSha256": "6d6011013cbfd20b419cd02a40ae2826569cdb5b3970ec112c7fa95915d06483",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/077/Deadlift_with_Bands_female_v2_0.png",
+      "candidateSha256": "7acf70f828af3771418e4ec45fbc2c9fa5ea6026a92d544f6d18290ebb0cd630",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Bands_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Bands_female_v2_1.png",
+      "sourceSha256": "9e3771ea6f00b499eeae89fef398f5340d59da8f1ba7306a3937d50e3211d6af",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/077/Deadlift_with_Bands_female_v2_1.png",
+      "candidateSha256": "78ed2cf165e24a824753462d9b98d6e760a91e1c6d5c494eb225a0ceb6740bb4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Bands_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Bands_female_v2_2.png",
+      "sourceSha256": "ba27e80f80d0d149148955f510eef46bdb1fb3548b03838890cf15cb21559f93",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/077/Deadlift_with_Bands_female_v2_2.png",
+      "candidateSha256": "ed72894c929b4a1cc49e7d05da06dd3c07947fa2806b852c6a202b63c2e1e80c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Deadlift_with_Bands_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Deadlift_with_Bands_female_v2_3.png",
+      "sourceSha256": "257e234d82fbc748ec6c9514249f6c22e6c7b1745a6b6170e1d97ed543f3ce97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/077/Deadlift_with_Bands_female_v2_3.png",
+      "candidateSha256": "ba7946e759334637b4a5805c1aff153e316f3632e8a5fad659cac6dbb6c84a08",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

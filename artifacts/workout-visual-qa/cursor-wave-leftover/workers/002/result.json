@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Barbell_Seated_Calf_Raise",
+  "shard": 1,
+  "index": 2,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Seated_Calf_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_male_v2_0.png",
+      "sourceSha256": "19eb997aa2705d308c0c7ef239def4f08bab3ffd548e46855716fbfb5b84fa8b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_male_v2_0.png",
+      "candidateSha256": "4081df4beb0af14beef63581789b8d988e4e6b0db2cadd41ade4a50dc92c8ec5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Seated_Calf_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_male_v2_1.png",
+      "sourceSha256": "df3f627c23dd92a2637b18401ccba5b49a10631cbff36d664897b52b8e9f2892",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_male_v2_1.png",
+      "candidateSha256": "28bc24de641de98e810d20606652fca44518a9c66ab47dab3e9027b0c4bf8d65",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Seated_Calf_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_male_v2_2.png",
+      "sourceSha256": "77f5c95474aa627ba4f5bfcfab24093b8841e82cba496e06d140ba031aa8943a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_male_v2_2.png",
+      "candidateSha256": "391c0ead6a7d41ddf176f6f12ca7342235182721898bb7cb53efac43c0008719",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Seated_Calf_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_male_v2_3.png",
+      "sourceSha256": "7a9d83350e7aa175d523a135644fa8505b2ab1251fe43631c8b9cb3afd49d210",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_male_v2_3.png",
+      "candidateSha256": "a2539bad8769a4fac886a24428b8c0a2bbc6d08554af33a8204e5f386f0ebd1c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Seated_Calf_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_female_v2_0.png",
+      "sourceSha256": "8d2a912400294aa055a183c7e76b2c746231be320e2a5869a6302fa52323b906",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_female_v2_0.png",
+      "candidateSha256": "a5a6a9e90cc7913a6629cbb14990563ec68e447cc715a623a9e4139317b7050e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Seated_Calf_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_female_v2_1.png",
+      "sourceSha256": "adc883028d35ba3e2e87fd0264cc16d2526c75bec8ee39c18aa2a785c56e2f5d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_female_v2_1.png",
+      "candidateSha256": "ac6edf7adbc3c13e213a3e911b14de65e8a724a1f29ce6bab3004708bfede90a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Seated_Calf_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_female_v2_2.png",
+      "sourceSha256": "8907b3f265d32ba9cbfc074c4c64e0a1ad03f2129e48b33982a4c274c0d4f993",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_female_v2_2.png",
+      "candidateSha256": "71ce91af59f00401a8b072ce3b89b89c8e740419c03ef7afdf9172153b9b670d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Seated_Calf_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Seated_Calf_Raise_female_v2_3.png",
+      "sourceSha256": "c422d5ed2430c3ced88088004a9854ccf983847c345416654f6af155a148d48b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/002/Barbell_Seated_Calf_Raise_female_v2_3.png",
+      "candidateSha256": "2a73f9d660fbaa23a3453df3c619e4f60b4f41df38ec5a618b9bf95d03fc330c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

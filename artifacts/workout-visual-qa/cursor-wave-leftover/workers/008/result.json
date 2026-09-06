@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Calf_Press_On_The_Leg_Press_Machine",
+  "shard": 1,
+  "index": 8,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Calf_Press_On_The_Leg_Press_Machine_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_male_v2_0.png",
+      "sourceSha256": "8f82a05a5d672a25184b5a7f3b8aac79a0607e981ec7cca32a4b8baaa0895e7a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_male_v2_0.png",
+      "candidateSha256": "fc5e97ce276407025675cbc365ca6074e34d13c91619622d36a7ec57db3683a0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Press_On_The_Leg_Press_Machine_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_male_v2_1.png",
+      "sourceSha256": "a906d99a8eff5e29da9e46dcb6810a9c7ec267e2097e483ea4aecde92596f5c3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_male_v2_1.png",
+      "candidateSha256": "e9574f71ba35f3dc0bc1ff6ad313c4d8af4908c0a7b72e733fccb0d5f5046436",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Press_On_The_Leg_Press_Machine_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_male_v2_2.png",
+      "sourceSha256": "b8eb429c17acb643a2f4f61ade5d7e60088866c8585f266bec5ffdc8ca0e616e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_male_v2_2.png",
+      "candidateSha256": "2e31f3bec05f3acbd286a9a7dfa970fa100384b684f75c98778bc35506ed83de",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Press_On_The_Leg_Press_Machine_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_male_v2_3.png",
+      "sourceSha256": "bb437c2943cad3a613e7cd72876386fcfa460dbe1883ef0aef7149c36381fba3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_male_v2_3.png",
+      "candidateSha256": "3236de26f3eb3505b211bd32567afbf4ca21a09c82c8c4afdde2d3ae3037bb16",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Press_On_The_Leg_Press_Machine_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_female_v2_0.png",
+      "sourceSha256": "3ec0ae65c0f5534ad288f8accee205d6abe640ccf6e9edfe5b105fee040fd9e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_female_v2_0.png",
+      "candidateSha256": "06b066e2862c0e9e276de82768c70b5e7a1aec8e014ca90b0afd0ff686dad67e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Press_On_The_Leg_Press_Machine_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_female_v2_1.png",
+      "sourceSha256": "64059cbc25fa4417bd1d1176531f8600ae2f02b1936c0283cc3f60f9574da416",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_female_v2_1.png",
+      "candidateSha256": "f349c846a6dcac1a155d8329618602cc814af2e5582570933cb924b783384dbe",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Press_On_The_Leg_Press_Machine_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_female_v2_2.png",
+      "sourceSha256": "9d902d1781e3f28c6a5c0fadd9d74e09c209339a431e87a853731c3d6f314fd6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_female_v2_2.png",
+      "candidateSha256": "3c3032430419f51351ccad00bad465ec2c3acce80c2244181e39e5fa4aa6532f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Press_On_The_Leg_Press_Machine_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Calf_Press_On_The_Leg_Press_Machine_female_v2_3.png",
+      "sourceSha256": "33240839b5afe786838d54e3b21ce79af3fe45b865a376e97cb957c1a93540d6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/008/Calf_Press_On_The_Leg_Press_Machine_female_v2_3.png",
+      "candidateSha256": "2665537de396d1b831b5b510902ee8f59b149d6e33e27e7ddd085424b29e90ba",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

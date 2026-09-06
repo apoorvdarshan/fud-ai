@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Clean_and_Jerk",
+  "shard": 1,
+  "index": 9,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Clean_and_Jerk_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_male_v2_0.png",
+      "sourceSha256": "0674acc0ab8b081a2756ce63153a05a30e79da94ba36e33c36071c2eada11a23",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_male_v2_0.png",
+      "candidateSha256": "5535ef93088bd48f0ec59bc5e9ab31cf39eed151b5e970c4a34ac8bd7b4f3a44",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_and_Jerk_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_male_v2_1.png",
+      "sourceSha256": "2d7ba8ddf56f3178ebdfb54268808e4db2de34c7c4a8f21df7dbb0489741498f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_male_v2_1.png",
+      "candidateSha256": "baa59adfe0c82fc68c95146fb3ce11ace53f9743db5fe8c956f7f97ccc8415c4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_and_Jerk_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_male_v2_2.png",
+      "sourceSha256": "46773bbf09d8d63fe24c07cead5e30a4f5933d46518b28d916fdb0f5988f4198",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_male_v2_2.png",
+      "candidateSha256": "ee39d10c0937fd20762ea1856f9503e0188ca8b470d4e08b452f5bb81bd3fec9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_and_Jerk_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_male_v2_3.png",
+      "sourceSha256": "464049d5053b7ffe89545ea5963dfc0ee3aefe83b986ced2d6bde81525efcecb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_male_v2_3.png",
+      "candidateSha256": "e2f824d1e266d16903045a55c08b26ad397a8748636524fbc9ca82ddf9bb0633",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_and_Jerk_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_female_v2_0.png",
+      "sourceSha256": "21047f104e17b6ac3ef5f986608771b273e504b824078bdb01a6c35832eb8c07",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_female_v2_0.png",
+      "candidateSha256": "9b6a5fc3d0a5eb50919eac9e0622acf332f68d11859a5255c3a7b841d06305bf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_and_Jerk_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_female_v2_1.png",
+      "sourceSha256": "37abcbca2e52bdf219a638565f16dbcbea8ac135fea82efff78f6ec902ecf4be",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_female_v2_1.png",
+      "candidateSha256": "b5a52f81a5f7d30ecf8545c627fde2f6a75625a87fcc00f3b4d12f9d51aaf35b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_and_Jerk_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_female_v2_2.png",
+      "sourceSha256": "46aa4b7dbd3b9a6a235b271e034955d75e00b7e46af3d13195cc9a54d20de883",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_female_v2_2.png",
+      "candidateSha256": "0b1d89cb16804e6d3050da071c95da99c6dbef95ca18678a95add436748d8999",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_and_Jerk_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_and_Jerk_female_v2_3.png",
+      "sourceSha256": "be02bc72e59087a530843c24789e701fc61f0bb251157274573ddfe69028a36c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/009/Clean_and_Jerk_female_v2_3.png",
+      "candidateSha256": "21f6739fa28bf9e3066d6493a3985d7b582661a56dda0ce892c5c109d91d0cff",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

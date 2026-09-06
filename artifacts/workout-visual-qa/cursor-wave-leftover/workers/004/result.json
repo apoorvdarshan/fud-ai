@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Barbell_Walking_Lunge",
+  "shard": 1,
+  "index": 4,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Walking_Lunge_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_male_v2_0.png",
+      "sourceSha256": "8ef1c9da5f86e7a85aa4b2c527c49311bf4764d3ce338ee248605f294e261cb1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_male_v2_0.png",
+      "candidateSha256": "89766e91872ad3bc4e1a2bde8054715a3e35baee8c7036da917d1ba1fdbf561f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Walking_Lunge_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_male_v2_1.png",
+      "sourceSha256": "b0a010f8402a3a534eadd1fa36700ca1c035585ce3b8c2592f9ed07c8f1407a7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_male_v2_1.png",
+      "candidateSha256": "f8202b0bbb63a8c823ee58110af8386dc3bd25d6499c9c708c85672bd214e09f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Walking_Lunge_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_male_v2_2.png",
+      "sourceSha256": "7aa51ddc7293a9f17f157c109508ddd571d29c45582753aeafc6cf47b82d61a3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_male_v2_2.png",
+      "candidateSha256": "5fb10f9ffe51864a1f1e683371e5bb5902202e56d3b960b4bd3f4b9a84603214",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Walking_Lunge_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_male_v2_3.png",
+      "sourceSha256": "da2ae88be3e87fa3914e4c1f5eacf214195fe96c522c8a0f1d21ad643074b339",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_male_v2_3.png",
+      "candidateSha256": "d3209af37f2e8eb5dc4a400ad10976ffddd87d5237a383c7456ecd974345574e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Walking_Lunge_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_female_v2_0.png",
+      "sourceSha256": "ebbc8175ca5aab8eb72689ceb90a11d58971a510361b17d45add98f9667bed7c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_female_v2_0.png",
+      "candidateSha256": "92e76a476714a5c267dbfd129c2382aefe4468774d60ec71832725c2c1a0bd4f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Walking_Lunge_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_female_v2_1.png",
+      "sourceSha256": "8fcb070027e78f354d4ea220e533c8952c9b9728a16467f8eb27ef0932d8d190",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_female_v2_1.png",
+      "candidateSha256": "2b1d5f666aa847de120d7316bb927cba15868aefb1af9856851baf70a6f48c78",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Walking_Lunge_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_female_v2_2.png",
+      "sourceSha256": "8e0daf573e79abd65754412ec1170c54822a673869f287c7d4cc25131ce8e6fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_female_v2_2.png",
+      "candidateSha256": "53b96f5999a86d477c9d8453360a30d58bb556841a8b794ceebb0104ed992378",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Walking_Lunge_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Walking_Lunge_female_v2_3.png",
+      "sourceSha256": "8528ccf51e24da7dbd50a69733dfbad58bca00e4a2cd17757e76eb733da5dea3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/004/Barbell_Walking_Lunge_female_v2_3.png",
+      "candidateSha256": "83c6e08d9f91b233eae3da79eadd12201c45ccfe13bddbe11faa954057ef840e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

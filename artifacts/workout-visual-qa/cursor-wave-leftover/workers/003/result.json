@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Barbell_Side_Bend",
+  "shard": 1,
+  "index": 3,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Side_Bend_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_male_v2_0.png",
+      "sourceSha256": "5db03368c66094f82da042fd1fc10d394f4944c376e2c5d5bc0e1f16a8e9abed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_male_v2_0.png",
+      "candidateSha256": "dd2c25a617b30cbb64df321f473ba4d8d9c3f686f6bad8b8c02cf0be7190f8ba",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Side_Bend_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_male_v2_1.png",
+      "sourceSha256": "9bd32496f3735dea41a7a6c4f358a2502a6e1382a138da6445eab9b3ffd58b2f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_male_v2_1.png",
+      "candidateSha256": "327709f0a8060e61fda80d1466dc5ca11dc4718a63879f139c1b823fd1d04872",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Side_Bend_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_male_v2_2.png",
+      "sourceSha256": "eb4c3297933a789a647288eba5a2e6b9bc779e8e95118ad87ff0605c3d79fc2b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_male_v2_2.png",
+      "candidateSha256": "775b25d57ae7d31c948d447ffc38f90141a0fc072ce16d5c6902eb1e95daede1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Side_Bend_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_male_v2_3.png",
+      "sourceSha256": "e0b7893dc54cf850c844ad40527538cc28963d44dae3af03db8e5a4f96295c67",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_male_v2_3.png",
+      "candidateSha256": "f45e6270e6c6ac35ba4a43b20da6e9b362b60ec9a35c8808e6da5b1720836f0c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Side_Bend_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_female_v2_0.png",
+      "sourceSha256": "d13b51437649551175d8b122d28df34e7d5fbf14d68d3849d493ccad0c2eb494",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_female_v2_0.png",
+      "candidateSha256": "396fef0577bdaa384e42ceef3b098f5096bf300f7052c4de088672a21ec7e66b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Side_Bend_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_female_v2_1.png",
+      "sourceSha256": "90367c9ca43764cf193da8233ebf04812ddbc7f58b2827803fb6ef9a8b8ff290",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_female_v2_1.png",
+      "candidateSha256": "d520a774058aae7f5a8237065d5b363a16cb60e0afa06a372fd0394bc06a735f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Side_Bend_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_female_v2_2.png",
+      "sourceSha256": "4a283b8816a3f6192d211eb2db89c67355fa166f99cec5bd1655e4c62514a303",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_female_v2_2.png",
+      "candidateSha256": "3ee3244411dd5e33b689ed6f0d5066c5abf706446e13230d85895bd2fe5734a6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Side_Bend_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Side_Bend_female_v2_3.png",
+      "sourceSha256": "521a6e446ff529e386556acfa66a05f2ad9a6f6e60e9eb5dd3a42be4816766a9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/003/Barbell_Side_Bend_female_v2_3.png",
+      "candidateSha256": "b1b951a59aecb54dbba4f9d48d057a17ff0c71a247ab7acc4bc8844713c3b79b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

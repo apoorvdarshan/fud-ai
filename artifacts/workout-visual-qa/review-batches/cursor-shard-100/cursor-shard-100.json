@@ -1,0 +1,1711 @@
+{
+  "batchName": "cursor-shard-100",
+  "description": "Next 100 unapproved exercises after done30/next-10. cloud-100 indices 41-100 plus the following 40 library IDs. Script-only shards; no Cloud Agents.",
+  "exerciseCount": 100,
+  "generatedAt": "2026-09-06T21:10:42.226525+00:00",
+  "excludedReviewedCount": 55,
+  "workspaceRoot": "/workspace",
+  "sourceRoot": "/workspace/shared/workout-vectors",
+  "exercises": [
+    {
+      "index": 1,
+      "exerciseId": "Arm_Circles",
+      "severity": "clean",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Arm_Circles_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 2,
+      "exerciseId": "Axle_Deadlift",
+      "severity": "clean",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Axle_Deadlift_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 3,
+      "exerciseId": "Bench_Press_-_With_Bands",
+      "severity": "clean",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 4,
+      "exerciseId": "Cable_Incline_Triceps_Extension",
+      "severity": "clean",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 5,
+      "exerciseId": "Front_Raise_And_Pullover",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 6,
+      "exerciseId": "Front_Squat_Clean_Grip",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 7,
+      "exerciseId": "Front_Squats_With_Two_Kettlebells",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 8,
+      "exerciseId": "Front_Two-Dumbbell_Raise",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 9,
+      "exerciseId": "Full_Range-Of-Motion_Lat_Pulldown",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 10,
+      "exerciseId": "Gironda_Sternum_Chins",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 11,
+      "exerciseId": "Glute_Ham_Raise",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 12,
+      "exerciseId": "Glute_Kickback",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Glute_Kickback_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 13,
+      "exerciseId": "Goblet_Squat",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Goblet_Squat_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Goblet_Squat_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Goblet_Squat_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Goblet_Squat_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Goblet_Squat_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Goblet_Squat_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Goblet_Squat_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Goblet_Squat_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 14,
+      "exerciseId": "Good_Morning",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Good_Morning_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Good_Morning_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Good_Morning_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Good_Morning_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Good_Morning_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Good_Morning_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Good_Morning_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Good_Morning_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 15,
+      "exerciseId": "Good_Morning_off_Pins",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Good_Morning_off_Pins_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Good_Morning_off_Pins_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Good_Morning_off_Pins_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Good_Morning_off_Pins_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Good_Morning_off_Pins_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Good_Morning_off_Pins_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Good_Morning_off_Pins_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Good_Morning_off_Pins_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 16,
+      "exerciseId": "Gorilla_Chin_Crunch",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 17,
+      "exerciseId": "Groin_and_Back_Stretch",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 18,
+      "exerciseId": "Groiners",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Groiners_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Groiners_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Groiners_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Groiners_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Groiners_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Groiners_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Groiners_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Groiners_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 19,
+      "exerciseId": "Hack_Squat",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hack_Squat_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hack_Squat_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hack_Squat_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hack_Squat_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hack_Squat_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hack_Squat_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hack_Squat_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hack_Squat_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 20,
+      "exerciseId": "Hammer_Curls",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hammer_Curls_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hammer_Curls_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hammer_Curls_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hammer_Curls_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hammer_Curls_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hammer_Curls_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hammer_Curls_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hammer_Curls_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 21,
+      "exerciseId": "Hammer_Grip_Incline_DB_Bench_Press",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 22,
+      "exerciseId": "Hamstring_Stretch",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hamstring_Stretch_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hamstring_Stretch_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hamstring_Stretch_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hamstring_Stretch_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hamstring_Stretch_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hamstring_Stretch_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hamstring_Stretch_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hamstring_Stretch_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 23,
+      "exerciseId": "Hamstring-SMR",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hamstring-SMR_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hamstring-SMR_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hamstring-SMR_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hamstring-SMR_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hamstring-SMR_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hamstring-SMR_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hamstring-SMR_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hamstring-SMR_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 24,
+      "exerciseId": "Handstand_Push-Ups",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Handstand_Push-Ups_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Handstand_Push-Ups_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Handstand_Push-Ups_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Handstand_Push-Ups_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Handstand_Push-Ups_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Handstand_Push-Ups_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Handstand_Push-Ups_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Handstand_Push-Ups_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 25,
+      "exerciseId": "Hang_Clean",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hang_Clean_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 26,
+      "exerciseId": "Hang_Clean_-_Below_the_Knees",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hang_Clean_-_Below_the_Knees_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_-_Below_the_Knees_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_-_Below_the_Knees_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_-_Below_the_Knees_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_-_Below_the_Knees_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_-_Below_the_Knees_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_-_Below_the_Knees_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hang_Clean_-_Below_the_Knees_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 27,
+      "exerciseId": "Hang_Snatch",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hang_Snatch_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 28,
+      "exerciseId": "Hang_Snatch_-_Below_Knees",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 29,
+      "exerciseId": "Hanging_Bar_Good_Morning",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 30,
+      "exerciseId": "Hanging_Leg_Raise",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hanging_Leg_Raise_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hanging_Leg_Raise_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hanging_Leg_Raise_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hanging_Leg_Raise_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hanging_Leg_Raise_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hanging_Leg_Raise_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hanging_Leg_Raise_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hanging_Leg_Raise_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 31,
+      "exerciseId": "Hanging_Pike",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hanging_Pike_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hanging_Pike_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hanging_Pike_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hanging_Pike_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hanging_Pike_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hanging_Pike_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hanging_Pike_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hanging_Pike_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 32,
+      "exerciseId": "Heaving_Snatch_Balance",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Heaving_Snatch_Balance_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Heaving_Snatch_Balance_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Heaving_Snatch_Balance_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Heaving_Snatch_Balance_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Heaving_Snatch_Balance_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Heaving_Snatch_Balance_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Heaving_Snatch_Balance_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Heaving_Snatch_Balance_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 33,
+      "exerciseId": "Heavy_Bag_Thrust",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Heavy_Bag_Thrust_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 34,
+      "exerciseId": "High_Cable_Curls",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/High_Cable_Curls_male_v2_0.png",
+        "/workspace/shared/workout-vectors/High_Cable_Curls_male_v2_1.png",
+        "/workspace/shared/workout-vectors/High_Cable_Curls_male_v2_2.png",
+        "/workspace/shared/workout-vectors/High_Cable_Curls_male_v2_3.png",
+        "/workspace/shared/workout-vectors/High_Cable_Curls_female_v2_0.png",
+        "/workspace/shared/workout-vectors/High_Cable_Curls_female_v2_1.png",
+        "/workspace/shared/workout-vectors/High_Cable_Curls_female_v2_2.png",
+        "/workspace/shared/workout-vectors/High_Cable_Curls_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 35,
+      "exerciseId": "Hip_Circles_prone",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hip_Circles_prone_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hip_Circles_prone_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hip_Circles_prone_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hip_Circles_prone_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hip_Circles_prone_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hip_Circles_prone_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hip_Circles_prone_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hip_Circles_prone_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 36,
+      "exerciseId": "Hip_Extension_with_Bands",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 37,
+      "exerciseId": "Hip_Flexion_with_Band",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hip_Flexion_with_Band_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hip_Flexion_with_Band_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hip_Flexion_with_Band_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hip_Flexion_with_Band_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hip_Flexion_with_Band_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hip_Flexion_with_Band_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hip_Flexion_with_Band_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hip_Flexion_with_Band_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 38,
+      "exerciseId": "Hip_Lift_with_Band",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hip_Lift_with_Band_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hip_Lift_with_Band_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hip_Lift_with_Band_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hip_Lift_with_Band_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hip_Lift_with_Band_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hip_Lift_with_Band_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hip_Lift_with_Band_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hip_Lift_with_Band_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 39,
+      "exerciseId": "Hug_A_Ball",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hug_A_Ball_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hug_A_Ball_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hug_A_Ball_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hug_A_Ball_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hug_A_Ball_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hug_A_Ball_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hug_A_Ball_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hug_A_Ball_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 40,
+      "exerciseId": "Hug_Knees_To_Chest",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hug_Knees_To_Chest_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hug_Knees_To_Chest_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hug_Knees_To_Chest_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hug_Knees_To_Chest_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hug_Knees_To_Chest_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hug_Knees_To_Chest_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hug_Knees_To_Chest_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hug_Knees_To_Chest_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 41,
+      "exerciseId": "Hurdle_Hops",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hurdle_Hops_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hurdle_Hops_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hurdle_Hops_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hurdle_Hops_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hurdle_Hops_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hurdle_Hops_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hurdle_Hops_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hurdle_Hops_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 42,
+      "exerciseId": "Hyperextensions_Back_Extensions",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_Back_Extensions_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 43,
+      "exerciseId": "Hyperextensions_With_No_Hyperextension_Bench",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Hyperextensions_With_No_Hyperextension_Bench_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_With_No_Hyperextension_Bench_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_With_No_Hyperextension_Bench_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_With_No_Hyperextension_Bench_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_With_No_Hyperextension_Bench_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_With_No_Hyperextension_Bench_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_With_No_Hyperextension_Bench_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Hyperextensions_With_No_Hyperextension_Bench_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 44,
+      "exerciseId": "Iliotibial_Tract-SMR",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Iliotibial_Tract-SMR_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Iliotibial_Tract-SMR_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Iliotibial_Tract-SMR_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Iliotibial_Tract-SMR_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Iliotibial_Tract-SMR_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Iliotibial_Tract-SMR_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Iliotibial_Tract-SMR_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Iliotibial_Tract-SMR_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 45,
+      "exerciseId": "Inchworm",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Inchworm_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Inchworm_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Inchworm_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Inchworm_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Inchworm_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Inchworm_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Inchworm_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Inchworm_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 46,
+      "exerciseId": "Incline_Barbell_Triceps_Extension",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Barbell_Triceps_Extension_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 47,
+      "exerciseId": "Incline_Bench_Pull",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Bench_Pull_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Bench_Pull_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Bench_Pull_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Bench_Pull_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Bench_Pull_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Bench_Pull_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Bench_Pull_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Bench_Pull_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 48,
+      "exerciseId": "Incline_Cable_Chest_Press",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 49,
+      "exerciseId": "Incline_Cable_Flye",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Cable_Flye_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Flye_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Flye_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Flye_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Flye_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Flye_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Flye_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Cable_Flye_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 50,
+      "exerciseId": "Incline_Dumbbell_Bench_With_Palms_Facing_In",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Bench_With_Palms_Facing_In_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Bench_With_Palms_Facing_In_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 51,
+      "exerciseId": "Incline_Dumbbell_Curl",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Curl_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Curl_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Curl_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Curl_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Curl_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Curl_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Curl_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Curl_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 52,
+      "exerciseId": "Incline_Dumbbell_Flyes",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 53,
+      "exerciseId": "Incline_Dumbbell_Flyes_-_With_A_Twist",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_-_With_A_Twist_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_-_With_A_Twist_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_-_With_A_Twist_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_-_With_A_Twist_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_-_With_A_Twist_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_-_With_A_Twist_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_-_With_A_Twist_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Flyes_-_With_A_Twist_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 54,
+      "exerciseId": "Incline_Dumbbell_Press",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 55,
+      "exerciseId": "Incline_Hammer_Curls",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Hammer_Curls_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Hammer_Curls_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Hammer_Curls_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Hammer_Curls_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Hammer_Curls_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Hammer_Curls_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Hammer_Curls_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Hammer_Curls_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 56,
+      "exerciseId": "Incline_Inner_Biceps_Curl",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Inner_Biceps_Curl_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Inner_Biceps_Curl_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Inner_Biceps_Curl_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Inner_Biceps_Curl_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Inner_Biceps_Curl_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Inner_Biceps_Curl_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Inner_Biceps_Curl_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Inner_Biceps_Curl_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 57,
+      "exerciseId": "Incline_Push-Up",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Push-Up_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 58,
+      "exerciseId": "Incline_Push-Up_Close-Grip",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Close-Grip_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Close-Grip_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Close-Grip_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Close-Grip_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Close-Grip_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Close-Grip_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Close-Grip_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Close-Grip_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 59,
+      "exerciseId": "Incline_Push-Up_Depth_Jump",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 60,
+      "exerciseId": "Incline_Push-Up_Medium",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Medium_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Medium_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Medium_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Medium_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Medium_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Medium_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Medium_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Medium_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 61,
+      "exerciseId": "Incline_Push-Up_Reverse_Grip",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Reverse_Grip_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 62,
+      "exerciseId": "Incline_Push-Up_Wide",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Incline_Push-Up_Wide_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 63,
+      "exerciseId": "Intermediate_Groin_Stretch",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 64,
+      "exerciseId": "Intermediate_Hip_Flexor_and_Quad_Stretch",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Intermediate_Hip_Flexor_and_Quad_Stretch_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Intermediate_Hip_Flexor_and_Quad_Stretch_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Intermediate_Hip_Flexor_and_Quad_Stretch_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Intermediate_Hip_Flexor_and_Quad_Stretch_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Intermediate_Hip_Flexor_and_Quad_Stretch_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Intermediate_Hip_Flexor_and_Quad_Stretch_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Intermediate_Hip_Flexor_and_Quad_Stretch_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Intermediate_Hip_Flexor_and_Quad_Stretch_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 65,
+      "exerciseId": "Internal_Rotation_with_Band",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Internal_Rotation_with_Band_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Internal_Rotation_with_Band_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Internal_Rotation_with_Band_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Internal_Rotation_with_Band_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Internal_Rotation_with_Band_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Internal_Rotation_with_Band_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Internal_Rotation_with_Band_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Internal_Rotation_with_Band_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 66,
+      "exerciseId": "Inverted_Row",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Inverted_Row_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 67,
+      "exerciseId": "Inverted_Row_with_Straps",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 68,
+      "exerciseId": "Iron_Cross",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Iron_Cross_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Iron_Cross_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Iron_Cross_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Iron_Cross_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Iron_Cross_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Iron_Cross_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Iron_Cross_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Iron_Cross_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 69,
+      "exerciseId": "Iron_Crosses_stretch",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Iron_Crosses_stretch_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Iron_Crosses_stretch_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Iron_Crosses_stretch_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Iron_Crosses_stretch_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Iron_Crosses_stretch_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Iron_Crosses_stretch_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Iron_Crosses_stretch_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Iron_Crosses_stretch_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 70,
+      "exerciseId": "Isometric_Chest_Squeezes",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 71,
+      "exerciseId": "Isometric_Neck_Exercise_-_Front_And_Back",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 72,
+      "exerciseId": "Isometric_Neck_Exercise_-_Sides",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Sides_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Sides_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Sides_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Sides_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Sides_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Sides_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Sides_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Sides_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 73,
+      "exerciseId": "Isometric_Wipers",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Isometric_Wipers_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Isometric_Wipers_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Isometric_Wipers_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Isometric_Wipers_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Isometric_Wipers_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Isometric_Wipers_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Isometric_Wipers_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Isometric_Wipers_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 74,
+      "exerciseId": "IT_Band_and_Glute_Stretch",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/IT_Band_and_Glute_Stretch_male_v2_0.png",
+        "/workspace/shared/workout-vectors/IT_Band_and_Glute_Stretch_male_v2_1.png",
+        "/workspace/shared/workout-vectors/IT_Band_and_Glute_Stretch_male_v2_2.png",
+        "/workspace/shared/workout-vectors/IT_Band_and_Glute_Stretch_male_v2_3.png",
+        "/workspace/shared/workout-vectors/IT_Band_and_Glute_Stretch_female_v2_0.png",
+        "/workspace/shared/workout-vectors/IT_Band_and_Glute_Stretch_female_v2_1.png",
+        "/workspace/shared/workout-vectors/IT_Band_and_Glute_Stretch_female_v2_2.png",
+        "/workspace/shared/workout-vectors/IT_Band_and_Glute_Stretch_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 75,
+      "exerciseId": "Jackknife_Sit-Up",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Jackknife_Sit-Up_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Jackknife_Sit-Up_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Jackknife_Sit-Up_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Jackknife_Sit-Up_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Jackknife_Sit-Up_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Jackknife_Sit-Up_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Jackknife_Sit-Up_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Jackknife_Sit-Up_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 76,
+      "exerciseId": "Janda_Sit-Up",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Janda_Sit-Up_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Janda_Sit-Up_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Janda_Sit-Up_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Janda_Sit-Up_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Janda_Sit-Up_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Janda_Sit-Up_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Janda_Sit-Up_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Janda_Sit-Up_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 77,
+      "exerciseId": "Jefferson_Squats",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Jefferson_Squats_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Jefferson_Squats_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Jefferson_Squats_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Jefferson_Squats_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Jefferson_Squats_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Jefferson_Squats_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Jefferson_Squats_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Jefferson_Squats_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 78,
+      "exerciseId": "Jerk_Balance",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Jerk_Balance_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Jerk_Balance_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Jerk_Balance_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Jerk_Balance_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Jerk_Balance_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Jerk_Balance_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Jerk_Balance_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Jerk_Balance_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 79,
+      "exerciseId": "Jerk_Dip_Squat",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Jerk_Dip_Squat_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Jerk_Dip_Squat_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Jerk_Dip_Squat_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Jerk_Dip_Squat_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Jerk_Dip_Squat_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Jerk_Dip_Squat_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Jerk_Dip_Squat_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Jerk_Dip_Squat_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 80,
+      "exerciseId": "JM_Press",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/JM_Press_male_v2_0.png",
+        "/workspace/shared/workout-vectors/JM_Press_male_v2_1.png",
+        "/workspace/shared/workout-vectors/JM_Press_male_v2_2.png",
+        "/workspace/shared/workout-vectors/JM_Press_male_v2_3.png",
+        "/workspace/shared/workout-vectors/JM_Press_female_v2_0.png",
+        "/workspace/shared/workout-vectors/JM_Press_female_v2_1.png",
+        "/workspace/shared/workout-vectors/JM_Press_female_v2_2.png",
+        "/workspace/shared/workout-vectors/JM_Press_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 81,
+      "exerciseId": "Jogging_Treadmill",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Jogging_Treadmill_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Jogging_Treadmill_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Jogging_Treadmill_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Jogging_Treadmill_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Jogging_Treadmill_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Jogging_Treadmill_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Jogging_Treadmill_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Jogging_Treadmill_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 82,
+      "exerciseId": "Kettlebell_Arnold_Press",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 83,
+      "exerciseId": "Kettlebell_Dead_Clean",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 84,
+      "exerciseId": "Kettlebell_Figure_8",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kettlebell_Figure_8_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Figure_8_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Figure_8_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Figure_8_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Figure_8_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Figure_8_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Figure_8_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Figure_8_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 85,
+      "exerciseId": "Kettlebell_Hang_Clean",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kettlebell_Hang_Clean_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Hang_Clean_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Hang_Clean_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Hang_Clean_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Hang_Clean_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Hang_Clean_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Hang_Clean_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Hang_Clean_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 86,
+      "exerciseId": "Kettlebell_One-Legged_Deadlift",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 87,
+      "exerciseId": "Kettlebell_Pass_Between_The_Legs",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pass_Between_The_Legs_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 88,
+      "exerciseId": "Kettlebell_Pirate_Ships",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 89,
+      "exerciseId": "Kettlebell_Pistol_Squat",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Pistol_Squat_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 90,
+      "exerciseId": "Kettlebell_Seated_Press",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kettlebell_Seated_Press_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seated_Press_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seated_Press_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seated_Press_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seated_Press_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seated_Press_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seated_Press_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seated_Press_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 91,
+      "exerciseId": "Kettlebell_Seesaw_Press",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 92,
+      "exerciseId": "Kettlebell_Sumo_High_Pull",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 93,
+      "exerciseId": "Kettlebell_Thruster",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kettlebell_Thruster_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Thruster_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Thruster_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Thruster_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Thruster_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Thruster_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Thruster_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Thruster_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 94,
+      "exerciseId": "Kettlebell_Windmill",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kettlebell_Windmill_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Windmill_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Windmill_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Windmill_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Windmill_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Windmill_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Windmill_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kettlebell_Windmill_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 95,
+      "exerciseId": "Knee_Across_The_Body",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Knee_Across_The_Body_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Knee_Across_The_Body_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Knee_Across_The_Body_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Knee_Across_The_Body_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Knee_Across_The_Body_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Knee_Across_The_Body_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Knee_Across_The_Body_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Knee_Across_The_Body_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 96,
+      "exerciseId": "Knee_Circles",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Knee_Circles_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Knee_Circles_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Knee_Circles_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Knee_Circles_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Knee_Circles_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Knee_Circles_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Knee_Circles_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Knee_Circles_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 97,
+      "exerciseId": "Knee_Hip_Raise_On_Parallel_Bars",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 98,
+      "exerciseId": "Knee_Tuck_Jump",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Knee_Tuck_Jump_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Knee_Tuck_Jump_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Knee_Tuck_Jump_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Knee_Tuck_Jump_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Knee_Tuck_Jump_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Knee_Tuck_Jump_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Knee_Tuck_Jump_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Knee_Tuck_Jump_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 99,
+      "exerciseId": "Kneeling_Arm_Drill",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 100,
+      "exerciseId": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_3.png"
+      ]
+    }
+  ]
+}

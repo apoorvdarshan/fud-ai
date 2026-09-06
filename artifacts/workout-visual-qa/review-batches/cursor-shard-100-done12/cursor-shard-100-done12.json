@@ -1,0 +1,214 @@
+{
+  "batchName": "cursor-shard-100-done12",
+  "description": "First 12 completed cursor-shard-100 exercises (stopped early). Review locally.",
+  "exerciseCount": 12,
+  "generatedAt": "2026-09-06T21:27:26.428244+00:00",
+  "workspaceRoot": "/workspace",
+  "sourceRoot": "/workspace/shared/workout-vectors",
+  "exercises": [
+    {
+      "index": 1,
+      "exerciseId": "Arm_Circles",
+      "severity": "clean",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Arm_Circles_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Arm_Circles_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 2,
+      "exerciseId": "Axle_Deadlift",
+      "severity": "clean",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Axle_Deadlift_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Axle_Deadlift_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 3,
+      "exerciseId": "Bench_Press_-_With_Bands",
+      "severity": "clean",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Bench_Press_-_With_Bands_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 4,
+      "exerciseId": "Cable_Incline_Triceps_Extension",
+      "severity": "clean",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Cable_Incline_Triceps_Extension_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 5,
+      "exerciseId": "Front_Raise_And_Pullover",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Raise_And_Pullover_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 6,
+      "exerciseId": "Front_Squat_Clean_Grip",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Squat_Clean_Grip_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 7,
+      "exerciseId": "Front_Squats_With_Two_Kettlebells",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Squats_With_Two_Kettlebells_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 8,
+      "exerciseId": "Front_Two-Dumbbell_Raise",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Front_Two-Dumbbell_Raise_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 9,
+      "exerciseId": "Full_Range-Of-Motion_Lat_Pulldown",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Full_Range-Of-Motion_Lat_Pulldown_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 10,
+      "exerciseId": "Gironda_Sternum_Chins",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Gironda_Sternum_Chins_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 11,
+      "exerciseId": "Glute_Ham_Raise",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Glute_Ham_Raise_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 12,
+      "exerciseId": "Glute_Kickback",
+      "severity": "pending",
+      "findings": [],
+      "suggestedRoute": "script_fix",
+      "sourceFramePaths": [
+        "/workspace/shared/workout-vectors/Glute_Kickback_male_v2_0.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_male_v2_1.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_male_v2_2.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_male_v2_3.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_female_v2_0.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_female_v2_1.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_female_v2_2.png",
+        "/workspace/shared/workout-vectors/Glute_Kickback_female_v2_3.png"
+      ]
+    }
+  ]
+}

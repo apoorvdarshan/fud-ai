@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Snatch_Shrug",
+  "shard": 27,
+  "index": 269,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Snatch_Shrug_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Shrug_male_v2_0.png",
+      "sourceSha256": "9af4ae3b569a8ecec1c75d993c71a7c4c738c63f3f8d1df23a1cf601a146c783",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/269/Snatch_Shrug_male_v2_0.png",
+      "candidateSha256": "44533cd15069da66054b75e58f8abaabfffd677fc2bf80c6afd42cafdffac310",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Shrug_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Shrug_male_v2_1.png",
+      "sourceSha256": "acd8bb535b3bfd492b5dd2fdc1436ddd5680f1b75708a73700b8bde4885144b2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/269/Snatch_Shrug_male_v2_1.png",
+      "candidateSha256": "86c54e59816ea6b6c8ef594df69df75923d8ccf0783edbcc191b4ba3aee0f8e5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Shrug_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Shrug_male_v2_2.png",
+      "sourceSha256": "e79229cc268fc8f77cd0509af0f8460e0033f019af0f0325dfd59adeab974aa0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/269/Snatch_Shrug_male_v2_2.png",
+      "candidateSha256": "0616666148a9ab83e6408f5dde75a5f2a8cc999371662237f3d55f3d6d503d6a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Shrug_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Shrug_male_v2_3.png",
+      "sourceSha256": "78062eef24f6ca46f5a8f1f37b95315b2dbd1d647c96def5a4b17366b0df39cf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/269/Snatch_Shrug_male_v2_3.png",
+      "candidateSha256": "35eb5dc7362e26d4dd33a87f0279ea4d517e9942e79e3f39e5a0698db436ded6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Shrug_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Shrug_female_v2_0.png",
+      "sourceSha256": "aa36c5a8e3a11123108f1c3e116619e31f85e1f34cb1b78733413ff616ea3740",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/269/Snatch_Shrug_female_v2_0.png",
+      "candidateSha256": "35a77b4e3aba28cc19785d2b879e2113a3de2e7d8c02ee18c739b51af042872f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Shrug_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Shrug_female_v2_1.png",
+      "sourceSha256": "37d104081ff40b14c77edebe3b4647f4ce27179061bcca154a049dcd74b5a08c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/269/Snatch_Shrug_female_v2_1.png",
+      "candidateSha256": "8c822ebd68be124d8181ee13741433d689ed98503e7a8b4367f91114fe76e049",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Shrug_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Shrug_female_v2_2.png",
+      "sourceSha256": "f5112c4e2309a14e5ab5fae6643f2daac35e21e5ffa9e76500c1f06d679e3ac4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/269/Snatch_Shrug_female_v2_2.png",
+      "candidateSha256": "9ded7d0ecc425a27d6aa38ff408c1c5ad5dcae8c72f463822abce3837cb10138",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Shrug_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Shrug_female_v2_3.png",
+      "sourceSha256": "8045d909222eb59055dca1e289c3960f09dce8dfdc43541d90e4d0dfb480fc5e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/269/Snatch_Shrug_female_v2_3.png",
+      "candidateSha256": "42de062e1366bd2fe55fdb723bdc2e64a83746dc23a8685bfdf7a4d727b839ba",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

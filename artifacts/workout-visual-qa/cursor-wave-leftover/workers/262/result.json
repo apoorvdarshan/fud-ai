@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Smith_Machine_Stiff-Legged_Deadlift",
+  "shard": 27,
+  "index": 262,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Smith_Machine_Stiff-Legged_Deadlift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Stiff-Legged_Deadlift_male_v2_0.png",
+      "sourceSha256": "ca941deba4aa384ec58506b9c83e9859821eadf0216181551f8cd66f5eae6bf7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/262/Smith_Machine_Stiff-Legged_Deadlift_male_v2_0.png",
+      "candidateSha256": "6e8c783a603db839152f37d21153464adb05a86b77a0200fa913763cf9512045",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Stiff-Legged_Deadlift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Stiff-Legged_Deadlift_male_v2_1.png",
+      "sourceSha256": "8e5c2c52cdecf0f4f662f5e6f47728c785a8ae3b48db869c932f55fdb613c0d2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/262/Smith_Machine_Stiff-Legged_Deadlift_male_v2_1.png",
+      "candidateSha256": "74aaf17af5817681cb7d018bc2732756c35d2931fb476e57c128dfb9a9bb6a26",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Stiff-Legged_Deadlift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Stiff-Legged_Deadlift_male_v2_2.png",
+      "sourceSha256": "f5e857db3ddf331a47de3850b7c0d8bf3456ed43e1c36912bcefba99bf0e2199",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/262/Smith_Machine_Stiff-Legged_Deadlift_male_v2_2.png",
+      "candidateSha256": "6282754841bcac9b63c34980cf8a0070c605363cce8aae9bacf46379b9f4aa9a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Stiff-Legged_Deadlift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Stiff-Legged_Deadlift_male_v2_3.png",
+      "sourceSha256": "c9848df2581f1381fb7bb0f5945fe6f4ed12435e58af27ce080edd51a7ca261a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/262/Smith_Machine_Stiff-Legged_Deadlift_male_v2_3.png",
+      "candidateSha256": "083cdb65633e1d302cedc6fca63d1c43789f3287fb6bac2185223349f305d19e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Stiff-Legged_Deadlift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Stiff-Legged_Deadlift_female_v2_0.png",
+      "sourceSha256": "4c8cb56cc711b545d4b44200da8d63544d955ae390b4b8c87a3a52f692ccd2cf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/262/Smith_Machine_Stiff-Legged_Deadlift_female_v2_0.png",
+      "candidateSha256": "4f9e4d1aec33b227e531fd40ec215a37b891c99aecb9bc6ff99f7eb350ede0cd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Stiff-Legged_Deadlift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Stiff-Legged_Deadlift_female_v2_1.png",
+      "sourceSha256": "c0a6f6e0e3128df5e4b8c5bd38e9c08614c8c1f3c996d6a79c74482a77fc3f95",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/262/Smith_Machine_Stiff-Legged_Deadlift_female_v2_1.png",
+      "candidateSha256": "b21b829047d94ab20c02be79f2e64615652fc351d4526fb948d60332869de1b5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Stiff-Legged_Deadlift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Stiff-Legged_Deadlift_female_v2_2.png",
+      "sourceSha256": "dd894f2325f1825d021c77b68fce037fe9a4b71890883ef3791f446511aa4db7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/262/Smith_Machine_Stiff-Legged_Deadlift_female_v2_2.png",
+      "candidateSha256": "7b51a23b8c9c40dd985c90886ccbfbb4760a8fc1692082808d394d0674a1c128",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Stiff-Legged_Deadlift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Stiff-Legged_Deadlift_female_v2_3.png",
+      "sourceSha256": "7a7c251cf5baf354ea4392075ccbfce8b8b232bdbafc5711c69b633acde8dcab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/262/Smith_Machine_Stiff-Legged_Deadlift_female_v2_3.png",
+      "candidateSha256": "16f161815c754dc1d0a857cd342e7409a3ac767cf585da9c1a2ba67116fbfafc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

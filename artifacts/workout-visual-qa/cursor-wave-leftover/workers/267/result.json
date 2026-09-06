@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Snatch_Deadlift",
+  "shard": 27,
+  "index": 267,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Snatch_Deadlift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Deadlift_male_v2_0.png",
+      "sourceSha256": "80b74bfeefe44cfbdef3072366c4e6c36660f4cb4b5614c860e742d6c371b1c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/267/Snatch_Deadlift_male_v2_0.png",
+      "candidateSha256": "3a3ffbdffe148d77da0c15e112ed61f75e209d69ea262babb2479ce0e8929ade",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Deadlift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Deadlift_male_v2_1.png",
+      "sourceSha256": "bb9f31a223ddc50b723ae040e53a572cb2f5c02b15b03e02bc33fa3b1f99420c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/267/Snatch_Deadlift_male_v2_1.png",
+      "candidateSha256": "ac547071e95f29f25ce56c2d4cfacc80322c1109b219a97aa168fd6e24a31d17",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Deadlift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Deadlift_male_v2_2.png",
+      "sourceSha256": "c77c9fa744123674d7635776a4a17db2c8444a64b51147f3506b87c473823a7c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/267/Snatch_Deadlift_male_v2_2.png",
+      "candidateSha256": "08d14feba543d3220d83db930bbd58d6c3bae2ae7d164af6a7355517c74d0816",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Deadlift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Deadlift_male_v2_3.png",
+      "sourceSha256": "70ee32d34fca3a6107024839d12441891817f00700348835127fabc4a6b65a0b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/267/Snatch_Deadlift_male_v2_3.png",
+      "candidateSha256": "07d74681b6b777c7e06a22054231255c8acf75f9a522f9f2b5b15a3d6c26a102",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Deadlift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Deadlift_female_v2_0.png",
+      "sourceSha256": "992671b967fc21ab2c3eade7955d26a5eff3563c652222a9564521ed0419d1a7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/267/Snatch_Deadlift_female_v2_0.png",
+      "candidateSha256": "f8eb45fe51702069489f22e0c12c74d7deff0826675911b847a5f3cac2cee0f6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Deadlift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Deadlift_female_v2_1.png",
+      "sourceSha256": "43021beea6f53e14594600f663382cac3c14968f0b75e6d720a639f1191c3871",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/267/Snatch_Deadlift_female_v2_1.png",
+      "candidateSha256": "02f1d248959cbfc788664574be006b58ee56ff46fd94269c5eca4da36b7dc7f3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Deadlift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Deadlift_female_v2_2.png",
+      "sourceSha256": "378d13827fecff247957c7745d624619722235df6e81aac284510811b9d758c5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/267/Snatch_Deadlift_female_v2_2.png",
+      "candidateSha256": "bc7aed7db655bc5670f638faf80e8f269bd2f279808b7ac98485f841c1873caa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Snatch_Deadlift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Snatch_Deadlift_female_v2_3.png",
+      "sourceSha256": "d36b66f0f21d75a85a001dd8c958ef0e0ce70e97427e877152a7875b20a89ced",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/267/Snatch_Deadlift_female_v2_3.png",
+      "candidateSha256": "795ac4a1d3d42f7c25f152eb85a4a2b3575a29b5a7759e69df2604375981b1bf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

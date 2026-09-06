@@ -1,0 +1,83 @@
+{
+  "exerciseId": "One_Half_Locust",
+  "shard": 7,
+  "index": 63,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One_Half_Locust_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Half_Locust_male_v2_0.png",
+      "sourceSha256": "dcdb64fc7eb2d25c06f7b0367fa5ec7bf9b36f91c41ed23047f0f8ccef4548d3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/063/One_Half_Locust_male_v2_0.png",
+      "candidateSha256": "363cc7d30aa38c292ad2c00113e625748e869bd802182ca81ac503246dc5752e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Half_Locust_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Half_Locust_male_v2_1.png",
+      "sourceSha256": "7d08fa6705c2eaf29b50a3194aded1f6e80dea5da402584633c5c76cd0b8a2a9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/063/One_Half_Locust_male_v2_1.png",
+      "candidateSha256": "124b82e722daa7f2ed74f12022f0387c5e7045d5fa58820ace68d03a564d9378",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Half_Locust_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Half_Locust_male_v2_2.png",
+      "sourceSha256": "23541571ac12cbf175f042258a955577e669c9d70281471ee4002ef546339d0e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/063/One_Half_Locust_male_v2_2.png",
+      "candidateSha256": "8501a56ae3eeffdd08836c16546c627eb835da678ae57be6314790a9b0a44b5f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Half_Locust_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Half_Locust_male_v2_3.png",
+      "sourceSha256": "d370ff21acca4dcb3f79c6d389417228caefd34263e11ed162926e5301154f32",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/063/One_Half_Locust_male_v2_3.png",
+      "candidateSha256": "6f28397466ebd5d4f5885c15034d08ffbd00eb31e8ebb9762016de3e2f47d4a1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Half_Locust_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Half_Locust_female_v2_0.png",
+      "sourceSha256": "97d3124ad1983ce7d837f8d614dd8d76686908038c83fde29d821de722292bbe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/063/One_Half_Locust_female_v2_0.png",
+      "candidateSha256": "d513879f457d05235f39195ba27bb207a91f35ebfdcb2d44250c4f4bdcb3c243",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Half_Locust_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Half_Locust_female_v2_1.png",
+      "sourceSha256": "c31901b3bf130e10572880bb3323bd386fd4d040c02d981f60fe38a9bc3affc3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/063/One_Half_Locust_female_v2_1.png",
+      "candidateSha256": "5d7f8a6d7fbf77eff8ceac8947dc3cf175db58619eea6394a582a8196fd15358",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Half_Locust_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Half_Locust_female_v2_2.png",
+      "sourceSha256": "1dae00d9da747d634e47d8dff0a41e658f2ce7e78832f36244a0d938e8faad85",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/063/One_Half_Locust_female_v2_2.png",
+      "candidateSha256": "b7af1d914c84786294339a35a1fd8e3135466ed4e7e833714bbff90055397d1f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Half_Locust_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Half_Locust_female_v2_3.png",
+      "sourceSha256": "12706cfc8317bd253af6e73a0655cb0df62ff3f77864480b1197b07d354cf1f5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/063/One_Half_Locust_female_v2_3.png",
+      "candidateSha256": "d46861619d4da122c8b9754f11c409c54cb2985752698397e432e63509ab7ad2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

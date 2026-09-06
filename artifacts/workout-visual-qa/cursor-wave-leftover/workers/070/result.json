@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Overhead_Lat",
+  "shard": 7,
+  "index": 70,
+  "status": "ready_for_review",
+  "findings": [
+    "Gray floor oval shadows and pale fringe; GenerateImage surgical edit on all 8 frames"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Overhead_Lat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Lat_male_v2_0.png",
+      "sourceSha256": "6b2cfcdc646510647e93464807c973585cafc641d8ff1e40ca290ac0f19062a2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/070/Overhead_Lat_male_v2_0.png",
+      "candidateSha256": "9026911598c857bba37a7ecd9cbaa1043d679157327f12060f796271dbc7c99b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Lat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Lat_male_v2_1.png",
+      "sourceSha256": "c1fcad77ab53c2779478756fff107a1138e4f1f190e1967c4161c07b5708b7e7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/070/Overhead_Lat_male_v2_1.png",
+      "candidateSha256": "6e1a124b904331485ad91e70de90cb7b39360dd4224da4ddbd632e5d75230b04",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Lat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Lat_male_v2_2.png",
+      "sourceSha256": "877ae071684e99d94a3825a58fdd117588790a5544f86c4483c4e7f7f358a53a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/070/Overhead_Lat_male_v2_2.png",
+      "candidateSha256": "eba7bf87e754714092b9f14857351428d9e63d9916ed8bd901f1732cd733c40a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Lat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Lat_male_v2_3.png",
+      "sourceSha256": "e12a951a815dab4c002078c0fd0133510d3f190d6e047a415da52cbba5e1743a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/070/Overhead_Lat_male_v2_3.png",
+      "candidateSha256": "f3836eec895d22491d2917e8f7880c169783c5b309d6d22da0006691f77dc2f6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Lat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Lat_female_v2_0.png",
+      "sourceSha256": "9a830e7540129399545a30f450e4cd47984e82d4ffd988ed682c8eb7a09affcc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/070/Overhead_Lat_female_v2_0.png",
+      "candidateSha256": "c528150b3e172516dc69e9eb96574298d5cb2bf13a6f76990fce6dece4be9d77",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Lat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Lat_female_v2_1.png",
+      "sourceSha256": "c8ad1858cab6dba90e5ca51fd06d03378edf8491db4a8bf2b9facd669f208b86",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/070/Overhead_Lat_female_v2_1.png",
+      "candidateSha256": "69dbdbd7645a96a590b0967f610c2dae1d40b14acb9f1acd8bfd8a7562455ef0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Lat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Lat_female_v2_2.png",
+      "sourceSha256": "6c7242123569fa5228c698a503b27ee06067298d7ed784e35a9318645c302688",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/070/Overhead_Lat_female_v2_2.png",
+      "candidateSha256": "fc1b7889d04896feef59d1514914afc26402f01f0d30865050bd58b25dafab57",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Lat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Lat_female_v2_3.png",
+      "sourceSha256": "1923cc425c6477bf482b033b945cf9f3d63bc8caa76a50aada7384bf77a6bbb9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/070/Overhead_Lat_female_v2_3.png",
+      "candidateSha256": "00d78cae4cb79b6f3ddcf8f303c3bfdf800ef544b797d815f138709ed9a0875d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

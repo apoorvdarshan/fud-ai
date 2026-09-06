@@ -1,0 +1,83 @@
+{
+  "exerciseId": "One_Arm_Pronated_Dumbbell_Triceps_Extension",
+  "shard": 7,
+  "index": 61,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One_Arm_Pronated_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Pronated_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "sourceSha256": "3e35068f7b1aa293bef1c367e36d227ca4c9b72d7db430c7dcc69dd2f4ee10ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/061/One_Arm_Pronated_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "candidateSha256": "471ff8ef87356b5088ee4a38ce1579f4f64c281281adf9668fa76452c8599226",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Pronated_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Pronated_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "sourceSha256": "f39c2789ddff38e36df974a2345973af8695e58df5bf6aa686d72df7410ce3d6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/061/One_Arm_Pronated_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "candidateSha256": "c833e1c963e3a3d3ef6050fbfed76367f106269052fc36b1aedb9d5251200de2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Pronated_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Pronated_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "sourceSha256": "37d9021f892bda0cc2f19cd406c0e171e336eaed7bd04000adc0b511ceb6e81b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/061/One_Arm_Pronated_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "candidateSha256": "18bfb373937f333b6d72b65cf72f21876108acd30ef6f803d092f1e30c348aaf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Pronated_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Pronated_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "sourceSha256": "c94d6db28368cd715341c622f9837e1b0bea49d6283bfdd2a1bb0a54e0615b0b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/061/One_Arm_Pronated_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "candidateSha256": "124eb75c99343036c4e6e7ea13c8b6280893b0a11c1bf09302bdd6ac2ed6c1c2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Pronated_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Pronated_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "sourceSha256": "cd5bd95eb420f28dd46f0c96e9e47bf88c19b70592fc7801b1a020eb929412b7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/061/One_Arm_Pronated_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "candidateSha256": "b9a885e5cc50e960122449802dd69f00d6024daf57cecf9948ce193ed8767cbc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Pronated_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Pronated_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "sourceSha256": "cfd3645525e7b307f8d3f179a5ce229481dfcd2865e637c3a7b52746f6e089a2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/061/One_Arm_Pronated_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "candidateSha256": "07439f37e9b9195b0cb35b0283fb7a3f599c96cad158792c7fd10e1945ae047b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Pronated_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Pronated_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "sourceSha256": "2b1d8a0229b28d2f1815250f87b1bfe7c7a7b30cde13f7425e27239ef98293e1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/061/One_Arm_Pronated_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "candidateSha256": "1a298cc78c3171dfd7d890d67cf4c7aee69c509537d58127622ad2fafa930e08",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Pronated_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Pronated_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "sourceSha256": "7a052664b21d6c57453de1e7f7abb96d91120268b84db105da78e0e5b0491299",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/061/One_Arm_Pronated_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "candidateSha256": "d29b72ccc6473a8964db1779edfb8c258440aced912a3c0f38678566ee5394c4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

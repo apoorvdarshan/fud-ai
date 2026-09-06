@@ -1,0 +1,83 @@
+{
+  "exerciseId": "One_Arm_Supinated_Dumbbell_Triceps_Extension",
+  "shard": 7,
+  "index": 62,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One_Arm_Supinated_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Supinated_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "sourceSha256": "383e0cef7eb836a62c11588ba567cd6fa1432f52297b91ad6fc0cc61e07c6c2a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/062/One_Arm_Supinated_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "candidateSha256": "a20deedf528ba880fe4389b20d1c2a9404a119d2f3a6508270486e6653fb18d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Supinated_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Supinated_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "sourceSha256": "fc8f236d164d2d6d396c5be91a1e5b46d74b89351878614e9dd9f7c3f8140207",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/062/One_Arm_Supinated_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "candidateSha256": "1e8fc63c6abddb0b44843207d185eb91436c7c8d7a90dd933eb323cc9951d6ed",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Supinated_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Supinated_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "sourceSha256": "27af96ee9127ec5b0d463a2550a9774b9442903a08db43673d1f9cab8d88a83a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/062/One_Arm_Supinated_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "candidateSha256": "4b80869420a537a1079cd94e6f27f377af8cc8d0dd480881976b93fb906f6a2b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Supinated_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Supinated_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "sourceSha256": "4879c15b4119c31d9d980cdf1b0537346fa8912be589467111f1dae0de759cfd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/062/One_Arm_Supinated_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "candidateSha256": "d7c465fab42fba8d1ba1a6365f1c0fc228d323e58eea23b47d3aef877f22d466",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Supinated_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Supinated_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "sourceSha256": "c5800c5509f3986d2b0f71cb931c300e4ca92ab4106d87a024ee364b596ea4fb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/062/One_Arm_Supinated_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "candidateSha256": "e1969b991a454a0e44c0575a2a955ab5d6b6ddabf0fdd8dcc02adc679838adeb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Supinated_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Supinated_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "sourceSha256": "b42450b74976fd9aa981e730b97794cce61fca5ee2268fd1bc2aa991ec5d2e55",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/062/One_Arm_Supinated_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "candidateSha256": "9316a878d4aded106b92b5eec7f4a89687d6366e97e75cf21416dec7e511182f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Supinated_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Supinated_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "sourceSha256": "b09fa900bf5d8780aadee801cc6c9e5ae0a4b8b8f67c7ac18c94641949d48817",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/062/One_Arm_Supinated_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "candidateSha256": "08fc5355310a2e7e5389db3739c87326910c5ae99d4ce54a1d4c13abd0235d9b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Supinated_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Supinated_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "sourceSha256": "e5051c5c33b78b2ba46db899203030f66f2850a028704a0f82ba1b8da00829d8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/062/One_Arm_Supinated_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "candidateSha256": "b6c456ccbdf68570f03d3ba8d526ce214184018bd9bd86f3de4b0a8ed5d8b0bf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

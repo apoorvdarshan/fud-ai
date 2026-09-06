@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Open_Palm_Kettlebell_Clean",
+  "shard": 7,
+  "index": 67,
+  "status": "ready_for_review",
+  "findings": [
+    "Checkerboard remnants on male_v2_0; GenerateImage surgical edit accepted"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Open_Palm_Kettlebell_Clean_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Open_Palm_Kettlebell_Clean_male_v2_0.png",
+      "sourceSha256": "af3769c34e3dba9f6c3d0ee08660a614d9a2bb27b5a5d4e96dbf01264197bb03",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/067/Open_Palm_Kettlebell_Clean_male_v2_0.png",
+      "candidateSha256": "237a4d7e5599a9214f074fc9a47f24d2984d08b0c865a2b04b6bf2f1d092a5b6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Open_Palm_Kettlebell_Clean_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Open_Palm_Kettlebell_Clean_male_v2_1.png",
+      "sourceSha256": "8e2268bc4dd406dec98fa0180e7bfc0e444294be61e17e5232f511e302305017",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/067/Open_Palm_Kettlebell_Clean_male_v2_1.png",
+      "candidateSha256": "15bc3be3b376ccd7b327f093f133f709c37e0534fd4c9a938340e9ee7c438f20",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Open_Palm_Kettlebell_Clean_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Open_Palm_Kettlebell_Clean_male_v2_2.png",
+      "sourceSha256": "74ea2efc3e7b2796efb87fb45ae819eac686cc43eeec5ac7163bc16ee95ccd52",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/067/Open_Palm_Kettlebell_Clean_male_v2_2.png",
+      "candidateSha256": "a82793518178af4a983433787192ea2e8b547d481ddb9dad36b4788cd97a94bb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Open_Palm_Kettlebell_Clean_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Open_Palm_Kettlebell_Clean_male_v2_3.png",
+      "sourceSha256": "aecd4e6ad4aa3e6f90e6131abc4c67efb1b22e0b896808ed66fa789ea800c6db",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/067/Open_Palm_Kettlebell_Clean_male_v2_3.png",
+      "candidateSha256": "ddd774386b4dd18ed51a6a1ac72e3dfce76f0c0dc48aab0272a36bc4b0b37ca2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Open_Palm_Kettlebell_Clean_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Open_Palm_Kettlebell_Clean_female_v2_0.png",
+      "sourceSha256": "e9ead4b290527d526f6dc05d83dff74229f5f57b731d4578de3c8a68c5f34b1c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/067/Open_Palm_Kettlebell_Clean_female_v2_0.png",
+      "candidateSha256": "5c64d7977fa13f9f22ac52a2f70c1cfc9cb9950f602615012bc8794e509bfe52",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Open_Palm_Kettlebell_Clean_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Open_Palm_Kettlebell_Clean_female_v2_1.png",
+      "sourceSha256": "9215248745a3fe0dce1b8f511f7fba9a32414e6a0917fdffb85d9fdbfd32e596",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/067/Open_Palm_Kettlebell_Clean_female_v2_1.png",
+      "candidateSha256": "61c7d569c35507784079765e44aabbe64256272c95511f7a23a11b2c1ebb9481",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Open_Palm_Kettlebell_Clean_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Open_Palm_Kettlebell_Clean_female_v2_2.png",
+      "sourceSha256": "2e0047db64e7818ff39eca8afffebc955e1f4c37454f771120a195f531d696d6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/067/Open_Palm_Kettlebell_Clean_female_v2_2.png",
+      "candidateSha256": "804b8a8a8e5267918ab05dbcc7c723f900cb51dd5049f19f4bd02a86da8e305e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Open_Palm_Kettlebell_Clean_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Open_Palm_Kettlebell_Clean_female_v2_3.png",
+      "sourceSha256": "70c0eec14fc5130e2134040447889eeb6d005e67355b4f8ce56b44f9bda44cc6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/067/Open_Palm_Kettlebell_Clean_female_v2_3.png",
+      "candidateSha256": "80de3baf8e5eb71dbc6d32d6699da4475870d915669aedfc8af29680526d42eb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

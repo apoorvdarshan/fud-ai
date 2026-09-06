@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Overhead_Cable_Curl",
+  "shard": 7,
+  "index": 69,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Overhead_Cable_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Cable_Curl_male_v2_0.png",
+      "sourceSha256": "459bb9fd670078e960bb77d17893ef76b88c9b46c171999aca06ae00f56a5659",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/069/Overhead_Cable_Curl_male_v2_0.png",
+      "candidateSha256": "97169ac65ecf2aa79ef796925465ac58e5fc41a630a7ea9dac4d055de9316aaf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Cable_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Cable_Curl_male_v2_1.png",
+      "sourceSha256": "8a1a45bcce34beed7a3fc8744ede3a56f911e0deb89a3af92cbcc7a1a0b2f032",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/069/Overhead_Cable_Curl_male_v2_1.png",
+      "candidateSha256": "7a40f1f4f2d4b6f700a504c8c32a75fd14bf0dbcaecf20746d5cdc639cd60299",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Cable_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Cable_Curl_male_v2_2.png",
+      "sourceSha256": "4650767cbc42eed5ded6741c057e6e3ee91f6b0cefe26012c0baab92b8343c6d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/069/Overhead_Cable_Curl_male_v2_2.png",
+      "candidateSha256": "10077717132d93b1bd0d8093240f8c9568a5fd3e7b54e84013565f2969af5c1b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Cable_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Cable_Curl_male_v2_3.png",
+      "sourceSha256": "bb6db539e8744c2886bb422a65f40e6221e6d6db4cf6989379086e1baa6426e0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/069/Overhead_Cable_Curl_male_v2_3.png",
+      "candidateSha256": "d982eca0545f24ed6e3ef631e78418b9314c23a4cf62e64e461302c7928d8416",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Cable_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Cable_Curl_female_v2_0.png",
+      "sourceSha256": "f01e876e0a48fb48830719d9ed69e896ff1811118b4296a78388ea58a25eda98",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/069/Overhead_Cable_Curl_female_v2_0.png",
+      "candidateSha256": "3cb558e74cd53555e875af6138212959471ed7f76d0dad3545188644b7fc845e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Cable_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Cable_Curl_female_v2_1.png",
+      "sourceSha256": "3a2a4df862bb57d12c5e22ca50488873c8963279c89d475b6eaacc58c22172e7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/069/Overhead_Cable_Curl_female_v2_1.png",
+      "candidateSha256": "400288052acb3927cb1ba90e4cb5958a49c17642294b1b97243e0df3083a83fe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Cable_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Cable_Curl_female_v2_2.png",
+      "sourceSha256": "a04b556fbcae4b727e0e8b4148ef556c6ffc59970cfc50ac975a7e2321f05c20",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/069/Overhead_Cable_Curl_female_v2_2.png",
+      "candidateSha256": "effe2c4f7e21d1d6d778f68d6c853a182b5f47f00796eaae316a841d27d654d2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Cable_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Cable_Curl_female_v2_3.png",
+      "sourceSha256": "7c0e844ee906dfba3f822494ef140e39bd4e17a0a36f8cddf8f7bfd00f34f371",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/069/Overhead_Cable_Curl_female_v2_3.png",
+      "candidateSha256": "9597db39e5539c1b1d4f85de69045fe79d932230319fcd1c16b914ed809227cb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

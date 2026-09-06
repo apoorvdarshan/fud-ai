@@ -1,0 +1,83 @@
+{
+  "exerciseId": "One_Handed_Hang",
+  "shard": 7,
+  "index": 64,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One_Handed_Hang_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Handed_Hang_male_v2_0.png",
+      "sourceSha256": "022b6903c6db6bbd875747c67653f843127da8d0d30a0b837d546c13ae2e4410",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/064/One_Handed_Hang_male_v2_0.png",
+      "candidateSha256": "a58b3ad937622b721e1c8d1c32f742241b6620e31df7eacee8d87f148ac7d077",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Handed_Hang_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Handed_Hang_male_v2_1.png",
+      "sourceSha256": "d96da147e940d85b097bc1390957df19064cdc1811818feb21f83c510d35ac67",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/064/One_Handed_Hang_male_v2_1.png",
+      "candidateSha256": "d6f65f94505ccbf268d7fce6a775f73e2dd513365103e7be19e498b3204f8471",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Handed_Hang_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Handed_Hang_male_v2_2.png",
+      "sourceSha256": "d4b2f192cb6c54c0f9d9cd8898f650faed16d39685c0af63e0700aec3f736e74",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/064/One_Handed_Hang_male_v2_2.png",
+      "candidateSha256": "657d62a4f82fb4c9b1bf4ee051f54f4114d3a72f3c81ba5674e026e3959ba7d7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Handed_Hang_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Handed_Hang_male_v2_3.png",
+      "sourceSha256": "c9c32958ffbed49ad3bb7a9cae0cad02596a2a3c61fa740e6e8ae8fb919b497d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/064/One_Handed_Hang_male_v2_3.png",
+      "candidateSha256": "b94d8fcd7c4413e7f93f27651c0863ea6c2ca661ce23bec012e324f48c5ff0ca",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Handed_Hang_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Handed_Hang_female_v2_0.png",
+      "sourceSha256": "40550bd93f0fae065bd5f401077ecea227423ed89e6c5f995b7db9f75f3d337d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/064/One_Handed_Hang_female_v2_0.png",
+      "candidateSha256": "ac0dc38bcfae0db97c94995b299f023cdeb01844bdb4ce76040ac69d6876a030",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Handed_Hang_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Handed_Hang_female_v2_1.png",
+      "sourceSha256": "e14d15ccba2d71917ca52de9003f2d7c267dc10ec1330ad10e5b32d0a6a4f3b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/064/One_Handed_Hang_female_v2_1.png",
+      "candidateSha256": "5ee949a2a90173cdce8178318d848b7f25deb7a0fbb47fb5aabf6a7e4746e830",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Handed_Hang_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Handed_Hang_female_v2_2.png",
+      "sourceSha256": "92973b3f228e1db92ecc750c968339ef50a53a6d6411fc5ab0933f50d4194012",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/064/One_Handed_Hang_female_v2_2.png",
+      "candidateSha256": "3c0828a45c4923d3fe8e83b710d2c488489875e736800a06df54be0d4b388dcb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Handed_Hang_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Handed_Hang_female_v2_3.png",
+      "sourceSha256": "14def325e68eea73b924ce3bd96b5abe521b27c94f25bfbb79e14111a4b4d913",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/064/One_Handed_Hang_female_v2_3.png",
+      "candidateSha256": "0f70906c9bdcc163ba9f236ebb75a703b41b1f932a881cd2c8406ec4d90e47ae",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

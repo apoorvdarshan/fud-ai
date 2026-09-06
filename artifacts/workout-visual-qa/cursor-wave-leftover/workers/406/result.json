@@ -1,0 +1,93 @@
+{
+  "exerciseId": "Wide-Grip_Decline_Barbell_Pullover",
+  "shard": 41,
+  "index": 406,
+  "status": "ready_for_review",
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Pullover_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_male_v2_0.png",
+      "sourceSha256": "698fc3ea57f762e868110a9917b88d9d4606bebd429a4d97a0e73536f9ae7b47",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_male_v2_0.png",
+      "candidateSha256": "07d04fa8a4715d8bdd4edef3968943e0eff6c6bcf812d835e5948cfac118aeff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Pullover_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_male_v2_1.png",
+      "sourceSha256": "0bc186830b443081ca4ae7dc33206813563c10cce33c6bec658b3a5daf86fe06",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_male_v2_1.png",
+      "candidateSha256": "1d0fbbd03231123920e5bc4ae7f1d3251f00797493fd0e38e19463a0b3ccc552",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Pullover_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_male_v2_2.png",
+      "sourceSha256": "a4e9eded08dc359f80d07d340c0e834b0bd69a7b26e1e00be8023a19fb58d916",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_male_v2_2.png",
+      "candidateSha256": "aef8eef08237fb5924e09cd89ed59f508f23221497f57f074c4edd09606fbcb4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Pullover_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_male_v2_3.png",
+      "sourceSha256": "2d12b16e703372816f0d6c3a808d33fa7fdb1f6dbd1b6e500feb9d6fcd62c037",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_male_v2_3.png",
+      "candidateSha256": "d855e998962c2fea13802ce2665c57ba1f6c2ace9e8f33a39f6bf612bb0bec61",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Pullover_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_female_v2_0.png",
+      "sourceSha256": "a763ca9fa2faa9117fbcb6a8188b5a24674125a6d9d6ea0d3c9f1419221adb02",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_female_v2_0.png",
+      "candidateSha256": "8361787a7e1791606186ee9daae5cc63dfefb43764d56e8200afb54d3e868bfa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Pullover_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_female_v2_1.png",
+      "sourceSha256": "c9da45095c927d3f3a4aa05e5a35ca112f32d2eebde33e93a6e83e89f46149a3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_female_v2_1.png",
+      "candidateSha256": "8d9d49296da53e38755dac0e3395afaee5a146d3532cfef21ae06a0900677e1d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Pullover_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_female_v2_2.png",
+      "sourceSha256": "d9081fb0031a3f49bdaab5f47da8b8a55e49fc8dde59fa2bc90da4f0b4fdc024",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_female_v2_2.png",
+      "candidateSha256": "855348876944478cbb78a3518818af6546c8080006c58a8cbf6156de0b519fc9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Pullover_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_female_v2_3.png",
+      "sourceSha256": "edde261796e5006cba920152bd9d6dc8d956a16c44c50fe14197c7bcd7ec5c38",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_female_v2_3.png",
+      "candidateSha256": "182acff05a53c0d92a40eeaf4a25077e38000abae3222798bc7df70b138dc01a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -1,0 +1,93 @@
+{
+  "exerciseId": "Weighted_Sissy_Squat",
+  "shard": 41,
+  "index": 401,
+  "status": "ready_for_review",
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Weighted_Sissy_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_male_v2_0.png",
+      "sourceSha256": "e4479eb4db87b78c2dd75a604779fbdfa3ffb02efe49c234d46c4cec2ab34f5b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_male_v2_0.png",
+      "candidateSha256": "628e3471a63667cfc7aeca363af56315eec6f3158a50918cf3755b73a94a574f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sissy_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_male_v2_1.png",
+      "sourceSha256": "39cbd4942ea03fb51ab7c0621c7df5632a00265e512f1b70c40423d2c952fd42",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_male_v2_1.png",
+      "candidateSha256": "a2c72d478edcc67ece592407a7ae3de304e908a1e5e376cb44b2e1eb75e02d19",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sissy_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_male_v2_2.png",
+      "sourceSha256": "a530c31ec82ba8e7035fb2d7505fc78c9190fd6d181b868fdc969179075f31ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_male_v2_2.png",
+      "candidateSha256": "41e654f0616d91cf4cfd8fc222105edd73ae7a8a53d122264c49b20bf23807cd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sissy_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_male_v2_3.png",
+      "sourceSha256": "7f69e1f6255c4758ee64a4c62a64b5937e63bf093cc0a94b6c288b95bd019463",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_male_v2_3.png",
+      "candidateSha256": "144831c3ad8475cf25a51b0b35f1c2dd312908014c191ea929d465c9650e4fd9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sissy_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_female_v2_0.png",
+      "sourceSha256": "c499c5987508e7b04cef976f99dd8b78f025f4d7a955a01f43d0a956e54ee6ce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_female_v2_0.png",
+      "candidateSha256": "c951ca27db74c4aaa6e6cf461d60f711f01d06a5952e8391db9ff50e9b03778e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sissy_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_female_v2_1.png",
+      "sourceSha256": "a419cc39a304c76567ef187e49a02cac7dbf3041597a8bbfab71481153851208",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_female_v2_1.png",
+      "candidateSha256": "266da1005d5fed0bc2e7302de1fc3a2503704e205399081d625ab36b68e2789f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sissy_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_female_v2_2.png",
+      "sourceSha256": "9ecdd85bf21d8309e696a7038e499092aa4c4396d5bc82a99d39920c84045ae6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_female_v2_2.png",
+      "candidateSha256": "a88cbe14b511f8221356b08ce8593057856b07acc9ff0a953da454f75f00f9ab",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sissy_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_female_v2_3.png",
+      "sourceSha256": "f4d80bcaa1d708c994bf83f6a1347536faca013513bddeb1c1f916d217c4ec79",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_female_v2_3.png",
+      "candidateSha256": "eaa86fcb47f57c579ef8425d9a207dd0b5326e3f425d611773abd9172d85c70a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "visuallyReviewed": true
+}

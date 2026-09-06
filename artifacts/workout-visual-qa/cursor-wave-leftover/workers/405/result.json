@@ -1,0 +1,93 @@
+{
+  "exerciseId": "Wide-Grip_Decline_Barbell_Bench_Press",
+  "shard": 41,
+  "index": 405,
+  "status": "ready_for_review",
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Bench_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_0.png",
+      "sourceSha256": "c5d94963d423ceb554c521832e6a689ba7766e03c4d19703be1e645268193d41",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_0.png",
+      "candidateSha256": "6525a80300e89424b068ac19822db5fcc26ef7e2f9273162401f20363160f024",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Bench_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_1.png",
+      "sourceSha256": "877bc8efb17b61a01f19101a0892b1ab79f04564f1c7477ed55ed173aa23aaca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_1.png",
+      "candidateSha256": "a40bfce049a9f1524d7ef2c4bcc4f5752a73bf23dcf832b6b1892b536fa93221",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Bench_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_2.png",
+      "sourceSha256": "474bf9ed0295c4695bad38a105160d9dce454acdc6cc4e9722cdc7094ec83d78",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_2.png",
+      "candidateSha256": "8dd175c863b931d535c0d1e29780ab58559c5313e0b89923ab563fdecff72a27",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Bench_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_3.png",
+      "sourceSha256": "8dbacc0ab1e07e11f144fa0cf1a97470971b0a1e7f627dd49606fa84c335661b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_3.png",
+      "candidateSha256": "55c77f0a831a7e93ec33cee9b14fbb255afc3bf63bf466ae507d7072f82be44a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Bench_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_0.png",
+      "sourceSha256": "60639ec5f4c54328d30ac2d01dfb641ee27eafa0ced2c23181b32c156cb820c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_0.png",
+      "candidateSha256": "f964b74ad335168d163cf4b792df7c02b590482392742a8d2fa5aedfb8ca7a3e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Bench_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_1.png",
+      "sourceSha256": "0aa7d3897cae7f73dca935d6c8bff9511540db6e5565687e1b205771e6253032",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_1.png",
+      "candidateSha256": "f9a67efc0f82f2b11519571f71956a71e4f936749d0a31341cf47cffa749c970",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Bench_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_2.png",
+      "sourceSha256": "c1f6dd3d68c5cb4648ebc7e7aa014f105c21828586b903ccd6e9077624bd95d1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_2.png",
+      "candidateSha256": "80de162b74d146b1e745b215698034a26ec9ccec1a24d0699286e798165966e4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Decline_Barbell_Bench_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_3.png",
+      "sourceSha256": "1db85e300b582cde559dba12b711d08f17d3b7d11671d5f9f2c3d4e7024e4ab4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_3.png",
+      "candidateSha256": "7a9997ac8ef1258d9d7de05c05bc08fd33aec1104fc7374c9d96b86c47de299a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "visuallyReviewed": true
+}

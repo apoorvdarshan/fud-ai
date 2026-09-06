@@ -1,0 +1,942 @@
+{
+  "shard": 41,
+  "batch": "cursor-wave-leftover",
+  "status": "ready_for_review",
+  "generateImageFrameCount": 16,
+  "exercises": [
+    {
+      "exerciseId": "Weighted_Sissy_Squat",
+      "shard": 41,
+      "index": 401,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Weighted_Sissy_Squat_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_male_v2_0.png",
+          "sourceSha256": "e4479eb4db87b78c2dd75a604779fbdfa3ffb02efe49c234d46c4cec2ab34f5b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_male_v2_0.png",
+          "candidateSha256": "628e3471a63667cfc7aeca363af56315eec6f3158a50918cf3755b73a94a574f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sissy_Squat_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_male_v2_1.png",
+          "sourceSha256": "39cbd4942ea03fb51ab7c0621c7df5632a00265e512f1b70c40423d2c952fd42",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_male_v2_1.png",
+          "candidateSha256": "a2c72d478edcc67ece592407a7ae3de304e908a1e5e376cb44b2e1eb75e02d19",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sissy_Squat_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_male_v2_2.png",
+          "sourceSha256": "a530c31ec82ba8e7035fb2d7505fc78c9190fd6d181b868fdc969179075f31ef",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_male_v2_2.png",
+          "candidateSha256": "41e654f0616d91cf4cfd8fc222105edd73ae7a8a53d122264c49b20bf23807cd",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sissy_Squat_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_male_v2_3.png",
+          "sourceSha256": "7f69e1f6255c4758ee64a4c62a64b5937e63bf093cc0a94b6c288b95bd019463",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_male_v2_3.png",
+          "candidateSha256": "144831c3ad8475cf25a51b0b35f1c2dd312908014c191ea929d465c9650e4fd9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sissy_Squat_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_female_v2_0.png",
+          "sourceSha256": "c499c5987508e7b04cef976f99dd8b78f025f4d7a955a01f43d0a956e54ee6ce",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_female_v2_0.png",
+          "candidateSha256": "c951ca27db74c4aaa6e6cf461d60f711f01d06a5952e8391db9ff50e9b03778e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sissy_Squat_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_female_v2_1.png",
+          "sourceSha256": "a419cc39a304c76567ef187e49a02cac7dbf3041597a8bbfab71481153851208",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_female_v2_1.png",
+          "candidateSha256": "266da1005d5fed0bc2e7302de1fc3a2503704e205399081d625ab36b68e2789f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sissy_Squat_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_female_v2_2.png",
+          "sourceSha256": "9ecdd85bf21d8309e696a7038e499092aa4c4396d5bc82a99d39920c84045ae6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_female_v2_2.png",
+          "candidateSha256": "a88cbe14b511f8221356b08ce8593057856b07acc9ff0a953da454f75f00f9ab",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sissy_Squat_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sissy_Squat_female_v2_3.png",
+          "sourceSha256": "f4d80bcaa1d708c994bf83f6a1347536faca013513bddeb1c1f916d217c4ec79",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/401/Weighted_Sissy_Squat_female_v2_3.png",
+          "candidateSha256": "eaa86fcb47f57c579ef8425d9a207dd0b5326e3f425d611773abd9172d85c70a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Weighted_Sit-Ups_-_With_Bands",
+      "shard": 41,
+      "index": 402,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Weighted_Sit-Ups_-_With_Bands_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_male_v2_0.png",
+          "sourceSha256": "5e0ed97fa0611bd274c2559c5211bb32e380a62a96f518aed8dd9a419b89929b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_male_v2_0.png",
+          "candidateSha256": "6877437d750647c1f8202a1844e602f9817c441b7c2251ddf19733d97bd4a1d2",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sit-Ups_-_With_Bands_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_male_v2_1.png",
+          "sourceSha256": "1eb2127255031214ec4f062478cca42a964c967a2a39201630953f2c3cad8ab3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_male_v2_1.png",
+          "candidateSha256": "aba4a7b20e54029c80a87dda1fc1b3b63ddf0d7a41175a9eebc868e839e45ee6",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sit-Ups_-_With_Bands_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_male_v2_2.png",
+          "sourceSha256": "ffe4aab0f21b43b88eab522c719274356f36372bbb0aeeebb423f9808ec7bc31",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_male_v2_2.png",
+          "candidateSha256": "ce263fca183b775990fb3ef24d3d1192de5c4e3a59f3ede646aea33929298f83",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sit-Ups_-_With_Bands_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_male_v2_3.png",
+          "sourceSha256": "db18fafaa107db85164ed51e2c388ebc485fdc60fca2d9357bab5e7355327885",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_male_v2_3.png",
+          "candidateSha256": "a806b623e5a24be286e65d858a73c4d86984af3e07a77bcebf2ddb597202b4d0",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sit-Ups_-_With_Bands_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_female_v2_0.png",
+          "sourceSha256": "9a9c301b44b36ddea702eae61a1f7c45a61080a778f9111b4ff8c1a51f5482fc",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_female_v2_0.png",
+          "candidateSha256": "0ea55501cdffc4a5b8a7c846e73db1c5fc674e13bf74bfb5cd46ec3b6fcd35a7",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sit-Ups_-_With_Bands_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_female_v2_1.png",
+          "sourceSha256": "b82b89dcb045ff5b2bfb7f5304ece31defb8c0e59e7def00eed1d737384f040d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_female_v2_1.png",
+          "candidateSha256": "81932be2744b80a7a61696fba8bf60f2247533b7bd4427d8b008bd384dcfcc5b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sit-Ups_-_With_Bands_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_female_v2_2.png",
+          "sourceSha256": "e04b318e4199661f2f19887593837a6a3f1355163e7687f64a2e86c1991b29e7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_female_v2_2.png",
+          "candidateSha256": "0149679b37c9098724db84cdeb1b98fc9918dbd3156eb72d832297290606094f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Sit-Ups_-_With_Bands_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_female_v2_3.png",
+          "sourceSha256": "1ad96c0621c9d49ba6c6ef50c7d6f77a20ca9fb58856cf8a3d9c1b63cea39177",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_female_v2_3.png",
+          "candidateSha256": "f10089cc83d96e4834b309b20582080c25561a922ad2551a0c5b79a54ac513cc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Weighted_Squat",
+      "shard": 41,
+      "index": 403,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Weighted_Squat_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_male_v2_0.png",
+          "sourceSha256": "71983a0037daab34c95f8d3f30abaeaacf327659fcf270ea06dba65613fe7477",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_male_v2_0.png",
+          "candidateSha256": "f7f04be6e273b1d919efb2b0f8cb244e486718536c766c56aa139c1e83329459",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Squat_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_male_v2_1.png",
+          "sourceSha256": "5c10ade377b02516ae621d290379c11a52b4ba538fba77122c5686670b95a5d3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_male_v2_1.png",
+          "candidateSha256": "024da3eec2c344bac401639e05e916eeb38120ce0c8d10b6c50e0619f3d60acc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Squat_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_male_v2_2.png",
+          "sourceSha256": "56d657e3113add66fc9833d133d758a71e7ef6314a231938a1886b44111c2fa3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_male_v2_2.png",
+          "candidateSha256": "cc94028532e4189bfecdc4bcdeaa06b6b817cc4c069951a59ced74c9b2e00789",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Squat_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_male_v2_3.png",
+          "sourceSha256": "f0a6c634ddb9b16a199956497ade62fe1585c4997f6c919428f52b772e87a204",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_male_v2_3.png",
+          "candidateSha256": "dc2d3d60a11079a8a02b994f5f3d58e87937f10acb609e9fc1f391c0610be2bb",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Squat_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_female_v2_0.png",
+          "sourceSha256": "4c288fcd7e647a6a49ac0ffbc95b8cd885397ccddd64d1d7443d6af12db390ab",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_female_v2_0.png",
+          "candidateSha256": "d389afd7e5e34a8fd0d576eb2d532b09b3486b893597a9abb673337d47e350e4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Squat_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_female_v2_1.png",
+          "sourceSha256": "241e21c3d58565bb828b38504d29810bfbd0e935b9490744f93fd0bd3655d418",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_female_v2_1.png",
+          "candidateSha256": "b79c8cc23b620f4a753c504eebacb63f3b56bee9d0102091b5f08840602855cf",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Squat_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_female_v2_2.png",
+          "sourceSha256": "fef5faf5947dce74f6805222f0ddaeaa39dd98cf136ae1bcf0f92d7f868a2f48",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_female_v2_2.png",
+          "candidateSha256": "06f22a4b39fccad6dc7d3c55f9a7b0cc2fc4e94e31cadba18dbb4cb67fa84743",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Weighted_Squat_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_female_v2_3.png",
+          "sourceSha256": "b7ae0314d683da1b135e519629388c5a6913de693d403061e216c937b2501fe9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_female_v2_3.png",
+          "candidateSha256": "875e0e7bac5df1e58741ac90ab3ee6d70d61d07c1b15e2e0c5610071e290c295",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Wide-Grip_Barbell_Bench_Press",
+      "shard": 41,
+      "index": 404,
+      "status": "ready_for_review",
+      "findings": [
+        "GenerateImage surgical edit + key_workout_chroma.py on 8 frame(s) with pale fringe/floor matte artifacts.",
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Wide-Grip_Barbell_Bench_Press_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Barbell_Bench_Press_male_v2_0.png",
+          "sourceSha256": "c2722075fe077b460742e9870af9637bd0704d88660bae60a8640be5d18bc614",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/404/Wide-Grip_Barbell_Bench_Press_male_v2_0.png",
+          "candidateSha256": "adc86ac7a20ab34dc8916feecb15369bf651a507cfdecb8d4c8a859f442fd2fd",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Barbell_Bench_Press_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Barbell_Bench_Press_male_v2_1.png",
+          "sourceSha256": "dbb62248c545652de79e645a76cee747c333266ffacb093c48e72f89fdfff142",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/404/Wide-Grip_Barbell_Bench_Press_male_v2_1.png",
+          "candidateSha256": "a76dc14ff3ab1a144aa7c430fe671212d99b90b1a298397489f306b345591800",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Barbell_Bench_Press_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Barbell_Bench_Press_male_v2_2.png",
+          "sourceSha256": "3351618f0348d1a540e1b9c49b9db4fd813afe919c224c12edff72a355eff4b4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/404/Wide-Grip_Barbell_Bench_Press_male_v2_2.png",
+          "candidateSha256": "8d5b1dfd04dcd70bfd7a7ac9e8b2f0f0d73f381ac6e4ad0a5b8611247721c40f",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Barbell_Bench_Press_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Barbell_Bench_Press_male_v2_3.png",
+          "sourceSha256": "56b58109cda7d0f3c8644d3eaea37a714141d63264065324a6980ca931c998fe",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/404/Wide-Grip_Barbell_Bench_Press_male_v2_3.png",
+          "candidateSha256": "5e43295792a602c3e8608e16657fbc02b21a70969446aee195e9f08b5c676ee6",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Barbell_Bench_Press_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Barbell_Bench_Press_female_v2_0.png",
+          "sourceSha256": "15f5a1ca29bb690e75189a396a419b27a9f7d3c0f48bde487f95c1cfafb685e6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/404/Wide-Grip_Barbell_Bench_Press_female_v2_0.png",
+          "candidateSha256": "ca7476e38e3e57e26a1cc0f89a18673f13abe2e351fa3942af1adf9fbcb0d2ee",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Barbell_Bench_Press_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Barbell_Bench_Press_female_v2_1.png",
+          "sourceSha256": "c7827b890c767c3b4255ab1cbf433ad1121aaf5330760119bf4545ffdf4dc8e3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/404/Wide-Grip_Barbell_Bench_Press_female_v2_1.png",
+          "candidateSha256": "c3a41dd6d90f4bd2a679e3ab59b845bd313145721eba9a0f0fb8dac915d8cdc2",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Barbell_Bench_Press_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Barbell_Bench_Press_female_v2_2.png",
+          "sourceSha256": "1dc55c6a2baec3cb644215b8c33d1a6345d78173a719873bfdf6acac9ece0ded",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/404/Wide-Grip_Barbell_Bench_Press_female_v2_2.png",
+          "candidateSha256": "d1431d062b7b402521cea1593d6e92edc2d7efcb1c87b5f6bdab80d80708f3d8",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Barbell_Bench_Press_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Barbell_Bench_Press_female_v2_3.png",
+          "sourceSha256": "7f998954ebb992e653a145d734e3b2742851fc9c4be17e0fa61e965b24b7672d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/404/Wide-Grip_Barbell_Bench_Press_female_v2_3.png",
+          "candidateSha256": "21f648952f07da5c4a786e2c819b4341b8450d5e686c2ffa7e3282c224ab97b8",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "visuallyReviewed": true,
+      "changedFrameCount": 8
+    },
+    {
+      "exerciseId": "Wide-Grip_Decline_Barbell_Bench_Press",
+      "shard": 41,
+      "index": 405,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Bench_Press_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_0.png",
+          "sourceSha256": "c5d94963d423ceb554c521832e6a689ba7766e03c4d19703be1e645268193d41",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_0.png",
+          "candidateSha256": "6525a80300e89424b068ac19822db5fcc26ef7e2f9273162401f20363160f024",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Bench_Press_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_1.png",
+          "sourceSha256": "877bc8efb17b61a01f19101a0892b1ab79f04564f1c7477ed55ed173aa23aaca",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_1.png",
+          "candidateSha256": "a40bfce049a9f1524d7ef2c4bcc4f5752a73bf23dcf832b6b1892b536fa93221",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Bench_Press_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_2.png",
+          "sourceSha256": "474bf9ed0295c4695bad38a105160d9dce454acdc6cc4e9722cdc7094ec83d78",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_2.png",
+          "candidateSha256": "8dd175c863b931d535c0d1e29780ab58559c5313e0b89923ab563fdecff72a27",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Bench_Press_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_3.png",
+          "sourceSha256": "8dbacc0ab1e07e11f144fa0cf1a97470971b0a1e7f627dd49606fa84c335661b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_male_v2_3.png",
+          "candidateSha256": "55c77f0a831a7e93ec33cee9b14fbb255afc3bf63bf466ae507d7072f82be44a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Bench_Press_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_0.png",
+          "sourceSha256": "60639ec5f4c54328d30ac2d01dfb641ee27eafa0ced2c23181b32c156cb820c1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_0.png",
+          "candidateSha256": "f964b74ad335168d163cf4b792df7c02b590482392742a8d2fa5aedfb8ca7a3e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Bench_Press_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_1.png",
+          "sourceSha256": "0aa7d3897cae7f73dca935d6c8bff9511540db6e5565687e1b205771e6253032",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_1.png",
+          "candidateSha256": "f9a67efc0f82f2b11519571f71956a71e4f936749d0a31341cf47cffa749c970",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Bench_Press_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_2.png",
+          "sourceSha256": "c1f6dd3d68c5cb4648ebc7e7aa014f105c21828586b903ccd6e9077624bd95d1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_2.png",
+          "candidateSha256": "80de162b74d146b1e745b215698034a26ec9ccec1a24d0699286e798165966e4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Bench_Press_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_3.png",
+          "sourceSha256": "1db85e300b582cde559dba12b711d08f17d3b7d11671d5f9f2c3d4e7024e4ab4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/405/Wide-Grip_Decline_Barbell_Bench_Press_female_v2_3.png",
+          "candidateSha256": "7a9997ac8ef1258d9d7de05c05bc08fd33aec1104fc7374c9d96b86c47de299a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Wide-Grip_Decline_Barbell_Pullover",
+      "shard": 41,
+      "index": 406,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Pullover_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_male_v2_0.png",
+          "sourceSha256": "698fc3ea57f762e868110a9917b88d9d4606bebd429a4d97a0e73536f9ae7b47",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_male_v2_0.png",
+          "candidateSha256": "07d04fa8a4715d8bdd4edef3968943e0eff6c6bcf812d835e5948cfac118aeff",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Pullover_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_male_v2_1.png",
+          "sourceSha256": "0bc186830b443081ca4ae7dc33206813563c10cce33c6bec658b3a5daf86fe06",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_male_v2_1.png",
+          "candidateSha256": "1d0fbbd03231123920e5bc4ae7f1d3251f00797493fd0e38e19463a0b3ccc552",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Pullover_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_male_v2_2.png",
+          "sourceSha256": "a4e9eded08dc359f80d07d340c0e834b0bd69a7b26e1e00be8023a19fb58d916",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_male_v2_2.png",
+          "candidateSha256": "aef8eef08237fb5924e09cd89ed59f508f23221497f57f074c4edd09606fbcb4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Pullover_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_male_v2_3.png",
+          "sourceSha256": "2d12b16e703372816f0d6c3a808d33fa7fdb1f6dbd1b6e500feb9d6fcd62c037",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_male_v2_3.png",
+          "candidateSha256": "d855e998962c2fea13802ce2665c57ba1f6c2ace9e8f33a39f6bf612bb0bec61",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Pullover_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_female_v2_0.png",
+          "sourceSha256": "a763ca9fa2faa9117fbcb6a8188b5a24674125a6d9d6ea0d3c9f1419221adb02",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_female_v2_0.png",
+          "candidateSha256": "8361787a7e1791606186ee9daae5cc63dfefb43764d56e8200afb54d3e868bfa",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Pullover_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_female_v2_1.png",
+          "sourceSha256": "c9da45095c927d3f3a4aa05e5a35ca112f32d2eebde33e93a6e83e89f46149a3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_female_v2_1.png",
+          "candidateSha256": "8d9d49296da53e38755dac0e3395afaee5a146d3532cfef21ae06a0900677e1d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Pullover_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_female_v2_2.png",
+          "sourceSha256": "d9081fb0031a3f49bdaab5f47da8b8a55e49fc8dde59fa2bc90da4f0b4fdc024",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_female_v2_2.png",
+          "candidateSha256": "855348876944478cbb78a3518818af6546c8080006c58a8cbf6156de0b519fc9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Decline_Barbell_Pullover_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Decline_Barbell_Pullover_female_v2_3.png",
+          "sourceSha256": "edde261796e5006cba920152bd9d6dc8d956a16c44c50fe14197c7bcd7ec5c38",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/406/Wide-Grip_Decline_Barbell_Pullover_female_v2_3.png",
+          "candidateSha256": "182acff05a53c0d92a40eeaf4a25077e38000abae3222798bc7df70b138dc01a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Wide-Grip_Lat_Pulldown",
+      "shard": 41,
+      "index": 407,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Wide-Grip_Lat_Pulldown_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_male_v2_0.png",
+          "sourceSha256": "1438a952119a9b5cd1b85b5e3f15353bc52359c8c29e2c3d4f27866ed053081c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_male_v2_0.png",
+          "candidateSha256": "0324bfd94ecea462aea3244b587d1f620eb093a1581353250b7dc65713095a8d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Lat_Pulldown_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_male_v2_1.png",
+          "sourceSha256": "d1d0bf559de5782790f67f5d4c7e3bcd99b1201f0650320fd17ef7b4644a8cda",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_male_v2_1.png",
+          "candidateSha256": "22896ddca74908d8534e150aaf24b8004d4aa0f79b41de7a86a66a32f67ce091",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Lat_Pulldown_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_male_v2_2.png",
+          "sourceSha256": "f11952384c1c9edbb7aea1cfc337cf1c1a6e5a6638a669b6fac10e833bedd3fc",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_male_v2_2.png",
+          "candidateSha256": "e120f45e09c9f884c34e7f07c11677d42538431270887e2aa2da9637a487ba33",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Lat_Pulldown_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_male_v2_3.png",
+          "sourceSha256": "29c02853961482629972e6162e40c56505d1448312038fd8ea43c0fc7a319573",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_male_v2_3.png",
+          "candidateSha256": "ee7a71de6e96163ad0651da829ce84629cfb9c7ce8725ea30ad87292236c1bf3",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Lat_Pulldown_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_female_v2_0.png",
+          "sourceSha256": "d2710bfab492465d2bcbfe3cf8f88b26cfdff1cd55d38111983c2425ae1caf86",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_female_v2_0.png",
+          "candidateSha256": "ac1e5d891295aec896b4bc958ac13492925c6ea19c1331d406bcec63ff1a41b7",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Lat_Pulldown_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_female_v2_1.png",
+          "sourceSha256": "07660f147200cf4806e29f9644905b1e21ba275323b26aa2d42b2ce7f66e2e47",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_female_v2_1.png",
+          "candidateSha256": "2c9a3a64b43f95c7468a77f1e965801e8f32b27bbc675c0a6d830df15f499406",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Lat_Pulldown_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_female_v2_2.png",
+          "sourceSha256": "69ffb7afc916b2be77685de224d72ae669bbfeb8f74283fd0f6999bb6696d96f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_female_v2_2.png",
+          "candidateSha256": "e5d474e8d36d00452d462c0f5345789339fb8baa8cb97b89d6bdf295608518fb",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Lat_Pulldown_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_female_v2_3.png",
+          "sourceSha256": "1660a3f8936fa8e19eb09621d2bc7ab514b891a49c35df6ee9f5d010bb961f38",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_female_v2_3.png",
+          "candidateSha256": "de01631868608458bc415b9ea0da9fdd32a6c1d35a333c7cf0c87ef797e628de",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Wide-Grip_Pulldown_Behind_The_Neck",
+      "shard": 41,
+      "index": 408,
+      "status": "ready_for_review",
+      "findings": [
+        "GenerateImage surgical edit + key_workout_chroma.py on 8 frame(s) with pale fringe/floor matte artifacts.",
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Wide-Grip_Pulldown_Behind_The_Neck_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_0.png",
+          "sourceSha256": "3814e22911f6b335928330ec6a18fa30f4975ce7cd4b3d5e6cf0575c1683364b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_0.png",
+          "candidateSha256": "c1157e821c3bc476aea1b4110f1b1ed81637bcfd01e514a3ef859fbfcfac7eab",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Pulldown_Behind_The_Neck_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_1.png",
+          "sourceSha256": "b60f78dc186b18bdedd30b476e03c85f90be3e41f44ff29f61de1f0d1209e569",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_1.png",
+          "candidateSha256": "8623c33c241ae10d98c8bedbd451227dca3dc0d765eca1d7a942a00c3924011e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Pulldown_Behind_The_Neck_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_2.png",
+          "sourceSha256": "791a37f1392c8d8ec898644b183ebbcdf500d401b1ddfaf374bfce2807c880f1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_2.png",
+          "candidateSha256": "c40f8148bf98e59dab698e511efc91730572a13ccdd2e725a046a3ea821aa95d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Pulldown_Behind_The_Neck_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_3.png",
+          "sourceSha256": "64c31cfde5da48bce5a46783ecdc11dc1ebc299a365111f573c82a074403dd06",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_3.png",
+          "candidateSha256": "0264004e1f99b9b192f8ff235147a06fcc4c5180151cbe0ce9a40bcdd924a0cf",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Pulldown_Behind_The_Neck_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_0.png",
+          "sourceSha256": "7c8d6c8e56072f81903614960adfa13aecf09f9a5dfb0a3ba2f84ba8f2c388dd",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_0.png",
+          "candidateSha256": "63d5d13e29afed59d1b3f4ed2e0a72338ef19b7fec9a13452d42c114f158ce28",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Pulldown_Behind_The_Neck_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_1.png",
+          "sourceSha256": "3e8aa6dd33a0312f48413e336e6ace6d2a01144abb8286fec6c874e314e49e53",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_1.png",
+          "candidateSha256": "c18df7f24b55caaeabc17b0df58cf9f3a6c9379b40855d34a9782ee6ed9316bb",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Pulldown_Behind_The_Neck_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_2.png",
+          "sourceSha256": "4cf77cb7b068524ce5e2fd0bda4e86ebcd5fefe512b47292138c81b5eff881df",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_2.png",
+          "candidateSha256": "e911d79ff7a3eec394bf0290e8cf6d9067db85636c0ec7de4148100c04901255",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Pulldown_Behind_The_Neck_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_3.png",
+          "sourceSha256": "256a34b5eed0b9b40ee67a133b04da5617300ac3e6beca539bcd33f1e031cd4a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_3.png",
+          "candidateSha256": "0d485ace718b08519a508e192e4e65cb8266d1e9a708b17a242947622f1e8dd3",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "visuallyReviewed": true,
+      "changedFrameCount": 8
+    },
+    {
+      "exerciseId": "Wide-Grip_Rear_Pull-Up",
+      "shard": 41,
+      "index": 409,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Wide-Grip_Rear_Pull-Up_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_male_v2_0.png",
+          "sourceSha256": "2bf3d354d04db87e7cdef15e639595f87bdf8a6448f86a3618fc9369e4c80e8b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_male_v2_0.png",
+          "candidateSha256": "277d19056ef223232e87950ad067d301ae16b229e49f8ac7ea4d9fe431ded308",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Rear_Pull-Up_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_male_v2_1.png",
+          "sourceSha256": "210cbab1303cd5fd525d0bda23ce298cc74fc6a3e0274d0bf73f3e595b6358d6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_male_v2_1.png",
+          "candidateSha256": "3990274a0375cf71d12dd3cace9e7dede34465e7347b5f1e97dff45f6bb5be1f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Rear_Pull-Up_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_male_v2_2.png",
+          "sourceSha256": "5795ed07a5104ce44f96c56e6503ca77a662dcfe2140e0f89e049485ffdee3e0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_male_v2_2.png",
+          "candidateSha256": "17375de5ef83afab14da5eaee587fe8ec3df562c79d763d32adf1a5fbff81d23",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Rear_Pull-Up_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_male_v2_3.png",
+          "sourceSha256": "0f762c32c02deb5b938770abf9c27fb2c7203406343f40fdb5171eaa3ffce7d8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_male_v2_3.png",
+          "candidateSha256": "6289c1a4a4ed6cca36614228b711f03a9cf8d27ba88bd59df6a82b7bd4f5af6a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Rear_Pull-Up_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_female_v2_0.png",
+          "sourceSha256": "784fffdbfb8c8b61ae175d420f9be03713ea20003da824e5e0810ea59559b25c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_female_v2_0.png",
+          "candidateSha256": "57ac089b7b703fa48cb8e22b0b3aae689316e0173350aad3f94901e15f0ab28c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Rear_Pull-Up_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_female_v2_1.png",
+          "sourceSha256": "84ade8a4558c0b79190ba60cfe0a39df8e99461507ed0a961c97b37eb6b337b8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_female_v2_1.png",
+          "candidateSha256": "388da8bf7e551cf1baa94ccd5744bf53df70ece47749ad824f4e11d679fb07c1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Rear_Pull-Up_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_female_v2_2.png",
+          "sourceSha256": "57ff5328a45874fd42f9daf8bbebefeee75f7aa459b43f1358394a7e297f9dd8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_female_v2_2.png",
+          "candidateSha256": "201658d5e21272dd240d2f5c1c56ab738f8c2e2e106cf39772957eb0590f91d2",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Rear_Pull-Up_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_female_v2_3.png",
+          "sourceSha256": "c07978347a6b34938d24e3a302810967daa1f413cdc613fe8e773a7a15bbb2ad",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_female_v2_3.png",
+          "candidateSha256": "e72bd25c032cd629de29d379e2ad47c91c20e633af98de3906f280a30d0bd507",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Wide-Grip_Standing_Barbell_Curl",
+      "shard": 41,
+      "index": 410,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Wide-Grip_Standing_Barbell_Curl_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Standing_Barbell_Curl_male_v2_0.png",
+          "sourceSha256": "7c0b016b9c1410f71ffe94c7161987558e6a1fae6cdb65a424b3bffa462e6c28",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/410/Wide-Grip_Standing_Barbell_Curl_male_v2_0.png",
+          "candidateSha256": "21857cad299c4c4065100ab2dd26516ebc09d20e7bf261056aa839b419c13956",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Standing_Barbell_Curl_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Standing_Barbell_Curl_male_v2_1.png",
+          "sourceSha256": "d082bd76fef1afad1d1af346e0084dbbc52c5e8377b0cd27438b820ae64c37f1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/410/Wide-Grip_Standing_Barbell_Curl_male_v2_1.png",
+          "candidateSha256": "c1326294ccb2ad2c2676791cff1f6a07d61474c69af2ce19fb998b3aa7e671d7",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Standing_Barbell_Curl_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Standing_Barbell_Curl_male_v2_2.png",
+          "sourceSha256": "796504b6ad82aa26d42c3ce0163bf97000b5e73cda4466862c1a96a99a617d2b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/410/Wide-Grip_Standing_Barbell_Curl_male_v2_2.png",
+          "candidateSha256": "4b910f3dfa0c217124cfb8da141e9a9f87d69b0382d3f3c5ffeddd573d6748c1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Standing_Barbell_Curl_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Standing_Barbell_Curl_male_v2_3.png",
+          "sourceSha256": "85003427d1cf5947cc0a1c8e1f82e127b71ee22ec947aa4d544b9b2a7ccacbfd",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/410/Wide-Grip_Standing_Barbell_Curl_male_v2_3.png",
+          "candidateSha256": "454ac6bd06c0dfeb6726640aa6b304d2adc33929266afbcf79a2956400c2b364",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Standing_Barbell_Curl_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Standing_Barbell_Curl_female_v2_0.png",
+          "sourceSha256": "bd5841ceecff1ff7b0973b9ad307d3b756bb107873c7e8e10c307785912473a8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/410/Wide-Grip_Standing_Barbell_Curl_female_v2_0.png",
+          "candidateSha256": "60c04293192fa9754131cd7293ec50ce9bd2a5fb60b16d38bdf0aa10c2405f4d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Standing_Barbell_Curl_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Standing_Barbell_Curl_female_v2_1.png",
+          "sourceSha256": "d8cc91113ab51af92b092178b7e35539836087f7e4aabb1e9675ee51f65aa9ff",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/410/Wide-Grip_Standing_Barbell_Curl_female_v2_1.png",
+          "candidateSha256": "45ea1f0ae91405986b4a89c47155aed613a43673bc8a4071fc937076285924b1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Standing_Barbell_Curl_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Standing_Barbell_Curl_female_v2_2.png",
+          "sourceSha256": "4f08ea5f71ffd86e751ffee6cd5e7a225ca53967c6d4e33d8dd885821fd144d4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/410/Wide-Grip_Standing_Barbell_Curl_female_v2_2.png",
+          "candidateSha256": "c12fe077766e937865eb124c44fae4ef4e2765f2f96914dcbe25ae3adba4c7ac",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "Wide-Grip_Standing_Barbell_Curl_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Standing_Barbell_Curl_female_v2_3.png",
+          "sourceSha256": "1a99c23937c77d1d892f885015f3d11c889c773c839e8a588be3bb65e7d02664",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/410/Wide-Grip_Standing_Barbell_Curl_female_v2_3.png",
+          "candidateSha256": "0c1cb6e2d7f6c6dfd0a52f8071da47b81a61fe90ae5d0c2c44083cb9f11a1583",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "visuallyReviewed": true
+    }
+  ]
+}

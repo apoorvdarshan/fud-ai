@@ -1,0 +1,93 @@
+{
+  "exerciseId": "Weighted_Squat",
+  "shard": 41,
+  "index": 403,
+  "status": "ready_for_review",
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Weighted_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_male_v2_0.png",
+      "sourceSha256": "71983a0037daab34c95f8d3f30abaeaacf327659fcf270ea06dba65613fe7477",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_male_v2_0.png",
+      "candidateSha256": "f7f04be6e273b1d919efb2b0f8cb244e486718536c766c56aa139c1e83329459",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_male_v2_1.png",
+      "sourceSha256": "5c10ade377b02516ae621d290379c11a52b4ba538fba77122c5686670b95a5d3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_male_v2_1.png",
+      "candidateSha256": "024da3eec2c344bac401639e05e916eeb38120ce0c8d10b6c50e0619f3d60acc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_male_v2_2.png",
+      "sourceSha256": "56d657e3113add66fc9833d133d758a71e7ef6314a231938a1886b44111c2fa3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_male_v2_2.png",
+      "candidateSha256": "cc94028532e4189bfecdc4bcdeaa06b6b817cc4c069951a59ced74c9b2e00789",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_male_v2_3.png",
+      "sourceSha256": "f0a6c634ddb9b16a199956497ade62fe1585c4997f6c919428f52b772e87a204",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_male_v2_3.png",
+      "candidateSha256": "dc2d3d60a11079a8a02b994f5f3d58e87937f10acb609e9fc1f391c0610be2bb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_female_v2_0.png",
+      "sourceSha256": "4c288fcd7e647a6a49ac0ffbc95b8cd885397ccddd64d1d7443d6af12db390ab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_female_v2_0.png",
+      "candidateSha256": "d389afd7e5e34a8fd0d576eb2d532b09b3486b893597a9abb673337d47e350e4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_female_v2_1.png",
+      "sourceSha256": "241e21c3d58565bb828b38504d29810bfbd0e935b9490744f93fd0bd3655d418",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_female_v2_1.png",
+      "candidateSha256": "b79c8cc23b620f4a753c504eebacb63f3b56bee9d0102091b5f08840602855cf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_female_v2_2.png",
+      "sourceSha256": "fef5faf5947dce74f6805222f0ddaeaa39dd98cf136ae1bcf0f92d7f868a2f48",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_female_v2_2.png",
+      "candidateSha256": "06f22a4b39fccad6dc7d3c55f9a7b0cc2fc4e94e31cadba18dbb4cb67fa84743",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Squat_female_v2_3.png",
+      "sourceSha256": "b7ae0314d683da1b135e519629388c5a6913de693d403061e216c937b2501fe9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/403/Weighted_Squat_female_v2_3.png",
+      "candidateSha256": "875e0e7bac5df1e58741ac90ab3ee6d70d61d07c1b15e2e0c5610071e290c295",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "visuallyReviewed": true
+}

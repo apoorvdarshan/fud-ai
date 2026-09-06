@@ -1,0 +1,93 @@
+{
+  "exerciseId": "Wide-Grip_Rear_Pull-Up",
+  "shard": 41,
+  "index": 409,
+  "status": "ready_for_review",
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Wide-Grip_Rear_Pull-Up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_male_v2_0.png",
+      "sourceSha256": "2bf3d354d04db87e7cdef15e639595f87bdf8a6448f86a3618fc9369e4c80e8b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_male_v2_0.png",
+      "candidateSha256": "277d19056ef223232e87950ad067d301ae16b229e49f8ac7ea4d9fe431ded308",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Rear_Pull-Up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_male_v2_1.png",
+      "sourceSha256": "210cbab1303cd5fd525d0bda23ce298cc74fc6a3e0274d0bf73f3e595b6358d6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_male_v2_1.png",
+      "candidateSha256": "3990274a0375cf71d12dd3cace9e7dede34465e7347b5f1e97dff45f6bb5be1f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Rear_Pull-Up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_male_v2_2.png",
+      "sourceSha256": "5795ed07a5104ce44f96c56e6503ca77a662dcfe2140e0f89e049485ffdee3e0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_male_v2_2.png",
+      "candidateSha256": "17375de5ef83afab14da5eaee587fe8ec3df562c79d763d32adf1a5fbff81d23",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Rear_Pull-Up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_male_v2_3.png",
+      "sourceSha256": "0f762c32c02deb5b938770abf9c27fb2c7203406343f40fdb5171eaa3ffce7d8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_male_v2_3.png",
+      "candidateSha256": "6289c1a4a4ed6cca36614228b711f03a9cf8d27ba88bd59df6a82b7bd4f5af6a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Rear_Pull-Up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_female_v2_0.png",
+      "sourceSha256": "784fffdbfb8c8b61ae175d420f9be03713ea20003da824e5e0810ea59559b25c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_female_v2_0.png",
+      "candidateSha256": "57ac089b7b703fa48cb8e22b0b3aae689316e0173350aad3f94901e15f0ab28c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Rear_Pull-Up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_female_v2_1.png",
+      "sourceSha256": "84ade8a4558c0b79190ba60cfe0a39df8e99461507ed0a961c97b37eb6b337b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_female_v2_1.png",
+      "candidateSha256": "388da8bf7e551cf1baa94ccd5744bf53df70ece47749ad824f4e11d679fb07c1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Rear_Pull-Up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_female_v2_2.png",
+      "sourceSha256": "57ff5328a45874fd42f9daf8bbebefeee75f7aa459b43f1358394a7e297f9dd8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_female_v2_2.png",
+      "candidateSha256": "201658d5e21272dd240d2f5c1c56ab738f8c2e2e106cf39772957eb0590f91d2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Rear_Pull-Up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Rear_Pull-Up_female_v2_3.png",
+      "sourceSha256": "c07978347a6b34938d24e3a302810967daa1f413cdc613fe8e773a7a15bbb2ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/409/Wide-Grip_Rear_Pull-Up_female_v2_3.png",
+      "candidateSha256": "e72bd25c032cd629de29d379e2ad47c91c20e633af98de3906f280a30d0bd507",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "visuallyReviewed": true
+}

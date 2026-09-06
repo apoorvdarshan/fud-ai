@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Front_Cone_Hops_or_hurdle_hops",
+  "shard": 13,
+  "index": 122,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Front_Cone_Hops_or_hurdle_hops_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Cone_Hops_or_hurdle_hops_male_v2_0.png",
+      "sourceSha256": "95a9e2f39f9f327f45c27a6047542cd74fbb04af38a8351a920e587b7116b883",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/122/Front_Cone_Hops_or_hurdle_hops_male_v2_0.png",
+      "candidateSha256": "2bfa83cfdc97fa01b07ccae1067c8e81e1f8a36405344df1e65e8968d2d08bb9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Cone_Hops_or_hurdle_hops_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Cone_Hops_or_hurdle_hops_male_v2_1.png",
+      "sourceSha256": "9118a3173c2773b5c1d0148ce88796a09c27c4d52a6af2f822fe542b1f60b7f4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/122/Front_Cone_Hops_or_hurdle_hops_male_v2_1.png",
+      "candidateSha256": "edf12d01cb0754ccad3eed098cf5a03ddf7cd8a609ccbfeb0db6e880b8a3da99",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Cone_Hops_or_hurdle_hops_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Cone_Hops_or_hurdle_hops_male_v2_2.png",
+      "sourceSha256": "3c0d2e86514e3759bb5d08869cd7cddcb524cd1454e242819d9de6e6f2d782f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/122/Front_Cone_Hops_or_hurdle_hops_male_v2_2.png",
+      "candidateSha256": "3a0c3f108c8f77fa8503ed5b1ca327170a8a34d2eb298939c3b134885816997c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Cone_Hops_or_hurdle_hops_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Cone_Hops_or_hurdle_hops_male_v2_3.png",
+      "sourceSha256": "c95d95ad76dcb7bd6e4b37ab6b96340492fa8ac6ae15c04118adbd14b57114ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/122/Front_Cone_Hops_or_hurdle_hops_male_v2_3.png",
+      "candidateSha256": "74ccd53bdbac327c29be822e08e4a438b6cc950035c08847db55c38c168abaea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Cone_Hops_or_hurdle_hops_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Cone_Hops_or_hurdle_hops_female_v2_0.png",
+      "sourceSha256": "cca61ddbb1b573607ec8d84ff49487bfa20de5e4092de00172d8d552cd5f352a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/122/Front_Cone_Hops_or_hurdle_hops_female_v2_0.png",
+      "candidateSha256": "3cd311ae51f87edf642b900351a531eb72fc01f6b5df50029d4d709b7c14cb82",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Cone_Hops_or_hurdle_hops_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Cone_Hops_or_hurdle_hops_female_v2_1.png",
+      "sourceSha256": "635b35daab5579de36034c4fd3ec2a60dbdf201e83ea6c49f199157b0f4c1da2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/122/Front_Cone_Hops_or_hurdle_hops_female_v2_1.png",
+      "candidateSha256": "48414bb6e260c8d74c2fb186cc12496c7dc256049018e49851038da9bbcbbfbd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Cone_Hops_or_hurdle_hops_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Cone_Hops_or_hurdle_hops_female_v2_2.png",
+      "sourceSha256": "be045053bce46090525abcf3fc746095d4012dccff91625cfe18b5f2dab6ffe3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/122/Front_Cone_Hops_or_hurdle_hops_female_v2_2.png",
+      "candidateSha256": "836c3385342946d3c1a602e3c20ae4491a858e3ea94c67e7e287f5db47560666",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Cone_Hops_or_hurdle_hops_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Cone_Hops_or_hurdle_hops_female_v2_3.png",
+      "sourceSha256": "423abfbea356b60ceafde7426368350bb6021f2c3d753518be365bd9407ea09b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/122/Front_Cone_Hops_or_hurdle_hops_female_v2_3.png",
+      "candidateSha256": "1975c4e70711015ff85605e675a2bb621463da6ea2c3b936c77450bfa9ebee05",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

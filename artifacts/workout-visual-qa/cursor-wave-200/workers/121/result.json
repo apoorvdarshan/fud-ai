@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Front_Box_Jump",
+  "shard": 13,
+  "index": 121,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Front_Box_Jump_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Box_Jump_male_v2_0.png",
+      "sourceSha256": "a221ab75128f9305cc8c497faa23c620a00d8b3be5cdd92a259e2e8817654c34",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/121/Front_Box_Jump_male_v2_0.png",
+      "candidateSha256": "12d0ebe5aa71f3b393aa7a4fa0f908876cd648d1e9edbb5a35c6b69245cdb1c3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Box_Jump_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Box_Jump_male_v2_1.png",
+      "sourceSha256": "1aab9dd1f75798f3523a135398f46055ffc71858925f8d75b0cfd5f040d5dc5d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/121/Front_Box_Jump_male_v2_1.png",
+      "candidateSha256": "6ec9304093a1830bfdc7672a3e31c095ea08be8227f09d75df3dd225fe015f08",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Box_Jump_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Box_Jump_male_v2_2.png",
+      "sourceSha256": "00089cfc536174867f8b5631369599f1ef788b8b305d057f9d7f8562d8afd703",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/121/Front_Box_Jump_male_v2_2.png",
+      "candidateSha256": "5d80011b4796c6595f70371b989cb65495139fe47b0d20d95b0429dd4f141425",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Box_Jump_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Box_Jump_male_v2_3.png",
+      "sourceSha256": "259838d64b7b3762d972895330919fc7cdc897872cb3c8b70a4d0c19e2c599b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/121/Front_Box_Jump_male_v2_3.png",
+      "candidateSha256": "8e04726244b3c86d02b94de35c1fe7e4e6a23fda823a5daeb6854a421a0dd6d7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Box_Jump_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Box_Jump_female_v2_0.png",
+      "sourceSha256": "d95655470a522b33283828202538d03ff05d6002c17cdae744e2a2de0aff0a85",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/121/Front_Box_Jump_female_v2_0.png",
+      "candidateSha256": "60e6fd9cb08b0f77625394e230640092c333ca0296ab6fd24fca1403750b9886",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Box_Jump_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Box_Jump_female_v2_1.png",
+      "sourceSha256": "5ee5dacd80d8f0756c4d8dc263d2d975686a8ad37aafb8fa7d4e0944c7d1ab9c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/121/Front_Box_Jump_female_v2_1.png",
+      "candidateSha256": "858c715c5a428488c2091e1eef54c076162a7fc5d5ee863819205572bb45d8d1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Box_Jump_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Box_Jump_female_v2_2.png",
+      "sourceSha256": "a2b9269a7940b8c839cdd4ead24db54c8f70cbcdce42992658b1255d57531688",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/121/Front_Box_Jump_female_v2_2.png",
+      "candidateSha256": "5f499cbcd5489879904116aa622f8fccf8765ce5e403f8e9861e3f709fb2d4f6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Box_Jump_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Box_Jump_female_v2_3.png",
+      "sourceSha256": "599186bb7910924dac9aa2766fffa6df1829c65d8c94d6e4ad9795a9b4ac5386",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/121/Front_Box_Jump_female_v2_3.png",
+      "candidateSha256": "30050f76ab275da2fc3c638a01ed94afad9cbbdebb41ea1afe7c52409e2a9f6e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

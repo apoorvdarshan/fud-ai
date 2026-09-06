@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kneeling_High_Pulley_Row",
+  "shard": 13,
+  "index": 127,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kneeling_High_Pulley_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_High_Pulley_Row_male_v2_0.png",
+      "sourceSha256": "532146b1b95aa71e1f538882922f151dcb560709414d3e7848a7b1b90ce19fb8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/127/Kneeling_High_Pulley_Row_male_v2_0.png",
+      "candidateSha256": "643dfd8b2f186eb4445f3cf4a57d55b6bfaa6f2213ffefcb32cef65e72b6639b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_High_Pulley_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_High_Pulley_Row_male_v2_1.png",
+      "sourceSha256": "c165ec9a8a8fcae12a282ea17ed73e3338daf9362900a4b2b8a56f9c82589063",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/127/Kneeling_High_Pulley_Row_male_v2_1.png",
+      "candidateSha256": "6fbbfd8aa3e54dfe73218470cc3f2721024aa38858ff1ee2e1938e745256453b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_High_Pulley_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_High_Pulley_Row_male_v2_2.png",
+      "sourceSha256": "0798cc9345e6a84ec74f156620767b528d5b15f2b4d8e9bd4283f8e1a622ac43",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/127/Kneeling_High_Pulley_Row_male_v2_2.png",
+      "candidateSha256": "d362a3058b07fe076fd00d3ad5eb66e32852323ae9a35a3c4fed1ef7dddaa9c0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_High_Pulley_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_High_Pulley_Row_male_v2_3.png",
+      "sourceSha256": "ee4643429a85db123833ce6ea82ba4117bfcd0815f318583f62ce184fe04edcb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/127/Kneeling_High_Pulley_Row_male_v2_3.png",
+      "candidateSha256": "7db0b6fc2fb77dfc8dab2d22e236befc3c0ded61a1a4ed8344eb0f98ace1039c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_High_Pulley_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_High_Pulley_Row_female_v2_0.png",
+      "sourceSha256": "2cdbdf2bde88cb69fdeeaaa6a81ab56528b966e73f4994fb48702e0aa189aab3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/127/Kneeling_High_Pulley_Row_female_v2_0.png",
+      "candidateSha256": "ee379c82e4702214baa3e23a6b36278d2e72ded81116afd08a798221e14dd804",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_High_Pulley_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_High_Pulley_Row_female_v2_1.png",
+      "sourceSha256": "2386c46739e2d1decbeec99ce3bc93b11160a296258211001bcd997be3d6e584",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/127/Kneeling_High_Pulley_Row_female_v2_1.png",
+      "candidateSha256": "9482bea68776988b17c00175eb85509721ac8064a5de02ad863234c57487140d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_High_Pulley_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_High_Pulley_Row_female_v2_2.png",
+      "sourceSha256": "7129fe2c81fe7f16b9991cf4bb1bce39401cb253c47941e1823c7b0311d12f2d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/127/Kneeling_High_Pulley_Row_female_v2_2.png",
+      "candidateSha256": "e8a86c32da7554b8f750054a98ce7b60f3425a60412b91892064462f26a0d619",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_High_Pulley_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_High_Pulley_Row_female_v2_3.png",
+      "sourceSha256": "b768a7a6558e07cadba2d75eb6110bf2daee577ea0b81c436d362320b23915b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/127/Kneeling_High_Pulley_Row_female_v2_3.png",
+      "candidateSha256": "67d1f1a89dfce3d83a45e5667c141afc02ab40eb81ea5878e62a58e2dbc35a0b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

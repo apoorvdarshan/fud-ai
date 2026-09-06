@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kipping_Muscle_Up",
+  "shard": 13,
+  "index": 124,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kipping_Muscle_Up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kipping_Muscle_Up_male_v2_0.png",
+      "sourceSha256": "b3778261ee23dc3b96f26b8e87526408712eff1cde4479201c77cbbda96b2ad7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/124/Kipping_Muscle_Up_male_v2_0.png",
+      "candidateSha256": "e374c49c7c8720f1f0673809c3eb75f75eff4209b4594ef4ae014f4d0ce9cc75",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kipping_Muscle_Up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kipping_Muscle_Up_male_v2_1.png",
+      "sourceSha256": "7c6312068c65b74ba6389751476536ee3725f7269b52dfca22df3083b8de5d6d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/124/Kipping_Muscle_Up_male_v2_1.png",
+      "candidateSha256": "e2a4fd8648103667c9bcd690d69404621ebe7b2db6e38b5b1f9d4bbc448a2c8d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kipping_Muscle_Up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kipping_Muscle_Up_male_v2_2.png",
+      "sourceSha256": "d5fea2320e624694036490ab132788d4a0371e98a44a0b73cc77781253ac0ab0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/124/Kipping_Muscle_Up_male_v2_2.png",
+      "candidateSha256": "44362d526baf8d35f780f725a1f10f8fe4a8af7b915f420ec4655f83ef84b514",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kipping_Muscle_Up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kipping_Muscle_Up_male_v2_3.png",
+      "sourceSha256": "df0e50b75434b2c6f2f7a72d14c8a821c8a18da23d29bb1f2a75d6ae80eab7e1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/124/Kipping_Muscle_Up_male_v2_3.png",
+      "candidateSha256": "0f3d5963b50b00072c32de6e02a11909250e394899fd87fbbbc249d42e9a7e5b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kipping_Muscle_Up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kipping_Muscle_Up_female_v2_0.png",
+      "sourceSha256": "3c9505d29b8994b05d4fe7142efe18b6f81d1972b18c6cd875c0c119fcd337e6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/124/Kipping_Muscle_Up_female_v2_0.png",
+      "candidateSha256": "1e45823dd6fa65086a77f7f13ff446fe6bd27631ea2e6e20e9d2f1a9c2f3e393",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kipping_Muscle_Up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kipping_Muscle_Up_female_v2_1.png",
+      "sourceSha256": "51c610d00a41a7952de0ce6cb7763262e934b26ab7a7b715cc819f4cf0b2054a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/124/Kipping_Muscle_Up_female_v2_1.png",
+      "candidateSha256": "6916d59bf052538b9b424c295a3f2e75505d1f61c92fe2eaa18ab0a648d75e85",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kipping_Muscle_Up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kipping_Muscle_Up_female_v2_2.png",
+      "sourceSha256": "12e65b233509aacf315f03f9bc894528ae0f1cec0a473345fc0635830f28ed9a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/124/Kipping_Muscle_Up_female_v2_2.png",
+      "candidateSha256": "89253dfa00ae01620b76eff5a289eb05096725fc837c97771647eeb6773cca91",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kipping_Muscle_Up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kipping_Muscle_Up_female_v2_3.png",
+      "sourceSha256": "d24ad9565534a107fa09e83ec05b9b33fc1238723596f1ff25155206ea3188ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/124/Kipping_Muscle_Up_female_v2_3.png",
+      "candidateSha256": "1dd8b43c155b84106a4c8b50413ec18e550bec07bd53720e821f897189b229de",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kneeling_Jump_Squat",
+  "shard": 13,
+  "index": 129,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kneeling_Jump_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Jump_Squat_male_v2_0.png",
+      "sourceSha256": "5beb410fdd183ac7c6372c382077343ce0aab57055328f5b68213a85d80b2a67",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/129/Kneeling_Jump_Squat_male_v2_0.png",
+      "candidateSha256": "8c556057674093718c57a6895fdbf584834f4df20064aacbb4e1afaf6d485c80",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Jump_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Jump_Squat_male_v2_1.png",
+      "sourceSha256": "5824f38c20d5419061718d22349abc59effe3731308ebec67d581f453b4146e6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/129/Kneeling_Jump_Squat_male_v2_1.png",
+      "candidateSha256": "1dcba48f1257e10db2bea7974e4575a8c5f2616de374431e2c1985e2461b1a6d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Jump_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Jump_Squat_male_v2_2.png",
+      "sourceSha256": "0643eb3b945ef82d7f9abb5804e34e52496500d1d09b606547cdae70662ac7cb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/129/Kneeling_Jump_Squat_male_v2_2.png",
+      "candidateSha256": "bb834c4dad401f615a5f9045ea848ae21b9ddc732d2f75d0d481ecb96b03a86e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Jump_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Jump_Squat_male_v2_3.png",
+      "sourceSha256": "a7f50e701c0432926babcac1df16ba9055d927876e868bc238dd420141c93b2b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/129/Kneeling_Jump_Squat_male_v2_3.png",
+      "candidateSha256": "860eac525009534f528e0a7c8d7e645b93840b1e8cb538666554943ce3dd04d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Jump_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Jump_Squat_female_v2_0.png",
+      "sourceSha256": "1427c9a0ce37035ba4efa20657e09be2474750dafcd99737417d16b1abfa6055",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/129/Kneeling_Jump_Squat_female_v2_0.png",
+      "candidateSha256": "022a8c172c08aa332f25d2dc67f4579dde0fc001b3a4a3f94677a4e71e5f31f3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Jump_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Jump_Squat_female_v2_1.png",
+      "sourceSha256": "61fbe5df063ccc09ee7a0e86ff6fe3f07603e34ce1812c2458b8b097d5352971",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/129/Kneeling_Jump_Squat_female_v2_1.png",
+      "candidateSha256": "e344ce4d1600ea35028ba59d2c73c878ac94cd28b1272e69a781f4d1097c887a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Jump_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Jump_Squat_female_v2_2.png",
+      "sourceSha256": "bcbe7fc8d0d243d75c9a80c945a8e23597959ae148af5c2df8ba171b8ab4e423",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/129/Kneeling_Jump_Squat_female_v2_2.png",
+      "candidateSha256": "8a1c4c5b5efc2f714e64b0d52eb8e9ff3269725e3e0ab98659251795d38f2b9b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Kneeling_Jump_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Jump_Squat_female_v2_3.png",
+      "sourceSha256": "e34a26833bc1c9da14ae93c49583109af6db6dd9f371d3c1258ba1b25da2895b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/129/Kneeling_Jump_Squat_female_v2_3.png",
+      "candidateSha256": "1873a8761087f5c972171faf928d203c9b74f3f1c0937f167ed7ba81d7f2fe49",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

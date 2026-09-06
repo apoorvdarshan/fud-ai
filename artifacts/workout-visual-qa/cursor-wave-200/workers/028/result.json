@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Body-Up",
+  "shard": 3,
+  "index": 28,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Body-Up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body-Up_male_v2_0.png",
+      "sourceSha256": "3c452eb5ff3908629a06a1c4d5cd27919640fb0096e60c21ea0cea5465d4bf60",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/028/Body-Up_male_v2_0.png",
+      "candidateSha256": "34e02050cc1035516385e2cc839027fa3f3fd283aefd61da70715ab86ad9a4fa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body-Up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body-Up_male_v2_1.png",
+      "sourceSha256": "868d5f0da02dea274a80a8580cae810ee140cd64826a1d00c7d62df531adb836",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/028/Body-Up_male_v2_1.png",
+      "candidateSha256": "8c5977e1e1c5428fa125173ff7e1795db46d4c7d79007d29f183575d1f04c97e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body-Up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body-Up_male_v2_2.png",
+      "sourceSha256": "7ddc1a176a2f92a6a66aeff11763e810126c91a118494ee08eb93714dc062686",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/028/Body-Up_male_v2_2.png",
+      "candidateSha256": "212e70979c061c3c8acab38a11f9c1c64c2a5983e753c92c4cdf8647083feab8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body-Up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body-Up_male_v2_3.png",
+      "sourceSha256": "9a1801145002d69e56963d3ea613dbbd66b2d15d1a50e1d36d52f6c1381daa7e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/028/Body-Up_male_v2_3.png",
+      "candidateSha256": "889c57dafc53c66ac525e10578621cf6274c5e127ba5b6254159ad07e1ff6091",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body-Up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body-Up_female_v2_0.png",
+      "sourceSha256": "d892f81e9bd7dc5fa510465b174e4062467560fe8d017077c0314d7d1ef4cb86",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/028/Body-Up_female_v2_0.png",
+      "candidateSha256": "37c420c48d5e5bb0d1ca0ce8861c6490b4ae1abbf9e34b4a6dacd02a18f8a5de",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body-Up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body-Up_female_v2_1.png",
+      "sourceSha256": "ad2ba87e0ab9ca9f9511df4750e7bed1115d174193e97fc60a0e2bb9173a78c4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/028/Body-Up_female_v2_1.png",
+      "candidateSha256": "a178e3666d3b4d27b9db9ee248eacc1bb2236340d0e89a97bdb44989db23b2bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body-Up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body-Up_female_v2_2.png",
+      "sourceSha256": "fa252ea9ed327cbc65a5a2c7e603164716425bc2a852236bb802c305732de1ce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/028/Body-Up_female_v2_2.png",
+      "candidateSha256": "0c37d59be77d10c566630fab1b0f42f3a6c47949353a1a6d3ce452bf4a062d23",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body-Up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body-Up_female_v2_3.png",
+      "sourceSha256": "08cdab05bd2da9134bf9655852bd904174827078862ef965bf1610ea83bcd22a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/028/Body-Up_female_v2_3.png",
+      "candidateSha256": "f4e4e132438b1adae796b2910977a949cbe82a9677d3393d25ba230f7be2c78f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

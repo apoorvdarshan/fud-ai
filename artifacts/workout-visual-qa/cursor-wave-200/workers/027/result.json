@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Board_Press",
+  "shard": 3,
+  "index": 27,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Board_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Board_Press_male_v2_0.png",
+      "sourceSha256": "54e96f08a5de446408d6a2fddb7a1ee260688fcbaee75d333b7498b9a591767d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/027/Board_Press_male_v2_0.png",
+      "candidateSha256": "37258b50f5b15fb1f41ea3824a4ccfc27036ab51a9873444237cf8bce270d8d7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Board_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Board_Press_male_v2_1.png",
+      "sourceSha256": "7962d8012721f14a879be9b9281f99e97ccdb2d6f14bdd4d2d0cdfa032030fd1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/027/Board_Press_male_v2_1.png",
+      "candidateSha256": "edcbf4a6b3d27ca12ba9cb723c11dd7bfb45e1a172a264cf1b5a31f8464cb7a1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Board_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Board_Press_male_v2_2.png",
+      "sourceSha256": "aa73a958dcec34bf5448350fe9bc33ec1c916e42215792d1c86c110c7fe565a5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/027/Board_Press_male_v2_2.png",
+      "candidateSha256": "1ab7ded5ea65a283a1dd3bbfe0885fb44a7b14308e6a5ca082f0707b648fe428",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Board_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Board_Press_male_v2_3.png",
+      "sourceSha256": "0574bb39364e7c1e33f7340285cedf19d25526235a190298840312aa96bd5dc1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/027/Board_Press_male_v2_3.png",
+      "candidateSha256": "5b5f340637bd1c1955e3c286ac86cfc62ea158a6c190455ef4d8617973611538",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Board_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Board_Press_female_v2_0.png",
+      "sourceSha256": "f10fed4f664c2951d034cc0468c9bc659a288772d4df10f68fc3d7835b5410ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/027/Board_Press_female_v2_0.png",
+      "candidateSha256": "b3c95a57e87efc98ae8118ba887b8b8f095a3d6296f5c0a8e1b99b343f7ff394",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Board_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Board_Press_female_v2_1.png",
+      "sourceSha256": "f7864159229bf95e848f683ce16ebba063496345ee4e6afb374ee6b7a928873a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/027/Board_Press_female_v2_1.png",
+      "candidateSha256": "295196452f5f6e9c21b0d615826229fac37aff603d2e8ebfa70ef869f386fb2b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Board_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Board_Press_female_v2_2.png",
+      "sourceSha256": "1323a00c8fc20dd7e7724f23dfd89116b1d5b8a5a75af2a192e458eef084f640",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/027/Board_Press_female_v2_2.png",
+      "candidateSha256": "1bea844f8cc604dc03e2b3867debcf7a9ff735537753505a32de8a216d5020df",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Board_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Board_Press_female_v2_3.png",
+      "sourceSha256": "bb94e6d2bf8bd92eb15a4c0f7f240e939fce18fac91c4da117b8bbcb11ebe2cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/027/Board_Press_female_v2_3.png",
+      "candidateSha256": "14b6b56337d927a63b9c93d10f90ae884a4fa86a18529dd4e5f961855b7cd253",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

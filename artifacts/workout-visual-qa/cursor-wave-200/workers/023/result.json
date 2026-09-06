@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bent_Over_Two-Dumbbell_Row_With_Palms_In",
+  "shard": 3,
+  "index": 23,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bent_Over_Two-Dumbbell_Row_With_Palms_In_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Dumbbell_Row_With_Palms_In_male_v2_0.png",
+      "sourceSha256": "feb81ac537483619c2f657e93f5ea86c5cf9cfa38ce21d76e985f0a5a5b37947",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/023/Bent_Over_Two-Dumbbell_Row_With_Palms_In_male_v2_0.png",
+      "candidateSha256": "a27dac587ed7bf8268ec44bcd7927a98ce994710d5e55b2dfe08dddde1562704",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Dumbbell_Row_With_Palms_In_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Dumbbell_Row_With_Palms_In_male_v2_1.png",
+      "sourceSha256": "35c4328bbb928c933ad7eed648dfd87e729c18e9a89552db539551abaf2b5e9b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/023/Bent_Over_Two-Dumbbell_Row_With_Palms_In_male_v2_1.png",
+      "candidateSha256": "76ecff4c2c170139e06c53bf822e26ac44e1383fd1da7c8e8768da125afec6ae",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Dumbbell_Row_With_Palms_In_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Dumbbell_Row_With_Palms_In_male_v2_2.png",
+      "sourceSha256": "9c872a142b77cb22a34ba5219143b513db563e0661b7b0b178bd16f418ccacc4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/023/Bent_Over_Two-Dumbbell_Row_With_Palms_In_male_v2_2.png",
+      "candidateSha256": "260a71ba5e40f8607bf6dcbab33894307147355dfceba9b37a7766a9f8763f99",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Dumbbell_Row_With_Palms_In_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Dumbbell_Row_With_Palms_In_male_v2_3.png",
+      "sourceSha256": "57040cb41f9e124936dcfbf7d0e08fb9b3b6dcbcdf6f2ad08ec1ded4515b5ba1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/023/Bent_Over_Two-Dumbbell_Row_With_Palms_In_male_v2_3.png",
+      "candidateSha256": "1877ebf0b82acdc1d51b134dfe62ca90fab2c82cc0240e445fcac5246ac53cd8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Dumbbell_Row_With_Palms_In_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Dumbbell_Row_With_Palms_In_female_v2_0.png",
+      "sourceSha256": "5f0339b19dca10e8239b0feb02d14c68aa6b22b7ce943602dfb9a95332574e16",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/023/Bent_Over_Two-Dumbbell_Row_With_Palms_In_female_v2_0.png",
+      "candidateSha256": "01bb673d3af74657d621f8e7411ee22b6684b507d6f15253d685cb441b387878",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Dumbbell_Row_With_Palms_In_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Dumbbell_Row_With_Palms_In_female_v2_1.png",
+      "sourceSha256": "9cf5173735485dbf8b179dfed374d3158906fbdb315e8d2f0ecc420d8b41423c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/023/Bent_Over_Two-Dumbbell_Row_With_Palms_In_female_v2_1.png",
+      "candidateSha256": "a1b161eb11c6e2e7a2e96c21ab3097ebd2d39c6bf39838fe5730a915026ba5ef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Dumbbell_Row_With_Palms_In_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Dumbbell_Row_With_Palms_In_female_v2_2.png",
+      "sourceSha256": "1a8a4d28a724f7cee42f00f4622e112818670d2744e79bf714032538473adea7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/023/Bent_Over_Two-Dumbbell_Row_With_Palms_In_female_v2_2.png",
+      "candidateSha256": "b826e60a0d8f537f7934d0a99f3ab166a9c4a28552c187827ce51d8cc7d3eee0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Two-Dumbbell_Row_With_Palms_In_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Two-Dumbbell_Row_With_Palms_In_female_v2_3.png",
+      "sourceSha256": "01d68fdfb6a2137c68c6fc31366c32b094089f357c737f0bcb44b55e11650b50",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/023/Bent_Over_Two-Dumbbell_Row_With_Palms_In_female_v2_3.png",
+      "candidateSha256": "dffdb8f60fdbd7136c660daa7242c5b539e474a29833cb032a73031bdbda73ba",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

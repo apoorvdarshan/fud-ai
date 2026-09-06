@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bent_Over_Low-Pulley_Side_Lateral",
+  "shard": 3,
+  "index": 21,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_male_v2_0.png",
+      "sourceSha256": "9ef9ef9d815e377f465c451093544c36363fbf24818c2ffb6ab3ebfe6d3e6c9c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/021/Bent_Over_Low-Pulley_Side_Lateral_male_v2_0.png",
+      "candidateSha256": "1c4c9a9b7456c8bdbd1af0d68d1167910c4eab2a1b76112d007f62da77cff6fb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_male_v2_1.png",
+      "sourceSha256": "80ca6f65096406e0c66533dbb1d386fe963d4f05e9e709d5997c2bb5b27615ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/021/Bent_Over_Low-Pulley_Side_Lateral_male_v2_1.png",
+      "candidateSha256": "a6a4c43a4e0e016a9be5c0647489438ad42528c7cc693c81e3619ed577bf391b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_male_v2_2.png",
+      "sourceSha256": "750f54062088f4feadd6da34898ba58d70ad9e7e8e749800d851eaae28bbcd9c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/021/Bent_Over_Low-Pulley_Side_Lateral_male_v2_2.png",
+      "candidateSha256": "c81960d650390ac791020f09ad5ffc0fa22773210ece6d7ad06df39429788715",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_male_v2_3.png",
+      "sourceSha256": "2ef5e65e402e71f63f85a07a70174132e4cce30957c39c8d4bbb3a2d55ecd231",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/021/Bent_Over_Low-Pulley_Side_Lateral_male_v2_3.png",
+      "candidateSha256": "b7f27d8f562a246d92790dab98be7550f6988dc7eccac688a16a6bbd0a91105e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_female_v2_0.png",
+      "sourceSha256": "9497c31da55284dc4ac8d94fb4fb3c2fa3e011522d64ca611011af8c0fc17ec3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/021/Bent_Over_Low-Pulley_Side_Lateral_female_v2_0.png",
+      "candidateSha256": "588b6fd69064288c5611b32cab2d0fbe3b54efe0da61d46e58c40975f8b53dcf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_female_v2_1.png",
+      "sourceSha256": "175ac06fb867c8b525125c709d0107c2568d69488749e8350af49b67c82b3731",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/021/Bent_Over_Low-Pulley_Side_Lateral_female_v2_1.png",
+      "candidateSha256": "3d6450599f44cd2b0c758cbeaa94d9982969ebf8b830991ad21a8faf01d0b445",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_female_v2_2.png",
+      "sourceSha256": "d3c1b4ab1a178b18e6e512d7e53e91b78c59a3431798ef8e0c1928fa6df616fb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/021/Bent_Over_Low-Pulley_Side_Lateral_female_v2_2.png",
+      "candidateSha256": "48e18a08ce2f37866a48f6da3af59e5060c3a1e3a68b0e8835ef3a0d65485c8a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_female_v2_3.png",
+      "sourceSha256": "af9a5cc4698d01ee09c4965e389e5b7398a99d592d06cbd6cf65cce827afa0af",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/021/Bent_Over_Low-Pulley_Side_Lateral_female_v2_3.png",
+      "candidateSha256": "0f05249f1f0c260bfa5bb37ca64238575546e65010139aab7bb115088eb09ac1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

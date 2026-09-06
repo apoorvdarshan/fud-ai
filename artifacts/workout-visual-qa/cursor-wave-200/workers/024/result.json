@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bent_Press",
+  "shard": 3,
+  "index": 24,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bent_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Press_male_v2_0.png",
+      "sourceSha256": "7c8ee1a82daa8eda546acb9ac99229bb4ab44ef38ba4a5d31df2a6275b050682",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/024/Bent_Press_male_v2_0.png",
+      "candidateSha256": "c1f2f83da8635fba8edf558d23fc277a96fddcf23f59945ce8edcb764ff0d5ce",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Press_male_v2_1.png",
+      "sourceSha256": "c5fe4bb0b423e8d1104e29db644120b141b761364612dde284e70a3331b255f3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/024/Bent_Press_male_v2_1.png",
+      "candidateSha256": "de3d7e955ffbc648bcb84f7a8d5ec4be12175256402ae376f8ab75d7cd517123",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Press_male_v2_2.png",
+      "sourceSha256": "d763e07e2338e5b1d38ad28151083467a09c563f2ec473f81557b8a2a5acabd0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/024/Bent_Press_male_v2_2.png",
+      "candidateSha256": "ce7365e6dd0cf49f182781600136611f863f5582c7fdefbbf1681c7389e55ad3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Press_male_v2_3.png",
+      "sourceSha256": "1afdf946d56d493c5491fad032fc032d8bbbef6f33f38f86b33fb2c01c06d1fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/024/Bent_Press_male_v2_3.png",
+      "candidateSha256": "81554b393a96e69b8d5c63ea3f24c0a838c42e5f9be3b7a3e3f4d73219fad5dc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Press_female_v2_0.png",
+      "sourceSha256": "50f932b402a86fd9294c76b5cba3940feec76b28ffddb06f4e951b733003f02d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/024/Bent_Press_female_v2_0.png",
+      "candidateSha256": "2b258ec757991837ef4b62c73d3b5c26552655a58e00abb692b36a13d35b34f2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Press_female_v2_1.png",
+      "sourceSha256": "ad2b595d8e96e783fccf86b29ef7e01e503646b7878f80465e3f2df5ed678b57",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/024/Bent_Press_female_v2_1.png",
+      "candidateSha256": "180f27794a81eb3901529e9a26259c0a62859c2f3ee07c312f5ef1726dfefad0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Press_female_v2_2.png",
+      "sourceSha256": "53fdd02dd5fc1f209ba01e7812e3292c04a8170d99e1bf027e747d8c07b22dbc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/024/Bent_Press_female_v2_2.png",
+      "candidateSha256": "74f3960e7df7f78db179c50214b719594b1c2e1296548f34c7f3f38293328432",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Press_female_v2_3.png",
+      "sourceSha256": "ad3f4622769e45faca4cfe1e415e2d471d68096ae9445f0eb8777964960f16c3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/024/Bent_Press_female_v2_3.png",
+      "candidateSha256": "4235062c126cc6a2a81918265d3ce7f3a0f65a5d26ff351c142287cff18933d9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

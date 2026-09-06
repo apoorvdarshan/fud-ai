@@ -1,0 +1,16 @@
+{
+  "source_sha256": "9fde4577f2560d81e18e35a042fea05893c53b5f75f3fd14b31261dbd4437cfc",
+  "candidate_sha256": "ade7c72f8b5c3230cf7304650b6d67bc964bdcc8e0534bf7151af54b81b0929e",
+  "generated_sha256": "f75dc2148a4ab3d3bcb3ce1b18d8557b2aec62731e3202ea36e1bde429bdb6c5",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-131-Reverse_Band_Deadlift_female_v2_3.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

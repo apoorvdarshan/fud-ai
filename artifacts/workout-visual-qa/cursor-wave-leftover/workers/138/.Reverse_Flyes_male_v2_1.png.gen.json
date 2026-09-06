@@ -1,0 +1,16 @@
+{
+  "source_sha256": "0bbb63139adc0ba1989a215cf4fa388fb3413e7fbc7405b43fb4b765aaa0ce84",
+  "candidate_sha256": "8599e21514a8ebca459922ea8dfd1665f521dd7703c28643bd615bd383d6fb22",
+  "generated_sha256": "cc41bedd168dcb28fc54c7bed138daba11a1bb3546d6b5a5e681c9670381a218",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-138-Reverse_Flyes_male_v2_1.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

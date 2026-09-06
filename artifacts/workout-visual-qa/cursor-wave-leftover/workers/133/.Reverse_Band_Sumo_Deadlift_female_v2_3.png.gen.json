@@ -1,0 +1,16 @@
+{
+  "source_sha256": "f4628d091cd87bc2fbeebfab38721a981eb8db732a125641ef8d5d1e078498ea",
+  "candidate_sha256": "8cfdcd787e9fe845025cc822cebdb3bad42ca9592aa6f04df0783eb0bd65508f",
+  "generated_sha256": "aba5ee325ba9c1ef696e2b8600a70bd08915883e7e69c4fb35e348eda04b9f20",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-133-Reverse_Band_Sumo_Deadlift_female_v2_3.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

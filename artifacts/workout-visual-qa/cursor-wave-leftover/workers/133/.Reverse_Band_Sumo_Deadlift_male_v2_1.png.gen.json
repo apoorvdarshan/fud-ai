@@ -1,0 +1,16 @@
+{
+  "source_sha256": "ad942b8ff747e993352f495be5529f1a35b86ae192374bb858519af7c5f6e3d8",
+  "candidate_sha256": "09029cc71cd0aa3ad53005ba45214f6bbef8b6d1a538441bc22367984f53b8f4",
+  "generated_sha256": "dbe74b8dfb7917451a9dc28d0bebc157ac0e580f910b20800eacbda8c7439c2e",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-133-Reverse_Band_Sumo_Deadlift_male_v2_1.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

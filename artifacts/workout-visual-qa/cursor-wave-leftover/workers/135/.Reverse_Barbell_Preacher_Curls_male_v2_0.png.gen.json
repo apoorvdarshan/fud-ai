@@ -1,0 +1,16 @@
+{
+  "source_sha256": "7b2a57664cc62188a607531eb386b8c60c8812d948567710e18410c71937aec6",
+  "candidate_sha256": "fb175e23ccc751d6f6d94fd07795c509cd4df4721dc4d301bb301e8ec7873c58",
+  "generated_sha256": "15f3ad440d9f527ffabe7d4351a575134a103e6ab083685a1743febeb1a5c700",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-135-Reverse_Barbell_Preacher_Curls_male_v2_0.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

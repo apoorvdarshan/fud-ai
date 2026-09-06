@@ -1,0 +1,16 @@
+{
+  "source_sha256": "558ded1b94bb7185e76852a6c15827ede25849b08d25199823fec841fd5804ac",
+  "candidate_sha256": "15d62b3ac654d18861b7907b340b0f2a7ac1c4b6b2dc3f7240488df9818c5ae6",
+  "generated_sha256": "b03623b3e3e16a63be2650769710f3ae4e3295633227bb28c972d8cecabe1e1b",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-131-Reverse_Band_Deadlift_male_v2_3.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

@@ -1,0 +1,16 @@
+{
+  "source_sha256": "bcf66a665c47d5359dd29b94c4a78b1af96241afa44f5419858bccc0a9db173f",
+  "candidate_sha256": "bff1e0d49bb9a784a8c369c62eee0a68464b331caf7b64379aaef7909ba96e22",
+  "generated_sha256": "5f35fd97d6e1d54eddc36b3bea023655062c583106f7a57747d189343e475c1f",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-134-Reverse_Barbell_Curl_female_v2_3.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

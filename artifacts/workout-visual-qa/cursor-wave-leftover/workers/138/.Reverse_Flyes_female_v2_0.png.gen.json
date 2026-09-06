@@ -1,0 +1,16 @@
+{
+  "source_sha256": "72f4c7e0816e752aa0ce44f28a0792680852e5bfa8ceb91dad7b87dd81f7398c",
+  "candidate_sha256": "cf63145f5a0714a8444965261540edaa5f9856989cc3db70ae10bd7d29a939f5",
+  "generated_sha256": "d3fc828cf725afeeb22d6a5d33f97df40e77d2f0e2896c497fc710831f77c7c9",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-138-Reverse_Flyes_female_v2_0.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

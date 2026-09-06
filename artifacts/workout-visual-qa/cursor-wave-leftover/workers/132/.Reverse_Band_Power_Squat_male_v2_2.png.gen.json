@@ -1,0 +1,16 @@
+{
+  "source_sha256": "ebcf511153defd865528f62fd9e5142a32a52885965d16b0093426e426b26b9a",
+  "candidate_sha256": "f385c765cb4204de33eac7a7d2e5b5adc2364deba086c7233206c51635d0720b",
+  "generated_sha256": "9d8a0b9b2e12d13bf71f296602a609b94cc3646b22a959e7320c5679116483fd",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-132-Reverse_Band_Power_Squat_male_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Reverse_Cable_Curl",
+  "shard": 14,
+  "index": 136,
+  "status": "ready_for_review",
+  "findings": [
+    "Cable curl frames clean after script; pulley base is intentional equipment"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Reverse_Cable_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Cable_Curl_male_v2_0.png",
+      "sourceSha256": "f1ec863bf3d33cb347b55359011b8f33c9a27723414bcf5c456c4310269e9fcc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/136/Reverse_Cable_Curl_male_v2_0.png",
+      "candidateSha256": "e180a63f61cbc2c7ff751efc39e8e3857e6105bfcce80b16cec71b93d3eecb54",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Cable_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Cable_Curl_male_v2_1.png",
+      "sourceSha256": "6de0d0485989a8d2ec1c7cdcd83f4d43533736633d502ce543fd4445f2422eec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/136/Reverse_Cable_Curl_male_v2_1.png",
+      "candidateSha256": "fbb3c90acccffeb4737f69b5df402bcc3289a9f759ea7169fb7d46b27f517a16",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Cable_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Cable_Curl_male_v2_2.png",
+      "sourceSha256": "c24b8ec12f5bf800527b5989bb51abfbc3eed9a44889d09f8ef6f32245c82bc3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/136/Reverse_Cable_Curl_male_v2_2.png",
+      "candidateSha256": "e33b201a2d8b475538254ef80e0ba17f53793286f53879b6539411dda530a5bd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Cable_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Cable_Curl_male_v2_3.png",
+      "sourceSha256": "186c241593c7ef3803ce446b87c357d9246fa942a7002bccb2e35e56cdfe3241",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/136/Reverse_Cable_Curl_male_v2_3.png",
+      "candidateSha256": "38828e05e789ad96310588a4898e789ab0428d9cb9319e00abb5792548dbd8e1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Cable_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Cable_Curl_female_v2_0.png",
+      "sourceSha256": "766e945cd0d6d549cc5cd1523d902fe39f5ee461954421103b3103d26d6e0cb4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/136/Reverse_Cable_Curl_female_v2_0.png",
+      "candidateSha256": "5063df60d9eaae4c7eac8dc6281fd09be3fbc62f092cf2122fbe71e033f1d4c0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Cable_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Cable_Curl_female_v2_1.png",
+      "sourceSha256": "ddcc388816937b155ae73abc339b5515af8b7280ae979f1418152b89ed06fe8c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/136/Reverse_Cable_Curl_female_v2_1.png",
+      "candidateSha256": "71ff680f1479d86e52d4e02fb7c7a46384dbb11b95d93df0531d6705961b6628",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Cable_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Cable_Curl_female_v2_2.png",
+      "sourceSha256": "6e4f6e3d192ab4b8b94ca7397ca96d36af17ba00935cfee886332ef1974b77af",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/136/Reverse_Cable_Curl_female_v2_2.png",
+      "candidateSha256": "fdc17758dae63bef1b72edece7112bb384cda0815ebf4fe0002c454e51684f3f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Cable_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Cable_Curl_female_v2_3.png",
+      "sourceSha256": "cba794b334d20eb71f64ce2e56e09e0792e94fbc82f5863dafc35555328276dd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/136/Reverse_Cable_Curl_female_v2_3.png",
+      "candidateSha256": "e60b60960e1cfca2c0ad311d72bc93b077a34a6f9b2fa31518db21968a8a86b1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

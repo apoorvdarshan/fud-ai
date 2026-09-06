@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Reverse_Band_Power_Squat",
+  "shard": 14,
+  "index": 132,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left floor/rack matte on band power squat frames; GenerateImage+green chroma cleaned backgrounds on 8/8"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Reverse_Band_Power_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Power_Squat_male_v2_0.png",
+      "sourceSha256": "018d67ab2fee67b8673e90fd86261b1a37da680abf6182a53c442b802493ae68",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/132/Reverse_Band_Power_Squat_male_v2_0.png",
+      "candidateSha256": "57120e2419021d42d7cd082e8a1d2588efb77973e5ce6a540763046d5ab60c5a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Power_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Power_Squat_male_v2_1.png",
+      "sourceSha256": "4245c2c2450f20d7de70c2a82716536f88d1bc7099d5e619b70318da81ad7daa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/132/Reverse_Band_Power_Squat_male_v2_1.png",
+      "candidateSha256": "545416d94f5744223032f6970a99ebd4aa8b7658f3969d54dfea6efe0df269df",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Power_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Power_Squat_male_v2_2.png",
+      "sourceSha256": "ebcf511153defd865528f62fd9e5142a32a52885965d16b0093426e426b26b9a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/132/Reverse_Band_Power_Squat_male_v2_2.png",
+      "candidateSha256": "f385c765cb4204de33eac7a7d2e5b5adc2364deba086c7233206c51635d0720b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Power_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Power_Squat_male_v2_3.png",
+      "sourceSha256": "ea089928a180e81a7a0e419121219a092969a93af641a3755c6a5b3ff62bca08",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/132/Reverse_Band_Power_Squat_male_v2_3.png",
+      "candidateSha256": "0cb99eb5b993c0a9c0a7ef3711b63a80a5ef5d9f676bd083a485c55e9c9927a1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Power_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Power_Squat_female_v2_0.png",
+      "sourceSha256": "a16b5068c0ae42ca769d62b9d811d44837312be382ede2f684e37e57c75f5c17",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/132/Reverse_Band_Power_Squat_female_v2_0.png",
+      "candidateSha256": "3c19512092e445952c213e60a65bc2022b0b0c40c19e689fc677a75ee629a2bd",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Power_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Power_Squat_female_v2_1.png",
+      "sourceSha256": "7e037541f25269e27e0c94c4b68e1e643b7bd5c55630aa038f2740a6ecbd3fb7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/132/Reverse_Band_Power_Squat_female_v2_1.png",
+      "candidateSha256": "068db4cf25461312ffe7e7e0dd9fa380a41aa971c88a1c1e1ddb678d16719eea",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Power_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Power_Squat_female_v2_2.png",
+      "sourceSha256": "79281c7dd2c9f06b7fc9474dfdc5b0887317a8761dbd04e15358c81905327bba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/132/Reverse_Band_Power_Squat_female_v2_2.png",
+      "candidateSha256": "7c9aa5e320ce810335ca516287caa23e6446316f968d3cd5d1527a60409944b5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Power_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Power_Squat_female_v2_3.png",
+      "sourceSha256": "2871f8f0bc9dde9c5289367c2351d1d4e2c332be13488e959b9d814cf5645821",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/132/Reverse_Band_Power_Squat_female_v2_3.png",
+      "candidateSha256": "38166f411e60f04a36d08770429c240bc6244a144436e1a748b72a769ead0f68",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

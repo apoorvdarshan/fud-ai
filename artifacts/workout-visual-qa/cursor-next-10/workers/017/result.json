@@ -1,0 +1,88 @@
+{
+  "exerciseId": "Dumbbell_Scaption",
+  "shard": 2,
+  "index": 17,
+  "status": "ready_for_review",
+  "changedFrameCount": 8,
+  "findings": [
+    "Source audit: irregular pale gray/white ground patches around and between the shoes in every frame, plus fine light edge speckles on hair, limbs, and dumbbells.",
+    "Script pale-neural-guard-v2 removed those ground islands (494–676 px/frame). RGB of remaining opaque pixels is unchanged.",
+    "Visual review on light and dark composites: scaption sequence is intact (arms at sides → scapular-plane raise to shoulder height, thumbs-up / neutral grip). Real alpha, no painted checkerboard, no anatomy or equipment redraw.",
+    "Leftover pale pixels after cleanup are almost entirely white shoe midsoles plus 1–2 px edge speckles. GenerateImage was not needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dumbbell_Scaption_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Scaption_male_v2_0.png",
+      "sourceSha256": "fbeb029c973b06a4d706ed1ed6b632b8a214d6675d8d6214ade422788374a491",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-next-10/workers/017/Dumbbell_Scaption_male_v2_0.png",
+      "candidateSha256": "7eb75925b611a69d2d3ca081bccb91eb8d4f70b56c6fa2d27eba6b4e8e1ca5f7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Scaption_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Scaption_male_v2_1.png",
+      "sourceSha256": "05c21f69a5e1aacb04478f49fe507950f74ae10e4953750d9b2a283d712144ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-next-10/workers/017/Dumbbell_Scaption_male_v2_1.png",
+      "candidateSha256": "45db48672d7a05f73f37b97434f1fe8f63fded5a7a871365b4df2b4e0b252dd8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Scaption_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Scaption_male_v2_2.png",
+      "sourceSha256": "8563a73bc55cd238723873c894e96c37f0bc85c4744f8d4f98b04e964b34b8ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-next-10/workers/017/Dumbbell_Scaption_male_v2_2.png",
+      "candidateSha256": "6dd86f45d222051bb8f284d301b68fa995e90c7f5f514b66526f8c96ae558ea0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Scaption_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Scaption_male_v2_3.png",
+      "sourceSha256": "baec2330cf42e3d67f1cdfd86069bbce1bc2e0bdd881f83c04a7af62c2c720fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-next-10/workers/017/Dumbbell_Scaption_male_v2_3.png",
+      "candidateSha256": "6770f4d726f66edee912ad08e1b82f77a1e0cfcc40740d5d2b15a17e71d1a6b9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Scaption_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Scaption_female_v2_0.png",
+      "sourceSha256": "dde96115602acb006d3774040cf3751c8e75ca3e2e5fda133f2534d54535fb31",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-next-10/workers/017/Dumbbell_Scaption_female_v2_0.png",
+      "candidateSha256": "81874b596e971462aca3875bdcdf744cec13b115d7ecbc97ca0e61351db979f7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Scaption_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Scaption_female_v2_1.png",
+      "sourceSha256": "fe2ae22a61f3584a4a5bc333d0389d43f0d31f6ea49a7ea35195cfe85b3ba262",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-next-10/workers/017/Dumbbell_Scaption_female_v2_1.png",
+      "candidateSha256": "4d4301226a3689302bd68c6e60c5b59a164b5f7e655c4c27f401bf8a0b009990",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Scaption_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Scaption_female_v2_2.png",
+      "sourceSha256": "cde843500ef6943cbe87f9380862027034312545adcf4178afd6b795b99b0574",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-next-10/workers/017/Dumbbell_Scaption_female_v2_2.png",
+      "candidateSha256": "0a5331726284bd00c3c8ab198cb0b8fa4b9abe159615df625b6dcd2228230dcd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Scaption_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Scaption_female_v2_3.png",
+      "sourceSha256": "72878c7d544e534a1c824e68d0821599c723eeb294da227c86164c7617a40898",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-next-10/workers/017/Dumbbell_Scaption_female_v2_3.png",
+      "candidateSha256": "ed0b5d6de06715f1e1277f9bfdf8c8c222373fc9a1268a9d06c995c07ea17c8f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

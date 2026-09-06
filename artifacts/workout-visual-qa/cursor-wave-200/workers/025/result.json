@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bicycling",
+  "shard": 3,
+  "index": 25,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bicycling_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bicycling_male_v2_0.png",
+      "sourceSha256": "9f60387b8ff4c48f6ead355efa439edf6061aaa9b8efce43222c0c702de9e325",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/025/Bicycling_male_v2_0.png",
+      "candidateSha256": "52673619c97cb1b596266d4666a8e75befc6da27c08044013c167e3317a2e6bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bicycling_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bicycling_male_v2_1.png",
+      "sourceSha256": "b0effaf942a71f0575c5993121c6e0059e178957af2ee107dfeb824950b669de",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/025/Bicycling_male_v2_1.png",
+      "candidateSha256": "8ee7fc5d15ffe277b43b3eacec1650daa0cdb85b0c462228d592980cbdae3b99",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bicycling_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bicycling_male_v2_2.png",
+      "sourceSha256": "217348bff142eca678543990144c99318c124ca7f687f1d6abccb2333f31ddee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/025/Bicycling_male_v2_2.png",
+      "candidateSha256": "89a6fb569afff73247c4ebba70886031f426ea93a1e64e5782cc8226216af4e9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bicycling_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bicycling_male_v2_3.png",
+      "sourceSha256": "ef36ae3e15e3b09e31f0b77517dc1083ed9e8c32dde7a1d22b5946a2394bd89c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/025/Bicycling_male_v2_3.png",
+      "candidateSha256": "f683dc93ff622b616c9359f55ee3161ec0ee242f34404fdf152c07967d4338fc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bicycling_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bicycling_female_v2_0.png",
+      "sourceSha256": "d7fbe9f07d32586ac1b5ddd05a07cc820133fa2fe46aec7f74b0e49948034527",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/025/Bicycling_female_v2_0.png",
+      "candidateSha256": "dae2d4e03c2eb7d8d36028d05b1b6dee474a20c1618cd9d4249c29c8640c89ed",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bicycling_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bicycling_female_v2_1.png",
+      "sourceSha256": "d739a1f12958028dc2c6db3d1db8e4e4712ffe9cd72ae1eaf7d092f8a00ab27d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/025/Bicycling_female_v2_1.png",
+      "candidateSha256": "17457644b51879343c31d0d7a66980707d07c82b8bf932662eb14ce6c0231a9b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bicycling_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bicycling_female_v2_2.png",
+      "sourceSha256": "2f1e6f824ee6fc496e89d182daccb180675f1899f1322fc99538715249e7abc0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/025/Bicycling_female_v2_2.png",
+      "candidateSha256": "739434547b6c0a7d1e0792a3d617ef9870347583afb19a757b95235aa4757ef7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bicycling_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bicycling_female_v2_3.png",
+      "sourceSha256": "7efba830e710aecc28e982f245d458723dac5f6069e0b7cc98146ffff39c2790",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/025/Bicycling_female_v2_3.png",
+      "candidateSha256": "96ecb2eafa910347f6dcd2bca1c57f14739f25337ad21c3c7a548d7cda59a005",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

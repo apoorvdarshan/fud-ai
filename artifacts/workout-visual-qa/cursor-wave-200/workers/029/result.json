@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Body_Tricep_Press",
+  "shard": 3,
+  "index": 29,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Body_Tricep_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body_Tricep_Press_male_v2_0.png",
+      "sourceSha256": "ea96d9a70877e0e915715af899417806ac7bd78450b63fc835df7a51ebd09de4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/029/Body_Tricep_Press_male_v2_0.png",
+      "candidateSha256": "b5c7f09b9957222077b7c5500170683b2087ff44d17b25e1f5c047089e9ab979",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body_Tricep_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body_Tricep_Press_male_v2_1.png",
+      "sourceSha256": "f4d4098164dde3b75ce414923c8a6946d9df55fbf419b15cd1107fc33ba69bbd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/029/Body_Tricep_Press_male_v2_1.png",
+      "candidateSha256": "61c3109daa4d872174d87068b7131b932b3005088fc2be4faf3296213654764f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body_Tricep_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body_Tricep_Press_male_v2_2.png",
+      "sourceSha256": "17fa3ca72e18037b50d7d87c077a5a0908b22da10a297759d61681a31997eb00",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/029/Body_Tricep_Press_male_v2_2.png",
+      "candidateSha256": "1e49e9677e894442e8cb49be79c37637762e9eb9256030e624a78e01e1acb5a0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body_Tricep_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body_Tricep_Press_male_v2_3.png",
+      "sourceSha256": "a2ceb581c843145be3434d2b476f0abbc38fbc49be851ada9967900af3a18e7f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/029/Body_Tricep_Press_male_v2_3.png",
+      "candidateSha256": "3dea41735a2cadd887fdbe71767f201b2ae798ba1ded2745a60612ae52a4d7cc",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body_Tricep_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body_Tricep_Press_female_v2_0.png",
+      "sourceSha256": "2972115cb178881d12a1684dd49ba5cc4045b43a07f6d9eb5c8c856c42aa7af1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/029/Body_Tricep_Press_female_v2_0.png",
+      "candidateSha256": "f70357e9574b79fa575490147e42e52e0a496f21787dd81f1bd96fd9d5d261e8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body_Tricep_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body_Tricep_Press_female_v2_1.png",
+      "sourceSha256": "2152ba499e36b9b521b48aedf6e0773cf38975ee1bd4ae9d12c6984b2723a23b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/029/Body_Tricep_Press_female_v2_1.png",
+      "candidateSha256": "7bdb0aec6d0d863e91a273f9f35b37b3d998f178b2ed697ff4ddaad4fd1bb509",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body_Tricep_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body_Tricep_Press_female_v2_2.png",
+      "sourceSha256": "e428066b4a6276f027316eca781bf66be7f134a25cba93f95af1c053b48bd2a6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/029/Body_Tricep_Press_female_v2_2.png",
+      "candidateSha256": "a4c6cae1cacaab12b1bf18f12183b9488893e0f67ce2e8f75f45fbabc9317865",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Body_Tricep_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Body_Tricep_Press_female_v2_3.png",
+      "sourceSha256": "842fe8c4eede7b5e8350abe543c429d4cdafea8c9391b6bbb13c272729317165",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/029/Body_Tricep_Press_female_v2_3.png",
+      "candidateSha256": "2dae7b6fe49492070edca85563b657a1bb9418ecfe9ac753ebb6021098a20ad0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

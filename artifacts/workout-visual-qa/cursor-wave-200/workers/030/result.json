@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bodyweight_Flyes",
+  "shard": 3,
+  "index": 30,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bodyweight_Flyes_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Flyes_male_v2_0.png",
+      "sourceSha256": "89dda8051fa952d746ff76384d429584e8c5fdeaf4ed9c97df03586dd6dde9c9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/030/Bodyweight_Flyes_male_v2_0.png",
+      "candidateSha256": "7d16d65c699bab3c9eaff1a04fcf1d7bf64a1125a1886f02f3e06be6d0a773b3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Flyes_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Flyes_male_v2_1.png",
+      "sourceSha256": "e589953569de666ddedcd3f9494535f93c2031a2ddadc4b6ad6855d1d3c82b4b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/030/Bodyweight_Flyes_male_v2_1.png",
+      "candidateSha256": "cd8c56af878247a1b8dc12410e82d57aa4f98157d663d98326535c02b97ea9f4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Flyes_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Flyes_male_v2_2.png",
+      "sourceSha256": "39de130c170ba213cd2a99f0c535c7aa35ecfa2be144e9494a967388bd116b0f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/030/Bodyweight_Flyes_male_v2_2.png",
+      "candidateSha256": "da30e8addaab4d6285a5de772867a73be703040de214bc81b4292076d83eabb2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Flyes_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Flyes_male_v2_3.png",
+      "sourceSha256": "2ca4ff602a200e677b91b54c4092086ae344f5317e941f70202243e55d13bbca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/030/Bodyweight_Flyes_male_v2_3.png",
+      "candidateSha256": "c545bb311410699ebaeef807f17428a649805076ffd8f6c5bc1c3dd9ea503431",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Flyes_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Flyes_female_v2_0.png",
+      "sourceSha256": "518009a7e2ad5308d1cd1f754ff09db4ff2b2c0719bcaa76167a6269143d208d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/030/Bodyweight_Flyes_female_v2_0.png",
+      "candidateSha256": "02490b52db608006b9d329678f9eb88380be6fd3a4d09b15e817a5405e44950d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Flyes_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Flyes_female_v2_1.png",
+      "sourceSha256": "610664662f6a7fe8bcb67d9b9de8469b1b4064a305a79b82eb5c9c777c9ca0ee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/030/Bodyweight_Flyes_female_v2_1.png",
+      "candidateSha256": "f406adfa1d372921efcac78a731b6ff46b0b735ed38158fa0bb322e3c9465971",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Flyes_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Flyes_female_v2_2.png",
+      "sourceSha256": "721d3934df0123b9b321231fcfb21bd3350ec2aaf8a0562ea51d8f1bef07210a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/030/Bodyweight_Flyes_female_v2_2.png",
+      "candidateSha256": "b3bffd5fc82f1f73e96b78320e6ae95a9499691cb411eb59ca92298fa6658b63",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bodyweight_Flyes_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bodyweight_Flyes_female_v2_3.png",
+      "sourceSha256": "27bf29268bdd09ed5f12e6c3560d3b2ba907ef0f0e117c20411d4c850f3a3f17",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/030/Bodyweight_Flyes_female_v2_3.png",
+      "candidateSha256": "20658d915310d3af5ccd58112bd45ee05a368edf6aec53e1d5a975bf259fffed",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

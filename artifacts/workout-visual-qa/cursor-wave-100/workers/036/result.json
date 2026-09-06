@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Incline_Cable_Chest_Press",
+  "shard": 4,
+  "index": 36,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Incline_Cable_Chest_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_male_v2_0.png",
+      "sourceSha256": "3be9a0df4e72f9f97d15d7f5d2afb5511a4690539497725593a0a1a26b59dc3f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_male_v2_0.png",
+      "candidateSha256": "3261f806c4d0c2fb04d6b81cbf60db48411eaf7c0f369e8ec9b07a6a2c5a7cf9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Cable_Chest_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_male_v2_1.png",
+      "sourceSha256": "7d68ce3f5b319fba2d53cedbb29c701b3ab000c883272404a5c78489c9ff6cf6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_male_v2_1.png",
+      "candidateSha256": "0c0f501d968783a3a29cedf45a7668d124f41125d606693772ab3d17055f549e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Cable_Chest_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_male_v2_2.png",
+      "sourceSha256": "471514b3cceb261fd3789631c4f11170e0336461a6d2376f7977cb1de5588793",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_male_v2_2.png",
+      "candidateSha256": "53d3b25887c3f714820f847ebc2046df163b4672e4401697bae3271cb3e68c20",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Cable_Chest_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_male_v2_3.png",
+      "sourceSha256": "e1250469c72815bfc9059e92805f1fb4b524ca3d4217b834ac80263f1fb9506b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_male_v2_3.png",
+      "candidateSha256": "b4fa836cfe278babee25cc9da357977292f4f7bc998077a2c813f100c10c72d9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Cable_Chest_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_female_v2_0.png",
+      "sourceSha256": "7ad04cd9015ca6882a0332acce79bd9b5061e6f0694f8489e36bbdf383687c23",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_female_v2_0.png",
+      "candidateSha256": "4369275a5bfdb9d012e83778b8904073b4251a11a93c75f1b13d39a688e6fda6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Cable_Chest_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_female_v2_1.png",
+      "sourceSha256": "1f30ca883bd14231f03c0ca240c5aa03f49a164f202b3c262caf78a11cf54727",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_female_v2_1.png",
+      "candidateSha256": "bbee7eecc56217c1b07b69ef6e28f5f6a7c831980bd69238011af7a745976d1e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Cable_Chest_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_female_v2_2.png",
+      "sourceSha256": "4f1ad8b4cc0686a18a07ff1bd428fa5dea5866da7bac0f06f3565603603679dd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_female_v2_2.png",
+      "candidateSha256": "0432a0bc8d337fb8d330fa55947936491bbada67149266a8471f817cfba0d40f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Cable_Chest_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Cable_Chest_Press_female_v2_3.png",
+      "sourceSha256": "4c59469eefe833844b6571ba73c772e86b0e14bc70c348c89592346707dd0215",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/036/Incline_Cable_Chest_Press_female_v2_3.png",
+      "candidateSha256": "ddca0a85c3c20db5cb1e30647f47b84335b3d2542bb0440dba914c9dadb839ff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "exerciseId": "Seated_Head_Harness_Neck_Resistance",
+  "shard": 20,
+  "index": 192,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical + green chroma key on 8 frame(s) with pale fringe/floor matte: Seated_Head_Harness_Neck_Resistance_male_v2_0.png, Seated_Head_Harness_Neck_Resistance_male_v2_1.png, Seated_Head_Harness_Neck_Resistance_male_v2_2.png, Seated_Head_Harness_Neck_Resistance_male_v2_3.png, Seated_Head_Harness_Neck_Resistance_female_v2_0.png, Seated_Head_Harness_Neck_Resistance_female_v2_1.png, Seated_Head_Harness_Neck_Resistance_female_v2_2.png, Seated_Head_Harness_Neck_Resistance_female_v2_3.png."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Head_Harness_Neck_Resistance_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Head_Harness_Neck_Resistance_male_v2_0.png",
+      "sourceSha256": "8aee108a5f14dffdbe5e817186f6ab95f7da1c1ff5c80fab98d5f3182a62efdb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/192/Seated_Head_Harness_Neck_Resistance_male_v2_0.png",
+      "candidateSha256": "cd318756d0d0bc490001d320daf451ba35f84528288e08757b42b0eeead2baea",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Head_Harness_Neck_Resistance_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Head_Harness_Neck_Resistance_male_v2_1.png",
+      "sourceSha256": "89dbf9dfd2199b02a0d18adbd0c6be300a0f1159a094185b7518c85fda140cb0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/192/Seated_Head_Harness_Neck_Resistance_male_v2_1.png",
+      "candidateSha256": "4354e50dd94be6910d52fd8e2e428fe14b8293ee8c586ff31cbb925c38fdac9b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Head_Harness_Neck_Resistance_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Head_Harness_Neck_Resistance_male_v2_2.png",
+      "sourceSha256": "4370fa84c786e18aba3d371bda4e85a3ff52853b9d4fff82ac2f6ada942e148e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/192/Seated_Head_Harness_Neck_Resistance_male_v2_2.png",
+      "candidateSha256": "432d9e87cc4d107b3af97e01bb777c57c86b3716fb94c4d16f3358aba362d7c0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Head_Harness_Neck_Resistance_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Head_Harness_Neck_Resistance_male_v2_3.png",
+      "sourceSha256": "81c5fbe2ed173f1d0bead18b69efe00203b23a7ba78fc5f8a0831c6687cdcbed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/192/Seated_Head_Harness_Neck_Resistance_male_v2_3.png",
+      "candidateSha256": "2a7536cde536dbe0937d454733fbd59efed33229b40b293908c28e9ef7abe043",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Head_Harness_Neck_Resistance_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Head_Harness_Neck_Resistance_female_v2_0.png",
+      "sourceSha256": "368ca0d16d34194e021604322d322ad20db054eb836c9ea35240c870ea10a0fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/192/Seated_Head_Harness_Neck_Resistance_female_v2_0.png",
+      "candidateSha256": "98bd3b2969a27f88b9ce8bf41d84a0eac7f3c86974e6a412d6bdcfeef281391a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Head_Harness_Neck_Resistance_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Head_Harness_Neck_Resistance_female_v2_1.png",
+      "sourceSha256": "30f4954cd28a48f86c214be9b731d5b9bab6fec6ca958fc33c0fb61f18e4c2ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/192/Seated_Head_Harness_Neck_Resistance_female_v2_1.png",
+      "candidateSha256": "30b58140cc68f3f03ba51e1c00e1e467ea0352b670eeb4df8f78676f7412948b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Head_Harness_Neck_Resistance_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Head_Harness_Neck_Resistance_female_v2_2.png",
+      "sourceSha256": "b89326cc899956458f8884b31c1469ce04f25e62fd2f58c222a37aa5904e876b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/192/Seated_Head_Harness_Neck_Resistance_female_v2_2.png",
+      "candidateSha256": "2fbfc324c6482e1ee843d49f21eaba29dedd4d80104c3a3c83021549c012e43a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_Head_Harness_Neck_Resistance_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Head_Harness_Neck_Resistance_female_v2_3.png",
+      "sourceSha256": "94718fee96fdd73b26d5411800843537c2296ed0bd5929f24b8aed5bcead0fa5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/192/Seated_Head_Harness_Neck_Resistance_female_v2_3.png",
+      "candidateSha256": "cdbe45f4b2a37bb1ea8eb80610a959c725e298566d65f2b43c0e7339ce912148",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ]
+}

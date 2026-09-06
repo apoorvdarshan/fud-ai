@@ -1,0 +1,90 @@
+{
+  "exerciseId": "Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl",
+  "shard": 20,
+  "index": 195,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_male_v2_0.png",
+      "sourceSha256": "c87dca65f14dfd82cf7efaaa043ce7c08c7b025c7e03ac4216bb3de0d691ac10",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/195/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_male_v2_0.png",
+      "candidateSha256": "f85934a6061cdfd0c4de196a4c8ab763cfe211bfd1e486b4734418ce4f6f8f3c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_male_v2_1.png",
+      "sourceSha256": "cee091b4cc4e2a2d1e86dc25be34e3310ad03501f15f000be68a8893557dd8a6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/195/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_male_v2_1.png",
+      "candidateSha256": "b065a7adf807cb08225bbbc8d4b876f557ddb57efc42d16d59f68369a8a71a59",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_male_v2_2.png",
+      "sourceSha256": "f08e48b634110e40b4297a886ab9152abf8b04ee7e3ba7db37ef8d7de866a139",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/195/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_male_v2_2.png",
+      "candidateSha256": "a3aadb8e69f49a2280f22c6c1439582b015276b263e1d5774cc3577f2bee7f72",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_male_v2_3.png",
+      "sourceSha256": "6230aa565c3c7ed56f85812c6d4f4bee4f81c47db69494a1d9cb26207ef16a2c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/195/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_male_v2_3.png",
+      "candidateSha256": "d072735e0aeadf1002e6448bcf3e255c60af4e6372e0620ed97874b7d798ce6c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_female_v2_0.png",
+      "sourceSha256": "d8f2e11fe3ef747d87d02f8731e8c1077bcedcab779b8734ccd2039bff00be5d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/195/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_female_v2_0.png",
+      "candidateSha256": "ca50887066d0f3a518350bfe1a3c2c35c11c7fd42d35e324b4cdb657c1f1604b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_female_v2_1.png",
+      "sourceSha256": "fcde960152641a22e8286c113e0832af9cb5fb274075e4114a2e29be93844075",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/195/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_female_v2_1.png",
+      "candidateSha256": "ccf721eecfcaea461705669080ac54477947ff56516483f00f5a3bdd7d460454",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_female_v2_2.png",
+      "sourceSha256": "063bed4f634a0847cb3c06e21192be7b8f7e60c889b1c0c382804eafa7e0f9ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/195/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_female_v2_2.png",
+      "candidateSha256": "82142026eeba8e9781eea74e99702553e3fddd32c8ac5d78ecf6d8b2f19bada6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_female_v2_3.png",
+      "sourceSha256": "c78b36a4670ec27b01aaf14446f51b1e7d7deb21107cd55d831b16cad4ef8ac7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/195/Seated_One-Arm_Dumbbell_Palms-Down_Wrist_Curl_female_v2_3.png",
+      "candidateSha256": "6353f0146f9be0bd4478e81382b020a7ab1d90c68f81b12f21fa4c3ef52e1a38",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ]
+}

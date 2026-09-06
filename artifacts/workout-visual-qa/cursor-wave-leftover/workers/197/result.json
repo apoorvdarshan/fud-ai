@@ -1,0 +1,92 @@
+{
+  "exerciseId": "Seated_One-arm_Cable_Pulley_Rows",
+  "shard": 20,
+  "index": 197,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical + green chroma key on 8 frame(s) with pale fringe/floor matte: Seated_One-arm_Cable_Pulley_Rows_male_v2_0.png, Seated_One-arm_Cable_Pulley_Rows_male_v2_1.png, Seated_One-arm_Cable_Pulley_Rows_male_v2_2.png, Seated_One-arm_Cable_Pulley_Rows_male_v2_3.png, Seated_One-arm_Cable_Pulley_Rows_female_v2_0.png, Seated_One-arm_Cable_Pulley_Rows_female_v2_1.png, Seated_One-arm_Cable_Pulley_Rows_female_v2_2.png, Seated_One-arm_Cable_Pulley_Rows_female_v2_3.png."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_One-arm_Cable_Pulley_Rows_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-arm_Cable_Pulley_Rows_male_v2_0.png",
+      "sourceSha256": "29d906dbedf97e95d5680700d98675ff6df4fd5236b44bb28ed07f555e848681",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/197/Seated_One-arm_Cable_Pulley_Rows_male_v2_0.png",
+      "candidateSha256": "d8a6d7463fb73fc826589761c5a55f8140bb026c3a38f8fb4aa687b6c1293cde",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-arm_Cable_Pulley_Rows_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-arm_Cable_Pulley_Rows_male_v2_1.png",
+      "sourceSha256": "ef42e47800f26d65d9ae1ed5e5e732dcb9bd6559bee49b926c746bb9286d76a5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/197/Seated_One-arm_Cable_Pulley_Rows_male_v2_1.png",
+      "candidateSha256": "8754355793ea83cfb1d7f647fedc1131ae418a2c1c18b8918a736127259d75f6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-arm_Cable_Pulley_Rows_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-arm_Cable_Pulley_Rows_male_v2_2.png",
+      "sourceSha256": "ad361d27a4033f2f65a4433837aaa1332c42f51d4e8cbe6b3f5f7e6d93326f4d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/197/Seated_One-arm_Cable_Pulley_Rows_male_v2_2.png",
+      "candidateSha256": "9892dfe6131fb6a8bc7009b9a5645b105b984b17a433ed50ee69e532e38113f9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-arm_Cable_Pulley_Rows_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-arm_Cable_Pulley_Rows_male_v2_3.png",
+      "sourceSha256": "6abb9f190c194832e228747d29bc1eb57b98dacd3e2bc6b18274697444ef740a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/197/Seated_One-arm_Cable_Pulley_Rows_male_v2_3.png",
+      "candidateSha256": "a67362452b851acc2888dc134a46bbeeb291278775e26403ef148312315fdffc",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-arm_Cable_Pulley_Rows_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-arm_Cable_Pulley_Rows_female_v2_0.png",
+      "sourceSha256": "d43515827e1b150872a7a671fcd0a24fda081ec7907bcd1e4b097313d7227ff3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/197/Seated_One-arm_Cable_Pulley_Rows_female_v2_0.png",
+      "candidateSha256": "d561ac4a454487d7f04aed0598fd51394b6525e961a76962fad0fc42a80317cf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-arm_Cable_Pulley_Rows_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-arm_Cable_Pulley_Rows_female_v2_1.png",
+      "sourceSha256": "3743e7a23025b1f78b0c95f6897a65776edc0001393bd7d44d5d8593442bf96e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/197/Seated_One-arm_Cable_Pulley_Rows_female_v2_1.png",
+      "candidateSha256": "59bb93c29f4b4a66b42dcacbc748e91230657122469079a7c60643749b0cf149",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-arm_Cable_Pulley_Rows_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-arm_Cable_Pulley_Rows_female_v2_2.png",
+      "sourceSha256": "bde809dacce7d5c5a2a808685d45aa6c89ac7478aa44913e5b75e1d57f282c8e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/197/Seated_One-arm_Cable_Pulley_Rows_female_v2_2.png",
+      "candidateSha256": "8ddc1d03e76d0d969142eb89ba9218f509f7feaf2f5202f79b7c133da4251111",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Seated_One-arm_Cable_Pulley_Rows_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_One-arm_Cable_Pulley_Rows_female_v2_3.png",
+      "sourceSha256": "a59e447884aaf57c11e1955df1c58c78cd2cd8843d48fff35d955f9d1508caad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/197/Seated_One-arm_Cable_Pulley_Rows_female_v2_3.png",
+      "candidateSha256": "c285c3cd2df9f3fbfd4210baca5d3bd234933daec5d2b7377450ca69e1ee8fb3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ]
+}

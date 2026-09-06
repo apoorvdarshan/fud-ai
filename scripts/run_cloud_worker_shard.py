@@ -149,8 +149,9 @@ def main() -> None:
     if not 1 <= args.shard <= max_shard:
         raise SystemExit(f"shard must be 1–{max_shard}")
     entries = shard_exercises(exercises, args.shard)
-    if len(entries) != 10:
-        raise SystemExit(f"expected 10 exercises, got {len(entries)}")
+    last_shard = args.shard == max_shard
+    if not entries or (len(entries) != 10 and not last_shard):
+        raise SystemExit(f"expected 10 exercises (or a short final shard), got {len(entries)}")
     summary = []
     for entry in entries:
         summary.append(run_exercise(entry, args.shard, workers, staging))

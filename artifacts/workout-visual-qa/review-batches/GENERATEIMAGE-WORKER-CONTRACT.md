@@ -1,6 +1,6 @@
-# GenerateImage worker contract (wave-100 v2 + wave-200)
+# GenerateImage worker contract (wave-100 v2 + wave-200 + leftover)
 
-One Cloud Agent owns **10 exercises**, all 8 frames (male/female × 0–3). Script cleanup alone is **not** enough. If a frame still looks dirty on a dark background, you must use Cursor `GenerateImage`.
+One Cloud Agent owns **one shard** (usually 10 exercises; the last leftover shard may be shorter), all 8 frames (male/female × 0–3). Script cleanup alone is **not** enough. If a frame still looks dirty on a dark background, you must use Cursor `GenerateImage`.
 
 ## Repair order
 

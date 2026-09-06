@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Suspended_Reverse_Crunch",
+  "shard": 36,
+  "index": 357,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Suspended_Reverse_Crunch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Reverse_Crunch_male_v2_0.png",
+      "sourceSha256": "baac84d450d3d7f54ee2f402e8879dd130fa7d2168cab6b3f97e44ce2af4e5f4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/357/Suspended_Reverse_Crunch_male_v2_0.png",
+      "candidateSha256": "b739105b101ad8a25df5fb7f46093bb045f5478397b7783243447b61d35a9522",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Reverse_Crunch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Reverse_Crunch_male_v2_1.png",
+      "sourceSha256": "cc6ab1e0579835a7e5e09a83eb8298636379733e35ecf83732c2d2e0b6c8bcf4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/357/Suspended_Reverse_Crunch_male_v2_1.png",
+      "candidateSha256": "e651e564553aa51821614db63ad27a5dbb74c3162575fd8c66ef94d85765afd6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Reverse_Crunch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Reverse_Crunch_male_v2_2.png",
+      "sourceSha256": "dda7b46b74c87aca3286096c48ad5de50532736ac85383af1b18198649ba1589",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/357/Suspended_Reverse_Crunch_male_v2_2.png",
+      "candidateSha256": "f53bfd530c4b0f47eec00c0205a3ba32a68f39855b9500a2aa1519a170b32081",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Reverse_Crunch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Reverse_Crunch_male_v2_3.png",
+      "sourceSha256": "3c76ca7cf12f803f3ba9af4972b1ba7f3e1dff052ee626a111ef4c70d6ae479c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/357/Suspended_Reverse_Crunch_male_v2_3.png",
+      "candidateSha256": "9ea660cf8112f5293bb5c476ccffa9701735ca2b2d58e191796a0cc2bc337017",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Reverse_Crunch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Reverse_Crunch_female_v2_0.png",
+      "sourceSha256": "34ef122b0679ecec4c3ffc3665a606823eb9d774aebdf7ca282155ec021ba5f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/357/Suspended_Reverse_Crunch_female_v2_0.png",
+      "candidateSha256": "7b48abdcedda2d05fe9955de61b36852de0ecb1b15fdfaafa159edd7949b667a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Reverse_Crunch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Reverse_Crunch_female_v2_1.png",
+      "sourceSha256": "c58ff65774db732905de3c4a9c9fc3f19c5a6c83578f8555f1d70f2d62efef46",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/357/Suspended_Reverse_Crunch_female_v2_1.png",
+      "candidateSha256": "a5bdcf6edff18104e580ae86f991f0df78b62ac9648cadf724113cc9fcd42b9e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Reverse_Crunch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Reverse_Crunch_female_v2_2.png",
+      "sourceSha256": "2ef50b926818c5c9745dd217984eaa09c1bf404b3a607e563f27ed66362c706f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/357/Suspended_Reverse_Crunch_female_v2_2.png",
+      "candidateSha256": "b67db93113b3cd8f4c7d80f476632ee7accc7752fc35043a022d95857c4fecf2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Reverse_Crunch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Reverse_Crunch_female_v2_3.png",
+      "sourceSha256": "faea60fe4cadb3dccec09c5fc3ebb3514ee4d417c13ad1175b88105756225bb9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/357/Suspended_Reverse_Crunch_female_v2_3.png",
+      "candidateSha256": "2b2a886930ccda0aea1c953d2f54432e341943ba9598958480f15d269290e5c9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

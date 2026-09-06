@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Suspended_Push-Up",
+  "shard": 36,
+  "index": 356,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Suspended_Push-Up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Push-Up_male_v2_0.png",
+      "sourceSha256": "27fe1a0cf3c429b7cb3f140a83c0ff3aa2869348fc870a3b2bea958b29eedccb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/356/Suspended_Push-Up_male_v2_0.png",
+      "candidateSha256": "e1dc5ffa30dbd21a6aea1a01943bcaff05d87ae512bdd8f2c69d8afed4adabb1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Push-Up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Push-Up_male_v2_1.png",
+      "sourceSha256": "ce4ea7ef0bc880b766f761fa4e9f0448e8133b57dd7024b9f642435a025443c3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/356/Suspended_Push-Up_male_v2_1.png",
+      "candidateSha256": "255a403883fc1f878eb26172fc3902aa3b7b27f423c18f33e9d95900b9670f71",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Push-Up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Push-Up_male_v2_2.png",
+      "sourceSha256": "b709e4854d621772275ae8f31b6ae6f971135f62041b6cbfcb6d3fe8e8ed79a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/356/Suspended_Push-Up_male_v2_2.png",
+      "candidateSha256": "2300f201430fdb585915af68bb322ee347289e2ba9eed20462590da8b2f846e5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Push-Up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Push-Up_male_v2_3.png",
+      "sourceSha256": "57e4a8e4350d7d0b55aadf5554c062bef53ce70b6be7d007286ff47b0856813a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/356/Suspended_Push-Up_male_v2_3.png",
+      "candidateSha256": "880f0950168c927c9c84e81431bb432a53f18be03d8c5427e378e8578b0cc1f9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Push-Up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Push-Up_female_v2_0.png",
+      "sourceSha256": "a955006d266d39028842c53c860cbe459b75e4c562677a0d8da5cad625669f30",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/356/Suspended_Push-Up_female_v2_0.png",
+      "candidateSha256": "e4d5f13667e1dcf7344297863c20109c898f0d565ca9bf987030a1da945987cd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Push-Up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Push-Up_female_v2_1.png",
+      "sourceSha256": "b8f79402bae25ba895bec99dc2f7f11a1eed1013f4907b1301fb0aa18d641e7e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/356/Suspended_Push-Up_female_v2_1.png",
+      "candidateSha256": "4ee84d91e1fc6618d07b6c1a60a3067b33cecffb13c2eb12c64c023827518f52",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Push-Up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Push-Up_female_v2_2.png",
+      "sourceSha256": "b589c8cc03d4cd3e0741ecb01a57235b458e5b0d5dcc2ab3599d942d23f74512",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/356/Suspended_Push-Up_female_v2_2.png",
+      "candidateSha256": "a39745d51b01fac44ebd0224ea5d115a08fe2af0aa22bfaa562bf442e6ad8820",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Push-Up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Push-Up_female_v2_3.png",
+      "sourceSha256": "75b66f938e1e5781c287575149b83dea2ab0f1c095c61f45474851da963dbbb1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/356/Suspended_Push-Up_female_v2_3.png",
+      "candidateSha256": "1ce1cdf229c86715ea0c4f1f2b17553727f9af7e07babf385da28456a1c2c1f6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Superman",
+  "shard": 36,
+  "index": 351,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Superman_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Superman_male_v2_0.png",
+      "sourceSha256": "87ccf37b3b1a8097dfec4c2edc10aac97734d33018ae5b5ce0d0ca0bf6bece74",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/351/Superman_male_v2_0.png",
+      "candidateSha256": "fcdc84b6cbc8b250a3308e323c70ac912e7422b2d1ffc35e13c3400763f21831",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Superman_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Superman_male_v2_1.png",
+      "sourceSha256": "815c60796e242dcd6ca24ddc299975242da2d873ae74d6634b4ba3982aa40211",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/351/Superman_male_v2_1.png",
+      "candidateSha256": "39e462bf2c250c83e17e6f909e820ec3abe371a5741826026f692e55aca961f4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Superman_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Superman_male_v2_2.png",
+      "sourceSha256": "0e54b9a489051de613af97134753a99e92ff21845b869f6911d1fcb769465c32",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/351/Superman_male_v2_2.png",
+      "candidateSha256": "66b993f3fd02acbc95c7df17e912f4b37a5514739e5ae3f20667af24ec8a4f10",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Superman_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Superman_male_v2_3.png",
+      "sourceSha256": "33a00e6a0fecceae4b33212698ea9b0fba7a60f6c7f2f550d2d480a792a78a22",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/351/Superman_male_v2_3.png",
+      "candidateSha256": "48e5b23b24190585ddd62a91093d4296cfc00598c20da412e906d11e8a3ec80a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Superman_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Superman_female_v2_0.png",
+      "sourceSha256": "45341e5f26f88de4d03da3992dd13c6b33bd8daa66d2e2dd2892228e4922d650",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/351/Superman_female_v2_0.png",
+      "candidateSha256": "5b64323006cf01affda3ad54866b7d41b4d78527603a8816eafac1b11a5fa303",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Superman_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Superman_female_v2_1.png",
+      "sourceSha256": "38a4b52f4241cc402bf298b6bc97c1713f13dded5461550171bb1f7c8df029f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/351/Superman_female_v2_1.png",
+      "candidateSha256": "858d56830b1568a40881cf4b7c26c315a0224d4e6c541d169ec56bf06e717925",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Superman_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Superman_female_v2_2.png",
+      "sourceSha256": "2c84f89a4ab2301d51bd7c4f0b41d5c27193bf15b5eeec33a655062ce4a6b7a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/351/Superman_female_v2_2.png",
+      "candidateSha256": "fc97938a0353cd51a93b508167330fd2a8cb9fa1cd5ee7da1be62fdaa745dcfb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Superman_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Superman_female_v2_3.png",
+      "sourceSha256": "7acb939d9a165a679f624e3c024a27897c0cce6ee603b8f4668ceb867d27d98e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/351/Superman_female_v2_3.png",
+      "candidateSha256": "210c20571aa860fc7d635420a4efebdd3d2a7aa88e65e95139e92a173cde2278",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

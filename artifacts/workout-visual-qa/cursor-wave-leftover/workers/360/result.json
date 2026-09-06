@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Svend_Press",
+  "shard": 36,
+  "index": 360,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Svend_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Svend_Press_male_v2_0.png",
+      "sourceSha256": "a85757d38c33b81f2724673c783b75021403db9754a13556e46286fbae780151",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/360/Svend_Press_male_v2_0.png",
+      "candidateSha256": "4fd7f7531b273252ac3c9376a9bf7e472a054e78c4a1759abe54f392b3f8bd42",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Svend_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Svend_Press_male_v2_1.png",
+      "sourceSha256": "21c8edf1a623639a63cfdd3ca8f73c2fe26902b11fb0fd09f13fec6d342c59eb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/360/Svend_Press_male_v2_1.png",
+      "candidateSha256": "081f3fa0b131576ae4d591cdde08d9be536c296b060afa7f7122ce0cb79483c2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Svend_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Svend_Press_male_v2_2.png",
+      "sourceSha256": "6fae36250c68daa79e1806c2119f0d3ab0923b77f3fe339c44e285790fec1d51",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/360/Svend_Press_male_v2_2.png",
+      "candidateSha256": "d7ccfda492b3c261f1230fde57e0c9356fc8ba2c9bdc56f516fd7ab2a9ed93cf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Svend_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Svend_Press_male_v2_3.png",
+      "sourceSha256": "d54bc0618b83096fa804e0e5ae59480cff90483277861978d06abbccda171e33",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/360/Svend_Press_male_v2_3.png",
+      "candidateSha256": "59adb3b4add7ad5a987eb98863e050ef21c60725996b753800be745a94933a02",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Svend_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Svend_Press_female_v2_0.png",
+      "sourceSha256": "2ff8da180524b1df2186dda3105f3a9672e9f2344bb5a1288a9a01628b9e5773",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/360/Svend_Press_female_v2_0.png",
+      "candidateSha256": "078c432f3c738bc0e3bd14e9d004a05c7e228f543122da2d828fe71436b680b2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Svend_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Svend_Press_female_v2_1.png",
+      "sourceSha256": "46a74e507953350d0a6f2c8d526dd737076e5d08604940ec568fcec05bfecea4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/360/Svend_Press_female_v2_1.png",
+      "candidateSha256": "accd625876b951effc92f5803f407a60511526e682e839bea48084219a8793f4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Svend_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Svend_Press_female_v2_2.png",
+      "sourceSha256": "6ffa109fed39adfed65ddff0e12c4787563b7796c3d163a06e41f093a611fda9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/360/Svend_Press_female_v2_2.png",
+      "candidateSha256": "9364bb1da51bd652408633b5ab0149414535163468d7743038f3b924d57dda4a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Svend_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Svend_Press_female_v2_3.png",
+      "sourceSha256": "f1e3cb8f1c174720ea441d37fb6a0aa3deff125508410b29bc1848004d53bbc2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/360/Svend_Press_female_v2_3.png",
+      "candidateSha256": "40bc31b9d5051c59079a3f432d0711b7c80981635c86a4ba81377470cdfb7cf3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Low_Cable_Triceps_Extension",
+  "shard": 16,
+  "index": 160,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Low_Cable_Triceps_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Triceps_Extension_male_v2_0.png",
+      "sourceSha256": "bbca9d11cb83892a9d4647c20853d9298660d8b4342af0a829cdaabf81b687fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/160/Low_Cable_Triceps_Extension_male_v2_0.png",
+      "candidateSha256": "50f26da4376b82b2e5b7420e2407dd1a0bbc5c1e2c2046c1374cd9a1306b8d0f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Triceps_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Triceps_Extension_male_v2_1.png",
+      "sourceSha256": "229f8717506c23361df2290c1a57b3d92299a84fde2b3de8796f1e1f14a642a1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/160/Low_Cable_Triceps_Extension_male_v2_1.png",
+      "candidateSha256": "dfd117b9392efdb81bfb252d2e33723c5951ffa1de71d85ce36d1e077cff2ff9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Triceps_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Triceps_Extension_male_v2_2.png",
+      "sourceSha256": "2374d8c43af700e13f1219f377e1396ca7388f4567458cc02dd4392594c36f7b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/160/Low_Cable_Triceps_Extension_male_v2_2.png",
+      "candidateSha256": "b43a3bff6bf83b3dd811be56eca0508b26cbab54db725c0b828e7d5499047d0c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Triceps_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Triceps_Extension_male_v2_3.png",
+      "sourceSha256": "24cea9de0547506ca514936d4bad536435dbabfd2d543bd0aec63d02ddf2db92",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/160/Low_Cable_Triceps_Extension_male_v2_3.png",
+      "candidateSha256": "8492951f618ec2e31ef3dd97e32c8294f37af56fd642995e8744ac23e0b3ee73",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Triceps_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Triceps_Extension_female_v2_0.png",
+      "sourceSha256": "2954196e6788fe28669f49ace2c822714a8c37355956e19935afc310b4693f20",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/160/Low_Cable_Triceps_Extension_female_v2_0.png",
+      "candidateSha256": "399b17b9506e479ea38fd71389be739a5c2a5179509b9035da1b9eb796738cf1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Triceps_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Triceps_Extension_female_v2_1.png",
+      "sourceSha256": "63261d42a2acf5d30cf285fe478135110caee0530d7620ba0ff095a47c4d302b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/160/Low_Cable_Triceps_Extension_female_v2_1.png",
+      "candidateSha256": "99811e9d701211bb9c0c5959163da2bbf40a35163295ed2b793364e579f7f689",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Triceps_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Triceps_Extension_female_v2_2.png",
+      "sourceSha256": "0ae7f97c40b9afd5ac872a45561886a45996e1adc423ac12a4272fc737a3836d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/160/Low_Cable_Triceps_Extension_female_v2_2.png",
+      "candidateSha256": "0e7e592f1a662376d8d72e165d4f3518f1572b4febd4b13125b3ce47d9c547f6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Triceps_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Triceps_Extension_female_v2_3.png",
+      "sourceSha256": "0fc54c3743aab8634faac3c6a83f2a0bcc477cbe452100807e8ffc748ef69828",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/160/Low_Cable_Triceps_Extension_female_v2_3.png",
+      "candidateSha256": "331b29e894ad7e17bb6bb094bec61aba10de06a768a349636c841bd55bde1bf7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

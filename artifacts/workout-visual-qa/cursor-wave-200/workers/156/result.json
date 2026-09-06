@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Log_Lift",
+  "shard": 16,
+  "index": 156,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Log_Lift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Log_Lift_male_v2_0.png",
+      "sourceSha256": "7d5ed0938328176b043bade10a6b1086134bfaa00cf75c96315a91a3d14bdd15",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/156/Log_Lift_male_v2_0.png",
+      "candidateSha256": "de9e9faec9e9234ca7f1d1e86a181da41c8cad5dbf2f3b23f0e40ac3d9304a82",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Log_Lift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Log_Lift_male_v2_1.png",
+      "sourceSha256": "1499f78cb5d9508309aaf6f64b9dc1c2473b79481b109b838808069ed929c153",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/156/Log_Lift_male_v2_1.png",
+      "candidateSha256": "495dced8a66505b1650703438e8fd600f0dfed09fd8d049d4438984b08519133",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Log_Lift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Log_Lift_male_v2_2.png",
+      "sourceSha256": "3be365f13e7b00c9beeafe7b0aca6f17522ec50af0fe75e2cb74f69d194b3c39",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/156/Log_Lift_male_v2_2.png",
+      "candidateSha256": "d781f720ad0391e94fbe1a8b23fd39003ddea85e879e08b553ea10220abc8c44",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Log_Lift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Log_Lift_male_v2_3.png",
+      "sourceSha256": "430742ba035b146adbecb424e852eac72a79aba255a95526b76d5d27bf4f7adf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/156/Log_Lift_male_v2_3.png",
+      "candidateSha256": "488224b650bb28014f6a3d983ad9ca56dc13c828752f1a188c414134dad21443",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Log_Lift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Log_Lift_female_v2_0.png",
+      "sourceSha256": "101ad6041613d54650fd73800d1990893a5a0fe888b826d8d6e6a060ec7e10c5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/156/Log_Lift_female_v2_0.png",
+      "candidateSha256": "b9d8e80c4602e23a6662c7db940b5da05485c5b23aaadd8406648c72dd9c256f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Log_Lift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Log_Lift_female_v2_1.png",
+      "sourceSha256": "c58c9dfe151c405e4eb88cf2b8acea045e39feb5c77e9dd6c872443aa023832d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/156/Log_Lift_female_v2_1.png",
+      "candidateSha256": "50cb5d0db03d42984a1c7c079a4bedbb583b1cdffd35ea735ee82cb7738cba39",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Log_Lift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Log_Lift_female_v2_2.png",
+      "sourceSha256": "defbdf59cf41258ad2650da03923aea776af7cb1f9d9e3dcebcc62e915a52fa4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/156/Log_Lift_female_v2_2.png",
+      "candidateSha256": "23b7b7f506d4e060c311e4802ec43868d32336a6aa19b9f1e9c4328274ffcbd0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Log_Lift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Log_Lift_female_v2_3.png",
+      "sourceSha256": "d094eb6c7a445359a6701c58d24ccfd1702bcaf780356e2718814c11f6299f9d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/156/Log_Lift_female_v2_3.png",
+      "candidateSha256": "3a0d62d876f7ad278448923e846f31ddb93d58a4e025639425c89092bb244175",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "London_Bridges",
+  "shard": 16,
+  "index": 157,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "London_Bridges_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/London_Bridges_male_v2_0.png",
+      "sourceSha256": "b706183436b113ab0ca0b6b91a33b04f72a9afd05b541a1a485cff75c72d0a03",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/157/London_Bridges_male_v2_0.png",
+      "candidateSha256": "1cb1d9a1a9ede6888604fe6e50bcc39a7214347419ebfb538931aa03f477da57",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "London_Bridges_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/London_Bridges_male_v2_1.png",
+      "sourceSha256": "dcdbcf7c4c5801fbcdf0de4bb505152f68e0810e1c37021c4cc4c5063a6b2fff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/157/London_Bridges_male_v2_1.png",
+      "candidateSha256": "26f59bd129cdf3704a1978e550b8016c249dd9e8cfd50b3684193f351048b550",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "London_Bridges_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/London_Bridges_male_v2_2.png",
+      "sourceSha256": "198621cac7aa2a53263b1fd513537670e27bec59c48a2bc1a9182976ead6beb4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/157/London_Bridges_male_v2_2.png",
+      "candidateSha256": "517d7489cf34b99b13cbd2901bd5076d322ca02c8c5feb1f053490855a77fd83",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "London_Bridges_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/London_Bridges_male_v2_3.png",
+      "sourceSha256": "f54d67dadcb19c2e271bb253ac5cc1283c748eef329ba88cd70c3c033fb929f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/157/London_Bridges_male_v2_3.png",
+      "candidateSha256": "7eada99a6baa34aed04c0c7e88fd1f5342f0245c88f44479e697121f15b794ad",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "London_Bridges_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/London_Bridges_female_v2_0.png",
+      "sourceSha256": "77f4f7c062212fe34f7a305fcd726adad50cb7f8112e28ffe43c53fb80ed101c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/157/London_Bridges_female_v2_0.png",
+      "candidateSha256": "42512631eac73f6d7c1ce3d5c3c85a1e023bec79245cd82a3486f99a921ab6cc",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "London_Bridges_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/London_Bridges_female_v2_1.png",
+      "sourceSha256": "4c41992defd6da13482b3d86a3837085ec7655e26c71de756af53bac324437bb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/157/London_Bridges_female_v2_1.png",
+      "candidateSha256": "cbf235d137661103a5cac4f9fe919921c3a3e315941e3c924d1404b6c98ba186",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "London_Bridges_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/London_Bridges_female_v2_2.png",
+      "sourceSha256": "e621f00929f85ff662f99ad1421748da8f8a321eb254ba302b86ac6f499f36c6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/157/London_Bridges_female_v2_2.png",
+      "candidateSha256": "8fa4999a295f97735150fd2186d3da3479dda1e7731cc0a36f36cb955aa2c1e8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "London_Bridges_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/London_Bridges_female_v2_3.png",
+      "sourceSha256": "5e09e6ec706cf8d57eb9cf5364f579e4b3fef36df99325c20a62e1f4dcf0e67f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/157/London_Bridges_female_v2_3.png",
+      "candidateSha256": "13ab2b0a95ff937ac6b1815140cff1967645cc3365f37c28d897ba268dc6d658",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

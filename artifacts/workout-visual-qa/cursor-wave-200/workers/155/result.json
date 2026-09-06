@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Linear_Depth_Jump",
+  "shard": 16,
+  "index": 155,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Linear_Depth_Jump_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Depth_Jump_male_v2_0.png",
+      "sourceSha256": "102fe73b6abc0bfcc21e5ef5fce465af471e61b18a0bdbba9343d9107adc99a6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/155/Linear_Depth_Jump_male_v2_0.png",
+      "candidateSha256": "5995d02318a52e0986a7b56bc8a162cdd855d0ffc80fc47a8f76a9f3da703848",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Depth_Jump_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Depth_Jump_male_v2_1.png",
+      "sourceSha256": "b5d4c0953c1fa94eb8466f19a726e76d9242ef9b486547f1b26a2261b5bfddbe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/155/Linear_Depth_Jump_male_v2_1.png",
+      "candidateSha256": "a477938405b31bc344c715579c806e7df579bc9b6d000c7af249405fe04d672c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Depth_Jump_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Depth_Jump_male_v2_2.png",
+      "sourceSha256": "2da45e2b50577f49dd2a03741cf3db89f1dd6b44053b4b686f9572e673df683c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/155/Linear_Depth_Jump_male_v2_2.png",
+      "candidateSha256": "86499cb0c38cb017b2bd60d89c08580271e9136fa5ad9cfb23cb855278cdcba8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Depth_Jump_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Depth_Jump_male_v2_3.png",
+      "sourceSha256": "a2ed052e22a5a728db179aa64f51ae308dbd092e67d32c369f3aeb3ba58c4933",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/155/Linear_Depth_Jump_male_v2_3.png",
+      "candidateSha256": "086f81874287ae97f7909c6a029b58a9e3f3e5ba1793d560c4040b7db5b83e55",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Depth_Jump_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Depth_Jump_female_v2_0.png",
+      "sourceSha256": "45cdffab373ca1375ceecc37b8c3474372055d29edff4d40c4b5af562c824b01",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/155/Linear_Depth_Jump_female_v2_0.png",
+      "candidateSha256": "a841468ab208bd417c66cd6e61d3623834b41d5828ba3ce3b08607cdebfba178",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Depth_Jump_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Depth_Jump_female_v2_1.png",
+      "sourceSha256": "e7afb1aa56a47638ec69222b3bf70e85826851c694b7c884f38217c468fa3178",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/155/Linear_Depth_Jump_female_v2_1.png",
+      "candidateSha256": "32a591c1489fbd30f28da5ce074d23b8d10c83ca313a21f912a52adea0dbe0ce",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Depth_Jump_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Depth_Jump_female_v2_2.png",
+      "sourceSha256": "3dc2712b94bae40aeaa595110eb52a77176448751ee0cb239eedb6e60414e134",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/155/Linear_Depth_Jump_female_v2_2.png",
+      "candidateSha256": "5a38bf70bbc13efa950a5f5c41fa6df8b462dd6b1a3b401740d64a7619e272b0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Depth_Jump_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Depth_Jump_female_v2_3.png",
+      "sourceSha256": "48ca9b14b0257ed3e3dedc5aa22c89db9cfb5b12fcdc509402ac69653f2bf102",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/155/Linear_Depth_Jump_female_v2_3.png",
+      "candidateSha256": "19cf6007f2bb51eeeceffe025536fc7c85827bf5aec0fe8468989f51306a2483",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

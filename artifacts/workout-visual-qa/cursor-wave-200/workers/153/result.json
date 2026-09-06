@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Linear_3-Part_Start_Technique",
+  "shard": 16,
+  "index": 153,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Linear_3-Part_Start_Technique_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_3-Part_Start_Technique_male_v2_0.png",
+      "sourceSha256": "9d7cfceefa960aea6be9c515ddf42753e5c22ab5dd030f72de8d0a07af2803dd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/153/Linear_3-Part_Start_Technique_male_v2_0.png",
+      "candidateSha256": "7d6d5e7d81b5f6fc732276076cec7b36008dcb248cc9f61f559683c69eb9aa62",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_3-Part_Start_Technique_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_3-Part_Start_Technique_male_v2_1.png",
+      "sourceSha256": "03eb3b9722aa69d8a25dd590125349a8e76150da05f83e0870b8ba241206cc5e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/153/Linear_3-Part_Start_Technique_male_v2_1.png",
+      "candidateSha256": "80ef9043314c574af31e99d4fd223410b407144cba1c0399d23f7a2ea3d51698",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_3-Part_Start_Technique_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_3-Part_Start_Technique_male_v2_2.png",
+      "sourceSha256": "04f98d1108bf6a44f2df950df33bc4e26d68825086c9246cc0ebe32165f37b49",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/153/Linear_3-Part_Start_Technique_male_v2_2.png",
+      "candidateSha256": "0455a1f7651559454cfb2b7eaf5610b9d1a5785445f0eec113c295da7bafde9f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_3-Part_Start_Technique_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_3-Part_Start_Technique_male_v2_3.png",
+      "sourceSha256": "b599d6e92b44d7808532466767cbeab3aac65bf06f69118a5fd171fd122628c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/153/Linear_3-Part_Start_Technique_male_v2_3.png",
+      "candidateSha256": "8f2b313c521d767b9c54c2657d48047b73a9ad4ff09957ff445bbd868cddd792",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_3-Part_Start_Technique_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_3-Part_Start_Technique_female_v2_0.png",
+      "sourceSha256": "460561bac5a55fd91abec7c6491a9b9b999581c4f276e5ddcd6ca09ff3b8078c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/153/Linear_3-Part_Start_Technique_female_v2_0.png",
+      "candidateSha256": "eec8f09e8de52a7c6d3d6a2567c94913bfb0c951aba053989de4328769ef2bda",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_3-Part_Start_Technique_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_3-Part_Start_Technique_female_v2_1.png",
+      "sourceSha256": "781d884ea0e159de41e9d2add732b2bb9674a2471249e1e86431da1e7d064ba3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/153/Linear_3-Part_Start_Technique_female_v2_1.png",
+      "candidateSha256": "d09675160650d8c31c374bb53ff62a53dc616187a419c4c96a17e0f6164e474f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_3-Part_Start_Technique_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_3-Part_Start_Technique_female_v2_2.png",
+      "sourceSha256": "9b4b5c629f4692352c140d208b8f0700bd730250f9d422957a6dc3266f918d56",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/153/Linear_3-Part_Start_Technique_female_v2_2.png",
+      "candidateSha256": "310bf249ea325c2c3efc66fe253c25e69143607e2c7e71b8e5e2b7e7f359a72a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_3-Part_Start_Technique_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_3-Part_Start_Technique_female_v2_3.png",
+      "sourceSha256": "a82a66e5aac77e7585411aa5cfff78f0d86f91b3122f5bd3974890b4c91bf824",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/153/Linear_3-Part_Start_Technique_female_v2_3.png",
+      "candidateSha256": "df9908bbba571c18934bbcdf05206e557f2bd0ba8578d0488a2b76c59bc59a72",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

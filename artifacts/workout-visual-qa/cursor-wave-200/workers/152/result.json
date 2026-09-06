@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Leverage_Shrug",
+  "shard": 16,
+  "index": 152,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Leverage_Shrug_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shrug_male_v2_0.png",
+      "sourceSha256": "7dc1b133c9bd3179cbb5cc0c30786c47b356618b7577e6b8406b4a765d3b7788",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/152/Leverage_Shrug_male_v2_0.png",
+      "candidateSha256": "6d883ba214b157d4b52145b8381243f280b32a4323fc844bc51f140f8d24bbc8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shrug_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shrug_male_v2_1.png",
+      "sourceSha256": "802ede183cf200009783df43836502e23174409012cf40af2598cc5d964d73f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/152/Leverage_Shrug_male_v2_1.png",
+      "candidateSha256": "9f9c30fb98aff6303376af69596e56c710be783025c35a8a977fd03f513bf139",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shrug_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shrug_male_v2_2.png",
+      "sourceSha256": "80880f2983b26e3628574042b5e1b30dd69e71221ad9adfa6d27bbd44dbe80b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/152/Leverage_Shrug_male_v2_2.png",
+      "candidateSha256": "d4c09ce23f6c1a3c9cb30666d9bff64a34cddaf921856dc84194572cd1c70658",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shrug_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shrug_male_v2_3.png",
+      "sourceSha256": "ae4b027fb8ee0f3d1e27efb78f8fa0b254882f0fa004c0fb5fd3c953d6ae61a8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/152/Leverage_Shrug_male_v2_3.png",
+      "candidateSha256": "5075749b39d98ac287dbc24635198edeff570cba4aa5b3b096e5df093ac1081f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shrug_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shrug_female_v2_0.png",
+      "sourceSha256": "23d527d1adad5e6172a126879b210aad9c4b1162b24f67c33e9b0ead4db8de51",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/152/Leverage_Shrug_female_v2_0.png",
+      "candidateSha256": "ec69e977b157186ad6ee8b383f818e76a24d58e6b8c9f4f36a222ce4b8fd5f94",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shrug_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shrug_female_v2_1.png",
+      "sourceSha256": "5669d35422f2413b8a3bd391218e0ea267bb8ef5e7f0ad3c1ae3715cde955b6d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/152/Leverage_Shrug_female_v2_1.png",
+      "candidateSha256": "a2933a9fa7491259fdd2121e095a534c2c34c3a8dae9564c2e40e1e96093494b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shrug_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shrug_female_v2_2.png",
+      "sourceSha256": "760b7ea4d9c7a6178295f4105fac904692fc99d29800c2bd1ce1024581102cd4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/152/Leverage_Shrug_female_v2_2.png",
+      "candidateSha256": "bda8df591ab6ac98f977405e330456147747fb2d1f112c4910f2f3c1d7b4ee66",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shrug_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shrug_female_v2_3.png",
+      "sourceSha256": "452281a239c9cc2b656caddeeff6c2e2a39002d08c76cce9d42bf34ede38aa01",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/152/Leverage_Shrug_female_v2_3.png",
+      "candidateSha256": "d2b12e56975c1b345a5d2bc7817ade36012f5e375e2594451706d88b19d22c04",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

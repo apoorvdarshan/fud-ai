@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Incline_Hammer_Curls",
+  "shard": 5,
+  "index": 43,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Incline_Hammer_Curls_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Hammer_Curls_male_v2_0.png",
+      "sourceSha256": "fa579cbfd16f445019e6c3b4791b236d196a8434f4f517a5cb81cf84c4734a76",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_male_v2_0.png",
+      "candidateSha256": "32649bd577a4eadd73b1982cc62ddc7ea6278b87041b69be287a66200aeb34a0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Hammer_Curls_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Hammer_Curls_male_v2_1.png",
+      "sourceSha256": "39d685bafee9f30305b652562c535605cca4d662e9096b62d5a6b32b9b571c33",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_male_v2_1.png",
+      "candidateSha256": "c800e1154df3c6073a8656937835b14d75e9c50eb60147ba52d62603c2373009",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Hammer_Curls_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Hammer_Curls_male_v2_2.png",
+      "sourceSha256": "758feea2dfd5941a0d2c5a48b81af9e3c2dfc3f637efb0f940fb489023a159e7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_male_v2_2.png",
+      "candidateSha256": "3ea5db74011fd2e87410e904a28d7bf0c1509dc0df4a71dc6605e74dfe69ce7a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Hammer_Curls_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Hammer_Curls_male_v2_3.png",
+      "sourceSha256": "aaf5742ee4aa1dd2c9baeebe809432a19d010f694c3614349623d60e9f544bde",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_male_v2_3.png",
+      "candidateSha256": "c7d0eb1ac7b01f38c6aeff75b38e08e9b2b73ddc91f3cc3896d0e25cd649cb8e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Hammer_Curls_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Hammer_Curls_female_v2_0.png",
+      "sourceSha256": "a4aab5d8f3d165567ef883e931e1bf6bd3ddf352b13d1fbb4d5fc530a3ef151b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_female_v2_0.png",
+      "candidateSha256": "65d13252cb8c423f85e3ea41615f7aa70f151750c3c336e327af8eeb9b0a82a0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Hammer_Curls_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Hammer_Curls_female_v2_1.png",
+      "sourceSha256": "72ac743208c776d93fdb99cdddab01a8713cac65f848714ff46437d1e141515a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_female_v2_1.png",
+      "candidateSha256": "93b4d6404774020c6c49d467514bb915ec0954cf0e1bec5ca869d7dba5320beb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Hammer_Curls_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Hammer_Curls_female_v2_2.png",
+      "sourceSha256": "933554467e4a140e151797b49e9c0daaaa9d2526aee9b286a824336a2e807b67",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_female_v2_2.png",
+      "candidateSha256": "b24194199a82c5ed3aca7997a6ca4fa6902f853659adc4efefad09f45435125d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Hammer_Curls_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Hammer_Curls_female_v2_3.png",
+      "sourceSha256": "14f7df6479a23e733cd6ea4da0469e176b7ec06583af266c4fba5b6ea9db6171",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/043/Incline_Hammer_Curls_female_v2_3.png",
+      "candidateSha256": "b9174a2a9e0c6efb7aa1da04bfd2c88a2260ed8ccdbe07452cc23ed5df057514",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

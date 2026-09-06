@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Lateral_Box_Jump",
+  "shard": 14,
+  "index": 135,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical cleanup on 1 frame(s) with green chroma-key halo/contact artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lateral_Box_Jump_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Box_Jump_male_v2_0.png",
+      "sourceSha256": "a9ee78c31c1e6ae3247bf7aca9641c127754f858025cbb28e0b17bf61dc98ec6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/135/Lateral_Box_Jump_male_v2_0.png",
+      "candidateSha256": "66dd5d6915dd791ef2137cc1e227f02cbe838a8a2a974c52688885768b40cc6b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Box_Jump_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Box_Jump_male_v2_1.png",
+      "sourceSha256": "b2c15d88e1a875ae2d77e9d27bc5853f7a84227e0d61059446270d6a169ca67f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/135/Lateral_Box_Jump_male_v2_1.png",
+      "candidateSha256": "60d53023f324dff344b24c2e4f2f43b6ca1d0c2a5b424cccbc0fe1af8720ad2c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Box_Jump_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Box_Jump_male_v2_2.png",
+      "sourceSha256": "b73f3bf5b1502b467c2bf18207c5321d93fb4466e832c431063a931e9523a6af",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/135/Lateral_Box_Jump_male_v2_2.png",
+      "candidateSha256": "fc5b85102a1ef3f095bd01f8b9c4493507244562a9d2035ad101c54ccb734d2c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Box_Jump_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Box_Jump_male_v2_3.png",
+      "sourceSha256": "a0f96fae12160d915a886fcc48c2e67b6a1467b0ecf67b58730f277ca065b716",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/135/Lateral_Box_Jump_male_v2_3.png",
+      "candidateSha256": "cbe66b6fe922df717d29b6573110abfd04d0fd83de44f996cd614ebbb0eaaf32",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Box_Jump_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Box_Jump_female_v2_0.png",
+      "sourceSha256": "978d97cd00f40a5eed64d5f333746fd378b461adc4ce76016683129feaa25d80",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/135/Lateral_Box_Jump_female_v2_0.png",
+      "candidateSha256": "9adbdeeb47ab5c9f94a6b1ab510e29408fdd98fa83b950131201b72cc00ad306",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Box_Jump_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Box_Jump_female_v2_1.png",
+      "sourceSha256": "ac40beaa2f83445f451b34d51a891442f019c296f6e964125230408f783b6491",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/135/Lateral_Box_Jump_female_v2_1.png",
+      "candidateSha256": "a805f83f685de831959d5d030f281df775d09b567bdb30cc706f6626ded960af",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Box_Jump_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Box_Jump_female_v2_2.png",
+      "sourceSha256": "9c62373eb335c46f73acf04600cc219c5ffcf611a5d08436ba17d5ebe8017431",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/135/Lateral_Box_Jump_female_v2_2.png",
+      "candidateSha256": "5de1e1cac57428c79748f13ba36518b8f65d08b92afcd68574cf631cfec99499",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lateral_Box_Jump_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lateral_Box_Jump_female_v2_3.png",
+      "sourceSha256": "490b004fc13fd69dc805cef0aa37261b9f9091eaeaca4e1a882ffbd824aff0bf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/135/Lateral_Box_Jump_female_v2_3.png",
+      "candidateSha256": "91a29131818736bd091e1c63d5af1fde7bae0850453a7f27d6d85870318796eb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

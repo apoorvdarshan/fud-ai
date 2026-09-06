@@ -1,0 +1,16 @@
+{
+  "source_sha256": "a967c1663fe60a7a2231a795ca9e438de803c94f199d6cecfcf69c4cce2075c7",
+  "candidate_sha256": "3092968e316b0a8de62e25d19131849d9d71fb649610333857a2389eabcb13ce",
+  "generated_sha256": "761a8b7e8770717c3e51f49159ff166a30000cfb07ebd10ac9879a6a0eb07e54",
+  "generated_path": "/cursor/stores/bc-59499722-18da-4492-8181-bb578828eece/artifacts/assets/gen-139-Leg-Over_Floor_Press_male_v2_3.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

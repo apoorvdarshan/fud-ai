@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Landmine_Linear_Jammer",
+  "shard": 14,
+  "index": 133,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical cleanup on 8 frame(s) with green chroma-key halo/contact artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Landmine_Linear_Jammer_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_Linear_Jammer_male_v2_0.png",
+      "sourceSha256": "4f19529a0350f4fcb77851c526a43d4a0cecab7c44548049cbf91c88c9a3ab1f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/133/Landmine_Linear_Jammer_male_v2_0.png",
+      "candidateSha256": "05abaa0c6dea9c4c28933089bc30674933736ada9adb3133b19175930b3f3087",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_Linear_Jammer_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_Linear_Jammer_male_v2_1.png",
+      "sourceSha256": "e27933fccbf1c673f9bbbc91b7d2381ecb3a96ce6264cc06b5239ca1a57b30cf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/133/Landmine_Linear_Jammer_male_v2_1.png",
+      "candidateSha256": "dd2728e9065e0e8dbb2cc21b20a288567c7ffdd13cd578aaea98c691e5980799",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_Linear_Jammer_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_Linear_Jammer_male_v2_2.png",
+      "sourceSha256": "c3cb3e87cbfd2f52a53f0abcc7f67317308dab60198f29c58d32cc25b0437786",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/133/Landmine_Linear_Jammer_male_v2_2.png",
+      "candidateSha256": "fd3432e59652f5596c875ba3e91c6e24bd8b86a846873665806e20e975640aca",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_Linear_Jammer_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_Linear_Jammer_male_v2_3.png",
+      "sourceSha256": "12d9da1667e487ac495feab3da0e134c5660b5923bf700dc5d3aac0760e60257",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/133/Landmine_Linear_Jammer_male_v2_3.png",
+      "candidateSha256": "9e5983effb541cee60b966875859049055d60e9d6a83836dd5daea09e10676f5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_Linear_Jammer_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_Linear_Jammer_female_v2_0.png",
+      "sourceSha256": "b89facc5424788e8383a8bd274a4819a123bc5587b2f66c7a4e89c468045526d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/133/Landmine_Linear_Jammer_female_v2_0.png",
+      "candidateSha256": "af45840072e594bb47639aa865c644d9850863954bbaa0b6354ce2a07fdd9815",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_Linear_Jammer_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_Linear_Jammer_female_v2_1.png",
+      "sourceSha256": "4099706d15efdc8ef99df46e389194a65f79ca21e3b46bb175fb9abfda78384f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/133/Landmine_Linear_Jammer_female_v2_1.png",
+      "candidateSha256": "0a4d8951a35dc08e4cc3da04dda8ad8ed49c5d12717560b44e696893e7def4f3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_Linear_Jammer_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_Linear_Jammer_female_v2_2.png",
+      "sourceSha256": "910d7c933f7e0ced0c17fa8f28d06896f20d8dd42baabaa2f326e08e2872e31a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/133/Landmine_Linear_Jammer_female_v2_2.png",
+      "candidateSha256": "dea28afba205d174150ebb6ef66c53e85b1992428e2df7e43df2bea42289144d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_Linear_Jammer_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_Linear_Jammer_female_v2_3.png",
+      "sourceSha256": "d26b2a51bf443848634e8eaf73e9fea5eaa484a230385af0e9aadc4d1010aa10",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/133/Landmine_Linear_Jammer_female_v2_3.png",
+      "candidateSha256": "28b7db02a8a3ac3c0f4e82530cc2fabb77f4234e1020daff7def24d705533d1c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

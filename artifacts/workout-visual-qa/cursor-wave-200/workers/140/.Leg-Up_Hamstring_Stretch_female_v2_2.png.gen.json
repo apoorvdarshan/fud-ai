@@ -1,0 +1,16 @@
+{
+  "source_sha256": "8a22987e2a7575a8130ba642d1f5a8bb504d4ce90f04b938610660bf5154215c",
+  "candidate_sha256": "19895e380954efcbdb0bb9c5c6a5756c5d16987869cd35cb524b89bd85370e8f",
+  "generated_sha256": "3e393e3696df39b611c8f77747ed03eb6faaa396f71cd680c4e1aa958ba08f49",
+  "generated_path": "/cursor/stores/bc-59499722-18da-4492-8181-bb578828eece/artifacts/assets/gen-140-Leg-Up_Hamstring_Stretch_female_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

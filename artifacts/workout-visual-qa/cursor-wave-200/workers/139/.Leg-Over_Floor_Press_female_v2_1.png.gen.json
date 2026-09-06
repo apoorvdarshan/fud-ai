@@ -1,0 +1,16 @@
+{
+  "source_sha256": "18f98b211ca55fcf9b11d538ff98c3763fd21be13050bc5fe0be0a3c476f754a",
+  "candidate_sha256": "91dd9bbe60f832fdd1a7e3cd9ec200578a6407d5f253f5ef1c4007cac6c276f4",
+  "generated_sha256": "56c823ad4602de4acc685d881fa7c3f5d1c2bbf80a6227e50a6f1bf188fcea1a",
+  "generated_path": "/cursor/stores/bc-59499722-18da-4492-8181-bb578828eece/artifacts/assets/gen-139-Leg-Over_Floor_Press_female_v2_1.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Leg-Up_Hamstring_Stretch",
+  "shard": 14,
+  "index": 140,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical cleanup on 8 frame(s) with green chroma-key halo/contact artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Leg-Up_Hamstring_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Up_Hamstring_Stretch_male_v2_0.png",
+      "sourceSha256": "c6866f1e4c7f4130934f5dc643484ebf87d75dae35e8f0def80b965919522c61",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/140/Leg-Up_Hamstring_Stretch_male_v2_0.png",
+      "candidateSha256": "15cdcd4c62457cbe50948343e5dfe8652d7d221f463ce560987fffb091cbaca9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Up_Hamstring_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Up_Hamstring_Stretch_male_v2_1.png",
+      "sourceSha256": "ae480c2e5d7872f1a2a82a511702f5af8afa7cf5adb3249062b800fc275da067",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/140/Leg-Up_Hamstring_Stretch_male_v2_1.png",
+      "candidateSha256": "7c62ed54bb7d9ecc8cf5f49a2c5bf2425c0d93ab20ba51ee64a37ff99ae88c33",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Up_Hamstring_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Up_Hamstring_Stretch_male_v2_2.png",
+      "sourceSha256": "0f2f6c708d9a87847a2162368866bfe9f9b1a7e42e2751aed01a16f28af13af2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/140/Leg-Up_Hamstring_Stretch_male_v2_2.png",
+      "candidateSha256": "476b3801e3805d615c649d2099d4ddeb4012b875db2ba55244f3ef98c2df6250",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Up_Hamstring_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Up_Hamstring_Stretch_male_v2_3.png",
+      "sourceSha256": "c400a344712ffc6725414d31bdd77e0e5e7da9314994562bc9186d5f8ec52afb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/140/Leg-Up_Hamstring_Stretch_male_v2_3.png",
+      "candidateSha256": "42b562c883c6b1a88f9b5fe479983237db30cb29ae070f01dbd9fb18926cb65b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Up_Hamstring_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Up_Hamstring_Stretch_female_v2_0.png",
+      "sourceSha256": "1f13daa76d8389cc018163c1c12477858213cd98b824001cd41894ace048f828",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/140/Leg-Up_Hamstring_Stretch_female_v2_0.png",
+      "candidateSha256": "6969f24b999ccd56980476bacf5da852b0672ff1c4c1b6e7fca771abbf7ec76e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Up_Hamstring_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Up_Hamstring_Stretch_female_v2_1.png",
+      "sourceSha256": "7c7fc3b40951246fac5b5cb541dbe207ea3ae1d71c22d7209d2607bed72392c7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/140/Leg-Up_Hamstring_Stretch_female_v2_1.png",
+      "candidateSha256": "9e83b41e25f7d738977ee0c89ed834ee50e507b0356ede939dab97441d24b168",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Up_Hamstring_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Up_Hamstring_Stretch_female_v2_2.png",
+      "sourceSha256": "8a22987e2a7575a8130ba642d1f5a8bb504d4ce90f04b938610660bf5154215c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/140/Leg-Up_Hamstring_Stretch_female_v2_2.png",
+      "candidateSha256": "19895e380954efcbdb0bb9c5c6a5756c5d16987869cd35cb524b89bd85370e8f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Up_Hamstring_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Up_Hamstring_Stretch_female_v2_3.png",
+      "sourceSha256": "c5e56046086496645fe56cce7f98c8b4c7414a2dc71e2de61909a6fcfb1e6ecb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/140/Leg-Up_Hamstring_Stretch_female_v2_3.png",
+      "candidateSha256": "dc280ad42b40fd391e6cfa4100df62f2c89b5da527dfeed16b1eee7ece947c58",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "source_sha256": "12d9da1667e487ac495feab3da0e134c5660b5923bf700dc5d3aac0760e60257",
+  "candidate_sha256": "9e5983effb541cee60b966875859049055d60e9d6a83836dd5daea09e10676f5",
+  "generated_sha256": "62aa9e029ed65b7a98edbcb889f80b7c4a95a767c567a68b401c8fce7dce7477",
+  "generated_path": "/cursor/stores/bc-59499722-18da-4492-8181-bb578828eece/artifacts/assets/gen-133-Landmine_Linear_Jammer_male_v2_3.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

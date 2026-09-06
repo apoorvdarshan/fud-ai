@@ -1,0 +1,16 @@
+{
+  "source_sha256": "a76ac52b66b5f5e3b26aae5d5f22d9a95b0756d1f505f56af4bea53ee463417f",
+  "candidate_sha256": "4f676660e4e2514e7c60f46097a80c8014f6cd8eaed5e4a3a5259a2409d0519c",
+  "generated_sha256": "d53e63c3f2685f74dfc0420690c3e328a9a6abccf0030ffc197961d259252d90",
+  "generated_path": "/cursor/stores/bc-59499722-18da-4492-8181-bb578828eece/artifacts/assets/gen-134-Lateral_Bound_male_v2_3.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

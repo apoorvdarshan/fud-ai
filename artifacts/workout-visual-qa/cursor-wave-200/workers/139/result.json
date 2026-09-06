@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Leg-Over_Floor_Press",
+  "shard": 14,
+  "index": 139,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical cleanup on 8 frame(s) with green chroma-key halo/contact artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Leg-Over_Floor_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Over_Floor_Press_male_v2_0.png",
+      "sourceSha256": "e4b1962e14e82d6f4d93fcca734193bfcb59f148f3f7d6c097fc5f0b84d60012",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/139/Leg-Over_Floor_Press_male_v2_0.png",
+      "candidateSha256": "cd8ba3b4540bc17e5a543b34ab62b04db6e23eff988b57d5ef99c310150c1aa0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Over_Floor_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Over_Floor_Press_male_v2_1.png",
+      "sourceSha256": "4ce9b7a393d6c7113cfbbb9913f6fcaa4c8b09cbf44cc2cc0f569c471db53184",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/139/Leg-Over_Floor_Press_male_v2_1.png",
+      "candidateSha256": "375618f0ea7a045f7201d1591013b08779b2a896e1186943bd30341fee926bcd",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Over_Floor_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Over_Floor_Press_male_v2_2.png",
+      "sourceSha256": "76e8dbb5fd8c98e0feb4647182a06393542d83169c22a81b30dcf4dc348609db",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/139/Leg-Over_Floor_Press_male_v2_2.png",
+      "candidateSha256": "e5cf17665530cff2005a9f89127553083c6e88633318d354b5a40c7cb7f680d0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Over_Floor_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Over_Floor_Press_male_v2_3.png",
+      "sourceSha256": "a967c1663fe60a7a2231a795ca9e438de803c94f199d6cecfcf69c4cce2075c7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/139/Leg-Over_Floor_Press_male_v2_3.png",
+      "candidateSha256": "3092968e316b0a8de62e25d19131849d9d71fb649610333857a2389eabcb13ce",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Over_Floor_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Over_Floor_Press_female_v2_0.png",
+      "sourceSha256": "07f89763315d7f122533748001f004351a3b3a6bc1d2c1922fc57546b19c9e97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/139/Leg-Over_Floor_Press_female_v2_0.png",
+      "candidateSha256": "4fe9ac9be2073c3cfee66cfada9c1107d6ef694a7bf1351069252f9f053f2dce",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Over_Floor_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Over_Floor_Press_female_v2_1.png",
+      "sourceSha256": "18f98b211ca55fcf9b11d538ff98c3763fd21be13050bc5fe0be0a3c476f754a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/139/Leg-Over_Floor_Press_female_v2_1.png",
+      "candidateSha256": "91dd9bbe60f832fdd1a7e3cd9ec200578a6407d5f253f5ef1c4007cac6c276f4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Over_Floor_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Over_Floor_Press_female_v2_2.png",
+      "sourceSha256": "84207ffb488108fa3f19ab4b635936ea74dd6badc0cc94885460134050220b3d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/139/Leg-Over_Floor_Press_female_v2_2.png",
+      "candidateSha256": "05ad4812560960c0545dfe393d645ce7a21b3da4fae908586ed2ed01bf185670",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg-Over_Floor_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg-Over_Floor_Press_female_v2_3.png",
+      "sourceSha256": "1ed5d45dc6376ed5f6658c3a698c36fc74f7e5333aba74fe661448371e2b35b6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/139/Leg-Over_Floor_Press_female_v2_3.png",
+      "candidateSha256": "78db9f2b962e5b5f5f4a39c5763705d18dffa93d6c7f303e62309c68751d685e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Landmine_180s",
+  "shard": 14,
+  "index": 132,
+  "status": "ready_for_review",
+  "findings": [
+    "Script cleanup acceptable on dark background; no GenerateImage needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Landmine_180s_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_180s_male_v2_0.png",
+      "sourceSha256": "98ae91dbd202f79a5bd2fd3223790fa2296799460ffbeca369ebb4710cd7981d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/132/Landmine_180s_male_v2_0.png",
+      "candidateSha256": "85bb70943692c50c12127fc3cb2b00317b1a6a130a9030fc212f6862dabb03cf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_180s_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_180s_male_v2_1.png",
+      "sourceSha256": "0484886e541cadb276314941c88308b3e2466a2676b1d34c1a04664218665a88",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/132/Landmine_180s_male_v2_1.png",
+      "candidateSha256": "e77437ea1c96fd721da370d908332729e26c353a0c4fabb6bc798e728d0df141",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_180s_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_180s_male_v2_2.png",
+      "sourceSha256": "b35d63ea0bcf008cf3f1e450f0a3ae8829c16dd7f2b491547568c31512a38f0f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/132/Landmine_180s_male_v2_2.png",
+      "candidateSha256": "529954253bd2f7f730cc18caa3b204f34f33a2c1edb75ad419ae40e3d71e5867",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_180s_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_180s_male_v2_3.png",
+      "sourceSha256": "be9a2884d93681c3e24a489f07100db6a6b224396869b6d01fed4ea8f20a5566",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/132/Landmine_180s_male_v2_3.png",
+      "candidateSha256": "45de4a3a5adc4242d64710d71b97ae0cca078d522ac97953b29656764d72c117",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_180s_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_180s_female_v2_0.png",
+      "sourceSha256": "66404a12c9b7dc473f7447359c0242f68809b8a213ab420814827393eb481eda",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/132/Landmine_180s_female_v2_0.png",
+      "candidateSha256": "d07c23cd54be5fa856928d0fa157089150c1b13568f19077d51f7de6a51ad2f7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_180s_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_180s_female_v2_1.png",
+      "sourceSha256": "484792084c5bd22077ec40222e650898a7673ea5fb7d50244cb5057eef59c84a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/132/Landmine_180s_female_v2_1.png",
+      "candidateSha256": "847fb8fcd70fd75d61a5f8ce5fbb557080616eb3575c7dfc1801f8d380a41f74",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_180s_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_180s_female_v2_2.png",
+      "sourceSha256": "a97aee09be353983e0a2aac23561c3d620d3910cbf6b9c96c3635681fef4cbe8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/132/Landmine_180s_female_v2_2.png",
+      "candidateSha256": "273d5a19b2e2ad5f130fcd416469a98bdc8f045722244e0099ad28d42bf32f66",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Landmine_180s_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Landmine_180s_female_v2_3.png",
+      "sourceSha256": "ca211468c82e429a4d61982c96f716a11964675df7d741d1746d6335b7178b94",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/132/Landmine_180s_female_v2_3.png",
+      "candidateSha256": "7151de1340b03d5245093b0b979756c11d25c965399c053729062cd50b154bd2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

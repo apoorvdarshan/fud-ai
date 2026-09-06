@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Hurdle_Hops",
+  "shard": 3,
+  "index": 29,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Hurdle_Hops_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hurdle_Hops_male_v2_0.png",
+      "sourceSha256": "47a8c41fbe7592fdd10dc7ec4adfc738fa603653fad81af495a4936a12b921f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/029/Hurdle_Hops_male_v2_0.png",
+      "candidateSha256": "85a5bf6fe5144657996160092b0e38a43c6887703707eab50fb2e48bf5936472",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hurdle_Hops_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hurdle_Hops_male_v2_1.png",
+      "sourceSha256": "f870e0ee3e1ca92e421683095359686d81c1c9a2dca47f424911fb450ee531a2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/029/Hurdle_Hops_male_v2_1.png",
+      "candidateSha256": "41354dba8b8d0d2f178d4bec63ad8e24c72a09f161d4d730717af7f133f67b91",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hurdle_Hops_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hurdle_Hops_male_v2_2.png",
+      "sourceSha256": "d68646e61b7a8e909c0f1b84f52211ddc5e5ef2b61b8d9ad9eb32d14099043ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/029/Hurdle_Hops_male_v2_2.png",
+      "candidateSha256": "5a4250349c5b36db2375cf336d928ba4bfd271d6896a9563b5362f36a8a75ff1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hurdle_Hops_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hurdle_Hops_male_v2_3.png",
+      "sourceSha256": "105a133db70704a86c36c139a2d71d93a4f6bad2d7770bf3c2a1ebc25fb819ce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/029/Hurdle_Hops_male_v2_3.png",
+      "candidateSha256": "a5c455b01f494e53115cf4e6524b939544472848fc5c086557a1307987adeeac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hurdle_Hops_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hurdle_Hops_female_v2_0.png",
+      "sourceSha256": "92b613cd80fc2bafad9482f1abf4f645b2565e63d7c0e32a5f67e5c2feb5be39",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/029/Hurdle_Hops_female_v2_0.png",
+      "candidateSha256": "382ab8d82fbc23c8e0606881da5e3f1d39d70549a7d3821baa7f956692211b92",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hurdle_Hops_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hurdle_Hops_female_v2_1.png",
+      "sourceSha256": "5ebeb1d7af50039caee9ba01c93bfca76321b1fbd170e996164cb9b3ee3c58ab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/029/Hurdle_Hops_female_v2_1.png",
+      "candidateSha256": "67e3140868dc4f4bc56331b185aa90ec246b5a226898f27d2be08b3d890e1a4d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hurdle_Hops_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hurdle_Hops_female_v2_2.png",
+      "sourceSha256": "13379d18b9b7b4532a55a8448446d0a83542c8bd5fd4ba21e8912ad7413d5424",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/029/Hurdle_Hops_female_v2_2.png",
+      "candidateSha256": "e8f6a4d909f5114ce34064168c62b6b86c77149eef823f87f2d24b6e8c1c0c9e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hurdle_Hops_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hurdle_Hops_female_v2_3.png",
+      "sourceSha256": "a573f5aefc70735b0f3edeef71d2e3f9b7a76ea2319284500de942b369a68808",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/029/Hurdle_Hops_female_v2_3.png",
+      "candidateSha256": "84dc83e1a0e2caecdf53e52df177d3324296edadec861ad9d943f3293ceaf12f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

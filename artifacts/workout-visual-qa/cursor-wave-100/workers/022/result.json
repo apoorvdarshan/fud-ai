@@ -1,0 +1,82 @@
+{
+  "exerciseId": "High_Cable_Curls",
+  "shard": 3,
+  "index": 22,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "High_Cable_Curls_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/High_Cable_Curls_male_v2_0.png",
+      "sourceSha256": "aee8e23b227ad0258a2d0f44ebabc21cb09de42c3668c85c2b0891a316e71532",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/022/High_Cable_Curls_male_v2_0.png",
+      "candidateSha256": "b05e4d94b4f5f5d0ed9b5ed0bf2638d72ab75720ca307216d42607532d17c0fe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "High_Cable_Curls_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/High_Cable_Curls_male_v2_1.png",
+      "sourceSha256": "db941267493563a2caab6f9fbeda481d71facb77b6926bf5adcbabe5e0ce8057",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/022/High_Cable_Curls_male_v2_1.png",
+      "candidateSha256": "fcd9808e78900d9ef816d8d57587dcaac419f38693674ac3aeb3fc0aa7dfbc17",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "High_Cable_Curls_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/High_Cable_Curls_male_v2_2.png",
+      "sourceSha256": "ad21afe7e3f6bc5190fccae7da5d6abbd1101ded754c5d9763fdc319f463d643",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/022/High_Cable_Curls_male_v2_2.png",
+      "candidateSha256": "3ff861d463c19f1a343313acc18c9e6a6d1130d57f080d02e5b743823a01ab9f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "High_Cable_Curls_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/High_Cable_Curls_male_v2_3.png",
+      "sourceSha256": "4b21b9fc1270dada0f4ef6b74635f755e7d8aa1ba0addcdb772e780ffe78f096",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/022/High_Cable_Curls_male_v2_3.png",
+      "candidateSha256": "58789d5c22bfcdff8cc466595d0dcada609352650fdf4e53bd0f9ace672c79a0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "High_Cable_Curls_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/High_Cable_Curls_female_v2_0.png",
+      "sourceSha256": "7cc83cce6ca9304b24774eedfc067ac9293768b6fc6f2285cdadf90fbbeb93b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/022/High_Cable_Curls_female_v2_0.png",
+      "candidateSha256": "9dc50ab0d9fad2edd8de7025f57dfa28da395c70864dbabed59885fd7a82665e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "High_Cable_Curls_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/High_Cable_Curls_female_v2_1.png",
+      "sourceSha256": "8122a0121c83acfee7580f625d11facd08fb38d02ed9c43d61d312e40f186955",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/022/High_Cable_Curls_female_v2_1.png",
+      "candidateSha256": "c8c530184b0908e193d08466b694de0bc21d64381bb35e762dc20ba162fffe06",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "High_Cable_Curls_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/High_Cable_Curls_female_v2_2.png",
+      "sourceSha256": "ff60b85d204e0e27841d7c533c907c47fa425e5823b01aac2abc7f202df97477",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/022/High_Cable_Curls_female_v2_2.png",
+      "candidateSha256": "f4de38c0b6535982cbb9851b3a88c4cd3ac9e2415216971d20401e83b08ef937",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "High_Cable_Curls_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/High_Cable_Curls_female_v2_3.png",
+      "sourceSha256": "d931883ac31b3a7cc5e244ed036704fcb0e62c71a9ce6f958efdd6462c622dc3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/022/High_Cable_Curls_female_v2_3.png",
+      "candidateSha256": "a697ed1da4f4d9dc7447e4b3ab2ad1c6a265b7a29678936ec541c1bbfe304297",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

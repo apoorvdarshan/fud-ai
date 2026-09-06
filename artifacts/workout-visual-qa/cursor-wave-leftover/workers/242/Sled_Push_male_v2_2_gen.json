@@ -1,0 +1,16 @@
+{
+  "source_sha256": "24a293b47bee587a39e47748d037b59b0c024dc1248b3ce3c4d169c316c2b6ff",
+  "candidate_sha256": "046a8dbba48acb934047edbc77b45eb8895c08154733f37472f3482dc14fe508",
+  "generated_sha256": "c1570de986843c82b5e2a0876f8c0645207199a06a6301cfb929a5c425a1ab39",
+  "generated_path": "/cursor/stores/bc-180dc721-7b82-4e4e-b5c8-5bdd5f895eeb/artifacts/assets/gen_Sled_Push_male_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

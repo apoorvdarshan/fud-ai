@@ -1,0 +1,16 @@
+{
+  "source_sha256": "2fe7633f1089e417049e4db5eec568f83c2e1ab5c9fc353b47f3696163f251f4",
+  "candidate_sha256": "b02dc9907a15d59f4111ea61b681b57349be632b950e6363d13c6ae10cc10dde",
+  "generated_sha256": "30f304ae7061a91086e7c910fe60c0615c73d297f4fd268cfbd0a02495086acb",
+  "generated_path": "/cursor/stores/bc-180dc721-7b82-4e4e-b5c8-5bdd5f895eeb/artifacts/assets/gen_Sled_Push_female_v2_1.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

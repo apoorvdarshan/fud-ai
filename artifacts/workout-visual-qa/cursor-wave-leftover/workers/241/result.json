@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Sled_Overhead_Triceps_Extension",
+  "shard": 25,
+  "index": 241,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Sled_Overhead_Triceps_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Triceps_Extension_male_v2_0.png",
+      "sourceSha256": "0c13e6e790829eecf12d1d2b49713656922a5f42bab78ed97a31e1c4d6a1a51c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/241/Sled_Overhead_Triceps_Extension_male_v2_0.png",
+      "candidateSha256": "89e8f75df85216c415ab2c26242e2ef9c3eaeef539c33485eccaab14a184f2ef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Triceps_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Triceps_Extension_male_v2_1.png",
+      "sourceSha256": "ae60ab2c8eb19c8c4922ebbc11c31c2d61a7e641ecd495630e4bd3085b759646",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/241/Sled_Overhead_Triceps_Extension_male_v2_1.png",
+      "candidateSha256": "9bdba6dd430faca72ca69cf4c759ad425a2de7d14c6c5dab2b06a2e472778143",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Triceps_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Triceps_Extension_male_v2_2.png",
+      "sourceSha256": "ccbede0cd42153cb970d64a2d31131b656befd9bb0ab314bc2f33fe7c206a814",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/241/Sled_Overhead_Triceps_Extension_male_v2_2.png",
+      "candidateSha256": "d74ee8275d25374575b7846ec970fea63b1ba12eb2e54a47667b339a8df1365a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Triceps_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Triceps_Extension_male_v2_3.png",
+      "sourceSha256": "f924b79cde364771ce251bad20f8ef6dc72815632831b0833b78a1d0e687f1fb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/241/Sled_Overhead_Triceps_Extension_male_v2_3.png",
+      "candidateSha256": "e01df03f47294db811a13e86c7e5db444d4058859802c2646e42270bc2cfbf33",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Triceps_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Triceps_Extension_female_v2_0.png",
+      "sourceSha256": "46f3ceb4797688cb0cf9bb7f58e672f88d0f0994af0a7e6f1cd1de3aecab35af",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/241/Sled_Overhead_Triceps_Extension_female_v2_0.png",
+      "candidateSha256": "47fc496bfab33ff94d2c6aeafe9fab55e44a803ebf7638c6dddc5ea372b8514b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Triceps_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Triceps_Extension_female_v2_1.png",
+      "sourceSha256": "0ebaf74afbc84759df1b3e715f2cdbcda7869667756705ab494d1f53bd12924e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/241/Sled_Overhead_Triceps_Extension_female_v2_1.png",
+      "candidateSha256": "ae2c8c7d7c770f9d83cd5a0aab43f61d7ca26245af75b1858df5b660291535fd",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Triceps_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Triceps_Extension_female_v2_2.png",
+      "sourceSha256": "7ef2caaa4466460997b208d6e248c77afe6acf738ae9ae2521c0d47dbdc4f46c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/241/Sled_Overhead_Triceps_Extension_female_v2_2.png",
+      "candidateSha256": "a1270da213fcc2e66d263851fef0326841924aaf8b85424ff6aeacc0dca5e911",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Overhead_Triceps_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Overhead_Triceps_Extension_female_v2_3.png",
+      "sourceSha256": "1b3c83d171359d9a63598ede8f60ebad3b680d9ef2f4520175cb6ce7c37891f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/241/Sled_Overhead_Triceps_Extension_female_v2_3.png",
+      "candidateSha256": "7f59f113001e6729df8348703f1e3c7369e5b31f3c5b957206b8b40b9824153d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

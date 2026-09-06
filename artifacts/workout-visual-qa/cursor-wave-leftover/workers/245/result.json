@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Sledgehammer_Swings",
+  "shard": 25,
+  "index": 245,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Sledgehammer_Swings_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sledgehammer_Swings_male_v2_0.png",
+      "sourceSha256": "3e846c2905e905355d9309f63f09729cba269c7355add4e710185b930783d9c5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/245/Sledgehammer_Swings_male_v2_0.png",
+      "candidateSha256": "ec9d4d9dd2f49f4e7614ae63d832843d08c602656433d94b26d6f2665d6f3c26",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sledgehammer_Swings_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sledgehammer_Swings_male_v2_1.png",
+      "sourceSha256": "9dc3794927dd0cbf24579d3d965397cc84f71bb49b0483a7c4f28242fbfb39f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/245/Sledgehammer_Swings_male_v2_1.png",
+      "candidateSha256": "f04616113e5cd0c6640224d91aa0285f4905f450d1446da1d39228b8afb9147d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sledgehammer_Swings_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sledgehammer_Swings_male_v2_2.png",
+      "sourceSha256": "3ee5438d1adf95e70aceb443d28814c1762a6a41eae2009749a51b470a3c55a1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/245/Sledgehammer_Swings_male_v2_2.png",
+      "candidateSha256": "f0dd3a51265aecb4ff2dbc8be0c996c7c314f03d2b69684e6cabeb0404b7d17c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sledgehammer_Swings_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sledgehammer_Swings_male_v2_3.png",
+      "sourceSha256": "4cf181e55673dbd646f2e3e999573697bc493319f4bd761aedd0bc79830892a6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/245/Sledgehammer_Swings_male_v2_3.png",
+      "candidateSha256": "f5c952a5a52001e0a67026b7a0467dd9f6d9dbff34e83ae7c72950b1cd157028",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sledgehammer_Swings_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sledgehammer_Swings_female_v2_0.png",
+      "sourceSha256": "1c6e5cf416284a642d0d0617fa4ea608f0a0c853e3935247142b9767edc60975",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/245/Sledgehammer_Swings_female_v2_0.png",
+      "candidateSha256": "66780dfbe2d96a3fffd8cb78de8835ecd85dde58db08d693bb26834b45dab9a9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sledgehammer_Swings_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sledgehammer_Swings_female_v2_1.png",
+      "sourceSha256": "07e7108ce02561969e7d2ec1b09c22c895737856a82ef419f5fca165ba0d9fbf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/245/Sledgehammer_Swings_female_v2_1.png",
+      "candidateSha256": "5d2f02f54d5d0e7e385975c4418ddde7515e6a0a285b865824df169caf420763",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sledgehammer_Swings_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sledgehammer_Swings_female_v2_2.png",
+      "sourceSha256": "2827b953e278286246057ecaacff95b645cbbfc2c715b44286b4f9d22b011355",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/245/Sledgehammer_Swings_female_v2_2.png",
+      "candidateSha256": "fefb8aa18bdac700d4aee776e2df0f6ccad0355c66b1a3cf00ee24d25ff71167",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sledgehammer_Swings_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sledgehammer_Swings_female_v2_3.png",
+      "sourceSha256": "a2ca6a1b0f964a928ef8a13ffa7e22d3d5a9e18e0aa6a544f6b06ed58a8fe415",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/245/Sledgehammer_Swings_female_v2_3.png",
+      "candidateSha256": "bb5af9eb8c520f519841e5c1b391614d279c0005a7e71c59b80ca6819d81d79d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

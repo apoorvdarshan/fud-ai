@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Smith_Machine_Bent_Over_Row",
+  "shard": 25,
+  "index": 249,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Smith_Machine_Bent_Over_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Bent_Over_Row_male_v2_0.png",
+      "sourceSha256": "8df4626615dfeb3911840800910359f8486546bfb67f60b6956c64b2651e6738",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/249/Smith_Machine_Bent_Over_Row_male_v2_0.png",
+      "candidateSha256": "54d66612c849406e7a3a9cbff0903eec799daaaab9441e2c6e9341b6ba2f3de7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Bent_Over_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Bent_Over_Row_male_v2_1.png",
+      "sourceSha256": "a8ad1f128eee622f41fde1cbb5dd75ae3fc38ba0da73f7f5b91237db5bcb2bff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/249/Smith_Machine_Bent_Over_Row_male_v2_1.png",
+      "candidateSha256": "aa8a0711a76d2f1554c49dbbfe2b21f2c6b0b475448554602e4de8087a44563e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Bent_Over_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Bent_Over_Row_male_v2_2.png",
+      "sourceSha256": "9c282500ade0b3b3d56ef2a93149c2c2819cd22730fa836e462a71b8ce7f9113",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/249/Smith_Machine_Bent_Over_Row_male_v2_2.png",
+      "candidateSha256": "ab41e99c0eb8857dc9911340e852d11f1819cbd54c4585fbd49e5c572a11e2d0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Bent_Over_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Bent_Over_Row_male_v2_3.png",
+      "sourceSha256": "9bc4e00674719b2a2e8400357359649aef217d5842ecd8ba2a2267429db46570",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/249/Smith_Machine_Bent_Over_Row_male_v2_3.png",
+      "candidateSha256": "3f49aa65038e39c8bc758634b6d85c5233c0a266e326414ae1ebfd2a54c619f6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Bent_Over_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Bent_Over_Row_female_v2_0.png",
+      "sourceSha256": "131c9ff5fdeb9d1cb063098935e69364f75aafa28ee87f65992d5e6905d9c8ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/249/Smith_Machine_Bent_Over_Row_female_v2_0.png",
+      "candidateSha256": "c125aa70697faecd154a803722d95b4394b87f329323bbb6670842ad192aae5b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Bent_Over_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Bent_Over_Row_female_v2_1.png",
+      "sourceSha256": "5f7d3b4ff2fd75c6fa789a8217fa17b6f4b99f4cc0401d2d5b788bf7afc572df",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/249/Smith_Machine_Bent_Over_Row_female_v2_1.png",
+      "candidateSha256": "22de12ec9bad5455af78082ed3093cff4b0433bef186bae6679023a1c94606c1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Bent_Over_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Bent_Over_Row_female_v2_2.png",
+      "sourceSha256": "58ac2310eb0cef22897bc8e972cb2ed7e170bca593a1a33cf5085c8dc6c8613e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/249/Smith_Machine_Bent_Over_Row_female_v2_2.png",
+      "candidateSha256": "044641b0d0ad6f3f8dfa95dd8831f92c98d11524ce3ccd2192df020b21087ed1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Bent_Over_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Bent_Over_Row_female_v2_3.png",
+      "sourceSha256": "e54d7b6c2cd3876837dfa1e0ed795c2f95a60b780d44e1176bccb63074eaeed0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/249/Smith_Machine_Bent_Over_Row_female_v2_3.png",
+      "candidateSha256": "79cba08b67c419e11f069f51474c6cc168d0b73ee88ca9b94900f1b8760d10b7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

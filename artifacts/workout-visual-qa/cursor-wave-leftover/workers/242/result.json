@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Sled_Push",
+  "shard": 25,
+  "index": 242,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [
+    "GenerateImage worsened anatomy; retained script candidate with floating sled fragment"
+  ],
+  "frames": [
+    {
+      "filename": "Sled_Push_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Push_male_v2_0.png",
+      "sourceSha256": "4c02583a1a720658d02d04fbae5936ba9a21fa65f7e69bde80712dc828fc284e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/242/Sled_Push_male_v2_0.png",
+      "candidateSha256": "33fe1215e99a777672208f7be60d5fea587fadd9abbe98709d595f43929fdaea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Push_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Push_male_v2_1.png",
+      "sourceSha256": "6d1e94583bbd02b45e25831d675c9a3daf3cfa9dac0a55e1c54b3aaab8af64b3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/242/Sled_Push_male_v2_1.png",
+      "candidateSha256": "ca08427d41b8171b3ea9e6e1a5ca3e0d3e13c732f3d16fac4cd45ef9c66234ee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Push_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Push_male_v2_2.png",
+      "sourceSha256": "24a293b47bee587a39e47748d037b59b0c024dc1248b3ce3c4d169c316c2b6ff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/242/Sled_Push_male_v2_2.png",
+      "candidateSha256": "046a8dbba48acb934047edbc77b45eb8895c08154733f37472f3482dc14fe508",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Push_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Push_male_v2_3.png",
+      "sourceSha256": "ef99f1d8b276469cdbc0f66a138f2aaa2d4e0e4f10006a4ef44020832fc9b662",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/242/Sled_Push_male_v2_3.png",
+      "candidateSha256": "d154896d362f304693d890d37e5c16f28e576f1152e361992a90cd79ffe05c95",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Push_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Push_female_v2_0.png",
+      "sourceSha256": "3348adf8b50faf0a9b47fda836f4354de01003053ae461b3cfe3240982a03f2c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/242/Sled_Push_female_v2_0.png",
+      "candidateSha256": "b6acbdc7a5d91da9cd610d1532a56100eb19828dbc07da5f5d6eb47d9c5a0ff3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Push_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Push_female_v2_1.png",
+      "sourceSha256": "2fe7633f1089e417049e4db5eec568f83c2e1ab5c9fc353b47f3696163f251f4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/242/Sled_Push_female_v2_1.png",
+      "candidateSha256": "b02dc9907a15d59f4111ea61b681b57349be632b950e6363d13c6ae10cc10dde",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Push_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Push_female_v2_2.png",
+      "sourceSha256": "085f9a6bfe4165ce520a8d90c17cf24339f182c0ef20cbed53103c47a729f2a8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/242/Sled_Push_female_v2_2.png",
+      "candidateSha256": "c5ecfb991710ee3cba5539fba7e9c29c7db0ff693681c562a5ba261c7ee2a858",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sled_Push_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sled_Push_female_v2_3.png",
+      "sourceSha256": "7d80de2b312a44ac5d01419c9e555b51d4a94948bc575804c5fec26371808580",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/242/Sled_Push_female_v2_3.png",
+      "candidateSha256": "9842be1fe22af1b037868a42aca30a79221d848d51bd9d8e1ec346564ab57460",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

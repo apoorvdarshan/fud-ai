@@ -1,0 +1,16 @@
+{
+  "source_sha256": "03041a3de577d635782e6fc41c391531a4c93a4b4592e6845c9b11753d091e4f",
+  "candidate_sha256": "cb41038124b51199a71ca111c34759c67518f2334279a89b733150ed8a00d538",
+  "generated_sha256": "b0f9343dd0a285ccae16d6d1d82f49384befbc2c52064748694605f5b67a2331",
+  "generated_path": "/cursor/stores/bc-180dc721-7b82-4e4e-b5c8-5bdd5f895eeb/artifacts/assets/gen_Smith_Machine_Behind_the_Back_Shrug_male_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

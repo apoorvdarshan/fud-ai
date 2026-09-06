@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Power_Jerk",
+  "shard": 10,
+  "index": 98,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Power_Jerk_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Jerk_male_v2_0.png",
+      "sourceSha256": "c031c353bfa8693b8a07f102b6c4f21848e397312872c52d63b87c07fea2e9b1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/098/Power_Jerk_male_v2_0.png",
+      "candidateSha256": "1933b9a91387a16981f8e9d196a29398ea7f13e24187a9972e8b186ffc6f5a42",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Jerk_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Jerk_male_v2_1.png",
+      "sourceSha256": "5c590bb786416adc5019d58289b73b6d6bf1f5a7e582deab33be14ea1d8ebd76",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/098/Power_Jerk_male_v2_1.png",
+      "candidateSha256": "0cda048bfd744036ea648e1c87cf10ed5fadba2bd83ce4aaf4ff736de2a7c7d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Jerk_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Jerk_male_v2_2.png",
+      "sourceSha256": "5bd18ca2cbc7aafffceabae506fd6ea6c91f33ba54a67e3b5003d0c74271aa58",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/098/Power_Jerk_male_v2_2.png",
+      "candidateSha256": "f5426a2c90ff44ebc2676f81d3ac0a14a69ddf931c3f1b39bec0b5ca3b7ca714",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Jerk_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Jerk_male_v2_3.png",
+      "sourceSha256": "711b1f3bffcdb56a76cf978aada688700241fdcf486b3cff39c3d471936f3a6e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/098/Power_Jerk_male_v2_3.png",
+      "candidateSha256": "faf850846df066d84bb185f72f36ac3b1a3a5cc2cafe3cab5df7e1fc70c7a868",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Jerk_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Jerk_female_v2_0.png",
+      "sourceSha256": "7df6f473eb55b9c0efc1bbf14bd229ce1b45cabc6ad4013f6c2119dc23d7bf8b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/098/Power_Jerk_female_v2_0.png",
+      "candidateSha256": "a588359dde99be8ac38e4e4802cc49d5aa1fe06fcf9a391f7e78a0f355ba2206",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Jerk_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Jerk_female_v2_1.png",
+      "sourceSha256": "1818f100966920d99545818550802f14c9922d703553343e3a18a087ae317cf9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/098/Power_Jerk_female_v2_1.png",
+      "candidateSha256": "f1337a7793d083d01bcb3d9d05fe66c1a111c6e2dd873b01eb8ac9f03c74648c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Jerk_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Jerk_female_v2_2.png",
+      "sourceSha256": "f7d9a700b78287ae559366913ced886b799f86467a7488f1217ffc720b23d109",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/098/Power_Jerk_female_v2_2.png",
+      "candidateSha256": "5b8e78036dd4350cc5789e9715a3c809095f9cc94d60419669b9e20317b2a71f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Jerk_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Jerk_female_v2_3.png",
+      "sourceSha256": "3e8ec54e5e6cd832c391c00588992213837c5da6d4330676fdcb7fc76fcab578",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/098/Power_Jerk_female_v2_3.png",
+      "candidateSha256": "ffe61ea9781c50f3ae93426b6cfcfee5f6f21f82d797e77f5439a3079b163fc2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "source_sha256": "f27f9129465972e154e83535ed869d24bae7465fe5915e45b0c79f9f05877df2",
+  "candidate_sha256": "c012a16da7f3e9acf90e6ed5a093dec81bd641f4ec8be17122255ba38a80217a",
+  "generated_sha256": "2dd04cdf10d2a5d5952eda1a43b89f0866177f674087d45a73a3509f7fda1098",
+  "generated_path": "/cursor/stores/bc-69f8511f-d3bb-4469-8d1e-e16993bf61ee/artifacts/assets/gen_Power_Clean_from_Blocks_female_v2_0.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

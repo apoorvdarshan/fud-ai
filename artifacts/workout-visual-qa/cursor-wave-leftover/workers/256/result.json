@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Smith_Machine_Leg_Press",
+  "shard": 26,
+  "index": 256,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Smith_Machine_Leg_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Leg_Press_male_v2_0.png",
+      "sourceSha256": "304f28f34b38b62bad9e09b89eec318d2463152f681f7cdadb9576b640b34822",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/256/Smith_Machine_Leg_Press_male_v2_0.png",
+      "candidateSha256": "db3d8ca054d0034ce2e2fcf213719c3ea12eee5497950aeac61324256a735c18",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Leg_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Leg_Press_male_v2_1.png",
+      "sourceSha256": "6d2505a2bd0354402ca381b1adf76463e4cfae7a4da78e0880130ab88b1f63fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/256/Smith_Machine_Leg_Press_male_v2_1.png",
+      "candidateSha256": "63265a5a20768303ae8ce41e0847f51e7c9ab7ef7e36531e4b2a4841ba86dddd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Leg_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Leg_Press_male_v2_2.png",
+      "sourceSha256": "65c476f3ac0cf50bef5ea142bc23e42e96dd0d975c3ed3cb6b33763f2290df97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/256/Smith_Machine_Leg_Press_male_v2_2.png",
+      "candidateSha256": "6a04008e61ec6ff218503e90cf0856cd95fe26ffdf2e3cb7b6c28ed7f4850081",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Leg_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Leg_Press_male_v2_3.png",
+      "sourceSha256": "4055cd5aef3cecc98b7b9a43949d025be8c2dd392e44d7999beec17f4b836e2b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/256/Smith_Machine_Leg_Press_male_v2_3.png",
+      "candidateSha256": "25d8efa72c7de92c7396ffca4f6dd119f55aff4d60cf3cde0fd4aade7f06edc6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Leg_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Leg_Press_female_v2_0.png",
+      "sourceSha256": "78e12e8d1d7f0ba100128da84b07d2e145f0fae42632a3fbddb71b8fe65022fa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/256/Smith_Machine_Leg_Press_female_v2_0.png",
+      "candidateSha256": "4e60a8e985e9dc9ccdd75705b04e603c90959006dfdf548c324ed4f2f2d51a13",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Leg_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Leg_Press_female_v2_1.png",
+      "sourceSha256": "62a20869456d400cc764283cb4a2b6dc6ac83189d7cefc561a4ab807b34110a3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/256/Smith_Machine_Leg_Press_female_v2_1.png",
+      "candidateSha256": "11668e9a3dc3164c2e7d82475f76aea5ba5c35053db0258d4ea6f320ff1018fc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Leg_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Leg_Press_female_v2_2.png",
+      "sourceSha256": "0f36c9c46286a70b10176a929562020a3bf21aa1ee7c5859a1ca91366aeb8d39",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/256/Smith_Machine_Leg_Press_female_v2_2.png",
+      "candidateSha256": "e8c306c20b9b8625e7a8edcbb38fe46557663038147c2cbc9a8d3432edf07a5d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Leg_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Leg_Press_female_v2_3.png",
+      "sourceSha256": "43a2337ed1e5b92dcef23efaaa8fe9af105ff3023ac250345c06c63b22d98f94",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/256/Smith_Machine_Leg_Press_female_v2_3.png",
+      "candidateSha256": "a7402e72ddb783bee17f867ac88726ac991301f8796c0f5f98710aa7477b3c9a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

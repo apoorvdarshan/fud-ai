@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Smith_Machine_One-Arm_Upright_Row",
+  "shard": 26,
+  "index": 257,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Smith_Machine_One-Arm_Upright_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_One-Arm_Upright_Row_male_v2_0.png",
+      "sourceSha256": "6e7d70620fcad84867836eceee175cd5aee5d5cff5816738e11dbe2cdaa236e9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/257/Smith_Machine_One-Arm_Upright_Row_male_v2_0.png",
+      "candidateSha256": "972d33876124aaa163cbe6a30ff4482b61992ddbcfa25410945a710422662351",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_One-Arm_Upright_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_One-Arm_Upright_Row_male_v2_1.png",
+      "sourceSha256": "b030aa6732c7199a092eafef3316f8ec954cfcd7766b1ec143222ba4ad437a7e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/257/Smith_Machine_One-Arm_Upright_Row_male_v2_1.png",
+      "candidateSha256": "b0a5080fa146f9c2c3f5a5437f56c2ac0cfe9a12849ee3781a6e42fec5e17cdf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_One-Arm_Upright_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_One-Arm_Upright_Row_male_v2_2.png",
+      "sourceSha256": "dd709ccbb1db713120df8f16dbd2dfa9ec746daca7da4bae85a90570c355fe44",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/257/Smith_Machine_One-Arm_Upright_Row_male_v2_2.png",
+      "candidateSha256": "56a0fc1c421fb9d781ebdb206ce70d89a906d4a9bfb956fa420b3515a53dcd6c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_One-Arm_Upright_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_One-Arm_Upright_Row_male_v2_3.png",
+      "sourceSha256": "ac5a457aee7fa68d74b50aeef0213f18d8d019f0985bf652ace21539e7e8b9da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/257/Smith_Machine_One-Arm_Upright_Row_male_v2_3.png",
+      "candidateSha256": "424f910663eceefee219432b461fe5cc135d2472cfcf2875987c6003b61b9bf7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_One-Arm_Upright_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_One-Arm_Upright_Row_female_v2_0.png",
+      "sourceSha256": "dea30c2514a614f5631b853f14318978277fe790228ea6b5d6fa54e1e5fe5538",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/257/Smith_Machine_One-Arm_Upright_Row_female_v2_0.png",
+      "candidateSha256": "1c6c7a81a812976f5e48806fc7740864b6398fa275e79f0f7aa82a7021a8dab2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_One-Arm_Upright_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_One-Arm_Upright_Row_female_v2_1.png",
+      "sourceSha256": "ff270dead7ce125b2e32cdaaceff903de11034a2afc6ab41f8daddee9c00770e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/257/Smith_Machine_One-Arm_Upright_Row_female_v2_1.png",
+      "candidateSha256": "91f119d809f9d2e9da912a9283edf4a0c273279e7952f893a8ca8e9ce93e409e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_One-Arm_Upright_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_One-Arm_Upright_Row_female_v2_2.png",
+      "sourceSha256": "80fec201cb5bd217cf0472d420f79379f7fe1bcd57cdc795aaa7b7398f55af93",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/257/Smith_Machine_One-Arm_Upright_Row_female_v2_2.png",
+      "candidateSha256": "14ee16ae7eeae9e279250fc94c37d016b35dd48cd7cf6337de10ff8bd8eaea2e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_One-Arm_Upright_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_One-Arm_Upright_Row_female_v2_3.png",
+      "sourceSha256": "e5aa2c3dc221aabd59e28a842578609f9106d076d1e2bff448ff757a12b06c94",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/257/Smith_Machine_One-Arm_Upright_Row_female_v2_3.png",
+      "candidateSha256": "5c54f82b271463018ef4c0f7f6fc41482e9d995bb677573698aae07a334fe608",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

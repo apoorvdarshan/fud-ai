@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Smith_Machine_Pistol_Squat",
+  "shard": 26,
+  "index": 259,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Smith_Machine_Pistol_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Pistol_Squat_male_v2_0.png",
+      "sourceSha256": "630ea8395ae4b26df8f590accd758f3d1cae0de7b7ab6af0fe1ae1bd8a9a48ea",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/259/Smith_Machine_Pistol_Squat_male_v2_0.png",
+      "candidateSha256": "0b305b022216a4600acf43d5e92ca43a564e653418c16837a975a40fe7abcf28",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Pistol_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Pistol_Squat_male_v2_1.png",
+      "sourceSha256": "b4043d0444d3fd9cf350d66d27a66375c7fee74929bfd033399381d00dc524d9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/259/Smith_Machine_Pistol_Squat_male_v2_1.png",
+      "candidateSha256": "69e3c602a3aabe8aa178dd50b0bfb7b51e0fbe1c1e3db6007f4b7896563f0d94",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Pistol_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Pistol_Squat_male_v2_2.png",
+      "sourceSha256": "16e4a33986dc6984ce44b7ce4b101674862b3b3b93cb81a914a8583fe504f0b6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/259/Smith_Machine_Pistol_Squat_male_v2_2.png",
+      "candidateSha256": "d668ae2cc7a59a02e47469eedcab370662fb701a14db2fe028286c43635a8916",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Pistol_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Pistol_Squat_male_v2_3.png",
+      "sourceSha256": "01a7a91ec78b21f821524a8a973fb00fbe156537834d322896fb9f94112996d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/259/Smith_Machine_Pistol_Squat_male_v2_3.png",
+      "candidateSha256": "72ba51eb8391abb1384319a217b2fd4cbf1a68843600b1ca34e834fd548f44d7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Pistol_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Pistol_Squat_female_v2_0.png",
+      "sourceSha256": "49e9d2c34532a7f62c3079b65ff5f8dd4a93bc7d43690c0f98d4387f3e78b782",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/259/Smith_Machine_Pistol_Squat_female_v2_0.png",
+      "candidateSha256": "50cce3a97f3b24beeee1d9e750a293926c8b985e15c07f6895598b9b1e4f70ca",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Pistol_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Pistol_Squat_female_v2_1.png",
+      "sourceSha256": "997a7adeaa0f2d96c74273f4cbf06dc9319763302c509d5b11ac6530342bdf63",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/259/Smith_Machine_Pistol_Squat_female_v2_1.png",
+      "candidateSha256": "d69d33b7d87993d3a7292c15820d6627324155fb66da268d2b2c21308172ba6f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Pistol_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Pistol_Squat_female_v2_2.png",
+      "sourceSha256": "298c3b808a769500c2906afe1ad8f0c19aad022bb75b35dc3b790d2abc77768a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/259/Smith_Machine_Pistol_Squat_female_v2_2.png",
+      "candidateSha256": "ffe9cc0dee8b130e8c9f442f38ce592add20ea48c4b9cfce5273b58c6e86437e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Pistol_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Pistol_Squat_female_v2_3.png",
+      "sourceSha256": "3f7f456e53b9fb449e4065c5e3bab1efce3fbe229300684695e57650eeaa3325",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/259/Smith_Machine_Pistol_Squat_female_v2_3.png",
+      "candidateSha256": "6d453917eddceea58ccfd433b9e2657fa2ba38bcf56d87a815c423cec9b0a22f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

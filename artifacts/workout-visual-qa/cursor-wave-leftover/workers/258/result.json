@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Smith_Machine_Overhead_Shoulder_Press",
+  "shard": 26,
+  "index": 258,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Smith_Machine_Overhead_Shoulder_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Overhead_Shoulder_Press_male_v2_0.png",
+      "sourceSha256": "8d29bc37a90e067aa198424bb755146a2896b392786d37e6f7c2c581bce02180",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/258/Smith_Machine_Overhead_Shoulder_Press_male_v2_0.png",
+      "candidateSha256": "1cdad84099d02d5c8ac74a730abcb51208ad5167db8915f50c39e2a34e2f3874",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Overhead_Shoulder_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Overhead_Shoulder_Press_male_v2_1.png",
+      "sourceSha256": "5418e1b5e110937b50ff24e39475cdc364792b986633a656631dd0313b89efac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/258/Smith_Machine_Overhead_Shoulder_Press_male_v2_1.png",
+      "candidateSha256": "c4487a4619279337a0fe2ce03eacfb34469509cf3cdfc5d930bbd1a0efd7abb9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Overhead_Shoulder_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Overhead_Shoulder_Press_male_v2_2.png",
+      "sourceSha256": "5ad2ad476948c2cab49938e02cfa0eb755fe9abe21fe6e0b6cb93adf24c5afbd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/258/Smith_Machine_Overhead_Shoulder_Press_male_v2_2.png",
+      "candidateSha256": "a1200f14a000ac3b153836fb2babfbc85046ee6e6211128733c63de53986d62c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Overhead_Shoulder_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Overhead_Shoulder_Press_male_v2_3.png",
+      "sourceSha256": "f371c0d30b3ceafff40199fedf49b945410591ada56dce6278215ea1f9e53e93",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/258/Smith_Machine_Overhead_Shoulder_Press_male_v2_3.png",
+      "candidateSha256": "65c51b023aedbcbc31ca10497e43666b86689c8acd22c17772c7d8830e090190",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Overhead_Shoulder_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Overhead_Shoulder_Press_female_v2_0.png",
+      "sourceSha256": "27e8a28948d8f3f20505d6d5af7a52b1c57adca7ad99d124236dddef33b72930",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/258/Smith_Machine_Overhead_Shoulder_Press_female_v2_0.png",
+      "candidateSha256": "3b237535520a1436d6256df7769e577a0e6a6a9558a22d39efb1fb5a73b487e3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Overhead_Shoulder_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Overhead_Shoulder_Press_female_v2_1.png",
+      "sourceSha256": "86e6dabbaec81a9f27b29f8eca9b27f5e66ed2dbd24e959f984fe1f2dc219fb5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/258/Smith_Machine_Overhead_Shoulder_Press_female_v2_1.png",
+      "candidateSha256": "fbc4ce8492b9449ad8e690d1052314dcc57deda19c71c02e7b32127ea3944788",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Overhead_Shoulder_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Overhead_Shoulder_Press_female_v2_2.png",
+      "sourceSha256": "845a452ac02cdb36898db81cfebe134e55fa70fd86a61da62f40eda6e560a9af",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/258/Smith_Machine_Overhead_Shoulder_Press_female_v2_2.png",
+      "candidateSha256": "0477e56067136d5725678a5fa9c127d51cc6cbef8945e087e623ae2cf95df325",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Smith_Machine_Overhead_Shoulder_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Smith_Machine_Overhead_Shoulder_Press_female_v2_3.png",
+      "sourceSha256": "fecd7366fec4ef226b0944c57d235fd42ab61b518906bbe9202f260d1752e13c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/258/Smith_Machine_Overhead_Shoulder_Press_female_v2_3.png",
+      "candidateSha256": "130b13b6deea9568213184dd8fc26d634824145b3886ddc986cdaad2b691a0bd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

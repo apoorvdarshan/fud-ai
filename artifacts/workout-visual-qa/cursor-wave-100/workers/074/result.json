@@ -3,7 +3,9 @@
   "shard": 8,
   "index": 74,
   "status": "ready_for_review",
-  "findings": [],
+  "findings": [
+    "All frames clean after visual review on dark background; script candidates retained."
+  ],
   "unresolved": [],
   "frames": [
     {
@@ -13,7 +15,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_male_v2_0.png",
       "candidateSha256": "4c44de79d587de1b3287793b41bdb504a6e1f615133050b880939b0f7306b71b",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_One-Legged_Deadlift_male_v2_1.png",
@@ -22,7 +25,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_male_v2_1.png",
       "candidateSha256": "b1d3d7d058fd0624e0758769b721f126ae99522c1c877fee887a15ba5978c9ea",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_One-Legged_Deadlift_male_v2_2.png",
@@ -31,7 +35,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_male_v2_2.png",
       "candidateSha256": "b25c57dd6bde1bec90c3deb85da745e82f68f228d17da53234b1c684427d274c",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_One-Legged_Deadlift_male_v2_3.png",
@@ -40,7 +45,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_male_v2_3.png",
       "candidateSha256": "172a6b509894e827a38f90f79ebf2d37243dd85c2e73b79cb1bd0a9bd313860e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_One-Legged_Deadlift_female_v2_0.png",
@@ -49,7 +55,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_female_v2_0.png",
       "candidateSha256": "a35cfca5faf835da99e42ae7ff5aec8bb99a3c4e03d63dbd63d86fc5ce1d8e0e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_One-Legged_Deadlift_female_v2_1.png",
@@ -58,7 +65,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_female_v2_1.png",
       "candidateSha256": "d265bee1cd70886ba2221da3e96ac02fa985b2d93649b8ecec74ec8fcbb2e619",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_One-Legged_Deadlift_female_v2_2.png",
@@ -67,7 +75,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_female_v2_2.png",
       "candidateSha256": "f3947776a908455521c5e29fd12a07a089210de05ca8444a1cd94a4d1b925995",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Kettlebell_One-Legged_Deadlift_female_v2_3.png",
@@ -76,7 +85,9 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_female_v2_3.png",
       "candidateSha256": "5f069147fbf6b0e81dc1e0372428a23d911014e4ee744ca46cd46f73268be745",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     }
-  ]
+  ],
+  "changedFrameCount": 0
 }

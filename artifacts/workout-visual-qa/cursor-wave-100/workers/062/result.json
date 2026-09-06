@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/062/IT_Band_and_Glute_Stretch_male_v2_0.png",
       "candidateSha256": "4eba88dbcda968e24cff4da950226d6c9f49ca02f16d920c1023417c36ca3bc8",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "IT_Band_and_Glute_Stretch_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/062/IT_Band_and_Glute_Stretch_male_v2_1.png",
       "candidateSha256": "fc0b6fe1d79957da1b3f644b61669ca6ad79baaae555bc2e1ddd9015b671f246",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "IT_Band_and_Glute_Stretch_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/062/IT_Band_and_Glute_Stretch_male_v2_2.png",
       "candidateSha256": "111e6a926e53a791e8ddd641860ab5bc77eaebef4fc6cfc182e03f5a8c72191c",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "IT_Band_and_Glute_Stretch_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/062/IT_Band_and_Glute_Stretch_male_v2_3.png",
       "candidateSha256": "8e8c5a74c05d621221cc6061db955299f8e295cbd2371aba73bb3bd1653041ae",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "IT_Band_and_Glute_Stretch_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/062/IT_Band_and_Glute_Stretch_female_v2_0.png",
       "candidateSha256": "dba9bcc5c127f4ab8cd69f00eda5ace11342b001cf8c67316eafba7c91e518c7",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "IT_Band_and_Glute_Stretch_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/062/IT_Band_and_Glute_Stretch_female_v2_1.png",
       "candidateSha256": "fd63e11fc1450978a41dd0de1d47491eef447e69b8b15817a72ebf109ff4f4c0",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "IT_Band_and_Glute_Stretch_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/062/IT_Band_and_Glute_Stretch_female_v2_2.png",
       "candidateSha256": "23b0fff55ed3e82414eead7326508fcb0dfd6e6b93db90a49a9a257c690b2a38",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "IT_Band_and_Glute_Stretch_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/062/IT_Band_and_Glute_Stretch_female_v2_3.png",
       "candidateSha256": "43e29001d2196f893ade471214c7bf5c6ac23e816106284c13044b98f5a86c35",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

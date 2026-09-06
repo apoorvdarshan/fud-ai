@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/064/Janda_Sit-Up_male_v2_0.png",
       "candidateSha256": "38f9ebd10a126322a441ff9a3e5ceb284509ce14bcfdcd9843e751e5b82ef7ba",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Janda_Sit-Up_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/064/Janda_Sit-Up_male_v2_1.png",
       "candidateSha256": "9c26753919b36a9227668c081c986da0e27cf0bd2e21ea5c8ad0a1f39ed2a2ba",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Janda_Sit-Up_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/064/Janda_Sit-Up_male_v2_2.png",
       "candidateSha256": "226f7cd63181db508543bf509086a74f9ccae3d2b1725046a0128337bc21a5f8",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Janda_Sit-Up_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/064/Janda_Sit-Up_male_v2_3.png",
       "candidateSha256": "875bfa168adb15df833d634ca5eeb512ef0dc8e419b6822fb1dd26f69a83fa6e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Janda_Sit-Up_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/064/Janda_Sit-Up_female_v2_0.png",
       "candidateSha256": "e3ca7585a2a7db4d8fbd6b6788934c2a233c1644d53d85f25b0f9d432529516e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Janda_Sit-Up_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/064/Janda_Sit-Up_female_v2_1.png",
       "candidateSha256": "17af6e38e74e746b08a21160a03921e15b4962c8a1c23c7216c5827d8ae24bde",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Janda_Sit-Up_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/064/Janda_Sit-Up_female_v2_2.png",
       "candidateSha256": "0b89bf5f5b211d09607c66d7e33d298242778d64853b31154af24d36533c08a1",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Janda_Sit-Up_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/064/Janda_Sit-Up_female_v2_3.png",
       "candidateSha256": "95e5be77641cae79b26b058575935b28c481e3a10451cab1fe5d7107d0379c7e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/069/Jogging_Treadmill_male_v2_0.png",
       "candidateSha256": "a032f677b4c2c3ef63bbb777b1cd684083135079bf48a4a8825677390bf24ae8",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jogging_Treadmill_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/069/Jogging_Treadmill_male_v2_1.png",
       "candidateSha256": "0b56f3bad81a83d79d05df6a87dad7cf5d46f7fe4f768847cf6b61c25a195ad4",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jogging_Treadmill_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/069/Jogging_Treadmill_male_v2_2.png",
       "candidateSha256": "5c274221575f30554db2890ff6d79ea430d4967424ef63f71480ad3f5aa1f2d8",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jogging_Treadmill_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/069/Jogging_Treadmill_male_v2_3.png",
       "candidateSha256": "afc020c8b72c5891dbada684879315e2c46e34dd6309c19981b4be180fe998c9",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jogging_Treadmill_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/069/Jogging_Treadmill_female_v2_0.png",
       "candidateSha256": "a5f4516aec1b4c834f1d30f0867e176699fa9af547618d26501890d32cadfbfb",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jogging_Treadmill_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/069/Jogging_Treadmill_female_v2_1.png",
       "candidateSha256": "c8e236d711574892615a93fccd2f73107bbe6a74fd61345870f1c2b7b76b1f22",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jogging_Treadmill_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/069/Jogging_Treadmill_female_v2_2.png",
       "candidateSha256": "993a04d44c39e585fabf5077403e48265e1047e7d952089b9284c67483469a5b",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jogging_Treadmill_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/069/Jogging_Treadmill_female_v2_3.png",
       "candidateSha256": "bc3a01d8057b65662ef9784bb2aca70e51c686a19dc11fa08e837ecb57c250e5",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

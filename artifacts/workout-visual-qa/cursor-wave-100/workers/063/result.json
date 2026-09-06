@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/063/Jackknife_Sit-Up_male_v2_0.png",
       "candidateSha256": "feb33adb13d3c63773bb0fe2f664a883d32b8ffc9e9f6dd9a63cdc4e6e9d6090",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jackknife_Sit-Up_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/063/Jackknife_Sit-Up_male_v2_1.png",
       "candidateSha256": "e239b4375e22cf81b6184b7b30450774e1ee9baa7f841fb9e470918f5c2bc205",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jackknife_Sit-Up_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/063/Jackknife_Sit-Up_male_v2_2.png",
       "candidateSha256": "6e6ee4f488b63080668f174f9840b40217c5c3966c80ed503a3389dab461fe71",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jackknife_Sit-Up_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/063/Jackknife_Sit-Up_male_v2_3.png",
       "candidateSha256": "9e397bb0c8be79d5bbc21dc98f7abd00cd1e1f80900a28e7e0d92e7924431e18",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jackknife_Sit-Up_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/063/Jackknife_Sit-Up_female_v2_0.png",
       "candidateSha256": "75957fee61e9b81b247eb37079f4da15b4f13c6a7935ca624c14aab610184045",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jackknife_Sit-Up_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/063/Jackknife_Sit-Up_female_v2_1.png",
       "candidateSha256": "9ad2c62d6533a2ad5760fff739d86711eb8bbe22ea66f233170c25476f69f76a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jackknife_Sit-Up_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/063/Jackknife_Sit-Up_female_v2_2.png",
       "candidateSha256": "ffb90158b678c692969895aefe4ec0d4097e33c60a30ec2dc23e410e48dd8442",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jackknife_Sit-Up_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/063/Jackknife_Sit-Up_female_v2_3.png",
       "candidateSha256": "23b4f4e8f9709884edd8260c9ccf79884f03b91a539996fd98a8312b65e011a3",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

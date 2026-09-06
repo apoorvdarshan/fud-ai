@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_male_v2_0.png",
       "candidateSha256": "e495c7dcffee8a920374f14f9d90804f4b166fb99802c630ee20f60942eed7ab",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_male_v2_1.png",
       "candidateSha256": "d2a0169df40547794acea53a35569f036c8ccde30ac14ff06493dab623a95ad3",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_male_v2_2.png",
       "candidateSha256": "ec6ea960d5211e4bba8f4ce6b6ea233f930e14c3bdf44b8447f1c76b10f04263",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_male_v2_3.png",
       "candidateSha256": "0fc31968153e1901236f999597e42c51055ed81e65674ce85f9299c60fe1ea9d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_female_v2_0.png",
       "candidateSha256": "c46f462106b2e4d56a7fff758879280ea7d4411732e668cbf90211bafe08d27a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_female_v2_1.png",
       "candidateSha256": "528a69911c51db39887d17adc089b7bdebf1a11c28ea88b69322ef766d64626f",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_female_v2_2.png",
       "candidateSha256": "f51609704a9b99f4688663b5e3de3bb7ae3f7d8aa73766e3dc0187112d828113",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Jerk_Balance_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/066/Jerk_Balance_female_v2_3.png",
       "candidateSha256": "f86659c54f39137ee4295806f9c44c0f748eded878842d357ceea28dda05d24f",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

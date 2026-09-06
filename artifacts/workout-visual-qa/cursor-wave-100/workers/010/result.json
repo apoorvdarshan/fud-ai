@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Hamstring_Stretch",
+  "shard": 1,
+  "index": 10,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Hamstring_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring_Stretch_male_v2_0.png",
+      "sourceSha256": "5a742504d86750082b324ee8f8b93c523cac0818b17d6487b8ce2f21c370850b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/010/Hamstring_Stretch_male_v2_0.png",
+      "candidateSha256": "38b8a8bac6aba0fb1c24baa1054f81abe49e050bbd6d602d388522d05dc1f03b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring_Stretch_male_v2_1.png",
+      "sourceSha256": "905229c8241fba704196f8ea2ec703f77ba744d0c02d4faf86a784dc210a5499",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/010/Hamstring_Stretch_male_v2_1.png",
+      "candidateSha256": "ab2cb6d0c25565992d0277eebc7bf0f3ffb4abab05d08a98908a87017673a4e5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring_Stretch_male_v2_2.png",
+      "sourceSha256": "5a9211de8dc8d91a944f6291b1be1f39177581a2347e87e97fcbc5d1a367a617",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/010/Hamstring_Stretch_male_v2_2.png",
+      "candidateSha256": "2c4409872b988cbb42e3626c3e9384d2e547276952cdf4860d86221f3caaaecc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring_Stretch_male_v2_3.png",
+      "sourceSha256": "e2043c8f286790788a8a48979d10499cb87511f4e53e49143907105610f2de1c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/010/Hamstring_Stretch_male_v2_3.png",
+      "candidateSha256": "6f80ed50c01797f35554f455aa1895a457d2b521027721e53b14ebc88e4a1984",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring_Stretch_female_v2_0.png",
+      "sourceSha256": "cd9af3d616e21328629039d640c1d05099c9ee2881fc794e1986ad80da1643c5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/010/Hamstring_Stretch_female_v2_0.png",
+      "candidateSha256": "ad57d1afa8c89012f5e7eb82c6d432d27d5937c6a2cba67eac6e99371a6e51b6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring_Stretch_female_v2_1.png",
+      "sourceSha256": "f51f0e9845c8058daf025b7cf02a4febf8045138ffbfd67a1cfabe63bfbcd462",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/010/Hamstring_Stretch_female_v2_1.png",
+      "candidateSha256": "f947b1569d4b7188930aad4c8d2b9c6153565cfc829f94659c27ebdbd0b64de8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring_Stretch_female_v2_2.png",
+      "sourceSha256": "b78f3bd4be4910e87efcefd31d65749ae7d46faabfb0a2ff62ea761241b57fc5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/010/Hamstring_Stretch_female_v2_2.png",
+      "candidateSha256": "ff6ce4dbfeab4bb2b84251335bd701609014cc0dbb5b65956d27086b2fd2f6f7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring_Stretch_female_v2_3.png",
+      "sourceSha256": "c23ae7ccae9566f65e56da58874095068c7bc4462586a9a0e2950849b2d52e21",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/010/Hamstring_Stretch_female_v2_3.png",
+      "candidateSha256": "c32d6240e2c54d089cd67e4628b7ef9ce9256724fe63f5fb8d6775b1d14c6bc2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

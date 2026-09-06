@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Hammer_Grip_Incline_DB_Bench_Press",
+  "shard": 1,
+  "index": 9,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Hammer_Grip_Incline_DB_Bench_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_male_v2_0.png",
+      "sourceSha256": "f337f39df298f7f7c0cdea6b30045e04eef5cbd4984ea2d150bec8146427f711",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_male_v2_0.png",
+      "candidateSha256": "c52b291c8f0447893b53d506f07cd7a088259df3bc52c6b3f8f496b33344a460",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Grip_Incline_DB_Bench_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_male_v2_1.png",
+      "sourceSha256": "25d06b33fcb83a96f62c2304a3a4159b813d5322fbfd67255cf1866fc68bd0c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_male_v2_1.png",
+      "candidateSha256": "500174757a2e6630a44d361221068f6ca46db2e8d25e7413067183401517b1bf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Grip_Incline_DB_Bench_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_male_v2_2.png",
+      "sourceSha256": "a807d43edb98006dab1861fb1ca5eb363574da3c27161f01007ca9d27c8343fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_male_v2_2.png",
+      "candidateSha256": "e29bd706ab4df69a4dc3afc745d2220159fc601ab3753e7b7f30b4fa70931791",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Grip_Incline_DB_Bench_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_male_v2_3.png",
+      "sourceSha256": "b0e0439d21f76549b52d6aa76b8800925045730bcc447c1b1965985569675a59",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_male_v2_3.png",
+      "candidateSha256": "8a5dc1a401de1210d621c2d9419a5b07e7b40594e172851cb8996c7b1b308a7d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Grip_Incline_DB_Bench_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_female_v2_0.png",
+      "sourceSha256": "522d587e04a84b30a02c64900692b200fe54b830be79c26ea69553e38e150fda",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_female_v2_0.png",
+      "candidateSha256": "a40c052e417f9af7e2de81e584a4e6e6739c756e55e938b2bb94f6b731faf4b3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Grip_Incline_DB_Bench_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_female_v2_1.png",
+      "sourceSha256": "36729c317380e86cca8cd018a4f3790cc3aa87b94feefeae2fb6f89f214e95f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_female_v2_1.png",
+      "candidateSha256": "cfd20845ebd4a236e6338bc8f463d1a6bf6c833ee68021a6215009aa51d025a5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Grip_Incline_DB_Bench_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_female_v2_2.png",
+      "sourceSha256": "08cc2a03604aa69baa2ebe0e1048652aa1527deb306437b2a6d0090e1bc9af14",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_female_v2_2.png",
+      "candidateSha256": "88060c2c37fdfc793454d8e430a90539d3b267b874b8d6d28fd4f9d41f01778b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Grip_Incline_DB_Bench_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Grip_Incline_DB_Bench_Press_female_v2_3.png",
+      "sourceSha256": "2bd82a61f59845366c5a4f53f3b6d2b3f90076734123da119b42c141d97ca81c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_female_v2_3.png",
+      "candidateSha256": "7f266972e0adcef7cbfaf04e8a9b336988cc78d16d8c5e03af1f6e088174039b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

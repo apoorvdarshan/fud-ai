@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Leverage_Shoulder_Press",
+  "shard": 16,
+  "index": 151,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Leverage_Shoulder_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shoulder_Press_male_v2_0.png",
+      "sourceSha256": "c4146297ef73b52a63601f38519ac9e8bed86aeabf268f4ec7a29579874eb780",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/151/Leverage_Shoulder_Press_male_v2_0.png",
+      "candidateSha256": "1b27302c3862e500d561f64593fba00a6f6ca46fac0f84e2a6e28f958a4d6eaa",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shoulder_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shoulder_Press_male_v2_1.png",
+      "sourceSha256": "5ba3ff4140fcda76bf2711f32b2a953f98f151384dcf37ccddeba52f20a3bb57",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/151/Leverage_Shoulder_Press_male_v2_1.png",
+      "candidateSha256": "404ad51875ef6b9d68dbd77ecd7fedb81b702a2a6ece32eb63fa7e006f555e8b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shoulder_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shoulder_Press_male_v2_2.png",
+      "sourceSha256": "f9acebc5e58efdc302d668831b3df7b4ba55565a322c119066c210786a32a8ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/151/Leverage_Shoulder_Press_male_v2_2.png",
+      "candidateSha256": "9487a86556c672a7cbe56f638cedbeb2994726da8393b87d7a9210649953340e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shoulder_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shoulder_Press_male_v2_3.png",
+      "sourceSha256": "ebb4817d950e379beafaf77330360de36e7f0537344d51831917ee2f64a70b93",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/151/Leverage_Shoulder_Press_male_v2_3.png",
+      "candidateSha256": "a63efb91a293afd121bb26b1bbe1b0836bec1d6ea43ea142d0118599af3b44cc",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shoulder_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shoulder_Press_female_v2_0.png",
+      "sourceSha256": "c4eb7235ce233f340947c298ba154f307fd5cd294e26c3da7a2c2fb54c9641c7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/151/Leverage_Shoulder_Press_female_v2_0.png",
+      "candidateSha256": "91c4c25e134797ee194bffdf35dfeec9c1327a4315e49ce361970c8465991977",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shoulder_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shoulder_Press_female_v2_1.png",
+      "sourceSha256": "fd37be57fc74447a2e7556d4112219f87676b6a145dd5adaefe3d2cee6b5edd3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/151/Leverage_Shoulder_Press_female_v2_1.png",
+      "candidateSha256": "a5a3894569e623d7614d69aae33ab1fc7edf7844cad692c278b173b12f0fa535",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shoulder_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shoulder_Press_female_v2_2.png",
+      "sourceSha256": "2eb7e0bed45688f890be86e4d0b521721fa8ce6f16a15dbf070e7f1abb86d360",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/151/Leverage_Shoulder_Press_female_v2_2.png",
+      "candidateSha256": "cdda2702b2c8fdd94c8c48ebb676010ea69a945cd3f7ba7269a7492f0d80ecf7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Shoulder_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Shoulder_Press_female_v2_3.png",
+      "sourceSha256": "e01ee11a5fd01ecdae80a539c5b68c0ed1a0f1e6797bea1d4603073eecb77a06",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/151/Leverage_Shoulder_Press_female_v2_3.png",
+      "candidateSha256": "4c0ce686e89c56dcef543cb1cf1e33442dfab4c49d54e17fb03744b67a8403f8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

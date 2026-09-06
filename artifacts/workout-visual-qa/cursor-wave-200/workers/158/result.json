@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Looking_At_Ceiling",
+  "shard": 16,
+  "index": 158,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Looking_At_Ceiling_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Looking_At_Ceiling_male_v2_0.png",
+      "sourceSha256": "46675fba5a02fc36b0c1a557a4ec4b3f63cc25c43e206ddda4fe856d1862247b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/158/Looking_At_Ceiling_male_v2_0.png",
+      "candidateSha256": "55e7045dda58dd8e583d72998d49c59521086fc75c06b18a77db4f0eb138da04",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Looking_At_Ceiling_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Looking_At_Ceiling_male_v2_1.png",
+      "sourceSha256": "587ce09dfe538ca1bcc5822d74c1bb73238378251aa631cf7e8eb79a222e1668",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/158/Looking_At_Ceiling_male_v2_1.png",
+      "candidateSha256": "f580acd6e4b558d30cfecb5b3fde3a3d0ea6e027c065442894b9547cd435bb91",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Looking_At_Ceiling_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Looking_At_Ceiling_male_v2_2.png",
+      "sourceSha256": "ee5e46030e23936950f2fc3e17603659c53ce5e5f0cde4df1e142d6bbc0836e9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/158/Looking_At_Ceiling_male_v2_2.png",
+      "candidateSha256": "9ce4a61740a34c3b599f1a0c8c664ff6a108bffade9f1fd5f8bc6d57ea215997",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Looking_At_Ceiling_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Looking_At_Ceiling_male_v2_3.png",
+      "sourceSha256": "e10e15e63a99c181b4d1c6c250fa340f45d8f55922584477a3b1d917ab6a8f08",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/158/Looking_At_Ceiling_male_v2_3.png",
+      "candidateSha256": "bf65c707373cbb03723e14dd62e1928db0b8511049b08d88f042a2a165d83ba5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Looking_At_Ceiling_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Looking_At_Ceiling_female_v2_0.png",
+      "sourceSha256": "a6cc4437793271d7818f26f378906b66d5d0f3453d1e5a81e071ad3b76e53e88",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/158/Looking_At_Ceiling_female_v2_0.png",
+      "candidateSha256": "37808213e085f75f2c8b61d2b156c66f595bf09b51240d4ec0f5cab9ca5c374b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Looking_At_Ceiling_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Looking_At_Ceiling_female_v2_1.png",
+      "sourceSha256": "392575511052509b49f30e67f78e617f13aea3a71af47501576e241b0f109478",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/158/Looking_At_Ceiling_female_v2_1.png",
+      "candidateSha256": "181e1a9c835e8b7f8896e9abc6566152a49cab0f3757dfc713976a4557ee5793",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Looking_At_Ceiling_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Looking_At_Ceiling_female_v2_2.png",
+      "sourceSha256": "e1af12625eb66b31c8a6aaa08b9429814a64c91f426d6aada589999b4a8720e2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/158/Looking_At_Ceiling_female_v2_2.png",
+      "candidateSha256": "2bbc82580bb3f5b39ad2ed8596e320d47a98f8f6cdc150577a06542095dd3b7a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Looking_At_Ceiling_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Looking_At_Ceiling_female_v2_3.png",
+      "sourceSha256": "c45cdf25ea4db045d0a16a1940fda6d24f1688a096b06f62dd43ff2356bf0d47",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/158/Looking_At_Ceiling_female_v2_3.png",
+      "candidateSha256": "79d6352941b6873c664d72bc1ba4087ea3098aec59f9d44b30f0c67c38f5cebe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Low_Cable_Crossover",
+  "shard": 16,
+  "index": 159,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Low_Cable_Crossover_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Crossover_male_v2_0.png",
+      "sourceSha256": "447231ddd5a9035fda1d5544743a59e8f983c180e69ab3b6915bf3dd279698e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/159/Low_Cable_Crossover_male_v2_0.png",
+      "candidateSha256": "8a0d287eac5d7918629ef3697f96cef89de1b1f36a942e7900b57f560d4777ff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Crossover_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Crossover_male_v2_1.png",
+      "sourceSha256": "c224ff1c29b7ca246fef084a4e441e3ae57e29dfc533e0f7850945e7a3d9e774",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/159/Low_Cable_Crossover_male_v2_1.png",
+      "candidateSha256": "0f8ce18dd63e2de580f0f1d26417861c9c1123036d7478b7b03df080feeb8244",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Crossover_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Crossover_male_v2_2.png",
+      "sourceSha256": "04688fd1eb87249c508a2d2e3dd905907ee3839eee61eb9ebed97c23570ed3ac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/159/Low_Cable_Crossover_male_v2_2.png",
+      "candidateSha256": "c8e06f28098e35caa630417310b8b6b779753b752bd3b2b82d32c366e538ba67",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Crossover_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Crossover_male_v2_3.png",
+      "sourceSha256": "e636c4220b2bf5e56eac68ea2932ae55ea4aa00b0cdd258d5dfd1738a647eb90",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/159/Low_Cable_Crossover_male_v2_3.png",
+      "candidateSha256": "5109a7cbd64fa264173520db775df57811d6d8de62e38c4f86bbc057e3d54918",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Crossover_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Crossover_female_v2_0.png",
+      "sourceSha256": "cfbddabbc0ad9ad8c3cbfbdcfc8339963a3f0246470494c43962a083cc565782",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/159/Low_Cable_Crossover_female_v2_0.png",
+      "candidateSha256": "dfc01fa15dfbafce55ae360e61aac24b990f49a5caa6317ea604631c2888e197",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Crossover_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Crossover_female_v2_1.png",
+      "sourceSha256": "b85a8d9fea609ef83f4d3185ae523374f537383256c806d934331233dd7373f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/159/Low_Cable_Crossover_female_v2_1.png",
+      "candidateSha256": "c880d55bff88e0cac932a307ca9429e852b70a35ae1f72c7a6360ea594074ad0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Crossover_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Crossover_female_v2_2.png",
+      "sourceSha256": "59913196618acd0eb9ac0070ca311436d4cc9904629aae8ef66650479a550821",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/159/Low_Cable_Crossover_female_v2_2.png",
+      "candidateSha256": "c64e65c4a5d4cda8f026b8b8acc4c4576780572307fc1031263906c4cd099c08",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Low_Cable_Crossover_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Low_Cable_Crossover_female_v2_3.png",
+      "sourceSha256": "e58397a1f0bbc13ca15fa46f3351512e21ff9e1a00738db990c7dc7003bc349d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/159/Low_Cable_Crossover_female_v2_3.png",
+      "candidateSha256": "87cc3135fcc0b1ec0c1c8284ca1387b9f57951b4099070b61bdb85e41586ba56",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

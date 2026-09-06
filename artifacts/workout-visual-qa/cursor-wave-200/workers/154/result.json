@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Linear_Acceleration_Wall_Drill",
+  "shard": 16,
+  "index": 154,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Linear_Acceleration_Wall_Drill_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Acceleration_Wall_Drill_male_v2_0.png",
+      "sourceSha256": "1f550ce3786dbb8669922f41dfea85f03b413fbf2c76822721c7250af4ed618e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/154/Linear_Acceleration_Wall_Drill_male_v2_0.png",
+      "candidateSha256": "1aa9ea176ec888dab7bf628e022a070812af8bb646a4ff2fd2de82d9d713cac3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Acceleration_Wall_Drill_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Acceleration_Wall_Drill_male_v2_1.png",
+      "sourceSha256": "e19943dc82ab71959a4c5b76a89bb4704cb50069ef114e5bcfb7e1ce6ea3b1c5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/154/Linear_Acceleration_Wall_Drill_male_v2_1.png",
+      "candidateSha256": "d44db2290879e04a9939b6be45cf25fe8fb08f335b24f77ed5894ac8abfb39a8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Acceleration_Wall_Drill_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Acceleration_Wall_Drill_male_v2_2.png",
+      "sourceSha256": "f849a6cd9bceba0f1429f3d25f0f1116f9fbc8cfcf9340e4b1ee91cf63e37ac6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/154/Linear_Acceleration_Wall_Drill_male_v2_2.png",
+      "candidateSha256": "98a6672cd733b4e88d406e781380d8823215e5dc36c413472b0d84e3fede55a8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Acceleration_Wall_Drill_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Acceleration_Wall_Drill_male_v2_3.png",
+      "sourceSha256": "c2aadd1f03b817dbda600f0ab7570ae8a7966576f6aad584ba807fb08e14deba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/154/Linear_Acceleration_Wall_Drill_male_v2_3.png",
+      "candidateSha256": "6b070d0853867249a84dcbd8fa787e1ef2c29e2b8f02154faa8c754af57f97f9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Acceleration_Wall_Drill_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Acceleration_Wall_Drill_female_v2_0.png",
+      "sourceSha256": "e57db85ee0fc0b9c134a74535c4cc94322e3875d99a14095b45e96fecde0f1e9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/154/Linear_Acceleration_Wall_Drill_female_v2_0.png",
+      "candidateSha256": "b5207f8bfea053fde00dda7ce061b95cc5a114a80eaf70605c09591a36c2bd03",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Acceleration_Wall_Drill_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Acceleration_Wall_Drill_female_v2_1.png",
+      "sourceSha256": "3b941810e379f75e3910f545eea359d7c0adee2ca0975adb8582aa53c1e46732",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/154/Linear_Acceleration_Wall_Drill_female_v2_1.png",
+      "candidateSha256": "5ff1a5bccf0d897b5ac10810b5fbb85dde7253177d8fb45c66c7e798d3947718",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Acceleration_Wall_Drill_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Acceleration_Wall_Drill_female_v2_2.png",
+      "sourceSha256": "f6a41515b4737e34f75f63f50e06b893604c76eae0310184301580dd28fbceb5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/154/Linear_Acceleration_Wall_Drill_female_v2_2.png",
+      "candidateSha256": "220f35d2022583fa6c351156c328c0b3630f4b81642313e3e153beb0805db6f1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Linear_Acceleration_Wall_Drill_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Linear_Acceleration_Wall_Drill_female_v2_3.png",
+      "sourceSha256": "4c7c148581549675048fac9f909bfef0532cee453c2dde6b0eb8e85ace908ca2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/154/Linear_Acceleration_Wall_Drill_female_v2_3.png",
+      "candidateSha256": "f16da468deccd348bf077528c200a1fae92a6c57f413382fbde8b8c144123ea3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

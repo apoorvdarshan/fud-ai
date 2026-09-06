@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Torso_Rotation",
+  "shard": 37,
+  "index": 368,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on Torso_Rotation frames with white halo fringe"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Torso_Rotation_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Torso_Rotation_male_v2_0.png",
+      "sourceSha256": "7767db60daacd0c31db8ebfe3821d06d3674d778b242aa74d15a42b1cddf9540",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/368/Torso_Rotation_male_v2_0.png",
+      "candidateSha256": "33326b07b99eff60fd012943eb6dab8735929840b5a4d8f4863a565599fbe5db",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Torso_Rotation_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Torso_Rotation_male_v2_1.png",
+      "sourceSha256": "928b1d10f5feb07bbcf89957972127f984c30e5b98d3d07da6a860ba2902d220",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/368/Torso_Rotation_male_v2_1.png",
+      "candidateSha256": "b2f91b69d6daee0ee9c86eec252f1786e4380be148259b5213e6497c4b27225b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Torso_Rotation_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Torso_Rotation_male_v2_2.png",
+      "sourceSha256": "81808d516421c5ac24435c3031a15c647e0ab949e9ab7ab39c7db73eb8ec64ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/368/Torso_Rotation_male_v2_2.png",
+      "candidateSha256": "89ae4b17c4f66a31f5dbe14873377871f63ba8fb1c9b6489bcad6c86d5314388",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Torso_Rotation_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Torso_Rotation_male_v2_3.png",
+      "sourceSha256": "b6a6c8669985e96d86c7d187bcc22efc0d94d5db19260b3bbe24046ca700ea63",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/368/Torso_Rotation_male_v2_3.png",
+      "candidateSha256": "1c4d9455b001c3eb8b1bdff396328528ef5067f4b4d8fed2cf0b1390ff157c0a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Torso_Rotation_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Torso_Rotation_female_v2_0.png",
+      "sourceSha256": "9d19e97772280579787230009195eeef0cfb6f52b5f6ab2845b4aacb236c2cd9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/368/Torso_Rotation_female_v2_0.png",
+      "candidateSha256": "81aa3cc4d1b1ab9b72de9e04aa7994455c79074f9f9b7d56e102c2c2ebf16754",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Torso_Rotation_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Torso_Rotation_female_v2_1.png",
+      "sourceSha256": "b7cdb3dc075542dba94b4649bea97ef5bbde3662db67af2e30858657b99ec3da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/368/Torso_Rotation_female_v2_1.png",
+      "candidateSha256": "77aeb6bb724bdc1f5147ab4e79a733b003ba36e7e3f5216f76a5a6fe72772afe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Torso_Rotation_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Torso_Rotation_female_v2_2.png",
+      "sourceSha256": "b1db807dcaa38fb3c45a1419ebe69290d2973357f0414093419fd3170228e706",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/368/Torso_Rotation_female_v2_2.png",
+      "candidateSha256": "187986676e6627b2a35aacf057463729b2425f12fc8e4687c091a537ac244e94",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Torso_Rotation_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Torso_Rotation_female_v2_3.png",
+      "sourceSha256": "a38635b71a178d13c93c0fbbbaf3221e7bb6bbb209c565872faff39b91e5b4c9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/368/Torso_Rotation_female_v2_3.png",
+      "candidateSha256": "43004a1854bd025c2a43f7e3711bd9f7ae545fb47e19051e3bcfb58356f60491",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

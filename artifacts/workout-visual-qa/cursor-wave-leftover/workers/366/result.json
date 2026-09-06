@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Tire_Flip",
+  "shard": 37,
+  "index": 366,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on all Tire_Flip frames; removed green fringing and floating fragments"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Tire_Flip_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tire_Flip_male_v2_0.png",
+      "sourceSha256": "b61c78aa07f7d6664107454900d8d2ef064e8f37fa9a118a8e584099e49adf4d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/366/Tire_Flip_male_v2_0.png",
+      "candidateSha256": "7be2fcfce0e0adc8d7493f9bc0e36c7643b523c9f25ffea07299aeff34701d43",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tire_Flip_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tire_Flip_male_v2_1.png",
+      "sourceSha256": "72c6032db9bb31c4be36ef01a6cb80b6b7d224b8696ec5521df7a8942d28e9f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/366/Tire_Flip_male_v2_1.png",
+      "candidateSha256": "352810aef9d3017afc297fdd03b1c60fe20d451ac8e8adbf53c01beb93c0c251",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tire_Flip_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tire_Flip_male_v2_2.png",
+      "sourceSha256": "878f7be3904f280b0b8e0134f05b3b7770df18115fdf7f59addb59a36232c027",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/366/Tire_Flip_male_v2_2.png",
+      "candidateSha256": "49302a529c077e9ebd402690a632bf9ef1f82d5d8fc9e9cbbb412af08b393958",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tire_Flip_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tire_Flip_male_v2_3.png",
+      "sourceSha256": "98b8279ffc4fda5f2a16c52c02d26474344a90d8a702ea89a8b718640173f10a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/366/Tire_Flip_male_v2_3.png",
+      "candidateSha256": "f2597b122adee3fcd999ed450676191972eadc68bff8e17b0564058630ba350e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tire_Flip_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tire_Flip_female_v2_0.png",
+      "sourceSha256": "134cbfc093f041274e14c0ccd4692270523fd5207060c0c56e4460b0e1c52724",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/366/Tire_Flip_female_v2_0.png",
+      "candidateSha256": "39c4cdb85d4cf88516180bb5a02910b29560a969c4619a593ab00753b1a1ff2f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tire_Flip_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tire_Flip_female_v2_1.png",
+      "sourceSha256": "02b531e360593d5ced77379dc7f34a211a6d0a371fe31657212a0251af3e29dc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/366/Tire_Flip_female_v2_1.png",
+      "candidateSha256": "d85a5035e038471f2d6c8f484bbad85a9cf1735ca19151727ba54ed7f22164d1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tire_Flip_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tire_Flip_female_v2_2.png",
+      "sourceSha256": "e8e65eb184ec30ef4c035dab2b8d264cfd2baa96a577518406af1664dfc94287",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/366/Tire_Flip_female_v2_2.png",
+      "candidateSha256": "8e416880f42da056ed4eb266026373b9f3795a561c0741dc35431a9ffcf84746",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tire_Flip_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tire_Flip_female_v2_3.png",
+      "sourceSha256": "4e1c267ed2c133e2569aaf0acdf4c0725acebe6040048b9c5b0ac9a9e163a510",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/366/Tire_Flip_female_v2_3.png",
+      "candidateSha256": "313ebc28bcdeacb96b7325065138f0b23e6d3d814e97ba6657f2217ad74d6756",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

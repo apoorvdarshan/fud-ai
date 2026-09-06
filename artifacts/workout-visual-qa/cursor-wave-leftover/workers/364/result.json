@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Thigh_Abductor",
+  "shard": 37,
+  "index": 364,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on all Thigh_Abductor frames; replaced baked green machine interior"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Thigh_Abductor_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Thigh_Abductor_male_v2_0.png",
+      "sourceSha256": "31576b02776248aea1c0967e0756d75517f6c67a8e2d5a22b892ea850eee8ef1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/364/Thigh_Abductor_male_v2_0.png",
+      "candidateSha256": "227fcec0eac044518ebb10e13dd8a7a705bb198e120ccd9fdc66d3a55f986c3b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Thigh_Abductor_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Thigh_Abductor_male_v2_1.png",
+      "sourceSha256": "7c3a40d01d41abc2359820439bc13d333f5e9496849b78132a03c638ce7d940b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/364/Thigh_Abductor_male_v2_1.png",
+      "candidateSha256": "0d07b69af4740af9cd88e780e6791465bf6751d0eb0a34973193642247662c5a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Thigh_Abductor_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Thigh_Abductor_male_v2_2.png",
+      "sourceSha256": "af5a115afaa080f907a2a7ffc18b00796ce42e908f34f23b3b23dcd652458dc9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/364/Thigh_Abductor_male_v2_2.png",
+      "candidateSha256": "1dd77fa3fc3d133fb416143e940db2c5e536eba483b98bacaba9a1fa7a793496",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Thigh_Abductor_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Thigh_Abductor_male_v2_3.png",
+      "sourceSha256": "1781baa8a4d6625b1b9c70fe442c6ee9a83ac576bfe3c1e6c8aa83caac536572",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/364/Thigh_Abductor_male_v2_3.png",
+      "candidateSha256": "653eafa984dd585cc14f4a86b974332fd81cc7c1f70bcd76b4cd06b9a7537fae",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Thigh_Abductor_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Thigh_Abductor_female_v2_0.png",
+      "sourceSha256": "324923b2cf8c4e1b5852efcc9bf6dd5161a13f204661b1e7cbfadb101cc520c4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/364/Thigh_Abductor_female_v2_0.png",
+      "candidateSha256": "4ae3ec437d4d9c6565608e7b4603789506dea156cc9582972d072b7e9bcfc508",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Thigh_Abductor_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Thigh_Abductor_female_v2_1.png",
+      "sourceSha256": "4b8044f2f3866ce7331a30072d035bbaafcf932e747dc99b3c2541ba2f14be0e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/364/Thigh_Abductor_female_v2_1.png",
+      "candidateSha256": "7cc0363d4cb5e651af59bb57130907abea520d7e8352b498a7e85075cd339365",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Thigh_Abductor_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Thigh_Abductor_female_v2_2.png",
+      "sourceSha256": "2f191183e329f09143cde892de25f870f02be2341e7a6b43ba888d2e3144fbaa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/364/Thigh_Abductor_female_v2_2.png",
+      "candidateSha256": "017599548a864d5b760779f16776d49c3edcf45a4bdfb0c402987bbb65f721ae",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Thigh_Abductor_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Thigh_Abductor_female_v2_3.png",
+      "sourceSha256": "ed1f1640ae573d64a290b8f4787ea5d47eeebb24e46d3d45ede1d1e484bc720c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/364/Thigh_Abductor_female_v2_3.png",
+      "candidateSha256": "4d116780d515393ed918af045e3d99f93c6508d9befe9a7055a37ed127e6f5e5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Trap_Bar_Deadlift",
+  "shard": 37,
+  "index": 370,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on Trap_Bar_Deadlift frames with pale fringe and gray floor shadow"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Trap_Bar_Deadlift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trap_Bar_Deadlift_male_v2_0.png",
+      "sourceSha256": "420091fc8fb73c835d74073792a2645844c9ee3c382f4a442acbaab0243dbaf1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/370/Trap_Bar_Deadlift_male_v2_0.png",
+      "candidateSha256": "f7ca3cc7fbf38fd15051261fc4e6a528169d692e015e748401f5981d9d6cd494",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trap_Bar_Deadlift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trap_Bar_Deadlift_male_v2_1.png",
+      "sourceSha256": "76076082ea9d7f0fe5945b576efb4212efde5a323f776980c01386be187a8cea",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/370/Trap_Bar_Deadlift_male_v2_1.png",
+      "candidateSha256": "ae81134dfa256ecafafb5f557eb9215643900fe956f07bd38f990ee830b6827e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trap_Bar_Deadlift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trap_Bar_Deadlift_male_v2_2.png",
+      "sourceSha256": "78806796ea9a4308e5b1e02617813bbbdc9f84ede7a2d576fd4b211823a2f99b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/370/Trap_Bar_Deadlift_male_v2_2.png",
+      "candidateSha256": "840af9e25ee184be61b38c712b58c3c6652a5f261d122139f4c258014aabbba2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trap_Bar_Deadlift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trap_Bar_Deadlift_male_v2_3.png",
+      "sourceSha256": "c946326248070b38dcc46260cebd2f58b8c3c1807f9514baf639dadc5cd35a35",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/370/Trap_Bar_Deadlift_male_v2_3.png",
+      "candidateSha256": "90622f56d68aebd5c36cafa24917c6afb0b4f754d5404b62e9fd97f35174c3b4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trap_Bar_Deadlift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trap_Bar_Deadlift_female_v2_0.png",
+      "sourceSha256": "4c5c2056b13e6487abba93e1d271ff4f2fbe0c22e341da5df0042eb031ed1bcd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/370/Trap_Bar_Deadlift_female_v2_0.png",
+      "candidateSha256": "3a1b46ec02d35d853b94b0ca384ecafb49e5a452d6c219af106d537b916dd2a4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trap_Bar_Deadlift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trap_Bar_Deadlift_female_v2_1.png",
+      "sourceSha256": "8176f1df18c896fe686cd04b0abdc00b3280dee93a4fb95eae3d5b2e6d3efb74",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/370/Trap_Bar_Deadlift_female_v2_1.png",
+      "candidateSha256": "ccec7a80ba48f1918bc6597ea6dbeb053354f429e49bc6e2ac637eccbbe0d37c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trap_Bar_Deadlift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trap_Bar_Deadlift_female_v2_2.png",
+      "sourceSha256": "842157727ddf09c14191989a1dd2b18409096a101da1ba5d1eb63ebfa0189525",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/370/Trap_Bar_Deadlift_female_v2_2.png",
+      "candidateSha256": "b41181563e877a60f0e80f854de492c3f715d4c333d04a574d03a0eb5ea7e456",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trap_Bar_Deadlift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trap_Bar_Deadlift_female_v2_3.png",
+      "sourceSha256": "b2d2bc3e9a0d5067fd05c6d23c09e89454af3c413c78aeb6978ef122bf5927c8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/370/Trap_Bar_Deadlift_female_v2_3.png",
+      "candidateSha256": "4f2b3e63bfd1c3a693a6c06d7b313db6c2d65fbad194696d5fddf84f3fd3c59a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

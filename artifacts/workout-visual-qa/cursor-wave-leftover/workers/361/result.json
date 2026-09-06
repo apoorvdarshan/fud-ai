@@ -1,0 +1,82 @@
+{
+  "exerciseId": "T-Bar_Row_with_Handle",
+  "shard": 37,
+  "index": 361,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "T-Bar_Row_with_Handle_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/T-Bar_Row_with_Handle_male_v2_0.png",
+      "sourceSha256": "5bc1a8b5abbf453b46f47291a551b1a7669c65dc47904e5f5abf3284aa9167b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/361/T-Bar_Row_with_Handle_male_v2_0.png",
+      "candidateSha256": "41ab39d3a49f7f91db16f5a356af3b2a5c9b37db7f8db9de8f68c11b294f543b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "T-Bar_Row_with_Handle_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/T-Bar_Row_with_Handle_male_v2_1.png",
+      "sourceSha256": "8e94bba2a06300f4b811453462d5c647aa9f6b9cc407b1f6db5a9815c0a0d6b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/361/T-Bar_Row_with_Handle_male_v2_1.png",
+      "candidateSha256": "9aa6a19efb450289d220d16ff3df20f5ddf3732d936d7179cbfc38ed7e2441b4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "T-Bar_Row_with_Handle_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/T-Bar_Row_with_Handle_male_v2_2.png",
+      "sourceSha256": "563965ae17c9b747f41ae5f506f7ad22183998ad41a200a75061b989f2c0f157",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/361/T-Bar_Row_with_Handle_male_v2_2.png",
+      "candidateSha256": "9a825e24bd9fcee71289b45d0150bebd7f669a07bbc663e26e060920eb611bcf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "T-Bar_Row_with_Handle_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/T-Bar_Row_with_Handle_male_v2_3.png",
+      "sourceSha256": "4aacec19a07dd5e8fbe1ed05e7e2d51d04144d0328317f66f530b09a09956729",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/361/T-Bar_Row_with_Handle_male_v2_3.png",
+      "candidateSha256": "f72597ceb5f3f0edb5d443eb4a1198c4c7de734986e0e21074f48267e25c72bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "T-Bar_Row_with_Handle_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/T-Bar_Row_with_Handle_female_v2_0.png",
+      "sourceSha256": "fd88ed6c37d28b3895cb1368b5c3e5c08a3cf55dcb1e781d3478b3c517c34e2c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/361/T-Bar_Row_with_Handle_female_v2_0.png",
+      "candidateSha256": "7f47cee65c20bba4a0d1201ca5d8519e4b7460d6e7825af33c71ed3be1e2c26f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "T-Bar_Row_with_Handle_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/T-Bar_Row_with_Handle_female_v2_1.png",
+      "sourceSha256": "7ab804a4f04984b26bc2a2dc488569069d506a5dd9db24df2344e2308c8081da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/361/T-Bar_Row_with_Handle_female_v2_1.png",
+      "candidateSha256": "94e67d598c19d638b4b3e13a1d5c18da0c86b6d5223595760f0e6beb513efbdc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "T-Bar_Row_with_Handle_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/T-Bar_Row_with_Handle_female_v2_2.png",
+      "sourceSha256": "7d3d24e7696219f393dfc5aeb7c927d1d6651d328a05518b8dd588daa6d8cd77",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/361/T-Bar_Row_with_Handle_female_v2_2.png",
+      "candidateSha256": "bfca23b32829564e880d98d1335111de4f99613f72ac16bf5ce5dac3dc8f1280",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "T-Bar_Row_with_Handle_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/T-Bar_Row_with_Handle_female_v2_3.png",
+      "sourceSha256": "d595d5f5de3cfad4f9191c19c4a3ef03fbef0806661a74371be867669673735e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/361/T-Bar_Row_with_Handle_female_v2_3.png",
+      "candidateSha256": "d022991625342d1195028fc019ce307acf615541127c851f47bf9d564718d9f6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Ring_Dips",
+  "shard": 15,
+  "index": 149,
+  "status": "ready_for_review",
+  "findings": [
+    "Female v2_3 had gray oval foot shadow; male v2_0 had orange rings instead of silver.",
+    "GenerateImage surgical + green chroma on female v2_3 and male v2_0. Other 6 frames clean."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Ring_Dips_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ring_Dips_male_v2_0.png",
+      "sourceSha256": "f8bcb79fdd508711a9cbcf145e3f2230304285a2dbf20910bbb17eedc2a8e6bd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/149/Ring_Dips_male_v2_0.png",
+      "candidateSha256": "17dcbd81c344a42e4b497f60eb84c3c66e47d04d44a7f560bb50101a8a1e7da9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ring_Dips_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ring_Dips_male_v2_1.png",
+      "sourceSha256": "5a58bb613f8b7a993a17d8b292ad5340ce2e8fa95f1ba012687c37e63f11e3ee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/149/Ring_Dips_male_v2_1.png",
+      "candidateSha256": "da0762fefac15bece4162d75c1bd0c5e30d79c382ddb0a862c8fdd7e7ac4d33e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ring_Dips_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ring_Dips_male_v2_2.png",
+      "sourceSha256": "8ea26e589c0d53ba12ad94102fc4c5881a4a5aff41d40efd38fae16bdb26ba84",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/149/Ring_Dips_male_v2_2.png",
+      "candidateSha256": "1e3c68854e8d0f93061591bd9dcfa7116ee5bd00856e58b9f3eae3890b32eefb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ring_Dips_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ring_Dips_male_v2_3.png",
+      "sourceSha256": "cbd3c27f21fa3704a2aeca23e32d3cb10707a0ffc471b161d6f8a9d1369c7cae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/149/Ring_Dips_male_v2_3.png",
+      "candidateSha256": "a9b54fda6a8787d4f8e803bfe0199af5d4f68e2cc9d899cffaec1ccab43f3af0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ring_Dips_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ring_Dips_female_v2_0.png",
+      "sourceSha256": "e777c52e01afaf377d759e3163ae82807f44ee69baa116d7762799ec7eb68be5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/149/Ring_Dips_female_v2_0.png",
+      "candidateSha256": "aacefca4015cbbd4ed17abd3e91ff532feda91a90077a5f45cb7822d74323b8a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ring_Dips_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ring_Dips_female_v2_1.png",
+      "sourceSha256": "2584d4738e7d13f54a699e1e1e9c68f11e5dd7354c81d8c6ddf6392ff0ce50bf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/149/Ring_Dips_female_v2_1.png",
+      "candidateSha256": "a67e06790134a4e58d04957189b9ffd161e9fbd7b21eaa3fb210af91e555dc96",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ring_Dips_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ring_Dips_female_v2_2.png",
+      "sourceSha256": "604eb77c4072e67f51a10558f175f35a38d6ad804a28cc4df8e13ccc8be07626",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/149/Ring_Dips_female_v2_2.png",
+      "candidateSha256": "9c975d183c35ee7a398e8a2adb27a535bf8a43db16a3a90e1eea0a846b5320bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ring_Dips_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ring_Dips_female_v2_3.png",
+      "sourceSha256": "f51b743d16aafead40cbc91bbb090c0b5b5ca435cefa62b1f164dc295625509e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/149/Ring_Dips_female_v2_3.png",
+      "candidateSha256": "bd226ce6bccefa15f92c0bc6b6dc5a38162c801097eb6cb1d5d3ac11ac290413",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "changedFrameCount": 8
+}

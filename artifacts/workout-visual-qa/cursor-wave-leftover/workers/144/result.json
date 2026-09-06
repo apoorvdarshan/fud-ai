@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Reverse_Plate_Curls",
+  "shard": 15,
+  "index": 144,
+  "status": "ready_for_review",
+  "findings": [
+    "Script removed minor ground speckles. Visual review on dark composite: clean sequence, subtle shoe-edge fringe only.",
+    "GenerateImage not needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Reverse_Plate_Curls_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Plate_Curls_male_v2_0.png",
+      "sourceSha256": "a4ec1a66b26578820df60e06c99a52223aad080cd9b592da74b14d8a49ede865",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/144/Reverse_Plate_Curls_male_v2_0.png",
+      "candidateSha256": "4278cc90732545e3c76da16d31aa7556c3dda90ce0b18db04daf2092f5640353",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Plate_Curls_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Plate_Curls_male_v2_1.png",
+      "sourceSha256": "179fe2fbbbefbc2183f60029469dc9edeac600fb6d1c45cbbd302b9ce8058110",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/144/Reverse_Plate_Curls_male_v2_1.png",
+      "candidateSha256": "dac0f38da6ccce33bc7dc2b74a275db539df17c17d71a54acfb3278df09f8038",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Plate_Curls_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Plate_Curls_male_v2_2.png",
+      "sourceSha256": "5f5944ad4fe44b832538e10654993c90271bb24e943ac1cc92fe77667b0252b1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/144/Reverse_Plate_Curls_male_v2_2.png",
+      "candidateSha256": "7666f6a11c43cc71df0c59ae865d2f540b10148a72697ca4d7f74def8341e1b3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Plate_Curls_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Plate_Curls_male_v2_3.png",
+      "sourceSha256": "ea18bcc45e50ca71f27ee85a6e22895f3cacddc0515c00ae0e69f8edd530f06d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/144/Reverse_Plate_Curls_male_v2_3.png",
+      "candidateSha256": "1df306d0f330e6afd7a337a820e78cf1408b4d62cb0815f7bc259abc36fe4ea8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Plate_Curls_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Plate_Curls_female_v2_0.png",
+      "sourceSha256": "242d2dc50b397a8b7388098b32a19d606eeef8d2fb185f41183f28d0a586e84f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/144/Reverse_Plate_Curls_female_v2_0.png",
+      "candidateSha256": "5af6e6cba13ca71c88251c08ca674e5d78354e3ecbd99cebe19b9b99d4f87a4d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Plate_Curls_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Plate_Curls_female_v2_1.png",
+      "sourceSha256": "e9fc1d5aaa396dee80f7b8346171796e7577a9f15e799af66adcde11ac69db28",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/144/Reverse_Plate_Curls_female_v2_1.png",
+      "candidateSha256": "2f3e9b507bd9957dfb66296306c665012bd02dc88aa4bfbf1ac232251e6789c6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Plate_Curls_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Plate_Curls_female_v2_2.png",
+      "sourceSha256": "582ad37c3e647a3347891346632a5a717f153b726049e45d374474028ef3ce0a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/144/Reverse_Plate_Curls_female_v2_2.png",
+      "candidateSha256": "1c6289b0efb841136e098e7f3a19ef71589b8cbd5d40153a668671017029be98",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Plate_Curls_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Plate_Curls_female_v2_3.png",
+      "sourceSha256": "86b82d09517552a0ff4e01dcdde85f16b18ac3f80712a2e0a73c82733d0f4b7a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/144/Reverse_Plate_Curls_female_v2_3.png",
+      "candidateSha256": "bf12f1d6c79954ff55138e3f98ca68946d908d52eb40c1c541fb5ef2a2073494",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "changedFrameCount": 8
+}

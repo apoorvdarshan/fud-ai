@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Reverse_Hyperextension",
+  "shard": 15,
+  "index": 142,
+  "status": "ready_for_review",
+  "findings": [
+    "Female frames had white/grey oval floor mattes and jagged base artifacts; male v2_0 had foot halo, male v2_3 stray white pixel.",
+    "GenerateImage surgical + green chroma on 6 dirty frames. Male v2_1/v2_2 and all female mid-frames otherwise acceptable."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Reverse_Hyperextension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Hyperextension_male_v2_0.png",
+      "sourceSha256": "190de4d39453d754f08131643b121a5ca97ce2d0d3d654fadc63039e5757e73d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/142/Reverse_Hyperextension_male_v2_0.png",
+      "candidateSha256": "b1a84b206f0c6021b1b5962640c83539ab41236b02ec1153e1df3e0a2c5c1984",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Hyperextension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Hyperextension_male_v2_1.png",
+      "sourceSha256": "c1605b3e21b6baddf6e26bcce5f86d0e143af94f026f5aeed1580f091902fffe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/142/Reverse_Hyperextension_male_v2_1.png",
+      "candidateSha256": "95644499bedcf2bc4fbc575bdc514f605689ddbcc76d0db9a234e26bb6c1f041",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Hyperextension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Hyperextension_male_v2_2.png",
+      "sourceSha256": "8937f50061328af2ca8e003d5999a6b9bc0dfff4003c53c76dd6c6dbb69dcb33",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/142/Reverse_Hyperextension_male_v2_2.png",
+      "candidateSha256": "c3b205c9895cbd220f30d08466276abbe942d7fc44f7d615715c11ed7a08e778",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Hyperextension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Hyperextension_male_v2_3.png",
+      "sourceSha256": "fa1eece2b1944026e0b3979e959fb49c6d6dda7df699412feb39d143a7c07a0a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/142/Reverse_Hyperextension_male_v2_3.png",
+      "candidateSha256": "55c7b3dd25de49f59daaebaf193bef365d1700690e3b35bf72832b3fc2964a70",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Hyperextension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Hyperextension_female_v2_0.png",
+      "sourceSha256": "363e4806e1d3cd75d447773d6c3208cfc7f3dc0ab6f87675f3b59b030304e3de",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/142/Reverse_Hyperextension_female_v2_0.png",
+      "candidateSha256": "a9c569b02457bbb04423a75b7f9610780fe43110ae9d97e62d577d4cd2310835",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Hyperextension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Hyperextension_female_v2_1.png",
+      "sourceSha256": "056e28c517c2d1633e81c2847085f3e26c4fc0e52e98c87e82fabf15c9bc271f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/142/Reverse_Hyperextension_female_v2_1.png",
+      "candidateSha256": "025ed78da2f9bf0d45abb12aaff00900383ffb4e18a76fda3ccc3f6945d613d6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Hyperextension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Hyperextension_female_v2_2.png",
+      "sourceSha256": "445a2dd18ff82e33044e9080b7de1b3ac7faeda13e0d060b1a16ff21e0a38a97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/142/Reverse_Hyperextension_female_v2_2.png",
+      "candidateSha256": "666dce59d1b239d2c1726a525c4e578e448bc798a9b9906c0cc6f9d7b9bc7b92",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Hyperextension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Hyperextension_female_v2_3.png",
+      "sourceSha256": "143b326f14431b1994a6a8360ff2ce0be3df54bb83c98fa65df3f186ff922661",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/142/Reverse_Hyperextension_female_v2_3.png",
+      "candidateSha256": "d3aa60bcaaa9c57050309e254e4d5576b92141a3990865c2a14510cd180f53a4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "changedFrameCount": 8
+}

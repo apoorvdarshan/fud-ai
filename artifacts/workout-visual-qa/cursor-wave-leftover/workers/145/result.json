@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Reverse_Triceps_Bench_Press",
+  "shard": 15,
+  "index": 145,
+  "status": "ready_for_review",
+  "findings": [
+    "Male v2_0 had large floating dark-gray disc artifact behind head on bench press top position.",
+    "GenerateImage surgical + green chroma on male v2_0. Female frames clean (minor plate-edge speckles only)."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Reverse_Triceps_Bench_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Triceps_Bench_Press_male_v2_0.png",
+      "sourceSha256": "b838894351eba5aa44d0fbea08520728e2514b62134acd603815952f53715e95",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/145/Reverse_Triceps_Bench_Press_male_v2_0.png",
+      "candidateSha256": "3a6eb25a042d48201dd31f9ead9309f3c03119a45a635dc59ba046f46f04c642",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Triceps_Bench_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Triceps_Bench_Press_male_v2_1.png",
+      "sourceSha256": "954fa763deebdb30b4370b32a32bf0e5f55a4571a2392798a76adb39c5a316d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/145/Reverse_Triceps_Bench_Press_male_v2_1.png",
+      "candidateSha256": "2406d9dad99833acea17054779227a6d4b55d40b2f830785454974bfe79cb791",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Triceps_Bench_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Triceps_Bench_Press_male_v2_2.png",
+      "sourceSha256": "ba535faeb08ce3ece8cc5fbc036987c7a66e236c3e6dc717a712d934846807b3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/145/Reverse_Triceps_Bench_Press_male_v2_2.png",
+      "candidateSha256": "d2ca7c6befff12013a14cd48c97d54661e0c5e197414109847ba1fd85dcf942b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Triceps_Bench_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Triceps_Bench_Press_male_v2_3.png",
+      "sourceSha256": "c2ce554055c28742331fb5d8c7f26991cf24fe9591ba8b495b0b7b078e45b22a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/145/Reverse_Triceps_Bench_Press_male_v2_3.png",
+      "candidateSha256": "68d649f3675d5a573666e05aff457661ad56df6dd8798e9e123339ae61b83165",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Triceps_Bench_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Triceps_Bench_Press_female_v2_0.png",
+      "sourceSha256": "d83eb4bafea278e276469603c4f76991d806a2b63f4d35f645a60fdef399c84f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/145/Reverse_Triceps_Bench_Press_female_v2_0.png",
+      "candidateSha256": "a40fc3d1a49af24a5f22144aa0161c1d4fd67bdc25a44084e4d45de4345c097f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Triceps_Bench_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Triceps_Bench_Press_female_v2_1.png",
+      "sourceSha256": "4d02828187883a78dd95bb9d7f25eca70b236dbbfbbbe68f5c665dd6689eff5c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/145/Reverse_Triceps_Bench_Press_female_v2_1.png",
+      "candidateSha256": "ffa6fe2f55dd4b5b0bbd0cd4366d7350c0f8df57c9c3f5a882d0fe297203cebb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Triceps_Bench_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Triceps_Bench_Press_female_v2_2.png",
+      "sourceSha256": "cbd66a5b0d0dde55f3bc56b2b22707615c868638a867819e6b00b34229870f88",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/145/Reverse_Triceps_Bench_Press_female_v2_2.png",
+      "candidateSha256": "42d40234a65a894f3e05ebfa02936c6ccaf5e47dff662dc165828b006121cbd0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Triceps_Bench_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Triceps_Bench_Press_female_v2_3.png",
+      "sourceSha256": "b62a3f9e122d279461477c88789bbd5a18377a43d10a9e6895df7eef83254c55",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/145/Reverse_Triceps_Bench_Press_female_v2_3.png",
+      "candidateSha256": "d8846e22c7ec51a4bca1fa8b48d427708f5e10fc3d29be45e800caf095f5e317",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "changedFrameCount": 8
+}

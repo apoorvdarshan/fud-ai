@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Rickshaw_Carry",
+  "shard": 15,
+  "index": 147,
+  "status": "ready_for_review",
+  "findings": [
+    "Rickshaw carry v2_0 had checkerboard/white artifacts inside trap bar; walking frames v2_1\u2013v2_3 had white blocks behind legs/bar.",
+    "GenerateImage surgical + green chroma on all 8 frames (v2_0 start poses and v2_1\u2013v2_3 walking strides both genders)."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Rickshaw_Carry_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Carry_male_v2_0.png",
+      "sourceSha256": "4e0d579dc69292d8f3413fbe2fdadc9537500ac378e79a45276492d61576cafc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/147/Rickshaw_Carry_male_v2_0.png",
+      "candidateSha256": "ce8b5e64e8d2e6fa5082d1a1b6bba9eb57e0ca84843680cbbc35b30090c2e5a1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Carry_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Carry_male_v2_1.png",
+      "sourceSha256": "b7eef5d572b27205ea4235cb9b7ed674b667d1b670e4d38cdc032df4e21cb7b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/147/Rickshaw_Carry_male_v2_1.png",
+      "candidateSha256": "6bdbe1c20d166bad78f6017ebdb39f1eb80ee7109779b1ea71655c694f719288",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Carry_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Carry_male_v2_2.png",
+      "sourceSha256": "86df2793383ac704dac0d4411d84560f1a7f9b307d201e3f6a34f70f4cebb88f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/147/Rickshaw_Carry_male_v2_2.png",
+      "candidateSha256": "a1552fd69b013da77646a056b2831679dd1028e8e16a4b74b9a908f767adabf4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Carry_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Carry_male_v2_3.png",
+      "sourceSha256": "89d869859f43ea86662664749ed70daf305e8df1e1bd4eb99102216d3ca13750",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/147/Rickshaw_Carry_male_v2_3.png",
+      "candidateSha256": "a890dec6f3c8c9c24d70ffcb1dd2fc8a970637c4bc74158b54c0d8abcd4c29a0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Carry_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Carry_female_v2_0.png",
+      "sourceSha256": "441b8ec174217244a4fc481ffa917d28f8aea4e05c47acf4103b2313d85c9ce2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/147/Rickshaw_Carry_female_v2_0.png",
+      "candidateSha256": "783b1e7e58f6e6c1bb8912d7a92fae0c8de930fd923c137083b26702948f092a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Carry_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Carry_female_v2_1.png",
+      "sourceSha256": "fc97c64b6d106c4696dcfb703f1b63cab9d7f35c058eb05f438506394b564ae3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/147/Rickshaw_Carry_female_v2_1.png",
+      "candidateSha256": "3f04164613ae3d77c3f3b616adac5c2b4347a9c2007620bfe74d23bc1cc7cd65",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Carry_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Carry_female_v2_2.png",
+      "sourceSha256": "456b0c32d0d5ba63d25e3586250ddcd0a9d1e8797d2c8976faffc98d89b2cc48",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/147/Rickshaw_Carry_female_v2_2.png",
+      "candidateSha256": "8c3e49464c1b50c19afeb35e1016ceafcb99e143c75a43f76f713fb42522d44c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Carry_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Carry_female_v2_3.png",
+      "sourceSha256": "e102a91958536109d3f2f173375cdb822c8d4c538d6c7d125745fdb21d809a54",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/147/Rickshaw_Carry_female_v2_3.png",
+      "candidateSha256": "4f7c2a47b7b4a0b0dd445dcf380eb6d383c1c733202825371fa49b7af56cd874",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "changedFrameCount": 8
+}

@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Rhomboids-SMR",
+  "shard": 15,
+  "index": 146,
+  "status": "ready_for_review",
+  "findings": [
+    "Script removed foam-roller ground speckles. Dark composite review: clean SMR sequence, no floor mattes.",
+    "GenerateImage not needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Rhomboids-SMR_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rhomboids-SMR_male_v2_0.png",
+      "sourceSha256": "2108c69afa00b2be7fbe71ec1e10b9e3543f16bff07bdc08f498d226748e2b3d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/146/Rhomboids-SMR_male_v2_0.png",
+      "candidateSha256": "6dbebed59fb9d14d5e1fe8f84bcbd91de3d6f08d4ba524d12782ff7eeedf46c6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rhomboids-SMR_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rhomboids-SMR_male_v2_1.png",
+      "sourceSha256": "e5731e7cac956c3196ba4fdc9a1c1cc3bd6f3be3ebe25ac94cdab16edd4eb908",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/146/Rhomboids-SMR_male_v2_1.png",
+      "candidateSha256": "c6cf13367471f707cc5c7d370984ec1bfbc76ba99458f876e839d508dbbc536a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rhomboids-SMR_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rhomboids-SMR_male_v2_2.png",
+      "sourceSha256": "40bde9e8dacc41cd134bd758cb8228016b88716bd0fedd615ba775f6282e4331",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/146/Rhomboids-SMR_male_v2_2.png",
+      "candidateSha256": "69295c067290a4256ee17273c5b2b71372a8ee3373345625d40507067bc0ec50",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rhomboids-SMR_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rhomboids-SMR_male_v2_3.png",
+      "sourceSha256": "8befa34b2c8004095765ac8e29b389b01f3d4afb13b077b68e2031acc3d29982",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/146/Rhomboids-SMR_male_v2_3.png",
+      "candidateSha256": "36c667ac2fb56d38da6ed4c6ffdd5871546ac8ab0db4d63a8d5328d1d8b6d163",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rhomboids-SMR_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rhomboids-SMR_female_v2_0.png",
+      "sourceSha256": "2e56093c00fcafefd81253020a5eed09919ec684ac1fd3ecc381781a016a46ea",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/146/Rhomboids-SMR_female_v2_0.png",
+      "candidateSha256": "7a5d880c73795725b8d2eff510d322be1aa8572896f2787bda519cc97cec6a8e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rhomboids-SMR_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rhomboids-SMR_female_v2_1.png",
+      "sourceSha256": "1e85ee248304cda3d6811c38364adefc84204df40008989780a274ad4200f046",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/146/Rhomboids-SMR_female_v2_1.png",
+      "candidateSha256": "101ea1f2f55d163a2e42ca7476bb354cdc68fda096d311915776e4e3798d373f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rhomboids-SMR_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rhomboids-SMR_female_v2_2.png",
+      "sourceSha256": "e5b44901a4be01e4ef0f60cf597b62e83d3bd4c3be231d4f163288c22c1f3507",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/146/Rhomboids-SMR_female_v2_2.png",
+      "candidateSha256": "1685f42ec0337adcf6a24c7e7b3e3489670c58079dd16849af134b1d1429759c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rhomboids-SMR_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rhomboids-SMR_female_v2_3.png",
+      "sourceSha256": "86e6a25eb8e1a8f2cd906a320b539d14348ecabd9dbf7931f7335702c3b3d13f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/146/Rhomboids-SMR_female_v2_3.png",
+      "candidateSha256": "42862df376703b7e5abce4888842d5ef7fdf74f21215b851a918c038df361719",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "changedFrameCount": 8
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Box_Jump_Multiple_Response",
+  "shard": 4,
+  "index": 35,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Box_Jump_Multiple_Response_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Jump_Multiple_Response_male_v2_0.png",
+      "sourceSha256": "4397dd446ae89ff51c8c215582468ce4c11677921513131d04a8bd424287d63e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/035/Box_Jump_Multiple_Response_male_v2_0.png",
+      "candidateSha256": "2f232466d33b62b733e6e45cc022667963ffe478d2bd8fad9407f250c3ca2f38",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Jump_Multiple_Response_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Jump_Multiple_Response_male_v2_1.png",
+      "sourceSha256": "158421074a38d0369522a19a5c84305bd985e7c8842931feda87a9f2213dd3fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/035/Box_Jump_Multiple_Response_male_v2_1.png",
+      "candidateSha256": "fd1ac774641bb9353bb67ed767cd21132e0aa0a70e9b7a158d0cc2a21c513978",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Jump_Multiple_Response_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Jump_Multiple_Response_male_v2_2.png",
+      "sourceSha256": "e64b2fe011b62812213b206debf62c8435ab45993814a1f146af8f256e304d58",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/035/Box_Jump_Multiple_Response_male_v2_2.png",
+      "candidateSha256": "87fdee1c95c1ab9d25d834a18d8c414b86c9ff9774cc5824da56fb229aea9f54",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Jump_Multiple_Response_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Jump_Multiple_Response_male_v2_3.png",
+      "sourceSha256": "23fcc872be9321385e547e9ae50831676c7176b5f1c0d4eed32a9a527ede2654",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/035/Box_Jump_Multiple_Response_male_v2_3.png",
+      "candidateSha256": "3f28beb9a6fcf37533858a7b37287d6abe1b657236eab8a541749ada75c45a70",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Jump_Multiple_Response_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Jump_Multiple_Response_female_v2_0.png",
+      "sourceSha256": "ff9b571558318d50946af6331d5d52012be74a54d8dcedb947473500382a97bb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/035/Box_Jump_Multiple_Response_female_v2_0.png",
+      "candidateSha256": "c3cc6bdb1971187ad82d93c558123b7349820fc2494068714e2840353ccaf95b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Jump_Multiple_Response_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Jump_Multiple_Response_female_v2_1.png",
+      "sourceSha256": "e01e98760f3036094bb13a9d19c1a58c5995d98f5ef223ad343370859a238f03",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/035/Box_Jump_Multiple_Response_female_v2_1.png",
+      "candidateSha256": "9fcc71b1bb93f1a43790b298db5ded9f47147132e9cdc91d84aafdde0f8d28e9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Jump_Multiple_Response_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Jump_Multiple_Response_female_v2_2.png",
+      "sourceSha256": "ddeefc75b90309ba73b96cca282884de0f11be522090260c0cf50b2c225c7a8f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/035/Box_Jump_Multiple_Response_female_v2_2.png",
+      "candidateSha256": "5d7d8038f8c3154fe2179e6d77556702d01714e08f3727d9402a3ca500892b35",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Jump_Multiple_Response_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Jump_Multiple_Response_female_v2_3.png",
+      "sourceSha256": "bfbcb69a5e25c76a5ea0f489424e5ecedd45b038d9985abeb57d3f7a78daea0b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/035/Box_Jump_Multiple_Response_female_v2_3.png",
+      "candidateSha256": "b1a6fe9a62098caf07ecba59c1b2f9eaac2e402e0332ed9bcbd0bc11e003f60f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

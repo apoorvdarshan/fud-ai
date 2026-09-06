@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bottoms-Up_Clean_From_The_Hang_Position",
+  "shard": 4,
+  "index": 34,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bottoms-Up_Clean_From_The_Hang_Position_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bottoms-Up_Clean_From_The_Hang_Position_male_v2_0.png",
+      "sourceSha256": "265baca0910c857e93d8a60f8d7cc2e04c5161ca8dd44638e7ab0b9650c5e064",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/034/Bottoms-Up_Clean_From_The_Hang_Position_male_v2_0.png",
+      "candidateSha256": "0238dc025a25af3208ac1b71d83d4033066e08d1f49e40bd35c237371da78700",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bottoms-Up_Clean_From_The_Hang_Position_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bottoms-Up_Clean_From_The_Hang_Position_male_v2_1.png",
+      "sourceSha256": "e937392209e8ec4324c097163195b0563b7367f4ce97185d973bfcd65a1f6165",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/034/Bottoms-Up_Clean_From_The_Hang_Position_male_v2_1.png",
+      "candidateSha256": "6dfc11a531868c5a3559f2d42af8ff826490015de3aa85e4f967cf95c5f0b689",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bottoms-Up_Clean_From_The_Hang_Position_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bottoms-Up_Clean_From_The_Hang_Position_male_v2_2.png",
+      "sourceSha256": "183c54b86a1b9abf54742474620d080d7b4ddf2203e52b18df77dcaede88a3cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/034/Bottoms-Up_Clean_From_The_Hang_Position_male_v2_2.png",
+      "candidateSha256": "cb2ea9b1455321b746c105c3de21aecf8a70fe217e82a464997be6277d99b58c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bottoms-Up_Clean_From_The_Hang_Position_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bottoms-Up_Clean_From_The_Hang_Position_male_v2_3.png",
+      "sourceSha256": "e44c726f57dbb6304f892d2aedd045eca782be2d02502fc9c15b52d590508226",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/034/Bottoms-Up_Clean_From_The_Hang_Position_male_v2_3.png",
+      "candidateSha256": "61d0fb55315ed7d9629232b1b14148a94fe4c92f145a31c8aab1795f7d092578",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bottoms-Up_Clean_From_The_Hang_Position_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bottoms-Up_Clean_From_The_Hang_Position_female_v2_0.png",
+      "sourceSha256": "711005f3f74d351fae56a237313f6acf857b45897dacc3c7d37d99b2b6510a04",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/034/Bottoms-Up_Clean_From_The_Hang_Position_female_v2_0.png",
+      "candidateSha256": "c42366cd78d5a39e66f4f30a32f2f7723e4f6f38c4336fa4f37a374e056b580e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bottoms-Up_Clean_From_The_Hang_Position_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bottoms-Up_Clean_From_The_Hang_Position_female_v2_1.png",
+      "sourceSha256": "0fa29278fd854dea351c2060d320eb9f8287dcc98d5fe70694c201d7609dcf57",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/034/Bottoms-Up_Clean_From_The_Hang_Position_female_v2_1.png",
+      "candidateSha256": "6e3d32d11f4ba0f8a05fd586051254ffcf3e552d9a02b1cb0848ad88ac520f57",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bottoms-Up_Clean_From_The_Hang_Position_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bottoms-Up_Clean_From_The_Hang_Position_female_v2_2.png",
+      "sourceSha256": "df46f7fb8e882049ef9343bfc648e650faaa47dc6ed0cd901cecbf70054efdd3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/034/Bottoms-Up_Clean_From_The_Hang_Position_female_v2_2.png",
+      "candidateSha256": "4a6a3819b83d7716f4acb1815bc0a1ed89a1c41cdbe0baff2c0052aee149914e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bottoms-Up_Clean_From_The_Hang_Position_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bottoms-Up_Clean_From_The_Hang_Position_female_v2_3.png",
+      "sourceSha256": "d7e6cd5e5e628658585499b3c20da2c96699da12df09a002a5f3f69aef12f067",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/034/Bottoms-Up_Clean_From_The_Hang_Position_female_v2_3.png",
+      "candidateSha256": "cbc53ac480ea00c359748a5650e7957b6642ca921b2a07ca8dd52007b71750af",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Box_Squat",
+  "shard": 4,
+  "index": 37,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical + green chroma on 5 dirty frame(s) after script regression or halo artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Box_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_male_v2_0.png",
+      "sourceSha256": "83799f5192e0799ddfea239101dfe7b69782f824c157ed4f275166c8bcd2fed8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/037/Box_Squat_male_v2_0.png",
+      "candidateSha256": "5398161e2da7b4919b43cdee8335d21bc33c4237c031e2646760c4ec2b07b7e5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_male_v2_1.png",
+      "sourceSha256": "3f404c144f5e6ae1b4b3191ac63bafe0b91d3dcbcdbeee924e45a8786b0ec3b7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/037/Box_Squat_male_v2_1.png",
+      "candidateSha256": "4aed32a81af23761758e8ab65da7761cdd59eae96b446921584491b6f16dec36",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_male_v2_2.png",
+      "sourceSha256": "dee4b8d953010a6edc42641d51871c0fe588f881adcaf96ee8cc0bdc242592ab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/037/Box_Squat_male_v2_2.png",
+      "candidateSha256": "ef8381990bd6334eb61c6162caef6dc626c7e12415a12592cb94b8a6253b0a2a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_male_v2_3.png",
+      "sourceSha256": "1691898800ee636658e520b529060af5363bbd48a8c0d209ba883da451e1f221",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/037/Box_Squat_male_v2_3.png",
+      "candidateSha256": "93205d8095b8997f312023898ac2b513e27b2b625a32ff7ae6c459a8cf1542e8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_female_v2_0.png",
+      "sourceSha256": "b0ba5fd0f15d0da616799b8a40cd0db3cd0d019d0a0744ddf6a903d0b0ca4eee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/037/Box_Squat_female_v2_0.png",
+      "candidateSha256": "b2a606790d24fcc1769f67531c3fb65f7c1b305a390dbdfd1deeaf9ee7a37ae3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_female_v2_1.png",
+      "sourceSha256": "7e56c8ab3f139b8002e09c294f6474962c9d42f59d669274efde435c86b62e52",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/037/Box_Squat_female_v2_1.png",
+      "candidateSha256": "4d4fde62159738e8cc0d97049e6ee3374d4e6af5d338dc9d6fa74b24b6e2a51c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_female_v2_2.png",
+      "sourceSha256": "d9601e47962b72cc759840f7d6c4968499ee46a1e41c64551273c6e5705fa1be",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/037/Box_Squat_female_v2_2.png",
+      "candidateSha256": "dd02ece1c41acd88f647562fb8ef3a514b407fc36ee4ddd35fe648d4e944ddb7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_female_v2_3.png",
+      "sourceSha256": "d03ef07b7d4b055154b9a8d29ac36bc3905637da0833ee4fd81200492281f422",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/037/Box_Squat_female_v2_3.png",
+      "candidateSha256": "a8c578d96799d0bfd09eb6166bf7e80b6dcac48aebf9844985e62967aa1aa45f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

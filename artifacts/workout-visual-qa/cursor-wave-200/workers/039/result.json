@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Box_Squat_with_Chains",
+  "shard": 4,
+  "index": 39,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Box_Squat_with_Chains_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_with_Chains_male_v2_0.png",
+      "sourceSha256": "36a6e6afa84829bb12bc047c5bded430463789cc7d3bd442df3e28478f04bb35",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/039/Box_Squat_with_Chains_male_v2_0.png",
+      "candidateSha256": "d4d375151c079bd7165f8e5632b8a0279b729171f56ab02f59a9c6ef2345075d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_with_Chains_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_with_Chains_male_v2_1.png",
+      "sourceSha256": "f386719d20d309bf8d12a80d0181e30921e3c7256f7f6d454869ca7dd2a10c0a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/039/Box_Squat_with_Chains_male_v2_1.png",
+      "candidateSha256": "52e375587e55adec71cce135d45cf8a240d118728defa56dcd0ce097f93ad780",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_with_Chains_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_with_Chains_male_v2_2.png",
+      "sourceSha256": "113c33163697173cd5430f465efd0044776f83f2b16fdc9557cf6c216828c83b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/039/Box_Squat_with_Chains_male_v2_2.png",
+      "candidateSha256": "ec31745c34e45568138acd53763180fe5aea201c8dc316381e89830055afba26",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_with_Chains_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_with_Chains_male_v2_3.png",
+      "sourceSha256": "607f240982b26a5a9ce4afcd54108a9466f1b6a6da9ad022e028d568d36e9b1d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/039/Box_Squat_with_Chains_male_v2_3.png",
+      "candidateSha256": "c9faa1c7c6037089df8c00768096a3232a5d46acfbb480dfac6d17ced05aa69b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_with_Chains_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_with_Chains_female_v2_0.png",
+      "sourceSha256": "686a1ad968829d740694d0509cc30d9bf003a0c3ec4002ab31a132d427bae2bf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/039/Box_Squat_with_Chains_female_v2_0.png",
+      "candidateSha256": "4f9dc035a344d769243595295c3db80930b7a634cea31e558c7c669f2de5f917",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_with_Chains_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_with_Chains_female_v2_1.png",
+      "sourceSha256": "b83b2bbb33bf551360f74801ee800f4598c4fa513703288bb9973b7451c7cbb2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/039/Box_Squat_with_Chains_female_v2_1.png",
+      "candidateSha256": "52beb41bb2f261b684e29d4918f17be85377f0a7760453e6d05c14e97c584ce4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_with_Chains_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_with_Chains_female_v2_2.png",
+      "sourceSha256": "e8171e2994f5bd9a7cc9fefbb1a84ce4985cc5b894cb0446243a290767dab657",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/039/Box_Squat_with_Chains_female_v2_2.png",
+      "candidateSha256": "2821310799320167d0d1e4101978b6a42226fad7190026a93d061b346f2ba094",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Squat_with_Chains_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Squat_with_Chains_female_v2_3.png",
+      "sourceSha256": "6df89f2b4fddb4e756b52e0b094ca996321be9ee8eb1f829e0a7ff68b4651b2f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/039/Box_Squat_with_Chains_female_v2_3.png",
+      "candidateSha256": "5c57f0538581d76d9baecb1b93ea0dc0d369eaa1e146a83a66a8312725ef1bb1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

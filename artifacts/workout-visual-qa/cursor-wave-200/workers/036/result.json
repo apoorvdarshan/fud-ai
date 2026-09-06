@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Box_Skip",
+  "shard": 4,
+  "index": 36,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Box_Skip_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Skip_male_v2_0.png",
+      "sourceSha256": "c2fe8a62383bd75e874958294424f13e51b631308810f6f927a83d599c261290",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/036/Box_Skip_male_v2_0.png",
+      "candidateSha256": "6c0af1bc020d596d26c95655bf28bc919a8a185ba704a4c59162c6fa2df122c9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Skip_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Skip_male_v2_1.png",
+      "sourceSha256": "ad204986f59eeb4c11eb017186034e03cf413ccfa6cb1502569068874a7445d3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/036/Box_Skip_male_v2_1.png",
+      "candidateSha256": "e7cad821de5e1f13c348e30beb11dc878da5cadf7d76e1c8113c4862d411eb11",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Skip_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Skip_male_v2_2.png",
+      "sourceSha256": "0a1abc2e1ce739f52a5275160170d8395bd3e6a1a96f2575f64763094b156394",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/036/Box_Skip_male_v2_2.png",
+      "candidateSha256": "a51f8509375ca5196c7191c0aa4fe8d73e3b4404d00dd6344a954fe13d34df1b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Skip_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Skip_male_v2_3.png",
+      "sourceSha256": "8ace2e58aa008b3799f3e0c1d32184f00c1956aadc1e600f8674b94eb3512b4b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/036/Box_Skip_male_v2_3.png",
+      "candidateSha256": "afdf8db6c8bf94e84135b0e68564cae97507456d6e4d134454ea35973e40a446",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Skip_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Skip_female_v2_0.png",
+      "sourceSha256": "683ecaf27bdc0909c29dfc21f42b371851fb1bbeb3ff1c5a952e38ecb828e0ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/036/Box_Skip_female_v2_0.png",
+      "candidateSha256": "b55995cda7dcc017782ef370cebae1127758220b52de9353c817dbc746bf369e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Skip_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Skip_female_v2_1.png",
+      "sourceSha256": "7ccbd8d7f098331fb82863d3a36ef9e8a5388570c776cc236e76c133b97683b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/036/Box_Skip_female_v2_1.png",
+      "candidateSha256": "caf994fb949be940b1532c3929758ade981d766313e5b82961c5811674c2232c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Skip_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Skip_female_v2_2.png",
+      "sourceSha256": "e0c605af7bf08165338b4b5008aa6f6d89945c18c444dc3c63fabf7dbd0b8f54",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/036/Box_Skip_female_v2_2.png",
+      "candidateSha256": "f01e9d525e0c125ea0b02be22637be6e53918900de7324ca75097990eaad469a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Box_Skip_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Box_Skip_female_v2_3.png",
+      "sourceSha256": "73989dc25575523c7696d99436b9d77118588f73df518a953736769858eab890",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/036/Box_Skip_female_v2_3.png",
+      "candidateSha256": "7e65f7d95c307d43252a94e08c1bd0e70154af71ce7d532d73a2e51627a010de",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

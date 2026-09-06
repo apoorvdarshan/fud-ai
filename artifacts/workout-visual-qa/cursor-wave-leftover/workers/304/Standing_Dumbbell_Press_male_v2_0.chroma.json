@@ -1,0 +1,16 @@
+{
+  "source_sha256": "97d62bbfd855fc13b3593cb6d3b28cd51617c4cbabdda19c5871efa0dff7c6e1",
+  "candidate_sha256": "ffd35fa5cf2a0fe8a55d329029e128e898926591b593eab70bd9062089ded70f",
+  "generated_sha256": "784665c82761dbef1e40fb9202d9d7e4be19b7271a650f406336bf478dc7af2b",
+  "generated_path": "/cursor/stores/bc-5d52b6a8-15e2-452d-857c-0618d6943687/artifacts/assets/gen_304_male_v2_0.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

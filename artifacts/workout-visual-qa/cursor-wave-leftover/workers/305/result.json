@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Standing_Dumbbell_Reverse_Curl",
+  "shard": 31,
+  "index": 305,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical on 1 dirty frame(s); remaining frames script cleanup acceptable on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Dumbbell_Reverse_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Reverse_Curl_male_v2_0.png",
+      "sourceSha256": "8700c8a87e913ce030865b4a800c1be4c5a6134a2c42368549629edcc4afb99f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/305/Standing_Dumbbell_Reverse_Curl_male_v2_0.png",
+      "candidateSha256": "3473c5cf06c065b55ad25c7249598665bf5d7e9e97b83bcbb9de3b2b5ea269f4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Reverse_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Reverse_Curl_male_v2_1.png",
+      "sourceSha256": "9404e366adc4473def00282e1196d17ca1b55e331315c00213ce0f23f8f52c2d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/305/Standing_Dumbbell_Reverse_Curl_male_v2_1.png",
+      "candidateSha256": "f31ff9cb51f0e5b2fbff5d218e130afd4513ad054dea43eb16c08e563ae6513d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Reverse_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Reverse_Curl_male_v2_2.png",
+      "sourceSha256": "9a7b9b4358c9d6746c24e0b75a5dbb7a5bfb354f1ef5853cdf100a8b78e50a3e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/305/Standing_Dumbbell_Reverse_Curl_male_v2_2.png",
+      "candidateSha256": "784d9071013660676d515b3cd8e5a8daca090d749439f51904fdd90848f8ac78",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Reverse_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Reverse_Curl_male_v2_3.png",
+      "sourceSha256": "d04c442f70dac65a836d477908804feee78a93e89544d0506f91bccd84580c34",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/305/Standing_Dumbbell_Reverse_Curl_male_v2_3.png",
+      "candidateSha256": "9d7e62319bd7fd42d892ee6696bb2f114dffd1dfeadf8e362c2bfa2a461413d1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Reverse_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Reverse_Curl_female_v2_0.png",
+      "sourceSha256": "e1ae9553410fbcbb50e9ec5cd9c1dca25598a546dd851dede099cf0df29d67cb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/305/Standing_Dumbbell_Reverse_Curl_female_v2_0.png",
+      "candidateSha256": "08dd741af6225d743311d3cc74ec2d7668956a3ea42460007a97c025a893a832",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Reverse_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Reverse_Curl_female_v2_1.png",
+      "sourceSha256": "7ba118c9a05f4db845a35f55150bd5dd6193d23b7830539472fac84e4d8c85f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/305/Standing_Dumbbell_Reverse_Curl_female_v2_1.png",
+      "candidateSha256": "1c673459ee8dd12d2221adf6e16b5ba29b46049e8b6800d966d6fe19def9939c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Reverse_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Reverse_Curl_female_v2_2.png",
+      "sourceSha256": "0713bfd8c935478695a4cb0aefab6ac0dac425872b113f029b16ca90c841023d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/305/Standing_Dumbbell_Reverse_Curl_female_v2_2.png",
+      "candidateSha256": "5f4fc46f42e0ebcb1a439e5089c2e4e10980c35b33e66616fa927b3c13ea5f6d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Reverse_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Reverse_Curl_female_v2_3.png",
+      "sourceSha256": "2cb19a10dd44dec72f86c74c34d86468c67226be85b7f6a6ccec198c8de99cef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/305/Standing_Dumbbell_Reverse_Curl_female_v2_3.png",
+      "candidateSha256": "e67867c85bb8ac1479dbc9432243738635b3c978b5fe10ef51b24d69285e0395",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

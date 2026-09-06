@@ -1,0 +1,16 @@
+{
+  "source_sha256": "ebd35cb8e2ccb8bb85b07ad7bdd6e2ae32d31a5ee539bf14efb36feb84c0d5da",
+  "candidate_sha256": "997b1c2329d1a4786427259542134c8e8f10d72dc73360db1bd47f1c622b9b75",
+  "generated_sha256": "1a6587bf52af536f2b7e984d5b5f19406af5740b8bb1afb08ea654f4b5764bc3",
+  "generated_path": "/cursor/stores/bc-5d52b6a8-15e2-452d-857c-0618d6943687/artifacts/assets/gen_309_female_v2_0.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

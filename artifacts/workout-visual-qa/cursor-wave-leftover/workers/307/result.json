@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Standing_Dumbbell_Triceps_Extension",
+  "shard": 31,
+  "index": 307,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical on 1 dirty frame(s); remaining frames script cleanup acceptable on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "sourceSha256": "4a6438ccb8022e5e8180da81baca688d1ece4273e7c7516cdc104275cb5a6f9e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/307/Standing_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "candidateSha256": "c7e2a83e1f7cda13bb8b7c7ccf0c4815e51490a457a9460d962d183a90a56752",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "sourceSha256": "443265be02a2e297f9d871e699b1ff50cb1995db1e2aca27d594877551ae3a69",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/307/Standing_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "candidateSha256": "3b8c7fa433ac1965573e00080ed47ad95fd827f22c6994688825376baeac32fc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "sourceSha256": "10ac6234e1f878e672537732f35faa51fe2c2af4904ce5424ef5f216be1bbca3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/307/Standing_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "candidateSha256": "0b2a7f95aaf5101cbfe2725bf4f01af5962ce92deb24e2558fdc3aada936dc2f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "sourceSha256": "22288bf3e566954bd72442b14e24027e5bae46126203a53ae8e9c259d665e13f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/307/Standing_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "candidateSha256": "01ae7e94f8dfa99bd738d5a8243f0fa386b2b585b2629575ebbdeeb3e0e3dccc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "sourceSha256": "85eeac8f296dcfbb4d38074ffc5925f623800deb7f6356763ba4f1b43894c984",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/307/Standing_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "candidateSha256": "ee3bcafa575f0135520fb4d194fcd63f9804ec4249bec5dee00f6b27924ee9b7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "sourceSha256": "09fb25c23daa6da501b17bf3d0aa6311c99f1dc77de604bb76bcd426100d6a6e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/307/Standing_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "candidateSha256": "47c9c34ab40f8dde398cb90c03e5f5ef4bbad792c4fba5466b6faf09ed498c3a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "sourceSha256": "c19a5caf57b2de830063f51350b0aa708845f2da7a508c80b7f06c64a9a17f09",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/307/Standing_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "candidateSha256": "a0096564277371e66403b7016b88777c25bdf381127aa83d8866b20e5a67ac62",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "sourceSha256": "30cd10a00a8f1b8ca895508fcbde85e60ca1420c166e71632fc0203af2b03a42",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/307/Standing_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "candidateSha256": "e4b18300d71bdb1dbdb52dc110bc60516c67cd54def764dd87c38bf080d88f69",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

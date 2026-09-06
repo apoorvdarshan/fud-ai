@@ -1,0 +1,16 @@
+{
+  "source_sha256": "4d57e06961cac000b7ec5e0d96c3a4eaabeb95c718fe42eb8498d6cc532b7370",
+  "candidate_sha256": "1b899ec0453cb63198e57ff1560bc1edcf0b30a31da2b9a6c31a40b527abf531",
+  "generated_sha256": "4de576a863b624468f406ddcf9c26ccaff0d7e63cb401dcaaf5e91051d15c6ee",
+  "generated_path": "/cursor/stores/bc-5d52b6a8-15e2-452d-857c-0618d6943687/artifacts/assets/gen_302_female_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

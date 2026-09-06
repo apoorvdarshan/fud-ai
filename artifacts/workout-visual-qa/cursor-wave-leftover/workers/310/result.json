@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Standing_Front_Barbell_Raise_Over_Head",
+  "shard": 31,
+  "index": 310,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical on 2 dirty frame(s); remaining frames script cleanup acceptable on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Front_Barbell_Raise_Over_Head_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Front_Barbell_Raise_Over_Head_male_v2_0.png",
+      "sourceSha256": "f35a8de06a393b22d8a78316cb991b44196616827c76fe68561151510f6b07bc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/310/Standing_Front_Barbell_Raise_Over_Head_male_v2_0.png",
+      "candidateSha256": "b0c5d6602e6c6b41cbd73a796ff07816b2c823e79f0b7ef1786072834e34064b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Front_Barbell_Raise_Over_Head_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Front_Barbell_Raise_Over_Head_male_v2_1.png",
+      "sourceSha256": "e91601b9fec36885468017d11fc71650f35070c6cf3145548bce3b6e3e7df794",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/310/Standing_Front_Barbell_Raise_Over_Head_male_v2_1.png",
+      "candidateSha256": "2f3ceee809c872605f1722f39a55d2a9c3de5aa9c96f1b678562f12f7be43454",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Front_Barbell_Raise_Over_Head_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Front_Barbell_Raise_Over_Head_male_v2_2.png",
+      "sourceSha256": "c4ece75656f39841340e037949273fbcc7259bf6ef519ef7a15c20024c15d5f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/310/Standing_Front_Barbell_Raise_Over_Head_male_v2_2.png",
+      "candidateSha256": "e67e2a65b9d41fb5f5eb63e7ecc7845f0ccd9db35e91b848605750bd57855e76",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Front_Barbell_Raise_Over_Head_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Front_Barbell_Raise_Over_Head_male_v2_3.png",
+      "sourceSha256": "3afecb4625b4a7238680f7a1c9840f353c88844988a8940e0aaab72428186740",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/310/Standing_Front_Barbell_Raise_Over_Head_male_v2_3.png",
+      "candidateSha256": "8b69a7c3d43e7cf4222d907512130cb930e0e8ea3222e8a0404df0b6461e1a36",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Front_Barbell_Raise_Over_Head_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Front_Barbell_Raise_Over_Head_female_v2_0.png",
+      "sourceSha256": "3aa4b8985872ea4c6e41e871e71a73dcc4de46eb3af5b52b55c7648687a54083",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/310/Standing_Front_Barbell_Raise_Over_Head_female_v2_0.png",
+      "candidateSha256": "2c681be0b92160490b124b1a774d4298574b11b1e661990a76e1423a21ec4896",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Front_Barbell_Raise_Over_Head_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Front_Barbell_Raise_Over_Head_female_v2_1.png",
+      "sourceSha256": "53df048cfa5c1b43e0e32fa01544a0ebdf3241b49dfeabafed823e302aa35aae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/310/Standing_Front_Barbell_Raise_Over_Head_female_v2_1.png",
+      "candidateSha256": "55b209635d564a02e1770ff78705fe93c3de64869a4fc9355d680e262e7a52a5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Front_Barbell_Raise_Over_Head_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Front_Barbell_Raise_Over_Head_female_v2_2.png",
+      "sourceSha256": "e7fd984c8d36dd2bfd6ea7fa68d5f0ddd1656eb238b180f59654c3670cb7f91c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/310/Standing_Front_Barbell_Raise_Over_Head_female_v2_2.png",
+      "candidateSha256": "f11ad1854775e7b51cb2a1fe70afa0b57bf1d80c28fdccafc8cfb634e62cfa3b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Front_Barbell_Raise_Over_Head_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Front_Barbell_Raise_Over_Head_female_v2_3.png",
+      "sourceSha256": "479a3d3b8faa4b12787f1042593aa9aa68c8c5cc87c5872359f14f1b8fc1910d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/310/Standing_Front_Barbell_Raise_Over_Head_female_v2_3.png",
+      "candidateSha256": "c62a7b7d6e106c71ed815eb1aff4735c4bba6de929ac0770982eadaff8763055",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

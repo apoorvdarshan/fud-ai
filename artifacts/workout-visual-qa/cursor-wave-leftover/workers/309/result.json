@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Standing_Elevated_Quad_Stretch",
+  "shard": 31,
+  "index": 309,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical on 8 dirty frame(s); remaining frames script cleanup acceptable on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Elevated_Quad_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Elevated_Quad_Stretch_male_v2_0.png",
+      "sourceSha256": "238e447107707ba59db1b922f587f0d608cf967a943e3076965e02335fb31723",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/309/Standing_Elevated_Quad_Stretch_male_v2_0.png",
+      "candidateSha256": "3e05a8931c2c25abea2ab064fda41ce61fce28086a1a8267189b427e2c5162f9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Elevated_Quad_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Elevated_Quad_Stretch_male_v2_1.png",
+      "sourceSha256": "0d0d4fec6d614bf28c646c305f560c394befabe959ab4bce03ded5e5480dbbde",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/309/Standing_Elevated_Quad_Stretch_male_v2_1.png",
+      "candidateSha256": "1c73a508f5d0edf5c18596032a46fde65b68c72c1c434591d723359c436858b7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Elevated_Quad_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Elevated_Quad_Stretch_male_v2_2.png",
+      "sourceSha256": "865ee9af2dd321115c1a8035c4821f753d9450708ae082ef5b8abb1bfd98e8a0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/309/Standing_Elevated_Quad_Stretch_male_v2_2.png",
+      "candidateSha256": "22779b0bf7c54f788300efade80cce0a9c1c817f889bf2c78c91bf3850ee48bc",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Elevated_Quad_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Elevated_Quad_Stretch_male_v2_3.png",
+      "sourceSha256": "f7a0c29cfeb7f11352b0bf20f2a38b24f89098b6c023f4f979691ce7d3170cba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/309/Standing_Elevated_Quad_Stretch_male_v2_3.png",
+      "candidateSha256": "42819743eb6f5e70dd8d4304a6279f1b5108d56b7fb0ff4eaf92fd25ede58f06",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Elevated_Quad_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Elevated_Quad_Stretch_female_v2_0.png",
+      "sourceSha256": "ebd35cb8e2ccb8bb85b07ad7bdd6e2ae32d31a5ee539bf14efb36feb84c0d5da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/309/Standing_Elevated_Quad_Stretch_female_v2_0.png",
+      "candidateSha256": "997b1c2329d1a4786427259542134c8e8f10d72dc73360db1bd47f1c622b9b75",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Elevated_Quad_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Elevated_Quad_Stretch_female_v2_1.png",
+      "sourceSha256": "49b7ab2e70e5301166a976f38c6b2634ad92a62e0b48b49d319ce234414f40ae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/309/Standing_Elevated_Quad_Stretch_female_v2_1.png",
+      "candidateSha256": "5a5732ba88297d629f37ab6b4f9f43e008a4b3202975938c9bce0aa670ff7b7e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Elevated_Quad_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Elevated_Quad_Stretch_female_v2_2.png",
+      "sourceSha256": "dcb3d567a9c84df249dd1417957a184c05370655f60ed9c58997e07ff9738f5b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/309/Standing_Elevated_Quad_Stretch_female_v2_2.png",
+      "candidateSha256": "3d2b5763eea780a7448121ebb4730f7bf1c41b194016f35691abe64c57cfc19f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Elevated_Quad_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Elevated_Quad_Stretch_female_v2_3.png",
+      "sourceSha256": "40f4de6c2dc3436b9a27a77c1875b53887e7c1b27ec2f7f9a07adfd90cccba4d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/309/Standing_Elevated_Quad_Stretch_female_v2_3.png",
+      "candidateSha256": "d6a6e53ab6a2a798c2035870680bf4aaed1730c8aa54d92bf980888043685b03",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

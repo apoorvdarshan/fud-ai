@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Weighted_Bench_Dip",
+  "shard": 40,
+  "index": 397,
+  "status": "ready_for_review",
+  "findings": [
+    "Weighted_Bench_Dip female frames 2-3 had BENCH DIPS watermark and floor speckle on dark background; GenerateImage surgical edit + green chroma key removed artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Weighted_Bench_Dip_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Bench_Dip_male_v2_0.png",
+      "sourceSha256": "2042906faf9aee0a75f685947ec0bdd1c21fe4469a4a3d3ef219cb4d40f32428",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/397/Weighted_Bench_Dip_male_v2_0.png",
+      "candidateSha256": "f70e4a0775b1aabae83838a93883ffe093917feee4933c28f54bd71b7f377739",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Bench_Dip_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Bench_Dip_male_v2_1.png",
+      "sourceSha256": "dc18a6597e37ce5d6c29c385ef4f676a8b38011c2ea59d1a97cf85eae5bd72e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/397/Weighted_Bench_Dip_male_v2_1.png",
+      "candidateSha256": "1af3c754444d040a06f745937718bc07e56238e1a13666f198811050769f2a0a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Bench_Dip_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Bench_Dip_male_v2_2.png",
+      "sourceSha256": "c6f66913ccf06962259b836f9f5e23783cd2ec41f68047df0364ab58807b65ee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/397/Weighted_Bench_Dip_male_v2_2.png",
+      "candidateSha256": "39e461586d178dd23a36f33058588c17ab7971dba88765ec49eda847cb83bf4d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Bench_Dip_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Bench_Dip_male_v2_3.png",
+      "sourceSha256": "4eaf50607153fa9d9a4434cde172d464e8785b433c46f1d69d0d028f326bd392",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/397/Weighted_Bench_Dip_male_v2_3.png",
+      "candidateSha256": "977e90fdaa2171b3ed99e8b02d57278c41731e8103db230179ca5814cadf5e14",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Bench_Dip_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Bench_Dip_female_v2_0.png",
+      "sourceSha256": "64eff55efa3e84e9162b66df65aaca542f8050309ea49716a2b8f1596e9ffab3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/397/Weighted_Bench_Dip_female_v2_0.png",
+      "candidateSha256": "ceca41e57b6dbb220b300a385eced5761f255260b866643c127ec3d4848f989d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Bench_Dip_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Bench_Dip_female_v2_1.png",
+      "sourceSha256": "2cd3bac009478d9ae44279e769d29cfa2bca0ea6f47dddeb6bb6064c4a559736",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/397/Weighted_Bench_Dip_female_v2_1.png",
+      "candidateSha256": "e4429f4fe9327a87bad1efaac9ac884a4ac68c8ebd450ca390562d883752490c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Bench_Dip_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Bench_Dip_female_v2_2.png",
+      "sourceSha256": "a1d02fc8256469a495db30c20cdaf9e3c5f9be3f802ffa245692de81b84c8f05",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/397/Weighted_Bench_Dip_female_v2_2.png",
+      "candidateSha256": "775dabf719fd2c7672164bfc6478a01f7ac5b5daed68a3fe290c4859d8156e3a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Bench_Dip_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Bench_Dip_female_v2_3.png",
+      "sourceSha256": "e9a85aee6502e82c41cf53eab872287010f61e6ce87125b3c2479270206008dc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/397/Weighted_Bench_Dip_female_v2_3.png",
+      "candidateSha256": "b34d3e1c07f7eb20da60acf5a22f962f9447e218ba5c4659abad36a608dd5f96",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

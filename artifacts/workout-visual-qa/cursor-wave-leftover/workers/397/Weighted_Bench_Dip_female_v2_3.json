@@ -1,0 +1,16 @@
+{
+  "source_sha256": "e9a85aee6502e82c41cf53eab872287010f61e6ce87125b3c2479270206008dc",
+  "candidate_sha256": "b34d3e1c07f7eb20da60acf5a22f962f9447e218ba5c4659abad36a608dd5f96",
+  "generated_sha256": "99f35a2550f2ebb336d78c9534cf30a8d19b5c562d2482891fc3ec8f1f5ede39",
+  "generated_path": "/cursor/stores/bc-5b734c6b-7c8e-4187-b750-5f008fee881a/artifacts/assets/gen-397-female-v2_3.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

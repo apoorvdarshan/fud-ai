@@ -1,0 +1,83 @@
+{
+  "exerciseId": "V-Bar_Pullup",
+  "shard": 40,
+  "index": 392,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "V-Bar_Pullup_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pullup_male_v2_0.png",
+      "sourceSha256": "aadc01341ede3d2dd0d8c69ea7f52f329c9dab52dc7b6cb256756c6926d43382",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/392/V-Bar_Pullup_male_v2_0.png",
+      "candidateSha256": "5d6174dca589a699b9a3239e85c9c1a0e91742afdf6f3725cdd5cfbada52179c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pullup_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pullup_male_v2_1.png",
+      "sourceSha256": "51e75b161eda8412cca2ae054b788d49e36ef602932b2f682be0f534a0ce34c6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/392/V-Bar_Pullup_male_v2_1.png",
+      "candidateSha256": "809451ed380c3cb5d04bd346a3893e62def78f21945e2a15c8e5cc40e934b120",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pullup_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pullup_male_v2_2.png",
+      "sourceSha256": "c49fbc0eaca08518771963aaf7ea940ce509a37d76ef212fa6db491f84fa6d90",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/392/V-Bar_Pullup_male_v2_2.png",
+      "candidateSha256": "b10f08375d1b3d92045ca2b32c0c43cfc98d432b29ca5ff2ee75b13de455428f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pullup_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pullup_male_v2_3.png",
+      "sourceSha256": "31ca2a8a61ab428bbc5bcd86c904c008949610bacfda9cdd38398b6717b7cb53",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/392/V-Bar_Pullup_male_v2_3.png",
+      "candidateSha256": "a56a67f79f5ac6b404de27a534dcca4a2e536bdf356663a702925a78236ece16",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pullup_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pullup_female_v2_0.png",
+      "sourceSha256": "6262a0b06d10b2de8094d094981e19558fdc3bbacb8d66e21582733d4c9a52f3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/392/V-Bar_Pullup_female_v2_0.png",
+      "candidateSha256": "8f8e940ed5415bc3967f680231b52ff8fee6e897f1e8e7f4d58357c7ce0c4776",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pullup_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pullup_female_v2_1.png",
+      "sourceSha256": "302ef16475453183499a1b0e938487e6a2bf6d33f83ea6be7f29696c25b7499c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/392/V-Bar_Pullup_female_v2_1.png",
+      "candidateSha256": "955ee1f0276e116434a0ccbb7ed0106a68beb39e0385347b3c34501b59816671",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pullup_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pullup_female_v2_2.png",
+      "sourceSha256": "de30eb33becc2b997b1a744b318da5a7923b85dcf09ed5c8ffc44c519fefaf1b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/392/V-Bar_Pullup_female_v2_2.png",
+      "candidateSha256": "bb6a3997c5b3d909e0dc16e879e9e50595016130f95526c893b62228305dc76c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "V-Bar_Pullup_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/V-Bar_Pullup_female_v2_3.png",
+      "sourceSha256": "d6b49d3c368713d55f41586ab4e17dfc4cadd635e0464a4c4d72b6898c87f759",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/392/V-Bar_Pullup_female_v2_3.png",
+      "candidateSha256": "a6092323628340ce8de1c68e85b9e70d1c9fb1991efda09948a55930913d6003",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

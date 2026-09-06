@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Weighted_Crunches",
+  "shard": 40,
+  "index": 398,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Weighted_Crunches_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Crunches_male_v2_0.png",
+      "sourceSha256": "c1088c57c80aeb8165eec7a50f571a7b3674bf85f9ab52399e57ba1d706a3b6b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/398/Weighted_Crunches_male_v2_0.png",
+      "candidateSha256": "f35a90343c5df88b22aedacbf168814d2da9073e9a8ba851b75bdcec3206b359",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Crunches_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Crunches_male_v2_1.png",
+      "sourceSha256": "5e130d05aa3ee5e348729d88b8760ff03e8dd831e639d2228e4d068a66359ea1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/398/Weighted_Crunches_male_v2_1.png",
+      "candidateSha256": "f24d74fc453c3343d69a8123d13c86140c7f7525861d5c5600fa1c000840f750",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Crunches_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Crunches_male_v2_2.png",
+      "sourceSha256": "e9013544330a178838012a6c99cb3a4371242ac07549bdfd84e7d79aee8e283e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/398/Weighted_Crunches_male_v2_2.png",
+      "candidateSha256": "7fa26869e73cbc3b0d5dedcea62f2fbbaa2279e566e5b375a646188f7f52aa46",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Crunches_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Crunches_male_v2_3.png",
+      "sourceSha256": "a53e65ce65b212b0ef05ededd7cbd093b089469807afa899d597b821db0a9299",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/398/Weighted_Crunches_male_v2_3.png",
+      "candidateSha256": "7b73ed27ea9820ccfe62932a9d4aa68e14a7306c225ae7b0fb26a89112e26cb5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Crunches_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Crunches_female_v2_0.png",
+      "sourceSha256": "114442ea09b777838f2d8ee15e47e3288d36bb72a6d3f91984939940ae56e33e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/398/Weighted_Crunches_female_v2_0.png",
+      "candidateSha256": "66f0afc84b50f3e3cb4d2c0dfe4d834fe11781e6d9998bafbeddc43da07ae8cc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Crunches_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Crunches_female_v2_1.png",
+      "sourceSha256": "d48edd3b5f16d3a6106ae9aae4a2d882fb3ea4a3d35cbd33fa7d1a1497d418c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/398/Weighted_Crunches_female_v2_1.png",
+      "candidateSha256": "f39993c95ce53483c7018e90668897cf2f3160bf4bd5e8aa9a0dfb585e052fcd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Crunches_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Crunches_female_v2_2.png",
+      "sourceSha256": "925cc65b8f431df75e159a327573b7607048575ddca2d17c87deac52e71e42ff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/398/Weighted_Crunches_female_v2_2.png",
+      "candidateSha256": "29e70c44a22c4f615ce64a4ae9f49abafffb4eed6b91f1bf9479f43dd055d4f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Crunches_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Crunches_female_v2_3.png",
+      "sourceSha256": "b48b773ca81f97758ca9ac76357a74df19cfda5f8b29f940773c51d29a958a81",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/398/Weighted_Crunches_female_v2_3.png",
+      "candidateSha256": "7f1a41ff2c2a7cbefb72a40acbd1b7b2877a820f94cf5e17e4b9f77e89c398e0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

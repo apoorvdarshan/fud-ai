@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Weighted_Ball_Side_Bend",
+  "shard": 40,
+  "index": 396,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Weighted_Ball_Side_Bend_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Ball_Side_Bend_male_v2_0.png",
+      "sourceSha256": "facdad34a75e2dbb93d6bfa1a9d58c847297a85dc34acbdc43fc8305a1763917",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/396/Weighted_Ball_Side_Bend_male_v2_0.png",
+      "candidateSha256": "5c8a9b378c65992a46c6df8665001cd90e77f96e35fc95879052212f176ccb07",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Ball_Side_Bend_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Ball_Side_Bend_male_v2_1.png",
+      "sourceSha256": "0ba3bb45f946c553bfbb287f92b98ec9da5625bbf106fe1f42106c1a65382a70",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/396/Weighted_Ball_Side_Bend_male_v2_1.png",
+      "candidateSha256": "d738ddd724907337394e5b5a91be75137ae7afeab767e665684cfe08e9492402",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Ball_Side_Bend_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Ball_Side_Bend_male_v2_2.png",
+      "sourceSha256": "5de710bce39f031b73f0708b853a63e4e02583f89945974c9685d69c5a7065e9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/396/Weighted_Ball_Side_Bend_male_v2_2.png",
+      "candidateSha256": "3662d59f33c2fdc7935812736b335de4c99bad69941c33a55690c770916d06ad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Ball_Side_Bend_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Ball_Side_Bend_male_v2_3.png",
+      "sourceSha256": "4533672eaceece21a33ded009efd6c762ab11970f5c57c5064acd4fd75302364",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/396/Weighted_Ball_Side_Bend_male_v2_3.png",
+      "candidateSha256": "ca25329e6b8d98d39c68c2332d078a0655dc186b7dd7011836c2ceff478b282e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Ball_Side_Bend_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Ball_Side_Bend_female_v2_0.png",
+      "sourceSha256": "cd323cf3493c0cfad0382e27137822f0c7ecbacf2818df61b11ed490f856a084",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/396/Weighted_Ball_Side_Bend_female_v2_0.png",
+      "candidateSha256": "fd423031922e5272f03c032f20370f12b78152a0635c6ff40d43f80673681ac4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Ball_Side_Bend_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Ball_Side_Bend_female_v2_1.png",
+      "sourceSha256": "1df83a4494020454f9585f5299f179cc3a3e1ae56af9bf4e0ec14a3ba7e9f889",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/396/Weighted_Ball_Side_Bend_female_v2_1.png",
+      "candidateSha256": "9225475845d6a00e648368134af4fdb896fc101d7f8c36746049a25b7f776744",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Ball_Side_Bend_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Ball_Side_Bend_female_v2_2.png",
+      "sourceSha256": "3732e4cca16944657c20511fba6713ba46e0a32a8efdd77e286cb85e60e46f22",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/396/Weighted_Ball_Side_Bend_female_v2_2.png",
+      "candidateSha256": "c48405cac1c1623c8a5dcd3b1aa8c2c456df2dda00cce14b5603aa6159a70883",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Weighted_Ball_Side_Bend_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Ball_Side_Bend_female_v2_3.png",
+      "sourceSha256": "677b00b0396f14d1ec9a2b6fd6a3005c010445f511d6903c6481301e188a5f9a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/396/Weighted_Ball_Side_Bend_female_v2_3.png",
+      "candidateSha256": "2db64a35c946e6a3196783ae7a572dbb8bac2fe3861c8066551c6b1e6435de65",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

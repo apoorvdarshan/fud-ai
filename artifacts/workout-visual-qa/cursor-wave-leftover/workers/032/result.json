@@ -1,0 +1,93 @@
+{
+  "exerciseId": "One-Arm_Dumbbell_Row",
+  "shard": 4,
+  "index": 32,
+  "status": "ready_for_review",
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Arm_Dumbbell_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_male_v2_0.png",
+      "sourceSha256": "b525e1f42a2caf94a7923ceeab3faad07322fed284e4cec41487b6b230f2e30e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_male_v2_0.png",
+      "candidateSha256": "d8e1c88cb41977790e4f45ecc56587d982f472a81e3625307ce160f74ad65580",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Dumbbell_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_male_v2_1.png",
+      "sourceSha256": "5eaa715b20bf57009192b839c9a00618e2399c2459ce47d40399bed09e8984a6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_male_v2_1.png",
+      "candidateSha256": "4a6ca8565d92a32cdb3df012188fa7026d35f9aaa55a134448399d8d1227719d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Dumbbell_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_male_v2_2.png",
+      "sourceSha256": "24d3768c460d3a18bf76aa9611ad7dec38e12afc343f1ba0f3845d7aad19d6d8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_male_v2_2.png",
+      "candidateSha256": "995035060cd481b77a7162e2acd28dd8c1c7ae71fbb0a56bf70acdccc53e18f8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Dumbbell_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_male_v2_3.png",
+      "sourceSha256": "970ecb67181c11af1b29c6072ce728d028e81373a286fd2c9d7f6f403c1729b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_male_v2_3.png",
+      "candidateSha256": "9bd6d80397be1a96196716064be32f45777693884c9848c031c96da5261c7afd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Dumbbell_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_female_v2_0.png",
+      "sourceSha256": "52984cda411d3515b4b21323dc5e48475aba7203a646c7baf45dcb90413cb1e1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_female_v2_0.png",
+      "candidateSha256": "4bbf069e475686bee556eae1aabb9d739ecfc5a77a861259c0b75019de430307",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Dumbbell_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_female_v2_1.png",
+      "sourceSha256": "e9637e6d0c51bdacfcba98fd096de5d62b53c37a2f9566b26767770675cabf30",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_female_v2_1.png",
+      "candidateSha256": "4741c6344f5c7eaf89e56853ef0c55e6c5cca34d60c65d2a1b287532afab208a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Dumbbell_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_female_v2_2.png",
+      "sourceSha256": "da2575b8e66ebb3df704d47d9663504be504f93b8bcf424389b9df9916ad1006",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_female_v2_2.png",
+      "candidateSha256": "ed4244ccf87f360fe9df1073699f0e968d195c1f38fb54eab4a2a0731c03342e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Dumbbell_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_female_v2_3.png",
+      "sourceSha256": "c0d3cb4f2efd6378a782279df9ae7f51b04d1d49881213a2dd8f584ab55e7a31",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_female_v2_3.png",
+      "candidateSha256": "f4cd78a181799ca112eb54ca545e2d4e1d36b3be637f931278c1c77a6ac3a18b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

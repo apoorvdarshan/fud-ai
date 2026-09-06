@@ -1,0 +1,94 @@
+{
+  "exerciseId": "One-Arm_Flat_Bench_Dumbbell_Flye",
+  "shard": 4,
+  "index": 33,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 7 frame(s) with floor/fringe/artifact issues.",
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_0.png",
+      "sourceSha256": "ccdc535efc0d36dadab90fc1092081e6c5e1024ccaaea84d1de02261246a065f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_0.png",
+      "candidateSha256": "747390385681462c4180bd45d471ae46171db5b618995b741249e74b4d8be7d4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_1.png",
+      "sourceSha256": "5cc6310de96d6ac90f4e4090509a7672d99562eb6c309fa41d62cf4841bac4b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_1.png",
+      "candidateSha256": "febb30872c8a47631925638505dba4606804725fa5d744a12f8f104fb14c5c10",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_2.png",
+      "sourceSha256": "0e010828133fb10a4c30d5eeaa144268fb0f04c2421e36ed0a1a96067ab3f7ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_2.png",
+      "candidateSha256": "1bbecc228018149192f520412e4c78b44bdd3403bc7f048e521565f626b09b45",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_3.png",
+      "sourceSha256": "305459b7e47358c90f288ecde9247abdf30b0559a1b4f7cb4c3a0ffcbb6e36ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_3.png",
+      "candidateSha256": "2e50e542f185c1624cb8f629f7ee0c70913683a5b9832ddfb07256dd4968916e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_0.png",
+      "sourceSha256": "db7ae9899abcb10acc4991d1a71d985ebdaad11ce3d9cea07be7f2d506e7a842",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_0.png",
+      "candidateSha256": "f1ddadb8cb0dd6b7b9b3361be85de4b8fe8bef73f808cef51aec8ccf03c75f29",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_1.png",
+      "sourceSha256": "e87521050cea673f63e97b1646e5294c3b79454c95cd7f487c316187e3061e4e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_1.png",
+      "candidateSha256": "c84a35d3ed43b40c5f6e111d50a160d487e6871a4abca128f8cabbf7fadf9376",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_2.png",
+      "sourceSha256": "a1355a565d40df190cbf6af722a83e2dec56eb0637f5299ded3112fe7a69b894",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_2.png",
+      "candidateSha256": "8189f1dd697e7ea1da1f722df2241ba3327c91136a334fc7c2d07f2e4ae73109",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_3.png",
+      "sourceSha256": "708efd634b5ce350e129191c43e95efaf7626c257fda0ba356ba7250b8ddbf37",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_3.png",
+      "candidateSha256": "d9e6388ca20c189949c24f7898b8b0b6da10f1f6ff7b6dbabd47b4860d87d2b1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "changedFrameCount": 8
+}

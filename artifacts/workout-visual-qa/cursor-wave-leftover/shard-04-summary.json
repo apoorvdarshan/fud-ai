@@ -1,0 +1,942 @@
+{
+  "shard": 4,
+  "batch": "cursor-wave-leftover",
+  "status": "ready_for_review",
+  "generateImageFrameCount": 17,
+  "exercises": [
+    {
+      "exerciseId": "On_Your_Side_Quad_Stretch",
+      "shard": 4,
+      "index": 31,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "On_Your_Side_Quad_Stretch_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_male_v2_0.png",
+          "sourceSha256": "e7143677da427d37f2f2486e5037825adb3521bbb58d0bd7eb37db22ccb5ac03",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_male_v2_0.png",
+          "candidateSha256": "144b63b404942a0b0f4087121d1c75271ce0f90e03a8fd07f067766964f41fff",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "On_Your_Side_Quad_Stretch_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_male_v2_1.png",
+          "sourceSha256": "686dcc310004141bffe6b1a55ae00fc034f73724ff7d2005e5da3f0d20858e84",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_male_v2_1.png",
+          "candidateSha256": "c7a98813de60f5edfd14098e5877ca460d13d444f62ac95a9392e7210e51a554",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "On_Your_Side_Quad_Stretch_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_male_v2_2.png",
+          "sourceSha256": "a5a0ccacda696c50e92e641eda48d8b8c9fa24ce4e9c8557874043340a1dbae6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_male_v2_2.png",
+          "candidateSha256": "031802ae20061991a0dc805cd39ffaf446a8bd96aca1d53c68b28c5b4d9cb421",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "On_Your_Side_Quad_Stretch_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_male_v2_3.png",
+          "sourceSha256": "a3f5909ceca5cbe8febd3ad1f488da7ad04fb4b0a8ebde3d238817a52dd1d2a0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_male_v2_3.png",
+          "candidateSha256": "3f3c93c78e4c5712b3de378cfa71eedef2f9d3b35952ba96d27a96edaa19b950",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "On_Your_Side_Quad_Stretch_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_female_v2_0.png",
+          "sourceSha256": "bbb974905c167d44042e6e7a280e5af296443db2adc4f1bd55b1491be5165cec",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_female_v2_0.png",
+          "candidateSha256": "c53e9eadad19cae512f8bb126ec472ef90611f1931c87cf08fff5f691b50cb32",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "On_Your_Side_Quad_Stretch_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_female_v2_1.png",
+          "sourceSha256": "a7f258e01bda3b025ea9ba6f7a4b05453ef69bf58f02a35f9bc6ac0dd99a5ccd",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_female_v2_1.png",
+          "candidateSha256": "e49f3127a6f22f77f12ebb13bfea7b4f3e27700b3dcb6fca2d7a2c233aa18c6d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "On_Your_Side_Quad_Stretch_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_female_v2_2.png",
+          "sourceSha256": "310b022c7f01d66c5bbb11406baed0c234c0566d624ddbd84124ce22f5c1261d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_female_v2_2.png",
+          "candidateSha256": "d55d42c4e6a963b9ec7bb2ce9851785640b25e6b9dbc7a9346bd9905b4a63acb",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "On_Your_Side_Quad_Stretch_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/On_Your_Side_Quad_Stretch_female_v2_3.png",
+          "sourceSha256": "7987921a5f81b17390a00e4c152494200b60b346ff8a14e6043649c216f2eeb3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/031/On_Your_Side_Quad_Stretch_female_v2_3.png",
+          "candidateSha256": "2de1d9de36eb61125d5558b5de62ef0baaa689592434b92f82140c09bacf5355",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "changedFrameCount": 8
+    },
+    {
+      "exerciseId": "One-Arm_Dumbbell_Row",
+      "shard": 4,
+      "index": 32,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "One-Arm_Dumbbell_Row_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_male_v2_0.png",
+          "sourceSha256": "b525e1f42a2caf94a7923ceeab3faad07322fed284e4cec41487b6b230f2e30e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_male_v2_0.png",
+          "candidateSha256": "d8e1c88cb41977790e4f45ecc56587d982f472a81e3625307ce160f74ad65580",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Dumbbell_Row_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_male_v2_1.png",
+          "sourceSha256": "5eaa715b20bf57009192b839c9a00618e2399c2459ce47d40399bed09e8984a6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_male_v2_1.png",
+          "candidateSha256": "4a6ca8565d92a32cdb3df012188fa7026d35f9aaa55a134448399d8d1227719d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Dumbbell_Row_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_male_v2_2.png",
+          "sourceSha256": "24d3768c460d3a18bf76aa9611ad7dec38e12afc343f1ba0f3845d7aad19d6d8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_male_v2_2.png",
+          "candidateSha256": "995035060cd481b77a7162e2acd28dd8c1c7ae71fbb0a56bf70acdccc53e18f8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Dumbbell_Row_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_male_v2_3.png",
+          "sourceSha256": "970ecb67181c11af1b29c6072ce728d028e81373a286fd2c9d7f6f403c1729b0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_male_v2_3.png",
+          "candidateSha256": "9bd6d80397be1a96196716064be32f45777693884c9848c031c96da5261c7afd",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Dumbbell_Row_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_female_v2_0.png",
+          "sourceSha256": "52984cda411d3515b4b21323dc5e48475aba7203a646c7baf45dcb90413cb1e1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_female_v2_0.png",
+          "candidateSha256": "4bbf069e475686bee556eae1aabb9d739ecfc5a77a861259c0b75019de430307",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Dumbbell_Row_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_female_v2_1.png",
+          "sourceSha256": "e9637e6d0c51bdacfcba98fd096de5d62b53c37a2f9566b26767770675cabf30",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_female_v2_1.png",
+          "candidateSha256": "4741c6344f5c7eaf89e56853ef0c55e6c5cca34d60c65d2a1b287532afab208a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Dumbbell_Row_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_female_v2_2.png",
+          "sourceSha256": "da2575b8e66ebb3df704d47d9663504be504f93b8bcf424389b9df9916ad1006",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_female_v2_2.png",
+          "candidateSha256": "ed4244ccf87f360fe9df1073699f0e968d195c1f38fb54eab4a2a0731c03342e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Dumbbell_Row_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Dumbbell_Row_female_v2_3.png",
+          "sourceSha256": "c0d3cb4f2efd6378a782279df9ae7f51b04d1d49881213a2dd8f584ab55e7a31",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/032/One-Arm_Dumbbell_Row_female_v2_3.png",
+          "candidateSha256": "f4cd78a181799ca112eb54ca545e2d4e1d36b3be637f931278c1c77a6ac3a18b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "changedFrameCount": 8
+    },
+    {
+      "exerciseId": "One-Arm_Flat_Bench_Dumbbell_Flye",
+      "shard": 4,
+      "index": 33,
+      "status": "ready_for_review",
+      "findings": [
+        "Cursor GenerateImage surgical edit + key_workout_chroma.py on 7 frame(s) with floor/fringe/artifact issues.",
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_0.png",
+          "sourceSha256": "ccdc535efc0d36dadab90fc1092081e6c5e1024ccaaea84d1de02261246a065f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_0.png",
+          "candidateSha256": "747390385681462c4180bd45d471ae46171db5b618995b741249e74b4d8be7d4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_1.png",
+          "sourceSha256": "5cc6310de96d6ac90f4e4090509a7672d99562eb6c309fa41d62cf4841bac4b8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_1.png",
+          "candidateSha256": "febb30872c8a47631925638505dba4606804725fa5d744a12f8f104fb14c5c10",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_2.png",
+          "sourceSha256": "0e010828133fb10a4c30d5eeaa144268fb0f04c2421e36ed0a1a96067ab3f7ef",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_2.png",
+          "candidateSha256": "1bbecc228018149192f520412e4c78b44bdd3403bc7f048e521565f626b09b45",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_3.png",
+          "sourceSha256": "305459b7e47358c90f288ecde9247abdf30b0559a1b4f7cb4c3a0ffcbb6e36ca",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_male_v2_3.png",
+          "candidateSha256": "2e50e542f185c1624cb8f629f7ee0c70913683a5b9832ddfb07256dd4968916e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_0.png",
+          "sourceSha256": "db7ae9899abcb10acc4991d1a71d985ebdaad11ce3d9cea07be7f2d506e7a842",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_0.png",
+          "candidateSha256": "f1ddadb8cb0dd6b7b9b3361be85de4b8fe8bef73f808cef51aec8ccf03c75f29",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_1.png",
+          "sourceSha256": "e87521050cea673f63e97b1646e5294c3b79454c95cd7f487c316187e3061e4e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_1.png",
+          "candidateSha256": "c84a35d3ed43b40c5f6e111d50a160d487e6871a4abca128f8cabbf7fadf9376",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_2.png",
+          "sourceSha256": "a1355a565d40df190cbf6af722a83e2dec56eb0637f5299ded3112fe7a69b894",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_2.png",
+          "candidateSha256": "8189f1dd697e7ea1da1f722df2241ba3327c91136a334fc7c2d07f2e4ae73109",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_3.png",
+          "sourceSha256": "708efd634b5ce350e129191c43e95efaf7626c257fda0ba356ba7250b8ddbf37",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/033/One-Arm_Flat_Bench_Dumbbell_Flye_female_v2_3.png",
+          "candidateSha256": "d9e6388ca20c189949c24f7898b8b0b6da10f1f6ff7b6dbabd47b4860d87d2b1",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "changedFrameCount": 8
+    },
+    {
+      "exerciseId": "One-Arm_High-Pulley_Cable_Side_Bends",
+      "shard": 4,
+      "index": 34,
+      "status": "ready_for_review",
+      "findings": [
+        "Cursor GenerateImage surgical edit + key_workout_chroma.py on 6 frame(s) with floor/fringe/artifact issues.",
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "One-Arm_High-Pulley_Cable_Side_Bends_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_0.png",
+          "sourceSha256": "dff8d1db889282e194783b23fb64a793c2da8027f5c47863ae6094304174bfcd",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_0.png",
+          "candidateSha256": "6bba9cb03f46208ce6981ec4d100346ea8601fd168b220a1b12d73ef803943d2",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_High-Pulley_Cable_Side_Bends_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_1.png",
+          "sourceSha256": "bf13fc16dd62a5cd73c10d298acf55eefcd72931e70cd8f3be745a9b39a6304f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_1.png",
+          "candidateSha256": "8a9e13d45008393baf4180c0d0350278e73ec2efe7b09d6cb2b90534b6310868",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_High-Pulley_Cable_Side_Bends_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_2.png",
+          "sourceSha256": "a9ee5b2cb7c15c54f23aa2cbe9465577a38d709c59aec724de47dd0cafddaeae",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_2.png",
+          "candidateSha256": "6d97186a745170d53576ee0f743e766eff285e97e6f02be7973877c48651bc70",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_High-Pulley_Cable_Side_Bends_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_3.png",
+          "sourceSha256": "4d5351657563e84e6453f1f9817d3d5d8a6677028d2c6d8620c7abdc2b0b35c4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_male_v2_3.png",
+          "candidateSha256": "4a1b81545f14c07e071063c4b842cd568def2e9bdc210a444c82df007fd7006e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_High-Pulley_Cable_Side_Bends_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_0.png",
+          "sourceSha256": "3b31acc029ccd53b53b64c2bcb3313822770c73f93ef4e195e6bb005d8abbc0c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_0.png",
+          "candidateSha256": "b14d2980955c6ed1b76ecf4b27e890638dabf24960c11daf68a68bf446aa3a78",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_High-Pulley_Cable_Side_Bends_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_1.png",
+          "sourceSha256": "54662ada4f086e6c1ce732a9c7c9b17fa232c90da63fa94b541bec73f1ce2219",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_1.png",
+          "candidateSha256": "e11b8e993ed4851b5b8eacaed54e3055cafaa5c2eaa600261334019d31eb7f8a",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_High-Pulley_Cable_Side_Bends_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_2.png",
+          "sourceSha256": "e1cbc596099a6b5322851d10b362b419373ec4be6f61002c6413175cb6152853",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_2.png",
+          "candidateSha256": "1a204adb9c3aa4078d68d0a9d36d9f1ddce9ab098c99e8605889986df3844152",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_High-Pulley_Cable_Side_Bends_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_3.png",
+          "sourceSha256": "7e151d7d2b3d46a0a4d1d7bd4f65c828b09bd653c40abbb9c9447f4430f03d90",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/034/One-Arm_High-Pulley_Cable_Side_Bends_female_v2_3.png",
+          "candidateSha256": "b0585bb43cb212a20d4cd70ea9359376bfd065ffefb2b3296155eb772f2a5f60",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "changedFrameCount": 8
+    },
+    {
+      "exerciseId": "One-Arm_Incline_Lateral_Raise",
+      "shard": 4,
+      "index": 35,
+      "status": "ready_for_review",
+      "findings": [
+        "Cursor GenerateImage surgical edit + key_workout_chroma.py on 2 frame(s) with floor/fringe/artifact issues.",
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "One-Arm_Incline_Lateral_Raise_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_male_v2_0.png",
+          "sourceSha256": "1cab24088f2c4d691273e381aedb9e022277811b723b1101409060ae57a952c7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_male_v2_0.png",
+          "candidateSha256": "390d231246311d65e82fab35fa0c56966cf5330ebeef067ee02b8d708eb9ff3a",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Incline_Lateral_Raise_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_male_v2_1.png",
+          "sourceSha256": "05e4fad388872203e9418b953069ae9744ba0e62a285dd4ec3560159f443dd4f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_male_v2_1.png",
+          "candidateSha256": "5b09d95c4905cfae27ea35a0082dbe194043d5ec843c595bbcce16dc00deb528",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Incline_Lateral_Raise_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_male_v2_2.png",
+          "sourceSha256": "7ce7855a2972b898f710031061ffcb6f83784194a2a03260a1995fdc2327b4c5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_male_v2_2.png",
+          "candidateSha256": "44942a06908cb618b4177d24477c5d546c4f19a4086b985f514e7a4d07e0fd36",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Incline_Lateral_Raise_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_male_v2_3.png",
+          "sourceSha256": "b66f6a66c7e4563ca0b1b2b6afb2ee8b928e35b25778057a354a548714079522",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_male_v2_3.png",
+          "candidateSha256": "9f11f47088cb8ca75e9550060b09d17926c5b86c83c7105014ac730971772e1a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Incline_Lateral_Raise_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_female_v2_0.png",
+          "sourceSha256": "21dfc9d26409a555727ae4846f2d71ff0d154f83290dc4eebaf51a25db7435ad",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_female_v2_0.png",
+          "candidateSha256": "ab25c2977c69c0d82de776ff06b9ba9adf22da81277e92701517df1b2d0d7af6",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Incline_Lateral_Raise_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_female_v2_1.png",
+          "sourceSha256": "8ae8e90374e0db555cf1c07ae7874e63eac2839004ceab42e7333d540a13e2af",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_female_v2_1.png",
+          "candidateSha256": "0d239933829d81af5556a8257a3ecaba994f26b094e4e97cb7632cbefcc5c8b4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Incline_Lateral_Raise_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_female_v2_2.png",
+          "sourceSha256": "7645bce3c4948a033e9853217027409cd90204fbd447656cfd3dd2f48c97bec0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_female_v2_2.png",
+          "candidateSha256": "47df25701426e68497941d9733a4c3ad5a9086aaf8ba5b3e56c85ed623eaaa17",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Incline_Lateral_Raise_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Incline_Lateral_Raise_female_v2_3.png",
+          "sourceSha256": "a660488051e61dc75eb1a4b1555b33ef930145ee3e8e7590ea04e71203657056",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/035/One-Arm_Incline_Lateral_Raise_female_v2_3.png",
+          "candidateSha256": "888c3fd8103f3189e3fbbcfe6f71b3f9757c82879b791a60e6b88c53fe14b7ee",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "changedFrameCount": 8
+    },
+    {
+      "exerciseId": "One-Arm_Kettlebell_Clean",
+      "shard": 4,
+      "index": 36,
+      "status": "ready_for_review",
+      "findings": [
+        "Cursor GenerateImage surgical edit + key_workout_chroma.py on 2 frame(s) with floor/fringe/artifact issues.",
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "One-Arm_Kettlebell_Clean_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_male_v2_0.png",
+          "sourceSha256": "05dc0f6a64fe34bdcfe8b6faa45a3e9d62c21b35b4101e974096334b2eac7446",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/036/One-Arm_Kettlebell_Clean_male_v2_0.png",
+          "candidateSha256": "b4d593c7b56e7ba81e460ea772a6b9c9ad63ff1b84a1007c5c932715795e190f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_male_v2_1.png",
+          "sourceSha256": "6128bfd7cca163bd2f8da7c560599a7c5ee90a0ac6e1cd6d85da514443020d10",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/036/One-Arm_Kettlebell_Clean_male_v2_1.png",
+          "candidateSha256": "71718fb9aa224c1b04cc196c363e099834922a5cebd40e9978f0e27fa3a60c0c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_male_v2_2.png",
+          "sourceSha256": "3cce694c8653aecf42296f9c5916ee2b7f6e9ab181a2b089f2b987d6a9c84c6d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/036/One-Arm_Kettlebell_Clean_male_v2_2.png",
+          "candidateSha256": "7a020f951e4d3b52d966d11ab910b94b918b2f5cf550688b449ccde6fba7c435",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_male_v2_3.png",
+          "sourceSha256": "53e7eb5116a263d12dad23ee64b44f558ce4c100586c58291bb7db68ac1526cb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/036/One-Arm_Kettlebell_Clean_male_v2_3.png",
+          "candidateSha256": "ceeb8d72a95d4d6b812e8b00aa18f4e6ddd6b252af42ce22521c0baa2606a6ad",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_female_v2_0.png",
+          "sourceSha256": "4e26efd687c881a15bd137778f1e8d5b98731bdd2995cc3613270a3b453d4bf0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/036/One-Arm_Kettlebell_Clean_female_v2_0.png",
+          "candidateSha256": "06f1ebe0285690076841897ef4b4161befbfa3dc82d5f895869d04ff2c285795",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_female_v2_1.png",
+          "sourceSha256": "d1fc50e8e042268cf7e7bfef01443bdb6c5bd048d3301ddeaf614e482cb74036",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/036/One-Arm_Kettlebell_Clean_female_v2_1.png",
+          "candidateSha256": "b0e272d94b398f9ecdf04246566b31790cd52f1c3f5deeacad1e8d035de10e66",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_female_v2_2.png",
+          "sourceSha256": "7553100df7e911390c32d7f8ad7bfd62af5abe20bf8d73c42006ba9d67fdd258",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/036/One-Arm_Kettlebell_Clean_female_v2_2.png",
+          "candidateSha256": "3c93022369a52793d36e3e3a26659a364a578c352bebf01bacfd8fec1f9c460c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_female_v2_3.png",
+          "sourceSha256": "7f843cb9339490bba0e500b4d2d19c73d1c836eab94afde7cb6ec974868988f3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/036/One-Arm_Kettlebell_Clean_female_v2_3.png",
+          "candidateSha256": "ace1c478a6ace7bb71776a32472ffe5b222a6d9a388ab8c5eec65b074733d585",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "changedFrameCount": 8
+    },
+    {
+      "exerciseId": "One-Arm_Kettlebell_Clean_and_Jerk",
+      "shard": 4,
+      "index": 37,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "One-Arm_Kettlebell_Clean_and_Jerk_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_0.png",
+          "sourceSha256": "d0e33b8602d4abf8ec30e66f1228e62947eda12255729c85bef3bebd0416efb6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_0.png",
+          "candidateSha256": "43208a72281f78f96df63b6c788b2a0baee6772cfb1eeecc62c9525ebfc96b8e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_and_Jerk_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_1.png",
+          "sourceSha256": "e1c51daa3256bf96dda1e2d5661de63350bf6c50e5cb203fa410e2b2c098cfac",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_1.png",
+          "candidateSha256": "925a29057ff72fac38fa47296e1744d4036bb3e7733c6c18fc3b8695dc7168ac",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_and_Jerk_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_2.png",
+          "sourceSha256": "139605d2efbb70bbcd16a3a87f2fecd46e9c3bc946dd3418c5d3e4e4c4eda29f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_2.png",
+          "candidateSha256": "365fcb6004bf46fa3841000cd467c4f2822f8f2346f35aab2a2e69ae95bb153e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_and_Jerk_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_3.png",
+          "sourceSha256": "21269f6857490b463bf0558b60b98cd9cf9defe2aff947626315f1367eecd451",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_male_v2_3.png",
+          "candidateSha256": "f245cf3a9d222099945240486f5c59680e7326b9f7b773d27869e113d99753f5",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_and_Jerk_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_0.png",
+          "sourceSha256": "5884256a8b1f7eb118dd279c4af5847eb0ab749d0cd36205c492452169ec87b4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_0.png",
+          "candidateSha256": "318e0e7973c93d41cac8ddff6d67526ca8a56e038986ec051e936faffdcc1794",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_and_Jerk_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_1.png",
+          "sourceSha256": "22cfe7512e6b27e79116447e4afbe25ae2f989e90296156ba2a928eb04f99e12",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_1.png",
+          "candidateSha256": "1d6754eb5e3d749b4821773bc26e5df28ddf55190b73d36c27e0de2009dba4be",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_and_Jerk_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_2.png",
+          "sourceSha256": "370da676adf28afd1e043e16aa3be3502ac54aac55a0bc829eb326ef8255eea1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_2.png",
+          "candidateSha256": "69e03d5bd5831909f908f66ebba4f0a73001f130f0431be1783a0dcd1a4ccb8a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Clean_and_Jerk_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_3.png",
+          "sourceSha256": "32ff7fffed29b2e6dd224f16318a3cc97062674a202b7340d973653366fe6fbb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/037/One-Arm_Kettlebell_Clean_and_Jerk_female_v2_3.png",
+          "candidateSha256": "65e106ce786483280d47c08eb1c9fa8ee6e4eae49d418cd0ef627ed5397fe70b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "changedFrameCount": 8
+    },
+    {
+      "exerciseId": "One-Arm_Kettlebell_Floor_Press",
+      "shard": 4,
+      "index": 38,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "One-Arm_Kettlebell_Floor_Press_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Floor_Press_male_v2_0.png",
+          "sourceSha256": "6840938e8525308a7341f50d8c480627692c5d45782993d0ac95910ba52a99ef",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/038/One-Arm_Kettlebell_Floor_Press_male_v2_0.png",
+          "candidateSha256": "b7eb641c570f0e7b8e88a5842bb36009d61acffff3327986a848bf431a6aa5f2",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Floor_Press_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Floor_Press_male_v2_1.png",
+          "sourceSha256": "c2d470cf9ab4d4ada812d87f2353c08fa6a6418c9b5c5407f79e327006843725",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/038/One-Arm_Kettlebell_Floor_Press_male_v2_1.png",
+          "candidateSha256": "16e9f85619e53200998190a18479bc6d72b8a34cfddfab9595ddc3f3fbfb8fcc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Floor_Press_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Floor_Press_male_v2_2.png",
+          "sourceSha256": "03e1ebd45daf282253d833da4e95be6f6e9d46a6edf9a68bc9bb60d88e2d85d4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/038/One-Arm_Kettlebell_Floor_Press_male_v2_2.png",
+          "candidateSha256": "2e28c536d3614d0142ec5dd707ace484759c6d34ba4a8f7c26e15a69334acf8a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Floor_Press_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Floor_Press_male_v2_3.png",
+          "sourceSha256": "cb1001bc1f1a46e1082096e4422e77935895c69f508ce1e71cc6cda4c0394951",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/038/One-Arm_Kettlebell_Floor_Press_male_v2_3.png",
+          "candidateSha256": "6e9af43fddcf6cbb5fec99bc099863a2c8c72d0c0eedbb455cca3458779278b0",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Floor_Press_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Floor_Press_female_v2_0.png",
+          "sourceSha256": "d3cb8da9035ad874eecfa13cb9329582e49fec01034ca1b806e321d251fc80cf",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/038/One-Arm_Kettlebell_Floor_Press_female_v2_0.png",
+          "candidateSha256": "812c69e2823f3550e9181279051b9758b8730bcab1a6ec7402faa464caf0f044",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Floor_Press_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Floor_Press_female_v2_1.png",
+          "sourceSha256": "7d9efcf71444fd1b5dddd8267672394413575eb5e2bd580eadd4d2b2914ec8d1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/038/One-Arm_Kettlebell_Floor_Press_female_v2_1.png",
+          "candidateSha256": "da665cc12dcc19495e34b9c111ed90d07f02077007faaa80e2a984a27c13b2ea",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Floor_Press_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Floor_Press_female_v2_2.png",
+          "sourceSha256": "0f6336f35c9c018300f662162a86efccfb134741d4a9446914eb42f4dff2a512",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/038/One-Arm_Kettlebell_Floor_Press_female_v2_2.png",
+          "candidateSha256": "c854c981e8efbd00ac0939cc88d77f531de91c64e6ca381a8039056493693f1b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Floor_Press_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Floor_Press_female_v2_3.png",
+          "sourceSha256": "5d38b152c37f81757d827c7ea6708ac0ad2194edfcd157435d42105f4877ef0e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/038/One-Arm_Kettlebell_Floor_Press_female_v2_3.png",
+          "candidateSha256": "84626ceae5aa8b736cd11cba14f8ea33ef3d823c352493173b3a2302ae05b452",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "changedFrameCount": 8
+    },
+    {
+      "exerciseId": "One-Arm_Kettlebell_Jerk",
+      "shard": 4,
+      "index": 39,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "One-Arm_Kettlebell_Jerk_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Jerk_male_v2_0.png",
+          "sourceSha256": "a2d6ed5b0adb974533141bda06fcda007d634c73cbfba3b1f38e75965e5e0bf9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/039/One-Arm_Kettlebell_Jerk_male_v2_0.png",
+          "candidateSha256": "f4278ff5d8cec0ea2a478000fa5d09abe1a25fa7bb0f13516f2fe9b72cc1bd9f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Jerk_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Jerk_male_v2_1.png",
+          "sourceSha256": "d6b9a0c1e34226bf743896868d726fbfab3eb6fb22f2223a27b84a0377e707e0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/039/One-Arm_Kettlebell_Jerk_male_v2_1.png",
+          "candidateSha256": "d7dae980340d0eec013d370f46bf0dcc7d172ff853b7adc91db8a3b565363bdd",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Jerk_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Jerk_male_v2_2.png",
+          "sourceSha256": "de1b628750492ddc1a135d176ddb56a16707f40a7f21794b27816bbdf96ecca8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/039/One-Arm_Kettlebell_Jerk_male_v2_2.png",
+          "candidateSha256": "b31da3fedc83d0af6513261eee6baa6a47a48404b45598836a49cbfede7ed3ec",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Jerk_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Jerk_male_v2_3.png",
+          "sourceSha256": "463b8021a1aaeb86293631cdc2e114e35f3a80133121b65629846ab0b78f6d6a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/039/One-Arm_Kettlebell_Jerk_male_v2_3.png",
+          "candidateSha256": "c287ee403fab7d0035417d8e863a7bf3a49d85ede76409e703b0493dce007a39",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Jerk_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Jerk_female_v2_0.png",
+          "sourceSha256": "002e4543016d92d96fb491e70d9733b1e2de3a42a5795c955f92b0551ca2c89b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/039/One-Arm_Kettlebell_Jerk_female_v2_0.png",
+          "candidateSha256": "4f6eda4261e79e97238536d11134626a38f9189d75b96ebdf46a56276167a9a4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Jerk_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Jerk_female_v2_1.png",
+          "sourceSha256": "a36d49d3915c9cc0f52414bb967d8ef5084c6a770bf7cb42af91ec8f30bd3e88",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/039/One-Arm_Kettlebell_Jerk_female_v2_1.png",
+          "candidateSha256": "3274d2075816e14c22c904c718c48249df56195c28ab23c32c89dc3c9e8e834b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Jerk_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Jerk_female_v2_2.png",
+          "sourceSha256": "8259a270a2158240ad1999aa7d740a22b64e6ad1d0676e011d1fb86b2227634e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/039/One-Arm_Kettlebell_Jerk_female_v2_2.png",
+          "candidateSha256": "b05c96826bde8943b442d7ae6dba39584845cc37854538c129a9d4ca3d7930cb",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Jerk_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Jerk_female_v2_3.png",
+          "sourceSha256": "8a95d4bc62420650cdc36e32231b97cd23ba932133c8f4763554c0f770a3bf63",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/039/One-Arm_Kettlebell_Jerk_female_v2_3.png",
+          "candidateSha256": "418b1207b89b27034ebc9d43da3d073b67e4abce199ebbceb7429335cf0a3a8f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "changedFrameCount": 8
+    },
+    {
+      "exerciseId": "One-Arm_Kettlebell_Military_Press_To_The_Side",
+      "shard": 4,
+      "index": 40,
+      "status": "ready_for_review",
+      "findings": [
+        "All 8 frames visually reviewed on dark background."
+      ],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_0.png",
+          "sourceSha256": "51baf6808197e9eaa776408ce1efa57b6e7e05404c7e91d9a6e8a0ac1f3df61f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_0.png",
+          "candidateSha256": "bcd9bd269a18e4f06e1a9a4a9a24311414b2da4305ca70d64b3b9be7051c0979",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_1.png",
+          "sourceSha256": "0663f7677d2456e26909428e20facce471383b578fd15c44fc4f1d4df6dbdc3d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_1.png",
+          "candidateSha256": "4a11e8eefde5c823a636b0ed556397c72140dc4a467532145a9d4fc028cf759e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_2.png",
+          "sourceSha256": "c9404cef133912c94d152e8d379c13bf60607fe1c3320e815f06d8e0438ebb3f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_2.png",
+          "candidateSha256": "93cc62d9a62efc0dd452198fb1a3c490384f8e4acd39280d16626c79dd6c971f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_3.png",
+          "sourceSha256": "536ab0dd22777f9533e03ec402f9f00c38374f14d2bda694f20b4dab962709f1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_male_v2_3.png",
+          "candidateSha256": "21e9121e2af8b098279b5854068a349ad07c0f47c215436ceec54d13d0b37d50",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_0.png",
+          "sourceSha256": "8b00e84f9b77842b8490e79338b48a111533f6adb6bc6dbf49eae2387ed18d72",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_0.png",
+          "candidateSha256": "21a17e1bad6e514fdf52333a12759503337c5fdc7155c59debd6f104df40bb6c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_1.png",
+          "sourceSha256": "978d75c6c8efd11d7bf026c9ea588c426fbe6a4f64f8ab7b3bc2736d9d0feb67",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_1.png",
+          "candidateSha256": "8e48485990d1254992ca0e2f13189ab4b5f43a64155dbecfdf7220de9df92c4f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_2.png",
+          "sourceSha256": "adaccec2809f071a27d539f2011d5d2600b4ae1dc8a0299f39973e15fad1591e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_2.png",
+          "candidateSha256": "7570cd0ce291e13275c7018e1d1b1c9697ff257df17caff31dcfd28fc73cd5c3",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        },
+        {
+          "filename": "One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_3.png",
+          "sourceSha256": "db5062b5c0285319cf6bd7b480ca08f8032604852e4d443eee9255abe1f6c2b7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/040/One-Arm_Kettlebell_Military_Press_To_The_Side_female_v2_3.png",
+          "candidateSha256": "63014bc047d2f73199439cb57562278e62da6ebff772b46fe19ccd843a29b0a3",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true,
+          "pixelsChangedFromSource": true
+        }
+      ],
+      "changedFrameCount": 8
+    }
+  ]
+}

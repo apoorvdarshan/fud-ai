@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Physioball_Hip_Bridge",
+  "shard": 9,
+  "index": 85,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Physioball_Hip_Bridge_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Physioball_Hip_Bridge_male_v2_0.png",
+      "sourceSha256": "66d4f14208a66ceb2dd5fb8acd780b31d43909ce9bd79cb0c9f8c7ad672a995c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/085/Physioball_Hip_Bridge_male_v2_0.png",
+      "candidateSha256": "cce7e46db912795ff573afea29b8f390ec83859807fb4f54e8836768fe601db2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Physioball_Hip_Bridge_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Physioball_Hip_Bridge_male_v2_1.png",
+      "sourceSha256": "19614d6173bd97a2a55d92aabce60f879a7998e88774506d4da6426c4e3a6907",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/085/Physioball_Hip_Bridge_male_v2_1.png",
+      "candidateSha256": "5fe8bc3b57bcb9a3e495ad20eb4d7aa86e0fe023f4ee002049a81f17b1d932e0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Physioball_Hip_Bridge_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Physioball_Hip_Bridge_male_v2_2.png",
+      "sourceSha256": "026e70684649cc51200501140a5c1e1d5a999582b213e05d1c7cb9a200414e41",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/085/Physioball_Hip_Bridge_male_v2_2.png",
+      "candidateSha256": "9f6174de2342eb9cb2ddf403a238cd789bd0256804ffa3d6fd52e6331074f154",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Physioball_Hip_Bridge_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Physioball_Hip_Bridge_male_v2_3.png",
+      "sourceSha256": "9a6ad054fc01ee8cd9ae3bc168a5663e4274154c403c55590a0acc4c17bf0b7c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/085/Physioball_Hip_Bridge_male_v2_3.png",
+      "candidateSha256": "1049e22e8b7353e7d6ef8bf40fad6f5d152dfa99e7b454597514fb360d0effa7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Physioball_Hip_Bridge_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Physioball_Hip_Bridge_female_v2_0.png",
+      "sourceSha256": "aba9838c116e1a8a248605f3e96e876a71a70408e90d86b43dabd72cfa32aedc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/085/Physioball_Hip_Bridge_female_v2_0.png",
+      "candidateSha256": "7f6ba6267a4285534d91071b60f870d10a6a61579855e91dd1ea9552a890e977",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Physioball_Hip_Bridge_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Physioball_Hip_Bridge_female_v2_1.png",
+      "sourceSha256": "057280d2c2dfbf246336c83c99a3a8ee12f27b2a09e9241bbcb947a477edda7e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/085/Physioball_Hip_Bridge_female_v2_1.png",
+      "candidateSha256": "239d50023394c371cab3df1462e09bb0d2aff9296b9ccd82ad52d854e0ce75eb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Physioball_Hip_Bridge_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Physioball_Hip_Bridge_female_v2_2.png",
+      "sourceSha256": "3afca5c0dc7d3d190477ee5345aca6df19afb5e10f8674b282b6b8031f3a8f44",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/085/Physioball_Hip_Bridge_female_v2_2.png",
+      "candidateSha256": "b40e80c73e6e4a69206b90ccc96d0c62d1aeff148de7f23b37064de62e41d156",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Physioball_Hip_Bridge_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Physioball_Hip_Bridge_female_v2_3.png",
+      "sourceSha256": "d0b7728cd20ecc1e0912c69c561409628d3e232424af5b6cb152f5081755d046",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/085/Physioball_Hip_Bridge_female_v2_3.png",
+      "candidateSha256": "ceabfb18bc2840d7cc88c931ee2dcb99f01144c55026ab5c90ad19d7061ede67",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

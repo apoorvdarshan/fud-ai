@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Piriformis-SMR",
+  "shard": 9,
+  "index": 87,
+  "status": "ready_for_review",
+  "findings": [
+    "Piriformis-SMR female frame 2 had white floor smudge on dark background; GenerateImage surgical edit + green chroma key cleaned the matte."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Piriformis-SMR_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Piriformis-SMR_male_v2_0.png",
+      "sourceSha256": "6454fa56115f77a81e058236a3a6d6e934ac7c9958853b07c5dfb13fbae2fd1b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/087/Piriformis-SMR_male_v2_0.png",
+      "candidateSha256": "e683fad8feccd4ab05747f16e069919c8abcc170ebb0bbaa6fe2d42f1f54d57f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Piriformis-SMR_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Piriformis-SMR_male_v2_1.png",
+      "sourceSha256": "6e04c3c8b808b510c985fdf147ad3db34d095637a19759ba2e72a92e1c1ce4ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/087/Piriformis-SMR_male_v2_1.png",
+      "candidateSha256": "770ca66b502dd75a3c948683e0b62b9afcb0834b25776cd920ed0bd8f196ce3a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Piriformis-SMR_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Piriformis-SMR_male_v2_2.png",
+      "sourceSha256": "aa4ff69c1e95a1f9ea91acab8c0526e5b88c3862494de27d20aeb1f0d0e472c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/087/Piriformis-SMR_male_v2_2.png",
+      "candidateSha256": "7ab0016f02d720d6b8f2d37465cc2c23f21f274c570fc3ced380482d795b05f8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Piriformis-SMR_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Piriformis-SMR_male_v2_3.png",
+      "sourceSha256": "ccdc04008e03f28d38cba5465bf486192905f85902bf3871ea3857408ae9ce1a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/087/Piriformis-SMR_male_v2_3.png",
+      "candidateSha256": "21857b74f10d26014f36101e21f03f8fc1cb79bd4820c824cd4c85df69bc2af9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Piriformis-SMR_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Piriformis-SMR_female_v2_0.png",
+      "sourceSha256": "9a6de610a005fb090795c19a6c2b93d31e62a0546c068e17df79f2de262defcc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/087/Piriformis-SMR_female_v2_0.png",
+      "candidateSha256": "258bd22abb01a3f414ff386b0d59462bd2f21752f68765d53be214925998f3df",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Piriformis-SMR_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Piriformis-SMR_female_v2_1.png",
+      "sourceSha256": "69907d62ee1864b556c3d0e6794be53145a618c68317f6c0fd0aa8257a2bd28c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/087/Piriformis-SMR_female_v2_1.png",
+      "candidateSha256": "a5c1f5c2dac61afeb170ef5986f091e7923213e28f6e36b73569882cd268a141",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Piriformis-SMR_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Piriformis-SMR_female_v2_2.png",
+      "sourceSha256": "89529fcbe2d4a596ff9bf498391d5a6d8fac544c8378e363d4eb53cf68677b87",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/087/Piriformis-SMR_female_v2_2.png",
+      "candidateSha256": "d25a9910bb0a38d3360591b9c8146d55be87f4ed2962b6ff65ede7baae587322",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Piriformis-SMR_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Piriformis-SMR_female_v2_3.png",
+      "sourceSha256": "bc73c2722ef787f705e8000f3fee212f7e9e8d7eaa4fd9f830cf02937dc0f321",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/087/Piriformis-SMR_female_v2_3.png",
+      "candidateSha256": "b0d001ec75bc7910991b49db74fb4577773b6347d93ad0a8b68c7dc02225a78d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

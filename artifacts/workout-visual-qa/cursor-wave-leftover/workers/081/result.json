@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Parallel_Bar_Dip",
+  "shard": 9,
+  "index": 81,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Parallel_Bar_Dip_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Parallel_Bar_Dip_male_v2_0.png",
+      "sourceSha256": "803e16666f21fcf82cd16138000e2af9202377f32d445d50c13a709881bf37ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/081/Parallel_Bar_Dip_male_v2_0.png",
+      "candidateSha256": "6cabe1c4f3e524996deeae18c508857809c53e7cdd67f66f7934e4d8eda07acc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Parallel_Bar_Dip_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Parallel_Bar_Dip_male_v2_1.png",
+      "sourceSha256": "99c03d0434369d880e254db075586d061abab770b9ecb5f7e64da7f410ad960c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/081/Parallel_Bar_Dip_male_v2_1.png",
+      "candidateSha256": "b4a286098bb86acfd7c1666da4d7ebfa520e7d05e0b01aaf3607574612a3098f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Parallel_Bar_Dip_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Parallel_Bar_Dip_male_v2_2.png",
+      "sourceSha256": "49b03b782e2ee5bec0b74cad7933b659e9bba9321cc098727ebbb25d916de37d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/081/Parallel_Bar_Dip_male_v2_2.png",
+      "candidateSha256": "d6de4ff7ecab46a1211c151d77d5cbd94fe1fbfbe6f614d2dfdd7bc82937794a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Parallel_Bar_Dip_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Parallel_Bar_Dip_male_v2_3.png",
+      "sourceSha256": "1e59a4ec474fdd2a79cad12416fcab4e50ad0ac6d2df3ad4ae465684554f7ab1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/081/Parallel_Bar_Dip_male_v2_3.png",
+      "candidateSha256": "f7ff2f044f834a49ee61860798aca3a28c4c1b935263459384652a7861adad40",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Parallel_Bar_Dip_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Parallel_Bar_Dip_female_v2_0.png",
+      "sourceSha256": "48cd7bfa9ca004efd502ad57e011f38acf899cab8b7994f56336b845a6b6c090",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/081/Parallel_Bar_Dip_female_v2_0.png",
+      "candidateSha256": "7a5dc1b4d049336f083197fcdceb93d8bf615fa9aad162d40f42169878ed3d50",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Parallel_Bar_Dip_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Parallel_Bar_Dip_female_v2_1.png",
+      "sourceSha256": "509b9d0d8601af70fe7dd816ba1207badb15b8e601c3f80dd844f2a0ad115bb3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/081/Parallel_Bar_Dip_female_v2_1.png",
+      "candidateSha256": "82ee367e2e142ecdf2e4168507d9ddab4807c8a5580541c02e42ea55189a458f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Parallel_Bar_Dip_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Parallel_Bar_Dip_female_v2_2.png",
+      "sourceSha256": "5025e6b698997ebabc69336f3055a1a8e1a4aa71c05bdd5a1ff4f1a7f0b012b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/081/Parallel_Bar_Dip_female_v2_2.png",
+      "candidateSha256": "dfb6e27f53c9ed4346d983d2d7c89e68731dcfcf4631bbb50faf613f7decc82f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Parallel_Bar_Dip_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Parallel_Bar_Dip_female_v2_3.png",
+      "sourceSha256": "b02c7f1452d7e38509e5b32609daa46d91899a85b2c96db0de1571f6e5edc3cf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/081/Parallel_Bar_Dip_female_v2_3.png",
+      "candidateSha256": "092cf1ba44e084313d050d25f79dafdde7c8bb3b194a82e088ac0a8149494933",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

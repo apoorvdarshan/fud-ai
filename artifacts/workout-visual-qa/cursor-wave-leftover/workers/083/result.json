@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Peroneals-SMR",
+  "shard": 9,
+  "index": 83,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Peroneals-SMR_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals-SMR_male_v2_0.png",
+      "sourceSha256": "720e7452089b7209c0e3743a89d73846e207d95bd05a2c66f53d565e22d94d4b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/083/Peroneals-SMR_male_v2_0.png",
+      "candidateSha256": "a23787ed5cd4c2dee65523648d749e300e9d1fe592d89327bbecb64324aedd82",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals-SMR_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals-SMR_male_v2_1.png",
+      "sourceSha256": "4e23ece914e58ebbe567d9df908a6c1c6074e076a0759667f79d36386af24896",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/083/Peroneals-SMR_male_v2_1.png",
+      "candidateSha256": "95b34d6998b44563f1989fdcad497cc2a285b25fd3c72a7c6098014057f0a9f9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals-SMR_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals-SMR_male_v2_2.png",
+      "sourceSha256": "013151ebd9f52ada2bd68a2c0138e812bc454d85c719c0ad81b12002e7536352",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/083/Peroneals-SMR_male_v2_2.png",
+      "candidateSha256": "d78bffdb574134c378f3f3bd4551e5bdfd4f4666423c46c47b692a5efdfe54ad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals-SMR_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals-SMR_male_v2_3.png",
+      "sourceSha256": "aa934cabc99f912fb3d0a6f974dd0b4f05e035f4b8d0fb60118e74f10f204cff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/083/Peroneals-SMR_male_v2_3.png",
+      "candidateSha256": "658bf8227e95a8df0c86a516ea64cfc44e15bf6576db9d431b1eefa715d34a41",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals-SMR_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals-SMR_female_v2_0.png",
+      "sourceSha256": "a978bab57183471c88a1f0eaccf98fb542639ba14aac3abd81b9f3189f0ced38",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/083/Peroneals-SMR_female_v2_0.png",
+      "candidateSha256": "358b7527d6e65103874858d6e7c9fbcaffd8c09675d4ea3937fa1a4fef7e1920",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals-SMR_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals-SMR_female_v2_1.png",
+      "sourceSha256": "d892a3e059e132da8f0e67fc082c61f53c98c84f96988520b77e13ee19f516e3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/083/Peroneals-SMR_female_v2_1.png",
+      "candidateSha256": "8bfbb3ad22b4978a463105c1e6317299383e2ab3f28a2d7e712bce87a406851f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals-SMR_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals-SMR_female_v2_2.png",
+      "sourceSha256": "2c95aebc5572b8c60e773f8cdb954070d742e7051d04dd3bcdc9c4b6a75c7273",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/083/Peroneals-SMR_female_v2_2.png",
+      "candidateSha256": "b84ccb57693c2e29382102212365dc1fdd0c5debcd030956905e09de0daf6df9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals-SMR_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals-SMR_female_v2_3.png",
+      "sourceSha256": "cafb01dc7a9f2b6058027801ce3c7d1747ee12528d7097ed10b85aa3e394221a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/083/Peroneals-SMR_female_v2_3.png",
+      "candidateSha256": "3d6fb8071f31d872c309bb413e6658385df2d3cf8756b06bf701ca911998794e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

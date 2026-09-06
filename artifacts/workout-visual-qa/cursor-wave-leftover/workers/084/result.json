@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Peroneals_Stretch",
+  "shard": 9,
+  "index": 84,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Peroneals_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals_Stretch_male_v2_0.png",
+      "sourceSha256": "b3133db621ddc9cd0180ca8e9b4586ca5467ca2dfdbe920b2b3ed13ff1bdf456",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/084/Peroneals_Stretch_male_v2_0.png",
+      "candidateSha256": "5edb1c5035235623df82eca3f3fa92819f4a6fde8146904e748274e742676665",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals_Stretch_male_v2_1.png",
+      "sourceSha256": "57c5a7549b750be587867c4687346180fce1ddb504f87eb44c3fccae88bc148e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/084/Peroneals_Stretch_male_v2_1.png",
+      "candidateSha256": "aee43f16334ad2a658e551fc094bc1f427410b03bf3daff87f3060cdedaa07cd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals_Stretch_male_v2_2.png",
+      "sourceSha256": "f6c9f4f5181786959caafaae7decad48020b1613826dad752e997d98f9dbb5e3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/084/Peroneals_Stretch_male_v2_2.png",
+      "candidateSha256": "fcac97989298fc5a5062f8291673f9adb73fdc3edce4992b2179b7a1330afd7c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals_Stretch_male_v2_3.png",
+      "sourceSha256": "fffd235c7d610f3b6d1fe84fa288c87a17a9e8725600322ad74c010d8a14caa0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/084/Peroneals_Stretch_male_v2_3.png",
+      "candidateSha256": "b22058a9795459b3fde4f40ac2ec8657aa0ffd57820f4d50aa5572aa629bd2d2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals_Stretch_female_v2_0.png",
+      "sourceSha256": "12ca83f8cc497c7ffa88f8aac9fb74fdf379454c9f767ad954ff77c30f1b16da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/084/Peroneals_Stretch_female_v2_0.png",
+      "candidateSha256": "f62457c88d762dba978a5c6827cd366239493efd71ae3ba7751de400aebc7e9f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals_Stretch_female_v2_1.png",
+      "sourceSha256": "f8f2d7b9a56547ee9380e5c55fcf6084155673c99b510879da65dff53c0b6366",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/084/Peroneals_Stretch_female_v2_1.png",
+      "candidateSha256": "10e972a2814d2cc3ca1d8896fc801ebfac259dea02b66ab942452443c618a070",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals_Stretch_female_v2_2.png",
+      "sourceSha256": "3038d748c0796031656bf735ba611667b0e34972a945862a9e2817c30e10090a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/084/Peroneals_Stretch_female_v2_2.png",
+      "candidateSha256": "bf4b25ee0241b1c1aa7b7689a610f328291d026b6b6b19e83e627cb9892013df",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Peroneals_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Peroneals_Stretch_female_v2_3.png",
+      "sourceSha256": "c1dcd1e98b2d444d2ff55a653aaa355f6c4d958ce177c8519d98613e0b31853a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/084/Peroneals_Stretch_female_v2_3.png",
+      "candidateSha256": "a581249346e7c0538088971e4c23fbecc895ae93cc6f700b25f58c124490b270",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Straight_Bar_Bench_Mid_Rows",
+  "shard": 35,
+  "index": 345,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on 8 frame(s) with floor matte/fringe artifacts"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Straight_Bar_Bench_Mid_Rows_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Bar_Bench_Mid_Rows_male_v2_0.png",
+      "sourceSha256": "a98f7c5c5b474f4be10a034f24e871c459a2f10fa6d5e26e53d6cf2819e6a2bf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/345/Straight_Bar_Bench_Mid_Rows_male_v2_0.png",
+      "candidateSha256": "78be3e606e820b3c32d4f233c1976c9fc708aaa5d5c7bf8a52588b717ed67a26",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Bar_Bench_Mid_Rows_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Bar_Bench_Mid_Rows_male_v2_1.png",
+      "sourceSha256": "d7aa47ffeb870e304a3313e94918e2a510bf62e243c8302676cec37d69004ae8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/345/Straight_Bar_Bench_Mid_Rows_male_v2_1.png",
+      "candidateSha256": "aea487fcbcd4e097d458ed87beaa0c28ce3127eab4fd5c160b8f6be17ab0c0a6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Bar_Bench_Mid_Rows_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Bar_Bench_Mid_Rows_male_v2_2.png",
+      "sourceSha256": "111e91718bb5e1c00f7208f51399f8b2e8f53832754ed3dfa8dffbe3bafd5a2a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/345/Straight_Bar_Bench_Mid_Rows_male_v2_2.png",
+      "candidateSha256": "f7086ebaac1870e95597bc065166fec1e6acaf9a58fff5947c5d9bd94b804818",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Bar_Bench_Mid_Rows_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Bar_Bench_Mid_Rows_male_v2_3.png",
+      "sourceSha256": "da64ff4d53393116f0b2931e3b0c4b904a506715efc0b15a12d231272e67f485",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/345/Straight_Bar_Bench_Mid_Rows_male_v2_3.png",
+      "candidateSha256": "ca6478ac2e851e2dc1136ccd2e83f55b3c5a9b26791573708dcd01a0d6584d06",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Bar_Bench_Mid_Rows_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Bar_Bench_Mid_Rows_female_v2_0.png",
+      "sourceSha256": "7f9610fd3e1639b70c85c041012cf41d93fb6831e1c2ba05531f223fe114225f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/345/Straight_Bar_Bench_Mid_Rows_female_v2_0.png",
+      "candidateSha256": "48d6effbd82e6128745fcb20551cac31db7af54b4410bd14eaf42567661e63d6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Bar_Bench_Mid_Rows_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Bar_Bench_Mid_Rows_female_v2_1.png",
+      "sourceSha256": "81d64bd0a0561f307369753bfe624eff344679cdef9f72c5460b65af6d1e447e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/345/Straight_Bar_Bench_Mid_Rows_female_v2_1.png",
+      "candidateSha256": "20cf5c9a015ce51d25f309a074ca492a89c5b06de7668241474f359394eb123e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Bar_Bench_Mid_Rows_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Bar_Bench_Mid_Rows_female_v2_2.png",
+      "sourceSha256": "01ec9144dafb65638d6b8408ce822ebf812169fe1f4abdfbf0c114e49eaac46c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/345/Straight_Bar_Bench_Mid_Rows_female_v2_2.png",
+      "candidateSha256": "b1fd5b0c1c0e33f2c6d91b893d1b80a9c3c895781ce645b1297086dd28455437",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Bar_Bench_Mid_Rows_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Bar_Bench_Mid_Rows_female_v2_3.png",
+      "sourceSha256": "68002ff4b03d9e2465e52cde56181e2ad85b40fba81d86495208b2acd9f65445",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/345/Straight_Bar_Bench_Mid_Rows_female_v2_3.png",
+      "candidateSha256": "a74fc21c703417e5321d362040bb5fe30bfac72d04b886c41860306260a4d771",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

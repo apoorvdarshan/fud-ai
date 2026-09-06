@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Straight-Arm_Dumbbell_Pullover",
+  "shard": 35,
+  "index": 343,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Straight-Arm_Dumbbell_Pullover_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Dumbbell_Pullover_male_v2_0.png",
+      "sourceSha256": "6079170a6d85e4714cee4cefb8f5075df16609b61ea8e761995535f7025f1ca1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/343/Straight-Arm_Dumbbell_Pullover_male_v2_0.png",
+      "candidateSha256": "53ae94fcf9037d34eeb957eba53a33a62eacb334c01ed13bee1e8b8e53e986c6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Dumbbell_Pullover_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Dumbbell_Pullover_male_v2_1.png",
+      "sourceSha256": "3e53029e1820db9acebdb0405dde7f721ddbdce0d4e07bd537c122d10e0f0d8b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/343/Straight-Arm_Dumbbell_Pullover_male_v2_1.png",
+      "candidateSha256": "2f4f9548ce71ef34b32a556bc305c73f80bc66956bb047f98ab9d435d51843ec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Dumbbell_Pullover_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Dumbbell_Pullover_male_v2_2.png",
+      "sourceSha256": "bc1cf2cd9ab7b3e4adf39b951d9f3a9f313f9a4b5975d86153b8e6812fe15fb8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/343/Straight-Arm_Dumbbell_Pullover_male_v2_2.png",
+      "candidateSha256": "09069a78ff14b7758bbef8147f6bc451763c9aab96667140adcfac1030685e38",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Dumbbell_Pullover_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Dumbbell_Pullover_male_v2_3.png",
+      "sourceSha256": "70ae12cb2fa9925ba5e7795d695af25c53aa3e33d53f47a452b306b18e85d811",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/343/Straight-Arm_Dumbbell_Pullover_male_v2_3.png",
+      "candidateSha256": "f069392f4fc23cfc49ca16aed31b6e52a4a2cefcc35c282a41c1994bffdf54e8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Dumbbell_Pullover_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Dumbbell_Pullover_female_v2_0.png",
+      "sourceSha256": "ef4e61b0a0038ce5a1137ec244fe7a471e30bf56f70017a40277313cb102743a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/343/Straight-Arm_Dumbbell_Pullover_female_v2_0.png",
+      "candidateSha256": "7a95838f5e85b3234b529e41cbddac85e6b7c3d2f9643c1eb7f7cc6eec2c0fa9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Dumbbell_Pullover_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Dumbbell_Pullover_female_v2_1.png",
+      "sourceSha256": "d3f768e52b458b3f7010d3dba56460ff38b7cc87af91d87afc9fbde5a7af744c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/343/Straight-Arm_Dumbbell_Pullover_female_v2_1.png",
+      "candidateSha256": "1691b07044468eb0793a23f6021c3f6d4795fd27fa64fbe4d23b44e06025e7de",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Dumbbell_Pullover_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Dumbbell_Pullover_female_v2_2.png",
+      "sourceSha256": "0c0b4507f54866f4c2fb5bae7a7cb5540776c646fb1511e9d23bed9c76a1f23a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/343/Straight-Arm_Dumbbell_Pullover_female_v2_2.png",
+      "candidateSha256": "f617e01d44cf00ee082bf816aeb5bfb1aa0931f28c192cf7eebdfae51cccef1b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Dumbbell_Pullover_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Dumbbell_Pullover_female_v2_3.png",
+      "sourceSha256": "37cc187c4f60ff42b94a91cfa9bd3db3dd1f61e34722e518a6c4a117d30aef54",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/343/Straight-Arm_Dumbbell_Pullover_female_v2_3.png",
+      "candidateSha256": "94369b2d9c913b8120fe38698357ee863b4b92b80ae17d611c32ea7ecd5cf7b2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Sumo_Deadlift",
+  "shard": 35,
+  "index": 348,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Sumo_Deadlift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_male_v2_0.png",
+      "sourceSha256": "cf0a9ad6cd07a6a0426976179b842a63a64aa367a79ac2aab6f07a02429992ac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/348/Sumo_Deadlift_male_v2_0.png",
+      "candidateSha256": "eab5e8d5d30683d868d50e1bbe5b6da4d283dd828c9fabdc207283bbc5d5e7c5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_male_v2_1.png",
+      "sourceSha256": "d26c7b7090d2e0451ca1dcaaaa21056fce287571cef11e2bb46ad02d9eaef2c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/348/Sumo_Deadlift_male_v2_1.png",
+      "candidateSha256": "1755cf01932241f8eee69e56360ff87f77499386045db33a81c5523d8b01cf29",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_male_v2_2.png",
+      "sourceSha256": "501078089866d87cbb2515a08ed394954eff29f733d51dce366d76261e232099",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/348/Sumo_Deadlift_male_v2_2.png",
+      "candidateSha256": "13d5926c9e054b55feb052fe8bfc3a76e958f50d13d0196331a94470a5205c6b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_male_v2_3.png",
+      "sourceSha256": "250995463a5313c9f0dd4350bf950e66be508e63e29819a1d259428bc11f3a9f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/348/Sumo_Deadlift_male_v2_3.png",
+      "candidateSha256": "e5a23f868a1b5821892334c2aa52b7cba6c52b829b9efa53a15e4fb60acab5f4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_female_v2_0.png",
+      "sourceSha256": "ff2b6751449430b384c41de68f03689f096772be3e1cf725cd15000f3d31d70b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/348/Sumo_Deadlift_female_v2_0.png",
+      "candidateSha256": "2324bf4c520de09e9398a487e8316fa4c92731bc1f8e5722fe6698b0d76be0ad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_female_v2_1.png",
+      "sourceSha256": "46bb6740d4b35f8602114b459bc2bd538a96866f95d747318da7b023e8df3a05",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/348/Sumo_Deadlift_female_v2_1.png",
+      "candidateSha256": "0980214c5899dfe41c1a91db978fc65378a795b2a9b73fef3df4ac305648c679",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_female_v2_2.png",
+      "sourceSha256": "964e522be8e0eab42928e159c4bf2987f3641076414a31c598becd0a2347851d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/348/Sumo_Deadlift_female_v2_2.png",
+      "candidateSha256": "408cb49fd0408c9dbde6ee851bb6e919e839a8d011b49a06ab6f4adbb49d7951",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_female_v2_3.png",
+      "sourceSha256": "88c0007d56d948701b762bb107e1fc09bcd73baa1fcad71f3715030a28469d31",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/348/Sumo_Deadlift_female_v2_3.png",
+      "candidateSha256": "2bffb022f88d7897034e7b7507196aba90ab1dc3e70ea6939c95f829954da498",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

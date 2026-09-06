@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Straight_Raises_on_Incline_Bench",
+  "shard": 35,
+  "index": 346,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Straight_Raises_on_Incline_Bench_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Raises_on_Incline_Bench_male_v2_0.png",
+      "sourceSha256": "7a61d1c70e4901f273fa2cb588825a6eef31af629a1feee796861ce16f4dd68a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/346/Straight_Raises_on_Incline_Bench_male_v2_0.png",
+      "candidateSha256": "2eb99a100924e1dcfce176b3bea9318bbe997c31c29fbc6a8888afaccbd53430",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Raises_on_Incline_Bench_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Raises_on_Incline_Bench_male_v2_1.png",
+      "sourceSha256": "bec1849214b610a2c16ab0a0ca2f5cdd65794778ef9826af9918d33897ad2bf1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/346/Straight_Raises_on_Incline_Bench_male_v2_1.png",
+      "candidateSha256": "fef883fb3d3d575ddcdecb248583ec5aa74a2c712e82b7657b5a4d8137c89b2a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Raises_on_Incline_Bench_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Raises_on_Incline_Bench_male_v2_2.png",
+      "sourceSha256": "b03757ec589a483df0d83f6b51bdbfcbbfb367facb5617c8c551b295351a19ae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/346/Straight_Raises_on_Incline_Bench_male_v2_2.png",
+      "candidateSha256": "c18b9620c93292b14e21fde6df9b63a23c6e5a00645e9b58103cb5702c942566",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Raises_on_Incline_Bench_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Raises_on_Incline_Bench_male_v2_3.png",
+      "sourceSha256": "3ab9e47a0705cc26318f39cbfacf470698ff2095e948a28961d3f7a6c8f8fc9f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/346/Straight_Raises_on_Incline_Bench_male_v2_3.png",
+      "candidateSha256": "88e6629774ce2309e1f75bacbe9b3c2516ece057371b1de38212b42378556f02",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Raises_on_Incline_Bench_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Raises_on_Incline_Bench_female_v2_0.png",
+      "sourceSha256": "91e3455aaaf387406e57040067d161f41668151fbb2a8d5ad6fec52b0e3c85bc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/346/Straight_Raises_on_Incline_Bench_female_v2_0.png",
+      "candidateSha256": "39d42205e9f78d92e8b729fa1f6d54b92ff68d4f8424f60fe3199b77b5138348",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Raises_on_Incline_Bench_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Raises_on_Incline_Bench_female_v2_1.png",
+      "sourceSha256": "29ce298d6189d2e91362642a34eddeea034dc14b76dd8bb4d0f69e52272cad3e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/346/Straight_Raises_on_Incline_Bench_female_v2_1.png",
+      "candidateSha256": "13dd635986c6194fd8a81933ddddc26da115c8ac051ca96d4b46ced522eba0a1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Raises_on_Incline_Bench_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Raises_on_Incline_Bench_female_v2_2.png",
+      "sourceSha256": "03fb1ca7c105c24f547ebabc2d21100fc5d2d64f13c4fdd67fc7a97548d53da7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/346/Straight_Raises_on_Incline_Bench_female_v2_2.png",
+      "candidateSha256": "d1eb02f8029213d5ac6fe5c0921cc43dcafd030bbd42a7fece7b4462969f18ef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight_Raises_on_Incline_Bench_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight_Raises_on_Incline_Bench_female_v2_3.png",
+      "sourceSha256": "f7852972ba065122ec3eb3866450f3ba6db26c9e8b24f0bfefe615dc4f14bf1e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/346/Straight_Raises_on_Incline_Bench_female_v2_3.png",
+      "candidateSha256": "e3b4126669b7678a58ed94256cd554000e3aacf0a1bacb65bb0fcebf94dc3b78",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Sumo_Deadlift_with_Chains",
+  "shard": 35,
+  "index": 350,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on 2 frame(s) with floor matte/fringe artifacts"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Sumo_Deadlift_with_Chains_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Chains_male_v2_0.png",
+      "sourceSha256": "45084098aa0211f254751b52f16710a4a996b093006cac1be34ce6d80a367267",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/350/Sumo_Deadlift_with_Chains_male_v2_0.png",
+      "candidateSha256": "9ee642994cc3e54b12d7cf2f2b3c42fb3b442bc7db6ed1930557d9ca687a03cc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Chains_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Chains_male_v2_1.png",
+      "sourceSha256": "92597474d9ef0f7abc406bb35a195b55f746282995fb28139a29d54a12937bca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/350/Sumo_Deadlift_with_Chains_male_v2_1.png",
+      "candidateSha256": "26d44dacdf8bdabecd2e93bf06f101b676574c50770a058e2c0d91c376279db9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Chains_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Chains_male_v2_2.png",
+      "sourceSha256": "146f5f747f21bf31be05181c5b456756ec75ce217a47bdc4bc30fe1717b47c91",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/350/Sumo_Deadlift_with_Chains_male_v2_2.png",
+      "candidateSha256": "8393767975d5f5443b57569a7cf3cd35ea2155408c345294af178fe7c5ef81d4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Chains_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Chains_male_v2_3.png",
+      "sourceSha256": "6b6fd669ad04486320163c43d507fc9fd90afd3b5ac1f8a416d51a2470b3a264",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/350/Sumo_Deadlift_with_Chains_male_v2_3.png",
+      "candidateSha256": "fecc18f605408528e8b22e4d673fdc833b6e08c4d4c3870c5cb5e4bc7cf79bbc",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Chains_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Chains_female_v2_0.png",
+      "sourceSha256": "f58da17a05e0d12a58361198339554299ac568639be9bcd7b3d57b15641cfb1a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/350/Sumo_Deadlift_with_Chains_female_v2_0.png",
+      "candidateSha256": "608a27c820377d44f7be10e96fa626e902c14bc278a617d7ae896e133d2278d1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Chains_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Chains_female_v2_1.png",
+      "sourceSha256": "3fdff6042cc08aa4ff2c44b6fae02fa386bc1328f8c863ba585344c4fddcdbbb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/350/Sumo_Deadlift_with_Chains_female_v2_1.png",
+      "candidateSha256": "2abdfbe1e7aabf46c7ce82d23b66c9315c63f4dd8ae961e9dfdddae4045cbdda",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Chains_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Chains_female_v2_2.png",
+      "sourceSha256": "7166ee6fcce9190032fb1f88f0700d5821b66fd045e45f947f6bbfc7f43942e2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/350/Sumo_Deadlift_with_Chains_female_v2_2.png",
+      "candidateSha256": "8e572d6687a041730d599202eb50c63103d72d43184cfedd00ddb3518cb89b11",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Chains_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Chains_female_v2_3.png",
+      "sourceSha256": "58a145303b30b6031cacbdba485ce2399ecc812207c4f3bce5ed88748e1fbaf8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/350/Sumo_Deadlift_with_Chains_female_v2_3.png",
+      "candidateSha256": "4ca503460d10ad0601a1e381a481836202225bf1e50f0218a6bbcf8ba074c98b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

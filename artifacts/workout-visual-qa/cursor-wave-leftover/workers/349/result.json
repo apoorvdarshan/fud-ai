@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Sumo_Deadlift_with_Bands",
+  "shard": 35,
+  "index": 349,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on 8 frame(s) with floor matte/fringe artifacts"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Sumo_Deadlift_with_Bands_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Bands_male_v2_0.png",
+      "sourceSha256": "c5628f75c026732fc0ba8cb340c08b2a814d4cc0d6ae5a7c45a9dbfeb38b3f8e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/349/Sumo_Deadlift_with_Bands_male_v2_0.png",
+      "candidateSha256": "61fe58f7b582cc61bc5d83dd9a06fdd9fd407a9a51354581f95ea7e8d21fd69b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Bands_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Bands_male_v2_1.png",
+      "sourceSha256": "cdd548777c32919440b0b7e0d75a5773e82c678a278fe42fb052f39b723dbd43",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/349/Sumo_Deadlift_with_Bands_male_v2_1.png",
+      "candidateSha256": "ba3ff39b37689ee1a8b4af4c0acd2184f3b0887a5841e5aeed321a3dcfca66db",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Bands_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Bands_male_v2_2.png",
+      "sourceSha256": "d2aca1e5814e7d9081c2b0dce7841da4a9a46f0ce51a87f4794a7343571dd79f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/349/Sumo_Deadlift_with_Bands_male_v2_2.png",
+      "candidateSha256": "22fe4304b15b3e78156c537dd08e668769067e20700cd51d1b36b328d3faeae4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Bands_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Bands_male_v2_3.png",
+      "sourceSha256": "9ed61e65edbb67fb7347b7f547e1c9f2069d98ced60e957d4da46f3312e7d4da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/349/Sumo_Deadlift_with_Bands_male_v2_3.png",
+      "candidateSha256": "78a3135c675366b042cdd424f3a0af5b201c0896dab4ec62983b983a482bb914",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Bands_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Bands_female_v2_0.png",
+      "sourceSha256": "fc68a268f553164960145cb41fb350c0e133686a85c73151cf689dc10f07b902",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/349/Sumo_Deadlift_with_Bands_female_v2_0.png",
+      "candidateSha256": "f86a4f29af2e7a91f4fb1dc2fe59fded10596458e7f63259124e6a4085f2b6d4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Bands_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Bands_female_v2_1.png",
+      "sourceSha256": "7f02d9b6519ca8ff39a593c1229b36b06f838da253db62c9ec979e8fa62fa2c5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/349/Sumo_Deadlift_with_Bands_female_v2_1.png",
+      "candidateSha256": "0203718d8a65c0236d4426b255c5a542f4999474a7f63f95748bc971eceee627",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Bands_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Bands_female_v2_2.png",
+      "sourceSha256": "a355b352640500f013b045cd5fd9a79833e28282ed0e8eca47c8df162565e3f4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/349/Sumo_Deadlift_with_Bands_female_v2_2.png",
+      "candidateSha256": "b1dab469f449fe91f96279da01262c8131cc67c15992cafa4331cc3450691b19",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Sumo_Deadlift_with_Bands_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Sumo_Deadlift_with_Bands_female_v2_3.png",
+      "sourceSha256": "91aee80e1f3168f6e31d04d763cb0c74e3848a8bcf25036c7ebcedf1712822d0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/349/Sumo_Deadlift_with_Bands_female_v2_3.png",
+      "candidateSha256": "bf78c9f26c85f804ff1ed76ee8d0e323197742ac8d7a7e0170819f15add97d03",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

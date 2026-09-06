@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Straight-Arm_Pulldown",
+  "shard": 35,
+  "index": 344,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on 6 frame(s) with floor matte/fringe artifacts"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Straight-Arm_Pulldown_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Pulldown_male_v2_0.png",
+      "sourceSha256": "2234a9dfc68e3f4bd69ddb5185b10f06bfd249e34d857e6d035a9e6a3a044091",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/344/Straight-Arm_Pulldown_male_v2_0.png",
+      "candidateSha256": "56f6ef5d9ece219fff0ab7a2741f9c6c77900fa6a1a759ca0fcf08975945675f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Pulldown_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Pulldown_male_v2_1.png",
+      "sourceSha256": "a11890031232b02682c881a9b84afd6272add1e958f2dc2e1049f4103b5c6edf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/344/Straight-Arm_Pulldown_male_v2_1.png",
+      "candidateSha256": "4f42e258305208bee2724dd6cc62cc2744f8451767e5ea6587649c2737579280",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Pulldown_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Pulldown_male_v2_2.png",
+      "sourceSha256": "9b84a79cf87ad222536907c1341a3f6ab0fcde0f71daf863f2b4ec9fedd72a28",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/344/Straight-Arm_Pulldown_male_v2_2.png",
+      "candidateSha256": "2fce03bc877436fb07cfa16a7f96726f28b5cbabf389b273f18034d5e58c398d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Pulldown_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Pulldown_male_v2_3.png",
+      "sourceSha256": "b92a25e8920db7caf7cd1af85a69975d6f1aeedff1ab92ee64728edd674e57d8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/344/Straight-Arm_Pulldown_male_v2_3.png",
+      "candidateSha256": "ea94b789303a1a4eb0604083e1209c6d174aed247ad1b4293929b9a3a1dc1b20",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Pulldown_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Pulldown_female_v2_0.png",
+      "sourceSha256": "fcd15d888618e98f2133f7e35da219b65d7aa2f318350fd8ea9e622e78131909",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/344/Straight-Arm_Pulldown_female_v2_0.png",
+      "candidateSha256": "cf099f7c05de9c05fc1f37345a6e7f312c7b7a1bfc1ef1f20adf9fb68f52d006",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Pulldown_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Pulldown_female_v2_1.png",
+      "sourceSha256": "e3ec66a52f243188cbe29d653cf41c5cf1b900a7d761750b7e4a0d209e25fc63",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/344/Straight-Arm_Pulldown_female_v2_1.png",
+      "candidateSha256": "31ba5f8a13e7ed4b69641e249dd2ace4614bb3b3c3f74ccce0bf65554e33a63b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Pulldown_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Pulldown_female_v2_2.png",
+      "sourceSha256": "46d9becb0d44cd5c2b64b8376d58534d7ba07437a6f2983c1641a1d249996896",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/344/Straight-Arm_Pulldown_female_v2_2.png",
+      "candidateSha256": "ca1f6d1ce44c2dfe0291da0fbb521cb762152a6de354d2acb9e4d5bbb7d37da2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Straight-Arm_Pulldown_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Straight-Arm_Pulldown_female_v2_3.png",
+      "sourceSha256": "c6fef7a53c02662d4c69ec44670ed4baec4a7680678c5f5dc939c489a262e788",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/344/Straight-Arm_Pulldown_female_v2_3.png",
+      "candidateSha256": "f521356f0672aeb6c027dba7b2f308b3bf06c07798098a14f74cfcba9855fb9d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

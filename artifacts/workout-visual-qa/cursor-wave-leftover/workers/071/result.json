@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Overhead_Slam",
+  "shard": 8,
+  "index": 71,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Overhead_Slam_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Slam_male_v2_0.png",
+      "sourceSha256": "e530f97fc77ad89005ea858635ffa999b961ec3f62276f190bf8f0923cac422f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/071/Overhead_Slam_male_v2_0.png",
+      "candidateSha256": "0c81432ff9f042cf09864d5ad44babee75cf145f3d35f654e3916ba84e385b91",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Slam_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Slam_male_v2_1.png",
+      "sourceSha256": "5578f50512de42bf2a3c793733bc837d25cedc5179934743bced23a4c21ec5d0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/071/Overhead_Slam_male_v2_1.png",
+      "candidateSha256": "b5b02e9918130cd14ab1311f596207210737a1efab84b21493e373bc20786f7c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Slam_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Slam_male_v2_2.png",
+      "sourceSha256": "96fc50ea3277180380633b77a4960c8d3fbc39616993a8d996949f39c37da037",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/071/Overhead_Slam_male_v2_2.png",
+      "candidateSha256": "d1c7a7076f0ab14259b23c2b5534e9be2874d68bae653f22ad93887acf454477",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Slam_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Slam_male_v2_3.png",
+      "sourceSha256": "0d04725b2272a18bab5db2b38fe1b3b238dd165c6321939b23ba990f63a52d74",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/071/Overhead_Slam_male_v2_3.png",
+      "candidateSha256": "1ce02547ef8e5d27d037a3a6cf070e2a7059b6082a25b5da5db8d534e75d3023",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Slam_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Slam_female_v2_0.png",
+      "sourceSha256": "5946e6b6b9d166b7ddca448f991ad6a4a716687ec88676221d229958e861cd39",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/071/Overhead_Slam_female_v2_0.png",
+      "candidateSha256": "43fc38efbdbfdf902f79574bb715f4b86dbd899988debc729dfa02b5fde5fda8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Slam_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Slam_female_v2_1.png",
+      "sourceSha256": "f55545e397467e131dc08f99b2b7ca67be70768fd95cba5547d22adb475ae827",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/071/Overhead_Slam_female_v2_1.png",
+      "candidateSha256": "094372f89dc7cafbfb50c207dd28f8a113aba0062314e25fd9a23360aaea9b26",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Slam_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Slam_female_v2_2.png",
+      "sourceSha256": "c9462c20f6e59232c6c5962cf20fea7b645a62902d36aabfe6343f41c832b81b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/071/Overhead_Slam_female_v2_2.png",
+      "candidateSha256": "cf7410522af8a56099e2b521c9db350723dfbef75e2985e85abe991d45bddb62",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Slam_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Slam_female_v2_3.png",
+      "sourceSha256": "eb664c97aeb0791c75cbe907d3563b8a45543f752d6be1dda4eda7a3f91ecb90",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/071/Overhead_Slam_female_v2_3.png",
+      "candidateSha256": "09600f8c0be2f77db09a83b5accbe06a68781836ffaca08e12fcbf6056db256d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

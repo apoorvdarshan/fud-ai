@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Overhead_Stretch",
+  "shard": 8,
+  "index": 73,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Overhead_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Stretch_male_v2_0.png",
+      "sourceSha256": "74b3db1bdd448a591fb6e812651ab537b6601531764e2798cd8a67f4e9025640",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/073/Overhead_Stretch_male_v2_0.png",
+      "candidateSha256": "70f2735180ad14113bfb3f3d4ec1d251851a8a67bb417c0ac12de8c805587a0f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Stretch_male_v2_1.png",
+      "sourceSha256": "428406d4e97c0f1a9a076f69caf47265ee922265a7c151a7b0841631bfd93db7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/073/Overhead_Stretch_male_v2_1.png",
+      "candidateSha256": "6917c59eaefe93c4db6277c371ae60073e2487bfc8ac0f179c7566291a0945ca",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Stretch_male_v2_2.png",
+      "sourceSha256": "2e164bb773c5ac808e01b9037be3b1e1706d5e5bb9aee862cfd13e506ec85bd5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/073/Overhead_Stretch_male_v2_2.png",
+      "candidateSha256": "c740d6b60aa20eae1e9f303090fe21ed0af1b0c205a360465805e191e6d8dd72",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Stretch_male_v2_3.png",
+      "sourceSha256": "84d383289a1dbeaf0cd23538110f499b23969ac009e5aa71ab5e433a088e6471",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/073/Overhead_Stretch_male_v2_3.png",
+      "candidateSha256": "0eaa9aa0f90965522603a8e5766d9b538f03b140a7937ac0eecd5764fa97c749",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Stretch_female_v2_0.png",
+      "sourceSha256": "6b5fe5a72b7b12d7f363de08802090b6141b043b5450397e63a3c17369f2c1ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/073/Overhead_Stretch_female_v2_0.png",
+      "candidateSha256": "68f86b6d36a2a623b1170c57cb4e9dd01de0a0b968458067c5bad93e3ca5546c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Stretch_female_v2_1.png",
+      "sourceSha256": "cb25ad16f5d1d481653a0ea03de4fbeac08e74b8573285422ce98deb6d31976f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/073/Overhead_Stretch_female_v2_1.png",
+      "candidateSha256": "72014c55e15451eab0bd163ba1edb2ab7d30cc1b9140b108d2ba0631cd320342",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Stretch_female_v2_2.png",
+      "sourceSha256": "922901d984805c444f244b85c7174ff970000e314e1e21f68aed18712d452411",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/073/Overhead_Stretch_female_v2_2.png",
+      "candidateSha256": "3170f193517d5e9a09d6a9d30331deb93f7f9c9bba6225abc2d19014628961b9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Overhead_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Overhead_Stretch_female_v2_3.png",
+      "sourceSha256": "af04cc67f92b52f53c748b58b1810ba9bef51a9ce00f474755058767241b1bd0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/073/Overhead_Stretch_female_v2_3.png",
+      "candidateSha256": "2a4061e61f285311c746fad01f5928f52729f261ccb7630e3068a35ffb8cd345",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

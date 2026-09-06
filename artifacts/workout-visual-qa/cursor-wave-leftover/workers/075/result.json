@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Pallof_Press",
+  "shard": 8,
+  "index": 75,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Pallof_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pallof_Press_male_v2_0.png",
+      "sourceSha256": "ded0e394ac70740e579cd0cc6e5aea6fac8b78c3966c56b855ef405395a1c653",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/075/Pallof_Press_male_v2_0.png",
+      "candidateSha256": "59e4ae1b82c42f07a3256ec4f78062ad71d618d8a75d82f523857236689a03ee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pallof_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pallof_Press_male_v2_1.png",
+      "sourceSha256": "720df0ffddd6774432437c5d128c0fccafbb2234a3c596d20aa988f7bbda4b1e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/075/Pallof_Press_male_v2_1.png",
+      "candidateSha256": "b60fbba6adcf59a2767b00b3c218117bb7d8109ad7109f7990cb3b6d6559049c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pallof_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pallof_Press_male_v2_2.png",
+      "sourceSha256": "7a36e4cea7daa1293f2ba6b629dbaa5c120cd0b2ab3c39b24d569f3018118fca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/075/Pallof_Press_male_v2_2.png",
+      "candidateSha256": "fcd78a79ddad9487956335fc38a82e0062b56215e96aa619dd1fadcdcdf26d69",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pallof_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pallof_Press_male_v2_3.png",
+      "sourceSha256": "c1ed6c1c1088bd7d77584fff8f1a7105bc25e2829a4b385208ca4341fec609bb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/075/Pallof_Press_male_v2_3.png",
+      "candidateSha256": "e48658112586aa0cbc2e3040af0300f58d32a52420262aabc7a87118032589e3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pallof_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pallof_Press_female_v2_0.png",
+      "sourceSha256": "cb4a0f89a358e55fa4e2a85758a0f77a83c9e8246ddadea5b34e374fbc78c914",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/075/Pallof_Press_female_v2_0.png",
+      "candidateSha256": "2380be643a13b7e78f9de9183b1a014a9ea5b88f5771f09acedb8a3705df88c7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pallof_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pallof_Press_female_v2_1.png",
+      "sourceSha256": "85f6b46bbc1a948125b7c956ad0229c88b50d4ed35fbc6cda14c2d35a2e9ff0b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/075/Pallof_Press_female_v2_1.png",
+      "candidateSha256": "0dc4bebf80e0473c0b24b085d66721937bbb2720963624ba8efda79aa5b0f327",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pallof_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pallof_Press_female_v2_2.png",
+      "sourceSha256": "a997e0e07b2e0d436bad91ffa98c480895fa73104cffe578c4dbdea46ec677d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/075/Pallof_Press_female_v2_2.png",
+      "candidateSha256": "61afa6ed4dccde1869ed92eddf507058c9f24de125a06971b24707dd9354843d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pallof_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pallof_Press_female_v2_3.png",
+      "sourceSha256": "1d417ec731c836b4376a59215b7aef53759e47c0b65a3e8b19860aa3dac07029",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/075/Pallof_Press_female_v2_3.png",
+      "candidateSha256": "7941e2df1122e8e5ca0786c641d40b206a10a7c5b6860452cd61094f2403f6b1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

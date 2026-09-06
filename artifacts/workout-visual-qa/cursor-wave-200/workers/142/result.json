@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Leg_Lift",
+  "shard": 15,
+  "index": 142,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Leg_Lift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg_Lift_male_v2_0.png",
+      "sourceSha256": "947d8fc2429f0c0a7b334162467b0e216149a374ca84db633b6b0330b07f30eb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/142/Leg_Lift_male_v2_0.png",
+      "candidateSha256": "e0660ed01c572d42b904a7ffaff96779b7c91c16e8644555fa0cd50ca2d11b0e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg_Lift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg_Lift_male_v2_1.png",
+      "sourceSha256": "12d5adb34916e9a34a19331058516e7c234326a7442f078d935ed579b11b8931",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/142/Leg_Lift_male_v2_1.png",
+      "candidateSha256": "1fa2c4c33da8c318649efe93a46fa9fc2f77f439311c96c4fd506d35e1886ffe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg_Lift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg_Lift_male_v2_2.png",
+      "sourceSha256": "006abb183f4dc62cbf539a3b03682c0ce1304a01d47da1fe6f338c1b157361f6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/142/Leg_Lift_male_v2_2.png",
+      "candidateSha256": "ea46778fb7791070da1d32a4d77ce3ec6d2935c08dae1b4b4aaef3be194686e6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg_Lift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg_Lift_male_v2_3.png",
+      "sourceSha256": "af1a9eaad168438c1ce232f42dc77d71c3fb1665f8b1d86bda0e5003dc91737b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/142/Leg_Lift_male_v2_3.png",
+      "candidateSha256": "e3c65ef73565c27a32de5432a822fc4edbd83c13af17cec5622b473e610efd1e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg_Lift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg_Lift_female_v2_0.png",
+      "sourceSha256": "26f83092d9438604f5c2ec7092eef779e235c41b94ece902a65a431908836c88",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/142/Leg_Lift_female_v2_0.png",
+      "candidateSha256": "6106476bc727a80f4fa537573dd8befc012fe258e1b7d2cf2d46f102aeabc81c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg_Lift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg_Lift_female_v2_1.png",
+      "sourceSha256": "0c7c80c8ebb3bc93e65ccc13cdb716e0dcf550ec44214c9c6e44bdd051eb88a8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/142/Leg_Lift_female_v2_1.png",
+      "candidateSha256": "0ee334d5bd461e76499496086981059469e6d7dd84e55db49b8533184ae70407",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg_Lift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg_Lift_female_v2_2.png",
+      "sourceSha256": "c45bfce2c52ccbf7b1de73fa6b87672dd3f8670b8cf783456b247fec455b228c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/142/Leg_Lift_female_v2_2.png",
+      "candidateSha256": "436860018f6672890627c1c8e29b06779761a20859d2bb802ed65677c0ac976d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leg_Lift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leg_Lift_female_v2_3.png",
+      "sourceSha256": "807b52f4fa3f687bc7564632acf115f5799c1bc9211f6b2dd6ceb98a6991a96b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/142/Leg_Lift_female_v2_3.png",
+      "candidateSha256": "a0502236da789653c084c7e6e82cb269543bb8065ebfb4ad1702ee7be6e84c13",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

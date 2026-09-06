@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Leverage_Incline_Chest_Press",
+  "shard": 15,
+  "index": 149,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Leverage_Incline_Chest_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Incline_Chest_Press_male_v2_0.png",
+      "sourceSha256": "aa673ae9e640dd05359df882257cfcc07f0b85197e8381f60a71b6974a749278",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/149/Leverage_Incline_Chest_Press_male_v2_0.png",
+      "candidateSha256": "bd662bed5460a17fdc40294471b1c3928ad34adf90030d97549617b1c19a4cec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Incline_Chest_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Incline_Chest_Press_male_v2_1.png",
+      "sourceSha256": "6e9aa70ea07ed9545c6df9248d9d813e9c423ce6d4893e4281d3bdd78dc304b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/149/Leverage_Incline_Chest_Press_male_v2_1.png",
+      "candidateSha256": "b33c2d962c8a7a7d10e186da510d55fed4233982c89acdebc125c1a0018bdacc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Incline_Chest_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Incline_Chest_Press_male_v2_2.png",
+      "sourceSha256": "dc1aa30d6e373111dff774ebf5464d6be2ca89f0358a362ec09c88526848388c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/149/Leverage_Incline_Chest_Press_male_v2_2.png",
+      "candidateSha256": "52009beb4f67286003ced4810dc9e36254b9b313815e39314b8133c6852c9170",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Incline_Chest_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Incline_Chest_Press_male_v2_3.png",
+      "sourceSha256": "723587e33a089aee4a5a687b8f467a4da0038b2936d83403eb1aeb0cf5f0acf8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/149/Leverage_Incline_Chest_Press_male_v2_3.png",
+      "candidateSha256": "16fafc3dc4a755f6f0c53169c5bf515ff2dd26362f0a13ecfb7e484f45d4c89f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Incline_Chest_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Incline_Chest_Press_female_v2_0.png",
+      "sourceSha256": "a68f3bcb22c5eca16ce162f07bb6dccd9f4fa6b7c4f4176c3f8398e9683b063e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/149/Leverage_Incline_Chest_Press_female_v2_0.png",
+      "candidateSha256": "71e774079d6e15211e96ed72f4d53fd11614080cc488696f440e9a57db9ef74e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Incline_Chest_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Incline_Chest_Press_female_v2_1.png",
+      "sourceSha256": "08d3f64bff40e3b8488abc15836c5570421d6f7aa8c55724bf2820acec349cf4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/149/Leverage_Incline_Chest_Press_female_v2_1.png",
+      "candidateSha256": "37da21fdb21c5c08f079b50d8b388e3ccd6da424f10ef4f9af97d727bfb9f352",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Incline_Chest_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Incline_Chest_Press_female_v2_2.png",
+      "sourceSha256": "d856a1280f60f723978d2639bcc48f80b06615717837150edf9232dd5043bdfa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/149/Leverage_Incline_Chest_Press_female_v2_2.png",
+      "candidateSha256": "0964741cb2d7abe9ceb1d328349347d8b2ebffb5f8153eb6ff71db73f8050000",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Incline_Chest_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Incline_Chest_Press_female_v2_3.png",
+      "sourceSha256": "011e41f86e208ff38066ed1f1a1d19cffc4bd06416d43155c98764816e363676",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/149/Leverage_Incline_Chest_Press_female_v2_3.png",
+      "candidateSha256": "a9e31d658e007534cb863306048e8e48792fa3e428a3669920bee4e4234e1b86",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

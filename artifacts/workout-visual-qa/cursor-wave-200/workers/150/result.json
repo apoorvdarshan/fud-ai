@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Leverage_Iso_Row",
+  "shard": 15,
+  "index": 150,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Leverage_Iso_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Iso_Row_male_v2_0.png",
+      "sourceSha256": "64e77dde18dee59f21ba0d76843de061ba61aea7ecb00ad7af5a8ed71f59e63c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/150/Leverage_Iso_Row_male_v2_0.png",
+      "candidateSha256": "2246a57d4d98f65e8fdfdf300eea62458f96a37823b311905ec475b4225125c0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Iso_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Iso_Row_male_v2_1.png",
+      "sourceSha256": "3df52ae59bf67c699eeb4269bab7d3513df798a67bc1cff651bb3880d9f187d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/150/Leverage_Iso_Row_male_v2_1.png",
+      "candidateSha256": "e8f1e70362a5bcc3f323b777061c1cf18280abe29ed1ebb78ea5ffbee3ef3580",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Iso_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Iso_Row_male_v2_2.png",
+      "sourceSha256": "c9b943761b9b8af759fe882a4611885736b4f0f64980ce6558ecaad8a99ea974",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/150/Leverage_Iso_Row_male_v2_2.png",
+      "candidateSha256": "7be7e2e9bc4b4b339e5a0c04f7e11f77bdd1d88898a1c6de051ccf15d1e98d3f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Iso_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Iso_Row_male_v2_3.png",
+      "sourceSha256": "0138e128f974a6ccbd6b106ea030c960b4ba7dd25337f7625f50d700f670a044",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/150/Leverage_Iso_Row_male_v2_3.png",
+      "candidateSha256": "5672dc722054064008eb3f8bf247f30b0d807e998eac1c4cdeae8cc64012e9c5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Iso_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Iso_Row_female_v2_0.png",
+      "sourceSha256": "5af07a9a91f68f6e42a20ccde37a0c6a5ae33e42d1ebcc8239dec99309d829b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/150/Leverage_Iso_Row_female_v2_0.png",
+      "candidateSha256": "a4253224e8614dd6cec5b76a8c3da73d122666601e9daf3fd00d4ec8472918e9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Iso_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Iso_Row_female_v2_1.png",
+      "sourceSha256": "8a69afb538e695903dde63aa24f43fe4f556093deae0e8b020e8fa19c96e04c3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/150/Leverage_Iso_Row_female_v2_1.png",
+      "candidateSha256": "7fae342c41e989d4a3b17692ddedc6b5bbfb3916665dd59561af24542c68f09d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Iso_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Iso_Row_female_v2_2.png",
+      "sourceSha256": "731223d9362c32e052988748a8ee3a1b1633460bb0d6af78baba591affeb4d70",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/150/Leverage_Iso_Row_female_v2_2.png",
+      "candidateSha256": "b9f0929f39e18020971970599905ac507a0bd27858fea1bc3e847a5d6a64fbf2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_Iso_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_Iso_Row_female_v2_3.png",
+      "sourceSha256": "79aa32b6c62d9eaa164ea45925d77d1330c54295aa7dd2b73027f583f3c0f19a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/150/Leverage_Iso_Row_female_v2_3.png",
+      "candidateSha256": "10b10a23d1ba6bb29ca89f151cfeca76896efade03d17077d67b7c3c767edd53",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

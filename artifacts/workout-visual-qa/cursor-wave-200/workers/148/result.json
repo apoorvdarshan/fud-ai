@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Leverage_High_Row",
+  "shard": 15,
+  "index": 148,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Leverage_High_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_High_Row_male_v2_0.png",
+      "sourceSha256": "0e56c642baeaf8a92cf65440c09b5563ee8887053cf58111b3e8bf2273fb58e3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/148/Leverage_High_Row_male_v2_0.png",
+      "candidateSha256": "cf6a9e7dd4ae5ff9538294aca7dcb87cf4422e132871a212e34344a954a24fda",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_High_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_High_Row_male_v2_1.png",
+      "sourceSha256": "158530610518b56bb4d5622b6a9dbb208cf78eb3dcbe1ff62457cdcdf222845e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/148/Leverage_High_Row_male_v2_1.png",
+      "candidateSha256": "0b450f1dfa3dc79411b3ef359bfef2ee6aa0d043e7443ed04c3246e3fb0f328d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_High_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_High_Row_male_v2_2.png",
+      "sourceSha256": "18b4208e35150741f6f33ad374eb9ea658f981ba709a45d97d713af66eb5354c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/148/Leverage_High_Row_male_v2_2.png",
+      "candidateSha256": "f1a7754263711312cc39b1e7de430a7c1276928484a588b46f6a203953aea323",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_High_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_High_Row_male_v2_3.png",
+      "sourceSha256": "dafdf18f93086c8aab762e2b3ff9790188d8b3890292090e50e2decace8528d9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/148/Leverage_High_Row_male_v2_3.png",
+      "candidateSha256": "3780cfa3a8e61400257a0e45dcb685b8857857a27ed66f1444958e57be632d8c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_High_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_High_Row_female_v2_0.png",
+      "sourceSha256": "0fa1fce05a01960e289177d8df4fd1c2aae08c563a765de9b3cb96b040abd0e9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/148/Leverage_High_Row_female_v2_0.png",
+      "candidateSha256": "4a8210678b23ccd70565bd99a03c68fbff9168977c3f53d3b57043a9be24526a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_High_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_High_Row_female_v2_1.png",
+      "sourceSha256": "60f5b80ef9c4927d090febd7504dba37aeeb9374803ce529882a4585662c9d8d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/148/Leverage_High_Row_female_v2_1.png",
+      "candidateSha256": "239c3353864d4376c7e37a617488cedf60540b916e1988e3c78fccff8bed68d7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_High_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_High_Row_female_v2_2.png",
+      "sourceSha256": "c9b6dc43a56635baf7de7b1f166ba164b3ba5437842c1e81780fdcda09adc19b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/148/Leverage_High_Row_female_v2_2.png",
+      "candidateSha256": "0fbaf4bd8d87b7c796b356f8624cf3d2a57ff2e7b3776c15f21af2e6444fedbd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Leverage_High_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Leverage_High_Row_female_v2_3.png",
+      "sourceSha256": "50c6c10aba7cd2cc83d9340a8533a7b40f074b770abe734947ce7acc5a31ea13",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/148/Leverage_High_Row_female_v2_3.png",
+      "candidateSha256": "eb4ea050cfe2b26b5ae5dfe05ba12519e2c8a5ec3e5e604f16aeacadf27deb10",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

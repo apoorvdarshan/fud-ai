@@ -3,7 +3,9 @@
   "shard": 9,
   "index": 90,
   "status": "ready_for_review",
-  "findings": [],
+  "findings": [
+    "Removed green chroma-key artifact under seat; cleaned equipment edges."
+  ],
   "unresolved": [],
   "frames": [
     {
@@ -11,9 +13,9 @@
       "sourcePath": "/workspace/shared/workout-vectors/Ab_Crunch_Machine_male_v2_0.png",
       "sourceSha256": "c6be93a479b34a67c84d8907e322a71f56c7a8763823e050d07c8b3f93f30cf2",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_male_v2_0.png",
-      "candidateSha256": "951e4de4076d7ff4cfc1cbaa11e306048f36172be3f030bf68a0b7f8c4747b62",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "8885fa477a4e855fcdb22a81b668258caa5acab5cca397b1818045eff65f7032",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Ab_Crunch_Machine_male_v2_1.png",
@@ -22,7 +24,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_male_v2_1.png",
       "candidateSha256": "5834c1958c255b6fda8070ab4a728c9bf990384f6dde806a67338732a1ecf5e4",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Ab_Crunch_Machine_male_v2_2.png",
@@ -31,7 +33,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_male_v2_2.png",
       "candidateSha256": "3e5375a056304843eefa0e3781066ed9c80665361d1b6312a05046cd15338038",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Ab_Crunch_Machine_male_v2_3.png",
@@ -40,7 +42,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_male_v2_3.png",
       "candidateSha256": "d368fb9b3fa5a09db8f203db15adf9cb34dc8099657a58aa9cb8ed87b976033d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Ab_Crunch_Machine_female_v2_0.png",
@@ -49,7 +51,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_female_v2_0.png",
       "candidateSha256": "7c8f0eef863e6883e63c0f49db546a853245b859fd4517391845e30376677f33",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Ab_Crunch_Machine_female_v2_1.png",
@@ -58,7 +60,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_female_v2_1.png",
       "candidateSha256": "30309c5b3b5cef1ad5ff05269d85b7924ff3184f5dae504c0f25f01ed66ff503",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Ab_Crunch_Machine_female_v2_2.png",
@@ -67,7 +69,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_female_v2_2.png",
       "candidateSha256": "8620aa1b888f01b118129afce497329ed67df934377cef110e2834416d393cf0",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Ab_Crunch_Machine_female_v2_3.png",
@@ -76,7 +78,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_female_v2_3.png",
       "candidateSha256": "4b869798fe56ee4a7a9dcd45b860cacf8feb23d099b34beb4d85b1d1bc3b551e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

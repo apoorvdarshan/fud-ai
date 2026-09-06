@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_male_v2_0.png",
       "candidateSha256": "a5b3135cd784d23306465c214a7fe0af996c8df91b9c027d0dc8c969d160feab",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Kettlebell_Windmill_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_male_v2_1.png",
       "candidateSha256": "eb4c7dedf318c1ff0f0f2fa7ec9352181605895e5a3cf3b99c507ced1be9a9a7",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Kettlebell_Windmill_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_male_v2_2.png",
       "candidateSha256": "883f7db3aacc05e9e7983f5de8e40a0c204f985cc46bb67ba149d8fac9f36ae6",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Kettlebell_Windmill_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_male_v2_3.png",
       "candidateSha256": "7138b31ab7f96c6ded25657e21ca9357b478c614877a05d1c18d75dcf46afa27",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Kettlebell_Windmill_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_female_v2_0.png",
       "candidateSha256": "8002598e1c9523d702e1477011022b77d1a7484a751ef8ce1189fb4a070f9c5e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Kettlebell_Windmill_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_female_v2_1.png",
       "candidateSha256": "229211be079f90f58d1af2928c4e55d676286291d2aae98c6fc960166f826c92",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Kettlebell_Windmill_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_female_v2_2.png",
       "candidateSha256": "6bebd96036d0d7c93e574fdf2fd2649e4741088c23f6863b9a2afca6d1e57a60",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Kettlebell_Windmill_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_female_v2_3.png",
       "candidateSha256": "dff7a3cfce92fa2928186fa3e37d61fc89fa644d04bed9c355dbccc3ef3c1a17",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

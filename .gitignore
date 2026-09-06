@@ -29,3 +29,7 @@ ios/**/xcuserdata/
 artifacts/workout-visual-qa/review-batches/**/previews/
 artifacts/workout-visual-qa/cursor-pilot-10/candidates/
 artifacts/workout-visual-qa/cursor-pilot-10/previews/
+artifacts/workout-visual-qa/cursor-cloud-100/candidates/
+artifacts/workout-visual-qa/cursor-cloud-100/staging/
+artifacts/workout-visual-qa/cursor-cloud-100/workers/
+artifacts/workout-visual-qa/cursor-cloud-100/previews/

@@ -24,8 +24,14 @@ def main() -> None:
     args = parser.parse_args()
 
     exercises: dict[str, dict] = {}
+    sources: list[tuple[Path, str]] = []
     for decisions_path in sorted(BATCHES.glob("batch-*/repair-pass-01/human-decisions.json")):
-        batch = decisions_path.parts[-3]
+        sources.append((decisions_path, decisions_path.parts[-3]))
+    for batch_id in ("cursor-pilot-10", "cursor-cloud-100"):
+        path = ROOT / f"artifacts/workout-visual-qa/{batch_id}/human-decisions.json"
+        if path.is_file():
+            sources.append((path, batch_id))
+    for decisions_path, batch in sources:
         payload = json.loads(decisions_path.read_text(encoding="utf-8"))
         for exercise_id, row in payload.get("decisions", {}).items():
             if row.get("decision") != "approve_candidate":

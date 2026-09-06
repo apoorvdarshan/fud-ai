@@ -1,0 +1,92 @@
+{
+  "exerciseId": "Elevated_Back_Lunge",
+  "shard": 11,
+  "index": 101,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical + green chroma key on 2 frame(s) with pale fringe/floor matte: Elevated_Back_Lunge_male_v2_2.png, Elevated_Back_Lunge_female_v2_2.png."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Elevated_Back_Lunge_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elevated_Back_Lunge_male_v2_0.png",
+      "sourceSha256": "ef765224f388145e35fbb727481f264be81db54ab8e9d77e2eab9b04b36777da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/101/Elevated_Back_Lunge_male_v2_0.png",
+      "candidateSha256": "88a747cc40e93a98859047702712697412f43debe6ec75b19afe8eb1f8382f7e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Elevated_Back_Lunge_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elevated_Back_Lunge_male_v2_1.png",
+      "sourceSha256": "9f6afbeb2fd1f6ea926162bb3ab64f8ae245869e779e0eb17ff4c991b1dac257",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/101/Elevated_Back_Lunge_male_v2_1.png",
+      "candidateSha256": "b14d88acb5bd5023667b0b8fc1e2db76b0d2799412b00d6e02b1da273b7152ae",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Elevated_Back_Lunge_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elevated_Back_Lunge_male_v2_2.png",
+      "sourceSha256": "88510a62eccea08450cc38ce1d4b341d13472bf816c70552a090e687f55713d2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/101/Elevated_Back_Lunge_male_v2_2.png",
+      "candidateSha256": "eb2c238e5b32fa8037b9f81af7316970018868637baf035da612356f42a13a06",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Elevated_Back_Lunge_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elevated_Back_Lunge_male_v2_3.png",
+      "sourceSha256": "d8afde0a34b0349ce344486b70d767226e901f3e2c54d057ad932f69c6a4f44d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/101/Elevated_Back_Lunge_male_v2_3.png",
+      "candidateSha256": "45a98ac62ef1f43536e3d4663fa1f425fc2ea84ae067c5990e18470937984e27",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Elevated_Back_Lunge_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elevated_Back_Lunge_female_v2_0.png",
+      "sourceSha256": "4bdef94c1e236d9f560d4f9a99424c0d2e8d7476ec43cdb856b219f384bbf7e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/101/Elevated_Back_Lunge_female_v2_0.png",
+      "candidateSha256": "eb7defeeb2caf5e36428127adae1f0a8d260be0dabed431fc864b830695ec291",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Elevated_Back_Lunge_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elevated_Back_Lunge_female_v2_1.png",
+      "sourceSha256": "ea9715d9f7267a76fc125bf3289b53c0fc7231f4062d82f1dfced52378f62982",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/101/Elevated_Back_Lunge_female_v2_1.png",
+      "candidateSha256": "6c98196977b35fe13cf4ca4b1f62c0c4c86679ebd8e82d28729f6b114aab6ebf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Elevated_Back_Lunge_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elevated_Back_Lunge_female_v2_2.png",
+      "sourceSha256": "36dc4026761782c1f4c3c32ad2c7c0fc2f226bdcc410544b8e9b1d01ae2647ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/101/Elevated_Back_Lunge_female_v2_2.png",
+      "candidateSha256": "2d7d54a7807d5223db2cc7f94846c32c5f61aaa799c30c8b62b46a7ca16773d6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Elevated_Back_Lunge_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Elevated_Back_Lunge_female_v2_3.png",
+      "sourceSha256": "24eee27a7177c11329dddd8f232d0a8b43b11e6ae2f95509fead26b3ee4099ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/101/Elevated_Back_Lunge_female_v2_3.png",
+      "candidateSha256": "97d8e526c64ae91133202d1c1562b226878b353622ee2f382c09fbf564af8d81",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ]
+}

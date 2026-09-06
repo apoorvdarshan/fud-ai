@@ -1,0 +1,90 @@
+{
+  "exerciseId": "Exercise_Ball_Pull-In",
+  "shard": 11,
+  "index": 104,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Exercise_Ball_Pull-In_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Pull-In_male_v2_0.png",
+      "sourceSha256": "e017bea604bf6969d8027082941535b5aeca1af16d9d736a129e38f1f61ae5e9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/104/Exercise_Ball_Pull-In_male_v2_0.png",
+      "candidateSha256": "06335edbf882a7aa6299d73fc725d14cf8a6d788431be8cfb13db156c5bb0816",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Pull-In_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Pull-In_male_v2_1.png",
+      "sourceSha256": "0c23fe7416bc2e511e137a32dce3ba69deb32d2d4dbf7e6b867876ec0b79f026",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/104/Exercise_Ball_Pull-In_male_v2_1.png",
+      "candidateSha256": "6ef17b0248c36e58556bc3034fcfdc0f10c92d1b7f0a1d8b8b8cca2ca1130792",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Pull-In_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Pull-In_male_v2_2.png",
+      "sourceSha256": "a2bb09768885c4eebf2a7190d07fbbee981a33f389dab74c44b368f9d8e10d8e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/104/Exercise_Ball_Pull-In_male_v2_2.png",
+      "candidateSha256": "74735acd39bbae4bca1a5b058ec9b63b7e93f3561c37341045c52de1d0588c61",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Pull-In_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Pull-In_male_v2_3.png",
+      "sourceSha256": "e5be147dada7edfd9501960a5d94f9c790c04c9f9644538744907c4a1cb84c7b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/104/Exercise_Ball_Pull-In_male_v2_3.png",
+      "candidateSha256": "cfa6c6c1d9fd21a0e32d3b2183dbeb406941e11e62628faf584f172a7798a9aa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Pull-In_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Pull-In_female_v2_0.png",
+      "sourceSha256": "6fb8730218b0d4f8d1966e17628a14183dbb861cb89fcf63d3214002b723ff4a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/104/Exercise_Ball_Pull-In_female_v2_0.png",
+      "candidateSha256": "190e1484f9c394a33656d1aed7f1b5323d1052e1dc9fc78defb8fd5a67514a26",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Pull-In_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Pull-In_female_v2_1.png",
+      "sourceSha256": "a668deabdf734069e2e8a07698f29ce3f480abddd78902bce76665e8b07df0bc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/104/Exercise_Ball_Pull-In_female_v2_1.png",
+      "candidateSha256": "da59cb7c634c6d6f5c33bd1c4e65b47c1880143824f36212948bbe7e5d16383d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Pull-In_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Pull-In_female_v2_2.png",
+      "sourceSha256": "ff065002c94772e6a73394cc2a0f776a84b4122f5d95c7173b93c9c4ccb3f3a5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/104/Exercise_Ball_Pull-In_female_v2_2.png",
+      "candidateSha256": "dd1a14b3ba9d0b78c8accb8a719bd7cae88161c42e7f7502ccadf789c9594596",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Exercise_Ball_Pull-In_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Exercise_Ball_Pull-In_female_v2_3.png",
+      "sourceSha256": "efd948d6a916ac9bd03049110d22c5942dd21fac2f132f2bea2cc320e1a43937",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/104/Exercise_Ball_Pull-In_female_v2_3.png",
+      "candidateSha256": "a05c6cc5811caff694dbba665ff66abab8e02508283b70f6d627badadaef12f6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ]
+}

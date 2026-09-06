@@ -1,0 +1,90 @@
+{
+  "exerciseId": "External_Rotation",
+  "shard": 11,
+  "index": 106,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "External_Rotation_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_male_v2_0.png",
+      "sourceSha256": "538e9d41c8b516d8bedbc73d729e5d91fa737479d732000baf409bed162bbe12",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/106/External_Rotation_male_v2_0.png",
+      "candidateSha256": "ffe45826c9455729c1001bc46c00fd6b7e466ec1c7b51db1824d60088f6b4b3a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_male_v2_1.png",
+      "sourceSha256": "6f99451e7d84579f07c38e141554c5ba113d302d18b694e57f6663cb02ac46bc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/106/External_Rotation_male_v2_1.png",
+      "candidateSha256": "812bcec992ec4838b35a271bbcabf43fc92af68f8c7f2452c189fe26b88d4ca0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_male_v2_2.png",
+      "sourceSha256": "b846fc92985e46bb0afeeb8952ed965f7478e77da554f4daebefca5480a71a05",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/106/External_Rotation_male_v2_2.png",
+      "candidateSha256": "e2f09012f44fbdec6cc7a87e9fa32a19e92734b0f9d041c4e74f07c3e9ac2bc9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_male_v2_3.png",
+      "sourceSha256": "d994b09f0f3438d87e2e41d5d7d23484c5985bf89ca6728ceb98fedb28e1317b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/106/External_Rotation_male_v2_3.png",
+      "candidateSha256": "ce6ebbf067b38b8621a9e1bc98908e7e16910ed2af3bf13379fa233e4b83f96d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_female_v2_0.png",
+      "sourceSha256": "f8acb6fe629e307957cf6f0abb3088371ce0fb8a93bcd9a49eb497d901b3e801",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/106/External_Rotation_female_v2_0.png",
+      "candidateSha256": "f285987e2eb46c245003a9b219262d7f6c451572b05a479ac29691566c56ddd3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_female_v2_1.png",
+      "sourceSha256": "f9b05b725946ede79ace795b15604fd019bd5956dc79d4710a25c3d77799e16b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/106/External_Rotation_female_v2_1.png",
+      "candidateSha256": "3cce2c413de9aecb4147eb2014efa38c3167aa7c5004d72a0377f0e980f96ba8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_female_v2_2.png",
+      "sourceSha256": "da683972896be15b1b38935c54bc24aa98e6af197c2e5bf09a42cf00954bb40c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/106/External_Rotation_female_v2_2.png",
+      "candidateSha256": "ca865cef317e72d95c09dfa49d1be56b06904d76918e2caf58db3f8f559d8740",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "External_Rotation_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/External_Rotation_female_v2_3.png",
+      "sourceSha256": "a92d90bee49e8961407745c99b1673bc2427e8de950c7e0e44b5baf0b2c50599",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/106/External_Rotation_female_v2_3.png",
+      "candidateSha256": "bb96a4e4632fa292372d6e4cd52b6a65ee98d5e4274472851edab99948bbcd11",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ]
+}

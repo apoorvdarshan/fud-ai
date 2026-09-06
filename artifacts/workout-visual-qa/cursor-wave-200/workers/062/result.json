@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Chair_Squat",
+  "shard": 7,
+  "index": 62,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Chair_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Squat_male_v2_0.png",
+      "sourceSha256": "0ae295cb6376163abc46e8026318d349bf61235c4bf44dbcffc58ccead724700",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/062/Chair_Squat_male_v2_0.png",
+      "candidateSha256": "125277a2e4fa27b97de766509d4d2ca3a2fe06bd9a5237e3b8a6fea2648d9d59",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Squat_male_v2_1.png",
+      "sourceSha256": "1a7cb431cb68c87361bef5f07ee2fa53ed758589ba065b8c89fd412639361123",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/062/Chair_Squat_male_v2_1.png",
+      "candidateSha256": "94e2ae7b54a07a1933cd52095d4238a41125e7c5de37af1f15d5d6e8a2e20e8f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Squat_male_v2_2.png",
+      "sourceSha256": "07d648440d67845665f25c8f74477e5686b3d03f9721758cd1c526db8cef04d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/062/Chair_Squat_male_v2_2.png",
+      "candidateSha256": "5f95ceee210cb42e14c3a76cfd72bd5da6f69452abbce81d0db3ab06f40bedba",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Squat_male_v2_3.png",
+      "sourceSha256": "07beafa214045642ec01bb55003291971ba031a95b5a2777aa289f87a62341f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/062/Chair_Squat_male_v2_3.png",
+      "candidateSha256": "a34ca9407fb534266146dfe3c93bb15ba59cc3280afa837b0876a44b295c89fe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Squat_female_v2_0.png",
+      "sourceSha256": "ab643685c56d80580112ed7dcf683dc30f50f3a07ae7442122b95bdedeec8cf4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/062/Chair_Squat_female_v2_0.png",
+      "candidateSha256": "e5a4dea5dabdf4ca0ebf9fc5b2c837906986a3f048c1440ab3486a32e8c965fb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Squat_female_v2_1.png",
+      "sourceSha256": "fe956ee81593e138bc8ed606e55d88c54bc8015881314e35e101b83627c01275",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/062/Chair_Squat_female_v2_1.png",
+      "candidateSha256": "9697e4389c7bc783b93e7596ba11f7619d372e337ad884733b458eb9eeb77be0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Squat_female_v2_2.png",
+      "sourceSha256": "2a04e87b68f751f7bb79b8c573fc62d3f1700c0dcdb910931dbc66ac1b180771",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/062/Chair_Squat_female_v2_2.png",
+      "candidateSha256": "0a5d5476cbf3c170561bc7180981bd8efad2491960ac8125ae970d9648780f60",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Squat_female_v2_3.png",
+      "sourceSha256": "4b36a73c055bd8ccdf054a3705458a00afe9a4644d3b7226f5b640a004a9ca8c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/062/Chair_Squat_female_v2_3.png",
+      "candidateSha256": "1eece40fc6d9d6c3ae7fb9b9f4248387933e59c279daa621e470ec30c402ac73",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

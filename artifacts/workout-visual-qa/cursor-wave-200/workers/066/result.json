@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Chin-Up",
+  "shard": 7,
+  "index": 66,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 8 frame(s) with baked white/pale fringe artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Chin-Up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chin-Up_male_v2_0.png",
+      "sourceSha256": "34067dd1da5338d8b330c064e71eb636075ff5023e6359804c4a710b25670f79",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/066/Chin-Up_male_v2_0.png",
+      "candidateSha256": "536fb719c776d200a786614e84da71bcbd40d4c3e6c429aa3b30095cc5260ec1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chin-Up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chin-Up_male_v2_1.png",
+      "sourceSha256": "74f8a2d81c12d66d2796ce32be410e1f0bc152d2c6ce7007fdcd2437429f22f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/066/Chin-Up_male_v2_1.png",
+      "candidateSha256": "155db6b46209a2c857063fa61e698a549e5ca2ee89d6405598845948c42e7aa7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chin-Up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chin-Up_male_v2_2.png",
+      "sourceSha256": "067901be8175e12a07f5183450014c8a952c0a5fbca98090c5fa29f6f148ab14",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/066/Chin-Up_male_v2_2.png",
+      "candidateSha256": "31ca6b1d4ce9d0927f70561298f3f0d4feac1c77d4de892f41f72f0403bc89f7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chin-Up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chin-Up_male_v2_3.png",
+      "sourceSha256": "d087a45e35543d9c33894bdf69006b08521cbb39c4591b0edac9b4ec79a07e7c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/066/Chin-Up_male_v2_3.png",
+      "candidateSha256": "336f968be74ef07e1133a25758e2b7b2032453d4c19840765aa77412545b0182",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chin-Up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chin-Up_female_v2_0.png",
+      "sourceSha256": "c27774d5c38893079553ace39e5e4049e0ff9965139aa9b6d9c6b949bfbe58d1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/066/Chin-Up_female_v2_0.png",
+      "candidateSha256": "9c2be604c3ba3917d458a7cac44b73d285537e0453c7d8b928867641bd0d6a3f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chin-Up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chin-Up_female_v2_1.png",
+      "sourceSha256": "2e1b7f0bfbf7bd610f52ee5794aa1f461dede5b6144a15bbef4ff4b9bb2e6ba1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/066/Chin-Up_female_v2_1.png",
+      "candidateSha256": "c5216e0a67b4caf74ca24b5326037a0a18db67c86a7db10e089a8fa7b61d21a2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chin-Up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chin-Up_female_v2_2.png",
+      "sourceSha256": "ca3619fe3df75e22f377ae722f1b04b173a4c7cb7ebfb36f4e507c2918bffbe5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/066/Chin-Up_female_v2_2.png",
+      "candidateSha256": "4d395a0d857cb6ad83211b2306164fbbda905abf16ba6e050be2a1a0243fb2cc",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chin-Up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chin-Up_female_v2_3.png",
+      "sourceSha256": "4de57504d9a2687171e39c3f7a4f0532911b550e97fd433653265a5e70d2064d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/066/Chin-Up_female_v2_3.png",
+      "candidateSha256": "23df37fd0db9bfa2d0839c83253777a3d7939316f09a45f5a54702968b058934",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "changedFrameCount": 8
+}

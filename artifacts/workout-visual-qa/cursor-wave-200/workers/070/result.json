@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Close-Grip_EZ_Bar_Curl",
+  "shard": 7,
+  "index": 70,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 2 frame(s) with baked white/pale fringe artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Close-Grip_EZ_Bar_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ_Bar_Curl_male_v2_0.png",
+      "sourceSha256": "509079a77f9f4d6433b5bbd9f738eb9ae8a7eec7fe332cc8d6638a621d4d960d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/070/Close-Grip_EZ_Bar_Curl_male_v2_0.png",
+      "candidateSha256": "f4c730a602e925fb28a8ccee56173765248731620c241f29ed2470f7e1be7e82",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Close-Grip_EZ_Bar_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ_Bar_Curl_male_v2_1.png",
+      "sourceSha256": "553c9937604c9ba2b868ad55dd2b8ca450b5f946476acdb9a45fe78dff1d0caf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/070/Close-Grip_EZ_Bar_Curl_male_v2_1.png",
+      "candidateSha256": "b68246ec029f5e07b0bd30c530cce7c3faa4d92d9b6ffce842c2e3de8fd01aed",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Close-Grip_EZ_Bar_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ_Bar_Curl_male_v2_2.png",
+      "sourceSha256": "d556633a4e30e53c1923a17fd9e564c59d55fe3dc4ca8826a65ab5ca15648611",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/070/Close-Grip_EZ_Bar_Curl_male_v2_2.png",
+      "candidateSha256": "f8364ca91361d5aa306443927e43e6ba9f37e31b2f3179dd66c1a14370a84873",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Close-Grip_EZ_Bar_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ_Bar_Curl_male_v2_3.png",
+      "sourceSha256": "a645aa11a239e1057c54da85b45201a2276e84e53a003424db1a4bda47f2241f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/070/Close-Grip_EZ_Bar_Curl_male_v2_3.png",
+      "candidateSha256": "a5f2e96621caea159a690390fb5414a436724c6cb7e81ff6b63116cacaa5c0eb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Close-Grip_EZ_Bar_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ_Bar_Curl_female_v2_0.png",
+      "sourceSha256": "bb3c5c59c48e4ec7ba47f5151b0b8da00fa8f756c28a1326fc9e34fd1c322ed8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/070/Close-Grip_EZ_Bar_Curl_female_v2_0.png",
+      "candidateSha256": "eb4bb3b16e93b3bd95ce33487848bfa2f5ecf0bf98242bdfe282f070c3160432",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Close-Grip_EZ_Bar_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ_Bar_Curl_female_v2_1.png",
+      "sourceSha256": "54b1936d68a613f16c4024f440518e32ff84de996916d177c02bd9f37f422dae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/070/Close-Grip_EZ_Bar_Curl_female_v2_1.png",
+      "candidateSha256": "c0396a341bd0666de7a42e4d326e974318e6951b74ecb205fb06b2f33bdd282b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Close-Grip_EZ_Bar_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ_Bar_Curl_female_v2_2.png",
+      "sourceSha256": "9dc76c66f1d0af9d3de4e03c06e847184b359419fe57e386bd78d854721bc378",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/070/Close-Grip_EZ_Bar_Curl_female_v2_2.png",
+      "candidateSha256": "5af03708a8535aa096e8d4e2893d860da7c462f7e916b2c0ef8a00fe90f62fc5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Close-Grip_EZ_Bar_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ_Bar_Curl_female_v2_3.png",
+      "sourceSha256": "791577f85a0176440d08ca276850f2a9c82a17dd4f00d1aacbe57ea384dc4fd3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/070/Close-Grip_EZ_Bar_Curl_female_v2_3.png",
+      "candidateSha256": "d2fcfed3e37ac3a811948657491cb574e7b92a387ab3b555672d6e5865cd8ae9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "changedFrameCount": 2
+}

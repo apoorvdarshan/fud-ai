@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Chair_Lower_Back_Stretch",
+  "shard": 7,
+  "index": 61,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Chair_Lower_Back_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Lower_Back_Stretch_male_v2_0.png",
+      "sourceSha256": "f174f8ad8087cf200fc7e2fabd379425ffee11990953b0192a446e66b1b28dfe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/061/Chair_Lower_Back_Stretch_male_v2_0.png",
+      "candidateSha256": "bbcae9d323d24094482096eee39ed68777a26f78c3ebc80ce625616010a9c4ae",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Lower_Back_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Lower_Back_Stretch_male_v2_1.png",
+      "sourceSha256": "200cc195d8f6293f0eb37646ef003b5b5a9be8d68b5d51ba0bfaa6df8f43ca26",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/061/Chair_Lower_Back_Stretch_male_v2_1.png",
+      "candidateSha256": "07b32903c453475c059a08887c245d19d56f4e3b62ea10e2850e481ac5479c81",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Lower_Back_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Lower_Back_Stretch_male_v2_2.png",
+      "sourceSha256": "b3ce28e12508f6b800a5574d4219aed6e0689ebefa89214b9a0338da3aaba053",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/061/Chair_Lower_Back_Stretch_male_v2_2.png",
+      "candidateSha256": "bd8b143d4503966fa834f8ea2ba328375ef026844f149a32862bbfb9be748295",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Lower_Back_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Lower_Back_Stretch_male_v2_3.png",
+      "sourceSha256": "50953f89a433a455ebf15910824eac3b607a2ef9969da84c3770ff0822de7317",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/061/Chair_Lower_Back_Stretch_male_v2_3.png",
+      "candidateSha256": "d2bb62cdc7244e0d19388ffe76b185a74e35db612a3e6be2b8717105ae3675c5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Lower_Back_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Lower_Back_Stretch_female_v2_0.png",
+      "sourceSha256": "a453f16a55d47fa3775f24cdb7b05de73d838ba99bf73e51557352ff6cbfd6ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/061/Chair_Lower_Back_Stretch_female_v2_0.png",
+      "candidateSha256": "8b4c5d5494168dc23422fc0cca35fb7355e04ba52cf59e6fd9e207807b22ef97",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Lower_Back_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Lower_Back_Stretch_female_v2_1.png",
+      "sourceSha256": "c2046c0c6b1296a60bad7b4dcdb809594b51e68205f3b757ea096ac0befd8d41",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/061/Chair_Lower_Back_Stretch_female_v2_1.png",
+      "candidateSha256": "84176ff842507e1a6db12cf8dd7ed1b6ad1e0e4bc142d181cb4722cde21cff83",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Lower_Back_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Lower_Back_Stretch_female_v2_2.png",
+      "sourceSha256": "f0554083f568fd0d24b72acecd1448b70036d550c771da9cf9a91a7c61562c1b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/061/Chair_Lower_Back_Stretch_female_v2_2.png",
+      "candidateSha256": "c2f7c4f2567f8891d9385843607d5f3a192d9c467a73105b39a4c7ebc060d3c9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chair_Lower_Back_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chair_Lower_Back_Stretch_female_v2_3.png",
+      "sourceSha256": "5946b91f89ee3387a806102faaf4bc8432258387104f43d1ae160f52c108075d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/061/Chair_Lower_Back_Stretch_female_v2_3.png",
+      "candidateSha256": "8ecc8e499219bf4518287b52a0faebb3f04ade0645ee9a286bf89cec2a44947c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

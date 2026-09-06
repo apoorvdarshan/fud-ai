@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Chest_Stretch_on_Stability_Ball",
+  "shard": 7,
+  "index": 65,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Chest_Stretch_on_Stability_Ball_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Stretch_on_Stability_Ball_male_v2_0.png",
+      "sourceSha256": "40e8b4faa86d530b06e148aece22aab2aadc208bf678adc5f5b35314de47bc01",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/065/Chest_Stretch_on_Stability_Ball_male_v2_0.png",
+      "candidateSha256": "6eef19a0222bedc23f235fc6757b78fa05fa9ff3959cf365d43cd771a82a7675",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Stretch_on_Stability_Ball_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Stretch_on_Stability_Ball_male_v2_1.png",
+      "sourceSha256": "4fef63c9a97f3cddc972e660addcddf5262732d8f7b6372eda33b5e71b7e31f4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/065/Chest_Stretch_on_Stability_Ball_male_v2_1.png",
+      "candidateSha256": "5755b17454ed2844d3aebd20245bf95bf629fd5facc701ff1d72dd111be0ab84",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Stretch_on_Stability_Ball_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Stretch_on_Stability_Ball_male_v2_2.png",
+      "sourceSha256": "abdb0feae16216942a163e1fdfdd5d0aecb0e573a1a7f0fbb96c5ba8ae5b5fcd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/065/Chest_Stretch_on_Stability_Ball_male_v2_2.png",
+      "candidateSha256": "815431349a7a9fd1257ab9c8d1e3aa4f4b5dcf17c670506d25b5e562c933a00f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Stretch_on_Stability_Ball_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Stretch_on_Stability_Ball_male_v2_3.png",
+      "sourceSha256": "d4a3a1dafda1e57e5a6592c5ab6a16756cf73b783fbb36f09ae25b925592f814",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/065/Chest_Stretch_on_Stability_Ball_male_v2_3.png",
+      "candidateSha256": "f08907ebddb2c7c22dc07b0780535a2f90b2cb40afae63658fd610a9bff7b86c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Stretch_on_Stability_Ball_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Stretch_on_Stability_Ball_female_v2_0.png",
+      "sourceSha256": "99ef58dbed63cea74e50c446c9c1c2acf2867773b77713d1ffea8e670c43aab7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/065/Chest_Stretch_on_Stability_Ball_female_v2_0.png",
+      "candidateSha256": "a34fd0265234ddf761ea808b28ef734a7e8cf04c6363e2d4b62fa9fbd0551318",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Stretch_on_Stability_Ball_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Stretch_on_Stability_Ball_female_v2_1.png",
+      "sourceSha256": "173fb1701fc452bb605eafd01ed5cc7921ad8f6200597220ed0013bfdcd8426a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/065/Chest_Stretch_on_Stability_Ball_female_v2_1.png",
+      "candidateSha256": "c96338b0d63ebac165c638774310880bc52465d5ba5d9f424fdbf35cca419d3d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Stretch_on_Stability_Ball_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Stretch_on_Stability_Ball_female_v2_2.png",
+      "sourceSha256": "40ee75948b1d7601c5063dec901cab8d8e40b4adadad748d973f6b99a92b76a7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/065/Chest_Stretch_on_Stability_Ball_female_v2_2.png",
+      "candidateSha256": "0cd980c486e0738ba5080ff9328a429ac56711cbcc2cc476f93d5bbc40db5432",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Stretch_on_Stability_Ball_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Stretch_on_Stability_Ball_female_v2_3.png",
+      "sourceSha256": "d24b43259d6ba6c6fc614c4129e2c2e22522af08b7ac295a2c94bf930c419111",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/065/Chest_Stretch_on_Stability_Ball_female_v2_3.png",
+      "candidateSha256": "2a29e7d7f8de3eda643d967d4bc47694c09ee6bd7879ddc3c172bce7d0fd208a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

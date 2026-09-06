@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Circus_Bell",
+  "shard": 7,
+  "index": 67,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Circus_Bell_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Circus_Bell_male_v2_0.png",
+      "sourceSha256": "2f287e11698bccec159245424a0087f678277801d807c86e82bb3991f167eb0a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/067/Circus_Bell_male_v2_0.png",
+      "candidateSha256": "5c47a79378a3c0ec36f4a3330c6f571ea879aa5df95f01e5cf62a6f8ca2c912f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Circus_Bell_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Circus_Bell_male_v2_1.png",
+      "sourceSha256": "664d751c089666c26631bf37099494ebc9c463945f25ba2d2185b26c8573d013",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/067/Circus_Bell_male_v2_1.png",
+      "candidateSha256": "1b286486001a819b946957d253ea9281e9801960dac01cfa235c015b2946369d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Circus_Bell_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Circus_Bell_male_v2_2.png",
+      "sourceSha256": "0f3bab5424e4036f897c8c406b96448cd11a26a542d3af78b378d3a687aef875",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/067/Circus_Bell_male_v2_2.png",
+      "candidateSha256": "9f1e9d2323177c4d6dc3819dac23ed3cc4d4de90e81b3df3059a0cfbca834440",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Circus_Bell_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Circus_Bell_male_v2_3.png",
+      "sourceSha256": "ffd8962a7fa8cba2d8d332977b8be532b065f54f881a9e5af80b788cd5ae8820",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/067/Circus_Bell_male_v2_3.png",
+      "candidateSha256": "840374ba0c6c282ac7b002c733479d50a88f37f42471751dd8a3ffd5e61f4ddb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Circus_Bell_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Circus_Bell_female_v2_0.png",
+      "sourceSha256": "810682999eb26e47a019c28fa25613bf9d674c47a6350eee550b7fb5801fa18b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/067/Circus_Bell_female_v2_0.png",
+      "candidateSha256": "a9dae9410a92480dcf372d022445de005b2c7c09f175b8c8a94ccd6905d6b1a0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Circus_Bell_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Circus_Bell_female_v2_1.png",
+      "sourceSha256": "106e48a81dced8ae0f10ee94349cbcd418563e0e3545ea42e6bb95d949f63986",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/067/Circus_Bell_female_v2_1.png",
+      "candidateSha256": "ec8d1f21d6e01e2616213680c84f37251454dd4599ba52eb0d1b28d9c78561e2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Circus_Bell_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Circus_Bell_female_v2_2.png",
+      "sourceSha256": "97be67aac6c15a2f489938b937cf445d25bae8ed44800bd3292843783923cd67",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/067/Circus_Bell_female_v2_2.png",
+      "candidateSha256": "ea47a1c1e51232c68abbcaeab0c57af57433070ce2327ff255132e4cdcf55107",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Circus_Bell_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Circus_Bell_female_v2_3.png",
+      "sourceSha256": "54694923c7d77180af8d5078341d0a1675e3ad25851de0694b345e6bf94381b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/067/Circus_Bell_female_v2_3.png",
+      "candidateSha256": "0f33cbdc86b392823b178aa991da0c7a86fd2e77ee9147700db249da4a16e1af",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

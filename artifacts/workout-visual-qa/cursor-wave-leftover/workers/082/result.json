@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Pelvic_Tilt_Into_Bridge",
+  "shard": 9,
+  "index": 82,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Pelvic_Tilt_Into_Bridge_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pelvic_Tilt_Into_Bridge_male_v2_0.png",
+      "sourceSha256": "0040514e61b662d18f644d124f89c43e9742935d8ce03e67a3034dd003bcc117",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/082/Pelvic_Tilt_Into_Bridge_male_v2_0.png",
+      "candidateSha256": "a803f74bebbbaf93a4ada8e71e5a89a32ece1c90eafc7875eddf8cac0443348f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pelvic_Tilt_Into_Bridge_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pelvic_Tilt_Into_Bridge_male_v2_1.png",
+      "sourceSha256": "a4adf14c5f9cb0a1f28d83b69e160b488fd8ff7b52502744d0c909bac3453173",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/082/Pelvic_Tilt_Into_Bridge_male_v2_1.png",
+      "candidateSha256": "7306d5eb7c9a7064d26db303cc3dadfb6ad23f98da990a22d00d00167fe4584c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pelvic_Tilt_Into_Bridge_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pelvic_Tilt_Into_Bridge_male_v2_2.png",
+      "sourceSha256": "cd4246b43f7946ecef72cf6b287ab908a52fc3ca498b10512673aeb56b1dc132",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/082/Pelvic_Tilt_Into_Bridge_male_v2_2.png",
+      "candidateSha256": "4cdf69ec5b258de3a576fafd10a2f6b33e504e0280970eba9f57b718d5b27e1f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pelvic_Tilt_Into_Bridge_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pelvic_Tilt_Into_Bridge_male_v2_3.png",
+      "sourceSha256": "3c55bdaefe667680645af2ae9c25813fc3b88d970d567cff6760d4d737d8b05f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/082/Pelvic_Tilt_Into_Bridge_male_v2_3.png",
+      "candidateSha256": "2c2bfe8f21ae7a78f51b73c2a69d18171a2eeccc728f68e1bb4f83ad69c1dc69",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pelvic_Tilt_Into_Bridge_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pelvic_Tilt_Into_Bridge_female_v2_0.png",
+      "sourceSha256": "09027c5ac4dddc351b3c5a658547ee41980e34a1e01e38a280912fbf10ef9a98",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/082/Pelvic_Tilt_Into_Bridge_female_v2_0.png",
+      "candidateSha256": "12931fa803f6680b8a22ee680b35e7aa8beac72453023101371662eab7c4ae1d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pelvic_Tilt_Into_Bridge_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pelvic_Tilt_Into_Bridge_female_v2_1.png",
+      "sourceSha256": "93bba6afe6ed3c920d77e537485ea6ecaf026153405cf0b3150bdd62cf44e0fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/082/Pelvic_Tilt_Into_Bridge_female_v2_1.png",
+      "candidateSha256": "1bd652a484cdcc99aa1679f45cd7c1fb00d46c28833573e7c5c787db92da961a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pelvic_Tilt_Into_Bridge_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pelvic_Tilt_Into_Bridge_female_v2_2.png",
+      "sourceSha256": "48c11bde82c92a7aa404d93563edf776af1002875e8a712af8c789f7812c901b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/082/Pelvic_Tilt_Into_Bridge_female_v2_2.png",
+      "candidateSha256": "315329ad1d2cf54189b4f66cfebfd87248489a2406e9b7006373ea9e925e6bfa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Pelvic_Tilt_Into_Bridge_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Pelvic_Tilt_Into_Bridge_female_v2_3.png",
+      "sourceSha256": "7ebdc92dcfb299d5beaf4f73e71878e8dd7b25ebaf9d4b2157389b05089237e2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/082/Pelvic_Tilt_Into_Bridge_female_v2_3.png",
+      "candidateSha256": "0aa2c96ad6f7a6deaca5cccf400241da1352f4ee6d86dddda5bdd59218406382",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

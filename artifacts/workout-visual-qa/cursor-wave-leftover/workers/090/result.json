@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Plate_Twist",
+  "shard": 9,
+  "index": 90,
+  "status": "ready_for_review",
+  "findings": [
+    "Plate_Twist male frame 1 had white pixel halo after script pass (worse than source); GenerateImage from source + chroma key.",
+    "Plate_Twist female frame 3 had pixelated fringe at glute/plate contact on dark background; GenerateImage surgical edit + chroma key."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Plate_Twist_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Twist_male_v2_0.png",
+      "sourceSha256": "c3b2548ce2675688d4282d0944f3ceb456c4951b5fcfe39b93917d311aaf9763",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/090/Plate_Twist_male_v2_0.png",
+      "candidateSha256": "8702834e817f1a5044ca2091de7ee490243abae64d565d10d4d4d39db79b459b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Twist_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Twist_male_v2_1.png",
+      "sourceSha256": "aead0ab5e8096c246749ccd61a76b47299c7995d6727398af46e925194024816",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/090/Plate_Twist_male_v2_1.png",
+      "candidateSha256": "90c7f2daba1e1453b297f15abcc11c9b9c67942c2dc3a3b945efbd31bfff952e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Twist_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Twist_male_v2_2.png",
+      "sourceSha256": "804da0b1f2bf9603538a8712003abd011e2a187e7c2c7f3b6358e891c47235d2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/090/Plate_Twist_male_v2_2.png",
+      "candidateSha256": "c603ac344864db77b081c75e83c85ba4694984ca8d0a8d6e6857fd11f589d8cc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Twist_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Twist_male_v2_3.png",
+      "sourceSha256": "47de0552aed2c2f59f92c3c5cb5589610708528fb8c77fa9eb2f9fb4cf3812f4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/090/Plate_Twist_male_v2_3.png",
+      "candidateSha256": "90669a9ab4978d697a4d8df98fb8b2b05fd6cfb80ef550c842f2ce46220a17dd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Twist_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Twist_female_v2_0.png",
+      "sourceSha256": "460177b6cea535832d925fe13cab42fe2d19946928a867cd280efe17df20e36c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/090/Plate_Twist_female_v2_0.png",
+      "candidateSha256": "70cf8db43e98f7b3c31c2e2190017fc48de22a676e1616313c207eaf1420f31a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Twist_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Twist_female_v2_1.png",
+      "sourceSha256": "98a92c3fee3c6ae116faf17f8fd8a297ab4a0b5bc3e470f6f938474e7cec9b9d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/090/Plate_Twist_female_v2_1.png",
+      "candidateSha256": "6d9fdaa08cb49866346b8ebee79d6fc9e83580d63d181fc70c5ed4e964b973db",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Twist_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Twist_female_v2_2.png",
+      "sourceSha256": "57bf1b11e67b9c58a8e5dd6d63675de73e9eb81d41ac86c50cd1eb95af9a43da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/090/Plate_Twist_female_v2_2.png",
+      "candidateSha256": "28f4a957a1a0099942f13955e9b469581051e802c7f49e50a0cbb30725ab051f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Twist_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Twist_female_v2_3.png",
+      "sourceSha256": "c001855ce76561864207ddd6996891c010836d75774468358099de3ddc4d6dbb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/090/Plate_Twist_female_v2_3.png",
+      "candidateSha256": "0188526b918ba55cbe10fb0c840d05981df4648466f57f5d8e6b1618f221e4ce",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

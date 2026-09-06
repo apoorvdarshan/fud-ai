@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Plate_Pinch",
+  "shard": 9,
+  "index": 89,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Plate_Pinch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Pinch_male_v2_0.png",
+      "sourceSha256": "44a06c0cbabdf4cabdf64474eb8661eb8d23e8198f3d64db314d96aa6faeaad9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/089/Plate_Pinch_male_v2_0.png",
+      "candidateSha256": "56b639d3d878d53f0580ed02126539072b1373d84a5652bb2ab45f37da8b7bac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Pinch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Pinch_male_v2_1.png",
+      "sourceSha256": "da876d3efa98da59433a63e7726344339bc46847e7f7b017aed482773aefbaf4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/089/Plate_Pinch_male_v2_1.png",
+      "candidateSha256": "bcb58b3603d8b626afe7be3498a195d460277d89e3de79116573e213f0c6cf38",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Pinch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Pinch_male_v2_2.png",
+      "sourceSha256": "728de2f90e7f3cf768e86df19b46bf4c91f860e38e077ad22e9de0fbed237639",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/089/Plate_Pinch_male_v2_2.png",
+      "candidateSha256": "da9d9c905fdb6c4bee0628dbe63c5d78574ecb3d1570a7b2e918c805512ac145",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Pinch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Pinch_male_v2_3.png",
+      "sourceSha256": "347bdd55e2f27ff5b704c69e74535cd77c79d421e2accbda494f253e4e5bc253",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/089/Plate_Pinch_male_v2_3.png",
+      "candidateSha256": "b0eb4b9aa1d1bcda45aa39b4bf49b5ca434407beb9474f91c470a243b9ee52c5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Pinch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Pinch_female_v2_0.png",
+      "sourceSha256": "8fe3fff73d2095224c93dd2a8ec5be581f391410db5b0df864137919bf2f9886",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/089/Plate_Pinch_female_v2_0.png",
+      "candidateSha256": "a7f1d60964f4db2b1f9b88bfa65ed6537485a94ee72135a94d393ade13a556df",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Pinch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Pinch_female_v2_1.png",
+      "sourceSha256": "249327d63ce58083231a378666393ce4bfdd1f2d0685023906391c2e9ecaf7d6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/089/Plate_Pinch_female_v2_1.png",
+      "candidateSha256": "b9a26d115a4864f487349e204e6e4c73ddc0a525f36c16e1f0f09d73047c3114",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Pinch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Pinch_female_v2_2.png",
+      "sourceSha256": "c9d9beb7c9c0725fd6c8369f625624973706acd2f6ae45ab07e8b27931e5381b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/089/Plate_Pinch_female_v2_2.png",
+      "candidateSha256": "4dcfb8435cb37abd8fa93e20261f216caf7fa54df7d25eb7bc6d0180e7d0b08f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plate_Pinch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plate_Pinch_female_v2_3.png",
+      "sourceSha256": "c0d046bf422cb2427956ae85cf625394c6fa28adf21ef404977f8a743f9490b7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/089/Plate_Pinch_female_v2_3.png",
+      "candidateSha256": "9ea60a4ef3439c8b4ef40ccf88fbd0ccbaebf32ffa416b142616ab68e548e9ec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Plank",
+  "shard": 9,
+  "index": 88,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Plank_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plank_male_v2_0.png",
+      "sourceSha256": "4d185310ff1a5e3ce24b648683da17f0d3647839dd7c7ac503221c0c60f071b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/088/Plank_male_v2_0.png",
+      "candidateSha256": "df970cbc8c60d33901629ebcbdb39490e1e23da9da72b5de1f6124984a881487",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plank_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plank_male_v2_1.png",
+      "sourceSha256": "2f5d00e522cc282fe9272608ecd3e466d4df2f1e6600d643000cd6ef06f455ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/088/Plank_male_v2_1.png",
+      "candidateSha256": "d7d6042bf78fa7cef448ec194924dee70df683fd9453e0b94a9cebc9e8658819",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plank_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plank_male_v2_2.png",
+      "sourceSha256": "6412a7ee811baa485bad73ad6bd903fb44e4fb46b63d9637048666bf87027270",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/088/Plank_male_v2_2.png",
+      "candidateSha256": "039cde8f27998826b6c4e09424e50aa0e7e15ce1da9d99f778cf51d5dba70cf5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plank_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plank_male_v2_3.png",
+      "sourceSha256": "ca661f5b033613d779d1a653cf4cac12e2ed91e5c892c936b6198c2bdde6e1a0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/088/Plank_male_v2_3.png",
+      "candidateSha256": "cd126b96a45e814166f91993afd4e97febb80f1c0a08b5c6ccded77ccfbce5c1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plank_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plank_female_v2_0.png",
+      "sourceSha256": "343a789fef705fdca5a62e084aed98ec1373199abc045b21c39844a4873e5daf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/088/Plank_female_v2_0.png",
+      "candidateSha256": "cd1f8a972216cce2fc2c2059ab85192f6df0d2d665e7b2d4ba37996f90445b51",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plank_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plank_female_v2_1.png",
+      "sourceSha256": "8054af43132f87f2a75682b58a568cd670a77e067532659e4053b598a82e8c34",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/088/Plank_female_v2_1.png",
+      "candidateSha256": "d26dd01d5dcc7885a052853144010f13ecd13921e51cee27fb21a04d1b991df3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plank_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plank_female_v2_2.png",
+      "sourceSha256": "608adc06e4cd50ab12f0c612ca84e3c48785db5c2a9bfcfb33e40181e7fcb35b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/088/Plank_female_v2_2.png",
+      "candidateSha256": "c1029bfe62bd7b2300b2a01e3b8e8c0b47bc993498f2ea773dda7408bd4cdbfa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plank_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plank_female_v2_3.png",
+      "sourceSha256": "34e31e3c70abf706ea46e9c0576917c9e268eca5ebee59858d86eccbd7201464",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/088/Plank_female_v2_3.png",
+      "candidateSha256": "4a5138c30cf251f89fe08faa7af871815f15372cfdc71edbace9fb606ee9b5cf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

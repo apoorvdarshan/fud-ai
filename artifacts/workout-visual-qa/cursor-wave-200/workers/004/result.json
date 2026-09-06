@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Ball_Leg_Curl",
+  "shard": 1,
+  "index": 4,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Ball_Leg_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ball_Leg_Curl_male_v2_0.png",
+      "sourceSha256": "cddc748aedc053a6d7230c7e73c55b0130e45710cb88ca5bd4693abaa73105db",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/004/Ball_Leg_Curl_male_v2_0.png",
+      "candidateSha256": "2d541148983002bf9d9aad15fbb9e756d12d2f1e33b1824c81f0cc84d1d2f510",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ball_Leg_Curl_male_v2_1.png",
+      "sourceSha256": "eb1df21ef9727c7076cf1660721580a22c6622a17feadf6b3c444487fd039aed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/004/Ball_Leg_Curl_male_v2_1.png",
+      "candidateSha256": "dbd27b51edbb8c9774f018212e9656d7a33a146bf4dc34623e3b1f692406473a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ball_Leg_Curl_male_v2_2.png",
+      "sourceSha256": "b9828430c48805c6216f163f5e1e0288b31c4cde85bb48003ff27858e5c61070",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/004/Ball_Leg_Curl_male_v2_2.png",
+      "candidateSha256": "8a71572f77e208d7b9bf64b60784225995f553198860c30d91edcaa0086b5396",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ball_Leg_Curl_male_v2_3.png",
+      "sourceSha256": "f81f0355fc4d1572f05a7db3ee02d3cf310b844db509e9dbaa9ea14d49a195bc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/004/Ball_Leg_Curl_male_v2_3.png",
+      "candidateSha256": "2c3112a25344c1c29cc284e0df92bbd50f4adc7171aaf8c444c1bb48f2cc66f8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ball_Leg_Curl_female_v2_0.png",
+      "sourceSha256": "f536814a236fbd035a5d4967b32215ae2112f6f55289767fa218810c816a0b61",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/004/Ball_Leg_Curl_female_v2_0.png",
+      "candidateSha256": "ffb9e5ddd01c3f6e3e187c8e409e5665d0ca1aeea9a69d68895cf4fe9c599d85",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ball_Leg_Curl_female_v2_1.png",
+      "sourceSha256": "06d2fd28800ed5bb458c7d90032d55e9b4336fe28d1180c3bea4eace3fc5c32b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/004/Ball_Leg_Curl_female_v2_1.png",
+      "candidateSha256": "98332085cb50b94f4d48ab72824d6f3da7b98c9b2cf1f7077600e1855b406b35",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ball_Leg_Curl_female_v2_2.png",
+      "sourceSha256": "4ff7a0272538d9265f9422612640a96a7b74a34e9416acc2a5144b4b602bcc56",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/004/Ball_Leg_Curl_female_v2_2.png",
+      "candidateSha256": "3300c05a7a3d61e1b1cdd1a710e71410e9610062e6b1c963e6ce02f7bd842e32",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ball_Leg_Curl_female_v2_3.png",
+      "sourceSha256": "22dd49cc29e896a94415fdf3d5d8b524bb61b6a81454fc9c70730a08b341b0d4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/004/Ball_Leg_Curl_female_v2_3.png",
+      "candidateSha256": "3c8bd7e9ea97732f239f8813de7a199f675dc0a6280b36054f6184b5550ad095",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

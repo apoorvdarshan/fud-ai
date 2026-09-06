@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Barbell_Curls_Lying_Against_An_Incline",
+  "shard": 1,
+  "index": 8,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Curls_Lying_Against_An_Incline_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Curls_Lying_Against_An_Incline_male_v2_0.png",
+      "sourceSha256": "93ec81d5a49d1f0bb3ace9a7588bba89fab0c047676894ca61730dcffdc8c283",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/008/Barbell_Curls_Lying_Against_An_Incline_male_v2_0.png",
+      "candidateSha256": "534ca18fa24056b8dd956b597f609e825aa2e60717ee23b3841892a581a85afc",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Curls_Lying_Against_An_Incline_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Curls_Lying_Against_An_Incline_male_v2_1.png",
+      "sourceSha256": "9ff80ab28010c2879e5702b7dfcb675a5cb8a3dc24071f4a00c6d35b7ba7981a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/008/Barbell_Curls_Lying_Against_An_Incline_male_v2_1.png",
+      "candidateSha256": "9370a1fa404de6b32aa018bd0967df1114e41ab28a62e8c17a803d6354cd482c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Curls_Lying_Against_An_Incline_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Curls_Lying_Against_An_Incline_male_v2_2.png",
+      "sourceSha256": "4dfb2bba661e961b692e897d5ba93a8c2b295cc168272684d4ed38842df0f557",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/008/Barbell_Curls_Lying_Against_An_Incline_male_v2_2.png",
+      "candidateSha256": "a7147b004c9aa833366fe986a862c90b71481c35de2c603506515311e3eeb0ad",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Curls_Lying_Against_An_Incline_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Curls_Lying_Against_An_Incline_male_v2_3.png",
+      "sourceSha256": "b9224ef282794275bad83af8962624f2d05fc4d4098123eb5e5d7b7fc7e817b2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/008/Barbell_Curls_Lying_Against_An_Incline_male_v2_3.png",
+      "candidateSha256": "b9a1a37150693cf5183a04f22045b65230a1d060ea90278919acdb170581df1e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Curls_Lying_Against_An_Incline_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Curls_Lying_Against_An_Incline_female_v2_0.png",
+      "sourceSha256": "3ac494a8e6d399849105fef8ec44c1d0c2c6085718b2ade894b968587756810a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/008/Barbell_Curls_Lying_Against_An_Incline_female_v2_0.png",
+      "candidateSha256": "0cc68bc1eb476093543eb38eae3f8c5f4c9d13d010a68e4e728f3ffa7a13e26e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Curls_Lying_Against_An_Incline_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Curls_Lying_Against_An_Incline_female_v2_1.png",
+      "sourceSha256": "f3d632a7cabfaead5aaca10f3000405dbdb89047204d2580ede23ccfc1d75c41",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/008/Barbell_Curls_Lying_Against_An_Incline_female_v2_1.png",
+      "candidateSha256": "276569c992cc767418f470f6b8a8c6ab2fcd247f9e52d0ed0fdfe3e81a3829b0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Curls_Lying_Against_An_Incline_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Curls_Lying_Against_An_Incline_female_v2_2.png",
+      "sourceSha256": "2125b25f57627105e31cde8b083059f09d8a37c964fb427ca0e8b5b887774b54",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/008/Barbell_Curls_Lying_Against_An_Incline_female_v2_2.png",
+      "candidateSha256": "74f8097d885ff73089e8239d39c0cd4f41214747778a668efcdc33b2a970e91d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Curls_Lying_Against_An_Incline_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Curls_Lying_Against_An_Incline_female_v2_3.png",
+      "sourceSha256": "70c4ed313259a680e79bda3ad29b05a909fd64fad7f23e47be169aa7241c6b40",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/008/Barbell_Curls_Lying_Against_An_Incline_female_v2_3.png",
+      "candidateSha256": "8f8c00d1fc9e9af173a962a5483bdce92ae52ef69fd7fec71f3327e30089cff6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

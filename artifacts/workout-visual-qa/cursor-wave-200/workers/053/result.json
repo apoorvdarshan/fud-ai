@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Cable_Reverse_Wrist_Curl_Palms_Down",
+  "shard": 6,
+  "index": 53,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cable_Reverse_Wrist_Curl_Palms_Down_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Wrist_Curl_Palms_Down_male_v2_0.png",
+      "sourceSha256": "55363d175fd7fa71b6b3126e8fdec3af2f19c1437757b12d816661feb83e84b2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/053/Cable_Reverse_Wrist_Curl_Palms_Down_male_v2_0.png",
+      "candidateSha256": "ea56dea8e60d8a9c73d610eb7c5f634f9b2f67197ce579115c9c3928df322a04",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Wrist_Curl_Palms_Down_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Wrist_Curl_Palms_Down_male_v2_1.png",
+      "sourceSha256": "01898e7ab8fcc476bce65aeb0976319b7cb12253151588b1365e93273947b338",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/053/Cable_Reverse_Wrist_Curl_Palms_Down_male_v2_1.png",
+      "candidateSha256": "25cb3a49f8040cb60a5e3b8dbdaef9cb8a453c691ea91883fd4df1240a6e4d08",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Wrist_Curl_Palms_Down_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Wrist_Curl_Palms_Down_male_v2_2.png",
+      "sourceSha256": "00fcabef91f6c0459a41b0dadd1f7c7ddd96d47b4d13c36584efe66f3bf00397",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/053/Cable_Reverse_Wrist_Curl_Palms_Down_male_v2_2.png",
+      "candidateSha256": "16be09e79fffbd2d5d88e87b13dba9b54819198abcf686efb0c056423b3caa78",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Wrist_Curl_Palms_Down_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Wrist_Curl_Palms_Down_male_v2_3.png",
+      "sourceSha256": "40a20294d4a60d73f97e87872222b8dfe133e6143f4ba5424925dc1c7111600d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/053/Cable_Reverse_Wrist_Curl_Palms_Down_male_v2_3.png",
+      "candidateSha256": "586639b0c478f54c2cf43fba311cccbf3dce79c919dc2852f35e7bf4523fca5c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Wrist_Curl_Palms_Down_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Wrist_Curl_Palms_Down_female_v2_0.png",
+      "sourceSha256": "612accc86743b49d5214e66c53547e4ef413f806f0c8cf8ba7763e649882aaba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/053/Cable_Reverse_Wrist_Curl_Palms_Down_female_v2_0.png",
+      "candidateSha256": "3f8be83ba3075a615c4124baa95fa6fe8e48ae2e6f311a39b7a20101e82ecc74",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Wrist_Curl_Palms_Down_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Wrist_Curl_Palms_Down_female_v2_1.png",
+      "sourceSha256": "79a3fa01030acd0d325737ce0e6d29b22e9bbfaeba1d34bf03d8a1c1fbaf771e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/053/Cable_Reverse_Wrist_Curl_Palms_Down_female_v2_1.png",
+      "candidateSha256": "fec869a04f25798d995a141c8712a4705792112c39ac1f00d916d98a3fbf2222",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Wrist_Curl_Palms_Down_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Wrist_Curl_Palms_Down_female_v2_2.png",
+      "sourceSha256": "dc17d040a5a5d1cc965fefa08681504a7b8b1ecf9687c1baec18426d971f51a1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/053/Cable_Reverse_Wrist_Curl_Palms_Down_female_v2_2.png",
+      "candidateSha256": "e237f817f7e098d52bb80fdca4ee2c6284e9345650e9511ff6903ccb94455dcf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Cable_Reverse_Wrist_Curl_Palms_Down_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cable_Reverse_Wrist_Curl_Palms_Down_female_v2_3.png",
+      "sourceSha256": "a7e31b47494dc671d0443ec709764696b3a6aeb5a94193c3ceb8bedee6b2ecb9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/053/Cable_Reverse_Wrist_Curl_Palms_Down_female_v2_3.png",
+      "candidateSha256": "b19ae91394a31a66a65efcf99c4b484eb4572d34b51f3a1a38f843ebc5e04a94",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

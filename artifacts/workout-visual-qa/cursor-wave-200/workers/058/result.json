@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Catch_and_Overhead_Throw",
+  "shard": 6,
+  "index": 58,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Catch_and_Overhead_Throw_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Catch_and_Overhead_Throw_male_v2_0.png",
+      "sourceSha256": "4b0e892b34e5a2a052ea438607517ad160fab770d5a54e2f228affe225831362",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/058/Catch_and_Overhead_Throw_male_v2_0.png",
+      "candidateSha256": "970c8d100956bec8267e037915ed9de897d228ee18b86591340bd5fdbbaa9661",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Catch_and_Overhead_Throw_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Catch_and_Overhead_Throw_male_v2_1.png",
+      "sourceSha256": "bd98c2ce04d162edd2521583495f19820055e48c40e180ee1f81b72a8efdeefc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/058/Catch_and_Overhead_Throw_male_v2_1.png",
+      "candidateSha256": "5d28c34a4cbca1aa24d08488729f83d7a5d86703110fdd8937017636b43a3cbc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Catch_and_Overhead_Throw_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Catch_and_Overhead_Throw_male_v2_2.png",
+      "sourceSha256": "668aae6724bf8e870be9524744ffe50661be7f55306410588be840f965c0d795",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/058/Catch_and_Overhead_Throw_male_v2_2.png",
+      "candidateSha256": "8a2903eadef0669d8fa82ef4c2dddbe6c064a0fe945de999c4b552becbf5541e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Catch_and_Overhead_Throw_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Catch_and_Overhead_Throw_male_v2_3.png",
+      "sourceSha256": "c8912d5d8d400a306d02c1bb887ef66cfc38631089ae3ec0ca2cf8fa085d0af7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/058/Catch_and_Overhead_Throw_male_v2_3.png",
+      "candidateSha256": "3eaa9969daced733ba357421e7c980caa87789debea6700c6dcb71b488f805da",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Catch_and_Overhead_Throw_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Catch_and_Overhead_Throw_female_v2_0.png",
+      "sourceSha256": "8d2eac0b59962d38c2b3905ec63f5e639f13c5697473fc4ba16ce1e16f57a609",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/058/Catch_and_Overhead_Throw_female_v2_0.png",
+      "candidateSha256": "2450381953c3960f8c42bc9671c45e0c93ebc449bd27cdc5da709f6e7b373523",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Catch_and_Overhead_Throw_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Catch_and_Overhead_Throw_female_v2_1.png",
+      "sourceSha256": "0d4c10df9ee8e02366819fe0aadda66a9e816c98d66bcfd06c40efacd667e1ee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/058/Catch_and_Overhead_Throw_female_v2_1.png",
+      "candidateSha256": "690c34d75050f305af5898409a45cdb842cb07398c61de7d76ef50056a3b34c3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Catch_and_Overhead_Throw_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Catch_and_Overhead_Throw_female_v2_2.png",
+      "sourceSha256": "02e6bceb47ccfda242c5ceb150f5958daa471e936710e082b3afbe99fb377e61",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/058/Catch_and_Overhead_Throw_female_v2_2.png",
+      "candidateSha256": "7b391a0d285e832cda4dd33332c096b4377684d3e334c0ddb829eb59c275a2c3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Catch_and_Overhead_Throw_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Catch_and_Overhead_Throw_female_v2_3.png",
+      "sourceSha256": "c4c209547113e99a30ad80c1fc2b98918a5dd5e9b50c5f112c1fd0f552c0b153",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/058/Catch_and_Overhead_Throw_female_v2_3.png",
+      "candidateSha256": "291179d218c00b28c4426bca53ad9d4a2c170be60f4376556d30165d117e9b6b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

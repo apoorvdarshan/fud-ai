@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension",
+  "shard": 18,
+  "index": 171,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "sourceSha256": "7c142f675938f9dbdf0250b4c3ea37dda8606bf1d8c93ced16e606055c2810ce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/171/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_male_v2_0.png",
+      "candidateSha256": "108681ea135b68c09bde0480f0411bd986a180332cf8b908d51456b1f3db9735",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "sourceSha256": "dfb9f6674e961ed12af8c6c455b369870d007fde6ff953c93f72d6fa6c84faa0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/171/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_male_v2_1.png",
+      "candidateSha256": "ed29caf946b72215b7d5eb814507f65920e4e14f2f169e0080f5b74a335efd84",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "sourceSha256": "97f4d22654ae0849d38e7e4d4a524ae9c1bffadcf2b14b6893159d17eeac5cfe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/171/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_male_v2_2.png",
+      "candidateSha256": "310f44292ef424ac8374b11950fcd27ebb7bdb3efeb912b5cd1f524eef6543d8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "sourceSha256": "66e6d65410a9dc5a9b271b071bad47d85b0e16c17bd51d853a57d8885e3ec386",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/171/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_male_v2_3.png",
+      "candidateSha256": "689cf3d179e27ab8a14b5d0911532f22a9b97c78bd0d137118e8956f9ec7a727",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "sourceSha256": "b9c93b0440379368e62dfe57ec0a8947d5a556fac1e0990b15b8a635f4d07e23",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/171/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_female_v2_0.png",
+      "candidateSha256": "ea5296a9c34bef42e7b5e86e0c1638b9292acaa0a83292216d852662826c8b2f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "sourceSha256": "d3c69a1a62e6945751cfec6c375782b008850a0f4dd4f29aed180d5d8f0551de",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/171/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_female_v2_1.png",
+      "candidateSha256": "691047468a74f49a4c9620e405157ab0852709ed93627e57ecd23b72ef062e44",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "sourceSha256": "9716ee2bbd17cb3512357948925a8bab0f34f854df171d04dd4e9dc9fc86871c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/171/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_female_v2_2.png",
+      "candidateSha256": "c15d53c9521aba5280334dad79b9261c0684753566a18ff2db7728b4b3a7a60d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "sourceSha256": "a8e6eacc0df722e511aabfa41f2416fc7af13fec516a9b26ab57d3dd20f5c016",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/171/Seated_Bent-Over_One-Arm_Dumbbell_Triceps_Extension_female_v2_3.png",
+      "candidateSha256": "7fb4280c44a49b10d03ff05357e90ffe7626bd804c6baa2a6aa50a437e702310",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

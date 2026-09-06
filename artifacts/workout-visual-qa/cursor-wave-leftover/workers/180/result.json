@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Dumbbell_Curl",
+  "shard": 18,
+  "index": 180,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Dumbbell_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Curl_male_v2_0.png",
+      "sourceSha256": "a0b45516f0c1861f09a1dcfc68b1cb69697468550de4b252a8c1724a5b05f3b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/180/Seated_Dumbbell_Curl_male_v2_0.png",
+      "candidateSha256": "6811df4c00166db892493769bbb550ec11a896d6c3a78dc15a67d51afb987e9f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Curl_male_v2_1.png",
+      "sourceSha256": "c5ba400792f2a6d8fd9d1fe23a384116073591adcee0c62713082626c19649d6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/180/Seated_Dumbbell_Curl_male_v2_1.png",
+      "candidateSha256": "4a0d102b41e2c6c5d8b91b58582e9bcd3902fd3af7f482f8523d4fb9e84d4e8c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Curl_male_v2_2.png",
+      "sourceSha256": "04794ab141138f146faa532f73ed9b64048cf46770230b0b3a96e5f21c2db4f3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/180/Seated_Dumbbell_Curl_male_v2_2.png",
+      "candidateSha256": "3ceb02fe11ef67333cd28a2e0d23783945addaf1ae03de510b3b5344717fd7c1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Curl_male_v2_3.png",
+      "sourceSha256": "394d8db1d7fc120e69e032bd505a5b3ff93bba88154d51d122c573016b00026d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/180/Seated_Dumbbell_Curl_male_v2_3.png",
+      "candidateSha256": "644eeb91a6ef5b26934247ff7393bbeca9dfebd7ab0b631e01cd765cce4d7a33",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Curl_female_v2_0.png",
+      "sourceSha256": "0772982c4794e79323dc4b77ae89a787dea993130159a121ca2fdca6b410a9f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/180/Seated_Dumbbell_Curl_female_v2_0.png",
+      "candidateSha256": "52b7d4549102964eacb16843d4a5288d6a96a4c36cc0ebd164439a5ccfb405af",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Curl_female_v2_1.png",
+      "sourceSha256": "8be815f9a39ed2cf79b125d9de53a81777b89837675c773bd89bced89c3eb5ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/180/Seated_Dumbbell_Curl_female_v2_1.png",
+      "candidateSha256": "cf23f4f42ea13aafdc7272d129e68a464475274ffc07b916c07f28d90c9e55d6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Curl_female_v2_2.png",
+      "sourceSha256": "5b6efb33b640d250c0eddd7958b1a2b9fd6c6a4152ce54e6b4ccedfbb4ada5ce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/180/Seated_Dumbbell_Curl_female_v2_2.png",
+      "candidateSha256": "142d75bfae996fb6e202313721c31c76f75b6984a6ce6635f8fab94389feb242",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Dumbbell_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Dumbbell_Curl_female_v2_3.png",
+      "sourceSha256": "f58e9a6a54b6820b4bf27d268fac082924879bd8deabcb30497bd16580eb4a96",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/180/Seated_Dumbbell_Curl_female_v2_3.png",
+      "candidateSha256": "0567d8d057d3885332d8bee4c2b61454102a8874c4bc11f49acfac9a73fa8e7f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

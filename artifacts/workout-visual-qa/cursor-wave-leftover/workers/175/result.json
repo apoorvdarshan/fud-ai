@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Cable_Rows",
+  "shard": 18,
+  "index": 175,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Cable_Rows_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Rows_male_v2_0.png",
+      "sourceSha256": "cb885d9ddc461b4149fab6afa0366739f7234ae900a2e9dc1e74a9469a55d6a9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/175/Seated_Cable_Rows_male_v2_0.png",
+      "candidateSha256": "e7f7dcda716c875522182030462052b590211b858408c65aaa79136fb6b67314",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Rows_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Rows_male_v2_1.png",
+      "sourceSha256": "2436a60d490441e6ed7b0ab671286ab7450e1ccaf1d968a04726f98c27f996eb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/175/Seated_Cable_Rows_male_v2_1.png",
+      "candidateSha256": "17763093bc03e554c9d15c47fe7ff6b35869755e190fde703ab439410195b2cd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Rows_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Rows_male_v2_2.png",
+      "sourceSha256": "12aa692866dee814e57c9166333368d55bbd8a93af5f69d3c40e5f7249b3a128",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/175/Seated_Cable_Rows_male_v2_2.png",
+      "candidateSha256": "d2b7801c9368f6e8abdb1593b2bd65d85837a49e3a9fe80dcd47f3530d458ce0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Rows_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Rows_male_v2_3.png",
+      "sourceSha256": "f4f103270d8fc97f5ef531a7f4dc161ffc9eafe53f50acef0e8ec757ca4a4eb6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/175/Seated_Cable_Rows_male_v2_3.png",
+      "candidateSha256": "e5e286e105c94351e4ed87ead904b056e8a5539266540ec5e5d4df3a2a769759",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Rows_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Rows_female_v2_0.png",
+      "sourceSha256": "b2cee4b0ff6411d6e887d90688991e4e102e9863c21e43aa62fa79956c2821de",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/175/Seated_Cable_Rows_female_v2_0.png",
+      "candidateSha256": "46144f146d3083ec8b6021c940d36cc8c5047f4b30c3c8edfa68d0aa80eaa5c4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Rows_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Rows_female_v2_1.png",
+      "sourceSha256": "a3ede4a0cdc4e3d4dbd7add105b348488a84bd6c2b735042679d2fcbce887cb1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/175/Seated_Cable_Rows_female_v2_1.png",
+      "candidateSha256": "4cdb0dd4883ab6d4654b56d540313a170da380d876dc41acb0cbd213511ed50d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Rows_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Rows_female_v2_2.png",
+      "sourceSha256": "0759954bc77e293360b466189b337c7b7d0934c88a957a3492e80de7397abad4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/175/Seated_Cable_Rows_female_v2_2.png",
+      "candidateSha256": "d3c8fcd183d970417bc0691ea8c1217b06d47f560d47a6b4091fc88f2fc3ff3a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Cable_Rows_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Cable_Rows_female_v2_3.png",
+      "sourceSha256": "dec6d58a9b0676ab89d24824c1f14396dd5bf655a771c81c1bb5ce6cdf7e9348",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/175/Seated_Cable_Rows_female_v2_3.png",
+      "candidateSha256": "1e0a691200055ec6bed70d9166df84d0b1add56464187f2c3d7a4e625e82b97a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

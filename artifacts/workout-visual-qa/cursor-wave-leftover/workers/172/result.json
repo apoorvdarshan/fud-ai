@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Bent-Over_Rear_Delt_Raise",
+  "shard": 18,
+  "index": 172,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Bent-Over_Rear_Delt_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_Rear_Delt_Raise_male_v2_0.png",
+      "sourceSha256": "862eb313b17b004772923ca655aafe7d9d51405f4759dcaef826db61a96b3744",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/172/Seated_Bent-Over_Rear_Delt_Raise_male_v2_0.png",
+      "candidateSha256": "d75fd82774ba77e9fdcad2d8969eedd5501d3685cbadd0fb1f6e033b03e49e0f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_Rear_Delt_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_Rear_Delt_Raise_male_v2_1.png",
+      "sourceSha256": "9c045de56413aca4566452cb8fe92f0e000851ebbad63cc7c52197e8f90f3407",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/172/Seated_Bent-Over_Rear_Delt_Raise_male_v2_1.png",
+      "candidateSha256": "3f4523bdc99295ba570576ae77b722fa60999920c4df81f9c14ecbed35d76bd7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_Rear_Delt_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_Rear_Delt_Raise_male_v2_2.png",
+      "sourceSha256": "6459d08a6cd78bbe0834153b411f22f0c534f9b22d993bb5fb2016da3aa636f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/172/Seated_Bent-Over_Rear_Delt_Raise_male_v2_2.png",
+      "candidateSha256": "1de28a05514ace86db95965fb0f3988ec53bffe64497003ae58d0f2a2a555d78",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_Rear_Delt_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_Rear_Delt_Raise_male_v2_3.png",
+      "sourceSha256": "64afea8cd04333a1423f4ab31f3eed34406f7d4d3ab26aa5b508cdddb4f6a54b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/172/Seated_Bent-Over_Rear_Delt_Raise_male_v2_3.png",
+      "candidateSha256": "cfee1bf7cbdf866dd6994c4fb32a209a09b97d0f0bac4461d3252a6e65117bea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_Rear_Delt_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_Rear_Delt_Raise_female_v2_0.png",
+      "sourceSha256": "33858d3ad5e2ef0d88227e9e2ea9db8bc4eb0fd459b122f845a350beae6e9000",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/172/Seated_Bent-Over_Rear_Delt_Raise_female_v2_0.png",
+      "candidateSha256": "a758f0820471936ffbf80018a94f4208a56797a185d5c894040998aa506c0fcc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_Rear_Delt_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_Rear_Delt_Raise_female_v2_1.png",
+      "sourceSha256": "dbb4bdd31ed51338298f101970e22b7c04233b81772434447e7900591968186c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/172/Seated_Bent-Over_Rear_Delt_Raise_female_v2_1.png",
+      "candidateSha256": "acc80794e7400cb9cd1f7fcda1e02c46292a5f605b482cae4f123693623d86eb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_Rear_Delt_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_Rear_Delt_Raise_female_v2_2.png",
+      "sourceSha256": "ac4a37cf13328ff67819fed347fb9cb3eec78ed60fd08e7f948e49ca8bbbfb47",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/172/Seated_Bent-Over_Rear_Delt_Raise_female_v2_2.png",
+      "candidateSha256": "91b6749311397cde12940ad68e38647c2629cbf196d2e65f8cb20e3d209a7715",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Bent-Over_Rear_Delt_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Bent-Over_Rear_Delt_Raise_female_v2_3.png",
+      "sourceSha256": "678dbde246323170378a6a2347499f9476ebe609d7286e7333fe074405d4dbd3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/172/Seated_Bent-Over_Rear_Delt_Raise_female_v2_3.png",
+      "candidateSha256": "f62e4814835f7d38cff98819d4e0a2dafe8d99e328161efd6f13864447a0e699",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

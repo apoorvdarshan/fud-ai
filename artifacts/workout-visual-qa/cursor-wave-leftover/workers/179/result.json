@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Seated_Close-Grip_Concentration_Barbell_Curl",
+  "shard": 18,
+  "index": 179,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Close-Grip_Concentration_Barbell_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Close-Grip_Concentration_Barbell_Curl_male_v2_0.png",
+      "sourceSha256": "a5be11248a92103c510abb222fa56849d0e93cf876ed0c25154e5eb6a6987cf5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/179/Seated_Close-Grip_Concentration_Barbell_Curl_male_v2_0.png",
+      "candidateSha256": "365ca9ac573ce6a3cbc5ee349906a62154a22a135a366143759471fef90892b3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Close-Grip_Concentration_Barbell_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Close-Grip_Concentration_Barbell_Curl_male_v2_1.png",
+      "sourceSha256": "7a4e857db014043be9504ecbd704a09693d201ee4c5cc922ad420a9caffed2ee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/179/Seated_Close-Grip_Concentration_Barbell_Curl_male_v2_1.png",
+      "candidateSha256": "40e678d04e373c6a7365060952a9420d0b9b08d68def2dc97e7aeb29d6ebd48e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Close-Grip_Concentration_Barbell_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Close-Grip_Concentration_Barbell_Curl_male_v2_2.png",
+      "sourceSha256": "f0d937cb38c480d040dcf58b7a6b5c556121214f835d52812c7f0cde6eb6b991",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/179/Seated_Close-Grip_Concentration_Barbell_Curl_male_v2_2.png",
+      "candidateSha256": "c219a98dd2841cdf0ce0ded7d2bfcdc6cea0405f556c87c56e16785a290a264a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Close-Grip_Concentration_Barbell_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Close-Grip_Concentration_Barbell_Curl_male_v2_3.png",
+      "sourceSha256": "16080e8977f108c9d3eaf8cfcc9c247fbf0e9376fcd93a846ffec7369a9d9498",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/179/Seated_Close-Grip_Concentration_Barbell_Curl_male_v2_3.png",
+      "candidateSha256": "5b0496d8a984b6a423879b4fe318294444850a904911bebf92f398a590fe0f32",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Close-Grip_Concentration_Barbell_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Close-Grip_Concentration_Barbell_Curl_female_v2_0.png",
+      "sourceSha256": "5d6727d2b3bc8833c76b1f38e2ff356c31c280649424841b7949d47aa6b6f83a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/179/Seated_Close-Grip_Concentration_Barbell_Curl_female_v2_0.png",
+      "candidateSha256": "4d41cff3686a04df971f8a973675b72b3333a187cf197ed19c50e6578c94c121",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Close-Grip_Concentration_Barbell_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Close-Grip_Concentration_Barbell_Curl_female_v2_1.png",
+      "sourceSha256": "ceb3a093247833f5ac3883786f341f29fd4321be606f298fae73b389071d6dd8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/179/Seated_Close-Grip_Concentration_Barbell_Curl_female_v2_1.png",
+      "candidateSha256": "38915578b30c1d1e1f503c8c58e0c03e8043f444995dba704934cfe5490c5020",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Close-Grip_Concentration_Barbell_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Close-Grip_Concentration_Barbell_Curl_female_v2_2.png",
+      "sourceSha256": "879333ca3fe666ccf8f67ffa4bf979395ab26618590409d8f5fbfe7f0b6ff9f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/179/Seated_Close-Grip_Concentration_Barbell_Curl_female_v2_2.png",
+      "candidateSha256": "19ed0c714187eb318f7561914932101faa5e32fc2f1b591cfe8ae64f2b81ff5f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Close-Grip_Concentration_Barbell_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Close-Grip_Concentration_Barbell_Curl_female_v2_3.png",
+      "sourceSha256": "b1d90d4b3768fea8860c8bb2a45de71cbc87a925747b80424b3971d4cfe5c4fb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/179/Seated_Close-Grip_Concentration_Barbell_Curl_female_v2_3.png",
+      "candidateSha256": "1ec07e8439366f68530e6e19ddfc5566c248ac605246bd96dec7cbe7465b5b6f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

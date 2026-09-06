@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Close-Grip_Barbell_Bench_Press",
+  "shard": 1,
+  "index": 2,
+  "status": "ready_for_review",
+  "findings": [
+    "Thin pale broken fringe outlines portions of the rack, plates, bench and athlete on dark backgrounds; especially visible around female ponytails. Limited to edges, with no substantial opaque background or enclosed checkerboard visible.",
+    "Bench/rack uprights, base feet and planted shoes shift modestly horizontally between frames. These stationary anchor changes are separate from the intended bar and arm motion; overall scale and identity remain broadly consistent."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Close-Grip_Barbell_Bench_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_male_v2_0.png",
+      "sourceSha256": "e21cc0e75c5d6ba72068d7a4f7922fdab5e6c496f7f787ac7e7cce3e836d6332",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/002/Close-Grip_Barbell_Bench_Press_male_v2_0.png",
+      "candidateSha256": "94b9dfe3ff12c4c06d76fc9f144435e03f0576be46128f281b8e17c158dd4109",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Barbell_Bench_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_male_v2_1.png",
+      "sourceSha256": "ab20a9978861416b095e86591f48785dbbcb9ec680d245bf0af95befc9d52613",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/002/Close-Grip_Barbell_Bench_Press_male_v2_1.png",
+      "candidateSha256": "81c780d62e9372f9cce565c70cc482373446c28ff1851f9813cd6ffb6b8b3850",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Barbell_Bench_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_male_v2_2.png",
+      "sourceSha256": "0f043d93097204f5a5cf77b61a8bb840190f3fd22623f40dfaee2590beadbe76",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/002/Close-Grip_Barbell_Bench_Press_male_v2_2.png",
+      "candidateSha256": "01bc177478da3ba9fe4513adb4ff15ed2cc20bfb2756f2907b2257a046d8b177",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Barbell_Bench_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_male_v2_3.png",
+      "sourceSha256": "9aebc78165888ca14025deef96cfb947815b75d3c145f77b7a733d0cd8dbf216",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/002/Close-Grip_Barbell_Bench_Press_male_v2_3.png",
+      "candidateSha256": "0b14a15c69c4fdcd963f45bf2c673575c3a206d3ac7122239f6289e894bafa7b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Barbell_Bench_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_female_v2_0.png",
+      "sourceSha256": "6d3a9993532b6d26ecbde62287181988678a48149d25fa7df3d6961ea4a521fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/002/Close-Grip_Barbell_Bench_Press_female_v2_0.png",
+      "candidateSha256": "70bc4797b985e60fde18ef7af460bb9f0d205b9cab40f340e4e110b1c3e4d768",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Barbell_Bench_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_female_v2_1.png",
+      "sourceSha256": "69ef3f58abd58fdf7f00dff3fd54c7aa4406f7cc4cc5d509350e8f80a31f218c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/002/Close-Grip_Barbell_Bench_Press_female_v2_1.png",
+      "candidateSha256": "cc886d74e0c94c0827112f276e39be7a7fb0d53fa4e81415a1acf29448cb0f2f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Barbell_Bench_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_female_v2_2.png",
+      "sourceSha256": "1ab731945dc328e68cd5c649d75ab28c74b0f19f60d2fb71a6b98c49d3342282",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/002/Close-Grip_Barbell_Bench_Press_female_v2_2.png",
+      "candidateSha256": "e5c717a1da8de344f7705e91b49f30f4e9d895d7d1259aa003afc4314c3a7778",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Barbell_Bench_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Barbell_Bench_Press_female_v2_3.png",
+      "sourceSha256": "30d1aabd9ce5870ecfec181a323c171fff3f2352619e606c9e90039b771365b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/002/Close-Grip_Barbell_Bench_Press_female_v2_3.png",
+      "candidateSha256": "558642752164b7bbd6a69395b285ffc748e02b241468c12021ad96371a2d1a0f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

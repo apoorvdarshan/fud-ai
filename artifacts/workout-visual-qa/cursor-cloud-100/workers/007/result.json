@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Cross-Body_Crunch",
+  "shard": 1,
+  "index": 7,
+  "status": "ready_for_review",
+  "findings": [
+    "Fine light-gray/white contour residue is visible against black along portions of the body, shoes, hair, and enclosed gaps. It is narrow and does not obscure anatomy or materially compromise the illustration. Light-background presentation is substantially cleaner."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cross-Body_Crunch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross-Body_Crunch_male_v2_0.png",
+      "sourceSha256": "7a098287ba96aa4d5d68bca5629e107a61b16124ab515ebfa4542aa457792ae2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/007/Cross-Body_Crunch_male_v2_0.png",
+      "candidateSha256": "af8979214e2a0bf24d88ddc7b494e3df637258c83ceda05e20ede77de48e6e38",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross-Body_Crunch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross-Body_Crunch_male_v2_1.png",
+      "sourceSha256": "b598d176f92194aee902037681712f2c2e2a6c5a0508cb2d6be1a102bff41dae",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/007/Cross-Body_Crunch_male_v2_1.png",
+      "candidateSha256": "9c3a85c15c2018ab1a3e0f357646d72381f0686753664e8e6696c9f1264f371f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross-Body_Crunch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross-Body_Crunch_male_v2_2.png",
+      "sourceSha256": "e775359adf6e25b429397c16593d0136daeceaff9bf3f8bc28f49b711aabe8bb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/007/Cross-Body_Crunch_male_v2_2.png",
+      "candidateSha256": "6c24ba913e3c074222313807ba2dc2608a77a7d491b0c186b8c6d37d08c0e15a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross-Body_Crunch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross-Body_Crunch_male_v2_3.png",
+      "sourceSha256": "a42221203eeeb970a89f80e0975aa8848068475c418337aa766821e238aa53a0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/007/Cross-Body_Crunch_male_v2_3.png",
+      "candidateSha256": "251f63d13481759f3cebdd9af97859cc9e21c1e5b37e1bafdc479594345d5a63",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross-Body_Crunch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross-Body_Crunch_female_v2_0.png",
+      "sourceSha256": "111c5d1962d60bb5e3414bd44af8569a6b41324b289bd0284a1a21482a22988b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/007/Cross-Body_Crunch_female_v2_0.png",
+      "candidateSha256": "ca71efa84f6692d07f602fd3228819b0efcd0a5e6eee88942ac86297a32055c9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross-Body_Crunch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross-Body_Crunch_female_v2_1.png",
+      "sourceSha256": "a493208eb340275158e5d42601357e3d7c2b9d7870bbb2ac2dd60a7b6dd7ad8b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/007/Cross-Body_Crunch_female_v2_1.png",
+      "candidateSha256": "2e8b37ebcab8842ed8badf91ecd5417da94d2dc584c1d2756f3095441b2a0f1f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross-Body_Crunch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross-Body_Crunch_female_v2_2.png",
+      "sourceSha256": "463864fa214bdd8fb8a153b47e92cd015988a5ed9a4cc46f60aaf7ab9fee6507",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/007/Cross-Body_Crunch_female_v2_2.png",
+      "candidateSha256": "a6eeb368ba638473cd48c5cb5487d2e96efa5efa5bff01144ee693766aee57e7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross-Body_Crunch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross-Body_Crunch_female_v2_3.png",
+      "sourceSha256": "05ef03955113877ec669ce9c8ace239d87f43d6bc43a6fcb4502e53866c86492",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/007/Cross-Body_Crunch_female_v2_3.png",
+      "candidateSha256": "dd8b265b8b03c30fce70e052aa02272af48eb05bc2bd24f522305f52b3742221",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

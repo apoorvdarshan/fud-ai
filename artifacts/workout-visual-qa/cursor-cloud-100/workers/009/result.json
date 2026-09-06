@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Crucifix",
+  "shard": 1,
+  "index": 9,
+  "status": "ready_for_review",
+  "findings": [
+    "Thin pale, intermittently dotted fringe traces portions of the hair, arms, torso, legs and equipment on dark backgrounds. Limited to the perimeter; illustrations remain usable. No large opaque background, enclosed checkerboard residue, substantial unwanted holes or clipping seen."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Crucifix_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crucifix_male_v2_0.png",
+      "sourceSha256": "c96976cf9d27b52c75db13563cf7c93f30c2a71eff31230ed43782bf0af49ccd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/009/Crucifix_male_v2_0.png",
+      "candidateSha256": "b9b67e614b479d5db77635d01c5f276783b578d81e8539625cf786b18696e5d4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crucifix_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crucifix_male_v2_1.png",
+      "sourceSha256": "dc17a9746817ccae326218eb42eed32682d7425819a9dd2d5b8e8397023fbf34",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/009/Crucifix_male_v2_1.png",
+      "candidateSha256": "d931252a6409aab79145552e1d37ae2e8b98ef0f44666f227dea6b049515dee3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crucifix_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crucifix_male_v2_2.png",
+      "sourceSha256": "a08acc83afb3c252b667ea52e3068a61e8c7998d5df2db17783011d4293bf7a5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/009/Crucifix_male_v2_2.png",
+      "candidateSha256": "a632dc8fc9d33672faa0c0715c0ee4b39967d012c96c897d3031a2290815cbaf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crucifix_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crucifix_male_v2_3.png",
+      "sourceSha256": "c38e2b0842baf46cd610b2b62d6617c732bc02f5f902efd2fcf713db3da74bc0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/009/Crucifix_male_v2_3.png",
+      "candidateSha256": "08c1db478404e9cec7cf31ac325cee6473360f3cca503e7c1dd5701e8bbe3aed",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crucifix_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crucifix_female_v2_0.png",
+      "sourceSha256": "398aa7e8b8bd6b82b8242adcf77e840d1c2d747c755ab1ecc8abcf27658996bc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/009/Crucifix_female_v2_0.png",
+      "candidateSha256": "5907c0c0d9aedf914fa21884b806dc7712c1a800b4401b540451e277ff18ba8f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crucifix_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crucifix_female_v2_1.png",
+      "sourceSha256": "18c51137777c816d75008ac6d396c264b8497a8d2dc5e880570d18d1b912ee8e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/009/Crucifix_female_v2_1.png",
+      "candidateSha256": "9984dbc5c4a5e18f4140e3e6b931c4f10300ec86083d633cc3d57a438d895478",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crucifix_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crucifix_female_v2_2.png",
+      "sourceSha256": "0e455df8e1b817671b52482b8a002c0caf37218ffe7d5477fb8ba1407a445fd3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/009/Crucifix_female_v2_2.png",
+      "candidateSha256": "093478e43b1def905a015a044ff7dadd481aca220c0d762a8b227a4a8642ebff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crucifix_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crucifix_female_v2_3.png",
+      "sourceSha256": "ede0bd11d23346d23ff1d9d6424fa1518ec6fe584020c8336875d6493b3c64c6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/009/Crucifix_female_v2_3.png",
+      "candidateSha256": "c328294e4e7cf4e177aba65a2816b7881bc62d25aa86c417a25f80b9d1e20200",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

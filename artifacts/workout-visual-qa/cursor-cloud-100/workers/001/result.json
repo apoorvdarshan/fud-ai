@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Clock_Push-Up",
+  "shard": 1,
+  "index": 1,
+  "status": "ready_for_review",
+  "findings": [
+    "Thin pale, slightly speckled fringe follows portions of the hair, clothing and limb contours on the dark background; limited to the cutout edge and does not obscure the illustration."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Clock_Push-Up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clock_Push-Up_male_v2_0.png",
+      "sourceSha256": "940edbefed2afdec992e10f12888688b0c34846a0316e7ad01cdae7b9bd6e129",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/001/Clock_Push-Up_male_v2_0.png",
+      "candidateSha256": "4c8a00c5b77712677c6a2a4ec58c2da8d5af7a418dca7053559ac1b5ff43603c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Clock_Push-Up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clock_Push-Up_male_v2_1.png",
+      "sourceSha256": "ecf9bba7f5c1da9c5fd517493cd93e79ef5ac798b310396b065f6c90ad438bd1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/001/Clock_Push-Up_male_v2_1.png",
+      "candidateSha256": "c4e96803e478c7d28800592cad935062f1813a1234de67425b807a423f8b428b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Clock_Push-Up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clock_Push-Up_male_v2_2.png",
+      "sourceSha256": "3b813ab1a1ae37c5eaa534159078ffed18d48db5d4439f78d30f478b14eddfdc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/001/Clock_Push-Up_male_v2_2.png",
+      "candidateSha256": "62fe385c1e86ace7f0fdb98981cf89d2307f43c7804de6beec29288cd1272667",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Clock_Push-Up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clock_Push-Up_male_v2_3.png",
+      "sourceSha256": "d3b39edc3928b727bfe1cd7e88ef3272b09a72ed1c595c9134c5d64d1ac7cb4b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/001/Clock_Push-Up_male_v2_3.png",
+      "candidateSha256": "2e06025b8c780535090da1e1799dc4946836293a9775b8722c18e21059cfac91",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Clock_Push-Up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clock_Push-Up_female_v2_0.png",
+      "sourceSha256": "ff760b72c302e786aadd3a3eaceebf39b43522d8ac7a7039b7040f2e180f03b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/001/Clock_Push-Up_female_v2_0.png",
+      "candidateSha256": "f3067e61cc46c85ef0172b1a69d8430ebbcbd0ac456d945743555994558d0477",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Clock_Push-Up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clock_Push-Up_female_v2_1.png",
+      "sourceSha256": "2d49eab735fb72c63f29eaa3aba1ad7c0de503e385580bd2587e2db1ef12ba7f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/001/Clock_Push-Up_female_v2_1.png",
+      "candidateSha256": "c4cac47100a3a87acb248958aa74d6be31b64d0cfcc2a8aa83f620831a5cf0a8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Clock_Push-Up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clock_Push-Up_female_v2_2.png",
+      "sourceSha256": "e107e1ee3032eb8f36b70e668c4ab8043f711f1cb9ca989ac3f588d4aa569727",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/001/Clock_Push-Up_female_v2_2.png",
+      "candidateSha256": "f7dc77886d137663ccd716725375e034bb1884ddb784de606a25689cdc3376cd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Clock_Push-Up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clock_Push-Up_female_v2_3.png",
+      "sourceSha256": "9272ed2d238a206b7d323905387191cb7ed59b94822b7f796ad83aa0cf43ddc8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/001/Clock_Push-Up_female_v2_3.png",
+      "candidateSha256": "baf59432bb45914d71c882f577c4de1abcec4d27898686121e78b98b299cc3a8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

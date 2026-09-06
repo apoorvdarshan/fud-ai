@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Close-Grip_EZ-Bar_Curl_with_Band",
+  "shard": 1,
+  "index": 4,
+  "status": "ready_for_review",
+  "findings": [
+    "The male bar changes apparent width and bend geometry across the curl, and its band connections change from wrapped loops in frame 0 to carabiner-like fittings in frames 1\u20133. Equipment remains recognizable and connected, but this produces a small continuity mismatch.",
+    "Male frame 3 and female frame 2 introduce visibly denser speckled clothing texture than the neighboring frames, causing a small shading/style discontinuity.",
+    "Foot outlines and stance width shift slightly across otherwise stationary standing poses, most evident in male frame 3 and female frames 1\u20133. Overall figure scale is similar and no severe jump or clipping is visible."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Close-Grip_EZ-Bar_Curl_with_Band_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_male_v2_0.png",
+      "sourceSha256": "c5b0c97320cc59494719030ff02182d36fe9fd401739a660df5eb3ed513d8d4d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/004/Close-Grip_EZ-Bar_Curl_with_Band_male_v2_0.png",
+      "candidateSha256": "aa8c71b1919a8a59d32f52803952c7165bcb0073c8d1c9e3b4bef31a74a7a84b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_EZ-Bar_Curl_with_Band_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_male_v2_1.png",
+      "sourceSha256": "39abfd4724e937c6079ae7e30075f2d7b93edcb08a868ae6565bb24e6c6b3a7d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/004/Close-Grip_EZ-Bar_Curl_with_Band_male_v2_1.png",
+      "candidateSha256": "8be17d2c5a429e82dfe57332fd8c95d0b169cdac0192d6e1fec8d5df082c156f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_EZ-Bar_Curl_with_Band_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_male_v2_2.png",
+      "sourceSha256": "2de15e33b1ec4475ab33981f40f36c14da835f3aa9890d3d002aefb15d757eb2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/004/Close-Grip_EZ-Bar_Curl_with_Band_male_v2_2.png",
+      "candidateSha256": "b5db497903aa43077626c6ef35f773e83b6bdec85c7dc474e0c02bde03d6bbbe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_EZ-Bar_Curl_with_Band_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_male_v2_3.png",
+      "sourceSha256": "6fc8bf7c8c545184c2892a2281e8a8191b6d778769c8d02d2cceb43c57d52ee7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/004/Close-Grip_EZ-Bar_Curl_with_Band_male_v2_3.png",
+      "candidateSha256": "510dc0106b756ebb0c2fca42f56f5c2695a37344e11d0c0a2f12f4a6a33ef118",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_EZ-Bar_Curl_with_Band_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_female_v2_0.png",
+      "sourceSha256": "616eb569f4f8cfd192fbfcd625800984f56cfa7515e75a7f1866f6c01fb76c09",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/004/Close-Grip_EZ-Bar_Curl_with_Band_female_v2_0.png",
+      "candidateSha256": "4164f81a73a19da56af611024cd96f44a6399931f21e0e3353e12ac6db7bd891",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_EZ-Bar_Curl_with_Band_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_female_v2_1.png",
+      "sourceSha256": "2b953fdc02c43074182c81186ed5cd02caf5120a075018dcde1bf11a41e3e5b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/004/Close-Grip_EZ-Bar_Curl_with_Band_female_v2_1.png",
+      "candidateSha256": "95715d1246949ff7eff1b85b0c36ffafe78282e556845f1f66514ea6cf0c93c7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_EZ-Bar_Curl_with_Band_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_female_v2_2.png",
+      "sourceSha256": "946068c077b2a27b64f63d601a3a5049c82ebe12f39a8d2bb39a078cf491bc58",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/004/Close-Grip_EZ-Bar_Curl_with_Band_female_v2_2.png",
+      "candidateSha256": "e5d6884e137de205ccc8d2568b0747b88343db6dd978f42deb21011485d9f4fc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_EZ-Bar_Curl_with_Band_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_EZ-Bar_Curl_with_Band_female_v2_3.png",
+      "sourceSha256": "ed9a4d2c0a8bf91e66d03ffd198557731618e2f8ddd5c744fe2e219a6efc9f00",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/004/Close-Grip_EZ-Bar_Curl_with_Band_female_v2_3.png",
+      "candidateSha256": "f1637972984261fb9a546ea543663db0c6339d8090b4f2d667c7b3f977f0ed86",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

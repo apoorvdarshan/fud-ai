@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Crunch_-_Hands_Overhead",
+  "shard": 1,
+  "index": 10,
+  "status": "ready_for_review",
+  "findings": [
+    "Enclosed sole bands and lace details switch from light to dark with the preview background, indicating cut-out footwear interiors. The affected areas are small and the illustrations remain usable."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Crunch_-_Hands_Overhead_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_male_v2_0.png",
+      "sourceSha256": "662acd9a9a897071ebe943b4bbdaf75a2cea9b7df1b29c129d6dbda1ce8c0422",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/010/Crunch_-_Hands_Overhead_male_v2_0.png",
+      "candidateSha256": "bb53692bfc32d37d6dd55afaabc080dfe964b922c734c6448789856d35348161",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crunch_-_Hands_Overhead_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_male_v2_1.png",
+      "sourceSha256": "ba37d6dcca10b648f06f3b143718b249bed14e242b40116c89f0f5b51c4a1cbf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/010/Crunch_-_Hands_Overhead_male_v2_1.png",
+      "candidateSha256": "a2b84a9f452e34130f1af833d5fe4b79ee3891d4e4de83e0b72f26d6d532803b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crunch_-_Hands_Overhead_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_male_v2_2.png",
+      "sourceSha256": "61eaf7f54497afc8fd9713d8780ed4bb45d02e7598e45dbdc8eec1e4a8d697a8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/010/Crunch_-_Hands_Overhead_male_v2_2.png",
+      "candidateSha256": "6c842a05340b01104c9d31342d9d2fd0d88d10f281fb730f46092b99b2312004",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crunch_-_Hands_Overhead_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_male_v2_3.png",
+      "sourceSha256": "5ca63d616225695c338dc5748b6408ee18d3fe670b94d02ea0831abc55d87dd1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/010/Crunch_-_Hands_Overhead_male_v2_3.png",
+      "candidateSha256": "3b0d1a184883cc04d6d9275c27fc323ec09e129d2ae4301e068f38bec9bb611c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crunch_-_Hands_Overhead_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_female_v2_0.png",
+      "sourceSha256": "6a578b9b024f2c4bbb61d3f4b12051afa1dfc22661fd0e83d38ca399e926ad61",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/010/Crunch_-_Hands_Overhead_female_v2_0.png",
+      "candidateSha256": "89cb8e07bf553897d3069c8bca156d89e5d197a0cbe3798e963456ffcb997001",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crunch_-_Hands_Overhead_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_female_v2_1.png",
+      "sourceSha256": "c16991cdff5b3bbbe70bd906ee6aa4f05d0ead0f762c9f1486c36608e160d535",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/010/Crunch_-_Hands_Overhead_female_v2_1.png",
+      "candidateSha256": "48bcc3327422a663f085b8329e77f0008b09b4cdf2a707b64d0cca841f0eba5e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crunch_-_Hands_Overhead_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_female_v2_2.png",
+      "sourceSha256": "f8f01aa965e716ff52f285dd73df10ae93e9303bc322b5f27b7795224857e41c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/010/Crunch_-_Hands_Overhead_female_v2_2.png",
+      "candidateSha256": "b82bd14ea68045be7d3bce1d9e75a4593a58966af1db663b424152af91f13153",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crunch_-_Hands_Overhead_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crunch_-_Hands_Overhead_female_v2_3.png",
+      "sourceSha256": "014c31d259c9a3b5fc34e2ba5a5feab9333337dfd51d7c6aa75fa5f7153e56f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/010/Crunch_-_Hands_Overhead_female_v2_3.png",
+      "candidateSha256": "2046dc170985b364eca0fd1a87cb1ea5063b5959bc67fa7626964a80bdb42765",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

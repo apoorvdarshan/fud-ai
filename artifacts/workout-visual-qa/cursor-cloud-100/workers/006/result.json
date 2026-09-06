@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Cross_Over_-_With_Bands",
+  "shard": 1,
+  "index": 6,
+  "status": "ready_for_review",
+  "findings": [
+    "Thin pale outlines trace portions of the body, handles and bands against dark backgrounds. Artwork remains usable; no substantial exterior background remains.",
+    "The small opaque pale ground oval beneath the feet contains blocky/checker-like tonal patches and stands out on dark backgrounds. Its oval shape appears intentional, but its patterned texture warrants review."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Cross_Over_-_With_Bands_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_male_v2_0.png",
+      "sourceSha256": "80e874b18f5bbd4ced6ae8278f52314907198460be55cfccf29862e595a3c443",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/006/Cross_Over_-_With_Bands_male_v2_0.png",
+      "candidateSha256": "3fda72743334e980d36a35389e8589518f2a348bf643480f69410a27bf22494c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross_Over_-_With_Bands_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_male_v2_1.png",
+      "sourceSha256": "23abda88c4d293311bc18c7c94bd7a0804a512c3fd029777a5e89c9705f3874d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/006/Cross_Over_-_With_Bands_male_v2_1.png",
+      "candidateSha256": "e984498a1ab1bf74431d0cf244533bc644dcbaf939667c2db230ba64024be667",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross_Over_-_With_Bands_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_male_v2_2.png",
+      "sourceSha256": "df780b4840cfc631db19db8905e422f97fa5d9e07a8f8f3b7e1fee326cf0cb23",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/006/Cross_Over_-_With_Bands_male_v2_2.png",
+      "candidateSha256": "2e5f264cefde55903cf907cf7ff03a1820bc0c9adfd922a154ce991bf1fdbcd8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross_Over_-_With_Bands_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_male_v2_3.png",
+      "sourceSha256": "e5262a89ced70cb364af83a3206d569beb947ed5a08566a4ab2573d0c33ab3d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/006/Cross_Over_-_With_Bands_male_v2_3.png",
+      "candidateSha256": "effd62f7f7bea9c8d43f313280a6da9e7a3f5c721250330b8dde49c4e14fe5a5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross_Over_-_With_Bands_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_female_v2_0.png",
+      "sourceSha256": "a7f317b9e62df03d0b66edbddad37b2722abf4d33c6340a9e9283bdb71b13446",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/006/Cross_Over_-_With_Bands_female_v2_0.png",
+      "candidateSha256": "e2249a66284c3c765a069c5291aab3b11af3aebe7f82536ebe8bd5af27b5b9d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross_Over_-_With_Bands_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_female_v2_1.png",
+      "sourceSha256": "c744a78fa554960ffb21da9e532f8a2e0954cb56e88ce74f93748aafa913e1f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/006/Cross_Over_-_With_Bands_female_v2_1.png",
+      "candidateSha256": "b1da6ce8411f594cd93baa167657b25d55fcc0b0eb5adebfb82b04ab1fcd1389",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross_Over_-_With_Bands_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_female_v2_2.png",
+      "sourceSha256": "525a42a5fdaeb52713d8727731f8744604d0a6a1edd4f0c352c72a16b16f32a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/006/Cross_Over_-_With_Bands_female_v2_2.png",
+      "candidateSha256": "a35702ee3314a4ba549a0a0ea26fd02afa3291ce9b8f315340a5fc0ed46211ef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Cross_Over_-_With_Bands_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Cross_Over_-_With_Bands_female_v2_3.png",
+      "sourceSha256": "e66cecc075bc9a039de975806ea388e6b523e11191ec045e3176f05274593119",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/006/Cross_Over_-_With_Bands_female_v2_3.png",
+      "candidateSha256": "d4b9cf42a4b9eae20d1973928aac7ef29c6ff3c423554c4c02b785ac997adee8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

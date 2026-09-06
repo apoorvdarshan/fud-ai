@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Close-Grip_Dumbbell_Press",
+  "shard": 1,
+  "index": 3,
+  "status": "ready_for_review",
+  "findings": [
+    "Thin light fringe follows parts of the athlete and bench contours on dark backgrounds. White shoe sole strips show irregular transparent breaks, most conspicuous in male frame 0, which also has small pale flecks beneath the soles. Illustration remains usable; no substantial background block or enclosed checkerboard is visible.",
+    "Female frame 0 places bench and feet slightly lower than subsequent frames; bench legs and foot positions vary slightly through the sequence. This is limited stationary-anchor drift rather than the intended arm press motion."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Close-Grip_Dumbbell_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_male_v2_0.png",
+      "sourceSha256": "ab7cb22c0a7659ab742480e7258b76d2cbcd83b8384eea688189edc598909346",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/003/Close-Grip_Dumbbell_Press_male_v2_0.png",
+      "candidateSha256": "1306d35482949da8048d5884645ad58b86fcdb259e66cd255b2893316a3e037d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Dumbbell_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_male_v2_1.png",
+      "sourceSha256": "4c3334145f0659f8713b14ff2394f5f9a2bc678f735cc3705f8b9360f7c1117a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/003/Close-Grip_Dumbbell_Press_male_v2_1.png",
+      "candidateSha256": "55c816947b1e5f55aeaf327c86770eedd18fac00c9db6939d28157512ee52c07",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Dumbbell_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_male_v2_2.png",
+      "sourceSha256": "1e47641cd1943a7f4ebe4f495039ce6342a001dc0f2e3c976ff7091c3245430f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/003/Close-Grip_Dumbbell_Press_male_v2_2.png",
+      "candidateSha256": "787f2a043eceb596beec16103427cfbc2199e8f9aabd3ca733146452827cc726",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Dumbbell_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_male_v2_3.png",
+      "sourceSha256": "c04fdad906110468dd63bae90b017fded1ee9cec52861966639437866130984e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/003/Close-Grip_Dumbbell_Press_male_v2_3.png",
+      "candidateSha256": "6f6141d7297e2f605dcb0a8e528b6cdb028b8121a8f49d3ca045be6bf6a350d7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Dumbbell_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_female_v2_0.png",
+      "sourceSha256": "f1d78ba4047fb87a408d432841dd54a58680cfbedbd0a0a7676871807da31af1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/003/Close-Grip_Dumbbell_Press_female_v2_0.png",
+      "candidateSha256": "ac1bb58b291dbfc4e030626ef23dbb5c32cabc4760e928184e2686e5e9473dbe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Dumbbell_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_female_v2_1.png",
+      "sourceSha256": "f3c579148199dab12b81fe7a457086b341d53aa97354c95f723baf3d0dffa0ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/003/Close-Grip_Dumbbell_Press_female_v2_1.png",
+      "candidateSha256": "8172d13f5d345a5b93124ffb1b308f84d0abc1ac030c6ff01f72c3a9e73e727c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Dumbbell_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_female_v2_2.png",
+      "sourceSha256": "db03ae4d3bc140a7ad1f941eeec856e76f40fd113ea0c2cb13f110cdedbfffb3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/003/Close-Grip_Dumbbell_Press_female_v2_2.png",
+      "candidateSha256": "495aa5ba980eb0cbd3ce4a79203465c835dd68a458f271a4a87b9f8e2e512ebc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Dumbbell_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Dumbbell_Press_female_v2_3.png",
+      "sourceSha256": "e6967bc8f1413420c01e6d0c2ef24a24c24f2eb00733af0395574f69162f0b79",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/003/Close-Grip_Dumbbell_Press_female_v2_3.png",
+      "candidateSha256": "70b024c063481dafa83d76e9b54d43567e3dfa0442fbebfeb3e22d14d45e41b8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

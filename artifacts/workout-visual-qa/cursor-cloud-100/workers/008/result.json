@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Crossover_Reverse_Lunge",
+  "shard": 1,
+  "index": 8,
+  "status": "ready_for_review",
+  "findings": [
+    "Thin pale, intermittently dotted fringe follows portions of the cutout contours on dark backgrounds, especially hair, arms, shoes and ground ellipses. Light-background rendering is largely clean; no substantial opaque background or checkerboard interiors observed.",
+    "Male ground ellipse and planted shoe rise modestly through frames 1 and 2, then return lower in frame 3. This creates a limited ground-anchor shift beyond the expected torso lowering during the lunge."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Crossover_Reverse_Lunge_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_male_v2_0.png",
+      "sourceSha256": "0e3c40751e72ec072f9ef51705bcf7e7486005104f78c0631b140545e7c6dc20",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/008/Crossover_Reverse_Lunge_male_v2_0.png",
+      "candidateSha256": "6044bfd72fb11a8389c54df15a78916fafd9785a494e38a069ed66598ba377a2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crossover_Reverse_Lunge_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_male_v2_1.png",
+      "sourceSha256": "86733260ab7594b28e248f3200e3281cca972d7b933f365a56f54751003a3034",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/008/Crossover_Reverse_Lunge_male_v2_1.png",
+      "candidateSha256": "2b08361128c87647740ef0dc6e988333d1450b02884f366674d6058a60556757",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crossover_Reverse_Lunge_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_male_v2_2.png",
+      "sourceSha256": "7ceeda98be2f266dc441643375bc0edb7690e96341e20953166b2ac083a9da49",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/008/Crossover_Reverse_Lunge_male_v2_2.png",
+      "candidateSha256": "9e1d4bab86ceb1065a57d141977eb9de711fa80babf43c48860ece5686b6d27f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crossover_Reverse_Lunge_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_male_v2_3.png",
+      "sourceSha256": "f1bba1d0b46e1524771b72cb29aae2cffafd561f7069b7cb7325653f8fe61df0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/008/Crossover_Reverse_Lunge_male_v2_3.png",
+      "candidateSha256": "c1264c1aac8d00119bc19f20b1ac622261ca4d2dea4c4540db0be9048bcf9620",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crossover_Reverse_Lunge_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_female_v2_0.png",
+      "sourceSha256": "c4880fa5c0271eefbdcde39230dc3991cf8a5b79c34220ef83f6661161b10668",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/008/Crossover_Reverse_Lunge_female_v2_0.png",
+      "candidateSha256": "96f4609629aac6de99a7579bc90adce675dc6b84511d38e26531754b41886e51",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crossover_Reverse_Lunge_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_female_v2_1.png",
+      "sourceSha256": "8372a65f9949f077f21c38f578ed09bf1bd6d3673739796b3dabcca344ba9e20",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/008/Crossover_Reverse_Lunge_female_v2_1.png",
+      "candidateSha256": "4faaceb2a4a18dcfdac012732baeda64b8c42debd61d74af62c7c491e2d4a65c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crossover_Reverse_Lunge_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_female_v2_2.png",
+      "sourceSha256": "7a8e5b90dbee71f8936dd9b7e4ba6b1f2d06a531754672b63f68b5ef2a6efa6e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/008/Crossover_Reverse_Lunge_female_v2_2.png",
+      "candidateSha256": "e3d389ae7df1a2d238895e0032681a4740d824d4aff5cf1fe7cfef2cf450106a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Crossover_Reverse_Lunge_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Crossover_Reverse_Lunge_female_v2_3.png",
+      "sourceSha256": "8d6d49ee206654f8d769f026d9754c9e7322105346b493111ce38365f201085d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/008/Crossover_Reverse_Lunge_female_v2_3.png",
+      "candidateSha256": "eed6f92def9b5f74422848850af9d5a6654c9f722c3b1a83e836fe190a1f1fe3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

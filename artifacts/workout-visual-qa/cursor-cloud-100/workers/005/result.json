@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Close-Grip_Standing_Barbell_Curl",
+  "shard": 1,
+  "index": 5,
+  "status": "ready_for_review",
+  "findings": [
+    "Small opaque white wedges remain in the gap between the image-right arm and torso; frames 1 and 3 also show white in the opposite bent-arm gap. These remain white against the dark background. Localized remnants do not obscure the movement.",
+    "Thin pale fringe and scattered tiny edge flecks are visible around silhouettes on dark backgrounds, especially shoes and portions of head/limb contours. Female shoe edges have the clearest small stray marks. No large background field or clipping."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Close-Grip_Standing_Barbell_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_male_v2_0.png",
+      "sourceSha256": "481a290928e1c537ded8bdcc79557b58dcd8be55b82a5a07ff061d25cdbc9725",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/005/Close-Grip_Standing_Barbell_Curl_male_v2_0.png",
+      "candidateSha256": "766b3cdbb06231e4eb89481d691027dc21e4fcbfe244d1c71f9c295e5392b822",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Standing_Barbell_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_male_v2_1.png",
+      "sourceSha256": "674c1e9fc3dc0c9e5194bcc20ea62aa054d9ce3e18fea416a039f2e9e06bc863",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/005/Close-Grip_Standing_Barbell_Curl_male_v2_1.png",
+      "candidateSha256": "a47a0c48b40bebd987d4d302ffa327a2a668a52a1429ddb55ccd2c8bb08ef615",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Standing_Barbell_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_male_v2_2.png",
+      "sourceSha256": "e423d54d48fc4288bf1c34ef503d347592dac262579453516fb06be0c71fb577",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/005/Close-Grip_Standing_Barbell_Curl_male_v2_2.png",
+      "candidateSha256": "979f81dad4bb19a0774803fa2940d6e12656298978004e19e3da0b7229d872f7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Standing_Barbell_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_male_v2_3.png",
+      "sourceSha256": "9f9caf0e1f831e67648b6985e9faa137a5baa275025489b6b22182f17e0582a7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/005/Close-Grip_Standing_Barbell_Curl_male_v2_3.png",
+      "candidateSha256": "b574a45909216efe95787b7d787f4e2358d3c841b17e35d88957bef8b0e0e2b5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Standing_Barbell_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_female_v2_0.png",
+      "sourceSha256": "f813c3cf2462321fa23e8219062b4eaac471a513155092737d6371464d210bff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/005/Close-Grip_Standing_Barbell_Curl_female_v2_0.png",
+      "candidateSha256": "e2c37444ea81239145ef71d459a46541635ee505c8eb4cfa1a95d2bd679eb1e8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Standing_Barbell_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_female_v2_1.png",
+      "sourceSha256": "fec00cc6f131cfde4b6a4731935e675a5205d647453935a88a890409e5f0f338",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/005/Close-Grip_Standing_Barbell_Curl_female_v2_1.png",
+      "candidateSha256": "175bf6c00dc4088d49e12ad734a168a3c472b75af8b58da82be1bef632736c1a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Standing_Barbell_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_female_v2_2.png",
+      "sourceSha256": "afec664e7d93687d834ddfe19fb2eb2a2b5521b3cd5b1233aa5011ee5d315774",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/005/Close-Grip_Standing_Barbell_Curl_female_v2_2.png",
+      "candidateSha256": "1d12c3ad7eb586f85b77051064085e415d137fafb93ae66c2435278c6fd4e162",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Close-Grip_Standing_Barbell_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Close-Grip_Standing_Barbell_Curl_female_v2_3.png",
+      "sourceSha256": "96c6dc314ec74bf48116f9620a771b44637b505d0ac211c5038a7d01b5c17752",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/005/Close-Grip_Standing_Barbell_Curl_female_v2_3.png",
+      "candidateSha256": "39119d0f907a320c15fc5afc7913509a11c9ba4281f478495df9e189cc0c9541",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

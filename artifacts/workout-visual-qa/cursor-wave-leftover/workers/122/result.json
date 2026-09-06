@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Quick_Leap",
+  "shard": 13,
+  "index": 122,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Quick_Leap_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quick_Leap_male_v2_0.png",
+      "sourceSha256": "351afb5621e0cbbb8bacd4525feffb2f21a5cef920132015a3820018e221969e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/122/Quick_Leap_male_v2_0.png",
+      "candidateSha256": "93a77a1594209d38dcd5d0e614935535e7e10839922a0b77bf010757bc148e5d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quick_Leap_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quick_Leap_male_v2_1.png",
+      "sourceSha256": "3d8b38a88fe89af8029155146e5534be4efcbc0c56119af429e17dc6c2fc062e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/122/Quick_Leap_male_v2_1.png",
+      "candidateSha256": "587e5e69e41fa9dca1f031754271f43943ffde92ee2738a9a57316275a72a0de",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quick_Leap_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quick_Leap_male_v2_2.png",
+      "sourceSha256": "061ac6a5b62f1fb20f90f3cc72e9dae1b43e1bf815a67651c25c59cc2e74ca91",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/122/Quick_Leap_male_v2_2.png",
+      "candidateSha256": "a4857a0e619cc55351ae058bb35c0f257416784d8e22173055302332fa0507fc",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quick_Leap_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quick_Leap_male_v2_3.png",
+      "sourceSha256": "fe88ea90661ec7c12c30a9ffc52770518bea6dc13b072717d226c50e05fa3428",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/122/Quick_Leap_male_v2_3.png",
+      "candidateSha256": "b8d73e2ee520bc2b2cd98309396b12c781414fba5c5111443a14876fc72b2bff",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quick_Leap_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quick_Leap_female_v2_0.png",
+      "sourceSha256": "d3027514a93472be90bc2be7e78d532fe6852cfd9d868ea6d23f7bbebf3ecb96",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/122/Quick_Leap_female_v2_0.png",
+      "candidateSha256": "1abf20b3cadff183453b64eb866b80b4e4ddee8b37f103cb29773094b4079dde",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quick_Leap_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quick_Leap_female_v2_1.png",
+      "sourceSha256": "662f474a51b9a3ab82e23146a71924ea7937133369d627ca2263c0f31d54bd67",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/122/Quick_Leap_female_v2_1.png",
+      "candidateSha256": "621df14075416f75a06ffe825343e2f22dea3611bd48c1c2b9b32731488b936d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quick_Leap_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quick_Leap_female_v2_2.png",
+      "sourceSha256": "0375467311cb189c6063a10a3739ad9297ca2d15cd889291edcd2841747c66a9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/122/Quick_Leap_female_v2_2.png",
+      "candidateSha256": "4a08d8f6d415501faee703e64ed5be5e33a51e35823fa2357f3333c2b623ad8a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Quick_Leap_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Quick_Leap_female_v2_3.png",
+      "sourceSha256": "a482ffc29a82e9b47541d241a52edef04417308a67b1f38da785fbf80be85365",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/122/Quick_Leap_female_v2_3.png",
+      "candidateSha256": "621391fc8e60bbaefa93824903e8bdb49f560368b1cc6450f4bfb2b3d56e2f26",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

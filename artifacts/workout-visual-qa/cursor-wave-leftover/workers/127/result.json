@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Recumbent_Bike",
+  "shard": 13,
+  "index": 127,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Recumbent_Bike_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Recumbent_Bike_male_v2_0.png",
+      "sourceSha256": "ae06e63b12cef34fe72b008440bcd12f334ee8a2040ee437a453d80b2f75f7d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/127/Recumbent_Bike_male_v2_0.png",
+      "candidateSha256": "c0a756ccca0c9a8f06b5557e2b8c29572d7fcf43603ec88ed852398cfcd91a3a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Recumbent_Bike_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Recumbent_Bike_male_v2_1.png",
+      "sourceSha256": "b46a55ca067726858ae46215088105c47ff3223908d8647756a1c1082d588de9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/127/Recumbent_Bike_male_v2_1.png",
+      "candidateSha256": "7a8f7b8a5d3efd5c895b474b3ffc38008a7bb681133a849e638e3ae1777a3e9a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Recumbent_Bike_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Recumbent_Bike_male_v2_2.png",
+      "sourceSha256": "53573f85c9e9d8b5e72bdc3122f69da297bb9754750cad4b1ac86e2a2eaa910c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/127/Recumbent_Bike_male_v2_2.png",
+      "candidateSha256": "744549abf71e3c1ca7c9f5018cccaa89dbabda32b374cacaf846e4f453766583",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Recumbent_Bike_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Recumbent_Bike_male_v2_3.png",
+      "sourceSha256": "37027df1fca1a9fd961bf7c6760f4b34ae7f6fbfc403e3f81062c82bb921bcb0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/127/Recumbent_Bike_male_v2_3.png",
+      "candidateSha256": "2a46d69131268321b77b1599ef9bc16c2419deca38a3f2eeb505ce04a8a994db",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Recumbent_Bike_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Recumbent_Bike_female_v2_0.png",
+      "sourceSha256": "51f938f6d2240d2c2bdd38e684ca19a6d40d747e05de4c497fed320c7068041e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/127/Recumbent_Bike_female_v2_0.png",
+      "candidateSha256": "4842b045b37c4243265f9f1bb3e0e83adfff782c157c41515eed98d865171d68",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Recumbent_Bike_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Recumbent_Bike_female_v2_1.png",
+      "sourceSha256": "de2910322900f0ac3ac7128ff9266a861713c67818a9b8bc1a3ad67cf53d6e9d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/127/Recumbent_Bike_female_v2_1.png",
+      "candidateSha256": "55a74fc3f61453587534d0e8d2218682101a0d507df8734d152a61bf464037e1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Recumbent_Bike_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Recumbent_Bike_female_v2_2.png",
+      "sourceSha256": "0e2869f510090dd02a1292287eb0cbc3d55bf9862cc3de3f868763d4bd2da304",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/127/Recumbent_Bike_female_v2_2.png",
+      "candidateSha256": "411b77e8aef2a5785bf72ef1ff5a5c6528f457d92e478ba96a50870dd2a23423",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Recumbent_Bike_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Recumbent_Bike_female_v2_3.png",
+      "sourceSha256": "0aac2a0bb47f04cd2544e081dc58bf8de4dcac5176758906c969c917377ed649",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/127/Recumbent_Bike_female_v2_3.png",
+      "candidateSha256": "92c9db7868a4e5317511811c9e2964b82706d20af931b5e3fa161a61c92652f0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

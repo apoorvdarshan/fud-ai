@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Rack_Pull_with_Bands",
+  "shard": 13,
+  "index": 124,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [
+    "pale fringe on rack edges; GenerateImage restyled to photorealistic"
+  ],
+  "frames": [
+    {
+      "filename": "Rack_Pull_with_Bands_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pull_with_Bands_male_v2_0.png",
+      "sourceSha256": "6388e9c5b97c8867ae4830f57e146bc0f17c896780844dd91a454b6644b9163f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/124/Rack_Pull_with_Bands_male_v2_0.png",
+      "candidateSha256": "269d775a304b6aed035b45a198f8e35c3756462cb66a1ebd1b60cd5f2652a78b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pull_with_Bands_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pull_with_Bands_male_v2_1.png",
+      "sourceSha256": "cb463ddd2f29e31e7b3b381ffc690b19ed585a23478c47ea520be1db8d525e66",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/124/Rack_Pull_with_Bands_male_v2_1.png",
+      "candidateSha256": "507cab5fa97c4988ac99471348c31d6aab8e2b5e7a8fe9d3d51d5c58c4715593",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pull_with_Bands_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pull_with_Bands_male_v2_2.png",
+      "sourceSha256": "9d9308544e3ce44b6965f3c9c44df3df39ae84459dd79da0c1fbb88042e33bf7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/124/Rack_Pull_with_Bands_male_v2_2.png",
+      "candidateSha256": "f09b5f792b73f0368d89f7a45eebf597be972042671440b2ac1c5c7c603480e5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pull_with_Bands_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pull_with_Bands_male_v2_3.png",
+      "sourceSha256": "d30f5277e2b51563f38da86dd9106ff4cc29ed977efdb00cc0b618499d9c7c37",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/124/Rack_Pull_with_Bands_male_v2_3.png",
+      "candidateSha256": "b57e0efbf238bf901151406e3f27d56e231a95a79b775c2e5820701676f2c9a2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pull_with_Bands_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pull_with_Bands_female_v2_0.png",
+      "sourceSha256": "21bab35cf97f3a3a90db765810f9a489ff1c2f16c325e295dd0ba74c6a340c56",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/124/Rack_Pull_with_Bands_female_v2_0.png",
+      "candidateSha256": "4740c43634bff9df1bb27cbf0a4e12a21d75f9fd5514c687a2e8d57d4778a998",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pull_with_Bands_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pull_with_Bands_female_v2_1.png",
+      "sourceSha256": "085ff27b5bb85b007faf0cac724114595aeb51fadcf17316fe784ead887f346b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/124/Rack_Pull_with_Bands_female_v2_1.png",
+      "candidateSha256": "c98b6530e498c7df8d9e288615374aadc81646606439ccf1efdaaf6601aa98a2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pull_with_Bands_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pull_with_Bands_female_v2_2.png",
+      "sourceSha256": "174552c9cc3f74a04220e0bff75038fbb14681c04cdb2f58be5dd8dd34278f3f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/124/Rack_Pull_with_Bands_female_v2_2.png",
+      "candidateSha256": "16f531e4b713e93073f54e086bc00d5d06647e4da86acb5912b9198d534607db",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pull_with_Bands_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pull_with_Bands_female_v2_3.png",
+      "sourceSha256": "c15591a7a7d722795dd31586bb2e9dde0f7c85e0fa6b0d8be50afbb99f881e9c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/124/Rack_Pull_with_Bands_female_v2_3.png",
+      "candidateSha256": "0957dfd9a1f89bd5b9c378f13a6403aafb3105a7638623df91fd37e49685d54f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

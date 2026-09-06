@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Rack_Pulls",
+  "shard": 13,
+  "index": 125,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [
+    "pale fringe on subject edges; GenerateImage introduced rack/bar clipping"
+  ],
+  "frames": [
+    {
+      "filename": "Rack_Pulls_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pulls_male_v2_0.png",
+      "sourceSha256": "ee1e9890d034cce47495ec67c423638584c00b9375be01370d2e96fa2710d3e2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/125/Rack_Pulls_male_v2_0.png",
+      "candidateSha256": "490162f98e01677f219d3fa9dd2fc4ef3b2c2ed9ab80a823e0358d4aba97e841",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pulls_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pulls_male_v2_1.png",
+      "sourceSha256": "1180d8701ddda7edf8642b42189e90c79227219d055291d56ef5bd6dfc10b8a3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/125/Rack_Pulls_male_v2_1.png",
+      "candidateSha256": "1bea19d801708dfb633bc8433ef5042813d9ecf3ae0299bf985c84085d6574f4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pulls_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pulls_male_v2_2.png",
+      "sourceSha256": "fa2a16b31e5a7dda31736292fdeb43107a6c857ef4f61bb8896e983b46b6d9e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/125/Rack_Pulls_male_v2_2.png",
+      "candidateSha256": "612f239bc2e8610aecc872910fa57f6b972f03bbe3c619d4e70d486067a598da",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pulls_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pulls_male_v2_3.png",
+      "sourceSha256": "ac905b1003350c4d99ea3195b3a27ef8fc761fd976c5cf3a72684b3949e41edc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/125/Rack_Pulls_male_v2_3.png",
+      "candidateSha256": "56745108c016a1f2dc18891674089d4369e213262a527053bbdc88e07e4128ad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pulls_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pulls_female_v2_0.png",
+      "sourceSha256": "1259a68fdd1af0e1aec00afc3ed28c45e4bc7eb7f49dc605b4ba02b790b460b1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/125/Rack_Pulls_female_v2_0.png",
+      "candidateSha256": "1cc15f8938c456c21a85bc71edb3dc177b6dc0a095291b2a292ffd7ee6f85e01",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pulls_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pulls_female_v2_1.png",
+      "sourceSha256": "36cf60a9cb70e3604b77c81a63205cf2e7759a28cbd18f3a9109f0378eb69e13",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/125/Rack_Pulls_female_v2_1.png",
+      "candidateSha256": "abcfd324175361bc7e666b25ca472648ddcc851898dba6d42474dc6d516bba9f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pulls_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pulls_female_v2_2.png",
+      "sourceSha256": "fb55543e4786fa693f0cf40870cc7d3b1fb6639a72290199fab4bcebfdada372",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/125/Rack_Pulls_female_v2_2.png",
+      "candidateSha256": "b21ecfa659d4392887b8dcc35e141cb51b37ffac976f2388337bc86c0aac8500",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rack_Pulls_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rack_Pulls_female_v2_3.png",
+      "sourceSha256": "f51b067f5cf4977f2436f51f4f49a18dc5a4dad7e1a9713965a86df9d76b37e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/125/Rack_Pulls_female_v2_3.png",
+      "candidateSha256": "687f5b1653351206f8825027095df6a520c74c645497018430322285ae93be29",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

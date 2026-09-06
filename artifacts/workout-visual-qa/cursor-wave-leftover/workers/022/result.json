@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Narrow_Stance_Leg_Press",
+  "shard": 3,
+  "index": 22,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Narrow_Stance_Leg_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Leg_Press_male_v2_0.png",
+      "sourceSha256": "08952a3e625be259c3e487f8a29c28d9a348f60f7e691372326cd84746e85c54",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/022/Narrow_Stance_Leg_Press_male_v2_0.png",
+      "candidateSha256": "dfd195a318e845a8b0f612c95e14c2fc978fd84baedf8b51bae9d1b320466a84",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Leg_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Leg_Press_male_v2_1.png",
+      "sourceSha256": "997ad63d4499aea55af88399b0764cf3cac185a938c959232bb7040870c5ae86",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/022/Narrow_Stance_Leg_Press_male_v2_1.png",
+      "candidateSha256": "7d5834f26ae94fe2637bf68247ff8ee91a5868c1fa759315511171c176b08000",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Leg_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Leg_Press_male_v2_2.png",
+      "sourceSha256": "9a222ae79597a25aba0b6d75e60e069e8cd8ba6e6733537fc911c8c6ad330b7a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/022/Narrow_Stance_Leg_Press_male_v2_2.png",
+      "candidateSha256": "b60b2b50ca8b98f301c75bd00c2183ec4e780f78708743cef9c2608c1d74ceef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Leg_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Leg_Press_male_v2_3.png",
+      "sourceSha256": "572aeff6fdf736b2738c79c89d0363e6bbf41500641ae66e3132e4a7e3f4d6f6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/022/Narrow_Stance_Leg_Press_male_v2_3.png",
+      "candidateSha256": "a0356419dcdd68348e98556a754c4a8266d99f2a7df1f3fbbe68e2aa438be311",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Leg_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Leg_Press_female_v2_0.png",
+      "sourceSha256": "40626b4aa52d970242bf6997a8332c85335680f90885b87e8160dfac84f76f21",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/022/Narrow_Stance_Leg_Press_female_v2_0.png",
+      "candidateSha256": "ea326d51a3b3ba501d8dcc53347c3c14f6ee5424960affb48e656a695bfc1081",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Leg_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Leg_Press_female_v2_1.png",
+      "sourceSha256": "87c5b8328a6955ded68ea79d229d210caf128847da675b5d777306a03fecc9a7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/022/Narrow_Stance_Leg_Press_female_v2_1.png",
+      "candidateSha256": "8ea83a9a2849c1c1849194aeb1f7057db539dba601947832eb9532472ba44f6b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Leg_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Leg_Press_female_v2_2.png",
+      "sourceSha256": "73e6e686b9819789017bb3e885e981d6df7af72331f1f047353783417832fca5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/022/Narrow_Stance_Leg_Press_female_v2_2.png",
+      "candidateSha256": "f64a5a1ad232e2c988332f1cdb72b0ee4893b36af8a22dcf25c73948e864ed9b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Leg_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Leg_Press_female_v2_3.png",
+      "sourceSha256": "b6dedd63364ed9e355cb763162b8745252a328cbb216c428ab52eb58af2c85ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/022/Narrow_Stance_Leg_Press_female_v2_3.png",
+      "candidateSha256": "b0da3750370efaa96fd2525e047a437e2ecfb44dff96eddd4ece214c18518ef7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

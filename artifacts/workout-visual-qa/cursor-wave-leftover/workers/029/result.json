@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Olympic_Squat",
+  "shard": 3,
+  "index": 29,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Olympic_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Olympic_Squat_male_v2_0.png",
+      "sourceSha256": "855daa23bbc202c9e2907a138cbe99ddc24e8685e2a8e450dcf4449172f1e8f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/029/Olympic_Squat_male_v2_0.png",
+      "candidateSha256": "b3618a345d4bb7d352d093dcdbbd1c929457b186c2314701d11952cb800f4cc0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Olympic_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Olympic_Squat_male_v2_1.png",
+      "sourceSha256": "6284814fcb3e52349fd34f2a3d9f67dfc4c87d2ca27a0de5e921c1cd966dcac7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/029/Olympic_Squat_male_v2_1.png",
+      "candidateSha256": "91074d2532542ef2ddd97202a01c794c47898038571f49b0205729f7827ae214",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Olympic_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Olympic_Squat_male_v2_2.png",
+      "sourceSha256": "8ceb55673b2c5a5e9a3e2ee5f55d27f1814764c7dcb0ccdbd6fa1364c480baa7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/029/Olympic_Squat_male_v2_2.png",
+      "candidateSha256": "5f8572031e2612e02349b21615fdef9e32df7632fa0afe8e41d2b9d41c8677bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Olympic_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Olympic_Squat_male_v2_3.png",
+      "sourceSha256": "1d9a93165f362cc070008649b14889f57d08d0deb4b97b4692c5fa36ef2f659c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/029/Olympic_Squat_male_v2_3.png",
+      "candidateSha256": "129df1bde3dbd2ff33b5a94fb632dad91b5477329677cf514eff14a4c22955b6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Olympic_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Olympic_Squat_female_v2_0.png",
+      "sourceSha256": "8dd9c839e9a3a7a7df797da88233dea9bdd25e7a86a53495a6cc2fef0ffed7a0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/029/Olympic_Squat_female_v2_0.png",
+      "candidateSha256": "0346f3d64ef34ac783ede411a00f042e1bcae2a3b1f018f931bde3909dadaea2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Olympic_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Olympic_Squat_female_v2_1.png",
+      "sourceSha256": "f445ed1f4789c48ff51e62d75669f6638ee8fa7b4f9e1225d5022c10f77db41c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/029/Olympic_Squat_female_v2_1.png",
+      "candidateSha256": "5083961a6e8a9fcdc22a3e495dceac14d4ea74eb76ef0d72bb5b842b0702a610",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Olympic_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Olympic_Squat_female_v2_2.png",
+      "sourceSha256": "24a70c4a064b37697b1d52191f2494a187b96fba8661fa8aa1069e6b6e6ab159",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/029/Olympic_Squat_female_v2_2.png",
+      "candidateSha256": "b6ad3050e7e2566dc2731577a718d4500af1a50a56e56fe8a19dfe3afc620a0d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Olympic_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Olympic_Squat_female_v2_3.png",
+      "sourceSha256": "878f19453877aa1854fcb1bbb95e2e11d86cee967a9f7ab2f494c03b99a05edb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/029/Olympic_Squat_female_v2_3.png",
+      "candidateSha256": "c00a1ae0ca37540ecf757074cbe5ac3710859f0b1a9ef52f03f6cd64407fb77b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Oblique_Crunches",
+  "shard": 3,
+  "index": 27,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Oblique_Crunches_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Oblique_Crunches_male_v2_0.png",
+      "sourceSha256": "ac2bdd38a1d76ba99f3835aa333aadbcadf223a878d882165e0b74c2026aa497",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/027/Oblique_Crunches_male_v2_0.png",
+      "candidateSha256": "3dff707383eb9312bb05afda3885e1dae99f7de7a943c852f3b3ce12aa2df2a5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Oblique_Crunches_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Oblique_Crunches_male_v2_1.png",
+      "sourceSha256": "155523e65f966b83009a1ae4a2b9b0d635741e08078e3183418561a8d23533b1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/027/Oblique_Crunches_male_v2_1.png",
+      "candidateSha256": "72b4dc19fa4ad33311dd0d6d875f00497d2f040534858db53a792321318c7320",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Oblique_Crunches_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Oblique_Crunches_male_v2_2.png",
+      "sourceSha256": "3b26df584868fa8aa56b2d0d430a0a933083c9102762b6da796cc94ecef356a7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/027/Oblique_Crunches_male_v2_2.png",
+      "candidateSha256": "81ebf72f48504da8d7d9aa7199e65b132fbe2d671e202835dd8c0e91dfbd447e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Oblique_Crunches_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Oblique_Crunches_male_v2_3.png",
+      "sourceSha256": "25b9925984f20f7195f5ac002f8a00289585ac5e32626f1b72b886e57c3d224a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/027/Oblique_Crunches_male_v2_3.png",
+      "candidateSha256": "3f254cbbb70d6688d307b36dce873d0d6501a2e30ae400622c23961cf40eb46e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Oblique_Crunches_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Oblique_Crunches_female_v2_0.png",
+      "sourceSha256": "3615c32192093211eb5faeed908fbfc72b725e9a19df70a654c3b1447abee543",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/027/Oblique_Crunches_female_v2_0.png",
+      "candidateSha256": "b53360dbc79597a309d5d6cb2e7a41a9260e50da69304645913891e2faf73b90",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Oblique_Crunches_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Oblique_Crunches_female_v2_1.png",
+      "sourceSha256": "74eb017a07d90245383647b0a1fc87ec13241a66bdd1f0a25663b40f166f784c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/027/Oblique_Crunches_female_v2_1.png",
+      "candidateSha256": "0b4a7a1ecedd20229da82357d917ccd8f0bde3c0f42c4551e5ac0aa29bb639ee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Oblique_Crunches_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Oblique_Crunches_female_v2_2.png",
+      "sourceSha256": "af063652ec5e65a66eb74e02f191d0d94e37bb972520891588471789ec780830",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/027/Oblique_Crunches_female_v2_2.png",
+      "candidateSha256": "ffdbd7cfa1847ec02d051d1d8ee4808c25e805324b3f8495f018244f71f817cd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Oblique_Crunches_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Oblique_Crunches_female_v2_3.png",
+      "sourceSha256": "900959e222021adc374c1e800b01fb14bcb05876c7c8b4f4018a39811229b2da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/027/Oblique_Crunches_female_v2_3.png",
+      "candidateSha256": "3eb0424427c2b6b3415edaa64c65bb799c3a7d95ec1f75a6e9b3ac38c6d72ad6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

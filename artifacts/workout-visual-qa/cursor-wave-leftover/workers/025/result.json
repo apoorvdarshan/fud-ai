@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Neck-SMR",
+  "shard": 3,
+  "index": 25,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Neck-SMR_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Neck-SMR_male_v2_0.png",
+      "sourceSha256": "91f109890284bfa8a1c6f8792ac018825f108d93c395cf8af1ca8994928e44f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/025/Neck-SMR_male_v2_0.png",
+      "candidateSha256": "ba7c4d854db8dba41575dfe6856d4e281ccb87c9ada9eb39ec8fe9acce6d49a3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Neck-SMR_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Neck-SMR_male_v2_1.png",
+      "sourceSha256": "f528c4230ae596f65346a849d52a14424c5d64d34d20669842d166c87304352f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/025/Neck-SMR_male_v2_1.png",
+      "candidateSha256": "95755ff1861e3e0e932114286545ff2dc09ab55d3e56074a54e325fa1008e02c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Neck-SMR_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Neck-SMR_male_v2_2.png",
+      "sourceSha256": "5acb574e3474b481d08b364a822c5932713be097e980263f5dea0979361bb0a2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/025/Neck-SMR_male_v2_2.png",
+      "candidateSha256": "778605283736cf559ece7a73e177c9668b51597d7455e7bace945277c1468f7d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Neck-SMR_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Neck-SMR_male_v2_3.png",
+      "sourceSha256": "98eba00ee6be80f0ebcb4b623a8d345031b56098f100c0bb1175ee169534f1e7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/025/Neck-SMR_male_v2_3.png",
+      "candidateSha256": "7a386314146c7413ce9ef27cd7034ee53e686e76f3672b9312e845071f590f50",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Neck-SMR_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Neck-SMR_female_v2_0.png",
+      "sourceSha256": "af2131f3427d89e2b85f9cf55ba7613eff5cef59f487640bd00a692b19338129",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/025/Neck-SMR_female_v2_0.png",
+      "candidateSha256": "364ece3b5d99cc322ad1d7a7edae6977e4aa74caba6415108a691ebcb87b48bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Neck-SMR_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Neck-SMR_female_v2_1.png",
+      "sourceSha256": "13982485bc71d28b6b521c2941b7b61b542e16ba9f11b5570b87d76044aaf154",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/025/Neck-SMR_female_v2_1.png",
+      "candidateSha256": "b366a74e633ab349c188ecb84027769b994f0b8fc429b2a9e2102bb8ede386cd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Neck-SMR_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Neck-SMR_female_v2_2.png",
+      "sourceSha256": "d3761a5b5b468fa8fcf19fd460f52e8d32860056ae520cffd43cd94d14485729",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/025/Neck-SMR_female_v2_2.png",
+      "candidateSha256": "ab833d41b2ba24b351e449dee7273e53a97e04ca5ed4c381c2cb15c46e73634c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Neck-SMR_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Neck-SMR_female_v2_3.png",
+      "sourceSha256": "d60c4bff102232dc3000a39c6128c0a835b93f05887ee101bed3cb70054b21fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/025/Neck-SMR_female_v2_3.png",
+      "candidateSha256": "a64a7b76db6484e7b3d011c76832e8ef5c75579e85755e0226c651cf07a9dd3d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

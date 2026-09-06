@@ -1,0 +1,84 @@
+{
+  "exerciseId": "On-Your-Back_Quad_Stretch",
+  "shard": 3,
+  "index": 30,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical cleanup on 2 frame(s) with green chroma-key."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "On-Your-Back_Quad_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On-Your-Back_Quad_Stretch_male_v2_0.png",
+      "sourceSha256": "82883deb6d888984fd9ef1df373909f325b4d8cf71c822029e7bf58eb6f4165d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/030/On-Your-Back_Quad_Stretch_male_v2_0.png",
+      "candidateSha256": "a8f4ee63b701ae62347c732b8f2eaa95966fdbc7baa7f5e9eec16d91256c8a80",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "On-Your-Back_Quad_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On-Your-Back_Quad_Stretch_male_v2_1.png",
+      "sourceSha256": "4ea1d100071c6c69b3d680d539197975a294d53b6c42608f2d6975d2dcb601db",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/030/On-Your-Back_Quad_Stretch_male_v2_1.png",
+      "candidateSha256": "19997ba176869c70c07325b531469f246bfc8afe6ef22d2d81a108f26e67b85e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "On-Your-Back_Quad_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On-Your-Back_Quad_Stretch_male_v2_2.png",
+      "sourceSha256": "3c3beefcd441b6f216b4e5cf27d30e23e3146ff00b72120fef5938595d3961d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/030/On-Your-Back_Quad_Stretch_male_v2_2.png",
+      "candidateSha256": "20cc0ca00fa040fb8d155d976bc90614dee6d25cb88e8b3280a6f728e72308fd",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "On-Your-Back_Quad_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On-Your-Back_Quad_Stretch_male_v2_3.png",
+      "sourceSha256": "3da06ed343967b25470ce0a9c39877920f59e4f565e45c438523e12a93608972",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/030/On-Your-Back_Quad_Stretch_male_v2_3.png",
+      "candidateSha256": "2dbbcd935fa00412b46b0ca8ad8faedef94ab12c3332e7164dd340c7580b62d4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "On-Your-Back_Quad_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On-Your-Back_Quad_Stretch_female_v2_0.png",
+      "sourceSha256": "af2569f48293c91533177f36d7ebe804aca9445394662659788871232bdcaeba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/030/On-Your-Back_Quad_Stretch_female_v2_0.png",
+      "candidateSha256": "14b8692cdf72e03cd96d0afb915417db2998ffaedab875f2b2b616c1cceddd18",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "On-Your-Back_Quad_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On-Your-Back_Quad_Stretch_female_v2_1.png",
+      "sourceSha256": "48a55d136c37a850fa854668953afa37c5f31588abc046a771e2e0f6820384fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/030/On-Your-Back_Quad_Stretch_female_v2_1.png",
+      "candidateSha256": "9fda4b36dc5c8cbf8dbb1fa0b3606a5ae0a397b22e0468f9c77851b409c08fae",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "On-Your-Back_Quad_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On-Your-Back_Quad_Stretch_female_v2_2.png",
+      "sourceSha256": "4e57a4744fb0095c4e6bfedce44b1efffe2ac9972cc9dc3efa603615a4ccbf57",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/030/On-Your-Back_Quad_Stretch_female_v2_2.png",
+      "candidateSha256": "1a174f3fbc4e5f614e5f831763e30c86a87c1c40dc64058fbc7e417a2f218b7a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "On-Your-Back_Quad_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/On-Your-Back_Quad_Stretch_female_v2_3.png",
+      "sourceSha256": "2493d5af7c1e2277189ba3b62905bab50b4192fa1813746257cfd7195e1f70a0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/030/On-Your-Back_Quad_Stretch_female_v2_3.png",
+      "candidateSha256": "4dc29aefa0557e9d54aacfa18dadcfaadbc8b50ad8faa3725479b99289d78b03",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

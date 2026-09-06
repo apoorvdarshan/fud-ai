@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Narrow_Stance_Hack_Squats",
+  "shard": 3,
+  "index": 21,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical cleanup on 1 frame(s) with green chroma-key."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Narrow_Stance_Hack_Squats_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Hack_Squats_male_v2_0.png",
+      "sourceSha256": "538f0931a70656453a240ae8b7bcc812139d0f3bc6f62824dba164d4de8e0df7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/021/Narrow_Stance_Hack_Squats_male_v2_0.png",
+      "candidateSha256": "1f7f8d72d01e9401352982283430b2761478a298f4ce967b60c4f3a703c15c0c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Hack_Squats_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Hack_Squats_male_v2_1.png",
+      "sourceSha256": "3b450a3cc486dbf5fcb3412a900e667aaf542fc8f34fac9ee9773556d9ff5e41",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/021/Narrow_Stance_Hack_Squats_male_v2_1.png",
+      "candidateSha256": "a15c6ee9256a326db144d1531431bac4eced0ce2f83c64eeec33f4387b006fb4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Hack_Squats_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Hack_Squats_male_v2_2.png",
+      "sourceSha256": "13fc119065b682052303a073387195253ea89fd7eebcf0696cee687bd3d33d39",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/021/Narrow_Stance_Hack_Squats_male_v2_2.png",
+      "candidateSha256": "3259f9b8b0abbbbd7a2fc5057384efb11cbc0516a52982e593724a6718e96bc5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Hack_Squats_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Hack_Squats_male_v2_3.png",
+      "sourceSha256": "4f245ee5748665c063549c719d46eedd1eb10d14a7237572a5a410f7fa5a7bcb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/021/Narrow_Stance_Hack_Squats_male_v2_3.png",
+      "candidateSha256": "f87579cea447b7be1224bd17ea27b8199f1171509f08187aa32dbefc42d11477",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Hack_Squats_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Hack_Squats_female_v2_0.png",
+      "sourceSha256": "2c5702e7bcc3f19a78f4adb246e754e6fb17043275b029cc29d7823607ddb048",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/021/Narrow_Stance_Hack_Squats_female_v2_0.png",
+      "candidateSha256": "86fb03d4aa12cc434f460cedb86158372511a33c9e8c402d491af9e70c44eddb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Hack_Squats_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Hack_Squats_female_v2_1.png",
+      "sourceSha256": "0da97d4ae753f2b1ea98a78d9fcc49bf9ab4207113e2e8c48192d2cbe79688bc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/021/Narrow_Stance_Hack_Squats_female_v2_1.png",
+      "candidateSha256": "8df2fd58246850acc337a5d8b61baf6eda272286ffa0957b8f8524c3291f18f1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Hack_Squats_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Hack_Squats_female_v2_2.png",
+      "sourceSha256": "65157ae1751a94e935c5c19637bd5ac564aef2b3dfce29533664e183f00d629a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/021/Narrow_Stance_Hack_Squats_female_v2_2.png",
+      "candidateSha256": "14497dbd5c145c7ad5060bf4ec2046c069e4e892d944f4de1a2d439444d78b08",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Narrow_Stance_Hack_Squats_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Narrow_Stance_Hack_Squats_female_v2_3.png",
+      "sourceSha256": "0252764a21baafa612bd72a6b1dfab191939643edd49032185d6dcac93486668",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/021/Narrow_Stance_Hack_Squats_female_v2_3.png",
+      "candidateSha256": "e861c126d6c1d27ac4e964762f42a6edb0a21c57eea5c3571b4e599b617f97f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

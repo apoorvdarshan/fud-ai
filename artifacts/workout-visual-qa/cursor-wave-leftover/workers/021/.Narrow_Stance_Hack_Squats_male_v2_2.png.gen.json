@@ -1,0 +1,16 @@
+{
+  "source_sha256": "13fc119065b682052303a073387195253ea89fd7eebcf0696cee687bd3d33d39",
+  "candidate_sha256": "3259f9b8b0abbbbd7a2fc5057384efb11cbc0516a52982e593724a6718e96bc5",
+  "generated_sha256": "33577464a77c8912170b8e9c6c577ab6402a6a6a8adf8c71c740eddf669ff558",
+  "generated_path": "/cursor/stores/bc-58e7d12d-a4d5-419b-a585-8e229449b2da/artifacts/assets/gen-021-Narrow_Stance_Hack_Squats_male_v2_2-v2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

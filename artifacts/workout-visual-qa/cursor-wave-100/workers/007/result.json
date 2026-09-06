@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_male_v2_0.png",
       "candidateSha256": "1d1f7dab122be8f8bbde18729ff07727b38cee395fad1c22cf43e117c179830a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hack_Squat_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_male_v2_1.png",
       "candidateSha256": "e70f40a4cb160de51a519c6f152fce6be968450c5723dab78f40e5a4e838bbd6",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hack_Squat_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_male_v2_2.png",
       "candidateSha256": "4e19caf288d5cbff2f4c38e8209f04d1ae21568edc2fee690928a0fe454dc0b4",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hack_Squat_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_male_v2_3.png",
       "candidateSha256": "a12614c175d572f7900cf77ec3932231bb693be4ffec5752b8818043fa69f2d5",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hack_Squat_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_female_v2_0.png",
       "candidateSha256": "4cf9664b5b908cbdc4c37686c881666a028dff60decbd811189edc76f08ff76e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hack_Squat_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_female_v2_1.png",
       "candidateSha256": "f9be43df7305c99645cf188bb5108eae81b4a60548f9e5bf9308a06e017cdad3",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hack_Squat_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_female_v2_2.png",
       "candidateSha256": "0b1969c53b41dc7615259f129647094b9472d9c8da5c6a95e0489864ca7ebaf3",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hack_Squat_female_v2_3.png",
@@ -76,7 +76,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_female_v2_3.png",
       "candidateSha256": "b5c7ea62ecaf3c9ca9ea80bae31f57d22d7337487785349d03456e9249d1d6a6",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
-  ]
+  ],
+  "changedFrameCount": 0
 }

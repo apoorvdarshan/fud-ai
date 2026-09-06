@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_male_v2_0.png",
       "candidateSha256": "c52b291c8f0447893b53d506f07cd7a088259df3bc52c6b3f8f496b33344a460",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Grip_Incline_DB_Bench_Press_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_male_v2_1.png",
       "candidateSha256": "500174757a2e6630a44d361221068f6ca46db2e8d25e7413067183401517b1bf",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Grip_Incline_DB_Bench_Press_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_male_v2_2.png",
       "candidateSha256": "e29bd706ab4df69a4dc3afc745d2220159fc601ab3753e7b7f30b4fa70931791",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Grip_Incline_DB_Bench_Press_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_male_v2_3.png",
       "candidateSha256": "8a5dc1a401de1210d621c2d9419a5b07e7b40594e172851cb8996c7b1b308a7d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Grip_Incline_DB_Bench_Press_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_female_v2_0.png",
       "candidateSha256": "a40c052e417f9af7e2de81e584a4e6e6739c756e55e938b2bb94f6b731faf4b3",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Grip_Incline_DB_Bench_Press_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_female_v2_1.png",
       "candidateSha256": "cfd20845ebd4a236e6338bc8f463d1a6bf6c833ee68021a6215009aa51d025a5",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Grip_Incline_DB_Bench_Press_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_female_v2_2.png",
       "candidateSha256": "88060c2c37fdfc793454d8e430a90539d3b267b874b8d6d28fd4f9d41f01778b",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Grip_Incline_DB_Bench_Press_female_v2_3.png",
@@ -76,7 +76,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/009/Hammer_Grip_Incline_DB_Bench_Press_female_v2_3.png",
       "candidateSha256": "7f266972e0adcef7cbfaf04e8a9b336988cc78d16d8c5e03af1f6e088174039b",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
-  ]
+  ],
+  "changedFrameCount": 0
 }

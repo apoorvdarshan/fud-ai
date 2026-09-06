@@ -124,7 +124,9 @@ const server = http.createServer(async (req, res) => {
     const file = url.pathname === '/' ? path.join(root, 'scripts/workout_review.html') : entry?.file;
     if (!file || !fs.existsSync(file)) { res.writeHead(404); res.end('Not found'); return; }
     const bytes = fs.readFileSync(file);
-    if (entry && (url.searchParams.get('v') !== entry.hash || sha(file) !== entry.hash)) { res.writeHead(409); res.end('Image changed; refresh'); return; }
+    const requestedHash = url.searchParams.get('v');
+    if (entry && sha(file) !== entry.hash) { res.writeHead(409); res.end('Image changed; refresh'); return; }
+    if (entry && requestedHash && requestedHash !== entry.hash) { res.writeHead(409); res.end('Image changed; refresh'); return; }
     res.writeHead(200, {
       'Content-Type': url.pathname === '/' ? 'text/html; charset=utf-8' : 'image/png',
       'Cache-Control': url.pathname === '/' ? 'no-store' : 'private, max-age=31536000, immutable',

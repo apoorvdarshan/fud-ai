@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Floor_Press_with_Chains",
+  "shard": 12,
+  "index": 115,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Floor_Press_with_Chains_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_with_Chains_male_v2_0.png",
+      "sourceSha256": "ebbccc006dd10c7b6e80d72bc38c28d6c07c6e5b67acf5b3b1a84b031c2cdb7e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/115/Floor_Press_with_Chains_male_v2_0.png",
+      "candidateSha256": "f904ec7047a9c386495728e592e2f431004126ed0bf9f76489167a0f892aaa6b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_with_Chains_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_with_Chains_male_v2_1.png",
+      "sourceSha256": "05cfad5c64febe08886b874e77f3aff3ea08894dfd79155215e242c5729c03c6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/115/Floor_Press_with_Chains_male_v2_1.png",
+      "candidateSha256": "cd01f8a8c541ede1428919031827407e71465eaa654ea1bd5f9c93c788236da2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_with_Chains_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_with_Chains_male_v2_2.png",
+      "sourceSha256": "f2827f786784399d54c1ce1779aab27fa14c27660e17f990238dbb66b1a0c73b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/115/Floor_Press_with_Chains_male_v2_2.png",
+      "candidateSha256": "907024f30ebdb0854e0b132100b2dbf46c29084a791231596e6a9019f1ac16e1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_with_Chains_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_with_Chains_male_v2_3.png",
+      "sourceSha256": "e15ae333c11ef3ef39c4f28f6337970c1ac48b54022c1ddc8b52492727b78d6d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/115/Floor_Press_with_Chains_male_v2_3.png",
+      "candidateSha256": "87edc9b7025ae6e6046713d5017bb06460eb70c3bc68e4f0f3905de4418fbe24",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_with_Chains_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_with_Chains_female_v2_0.png",
+      "sourceSha256": "b56c2fb13183b564b61ce42bc89e73027f9bd1590030dbdee8a7def44c2ebddd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/115/Floor_Press_with_Chains_female_v2_0.png",
+      "candidateSha256": "12d49511533b015c44eedfea2af769a4790f6fb323f64072db253c0017531e08",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_with_Chains_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_with_Chains_female_v2_1.png",
+      "sourceSha256": "c743d95fcdce264b12468ce95d19bb1676fce97b4ece61a46a4cca9c2b56ab85",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/115/Floor_Press_with_Chains_female_v2_1.png",
+      "candidateSha256": "e2e98acc80eadde103bcd2991976f31fca49379598f427baa8fad94923aa5689",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_with_Chains_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_with_Chains_female_v2_2.png",
+      "sourceSha256": "aa63d0c138b28bd062d16a3bd866ed1058d0a83879d07bf9f954c1259cee4fa6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/115/Floor_Press_with_Chains_female_v2_2.png",
+      "candidateSha256": "f49607490cd7b4b419d8efe8f005c40628f010ebf3d6648a9c5bba55920064d3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_with_Chains_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_with_Chains_female_v2_3.png",
+      "sourceSha256": "19a82f3fcc4b9832749dea2f00c10203c4836d6d08a8999f86279d070726a522",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/115/Floor_Press_with_Chains_female_v2_3.png",
+      "candidateSha256": "ea7a29f913370368fea81f4c7bac9a42527517ee2f09fde3e37c3325cdbcc01b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

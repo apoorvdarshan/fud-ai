@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Flexor_Incline_Dumbbell_Curls",
+  "shard": 12,
+  "index": 112,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Flexor_Incline_Dumbbell_Curls_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flexor_Incline_Dumbbell_Curls_male_v2_0.png",
+      "sourceSha256": "d6f7371b0ffdda3c2f4e6a99f083d2216ffac2ae92f765d0850cf36ca6c1aacc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/112/Flexor_Incline_Dumbbell_Curls_male_v2_0.png",
+      "candidateSha256": "dc6af36b47d0a5a16fdc0e61f4c7a087ef47ed4e64311e0d27fece15053fc64e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flexor_Incline_Dumbbell_Curls_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flexor_Incline_Dumbbell_Curls_male_v2_1.png",
+      "sourceSha256": "25b7b7319fad5825db22c9af84804f59f9cfc4873fbcb1b1bc8a7c9e71e75d4c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/112/Flexor_Incline_Dumbbell_Curls_male_v2_1.png",
+      "candidateSha256": "0331d0a58c34cbe19a8d9d35ac5142db7994b85b52adacef930fa9c0f927f2e5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flexor_Incline_Dumbbell_Curls_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flexor_Incline_Dumbbell_Curls_male_v2_2.png",
+      "sourceSha256": "a2c0dca9d2fcd2c4adc745a3107175ab3d09b0de4c758b2a013eea2696f86bfe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/112/Flexor_Incline_Dumbbell_Curls_male_v2_2.png",
+      "candidateSha256": "752d5350dd5dc10032e630e772ea972feeaba13fc75534fab230db8a2e999ab7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flexor_Incline_Dumbbell_Curls_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flexor_Incline_Dumbbell_Curls_male_v2_3.png",
+      "sourceSha256": "a2702b41160a9246f19694ffa48d8f89272f84970e5a77b97035b5afb65e6c89",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/112/Flexor_Incline_Dumbbell_Curls_male_v2_3.png",
+      "candidateSha256": "41fd7aaab32a45b0ef563e6687887073921da1a6e4a8e0e8ebcdb26cad946076",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flexor_Incline_Dumbbell_Curls_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flexor_Incline_Dumbbell_Curls_female_v2_0.png",
+      "sourceSha256": "98e62a9792760dbe2a7d5d331e58d63a4067e69bdedad0347ff1a5ca01d249bf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/112/Flexor_Incline_Dumbbell_Curls_female_v2_0.png",
+      "candidateSha256": "b746ec6f8ddd0d378a8a6ed7c7c957668a8014ab4d8823354ced988943f1b8f0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flexor_Incline_Dumbbell_Curls_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flexor_Incline_Dumbbell_Curls_female_v2_1.png",
+      "sourceSha256": "3c58c83cf3dda6f60520eecd5baa9f32659c37f1dac17e62d0f1f5cf9354cd8f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/112/Flexor_Incline_Dumbbell_Curls_female_v2_1.png",
+      "candidateSha256": "c3c5c16d1fbf77291681edd9c5f02b2dee37c590cb850e723bf4ebc23193fd53",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flexor_Incline_Dumbbell_Curls_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flexor_Incline_Dumbbell_Curls_female_v2_2.png",
+      "sourceSha256": "62973e0981234a5e92aca84bc9d60a5e1c2eaa594a1ca0714f6d63d92ec6a330",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/112/Flexor_Incline_Dumbbell_Curls_female_v2_2.png",
+      "candidateSha256": "ea9225c14cc81806c47e79599f8c49211d95df43001fd8a0a574d373d55687ff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flexor_Incline_Dumbbell_Curls_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flexor_Incline_Dumbbell_Curls_female_v2_3.png",
+      "sourceSha256": "2bef1bec4d3821869f1a4181562e01cb45497ba75fae308906f3021ef0ff8640",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/112/Flexor_Incline_Dumbbell_Curls_female_v2_3.png",
+      "candidateSha256": "b37b0bae67d3ae1bef92247a9b7d0961271643b4249fbdfc07092b20e0d0606c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

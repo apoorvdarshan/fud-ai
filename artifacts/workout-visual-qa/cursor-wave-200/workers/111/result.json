@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Flat_Bench_Lying_Leg_Raise",
+  "shard": 12,
+  "index": 111,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Flat_Bench_Lying_Leg_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Lying_Leg_Raise_male_v2_0.png",
+      "sourceSha256": "9d089b2b9d001d22123f12abc56266c2280e038b3681c63cc516c457e2078eee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/111/Flat_Bench_Lying_Leg_Raise_male_v2_0.png",
+      "candidateSha256": "ed1beccd535bb7de60cca8a63b7a4275e44ba77bc03d5260863f5fb4168ad949",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flat_Bench_Lying_Leg_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Lying_Leg_Raise_male_v2_1.png",
+      "sourceSha256": "6a3384565e8d11f043fc983f94291c230883adbf05839296658f7eccef505e1b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/111/Flat_Bench_Lying_Leg_Raise_male_v2_1.png",
+      "candidateSha256": "41d57daeacf17c45db06c0016cf3667b595c4e1dee5c3e8f1d59860d54d4529a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flat_Bench_Lying_Leg_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Lying_Leg_Raise_male_v2_2.png",
+      "sourceSha256": "d8618215a39be17557f7bd74241e2e2ef45fbf5d121a2f81dea64da4b9cab054",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/111/Flat_Bench_Lying_Leg_Raise_male_v2_2.png",
+      "candidateSha256": "5fbac8d6bb0e509fa14e3af366b7e95984f6bd9e03b67c9215d7038a3c6d735c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flat_Bench_Lying_Leg_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Lying_Leg_Raise_male_v2_3.png",
+      "sourceSha256": "fe9b2006575f5189723f83549ac30ab6e07825846adf1749fe096e7539767a7f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/111/Flat_Bench_Lying_Leg_Raise_male_v2_3.png",
+      "candidateSha256": "c701cca66ea8f9a77c395c84cd3380a4fd43d2a639dea751c2f8fa6abe64a536",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flat_Bench_Lying_Leg_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Lying_Leg_Raise_female_v2_0.png",
+      "sourceSha256": "758a28d1f5a808502c422709941627b3211933cc30d1fa4d2501bc3bfd241039",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/111/Flat_Bench_Lying_Leg_Raise_female_v2_0.png",
+      "candidateSha256": "92ef209adb8129117a44610d59e7233c4f8169d297099010dbbb3e67590166d2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flat_Bench_Lying_Leg_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Lying_Leg_Raise_female_v2_1.png",
+      "sourceSha256": "5fc29d8a0fee035cc2f98c561600483c4cf276ebd3679fbaf15ab356bb43b0db",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/111/Flat_Bench_Lying_Leg_Raise_female_v2_1.png",
+      "candidateSha256": "f76f8a1d55a45463ad6684328e9e4e6531a3a4e23af57e84e40eda0b685ec945",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flat_Bench_Lying_Leg_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Lying_Leg_Raise_female_v2_2.png",
+      "sourceSha256": "9293c09225cee12e3be8b630d07fe1def485bb12b36671c234bc05224a3aa472",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/111/Flat_Bench_Lying_Leg_Raise_female_v2_2.png",
+      "candidateSha256": "f6f9efa6f2a8993e2c40d31b2792521159cf34b3e9d2aa1be0730ce8ba38c334",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flat_Bench_Lying_Leg_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flat_Bench_Lying_Leg_Raise_female_v2_3.png",
+      "sourceSha256": "7dc090d278169325342296c1b7f7e64807faa32117bd16f9fffc2839f92da908",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/111/Flat_Bench_Lying_Leg_Raise_female_v2_3.png",
+      "candidateSha256": "dac2249b92a0d2bf558df382f15cfa34ac8074385727c62dc5fe0b7339b03348",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

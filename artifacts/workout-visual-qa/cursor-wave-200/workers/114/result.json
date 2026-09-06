@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Floor_Press",
+  "shard": 12,
+  "index": 114,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Floor_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_male_v2_0.png",
+      "sourceSha256": "5564e0fea0e50fe74d3fcb92a1675a4ff2003cfb12ab1cde8483e930bb84ad93",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/114/Floor_Press_male_v2_0.png",
+      "candidateSha256": "6f3e880c3bbda9a656d4e85eb7248f67431bc98267a21afca671964aa32d3832",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_male_v2_1.png",
+      "sourceSha256": "e0bc7478a02591a034bb8c5751e667e775e3db50889a69b4c92c9ace53780e30",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/114/Floor_Press_male_v2_1.png",
+      "candidateSha256": "fe242296382b493deae464cdbbdda6884e15a9ccb7e1987bf8cdfdd21f11b7c7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_male_v2_2.png",
+      "sourceSha256": "67a31fe9dffd202945580444fdcc34866b8f035e7cad519d8b5ca7af216025eb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/114/Floor_Press_male_v2_2.png",
+      "candidateSha256": "ac5c6c46f45ac83a8d0d344a0655716f73f064c4b2787729cdd3dbbccc99d49a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_male_v2_3.png",
+      "sourceSha256": "10313baacbcb4761163476e3e1edde4b5aa10608d7bd5f84b8f98c9ad9e6e2f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/114/Floor_Press_male_v2_3.png",
+      "candidateSha256": "29ddce3c2f91da84365b8f76c879684e30692fa619bfbf50863b5f90088e470b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_female_v2_0.png",
+      "sourceSha256": "0c3404b73712aacd14f9cd663daabb00d3e83b1d9d1eacd8beeef15b7b8ebd79",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/114/Floor_Press_female_v2_0.png",
+      "candidateSha256": "ae5035f56214e8b4309cd90ad883b119c3595d5e01210230dd6ab06bf866e6ab",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_female_v2_1.png",
+      "sourceSha256": "eb1d74b48ce368ff6bfac23e6d06e859510dd2fdbe821e0d6e7b773784fd56e6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/114/Floor_Press_female_v2_1.png",
+      "candidateSha256": "706884bea57a216279c3ae350f41e47e54cd50d315670c977186e075568c573f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_female_v2_2.png",
+      "sourceSha256": "f7b20f180bd9be93e4c0c58a9a7c1d80ffe8e9f9ab078cc2530e26e8e382db5b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/114/Floor_Press_female_v2_2.png",
+      "candidateSha256": "517d7dd7c0cd135936cc041ed5d897c38c145100bf7ae718968396d4c4677049",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Floor_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Floor_Press_female_v2_3.png",
+      "sourceSha256": "fed3ddf229a200ddb96e0459b4fba86d3af9c4826662fd7f34ede47942b44c78",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/114/Floor_Press_female_v2_3.png",
+      "candidateSha256": "0c242825a0b39d130bb37bcb45c2140f541ba2323a92a1dffed24cd19ec9dc95",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

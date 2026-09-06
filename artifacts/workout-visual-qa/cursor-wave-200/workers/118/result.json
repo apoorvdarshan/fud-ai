@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Frankenstein_Squat",
+  "shard": 12,
+  "index": 118,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Frankenstein_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frankenstein_Squat_male_v2_0.png",
+      "sourceSha256": "9b34934063c56054c2f843b0762508c568bf9ddc2a594057729b6d1c59fd743f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/118/Frankenstein_Squat_male_v2_0.png",
+      "candidateSha256": "53b2dc22d78422c0e2833e4ae003474b361e629fac427bca8c7554fb7c29b24f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frankenstein_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frankenstein_Squat_male_v2_1.png",
+      "sourceSha256": "840cfa02d22a83f54ab39204734487627f8f5cd7c4bbade2fa9f71953802e614",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/118/Frankenstein_Squat_male_v2_1.png",
+      "candidateSha256": "d7e9a646d48beaeb36f4040918af619a447ef5e8293cc6fcb3a0267c00278b7f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frankenstein_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frankenstein_Squat_male_v2_2.png",
+      "sourceSha256": "17533013ba5698e9dafce1822a16b97724ae1892855b9e79f082a6efc50a29d9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/118/Frankenstein_Squat_male_v2_2.png",
+      "candidateSha256": "978b1d5bacd38d3d01fe3184ec7a880d5cfcecf5c986349a998cabd339d3b6b8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frankenstein_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frankenstein_Squat_male_v2_3.png",
+      "sourceSha256": "0880458a7c07a8a25c8de7d775454bd9c244c02260c678b3cf4fcf5b735b1000",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/118/Frankenstein_Squat_male_v2_3.png",
+      "candidateSha256": "9c9c82537e6e0dc0e62cc4220db40ce8aa458fb44db5831e95e541facdcc5755",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frankenstein_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frankenstein_Squat_female_v2_0.png",
+      "sourceSha256": "2db89c6df7c70cd01e687c1e57e0e58fcd9c3f1cfc9dde5c9aba769f91923e58",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/118/Frankenstein_Squat_female_v2_0.png",
+      "candidateSha256": "66e041d0c187326f9d7f9e91cd060523870c11066d6a59a3bdda3c26c5b1252b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frankenstein_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frankenstein_Squat_female_v2_1.png",
+      "sourceSha256": "045d9232c6acae41420176e2501b26433b649ebc9dc8c7a6025b88392f8b7204",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/118/Frankenstein_Squat_female_v2_1.png",
+      "candidateSha256": "e47641a88feba98bf9b8274106c7bf787fab18631b575a5b9c89a036d7219797",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frankenstein_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frankenstein_Squat_female_v2_2.png",
+      "sourceSha256": "fdcce06a61df3ed07e987291c09592eaa302c58c0a23e19e84fcd0ca788770cb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/118/Frankenstein_Squat_female_v2_2.png",
+      "candidateSha256": "bed0dd00caca3c35d3dc33bd2c5b3196d8c874e130817876ff6576441853d943",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Frankenstein_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Frankenstein_Squat_female_v2_3.png",
+      "sourceSha256": "38294e9b44ef9ea458b3b5d83af96c3c74dd3a58911c3d3b12fce5004baa4486",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/118/Frankenstein_Squat_female_v2_3.png",
+      "candidateSha256": "a6c44bb4dee32453bee6ef4ab62f74395280767f051be8fc43a3d25582594bad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

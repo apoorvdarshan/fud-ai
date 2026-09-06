@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Flutter_Kicks",
+  "shard": 12,
+  "index": 116,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Flutter_Kicks_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flutter_Kicks_male_v2_0.png",
+      "sourceSha256": "ab8a7a984daf9c1491f55bf0162e1ad3c4af260445a8748459b2511740dcbd92",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/116/Flutter_Kicks_male_v2_0.png",
+      "candidateSha256": "1475ef6a8678f2bc64f7934b28d15e35109eb14ebadae2cd312e51ce4cf736ad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flutter_Kicks_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flutter_Kicks_male_v2_1.png",
+      "sourceSha256": "dd63d66eae0129f5fa0fe91690bcbf4edbc1c636cc24bc56ca2778044ba32652",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/116/Flutter_Kicks_male_v2_1.png",
+      "candidateSha256": "73af9b03a267143b8b2b3646f2fecf8f0c77b59602329daf55add081434b1bd6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flutter_Kicks_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flutter_Kicks_male_v2_2.png",
+      "sourceSha256": "d403397fb09b8f4271024a7c8acdc864e6adc584f76c1730380e2033904ffb39",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/116/Flutter_Kicks_male_v2_2.png",
+      "candidateSha256": "b0b9429538c6c6e5ee631a3a4b17e4ea4f7ac8e29e6037b7355fe9fba9445cf4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flutter_Kicks_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flutter_Kicks_male_v2_3.png",
+      "sourceSha256": "49fa9e4b291fc708d93c521cc35f8ade5d0dc8d0b1ed51a9bcd4542aacfc8e6a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/116/Flutter_Kicks_male_v2_3.png",
+      "candidateSha256": "52ef2ce424a747423e577621cd76a4df92036f0bdbbd60e08fd5676bbf25151e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flutter_Kicks_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flutter_Kicks_female_v2_0.png",
+      "sourceSha256": "6d7634a0e62250f5f5c309d638f85b9d5cbee58b695b62892e733baafa19ef6a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/116/Flutter_Kicks_female_v2_0.png",
+      "candidateSha256": "ab5cffb961fa3faf7786006946a7fdb647995928b3939f3e08756efea38baad9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flutter_Kicks_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flutter_Kicks_female_v2_1.png",
+      "sourceSha256": "2dccae715dff059a25ae6779e3d3e6991688b6725df06c05eae886a64b30c163",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/116/Flutter_Kicks_female_v2_1.png",
+      "candidateSha256": "d7695bdac7a4b235f597eb330beded7b9a3597d86216cd47d2220420221e934c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flutter_Kicks_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flutter_Kicks_female_v2_2.png",
+      "sourceSha256": "0ae2e3f9a59966f4311c662708107d8bace10b6bc23a54dc0151d9d1391027ac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/116/Flutter_Kicks_female_v2_2.png",
+      "candidateSha256": "3f9946360e355b94c803d8a9c7430bd2bb56c8b3b165538a9b743e4a8a0f36c0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Flutter_Kicks_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Flutter_Kicks_female_v2_3.png",
+      "sourceSha256": "b3eab12102eac75c8d5ca1898227213cf0792d962094cf88f0b2ddb808e0b4bd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/116/Flutter_Kicks_female_v2_3.png",
+      "candidateSha256": "11ac29941053afa1aac19af2f05795d5ed0085fcc859934d393a26f3f9f6a819",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

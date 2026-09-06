@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Hammer_Curls",
+  "shard": 1,
+  "index": 8,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Hammer_Curls_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Curls_male_v2_0.png",
+      "sourceSha256": "87e3fe60890d7a407fb2ddb3d8a70c42730a0af9366e9f53fd1875686bbd1b5c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_male_v2_0.png",
+      "candidateSha256": "e7fb445b87cc7a841fba3f01f7198e90c0c58fb546f098d71f682d00385c5515",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Curls_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Curls_male_v2_1.png",
+      "sourceSha256": "75b2d44ea1047d7498bdc56d312a09d9db0a052c4477fb67f47df65974ec578c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_male_v2_1.png",
+      "candidateSha256": "e06b62f0e7f3f79d02270392449e8a5dfb16556148953b0a825cb8aa3a2b8271",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Curls_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Curls_male_v2_2.png",
+      "sourceSha256": "ed7e9ab96daaf134c8295163bd7f7dbddb9f4d9b4642ff58bf72ec3e323c2233",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_male_v2_2.png",
+      "candidateSha256": "8c6d6855664e5df110a6ee7a1fdc9f78921bc155cd4a5f7cd90f5a678b71c9e6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Curls_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Curls_male_v2_3.png",
+      "sourceSha256": "6aae12b400b2d0a03dbecb57d5ea5e67ef5719a6aa0630e8c166704f33736e90",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_male_v2_3.png",
+      "candidateSha256": "cd1c6a6da014caa868d26fb74139505a9cc64aaeb58dcce2e2eddca7a652fd56",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Curls_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Curls_female_v2_0.png",
+      "sourceSha256": "bdfdf2069c76d93bc73d1850445fd32dcd6df609d12a7b9780d9a56bd944cae6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_female_v2_0.png",
+      "candidateSha256": "832f5d824a3e45f6715ff26486bac27fb87e49a13fe9b194348c3883fe27f3c2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Curls_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Curls_female_v2_1.png",
+      "sourceSha256": "9539c0e9328b9c97b9b0511d95d8b0f181acff36f1a3e36cda0719a33a2237a2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_female_v2_1.png",
+      "candidateSha256": "734d1e037fe365ec970474af4d79119d969236367ae6fac41be3d680a4d53dcf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Curls_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Curls_female_v2_2.png",
+      "sourceSha256": "1b5b3f1a7b46c6acc6cc326f821b8f32390c400445d03ebee419490133f32e3a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_female_v2_2.png",
+      "candidateSha256": "a5d474b11dc751cd9fc52cdb2b4bdad1b0105c0acbdb2d6174a0860dd27d8bca",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hammer_Curls_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hammer_Curls_female_v2_3.png",
+      "sourceSha256": "8dec61f9b2ddfd141558f37ceb7f71399ded4ec5fdbcdd69886974eee9a58a28",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_female_v2_3.png",
+      "candidateSha256": "109124bef28c6696e0097c80feff4f57503651887eb4cc71804a3ea6380ef346",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

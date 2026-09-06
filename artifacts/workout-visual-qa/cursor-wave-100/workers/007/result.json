@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Hack_Squat",
+  "shard": 1,
+  "index": 7,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Hack_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hack_Squat_male_v2_0.png",
+      "sourceSha256": "3a91314be6e78c7e3d9b44ff7e26eaa662426940346acb3f815b8f9c6dc2e0de",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_male_v2_0.png",
+      "candidateSha256": "1d1f7dab122be8f8bbde18729ff07727b38cee395fad1c22cf43e117c179830a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hack_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hack_Squat_male_v2_1.png",
+      "sourceSha256": "4f7394bc1b0375d39eedbede402134ab7eeb234669775b2ac7c0ad89a2d1caa4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_male_v2_1.png",
+      "candidateSha256": "e70f40a4cb160de51a519c6f152fce6be968450c5723dab78f40e5a4e838bbd6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hack_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hack_Squat_male_v2_2.png",
+      "sourceSha256": "dd2fa84f565ec8da463736d39f547ae9c0fe1488db86dea7e48954f33bd5bae4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_male_v2_2.png",
+      "candidateSha256": "4e19caf288d5cbff2f4c38e8209f04d1ae21568edc2fee690928a0fe454dc0b4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hack_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hack_Squat_male_v2_3.png",
+      "sourceSha256": "a75ddf2956fb042c347ef13248ea22eb6a68c419a1da610bee56a6092d449590",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_male_v2_3.png",
+      "candidateSha256": "a12614c175d572f7900cf77ec3932231bb693be4ffec5752b8818043fa69f2d5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hack_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hack_Squat_female_v2_0.png",
+      "sourceSha256": "fd5c8aaebab0f50d5eb1f398a055404fa2242b1558fbff127740693f0789b8e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_female_v2_0.png",
+      "candidateSha256": "4cf9664b5b908cbdc4c37686c881666a028dff60decbd811189edc76f08ff76e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hack_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hack_Squat_female_v2_1.png",
+      "sourceSha256": "f5921d77fd7e159b035ed8d9bde04cb27d496b73955bd31468fea485190263d0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_female_v2_1.png",
+      "candidateSha256": "f9be43df7305c99645cf188bb5108eae81b4a60548f9e5bf9308a06e017cdad3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hack_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hack_Squat_female_v2_2.png",
+      "sourceSha256": "488bf4142352fcf452ee88e8a0ea27941a054eafb9677fbf5ce8bb311e83173b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_female_v2_2.png",
+      "candidateSha256": "0b1969c53b41dc7615259f129647094b9472d9c8da5c6a95e0489864ca7ebaf3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hack_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hack_Squat_female_v2_3.png",
+      "sourceSha256": "5bff77b0a28a4a8a4c3fa92c22817990eecbbeee18b9668f81e67f8d065a2e32",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/007/Hack_Squat_female_v2_3.png",
+      "candidateSha256": "b5c7ea62ecaf3c9ca9ea80bae31f57d22d7337487785349d03456e9249d1d6a6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

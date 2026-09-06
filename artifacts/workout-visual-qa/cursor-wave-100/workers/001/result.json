@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Goblet_Squat",
+  "shard": 1,
+  "index": 1,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Goblet_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Goblet_Squat_male_v2_0.png",
+      "sourceSha256": "93d569bb587da67d0122806c44b6819063b6553ee9ae5e274acc278f46913bba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/001/Goblet_Squat_male_v2_0.png",
+      "candidateSha256": "8cba3b4dd3168c355ecb0af46d71d1a512e13f942831f7f5ee0bd88526c7cd8f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Goblet_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Goblet_Squat_male_v2_1.png",
+      "sourceSha256": "f65887864280ff9e08a45b17d2cc6931b5a7e63317e3fdf4670c51e0f1c685da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/001/Goblet_Squat_male_v2_1.png",
+      "candidateSha256": "461dc0c322f6b31e398a84d91da24237635fa6b0966db8cbe16921ecd7a7dc29",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Goblet_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Goblet_Squat_male_v2_2.png",
+      "sourceSha256": "4432b5264f2f76879e010c425d0d339ff548f5b136e4742d7f144c9cabe61530",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/001/Goblet_Squat_male_v2_2.png",
+      "candidateSha256": "42fa6b60ff25b5f001f825fc9489a38ee092b1250d601e819dbea6569fa1a941",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Goblet_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Goblet_Squat_male_v2_3.png",
+      "sourceSha256": "8a8946407ba70ec118e4eecac2fce6602e85714484b508c3e6745ef1effe2873",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/001/Goblet_Squat_male_v2_3.png",
+      "candidateSha256": "7e32754141fae91a6faeee914928309d5ec3c0c42e408a7af77f6825dece26e9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Goblet_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Goblet_Squat_female_v2_0.png",
+      "sourceSha256": "e8d72836df7376a6d618b8616786523ad80033b07a2551a6fcb417058e542b9c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/001/Goblet_Squat_female_v2_0.png",
+      "candidateSha256": "bc23255ffc7e990c3489a20375ab54cab4e01b9cf01ee328b7cae64dd9bd3b71",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Goblet_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Goblet_Squat_female_v2_1.png",
+      "sourceSha256": "d09f98591550e8ba11bc1ed7dff0f71452bd08310143e95996cdc0b6dac4568f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/001/Goblet_Squat_female_v2_1.png",
+      "candidateSha256": "6118d151bead12f4f42d485bd46cc40eb62ccf0f658164c1bca3eed74c39722a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Goblet_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Goblet_Squat_female_v2_2.png",
+      "sourceSha256": "134df238c9ee33cc23c39a35f02056c9f187c8acbe226e4ea88f379a69324856",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/001/Goblet_Squat_female_v2_2.png",
+      "candidateSha256": "0fc476df61f2e1b4f63aed5fe8b5a4ec849b352b3d1852b3643f775d10d6ab18",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Goblet_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Goblet_Squat_female_v2_3.png",
+      "sourceSha256": "5c2c76373cfc64afe7b08575a7dc0002a3162373845eb0099d4ebceb0d881113",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/001/Goblet_Squat_female_v2_3.png",
+      "candidateSha256": "53b58f795943451f63c9c7b8f3bb9412791811eafcb36a59fdd2103acfb9aa4c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

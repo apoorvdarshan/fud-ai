@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Groiners",
+  "shard": 1,
+  "index": 6,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Groiners_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Groiners_male_v2_0.png",
+      "sourceSha256": "0b0cd1138880ffac8573a959ff91599d8cfa02e13dd0d3e59711fc7a9e5044f4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/006/Groiners_male_v2_0.png",
+      "candidateSha256": "7def4c367004ae6aa9f34abb564069662eac310ca9d9d2a00baacd8fbcfa1c61",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Groiners_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Groiners_male_v2_1.png",
+      "sourceSha256": "348769b4af0babf9bd7f9541bc26896507bfd7b00e0cabaa6c9bac5a7cfc10f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/006/Groiners_male_v2_1.png",
+      "candidateSha256": "6f82449b68d897409fc9f53822b5b41a8c44a7de09d7781d8d04fe9575139148",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Groiners_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Groiners_male_v2_2.png",
+      "sourceSha256": "6930894547886d8319ab2fe208d6518131eae7f72252bec75a974d7f8d39fcfb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/006/Groiners_male_v2_2.png",
+      "candidateSha256": "576cd2ad6c56970656623fb211a6597dbbf265cc73c2de50ff174427f3c359c6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Groiners_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Groiners_male_v2_3.png",
+      "sourceSha256": "f6c7cfccfdc0f2523e31ead21a129d51af41e2a59efeb101eead92dae40f5789",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/006/Groiners_male_v2_3.png",
+      "candidateSha256": "61a0e5afd37808d2438151578bdb30b912f60060fd6ae94b8abb23fced475da7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Groiners_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Groiners_female_v2_0.png",
+      "sourceSha256": "2d4964b2c8d1ec6c1b56dc0e4867e00e64633ecc0edf925dc39f33d8e78b3555",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/006/Groiners_female_v2_0.png",
+      "candidateSha256": "47fe7b83c6dac5b61a84853ac16861201e84ce96966c6ba0d440decd303aecdf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Groiners_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Groiners_female_v2_1.png",
+      "sourceSha256": "1fdf0578dc6744b3d79f9ab0e382cbb16793a3e3d6a12c35258dd28064c87359",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/006/Groiners_female_v2_1.png",
+      "candidateSha256": "7cc7b3ab415611e11430464c2526a20707b37132ab55720a0197f71551d920af",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Groiners_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Groiners_female_v2_2.png",
+      "sourceSha256": "cb657dfc75160285f73c8e2e660ba43c0fd4eb018f4d497ec04e77a386a10412",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/006/Groiners_female_v2_2.png",
+      "candidateSha256": "a4e808a114a08e909009c7e91bc18bdab1fdcee2f3d35b436cc84c5fa300d4bb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Groiners_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Groiners_female_v2_3.png",
+      "sourceSha256": "1aefcb578c7879ba69db23bf2c26aa3e78d9107ce0ab093b299a717cdf846e62",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/006/Groiners_female_v2_3.png",
+      "candidateSha256": "a1777de742b04fb09032d84412cd4e85a61e768287a6c683c9ee7794dbbbce93",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

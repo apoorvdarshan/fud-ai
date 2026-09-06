@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Gorilla_Chin_Crunch",
+  "shard": 1,
+  "index": 4,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Gorilla_Chin_Crunch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_male_v2_0.png",
+      "sourceSha256": "c674b9ae84a33aa340f4acd50d41aa2519c8fd79aea03f5c595ecf2537c8b9ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/004/Gorilla_Chin_Crunch_male_v2_0.png",
+      "candidateSha256": "00b3da863fb7f60d840b4d17ad8e65fed3c25ac3ea126c4023483ccdcda40fbb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Gorilla_Chin_Crunch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_male_v2_1.png",
+      "sourceSha256": "07b99fe1ef2b76bb9f54f895c26db54ff5ac0f575da70f3af9116f139697bc1b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/004/Gorilla_Chin_Crunch_male_v2_1.png",
+      "candidateSha256": "2fb952570d87657356508a2c1024fe4fd1e8f1d4487abc4039a342050a5393e1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Gorilla_Chin_Crunch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_male_v2_2.png",
+      "sourceSha256": "2f6680d4847946f46ea9ba75b1dc733c9372f9798c15abacc664e0b460cf418a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/004/Gorilla_Chin_Crunch_male_v2_2.png",
+      "candidateSha256": "ae59794a042f6c83232e3659ebc849dbc0a2fc6d6e42a3c062ed6eacddc57009",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Gorilla_Chin_Crunch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_male_v2_3.png",
+      "sourceSha256": "e6f1dc688392855cc6cc0e4a9a7c118bfbc05c6a23e174b65ac2a0713f8c295b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/004/Gorilla_Chin_Crunch_male_v2_3.png",
+      "candidateSha256": "8a759886ee1a2ded0977a6ac9deccf0cb9b4954da44ad1130441f8ff4edd66f3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Gorilla_Chin_Crunch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_female_v2_0.png",
+      "sourceSha256": "b450ab8efa3fcaa8f8ceef6d1c1668f9317526850c945c9687fbbccbd16fc9a0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/004/Gorilla_Chin_Crunch_female_v2_0.png",
+      "candidateSha256": "8e8791a7450cf5e96615ea1f08fc60aff92e74599c2e7adf9f333c4b18e8c434",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Gorilla_Chin_Crunch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_female_v2_1.png",
+      "sourceSha256": "7a05aba40c7c918632ae88b5e57a9b5a8611dbb57bcec03089ba6320931be02d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/004/Gorilla_Chin_Crunch_female_v2_1.png",
+      "candidateSha256": "2ad1ea99fa105a1a6e9e8fd5e66bbf721da8ea4f789cf6099eb9609bfab18609",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Gorilla_Chin_Crunch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_female_v2_2.png",
+      "sourceSha256": "b95e8037d6f314fe9040dd411b6d9b776cfdb355259681a10d684a216a9160ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/004/Gorilla_Chin_Crunch_female_v2_2.png",
+      "candidateSha256": "fe6853fc13557bba4878d92d2299c2774e567593d3dd6598e4e98d4454bb953e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Gorilla_Chin_Crunch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Gorilla_Chin_Crunch_female_v2_3.png",
+      "sourceSha256": "5c3698742e186575c8d99308e6c365b12183cf9f3a68afa39b77b90297039cf6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/004/Gorilla_Chin_Crunch_female_v2_3.png",
+      "candidateSha256": "c98d1e777c0864f5e86cf0508eb6af0684ddc8a5cc635e025c230042c3ddd0b0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

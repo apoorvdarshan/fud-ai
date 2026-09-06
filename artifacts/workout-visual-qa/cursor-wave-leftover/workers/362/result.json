@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Tate_Press",
+  "shard": 37,
+  "index": 362,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on Tate_Press frames with halo, checkerboard, floating fragments"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Tate_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tate_Press_male_v2_0.png",
+      "sourceSha256": "0ee3237c1c466930a7935a269a46df418fb6b8dd93037e6a10aa379688ef81a6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/362/Tate_Press_male_v2_0.png",
+      "candidateSha256": "53aeedc6c848d8ba113bceabf60d6881f2440640dcb59f0e19599af048eeae7d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tate_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tate_Press_male_v2_1.png",
+      "sourceSha256": "734311fc21fd2e6977c2f3775ec919bb6bea279ea1280d6cc691389e0ef018ce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/362/Tate_Press_male_v2_1.png",
+      "candidateSha256": "0bf1ecba11c318e14d153f3b7938e6cda47d4c81c7220d20670b487676128b35",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tate_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tate_Press_male_v2_2.png",
+      "sourceSha256": "6212e043d063a4f48903f51bc5559d297e720ad9aeda65a871838cec79307768",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/362/Tate_Press_male_v2_2.png",
+      "candidateSha256": "e64ba86f1bc07f0220c700d27322467a936155ee4de025eb97f037b049a89d99",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tate_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tate_Press_male_v2_3.png",
+      "sourceSha256": "bd2b3af274c29d84db83673301834b507945ec8d9930a72e554840e90dd04b94",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/362/Tate_Press_male_v2_3.png",
+      "candidateSha256": "022406afe9dcaad2967aec7beed1286bfaee2ccbc4ca37bbd62f9b3875d560d9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tate_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tate_Press_female_v2_0.png",
+      "sourceSha256": "a1807d32caa9e83ac14d6cd6fd2007875b1c05a064e75ca2590798aebd09582a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/362/Tate_Press_female_v2_0.png",
+      "candidateSha256": "6c0b618041a93d096eb35ebb5609707045b1802f11dcd4cfa83cda887d015d45",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tate_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tate_Press_female_v2_1.png",
+      "sourceSha256": "349a28d9e6b8c0246c00d2ac93a3b4198d5a4260f6a7226eea7d8260d5914ce7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/362/Tate_Press_female_v2_1.png",
+      "candidateSha256": "a0d17752c5bc4ddb2d42e1a0a81f9927a57143b750a1e05771936ae530675c09",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tate_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tate_Press_female_v2_2.png",
+      "sourceSha256": "70b096778526b641fca19f8bb3827e65653d9e893b54e713ca693d2c1557230c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/362/Tate_Press_female_v2_2.png",
+      "candidateSha256": "191ab1f3830d5d33a5ad5f0b97b4f877852bec868fdcea6fda54696de6c9d9b2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tate_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tate_Press_female_v2_3.png",
+      "sourceSha256": "21206a65e6139bf8baf458b978a5c3ef8016d19e23b69165afa495f7f4d664cc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/362/Tate_Press_female_v2_3.png",
+      "candidateSha256": "55203a940e1056a59e177cf7892883937112a7fbad4e996319f06b4595201bb6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

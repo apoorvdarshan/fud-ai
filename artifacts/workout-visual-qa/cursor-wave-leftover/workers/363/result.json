@@ -1,0 +1,84 @@
+{
+  "exerciseId": "The_Straddle",
+  "shard": 37,
+  "index": 363,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on Straddle frames with baked green key patches and floating fragments"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "The_Straddle_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/The_Straddle_male_v2_0.png",
+      "sourceSha256": "34cf96b12bc0091a377aa9c8418ea0538e0100865355f60483a9335cedb49cb4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/363/The_Straddle_male_v2_0.png",
+      "candidateSha256": "87ae6866d47a684cda21e8778eaff23e2bd395581afad033a4ef897715bafd16",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "The_Straddle_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/The_Straddle_male_v2_1.png",
+      "sourceSha256": "e6f2ea6de5ccf22dbd6cee879f86d8c32f444993b2efc1d11fede368fb264fee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/363/The_Straddle_male_v2_1.png",
+      "candidateSha256": "b40513123a576384f54680413ea1988ddb37b6c548665e73d617d1b04c146e1a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "The_Straddle_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/The_Straddle_male_v2_2.png",
+      "sourceSha256": "f647f8540e1ab61bd3eebc93edb8044b6ea8421666e1722d279fb83b47e20c7b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/363/The_Straddle_male_v2_2.png",
+      "candidateSha256": "551717a452cd0999f909cf8d5f062f53a21c82d6b69a275d190f2ba240e22dea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "The_Straddle_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/The_Straddle_male_v2_3.png",
+      "sourceSha256": "7a38e99004dbcd70a65ce81ac8f9810d1198cae2baadd1543efbcd8fb3231e6a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/363/The_Straddle_male_v2_3.png",
+      "candidateSha256": "7e9c54b6f7ca86362dcf6c42abe982210c51ac2115c16fc99fe700876418d6dc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "The_Straddle_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/The_Straddle_female_v2_0.png",
+      "sourceSha256": "9ebc04a483d73e1e4c9357c494ecd55b01c5f019652dc4c0eda4a03189d4040d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/363/The_Straddle_female_v2_0.png",
+      "candidateSha256": "d2599afbca04414489bcb728a4c8ac5fb95a17d466e3731e4aab8aabeb0089da",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "The_Straddle_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/The_Straddle_female_v2_1.png",
+      "sourceSha256": "494b385b07fddbb2cc8d31b45b3e5c4a8e8b2694b4fce688299b18c79ae42582",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/363/The_Straddle_female_v2_1.png",
+      "candidateSha256": "485dfabf06c4b27fd4d70a8ae5f70a3519c7659e75a5cd796f694dff449f2f4a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "The_Straddle_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/The_Straddle_female_v2_2.png",
+      "sourceSha256": "3b66de7ecf709bf970336f314ca7cdd14453611fd80d0bc4185d2c77d87bc2e3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/363/The_Straddle_female_v2_2.png",
+      "candidateSha256": "79e4de143c74dd3166ebac2e3b275b93236515f89d071880e78a6b26e76f5ab5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "The_Straddle_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/The_Straddle_female_v2_3.png",
+      "sourceSha256": "dbd5ab54f217297bc361da55e113f1bc2f3fe8da8f7022514d11b014f834c000",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/363/The_Straddle_female_v2_3.png",
+      "candidateSha256": "6f85c7231feccb396d11fe2bff07c1fd51ee47a922653661abef063e0a2ce8f1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

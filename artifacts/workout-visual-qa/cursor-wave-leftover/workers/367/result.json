@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Toe_Touchers",
+  "shard": 37,
+  "index": 367,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on Toe_Touchers male_v2_2 floor pixel artifacts"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Toe_Touchers_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Toe_Touchers_male_v2_0.png",
+      "sourceSha256": "0ef49e234201227f0a69afbcf415c2713109e020fd9d0973a48f4cea62cf9674",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/367/Toe_Touchers_male_v2_0.png",
+      "candidateSha256": "3e9eb6e7c832bb7314724ae548faf6cc63f322d881e8d8de652e3f4e15fe8e6a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Toe_Touchers_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Toe_Touchers_male_v2_1.png",
+      "sourceSha256": "8bb91a09d6c1ded6b3ad1286f282834384dbbf254757534df3d37c42156fdba3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/367/Toe_Touchers_male_v2_1.png",
+      "candidateSha256": "cb3fafec0cf084392c704e9bc13b8cda2cfce8d2dc3a1ad8c1171d82fb9c2649",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Toe_Touchers_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Toe_Touchers_male_v2_2.png",
+      "sourceSha256": "e3442d9a501694b98dace3155ffe6753879c8b35c3eeb0c2941a22649f1bfb88",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/367/Toe_Touchers_male_v2_2.png",
+      "candidateSha256": "f8b9129f388b24404fdc7ebd7c04a55dbca9f467a51a23d078825aa6348adb12",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Toe_Touchers_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Toe_Touchers_male_v2_3.png",
+      "sourceSha256": "e5893f3d45babd10c38e4c1ea8af4e491499f2c03eb4af779a3a57642b05335b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/367/Toe_Touchers_male_v2_3.png",
+      "candidateSha256": "7b884f80c836b1826a5b67b62cf2a848b20b4183ff9b89bc17654b7cf4a4f324",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Toe_Touchers_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Toe_Touchers_female_v2_0.png",
+      "sourceSha256": "9765ef02520c4cd93f46c149ac57fd23433456817e3bb124cc9670db7f9ca831",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/367/Toe_Touchers_female_v2_0.png",
+      "candidateSha256": "5f7594cfbf4ef54b3a2a430dca17393864b02edde84deccacb7bfe770265f601",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Toe_Touchers_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Toe_Touchers_female_v2_1.png",
+      "sourceSha256": "706fb7905d0cec9cb8215cb81aacca7a88524df7a25ceb965020240ef07e5ba6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/367/Toe_Touchers_female_v2_1.png",
+      "candidateSha256": "e7276f7acc7e69b4a4fa42b449914877b2fcfe0441f2da305309a33fd5c8f080",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Toe_Touchers_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Toe_Touchers_female_v2_2.png",
+      "sourceSha256": "cd113e3a9e1a593f2b88c980df25947f68678d947531dd98263f50faf962c472",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/367/Toe_Touchers_female_v2_2.png",
+      "candidateSha256": "88e98fa0be35a4576c4c85457a7bbbbace1396b8eca8eaaccb084473f195604d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Toe_Touchers_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Toe_Touchers_female_v2_3.png",
+      "sourceSha256": "3b424e5e3c8cf963ece74a6887e2cf9c602aaf434bf85e34d8a8bf349c2706fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/367/Toe_Touchers_female_v2_3.png",
+      "candidateSha256": "f7463bac8181fc5d8597f4dea1ebad6a2bf5564b0bef289c49b61cefcf1e9a15",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

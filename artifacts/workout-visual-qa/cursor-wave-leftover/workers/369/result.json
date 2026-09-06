@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Trail_Running_Walking",
+  "shard": 37,
+  "index": 369,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Trail_Running_Walking_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trail_Running_Walking_male_v2_0.png",
+      "sourceSha256": "5490b586d52c1d61f29f712dddbd9c5e3d3647c12600b739c9afcfa1cefb1733",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/369/Trail_Running_Walking_male_v2_0.png",
+      "candidateSha256": "c0da5a1bc1a5bbf390be3581895d589c0c77c164a98674c801a09f961f8965d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trail_Running_Walking_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trail_Running_Walking_male_v2_1.png",
+      "sourceSha256": "6a9795eb56f700c4ac0827539aeec17e3d8402e39ae87e0873d2ce26a2241ba0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/369/Trail_Running_Walking_male_v2_1.png",
+      "candidateSha256": "fd89c9330ccbe813525429d89024de56461aec0a440a43e3829f3e960ab81bac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trail_Running_Walking_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trail_Running_Walking_male_v2_2.png",
+      "sourceSha256": "f350109be3efa91ba15c925ba7daf9d6859323a3786f442b6a89e504ab3975ab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/369/Trail_Running_Walking_male_v2_2.png",
+      "candidateSha256": "1e81f546cafc0b11cb8edc3265c056b9ff44cbce655dd0ae57afd4b6335e0bf7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trail_Running_Walking_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trail_Running_Walking_male_v2_3.png",
+      "sourceSha256": "efda38584331fdc0a563a8741e7b2698b2b1291d5008f976be8a5d5a32d847fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/369/Trail_Running_Walking_male_v2_3.png",
+      "candidateSha256": "c9aa359d47c0302d9461558512db0a49c0a3ef44c72a127d33eb046dd4978d4a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trail_Running_Walking_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trail_Running_Walking_female_v2_0.png",
+      "sourceSha256": "83efb1cf3358e0a24c82a95394181e28b8d732866241464efe74b179e254696f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/369/Trail_Running_Walking_female_v2_0.png",
+      "candidateSha256": "a712d2f7cb95ca2c19cbf976f4979fbdd30c4df7b7c4caa1bb8d20fc6afa4149",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trail_Running_Walking_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trail_Running_Walking_female_v2_1.png",
+      "sourceSha256": "6266dc630a4574ac07a5dbe9362f93073147cfde34acc1ed0187a38d78d7f6ff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/369/Trail_Running_Walking_female_v2_1.png",
+      "candidateSha256": "018b6a14e6eb362dacd620112b49bc09b4de0f56ea0f42240f31924dd536e464",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trail_Running_Walking_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trail_Running_Walking_female_v2_2.png",
+      "sourceSha256": "1c3ea1f4ccb66a1dde8c53a70e606b6f91b8730b96c9b709bd5ad5cfd61c3d7f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/369/Trail_Running_Walking_female_v2_2.png",
+      "candidateSha256": "0cfb21475ee9bb2dd5322281a5d244773f34c4275aee307154d02fe91a0a6710",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Trail_Running_Walking_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Trail_Running_Walking_female_v2_3.png",
+      "sourceSha256": "603186debe308b62727310b731984c6bddd413b41a2777529dceec3ffdaf3119",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/369/Trail_Running_Walking_female_v2_3.png",
+      "candidateSha256": "adf6b9c5a852ed6c6002e556bcf33a5cbf8d82075cc79427be1c6ad0cafa56d9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

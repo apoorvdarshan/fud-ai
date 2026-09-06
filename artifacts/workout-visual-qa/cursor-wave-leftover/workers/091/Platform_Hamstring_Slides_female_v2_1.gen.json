@@ -1,0 +1,16 @@
+{
+  "source_sha256": "bffc3afc4d0fb09eadd40e1fffb9d7630ec3d075eddae81fea06fae4fc4750fe",
+  "candidate_sha256": "b4d26965cc165513be84b61bc8008fc9460182fa66c51ca436dfcc7eecfdea28",
+  "generated_sha256": "48c500299562d5ef91d57f174ff69583682aa3dc7a5ab13fb6a62aa7e31ea27b",
+  "generated_path": "/cursor/stores/bc-69f8511f-d3bb-4469-8d1e-e16993bf61ee/artifacts/assets/gen_Platform_Hamstring_Slides_female_v2_1.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

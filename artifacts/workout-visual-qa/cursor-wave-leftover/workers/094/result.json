@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Plyo_Push-up",
+  "shard": 10,
+  "index": 94,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Plyo_Push-up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Push-up_male_v2_0.png",
+      "sourceSha256": "3efa18565aa0c2d308af59c7d9de937031dd9d5bd6743c6deeb46cd25f4ade14",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/094/Plyo_Push-up_male_v2_0.png",
+      "candidateSha256": "b40320cbc3876582ee17885f3572a8fdcc4c8094addbd4f8218729e35ab64509",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Push-up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Push-up_male_v2_1.png",
+      "sourceSha256": "9b869b21f99c57e03e795dcf3e55e92dff802ccac8a98d4e4614929b45d2ff95",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/094/Plyo_Push-up_male_v2_1.png",
+      "candidateSha256": "f17b9aea5311e0e78e364b115028899bb523a88796ee920afc60cf26f86b4328",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Push-up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Push-up_male_v2_2.png",
+      "sourceSha256": "9fbc815df400f66ca05ad5746efa395010a232f0234b6166d9a6b3702e3756ac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/094/Plyo_Push-up_male_v2_2.png",
+      "candidateSha256": "6110a4f4dba0dcb768aafa7a007e6e2a6e35c6dc5f7cf115af513955f2c120ef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Push-up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Push-up_male_v2_3.png",
+      "sourceSha256": "eaaf9fc4dae0d024c601b2afdbf6ebd2922f8c938f5ab58d338072958daa7781",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/094/Plyo_Push-up_male_v2_3.png",
+      "candidateSha256": "64c72321efd22475cae2829ff9ecd26e49b8c81f996a96e22b80fba68397da8b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Push-up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Push-up_female_v2_0.png",
+      "sourceSha256": "b3fd56d9160412aa9257a99a5cf04af52d0201b954b8030a0d9b76ac1dc34b34",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/094/Plyo_Push-up_female_v2_0.png",
+      "candidateSha256": "fab787b7663737e474a0b30e23616db26a247bf4f9b9a41a1b5eb7d263cdf47b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Push-up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Push-up_female_v2_1.png",
+      "sourceSha256": "40c418c7a19628495280594f0037c6f0d944448b275ea9dc08529584a4e9326f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/094/Plyo_Push-up_female_v2_1.png",
+      "candidateSha256": "cb0b898f8e5314ccf4742a62e807434e94f03c66e2eca646b63ba651e9cb24c0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Push-up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Push-up_female_v2_2.png",
+      "sourceSha256": "140a77eff896b63f020117fb607f8d90a0952a7761884ef6be225a3054c11726",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/094/Plyo_Push-up_female_v2_2.png",
+      "candidateSha256": "53df445cf15b98dd3123ae15a401c8616a4cff2062fb161bd4c3a97393e88adf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Push-up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Push-up_female_v2_3.png",
+      "sourceSha256": "03e091f86d548ee90a2f354f719a4161721f0abba5c975379195cde9c383cd5e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/094/Plyo_Push-up_female_v2_3.png",
+      "candidateSha256": "255932eda17b26b561e179f745cdb8e5e031189621d4785591db7efc0b737cb3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

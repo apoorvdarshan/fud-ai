@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Posterior_Tibialis_Stretch",
+  "shard": 10,
+  "index": 95,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Posterior_Tibialis_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Posterior_Tibialis_Stretch_male_v2_0.png",
+      "sourceSha256": "3bd1cae1e6a8016f533f6e61952dab5d378a9de34226fb0f5ab237fd527ee6b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/095/Posterior_Tibialis_Stretch_male_v2_0.png",
+      "candidateSha256": "119d77880974fb2365eb9875c1e6e9619aaefa54edd1b0df13d4d64a8739ef09",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Posterior_Tibialis_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Posterior_Tibialis_Stretch_male_v2_1.png",
+      "sourceSha256": "80e0450fbdc4551d862484b355a11a4776973bcdc19b85cf7285d39679e768bb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/095/Posterior_Tibialis_Stretch_male_v2_1.png",
+      "candidateSha256": "62758ddd699c8b1acc84652a8041d861fc76b7e3731cd960ab63dc912104544b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Posterior_Tibialis_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Posterior_Tibialis_Stretch_male_v2_2.png",
+      "sourceSha256": "06d423e5ea8777f6f9f7081937ff6fe9019e07f0e4486360c562f93e9067eb9c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/095/Posterior_Tibialis_Stretch_male_v2_2.png",
+      "candidateSha256": "baa69c339537b437b473b9d280d4fff66bf327ceaf726d0b9d6796917a522475",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Posterior_Tibialis_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Posterior_Tibialis_Stretch_male_v2_3.png",
+      "sourceSha256": "620cbf944bbbed38b3d9b0d55656f6cff203232d717645f0bfb33ea5f331b64f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/095/Posterior_Tibialis_Stretch_male_v2_3.png",
+      "candidateSha256": "4ebe21f808a0b770ced6d9d58abf6e2710348a54399dcc0ccce235950c01873f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Posterior_Tibialis_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Posterior_Tibialis_Stretch_female_v2_0.png",
+      "sourceSha256": "aac58c5a2c92b9efc5fdf1010f9796dd1489f908f06b7054ee78898b163e3d8b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/095/Posterior_Tibialis_Stretch_female_v2_0.png",
+      "candidateSha256": "bcbf77f4c3df9827fb45d1fd86c3337b0d5035119c1ef296abb8bf098a546baf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Posterior_Tibialis_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Posterior_Tibialis_Stretch_female_v2_1.png",
+      "sourceSha256": "44eff24b11c622d38a930c62757a0e7f7e2ecbb801f33eafb2443264fe62f991",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/095/Posterior_Tibialis_Stretch_female_v2_1.png",
+      "candidateSha256": "1c3ae2f3189947460a0cdb98f88658084e6741df83c744ed9cd87057dcc0c9dc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Posterior_Tibialis_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Posterior_Tibialis_Stretch_female_v2_2.png",
+      "sourceSha256": "dc33f522278094e0f1e1c051c06349433687f09cbbd99e04c4b8d3c00f22b989",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/095/Posterior_Tibialis_Stretch_female_v2_2.png",
+      "candidateSha256": "69abe0c0a8018bce348d6b032b9a2d405cf8b3e515bcae00949127dbe8abc89e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Posterior_Tibialis_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Posterior_Tibialis_Stretch_female_v2_3.png",
+      "sourceSha256": "b2cf435c00c1804e286c88968fbdf4f34f588ef459975c36e234a1e7d3fb2a2c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/095/Posterior_Tibialis_Stretch_female_v2_3.png",
+      "candidateSha256": "7ac0dfda2c15e304b8b22580cab3a62cbb25808441a87ebded9bd0f4eba6ce15",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

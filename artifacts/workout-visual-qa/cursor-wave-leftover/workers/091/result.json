@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Platform_Hamstring_Slides",
+  "shard": 10,
+  "index": 91,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Platform_Hamstring_Slides_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Platform_Hamstring_Slides_male_v2_0.png",
+      "sourceSha256": "c3fc8e3cfbc5b595326757a75865ef321932aaf30b37cfe9b5e010b4b14eab5f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/091/Platform_Hamstring_Slides_male_v2_0.png",
+      "candidateSha256": "b912a8c565adc7a6bdeed7c65e0baa3ac758368d52d929c44f5d4b4b36b91129",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Platform_Hamstring_Slides_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Platform_Hamstring_Slides_male_v2_1.png",
+      "sourceSha256": "fb10a2e36984a804eeb007ba83ad100d3bd19d383487c017941ce0952f04fdd7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/091/Platform_Hamstring_Slides_male_v2_1.png",
+      "candidateSha256": "94975e64846d04548becbf30ab651b0963ada5b354e1cf5f70d8b8b9b95f95b1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Platform_Hamstring_Slides_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Platform_Hamstring_Slides_male_v2_2.png",
+      "sourceSha256": "b7a11b5abf1415c9e12d8b75e986c9a3bdb481e1019e0095db4ea2329cb7a9e9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/091/Platform_Hamstring_Slides_male_v2_2.png",
+      "candidateSha256": "bd36488c6982ac95f6ba86fae0e89f7292ee67e0722560a1e3b680718acf6718",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Platform_Hamstring_Slides_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Platform_Hamstring_Slides_male_v2_3.png",
+      "sourceSha256": "df6026a925034e30cff74b47ab3d6bee8d1e21827d9bf8b0d77300d958c415a9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/091/Platform_Hamstring_Slides_male_v2_3.png",
+      "candidateSha256": "9ea01d6c33b51bd46f0998bb48b28d9b379ff22e5c3a1ed1624f8e6d56f671ae",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Platform_Hamstring_Slides_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Platform_Hamstring_Slides_female_v2_0.png",
+      "sourceSha256": "d86fb7a82a16063a392025ba38257247e926a59c9ca0b3725f855e7bdd4cc8fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/091/Platform_Hamstring_Slides_female_v2_0.png",
+      "candidateSha256": "5902f7281f37a2a29999dca60e6f0efbc7f377d8eb1650d65fce08c803067b5a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Platform_Hamstring_Slides_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Platform_Hamstring_Slides_female_v2_1.png",
+      "sourceSha256": "bffc3afc4d0fb09eadd40e1fffb9d7630ec3d075eddae81fea06fae4fc4750fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/091/Platform_Hamstring_Slides_female_v2_1.png",
+      "candidateSha256": "b4d26965cc165513be84b61bc8008fc9460182fa66c51ca436dfcc7eecfdea28",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Platform_Hamstring_Slides_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Platform_Hamstring_Slides_female_v2_2.png",
+      "sourceSha256": "693c6564a88d582fc641892b4c60e1756989df758af2f5bcbeca4dfd9998e404",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/091/Platform_Hamstring_Slides_female_v2_2.png",
+      "candidateSha256": "b9769242529a929ee9045ef91f258e4eff962adc1c32fb24a4580c76d785aea0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Platform_Hamstring_Slides_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Platform_Hamstring_Slides_female_v2_3.png",
+      "sourceSha256": "cd497cab237396393a546904b275af4fd346410213ad5da215e952c8a112951c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/091/Platform_Hamstring_Slides_female_v2_3.png",
+      "candidateSha256": "be41e0a7b78c773642bced5b99e0fa982d1de8b433ae7fca2e59833202306352",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

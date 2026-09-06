@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Plyo_Kettlebell_Pushups",
+  "shard": 10,
+  "index": 93,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Plyo_Kettlebell_Pushups_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Kettlebell_Pushups_male_v2_0.png",
+      "sourceSha256": "065e49b621300c0acfdc0af884586be493d89e0e69d8bac9229d454cbc866c05",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/093/Plyo_Kettlebell_Pushups_male_v2_0.png",
+      "candidateSha256": "107790786dbeb3fd6b73dd1240246ac6b6849ac8546dc7c9e7b1d19cce2d29a4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Kettlebell_Pushups_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Kettlebell_Pushups_male_v2_1.png",
+      "sourceSha256": "b079d112050743dc60ade848edddfb22383ef340bffadacc293b276010da67a3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/093/Plyo_Kettlebell_Pushups_male_v2_1.png",
+      "candidateSha256": "d2577c6ae475f8bc5ac4fadc7671fbfbbccb783cf8d73bc23fe1f2af09289a30",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Kettlebell_Pushups_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Kettlebell_Pushups_male_v2_2.png",
+      "sourceSha256": "8ef6176feaa1edcbe4d7deb11d904be178da57c87d03667b29c083222b936dfb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/093/Plyo_Kettlebell_Pushups_male_v2_2.png",
+      "candidateSha256": "41d761bcf21096142a77524e4f3ca0ce0ea1823c00814c8727333473b7e98f73",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Kettlebell_Pushups_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Kettlebell_Pushups_male_v2_3.png",
+      "sourceSha256": "2877827a70c9788d8b32516b448e7918802cde6ccd7c2a9f0eaff6b785175799",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/093/Plyo_Kettlebell_Pushups_male_v2_3.png",
+      "candidateSha256": "cbe0559bf707f76d201f19b155ef5d31d992abdef3c4db617eabffa21633e0a2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Kettlebell_Pushups_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Kettlebell_Pushups_female_v2_0.png",
+      "sourceSha256": "a7b7d451d0c498dd922f517c2d8b50a4a47b549707f8700d0de4f4175c130ea3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/093/Plyo_Kettlebell_Pushups_female_v2_0.png",
+      "candidateSha256": "1704d8faf1208dfa51d6a5fb2c29c8b99416b475f41451ed035be5a466ff73bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Kettlebell_Pushups_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Kettlebell_Pushups_female_v2_1.png",
+      "sourceSha256": "efe9f01de6d87027232f2ea6b99ad7f70af32a4d30e364a0515f0a2c76c18e82",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/093/Plyo_Kettlebell_Pushups_female_v2_1.png",
+      "candidateSha256": "d678560e876a86156678aaccc8c3333ac006ac6535c6445852d6e7ed4bcad05c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Kettlebell_Pushups_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Kettlebell_Pushups_female_v2_2.png",
+      "sourceSha256": "d8e4b757377a7894e61899b793b98c01880e0a9a671a0dcb6cf218bfc0daf243",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/093/Plyo_Kettlebell_Pushups_female_v2_2.png",
+      "candidateSha256": "d268403e07e9232898c2c771f0fc8d97a0cd70b8e3a8d3afd611390687b5f834",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plyo_Kettlebell_Pushups_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plyo_Kettlebell_Pushups_female_v2_3.png",
+      "sourceSha256": "ea76840b77e88b991b3a4c6341458ccb7868b4035a6bcd75f7f443b759af8c5e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/093/Plyo_Kettlebell_Pushups_female_v2_3.png",
+      "candidateSha256": "c088226c26dc7c1aedbb47e24572964958c27d7670dc7f8302741bdc6bbc4842",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

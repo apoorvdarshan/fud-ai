@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Plie_Dumbbell_Squat",
+  "shard": 10,
+  "index": 92,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Plie_Dumbbell_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plie_Dumbbell_Squat_male_v2_0.png",
+      "sourceSha256": "2d312f9885402e52d851625cd61443ef9d159a7b7ab408138df525e166195df7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/092/Plie_Dumbbell_Squat_male_v2_0.png",
+      "candidateSha256": "a49ac38d29c45fd0407e0a9e2ffff082c4221b66b107f109ad56a350e3d55bcd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plie_Dumbbell_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plie_Dumbbell_Squat_male_v2_1.png",
+      "sourceSha256": "fdedbd594c780eabbf2dd5134bec6a4b1997fe37cf23fbd5c9dda9d645094e70",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/092/Plie_Dumbbell_Squat_male_v2_1.png",
+      "candidateSha256": "8fe845cf2affe1126062b93c42bfdd66fa47dea6f8242b54f71ec01eab0ae443",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plie_Dumbbell_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plie_Dumbbell_Squat_male_v2_2.png",
+      "sourceSha256": "384898f843614f9cafdac14b08bc7ec30a603cda6f2cb1a07cd7c32874766b69",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/092/Plie_Dumbbell_Squat_male_v2_2.png",
+      "candidateSha256": "c37f4f80aeaeb1b440ffae9448a8fbb3d7aad24fc5814e7a979f02eabef05d40",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plie_Dumbbell_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plie_Dumbbell_Squat_male_v2_3.png",
+      "sourceSha256": "08e243581abc77aa04bf331779ac154efbfd6dfa38cd4e7887ab4246bc15c240",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/092/Plie_Dumbbell_Squat_male_v2_3.png",
+      "candidateSha256": "fface685307daea0d1ee71f534e1db0706d45fb26da5586dfe3441e2be3485bf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plie_Dumbbell_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plie_Dumbbell_Squat_female_v2_0.png",
+      "sourceSha256": "43da873bb5a7d0ddef00b78cf320a87ecb5acc694fc0517560237c39b9d8a1f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/092/Plie_Dumbbell_Squat_female_v2_0.png",
+      "candidateSha256": "84ea7e8ac149f9e563c6da44b9cd5bc23427887fe9b37610d9927928a5905b94",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plie_Dumbbell_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plie_Dumbbell_Squat_female_v2_1.png",
+      "sourceSha256": "820b07bca7f57575bf630d7b46bd37b811ccc9f944e20bf177e1e97d8605c248",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/092/Plie_Dumbbell_Squat_female_v2_1.png",
+      "candidateSha256": "d031f28e3bebc8bde562049ba8a4e34d302ca3b88602317d13b7d51ca9a3cb1c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plie_Dumbbell_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plie_Dumbbell_Squat_female_v2_2.png",
+      "sourceSha256": "548713cbec8415024fb47857becdbf336ab779a9e61eb66e5c923d9b0bc61e0d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/092/Plie_Dumbbell_Squat_female_v2_2.png",
+      "candidateSha256": "3b28f9ec162e1718b0d92f7ae6fcad6bfe528cf4f4abe8dfa3d8d59c33bb12a4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Plie_Dumbbell_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Plie_Dumbbell_Squat_female_v2_3.png",
+      "sourceSha256": "6da15b9be040a5d9341146d61a563da82e6acd91c3eca83cd87bf6fcfc06b881",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/092/Plie_Dumbbell_Squat_female_v2_3.png",
+      "candidateSha256": "2630ff4f441d1672963ba3dde2589a01a7c9e01e6398a17b9ff11c6000d13aa3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "One-Arm_Side_Deadlift",
+  "shard": 6,
+  "index": 52,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Arm_Side_Deadlift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Side_Deadlift_male_v2_0.png",
+      "sourceSha256": "efcc4b56687835faf3a90f9fca6f2f4980873c9638df306a8ce3fc1cc3264778",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/052/One-Arm_Side_Deadlift_male_v2_0.png",
+      "candidateSha256": "486cab602cba41a0f65dc3f6e392933326b0cbc0c96de2ffa7e0de1ab0c1df94",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Side_Deadlift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Side_Deadlift_male_v2_1.png",
+      "sourceSha256": "3d5279aff41279e9b120ca639e2ae6a312e49f354f756b1cc59a128ab81bc289",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/052/One-Arm_Side_Deadlift_male_v2_1.png",
+      "candidateSha256": "4874f3eb9a46e4cb4816d48e3bbff0f2b758bdce23f2e726d57b30410a1481bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Side_Deadlift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Side_Deadlift_male_v2_2.png",
+      "sourceSha256": "85cc58b6119b68dca6a314cb48a0e084e4a30e4356bd8c8b6ef89d44481e1ee6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/052/One-Arm_Side_Deadlift_male_v2_2.png",
+      "candidateSha256": "343bc7169938a4682d0d34eea71b500ff1cfd00c3638ba4356bf58f66e03b0fb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Side_Deadlift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Side_Deadlift_male_v2_3.png",
+      "sourceSha256": "5f679d3a6f7a4feb2e7eecd6d833fd31888a7b9ab96525f3d616094e2287c7bc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/052/One-Arm_Side_Deadlift_male_v2_3.png",
+      "candidateSha256": "a6a60d8c30fc95af70a9f7753421ae5fceb4f25c2278acef7ff66cfdd6f2b0f2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Side_Deadlift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Side_Deadlift_female_v2_0.png",
+      "sourceSha256": "16364aeb1229a938aa8d45fa5b43a116fe2389b4fa0aa2a765a10db78df1278f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/052/One-Arm_Side_Deadlift_female_v2_0.png",
+      "candidateSha256": "5497c52376ec31dcc0aab00a40bdce5466aedb6a653a4bce8c0089249739bda4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Side_Deadlift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Side_Deadlift_female_v2_1.png",
+      "sourceSha256": "5f4d89e8e9a49b40e734d86063870da0215047a5c08c17f1627c74b15dbb83f4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/052/One-Arm_Side_Deadlift_female_v2_1.png",
+      "candidateSha256": "26d77b43b620a423c36a65c7f991c32d46aada64a306782a68efe43be9a7df43",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Side_Deadlift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Side_Deadlift_female_v2_2.png",
+      "sourceSha256": "3c77d021b3d4c29fa3091e06aff286cf10baad3449e9177422b99042ba1c2ab0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/052/One-Arm_Side_Deadlift_female_v2_2.png",
+      "candidateSha256": "de9cad150c2eec20ff014bb0c80f8709e085cb35234449b82410ce9545bb4df4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Side_Deadlift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Side_Deadlift_female_v2_3.png",
+      "sourceSha256": "baf4eba6f0caf1237b96fcd663b73806d497419f69cd680ed79c361e154024d2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/052/One-Arm_Side_Deadlift_female_v2_3.png",
+      "candidateSha256": "bcc7cec140e00cc3c46a49f6101236820d2161b40662752c66e85a5b56d1531d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

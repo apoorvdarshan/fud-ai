@@ -1,0 +1,82 @@
+{
+  "exerciseId": "One_Arm_Against_Wall",
+  "shard": 6,
+  "index": 55,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One_Arm_Against_Wall_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Against_Wall_male_v2_0.png",
+      "sourceSha256": "21eb7e34df7afd6ab57ab3ef836c567adf04eca4d4a4b07e3c105aef3293d892",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/055/One_Arm_Against_Wall_male_v2_0.png",
+      "candidateSha256": "893eb141d3d47978f47088d20cb22464e186c7766d518224b4bc436fde5657f7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Against_Wall_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Against_Wall_male_v2_1.png",
+      "sourceSha256": "1f80cbd3aec4f1ea99f39000ef34695e40a9d01d9bfef74c6a90d4bf98fc255f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/055/One_Arm_Against_Wall_male_v2_1.png",
+      "candidateSha256": "2761f9257e9201014c43fd61376c8b12aac41a68ede8e603dc8eed714e46b9b1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Against_Wall_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Against_Wall_male_v2_2.png",
+      "sourceSha256": "d9861d225604e5752b8290afce5f4e09e985fd79c1697d41b0d2f613da31efe0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/055/One_Arm_Against_Wall_male_v2_2.png",
+      "candidateSha256": "ef4bca5d12952955419d5e94b415d06996604774aacc51aeb57252f550cf5364",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Against_Wall_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Against_Wall_male_v2_3.png",
+      "sourceSha256": "7e284da3793cf748066c7a11529906c55394c601efc77e7fefe4b26f6fe90620",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/055/One_Arm_Against_Wall_male_v2_3.png",
+      "candidateSha256": "4facac4e07b3e8fd1a20e1e324f7cc93f78b10f0fed54149c9b33e4eb70cd56c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Against_Wall_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Against_Wall_female_v2_0.png",
+      "sourceSha256": "07e0191200200bacaac918ff3f43ceb48c8fd85ea03d1fb4ef5705055d5ce7ab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/055/One_Arm_Against_Wall_female_v2_0.png",
+      "candidateSha256": "5ff084ab3b31747c11f699dfdd592ecad19485f3f1c01e97c011a59c35e48e78",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Against_Wall_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Against_Wall_female_v2_1.png",
+      "sourceSha256": "09becc752680a1fd389f161b3a035bf162ac1900831285408df6cf2da614f0c4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/055/One_Arm_Against_Wall_female_v2_1.png",
+      "candidateSha256": "5d13b80b3f42aeda4576b38e483e8b939927a483154938973c1069cd593285b1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Against_Wall_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Against_Wall_female_v2_2.png",
+      "sourceSha256": "f342f6bdb2f6c6ef80777ff1b934e9bf255a64963d3c07c8e2e6029e8dd726f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/055/One_Arm_Against_Wall_female_v2_2.png",
+      "candidateSha256": "38495ac87732ed8723644c0fd7938546e6a052e1c6f3004fdc0b17eec7a9ff58",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Against_Wall_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Against_Wall_female_v2_3.png",
+      "sourceSha256": "ca9758604bd9e022c39db33a229e5898da4a0ef5de0964c8e8d30d6ffb1ae176",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/055/One_Arm_Against_Wall_female_v2_3.png",
+      "candidateSha256": "3b7c2ee80bf98d13e431076bf274956364cacc1c59dd402da49a3c7b594b69cf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

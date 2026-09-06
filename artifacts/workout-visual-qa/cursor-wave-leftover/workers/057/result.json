@@ -1,0 +1,82 @@
+{
+  "exerciseId": "One_Arm_Dumbbell_Bench_Press",
+  "shard": 6,
+  "index": 57,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One_Arm_Dumbbell_Bench_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Dumbbell_Bench_Press_male_v2_0.png",
+      "sourceSha256": "4f5ec512cae36f75afea0e69087f886aa57029788525521daf8e4dea5a6a8fc7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/057/One_Arm_Dumbbell_Bench_Press_male_v2_0.png",
+      "candidateSha256": "3d884d57c41e953559abea189ba5a179e7b8159d558e75f0a97ccbe28e1cbca6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Dumbbell_Bench_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Dumbbell_Bench_Press_male_v2_1.png",
+      "sourceSha256": "b1607b16475d2227bb3d71cbac89e6301b2b5c2649385c62db672e5ab71d3a82",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/057/One_Arm_Dumbbell_Bench_Press_male_v2_1.png",
+      "candidateSha256": "09bfc3d6b733675e04bc00b61f4bb3438203e53ebdc7a3ec1eba89aa224866c2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Dumbbell_Bench_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Dumbbell_Bench_Press_male_v2_2.png",
+      "sourceSha256": "695ba096734ac80c6fcf4517d88f680ec8b99c21ecce91d6f399a9cbeedc634d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/057/One_Arm_Dumbbell_Bench_Press_male_v2_2.png",
+      "candidateSha256": "555afa5b5700b683ce512978fd8fcea8d8c4f4099827c02e27d9c47151f98d73",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Dumbbell_Bench_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Dumbbell_Bench_Press_male_v2_3.png",
+      "sourceSha256": "364fbe7be03a5422a53f02c93781be5e0cbb91632c74bd9acfe936b93f740e25",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/057/One_Arm_Dumbbell_Bench_Press_male_v2_3.png",
+      "candidateSha256": "a769590dca824573f72b54f8958919b4122f871b98f608e1b10f6c45bcb9a677",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Dumbbell_Bench_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Dumbbell_Bench_Press_female_v2_0.png",
+      "sourceSha256": "71eadf441595cca68e7931cb8c59e9beab626910c6f328fd9e7f0c485097f209",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/057/One_Arm_Dumbbell_Bench_Press_female_v2_0.png",
+      "candidateSha256": "caf15cb462dd6c256412368ae07746269cd3d8c2c3ce032538187375a838d356",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Dumbbell_Bench_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Dumbbell_Bench_Press_female_v2_1.png",
+      "sourceSha256": "5bc4f3172a8a381dbe6f8c7730e2789ebda6098262bfdbfd6fee38e1f6313983",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/057/One_Arm_Dumbbell_Bench_Press_female_v2_1.png",
+      "candidateSha256": "503376698dc1d382d6acaf48db3a3e3ac39d29fc2e6cee5ff0cfd9ad5db23eff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Dumbbell_Bench_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Dumbbell_Bench_Press_female_v2_2.png",
+      "sourceSha256": "db60e5b95e77f55901ad034c069ef69e23600cd1c4defb6f307b514cc1fde4f4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/057/One_Arm_Dumbbell_Bench_Press_female_v2_2.png",
+      "candidateSha256": "aa6e34b3eab85ce3732ef6fb9994442c98dbf110b1e3dde2d56ddb168f9d6cb9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Dumbbell_Bench_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Dumbbell_Bench_Press_female_v2_3.png",
+      "sourceSha256": "bf788b847d62aed3eb712e2aa600dca040f540ecd75363da9fcf52bc254556e4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/057/One_Arm_Dumbbell_Bench_Press_female_v2_3.png",
+      "candidateSha256": "4eedcf8f02d64cc06e1850d905fe32ecf4b59f56403064200366b67862bf2fa3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

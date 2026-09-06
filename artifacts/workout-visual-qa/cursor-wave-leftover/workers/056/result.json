@@ -1,0 +1,82 @@
+{
+  "exerciseId": "One_Arm_Chin-Up",
+  "shard": 6,
+  "index": 56,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One_Arm_Chin-Up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Chin-Up_male_v2_0.png",
+      "sourceSha256": "9b90ee0df402c8b7cea59db3147b4b2a93077cfdcc07f96df120811cddf85ccc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/056/One_Arm_Chin-Up_male_v2_0.png",
+      "candidateSha256": "f0abcf6fbe2fba877dc41e95ce5a7d98b6600b2763de22fc3e4479a124e4006b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Chin-Up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Chin-Up_male_v2_1.png",
+      "sourceSha256": "0cb282e630fd505724ca04e2ab31959906ce25155a2b0868f1db03d9ebb0cd96",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/056/One_Arm_Chin-Up_male_v2_1.png",
+      "candidateSha256": "399e61d8361adaa788c2c38bbbd19dfaf28011de490e59cc5d6050071c1f9f8d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Chin-Up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Chin-Up_male_v2_2.png",
+      "sourceSha256": "ae9928caa7833267fdc33c1b34d6c97abe10885df78da30a6b04360c9af6d653",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/056/One_Arm_Chin-Up_male_v2_2.png",
+      "candidateSha256": "687748634b372020c747edc4cd097038e94055280c6dce0d769e1a1e61fc32f1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Chin-Up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Chin-Up_male_v2_3.png",
+      "sourceSha256": "ef62d0b44a005c9c031cba66b423907b09e44a1e163dee86b6892f14cc7e3b12",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/056/One_Arm_Chin-Up_male_v2_3.png",
+      "candidateSha256": "f31b156a1fd421b4969ee2a9f0d0310ba039434319d5b7e88de53e1da1db5d94",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Chin-Up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Chin-Up_female_v2_0.png",
+      "sourceSha256": "9c1346141446ddd8aa8c2a0e7206efab7bd68619ccf6254dd57542b4b68b844c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/056/One_Arm_Chin-Up_female_v2_0.png",
+      "candidateSha256": "f05db13f5fb7370b17a23671d95f83084c2b3819cb2f96a53b9b05e048766ddc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Chin-Up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Chin-Up_female_v2_1.png",
+      "sourceSha256": "e0fc35fe732ae6d31b410399b438daad82c65368a452023357658fd5712e5e34",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/056/One_Arm_Chin-Up_female_v2_1.png",
+      "candidateSha256": "55f5952ea36742d7790c5b8b32a751e5009600d0b1d2478a7800a68913307ef1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Chin-Up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Chin-Up_female_v2_2.png",
+      "sourceSha256": "64f289178e9aaa1314229ca7fb00fa6982035783abd937db704de949f7f43264",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/056/One_Arm_Chin-Up_female_v2_2.png",
+      "candidateSha256": "f2d9b00598bedb6170705a1ce382908f71d9ba576fcd6664bc78b2592f48f080",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One_Arm_Chin-Up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One_Arm_Chin-Up_female_v2_3.png",
+      "sourceSha256": "e3daaa675488bd5d9554e047e8f17c28402ca90b12b740f38e6728564aea8949",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/056/One_Arm_Chin-Up_female_v2_3.png",
+      "candidateSha256": "0b75b164dfab617c9aee056cc893fcdbfffab27c00d6c12e5ec00470c49d1fbf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

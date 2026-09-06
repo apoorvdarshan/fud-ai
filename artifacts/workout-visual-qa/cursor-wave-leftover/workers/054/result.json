@@ -1,0 +1,82 @@
+{
+  "exerciseId": "One-Legged_Cable_Kickback",
+  "shard": 6,
+  "index": 54,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Legged_Cable_Kickback_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Legged_Cable_Kickback_male_v2_0.png",
+      "sourceSha256": "13a9f0753353c4c8d7d59ec716c05694c736884fdbe4e55b72bd90b5e431fa56",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/054/One-Legged_Cable_Kickback_male_v2_0.png",
+      "candidateSha256": "2e949b0a5a3ba9cdd57a95cc0046313f1e84d0c8dda58a2989f5d0f4647e8920",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Legged_Cable_Kickback_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Legged_Cable_Kickback_male_v2_1.png",
+      "sourceSha256": "3bed27318fed3fd40993be152ddbe8dc67c98aafbadadba5fb6dc6842f3314c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/054/One-Legged_Cable_Kickback_male_v2_1.png",
+      "candidateSha256": "b3c25f7febab96a224796304a614c67fe172cac522b6c2756e9fa697aafdc1d9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Legged_Cable_Kickback_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Legged_Cable_Kickback_male_v2_2.png",
+      "sourceSha256": "9761bac7b367f8e7589bd5f11ef4919262c52a7655a2b5f59b19b852c238fad8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/054/One-Legged_Cable_Kickback_male_v2_2.png",
+      "candidateSha256": "ab800848860c70cad52165923ab0ccba376f4c04a8863f46ceba4a24381f436b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Legged_Cable_Kickback_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Legged_Cable_Kickback_male_v2_3.png",
+      "sourceSha256": "2d2a549f7e2ab906144862ac247f43f516355225140271e4d1fb5dbbea67a956",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/054/One-Legged_Cable_Kickback_male_v2_3.png",
+      "candidateSha256": "634811cd8e5bc49ca0d5a1e87b0e1af5dd437f7ba1323cc3f9a0f814282cf027",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Legged_Cable_Kickback_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Legged_Cable_Kickback_female_v2_0.png",
+      "sourceSha256": "f491ce1c1a290ba6ee7ff9b6a653f36e2d1e3bb77e5439a4a4b45da9b6590fdd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/054/One-Legged_Cable_Kickback_female_v2_0.png",
+      "candidateSha256": "3b76bece042cdad8e979e914dc4ab959140bb1b48baafa653eb36624621db4f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Legged_Cable_Kickback_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Legged_Cable_Kickback_female_v2_1.png",
+      "sourceSha256": "2fc6996f64317bbb9afe2f9c9a2a83af90c8e4a653f0c82140ed007a763f2f51",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/054/One-Legged_Cable_Kickback_female_v2_1.png",
+      "candidateSha256": "bc226eafc5b65e25a5cd1d19541c31f681c57813cd3dcafbb0ddc458f2febc65",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Legged_Cable_Kickback_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Legged_Cable_Kickback_female_v2_2.png",
+      "sourceSha256": "1b644c48f8e9c27a3bed6f97e81baed237bb3676c8da8c610ea3cbba49af5593",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/054/One-Legged_Cable_Kickback_female_v2_2.png",
+      "candidateSha256": "54af49c469be9e3aee3c0f759ee10d62ecae7397d477798c6e9d65140db2778e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Legged_Cable_Kickback_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Legged_Cable_Kickback_female_v2_3.png",
+      "sourceSha256": "ed6009b3714f335b50f3ac78872627bf831c9ce0eafe7300bc0561f572f5bc36",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/054/One-Legged_Cable_Kickback_female_v2_3.png",
+      "candidateSha256": "72b2329575f0d877da3c96435ae2352b4a7180f543df973871e10c5c0191aa3c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

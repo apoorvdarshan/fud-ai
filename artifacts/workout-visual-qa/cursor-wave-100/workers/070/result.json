@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kettlebell_Arnold_Press",
+  "shard": 7,
+  "index": 70,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kettlebell_Arnold_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_male_v2_0.png",
+      "sourceSha256": "3d1724ac1c841b37551abe0bc28a9a49fc20a8e3b7b9ec71348694db322170b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/070/Kettlebell_Arnold_Press_male_v2_0.png",
+      "candidateSha256": "07f6a232aa7c391822047618d67ed8077ff39dfea8fda13d85bb42e0f1265b50",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Arnold_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_male_v2_1.png",
+      "sourceSha256": "a852315f544b75c3f9d423348c096ad96f6228e3351fe41ce3377512a39c59d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/070/Kettlebell_Arnold_Press_male_v2_1.png",
+      "candidateSha256": "3b1cd8fa7e77bc02d101dffad7f7751ee528b9725c7dcaedb3b2c9a3c2a882ea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Arnold_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_male_v2_2.png",
+      "sourceSha256": "2b4b20cc5e1a06675c4f41dcde129fd7bddf013003e6db5df42296879b55b9b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/070/Kettlebell_Arnold_Press_male_v2_2.png",
+      "candidateSha256": "af376aff6c3459d00692b7f640a87ed842e1836f059a8685232b7275c265127d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Arnold_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_male_v2_3.png",
+      "sourceSha256": "916c26ebd6c115e5193742398eb942c02f4dabe1db2609ea4e09fa863979e90d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/070/Kettlebell_Arnold_Press_male_v2_3.png",
+      "candidateSha256": "358f02751f8dbf1dc786a63127d9ca1b27fa392d9263af01f26867fa39c83b58",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Arnold_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_female_v2_0.png",
+      "sourceSha256": "850bae355e693dcbed3441eaa0b57d9757df27ef7f2673dd34656f2748165e93",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/070/Kettlebell_Arnold_Press_female_v2_0.png",
+      "candidateSha256": "8d10454ae7ee586cea3566c5bd308491f8b3117037b1b71c4101201ee3c7d390",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Arnold_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_female_v2_1.png",
+      "sourceSha256": "038a5fa913416d44deaa9b704b93584e85387bd9448a965fc106172122ea2753",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/070/Kettlebell_Arnold_Press_female_v2_1.png",
+      "candidateSha256": "99962241d9e4fe0ff9cbeb0d3ba47cabc91b14af7246f4dc6cd6d756fe2332f9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Arnold_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_female_v2_2.png",
+      "sourceSha256": "55a8d3f2cc0101ecec0f91b640dc6ae4a1120e98453c12f551a5b47f9b6bf0bb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/070/Kettlebell_Arnold_Press_female_v2_2.png",
+      "candidateSha256": "d7b21ef8b12c855ad2f869ec6633826cc8b234dab95727ce0fd30dc0d471bc20",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Arnold_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Arnold_Press_female_v2_3.png",
+      "sourceSha256": "70a137d1be8734efacc6197517b2beac0fab7450e9bc10f54956ed0de9fca458",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/070/Kettlebell_Arnold_Press_female_v2_3.png",
+      "candidateSha256": "588249944d723f6770355ae08245cc44eb09a7cab693f21ec35a590c34f68ae1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

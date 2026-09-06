@@ -1,0 +1,82 @@
+{
+  "exerciseId": "JM_Press",
+  "shard": 7,
+  "index": 68,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "JM_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/JM_Press_male_v2_0.png",
+      "sourceSha256": "b78176d3085bfd65fee9400e44815bb9d654b45bbe033fb741f96b96cbb492f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/068/JM_Press_male_v2_0.png",
+      "candidateSha256": "4095dd1be1ae7eee2a1fd9211227d768c4c8f4a3a2feb4f337f583807e6e8d99",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "JM_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/JM_Press_male_v2_1.png",
+      "sourceSha256": "61d75165def27be9f01fb13f8343aab800af0bdc3d01c33c7062dbb4695b49b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/068/JM_Press_male_v2_1.png",
+      "candidateSha256": "fd6491b14eb2a84de4968c5a00095095865388b7a476940d190eb9ffb9dc9780",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "JM_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/JM_Press_male_v2_2.png",
+      "sourceSha256": "ad3abfd81ed3e10d20362a5fc64ff4bef3c041d7cb6c5a918876bbc4867230c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/068/JM_Press_male_v2_2.png",
+      "candidateSha256": "b4edc3d09d4ee0f0763bece21c529dad6c090122031fde90d64c46095d125171",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "JM_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/JM_Press_male_v2_3.png",
+      "sourceSha256": "c1bd6350983cde3fced7fee44e12290e90e7d6f3e0c50d07498002a7a459e6d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/068/JM_Press_male_v2_3.png",
+      "candidateSha256": "97f161d8fec15f1b1acec08c42b8b753d4a8a2169728586ef249520050f59a9a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "JM_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/JM_Press_female_v2_0.png",
+      "sourceSha256": "ce64f01e3e96b5eedaa90876b3b054c4482cbdfcec7ef9548f4753631d50f205",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/068/JM_Press_female_v2_0.png",
+      "candidateSha256": "73f50e881bc3ea401f6d82aa18377a6a4af1a557cd805dbcb1b379602ae768d9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "JM_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/JM_Press_female_v2_1.png",
+      "sourceSha256": "f443513bba1f9c5535eb3fb3de21602a7ab36c9ee0dd943dd539f8abfee4b5f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/068/JM_Press_female_v2_1.png",
+      "candidateSha256": "cf8d1097a2995e387626e57dd4c603c2130451a2e0a5ad9e52b5fac84129b45c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "JM_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/JM_Press_female_v2_2.png",
+      "sourceSha256": "e09020bfb88b87cefa36768beb84e1825fbd60ce1ac45afe2d98908d89f6343a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/068/JM_Press_female_v2_2.png",
+      "candidateSha256": "e9989e40beb696058e7208dcf87be7fc2faed8a5faa22b266fd1c62d21dde270",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "JM_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/JM_Press_female_v2_3.png",
+      "sourceSha256": "262f73b360748de19324a332fb61874f8ed67a47404c6f51bfb721549740e4f6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/068/JM_Press_female_v2_3.png",
+      "candidateSha256": "331dd588a11367c7eefbd1c6fe6fa378f6351560368edace586ebc6b0b39a5dd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

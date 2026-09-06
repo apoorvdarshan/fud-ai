@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Press_Sit-Up",
+  "shard": 11,
+  "index": 105,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on 2 dirty frame(s)"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Press_Sit-Up_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Press_Sit-Up_male_v2_0.png",
+      "sourceSha256": "bd2514e8ac9752ca52b04ac1b6d6fe94eac4c1bf51412f0d9923026d4aaf905e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/105/Press_Sit-Up_male_v2_0.png",
+      "candidateSha256": "5ea8fd1dc0b959220be077ff1a657483b9308cad28010ba0336f279425919976",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Press_Sit-Up_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Press_Sit-Up_male_v2_1.png",
+      "sourceSha256": "7252b3076a40a3ddd55cc56ab1a1d36ec9ae19b317677f5a9cd014913957dcd4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/105/Press_Sit-Up_male_v2_1.png",
+      "candidateSha256": "21fca16ff48e005f02def2fc0b8fcf103a1825ac8405ab45e2a636a86b65d5a0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Press_Sit-Up_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Press_Sit-Up_male_v2_2.png",
+      "sourceSha256": "b4686273d2be0b88fce4387f5086f3d05f51c53bf617b2a60f85cde5527f47d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/105/Press_Sit-Up_male_v2_2.png",
+      "candidateSha256": "dd22832fc912daf47dfeaa0725aba7274c83c2b5797b1ad6e0e4725252c8d290",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Press_Sit-Up_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Press_Sit-Up_male_v2_3.png",
+      "sourceSha256": "8c405a460440aa21b62cbc2801e38c43238082a058df8958720c50cb80c5a8fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/105/Press_Sit-Up_male_v2_3.png",
+      "candidateSha256": "11b8fe0156221cecebe572bf76cb60f4ca4eb0acca91c7d316248636dc72c91d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Press_Sit-Up_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Press_Sit-Up_female_v2_0.png",
+      "sourceSha256": "209cb4cd93898f495c787491241bbb48b5659b7368f379de745c60b052bd4d91",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/105/Press_Sit-Up_female_v2_0.png",
+      "candidateSha256": "32327ebe4f4bf046217e78ecadf49efb80a3356af1a91fe5e57c80035ee7f8e3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Press_Sit-Up_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Press_Sit-Up_female_v2_1.png",
+      "sourceSha256": "2398bb3e4a52b77c80b36c2b1c808d8ae54259f0a3e0366b42aa237e6daf38cc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/105/Press_Sit-Up_female_v2_1.png",
+      "candidateSha256": "145b1b1821e330c3a84ecd24bb7eff3aa4add3f21cdfa1eb0941bbe50f690b67",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Press_Sit-Up_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Press_Sit-Up_female_v2_2.png",
+      "sourceSha256": "634eba43ae9ea1cec127249c9ba4dc7327b989eb1f099badad877ef586379c6a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/105/Press_Sit-Up_female_v2_2.png",
+      "candidateSha256": "4f24adff45c2107977e079e6fb55497e7152b4ab9b9b7ccf6930b57982d52d55",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Press_Sit-Up_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Press_Sit-Up_female_v2_3.png",
+      "sourceSha256": "83124ee7780467700d051119d6c4f0a05b2aaf2cc6a796b8829eeebd65c3d2a9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/105/Press_Sit-Up_female_v2_3.png",
+      "candidateSha256": "16134b151e1e7479ef5d0eccdf4d1dfe77a5778f0b374d75321f0753e8a06064",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

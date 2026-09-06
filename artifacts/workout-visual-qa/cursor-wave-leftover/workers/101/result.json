@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Power_Snatch_from_Blocks",
+  "shard": 11,
+  "index": 101,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on 8 dirty frame(s)"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Power_Snatch_from_Blocks_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Snatch_from_Blocks_male_v2_0.png",
+      "sourceSha256": "e07f95e67ba2c236c6a89613fbd8fc0dd3d7ab5fea953e3037511db3d674fc16",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/101/Power_Snatch_from_Blocks_male_v2_0.png",
+      "candidateSha256": "59a388a9885e5a4b07a9bdacb2fc4e9c8b239897b933b2274f5c1e6db23af771",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Snatch_from_Blocks_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Snatch_from_Blocks_male_v2_1.png",
+      "sourceSha256": "c0647ce3e9c985b188e8c70f6f99569c50cbe27a4f375c05c2c44096bbdc1fe4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/101/Power_Snatch_from_Blocks_male_v2_1.png",
+      "candidateSha256": "2cdef46e240ddac88e607dab5342862da04fc672e9567a1c506ecc97785cc2e4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Snatch_from_Blocks_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Snatch_from_Blocks_male_v2_2.png",
+      "sourceSha256": "2e4b300d0a4b34a105c83a1270e0d249fd8aa92599f3148520274c71e83bc145",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/101/Power_Snatch_from_Blocks_male_v2_2.png",
+      "candidateSha256": "1d4f293ddb8249cf581ef9b8bda7359d11bd3fc07dc5ac6815869982cd7eb55e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Snatch_from_Blocks_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Snatch_from_Blocks_male_v2_3.png",
+      "sourceSha256": "37e487053f9f50876311db320630a6c2c387167fb6e2b0d7876f4ac288e14cbe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/101/Power_Snatch_from_Blocks_male_v2_3.png",
+      "candidateSha256": "9c64f7c3b590f2f0fa2e5da6a091b5ff5773cc3f5f27be67002b2eadaee7af62",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Snatch_from_Blocks_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Snatch_from_Blocks_female_v2_0.png",
+      "sourceSha256": "09be749a19295186274e0ba6933f03d3e6b1b8773e9526df47b9f607f652e61e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/101/Power_Snatch_from_Blocks_female_v2_0.png",
+      "candidateSha256": "a1b28095fbca431990a1ba964eade096d377e21f5972dd1ef362f5b50fe3eb27",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Snatch_from_Blocks_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Snatch_from_Blocks_female_v2_1.png",
+      "sourceSha256": "d5a70cdfaa51ae6c55a3ff9987f505282152a9fdcb2c98c76bc99513c788c476",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/101/Power_Snatch_from_Blocks_female_v2_1.png",
+      "candidateSha256": "ab5d2b2a733977706306672c201400da12251b46e7df01fd5080299bb01400eb",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Snatch_from_Blocks_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Snatch_from_Blocks_female_v2_2.png",
+      "sourceSha256": "3b84ca1f2ae62a44e25deb175fbc621839e4301a55efb55c3e0ec884007ae8f6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/101/Power_Snatch_from_Blocks_female_v2_2.png",
+      "candidateSha256": "bb5e7ca76d4b16be8f5fba94d2f7d49b6cfa387132a5d16b9251ff19be995eae",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Snatch_from_Blocks_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Snatch_from_Blocks_female_v2_3.png",
+      "sourceSha256": "91191df0bc248fc7a518878169eb9d3826ba05b406a532543072c2c78fedab34",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/101/Power_Snatch_from_Blocks_female_v2_3.png",
+      "candidateSha256": "2ebdc49d892adda9a31c25030376e4c72bde7eb8713a65af2c02346f855d4dff",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

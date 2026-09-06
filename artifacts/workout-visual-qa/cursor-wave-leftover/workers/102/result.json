@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Power_Stairs",
+  "shard": 11,
+  "index": 102,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on 3 dirty frame(s)"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Power_Stairs_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Stairs_male_v2_0.png",
+      "sourceSha256": "9b46bee784e7ec66cfb491a4c6f0b9631eedf9416b5bbb0c7c3992e58f342849",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/102/Power_Stairs_male_v2_0.png",
+      "candidateSha256": "ae520aaebfa519046baec5df4272a46ee5eec795393e617a3cd03fb66245a663",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Stairs_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Stairs_male_v2_1.png",
+      "sourceSha256": "1e854c7aec351df7685c50ef907546f0a6eb3cc458eea34f89701a4ad4f51d06",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/102/Power_Stairs_male_v2_1.png",
+      "candidateSha256": "9ac4ce3edc81a41ccac2ef7356dd41556565777cb3afc0ecd7a1edae23896a00",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Stairs_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Stairs_male_v2_2.png",
+      "sourceSha256": "632a0a11ef0715b620953080a377937850a8630d3289204b8d35c294bcab7ae0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/102/Power_Stairs_male_v2_2.png",
+      "candidateSha256": "6d5369cc471bbd787f93fedbb4e0a407d33b102d701d83f02bb32934b34beeee",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Stairs_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Stairs_male_v2_3.png",
+      "sourceSha256": "01e0d529a87609b232264d0115a146070ed99587ab7dd901b236107396005ab2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/102/Power_Stairs_male_v2_3.png",
+      "candidateSha256": "b670ba0a0e1e59360dc0ddb09e2f14bb96320b6a62f9115c92153a6b43fe0c40",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Stairs_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Stairs_female_v2_0.png",
+      "sourceSha256": "7ce3395a03a52ec20bb21ba767aac189de1c0cff4fc5fdb0a04cea8f44ab588b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/102/Power_Stairs_female_v2_0.png",
+      "candidateSha256": "e89dc37e64a9eaf80cb850031cbf727a0fe97292c88a55fe9a854660dd47dcab",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Stairs_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Stairs_female_v2_1.png",
+      "sourceSha256": "1df2b521eeacd62617ea3f008b528fcf18ecbf90c71de25981a20952fc040cc5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/102/Power_Stairs_female_v2_1.png",
+      "candidateSha256": "d9124ef3ea24db770d05a3bd629f44b1979397985c9a9f22edfb2fcee71c78d2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Stairs_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Stairs_female_v2_2.png",
+      "sourceSha256": "4810f196f4d8c7ad2c615e636df467ee24c134c03acacc066b493ef5353fcb2e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/102/Power_Stairs_female_v2_2.png",
+      "candidateSha256": "c3830483d39043cb29fd5f9e114248d4f19e7ebfbee36abc110b4ed3f72b6a1e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Power_Stairs_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Power_Stairs_female_v2_3.png",
+      "sourceSha256": "e2c3306a48d15c6456581e57eccb8109441f1828780c520fa0c16f5d5d1f80a1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/102/Power_Stairs_female_v2_3.png",
+      "candidateSha256": "58e0cf9097af8b23a76613d6a328ab27c6b3322b99beec255afc3c2e5b3bb641",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

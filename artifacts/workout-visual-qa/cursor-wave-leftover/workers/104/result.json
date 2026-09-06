@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Preacher_Hammer_Dumbbell_Curl",
+  "shard": 11,
+  "index": 104,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage+green chroma on 3 dirty frame(s)"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Preacher_Hammer_Dumbbell_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Hammer_Dumbbell_Curl_male_v2_0.png",
+      "sourceSha256": "7335de7fc41d8a75ba12799e52830a7c64527b44896693a8e3973c49551ae168",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/104/Preacher_Hammer_Dumbbell_Curl_male_v2_0.png",
+      "candidateSha256": "a3219936048ab1b95a2068d478afe4f4f624bcb164d90df973d4b4afdc199fdf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Hammer_Dumbbell_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Hammer_Dumbbell_Curl_male_v2_1.png",
+      "sourceSha256": "fedcc712a3a2c1b94599cb43ebde074d9cabe1eefcf988881f349b0f04df8dcb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/104/Preacher_Hammer_Dumbbell_Curl_male_v2_1.png",
+      "candidateSha256": "3b159036b643b51941627e4f9f66e4f4e8f76a20bc240614960a2db60b3e46b1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Hammer_Dumbbell_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Hammer_Dumbbell_Curl_male_v2_2.png",
+      "sourceSha256": "6dd320298a5d4cb87f78f76214b71995046515f0bd360ed06c6b71d2f73feea2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/104/Preacher_Hammer_Dumbbell_Curl_male_v2_2.png",
+      "candidateSha256": "0e46e001f782af715ff000c54068fdd101a76767ec218482f2ed6c2fdff03b66",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Hammer_Dumbbell_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Hammer_Dumbbell_Curl_male_v2_3.png",
+      "sourceSha256": "c34eb8dc0e7170a475b7cd7076c6a9cffa1b42a1c6b0168cab4f51c367b6f272",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/104/Preacher_Hammer_Dumbbell_Curl_male_v2_3.png",
+      "candidateSha256": "d1486a72d93e3269c8dcfff2fab10363184e0113135115a79d8563da769e3925",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Hammer_Dumbbell_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Hammer_Dumbbell_Curl_female_v2_0.png",
+      "sourceSha256": "57f2f8e7c792b25ed3bfe893f931259d7c61503ca5a69b5e9870d3b28d4fd90a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/104/Preacher_Hammer_Dumbbell_Curl_female_v2_0.png",
+      "candidateSha256": "4d0f27cd355cd789bfeaa7aed6858130c27fc8389a2637769b624ee301fb23af",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Hammer_Dumbbell_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Hammer_Dumbbell_Curl_female_v2_1.png",
+      "sourceSha256": "35c8657bd0015ed91f6df9555df63d3ea731ba0029d358045073427fa02ca88f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/104/Preacher_Hammer_Dumbbell_Curl_female_v2_1.png",
+      "candidateSha256": "4e628262911cc4206995427e7c74cd68821dc0630af1b52355f1f636e35ff1b3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Hammer_Dumbbell_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Hammer_Dumbbell_Curl_female_v2_2.png",
+      "sourceSha256": "bfaedbaff273e4b0fa7cd673e1e48b16931994055eb8422d5206d7062a46ee15",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/104/Preacher_Hammer_Dumbbell_Curl_female_v2_2.png",
+      "candidateSha256": "9da71f2ae778761de81403411953a693df4cb0824375a4c84d4fa948a963ec6d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Preacher_Hammer_Dumbbell_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Preacher_Hammer_Dumbbell_Curl_female_v2_3.png",
+      "sourceSha256": "c5b3d04bd0bf55640a6c9fb987790b7c37c4a28ab38f1f80983a0273866951ad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/104/Preacher_Hammer_Dumbbell_Curl_female_v2_3.png",
+      "candidateSha256": "19ee9693ccffa5e8b19923c4c59ce5d6484a0ebadb1277ace18504e49d4f5490",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Lying_Rear_Delt_Raise",
+  "shard": 19,
+  "index": 183,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Rear_Delt_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Rear_Delt_Raise_male_v2_0.png",
+      "sourceSha256": "b3b5b58cc7bcc5b49184df7114b33f06d09a538045d3366620998fe02ceaeeab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/183/Lying_Rear_Delt_Raise_male_v2_0.png",
+      "candidateSha256": "1b07c14467dd94db1b49bd0aef019a93a5120cc20ed8207b0fee30225b59eac3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Rear_Delt_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Rear_Delt_Raise_male_v2_1.png",
+      "sourceSha256": "c2cdb640df1b18aee734615a2b2f7dd0423dc4de6347593236b560d42e79c748",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/183/Lying_Rear_Delt_Raise_male_v2_1.png",
+      "candidateSha256": "2ef77526b9f2b9588483a3083e4e4e0e0e8ceffa2e6177369890a6c67a493a22",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Rear_Delt_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Rear_Delt_Raise_male_v2_2.png",
+      "sourceSha256": "1f3a303985fe1f1443370595cae300a029445f36080d658a94c630de80b661a0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/183/Lying_Rear_Delt_Raise_male_v2_2.png",
+      "candidateSha256": "67dd34c9f8a5073e59d21ad68107cf0cf0ece400e22315bb45de9ed003e92709",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Rear_Delt_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Rear_Delt_Raise_male_v2_3.png",
+      "sourceSha256": "dbcd19ac8bc0c92fa0216b6794634d756e4a82ee056e126e15983206de3f9a3f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/183/Lying_Rear_Delt_Raise_male_v2_3.png",
+      "candidateSha256": "d818882b210025e2b90c5bbd3f558409ae087caca555364d64dff133fd201624",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Rear_Delt_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Rear_Delt_Raise_female_v2_0.png",
+      "sourceSha256": "620cba594a9a53661dbb2c88deaba9929fea3b23979a0dd4e3ec44c8d09ff5d6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/183/Lying_Rear_Delt_Raise_female_v2_0.png",
+      "candidateSha256": "e493ebc615d5f7e3d8f566894cee90e2017c0df6105b7eee3e68ca310c320ab2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Rear_Delt_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Rear_Delt_Raise_female_v2_1.png",
+      "sourceSha256": "496db9e6a1db93d44a092edb79f6af2d9ba8294ae500cb8e4969bcc3e2b94fd9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/183/Lying_Rear_Delt_Raise_female_v2_1.png",
+      "candidateSha256": "c97691d481e754250d11a8efa889d0157080e5c6f9d994097c5033a6094a00e9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Rear_Delt_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Rear_Delt_Raise_female_v2_2.png",
+      "sourceSha256": "d1a023831a438a813a5db974677188c9aa86668b9eb231c212ddf41f317f0c2c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/183/Lying_Rear_Delt_Raise_female_v2_2.png",
+      "candidateSha256": "a8c29ab8c912dadfb81408328088d337e02199007b3a9c1d79d4f80920cac497",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Rear_Delt_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Rear_Delt_Raise_female_v2_3.png",
+      "sourceSha256": "ef767584b74578b7be291be3566e4db6a32071619d2b1c64ff575bdff39b17c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/183/Lying_Rear_Delt_Raise_female_v2_3.png",
+      "candidateSha256": "ce17c0495f2c756443c37a4b2a964eaf1dabf66b42c1b6630fc0fe628c060064",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

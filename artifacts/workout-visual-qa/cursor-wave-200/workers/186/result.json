@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Lying_Triceps_Press",
+  "shard": 19,
+  "index": 186,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Triceps_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Triceps_Press_male_v2_0.png",
+      "sourceSha256": "436944ec7cb173ca368edfde4617b14fd6193e0177ce4877904b0e4e725a5654",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/186/Lying_Triceps_Press_male_v2_0.png",
+      "candidateSha256": "45bed8889758416db0907116778cf91729a42794ea08c5e4348d121a921dfc5f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Triceps_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Triceps_Press_male_v2_1.png",
+      "sourceSha256": "09dfebcb28958c41385242d459f44097df5daed0c0e172b236d7bfd7c88a8794",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/186/Lying_Triceps_Press_male_v2_1.png",
+      "candidateSha256": "ea796f160a6a52de33f3ac84622bd1684ff15f2bcecb64c6a9e63640b12060fe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Triceps_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Triceps_Press_male_v2_2.png",
+      "sourceSha256": "38815596fd1dd9104bd1009db633867a733a7863c203d15289a85a7acc9fcce3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/186/Lying_Triceps_Press_male_v2_2.png",
+      "candidateSha256": "636c65f9b7fab6db3992199276272e39d20c1a74e431e46039c0abb675b2fb12",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Triceps_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Triceps_Press_male_v2_3.png",
+      "sourceSha256": "044560926466cb3947e4a4028fe6ecbf28cdef8cbe068507e6e6614681a46f78",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/186/Lying_Triceps_Press_male_v2_3.png",
+      "candidateSha256": "7f2777819b2f7ff7315a83662b9c122b4cf38bb35024775be0ac4f1107b15890",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Triceps_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Triceps_Press_female_v2_0.png",
+      "sourceSha256": "c742bc22c19edb89d9cca2978e2e5359317e1d731c1762774ed5492c820fca1a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/186/Lying_Triceps_Press_female_v2_0.png",
+      "candidateSha256": "ea7a2e6c10af78b13b86552a2e10618792d477e7eb6b4877b2c74ba84b9c82d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Triceps_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Triceps_Press_female_v2_1.png",
+      "sourceSha256": "822cf747b92b71fe79f17b8ef61eb350b76ff4a037db5edecd470a083212f668",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/186/Lying_Triceps_Press_female_v2_1.png",
+      "candidateSha256": "f139cfd0b7016d675024b0aae99d80bf6d0ad2f558a0ce681951ef4b8d867220",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Triceps_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Triceps_Press_female_v2_2.png",
+      "sourceSha256": "20124edddf8e2baa448a2591ee637eae017a4c17587b7cd69334363979f96634",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/186/Lying_Triceps_Press_female_v2_2.png",
+      "candidateSha256": "85e612fefcef4e73b49db33bb4d4b0edde207dbc6e9fa050fd03049cdc8f87a1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Triceps_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Triceps_Press_female_v2_3.png",
+      "sourceSha256": "c985728911a27879ac35e311f7b82e15aad846dd58b809a0120d5953f384c648",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/186/Lying_Triceps_Press_female_v2_3.png",
+      "candidateSha256": "007eabcd729d6eade8636fb9be35ec7acbc04573208c220b01a32ee95fee4b3d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Machine_Bicep_Curl",
+  "shard": 19,
+  "index": 188,
+  "status": "ready_for_review",
+  "findings": [
+    "Machine bicep curl had floor matte and heavy fringe; GenerateImage accepted on 4 worst frames"
+  ],
+  "unresolved": [
+    "Machine_Bicep_Curl male_v2_0/2, female_v2_2/3: script fringe acceptable after review"
+  ],
+  "frames": [
+    {
+      "filename": "Machine_Bicep_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Bicep_Curl_male_v2_0.png",
+      "sourceSha256": "470dcbcfae508d496fb27b6d73fec6f2b4a2772634794147cd29bc82e4573ae1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/188/Machine_Bicep_Curl_male_v2_0.png",
+      "candidateSha256": "3231823838e973f68fd96fda907864e03438ed3069c3936b91051abe3f99e0d5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Bicep_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Bicep_Curl_male_v2_1.png",
+      "sourceSha256": "a69caa1792af8971e418c6f9194acb3686f209008c8ab14fb6186b669ea660a3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/188/Machine_Bicep_Curl_male_v2_1.png",
+      "candidateSha256": "bcf2e5323d18422e61fd6e6ae339a2a08471f7a54ee453b3d5aa4cdd0081bb51",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Bicep_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Bicep_Curl_male_v2_2.png",
+      "sourceSha256": "bc0eebff6b04c8342979af18bcb364419fb0c98c9f72c07fdea943ce3a4b6f3d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/188/Machine_Bicep_Curl_male_v2_2.png",
+      "candidateSha256": "ab492ace36e019a5c03347ad09cc7698146cb79d90e5590f4b96c586232f8596",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Bicep_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Bicep_Curl_male_v2_3.png",
+      "sourceSha256": "989be0999ee416648161745654051e07712d47ced664d22b6ed649e9bcfb9d68",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/188/Machine_Bicep_Curl_male_v2_3.png",
+      "candidateSha256": "3a65e5c7290190d098f118ddc8495bfe4fc2506f07468901725beaf48b5d7bbf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Bicep_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Bicep_Curl_female_v2_0.png",
+      "sourceSha256": "7a71e014a462d8f211a239e07fe9a55f2fa726b0c26742434ca47c234076b79a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/188/Machine_Bicep_Curl_female_v2_0.png",
+      "candidateSha256": "6836c2dc198343701a0ce5d89667b28bd2a9f298c6ba679b2bfc3865eeb4077c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Bicep_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Bicep_Curl_female_v2_1.png",
+      "sourceSha256": "d2bf7619a2e35cd614abd7e7c41a5a9c90e502759066321dbb4c307fe6838113",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/188/Machine_Bicep_Curl_female_v2_1.png",
+      "candidateSha256": "d258f043e15c447e18519825fd29af5ea00d49168d8053609c0b5d3768cb458e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Bicep_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Bicep_Curl_female_v2_2.png",
+      "sourceSha256": "11f865efd73158b5d3acd261748146f226e297e14f892245d0bfa3342d7f649b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/188/Machine_Bicep_Curl_female_v2_2.png",
+      "candidateSha256": "ac21c7fc6198518e0ca11055e59c0b86470b7d3f3e269437b76baff389e1e9a0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Bicep_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Bicep_Curl_female_v2_3.png",
+      "sourceSha256": "933909f071427061f0f0fd75b56ecbcf41c19d070b7216ac4a876a532b52cf07",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/188/Machine_Bicep_Curl_female_v2_3.png",
+      "candidateSha256": "900aed66a610eefe1dc0ef89f1157b02dcc89d1c99c1f907a5977f5f34f91558",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Side_To_Side_Chins",
+  "shard": 22,
+  "index": 220,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Side_To_Side_Chins_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_To_Side_Chins_male_v2_0.png",
+      "sourceSha256": "db74922b14df6e24787cd67b596cac70fd920f8ef9fc80cd6d13560b51da83f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/220/Side_To_Side_Chins_male_v2_0.png",
+      "candidateSha256": "b580b9714119fc3d7f85220393e5a5e4e269af8ce8d078b748725c50acda2488",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_To_Side_Chins_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_To_Side_Chins_male_v2_1.png",
+      "sourceSha256": "b3c1aaf1587a8b470b2b991e272370f6798713d5b9a63113ddb7925f91795715",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/220/Side_To_Side_Chins_male_v2_1.png",
+      "candidateSha256": "55ac133521a4140a23ef4090cd676b09c0fdd06a436609dfd56327be44815242",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_To_Side_Chins_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_To_Side_Chins_male_v2_2.png",
+      "sourceSha256": "a7d50a7b4b0db7d5dbd135bb07b7772b5a60bbbce603f827f17d9bf24651a221",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/220/Side_To_Side_Chins_male_v2_2.png",
+      "candidateSha256": "916c797e54cfa83661eb15f80c940c101b459f6880ddf9e04f34654aaae93e13",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_To_Side_Chins_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_To_Side_Chins_male_v2_3.png",
+      "sourceSha256": "c15a6bfdd584071610c3dd7de8ae1bb0df5f811b62f31d6465b37bd46a0cf147",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/220/Side_To_Side_Chins_male_v2_3.png",
+      "candidateSha256": "6eae1957798fe3f90b7b5a74b2c79904c860f3608cbe581a183e505a798d552a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_To_Side_Chins_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_To_Side_Chins_female_v2_0.png",
+      "sourceSha256": "dcf5a0c30f167d17401c826c3e51af292134f3933059eceaeec8fc78cc243fd1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/220/Side_To_Side_Chins_female_v2_0.png",
+      "candidateSha256": "393f7a2cdbab7ff000ed6d588884a53d3ef012910746d574b99aebfc22c327fc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_To_Side_Chins_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_To_Side_Chins_female_v2_1.png",
+      "sourceSha256": "200d45964544bc6409b8d6ee5ffadbed78962fb9cda5cab3492148eb364cbfbd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/220/Side_To_Side_Chins_female_v2_1.png",
+      "candidateSha256": "fede029125dd345daba6d06de837b16c4fefa07208cafb17602eaf3b2de96c0d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_To_Side_Chins_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_To_Side_Chins_female_v2_2.png",
+      "sourceSha256": "d5bba1d57069a43ba7273de525b5c2ef430c34fda2c38b195ac54f24a7b65a50",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/220/Side_To_Side_Chins_female_v2_2.png",
+      "candidateSha256": "37604a72e29f54b1f7012dee918576ab03a05b23d61cd3401c60b16dd3360f26",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_To_Side_Chins_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_To_Side_Chins_female_v2_3.png",
+      "sourceSha256": "623cd7739ac156eb0ad592235f5965f8d7d5c00e84c259601c8e5a04e2e86a60",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/220/Side_To_Side_Chins_female_v2_3.png",
+      "candidateSha256": "99338d8094c75e98b13af5cec31c69464a54dcaa275ca566e8a72a27553db261",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

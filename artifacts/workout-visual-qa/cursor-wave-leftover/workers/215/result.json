@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Side_Laterals_to_Front_Raise",
+  "shard": 22,
+  "index": 215,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Side_Laterals_to_Front_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Laterals_to_Front_Raise_male_v2_0.png",
+      "sourceSha256": "6dcbab08a1c71af5a5e3c85eee7ae456f03f896f486a12ea3c3d0e52b03a2eaa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/215/Side_Laterals_to_Front_Raise_male_v2_0.png",
+      "candidateSha256": "bf9f2234c796fb0720b241671a290530fde3a67a42f63b9fd2f65f2732a03763",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Laterals_to_Front_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Laterals_to_Front_Raise_male_v2_1.png",
+      "sourceSha256": "24bdc204a478650c05d8bf03874b1b402c553c641b74b2ee718d4954a65c76d8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/215/Side_Laterals_to_Front_Raise_male_v2_1.png",
+      "candidateSha256": "21a01ef5a9e27dcc6f165f985fb14c6a2e1b0031dde4e6da096e803f3bc2c2f9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Laterals_to_Front_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Laterals_to_Front_Raise_male_v2_2.png",
+      "sourceSha256": "f10330b1d126af22777e09056f40a1fed2604572a0a815211afd9c8ec8b59e38",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/215/Side_Laterals_to_Front_Raise_male_v2_2.png",
+      "candidateSha256": "30a656938d856589db20af0ab1796509df66bbacbf4e7291fb134d34e3f33331",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Laterals_to_Front_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Laterals_to_Front_Raise_male_v2_3.png",
+      "sourceSha256": "a324050979a1787df23388c8ed1095a4e5297e33ae7738be8b5375635a77adc6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/215/Side_Laterals_to_Front_Raise_male_v2_3.png",
+      "candidateSha256": "546ff9ad9ab856eab7d19d13727d0933e7ed38f025c98d897ae1ee82391c3f22",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Laterals_to_Front_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Laterals_to_Front_Raise_female_v2_0.png",
+      "sourceSha256": "f4549bc5875311a1cadd0dc29c933176409dc6afbe77ef5cb9bccb7a23f81b10",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/215/Side_Laterals_to_Front_Raise_female_v2_0.png",
+      "candidateSha256": "f98f02cecd8641831f0b997f92d0a7ec1239da4c9d4f83085a623ed16dfd079f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Laterals_to_Front_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Laterals_to_Front_Raise_female_v2_1.png",
+      "sourceSha256": "84271f3728e8b95d21133f468b0e8e2ed029de49c85574eb1c90dd7c2768e2c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/215/Side_Laterals_to_Front_Raise_female_v2_1.png",
+      "candidateSha256": "20a4779d7743472ff0076318f4535c4c249d818b16eb6b8d2c77a9e632c16236",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Laterals_to_Front_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Laterals_to_Front_Raise_female_v2_2.png",
+      "sourceSha256": "212f1db7bc04885991d23bd064e311257fbc9b93ae694d115f9d14a5e0fef56e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/215/Side_Laterals_to_Front_Raise_female_v2_2.png",
+      "candidateSha256": "fc2ce3948ff9eb44f61824bce91857deb7029da4e85d0721ac13dc56736574f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Laterals_to_Front_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Laterals_to_Front_Raise_female_v2_3.png",
+      "sourceSha256": "0a32d37307becf70034d02cf31d7c6f1ece1803f55f3cc3a76474a797f738139",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/215/Side_Laterals_to_Front_Raise_female_v2_3.png",
+      "candidateSha256": "475c276f4dcb2519c274b88636a0f187f3dde467ea2f7e8b046a3f8fb5184ab4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

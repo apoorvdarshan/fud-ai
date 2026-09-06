@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Side_Jackknife",
+  "shard": 22,
+  "index": 213,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Side_Jackknife_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Jackknife_male_v2_0.png",
+      "sourceSha256": "0a458d1c7fab4cd2d94b77d8bda57a089a3d1295b67b16fe6458393f270c8c8b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/213/Side_Jackknife_male_v2_0.png",
+      "candidateSha256": "6956eca892c5a4c3178a854eb5f3470115af09e1267708ce46bfae634ebd6feb",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Jackknife_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Jackknife_male_v2_1.png",
+      "sourceSha256": "9ee49ffa33641be8765e09d32f7758f9c25d775b6ebb6629cd1ec344cfc349c0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/213/Side_Jackknife_male_v2_1.png",
+      "candidateSha256": "54ff46a9cac7908c792958ae7f0f9a4ae7664cadab65d9f7b0143915006c1ea9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Jackknife_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Jackknife_male_v2_2.png",
+      "sourceSha256": "c4de7bf744289db98a52ab85b9205381579f858dcb3dca95fc871918fccd96ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/213/Side_Jackknife_male_v2_2.png",
+      "candidateSha256": "86d7219b5f27516e359bd15fa21c44e6b86b06902b36f74c28fe11606c003570",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Jackknife_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Jackknife_male_v2_3.png",
+      "sourceSha256": "ac9104c4e1b54a16d0df0a780c1158721c2dc0e31743fd789ddb0c0f015a5dc3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/213/Side_Jackknife_male_v2_3.png",
+      "candidateSha256": "90284ba28e195fb3b87559b80f9e92028df68a5e3f3c53c2641ab3e944431029",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Jackknife_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Jackknife_female_v2_0.png",
+      "sourceSha256": "9abf3cf83c5494c2651a4112b41d1e0a40067bdd49ebe0663eb0655839435c27",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/213/Side_Jackknife_female_v2_0.png",
+      "candidateSha256": "c2a2e092b446f12c0dae46dd64b59042cc4acf8e10ec9c9fdac38b4dd92e63d9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Jackknife_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Jackknife_female_v2_1.png",
+      "sourceSha256": "f82d90010f628f02ed5712552d33b0dbb76763567e504bd00ff48f059d672b90",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/213/Side_Jackknife_female_v2_1.png",
+      "candidateSha256": "3e845a4384b95730338971e3523ac56682c168c1d5528a28b44524064ff45fae",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Jackknife_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Jackknife_female_v2_2.png",
+      "sourceSha256": "f2222679981d48bd7a5e4b5271652132ce2ec05db3a4c48ae0421b7aa0ead107",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/213/Side_Jackknife_female_v2_2.png",
+      "candidateSha256": "732264c34d7bad986d0f9be756e75b34589feb6cee9b6168c4eee10caf5983ab",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Jackknife_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Jackknife_female_v2_3.png",
+      "sourceSha256": "41b0ce1b00bb7f1b3fdc5f659e18c7e5c7a9b0e1bba93fd5b9e0b3eea85e0186",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/213/Side_Jackknife_female_v2_3.png",
+      "candidateSha256": "64acc8acb09946dd3446e121f3f23aef54fdeda47dd9397b86310ae5863e5eb3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

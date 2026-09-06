@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Side_Bridge",
+  "shard": 22,
+  "index": 211,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Side_Bridge_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Bridge_male_v2_0.png",
+      "sourceSha256": "b48a40ff29647078a3bbe494fa528ba73a679b89326aa28095d857ec3eb370a8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/211/Side_Bridge_male_v2_0.png",
+      "candidateSha256": "8b071b914a67b2cd82821c358cc7f224888db02d4f5042928aec22e56cb4b653",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Bridge_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Bridge_male_v2_1.png",
+      "sourceSha256": "84f35bbd0c7be9b95732e547d8970067253103694d975aef698e3650358feaaa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/211/Side_Bridge_male_v2_1.png",
+      "candidateSha256": "206a4edc0412d416b87e214aab6b100674e7935ba6f1498e5a0e46adcc3b6139",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Bridge_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Bridge_male_v2_2.png",
+      "sourceSha256": "f7cf1673a7ababe8578da96129ab500cc10f2f56c9e1820ebd9e414ce4534aa0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/211/Side_Bridge_male_v2_2.png",
+      "candidateSha256": "0591992352255a5f3635ce36848fdf266ddc930129cadd0864ff43640d82c778",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Bridge_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Bridge_male_v2_3.png",
+      "sourceSha256": "6f007c6d74e53b4d2a153e13a1abcdca1877dda460d71373d4f938fac35b4bac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/211/Side_Bridge_male_v2_3.png",
+      "candidateSha256": "65efb4dc2c3c83038390ee299d90c76d6c49ff53771a17a5eb56c1de0c41fae1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Bridge_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Bridge_female_v2_0.png",
+      "sourceSha256": "541094bd5369651767e85f72655cfba95ed8dcaef179a90fa0ed2eabe1e5a2c7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/211/Side_Bridge_female_v2_0.png",
+      "candidateSha256": "d7ab175b951f1da16d6bc5bed10497a0edbf53f13d5905ca7ff821ade4798cc3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Bridge_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Bridge_female_v2_1.png",
+      "sourceSha256": "c7237b005311fb8677bf21df25f09c27e06c0d6885561e55d61c310d3e548160",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/211/Side_Bridge_female_v2_1.png",
+      "candidateSha256": "52dc8e5419bdf2f7a4678c6abe44a196c045bf330ecc9046326ef0392407ec96",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Bridge_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Bridge_female_v2_2.png",
+      "sourceSha256": "370a41ff529fc700dd1ef102a4dd24b5b26193e9213a6261ecf98116a2d1ea18",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/211/Side_Bridge_female_v2_2.png",
+      "candidateSha256": "f60dcbd55273d0de8bb6af9f5759412dd0f35f005100f8c7c6b0bae5e1234f9d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Side_Bridge_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Side_Bridge_female_v2_3.png",
+      "sourceSha256": "e52405d100bc8bbe3362a98012bdf4c6845369a9734773d911742d9839c7307f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/211/Side_Bridge_female_v2_3.png",
+      "candidateSha256": "5a99aef950ae54a318a41e972f0128bce9b5574160b68e6996f625315706618a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

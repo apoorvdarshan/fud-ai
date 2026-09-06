@@ -27,3 +27,5 @@ ios/**/xcuserdata/
 
 # Generated review contact sheets (regenerate via scripts/render_workout_review.py)
 artifacts/workout-visual-qa/review-batches/**/previews/
+artifacts/workout-visual-qa/cursor-pilot-10/candidates/
+artifacts/workout-visual-qa/cursor-pilot-10/previews/

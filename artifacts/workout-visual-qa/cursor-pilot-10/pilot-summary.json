@@ -1,0 +1,63 @@
+{
+  "pilot": "cursor-pilot-10",
+  "exercises": 10,
+  "frames": 80,
+  "changed_frames": 80,
+  "by_exercise": {
+    "Cable_Shoulder_Press": {
+      "frames": 8,
+      "changed": 8,
+      "pixels_removed": 61
+    },
+    "Cable_Shrugs": {
+      "frames": 8,
+      "changed": 8,
+      "pixels_removed": 10061
+    },
+    "Calf-Machine_Shoulder_Shrug": {
+      "frames": 8,
+      "changed": 8,
+      "pixels_removed": 770
+    },
+    "Car_Drivers": {
+      "frames": 8,
+      "changed": 8,
+      "pixels_removed": 18
+    },
+    "Childs_Pose": {
+      "frames": 8,
+      "changed": 8,
+      "pixels_removed": 16
+    },
+    "Chin_To_Chest_Stretch": {
+      "frames": 8,
+      "changed": 8,
+      "pixels_removed": 0
+    },
+    "Clean_Deadlift": {
+      "frames": 8,
+      "changed": 8,
+      "pixels_removed": 549
+    },
+    "Clean_Shrug": {
+      "frames": 8,
+      "changed": 8,
+      "pixels_removed": 0
+    },
+    "Clean_and_Press": {
+      "frames": 8,
+      "changed": 8,
+      "pixels_removed": 264
+    },
+    "Clean_from_Blocks": {
+      "frames": 8,
+      "changed": 8,
+      "pixels_removed": 486
+    }
+  },
+  "next_steps": [
+    "Visual review candidate previews in artifacts/workout-visual-qa/cursor-pilot-10/candidates/*-preview.png",
+    "Frames with 0px removed may need Cursor GenerateImage for edge/anatomy fixes",
+    "Alignment pass after background accepted"
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "batchNumber": "cursor-pilot-10",
+  "pilot": true,
+  "sourceBatch": 6,
+  "exercises": [
+    {
+      "index": 1,
+      "exerciseId": "Cable_Shoulder_Press",
+      "severity": "minor",
+      "findings": [
+        "Thin pale, intermittently dotted edging remains around portions of the machine, cables, clothing and shoes, visible against dark backgrounds. No broad opaque background or substantial interior residue is visible.",
+        "The left machine upright/pulley shifts right and the seat support geometry changes in male frame 3 relative to earlier frames, while feet and right upright remain nearly anchored. This is limited equipment jitter, distinct from the intended arm extension."
+      ],
+      "sourceFramePaths": [
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shoulder_Press_male_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shoulder_Press_male_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shoulder_Press_male_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shoulder_Press_male_v2_3.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shoulder_Press_female_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shoulder_Press_female_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shoulder_Press_female_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shoulder_Press_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 2,
+      "exerciseId": "Cable_Shrugs",
+      "severity": "minor",
+      "findings": [
+        "Thin light outlines/residual edge pixels follow portions of the arms, legs, hair and machine bases/uprights. More apparent on dark backgrounds; limited in extent and does not obscure the illustration."
+      ],
+      "sourceFramePaths": [
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shrugs_male_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shrugs_male_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shrugs_male_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shrugs_male_v2_3.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shrugs_female_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shrugs_female_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shrugs_female_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Cable_Shrugs_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 3,
+      "exerciseId": "Calf-Machine_Shoulder_Shrug",
+      "severity": "minor",
+      "findings": [
+        "Thin pale outlines and scattered light edge pixels are visible against the dark background around portions of the athlete and machine. No substantial opaque interior background remains.",
+        "Machine base, upright and platform positions drift slightly between frames, particularly female 1 to 2 and male 0 to 3. These fixed parts should remain stationary; shifts are limited and the illustrations remain usable."
+      ],
+      "sourceFramePaths": [
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf-Machine_Shoulder_Shrug_male_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf-Machine_Shoulder_Shrug_male_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf-Machine_Shoulder_Shrug_male_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf-Machine_Shoulder_Shrug_male_v2_3.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf-Machine_Shoulder_Shrug_female_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf-Machine_Shoulder_Shrug_female_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf-Machine_Shoulder_Shrug_female_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf-Machine_Shoulder_Shrug_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 4,
+      "exerciseId": "Car_Drivers",
+      "severity": "minor",
+      "findings": [
+        "Thin pale/jagged fringe traces portions of hair, limbs, clothing and plate edges on dark backgrounds. Illustrations remain usable; no substantial exterior background or checkerboard block is visible.",
+        "Male frame 0 plate center contains a bright white fill that remains white on the dark background, unlike a transparent opening. Small localized equipment-interior artifact."
+      ],
+      "sourceFramePaths": [
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Car_Drivers_male_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Car_Drivers_male_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Car_Drivers_male_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Car_Drivers_male_v2_3.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Car_Drivers_female_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Car_Drivers_female_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Car_Drivers_female_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Car_Drivers_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 5,
+      "exerciseId": "Childs_Pose",
+      "severity": "minor",
+      "findings": [
+        "Small bright white remnants remain in the transparent gap beneath the raised head/between the arms, conspicuous on the dark background.",
+        "Thin pale edging is visible along portions of the back, hair and mat perimeter on dark backgrounds. Illustrations remain usable; no large opaque background or substantial cutout holes observed."
+      ],
+      "sourceFramePaths": [
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Childs_Pose_male_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Childs_Pose_male_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Childs_Pose_male_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Childs_Pose_male_v2_3.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Childs_Pose_female_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Childs_Pose_female_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Childs_Pose_female_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Childs_Pose_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 6,
+      "exerciseId": "Chin_To_Chest_Stretch",
+      "severity": "minor",
+      "findings": [
+        "Small intermittent pale edge pixels/fringes are visible on dark backgrounds around the shoe outlines and some body/hair contours, most noticeable around the female ponytail. These are limited perimeter artifacts; no opaque background or substantial interior residue is visible."
+      ],
+      "sourceFramePaths": [
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chin_To_Chest_Stretch_male_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chin_To_Chest_Stretch_male_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chin_To_Chest_Stretch_male_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chin_To_Chest_Stretch_male_v2_3.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chin_To_Chest_Stretch_female_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chin_To_Chest_Stretch_female_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chin_To_Chest_Stretch_female_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chin_To_Chest_Stretch_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 7,
+      "exerciseId": "Clean_and_Press",
+      "severity": "minor",
+      "findings": [
+        "Small opaque pale remnants extend beyond shoe soles (especially setup frames and frame 2), beneath the grounded plates in both setup frames, and along portions of the female ponytail/neck edge in frames 1\u20133. Most visible against dark background; illustrations remain usable."
+      ],
+      "sourceFramePaths": [
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_and_Press_male_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_and_Press_male_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_and_Press_male_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_and_Press_male_v2_3.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_and_Press_female_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_and_Press_female_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_and_Press_female_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_and_Press_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 8,
+      "exerciseId": "Clean_Deadlift",
+      "severity": "minor",
+      "findings": [
+        "A thin, disconnected dashed vertical light line remains near the right canvas edge, clearly visible on the dark background.",
+        "Thin pale fringes trace portions of the athlete and equipment contours on dark backgrounds. Artwork remains clearly usable; no opaque background or substantial interior residue is visible.",
+        "Male frame 2 shifts the athlete and bar left and the shoe baseline upward relative to the other frames; female frame 0 has visibly larger/wider plates and bar than frame 1 despite a similar setup pose. These are limited animation inconsistencies, distinct from the intended vertical lift."
+      ],
+      "sourceFramePaths": [
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Deadlift_male_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Deadlift_male_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Deadlift_male_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Deadlift_male_v2_3.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Deadlift_female_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Deadlift_female_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Deadlift_female_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Deadlift_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 9,
+      "exerciseId": "Clean_from_Blocks",
+      "severity": "minor",
+      "findings": [
+        "Small bright white remnants are visible on dark backgrounds: a wedge beneath the left plate in male frame 1, and small flecks along the female ponytail in frames 0\u20132. These are limited edge artifacts, not a full opaque background.",
+        "Stationary wooden blocks shift laterally and vary modestly in size across each sequence, especially female frame 2. This causes limited background-equipment jitter independent of the intended athlete/bar movement."
+      ],
+      "sourceFramePaths": [
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_from_Blocks_male_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_from_Blocks_male_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_from_Blocks_male_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_from_Blocks_male_v2_3.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_from_Blocks_female_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_from_Blocks_female_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_from_Blocks_female_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_from_Blocks_female_v2_3.png"
+      ]
+    },
+    {
+      "index": 10,
+      "exerciseId": "Clean_Shrug",
+      "severity": "minor",
+      "findings": [
+        "Thin intermittent pale fringe/specks are visible along inner arm-to-torso cutout boundaries on the dark background. Limited edge residue; no large opaque background or checkerboard interiors.",
+        "Small elongated gaps in the metallic bar shaft/sleeves switch from black on the dark composite to light on the light composite, indicating unwanted transparency in solid equipment. The bar remains continuous and recognizable."
+      ],
+      "sourceFramePaths": [
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Shrug_male_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Shrug_male_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Shrug_male_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Shrug_male_v2_3.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Shrug_female_v2_0.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Shrug_female_v2_1.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Shrug_female_v2_2.png",
+        "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Clean_Shrug_female_v2_3.png"
+      ]
+    }
+  ]
+}

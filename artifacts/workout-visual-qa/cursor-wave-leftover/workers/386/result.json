@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Upper_Back_Stretch",
+  "shard": 39,
+  "index": 386,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical edit + key_workout_chroma.py on 3 frame(s) with floor/fringe/plate/bar artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Upper_Back_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back_Stretch_male_v2_0.png",
+      "sourceSha256": "cc4b074d6856900c5def428fd52f577885b94b5aba7f23de7b6dba5df8627340",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/386/Upper_Back_Stretch_male_v2_0.png",
+      "candidateSha256": "4f9b48882ad3929632b075c3a5101c2f8f4790dfdcd987de2b77304c286a5c5a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back_Stretch_male_v2_1.png",
+      "sourceSha256": "f55d2833e1ac712d4e358b5168efbedab836a58006ac5c8ac225d857700f3cb9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/386/Upper_Back_Stretch_male_v2_1.png",
+      "candidateSha256": "0bab31494ff03a90a111f927cfba137d5ae7652516de7ebc62567c4b1948f5a4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back_Stretch_male_v2_2.png",
+      "sourceSha256": "e1ac9e5318c697b4e37094f927533a7ae2419206d449168d5f32aadf80a26bf1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/386/Upper_Back_Stretch_male_v2_2.png",
+      "candidateSha256": "afd4d1d40f107d59fb6495906ff322bf6e0c596a5eb942466a1c40e4c32cbfaa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back_Stretch_male_v2_3.png",
+      "sourceSha256": "6f15ef3ba1d142c9f80e1bc39e617178a4cff28b46029ebe32076d7abe79db95",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/386/Upper_Back_Stretch_male_v2_3.png",
+      "candidateSha256": "2bbf0e8a30616bdbdf7e3e28f7402e3863e254a307186ad2c0ccecc989660ba3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back_Stretch_female_v2_0.png",
+      "sourceSha256": "f54c948de22202ff12dff962fbe46b9f4d806803ee4d48a26f3d61a9ebff4306",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/386/Upper_Back_Stretch_female_v2_0.png",
+      "candidateSha256": "7863dc9ae8a5265b005344f3ddab4ddf61aa60e4e880bfbf06f96ac5ba5f84a8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back_Stretch_female_v2_1.png",
+      "sourceSha256": "86142d635dd3cc7d035374f2edddba511577924b93c73421254d8d51f4d02f97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/386/Upper_Back_Stretch_female_v2_1.png",
+      "candidateSha256": "290618e9c26064b326c9653d52acef3d31181e3286f61a12d8db1249b8ec8052",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back_Stretch_female_v2_2.png",
+      "sourceSha256": "6c34c1aa78c9a30b6782b55e88a141c98bacf69b73af74de5c91724cb48072b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/386/Upper_Back_Stretch_female_v2_2.png",
+      "candidateSha256": "8f3091f0707a2144ce1d44574e643a97d83bc98cfd75e3bd688aee49f6570677",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back_Stretch_female_v2_3.png",
+      "sourceSha256": "1889cfa32f25104f2f950eac8cb1a4a1d8be790bacbf6def527b88d4f1a2cb67",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/386/Upper_Back_Stretch_female_v2_3.png",
+      "candidateSha256": "3b05b2c4ff0e26abb31cdf9a6cba4e548bcca80a3962c035f288b564f9429ac7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

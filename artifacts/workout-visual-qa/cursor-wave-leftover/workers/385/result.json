@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Upper_Back-Leg_Grab",
+  "shard": 39,
+  "index": 385,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical edit + key_workout_chroma.py on 3 frame(s) with floor/fringe/plate/bar artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Upper_Back-Leg_Grab_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back-Leg_Grab_male_v2_0.png",
+      "sourceSha256": "fd574f63261495aefdd51c466d614d5c028388a26e5ac7f945a7205f7a94924d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/385/Upper_Back-Leg_Grab_male_v2_0.png",
+      "candidateSha256": "76caa94711a42d6057bf326362dee601e420b67fc89b88620030c7acce164a25",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back-Leg_Grab_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back-Leg_Grab_male_v2_1.png",
+      "sourceSha256": "6879e24459698f448ae4006884a3017fffb32a0b64658c25cf90541f6075dd56",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/385/Upper_Back-Leg_Grab_male_v2_1.png",
+      "candidateSha256": "cd9ac64ca98be7b1cd5f9b76fdac71ba05504e833d692ff3a9a481d9ab1fd3ef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back-Leg_Grab_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back-Leg_Grab_male_v2_2.png",
+      "sourceSha256": "9d9be514dae016cf0d0e1bb748a0f52a614a59944164ba88062564454d94781c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/385/Upper_Back-Leg_Grab_male_v2_2.png",
+      "candidateSha256": "f8f683c3dac81153a7fa6d7edb640f496d5ecba284605fe858cd71b7b96a2e4e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back-Leg_Grab_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back-Leg_Grab_male_v2_3.png",
+      "sourceSha256": "92c4b19492f192a3ebf59bfbe13976a6f9397f8e32448698cd5f064e33bd01b6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/385/Upper_Back-Leg_Grab_male_v2_3.png",
+      "candidateSha256": "dd68f523a5f8f560d606787d57bb032e3c04051749c0071f1cfd98bb38d35eb2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back-Leg_Grab_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back-Leg_Grab_female_v2_0.png",
+      "sourceSha256": "86e7f1c3319e1854b95efc3bc368715792e171232cf34ea79775ee107c473af7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/385/Upper_Back-Leg_Grab_female_v2_0.png",
+      "candidateSha256": "cbe42fdbaaa68e6f38292844ba274a815be0795d5f46085e80eb2c3e89e6666f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back-Leg_Grab_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back-Leg_Grab_female_v2_1.png",
+      "sourceSha256": "9a5586712b06f66b0f8267d5b9b5942db71bb28e9e076b8658ea837b592e3735",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/385/Upper_Back-Leg_Grab_female_v2_1.png",
+      "candidateSha256": "b3995db8e37975961fec84a532cbd2dcf38ecd805e81ce04422dcd598226cc5e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back-Leg_Grab_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back-Leg_Grab_female_v2_2.png",
+      "sourceSha256": "bfe510ec8798814ec527623e90e4361f5f4b867231148178615cf5c6a1b5643a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/385/Upper_Back-Leg_Grab_female_v2_2.png",
+      "candidateSha256": "f8b23e8be67ff94077ef30e8e7f7c9a121e48b85a79f58c976bacd9babc928e4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upper_Back-Leg_Grab_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upper_Back-Leg_Grab_female_v2_3.png",
+      "sourceSha256": "a1cc3784172ab73d2873fc4a6a88ba3b2f06e505d535ed3eb4f26a70c47c7e56",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/385/Upper_Back-Leg_Grab_female_v2_3.png",
+      "candidateSha256": "924e699ba7982c2be8178f391f973ab4456ed104f633fd65735e9dc562253e79",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

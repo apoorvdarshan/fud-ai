@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Upright_Cable_Row",
+  "shard": 39,
+  "index": 388,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical edit + key_workout_chroma.py on 1 frame(s) with floor/fringe/plate/bar artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Upright_Cable_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Cable_Row_male_v2_0.png",
+      "sourceSha256": "e02dc77744de7836c47982379e7f07c8698b9fd31967ad9c0e577623b33d788d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/388/Upright_Cable_Row_male_v2_0.png",
+      "candidateSha256": "1641ee8e80336f0cfc54d4c80fc683dbd92e03bf2bf269a1e8fb1491326958e8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Cable_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Cable_Row_male_v2_1.png",
+      "sourceSha256": "5804b47367fc4e4f49d561eeae0c9ee2664e67cf8a38c2ae716562d7eb8956b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/388/Upright_Cable_Row_male_v2_1.png",
+      "candidateSha256": "f50972022d5edf94f40155ce588e0163bcf31596a821ed5d52076f379f05fae5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Cable_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Cable_Row_male_v2_2.png",
+      "sourceSha256": "6dcc5b9beade8d43e74ccedb9d14f4f4250a4d4018215576a34208472066f584",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/388/Upright_Cable_Row_male_v2_2.png",
+      "candidateSha256": "21063e170d313b36d519889ff43ac6e0e0ef9617dc342957ec9f891d227f4b6a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Cable_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Cable_Row_male_v2_3.png",
+      "sourceSha256": "286abe427d6d8c541dfc83ae2aa491f85f46a54d5b9eda65165c623c81807546",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/388/Upright_Cable_Row_male_v2_3.png",
+      "candidateSha256": "92f34b95830cab050b752cd1968daee425c6f07706983948d836592b16505e30",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Cable_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Cable_Row_female_v2_0.png",
+      "sourceSha256": "394bfdaf22e5cc79c043eba41f09b5a9905bd8a2f91a285d48cf56c625ab9652",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/388/Upright_Cable_Row_female_v2_0.png",
+      "candidateSha256": "07731d70ce8763517d97f9a3327b3332ff8b2521153ad3d92d6bbe602b07d042",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Cable_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Cable_Row_female_v2_1.png",
+      "sourceSha256": "a53946815c893da91e3588e289c7cfd9d020b4fb560cb2493252bec7ea1e1a21",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/388/Upright_Cable_Row_female_v2_1.png",
+      "candidateSha256": "1f891c0da7478fcaa6a578b9bd4dac81abb103a909bfb71c451acda8a36aad96",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Cable_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Cable_Row_female_v2_2.png",
+      "sourceSha256": "122a56c703e83022197c0bc36030bbcffa5b6abb042089897fdbca48c272f1b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/388/Upright_Cable_Row_female_v2_2.png",
+      "candidateSha256": "177486c50300f0abd0a833dd9cdb9a9ea6cbdf953e3e44d1c7d7740d82eaa4e6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Cable_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Cable_Row_female_v2_3.png",
+      "sourceSha256": "8d5ad872df412ba52d300a71ee59279279977b4618be8db208e1f1ca0e3a16ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/388/Upright_Cable_Row_female_v2_3.png",
+      "candidateSha256": "64ee0ea769eb42244ca970b01fae27fa569f52795e6c648b2153a4374d719e6d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

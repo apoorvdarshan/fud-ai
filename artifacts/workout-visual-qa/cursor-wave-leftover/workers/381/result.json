@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Two-Arm_Kettlebell_Jerk",
+  "shard": 39,
+  "index": 381,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical edit + key_workout_chroma.py on 1 frame(s) with floor/fringe/plate/bar artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Two-Arm_Kettlebell_Jerk_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Jerk_male_v2_0.png",
+      "sourceSha256": "7c2934c5dc138e5e7f8406484996a0bec546df90f9de25c8a621990fa1aaf510",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/381/Two-Arm_Kettlebell_Jerk_male_v2_0.png",
+      "candidateSha256": "b0e19ef4370859d5b67b56d5e821f93bf8344331fbe4a68a98cb3cf657667615",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Jerk_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Jerk_male_v2_1.png",
+      "sourceSha256": "bbd446a368b2243289a82f0462cf7ad8b699a19295512a7679eae398a1069d33",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/381/Two-Arm_Kettlebell_Jerk_male_v2_1.png",
+      "candidateSha256": "88bafa611d6fe9658b9bcd69c656e0df0fe4f9ceae61c2c1dd02e770cdf69cd9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Jerk_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Jerk_male_v2_2.png",
+      "sourceSha256": "9def87a0977943d527b862986e0ff33733f7496a8fbcc4d47d34999246c89df4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/381/Two-Arm_Kettlebell_Jerk_male_v2_2.png",
+      "candidateSha256": "06edd0deb85db20c7b77eac4959379fa5d18c5c34f3cc0d85def3ecee96540aa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Jerk_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Jerk_male_v2_3.png",
+      "sourceSha256": "11e8b9369323c29d769d043b66d0a8ea021960c6b22c8e783066dc94b334fe6e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/381/Two-Arm_Kettlebell_Jerk_male_v2_3.png",
+      "candidateSha256": "23af5be3f5d74029a1e232925750fbdd8276b674041659f3fb362519f1abb78f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Jerk_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Jerk_female_v2_0.png",
+      "sourceSha256": "bc66dbdd99c5794aaff2d338c1a659bc6dd80961fc1546d4a7380f00efe45e9b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/381/Two-Arm_Kettlebell_Jerk_female_v2_0.png",
+      "candidateSha256": "cd9372d81a4e7d1dfd86cb675bd1f12510037ec2d0ef4d943901f79e85a285df",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Jerk_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Jerk_female_v2_1.png",
+      "sourceSha256": "c4020c40632a6671db435062b4617423b0532f30f6035feae90182c7fd93f89a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/381/Two-Arm_Kettlebell_Jerk_female_v2_1.png",
+      "candidateSha256": "77432aba98194017bd97eab63d7e5644f5b06b4f754760be42380538380c4cf1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Jerk_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Jerk_female_v2_2.png",
+      "sourceSha256": "9a3b11745bf4cac2195c0488fcb7a1050820576720fa006979deda51d8914d3c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/381/Two-Arm_Kettlebell_Jerk_female_v2_2.png",
+      "candidateSha256": "6ecf3ea827ee1c0182de500577a3426333882a19be95709ef09b0cac37b54f74",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Jerk_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Jerk_female_v2_3.png",
+      "sourceSha256": "cf7c88168749ae3eb4f1a95de28f37f272275742bb18ebb84f28bbad957fc9b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/381/Two-Arm_Kettlebell_Jerk_female_v2_3.png",
+      "candidateSha256": "f6ac12ce6cd231f08492570023c41bd341659b6458739439ccde186edf7ed054",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

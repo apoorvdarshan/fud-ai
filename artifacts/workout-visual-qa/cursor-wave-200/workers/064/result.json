@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Chest_Push_single_response",
+  "shard": 7,
+  "index": 64,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 3 frame(s) with baked white/pale fringe artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Chest_Push_single_response_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Push_single_response_male_v2_0.png",
+      "sourceSha256": "3363d0e2c6f4d6ae88dfe27b68b1d7d9fdf863690910cab943441b2eff516c0d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/064/Chest_Push_single_response_male_v2_0.png",
+      "candidateSha256": "e02db5791fb91812e9d22d74bc81b3e342d3d2018f0ef6caa5d27490b0bcfe48",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Push_single_response_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Push_single_response_male_v2_1.png",
+      "sourceSha256": "6fbd1ca9d42373e9fdf1209851df4e834c64dca539f1c8c5aaf51d95ad59bc67",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/064/Chest_Push_single_response_male_v2_1.png",
+      "candidateSha256": "a807a6e7e3145e950bae686ac5767131e2701a399d7454209c90a7ace428350f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Push_single_response_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Push_single_response_male_v2_2.png",
+      "sourceSha256": "095de759cf6ab8138c7d34ab515fe17c8b123ea34c5510619c4864ebe7c35c76",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/064/Chest_Push_single_response_male_v2_2.png",
+      "candidateSha256": "b926ee28601d5163f081400a917c8fb487602daa2e97ca02d09ea4103b7d7235",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Push_single_response_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Push_single_response_male_v2_3.png",
+      "sourceSha256": "be51223c5c08e6c0516fe0c7fdd6497c17c58ccfda7626af427a54991b24c3fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/064/Chest_Push_single_response_male_v2_3.png",
+      "candidateSha256": "bab1e54fcfd3b20acc9a7c7dd96db875ae9bb023fa25aed2e1803de27d2e8aef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Push_single_response_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Push_single_response_female_v2_0.png",
+      "sourceSha256": "a141544a03533a6e69e1154b83f4156bdbf9ba38c326632d86b75b1ea9979fbc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/064/Chest_Push_single_response_female_v2_0.png",
+      "candidateSha256": "b8ce89bb1b35c6b1a3f86db3395aff5d1bdba933495f1089ce087cb98dc4554d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Push_single_response_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Push_single_response_female_v2_1.png",
+      "sourceSha256": "5fc2f38c6af75b433efbef87c41a492589d01949f2a99e644493db322a824e1b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/064/Chest_Push_single_response_female_v2_1.png",
+      "candidateSha256": "9ab6d2613c1d9e4ae1df23e995c6f22b0d7a7c4214db75cc05d3f1510bf7c646",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Push_single_response_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Push_single_response_female_v2_2.png",
+      "sourceSha256": "2fbb5f98a824a2c76ae0cf4bc8279eb263ae01ca403b22c1eb02ec71037f09d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/064/Chest_Push_single_response_female_v2_2.png",
+      "candidateSha256": "6734ad112a17420f9000b41bb365a5d59bdad974064cab9cde25426404f7a464",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Chest_Push_single_response_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Chest_Push_single_response_female_v2_3.png",
+      "sourceSha256": "67e6bdaec848ac3d5be3e11db03147070e3a9628356503a68002cbc8ba169d4d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/064/Chest_Push_single_response_female_v2_3.png",
+      "candidateSha256": "c076869236001ac5eae4ce3a5ff220dca1e675ce8ebd12ec77518084f2fd4c47",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "changedFrameCount": 3
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Clean",
+  "shard": 7,
+  "index": 68,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Clean_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_male_v2_0.png",
+      "sourceSha256": "138d526729cbe05b262e40088dae209c7d879f0aa11034bba519836a31865900",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/068/Clean_male_v2_0.png",
+      "candidateSha256": "231335fa2dc87a82735640554e05f42b544badee64a3f6cdfbd61710f4513d15",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_male_v2_1.png",
+      "sourceSha256": "6fffae14f0a3d37bf6656f22472fcfc20bf224cd51a6f5069b638e346897170a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/068/Clean_male_v2_1.png",
+      "candidateSha256": "9f2a2c74a638077eca80dd2149a9d9e378011b873ca05f1173bd1318f4915005",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_male_v2_2.png",
+      "sourceSha256": "e68ee8b1f856e05ebc9d8745f2cfa9dd02c6af1bc73a24d1beecf45972e883ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/068/Clean_male_v2_2.png",
+      "candidateSha256": "96b83777f4370a86707e9003cd0b2052e971462535034174aa11471b3d051997",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_male_v2_3.png",
+      "sourceSha256": "dee07893d2d9de5b64735519b4f48fc46bdb40eeaebe659824339253e0869efc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/068/Clean_male_v2_3.png",
+      "candidateSha256": "5bdb3b4464f6b19043e3772fbe758b3ab2c1d31fc750e0b9fba4151abd650bd6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_female_v2_0.png",
+      "sourceSha256": "efaf8c964affc36bfba896bc8a9e4339af041b93e6c03b7a35b005122439469e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/068/Clean_female_v2_0.png",
+      "candidateSha256": "1d9a86ef495250cf4990c78141704d54ffee8946700e551559d9438d6f9063af",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_female_v2_1.png",
+      "sourceSha256": "cbbbb905d642f02e23c51316acce2f585205e0b0d0cc2b33d32fe17dcfc64d96",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/068/Clean_female_v2_1.png",
+      "candidateSha256": "801c94470566ce16756a6354ac7fff2f768410443daf7e589409f68cf87fd9ef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_female_v2_2.png",
+      "sourceSha256": "db613a251e362989f61067d0e57f8f06d3a4f73c1b4484e40060e5d24d1ae1f0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/068/Clean_female_v2_2.png",
+      "candidateSha256": "5691c1591081cdd6b3f1f28bc34381e1e5f5c1e5d4f62dafde11a70df1801291",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Clean_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Clean_female_v2_3.png",
+      "sourceSha256": "92b447ebe5e962985999232cde2b700723d865e41edd9511e24b499d7835701f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/068/Clean_female_v2_3.png",
+      "candidateSha256": "71b78b07f7b3fe5a9ea608d7e9633a4e1faff4d0e5883a42c75543a3c45ce9ce",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

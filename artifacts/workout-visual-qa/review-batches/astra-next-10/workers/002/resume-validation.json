@@ -1,0 +1,108 @@
+{
+  "checkedAt": "2026-09-06T18:13:50.218625+00:00",
+  "expectedFilenamesVerified": true,
+  "frames": [
+    {
+      "filename": "Barbell_Rollout_from_Bench_male_v2_0.png",
+      "size": [
+        1152,
+        768
+      ],
+      "transparentPixels": 648783,
+      "opaquePixels": 235953,
+      "hashesVerified": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_male_v2_1.png",
+      "size": [
+        1152,
+        768
+      ],
+      "transparentPixels": 678207,
+      "opaquePixels": 206529,
+      "hashesVerified": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_male_v2_2.png",
+      "size": [
+        1152,
+        768
+      ],
+      "transparentPixels": 684384,
+      "opaquePixels": 198220,
+      "hashesVerified": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_male_v2_3.png",
+      "size": [
+        1152,
+        768
+      ],
+      "transparentPixels": 659804,
+      "opaquePixels": 224932,
+      "hashesVerified": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_female_v2_0.png",
+      "size": [
+        1152,
+        768
+      ],
+      "transparentPixels": 675500,
+      "opaquePixels": 209236,
+      "hashesVerified": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_female_v2_1.png",
+      "size": [
+        1152,
+        768
+      ],
+      "transparentPixels": 695042,
+      "opaquePixels": 189694,
+      "hashesVerified": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_female_v2_2.png",
+      "size": [
+        1152,
+        768
+      ],
+      "transparentPixels": 699392,
+      "opaquePixels": 183319,
+      "hashesVerified": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_female_v2_3.png",
+      "size": [
+        1152,
+        768
+      ],
+      "transparentPixels": 684633,
+      "opaquePixels": 200103,
+      "hashesVerified": true
+    }
+  ],
+  "generatedAttempts": [
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/work/resume-evidence/exec-45e6bda7-bb1b-4dff-a3f1-a158d4470a66.png",
+      "mode": "RGB",
+      "size": [
+        1536,
+        1024
+      ],
+      "alphaExtrema": null
+    },
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/work/resume-evidence/exec-4a8e6c5c-6a66-4af9-ae4d-7a92373da7ba.png",
+      "mode": "RGB",
+      "size": [
+        1535,
+        1024
+      ],
+      "alphaExtrema": null
+    }
+  ],
+  "publicationAttempted": false,
+  "reason": "Stationary bench and knee anchors still fail sequence review; no failed set published."
+}

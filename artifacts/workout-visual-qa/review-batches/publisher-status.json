@@ -1,0 +1,104 @@
+{
+  "checkedAt": "2026-09-06T17:06:31.026Z",
+  "role": "dedicated_publisher",
+  "scope": "batch-01 through batch-08",
+  "parentPassRowsScanned": 79,
+  "unpublishedParentPasses": 0,
+  "publishedThisSweep": [
+    {
+      "batch": "batch-04",
+      "index": 30,
+      "exerciseId": "Dumbbell_Incline_Row",
+      "reportSha256": "b1d06082b3650eebc0acf241db361183e5e907d455c28b2a118ae05ca9e1b45c"
+    },
+    {
+      "batch": "batch-04",
+      "index": 31,
+      "exerciseId": "Dumbbell_Incline_Shoulder_Raise",
+      "reportSha256": "a3f38e3c82010b583eb63ac11c2eca49f0df1fd1b6514893d005e0a5a0f1abd5"
+    },
+    {
+      "batch": "batch-04",
+      "index": 36,
+      "exerciseId": "Dumbbell_One-Arm_Triceps_Extension",
+      "reportSha256": "026eec4e5eb85c3f5bdcf7b936b75fa4d0f102385312364f5ef32c0846c9545c"
+    },
+    {
+      "batch": "batch-04",
+      "index": 37,
+      "exerciseId": "Dumbbell_One-Arm_Upright_Row",
+      "reportSha256": "fcf3d0bc283abd979876749e4c9bcd31b7c0e36a4ab971fb99eeb090d08bddca"
+    },
+    {
+      "batch": "batch-04",
+      "index": 38,
+      "exerciseId": "Dumbbell_Prone_Incline_Curl",
+      "reportSha256": "21c843be780b0907e2c8d682aae205c971268fd55ba4f107d7b647d696985b6b"
+    },
+    {
+      "batch": "batch-04",
+      "index": 39,
+      "exerciseId": "Dumbbell_Shrug",
+      "reportSha256": "75f26e385faa10dd69e18c77ce196ae9518652e5884f803ec593bab3d22493d4"
+    },
+    {
+      "batch": "batch-04",
+      "index": 40,
+      "exerciseId": "Dumbbell_Squat_To_A_Bench",
+      "reportSha256": "2d179ee7ad9b04ab501bfb6bf7f05dad542a76c943f85f8405e9331502d3a26a"
+    },
+    {
+      "batch": "batch-04",
+      "index": 42,
+      "exerciseId": "Dynamic_Chest_Stretch",
+      "reportSha256": "7c264e3fa951144a16fb99c778d1d0b051d76e8b22fe8c391c000ec07dd1348f"
+    },
+    {
+      "batch": "batch-04",
+      "index": 49,
+      "exerciseId": "External_Rotation_with_Band",
+      "reportSha256": "701c8952830ba3bd1c7d97d278b6cc435d3f421f8ad9fe98d99e5e57fd96317a"
+    },
+    {
+      "batch": "batch-05",
+      "index": 1,
+      "exerciseId": "Face_Pull",
+      "reportSha256": "3dd1457e59f9a02732017f1e8132a52bf2a2325ef54b56e59c675e9fc715d071"
+    },
+    {
+      "batch": "batch-05",
+      "index": 2,
+      "exerciseId": "Farmers_Walk",
+      "reportSha256": "34cd04bd840054e7ed6acabb07d0e8d1cf63e58009abdad5fa6cae126fa47dc9"
+    },
+    {
+      "batch": "batch-05",
+      "index": 18,
+      "exerciseId": "Front_Plate_Raise",
+      "reportSha256": "1b165f8347a6668bbb16aa76fd855400c688f38433fd167c3975d1ac0baf8167"
+    }
+  ],
+  "integrityChecks": "Each new publication verified exact parent report SHA, canonical eight filenames and source paths, all actual source/candidate hashes, and real alpha. Immutable report and candidate snapshots copied without overwrite.",
+  "http": {
+    "url": "http://127.0.0.1:8765/manifest.json",
+    "batch": "all",
+    "count": 1,
+    "totals": {
+      "total": 875,
+      "approved": 75,
+      "inProgress": 325,
+      "notStarted": 475,
+      "readyForReview": 1
+    },
+    "exerciseIds": [
+      "Front_Plate_Raise"
+    ]
+  },
+  "humanApprovedByPublisher": false,
+  "blockers": [],
+  "monitoring": {
+    "active": true,
+    "pollSeconds": 25,
+    "startedAt": "2026-09-06T17:03:21.642Z"
+  }
+}

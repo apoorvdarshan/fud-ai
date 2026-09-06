@@ -1,0 +1,129 @@
+{
+  "exerciseId": "Back_Flyes_-_With_Bands",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009",
+  "findings": [
+    "Revision 01 report and all eight candidate files preserved in work/snapshots/revision-01 before editing. Original outputs/candidates files remain unchanged; revision 02 uses new paths.",
+    "Both return frames replaced with exact copies of the same-gender repaired intermediate frame 1. The resulting sequence is 0-1-2-1: forward spread then reverse through the same intermediate pose. This removes the bent-elbow rowing poses, fragmented female return band and female return sole damage without redrawing the person.",
+    "Frames 0, 1 and 2 for each gender retained byte-for-byte from the preceding candidates. Camera, identity, clothing, equipment and native scale preserved; no per-frame normalization applied.",
+    "All eight revision frames inspected on both white and dark composites. Bands remain connected as in repaired forward phases; all PNGs are 1024x768 RGBA with actual alpha. Hashes recomputed.",
+    "Reference-guided built-in imagegen edit produced the desired straighter arms but redrew the figure. It was rejected in favor of exact existing-artwork reuse.",
+    "Direct-publication preflight: rechecked all eight light/dark views and complete 0-1-2-1 sequences; recomputed canonical source and candidate hashes against exact batch-01 index 37 filenames. Review server contract read. Candidate pixels unchanged from revision 02."
+  ],
+  "unresolved": [
+    "Human review must assess acceptance of the deliberate repeated intermediate pose: frames 1 and 3 are identical by design, giving three unique poses in four animation slots.",
+    "Existing small stance/position differences among original forward frames 0-2 remain; this revision preserves those frames rather than independently rescaling or translating them. No claim of newly normalized ground anchors."
+  ],
+  "frames": [
+    {
+      "filename": "Back_Flyes_-_With_Bands_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Back_Flyes_-_With_Bands_male_v2_0.png",
+      "sourceSha256": "86b67568fbe5bca007eb44d58f6bc3dc7fcd30632bad7e4163dc3875c8195c9a",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/revision-02/Back_Flyes_-_With_Bands_male_v2_0.png",
+      "candidateSha256": "139b876d959c4ea02d1788fdd46756a36c63a6629ec00e9a645217456123d191",
+      "method": "Prior candidate copied for evaluation; Deterministic bridge of the two detached image-left band ends plus same-sequence sole-only underlays for both shoes; original figure pixels otherwise preserved.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Back_Flyes_-_With_Bands_male_v2_1.png",
+      "sourceSha256": "9e2961c05cd4517e898e7178cd52cb2c7c9b920c91883f4bc37ee3f9f1fc742f",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/revision-02/Back_Flyes_-_With_Bands_male_v2_1.png",
+      "candidateSha256": "dd1caca3cb90350ccea121b1412d4a468a3d0f30a011ad173dfac56d8f8e6a90",
+      "method": "Prior candidate copied for evaluation; Deterministic bridges for detached image-left and image-right lower band fragments plus same-sequence sole-only underlays for both shoes; original figure pixels otherwise preserved.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Back_Flyes_-_With_Bands_male_v2_2.png",
+      "sourceSha256": "d34611c56200d606a3296120f2ae79ef81d1cf8262c2ed692bef307bb592d555",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/revision-02/Back_Flyes_-_With_Bands_male_v2_2.png",
+      "candidateSha256": "f541a0c58fd7df72d271bbd7cb2734094ed4c0b9dc0e63df0ce4f932c53bca1a",
+      "method": "Prior candidate copied for evaluation; Band routing visually continuous and left unchanged; same-sequence sole-only underlays restore both fragmented shoe soles behind the original foreground.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Back_Flyes_-_With_Bands_male_v2_3.png",
+      "sourceSha256": "e13e2d9fad69507efcb1641d6e901f91eeddb52af9825442621523a3f30e5ecd",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/revision-02/Back_Flyes_-_With_Bands_male_v2_3.png",
+      "candidateSha256": "dd1caca3cb90350ccea121b1412d4a468a3d0f30a011ad173dfac56d8f8e6a90",
+      "method": "Exact same-gender repaired frame 1 reused as return frame 3, creating forward/reverse phases 0-1-2-1. No synthetic anatomy or original faulty return pixels retained.",
+      "visuallyReviewed": true,
+      "referencePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/candidates/Back_Flyes_-_With_Bands_male_v2_1.png",
+      "referenceSha256": "dd1caca3cb90350ccea121b1412d4a468a3d0f30a011ad173dfac56d8f8e6a90"
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Back_Flyes_-_With_Bands_female_v2_0.png",
+      "sourceSha256": "7704d4a53c4ff9f277fc3e32112bfaaaed856181f0462ec7f27781f63f738b6b",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/revision-02/Back_Flyes_-_With_Bands_female_v2_0.png",
+      "candidateSha256": "54dcda121e17845c8b4a17abca53b9b5a654eb18ad719b43c99cff666e2d5d71",
+      "method": "Prior candidate copied for evaluation; Deterministic reconnection of both detached image-left band ends plus same-sequence sole-only underlays for both shoes; original figure pixels otherwise preserved.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Back_Flyes_-_With_Bands_female_v2_1.png",
+      "sourceSha256": "2003d705ed0abade5be92897383ece98eb37634481de4c6a9b9d80bb4ed56b4d",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/revision-02/Back_Flyes_-_With_Bands_female_v2_1.png",
+      "candidateSha256": "0aad96e9fde241f7ff76fe93c7c3a02a33b6a4d2e15ec1d95eb944a4d38b4a10",
+      "method": "Prior candidate copied for evaluation; Deterministic bridges for the broken lower image-left and image-right band strands plus a left-shoe sole-only underlay; the intact right sole and original figure pixels were preserved.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Back_Flyes_-_With_Bands_female_v2_2.png",
+      "sourceSha256": "68d8655cc87f5de3d19a156636bb1f9f1bd2d8f70b09ea70c1fa331989b91660",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/revision-02/Back_Flyes_-_With_Bands_female_v2_2.png",
+      "candidateSha256": "bfa6f5530ee7d429c9fffd2234f37b6738bd3721a936c6e7ed071ee51201964f",
+      "method": "Prior candidate copied for evaluation; Deterministic reconstruction of the lower image-left band routing through its two missing sections plus same-sequence sole-only underlays for both shoes.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Back_Flyes_-_With_Bands_female_v2_3.png",
+      "sourceSha256": "390fd241e6ee6c8fd1875047fcd1dbc2c29ec691b936df48b89e4527d39283bc",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/revision-02/Back_Flyes_-_With_Bands_female_v2_3.png",
+      "candidateSha256": "0aad96e9fde241f7ff76fe93c7c3a02a33b6a4d2e15ec1d95eb944a4d38b4a10",
+      "method": "Exact same-gender repaired frame 1 reused as return frame 3, creating forward/reverse phases 0-1-2-1. No synthetic anatomy or original faulty return pixels retained.",
+      "visuallyReviewed": true,
+      "referencePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/candidates/Back_Flyes_-_With_Bands_female_v2_1.png",
+      "referenceSha256": "0aad96e9fde241f7ff76fe93c7c3a02a33b6a4d2e15ec1d95eb944a4d38b4a10"
+    }
+  ],
+  "prompts": [
+    {
+      "text": "Use case: precise-object-edit. Edit the supplied female back fly exercise animation frame. Preserve exactly the 1024x768 canvas, rear three-quarter camera, woman identity, ponytail, black shirt, black shorts with orange seam, shoes, torso, legs, scale, head position and planted foot coordinates. Correct the arms to be extended nearly straight, raised approximately parallel to the floor, in a return phase of a standing resistance band reverse fly (between arms out and arms forward); no rowing bent elbows. Repair resistance bands as continuous thin dark strands from the handles toward a common off-canvas image-left stationary anchor, with no detached segments or extra dangling strands. Restore fragmented light shoe soles, retaining exact footwear size and ground anchors. Match original detailed fitness illustration style. Actual transparent alpha background, including all enclosed gaps; no white background, no painted checkerboard. No other changes, text, cropping, enlargement, post, or floor.",
+      "method": "built-in imagegen",
+      "accepted": false,
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/work/rejected-female3.png"
+    },
+    {
+      "text": "Edit target: original female exercise illustration. Precise localized repair only: reconnect the broken lower resistance band fragments into one continuous slender dark line ending behind the torso, matching existing line width; restore missing pixels in white shoe soles without enlarging the shoes or doubling outlines. Lock all other original pixels, arms pose, anatomy, clothes, camera, scale, placement and 4:3 canvas. For reliable background extraction put only the empty background and enclosed empty gaps on perfectly flat solid chroma green RGB(0,255,0). No green on subject. No checkerboard, white backdrop, gradients, shadows, or new objects. Preserve original thin bands and detailed fitness illustration texture. Do not extend band endpoints or redesign anything.",
+      "method": "built-in imagegen",
+      "accepted": false,
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/work/rejected-female3-green.png"
+    },
+    {
+      "text": "Precise exercise animation repair. Image 1 is the edit target female return phase; image 2 is the SAME woman in the correct intermediate straight-arm phase and is the exact anatomy/identity/equipment reference. Replace only image 1's bent-elbow upper body and broken bands with the straight-arm intermediate return position shown in image 2, matching that reference geometry exactly. Keep image 2's complete handle-to-band connections: both visible near-handle attachments and continuous thin strands, no broken or floating fragments. Preserve exact original texture, outfit, ponytail, proportions, lower body, planted shoes and 4:3 framing. Do not invent a new exercise or row. Background solid pure green #00ff00 for extraction, including enclosed gaps; no checkerboard or green subject. Result should be indistinguishable in style and figure scale from image 2. No text.",
+      "method": "built-in imagegen reference-guided edit",
+      "accepted": false,
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/work/rejected-r2-reference-edit.png",
+      "reason": "Correct intermediate arm geometry, but figure redraw remains less faithful than directly reusing the existing matching phase."
+    },
+    {
+      "text": "For each gender, retain prior repaired frames 0,1,2 byte-for-byte and copy repaired frame 1 to frame 3 as the return phase. Review complete 0-1-2-1 sequence on white/dark. Preserve original review paths; save revision separately.",
+      "method": "Exact same-sequence reference phase reuse",
+      "accepted": true
+    }
+  ],
+  "snapshotPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/work/snapshots/revision-01",
+  "evidencePaths": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/revision-02/male-light.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/revision-02/male-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/revision-02/female-light.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-009/outputs/revision-02/female-dark.jpg"
+  ],
+  "humanApproved": false
+}

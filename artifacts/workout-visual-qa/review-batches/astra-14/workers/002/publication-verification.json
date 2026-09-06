@@ -1,0 +1,57 @@
+{
+  "exerciseId": "Bottoms_Up",
+  "status": "published_human_pending",
+  "verifiedAt": "2026-09-06T18:13:10.311562+00:00",
+  "manifestUrl": "http://127.0.0.1:8765/manifest.json",
+  "available": 8,
+  "humanApproved": false,
+  "humanDecision": "pending",
+  "publication": {
+    "backup": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/004-backup-direct-034f2e4cb4",
+    "snapshot": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/004",
+    "reviewRequestedAt": "2026-09-06T18:12:46.778439+00:00",
+    "reportSha256": "d0a126ce3623eed6a30152488f3d0836f81059128b9549439aaefae5f32400dd"
+  },
+  "images": [
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Bottoms_Up_male_v2_0.png?v=8ff85d767ceba705b4f1f6af3987b36aff7996ed9df45efa55fe1ddd075d1162",
+      "status": 200,
+      "sha256": "8ff85d767ceba705b4f1f6af3987b36aff7996ed9df45efa55fe1ddd075d1162"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Bottoms_Up_male_v2_1.png?v=034910ed82d9e0df734ccc91ee76bd729791648602af99ece35bd026c5338e50",
+      "status": 200,
+      "sha256": "034910ed82d9e0df734ccc91ee76bd729791648602af99ece35bd026c5338e50"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Bottoms_Up_male_v2_2.png?v=3dbae2d3b0bceb2a4f3b51f02ebabe42afdae54b9f0a7ab8223602c2101494f0",
+      "status": 200,
+      "sha256": "3dbae2d3b0bceb2a4f3b51f02ebabe42afdae54b9f0a7ab8223602c2101494f0"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Bottoms_Up_male_v2_3.png?v=8ff85d767ceba705b4f1f6af3987b36aff7996ed9df45efa55fe1ddd075d1162",
+      "status": 200,
+      "sha256": "8ff85d767ceba705b4f1f6af3987b36aff7996ed9df45efa55fe1ddd075d1162"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Bottoms_Up_female_v2_0.png?v=7b21a0af0e01a1e1e2af0cedf1aac8918bb508827e94043faf2f4106ecf8d727",
+      "status": 200,
+      "sha256": "7b21a0af0e01a1e1e2af0cedf1aac8918bb508827e94043faf2f4106ecf8d727"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Bottoms_Up_female_v2_1.png?v=813545f93558cc488b945d003b2619e6498933c83a6f5e9f5c5926d52f2e37b2",
+      "status": 200,
+      "sha256": "813545f93558cc488b945d003b2619e6498933c83a6f5e9f5c5926d52f2e37b2"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Bottoms_Up_female_v2_2.png?v=c08aa72703496fb92b600edcc03eb37df53c7e109e2886d8af8c8bec728c0744",
+      "status": 200,
+      "sha256": "c08aa72703496fb92b600edcc03eb37df53c7e109e2886d8af8c8bec728c0744"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Bottoms_Up_female_v2_3.png?v=7b21a0af0e01a1e1e2af0cedf1aac8918bb508827e94043faf2f4106ecf8d727",
+      "status": 200,
+      "sha256": "7b21a0af0e01a1e1e2af0cedf1aac8918bb508827e94043faf2f4106ecf8d727"
+    }
+  ]
+}

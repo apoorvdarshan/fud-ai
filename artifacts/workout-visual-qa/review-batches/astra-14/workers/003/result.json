@@ -1,0 +1,121 @@
+{
+  "exerciseId": "Calf_Stretch_Elbows_Against_Wall",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003",
+  "findings": [
+    "Revision 2 replaces all eight independently drifting walls with a single shared wall layer sampled from the prior male frame 0 wall. Fixed front corners are [425,46], [864,24], [864,724], [425,662]; fixed side corners are [864,24], [886,30], [886,715], [864,724] on the 1024x768 canvas. The exposed right wall strip is byte-identical across every candidate.",
+    "Retained the previously imagegen-repaired athlete artwork and four lean stages. Deterministic color separation removed only the warm-gray prior walls; enclosed foreground regions were restored, and disconnected wall remnants were removed. No new anatomy redraw was needed for this wall/anchor revision.",
+    "Applied whole-athlete translations plus small smooth lower-leg anchor corrections, without per-frame scale normalization. Male left shoe bottom is y727 in all four frames; right bottom is y749,748,750,749. Female left shoe bottom is y726 throughout; right bottom is y744,744,743,744.",
+    "Added a narrow soft forearm contact shadow clipped to the shared wall. Both forearms remain bent and supported at the wall; the grounded heels and progression from upright to deeper lean remain visible.",
+    "All eight final candidates were visually reviewed on light and dark backgrounds at 512x384 per panel. No painted checkerboard, white interior gaps, detached wall outlines, clipped anatomy or obvious foreground loss observed. Every candidate is 1024x768 RGBA with alpha extrema 0-255 and transparent corners.",
+    "Before revision, preserved the reviewed report and all eight candidate files in the versioned snapshot. Existing outputs/candidates files were not overwritten; new files are under outputs/revision-2. Production source hashes remain unchanged."
+  ],
+  "unresolved": [
+    "Minor inherited shoe silhouette and clothing-fold variations remain between prior generated poses. Ground-contact residuals are at most one pixel from the reference height after resampling; human review remains final."
+  ],
+  "frames": [
+    {
+      "filename": "Calf_Stretch_Elbows_Against_Wall_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf_Stretch_Elbows_Against_Wall_male_v2_0.png",
+      "sourceSha256": "c7256dca29acfc2bdef69a361631877788dbf5ac33126158f04ed413d1258048",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/outputs/revision-2/Calf_Stretch_Elbows_Against_Wall_male_v2_0.png",
+      "candidateSha256": "020df65b31c2d92da59d256580e77319e9faab5741ffed9ff72717b615ad971f",
+      "method": "prior_imagegen_athlete_preserved_deterministic_shared_wall_and_ground_anchor_repair",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Stretch_Elbows_Against_Wall_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf_Stretch_Elbows_Against_Wall_male_v2_1.png",
+      "sourceSha256": "2b5d534262bc198accaaea3039bbfd6cc05f04cf25f5a06f4d036d3646fb9591",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/outputs/revision-2/Calf_Stretch_Elbows_Against_Wall_male_v2_1.png",
+      "candidateSha256": "010d905f4a2cce15b83a2c17e30cec9be1f7e5dadcf139ae845efbc93e4909aa",
+      "method": "prior_imagegen_athlete_preserved_deterministic_shared_wall_and_ground_anchor_repair",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Stretch_Elbows_Against_Wall_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf_Stretch_Elbows_Against_Wall_male_v2_2.png",
+      "sourceSha256": "d542925482aaff11da022b978f2b30446f58903bfb1759df635f52dc8ca4cf2a",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/outputs/revision-2/Calf_Stretch_Elbows_Against_Wall_male_v2_2.png",
+      "candidateSha256": "310e3b54d3cf751174096fc4fc0d7188e5944df25a1c557250334a68a4d01d44",
+      "method": "prior_imagegen_athlete_preserved_deterministic_shared_wall_and_ground_anchor_repair",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Stretch_Elbows_Against_Wall_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf_Stretch_Elbows_Against_Wall_male_v2_3.png",
+      "sourceSha256": "39a480f659385d699e4908047e5b0c7d07d806ddc176d9daafeeafbd4675d1a9",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/outputs/revision-2/Calf_Stretch_Elbows_Against_Wall_male_v2_3.png",
+      "candidateSha256": "a3b82902075cf5add7c9ebd86591275eb2aee1a80c6203fc8e7d5ca2ca4cbdc5",
+      "method": "prior_imagegen_athlete_preserved_deterministic_shared_wall_and_ground_anchor_repair",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Stretch_Elbows_Against_Wall_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf_Stretch_Elbows_Against_Wall_female_v2_0.png",
+      "sourceSha256": "7f2b1179d786faef4ae5a5924b6396558b389b66166171b856dee96d5c7cc9b8",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/outputs/revision-2/Calf_Stretch_Elbows_Against_Wall_female_v2_0.png",
+      "candidateSha256": "f2200f46d4639349435ff39f49a92fa5d2de8eb58fd694906970fa8a1305db43",
+      "method": "prior_imagegen_athlete_preserved_deterministic_shared_wall_and_ground_anchor_repair",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Stretch_Elbows_Against_Wall_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf_Stretch_Elbows_Against_Wall_female_v2_1.png",
+      "sourceSha256": "c27c7efe7b6e5aa469a355c94c1b81fd2c60737d199da287f7e1686fe7962058",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/outputs/revision-2/Calf_Stretch_Elbows_Against_Wall_female_v2_1.png",
+      "candidateSha256": "0d31181da479f1ddf66a33e8bcfb342ee30712af8d07585efb5d57b75c58e87b",
+      "method": "prior_imagegen_athlete_preserved_deterministic_shared_wall_and_ground_anchor_repair",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Stretch_Elbows_Against_Wall_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf_Stretch_Elbows_Against_Wall_female_v2_2.png",
+      "sourceSha256": "65226432cb2ee4cf2fd4536d2df12a736357d559bd28bf918754f9977d355b72",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/outputs/revision-2/Calf_Stretch_Elbows_Against_Wall_female_v2_2.png",
+      "candidateSha256": "037d8585136dfc4bf73094e12e8be7e539b7b6a20e10c640c08e181a781f45f9",
+      "method": "prior_imagegen_athlete_preserved_deterministic_shared_wall_and_ground_anchor_repair",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Calf_Stretch_Elbows_Against_Wall_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Calf_Stretch_Elbows_Against_Wall_female_v2_3.png",
+      "sourceSha256": "a3faf21e425e549cc0e3e64440d2e65e48b8779e0c8e9ec72485c3daa4f95545",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/outputs/revision-2/Calf_Stretch_Elbows_Against_Wall_female_v2_3.png",
+      "candidateSha256": "d7607a7e565bc4951ca98f2663115b6a73c34b71233fc5bda3b29730f014d307",
+      "method": "prior_imagegen_athlete_preserved_deterministic_shared_wall_and_ground_anchor_repair",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": {
+    "previousRejectedAttempts": [
+      {
+        "prompt": "Use case: precise-object-edit. Edit this calf-stretch illustration as the master frame for an animation. Preserve the same male identity, black shirt and shorts with orange piping, black shoes, illustration rendering, body scale, rear three-quarter camera, grounded heels and both forearms bearing against the wall. Repair only framing of wall: show its entire top edge with 30 pixels transparent margin, retain wall right edge and base perspective, no clipped wall. Actual transparent background outside man and wall, no checkerboard or white fill. Keep athlete unchanged. Output 1024x768.",
+        "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/work/rejected-attempt-1.png",
+        "accepted": false
+      },
+      {
+        "prompt": "Precise image edit. Input is an animation frame; keep every pixel of the man and shoes and existing wall unchanged. Only extend the canvas upward by 30 pixels of actual transparent alpha so entire wall top is visible, and clean white/red/yellow stray edge pixels outside silhouette. No redraw of man. Do not rescale or move subject. Real transparency, no background fill, no checkerboard.",
+        "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/work/rejected-attempt-2.png",
+        "accepted": false
+      }
+    ],
+    "revision2": "No new imagegen call for this revision. Preserve prior repaired athlete pixels, extract warm-gray wall with color/connected-region masks, use one sampled fixed wall layer, align shoe contacts with whole-body translation plus small smooth lower-leg correction, and add clipped forearm contact shadows. The earlier imagegen skill and rejected prompts remain recorded for provenance.",
+    "priorGenerationPromptPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-008/prompts.md",
+    "implementationPaths": [
+      "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/work/revise.py",
+      "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/work/anchor.py"
+    ]
+  },
+  "revision": 2,
+  "snapshotPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/outputs/snapshot-20260906-230105",
+  "validation": {
+    "lightDarkReviewPaths": [
+      "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/outputs/revision-2-male-review.png",
+      "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/outputs/revision-2-female-review.png"
+    ],
+    "technicalChecksPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/work/revision-2-checks.json",
+    "allSourceHashesUnchanged": true,
+    "wallStripIdentical": true
+  }
+}

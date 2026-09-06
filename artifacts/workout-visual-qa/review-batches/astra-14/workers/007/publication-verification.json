@@ -1,0 +1,72 @@
+{
+  "exerciseId": "Front_Barbell_Squat_To_A_Bench",
+  "status": "published_human_pending",
+  "verifiedAt": "2026-09-06T18:15:33.493698+00:00",
+  "reviewRequestedAt": "2026-09-06T18:15:09.706059+00:00",
+  "humanApproved": false,
+  "snapshotPath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/018",
+  "priorSnapshotBackup": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/018.backup-direct-007-d1cedd94dcba45c496ffb1e1e8b6cb79",
+  "reportSha256": "fd951f87c479a38aed19ef2b5f99f82b109c9c8f5b5498b1ca6eeaf61db321b4",
+  "manifestUrl": "http://127.0.0.1:8765/manifest.json",
+  "available": 8,
+  "images": [
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_male_v2_0.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Front_Barbell_Squat_To_A_Bench_male_v2_0.png?v=15d1e7da0fbe66f24b45079624c95021bea15f5780db947b88afb7d6552471fa",
+      "httpStatus": 200,
+      "sha256": "15d1e7da0fbe66f24b45079624c95021bea15f5780db947b88afb7d6552471fa",
+      "decodedPng": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_male_v2_1.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Front_Barbell_Squat_To_A_Bench_male_v2_1.png?v=bcc5604f31235130b58473894a295c1d301ccb2d07d3107da5247874e30d8bf9",
+      "httpStatus": 200,
+      "sha256": "bcc5604f31235130b58473894a295c1d301ccb2d07d3107da5247874e30d8bf9",
+      "decodedPng": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_male_v2_2.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Front_Barbell_Squat_To_A_Bench_male_v2_2.png?v=0ce35eed05a37e188e5db9e53f9d88f8a240dc7046ab8b88e7a233b974547f2f",
+      "httpStatus": 200,
+      "sha256": "0ce35eed05a37e188e5db9e53f9d88f8a240dc7046ab8b88e7a233b974547f2f",
+      "decodedPng": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_male_v2_3.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Front_Barbell_Squat_To_A_Bench_male_v2_3.png?v=15d1e7da0fbe66f24b45079624c95021bea15f5780db947b88afb7d6552471fa",
+      "httpStatus": 200,
+      "sha256": "15d1e7da0fbe66f24b45079624c95021bea15f5780db947b88afb7d6552471fa",
+      "decodedPng": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_female_v2_0.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Front_Barbell_Squat_To_A_Bench_female_v2_0.png?v=8083cb04c6a0ea06597c1c3889674e5378e0ff3f62510443a5fd9f834903f909",
+      "httpStatus": 200,
+      "sha256": "8083cb04c6a0ea06597c1c3889674e5378e0ff3f62510443a5fd9f834903f909",
+      "decodedPng": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_female_v2_1.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Front_Barbell_Squat_To_A_Bench_female_v2_1.png?v=eff9bfac6a5e96bd9fb4723ee474d74634974bf41a3bfcdaf7b24cadb03c4817",
+      "httpStatus": 200,
+      "sha256": "eff9bfac6a5e96bd9fb4723ee474d74634974bf41a3bfcdaf7b24cadb03c4817",
+      "decodedPng": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_female_v2_2.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Front_Barbell_Squat_To_A_Bench_female_v2_2.png?v=9bb6d437b6c1ceaa5eb05438345bdd4632b05debd3fc677d59d193d80991f0e6",
+      "httpStatus": 200,
+      "sha256": "9bb6d437b6c1ceaa5eb05438345bdd4632b05debd3fc677d59d193d80991f0e6",
+      "decodedPng": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_female_v2_3.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Front_Barbell_Squat_To_A_Bench_female_v2_3.png?v=8083cb04c6a0ea06597c1c3889674e5378e0ff3f62510443a5fd9f834903f909",
+      "httpStatus": 200,
+      "sha256": "8083cb04c6a0ea06597c1c3889674e5378e0ff3f62510443a5fd9f834903f909",
+      "decodedPng": true
+    }
+  ],
+  "otherLedgerEntriesPreserved": true,
+  "canonicalOriginalsUnchanged": true
+}

@@ -1,0 +1,119 @@
+{
+  "exerciseId": "Brachialis-SMR",
+  "status": "blocked_not_published",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-002",
+  "findings": [
+    "All eight existing candidates visually inspected in ordered male/female rows on light and dark backgrounds.",
+    "Existing candidates retain white enclosed leg gaps, contour fringes and roller geometry drift; male frame 2 visibly lacks a forearm/hand.",
+    "Three built-in editing attempts made on male frame 2 with reference photograph. First returned RGB baked checkerboard; alpha retry returned RGBA but changed framing and retained incorrect forearm contact; mechanics retry returned RGB checkerboard and extra hand."
+  ],
+  "unresolved": [
+    "No complete corrected eight-frame animation passed visual checks.",
+    "True alpha, correct two-arm anatomy, stable roller contact and ordered-animation continuity remain unverified for a repaired set.",
+    "No publication or ledger update performed."
+  ],
+  "frames": [
+    {
+      "filename": "Brachialis-SMR_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Brachialis-SMR_male_v2_0.png",
+      "sourceSha256": "ddb1918b1318b3a27c123385a5d17e8617d4092180d678e5df38d109a5bdef21",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-002/work/existing-candidates/Brachialis-SMR_male_v2_0.png",
+      "candidateSha256": "7a193e1b8927a1e3a202a71adcd56f63141a546fd396d27f72c3c6d217b2b8e1",
+      "method": "existing candidate preserved unchanged for evidence; failed visual acceptance",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Brachialis-SMR_male_v2_1.png",
+      "sourceSha256": "96f348bf2843586f199106497d5fa2ee5339096f9867e01a8a00cde8e1ef5281",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-002/work/existing-candidates/Brachialis-SMR_male_v2_1.png",
+      "candidateSha256": "5f488f46a89ecc2f20b1bee5e69233c067e07d8ef7ac7622061e82fce47c95ba",
+      "method": "existing candidate preserved unchanged for evidence; failed visual acceptance",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Brachialis-SMR_male_v2_2.png",
+      "sourceSha256": "560fd8f4449f4e68beb79f9d0c230f330e09397afa880e12d152e2b801751fe0",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-002/work/existing-candidates/Brachialis-SMR_male_v2_2.png",
+      "candidateSha256": "2596062627dd81a4bfb14a464aadec4874b1f4160f929222db1f7dc80bae3118",
+      "method": "existing candidate preserved unchanged for evidence; failed visual acceptance",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Brachialis-SMR_male_v2_3.png",
+      "sourceSha256": "40e110cf09e4c75e7170c61ae7205851d4c284cb59d2f4fffc56adcf9b60b38b",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-002/work/existing-candidates/Brachialis-SMR_male_v2_3.png",
+      "candidateSha256": "1c6d8b95d3de130f2fbb0c94347e312155511f1facc97b719228844c65e94622",
+      "method": "existing candidate preserved unchanged for evidence; failed visual acceptance",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Brachialis-SMR_female_v2_0.png",
+      "sourceSha256": "0888d61aea4f3c7d6e6716b919d4ca820e8b18948c6151989ba1cd405622dc41",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-002/work/existing-candidates/Brachialis-SMR_female_v2_0.png",
+      "candidateSha256": "c865ec94578612fbcaaf9c24fe571f1ed4565e67332154dd0df4bbd1f15c031c",
+      "method": "existing candidate preserved unchanged for evidence; failed visual acceptance",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Brachialis-SMR_female_v2_1.png",
+      "sourceSha256": "cf018639a0898e9c4ea7cb29f1aab0093e86ca6fb01221be46fdd8e3a4d06c2e",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-002/work/existing-candidates/Brachialis-SMR_female_v2_1.png",
+      "candidateSha256": "06d47c8ca268c2d6765f07595d20292341baa5e928aacb0123844534d752a9a2",
+      "method": "existing candidate preserved unchanged for evidence; failed visual acceptance",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Brachialis-SMR_female_v2_2.png",
+      "sourceSha256": "cf7073661c32bf6bf8d9ee0528dbab693d431ecab170d6348e2c0082e751707c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-002/work/existing-candidates/Brachialis-SMR_female_v2_2.png",
+      "candidateSha256": "8ee9c09c3ebc873c54e890005278d08d5f1be1ac01fe17117f4596026875fc1e",
+      "method": "existing candidate preserved unchanged for evidence; failed visual acceptance",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Brachialis-SMR_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Brachialis-SMR_female_v2_3.png",
+      "sourceSha256": "ea99e19b2c4a5bbfc317b871e758ed96708be7452162b9c008daaa8bc0381dd7",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-002/work/existing-candidates/Brachialis-SMR_female_v2_3.png",
+      "candidateSha256": "f43a381ce05bb465b5ac5861ef267e81eeb68ecd4b6497b8d73da5b1d73531cd",
+      "method": "existing candidate preserved unchanged for evidence; failed visual acceptance",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    "Use case: precise-object-edit. Edit target image 1, exercise mechanics reference image 2. Repair this Brachialis-SMR illustration: show TWO complete arms, with outside of lower upper arm resting on the floor-supported blue horizontal foam roller and its elbow bent into a clearly visible forearm and hand, opposite hand clasping that wrist as in reference photograph. Preserve illustrated man's identity, black clothing, shoes, drawing/shading style, body scale, canvas 1024x768 and leg pose. Roller lies on ground at shoe ground level. Repair absent forearm without any stump or disconnected anatomy. Remove ALL white enclosed wedges between legs, arms, and pale edge halos. Real transparent alpha background including enclosed gaps, no checkerboard or floor painted into image. Keep generous complete-figure bounds. Output one corrected frame.",
+    "Background extraction only: remove the entire baked-in checkerboard from this image, including every enclosed gap between legs and arms. Return a PNG with real transparent alpha pixels, NOT a picture of transparency. Preserve all person and roller pixels, anatomy and exact composition. No white/gray/checkerboard background. Genuine RGBA transparent cutout.",
+    "Precise exercise mechanics correction. Target image 1; photo image 2 shows exact arm positioning. Move roller under the OUTSIDE OF UPPER ARM midway shoulder to elbow (brachialis), not underneath forearm/wrist. Lower elbow bends upward with visible forearm and hand, opposite hand holds wrist, faithfully matching photo. Preserve illustration man identity clothes legs style. Canvas 1024x768 with full figure inside 40px safe margins. Real transparent background, no checkerboard. Clean antialiasing without colored or white edge speckles. This must illustrate brachialis rolling, not forearm rolling."
+  ],
+  "provenance": [
+    {
+      "generatedPath": "/Users/apoorvdarshan/.codex/generated_images/01a077f1-6a7f-7fd0-9440-819e8af382ac/exec-499a80f2-42cf-49f3-a721-cab434fb0385.png",
+      "savedPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-002/work/rejected-edits/exec-499a80f2-42cf-49f3-a721-cab434fb0385.png",
+      "sha256": "655ef92c3a49f11e5dfa2dbcf6ca1e1469377f301811aa5b1654377657003ba3",
+      "accepted": false
+    },
+    {
+      "generatedPath": "/Users/apoorvdarshan/.codex/generated_images/01a077f1-6a7f-7fd0-9440-819e8af382ac/exec-ecf94010-b374-426f-842b-c02a518a662f.png",
+      "savedPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-002/work/rejected-edits/exec-ecf94010-b374-426f-842b-c02a518a662f.png",
+      "sha256": "66446ced7ac752a8cbb4705720e06471f128fc62dbe925398c934465aef48676",
+      "accepted": false
+    },
+    {
+      "generatedPath": "/Users/apoorvdarshan/.codex/generated_images/01a077f1-6a7f-7fd0-9440-819e8af382ac/exec-a0e2fab9-0364-4b21-b216-e265325618ec.png",
+      "savedPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-002/work/rejected-edits/exec-a0e2fab9-0364-4b21-b216-e265325618ec.png",
+      "sha256": "52c8ad184df37aab4a9e3a2e851312e5690eb4983d0e8ea5f2093328e0bbde7a",
+      "accepted": false
+    }
+  ],
+  "publication": {
+    "published": false,
+    "reason": "Visual repair acceptance failed"
+  },
+  "reviewEvidence": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-002/work/inspection.jpg"
+}

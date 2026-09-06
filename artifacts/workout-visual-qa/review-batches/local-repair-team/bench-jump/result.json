@@ -1,0 +1,103 @@
+{
+  "exerciseId": "Bench_Jump",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-07/workout-team-bench-jump",
+  "frames": [
+    {
+      "filename": "Bench_Jump_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_male_v2_0.png",
+      "sourceSha256": "5658f6cc5533c3b7158f2782fbce8f44f04c5d2e8535eab1595b91274d58d143",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-07/workout-team-bench-jump/candidates/Bench_Jump_male_v2_0.png",
+      "candidateSha256": "64c331030701be77a66da2be94e3c4558924c1106bbd649281074fd05f3c96d2",
+      "method": "Uniform whole-sequence 90 percent scale and centered transparent padding; source anatomy and fixed scene anchors preserved proportionally.",
+      "visuallyReviewed": true,
+      "priorCandidateUnchanged": false
+    },
+    {
+      "filename": "Bench_Jump_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_male_v2_1.png",
+      "sourceSha256": "5f715a39e04866241ac832355caf782233ff9c6bfb05c42e7ec83022c795525f",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-07/workout-team-bench-jump/candidates/Bench_Jump_male_v2_1.png",
+      "candidateSha256": "220e2c1c203ea22aeec3a0f65d26fbfa3f8032e91463461e42ce212b1353096b",
+      "method": "Uniform whole-sequence 90 percent scale and centered transparent padding; source anatomy and fixed scene anchors preserved proportionally.",
+      "visuallyReviewed": true,
+      "priorCandidateUnchanged": false
+    },
+    {
+      "filename": "Bench_Jump_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_male_v2_2.png",
+      "sourceSha256": "2590af62cabbe8e7d85572eddac9afbcbe4f4e5159c86af56cb3b9ae99d52f36",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-07/workout-team-bench-jump/candidates/Bench_Jump_male_v2_2.png",
+      "candidateSha256": "3f27194ec7b75177203051742a5afa2723f2fcb7c40bfc057cf6353f5fb468c0",
+      "method": "Uniform whole-sequence 90 percent scale and centered transparent padding; source anatomy and fixed scene anchors preserved proportionally.",
+      "visuallyReviewed": true,
+      "priorCandidateUnchanged": false
+    },
+    {
+      "filename": "Bench_Jump_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_male_v2_3.png",
+      "sourceSha256": "67f024f40a92516faa8ea136ebb14f1438d3053756a07569e5e7d36c3e5848bb",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-07/workout-team-bench-jump/candidates/Bench_Jump_male_v2_3.png",
+      "candidateSha256": "776b7cd881f14d73df3c6329456940dc20c00e8ae65334c1a7841e87b9ee33e2",
+      "method": "Uniform whole-sequence 90 percent scale and centered transparent padding; source anatomy and fixed scene anchors preserved proportionally.",
+      "visuallyReviewed": true,
+      "priorCandidateUnchanged": false
+    },
+    {
+      "filename": "Bench_Jump_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_female_v2_0.png",
+      "sourceSha256": "87e8112541a8984efae519ea1cab13061e2d6eff4e6ecd5f080de58e99e5bb81",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-07/workout-team-bench-jump/candidates/Bench_Jump_female_v2_0.png",
+      "candidateSha256": "5c8a73b4bb2f384375c4583ee8e223bdbeb4bf40215eeb5aac03bb677824dbb2",
+      "method": "Uniform whole-sequence 90 percent scale and centered transparent padding; source anatomy and fixed scene anchors preserved proportionally.",
+      "visuallyReviewed": true,
+      "priorCandidateUnchanged": false
+    },
+    {
+      "filename": "Bench_Jump_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_female_v2_1.png",
+      "sourceSha256": "11697a6c6a116464201002454ddc27438588b1ce3bfd0df5ee136e999fe17a61",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-07/workout-team-bench-jump/candidates/Bench_Jump_female_v2_1.png",
+      "candidateSha256": "ad7a6f6494b60460a26f8b437e7c9881f8ed6afa4c274ab9bc90840e791104a0",
+      "method": "Uniform whole-sequence 90 percent scale and centered transparent padding; source anatomy and fixed scene anchors preserved proportionally.",
+      "visuallyReviewed": true,
+      "priorCandidateUnchanged": false
+    },
+    {
+      "filename": "Bench_Jump_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_female_v2_2.png",
+      "sourceSha256": "177c916c8d9cfb1e9fa5b39f03a95e11755438d6c539d7fad00c5bf04d281cc4",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-07/workout-team-bench-jump/candidates/Bench_Jump_female_v2_2.png",
+      "candidateSha256": "3ac06877614cc5431836e5d13fee97b94c50c8221339048c2711ce9994663b7d",
+      "method": "Uniform whole-sequence 90 percent scale and centered transparent padding; source anatomy and fixed scene anchors preserved proportionally.",
+      "visuallyReviewed": true,
+      "priorCandidateUnchanged": false
+    },
+    {
+      "filename": "Bench_Jump_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_female_v2_3.png",
+      "sourceSha256": "c25f371af8e5fc262bf407492ba22e9ff5edcc631e87c5654ef8fdc0e79f522e",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-07/workout-team-bench-jump/candidates/Bench_Jump_female_v2_3.png",
+      "candidateSha256": "93c03b315c9d66dbfb7453962b3f086350a40ee5cb2c75225eea15869d6aa1e9",
+      "method": "Uniform whole-sequence 90 percent scale and centered transparent padding; source anatomy and fixed scene anchors preserved proportionally.",
+      "visuallyReviewed": true,
+      "priorCandidateUnchanged": false
+    }
+  ],
+  "findings": [
+    "All8 prior candidate frames inspected individually full-size. No missing fingers/head/shoes or canvas-edge clipping detected; final landing had only6px right margin and early jump had little top margin.",
+    "Applied same 922x692 resample and (51,38) transparent offset to every frame; no individual recentering, preserving stationary bench anchor and motion relationships.",
+    "Landing soles are below bench top at floor level beyond right side of bench; knees flexed. No landing on top of bench.",
+    "Inspected both revised full-size landing frames and entire ordered sets on white/dark after uniform padding. No new image generation."
+  ],
+  "unresolved": [],
+  "reviewCaveats": [
+    "Phase3 independently generated artwork has smoother detail than earlier source frames. Original phases retain thin pale linework around some bench edges. Human style approval remains pending."
+  ],
+  "reviewEvidence": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-07/workout-team-bench-jump/male-review.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-07/workout-team-bench-jump/female-review.jpg"
+  ],
+  "productionModified": false,
+  "published": false
+}

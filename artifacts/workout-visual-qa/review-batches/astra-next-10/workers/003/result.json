@@ -1,0 +1,194 @@
+{
+  "exerciseId": "Barbell_Shoulder_Press",
+  "status": "blocked",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-003",
+  "findings": [
+    "All eight canonical sources, prior candidates and final candidates visually reviewed on light and dark backgrounds; canonical seated supported press mechanics checked.",
+    "Both frame0 right hardware cutoffs extended using built-in imagegen green-key edits and bounded compositing. Original pixels left of x781 male / x779 female preserved exactly relative to prior candidates; athlete unchanged.",
+    "Six other prior candidates carried forward byte-for-byte. They are not claimed newly fixed.",
+    "Six built-in generations attempted: initial transparent request returned painted checkerboard; green-key male/female frame0 edits used only as bounded extensions; male/female frame3-to-lockout attempts and narrower female rack-only retry rejected for identity/scale/geometry drift.",
+    "All eight final PNGs have genuine RGBA transparency; no generated checkerboard accepted.",
+    "Resumed review: all eight final candidates rechecked on light/dark ordered sheets; filenames validated against batch-02 manifest and all sixteen source/candidate hashes recomputed and matched. Candidates unchanged."
+  ],
+  "unresolved": [
+    "Both frame2 rack geometry remains inconsistent: left upright position and rear top support do not match stationary equipment in other phases. Prior frame2 candidates retained after failed redraw attempts.",
+    "Both frame0 hardware extensions improve the silhouette but local joins at the old clipping boundary remain visible; storage peg/sleeve detail differs from other phases. These are partial repair candidates, not approved fixes.",
+    "Existing thin pale edge fringes and modest equipment/anchor variation remain.",
+    "Complete corrected set was not achieved. No production promotion or approval.",
+    "Seventh built-in attempt with explicit fixed rack coordinates failed: athlete/barbell shifted, clothing details changed, RGB 1448x1086 checkerboard instead of alpha. Rejected without candidate overwrite. Cannot meet simultaneous equipment continuity and foreground preservation constraints with attempted edits; publication withheld."
+  ],
+  "frames": [
+    {
+      "filename": "Barbell_Shoulder_Press_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shoulder_Press_male_v2_0.png",
+      "sourceSha256": "eb8bf84bbd8edb78240b608b4e239f63a44540e7067c350e6c2232d9e701b1a3",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-003/outputs/Barbell_Shoulder_Press_male_v2_0.png",
+      "candidateSha256": "273c9ddc034404d509e386ddc4b231edd8e24bf2786d96c0282706b10b4f8de7",
+      "method": "prior_alpha_cleanup_plus_builtin_imagegen_green_key_bounded_hardware_extension_partial",
+      "visuallyReviewed": true,
+      "alphaValidation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "transparentPixels": 587202,
+        "opaquePixels": 195963,
+        "partialPixels": 3267
+      }
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shoulder_Press_male_v2_1.png",
+      "sourceSha256": "481a0da347c76579d97969b5fed43c713a9b142b26ea1e19ba7a35bc2f2d2fde",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-003/outputs/Barbell_Shoulder_Press_male_v2_1.png",
+      "candidateSha256": "bb868121aecfa122f954805b0672d9f96983d629e2a1ea7b0d10692211b2d3d1",
+      "method": "prior_candidate_carried_forward_without_new_edit; deterministic_enclosed_pale_alpha_cleanup_v1+bounded_detached_fragment_alpha_removal",
+      "visuallyReviewed": true,
+      "alphaValidation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "transparentPixels": 594243,
+        "opaquePixels": 192189,
+        "partialPixels": 0
+      }
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shoulder_Press_male_v2_2.png",
+      "sourceSha256": "6139f768de8ccea0faa3c61be8931cbc1756a682dcec4fd864e87f2209463397",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-003/outputs/Barbell_Shoulder_Press_male_v2_2.png",
+      "candidateSha256": "becb5e09eb42297bfe4de221bf31bdf70fb8e95465ba6b038240038d95a765de",
+      "method": "prior_candidate_carried_forward_without_new_edit; deterministic_enclosed_pale_alpha_cleanup_v1+masked_same_variant_frame3_rack_top_underlay",
+      "visuallyReviewed": true,
+      "alphaValidation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "transparentPixels": 580408,
+        "opaquePixels": 205832,
+        "partialPixels": 192
+      }
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shoulder_Press_male_v2_3.png",
+      "sourceSha256": "1c11622a10506d2f52a26786fb2690a5af567cd7835ba2ee788fd7facf86f137",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-003/outputs/Barbell_Shoulder_Press_male_v2_3.png",
+      "candidateSha256": "9b4da8b92d2fae8d821b1e568d43af48846236fcaab30fa3b7d98fba7be283e9",
+      "method": "prior_candidate_carried_forward_without_new_edit; deterministic_enclosed_pale_alpha_cleanup_v1",
+      "visuallyReviewed": true,
+      "alphaValidation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "transparentPixels": 598381,
+        "opaquePixels": 188051,
+        "partialPixels": 0
+      }
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shoulder_Press_female_v2_0.png",
+      "sourceSha256": "cae8d75c90828d7168f74684b522b2e2ce9f1bea9029b25a31b6114e4b8250f7",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-003/outputs/Barbell_Shoulder_Press_female_v2_0.png",
+      "candidateSha256": "0288ee163c3e5b19266327db8309ded634f4bbe95273a068d727fe5532b942e5",
+      "method": "prior_alpha_cleanup_plus_builtin_imagegen_green_key_bounded_hardware_extension_partial",
+      "visuallyReviewed": true,
+      "alphaValidation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "transparentPixels": 594265,
+        "opaquePixels": 189476,
+        "partialPixels": 2691
+      }
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shoulder_Press_female_v2_1.png",
+      "sourceSha256": "305a3d67b5ada6f13c13d18e4582214e6787b732e6ea63650aa1d87cfd6dceb5",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-003/outputs/Barbell_Shoulder_Press_female_v2_1.png",
+      "candidateSha256": "ea38d7012960e1f6320dbecbef862e97b2e85faa35f6361bbe376e464462cb2b",
+      "method": "prior_candidate_carried_forward_without_new_edit; deterministic_enclosed_pale_alpha_cleanup_v1",
+      "visuallyReviewed": true,
+      "alphaValidation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "transparentPixels": 596247,
+        "opaquePixels": 190185,
+        "partialPixels": 0
+      }
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shoulder_Press_female_v2_2.png",
+      "sourceSha256": "8f4883126e989e1b8e8e8308f8527cd26d90d09d8aa0d6bbe85fecdf177164f8",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-003/outputs/Barbell_Shoulder_Press_female_v2_2.png",
+      "candidateSha256": "14bc4ea043ca4daa6f4f47b9dab3a5a25581c2cc92960b779bf3ec081bc79dd7",
+      "method": "prior_candidate_carried_forward_without_new_edit; deterministic_enclosed_pale_alpha_cleanup_v1+masked_same_variant_frame3_rack_top_underlay",
+      "visuallyReviewed": true,
+      "alphaValidation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "transparentPixels": 587292,
+        "opaquePixels": 198943,
+        "partialPixels": 197
+      }
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shoulder_Press_female_v2_3.png",
+      "sourceSha256": "101f7b06b864fc9702ae2d68483c0801a97e190a36b577c8ebf5b02e6c8cd1df",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-003/outputs/Barbell_Shoulder_Press_female_v2_3.png",
+      "candidateSha256": "ee5619ded382ce21b7e6fb82e44bf1548d07fe37126a9edf8dc2be11bea53ba4",
+      "method": "prior_candidate_carried_forward_without_new_edit; deterministic_enclosed_pale_alpha_cleanup_v1",
+      "visuallyReviewed": true,
+      "alphaValidation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "transparentPixels": 600692,
+        "opaquePixels": 185740,
+        "partialPixels": 0
+      }
+    }
+  ],
+  "prompts": {
+    "builtInImagegenUsed": true,
+    "promptFile": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-003/outputs/prompts.json",
+    "recipe": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-003/work/process.py",
+    "attemptCount": 7,
+    "generatedImagesDirectory": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-12a6-7c53-a34b-171300def401",
+    "finalReviewLight": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-003/outputs/final-light.png",
+    "finalReviewDark": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-003/outputs/final-dark.png",
+    "resumeAttempt": {
+      "prompt": "Precise object edit for animation. Image 1 edit target. Image 2 stationary equipment reference. Preserve image1 athlete and raised barbell exactly, including face, hands, clothing, feet, pose and every anchor. Replace only rack with EXACT geometry from image2 at EXACT pixel coordinates: left upright top x420 y80, right upright top x650 y30, curved rear support ending x730 y125, rear foot x755 y635. Athlete and lifted barbell occlude rack normally. Do not move, scale or redraw person, barbell or bench. No reframing. Same original raster illustration. 1024x768 canvas. Real transparent background; no checkerboard or black/white painted backdrop. Repair edges without white fringe.",
+      "output": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-12a6-7c53-a34b-171300def401/exec-a7a9bf2b-3e1f-4b6d-81d1-34a97ae94f94.png",
+      "sha256": "117f8953544e26dc04c0fa5f39e5243ad0c396df31862f35b82cc720a6c144c6",
+      "accepted": false
+    }
+  },
+  "publication": {
+    "published": false,
+    "reason": "Visual checks failed; no publication lock taken, snapshot or ledger changed.",
+    "humanApproved": false
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "exerciseId": "Barbell_Bench_Press_-_Medium_Grip",
+  "verifiedAt": "2026-09-06T18:13:24.306676+00:00",
+  "status": "published_human_pending",
+  "manifestUrl": "http://127.0.0.1:8765/manifest.json",
+  "available": 8,
+  "humanApproved": false,
+  "humanDecision": "pending",
+  "snapshot": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/046",
+  "priorSnapshotBackup": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/046-backup-20260906T181307Z-68513fb1",
+  "reviewRequestedAt": "2026-09-06T18:13:07.490Z",
+  "images": [
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Bench_Press_-_Medium_Grip_male_v2_0.png?v=be19e6a4a72b3cf2c1695066f4ee949ffd4c8c2c3576162d6e1df1a005696200",
+      "status": 200,
+      "sha256": "be19e6a4a72b3cf2c1695066f4ee949ffd4c8c2c3576162d6e1df1a005696200",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Bench_Press_-_Medium_Grip_male_v2_1.png?v=b3eb173db77f0082fc22887e0c7a42a714998d5f2c5903ba2653bfd7f1702394",
+      "status": 200,
+      "sha256": "b3eb173db77f0082fc22887e0c7a42a714998d5f2c5903ba2653bfd7f1702394",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Bench_Press_-_Medium_Grip_male_v2_2.png?v=eb9137c5a0eca438e6cab1c5725cf6db6d88eed0a3bd4f38e29e926ddcc38846",
+      "status": 200,
+      "sha256": "eb9137c5a0eca438e6cab1c5725cf6db6d88eed0a3bd4f38e29e926ddcc38846",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Bench_Press_-_Medium_Grip_male_v2_3.png?v=be19e6a4a72b3cf2c1695066f4ee949ffd4c8c2c3576162d6e1df1a005696200",
+      "status": 200,
+      "sha256": "be19e6a4a72b3cf2c1695066f4ee949ffd4c8c2c3576162d6e1df1a005696200",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Bench_Press_-_Medium_Grip_female_v2_0.png?v=9884359f49da136373c1815ca7277a422aa1a4196c30760ffc0667386b1fbb26",
+      "status": 200,
+      "sha256": "9884359f49da136373c1815ca7277a422aa1a4196c30760ffc0667386b1fbb26",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Bench_Press_-_Medium_Grip_female_v2_1.png?v=5c3750c165efbfb6d0aab9d0dbf8b5234f6aff42fad60b5739e31af94f938415",
+      "status": 200,
+      "sha256": "5c3750c165efbfb6d0aab9d0dbf8b5234f6aff42fad60b5739e31af94f938415",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Bench_Press_-_Medium_Grip_female_v2_2.png?v=d37d8f2d506625a80b23eb2c02964e9493c92db7c22936a3ee341f402db33f7f",
+      "status": 200,
+      "sha256": "d37d8f2d506625a80b23eb2c02964e9493c92db7c22936a3ee341f402db33f7f",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ]
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Bench_Press_-_Medium_Grip_female_v2_3.png?v=9884359f49da136373c1815ca7277a422aa1a4196c30760ffc0667386b1fbb26",
+      "status": 200,
+      "sha256": "9884359f49da136373c1815ca7277a422aa1a4196c30760ffc0667386b1fbb26",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ]
+    }
+  ],
+  "productionAssetsChanged": false,
+  "visualReview": {
+    "frames": 8,
+    "lightAndDark": true,
+    "sequence": true,
+    "notes": [
+      "Revision 2 rechecked: eight light/dark frames; complete barbell plates, no large floor remnants, common lower anchors and matching top endpoints.",
+      "Female stored plate stays on the low peg. Sequence shows top, halfway, chest-level bottom, return.",
+      "Minor face/shading redraw differences and fine pale original upper-pose edge pixels are disclosed for human review. No human approval has been recorded."
+    ]
+  }
+}

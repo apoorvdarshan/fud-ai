@@ -1,0 +1,106 @@
+{
+  "exerciseId": "Barbell_Guillotine_Bench_Press",
+  "revision": 3,
+  "verifiedAt": "2026-09-06T18:15:25.856126+00:00",
+  "manifestUrl": "http://127.0.0.1:8765/manifest.json",
+  "available": 8,
+  "humanApproved": false,
+  "humanDecision": "pending",
+  "imageChecks": [
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_male_v2_0.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Guillotine_Bench_Press_male_v2_0.png?v=7415d893de4172e04cde6de2cd0a21a41c4b26e4ed18bf1e144d28a5eec395c0",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "sha256": "7415d893de4172e04cde6de2cd0a21a41c4b26e4ed18bf1e144d28a5eec395c0",
+      "size": [
+        1024,
+        768
+      ]
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_male_v2_1.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Guillotine_Bench_Press_male_v2_1.png?v=7238afeb1fb5bf5c791490cfef94a41e2315c5c1b1bdb5c005e7087ae4b53b27",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "sha256": "7238afeb1fb5bf5c791490cfef94a41e2315c5c1b1bdb5c005e7087ae4b53b27",
+      "size": [
+        1024,
+        768
+      ]
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_male_v2_2.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Guillotine_Bench_Press_male_v2_2.png?v=3bda50a0af5cb490448f96b0ef348b62ee5dd392bb701d0cf716d2e671722a31",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "sha256": "3bda50a0af5cb490448f96b0ef348b62ee5dd392bb701d0cf716d2e671722a31",
+      "size": [
+        1024,
+        768
+      ]
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_male_v2_3.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Guillotine_Bench_Press_male_v2_3.png?v=390aaa505de949f688ba5d290abc686dbc7582c895bb2c9f1e0d169260b1a902",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "sha256": "390aaa505de949f688ba5d290abc686dbc7582c895bb2c9f1e0d169260b1a902",
+      "size": [
+        1024,
+        768
+      ]
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_female_v2_0.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Guillotine_Bench_Press_female_v2_0.png?v=dc2168beb1198e7813962d66908dc5a7d027ab0140265b52db0754bb89b90234",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "sha256": "dc2168beb1198e7813962d66908dc5a7d027ab0140265b52db0754bb89b90234",
+      "size": [
+        1024,
+        768
+      ]
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_female_v2_1.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Guillotine_Bench_Press_female_v2_1.png?v=57da20d96ab4c6109deab795fd52ff71654a83a8d80b3205486fe5992e98277c",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "sha256": "57da20d96ab4c6109deab795fd52ff71654a83a8d80b3205486fe5992e98277c",
+      "size": [
+        1024,
+        768
+      ]
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_female_v2_2.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Guillotine_Bench_Press_female_v2_2.png?v=00278ee8b8ddfa75893575c891f6aed0641278462ab7e10906b488aa89836405",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "sha256": "00278ee8b8ddfa75893575c891f6aed0641278462ab7e10906b488aa89836405",
+      "size": [
+        1024,
+        768
+      ]
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_female_v2_3.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Barbell_Guillotine_Bench_Press_female_v2_3.png?v=2da91741056c37ebfcb72342e544b18ae3ffb071d72e5905e68e3f0a892f4333",
+      "httpStatus": 200,
+      "contentType": "image/png",
+      "sha256": "2da91741056c37ebfcb72342e544b18ae3ffb071d72e5905e68e3f0a892f4333",
+      "size": [
+        1024,
+        768
+      ]
+    }
+  ],
+  "transaction": {
+    "backup": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/050.backup-20260906T181432-71b44755",
+    "destination": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/050",
+    "reviewRequestedAt": "2026-09-06T18:15:08.409Z",
+    "reportSha256": "7082e4edc1cc96206de7e796009a5c5948b9a819448533c6aaf160bd44aef785",
+    "otherEntriesSha256": "76cd417e8ab47e65266a9a7dd7efb9019bb212f0626673305e221d462be76d5b"
+  }
+}

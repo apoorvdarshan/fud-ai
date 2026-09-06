@@ -1,0 +1,150 @@
+{
+  "exerciseId": "Barbell_Rollout_from_Bench",
+  "status": "blocked",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002",
+  "findings": [
+    "Inspected all eight canonical sources, prior candidates, and final candidates. Read exercise mechanics and assignment review.",
+    "Confirmed both phase2 right plates clipped; reconstructed complete plates. Male frame3 prior candidate still contained a detached left plate despite its old report; removed it.",
+    "All final candidates are 1152x768 RGBA with real alpha. Added identical 128px right margin without translating or rescaling any original athlete. All eight reviewed on white and dark composites.",
+    "Built-in imagegen first whole-frame repair returned opaque checkerboard/redraw and was rejected. Narrow isolated green-background plate was extracted and used only in phase2 plate regions.",
+    "Generated isolated bench and tested shared-keyframe compositing, refined masks and bench proportions in three saved revisions. Rejected these revisions because shared cushion intersected inherited shifting knees, especially female phase2.",
+    "Further targeted female phase2 contact edit improved contact but redrew and moved the broader composition; rejected to avoid new sequence drift.",
+    "Canonical sources unchanged; no production promotion. All original athlete pixels outside localized plate/artifact repairs match prior candidates; no athlete generated replacement accepted.",
+    "Resumed 2026-09-06: reinspected all eight retained candidates on light/dark ordered composites, verified expected batch-02 index6 filenames, all 16 hashes, and real RGBA alpha. Two additional built-in edits rejected: fixed-keyframe two-reference edit moved bench/shoes; single-reference upper-body-only edit redesigned front support and rendered opaque checkerboard. No candidate PNG was changed by resumed attempts."
+  ],
+  "unresolved": [
+    "BLOCKING: original stationary bench geometry and anchors still vary across all four phases, especially male phase0 versus phase3. Final candidates deliberately retain original bench after shared-bench attempts introduced worse knee-contact defects.",
+    "Original knee/shoe anchor drift prevents safe fixed-bench compositing without coordinated anatomy reconstruction; final motion continuity is NOT approved.",
+    "Phase2 replacement plate has finer concentric detailing than other original phase plates; complete geometry repaired but style consistency still requires review.",
+    "Inherited pale edge fringe and small white bench/plate residue remain visible on dark composites.",
+    "Canvas width increased from 1024 to 1152 for the whole set. This is a review-only candidate set; no manifest or production assets changed.",
+    "Resume blocker: neither tightly anchored keyframe generation nor upper-body-only edit preserved stationary geometry. Six total imagegen attempts plus earlier shared-bench compositing did not produce a complete passing sequence. Published snapshot and shared ledger left untouched."
+  ],
+  "frames": [
+    {
+      "filename": "Barbell_Rollout_from_Bench_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Rollout_from_Bench_male_v2_0.png",
+      "sourceSha256": "f7fecf3fdd800e92ddea127c3cee233c51699bac22378e0ffae25980b4e0874c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/outputs/Barbell_Rollout_from_Bench_male_v2_0.png",
+      "candidateSha256": "bb2498c45eb9feec6ae63017b8d217b02281cd7fc5ae5ecc5267b25f1bd6f940",
+      "method": "prior localized alpha cleanup retained; uniform 128px transparent right canvas extension",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Rollout_from_Bench_male_v2_1.png",
+      "sourceSha256": "662f48c90007b5553d193bc2d0eff7fd21ab3a4663350dca6532f9beab46a9ec",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/outputs/Barbell_Rollout_from_Bench_male_v2_1.png",
+      "candidateSha256": "340348ccda1610920aef3f956528e370cd5fede15c271451d1baf214c70e5307",
+      "method": "prior localized alpha cleanup retained; uniform 128px transparent right canvas extension",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Rollout_from_Bench_male_v2_2.png",
+      "sourceSha256": "1e6bc8cd6795b59aef0e6b03b5b3ef29c6fee978047e0babb7af35a8a4788e73",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/outputs/Barbell_Rollout_from_Bench_male_v2_2.png",
+      "candidateSha256": "b1d3075e734947f32cdc7159c80180e5f20c5b9d3e065390ac98ef97362d6ff7",
+      "method": "prior localized alpha cleanup retained; uniform 128px transparent right canvas extension; built-in imagegen isolated plate, green-key extraction and localized compositing preserving shaft/hub",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Rollout_from_Bench_male_v2_3.png",
+      "sourceSha256": "0576ba5aaf4a71b405125e45297c28e79a53384b9c665e94fcda7c04d637ca14",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/outputs/Barbell_Rollout_from_Bench_male_v2_3.png",
+      "candidateSha256": "c1cdbb7d42faa95b698428f1b19b0f816b767e4975ee5b987cc9ea7e34ec49b0",
+      "method": "prior localized alpha cleanup retained; uniform 128px transparent right canvas extension; removed residual detached left plate",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Rollout_from_Bench_female_v2_0.png",
+      "sourceSha256": "1157c5663ecce400cff6aec133d3738985af7c8ef2549aa5d6d6396b66598caf",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/outputs/Barbell_Rollout_from_Bench_female_v2_0.png",
+      "candidateSha256": "b72adb5b8fcefdbecb639e232b66a4932cc6f433453d30e27481c80818debe0d",
+      "method": "prior localized alpha cleanup retained; uniform 128px transparent right canvas extension",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Rollout_from_Bench_female_v2_1.png",
+      "sourceSha256": "80ebdbce70066e54304e5ff95ee289d586bb148bf0d0d6933bc80532e9afd3d4",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/outputs/Barbell_Rollout_from_Bench_female_v2_1.png",
+      "candidateSha256": "b969d3a71b85906b6f720c9381463ab4fe1c204f6e3da0ab18b96263a340a85f",
+      "method": "prior localized alpha cleanup retained; uniform 128px transparent right canvas extension",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Rollout_from_Bench_female_v2_2.png",
+      "sourceSha256": "4406179e147ff941adc1cb32344d3f48734db9e5f031ce4d0045ed11bd66b9ed",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/outputs/Barbell_Rollout_from_Bench_female_v2_2.png",
+      "candidateSha256": "dc2cb947611467a0300984c6abf1dfa49f7469226b5ab231ab0317cd5fa315e8",
+      "method": "prior localized alpha cleanup retained; uniform 128px transparent right canvas extension; built-in imagegen isolated plate, green-key extraction and localized compositing preserving shaft/hub",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Rollout_from_Bench_female_v2_3.png",
+      "sourceSha256": "5e93a1899113c3cc20d147dc828d089be526b717a17f07922dc7ac68b5e211be",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/outputs/Barbell_Rollout_from_Bench_female_v2_3.png",
+      "candidateSha256": "4525ec5176e305fec02f485cd19fbda255ec8c959812284e983e68f585a83c21",
+      "method": "prior localized alpha cleanup retained; uniform 128px transparent right canvas extension",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "prompt": "Use case: precise-object-edit. Edit target image1, a transparent workout illustration. Restore ONLY the missing right edge of the far-right black barbell weight plate, currently sliced vertically at x1011. Complete its natural round elliptical contour into the blank right margin. Preserve every other pixel: man, pose, clothes, bench, hands, bar and left plate. Same canvas 1152x768 and same scale/positions. Reference image2 shows the complete plate design only. Actual transparent RGBA background, no checkerboard, no shadows. Do not redraw or recenter the whole subject.",
+      "outputPath": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-171e-79c3-83ca-23a180fd20cb/exec-698096bf-027c-4b42-a1c8-7e10775adfd3.png",
+      "used": false,
+      "reason": "Opaque checkerboard and whole-subject redraw."
+    },
+    {
+      "prompt": "Use case: precise-object-edit. Use reference illustration solely for far-right barbell plate. Output ONLY that single complete far-right black weight plate assembly including its silver central hub, same perspective, linework and shading. No bar shaft sticking out, no person, no bench, no other weights. Place plate centrally with generous margins on flat solid pure bright green #00FF00 background, no checkerboard, no shadow, no gradients. This is an isolated replacement part for compositing; preserve reference plate's ellipse shape and black dark gray illustrated appearance.",
+      "outputPath": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-171e-79c3-83ca-23a180fd20cb/exec-508a7912-bc97-48cf-92f7-b4aaea569dc3.png",
+      "used": true,
+      "scope": "Only isolated plate keyed and composited into both frame2 candidates."
+    },
+    {
+      "prompt": "Use case: precise-object-edit. Isolate the EXACT adjustable weight bench in this reference. Remove athlete and barbell entirely, reconstruct the obscured bench cushion. Keep same three-quarter side camera, black rectangular horizontal cushion, gray steel adjustment frame, curved left support and long right diagonal supports with matching feet. Output bench alone centered on flat solid bright green #00FF00. Maintain reference illustration's line weight, texture, colors, proportions, perspective. No redesign, no floor or shadow, no checkerboard.",
+      "outputPath": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-171e-79c3-83ca-23a180fd20cb/exec-dcce488d-6248-4f76-ae80-ceecfc83684f.png",
+      "used": false,
+      "reason": "Shared bench trials created knee/cushion contact mismatch; revisions retained under work/revision1 through revision3."
+    },
+    {
+      "prompt": "Use case: precise-object-edit. Repair ONLY leg-to-bench contact in this workout illustration. Woman's knees must rest ON TOP of the black bench cushion, not intersect its front edge or hang below. Lift/redraw lower legs and knees just enough to sit naturally on the cushion, retaining the fully extended rollout pose, same woman, hair, dark clothes, both straight arms, original hand grips on bar, bench geometry and plate positions. Do not move bench/bar/upper body or resize/recenter the scene. Flat solid pure green #00FF00 background for extraction, no checkerboard, no floor shadow. Preserve the illustrated style and exact composition.",
+      "outputPath": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-171e-79c3-83ca-23a180fd20cb/exec-9b185fd6-32ef-4635-8c80-11a232385475.png",
+      "used": false,
+      "reason": "Improved knee contact but changed broader composition, person and equipment alignment."
+    },
+    {
+      "prompt": "Precise animation keyframe edit. Image 1 is the fixed starting keyframe: its bench MUST stay in the identical location, size, geometry, cushion angle and foot positions; the man's two lower legs and shoes MUST also stay fixed on that cushion. Create ONLY the fully rolled-out phase using image 2 as upper-body pose reference: extend hips, lean torso down and forward, keep elbows straight, hands on barbell rolling forward on same floor. Crucial: rotate thighs/torso around the same knees from image1; do not slide shins or shoes backward, do not shorten the bench or move its feet. Same man, face, charcoal tee and shorts with orange seams, same illustrated rendering and black plate barbell. Fit whole barbell within 1152x768 canvas. Background is flat pure #00FF00 green for extraction; no shadows or checkerboard. Single frame, no text. Preserve stationary elements pixel-for-pixel as far as possible.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/work/resume-evidence/exec-45e6bda7-bb1b-4dff-a3f1-a158d4470a66.png",
+      "used": false,
+      "reason": "Rejected: bench cushion/support and shoes shifted; fixed knee anchors not preserved."
+    },
+    {
+      "prompt": "Use case: precise-object-edit. Edit ONLY the man's upper legs, hips, torso and arms to show a partial forward barbell rollout. Freeze the original bench AND all visible lower legs, shoes and knee contact locations exactly in place. This is the next frame of an animation, not a new camera. Start from this supplied frame only. Lower hips about halfway toward a straight line from knees through shoulders, pivoting around the existing knees at the cushion's right end. Roll the barbell a small amount right on the same floor; keep elbows straight and hands wrapped around bar. Do not copy or invent another bench: retain its existing pad and both supports exactly. Same man face hair clothing linework and low-resolution illustrated shading. Same canvas framing. Render actual transparent background. No checkerboard, no ground or shadows, no labels. The stationary bench must match reference exactly.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/work/resume-evidence/exec-4a8e6c5c-6a66-4af9-ae4d-7a92373da7ba.png",
+      "used": false,
+      "reason": "Rejected: original front bench support redesigned into rectangular foot; opaque RGB checkerboard."
+    }
+  ],
+  "evidencePaths": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/outputs/review-light.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/outputs/review-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/work/alpha.json",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/work/compose.py",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/work/finalize.py",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-002/work/resume-evidence/anchor-comparison.jpg",
+    "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-next-10/workers/002/resume-validation.json"
+  ],
+  "approval": "Not approved; requires further sequence repair and parent/human review",
+  "publication": {
+    "status": "not_published",
+    "reason": "Visual sequence validation failed; no lock acquired, snapshot or shared ledger mutation attempted.",
+    "humanApproved": false
+  }
+}

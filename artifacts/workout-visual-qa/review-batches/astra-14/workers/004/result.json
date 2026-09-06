@@ -1,0 +1,153 @@
+{
+  "exerciseId": "Chest_Push_multiple_response",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-004",
+  "findings": [
+    "Inspected all eight canonical originals and latest prior candidates on light/dark backgrounds. Prior revision resolves detached fragments, incomplete ball/feet, broad ground islands and adds hand-catching follow-through.",
+    "Applied a one-pixel alpha silhouette trim to reduce thin matte outlines, and small translations based on near-knee contact without rescaling any frame.",
+    "All eight final candidates visually reviewed on white and #181c24 backgrounds. No broad pale/checkerboard islands, detached fragments, truncated ball/feet, or objectionable contour halo visible at review scale.",
+    "All eight PNGs are 1024x768 RGBA, alpha range 0..255, and have completely transparent outer borders. No per-frame scaling was performed.",
+    "Near-knee anchors are visually more consistent across setup, push, hand-catching follow-through and return. Pose-dependent silhouette changes remain intentional.",
+    "Production originals and prior worker files preserved. Source/candidate SHA-256 hashes verified from bytes."
+  ],
+  "unresolved": [
+    "Minor line, shading and shoe-detail differences from the prior imagegen redraws remain relative to canonical originals; parent review should assess stylistic consistency."
+  ],
+  "frames": [
+    {
+      "filename": "Chest_Push_multiple_response_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chest_Push_multiple_response_male_v2_0.png",
+      "sourceSha256": "a2da0d191bee2b811fd807077199407d8558f42455b1c4e333cdacb01c3224c6",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-004/outputs/candidates/Chest_Push_multiple_response_male_v2_0.png",
+      "candidateSha256": "60f32f1219b2ba090ec3e21526a584f4cc9264921ced3facfebef8045421f22e",
+      "method": "prior_builtin_imagegen_candidate_plus_1px_alpha_edge_trim_and_translation",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-009/candidates/Chest_Push_multiple_response_male_v2_0.png",
+      "priorCandidateSha256": "f8ef675aaadddd5a53c504552d1ddc1db7e8cc765f244a6014a9e8aa89b4c150",
+      "translation": [
+        0,
+        0
+      ],
+      "translationScope": "whole frame"
+    },
+    {
+      "filename": "Chest_Push_multiple_response_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chest_Push_multiple_response_male_v2_1.png",
+      "sourceSha256": "b6524099a1deb957a4bd984ca01a8ae099f0bb0d230d12ede6b7b9813c91749e",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-004/outputs/candidates/Chest_Push_multiple_response_male_v2_1.png",
+      "candidateSha256": "7b40c1dbc6806684ad66d582257e00c5752b025617da155cdd78422dd7e805fb",
+      "method": "prior_builtin_imagegen_candidate_plus_1px_alpha_edge_trim_and_translation",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-009/candidates/Chest_Push_multiple_response_male_v2_1.png",
+      "priorCandidateSha256": "73d4430317de3c5461e25baf19b15854f9c43db5d7d0f6e6fed8bc54837ac61d",
+      "translation": [
+        -8,
+        20
+      ],
+      "translationScope": "whole frame"
+    },
+    {
+      "filename": "Chest_Push_multiple_response_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chest_Push_multiple_response_male_v2_2.png",
+      "sourceSha256": "a837e8d668a3a9567ce5a9f55563dd028c0b66b5a870bc4fd3a9e5d9e72f0efc",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-004/outputs/candidates/Chest_Push_multiple_response_male_v2_2.png",
+      "candidateSha256": "52a97c12646266c51af0ac92fa4e6b316139e5f8cc2df653bfdd8a5669fa7b5e",
+      "method": "prior_builtin_imagegen_candidate_plus_1px_alpha_edge_trim_and_translation",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-009/candidates/Chest_Push_multiple_response_male_v2_2.png",
+      "priorCandidateSha256": "1b06bf6aaeff855009289ec762eb7ba7eb68a7b23db632fbcc36e8a83c49022b",
+      "translation": [
+        -52,
+        2
+      ],
+      "translationScope": "athlete only; released ball unchanged"
+    },
+    {
+      "filename": "Chest_Push_multiple_response_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chest_Push_multiple_response_male_v2_3.png",
+      "sourceSha256": "fbc5bb7ae919db0ed94830b73534fbd423e7c55345bd046059ce94daca742059",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-004/outputs/candidates/Chest_Push_multiple_response_male_v2_3.png",
+      "candidateSha256": "0300c63bc1c99262515921a4778a3568fd8872829c29ef729af10b91a8b15921",
+      "method": "prior_builtin_imagegen_candidate_plus_1px_alpha_edge_trim_and_translation",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-009/candidates/Chest_Push_multiple_response_male_v2_3.png",
+      "priorCandidateSha256": "ce55657736ac663258444c2761652959fbef9908631f919e95186666912731c0",
+      "translation": [
+        0,
+        4
+      ],
+      "translationScope": "whole frame"
+    },
+    {
+      "filename": "Chest_Push_multiple_response_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chest_Push_multiple_response_female_v2_0.png",
+      "sourceSha256": "036575015c9e4f16e617397ee35c3f9e7c5d5a8cf342cb2d2450955d4d6626d1",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-004/outputs/candidates/Chest_Push_multiple_response_female_v2_0.png",
+      "candidateSha256": "992938a55f2ce0e5fff7bb85da7d0c9751f01a11c7e7f10cf1538d4b3da264b8",
+      "method": "prior_builtin_imagegen_candidate_plus_1px_alpha_edge_trim_and_translation",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-009/candidates/Chest_Push_multiple_response_female_v2_0.png",
+      "priorCandidateSha256": "d280fa1dc4b5f7cb4cdaede532d3924446b57cb14c8dbd5fc7c27c8fdbcc117e",
+      "translation": [
+        0,
+        0
+      ],
+      "translationScope": "whole frame"
+    },
+    {
+      "filename": "Chest_Push_multiple_response_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chest_Push_multiple_response_female_v2_1.png",
+      "sourceSha256": "ef9358ea77212d4fb8b2924591a2f9679f48eb81c0f61bcb70f9e8f0c6f20f92",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-004/outputs/candidates/Chest_Push_multiple_response_female_v2_1.png",
+      "candidateSha256": "f997970d21f984ee4d94bfd630653641f25afe1e67d2b089d6b2ae768a46a67f",
+      "method": "prior_builtin_imagegen_candidate_plus_1px_alpha_edge_trim_and_translation",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-009/candidates/Chest_Push_multiple_response_female_v2_1.png",
+      "priorCandidateSha256": "be773728428a2da98cf29bf84187a48830c8e4adb076633f5db7f2e13fe67efe",
+      "translation": [
+        -12,
+        0
+      ],
+      "translationScope": "whole frame"
+    },
+    {
+      "filename": "Chest_Push_multiple_response_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chest_Push_multiple_response_female_v2_2.png",
+      "sourceSha256": "ff39c7cdbeecc65def1325a25571e3ab3a37781c416277c224d0a9667a6985d2",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-004/outputs/candidates/Chest_Push_multiple_response_female_v2_2.png",
+      "candidateSha256": "f5f37db35c94356e00084392c93becc9f66c7f8320ebbe5b2f8b325c94d95bcc",
+      "method": "prior_builtin_imagegen_candidate_plus_1px_alpha_edge_trim_and_translation",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-009/candidates/Chest_Push_multiple_response_female_v2_2.png",
+      "priorCandidateSha256": "7962550aba7806da6918053145a9652d89de4a4a267e1d28e521c880bd00e32c",
+      "translation": [
+        -40,
+        -4
+      ],
+      "translationScope": "athlete only; released ball unchanged"
+    },
+    {
+      "filename": "Chest_Push_multiple_response_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Chest_Push_multiple_response_female_v2_3.png",
+      "sourceSha256": "cd05bd04084a9b4d726773b9caab9bc3f914005af8711604bb2f8e6fd705793e",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-004/outputs/candidates/Chest_Push_multiple_response_female_v2_3.png",
+      "candidateSha256": "fee7a89428148fde21ec32117d5185886399798bf8fca844323d0a0b10d0007f",
+      "method": "prior_builtin_imagegen_candidate_plus_1px_alpha_edge_trim_and_translation",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-009/candidates/Chest_Push_multiple_response_female_v2_3.png",
+      "priorCandidateSha256": "8f258828d16ede6cebfc4fb74e3cfef554b2b9018d9bd47984e0f853e5b65500",
+      "translation": [
+        -12,
+        0
+      ],
+      "translationScope": "whole frame"
+    }
+  ],
+  "prompts": {
+    "builtInImagegenUsedThisTask": false,
+    "priorBuiltInImagegenReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/009/result.json",
+    "reason": "No new substantive redraw needed after direct inspection of latest prior repairs; deterministic edge/anchor corrections only."
+  },
+  "lightAndDarkReviewed": true,
+  "reviewArtifacts": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-004/work/inspection"
+}

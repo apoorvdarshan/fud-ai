@@ -1,0 +1,145 @@
+{
+  "exerciseId": "Bench_Jump",
+  "status": "ready_for_parent_review",
+  "directPublicationReview": {"passed": true, "humanApproved": false, "checks": ["Rechecked all eight phases on light and dark backgrounds and landing frames at full size.", "Canonical jump-over landing verified, with both feet beyond bench top and knees flexed.", "All eight expected filenames and sixteen source/candidate hashes recomputed against batch-02 index 22.", "All candidates have real RGBA transparency, unchanged 1024x768 framing and preserved bench ground anchors."], "styleNote": "Generated landing artwork is slightly smoother than prior phases; retained illustration identity, clothing and body proportions. Human style review remains pending."},
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-008",
+  "findings": [
+    "Inspected all eight originals and prior candidates. Original missing bench feet, debris and horizontal anchor drift were already repaired in the prior candidates; retained six earlier phase candidates byte-for-byte.",
+    "Confirmed both previous phase 3 images land on bench. Repaired both with built-in imagegen athlete landing edits and deterministic chroma extraction; soles now lie on floor beyond right edge of bench top.",
+    "First generation had baked checkerboard and changed bench; rejected whole composition. Second male edit and female reference edit used deliberate green. First extraction left residual background; revised threshold removed it.",
+    "Preserved stationary same-gender bench raster from phase 2 at unchanged coordinates. Landing athlete height 440 px, floor baseline 735, rightmost extent 1018; no per-frame recentering.",
+    "All eight 1024x768 RGBA candidates reviewed across four phases on light/dark composites. No visible clipping, checkerboard, missing foreground, or on-bench foot landing remains. Generated landing rendering is slightly smoother than source; parent must assess style tolerance."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bench_Jump_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_male_v2_0.png",
+      "sourceSha256": "5658f6cc5533c3b7158f2782fbce8f44f04c5d2e8535eab1595b91274d58d143",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-008/outputs/Bench_Jump_male_v2_0.png",
+      "candidateSha256": "847b54ee2a044432436f16fa80e67ab6b7a1cf2c22e4a4766e7b3c5be89fd418",
+      "method": "unchanged prior repaired candidate; Source-preserving RGBA repair after built-in imagegen edit review: removed isolated source debris and verified matte islands, restored the missing rear bench foot from the same-gender frame-2 bench, and retained the frame-0 athlete and anchor.",
+      "visuallyReviewed": true,
+      "alpha": {
+        "transparent": 679925,
+        "opaque": 106507,
+        "partial": 0
+      },
+      "priorCandidateUnchanged": true
+    },
+    {
+      "filename": "Bench_Jump_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_male_v2_1.png",
+      "sourceSha256": "5f715a39e04866241ac832355caf782233ff9c6bfb05c42e7ec83022c795525f",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-008/outputs/Bench_Jump_male_v2_1.png",
+      "candidateSha256": "4eb5e4fa5cf348a35fc8cb32d883f3e3296d7480f8a7232a0b3fbe3954df0cd6",
+      "method": "unchanged prior repaired candidate; Source-preserving RGBA cleanup after built-in imagegen edit review: removed the detached bench-foot component, cleared verified matte and edge residue, and translated the intact composition +43 px horizontally to the x497 bench anchor.",
+      "visuallyReviewed": true,
+      "alpha": {
+        "transparent": 681311,
+        "opaque": 105121,
+        "partial": 0
+      },
+      "priorCandidateUnchanged": true
+    },
+    {
+      "filename": "Bench_Jump_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_male_v2_2.png",
+      "sourceSha256": "2590af62cabbe8e7d85572eddac9afbcbe4f4e5159c86af56cb3b9ae99d52f36",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-008/outputs/Bench_Jump_male_v2_2.png",
+      "candidateSha256": "09b3af2bb5f719edae10d1f42bd0864359999ef8b5752cb0884658034110062a",
+      "method": "unchanged prior repaired candidate; Source-preserving RGBA cleanup: cleared the verified tuck-gap matte and edge residue, then translated the intact composition +160 px horizontally to the x497 bench anchor while preserving pose and scale.",
+      "visuallyReviewed": true,
+      "alpha": {
+        "transparent": 693220,
+        "opaque": 93212,
+        "partial": 0
+      },
+      "priorCandidateUnchanged": true
+    },
+    {
+      "filename": "Bench_Jump_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_male_v2_3.png",
+      "sourceSha256": "67f024f40a92516faa8ea136ebb14f1438d3053756a07569e5e7d36c3e5848bb",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-008/outputs/Bench_Jump_male_v2_3.png",
+      "candidateSha256": "630666ecde719dc54f51044e285bcc3c7667b4b4955d54cd32a502703d1ebe80",
+      "method": "Built-in imagegen landing athlete, deliberate green extraction and original anchored phase-2 bench composite",
+      "visuallyReviewed": true,
+      "alpha": {
+        "transparent": 693737,
+        "opaque": 87434,
+        "partial": 5261
+      },
+      "priorCandidateUnchanged": false
+    },
+    {
+      "filename": "Bench_Jump_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_female_v2_0.png",
+      "sourceSha256": "87e8112541a8984efae519ea1cab13061e2d6eff4e6ecd5f080de58e99e5bb81",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-008/outputs/Bench_Jump_female_v2_0.png",
+      "candidateSha256": "f77f3eff0629c378172f7dfc29a836599ac10584f6c0311792926423bc625b25",
+      "method": "unchanged prior repaired candidate; Source-preserving RGBA repair after built-in imagegen edit review: removed isolated source debris and verified matte islands, restored the missing rear bench foot from the same-gender frame-2 bench, and retained the frame-0 athlete and x496 anchor.",
+      "visuallyReviewed": true,
+      "alpha": {
+        "transparent": 674418,
+        "opaque": 112014,
+        "partial": 0
+      },
+      "priorCandidateUnchanged": true
+    },
+    {
+      "filename": "Bench_Jump_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_female_v2_1.png",
+      "sourceSha256": "11697a6c6a116464201002454ddc27438588b1ce3bfd0df5ee136e999fe17a61",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-008/outputs/Bench_Jump_female_v2_1.png",
+      "candidateSha256": "626ddfb4fd296d795d8337000361e4b0c60737e9230327e7b0c5900e8d5b0dde",
+      "method": "unchanged prior repaired candidate; Source-preserving RGBA cleanup after built-in imagegen edit review: removed the detached bench-foot component and shoe-adjacent specks, cleared verified matte and edge residue, and translated the intact composition +25 px horizontally to the x496 bench anchor.",
+      "visuallyReviewed": true,
+      "alpha": {
+        "transparent": 680262,
+        "opaque": 106170,
+        "partial": 0
+      },
+      "priorCandidateUnchanged": true
+    },
+    {
+      "filename": "Bench_Jump_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_female_v2_2.png",
+      "sourceSha256": "177c916c8d9cfb1e9fa5b39f03a95e11755438d6c539d7fad00c5bf04d281cc4",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-008/outputs/Bench_Jump_female_v2_2.png",
+      "candidateSha256": "d0dad7bd2d51c36de486d8b8ca2c56768c1fde6c83594843fe1f60c3c3138599",
+      "method": "unchanged prior repaired candidate; Source-preserving RGBA cleanup: cleared verified tuck-gap and arm-gap matte residue, then translated the intact composition +153 px horizontally to the x496 bench anchor while preserving pose and scale.",
+      "visuallyReviewed": true,
+      "alpha": {
+        "transparent": 690534,
+        "opaque": 95898,
+        "partial": 0
+      },
+      "priorCandidateUnchanged": true
+    },
+    {
+      "filename": "Bench_Jump_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Jump_female_v2_3.png",
+      "sourceSha256": "c25f371af8e5fc262bf407492ba22e9ff5edcc631e87c5654ef8fdc0e79f522e",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-008/outputs/Bench_Jump_female_v2_3.png",
+      "candidateSha256": "62ab08435d4198116c179be9a0f634fc09c1fecd9fc09f4ada8aaa854f142591",
+      "method": "Built-in imagegen landing athlete, deliberate green extraction and original anchored phase-2 bench composite",
+      "visuallyReviewed": true,
+      "alpha": {
+        "transparent": 687916,
+        "opaque": 92786,
+        "partial": 5730
+      },
+      "priorCandidateUnchanged": false
+    }
+  ],
+  "prompts": [
+    "Edit target: male Bench Jump phase 3. Precise-object-edit. Keep exact person, face, black shirt shorts orange seam, black shoes, illustrated linework and 1024x768 composition. Correct landing: athlete has jumped OVER bench from left to right and now lands on FLOOR beyond its RIGHT side, both knees bent absorbing impact, facing right. Both shoes entirely to right of bench top, soles at floor y735, athlete fully within canvas (right edge under1018). Bench stays EXACTLY at existing coordinates x497-824 y522-752, same scale camera geometry; do not move bench. Athlete same scale and body proportions, move right and down, slightly unfold knees if needed. True transparent RGBA background, no checkerboard or ground shadows. No text.",
+    "Precise edit of attached male illustration. Keep EXACT athlete shown, pose, face, clothing, anatomy and scale. Remove bench entirely. Replace ALL checkerboard background with perfectly flat solid vivid green #00FF00, including every enclosed gap. No shadow, no floor, no other objects. Keep athlete unchanged in same position. Output same canvas. This is a chroma key extraction asset.",
+    "Precise-object-edit. Image1 is FEMALE identity/style edit target; image2 is only reference for bent-knee floor landing pose. Draw the EXACT woman from image1 with same face ponytail black shirt shorts orange seam black shoes and illustration style, in the floor landing pose of image2, facing right. Both feet grounded and knees flexed to absorb jump. Preserve her body proportions. Woman only, remove bench entirely. Flat solid vivid green #00FF00 background including all enclosed gaps, no checkerboard, shadows, floor, text or additional objects. Full body uncropped."
+  ],
+  "reviewEvidence": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-008/outputs/male-review.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-008/outputs/female-review.jpg"
+  ]
+}

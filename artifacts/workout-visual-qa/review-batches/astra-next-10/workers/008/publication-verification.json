@@ -1,0 +1,122 @@
+{
+  "entry": {
+    "index": 22,
+    "exerciseId": "Bench_Jump",
+    "status": "parent_pass_human_pending",
+    "humanApproved": false,
+    "reportSha256": "fea40e0fd6bcfdbc4e5c48633559fb5ba2e5e510572644724ad6af5851b09821",
+    "reviewRequestedAt": "2026-09-06T18:13:00.129Z",
+    "reviewFindings": [
+      "All eight male/female frames reviewed on light/dark backgrounds as full sequences. Exact filenames, source/candidate hashes and real RGBA transparency verified.",
+      "Both final landing phases now place feet on floor beyond bench with bent knees. Six earlier candidates retained unchanged; original bench anchors preserved.",
+      "Generated landing artwork is slightly smoother than source-derived phases. Human animation/style review remains pending; production originals untouched."
+    ],
+    "frames": [
+      {
+        "filename": "Bench_Jump_male_v2_0.png",
+        "sourceSha256": "5658f6cc5533c3b7158f2782fbce8f44f04c5d2e8535eab1595b91274d58d143",
+        "candidateSha256": "847b54ee2a044432436f16fa80e67ab6b7a1cf2c22e4a4766e7b3c5be89fd418"
+      },
+      {
+        "filename": "Bench_Jump_male_v2_1.png",
+        "sourceSha256": "5f715a39e04866241ac832355caf782233ff9c6bfb05c42e7ec83022c795525f",
+        "candidateSha256": "4eb5e4fa5cf348a35fc8cb32d883f3e3296d7480f8a7232a0b3fbe3954df0cd6"
+      },
+      {
+        "filename": "Bench_Jump_male_v2_2.png",
+        "sourceSha256": "2590af62cabbe8e7d85572eddac9afbcbe4f4e5159c86af56cb3b9ae99d52f36",
+        "candidateSha256": "09b3af2bb5f719edae10d1f42bd0864359999ef8b5752cb0884658034110062a"
+      },
+      {
+        "filename": "Bench_Jump_male_v2_3.png",
+        "sourceSha256": "67f024f40a92516faa8ea136ebb14f1438d3053756a07569e5e7d36c3e5848bb",
+        "candidateSha256": "630666ecde719dc54f51044e285bcc3c7667b4b4955d54cd32a502703d1ebe80"
+      },
+      {
+        "filename": "Bench_Jump_female_v2_0.png",
+        "sourceSha256": "87e8112541a8984efae519ea1cab13061e2d6eff4e6ecd5f080de58e99e5bb81",
+        "candidateSha256": "f77f3eff0629c378172f7dfc29a836599ac10584f6c0311792926423bc625b25"
+      },
+      {
+        "filename": "Bench_Jump_female_v2_1.png",
+        "sourceSha256": "11697a6c6a116464201002454ddc27438588b1ce3bfd0df5ee136e999fe17a61",
+        "candidateSha256": "626ddfb4fd296d795d8337000361e4b0c60737e9230327e7b0c5900e8d5b0dde"
+      },
+      {
+        "filename": "Bench_Jump_female_v2_2.png",
+        "sourceSha256": "177c916c8d9cfb1e9fa5b39f03a95e11755438d6c539d7fad00c5bf04d281cc4",
+        "candidateSha256": "d0dad7bd2d51c36de486d8b8ca2c56768c1fde6c83594843fe1f60c3c3138599"
+      },
+      {
+        "filename": "Bench_Jump_female_v2_3.png",
+        "sourceSha256": "c25f371af8e5fc262bf407492ba22e9ff5edcc631e87c5654ef8fdc0e79f522e",
+        "candidateSha256": "62ab08435d4198116c179be9a0f634fc09c1fecd9fc09f4ada8aaa854f142591"
+      }
+    ]
+  },
+  "snapshot": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-collected/022",
+  "backup": null,
+  "verification": {
+    "exerciseId": "Bench_Jump",
+    "verifiedAt": "2026-09-06T18:13:12.545820+00:00",
+    "manifestUrl": "http://127.0.0.1:8765/manifest.json",
+    "available": 8,
+    "humanApproved": false,
+    "humanDecision": "pending",
+    "images": [
+      {
+        "url": "/image/candidate/Bench_Jump_male_v2_0.png?v=847b54ee2a044432436f16fa80e67ab6b7a1cf2c22e4a4766e7b3c5be89fd418",
+        "status": 200,
+        "sha256": "847b54ee2a044432436f16fa80e67ab6b7a1cf2c22e4a4766e7b3c5be89fd418",
+        "bytes": 142144
+      },
+      {
+        "url": "/image/candidate/Bench_Jump_male_v2_1.png?v=4eb5e4fa5cf348a35fc8cb32d883f3e3296d7480f8a7232a0b3fbe3954df0cd6",
+        "status": 200,
+        "sha256": "4eb5e4fa5cf348a35fc8cb32d883f3e3296d7480f8a7232a0b3fbe3954df0cd6",
+        "bytes": 139606
+      },
+      {
+        "url": "/image/candidate/Bench_Jump_male_v2_2.png?v=09b3af2bb5f719edae10d1f42bd0864359999ef8b5752cb0884658034110062a",
+        "status": 200,
+        "sha256": "09b3af2bb5f719edae10d1f42bd0864359999ef8b5752cb0884658034110062a",
+        "bytes": 127328
+      },
+      {
+        "url": "/image/candidate/Bench_Jump_male_v2_3.png?v=630666ecde719dc54f51044e285bcc3c7667b4b4955d54cd32a502703d1ebe80",
+        "status": 200,
+        "sha256": "630666ecde719dc54f51044e285bcc3c7667b4b4955d54cd32a502703d1ebe80",
+        "bytes": 187920
+      },
+      {
+        "url": "/image/candidate/Bench_Jump_female_v2_0.png?v=f77f3eff0629c378172f7dfc29a836599ac10584f6c0311792926423bc625b25",
+        "status": 200,
+        "sha256": "f77f3eff0629c378172f7dfc29a836599ac10584f6c0311792926423bc625b25",
+        "bytes": 156305
+      },
+      {
+        "url": "/image/candidate/Bench_Jump_female_v2_1.png?v=626ddfb4fd296d795d8337000361e4b0c60737e9230327e7b0c5900e8d5b0dde",
+        "status": 200,
+        "sha256": "626ddfb4fd296d795d8337000361e4b0c60737e9230327e7b0c5900e8d5b0dde",
+        "bytes": 151716
+      },
+      {
+        "url": "/image/candidate/Bench_Jump_female_v2_2.png?v=d0dad7bd2d51c36de486d8b8ca2c56768c1fde6c83594843fe1f60c3c3138599",
+        "status": 200,
+        "sha256": "d0dad7bd2d51c36de486d8b8ca2c56768c1fde6c83594843fe1f60c3c3138599",
+        "bytes": 133142
+      },
+      {
+        "url": "/image/candidate/Bench_Jump_female_v2_3.png?v=62ab08435d4198116c179be9a0f634fc09c1fecd9fc09f4ada8aaa854f142591",
+        "status": 200,
+        "sha256": "62ab08435d4198116c179be9a0f634fc09c1fecd9fc09f4ada8aaa854f142591",
+        "bytes": 205737
+      }
+    ]
+  },
+  "publicationNotes": [
+    "No prior 022 snapshot existed at initial publication; no prior revision required backup.",
+    "Initial publication paused after a tool-output JSON parsing error; lock released in finally. Reacquired lock, reread current ledger, verified prepared snapshot, then added only Bench_Jump entry.",
+    "Canonical production images untouched; no code changes or human decisions made."
+  ]
+}

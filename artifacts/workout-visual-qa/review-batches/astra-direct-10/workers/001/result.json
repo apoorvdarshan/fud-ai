@@ -1,0 +1,115 @@
+{
+  "exerciseId": "Barbell_Glute_Bridge",
+  "index": 1,
+  "status": "blocked",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001",
+  "findings": [
+    "All eight previous candidates inspected in ordered 0-1-2-3 light and dark contact sheets. Floor cleanup improves backgrounds but set is not mechanically coherent.",
+    "Two built-in focused male frame 2 edits attempted; both are RGB 1448x1086 with painted checkerboard and no alpha channel. Second attempt also changes body pose. Rejected both.",
+    "All eight original SHA256 values rechecked unchanged. No production or review-site publication performed."
+  ],
+  "unresolved": [
+    "Male shoulders and head still float relative to feet in retained candidates.",
+    "Scale, equipment and anchor drift remains; female return frame differs from start.",
+    "Built-in transparency correction repeatedly returns opaque painted checkerboards; no verified replacement set exists.",
+    "Ordered animation pass not achieved; sequence already fails static ordered review."
+  ],
+  "frames": [
+    {
+      "filename": "Barbell_Glute_Bridge_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Glute_Bridge_male_v2_0.png",
+      "sourceSha256": "c202b00afa6885c8926f764051b57497d66227002df2b4c27bfe0de9ad2f65d0",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001/outputs/candidates/Barbell_Glute_Bridge_male_v2_0.png",
+      "candidateSha256": "ba3459af5e757d33ffc8f563afeb871910d92550635e186074f1e5ee1492f7b1",
+      "method": "retained_previous_unapproved_candidate_for_evidence",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Glute_Bridge_male_v2_1.png",
+      "sourceSha256": "f3794e3e885b1e57ca902735cdf1ccba82b48af2397f11123c7ba24c2c605993",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001/outputs/candidates/Barbell_Glute_Bridge_male_v2_1.png",
+      "candidateSha256": "ed99f9e2759bb09d444d6027a89e4129dbe1502c5c0bccea044dc9d35b111c6c",
+      "method": "retained_previous_unapproved_candidate_for_evidence",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Glute_Bridge_male_v2_2.png",
+      "sourceSha256": "41b02b053cfc8f052ad9d3e58c3331be88dba9917843b6973f9c8e598b0502f0",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001/outputs/candidates/Barbell_Glute_Bridge_male_v2_2.png",
+      "candidateSha256": "55ceea5d4b3abaa7e4cfa7c22aecbab5d868b833976752482510d27920bc5196",
+      "method": "retained_previous_unapproved_candidate_for_evidence",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Glute_Bridge_male_v2_3.png",
+      "sourceSha256": "8c70f7bd0d1b55830d83fbbe0b007b5e1d237a7641921c2bd608df96b092e7c6",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001/outputs/candidates/Barbell_Glute_Bridge_male_v2_3.png",
+      "candidateSha256": "a27bed0f2ffdb1df070550e3a48d138cfba5b47235c899076f2d14593860cbcd",
+      "method": "retained_previous_unapproved_candidate_for_evidence",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Glute_Bridge_female_v2_0.png",
+      "sourceSha256": "90815cec061f886eb3c4860c9cb88ff30611060765b1683d25b9019d58e9c5fe",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001/outputs/candidates/Barbell_Glute_Bridge_female_v2_0.png",
+      "candidateSha256": "a7950917445699b59893df5853c1527413c57bcd1bd541c5ef83fdd7a91dc632",
+      "method": "retained_previous_unapproved_candidate_for_evidence",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Glute_Bridge_female_v2_1.png",
+      "sourceSha256": "8fa09215a5c8d3004f272b3514655d8d52d3218396ce577134bc8674a26bd61f",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001/outputs/candidates/Barbell_Glute_Bridge_female_v2_1.png",
+      "candidateSha256": "9d5679dc5749774c779e9bed7daaa6fddb905881d26280c0142d7730e6ee9509",
+      "method": "retained_previous_unapproved_candidate_for_evidence",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Glute_Bridge_female_v2_2.png",
+      "sourceSha256": "2462846167b955d140c59ff21ba2c5a98e90a1de2fbc973ae17708dc98865fa0",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001/outputs/candidates/Barbell_Glute_Bridge_female_v2_2.png",
+      "candidateSha256": "36a7eca28aa77f8060855d1e9cfbbd092156b3a78d4a6ab9d52d5e6c31f59374",
+      "method": "retained_previous_unapproved_candidate_for_evidence",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Glute_Bridge_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Glute_Bridge_female_v2_3.png",
+      "sourceSha256": "78edb7eeda8a2f12d0810db50cda5d91f01d59aeb0ee7419c5f4fd0a48a27b26",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001/outputs/candidates/Barbell_Glute_Bridge_female_v2_3.png",
+      "candidateSha256": "1c34b6c5985d39391584c522c8200758a782539b1134e98237f7bf987fa4de01",
+      "method": "retained_previous_unapproved_candidate_for_evidence",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": {
+    "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001/outputs/prompts.json",
+    "tool": "built-in image_gen",
+    "attempts": [
+      {
+        "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001/outputs/exec-e20deff1-b679-4b86-b0a4-24d8429b941b.png",
+        "sha256": "92f70ce57a84e386d87aaff6eaf71105942dbcef95146c4471c86f7e9e970278",
+        "accepted": false,
+        "mode": "RGB"
+      },
+      {
+        "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001/outputs/exec-d1e21dc0-7fa2-4cfc-8032-01c03309b265.png",
+        "sha256": "14a35dc2ce8cd28e80d356682e252df62d1b98c9d2ea3c6c44b2b80d8af1ad74",
+        "accepted": false,
+        "mode": "RGB"
+      }
+    ]
+  },
+  "evidence": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001/outputs/candidate-light.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-001/outputs/candidate-dark.jpg"
+  ],
+  "published": false,
+  "reviewedAt": "2026-09-06T18:20:23.013657+00:00"
+}

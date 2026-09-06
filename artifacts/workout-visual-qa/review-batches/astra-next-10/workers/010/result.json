@@ -1,0 +1,280 @@
+{
+  "exerciseId": "Bent-Arm_Barbell_Pullover",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010",
+  "findings": [
+    "Independently inspected all eight canonical originals, all eight prior candidates, parent review and canonical mechanics. Original enclosed white fills and male frame 2/3 scale/camera/barbell-view defects confirmed.",
+    "Preserved six prior candidates byte-for-byte: male 0/1 and female 0/1/2/3. Their background openings remain genuinely transparent and all were reviewed against light/dark backgrounds.",
+    "Repaired male frame 2 through three built-in imagegen iterations: rejected painted-checkerboard output; extracted deliberate green-background keyframe; narrowed third edit to correct overly straight elbows.",
+    "Male frame 2 stationary bench/legs below y565 and right torso/legs x510+ y448+ are pixel-identical to reference male frame 1. No independent whole-pose recentering. Frame 0 remains within the existing compatible bench/foot envelope.",
+    "Male frame 3 now retraces exact frame 1. This intentionally uses the same intermediate keyframe on outward and return legs of the pullover, removing prior frame 3 scale and equipment discontinuities.",
+    "Final all-eight ordered light/dark review: complete visible anatomy and grip, no clipped foreground, no painted checkerboard/large white background islands, same people/clothes/equipment, and no former male bench/body enlargement or frontal barbell switch.",
+    "All eight exact-basename candidates validated as 1024x768 RGBA with transparent and opaque pixels; source hashes verified unchanged. No production changes or promotion.",
+    "Resumed direct-publication review: all eight expected filenames match batch-02 index 28, source/candidate hashes rechecked; ordered light/dark review passed with no further raster changes."
+  ],
+  "unresolved": [
+    "Human approval pending. Male frame 3 intentionally retraces frame 1. Minor original linework and face redraw differences remain; no blocking defect found in the resumed all-eight review."
+  ],
+  "frames": [
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_male_v2_0.png",
+      "sourceSha256": "bab4fc431573806f45d481b5c4adf3ac79f17e4dfc7f24ff64d403e66474ce5d",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_male_v2_0.png",
+      "candidateSha256": "75196b22767eb2bd7ec5911b74555398abccc42049ad44b4cea148801117aeea",
+      "method": "Retained prior alpha-cleaned/registered candidate byte-for-byte after independent all-phase and light/dark review. Prior method: Scoped neutral-light alpha cleanup plus premultiplied-alpha bench registration (sx=1.01449, sy=1.04878, tx=-51.86, ty=-36.83); dark/light reviewed.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_male_v2_1.png",
+      "sourceSha256": "70f0c08c3609f5f84a1d0e44a6a0dd5c3a1f90a1f92f96c6c48f1168b6070ac6",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_male_v2_1.png",
+      "candidateSha256": "352f3417c03ffd4da0c1c6a24422682696be171208cc5f2575bdc55aee1dac9e",
+      "method": "Retained prior alpha-cleaned/registered candidate byte-for-byte after independent all-phase and light/dark review. Prior method: Scoped neutral-light alpha cleanup plus premultiplied-alpha bench registration (sx=0.98592, sy=1.00467, tx=-23.55, ty=-3.53); dark/light reviewed.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_male_v2_2.png",
+      "sourceSha256": "e60e21719f4618e0ce2851cf9448c7d88ba6d46ebe53519374912377337b1c15",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_male_v2_2.png",
+      "candidateSha256": "ad99431b4e601b2b01a7896bdf74597ed5fef5fd213bdcef746c71c074083194",
+      "method": "Built-in imagegen fixed-reference raised keyframe; rejected first opaque checkerboard attempt. Second green-background edit extracted with scoped chroma matte, resized to 1024x768 and bench-aligned by +44 px y. Restored reference frame 1 stationary pixels. Third narrow elbow-bend edit extracted and composited only arms/bar; original bench, legs and right torso retained. Scripts and revisions preserved in work/.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_male_v2_3.png",
+      "sourceSha256": "c2fa480a8698bedbe64952ba563e154cfb6df664cff3f1439d6852535b734d3c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_male_v2_3.png",
+      "candidateSha256": "352f3417c03ffd4da0c1c6a24422682696be171208cc5f2575bdc55aee1dac9e",
+      "method": "Consistent-keyframe return phase: exact copy of reviewed male frame 1 candidate, retracing the same pullover arc. Replaces distorted prior frame 3 bench/body and wide barbell.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_female_v2_0.png",
+      "sourceSha256": "0bd6f6f8510e991efdff580a188ae7a91d9085bc874265bb2882a1d592d22df2",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_female_v2_0.png",
+      "candidateSha256": "b78c9923481abe1da8f84236725b08d257f7bf90d909a9ec934536e14f3a561b",
+      "method": "Retained prior alpha-cleaned and registered female candidate byte-for-byte; independently reviewed on light/dark backgrounds and across all four phases.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_female_v2_1.png",
+      "sourceSha256": "5cda67c68d9efb53b878166df6cd467797ce35200915b2251e2d7f2db82b29d5",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_female_v2_1.png",
+      "candidateSha256": "39137b172d6835dfe6d4089dfa3a82a6402017b7bbb7f4692059c2352a4c87da",
+      "method": "Retained prior alpha-cleaned and registered female candidate byte-for-byte; independently reviewed on light/dark backgrounds and across all four phases.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_female_v2_2.png",
+      "sourceSha256": "28fb179acb926abb3b80471c26bcd4d3a6bb127ea9c255d36c7b0b6c65cc98c2",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_female_v2_2.png",
+      "candidateSha256": "b70baadb491480f09376f769d631754764828a48233eae66507e78609cd0076e",
+      "method": "Retained prior alpha-cleaned and registered female candidate byte-for-byte; independently reviewed on light/dark backgrounds and across all four phases.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_female_v2_3.png",
+      "sourceSha256": "1bb4a63f0812db2baa6c7069b6522fba5f6fe97b9d0a859d2af2c0f1d2859f5b",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_female_v2_3.png",
+      "candidateSha256": "298875f6b842cb0d446e98eaa678158109f788490bdbc6dfbde5c29fb207a4aa",
+      "method": "Retained prior alpha-cleaned and registered female candidate byte-for-byte; independently reviewed on light/dark backgrounds and across all four phases.",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "id": "attempt1",
+      "text": "Use case: precise-object-edit. Edit this workout illustration into the raised phase of a bent-arm barbell pullover. Keep the exact same man, face, black shirt and shorts with orange piping, shoes, flat perforated metal bench, and pixel framing. Change ONLY arms and held barbell: rotate bent arms upward from shoulders so hands and bar are above the chest, upper arms near vertical with slight elbow bend. Keep the SAME foreshortened barbell camera perspective, large left plate and smaller far right plate, same bar length and plate sizes as input; do not turn it into a broad frontal barbell. All stationary pixels, especially bench, head, torso, knees, shoes and feet must stay at their original positions and sizes. Transparent background with real alpha, no checkerboard, no floor, no labels. Output 1024x768.",
+      "outcome": "Rejected RGB checkerboard and framing drift.",
+      "imagegenUsed": true
+    },
+    {
+      "id": "attempt2",
+      "text": "Precise-object-edit of attached workout animation frame. Preserve the exact 4:3 composition and ALL the stationary man and bench coordinates. Keep solid pure GREEN #00FF00 background everywhere including bench holes and arm gaps. NO checkerboard or shadows. Change only arm pose to the raised chest position of a bent-arm barbell pullover: rotate his two arms and bar upward so his hands sit above his upper chest, near x400 y265 on this 1024x768 reference. Elbows retain a slight bend. Maintain exact reference barbell perspective: near left black plate 140 pixels diameter, far right plate 90 pixels diameter, hand spacing and foreshortened bar. Do not increase bar span. Bench top remains x286..849 y548..590, left foot x288 y755, right shoe ends x890 y750, head center x311 y499, shoulder x385 y501, shorts at x610..753. These are immovable. Same face, black clothes, orange piping, shoes, linework. No recentering, zoom, changed body or bench. Output single frame on solid green.",
+      "outcome": "Usable green key extraction; bench aligned, original stationary pixels restored. Raised elbows too straight; further correction requested.",
+      "imagegenUsed": true
+    },
+    {
+      "id": "attempt3",
+      "outcome": "Accepted narrow elbow correction after green extraction and arm-only composition; actual final RGBA and light/dark review passed.",
+      "imagegenUsed": true,
+      "text": "Precise-object-edit. Make ONE small anatomical correction to this frame: bend BOTH elbows visibly about 25 degrees from straight for a bent-arm barbell pullover. Upper arms still point upward over chest, but elbows slightly to the right (toward knees) and forearms angle back left (toward head). Keep hands gripping the same bar at approximately their existing positions, barbell exact size, perspective, plates and placement. Preserve arm length and thickness; no extra anatomy. Everything outside arms must remain exactly unchanged: man identity, face, torso, shorts, shoes, bench and all pixel coordinates. Keep solid uniform #00FF00 green background including all gaps. No checkerboard. Same 4:3 canvas, no cropping/zoom/recentering. This is a slight elbow bend, not a large lowering of the weight."
+    }
+  ],
+  "validation": [
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_male_v2_0.png",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "alphaZero": 652009,
+      "alphaOpaque": 96697,
+      "alphaIntermediate": 37726,
+      "foregroundBounds": [
+        46,
+        435,
+        889,
+        756
+      ],
+      "sourceHashVerified": true,
+      "priorCandidateRetained": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_male_v2_1.png",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "alphaZero": 641594,
+      "alphaOpaque": 131294,
+      "alphaIntermediate": 13544,
+      "foregroundBounds": [
+        71,
+        307,
+        891,
+        756
+      ],
+      "sourceHashVerified": true,
+      "priorCandidateRetained": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_male_v2_2.png",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "alphaZero": 632226,
+      "alphaOpaque": 138505,
+      "alphaIntermediate": 15701,
+      "foregroundBounds": [
+        188,
+        189,
+        891,
+        756
+      ],
+      "sourceHashVerified": true,
+      "priorCandidateRetained": false
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_male_v2_3.png",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "alphaZero": 641594,
+      "alphaOpaque": 131294,
+      "alphaIntermediate": 13544,
+      "foregroundBounds": [
+        71,
+        307,
+        891,
+        756
+      ],
+      "sourceHashVerified": true,
+      "priorCandidateRetained": false
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_female_v2_0.png",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "alphaZero": 666091,
+      "alphaOpaque": 107946,
+      "alphaIntermediate": 12395,
+      "foregroundBounds": [
+        19,
+        468,
+        915,
+        756
+      ],
+      "sourceHashVerified": true,
+      "priorCandidateRetained": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_female_v2_1.png",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "alphaZero": 650956,
+      "alphaOpaque": 122643,
+      "alphaIntermediate": 12833,
+      "foregroundBounds": [
+        122,
+        275,
+        913,
+        756
+      ],
+      "sourceHashVerified": true,
+      "priorCandidateRetained": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_female_v2_2.png",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "alphaZero": 658066,
+      "alphaOpaque": 107860,
+      "alphaIntermediate": 20506,
+      "foregroundBounds": [
+        204,
+        268,
+        912,
+        756
+      ],
+      "sourceHashVerified": true,
+      "priorCandidateRetained": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_female_v2_3.png",
+      "mode": "RGBA",
+      "dimensions": [
+        1024,
+        768
+      ],
+      "alphaZero": 657587,
+      "alphaOpaque": 114873,
+      "alphaIntermediate": 13972,
+      "foregroundBounds": [
+        109,
+        344,
+        911,
+        756
+      ],
+      "sourceHashVerified": true,
+      "priorCandidateRetained": true
+    }
+  ],
+  "reviewArtifacts": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/review-light.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/review-dark.jpg"
+  ],
+  "attemptArtifacts": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/work/attempt1-rejected.png",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/work/attempt2-green.png",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/work/attempt3-green.png"
+  ],
+  "preservationChecks": {
+    "male2BelowY565IdenticalToMale1": true,
+    "male2RightTorsoAndLegsIdenticalToMale1": true,
+    "male3IdenticalToMale1": true
+  }
+}

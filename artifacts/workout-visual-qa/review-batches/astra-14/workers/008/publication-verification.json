@@ -1,0 +1,249 @@
+{
+  "exerciseId": "Kettlebell_Turkish_Get-Up_Lunge_style",
+  "verifiedAt": "2026-09-06T18:12:46.797237+00:00",
+  "published": true,
+  "humanApproved": false,
+  "manifestRow": {
+    "id": "Kettlebell_Turkish_Get-Up_Lunge_style",
+    "batch": "batch-01",
+    "index": 19,
+    "severity": "critical",
+    "findings": [
+      "Revision 02: female standing relative body/equipment scale corrected using shared female camera scaling; all eight light/dark frames and full sequences checked.",
+      "All exact manifest filenames, source/candidate SHA256 values and genuine RGBA alpha verified. Minor pre-existing facial/garment/perspective variation remains for human review.",
+      "Direct worker checks completed; this does not signify human approval."
+    ],
+    "suggestedRoute": "redraw",
+    "sources": [
+      "/image/original/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_0.png?v=f88c61538474c54e9fb4581e9cdd63ecbbcf60263b578d4d5c320c38d8f8fe60",
+      "/image/original/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_1.png?v=757981d69307e3106be86ffb49b04224bae7985701e2b96a47bb4a9fa74195e2",
+      "/image/original/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_2.png?v=11b7a3f934ccaf4586115124b11af3c2f88e88aa482c963b65f29c00d91cc942",
+      "/image/original/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_3.png?v=1e84152411bf3f401a34a9b37ff29bd2cb01de958a737eb37ff068a74bd4315a",
+      "/image/original/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_0.png?v=be65c454474be20e139f8c1af65cf5d71746bb95f356e24267f5f0e3d2cef45c",
+      "/image/original/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_1.png?v=1e26ddf94052ac50cb72adcfe0f287e9ddaf9637b52510b624c22bfbfc272ed9",
+      "/image/original/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_2.png?v=9ec7ac8b366da5c5a60aa573d0f72de19dc3ada5b9fa2fe6d77825ec31ecb5e1",
+      "/image/original/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_3.png?v=1ccdde09ddb0e8bceed49e5dede812d90db112779f0858d4f071d04698b1c013"
+    ],
+    "sourceHashes": [
+      "f88c61538474c54e9fb4581e9cdd63ecbbcf60263b578d4d5c320c38d8f8fe60",
+      "757981d69307e3106be86ffb49b04224bae7985701e2b96a47bb4a9fa74195e2",
+      "11b7a3f934ccaf4586115124b11af3c2f88e88aa482c963b65f29c00d91cc942",
+      "1e84152411bf3f401a34a9b37ff29bd2cb01de958a737eb37ff068a74bd4315a",
+      "be65c454474be20e139f8c1af65cf5d71746bb95f356e24267f5f0e3d2cef45c",
+      "1e26ddf94052ac50cb72adcfe0f287e9ddaf9637b52510b624c22bfbfc272ed9",
+      "9ec7ac8b366da5c5a60aa573d0f72de19dc3ada5b9fa2fe6d77825ec31ecb5e1",
+      "1ccdde09ddb0e8bceed49e5dede812d90db112779f0858d4f071d04698b1c013"
+    ],
+    "candidates": [
+      "/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_0.png?v=5100027be277710ecc6117e8c002621983999f853c3af5d3a19a8c88fb1f6282",
+      "/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_1.png?v=7f3b86f8ae0a8d4af97a2ab68b76c8653664ea059c7582ee2e6a5662e8df207b",
+      "/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_2.png?v=68480833498d724440cd751c972f142dc2a7ed26d7811e35c56962dc1f6fbb83",
+      "/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_3.png?v=de3c43240da82d52e1ca1995b3a9f8cc4fa350dbcf6ac374d37d8cad4d4d1500",
+      "/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_0.png?v=b0083fd1db99f2719bfd70b7b8d7b213c6d6823e5764ed45271b6556cf58921d",
+      "/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_1.png?v=6137e061138a2b08662a90fcd4cdcb2bd2e4ba45c576c232a18343b7563e9091",
+      "/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_2.png?v=d925735508ac9054578e6457ecd54d8aacdf56aeb321d763e15a6f2983ced7b3",
+      "/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_3.png?v=cbc0df0d96313d8a05de69d443ce7e4437d38396e8dcd39e2228632a69f48b3a"
+    ],
+    "hashes": [
+      "5100027be277710ecc6117e8c002621983999f853c3af5d3a19a8c88fb1f6282",
+      "7f3b86f8ae0a8d4af97a2ab68b76c8653664ea059c7582ee2e6a5662e8df207b",
+      "68480833498d724440cd751c972f142dc2a7ed26d7811e35c56962dc1f6fbb83",
+      "de3c43240da82d52e1ca1995b3a9f8cc4fa350dbcf6ac374d37d8cad4d4d1500",
+      "b0083fd1db99f2719bfd70b7b8d7b213c6d6823e5764ed45271b6556cf58921d",
+      "6137e061138a2b08662a90fcd4cdcb2bd2e4ba45c576c232a18343b7563e9091",
+      "d925735508ac9054578e6457ecd54d8aacdf56aeb321d763e15a6f2983ced7b3",
+      "cbc0df0d96313d8a05de69d443ce7e4437d38396e8dcd39e2228632a69f48b3a"
+    ],
+    "methods": [
+      "prior_candidate_preserved_byte_for_byte",
+      "prior_candidate_preserved_byte_for_byte",
+      "prior_candidate_preserved_byte_for_byte",
+      "prior_candidate_preserved_byte_for_byte",
+      "prior-built-in-imagegen-candidate+uniform-premultiplied-RGBA-Lanczos-common-female-camera-reframe; scale=0.82; anchor=(512,736)",
+      "prior-built-in-imagegen-candidate+uniform-premultiplied-RGBA-Lanczos-common-female-camera-reframe; scale=0.82; anchor=(512,736)",
+      "prior-built-in-imagegen-candidate+uniform-premultiplied-RGBA-Lanczos-common-female-camera-reframe; scale=0.82; anchor=(512,736)",
+      "prior-built-in-imagegen-candidate+uniform-premultiplied-RGBA-Lanczos-common-female-camera-reframe; scale=0.984 (standing correction 1.20 x common camera 0.82); anchor=(512,736)"
+    ],
+    "available": 8,
+    "humanApproved": false,
+    "humanDecision": "pending",
+    "savedNotes": "",
+    "status": "Parent-reviewed \u00b7 Awaiting your approval",
+    "warning": "Review the full animation in both genders and backgrounds. Your decision does not replace app images automatically."
+  },
+  "imageChecks": [
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_0.png?v=5100027be277710ecc6117e8c002621983999f853c3af5d3a19a8c88fb1f6282",
+      "status": 200,
+      "sha256": "5100027be277710ecc6117e8c002621983999f853c3af5d3a19a8c88fb1f6282"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_1.png?v=7f3b86f8ae0a8d4af97a2ab68b76c8653664ea059c7582ee2e6a5662e8df207b",
+      "status": 200,
+      "sha256": "7f3b86f8ae0a8d4af97a2ab68b76c8653664ea059c7582ee2e6a5662e8df207b"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_2.png?v=68480833498d724440cd751c972f142dc2a7ed26d7811e35c56962dc1f6fbb83",
+      "status": 200,
+      "sha256": "68480833498d724440cd751c972f142dc2a7ed26d7811e35c56962dc1f6fbb83"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_3.png?v=de3c43240da82d52e1ca1995b3a9f8cc4fa350dbcf6ac374d37d8cad4d4d1500",
+      "status": 200,
+      "sha256": "de3c43240da82d52e1ca1995b3a9f8cc4fa350dbcf6ac374d37d8cad4d4d1500"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_0.png?v=b0083fd1db99f2719bfd70b7b8d7b213c6d6823e5764ed45271b6556cf58921d",
+      "status": 200,
+      "sha256": "b0083fd1db99f2719bfd70b7b8d7b213c6d6823e5764ed45271b6556cf58921d"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_1.png?v=6137e061138a2b08662a90fcd4cdcb2bd2e4ba45c576c232a18343b7563e9091",
+      "status": 200,
+      "sha256": "6137e061138a2b08662a90fcd4cdcb2bd2e4ba45c576c232a18343b7563e9091"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_2.png?v=d925735508ac9054578e6457ecd54d8aacdf56aeb321d763e15a6f2983ced7b3",
+      "status": 200,
+      "sha256": "d925735508ac9054578e6457ecd54d8aacdf56aeb321d763e15a6f2983ced7b3"
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_3.png?v=cbc0df0d96313d8a05de69d443ce7e4437d38396e8dcd39e2228632a69f48b3a",
+      "status": 200,
+      "sha256": "cbc0df0d96313d8a05de69d443ce7e4437d38396e8dcd39e2228632a69f48b3a"
+    }
+  ],
+  "publication": {
+    "old": {
+      "index": 19,
+      "exerciseId": "Kettlebell_Turkish_Get-Up_Lunge_style",
+      "reportSha256": "00f4156fea205d8230683fc9e256b0ebcff498d9ae6154f1568d6ab1f27621f6",
+      "status": "repair_pending",
+      "humanApproved": false,
+      "reviewRequestedAt": "2026-09-06T17:28:30.673Z",
+      "reviewLabel": "Unfinished repair \u00b7 needs_more_work",
+      "reviewFindings": [
+        "Female standing phase has conspicuous body/kettlebell scale discontinuity.",
+        "Female 3: remaining kettlebell/upper-body scale mismatch versus female 2; the generative edit improved overall size but did not fully resolve continuity. Further proportion-specific repair is needed before parent acceptance."
+      ],
+      "frames": [
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_0.png",
+          "sourceSha256": "f88c61538474c54e9fb4581e9cdd63ecbbcf60263b578d4d5c320c38d8f8fe60",
+          "candidateSha256": "5100027be277710ecc6117e8c002621983999f853c3af5d3a19a8c88fb1f6282"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_1.png",
+          "sourceSha256": "757981d69307e3106be86ffb49b04224bae7985701e2b96a47bb4a9fa74195e2",
+          "candidateSha256": "7f3b86f8ae0a8d4af97a2ab68b76c8653664ea059c7582ee2e6a5662e8df207b"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_2.png",
+          "sourceSha256": "11b7a3f934ccaf4586115124b11af3c2f88e88aa482c963b65f29c00d91cc942",
+          "candidateSha256": "68480833498d724440cd751c972f142dc2a7ed26d7811e35c56962dc1f6fbb83"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_3.png",
+          "sourceSha256": "1e84152411bf3f401a34a9b37ff29bd2cb01de958a737eb37ff068a74bd4315a",
+          "candidateSha256": "de3c43240da82d52e1ca1995b3a9f8cc4fa350dbcf6ac374d37d8cad4d4d1500"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_0.png",
+          "sourceSha256": "be65c454474be20e139f8c1af65cf5d71746bb95f356e24267f5f0e3d2cef45c",
+          "candidateSha256": "3c5600e3c821441ba283b4fd6b8789cc67823a3852039d615e633078bd0337c5"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_1.png",
+          "sourceSha256": "1e26ddf94052ac50cb72adcfe0f287e9ddaf9637b52510b624c22bfbfc272ed9",
+          "candidateSha256": "e2e727429d87aa9e6f098aa5669edcda4fe00d53fb7f8a8d8ee857698b13fb22"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_2.png",
+          "sourceSha256": "9ec7ac8b366da5c5a60aa573d0f72de19dc3ada5b9fa2fe6d77825ec31ecb5e1",
+          "candidateSha256": "be193a9b277cb4b75792413d95a0c81bc6835ddcf3d5950c1c936f45f54bf171"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_3.png",
+          "sourceSha256": "1ccdde09ddb0e8bceed49e5dede812d90db112779f0858d4f071d04698b1c013",
+          "candidateSha256": "dc3e18a42cfc6310ce2c2112f568ce347883fd97fa759bd60167e11210ce3fb0"
+        }
+      ],
+      "reviewEvidence": {
+        "ordinal": 8,
+        "status": "needs_more_work",
+        "findings": [
+          "Female standing phase has conspicuous body/kettlebell scale discontinuity."
+        ],
+        "framesVisuallyInspected": 8,
+        "lightAndDarkReviewed": true,
+        "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/008.jpg"
+      }
+    },
+    "new": {
+      "index": 19,
+      "exerciseId": "Kettlebell_Turkish_Get-Up_Lunge_style",
+      "reportSha256": "cf543d74c1c02dffa6c3fefb0c62eaf01b0e9bd1e4cd3a416e70d86a5b1f2238",
+      "status": "parent_pass_human_pending",
+      "humanApproved": false,
+      "reviewRequestedAt": "2026-09-06T18:12:25.555428+00:00",
+      "reviewFindings": [
+        "Revision 02: female standing relative body/equipment scale corrected using shared female camera scaling; all eight light/dark frames and full sequences checked.",
+        "All exact manifest filenames, source/candidate SHA256 values and genuine RGBA alpha verified. Minor pre-existing facial/garment/perspective variation remains for human review.",
+        "Direct worker checks completed; this does not signify human approval."
+      ],
+      "frames": [
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_0.png",
+          "sourceSha256": "f88c61538474c54e9fb4581e9cdd63ecbbcf60263b578d4d5c320c38d8f8fe60",
+          "candidateSha256": "5100027be277710ecc6117e8c002621983999f853c3af5d3a19a8c88fb1f6282"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_1.png",
+          "sourceSha256": "757981d69307e3106be86ffb49b04224bae7985701e2b96a47bb4a9fa74195e2",
+          "candidateSha256": "7f3b86f8ae0a8d4af97a2ab68b76c8653664ea059c7582ee2e6a5662e8df207b"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_2.png",
+          "sourceSha256": "11b7a3f934ccaf4586115124b11af3c2f88e88aa482c963b65f29c00d91cc942",
+          "candidateSha256": "68480833498d724440cd751c972f142dc2a7ed26d7811e35c56962dc1f6fbb83"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_3.png",
+          "sourceSha256": "1e84152411bf3f401a34a9b37ff29bd2cb01de958a737eb37ff068a74bd4315a",
+          "candidateSha256": "de3c43240da82d52e1ca1995b3a9f8cc4fa350dbcf6ac374d37d8cad4d4d1500"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_0.png",
+          "sourceSha256": "be65c454474be20e139f8c1af65cf5d71746bb95f356e24267f5f0e3d2cef45c",
+          "candidateSha256": "b0083fd1db99f2719bfd70b7b8d7b213c6d6823e5764ed45271b6556cf58921d"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_1.png",
+          "sourceSha256": "1e26ddf94052ac50cb72adcfe0f287e9ddaf9637b52510b624c22bfbfc272ed9",
+          "candidateSha256": "6137e061138a2b08662a90fcd4cdcb2bd2e4ba45c576c232a18343b7563e9091"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_2.png",
+          "sourceSha256": "9ec7ac8b366da5c5a60aa573d0f72de19dc3ada5b9fa2fe6d77825ec31ecb5e1",
+          "candidateSha256": "d925735508ac9054578e6457ecd54d8aacdf56aeb321d763e15a6f2983ced7b3"
+        },
+        {
+          "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_3.png",
+          "sourceSha256": "1ccdde09ddb0e8bceed49e5dede812d90db112779f0858d4f071d04698b1c013",
+          "candidateSha256": "cbc0df0d96313d8a05de69d443ce7e4437d38396e8dcd39e2228632a69f48b3a"
+        }
+      ],
+      "reviewEvidence": {
+        "revision": "02",
+        "framesVisuallyInspected": 8,
+        "lightAndDarkReviewed": true,
+        "fullSequencesReviewed": true,
+        "reviewer": "assigned worker, direct publication authorized",
+        "evidencePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/outputs/revision-02/female-light-dark.jpg"
+      }
+    },
+    "backup": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/019.backup-2c24ec45dcf448668c600cae57b95352",
+    "publishedAt": "2026-09-06T18:12:25.555428+00:00",
+    "snapshot": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/019"
+  }
+}

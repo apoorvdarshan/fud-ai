@@ -1,0 +1,144 @@
+{
+  "reviews": [
+    {
+      "ordinal": 1,
+      "status": "needs_more_work",
+      "findings": [
+        "Body proportions and landmine anchor drift through phases; top pull mechanics remain inconsistent."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/001.jpg"
+    },
+    {
+      "ordinal": 2,
+      "status": "needs_more_work",
+      "findings": [
+        "Start/return retain raised head and hovering legs instead of supine rest; sequence body size and floor anchoring vary."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/002.jpg"
+    },
+    {
+      "ordinal": 3,
+      "status": "needs_more_work",
+      "findings": [
+        "Stationary wall changes width, angle and placement."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/003.jpg"
+    },
+    {
+      "ordinal": 4,
+      "status": "pass",
+      "findings": [
+        "Pass: coherent kneeling chest pass and hand-catch sequence; backgrounds clean at review scale. Minor shading variation remains for human judgment."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/004.jpg"
+    },
+    {
+      "ordinal": 5,
+      "status": "needs_more_work",
+      "findings": [
+        "Ball size, mat geometry and athlete proportions change between generated phases; female peak ball is notably enlarged."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/005.jpg"
+    },
+    {
+      "ordinal": 6,
+      "status": "pass",
+      "findings": [
+        "Pass: complete athlete and stable bench, coherent one-arm rear raise, no broad background remnants. Peak-frame shading/muscle highlighting varies; human style check remains."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/006.jpg"
+    },
+    {
+      "ordinal": 7,
+      "status": "needs_more_work",
+      "findings": [
+        "Bench/foot placement and bar geometry shift; front rack is not consistently maintained."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/007.jpg"
+    },
+    {
+      "ordinal": 8,
+      "status": "needs_more_work",
+      "findings": [
+        "Female standing phase has conspicuous body/kettlebell scale discontinuity."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/008.jpg"
+    },
+    {
+      "ordinal": 9,
+      "status": "needs_more_work",
+      "findings": [
+        "Female return band is fragmented; elbow bend and band layout change."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/009.jpg"
+    },
+    {
+      "ordinal": 10,
+      "status": "needs_more_work",
+      "findings": [
+        "Body/bar scale and foot anchors vary; residual pale outlines remain."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/010.jpg"
+    },
+    {
+      "ordinal": 11,
+      "status": "needs_more_work",
+      "findings": [
+        "Rack storage layout and bench anchors change; pale floor remnants remain."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/011.jpg"
+    },
+    {
+      "ordinal": 12,
+      "status": "needs_more_work",
+      "findings": [
+        "Rack cutouts/geometry and anchors vary, bar path inconsistent."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/012.jpg"
+    },
+    {
+      "ordinal": 13,
+      "status": "needs_more_work",
+      "findings": [
+        "Large white floor islands, damaged bench alpha and clipping remain."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/013.jpg"
+    },
+    {
+      "ordinal": 14,
+      "status": "needs_more_work",
+      "findings": [
+        "Male shoe clipping and rack geometry/scale changes remain."
+      ],
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/parent-check/014.jpg"
+    }
+  ]
+}

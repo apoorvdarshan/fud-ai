@@ -1,0 +1,126 @@
+{
+  "exerciseId": "Bent_Over_One-Arm_Long_Bar_Row",
+  "status": "blocked",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001",
+  "findings": [
+    "Created a separate revision of all eight frames after a versioned snapshot; old review-page candidate paths and production sources remain untouched.",
+    "Built-in imagegen used for focused arm, support-hand, pose-reference, intermediate-phase and equipment repairs, with multiple inspected retries.",
+    "Revision 02 has coherent lower-middle-high-middle loops, using phase 1 again as phase 3 for a symmetric return. This is an intentional timing/pose change.",
+    "Body scale, feet and pivot positions are substantially more consistent within each revised gender sequence than the prior candidates, but not pixel-identical. No independent per-frame bounding-box normalization used.",
+    "Male uses far pulling arm throughout, near hand on knee; female uses near pulling arm throughout, far hand at knee. Female pulling side differs from original but no longer changes inside the cycle.",
+    "Deliberate green backgrounds extracted one image at a time with deterministic green-dominance alpha and spill suppression, then uniform 1024x768 output sizing. All eight PNGs have real alpha extrema 0..255.",
+    "All eight final candidates inspected on paired light/dark composites. No broad white/checkerboard islands, detached limbs, broken main shaft, or visible green background remain.",
+    "Higher male contraction retries repeatedly swapped arms, lost knee support, misplaced plate or curved shaft. Those outputs were rejected, not promoted.",
+    "Latest resumed audit rechecked all eight light/dark composites and both ordered sequences. Two additional focused imagegen attempts were inspected and withheld: male higher pull changes plate/sleeve geometry and introduces marks under torso; female supporting-hand edit removes the connecting forearm."
+  ],
+  "unresolved": [
+    "Male final high phase still stops short of plate-to-lower-chest contact; fuller-range alternatives failed arm/equipment verification.",
+    "Fine redraw texture, shading and torso/sleeve changes remain, especially female top phase. Exact original style/color and pixel-locked stationary anatomy are not achieved.",
+    "Female supporting hand lies along side of knee rather than an unambiguous palm planted on top; requires human mechanics judgment.",
+    "Female is framed smaller than male; within-sequence scale is stable, but gender-to-gender scale is not identical.",
+    "Small plate geometry, bar perspective and pivot-detail changes remain between phases. This revision is improved but not certified ready_for_parent_review under the strict contract."
+  ],
+  "frames": [
+    {
+      "filename": "Bent_Over_One-Arm_Long_Bar_Row_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_One-Arm_Long_Bar_Row_male_v2_0.png",
+      "sourceSha256": "0134e3320ea63282f01e42e0dbbf17dae46a33e02ecb5e615c74b17ad8eb9b61",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/outputs/revision-02/Bent_Over_One-Arm_Long_Bar_Row_male_v2_0.png",
+      "candidateSha256": "14ecbe5950066d72ef1081288712035c2a5ba8dd62125f9c2a592b8a9aa5a6c2",
+      "method": "built_in_imagegen_reference_guided_repair_plus_green_key_alpha",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_One-Arm_Long_Bar_Row_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_One-Arm_Long_Bar_Row_male_v2_1.png",
+      "sourceSha256": "4ffee1fa253597cbb273c888dc8d50b41bbb96b8b8376773d3786c80512579cc",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/outputs/revision-02/Bent_Over_One-Arm_Long_Bar_Row_male_v2_1.png",
+      "candidateSha256": "a8a05208eb3585b425299d407fe3014c8dd01a0694303a2efad3b6a2d51bf952",
+      "method": "built_in_imagegen_reference_guided_repair_plus_green_key_alpha",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_One-Arm_Long_Bar_Row_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_One-Arm_Long_Bar_Row_male_v2_2.png",
+      "sourceSha256": "140b03e1bf52f1c44c7c79e991c16937d0da2bf20e66cf52937fd061ff515088",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/outputs/revision-02/Bent_Over_One-Arm_Long_Bar_Row_male_v2_2.png",
+      "candidateSha256": "2acc19862bf57aa9abb22948fa48d013b30bdfe0952406784e7885964040edb0",
+      "method": "built_in_imagegen_reference_guided_repair_plus_green_key_alpha",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_One-Arm_Long_Bar_Row_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_One-Arm_Long_Bar_Row_male_v2_3.png",
+      "sourceSha256": "34aac37ceaf47675caa2c9436c496cc46ede1cc60d29383d2921aa48a44877e8",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/outputs/revision-02/Bent_Over_One-Arm_Long_Bar_Row_male_v2_3.png",
+      "candidateSha256": "a8a05208eb3585b425299d407fe3014c8dd01a0694303a2efad3b6a2d51bf952",
+      "method": "built_in_imagegen_reference_guided_repair_plus_green_key_alpha_symmetric_return_copy_of_phase1",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_One-Arm_Long_Bar_Row_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_One-Arm_Long_Bar_Row_female_v2_0.png",
+      "sourceSha256": "094745c3014f46520c63092c49732e19a17cc7c425f5f95e5c5a43f534e06c34",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/outputs/revision-02/Bent_Over_One-Arm_Long_Bar_Row_female_v2_0.png",
+      "candidateSha256": "f9d7c8d8f862f0272e28da0efa7fa451fae31c145e90cd355f59c997216d77a3",
+      "method": "built_in_imagegen_reference_guided_repair_plus_green_key_alpha",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_One-Arm_Long_Bar_Row_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_One-Arm_Long_Bar_Row_female_v2_1.png",
+      "sourceSha256": "f85892567987a2581107ce86722b86ad88f0033ba2dd4f652d1c65474a565982",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/outputs/revision-02/Bent_Over_One-Arm_Long_Bar_Row_female_v2_1.png",
+      "candidateSha256": "70dabe5522eccf5361b83a1f69c195f57e229aa24c525dceb0b40566fc739e6a",
+      "method": "built_in_imagegen_reference_guided_repair_plus_green_key_alpha",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_One-Arm_Long_Bar_Row_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_One-Arm_Long_Bar_Row_female_v2_2.png",
+      "sourceSha256": "4dbe7607d3f9d6e0a78bd4beddfd24083bf474503e2bfab67c54585692ac64fc",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/outputs/revision-02/Bent_Over_One-Arm_Long_Bar_Row_female_v2_2.png",
+      "candidateSha256": "c15f378d38fe84d5fcf4d4ba6b6b26111c48fe2269a6f0e0cacb921d11f6a9eb",
+      "method": "built_in_imagegen_reference_guided_repair_plus_green_key_alpha",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_One-Arm_Long_Bar_Row_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_One-Arm_Long_Bar_Row_female_v2_3.png",
+      "sourceSha256": "0003960263dcdef8c34ccea3aff43aaaebddd9ada6032b689e01bff395f8c6b6",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/outputs/revision-02/Bent_Over_One-Arm_Long_Bar_Row_female_v2_3.png",
+      "candidateSha256": "70dabe5522eccf5361b83a1f69c195f57e229aa24c525dceb0b40566fc739e6a",
+      "method": "built_in_imagegen_reference_guided_repair_plus_green_key_alpha_symmetric_return_copy_of_phase1",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": {
+    "tool": "image_gen.imagegen",
+    "promptFile": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/outputs/revision-02-prompts.json",
+    "extractionScript": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/work/revision2.py",
+    "rawAcceptedFrames": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/work/revision-02-raw",
+    "rejectedAttemptsRetainedIn": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-5360-70c2-8bb7-66744b3521ca"
+  },
+  "revision": "02",
+  "snapshotPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/work/snapshots/20260906-230048",
+  "publication": {
+    "published": false,
+    "reason": "Visual mechanics and anatomy gates fail. No snapshot or shared ledger mutation attempted.",
+    "checkedAt": "2026-09-06T18:14:53.548382+00:00",
+    "filenameAndHashValidation": "All eight exact manifest filenames and all sixteen source/candidate SHA256 values revalidated."
+  },
+  "attemptEvidence": [
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/work/revision-03-attempts/male-top.png",
+      "sha256": "f94d3448d708124e82967785518ca6cc067463518d2ed2750bb8a6fa4a4a51e9",
+      "accepted": false,
+      "reason": "Fuller chest pull obtained, but plate/sleeve length changes materially versus adjacent phases and stray marks remain under chest."
+    },
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/work/revision-03-attempts/female-support.png",
+      "sha256": "7fb8f7b08f1b9c19d73ebafb5e55697e42c2efb5ea28e3793e3e98cc43ac506e",
+      "accepted": false,
+      "reason": "Hand now atop knee but supporting forearm erased; anatomical connection is missing."
+    }
+  ]
+}

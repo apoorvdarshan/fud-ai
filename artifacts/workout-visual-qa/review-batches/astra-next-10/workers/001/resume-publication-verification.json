@@ -1,0 +1,8 @@
+{
+  "checkedAt": "2026-09-06T18:15:50.775388+00:00",
+  "published": false,
+  "reason": "Visual quality checks fail; user explicitly forbids publishing failed set.",
+  "httpStatus": 200,
+  "existingRow": null,
+  "currentCandidatesPublished": false
+}

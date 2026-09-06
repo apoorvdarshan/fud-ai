@@ -1,0 +1,26 @@
+{
+  "status": "blocked_unpublished",
+  "verifiedFrames": 8,
+  "filenamesAndHashesMatch": true,
+  "rgbaVerified": true,
+  "lightAndDarkReviewed": true,
+  "sequenceReviewed": true,
+  "remaining": [
+    "Both frame2 rack geometry remains inconsistent: left upright position and rear top support do not match stationary equipment in other phases. Prior frame2 candidates retained after failed redraw attempts.",
+    "Both frame0 hardware extensions improve the silhouette but local joins at the old clipping boundary remain visible; storage peg/sleeve detail differs from other phases. These are partial repair candidates, not approved fixes.",
+    "Existing thin pale edge fringes and modest equipment/anchor variation remain.",
+    "Complete corrected set was not achieved. No production promotion or approval.",
+    "Seventh built-in attempt with explicit fixed rack coordinates failed: athlete/barbell shifted, clothing details changed, RGB 1448x1086 checkerboard instead of alpha. Rejected without candidate overwrite. Cannot meet simultaneous equipment continuity and foreground preservation constraints with attempted edits; publication withheld."
+  ],
+  "rejectedAttempt": {
+    "prompt": "Precise object edit for animation. Image 1 edit target. Image 2 stationary equipment reference. Preserve image1 athlete and raised barbell exactly, including face, hands, clothing, feet, pose and every anchor. Replace only rack with EXACT geometry from image2 at EXACT pixel coordinates: left upright top x420 y80, right upright top x650 y30, curved rear support ending x730 y125, rear foot x755 y635. Athlete and lifted barbell occlude rack normally. Do not move, scale or redraw person, barbell or bench. No reframing. Same original raster illustration. 1024x768 canvas. Real transparent background; no checkerboard or black/white painted backdrop. Repair edges without white fringe.",
+    "output": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-12a6-7c53-a34b-171300def401/exec-a7a9bf2b-3e1f-4b6d-81d1-34a97ae94f94.png",
+    "sha256": "117f8953544e26dc04c0fa5f39e5243ad0c396df31862f35b82cc720a6c144c6",
+    "accepted": false
+  },
+  "publication": {
+    "published": false,
+    "reason": "Visual checks failed; no publication lock taken, snapshot or ledger changed.",
+    "humanApproved": false
+  }
+}

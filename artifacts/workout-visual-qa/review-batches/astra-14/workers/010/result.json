@@ -1,0 +1,163 @@
+{
+  "exerciseId": "Barbell_Ab_Rollout",
+  "status": "blocked",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010",
+  "findings": [
+    "Created eight new built-in imagegen edits; all eight are substantive new candidates, not prior copies.",
+    "Solid green backdrop plus deterministic key extraction removed checkerboard and pale outlines; all eight RGBA candidates checked on light/dark.",
+    "Reference-guided phases correct forward-reaching arms toward vertical grip mechanics and retain pike-to-plank-to-return sequence.",
+    "Applied common 0.85 scale and per-frame translation to a shared near-toe anchor (760,680); no independent body stretching.",
+    "Clothing, hairstyle, illustrated appearance retained broadly, but exact pixel-level original style/identity preservation was not achieved.",
+    "Final retry: targeted female frame 1 shoe/plate correction failed twice. First retained plate occlusion; second generated a detached shoe and disconnected anatomy. Both rejected; revision2 candidates preserved.",
+    "All eight retained revision2 frames rechecked in light/dark sequence sheets; remaining bar-width, body-proportion and foot/ground inconsistencies confirmed."
+  ],
+  "unresolved": [
+    "Bar width and some plate/anatomical proportions still vary between generated phases; common global scale does not fully resolve internal geometry.",
+    "Male/female frame 1 have feet partly hidden by near plate, so anchor estimates there are uncertain. Far-foot contact and plate ground baseline remain imperfect.",
+    "Generated rendering differs from original in small face, shading and equipment details. This improved revision is not certified ready or approved for production.",
+    "Focused local imagegen corrections could not resolve feet while preserving connected anatomy. No new passing set exists; publication withheld."
+  ],
+  "frames": [
+    {
+      "filename": "Barbell_Ab_Rollout_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Ab_Rollout_male_v2_0.png",
+      "sourceSha256": "fa5f540efacac3cf9222731648a7278299c6a3bab21966dee5ca6c1bf014bac1",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010/outputs/revision2/Barbell_Ab_Rollout_male_v2_0.png",
+      "candidateSha256": "7b9a6876ccbdb10cae564dc44f68fc912ce74ef268f0ddd95a7fe9fabb609765",
+      "method": "built-in reference-guided image edit on deliberate green; deterministic chroma alpha extraction; common scale and near-toe alignment; residual geometry/style issues disclosed",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Ab_Rollout_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Ab_Rollout_male_v2_1.png",
+      "sourceSha256": "82ada4a94066cb439f53ee1a46d51f18ed773fafb188dea1d091fbde7cc0b01d",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010/outputs/revision2/Barbell_Ab_Rollout_male_v2_1.png",
+      "candidateSha256": "6f6dea7b77ad55f3ad7e2eb5b6d9cee6e4f91792938f071ce2d845e54e96c83b",
+      "method": "built-in reference-guided image edit on deliberate green; deterministic chroma alpha extraction; common scale and near-toe alignment; residual geometry/style issues disclosed",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Ab_Rollout_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Ab_Rollout_male_v2_2.png",
+      "sourceSha256": "197d50746c1748352b8dd02eb3dacd516b7f139ed26cb8416ea1efd4c9bcfe9a",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010/outputs/revision2/Barbell_Ab_Rollout_male_v2_2.png",
+      "candidateSha256": "58f97091cf5743714f7139fbabd22722975e21d0f02f6e4ece77e927aa2636df",
+      "method": "built-in reference-guided image edit on deliberate green; deterministic chroma alpha extraction; common scale and near-toe alignment; residual geometry/style issues disclosed",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Ab_Rollout_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Ab_Rollout_male_v2_3.png",
+      "sourceSha256": "106b64ef370bac95784830462174899712acc71a811c3d4ebd733b7c57ff7085",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010/outputs/revision2/Barbell_Ab_Rollout_male_v2_3.png",
+      "candidateSha256": "742a7f3bc4df7bb09f1d5e67d86ad432500b58095731a86b5db5875b9c066c21",
+      "method": "built-in reference-guided image edit on deliberate green; deterministic chroma alpha extraction; common scale and near-toe alignment; residual geometry/style issues disclosed",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Ab_Rollout_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Ab_Rollout_female_v2_0.png",
+      "sourceSha256": "3d9654da6b0653df1d0033a42d06b722604242ce5743dcfa2b397f9871d78f11",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010/outputs/revision2/Barbell_Ab_Rollout_female_v2_0.png",
+      "candidateSha256": "c6645d5f9f800b14e5d1366d5e6863057a5c7d7e25220ef02c6619c4f3b00eca",
+      "method": "built-in reference-guided image edit on deliberate green; deterministic chroma alpha extraction; common scale and near-toe alignment; residual geometry/style issues disclosed",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Ab_Rollout_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Ab_Rollout_female_v2_1.png",
+      "sourceSha256": "09d11a60887b5a1bacb439b2c24a579c46d35637d2b4ee35450c0f9519a5056e",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010/outputs/revision2/Barbell_Ab_Rollout_female_v2_1.png",
+      "candidateSha256": "8071828b5ec78099a499533f7bed856b5a23908dbf3019e5a1f137e640952cd6",
+      "method": "built-in reference-guided image edit on deliberate green; deterministic chroma alpha extraction; common scale and near-toe alignment; residual geometry/style issues disclosed",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Ab_Rollout_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Ab_Rollout_female_v2_2.png",
+      "sourceSha256": "0080b31664f9b9c877b30086e65466a318e6425499e2f18cb4054ccba8ae92e7",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010/outputs/revision2/Barbell_Ab_Rollout_female_v2_2.png",
+      "candidateSha256": "3737a78bc498b84cc9d24a0052f49ba638662a7c289c266a12b83dab4f2835b3",
+      "method": "built-in reference-guided image edit on deliberate green; deterministic chroma alpha extraction; common scale and near-toe alignment; residual geometry/style issues disclosed",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Ab_Rollout_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Ab_Rollout_female_v2_3.png",
+      "sourceSha256": "6a57eb7d5af8b1a91d2d9705304a3a33d6705d39ea395192abba3bd77eb52489",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010/outputs/revision2/Barbell_Ab_Rollout_female_v2_3.png",
+      "candidateSha256": "ea20d37c498534e6f3ce8e1d38f2a6b036629764811d41ce0c98aec66aba582d",
+      "method": "built-in reference-guided image edit on deliberate green; deterministic chroma alpha extraction; common scale and near-toe alignment; residual geometry/style issues disclosed",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "prompt": "Edit this exact workout illustration. Preserve person identity, detailed shading, black clothing with orange seams, equipment design, camera and pose. Remove all pale/white outlines and replace ALL background including enclosed gaps with flat pure green #00FF00 for chroma extraction. No green on foreground, no shadow, no text. Only background and edge cleanup; keep exact composition and proportions. Entire person and barbell remain intact.",
+      "type": "built_in_imagegen"
+    },
+    {
+      "prompt": "Edit image 1 to its next animation phase: male standing barbell ab rollout, partial pike with hips lowered halfway toward plank. Image 2 is pose direction only, not scale. Arms must be vertical, hands directly below shoulders gripping bar. Keep EXACT image 1 male face/hair/clothes/rendering and barbell design/plate diameter, same camera and framing. Feet stay fixed at image 1 foot positions on same ground plane; bar rolls LEFT away from feet. Do not stretch limbs or shrink person. Flat pure #00FF00 background including enclosed gaps, no outline/halo/shadow/text. One frame.",
+      "type": "built_in_imagegen"
+    },
+    {
+      "prompt": "Image 1 edit target: male pike barbell frame. Change ONLY pose to full straight-body pushup plank with vertical straight arms and shoulders above grip, roll bar to left, keep toes at same location, show both feet and legs. Preserve exact man/style/clothes/barbell diameter/camera/scale. Flat pure green #00FF00 backdrop in all gaps. Do not invent outlines, shadows or text. One frame.",
+      "type": "built_in_imagegen"
+    },
+    {
+      "prompt": "Edit target image 1 female workout. Background cleanup only: remove white outlines and white/checkerboard in all gaps; flat pure green #00FF00 background. Preserve EXACT woman identity, black outfit orange seams, hairstyle, illustration detail, pose, proportions and equipment design. Image 2 male is composition/scale reference only: place female at identical body/equipment scale and canvas location as male, retaining her original female features. No text/shadows.",
+      "type": "built_in_imagegen"
+    },
+    {
+      "prompt": "Edit image 1 only: return phase of standing barbell ab rollout. Raise hips halfway from this plank toward pike, keeping arms vertical and straight, move bar right toward feet. Keep exact athlete identity, clothes, rendering, head/body/plate size, camera and ground plane. Both shoes must remain visibly supported at SAME positions. Do not omit far foot. Pure solid #00FF00 background in all gaps, no pale outline/shadow/text. One frame.",
+      "type": "built_in_imagegen"
+    },
+    {
+      "prompt": "Edit female image to partial-pike outward phase: lower hips halfway toward straight-body plank, bar moves LEFT away from feet; arms vertical and hands directly under shoulders. Preserve exact female identity and detailed original style, bun, black outfit orange seams, equipment and anatomy scale/camera. Both feet visibly supported at same original floor positions; keep bar plate diameter and bar length exactly. Solid pure #00FF00 everywhere behind figure/in gaps. No halo/shadow/text. Single frame.",
+      "type": "built_in_imagegen"
+    },
+    {
+      "prompt": "Edit female image to full straight-body pushup plank phase of standing barbell ab rollout. Hips lower in line with torso/legs, arms vertical and straight, shoulders directly over bar grip, bar rolls LEFT away from feet. Both legs and shoes visible, toes supported at SAME original positions. Exact woman face/bun/clothes, detailed shading/style, anatomy and plate size/camera. Solid pure #00FF00 background throughout all gaps, no white outline or shadow or text. One frame.",
+      "type": "built_in_imagegen"
+    },
+    {
+      "prompt": "Edit target female plank to return phase: raise hips to a moderate pike, move bar right toward feet, retain straight VERTICAL arms. Keep EXACT woman identity/bun/clothing/rendering, camera, body scale and barbell dimensions. Keep both shoes at current positions visible to RIGHT of near plate, do not hide feet behind equipment. Same solid pure #00FF00 background in all gaps, no outlines/shadows/text. One frame.",
+      "type": "built_in_imagegen"
+    },
+    {
+      "type": "built_in_imagegen_focused_retry",
+      "prompt": "Precise local correction only. This image is one animation frame. Keep absolutely everything in the image unchanged EXCEPT the two lower legs and shoes: resolve the shoe/weight-plate collision by placing both shoes clearly behind and to the right of the near plate, toes touching the implied floor. Keep knees and hips fixed, preserve plausible tibia lengths; match the exact black shoes with white soles. Do not change head, torso, arms, barbell, clothing, camera, scale or composition. Keep pure #00FF00 backdrop and fill gaps with it. No outline or shadows.",
+      "outputPath": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-77a2-7aa0-8dc3-e3fdfb39377c/exec-2599ef0d-6dcf-49f1-9ddf-33dd42a43dba.png",
+      "outcome": "rejected: shoe occlusion remains"
+    },
+    {
+      "type": "built_in_imagegen_focused_retry",
+      "prompt": "Correct the failed local edit: the near weight plate still covers the woman's shoes. Move ONLY her lower legs and both shoes to the RIGHT enough that there is a clear green gap between right edge of plate and left edges of both shoes. Feet must both be completely visible, with toes facing left and soles on floor, heels raised slightly for pike. Preserve knees/hips, proportions and identical shoes. Keep the barbell, hands, arms, head and torso at exactly their existing positions. Do not redraw or resize any other content. Pure #00FF00 background.",
+      "outputPath": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-77a2-7aa0-8dc3-e3fdfb39377c/exec-5bb9d129-910d-47fe-9547-02f48ad11c87.png",
+      "outcome": "rejected: detached shoe and altered rendering"
+    }
+  ],
+  "evidencePaths": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010/outputs/revision2/male-light.png",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010/outputs/revision2/male-dark.png",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010/outputs/revision2/female-light.png",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010/outputs/revision2/female-dark.png"
+  ],
+  "revision": 2,
+  "snapshotPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-010/work/snapshots/20260906-230053",
+  "generatedSources": {
+    "male0": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-77a2-7aa0-8dc3-e3fdfb39377c/exec-4c1319bf-1fae-45a5-8c99-5ba307fde75e.png",
+    "male1": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-77a2-7aa0-8dc3-e3fdfb39377c/exec-fc55b23f-15af-4a9c-bc28-2cbaf35e5ebe.png",
+    "male2": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-77a2-7aa0-8dc3-e3fdfb39377c/exec-6d12da52-bd1a-4e49-b8c2-6fc8a25f0599.png",
+    "male3": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-77a2-7aa0-8dc3-e3fdfb39377c/exec-79794827-9a0a-4ee6-988a-d113f62bdac8.png",
+    "female0": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-77a2-7aa0-8dc3-e3fdfb39377c/exec-6750a408-c415-4ad5-91a6-1c2c80691946.png",
+    "female1": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-77a2-7aa0-8dc3-e3fdfb39377c/exec-44d9d9bc-db8e-45b7-b20d-db1ff88e18d8.png",
+    "female2": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-77a2-7aa0-8dc3-e3fdfb39377c/exec-0b2c7e18-1f39-4ab2-b9e8-87c4d2668507.png",
+    "female3": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-77a2-7aa0-8dc3-e3fdfb39377c/exec-bd747980-84d1-4a4a-8750-e15cd0be502c.png"
+  },
+  "publication": {
+    "published": false,
+    "reason": "Visual anatomy/sequence checks failed; no ledger or parent-collected modifications made",
+    "humanApproved": false
+  }
+}

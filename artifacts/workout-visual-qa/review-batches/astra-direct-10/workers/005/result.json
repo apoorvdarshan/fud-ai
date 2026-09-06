@@ -1,0 +1,236 @@
+{
+  "exerciseId": "Alternating_Floor_Press",
+  "index": 27,
+  "status": "blocked_not_published",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005",
+  "findings": [
+    "All eight existing candidates were visually inspected in ordered contact sheets on light and dark backgrounds.",
+    "Prior male frame 2 equipment repair is present; dumbbell end weights are complete.",
+    "The male final frame has visible lower-body and shoe-placement drift relative to the other frames. Female action frames also vary in torso/head/ponytail placement.",
+    "Three focused built-in image edits were attempted and rejected for transparency, clipping, framing, or stationary-body preservation failures."
+  ],
+  "unresolved": [
+    "A complete eight-frame set has not passed the stationary-body and animation-consistency requirements.",
+    "No new male final-frame repair satisfies all transparency, framing and anchor constraints."
+  ],
+  "frames": [
+    {
+      "filename": "Alternating_Floor_Press_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Alternating_Floor_Press_female_v2_0.png",
+      "sourceSha256": "58a9ac7ecf2a34163345c0f9d7c992189964dc6333653e046c4a444865f0cf08",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/candidates/Alternating_Floor_Press_female_v2_0.png",
+      "candidateSha256": "74525ab31114d969ea24f5fe604359e9972ed3ea811ae9b88a93296b7a8cc025",
+      "method": "prior_imagegen_edit_then_alpha_extraction_retained_for_review",
+      "visuallyReviewed": true,
+      "size": [
+        1024,
+        768
+      ],
+      "alphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "filename": "Alternating_Floor_Press_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Alternating_Floor_Press_female_v2_1.png",
+      "sourceSha256": "22b2c48e114e8abf3cf81b3b950ce9c29bb2220c6f8837001bf9de33ffcfa4a0",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/candidates/Alternating_Floor_Press_female_v2_1.png",
+      "candidateSha256": "9c0c15146e160f70ca4e56cd0ef0c0ee687efac74ab400254286f8f068161f80",
+      "method": "prior_imagegen_edit_then_alpha_extraction_retained_for_review",
+      "visuallyReviewed": true,
+      "size": [
+        1024,
+        768
+      ],
+      "alphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "filename": "Alternating_Floor_Press_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Alternating_Floor_Press_female_v2_2.png",
+      "sourceSha256": "333ff8595248038b79435d3f9bd64d6672579aa97db514b7674a97cc9a6520da",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/candidates/Alternating_Floor_Press_female_v2_2.png",
+      "candidateSha256": "f4156055db8cd7479e479e15a7cb95d56b55f90fc1ea34836bb5e620243881f6",
+      "method": "prior_imagegen_edit_then_alpha_extraction_retained_for_review",
+      "visuallyReviewed": true,
+      "size": [
+        1024,
+        768
+      ],
+      "alphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "filename": "Alternating_Floor_Press_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Alternating_Floor_Press_female_v2_3.png",
+      "sourceSha256": "9d1512c33bea26b66951a06d3fb44a5d161ceb5e545fc87dd0b3c32c6ff443b0",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/candidates/Alternating_Floor_Press_female_v2_3.png",
+      "candidateSha256": "c2157c84e68cace8bb2c5d23d5b997ddfe5e586c37502f99924a85e2b5d1801d",
+      "method": "prior_imagegen_edit_then_alpha_extraction_retained_for_review",
+      "visuallyReviewed": true,
+      "size": [
+        1024,
+        768
+      ],
+      "alphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "filename": "Alternating_Floor_Press_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Alternating_Floor_Press_male_v2_0.png",
+      "sourceSha256": "846d6204bfaebe1ee25605286682abb08ac3e1033db067edc743eae86181f134",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/candidates/Alternating_Floor_Press_male_v2_0.png",
+      "candidateSha256": "703e1e133ac100018ccffaaa55f2514e7c40835e6c506e00368f9c3fa79af4fd",
+      "method": "prior_imagegen_edit_then_alpha_extraction_retained_for_review",
+      "visuallyReviewed": true,
+      "size": [
+        1024,
+        768
+      ],
+      "alphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "filename": "Alternating_Floor_Press_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Alternating_Floor_Press_male_v2_1.png",
+      "sourceSha256": "35a8cac058be69db01749ba3bb5c17ba9bc274be5876229eba4da7fe6116306f",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/candidates/Alternating_Floor_Press_male_v2_1.png",
+      "candidateSha256": "b416db13726dbdc180eaeec664d2f64fd0d1afd648e31efa723d2bf733633a1f",
+      "method": "prior_imagegen_edit_then_alpha_extraction_retained_for_review",
+      "visuallyReviewed": true,
+      "size": [
+        1024,
+        768
+      ],
+      "alphaRange": [
+        0,
+        254
+      ]
+    },
+    {
+      "filename": "Alternating_Floor_Press_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Alternating_Floor_Press_male_v2_2.png",
+      "sourceSha256": "0ef88d6bd8525a30ed76e1ac5be0a71a0a931b4d44f455d664f17ed8bc240bba",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/candidates/Alternating_Floor_Press_male_v2_2.png",
+      "candidateSha256": "328028080ed1393e07aa802512f787f222c96bf69cd9c92c5ce0c935e961f0e5",
+      "method": "prior_imagegen_edit_then_alpha_extraction_retained_for_review",
+      "visuallyReviewed": true,
+      "size": [
+        1024,
+        768
+      ],
+      "alphaRange": [
+        0,
+        254
+      ]
+    },
+    {
+      "filename": "Alternating_Floor_Press_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Alternating_Floor_Press_male_v2_3.png",
+      "sourceSha256": "28d30524768f5c048438a028d91b35b72fb38ed85d360f3efdc8a278ea667493",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/candidates/Alternating_Floor_Press_male_v2_3.png",
+      "candidateSha256": "ed1fc1282885b15c51be30c6581accd733efbb5c15a44d4b12e180f5d335f9a8",
+      "method": "prior_imagegen_edit_then_alpha_extraction_retained_for_review",
+      "visuallyReviewed": true,
+      "size": [
+        1024,
+        768
+      ],
+      "alphaRange": [
+        0,
+        255
+      ]
+    }
+  ],
+  "prompts": {
+    "prompts": [
+      {
+        "attempt": 1,
+        "prompt": "Use case: precise-object-edit. Edit image 1 (male alternating floor press frame 3), using image 2 only as the exact stationary body/legs/shoes anchor. Keep image 1's arm action: screen-left arm bent down holding dumbbell, screen-right arm extended up holding dumbbell. Correct only body/leg/foot placement and scale so the waist, shorts, knees, lower legs and soles exactly overlay image 2. Preserve male identity, black shirt/shorts, muscular anatomy, illustration shading, camera perspective and the complete dumbbells. Frame is 1024x768. No recentering or zoom. Background must be genuinely transparent alpha, no painted white or checkerboard. Preserve all non-target details. This is an animation frame, the lower body must be stationary, matching image 2."
+      },
+      {
+        "attempt": 2,
+        "prompt": "Use case: background-extraction. Remove the painted checkerboard background from this workout illustration. Output true RGBA transparency with alpha=0 in all background and enclosed gaps. Do not paint checkerboard, white, gray or any substitute background. Keep the person and weights exactly unchanged in pose, proportions, placement, colors and illustration style. No cropping. Transparent PNG."
+      },
+      {
+        "attempt": 3,
+        "prompt": "Use case: precise-object-edit. Make one surgical localized edit to this exact animation frame. Change ONLY the screen-left arm and its dumbbell from fully extended to the lowered floor-press position: elbow bent about 90 degrees, upper arm resting near the floor beside the torso, forearm upward, dumbbell above elbow. The screen-right arm stays fully extended. All pixels outside the screen-left arm and adjacent sleeve edit region must remain unchanged: head, chest, waist, shorts, thighs, shins, shoes, and screen-right arm/dumbbell. Retain exact framing, 1024x768 canvas, unchanged scale and fixed feet locations. No reinterpretation of stationary anatomy. Preserve transparent alpha background; do not render checkerboard pattern or white. Preserve illustration style and person."
+      }
+    ],
+    "tool": "built-in image_gen",
+    "priorReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/027/result.json"
+  },
+  "attempts": [
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/rejected-attempts/exec-3be8d6c3-eff7-4b8a-91ce-8106812f9fdf.png",
+      "generatedPath": "/Users/apoorvdarshan/.codex/generated_images/01a077f1-7540-7ea1-8447-20838dbf6bf1/exec-3be8d6c3-eff7-4b8a-91ce-8106812f9fdf.png",
+      "sha256": "e9fa20260b5cd11fc3641ece08d2026dfe320d6dc32442ab1950000cc47e4523",
+      "mode": "RGB",
+      "size": [
+        1448,
+        1086
+      ],
+      "alphaRange": null,
+      "accepted": false,
+      "reasonRejected": "Opaque painted checkerboard; lower-body anchor still changed."
+    },
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/rejected-attempts/exec-ebc8eaf5-5370-4431-bada-4486ce5598de.png",
+      "generatedPath": "/Users/apoorvdarshan/.codex/generated_images/01a077f1-7540-7ea1-8447-20838dbf6bf1/exec-ebc8eaf5-5370-4431-bada-4486ce5598de.png",
+      "sha256": "3c8ca4bb7b6e21816527debf13d3884457b71243ac8583ae628463ecdb46e4e8",
+      "mode": "RGBA",
+      "size": [
+        1536,
+        1024
+      ],
+      "alphaRange": [
+        0,
+        254
+      ],
+      "accepted": false,
+      "reasonRejected": "Real alpha confirmed on light/dark composites, but canvas changed to 1536x1024 and raised dumbbell is clipped against the top edge; stationary anatomy is not preserved."
+    },
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/rejected-attempts/exec-75b7c21d-121e-4ab5-bb9f-e91fc11e71a2.png",
+      "generatedPath": "/Users/apoorvdarshan/.codex/generated_images/01a077f1-7540-7ea1-8447-20838dbf6bf1/exec-75b7c21d-121e-4ab5-bb9f-e91fc11e71a2.png",
+      "sha256": "df3cb8c1085cddc017bb3161938bd3cd1b275101912312493011c86a07f3c550",
+      "mode": "RGB",
+      "size": [
+        1448,
+        1086
+      ],
+      "alphaRange": null,
+      "accepted": false,
+      "reasonRejected": "Arm-only retry again returned opaque painted checkerboard and changed details outside the intended edit region."
+    }
+  ],
+  "reviewEvidence": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/female-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/male-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/rejected-alpha-composite.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/light.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/female-light.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/male-light.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/female-ordered-review.gif",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-005/outputs/male-ordered-review.gif"
+  ],
+  "animationReview": {
+    "orderedFramesVisuallyInspected": true,
+    "playbackVerified": false
+  },
+  "publication": {
+    "published": false,
+    "reason": "Quality gates failed; no publication lock acquired or ledger/collected/human-decision files changed."
+  },
+  "completedAt": "2026-09-06T18:21:25.317704+00:00"
+}

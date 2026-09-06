@@ -1,0 +1,63 @@
+{
+  "exerciseId": "Back_Flyes_-_With_Bands",
+  "published": true,
+  "humanApproved": false,
+  "verifiedAt": "2026-09-06T18:13:35.509465+00:00",
+  "snapshot": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/037",
+  "backup": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/037-backup-20260906T181314Z-7af7a7fc",
+  "reportSha256": "4f32f1cc3de6794aabf9dc06f8d55843519f23e26a0955bfcb528e74fbc92def",
+  "reviewRequestedAt": "2026-09-06T18:13:14.432Z",
+  "manifestUrl": "http://127.0.0.1:8765/manifest.json",
+  "available": 8,
+  "humanDecision": "pending",
+  "imageChecks": [
+    {
+      "filename": "Back_Flyes_-_With_Bands_male_v2_0.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Back_Flyes_-_With_Bands_male_v2_0.png?v=139b876d959c4ea02d1788fdd46756a36c63a6629ec00e9a645217456123d191",
+      "status": 200,
+      "sha256": "139b876d959c4ea02d1788fdd46756a36c63a6629ec00e9a645217456123d191"
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_male_v2_1.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Back_Flyes_-_With_Bands_male_v2_1.png?v=dd1caca3cb90350ccea121b1412d4a468a3d0f30a011ad173dfac56d8f8e6a90",
+      "status": 200,
+      "sha256": "dd1caca3cb90350ccea121b1412d4a468a3d0f30a011ad173dfac56d8f8e6a90"
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_male_v2_2.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Back_Flyes_-_With_Bands_male_v2_2.png?v=f541a0c58fd7df72d271bbd7cb2734094ed4c0b9dc0e63df0ce4f932c53bca1a",
+      "status": 200,
+      "sha256": "f541a0c58fd7df72d271bbd7cb2734094ed4c0b9dc0e63df0ce4f932c53bca1a"
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_male_v2_3.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Back_Flyes_-_With_Bands_male_v2_3.png?v=dd1caca3cb90350ccea121b1412d4a468a3d0f30a011ad173dfac56d8f8e6a90",
+      "status": 200,
+      "sha256": "dd1caca3cb90350ccea121b1412d4a468a3d0f30a011ad173dfac56d8f8e6a90"
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_female_v2_0.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Back_Flyes_-_With_Bands_female_v2_0.png?v=54dcda121e17845c8b4a17abca53b9b5a654eb18ad719b43c99cff666e2d5d71",
+      "status": 200,
+      "sha256": "54dcda121e17845c8b4a17abca53b9b5a654eb18ad719b43c99cff666e2d5d71"
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_female_v2_1.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Back_Flyes_-_With_Bands_female_v2_1.png?v=0aad96e9fde241f7ff76fe93c7c3a02a33b6a4d2e15ec1d95eb944a4d38b4a10",
+      "status": 200,
+      "sha256": "0aad96e9fde241f7ff76fe93c7c3a02a33b6a4d2e15ec1d95eb944a4d38b4a10"
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_female_v2_2.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Back_Flyes_-_With_Bands_female_v2_2.png?v=bfa6f5530ee7d429c9fffd2234f37b6738bd3721a936c6e7ed071ee51201964f",
+      "status": 200,
+      "sha256": "bfa6f5530ee7d429c9fffd2234f37b6738bd3721a936c6e7ed071ee51201964f"
+    },
+    {
+      "filename": "Back_Flyes_-_With_Bands_female_v2_3.png",
+      "url": "http://127.0.0.1:8765/image/candidate/Back_Flyes_-_With_Bands_female_v2_3.png?v=0aad96e9fde241f7ff76fe93c7c3a02a33b6a4d2e15ec1d95eb944a4d38b4a10",
+      "status": 200,
+      "sha256": "0aad96e9fde241f7ff76fe93c7c3a02a33b6a4d2e15ec1d95eb944a4d38b4a10"
+    }
+  ]
+}

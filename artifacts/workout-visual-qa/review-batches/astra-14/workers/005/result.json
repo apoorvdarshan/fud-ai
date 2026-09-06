@@ -1,0 +1,224 @@
+{
+  "exerciseId": "Downward_Facing_Balance",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-005",
+  "findings": [
+    "Preserved the entire previous candidate set, report, prompts and contact sheets in a timestamped snapshot before edits. Previous outputs/candidates files remain byte-identical to that snapshot; the new report points to outputs/revision2/candidates.",
+    "Replaced previous whole-frame generated phases with localized source-guided limb edits. Original phase-0 face, hair, shirt/torso pixels and camera remain fixed in all four phases for each gender. Black clothing, orange trim and shoe design retained.",
+    "Seven built-in imagegen edits produced support arms, peak legs, starting hands and a shared source-guided equipment plate. Whole generated people were not used. Only reviewed limb regions were composited at the original sleeve/waist attachments.",
+    "A single ball/mat plate is reused without scale changes in all eight frames, with only a fixed 21px horizontal gender offset. This eliminates the enlarged female peak ball and phase-varying mat geometry/shading. Equipment is a source-guided redraw, not an exact pixel copy of original equipment.",
+    "Frame 0 now has palms down with bent elbows; frame 1 has nearly straight support arms and feet down; frame 2 lifts extended legs while hands remain grounded; frame 3 lowers the same peak legs by a 14-degree hip-centered rotation while maintaining grounded arms. Torso remains stomach-supported on the ball.",
+    "Rejected intermediate source-texture equipment reconstruction because it left a mat patch and shorts remnant. Replaced it with the shared built-in-generated clean equipment plate. Corrected limb masks and waistband overlap after inspecting intermediate composites.",
+    "All eight final 1024x768 RGBA candidates inspected on both light and dark backgrounds. Real alpha verified, hidden RGB cleared, complete feet/hands visible, no checkerboard, white background panels or detached limb fragments. Actual source/candidate SHA256 hashes recomputed.",
+    "Automated pixel comparisons confirm identical sampled face, torso, exposed ball and mat regions across phases within each gender. Full numerical evidence is saved in verification.json. These are candidate-review checks, not production integration or human approval."
+  ],
+  "unresolved": [
+    "Localized generated limbs and the shared equipment plate have somewhat smoother shading/edges than the retained original raster torso. Exact pixel-level style identity is not claimed; human review should assess the localized sleeve/waist seams and final animation. No known remaining ball-size or mat-geometry drift."
+  ],
+  "frames": [
+    {
+      "filename": "Downward_Facing_Balance_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Downward_Facing_Balance_male_v2_0.png",
+      "sourceSha256": "ec9e507dab8d0b3ce307f6b9ce5cdc0c7c732a14a374e2d853c3598dab339ee7",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-005/outputs/revision2/candidates/Downward_Facing_Balance_male_v2_0.png",
+      "candidateSha256": "e748f4154ac3eab39e2b94e50af2b8d9056e4c95f8e79e2ac00f06223949f1fa",
+      "method": "localized-built-in-imagegen-limbs-plus-source-torso-and-fixed-equipment-compositing-v2",
+      "visuallyReviewed": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBounds": [
+        70,
+        381,
+        946,
+        756
+      ],
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Downward_Facing_Balance_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Downward_Facing_Balance_male_v2_1.png",
+      "sourceSha256": "e3aab8418f9270a34899869191c98652d85bdd796df479f8cbb0b87be933dc0d",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-005/outputs/revision2/candidates/Downward_Facing_Balance_male_v2_1.png",
+      "candidateSha256": "39aceedb49ba032dcf566cad02a07bfccf227dac1fa232c3bd9a36a1a6dfa5fa",
+      "method": "localized-built-in-imagegen-limbs-plus-source-torso-and-fixed-equipment-compositing-v2",
+      "visuallyReviewed": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBounds": [
+        70,
+        381,
+        946,
+        756
+      ],
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Downward_Facing_Balance_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Downward_Facing_Balance_male_v2_2.png",
+      "sourceSha256": "e6a669b56cd36f7d56cca64eec3ef604ba88026eb9d8c7254ec00f44543ef310",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-005/outputs/revision2/candidates/Downward_Facing_Balance_male_v2_2.png",
+      "candidateSha256": "8a639b26927b9199afc3f3cc6999595c51080fccddcef4fe1148a420f0f9012c",
+      "method": "localized-built-in-imagegen-limbs-plus-source-torso-and-fixed-equipment-compositing-v2",
+      "visuallyReviewed": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBounds": [
+        19,
+        381,
+        946,
+        756
+      ],
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Downward_Facing_Balance_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Downward_Facing_Balance_male_v2_3.png",
+      "sourceSha256": "28412429b53ecf272f0cf77e32ae257316920a5207ac1efb1c3cd6c56d0cd105",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-005/outputs/revision2/candidates/Downward_Facing_Balance_male_v2_3.png",
+      "candidateSha256": "0451893411af04dd48aeadd88c127f73c0302602e6edf63a125e0e194d22709c",
+      "method": "localized-built-in-imagegen-limbs-plus-source-torso-and-fixed-equipment-compositing-v2",
+      "visuallyReviewed": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBounds": [
+        34,
+        381,
+        946,
+        756
+      ],
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Downward_Facing_Balance_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Downward_Facing_Balance_female_v2_0.png",
+      "sourceSha256": "30cf2f998ab165193d5e163bc94a21b25687bc3108a5679d075f4210fe7fa22c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-005/outputs/revision2/candidates/Downward_Facing_Balance_female_v2_0.png",
+      "candidateSha256": "83985c65453bbb30e004624b6275ef457c1540c8ce0a25f0a4a77a7ee4ead717",
+      "method": "localized-built-in-imagegen-limbs-plus-source-torso-and-fixed-equipment-compositing-v2",
+      "visuallyReviewed": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBounds": [
+        89,
+        344,
+        967,
+        756
+      ],
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Downward_Facing_Balance_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Downward_Facing_Balance_female_v2_1.png",
+      "sourceSha256": "5bdcd6657e91fb469b574e5cd6ef77d70b3011c6ac5ed3c53c5e41c207a1d3d5",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-005/outputs/revision2/candidates/Downward_Facing_Balance_female_v2_1.png",
+      "candidateSha256": "6db113166f129b3de53e93000d9e391d75aa2c1cccb5c061689be5954e7999cb",
+      "method": "localized-built-in-imagegen-limbs-plus-source-torso-and-fixed-equipment-compositing-v2",
+      "visuallyReviewed": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBounds": [
+        89,
+        344,
+        967,
+        756
+      ],
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Downward_Facing_Balance_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Downward_Facing_Balance_female_v2_2.png",
+      "sourceSha256": "1c9234c9150977e065710410945b4b433c4776ced3cfc338daa796821fb3d450",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-005/outputs/revision2/candidates/Downward_Facing_Balance_female_v2_2.png",
+      "candidateSha256": "fd832756b6dddd82098e30ab5503d10102f7cf9229fa462aa298f9d992922597",
+      "method": "localized-built-in-imagegen-limbs-plus-source-torso-and-fixed-equipment-compositing-v2",
+      "visuallyReviewed": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBounds": [
+        46,
+        344,
+        967,
+        756
+      ],
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Downward_Facing_Balance_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Downward_Facing_Balance_female_v2_3.png",
+      "sourceSha256": "d3d99caeced41f1fe503eb2f489d13a09a9a368775b44353834fe89d39a98618",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-005/outputs/revision2/candidates/Downward_Facing_Balance_female_v2_3.png",
+      "candidateSha256": "3fa4e28708e76595631a4953519397c8a935907c750a96ee2bb8878f9a84f325",
+      "method": "localized-built-in-imagegen-limbs-plus-source-torso-and-fixed-equipment-compositing-v2",
+      "visuallyReviewed": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "visibleBounds": [
+        70,
+        344,
+        967,
+        756
+      ],
+      "lightAndDarkReviewed": true
+    }
+  ],
+  "prompts": {
+    "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-005/outputs/revision2/prompts.json",
+    "compositingScript": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-005/work/revision2/compose.py",
+    "generatedIntermediates": [
+      {
+        "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-624b-7293-85bc-66d2b80e88bd/exec-7b4ab923-0149-471f-a85b-98c0170295eb.png",
+        "sha256": "2295067c96abd12a3e75010864087ba203a4169062fc588ea46c92179abb38c0",
+        "role": "male support arms"
+      },
+      {
+        "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-624b-7293-85bc-66d2b80e88bd/exec-4e7549bb-1030-4af8-8f96-e2b8aa4a563f.png",
+        "sha256": "9d37f87a72cf166c196bcd3893988c6280438b890bcf5fbf39c6e3ce89353220",
+        "role": "female support arms"
+      },
+      {
+        "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-624b-7293-85bc-66d2b80e88bd/exec-1b75f97b-458a-4241-bc5a-85d6da75cda7.png",
+        "sha256": "497b3883806fd4ebd43b03283de8935dc293545425a8052d357be7919e2de2c4",
+        "role": "male peak legs"
+      },
+      {
+        "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-624b-7293-85bc-66d2b80e88bd/exec-89ba95fa-0844-4088-bf29-7fcab7720021.png",
+        "sha256": "1a1c8962da9944471ef732542ddd6e8d2a5c8da7dea2c8e4d3e22aa77ae48c76",
+        "role": "female peak legs"
+      },
+      {
+        "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-624b-7293-85bc-66d2b80e88bd/exec-15bf1b66-7fdb-4a2b-87e9-5d0bcdaa0a3f.png",
+        "sha256": "bab7812b3c202612ade59c10e7ba92b6ca7d806621f2db934511d63ae7597e5f",
+        "role": "shared equipment"
+      },
+      {
+        "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-624b-7293-85bc-66d2b80e88bd/exec-7abeccb6-7146-439f-99e8-91f5a1339061.png",
+        "sha256": "3a5462a4c1d80a86eb85450d0dec0612b1c7c21b49fa471dfbc42b77b6e232d2",
+        "role": "male starting arms"
+      },
+      {
+        "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-624b-7293-85bc-66d2b80e88bd/exec-54852369-a281-4882-9bbc-12894598a005.png",
+        "sha256": "2c708b6b82f88dc88cd817b8c5fb520c0d56906eaebdfecade223ef39cf20a2a",
+        "role": "female starting arms"
+      }
+    ]
+  },
+  "revision": 2,
+  "snapshotPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-005/outputs/revisions/20260906-230052",
+  "verificationPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-005/outputs/revision2/verification.json"
+}

@@ -1,0 +1,117 @@
+{
+  "exerciseId": "Backward_Medicine_Ball_Throw",
+  "index": 39,
+  "status": "blocked_unpublished",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009",
+  "findings": [
+    "Reviewed all eight existing candidates in ordered male/female sequences on light and dark composites. Transparency gaps generally improved in prior pass.",
+    "Both release frames retain visibly reduced body and head scale compared with adjacent frames; the male release frame has green/cyan edge residue visible at full resolution.",
+    "Two built-in imagegen attempts produced 1448x1086 RGB images with opaque painted checkerboards, despite explicit genuine-alpha requests. The focused extraction retry also changed foreground details. Neither output accepted."
+  ],
+  "unresolved": [
+    "Athlete scale and rendering continuity in male and female release frames.",
+    "Colored extraction-edge residue on prior release candidate.",
+    "Built-in redraw and focused extraction retry failed real transparency and foreground-preservation requirements.",
+    "Complete eight-frame animation is not verified as passing; publication withheld."
+  ],
+  "frames": [
+    {
+      "filename": "Backward_Medicine_Ball_Throw_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Backward_Medicine_Ball_Throw_male_v2_0.png",
+      "sourceSha256": "4c05669b7b83b0884f3de02ec738de0fcc5a782177a29d922bd448d7f453d23f",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009/outputs/candidates/Backward_Medicine_Ball_Throw_male_v2_0.png",
+      "candidateSha256": "4c05669b7b83b0884f3de02ec738de0fcc5a782177a29d922bd448d7f453d23f",
+      "method": "retained prior candidate for evidence only; unchanged",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Backward_Medicine_Ball_Throw_male_v2_1.png",
+      "sourceSha256": "22bc831789007f8e392989357c32699130b92ee86cef18c13973f38122d4b693",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009/outputs/candidates/Backward_Medicine_Ball_Throw_male_v2_1.png",
+      "candidateSha256": "00509f104ee7453ce079f363733d9d0e6961fc4764a122f8655916f4a78e9385",
+      "method": "retained prior candidate for evidence only; deterministic-neutral-gap-alpha-v2",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Backward_Medicine_Ball_Throw_male_v2_2.png",
+      "sourceSha256": "c8955fa56abbea80567ebab6584286200c1f74b0808b81be2c012bc10c6d8514",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009/outputs/candidates/Backward_Medicine_Ball_Throw_male_v2_2.png",
+      "candidateSha256": "e9c504bbabd00a80a3c44ff3865991cb15f376479f43cfcd301dc1244ca04831",
+      "method": "retained prior candidate for evidence only; built-in-imagegen-plus-known-green-chroma-v2; deterministic-sequence-scale-and-equipment-normalization-v1",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Backward_Medicine_Ball_Throw_male_v2_3.png",
+      "sourceSha256": "5a80fa09bc9d648d09a63c348807f4fb7d0919c906bb41e8e4f4764e52dc9a9f",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009/outputs/candidates/Backward_Medicine_Ball_Throw_male_v2_3.png",
+      "candidateSha256": "5a80fa09bc9d648d09a63c348807f4fb7d0919c906bb41e8e4f4764e52dc9a9f",
+      "method": "retained prior candidate for evidence only; unchanged",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Backward_Medicine_Ball_Throw_female_v2_0.png",
+      "sourceSha256": "551b661cf7acb6d813a40cf16ec0d0e1bca94ea8d1c67d9e3339fffdac1210d4",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009/outputs/candidates/Backward_Medicine_Ball_Throw_female_v2_0.png",
+      "candidateSha256": "4f48fc62ea954641a7f8f9c5a82205fb93258a0495c9dddcb7beaf469d2715cb",
+      "method": "retained prior candidate for evidence only; deterministic-neutral-hair-alpha-v2",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Backward_Medicine_Ball_Throw_female_v2_1.png",
+      "sourceSha256": "e2d715b23a730bdb5ea230905afa8cb17821e03f42875b0d4f4bbb356fb3f60d",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009/outputs/candidates/Backward_Medicine_Ball_Throw_female_v2_1.png",
+      "candidateSha256": "e029a5e143f52a94ae54e2415b992d6374a443ab0510a303c7c0f0893ae5ea05",
+      "method": "retained prior candidate for evidence only; deterministic-neutral-gap-and-hair-alpha-v2",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Backward_Medicine_Ball_Throw_female_v2_2.png",
+      "sourceSha256": "4c3397c441d5fb799449bd3262d62006218489b0d02015cb536b7f5bad5ddd70",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009/outputs/candidates/Backward_Medicine_Ball_Throw_female_v2_2.png",
+      "candidateSha256": "90e3fbffe317f60f32e3439a850d3a8ff1210399d55fa14a538beb31636d2683",
+      "method": "retained prior candidate for evidence only; built-in-imagegen-plus-known-green-chroma-v2; deterministic-sequence-scale-and-equipment-normalization-v1",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Backward_Medicine_Ball_Throw_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Backward_Medicine_Ball_Throw_female_v2_3.png",
+      "sourceSha256": "931d2fadb116552b36449b673d7250117798d24614e050862e96a5c75bad1052",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009/outputs/candidates/Backward_Medicine_Ball_Throw_female_v2_3.png",
+      "candidateSha256": "184df80ad2fe6a6c4bb24dccd0de06be8271420e6081ea871378ca0f77dab018",
+      "method": "retained prior candidate for evidence only; deterministic-neutral-hair-alpha-v2",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "attempt": 1,
+      "intent": "Use male frame 1 as authoritative identity and scale; correct frame 2 release with same body scale, shoes at y750, head near y75, open hands and one airborne ball upper right; genuine transparent 1024x768 canvas.",
+      "output": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009/outputs/evidence/exec-5f144a92-aeee-4029-8c24-1a9fb296cf31.png",
+      "accepted": false
+    },
+    {
+      "attempt": 2,
+      "prompt": "Background extraction edit: remove the entire painted checkerboard and replace with actual alpha transparency. Keep athlete and ball identical. Output genuine transparent PNG cutout. No checkerboard, no opaque white backdrop. Exact same image and foreground.",
+      "output": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009/outputs/evidence/exec-c2c98873-9d5c-4a8f-b4a2-a6551da54ec0.png",
+      "accepted": false
+    }
+  ],
+  "provenance": {
+    "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/039/result.json",
+    "previousPrompts": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009/outputs/evidence/previous-provenance.md",
+    "tool": "built-in imagegen",
+    "originalsModified": false,
+    "published": false,
+    "ledgerModified": false
+  },
+  "evidence": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009/outputs/evidence/light.png",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-009/outputs/evidence/dark.png"
+  ]
+}

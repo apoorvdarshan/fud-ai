@@ -1,0 +1,133 @@
+{
+  "exerciseId": "Ab_Roller",
+  "index": 23,
+  "status": "blocked",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-004",
+  "findings": [
+    "All eight prior candidates inspected in ordered male/female sequences on light and dark contact sheets.",
+    "Planted knees and shoes drift during rollout; mat geometry changes.",
+    "Visible pale edge residue persists on dark background.",
+    "Reference-guided substantive edit and focused alpha retry both returned RGB 1448x1086 with baked checkerboard; rejected."
+  ],
+  "unresolved": [
+    "Cannot produce a verified style-preserving, anchor-consistent eight-frame set with the attempted built-in edits.",
+    "No successful transparent corrected output; no publication readiness."
+  ],
+  "frames": [
+    {
+      "filename": "Ab_Roller_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Roller_male_v2_0.png",
+      "sourceSha256": "d1c5b5ba15ce73b484ec2687348001ffac952c21199ddd438999f0fe9080bdd4",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-004/work/candidates/Ab_Roller_male_v2_0.png",
+      "candidateSha256": "2158cc71db09b84ec9f223202dee201c6d54c28701934ae87be2f11a0d4b7d62",
+      "method": "preserved prior candidate; reviewed and rejected for unresolved continuity defects",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Roller_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Roller_male_v2_1.png",
+      "sourceSha256": "9c1b8b467c4fb542c0ddbc021804f831e39a98fc21dbd7c2e9686c9e0070d756",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-004/work/candidates/Ab_Roller_male_v2_1.png",
+      "candidateSha256": "a52079b9b8f3f7f96b1e8e23801355ef70b4bd960da9a27f9b8206af81ddebd4",
+      "method": "preserved prior candidate; reviewed and rejected for unresolved continuity defects",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Roller_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Roller_male_v2_2.png",
+      "sourceSha256": "aeed98a77fe739e3ce6a195cbf91282c5424153e4bc55bb3be9514fc9fe6edd9",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-004/work/candidates/Ab_Roller_male_v2_2.png",
+      "candidateSha256": "b49b8a69c2d94018677ac3559dd8ce35a6133f33c2782bf43c6674ee9b876ecc",
+      "method": "preserved prior candidate; reviewed and rejected for unresolved continuity defects",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Roller_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Roller_male_v2_3.png",
+      "sourceSha256": "2c30b6fce479927fb09ee0fc11c71369fd4164fe395db50d66bb2ee6cae371da",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-004/work/candidates/Ab_Roller_male_v2_3.png",
+      "candidateSha256": "a531e37313e83ec2a71c3d03848a530cb74ab17f657616e2b0abb16d77b8d907",
+      "method": "preserved prior candidate; reviewed and rejected for unresolved continuity defects",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Roller_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Roller_female_v2_0.png",
+      "sourceSha256": "17697da8a2dd5d2f19d1a540863d5e247e0b4614ad6f30060583616e565a7e58",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-004/work/candidates/Ab_Roller_female_v2_0.png",
+      "candidateSha256": "d1f40327c203b18ed6b5550954cdf339b93510570e20e2f9e5e177dc1f1b4580",
+      "method": "preserved prior candidate; reviewed and rejected for unresolved continuity defects",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Roller_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Roller_female_v2_1.png",
+      "sourceSha256": "310eca6f057343ef75627a6306194ed03d4a4b671c2d7ebae532bc2c629b093e",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-004/work/candidates/Ab_Roller_female_v2_1.png",
+      "candidateSha256": "015a4caa02e52ee9c3e4ba31a105c0f74428445992e46aa70d0470cb976b1580",
+      "method": "preserved prior candidate; reviewed and rejected for unresolved continuity defects",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Roller_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Roller_female_v2_2.png",
+      "sourceSha256": "f7951b9291a5188a8ac9b80020ab86c1a8dd110786bcba1c08843960d9dc4096",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-004/work/candidates/Ab_Roller_female_v2_2.png",
+      "candidateSha256": "3e9dacb0aba7c6574e9c1911971c55c50cd39bdc1a5608f971eb0335e5a55fa0",
+      "method": "preserved prior candidate; reviewed and rejected for unresolved continuity defects",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Roller_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Roller_female_v2_3.png",
+      "sourceSha256": "d400454cebc0b819f28b0da57869fd5dfc70e02d249fc8738d1a9bdfa3f3d791",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-004/work/candidates/Ab_Roller_female_v2_3.png",
+      "candidateSha256": "d7673998db003b5f692112b9dbfb0e785ae86e4307c583db0bba2fb6107b276c",
+      "method": "preserved prior candidate; reviewed and rejected for unresolved continuity defects",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "tool": "built-in imagegen",
+      "prompt": "Use case: precise-object-edit. Edit target: image 2, the fully extended male ab roller frame. Image 1 is the same man's kneeling start frame and stationary mat/lower-leg reference. Correct image 2 so its planted knees and shoes occupy exactly the same canvas coordinates as image 1: knee contact around (575,700), shoes around (798,655), stationary mat corners as image 1. Keep calf length, body size, person, black clothes with red seam, blue wheel, original detailed outlined illustration style. Pivot thighs and extend torso and straight arms forward from the fixed knee, roller farther left; do not move knees backward. Preserve canvas 1024x768 framing and actual transparent alpha background, no checkerboard, no white halo. Keep all artwork inside canvas with margin. Return one corrected frame, not a comparison."
+    },
+    {
+      "tool": "built-in imagegen"
+    }
+  ],
+  "provenance": {
+    "priorReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/023/result.json",
+    "rejectedGenerations": [
+      {
+        "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-004/work/rejected-attempt-1.png",
+        "sha256": "40280e60fa9cd9362ad793041ada13eb7fafa9b9fa73cb0de9c5aeb5fd683116",
+        "mode": "RGB",
+        "size": [
+          1448,
+          1086
+        ],
+        "accepted": false
+      },
+      {
+        "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-004/work/rejected-attempt-2.png",
+        "sha256": "03981b062ac53643b57147b4235df44ef9ccb2426ed61885ace9319c6c27018e",
+        "mode": "RGB",
+        "size": [
+          1448,
+          1086
+        ],
+        "accepted": false
+      }
+    ]
+  },
+  "reviewArtifacts": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-004/work/existing-light.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-004/work/existing-dark.jpg"
+  ],
+  "publication": {
+    "published": false,
+    "reason": "Visual checks failed; ledger and collected snapshot left untouched."
+  },
+  "updatedAt": "2026-09-06T18:21:38.393394+00:00"
+}

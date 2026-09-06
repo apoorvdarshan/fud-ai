@@ -1,0 +1,254 @@
+{
+  "exerciseId": "Barbell_Guillotine_Bench_Press",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012",
+  "findings": [
+    "Previous report and all previous candidates were snapshotted at work/snapshots/revision-01 before edits; originals and old review-page candidates remain untouched.",
+    "All eight final candidates are substantive new built-in imagegen revisions, keyed from deliberately green-backed images; none are unresolved original/prior copies.",
+    "Removed broad and thin pale floor remnants, background islands, white silhouette halos and rack alpha damage. All eight are 1024x768 RGBA with real alpha extrema [0,255]; enclosed gaps visually checked on light and dark backgrounds.",
+    "Female-0 clipped rack ends reconstructed. Female sequence regenerated from consistent scene references; prior female-2 donor seam eliminated.",
+    "Male and female bar paths now descend toward neck/upper-chest junction and rise in four distinct phases. Arms and hand-to-bar contacts were regenerated using canonical guillotine press mechanics.",
+    "Lower 288 rows are byte-identical within each gender after bounded stationary-region transfer, locking feet, lower legs and bench/rack ground anchors. Male fixed hook patches transferred from focused imagegen donor; stored plate restored in rising frame.",
+    "All eight final images individually reviewed on light and dark; sequence review sheets saved alongside revision-02 PNGs. All canonical-source and final-candidate SHA-256 values freshly computed.",
+    "Revision 03: reviewed all eight on light/dark and as full sequences; male upper poses reassigned so frame 0 is highest, frame 1 descends, frame 2 is lowest near neck, frame 3 rises. Six clean candidates retained from revision 02. Names and 16 hashes verified against batch index 50."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Guillotine_Bench_Press_male_v2_0.png",
+      "sourceSha256": "743e9cf67a9c681e1015906a330d00656b2387058ba72c434109817fb2cef06d",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/outputs/revision-03/Barbell_Guillotine_Bench_Press_male_v2_0.png",
+      "candidateSha256": "7415d893de4172e04cde6de2cd0a21a41c4b26e4ed18bf1e144d28a5eec395c0",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "lowerAnchorRegionIdentical": true,
+      "method": "built-in imagegen phase repair + deliberate-green chroma extraction + fixed lower-anchor transfer + bounded generated hook donor transfer; revision-02 male-3 pose reassigned to starting frame as highest pose, including restored stored plate",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Guillotine_Bench_Press_male_v2_1.png",
+      "sourceSha256": "accc0a8a7cfceadef1f3998135c31e779c0461157f4352ade7606c14ce29fdd0",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/outputs/revision-03/Barbell_Guillotine_Bench_Press_male_v2_1.png",
+      "candidateSha256": "7238afeb1fb5bf5c791490cfef94a41e2315c5c1b1bdb5c005e7087ae4b53b27",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "lowerAnchorRegionIdentical": true,
+      "method": "built-in imagegen phase repair + deliberate-green chroma extraction + fixed lower-anchor transfer + bounded generated hook donor transfer; retained unchanged after fresh revision-03 review",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Guillotine_Bench_Press_male_v2_2.png",
+      "sourceSha256": "02bd348959befedb8a0c079b1f3f951c63d6b177dd7b68e52d0af3ef663804a9",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/outputs/revision-03/Barbell_Guillotine_Bench_Press_male_v2_2.png",
+      "candidateSha256": "3bda50a0af5cb490448f96b0ef348b62ee5dd392bb701d0cf716d2e671722a31",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "lowerAnchorRegionIdentical": true,
+      "method": "built-in imagegen phase repair + deliberate-green chroma extraction + fixed lower-anchor transfer + bounded generated hook donor transfer; retained unchanged after fresh revision-03 review",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Guillotine_Bench_Press_male_v2_3.png",
+      "sourceSha256": "73e2171ff1a045274b5890cf7eef70c179a76836447ddf5fb210e5acdb296f6f",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/outputs/revision-03/Barbell_Guillotine_Bench_Press_male_v2_3.png",
+      "candidateSha256": "390aaa505de949f688ba5d290abc686dbc7582c895bb2c9f1e0d169260b1a902",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "lowerAnchorRegionIdentical": true,
+      "method": "built-in imagegen phase repair + deliberate-green chroma extraction + fixed lower-anchor transfer + bounded generated hook donor transfer; revision-02 male-0 pose reassigned to rising frame below highest pose",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Guillotine_Bench_Press_female_v2_0.png",
+      "sourceSha256": "1b3a30451a7d073a8dc658c01a4f10b0a676e1e3dd298bb24f27e9562945b9d5",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/outputs/revision-03/Barbell_Guillotine_Bench_Press_female_v2_0.png",
+      "candidateSha256": "dc2168beb1198e7813962d66908dc5a7d027ab0140265b52db0754bb89b90234",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "lowerAnchorRegionIdentical": true,
+      "method": "built-in imagegen reference-guided phase repair + deliberate-green chroma extraction + fixed lower-anchor transfer; retained unchanged after fresh revision-03 review",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Guillotine_Bench_Press_female_v2_1.png",
+      "sourceSha256": "1bc965371e5b0094459aaa8660f75123a196f0d36f01185f6131623c0f83a16b",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/outputs/revision-03/Barbell_Guillotine_Bench_Press_female_v2_1.png",
+      "candidateSha256": "57da20d96ab4c6109deab795fd52ff71654a83a8d80b3205486fe5992e98277c",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "lowerAnchorRegionIdentical": true,
+      "method": "built-in imagegen reference-guided phase repair + deliberate-green chroma extraction + fixed lower-anchor transfer; retained unchanged after fresh revision-03 review",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Guillotine_Bench_Press_female_v2_2.png",
+      "sourceSha256": "8650073309d95354fa1fb4e56de437e9d04795a130e17e8d85c2cd082d1cfe71",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/outputs/revision-03/Barbell_Guillotine_Bench_Press_female_v2_2.png",
+      "candidateSha256": "00278ee8b8ddfa75893575c891f6aed0641278462ab7e10906b488aa89836405",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "lowerAnchorRegionIdentical": true,
+      "method": "built-in imagegen reference-guided phase repair + deliberate-green chroma extraction + fixed lower-anchor transfer; retained unchanged after fresh revision-03 review",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Guillotine_Bench_Press_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Guillotine_Bench_Press_female_v2_3.png",
+      "sourceSha256": "91c7f970fab29357c1b5c2d0d40485f7d648e862f1140233453d883f6be2a73d",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/outputs/revision-03/Barbell_Guillotine_Bench_Press_female_v2_3.png",
+      "candidateSha256": "2da91741056c37ebfcb72342e544b18ae3ffb071d72e5905e68e3f0a892f4333",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "lowerAnchorRegionIdentical": true,
+      "method": "built-in imagegen reference-guided phase repair + deliberate-green chroma extraction + fixed lower-anchor transfer; retained unchanged after fresh revision-03 review",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "frame": "Barbell_Guillotine_Bench_Press_female_v2_0.png",
+      "tool": "built-in image_gen",
+      "status": "rejected",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/work/rejected-female-0-imagegen.png",
+      "outputSha256": "fb3e6ce0ce8ccdf3c7d07c791e593e57f314c3018c37cbd378df9937797f9df9"
+    },
+    {
+      "frame": "Barbell_Guillotine_Bench_Press_female_v2_0.png",
+      "prompt": "Precise object edit of the supplied workout animation frame. Preserve the exact existing illustrated woman, face, ponytail, black shirt, shorts with orange seam, shoes, body proportions, bench, barbell and two-post rack. Same camera and positions. Change only: repair silver metal surfaces with missing speckles, complete the abruptly clipped right ends of the two rack storage pegs and bottom right rack foot naturally; remove white floor fragment and white outlines around silhouette. Do not add pegs, alter equipment design, replace the person or redraw clothing. Entire background must be uniform solid vivid RGB(0,255,0) green, including all gaps between bench rails, arms and rack; no shadow, floor, checkerboard or other background. This is a chroma-key intermediate. Keep 4:3 canvas. One image only.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/work/generated/female-0-green.png",
+      "status": "accepted provisional"
+    },
+    {
+      "frame": "Barbell_Guillotine_Bench_Press_female_v2_1.png",
+      "prompt": "Animation phase edit. Image 1 is the MASTER scene: preserve its woman identity, clothing, rack, bench, all stationary geometry, camera, scale, feet and torso positions exactly. Image 2 is ONLY a bent-elbow motion hint; do not copy its damaged rack or background or camera drift. Create the next frame from Image 1: lower the same barbell vertically about halfway toward her NECK, bending both elbows naturally outwards, with both hands firmly grasping the bar. Keep bar tilt, grip width and plates unchanged. Guillotine bench press: bar trajectory stays above neck, never abdomen/mid-chest. Change only arms/hands and bar position plus correctly revealed background behind them. Keep same solid pure vivid green RGB(0,255,0) background including all enclosed gaps; no floor, shadows, checkerboard or lettering. Same 4:3 framing, one image.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/work/generated/female-1-green.png",
+      "status": "provisional"
+    },
+    {
+      "frame": "Barbell_Guillotine_Bench_Press_female_v2_2.png",
+      "prompt": "Use image 1 as a locked animation master. Produce bottom phase of this same woman's guillotine bench press. Move ONLY barbell and her gripping hands slightly down to about one inch above the base of her neck, and bend arms accordingly. Elbows flare naturally outward; bar must not cross mid chest or belly. Maintain bar tilt, plate size and grip width. All other pixels especially rack upright top heights, pegs, bench frame, torso, head, feet, clothing, camera, scale and anchors must remain identical to image 1. Do not redesign or shift stationary equipment. Same uniform vivid green chroma background, all gaps green, no shadows, no text, no checkerboard. One 4:3 image.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/work/generated/female-2-green.png",
+      "status": "provisional"
+    },
+    {
+      "frame": "Barbell_Guillotine_Bench_Press_female_v2_3.png",
+      "prompt": "Edit animation phase only. Preserve image 1 scene exactly: same woman, black clothing orange shorts seam, ponytail, stationary torso/legs/feet, bench, rack, pegs, camera and scale. This is rising phase of guillotine bench press. Lift same barbell vertically upward away from neck until arms are about three-quarters extended, elbows still slightly bent. Both hands grip same shaft firmly; same plate sizes, bar tilt and grip width. Keep rack heights, pegs and all ground anchors identical. No equipment redesign. Reconstruct any background exposed by arms. Solid uniform vivid RGB(0,255,0) green everywhere behind subject and in gaps; no shadow, floor or checkerboard. 4:3 image, no text.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/work/generated/female-3-green.png",
+      "status": "provisional"
+    },
+    {
+      "frame": "Barbell_Guillotine_Bench_Press_male_v2_0.png",
+      "prompt": "Precise repair of this existing workout illustration. Retain this exact male identity, short black hair, black shirt, black shorts with orange seam, shoes, bench, barbell and weight storage rack design. Preserve camera, scale, feet and bench ground positions. Repair damaged silver rack uprights to continuous solid metal, remove all pale floor islands/edge halos and complete clean equipment edges. Starting phase of guillotine bench press: arms fully extended holding bar above NECK, hands firmly gripping same bar; straighten elbows slightly if needed without moving shoulders or torso. Same medium grip, plate size and bar tilt. Uniform solid RGB(0,255,0) vivid green background throughout exterior AND all enclosed gaps. No floor shadow, checkerboard, texture, lettering or new equipment. Same 4:3 composition; one image.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/work/generated/male-0-green.png",
+      "status": "provisional"
+    },
+    {
+      "frame": "Barbell_Guillotine_Bench_Press_male_v2_1.png",
+      "prompt": "Edit only animation phase of supplied scene. Preserve man identity, exact black clothing with orange seam, face, torso, legs, feet, bench, rack, stored plate, camera, scale and all stationary anchors. Lower SAME barbell vertically toward neck until elbows are bent roughly 90 degrees. Guillotine bench press, not ordinary chest press: shaft must stay above base of neck, not travel toward belly. Keep hands gripping bar, grip width and plate sizes unchanged. Do not move head/torso. Restore revealed solid metal rack correctly, same design. Uniform solid vivid RGB(0,255,0) green background including enclosed gaps, no floor/shadows/checkerboard/text. Same 4:3 frame. One image.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/work/generated/male-1-green.png",
+      "status": "provisional"
+    },
+    {
+      "frame": "Barbell_Guillotine_Bench_Press_male_v2_2.png",
+      "prompt": "Locked scene animation edit, male guillotine bench press bottom phase. Move only barbell, hands and arms: lower bar another small distance until shaft hovers one inch above base of NECK, elbows flexed outward. Keep bar path near neck, not middle chest; keep face unobstructed as anatomically appropriate. Same firm medium-width grip, plate dimensions and shaft angle. Do not move torso, head, legs, feet, bench, rack, stored plate or camera. All stationary object pixels and scale remain fixed. Same uniform vivid green RGB(0,255,0) background in exterior and gaps, no shadows/floor/checkerboard/text. Preserve exact illustration style, man identity and black clothing orange seam. One 4:3 image.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/work/generated/male-2-green.png",
+      "status": "used"
+    },
+    {
+      "frame": "Barbell_Guillotine_Bench_Press_male_v2_3.png",
+      "prompt": "Locked animation scene, rising phase of male guillotine bench press. Raise the same barbell vertically upward away from neck until elbows are about three-quarters extended, not fully locked. Only change arms, hands and bar position. Same grip width, plate sizes, shaft tilt, man identity, clothes, torso, head, legs, feet, bench and rack positions. Preserve all stationary pixels, camera and scale. Uniform vivid RGB(0,255,0) green background including all gaps. No added objects, shadows, floor, checkerboard or text. One 4:3 image.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/work/generated/male-3-green.png",
+      "status": "used"
+    },
+    {
+      "frame": "male all frames",
+      "prompt": "Precise small equipment repair ONLY. On each of the two tall silver rack uprights add one properly attached short dark-metal J-cup/bar-rest hook facing toward the athlete, at equal physical height about one-quarter down from the top. These are the missing barbell rests. Preserve ALL other pixels exactly: man face, body, arms, hands, barbell, stored plate, bench, rack heights and positions, clothing, camera and scale. Do not move anything. Keep solid vivid green background. Same 4:3 canvas. No labels.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/work/generated/male-hooks-green.png",
+      "status": "only bounded hook patches used"
+    },
+    {
+      "frame": "Barbell_Guillotine_Bench_Press_female_v2_0.png",
+      "prompt": "Small animation phase change only. Extend this woman's elbows fully and raise the same gripped barbell about 40 pixels (on this image) into the starting lockout position above neck. Preserve ALL stationary scene details exactly: same rack upright heights, hooks, storage pegs, rails and feet, same bench, torso, head, ponytail, legs and feet, clothes, scale and camera. No redesign of equipment or person. Same hands, grip width, plate sizes and shaft angle. Keep solid vivid green RGB(0,255,0) everywhere behind and in gaps. One 4:3 image, no shadow or text.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/work/generated/female-0b-green.png",
+      "status": "used; replaces first revision-02 female-0"
+    }
+  ],
+  "snapshotPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/work/snapshots/revision-01",
+  "revision": 3,
+  "evidencePaths": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/outputs/revision-03/male-sequence-review.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-012/outputs/revision-03/female-sequence-review.jpg"
+  ],
+  "reviewNotes": [
+    "Fine linework and fabric/face shading differ from canonical originals while retaining recognizable people, black clothing with orange seam, equipment and illustrated treatment. Human style preference remains pending.",
+    "Small upper-rack hole/peg-detail and shading variation is cosmetic; no remaining background, clipping, disconnected-contact or ground-anchor defect identified.",
+    "Male stored-plate/rear-support patch reviewed on both backgrounds; no open seam identified."
+  ],
+  "publication": {
+    "status": "published_and_http_verified",
+    "humanApproved": false,
+    "manifestUrl": "http://127.0.0.1:8765/manifest.json",
+    "verifiedAt": "2026-09-06T18:15:25.856126+00:00",
+    "snapshotPath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/050",
+    "previousSnapshotBackup": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/050.backup-20260906T181432-71b44755",
+    "snapshotReportSha256": "7082e4edc1cc96206de7e796009a5c5948b9a819448533c6aaf160bd44aef785",
+    "reviewRequestedAt": "2026-09-06T18:15:08.409Z",
+    "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/workers/012/publication-verification-revision-03.json",
+    "available": 8
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "exerciseId": "Front_Barbell_Squat_To_A_Bench",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007",
+  "findings": [
+    "Prior report and all prior output files preserved in versioned snapshot before revision. Root outputs remain unchanged; new candidates use outputs/revision-02.",
+    "Repaired male front-rack occlusion and female shaft crossing the visible upper arm using built-in imagegen. Reused corrected upper-body/rack artwork by vertical translation through phases.",
+    "Created same-perspective bench-only layers with built-in imagegen; reused fixed bench geometry across each gender sequence.",
+    "Used deliberately green generated backgrounds and deterministic known-key extraction to genuine alpha, then inspected/despilled edges. No painted checkerboards retained.",
+    "Registered planted soles and used standing master shoes. Sequence is standing, bench contact, rising, return; frame 3 exactly matches frame 0.",
+    "Uniform 8-pixel upward translation adds bottom padding to all frames without per-frame scale changes. No production source modified.",
+    "Final eight files inspected on both light and dark backgrounds; bench-contact frames additionally inspected at full resolution on dark. Real alpha and all actual source/candidate hashes verified. Fixed bench sample regions, complete sole bands and both plate crops are pixel-identical across phases after accounting for vertical bar travel."
+  ],
+  "unresolved": [
+    "Small changes in shirt folds and leg contour/shading remain across bent-knee phases; human review should assess animation smoothness at app size.",
+    "Original rear three-quarter camera is preserved, so the anterior hand-to-bar contact is partly occluded. Corrected shaft no longer traverses visible back or near arm; final mechanics readability remains a human review decision."
+  ],
+  "frames": [
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Front_Barbell_Squat_To_A_Bench_male_v2_0.png",
+      "sourceSha256": "1256b377453f856b40e14dbbfe75a6cccc13892fc79bfed6a7f9c1a3b7546199",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/outputs/revision-02/Front_Barbell_Squat_To_A_Bench_male_v2_0.png",
+      "candidateSha256": "15d1e7da0fbe66f24b45079624c95021bea15f5780db947b88afb7d6552471fa",
+      "method": "built-in-imagegen-known-green-alpha-fixed-bench-and-rack-compositing",
+      "visuallyReviewed": true,
+      "phase": "standing",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        164,
+        15,
+        875,
+        758
+      ]
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Front_Barbell_Squat_To_A_Bench_male_v2_1.png",
+      "sourceSha256": "8126541c1516e3a91f74bc9eb805cc53c4939a2dc1fd5c11cb7f744eed4de432",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/outputs/revision-02/Front_Barbell_Squat_To_A_Bench_male_v2_1.png",
+      "candidateSha256": "bcc5604f31235130b58473894a295c1d301ccb2d07d3107da5247874e30d8bf9",
+      "method": "built-in-imagegen-known-green-alpha-fixed-bench-and-rack-compositing",
+      "visuallyReviewed": true,
+      "phase": "bench_touch",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        164,
+        157,
+        875,
+        758
+      ]
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Front_Barbell_Squat_To_A_Bench_male_v2_2.png",
+      "sourceSha256": "c17bad539c89f8d8f7686d01f9bbc4a09e9b5f647564656fd3e5dd51e22c416c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/outputs/revision-02/Front_Barbell_Squat_To_A_Bench_male_v2_2.png",
+      "candidateSha256": "0ce35eed05a37e188e5db9e53f9d88f8a240dc7046ab8b88e7a233b974547f2f",
+      "method": "built-in-imagegen-known-green-alpha-fixed-bench-and-rack-compositing",
+      "visuallyReviewed": true,
+      "phase": "rising",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        164,
+        83,
+        875,
+        758
+      ]
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Front_Barbell_Squat_To_A_Bench_male_v2_3.png",
+      "sourceSha256": "3f154ca1a80b25e843aab5239ed7e516baf1c8d1c3c9a6511917d331f65a3cb4",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/outputs/revision-02/Front_Barbell_Squat_To_A_Bench_male_v2_3.png",
+      "candidateSha256": "15d1e7da0fbe66f24b45079624c95021bea15f5780db947b88afb7d6552471fa",
+      "method": "built-in-imagegen-known-green-alpha-fixed-bench-and-rack-compositing",
+      "visuallyReviewed": true,
+      "phase": "return_to_standing",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        164,
+        15,
+        875,
+        758
+      ]
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Front_Barbell_Squat_To_A_Bench_female_v2_0.png",
+      "sourceSha256": "0cc9d12f468f52f518f5cd280db39bf4028634ccf68a80baade4f08d1f740ab1",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/outputs/revision-02/Front_Barbell_Squat_To_A_Bench_female_v2_0.png",
+      "candidateSha256": "8083cb04c6a0ea06597c1c3889674e5378e0ff3f62510443a5fd9f834903f909",
+      "method": "built-in-imagegen-known-green-alpha-fixed-bench-and-rack-compositing",
+      "visuallyReviewed": true,
+      "phase": "standing",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        163,
+        15,
+        867,
+        760
+      ]
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Front_Barbell_Squat_To_A_Bench_female_v2_1.png",
+      "sourceSha256": "8ac8901aa1c6c850617807a54d57172635a3bf355a2dcd9648a43ff8a4f0e4f5",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/outputs/revision-02/Front_Barbell_Squat_To_A_Bench_female_v2_1.png",
+      "candidateSha256": "eff9bfac6a5e96bd9fb4723ee474d74634974bf41a3bfcdaf7b24cadb03c4817",
+      "method": "built-in-imagegen-known-green-alpha-fixed-bench-and-rack-compositing",
+      "visuallyReviewed": true,
+      "phase": "bench_touch",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        163,
+        156,
+        867,
+        760
+      ]
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Front_Barbell_Squat_To_A_Bench_female_v2_2.png",
+      "sourceSha256": "4bed11c69ae761f0d753e3e10fcd1fad39459f7e1a7e449305d0f482cc45d15c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/outputs/revision-02/Front_Barbell_Squat_To_A_Bench_female_v2_2.png",
+      "candidateSha256": "9bb6d437b6c1ceaa5eb05438345bdd4632b05debd3fc677d59d193d80991f0e6",
+      "method": "built-in-imagegen-known-green-alpha-fixed-bench-and-rack-compositing",
+      "visuallyReviewed": true,
+      "phase": "rising",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        163,
+        75,
+        867,
+        760
+      ]
+    },
+    {
+      "filename": "Front_Barbell_Squat_To_A_Bench_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Front_Barbell_Squat_To_A_Bench_female_v2_3.png",
+      "sourceSha256": "49b32b9345fc406fc17fead538af921b794708b7c557223fd77075e78a619e74",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/outputs/revision-02/Front_Barbell_Squat_To_A_Bench_female_v2_3.png",
+      "candidateSha256": "8083cb04c6a0ea06597c1c3889674e5378e0ff3f62510443a5fd9f834903f909",
+      "method": "built-in-imagegen-known-green-alpha-fixed-bench-and-rack-compositing",
+      "visuallyReviewed": true,
+      "phase": "return_to_standing",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        163,
+        15,
+        867,
+        760
+      ]
+    }
+  ],
+  "prompts": {
+    "tool": "built-in imagegen",
+    "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/outputs/revision-02/prompts.md",
+    "count": 9,
+    "postprocessScript": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/work/assemble.py",
+    "keyExtractor": "/Users/apoorvdarshan/fud-ai/scripts/key_workout_chroma.py",
+    "localizedFemalePatch": "Imagegen-corrected region (372,123)-(465,218), with original short shaft bridge (369,157)-(384,177) retained behind the corrected arm; preserved all other standing master pixels.",
+    "finalizeScript": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/work/finalize.py"
+  },
+  "revision": "02",
+  "snapshotPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/work/snapshot-20260906-230050",
+  "checks": {
+    "male": {
+      "1": {
+        "fixedBenchRoiIdentical": true,
+        "soleBandIdentical": true,
+        "leftPlateIdentical": true,
+        "rightPlateIdentical": true
+      },
+      "2": {
+        "fixedBenchRoiIdentical": true,
+        "soleBandIdentical": true,
+        "leftPlateIdentical": true,
+        "rightPlateIdentical": true
+      },
+      "3": {
+        "fixedBenchRoiIdentical": true,
+        "soleBandIdentical": true,
+        "leftPlateIdentical": true,
+        "rightPlateIdentical": true
+      }
+    },
+    "female": {
+      "1": {
+        "fixedBenchRoiIdentical": true,
+        "soleBandIdentical": true,
+        "leftPlateIdentical": true,
+        "rightPlateIdentical": true
+      },
+      "2": {
+        "fixedBenchRoiIdentical": true,
+        "soleBandIdentical": true,
+        "leftPlateIdentical": true,
+        "rightPlateIdentical": true
+      },
+      "3": {
+        "fixedBenchRoiIdentical": true,
+        "soleBandIdentical": true,
+        "leftPlateIdentical": true,
+        "rightPlateIdentical": true
+      }
+    }
+  },
+  "previewPaths": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/outputs/revision-02/male-light-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-007/outputs/revision-02/female-light-dark.jpg"
+  ],
+  "generatedSources": [
+    {
+      "role": "male0",
+      "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-6610-7171-9fa8-c701102d64d0/exec-c7d1cbbb-8cdd-482e-85be-0a56c36d5d74.png",
+      "sha256": "a429f342e136389b3d2f60fb2039f9089ad2cc66aed5d6e3e7d0be5d5a37521c"
+    },
+    {
+      "role": "male1",
+      "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-6610-7171-9fa8-c701102d64d0/exec-451a269c-cb90-484c-9125-47b13d18ac46.png",
+      "sha256": "0e5e12b0d1da0bc11b737352c2b8a131ba7f03cc316d6086a76ad25e1786dd0e"
+    },
+    {
+      "role": "male2",
+      "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-6610-7171-9fa8-c701102d64d0/exec-7a0551fd-886b-466f-be1b-9e6da770de7e.png",
+      "sha256": "c4f8d950f277ea5177b0fbc3dd20b0f7121914a04b45a2751d526afe287963ef"
+    },
+    {
+      "role": "male-bench",
+      "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-6610-7171-9fa8-c701102d64d0/exec-263b15bd-ecbc-4ae2-b788-a789920e4450.png",
+      "sha256": "2683e944bf0718382686c4352a7f6690b5eaaef2b22c29b8236a2443b01a45fe"
+    },
+    {
+      "role": "female0",
+      "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-6610-7171-9fa8-c701102d64d0/exec-2145e37e-c56f-4885-bb42-e267fd49d624.png",
+      "sha256": "15b8ffab3d8331d7bcf227efc83cce3066dfbca96bef2d15dbc15f43b9db9a08"
+    },
+    {
+      "role": "female1",
+      "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-6610-7171-9fa8-c701102d64d0/exec-467877f4-02bb-4df4-a23b-f633839f53c5.png",
+      "sha256": "aa7e026a6876b700b79816059291a23c741e27cbcef0019ac84ec0b15134d101"
+    },
+    {
+      "role": "female2",
+      "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-6610-7171-9fa8-c701102d64d0/exec-c3fabe92-58d4-410d-b458-33187874d16b.png",
+      "sha256": "4c44053eb3f58e7e325dbb566e6616bec84acac4d6034d6da707a4a2c38c1a6c"
+    },
+    {
+      "role": "female-bench",
+      "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-6610-7171-9fa8-c701102d64d0/exec-0c2a46da-5bfc-482f-b304-6bb70345c00c.png",
+      "sha256": "b2765fa5dee4ef1504d2704a8c8d43148256af2965bae2ba0562e6672085010d"
+    },
+    {
+      "role": "female-rack-fix",
+      "path": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-6610-7171-9fa8-c701102d64d0/exec-89d8041e-ba84-4185-8e6c-a4f27c3b9710.png",
+      "sha256": "a20cb7b6a20e17b4e3d1fbda3e85145d651f4992f486755044efdd04cc757971"
+    }
+  ],
+  "review": {
+    "allEightLightAndDark": true,
+    "productionApproval": false
+  }
+}

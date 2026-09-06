@@ -1,0 +1,100 @@
+{
+  "exerciseId": "Dumbbell_Lying_One-Arm_Rear_Lateral_Raise",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-006",
+  "findings": [
+    "Inspected all eight canonical originals and all eight final candidates on light and dark backgrounds. Seven prior cleanup candidates reused without further pixel changes after independent review.",
+    "Female peak frame repaired with built-in imagegen using canonical male peak only as topology reference: foreground upper arm now connects directly to near deltoid, with a single hand/dumbbell and unchanged support arm.",
+    "First generation returned opaque painted checkerboard and was rejected as a final. Second deliberate-green generation extracted with guarded chroma helper, resized to canonical 1024x768, and residual green-dominant edge spill neutralized. Actual alpha verified in all eight files.",
+    "Female peak retains identity, clothes, bench, camera and foot/bench anchors; shading is slightly smoother and shoulder highlight larger than adjacent originals. This remains a parent-review style note. No blocking anatomy, clipping, background or anchor defect observed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_female_v2_0.png",
+      "sourceSha256": "3b6c893106bd1ca603972eb04e9e707f2d27a2c824c47ee162786d9affdf1892",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-006/outputs/candidates/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_female_v2_0.png",
+      "candidateSha256": "2b709a34efe7eca4cc59cbf286f61202ec8662557049fa384dbd5897684b0506",
+      "method": "prior_candidate_reused_after_visual_review",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_female_v2_1.png",
+      "sourceSha256": "d523d58c872eee1163cd14a38ff9e6c350c6effa25e8a9bb7775365767b037ee",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-006/outputs/candidates/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_female_v2_1.png",
+      "candidateSha256": "7c2a7854c97a90ed78b79fd3a7aacea77ed53390491119933767e2c1d4cd8846",
+      "method": "prior_candidate_reused_after_visual_review",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_female_v2_2.png",
+      "sourceSha256": "910dbb3f9dab5add778eff464c313f7d8863272ba1065ce6f06062e110572720",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-006/outputs/candidates/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_female_v2_2.png",
+      "candidateSha256": "605a6329d536d3e46e4976694154ae8fa5fd7cf451d68c22ce86d5057ab55d66",
+      "method": "built-in-imagegen_known-green-chroma_extraction_edge-despill",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_female_v2_3.png",
+      "sourceSha256": "5927597f9eb8361e0fe923a157825e67c7dce34d80145dce0a377c1a81a5d12e",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-006/outputs/candidates/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_female_v2_3.png",
+      "candidateSha256": "88e8c8fdbf35ba0f5d5dcd3c6b17a963368fd2fb51a695f575303891f99b0f54",
+      "method": "prior_candidate_reused_after_visual_review",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_male_v2_0.png",
+      "sourceSha256": "45e47d2602fbe6a5cc3e70b4fbc19224051ad7845cad470abb50e4336ad852ad",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-006/outputs/candidates/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_male_v2_0.png",
+      "candidateSha256": "2ab101fed8bdbd929ce2b62d050e8b95e38175e2882995f249aeec7dc1a5f6c8",
+      "method": "prior_candidate_reused_after_visual_review",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_male_v2_1.png",
+      "sourceSha256": "c054992dfb88f0e14b9e2655f72429605b2fe39c25a7826480dadd6751f54711",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-006/outputs/candidates/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_male_v2_1.png",
+      "candidateSha256": "0e6d6e8b0922aeff8af38745ec7cb4eff3578c218e69ac38a8605d5d6a5e78ef",
+      "method": "prior_candidate_reused_after_visual_review",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_male_v2_2.png",
+      "sourceSha256": "fb84fa8631d8d0342151e48e95c35a6072c26f3d14bd55e30e2cef5f39741f70",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-006/outputs/candidates/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_male_v2_2.png",
+      "candidateSha256": "1995ab9546ffad93a7777fd34aa93afb0b89659592c09394f70d880476f6919d",
+      "method": "prior_candidate_reused_after_visual_review",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_male_v2_3.png",
+      "sourceSha256": "9a47ee366e853f1a09a3fdf9735792892594854fe01a661581f67b0ba1d78779",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-006/outputs/candidates/Dumbbell_Lying_One-Arm_Rear_Lateral_Raise_male_v2_3.png",
+      "candidateSha256": "be1b1945a6136d22036e41229089cd867f17c7958d2005a8258d2a80ca5445a9",
+      "method": "prior_candidate_reused_after_visual_review",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "prompt": "Use case: precise-object-edit. Edit image 1 (female exercise illustration); image 2 male is ONLY a reference for correct foreground working-arm anatomy. Repair female peak pose by replacing her disconnected shoulder and far-side horizontal arm with ONE connected foreground arm exactly like the male reference topology but slender female proportions. Her near red-highlighted shoulder must connect visibly to upper arm extending LEFT across/in front of black torso, then slightly bent elbow, forearm, hand holding same dumbbell. Erase old far-side arm completely. Exactly two arms total: this foreground raised working arm and existing right support arm gripping bench. Preserve female face, ponytail, black tank/shorts, legs/shoes, all bench geometry, original 1024x768 composition, scale and anchors. Keep original flat shaded textured illustration style. True transparent alpha background including bench openings, no white or checkerboard paint. Do not change anything outside working-arm/shoulder area.",
+      "generatedImagePath": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-6a28-7061-8cdf-a2de88d03c27/exec-7c53b919-5238-4773-967a-5439edec093a.png",
+      "disposition": "intermediate_only_opaque_checkerboard",
+      "generatedImageSha256": "804129dd389781824c064bec3f9aa5ae68c7e6b85689f5ed21e137f5e3d6479c"
+    },
+    {
+      "prompt": "Edit this illustration only: replace ALL painted checkerboard background, including enclosed leg and bench gaps, with perfectly solid chroma green #00FF00. No green on foreground. Restore small red deltoid muscle highlight on upper near shoulder. Keep this exact corrected connected foreground arm, female proportions, all clothing, face, bench, shoes, composition and geometry pixel-identical as far as possible. Do not redraw or change pose. Flat solid green background, no shadows or checkerboard.",
+      "generatedImagePath": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-6a28-7061-8cdf-a2de88d03c27/exec-2240b695-3e71-4a83-a3d5-304513555257.png",
+      "disposition": "accepted_after_chroma_extraction_and_edge_despill",
+      "generatedImageSha256": "3900cc12e001a8f2384c3d2ed46d3dabd56b0d2e56898b27855108d8ef4ec142"
+    }
+  ]
+}

@@ -1,0 +1,246 @@
+{
+  "exerciseId": "Kettlebell_Turkish_Get-Up_Lunge_style",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008",
+  "findings": [
+    "Prior review-page candidates and both reports were snapshotted before edits in /Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/work/revisions/20260906-230058. Prior outputs/candidates remain untouched; this revision uses outputs/revision-02/candidates.",
+    "The rejected female standing phase was independently fitted to canvas height, making its body and kettlebell smaller than the kneeling phase. Corrected relative standing scale by 1.20, then applied a common 0.82 camera scale about (512,736) to all four female phases. Combined factors are [0.82,0.82,0.82,0.984].",
+    "This is a uniform whole-athlete scale correction, with no independent width/height warping, anatomy repainting or equipment substitution. The common female transform retains the same ground baseline; the extra standing height is accommodated by reducing the whole female sequence consistently.",
+    "All four male candidates are byte-identical to the snapshotted candidates. Existing built-in-imagegen female support-arm repair is retained. Four female candidate hashes changed.",
+    "Final individual light/dark composites and female sequence contact sheet were visually inspected. The conspicuous standing body/equipment shrink is resolved at review size; complete anatomy, supporting palm, footwear, overhead kettlebell and limb gaps remain visible. No new clipping, painted checkerboard or opaque backdrop was observed.",
+    "All eight final candidates are 1024x768 RGBA PNGs with alpha extrema 0..255. Actual SHA-256 hashes were recalculated; canonical production files and old review-page candidates match their recorded hashes."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_0.png",
+      "sourceSha256": "f88c61538474c54e9fb4581e9cdd63ecbbcf60263b578d4d5c320c38d8f8fe60",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/outputs/revision-02/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_0.png",
+      "candidateSha256": "5100027be277710ecc6117e8c002621983999f853c3af5d3a19a8c88fb1f6282",
+      "method": "prior_candidate_preserved_byte_for_byte",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-019/work/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_0.png",
+      "previousCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/work/revisions/20260906-230058/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_0.png",
+      "previousCandidateSha256": "5100027be277710ecc6117e8c002621983999f853c3af5d3a19a8c88fb1f6282",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        254,
+        226,
+        770,
+        736
+      ]
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_1.png",
+      "sourceSha256": "757981d69307e3106be86ffb49b04224bae7985701e2b96a47bb4a9fa74195e2",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/outputs/revision-02/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_1.png",
+      "candidateSha256": "7f3b86f8ae0a8d4af97a2ab68b76c8653664ea059c7582ee2e6a5662e8df207b",
+      "method": "prior_candidate_preserved_byte_for_byte",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-019/work/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_1.png",
+      "previousCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/work/revisions/20260906-230058/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_1.png",
+      "previousCandidateSha256": "7f3b86f8ae0a8d4af97a2ab68b76c8653664ea059c7582ee2e6a5662e8df207b",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        251,
+        148,
+        773,
+        736
+      ]
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_2.png",
+      "sourceSha256": "11b7a3f934ccaf4586115124b11af3c2f88e88aa482c963b65f29c00d91cc942",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/outputs/revision-02/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_2.png",
+      "candidateSha256": "68480833498d724440cd751c972f142dc2a7ed26d7811e35c56962dc1f6fbb83",
+      "method": "prior_candidate_preserved_byte_for_byte",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-019/work/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_2.png",
+      "previousCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/work/revisions/20260906-230058/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_2.png",
+      "previousCandidateSha256": "68480833498d724440cd751c972f142dc2a7ed26d7811e35c56962dc1f6fbb83",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        337,
+        107,
+        686,
+        736
+      ]
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_3.png",
+      "sourceSha256": "1e84152411bf3f401a34a9b37ff29bd2cb01de958a737eb37ff068a74bd4315a",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/outputs/revision-02/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_3.png",
+      "candidateSha256": "de3c43240da82d52e1ca1995b3a9f8cc4fa350dbcf6ac374d37d8cad4d4d1500",
+      "method": "prior_candidate_preserved_byte_for_byte",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-019/work/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_3.png",
+      "previousCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/work/revisions/20260906-230058/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_male_v2_3.png",
+      "previousCandidateSha256": "de3c43240da82d52e1ca1995b3a9f8cc4fa350dbcf6ac374d37d8cad4d4d1500",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        382,
+        41,
+        643,
+        736
+      ]
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_0.png",
+      "sourceSha256": "be65c454474be20e139f8c1af65cf5d71746bb95f356e24267f5f0e3d2cef45c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/outputs/revision-02/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_0.png",
+      "candidateSha256": "b0083fd1db99f2719bfd70b7b8d7b213c6d6823e5764ed45271b6556cf58921d",
+      "method": "prior-built-in-imagegen-candidate+uniform-premultiplied-RGBA-Lanczos-common-female-camera-reframe; scale=0.82; anchor=(512,736)",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-019/work/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_0.png",
+      "previousCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/work/revisions/20260906-230058/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_0.png",
+      "previousCandidateSha256": "3c5600e3c821441ba283b4fd6b8789cc67823a3852039d615e633078bd0337c5",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        283,
+        259,
+        742,
+        736
+      ]
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_1.png",
+      "sourceSha256": "1e26ddf94052ac50cb72adcfe0f287e9ddaf9637b52510b624c22bfbfc272ed9",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/outputs/revision-02/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_1.png",
+      "candidateSha256": "6137e061138a2b08662a90fcd4cdcb2bd2e4ba45c576c232a18343b7563e9091",
+      "method": "prior-built-in-imagegen-candidate+uniform-premultiplied-RGBA-Lanczos-common-female-camera-reframe; scale=0.82; anchor=(512,736)",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-019/work/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_1.png",
+      "previousCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/work/revisions/20260906-230058/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_1.png",
+      "previousCandidateSha256": "e2e727429d87aa9e6f098aa5669edcda4fe00d53fb7f8a8d8ee857698b13fb22",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        284,
+        212,
+        740,
+        736
+      ]
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_2.png",
+      "sourceSha256": "9ec7ac8b366da5c5a60aa573d0f72de19dc3ada5b9fa2fe6d77825ec31ecb5e1",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/outputs/revision-02/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_2.png",
+      "candidateSha256": "d925735508ac9054578e6457ecd54d8aacdf56aeb321d763e15a6f2983ced7b3",
+      "method": "prior-built-in-imagegen-candidate+uniform-premultiplied-RGBA-Lanczos-common-female-camera-reframe; scale=0.82; anchor=(512,736)",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-019/work/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_2.png",
+      "previousCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/work/revisions/20260906-230058/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_2.png",
+      "previousCandidateSha256": "be193a9b277cb4b75792413d95a0c81bc6835ddcf3d5950c1c936f45f54bf171",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        341,
+        198,
+        683,
+        736
+      ]
+    },
+    {
+      "filename": "Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_3.png",
+      "sourceSha256": "1ccdde09ddb0e8bceed49e5dede812d90db112779f0858d4f071d04698b1c013",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/outputs/revision-02/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_3.png",
+      "candidateSha256": "cbc0df0d96313d8a05de69d443ce7e4437d38396e8dcd39e2228632a69f48b3a",
+      "method": "prior-built-in-imagegen-candidate+uniform-premultiplied-RGBA-Lanczos-common-female-camera-reframe; scale=0.984 (standing correction 1.20 x common camera 0.82); anchor=(512,736)",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b01-019/work/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_3.png",
+      "previousCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/work/revisions/20260906-230058/candidates/Kettlebell_Turkish_Get-Up_Lunge_style_female_v2_3.png",
+      "previousCandidateSha256": "dc3e18a42cfc6310ce2c2112f568ce347883fd97fa759bd60167e11210ce3fb0",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "alphaBBox": [
+        388,
+        35,
+        635,
+        737
+      ]
+    }
+  ],
+  "prompts": [
+    {
+      "tool": "built-in imagegen",
+      "target": "female_v2_1",
+      "prompt": "Use case: precise-object-edit. Edit target: female seated Turkish get-up illustration. Fix only the free supporting arm at image right: straighten its elbow so shoulder, elbow and wrist form a natural weight-bearing line down to an open palm firmly planted on the ground behind the hip. Keep the same seated torso, legs, head, ponytail, black sleeveless top and orange-trim shorts, black shoes, raised locked-out arm and kettlebell unchanged. Preserve exact illustration style, body scale, camera and canvas placement. Single complete athlete, no extra limbs. Genuine transparent RGBA background including every limb and kettlebell gap, no checkerboard, no white matte, no colored fringe. Output 1024x768.",
+      "accepted": false,
+      "reason": "RGB painted checkerboard; arm repair carried into next edit"
+    },
+    {
+      "tool": "built-in imagegen",
+      "target": "female_v2_1",
+      "prompt": "Use case: background-extraction. Keep this exact athlete, corrected straight supporting arm, pose, equipment, all colors, contours, composition unchanged. Replace ONLY the painted checkerboard background and every enclosed empty gap (including kettlebell handle) with completely uniform vivid green RGB 0,255,0. No green on athlete. No shadows, gradients, checkerboard, text. This is a technical chroma backdrop for extraction.",
+      "accepted": true,
+      "generatedPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/work/generated/exec-e3fb0549-f19f-4062-bd79-6866fa020d67.png"
+    },
+    {
+      "tool": "built-in imagegen",
+      "target": "female_v2_3",
+      "prompt": "Use case: precise-object-edit. Image 1 edit target standing woman, Image 2 kneeling woman scale/identity reference. Repair standing frame so SAME woman and kettlebell retain identical anatomical proportions and equipment size as kneeling reference. Current standing figure is too small and thin. Keep standing pose, locked vertical raised arm, upward gaze, ponytail, black sleeveless top, orange-trim black shorts and black shoes. Match reference head size, shoulder width, upper arm thickness, thigh thickness and kettlebell diameter. Allow raised hand closer to top while complete feet remain on same ground baseline. Preserve illustration style and camera. Single complete athlete only, no extra limbs, no clipping, no text. Background completely uniform vivid green RGB 0,255,0 including all gaps for technical alpha extraction. No shadow.",
+      "accepted": false,
+      "reason": "Saved as improved but unresolved candidate",
+      "generatedPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/work/generated/exec-66453b62-54ca-4797-ac25-10ed5e26f40c.png"
+    },
+    {
+      "kind": "revision-02 deterministic scale correction",
+      "imagegenUsed": false,
+      "instructions": "Restore standing athlete and kettlebell relative scale by 1.20; apply shared 0.82 scale around world-space anchor (512,736) to all female frames. Use uniform premultiplied RGBA Lanczos resampling. Copy male frames byte-for-byte.",
+      "reason": "The remaining defect was pose-dependent normalization rather than anatomy; a common camera transform preserves existing identity and illustration pixels without another redraw.",
+      "combinedScales": {
+        "female": [
+          0.82,
+          0.82,
+          0.82,
+          0.984
+        ],
+        "male": [
+          1,
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "revisionSnapshot": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/work/revisions/20260906-230058",
+  "revision": "02",
+  "reviewNotes": [
+    "Minor pre-existing generative facial, garment-fold and perspective variation remains between phases. This is a candidate for parent/human review, not production approval."
+  ],
+  "reviewArtifacts": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/outputs/revision-02/female-light-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/outputs/revision-02/male-light-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-008/work/review/revision-02"
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "exerciseId": "Around_The_Worlds",
+  "status": "blocked_not_published",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-007",
+  "findings": [
+    "All eight existing candidates inspected in ordered contact sheets on light and dark backgrounds.",
+    "Existing alpha cleanup retained unchanged; substantive motion and geometry defects remain.",
+    "New built-in editing attempt establishes two distinct dumbbells but changes geometry and returns RGB painted checkerboard.",
+    "Focused transparency retry again returns RGB checkerboard and removes bench perforations. Both rejected."
+  ],
+  "unresolved": [
+    "No validated eight-frame two-dumbbell sweep.",
+    "Bench and body scale/anchor drift remains.",
+    "Built-in edits repeatedly fail actual transparency and invariant preservation."
+  ],
+  "frames": [
+    {
+      "filename": "Around_The_Worlds_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Around_The_Worlds_male_v2_0.png",
+      "sourceSha256": "208f7d84d91c087023b9f79cbdbc4cd9072f69f77858139b81a830dff4543b5e",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-007/candidates/Around_The_Worlds_male_v2_0.png",
+      "candidateSha256": "03bcc2a0d15d8c9ca74567130c0389501f00d2336210ace79bae65a8ce2b62e4",
+      "method": "retained_prior_alpha_cleanup_not_approved",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Around_The_Worlds_male_v2_1.png",
+      "sourceSha256": "528d35612f6a532124ede36be48a075d5d0a49f89c90627cd757ad701359ebb6",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-007/candidates/Around_The_Worlds_male_v2_1.png",
+      "candidateSha256": "e1aea1527c3e10c0929995289072ea8a4d6e35068b8e95ae207cdb50405f2edf",
+      "method": "retained_prior_alpha_cleanup_not_approved",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Around_The_Worlds_male_v2_2.png",
+      "sourceSha256": "6c533fa3188eba9bc707bc153a5f49f774f1ef4d1fe852ff11ba2b6ace0b6e42",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-007/candidates/Around_The_Worlds_male_v2_2.png",
+      "candidateSha256": "6c533fa3188eba9bc707bc153a5f49f774f1ef4d1fe852ff11ba2b6ace0b6e42",
+      "method": "retained_prior_alpha_cleanup_not_approved",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Around_The_Worlds_male_v2_3.png",
+      "sourceSha256": "4a5545f3cb90ed2d8a809ee7f86ffc224c060a9383af382798810092753ff23c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-007/candidates/Around_The_Worlds_male_v2_3.png",
+      "candidateSha256": "d29c5346b1255eb04ed80eb36c209652bdbab29f006303fc88da65cff0ba1eb6",
+      "method": "retained_prior_alpha_cleanup_not_approved",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Around_The_Worlds_female_v2_0.png",
+      "sourceSha256": "6eb84449e89642a694eea6306e59142a3aed4bdb3e2c91f8c6efae1f34069b19",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-007/candidates/Around_The_Worlds_female_v2_0.png",
+      "candidateSha256": "b94592d5f196e4e14d07829d3769c641a862cccffc01ab271c1025df1ee66192",
+      "method": "retained_prior_alpha_cleanup_not_approved",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Around_The_Worlds_female_v2_1.png",
+      "sourceSha256": "90ca22760b0cfa5e89e68b4b4f74568f4cafbe4b2513490737b417d378d8b88a",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-007/candidates/Around_The_Worlds_female_v2_1.png",
+      "candidateSha256": "4f6de7293ecc6be0ad31b7eb9c8043215a872f954cf4ad4393dd2edbc4f7dcba",
+      "method": "retained_prior_alpha_cleanup_not_approved",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Around_The_Worlds_female_v2_2.png",
+      "sourceSha256": "49fcb7d94c1c74a3974536fe351aa6ff3531a99a84e6a8f1f80eae9cb6c1eba1",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-007/candidates/Around_The_Worlds_female_v2_2.png",
+      "candidateSha256": "56a7f56c7bb256e97f1e66e77154daadfb95ef846f7b5a7347517fdc4c1f117f",
+      "method": "retained_prior_alpha_cleanup_not_approved",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Around_The_Worlds_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Around_The_Worlds_female_v2_3.png",
+      "sourceSha256": "9a2d357e5c1df070d4c27e71e773ec67006de4c3a9ee25fc0a62fd1c7345e9f1",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-007/candidates/Around_The_Worlds_female_v2_3.png",
+      "candidateSha256": "2a592aa82cdb0094d8ff972fde904fc45dc0cf7bcbc66043977ec2f246a2eaeb",
+      "method": "retained_prior_alpha_cleanup_not_approved",
+      "visuallyReviewed": true
+    }
+  ],
+  "validation": {
+    "substantiveRepairValidated": false,
+    "orderedAnimationReviewed": false,
+    "orderedContactSheetsReviewed": true,
+    "published": false,
+    "productionSourcesChanged": false
+  },
+  "provenance": [
+    {
+      "tool": "image_gen.imagegen",
+      "output": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-007/work/rejected/sweep-attempt.png",
+      "accepted": false
+    },
+    {
+      "tool": "image_gen.imagegen",
+      "output": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-007/work/rejected/transparency-retry.png",
+      "accepted": false
+    }
+  ],
+  "prompts": [
+    "Edit target: supplied male workout illustration. Precise-object-edit. Preserve exactly the man identity, black tank and shorts with orange seam, shoes, legs, supine torso and head, gray perforated flat bench, camera, framing and painterly outlined fitness illustration style. Correct ONLY arms and equipment to the middle of a two-dumbbell Around The Worlds sweep: arms spread laterally to opposite sides of torso at shoulder height in the plane of the bench, elbows slightly bent, palms upward, one matching black hex dumbbell firmly gripped in EACH hand. Near arm extends toward viewer diagonally lower right; far arm extends away diagonally upper left so both arms and both weights are clearly distinct. Not a pullover, not a chest press, not joined hands. Keep bench and body pixels fixed. Entire figure and weights within canvas with padding. Real transparent alpha background, including all bench holes and head gaps, no white matte and no painted checkerboard. Output one single frame.",
+    "Background-extraction edit. Remove the painted checkerboard completely and replace with REAL transparent alpha pixels. Clear all bench holes and head gap too. Do not draw any background pattern. Preserve this illustration exactly, including both arms, both dumbbells, athlete and bench. Output transparent PNG."
+  ]
+}

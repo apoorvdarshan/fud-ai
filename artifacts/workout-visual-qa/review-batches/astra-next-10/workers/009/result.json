@@ -1,0 +1,353 @@
+{
+  "exerciseId": "Bent_Over_Low-Pulley_Side_Lateral",
+  "status": "blocked",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-009",
+  "findings": [
+    "All eight originals and prior candidates inspected; canonical instructions require slight elbow bend and lateral raise to ear line.",
+    "Retained seven prior cleaned candidates byte-for-byte; female four phases have clean transparent gaps and an extended raised arm.",
+    "Male frame 2 replaced with a substantive generated extended-arm correction. Handle and taut cable preserved visually; generated solid green extracted using lightweight Pillow math after repository extractor failed due to unavailable numpy.",
+    "All eight final candidates reviewed on light and dark composites. Real RGBA alpha, foreground shoes skin and equipment present, no visible painted checkerboard.",
+    "Resumed review confirmed full sequence drift. Two additional built-in imagegen approaches failed: fixed start-keyframe edit switched working arm and disconnected cable; geometry-restoration edit retained stance drift. Neither accepted. No snapshot or ledger publication performed."
+  ],
+  "unresolved": [
+    "Male frame 2 stance/foot anchors differ from other phases despite stricter reference retry; generated redraw changes body and equipment detail. This is a partial mechanics improvement, not a production-ready sequence.",
+    "Male frame 1 and 3 retain greater elbow flexion than ideal; no claim of complete mechanics correction.",
+    "Minor female foot/pulley authored placement drift remains.",
+    "Parent and human review required."
+  ],
+  "frames": [
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_male_v2_0.png",
+      "sourceSha256": "9ef9ef9d815e377f465c451093544c36363fbf24818c2ffb6ab3ebfe6d3e6c9c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-009/outputs/Bent_Over_Low-Pulley_Side_Lateral_male_v2_0.png",
+      "candidateSha256": "8c0d98ff85ea0988a5992cdf893bcfe6d2c9e171d4b2bfe084350021799fbe52",
+      "method": "prior deterministic alpha cleanup retained unchanged",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_male_v2_1.png",
+      "sourceSha256": "80ca6f65096406e0c66533dbb1d386fe963d4f05e9e709d5997c2bb5b27615ef",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-009/outputs/Bent_Over_Low-Pulley_Side_Lateral_male_v2_1.png",
+      "candidateSha256": "43442782a40cf9ab9f75d56c386865e97c371e9175c79721cfede16119acdc99",
+      "method": "prior deterministic alpha cleanup retained unchanged",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_male_v2_2.png",
+      "sourceSha256": "750f54062088f4feadd6da34898ba58d70ad9e7e8e749800d851eaae28bbcd9c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-009/outputs/Bent_Over_Low-Pulley_Side_Lateral_male_v2_2.png",
+      "candidateSha256": "ed779a4a0af52c30e3b32da6dd5c65fa94e00955875182f657af404bf008861c",
+      "method": "built-in-imagegen + deliberate green extraction (Pillow)",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_male_v2_3.png",
+      "sourceSha256": "2ef5e65e402e71f63f85a07a70174132e4cce30957c39c8d4bbb3a2d55ecd231",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-009/outputs/Bent_Over_Low-Pulley_Side_Lateral_male_v2_3.png",
+      "candidateSha256": "0762ce45c39cff41c5377d84dcd1145e8e44d26cb8070cb373e495d59e87032b",
+      "method": "prior deterministic alpha cleanup retained unchanged",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_female_v2_0.png",
+      "sourceSha256": "9497c31da55284dc4ac8d94fb4fb3c2fa3e011522d64ca611011af8c0fc17ec3",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-009/outputs/Bent_Over_Low-Pulley_Side_Lateral_female_v2_0.png",
+      "candidateSha256": "f913383a73e405d27ec287345b1b916bdc669a388df931efa0ccd5a2e3897ee5",
+      "method": "prior deterministic alpha cleanup retained unchanged",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_female_v2_1.png",
+      "sourceSha256": "175ac06fb867c8b525125c709d0107c2568d69488749e8350af49b67c82b3731",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-009/outputs/Bent_Over_Low-Pulley_Side_Lateral_female_v2_1.png",
+      "candidateSha256": "5eeb84bb567b822948e6315036994eedca50ba9a2d9eeaadf50b13341ee30435",
+      "method": "prior deterministic alpha cleanup retained unchanged",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_female_v2_2.png",
+      "sourceSha256": "d3c1b4ab1a178b18e6e512d7e53e91b78c59a3431798ef8e0c1928fa6df616fb",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-009/outputs/Bent_Over_Low-Pulley_Side_Lateral_female_v2_2.png",
+      "candidateSha256": "2e66e0a338d17ea3c4409ddf3d1d13ddbcec4675f03446386826b54eb02d39e7",
+      "method": "prior deterministic alpha cleanup retained unchanged",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent_Over_Low-Pulley_Side_Lateral_female_v2_3.png",
+      "sourceSha256": "af9a5cc4698d01ee09c4965e389e5b7398a99d592d06cbd6cf65cce827afa0af",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-009/outputs/Bent_Over_Low-Pulley_Side_Lateral_female_v2_3.png",
+      "candidateSha256": "3c77cbe736327e3c39042ebe671105093a2c99a9a4df354d85450fd403234368",
+      "method": "prior deterministic alpha cleanup retained unchanged",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": {
+    "attempts": [
+      {
+        "attempt": 1,
+        "result": "Extended arm corrected but RGB painted checkerboard; rejected direct output.",
+        "generatedPath": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-34f5-74d3-8be5-68769157710c/exec-247920f9-3e36-487e-a6b0-851e1691d7ff.png"
+      },
+      {
+        "attempt": 2,
+        "result": "Solid green conversion accepted for partial candidate after extraction.",
+        "generatedPath": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-34f5-74d3-8be5-68769157710c/exec-fbb8f1b3-959d-4a0d-a78e-a680f673e9d4.png"
+      },
+      {
+        "attempt": 3,
+        "result": "Stronger original body reference failed to restore stance and lowered raised arm; rejected.",
+        "generatedPath": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-34f5-74d3-8be5-68769157710c/exec-228beaad-0497-4f5f-98e8-f3ada055024e.png"
+      }
+    ],
+    "promptFile": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-009/outputs/prompts.json",
+    "verification": [
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_0.png",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 612853
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_1.png",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 634882
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_2.png",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 630322
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_3.png",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 620185
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_0.png",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 662813
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_1.png",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 672434
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_2.png",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 664225
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_3.png",
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 664615
+      }
+    ],
+    "reviewImages": [
+      "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-009/outputs/male-review.jpg",
+      "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-009/outputs/female-review.jpg"
+    ]
+  },
+  "resumeVerification": {
+    "at": "2026-09-06T18:13:25.681701+00:00",
+    "expectedFilenamesMatch": true,
+    "checks": [
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_0.png",
+        "sourceSha256": "9ef9ef9d815e377f465c451093544c36363fbf24818c2ffb6ab3ebfe6d3e6c9c",
+        "candidateSha256": "8c0d98ff85ea0988a5992cdf893bcfe6d2c9e171d4b2bfe084350021799fbe52",
+        "RGBA": true,
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ]
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_1.png",
+        "sourceSha256": "80ca6f65096406e0c66533dbb1d386fe963d4f05e9e709d5997c2bb5b27615ef",
+        "candidateSha256": "43442782a40cf9ab9f75d56c386865e97c371e9175c79721cfede16119acdc99",
+        "RGBA": true,
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ]
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_2.png",
+        "sourceSha256": "750f54062088f4feadd6da34898ba58d70ad9e7e8e749800d851eaae28bbcd9c",
+        "candidateSha256": "ed779a4a0af52c30e3b32da6dd5c65fa94e00955875182f657af404bf008861c",
+        "RGBA": true,
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ]
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_male_v2_3.png",
+        "sourceSha256": "2ef5e65e402e71f63f85a07a70174132e4cce30957c39c8d4bbb3a2d55ecd231",
+        "candidateSha256": "0762ce45c39cff41c5377d84dcd1145e8e44d26cb8070cb373e495d59e87032b",
+        "RGBA": true,
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ]
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_0.png",
+        "sourceSha256": "9497c31da55284dc4ac8d94fb4fb3c2fa3e011522d64ca611011af8c0fc17ec3",
+        "candidateSha256": "f913383a73e405d27ec287345b1b916bdc669a388df931efa0ccd5a2e3897ee5",
+        "RGBA": true,
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ]
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_1.png",
+        "sourceSha256": "175ac06fb867c8b525125c709d0107c2568d69488749e8350af49b67c82b3731",
+        "candidateSha256": "5eeb84bb567b822948e6315036994eedca50ba9a2d9eeaadf50b13341ee30435",
+        "RGBA": true,
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ]
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_2.png",
+        "sourceSha256": "d3c1b4ab1a178b18e6e512d7e53e91b78c59a3431798ef8e0c1928fa6df616fb",
+        "candidateSha256": "2e66e0a338d17ea3c4409ddf3d1d13ddbcec4675f03446386826b54eb02d39e7",
+        "RGBA": true,
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ]
+      },
+      {
+        "filename": "Bent_Over_Low-Pulley_Side_Lateral_female_v2_3.png",
+        "sourceSha256": "af9a5cc4698d01ee09c4965e389e5b7398a99d592d06cbd6cf65cce827afa0af",
+        "candidateSha256": "3c77cbe736327e3c39042ebe671105093a2c99a9a4df354d85450fd403234368",
+        "RGBA": true,
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ]
+      }
+    ],
+    "publication": "not attempted because visual checks fail",
+    "attempts": [
+      {
+        "path": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-34f5-74d3-8be5-68769157710c/exec-8f779696-760e-4536-8b36-a4f982e64a00.png",
+        "accepted": false,
+        "failure": "Wrong working arm, supporting hand lost, cable extends offscreen instead of connecting pulley."
+      },
+      {
+        "path": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-34f5-74d3-8be5-68769157710c/exec-0fd0210e-07ec-4fea-b1d9-2eafd25f7fdb.png",
+        "accepted": false,
+        "failure": "Explicit original head/foot/pulley anchors ignored; stance drift remains."
+      }
+    ]
+  }
+}

@@ -1,0 +1,2723 @@
+{
+  "updatedAt": "2026-09-06T17:07:54.916Z",
+  "scope": "batches01-08 only",
+  "phase": "completed_fifth_original_turn_sweep",
+  "notHumanApproval": true,
+  "archived": 235,
+  "archiveCountMeaning": "Cumulative archive events, not current archived tasks; B04/B05 correction resumes excluded from this sweep.",
+  "currentSweep": 5,
+  "currentSweepArchived": 35,
+  "totalCandidateFilesPreserved": 1880,
+  "totalReportsPreserved": 235,
+  "outstandingObserved": [
+    {
+      "batch": "batch-07",
+      "index": 21,
+      "threadId": "01a07794-e8e8-7720-aaf9-8127d230622d",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 28,
+      "threadId": "01a07795-51f8-7421-a950-4bfb72ae31e2",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 38,
+      "threadId": "01a0779b-a2b3-77f0-9739-5814fb02651b",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 39,
+      "threadId": "01a0779b-b074-7501-adc0-f6fe46797842",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 44,
+      "threadId": "01a0779c-0a4f-7503-918a-b0f006aa8fce",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 45,
+      "threadId": "01a0779c-4121-7ac1-9162-c3f56e07d271",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 48,
+      "threadId": "01a0779c-848b-72c0-bd7d-0c435c3e614c",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-08",
+      "index": 1,
+      "threadId": "01a0779d-b017-7d63-bba5-d771d44ac6fd",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-08",
+      "index": 3,
+      "threadId": "01a0779e-25de-7240-84dc-d684f17abbda",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-08",
+      "index": 8,
+      "threadId": "01a0779f-98cb-7c11-a944-5724715f5bf4",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-08",
+      "index": 9,
+      "threadId": "01a0779e-bea5-73f0-ae77-7a7201b4f434",
+      "status": "notCompleted",
+      "live": "inProgress"
+    }
+  ],
+  "results": [
+    {
+      "batch": "batch-04",
+      "index": 9,
+      "exerciseId": "Decline_Smith_Press",
+      "threadId": "01a07738-7f07-7a30-bd6a-1bd1b0c4cc01",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/009/a739096990e01afd1333d83a1899318bd3d2664f85a2b258daacb9a28915ca55",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 10,
+      "exerciseId": "Deficit_Deadlift",
+      "threadId": "01a07738-3376-7893-8a11-0c2b68ecc8a8",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/010/7b81cc2ab8e5167d1afe691a1fb442732e4ffd60f3d2bc20a6f69ec3016d27db",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 11,
+      "exerciseId": "Depth_Jump_Leap",
+      "threadId": "01a07749-f42b-7731-9b93-8fa16531675f",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/011/9de8cad1f1d421d6b126c27aa50adbc76ae6e565cc89b1af6b5a0c834af0dee7",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 12,
+      "exerciseId": "Dips_-_Chest_Version",
+      "threadId": "01a07749-ffef-7861-a9d0-601e402e1d71",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/012/b15582489c2ebbddbbc48632e57d69a8291b14c48dc7b482fa87816d986c2118",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 13,
+      "exerciseId": "Dips_-_Triceps_Version",
+      "threadId": "01a0774a-12d8-7bc0-8b9d-5331f01a8a27",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/013/edfa45d657127d170a25a007d3a3a2d50b8b9fcf57c0aa26a7f2d59676fdb119",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 14,
+      "threadId": "01a0774a-0948-7021-b6b3-fd4985615916",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-04",
+      "index": 15,
+      "exerciseId": "Double_Kettlebell_Alternating_Hang_Clean",
+      "threadId": "01a0774a-2328-7ab1-adc2-299eb540b611",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/015/e0daf027d0095b0a989119ecd157730c6f769d9bd78b17610a3a1f49d3d3b124",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 16,
+      "exerciseId": "Double_Kettlebell_Jerk",
+      "threadId": "01a0774a-1b1f-7313-9b0c-10876fc4e9c8",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/016/d4584911139198435333922c84c092aff7b771a6698cf37207901485ca42ad87",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 17,
+      "exerciseId": "Double_Kettlebell_Push_Press",
+      "threadId": "01a0774a-2c33-7701-8187-4550e1d4cce6",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/017/debbad255f5f011423401b57429b1cd36aa1c49003d14b736c30ec1b5f07f4e7",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 18,
+      "exerciseId": "Double_Kettlebell_Snatch",
+      "threadId": "01a0774a-3428-7c51-9850-52bbe3804cc8",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/018/efd91c581f3fbdb7fe25a1e194b09fa49e206e5b3a20fcf5b58b54ff8652c48f",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 19,
+      "exerciseId": "Double_Kettlebell_Windmill",
+      "threadId": "01a0774a-44b7-7380-abc2-c2a789e141a5",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/019/3721c59f2a70e083d4609e205c9cb325ab9f50772ca132fdbf4e2632316f84af",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 20,
+      "exerciseId": "Double_Leg_Butt_Kick",
+      "threadId": "01a0774a-3c62-7ae3-a871-6c45f676f429",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/020/ede047141754319b9af96c606e7630ee29246f4b0d229b2356c63b16f391cc12",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 21,
+      "exerciseId": "Drag_Curl",
+      "threadId": "01a0774a-506d-7d11-83fc-2ab825cd0102",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/021/d01cf8799edefb5af0950ad4741d27c598a56f8b127169084eec4f63f9f1f909",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-02",
+      "index": 18,
+      "exerciseId": "Bear_Crawl_Sled_Drags",
+      "threadId": "01a07720-190e-71b2-8dca-5af8d59ad968",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/completed-snapshots/018/726330c6233dd36572091b7dc5ba005b8b37ee1a6b5d06777dd602cfd555d267",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-03",
+      "index": 25,
+      "exerciseId": "Chair_Leg_Extended_Stretch",
+      "threadId": "01a07726-6550-7c30-93cc-07d36b643b6c",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-03/repair-pass-01/completed-snapshots/025/625779a03de136cf708cc5ddaf0ce557e898280f782c72c75e637770c995f94d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-03",
+      "index": 27,
+      "exerciseId": "Chair_Squat",
+      "threadId": "01a07725-4818-7600-a5c0-331a0cd551ed",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-03/repair-pass-01/completed-snapshots/027/a9da27b77412d73035dab6800d4eec9c689bd8bbe56c39f63267ffb6f173be0e",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-03",
+      "index": 50,
+      "exerciseId": "Deadlift_with_Bands",
+      "threadId": "01a07735-8456-72c2-a42a-fed5bdf717f4",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-03/repair-pass-01/completed-snapshots/050/c9d6656b17ddbec7a051059942665e918a849e1a6ef179531085367b115fc9df",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 22,
+      "exerciseId": "Drop_Push",
+      "threadId": "01a0774a-5c1b-7fe2-9c80-c0344ad6182f",
+      "hostId": "local",
+      "base": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01",
+      "receipt": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/luna-launches/022.json",
+      "status": "exception",
+      "detail": {
+        "reportPath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/luna-workers/022/result.json",
+        "reportSha256": "c0f9e2ec79a474aca7cc2f5153bfb6588ee5fb57a2e41e5e8cbf06e87a745b8d",
+        "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/022/c0f9e2ec79a474aca7cc2f5153bfb6588ee5fb57a2e41e5e8cbf06e87a745b8d",
+        "workerStatus": "needs_more_work",
+        "frames": [
+          {
+            "filename": "Drop_Push_male_v2_0.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-022/candidates/Drop_Push_male_v2_0.png",
+            "candidateSha256": "421c9cd445e1e400b4f8191dceb32eabc3633291560e59204b5fd8cb067597d0",
+            "recordedCandidateSha256": "421c9cd445e1e400b4f8191dceb32eabc3633291560e59204b5fd8cb067597d0",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Drop_Push_male_v2_0.png",
+            "sourceSha256": "3b4fcabb3dcc9e5b847d93095fde57eed59d2443594254ccbd8b6711de063013",
+            "recordedSourceSha256": "3b4fcabb3dcc9e5b847d93095fde57eed59d2443594254ccbd8b6711de063013"
+          },
+          {
+            "filename": "Drop_Push_male_v2_1.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-022/candidates/Drop_Push_male_v2_1.png",
+            "candidateSha256": "a739b5dc61df48e9feabb3c63e77117212eaf7695fa81531abcb8ade62acae0e",
+            "recordedCandidateSha256": "a739b5dc61df48e9feabb3c63e77117212eaf7695fa81531abcb8ade62acae0e",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Drop_Push_male_v2_1.png",
+            "sourceSha256": "6e198e97f1e90415c7f44e9cc80782cc497ed94700a4b4c831d488180da8e8cf",
+            "recordedSourceSha256": "6e198e97f1e90415c7f44e9cc80782cc497ed94700a4b4c831d488180da8e8cf"
+          },
+          {
+            "filename": "Drop_Push_male_v2_2.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-022/candidates/Drop_Push_male_v2_2.png",
+            "candidateSha256": "f08cfd0be36f039b12eb259b9eb85b7069c5260b7bb72c6ca3f590f2426e05f9",
+            "recordedCandidateSha256": "f08cfd0be36f039b12eb259b9eb85b7069c5260b7bb72c6ca3f590f2426e05f9",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Drop_Push_male_v2_2.png",
+            "sourceSha256": "6484247f6c00eefafb4fd68ce416d027ae84232e4856381d1e45f4ad21083ed6",
+            "recordedSourceSha256": "6484247f6c00eefafb4fd68ce416d027ae84232e4856381d1e45f4ad21083ed6"
+          },
+          {
+            "filename": "Drop_Push_male_v2_3.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-022/candidates/Drop_Push_male_v2_3.png",
+            "candidateSha256": "f1e58c68ba77fa92f624d887e91ca6efaba12d89114ecd5911f38193e39c2b23",
+            "recordedCandidateSha256": "f1e58c68ba77fa92f624d887e91ca6efaba12d89114ecd5911f38193e39c2b23",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Drop_Push_male_v2_3.png",
+            "sourceSha256": "9e6fb55345a0e6cb3967ab76e6184260a0f79094cc5f1280a53b05e0ef82495c",
+            "recordedSourceSha256": "9e6fb55345a0e6cb3967ab76e6184260a0f79094cc5f1280a53b05e0ef82495c"
+          },
+          {
+            "filename": "Drop_Push_female_v2_0.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-022/candidates/Drop_Push_female_v2_0.png",
+            "candidateSha256": "daaa261475a6f223562d4c6346f20b232a935e5294661572d1f662fbbfd2ce65",
+            "recordedCandidateSha256": "daaa261475a6f223562d4c6346f20b232a935e5294661572d1f662fbbfd2ce65",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Drop_Push_female_v2_0.png",
+            "sourceSha256": "561e5d6d3882928c0bba62ab5b7ce4438be4c1ea4122eaf9e3fa14616611c8cd",
+            "recordedSourceSha256": "561e5d6d3882928c0bba62ab5b7ce4438be4c1ea4122eaf9e3fa14616611c8cd"
+          },
+          {
+            "filename": "Drop_Push_female_v2_1.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-022/candidates/Drop_Push_female_v2_1.png",
+            "candidateSha256": "2217b0519086ba957297dc09c939e14ba432b995a62d55314b5a23bb84d5ad82",
+            "recordedCandidateSha256": "2217b0519086ba957297dc09c939e14ba432b995a62d55314b5a23bb84d5ad82",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Drop_Push_female_v2_1.png",
+            "sourceSha256": "2a5bb37937a6b2ffb5260808c16667219118f49db2e233cd790945205db39fc8",
+            "recordedSourceSha256": "2a5bb37937a6b2ffb5260808c16667219118f49db2e233cd790945205db39fc8"
+          },
+          {
+            "filename": "Drop_Push_female_v2_2.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-022/candidates/Drop_Push_female_v2_2.png",
+            "candidateSha256": "9841434fab5b4675afb235c979e9b3b324ea966a67a94aa5043918889a6ace28",
+            "recordedCandidateSha256": "9841434fab5b4675afb235c979e9b3b324ea966a67a94aa5043918889a6ace28",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Drop_Push_female_v2_2.png",
+            "sourceSha256": "140539f01588c7e9ac0eec7261782a9d6dddf0155a1932b67dc1d4cb29cfa188",
+            "recordedSourceSha256": "140539f01588c7e9ac0eec7261782a9d6dddf0155a1932b67dc1d4cb29cfa188"
+          },
+          {
+            "filename": "Drop_Push_female_v2_3.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-022/candidates/Drop_Push_female_v2_3.png",
+            "candidateSha256": "9b48f6fee7b22c6a886c3d3164d0513fe3eaaafa238f5708c48f1a0f82a1717d",
+            "recordedCandidateSha256": "9b48f6fee7b22c6a886c3d3164d0513fe3eaaafa238f5708c48f1a0f82a1717d",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Drop_Push_female_v2_3.png",
+            "sourceSha256": "3f69398b05c6f9b6d4559f51a35c1470593f1afcbbc1e87ca4a191e456c948cb",
+            "recordedSourceSha256": "3f69398b05c6f9b6d4559f51a35c1470593f1afcbbc1e87ca4a191e456c948cb"
+          }
+        ],
+        "exceptions": []
+      }
+    },
+    {
+      "batch": "batch-04",
+      "index": 23,
+      "exerciseId": "Dumbbell_Alternate_Bicep_Curl",
+      "threadId": "01a0774a-6469-7431-a0b0-8faa9268ad91",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/023/d03c1df95e21966d866140fedfebcc4378ef87d40563695002bed1c7849ac544",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 24,
+      "exerciseId": "Dumbbell_Bench_Press",
+      "threadId": "01a0774a-6dc0-7f00-9a89-3b7374fa123d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/024/3bf4bb09299a2ab67139b69ebe13e3dd206c9f2d0035f8f5053c82634ed6e9b2",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 25,
+      "exerciseId": "Dumbbell_Bench_Press_with_Neutral_Grip",
+      "threadId": "01a0774a-83ef-7e93-b402-c8866b85b12a",
+      "hostId": "local",
+      "base": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01",
+      "receipt": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/luna-launches/025.json",
+      "status": "exception",
+      "detail": {
+        "reportPath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/luna-workers/025/result.json",
+        "reportSha256": "ef9c13b7ed7e44925f78a4a1c918895e9238b7f0a5a0fcaca882649ff6d1ecd7",
+        "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/025/ef9c13b7ed7e44925f78a4a1c918895e9238b7f0a5a0fcaca882649ff6d1ecd7",
+        "workerStatus": "needs_more_work",
+        "frames": [
+          {
+            "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_0.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-025/candidates/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_0.png",
+            "candidateSha256": "d08401ec35973f2db3cc3a9b0de5dfb43286356d532d655ea5f5bae77169c7f2",
+            "recordedCandidateSha256": "d08401ec35973f2db3cc3a9b0de5dfb43286356d532d655ea5f5bae77169c7f2",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_0.png",
+            "sourceSha256": "2e7f0ebaf631e6830026dc52e20398c2a1cc3a46ebf7c0d91fc6e68357636c00",
+            "recordedSourceSha256": "2e7f0ebaf631e6830026dc52e20398c2a1cc3a46ebf7c0d91fc6e68357636c00"
+          },
+          {
+            "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_1.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-025/candidates/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_1.png",
+            "candidateSha256": "615884713bfbc83048e764ff7f61fdfcfff0fc1a63bd01fa0f0120cb0fc959ac",
+            "recordedCandidateSha256": "615884713bfbc83048e764ff7f61fdfcfff0fc1a63bd01fa0f0120cb0fc959ac",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_1.png",
+            "sourceSha256": "9d006cccd2394bbbacf593e2162d64210de83dc84590e8b51f0b745e4e68470c",
+            "recordedSourceSha256": "9d006cccd2394bbbacf593e2162d64210de83dc84590e8b51f0b745e4e68470c"
+          },
+          {
+            "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_2.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-025/candidates/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_2.png",
+            "candidateSha256": "524066b306afecf6d3995f4192e1b9a3015ddbbab86703e93c49aa828bc72061",
+            "recordedCandidateSha256": "524066b306afecf6d3995f4192e1b9a3015ddbbab86703e93c49aa828bc72061",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_2.png",
+            "sourceSha256": "7de84c9e6ae29dc10c841e43b16db8cd8197d90817b470a3a20a42712509061f",
+            "recordedSourceSha256": "7de84c9e6ae29dc10c841e43b16db8cd8197d90817b470a3a20a42712509061f"
+          },
+          {
+            "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_3.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-025/candidates/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_3.png",
+            "candidateSha256": "9b3eb0a5ce9fe58de1ce76891f95e257067eef74e72a3f6d5e887b442e76e7de",
+            "recordedCandidateSha256": "9b3eb0a5ce9fe58de1ce76891f95e257067eef74e72a3f6d5e887b442e76e7de",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_male_v2_3.png",
+            "sourceSha256": "404f676362fd4a29539a83710813e9b6328d83891025d4cbccef2ec0dfc3188e",
+            "recordedSourceSha256": "404f676362fd4a29539a83710813e9b6328d83891025d4cbccef2ec0dfc3188e"
+          },
+          {
+            "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_0.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-025/candidates/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_0.png",
+            "candidateSha256": "67210118ff091721e1206cba15d20ec8db4e9cb3fddbd68deddc48499a036f23",
+            "recordedCandidateSha256": "67210118ff091721e1206cba15d20ec8db4e9cb3fddbd68deddc48499a036f23",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_0.png",
+            "sourceSha256": "3b860765cc15379a75f7de10e6b06eb6c4078baa4a5ba0a42c2e360b8019c574",
+            "recordedSourceSha256": "3b860765cc15379a75f7de10e6b06eb6c4078baa4a5ba0a42c2e360b8019c574"
+          },
+          {
+            "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_1.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-025/candidates/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_1.png",
+            "candidateSha256": "90f5d16f9e5b91bf1ed1f4e5f4f5f3d4d85068314af86182d1b9342613c84486",
+            "recordedCandidateSha256": "90f5d16f9e5b91bf1ed1f4e5f4f5f3d4d85068314af86182d1b9342613c84486",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_1.png",
+            "sourceSha256": "7dbeb38ebc7bc22503d30e1c977056687141111be9982265dca45aab4db2538d",
+            "recordedSourceSha256": "7dbeb38ebc7bc22503d30e1c977056687141111be9982265dca45aab4db2538d"
+          },
+          {
+            "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_2.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-025/candidates/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_2.png",
+            "candidateSha256": "442b82ac0aaf0edcd11ed6175579ff4326ab2fd1438be842bc4a09ac7102fb6c",
+            "recordedCandidateSha256": "442b82ac0aaf0edcd11ed6175579ff4326ab2fd1438be842bc4a09ac7102fb6c",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_2.png",
+            "sourceSha256": "79302cb716af9e474d6710f4cc63f82e7af8e204aba1c7a6d8c425d3a0764b5c",
+            "recordedSourceSha256": "79302cb716af9e474d6710f4cc63f82e7af8e204aba1c7a6d8c425d3a0764b5c"
+          },
+          {
+            "filename": "Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_3.png",
+            "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b04-025/candidates/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_3.png",
+            "candidateSha256": "c1a85f6d3238dc8c652e61a11d441411237980bb6e18d29ef08de09efb5274ed",
+            "recordedCandidateSha256": "c1a85f6d3238dc8c652e61a11d441411237980bb6e18d29ef08de09efb5274ed",
+            "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Dumbbell_Bench_Press_with_Neutral_Grip_female_v2_3.png",
+            "sourceSha256": "c721e09e0835d7add2f7db163f2cded4400d82d0c5df2f688e24ac4a92becf0b",
+            "recordedSourceSha256": "c721e09e0835d7add2f7db163f2cded4400d82d0c5df2f688e24ac4a92becf0b"
+          }
+        ],
+        "exceptions": []
+      }
+    },
+    {
+      "batch": "batch-04",
+      "index": 26,
+      "exerciseId": "Dumbbell_Bicep_Curl",
+      "threadId": "01a0774a-77a8-7af1-8a9c-a9b274099fe9",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/026/8637030396d59b0fbfb8c7dc4c8781df31f2ccfb9d46c2d64fe3039a91fdc98a",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 27,
+      "exerciseId": "Dumbbell_Clean",
+      "threadId": "01a0774a-8ed9-7462-81ac-310cecc27815",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/027/b5f90d5407ebb99ac75571475fae606a393b2378fb6acba9cee629c97d4e0c03",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 28,
+      "exerciseId": "Dumbbell_Floor_Press",
+      "threadId": "01a0774a-a4aa-7112-8937-0495da9a8e16",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/028/22bd1c8492b175c3cfe1d0ef8d08d96cd6129ae16d07bb9bee029e8060a427a5",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 22,
+      "exerciseId": "Drop_Push",
+      "threadId": "01a0774a-5c1b-7fe2-9c80-c0344ad6182f",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/022/c0f9e2ec79a474aca7cc2f5153bfb6588ee5fb57a2e41e5e8cbf06e87a745b8d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 25,
+      "exerciseId": "Dumbbell_Bench_Press_with_Neutral_Grip",
+      "threadId": "01a0774a-83ef-7e93-b402-c8866b85b12a",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/025/ef9c13b7ed7e44925f78a4a1c918895e9238b7f0a5a0fcaca882649ff6d1ecd7",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 29,
+      "exerciseId": "Dumbbell_Flyes",
+      "threadId": "01a0774a-af18-7073-aad2-8a8384fad711",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/029/ea38796f42a8adc4c415fd9aa2611567ef7650cbe322697749024296b725d1a2",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 30,
+      "threadId": "01a0774a-9906-7f33-b18c-dd66910fac44",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-04",
+      "index": 31,
+      "exerciseId": "Dumbbell_Incline_Shoulder_Raise",
+      "threadId": "01a0774a-b9e4-7f30-97bd-abd32d7d007f",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/031/a3f38e3c82010b583eb63ac11c2eca49f0df1fd1b6514893d005e0a5a0f1abd5",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 32,
+      "exerciseId": "Dumbbell_Lunges",
+      "threadId": "01a0774a-d032-7ef0-a41b-55014d5cd8e8",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/032/955a7a448c101e83e4af2d195ca13ff632c35ea27fae98e887b5c5aa0fd31b81",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 33,
+      "exerciseId": "Dumbbell_Lying_Pronation",
+      "threadId": "01a0774a-c52f-7032-8fb6-1f6a0e145605",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/033/5126ad2153c09356bb090a0ece3ed8e476ad8e7a9a85da52195af765022c1cb8",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 34,
+      "exerciseId": "Dumbbell_Lying_Rear_Lateral_Raise",
+      "threadId": "01a0774a-db7e-7413-82eb-06206b64bd6c",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/034/ad1c53a12323f2d8fa208656f80e1d22c707b18161fcf8be777a2758a09e4071",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 35,
+      "exerciseId": "Dumbbell_One-Arm_Shoulder_Press",
+      "threadId": "01a0774a-e4d8-7be3-9e78-436d85e5f64e",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/035/5f94c77d6dc01a47c730fe995dac3c3c3d8a98ddb5946df3317ee1150f055e63",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 36,
+      "exerciseId": "Dumbbell_One-Arm_Triceps_Extension",
+      "threadId": "01a0774b-0bdb-7932-913a-3c321b90fd22",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/036/026eec4e5eb85c3f5bdcf7b936b75fa4d0f102385312364f5ef32c0846c9545c",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 37,
+      "exerciseId": "Dumbbell_One-Arm_Upright_Row",
+      "threadId": "01a0774a-fbcf-7723-93ab-d69f3c3665f9",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/037/fcf3d0bc283abd979876749e4c9bcd31b7c0e36a4ab971fb99eeb090d08bddca",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 38,
+      "exerciseId": "Dumbbell_Prone_Incline_Curl",
+      "threadId": "01a0774b-1b3a-70d2-a2fa-9180bf786c8c",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/038/21c843be780b0907e2c8d682aae205c971268fd55ba4f107d7b647d696985b6b",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 39,
+      "exerciseId": "Dumbbell_Shrug",
+      "threadId": "01a0774b-2986-71c3-81a8-93b7cc3c1cc0",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/039/75f26e385faa10dd69e18c77ce196ae9518652e5884f803ec593bab3d22493d4",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 40,
+      "exerciseId": "Dumbbell_Squat_To_A_Bench",
+      "threadId": "01a0774a-f23c-77d1-8e16-b10d4779d6e5",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/040/2d179ee7ad9b04ab501bfb6bf7f05dad542a76c943f85f8405e9331502d3a26a",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 41,
+      "exerciseId": "Dumbbell_Step_Ups",
+      "threadId": "01a0774b-5c3a-7580-991b-2dd97673ee01",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/041/b74f933fad06116e36766bc06155798e4bc6b8a76418559a6f2432c5b2c16167",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 42,
+      "exerciseId": "Dynamic_Chest_Stretch",
+      "threadId": "01a0774b-44df-78b3-afb7-0e9a2030b63f",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/042/7c264e3fa951144a16fb99c778d1d0b051d76e8b22fe8c391c000ec07dd1348f",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 43,
+      "exerciseId": "Elevated_Back_Lunge",
+      "threadId": "01a0774b-8fad-7dd0-a72f-26fc2d79003d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/043/60c80ee30c521f2641c4750b76d63bad92bd6dbff6579707414743f77859bc4d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 44,
+      "exerciseId": "Elevated_Cable_Rows",
+      "threadId": "01a0774b-ad69-70c0-a7aa-2415a739a6d2",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/044/a50dfa7aee8713808094de225d6c64f71097d9226fda3167e656a90c08e2d54f",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 45,
+      "exerciseId": "Exercise_Ball_Crunch",
+      "threadId": "01a0774b-72a9-7133-a09d-0f4ccc99576d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/045/ecfd65f602159077fc4fd849e6d815dc026634fb6b9563b08efc16d45b3bc997",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 46,
+      "exerciseId": "Exercise_Ball_Pull-In",
+      "threadId": "01a0774b-f272-79e0-a500-659a991480be",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/046/ecdce2257d3bb9e63247777785c9f0c886ea894e1a61dc62859a996f55e09087",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 47,
+      "exerciseId": "Extended_Range_One-Arm_Kettlebell_Floor_Press",
+      "threadId": "01a0774b-c869-7e30-9c6b-d525a92f64cf",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/047/c44d888fb8c371cb33bccea6ff3e5a173097c48fb5a097da0102d5393e055117",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 48,
+      "exerciseId": "External_Rotation",
+      "threadId": "01a0774c-1448-71b0-8d0c-ceda9148ba2a",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/048/28ff8794b221d7926781092855b9f8d7a3433e0ce753a2cf9493556d63dd3383",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 49,
+      "exerciseId": "External_Rotation_with_Band",
+      "threadId": "01a0774c-46a0-7792-a5ae-2e21a7f2f88d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/049/701c8952830ba3bd1c7d97d278b6cc435d3f421f8ad9fe98d99e5e57fd96317a",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 50,
+      "exerciseId": "External_Rotation_with_Cable",
+      "threadId": "01a0774c-77d7-7122-8aac-8aa124ab9ef9",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/050/8653f66a66844ed749a289479fed4acd19694c35561c0e98f2735b24b4da3265",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 1,
+      "exerciseId": "Face_Pull",
+      "threadId": "01a0774c-abac-7e32-96b1-b8704bd20c3d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/001/3dd1457e59f9a02732017f1e8132a52bf2a2325ef54b56e59c675e9fc715d071",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 2,
+      "exerciseId": "Farmers_Walk",
+      "threadId": "01a0774c-e428-72c2-9994-4e98bde748ab",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/002/34cd04bd840054e7ed6acabb07d0e8d1cf63e58009abdad5fa6cae126fa47dc9",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 3,
+      "exerciseId": "Finger_Curls",
+      "threadId": "01a0774d-015c-7a50-aea2-b1d2b25e4528",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/003/c9f35c1bb81aeea093bdae72325c082f205f79f997e15c06876fcb0be107b0ca",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 4,
+      "exerciseId": "Flat_Bench_Cable_Flyes",
+      "threadId": "01a0774d-1ac8-7293-9ecc-2985a6444f80",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/004/a7f31cfd0895e161a9e5f17d6567809ded0297095f601f153337bc6ff392ca89",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 5,
+      "exerciseId": "Flat_Bench_Leg_Pull-In",
+      "threadId": "01a0774d-37a1-7112-83b6-e66c595cb9e5",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/005/161313a174546e0270ba7023ee4141db950bf467a36b4ce7e1dbc230022530c0",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 6,
+      "exerciseId": "Flat_Bench_Lying_Leg_Raise",
+      "threadId": "01a0774d-78a8-7891-8a13-9dd279875516",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/006/9a60a1fab01e8d3d31eaa967462fa330190e988d56a8ce4612682fe7040cfdf1",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 14,
+      "exerciseId": "Donkey_Calf_Raises",
+      "threadId": "01a0774a-0948-7021-b6b3-fd4985615916",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/014/9494d0eaf647f19f303f73048f7005898223425719119ce34fdc81dde52b083a",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 30,
+      "threadId": "01a0774a-9906-7f33-b18c-dd66910fac44",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-05",
+      "index": 7,
+      "exerciseId": "Flexor_Incline_Dumbbell_Curls",
+      "threadId": "01a0774d-9bfe-7973-a49b-506fabe79f23",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/007/77f8e8bae42babf848344c9b30cc39d78713b395ea5aa73bc64a6ebf6a857c8d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 8,
+      "exerciseId": "Floor_Glute-Ham_Raise",
+      "threadId": "01a0774d-b632-7293-8451-166b10177433",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/008/fb266254d1e1b65e05103cdfbfb7fdc7c9eb339d1d58147797bc123383449240",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 9,
+      "exerciseId": "Floor_Press",
+      "threadId": "01a0774d-5be0-74a1-b049-02d4704d85e6",
+      "hostId": "local",
+      "base": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01",
+      "receipt": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/luna-launches/009.json",
+      "status": "copyError",
+      "output": ""
+    },
+    {
+      "batch": "batch-05",
+      "index": 10,
+      "exerciseId": "Floor_Press_with_Chains",
+      "threadId": "01a0774d-dca6-7c72-85d5-5d64c0a6938d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/010/ec3b3063b608f87ce036d9b449457e8dbd96f71463f5edf2e56b0974c13bf6ab",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 11,
+      "exerciseId": "Flutter_Kicks",
+      "threadId": "01a0774e-1baf-7441-9723-65c3562d19f0",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/011/d039d4ca9ea80bbc79c027d6853e1e21ac4385c5a9cadc8f44067a8668be3230",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 12,
+      "exerciseId": "Forward_Drag_with_Press",
+      "threadId": "01a0774e-41ac-7ac3-8923-07ef72906ed6",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/012/d472d109475bcfb1eeb1a5685581a484da04a9eb092453d98481e64a055daf03",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 9,
+      "exerciseId": "Floor_Press",
+      "threadId": "01a0774d-5be0-74a1-b049-02d4704d85e6",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/009/9b1c92a9bad8227d460cbdd6af9cd792b8756e3a30b9f709c85ea0f4755ca3f7",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 13,
+      "exerciseId": "Frankenstein_Squat",
+      "threadId": "01a0774e-6211-7a72-a393-a7b0f7a39cc9",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/013/671b19422e18401f4c83a0986af8ec8796b906700ecac46d32fb36ade2fc6c3b",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 14,
+      "exerciseId": "Freehand_Jump_Squat",
+      "threadId": "01a0774e-8152-7832-b596-3c823b2fddc1",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/014/69958d0513b5d443db5cff5eb8ab00840652b9db86208f4de21a1e0e2964c66f",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 15,
+      "exerciseId": "Frog_Sit-Ups",
+      "threadId": "01a0774e-980f-72a3-abaf-4d29df113243",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/015/27819ddd66804ed6fe1692e2ce755fca06e77971eefe0a3927055f0328cdf086",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 16,
+      "exerciseId": "Front_Box_Jump",
+      "threadId": "01a0774e-b390-7f03-a2ae-e362d3089049",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/016/ce50e477ae484b47e3401f556a93a0b15c6ded0f79ce2768aab2cd09b1e335f4",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 17,
+      "exerciseId": "Front_Cone_Hops_or_hurdle_hops",
+      "threadId": "01a0774e-d5ff-7183-b414-308557d1834f",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/017/244f4e648c70e4b31710a24f3659e458201a619e1f23d8602784a6d6fe0ba62e",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 18,
+      "exerciseId": "Front_Plate_Raise",
+      "threadId": "01a0774e-ea42-7063-a10d-525aaa875ddd",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/018/1b165f8347a6668bbb16aa76fd855400c688f38433fd167c3975d1ac0baf8167",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 19,
+      "exerciseId": "Keg_Load",
+      "threadId": "01a0774f-0be9-78c2-880c-fb16537d1d91",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/019/4eb340b9e71961afb47486e5bc946b6839b1d91773e29eb0ee81528e700a5b11",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 20,
+      "exerciseId": "Kipping_Muscle_Up",
+      "threadId": "01a0774f-3f17-75b3-85be-1b0d3cd69e98",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/020/82413f54bb7c053876dce5d5dd9b87f74e2e05f08a4635911cf8a17419739bd4",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 21,
+      "exerciseId": "Monster_Walk",
+      "threadId": "01a0774f-8a54-7812-9219-ba8d19388b0d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/021/ed19558f23db382d1b3e9382b95121f381cee3f974ba8e0fe952d7f7929b4b55",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 22,
+      "exerciseId": "One_Half_Locust",
+      "threadId": "01a0774f-6742-7bb2-a752-24607d25dbd7",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/022/2c184fbdf129793caa4fbfcf5429a6d5e7c5db13cd77588e91439c342b00c1b5",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 23,
+      "exerciseId": "Palms-Down_Dumbbell_Wrist_Curl_Over_A_Bench",
+      "threadId": "01a0774f-b845-7dd0-8b88-369fc4dcc1ca",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/023/dadc903d69d239e67f5ae1e0140b3f0f3c6055962035cf9613fd639667a1d948",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 24,
+      "exerciseId": "Push-Ups_With_Feet_Elevated",
+      "threadId": "01a0774f-d4bb-7ed2-883b-f1beb432bbb7",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/024/89be79027efd230743fb813916f0b6cef4b9d05b71ff59863916f3ee51272606",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 25,
+      "exerciseId": "Side_to_Side_Box_Shuffle",
+      "threadId": "01a0774f-fce3-7040-a4bf-d967a627c3c4",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/025/cb32a086cc596098185783abd1a4b07c3418c1a196e7a61a4a82c68c8cae4626",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 26,
+      "exerciseId": "Split_Jump",
+      "threadId": "01a07750-260b-72a3-ad41-42463f2feed7",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/026/f7672b54e8251ab6636b6548ef2f60b2abe931c592385dc14427c042bf33496d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 27,
+      "exerciseId": "Squat_with_Bands",
+      "threadId": "01a07750-5ccc-7311-9ad1-099b8d3f15ad",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/027/50786e4cf2d13e28f7973d1d02c05cec19c564dd67d30c289510704338d3fada",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 28,
+      "exerciseId": "Standing_Hamstring_and_Calf_Stretch",
+      "threadId": "01a07750-9245-7c90-9966-8dcfd77369e7",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/028/c0ead03477af41ce79b63e298a31c93a92936fe765a43cd3f8250c5beeb70de6",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 29,
+      "exerciseId": "Tate_Press",
+      "threadId": "01a07750-c8aa-7521-87c5-0a858fadedde",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/029/b7dca05333bcd16cfdc98e6384f5de7da579fb35f8deee496cd2666ec3b097e2",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 30,
+      "exerciseId": "Triceps_Overhead_Extension_with_Rope",
+      "threadId": "01a07751-1829-74a2-b628-98b2faa60374",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/030/a60f38c342da5c1bbe31f48952709cd016bd09ffe341db4e3db279b5832d1955",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 31,
+      "exerciseId": "90_90_Hamstring",
+      "threadId": "01a07751-73b2-7901-9ad4-0177fd671bad",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/031/d5981e103d25be26f033ff2e1b0546b256b755b7ad65bc12275cb45178b00aa3",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 32,
+      "exerciseId": "Adductor",
+      "threadId": "01a07753-3616-7b93-ad7c-d71d99fcb8e5",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/032/556ca84780b2e7ee7244aa680b502ce37a392bbf82cbc9b1c0bfca1d6d1394e8",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 33,
+      "exerciseId": "Air_Bike",
+      "threadId": "01a07753-a9b6-7bb0-be61-54e0a6f84c44",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/033/61fd4eebb69738ca5a64cf71852ee734ea7f59a9f438497c1ee328338e96f326",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 34,
+      "exerciseId": "Alternating_Cable_Shoulder_Press",
+      "threadId": "01a07753-697f-79e1-bf74-8a358d701a7c",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/034/9097043ddf6c6a1f9daf0224c63c15bba099e1cac1979fe2ae7324ce2bb92370",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 35,
+      "exerciseId": "Alternating_Renegade_Row",
+      "threadId": "01a07753-4e44-7463-a014-5b535f2c8bd9",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/035/59c9b3f45087c210587f2f6a6c0ef8b104c5578ff5682c7ed4573d4a7f8e1761",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 36,
+      "exerciseId": "Anterior_Tibialis-SMR",
+      "threadId": "01a07752-492a-7481-ac4a-6682f5269f21",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/036/12b6d9a539e7cc95bba1425bff22a8f314ff2d15c280e0969a729d1ab81499ad",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 37,
+      "exerciseId": "Balance_Board",
+      "threadId": "01a07752-f5cc-7c80-82af-6d788b677c05",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/037/62dd7117f6116f371345cb48c77c8690d2d89ad55997b80cf12b3c22f827d6fe",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 38,
+      "exerciseId": "Bench_Sprint",
+      "threadId": "01a07751-c74a-7621-9483-ffb15b958e2d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/038/4a4642509a96e59d5629ca07a85ced7275240a39fb9d38f60fffd4840f319414",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 39,
+      "exerciseId": "Bent_Over_Barbell_Row",
+      "threadId": "01a07753-87bb-7532-a7ea-c0645445dd4f",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/039/31a6e9a43889653bf4854127f12527752055892c145021acc0460b0e7ab3ba12",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 40,
+      "exerciseId": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench",
+      "threadId": "01a07753-d1d6-7991-9179-84675bed45cd",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/040/3d26c5cd9cf8c6e7b3133377cff5f768d1b873fb09591794bd983b6ab98b8b30",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 41,
+      "exerciseId": "Bent_Over_Two-Dumbbell_Row_With_Palms_In",
+      "threadId": "01a07753-fa2c-7ab0-8549-e6c11138d4c4",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/041/39f3351d290d97caafc0ea8b4ebf96f50416328316ba21d8bdec2f15daf5822f",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 42,
+      "exerciseId": "Bent_Press",
+      "threadId": "01a07754-09de-77d2-ae3c-9f9854a8d9de",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/042/7df1ef7933f3edbac29cf13a8ddf8be29835e7e91acec45bd1dc7f524c98755c",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 43,
+      "exerciseId": "Bicycling_Stationary",
+      "threadId": "01a07754-3b3e-7152-8628-7c7cc4810ebe",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/043/dd6f61fb93799afc933ea03372f6d0bcf4e9d960b1d6a1c1e00ca50c8b257a47",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 44,
+      "exerciseId": "Board_Press",
+      "threadId": "01a07754-7b9e-7283-ae76-43a2b805d645",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/044/13d8e4c1f8e7270920ba8361adf072d65c0ab6696d0a80d5ab726eaf4e71a30d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 45,
+      "exerciseId": "Bodyweight_Mid_Row",
+      "threadId": "01a07754-d02a-7d92-bfe8-cf0f65d989ef",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/045/2e035f3228cc3e25773e1a359da15340926263ece0588fde750b7dbf3d9baa75",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 46,
+      "exerciseId": "Butt_Lift_Bridge",
+      "threadId": "01a07755-1e09-74f2-8128-9ff240705155",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/046/d3b48aa3e125158746410c2eef291ea01322e2ea54d25f80bfb4a4c710664bbb",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 47,
+      "exerciseId": "Cable_Chest_Press",
+      "threadId": "01a07755-a677-7653-9442-46b5123ba4c6",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/047/1ab789a1645f24ff27b7a9a29b9bce136bc67e6aeb533c4246a53dc24aaf7f37",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 48,
+      "exerciseId": "Cable_Internal_Rotation",
+      "threadId": "01a07756-103f-7b93-a34a-95d9589616de",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/048/de58be40521cddf674e0c3bf5158b1af54112741e0f482376fd066b319b0eae1",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 49,
+      "exerciseId": "Cable_Reverse_Crunch",
+      "threadId": "01a07756-623e-7a60-91a1-bf2ebb0d11ed",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/049/b47c305666f5502cdb2d7b7c26591a9fb330b4a268ec7213bbba6f02ba22cedf",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-05",
+      "index": 50,
+      "exerciseId": "Cable_Seated_Lateral_Raise",
+      "threadId": "01a07756-b4f2-70e0-8dba-19bd1f805bff",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-05/repair-pass-01/completed-snapshots/050/97bd6c3579357dd1151037d4f066518bbe430c38ff1fb6fe30a0c77c0a5ece18",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 1,
+      "exerciseId": "Cable_Shoulder_Press",
+      "threadId": "01a0775b-975a-78d1-a460-25714cb3e855",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/001/f985d8b086b02c4c3876f2659bbe4d499c47137bb30d9c5fd4d1ed7d6524c83d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 2,
+      "exerciseId": "Cable_Shrugs",
+      "threadId": "01a0775b-ed61-7ca3-87d5-d89825ea89db",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/002/d795ce3ad43a9ed79611ff1a03fa0f4005f709e73fe9eee067fb6cd88516f925",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 3,
+      "exerciseId": "Calf-Machine_Shoulder_Shrug",
+      "threadId": "01a0775c-5112-7992-8613-1a2960f6eb9a",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/003/2a84e3d8f0561df99831ca41575f28fb3473215034fca705405d4241292e7d06",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 4,
+      "exerciseId": "Car_Drivers",
+      "threadId": "01a0775c-aeba-7df0-8d44-b376782adb12",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/004/17b8bf6237093aac424385bd91e3f52a049c9e6ffe2ad00871ee823bcbea1aac",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 5,
+      "exerciseId": "Childs_Pose",
+      "threadId": "01a0775d-16b2-7ad0-8912-197672b49678",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/005/012295cd08e739df9345249c74a8c22e3ddac14192107ebafbb608bb7647bada",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-04",
+      "index": 30,
+      "exerciseId": "Dumbbell_Incline_Row",
+      "threadId": "01a0774a-9906-7f33-b18c-dd66910fac44",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-04/repair-pass-01/completed-snapshots/030/b1d06082b3650eebc0acf241db361183e5e907d455c28b2a118ae05ca9e1b45c",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 6,
+      "exerciseId": "Chin_To_Chest_Stretch",
+      "threadId": "01a0775d-7db8-7cb0-ba08-3c8c64f31283",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/006/723a7972cda954ea4c755dbbad7fef0a814e9e7435a4e3546a4db8473f1aca35",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 7,
+      "exerciseId": "Clean_and_Press",
+      "threadId": "01a0775e-145c-7191-bd6e-9309ae076ba3",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/007/97364625a55b2d326495d5bbb175c903d62ede84aaa7be6117799979a9ca5029",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 8,
+      "exerciseId": "Clean_Deadlift",
+      "threadId": "01a0775e-8a97-7822-9b07-5e9e38562480",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/008/863dde36caff47022377e7cb41feaea74910c9f37f31565da5f8348f6261350c",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 9,
+      "exerciseId": "Clean_from_Blocks",
+      "threadId": "01a0775e-ec12-72c3-9a1c-cea6f10ab436",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/009/1473a9c99566da702192815e6a5274f6ef89789fd682812e2bd932a33c628b57",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 10,
+      "exerciseId": "Clean_Shrug",
+      "threadId": "01a0775f-44ce-7fb2-816b-9d192a228580",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/010/a9496ddb786c9c2a72326c2b63104e7b9a610e551e677720257c9cd225be1978",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 11,
+      "exerciseId": "Clock_Push-Up",
+      "threadId": "01a07763-8efe-7072-8ab2-8f571272d80f",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/011/8bf49551ef417bfbcc571b86dfab41ef27c80f2484605b61fe2243d26e910d0b",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 12,
+      "exerciseId": "Close-Grip_Barbell_Bench_Press",
+      "threadId": "01a07763-f634-7ca0-beb8-c776ed36c209",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/012/7c7d5706bb59dc507054800070d5d1a34b0856224d2b95e817a2d10569b7eadd",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 13,
+      "exerciseId": "Close-Grip_Dumbbell_Press",
+      "threadId": "01a07764-6df9-7310-ae18-820c9ec5539c",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/013/917ad05718f39a403f2b2cb7fe67518ebf339fdf65679ddb4ac5de4ade5f10ff",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 14,
+      "exerciseId": "Close-Grip_EZ-Bar_Curl_with_Band",
+      "threadId": "01a07764-e028-7f30-8827-270ced56d8ea",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/014/f2fde2096feff4cca905ae9bf9f083fc229fbafd9af89c5fead8a8f561d6cc5b",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 15,
+      "exerciseId": "Close-Grip_Standing_Barbell_Curl",
+      "threadId": "01a07766-54b6-77a2-a3b4-0eb9ef4ea156",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/015/dd749f303658f94bae9e3b8e6c70cf900ea909739b76412aeb00618e868c7d16",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 16,
+      "exerciseId": "Cross_Over_-_With_Bands",
+      "threadId": "01a07766-d7f2-7822-b7ee-71b1bce77faa",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/016/35158bb0bb104fc70a22806d83f59215d74b1d9739c3d7a03194f2f8f6b201c4",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 17,
+      "exerciseId": "Cross-Body_Crunch",
+      "threadId": "01a07765-4a53-78a1-b069-db44de3e219b",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/017/7c4358c2b5df9560ea21a86823c5e69290358f7af57da0149e3325b763ae54db",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 18,
+      "exerciseId": "Crossover_Reverse_Lunge",
+      "threadId": "01a07765-cfc2-78f2-960c-253b6ce8019d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/018/a4717eb375317eedb39e5eb66325c8a82ed847f976a5f678f985f6ea7ee726f5",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 19,
+      "exerciseId": "Crucifix",
+      "threadId": "01a07767-7c25-7790-afdc-65a47f7ad43f",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/019/68dc3e06cc9c6b59a87dbaabbc58bc8d34e50695aa2abfa850ca04b27640eebb",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 20,
+      "exerciseId": "Crunch_-_Hands_Overhead",
+      "threadId": "01a07767-fedc-7b22-9dab-2d319732760f",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/020/bdd718650f39796afc3575f9ed442a4f3b73c6addce83a688da13fb2dcf9335a",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 21,
+      "exerciseId": "Crunches",
+      "threadId": "01a0776d-bee4-7773-a8e8-9993d3d2849d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/021/22c94c98d1d2dd8899a24349b73e754c6dbeb80913f08841e41510c86d237859",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 22,
+      "exerciseId": "Decline_Dumbbell_Bench_Press",
+      "threadId": "01a0776e-37ad-7503-b6ab-770b99f901dc",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/022/6b74280d02a21f08570f4fb08030741c36f558578addf25d6c1bb03144fd4b77",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 23,
+      "exerciseId": "Decline_Dumbbell_Triceps_Extension",
+      "threadId": "01a0776e-ac10-7631-8774-3d886e366320",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/023/7854e6f696833a1411ab79e8d45135c364a862003b02ffab47c511166e25240e",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 24,
+      "exerciseId": "Dip_Machine",
+      "threadId": "01a0776f-05fd-7393-a0d9-6ef223fda975",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/024/8eb5fb74d9ce6f278bd83131f87874935cf6fb8db424a8d0609cd8346a87fee1",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 25,
+      "exerciseId": "Dumbbell_Raise",
+      "threadId": "01a0776f-6af3-7a42-9140-941cf96b6f5e",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/025/15fb8bc0e6be2feec010e12f5f00158efad49d985e1c36e4ba2e65bbc3549f0c",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 26,
+      "exerciseId": "Dumbbell_Rear_Lunge",
+      "threadId": "01a0776f-e24e-72b1-ae21-72c0f7f161a2",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/026/3aebbd4f2adab0750cc5511632bb960a2f1814a0840270fb72f5bdaa71768934",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 27,
+      "exerciseId": "Dumbbell_Scaption",
+      "threadId": "01a07770-4208-7323-967f-67ea8b8878b3",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/027/d72a632cafa23c0c47cf741b56d7d2f80701fc98a9b639da7f74dcb5709ad7d5",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 28,
+      "exerciseId": "Dumbbell_Seated_Box_Jump",
+      "threadId": "01a07770-a3f2-7913-b934-be9803201dc3",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/028/bb3fae78e15fe6e41b27b684be13a8b4965ac3f68696e63f2f6a98dd7fc3e9bf",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 29,
+      "exerciseId": "Dumbbell_Seated_One-Leg_Calf_Raise",
+      "threadId": "01a07770-e40d-7e72-808e-5b903b418606",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/029/ac0b41b2d7dd7162c14431778d4119e11f2768d826a172255915118699da52e9",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 30,
+      "exerciseId": "Dumbbell_Shoulder_Press",
+      "threadId": "01a07771-601d-7e40-aef9-a61231c1308e",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/030/90994225c81df097435651c8f3fed5f3a8b3ffda08b05da2ac9583b9dd64f773",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 31,
+      "exerciseId": "Dumbbell_Side_Bend",
+      "threadId": "01a07778-137f-74c1-addc-e10b4ff98213",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/031/de021ecb21f4c128f1fbde9b886facb4e03343347d2f648947a2a5aa572177bb",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 32,
+      "exerciseId": "Dumbbell_Squat",
+      "threadId": "01a07778-5f07-7893-b430-9e7345147785",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/032/45ff344b2be46d5d6f4f7cdb1478806e131bf20012ff146fa16d22edf120bb17",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 33,
+      "exerciseId": "Elbow_Circles",
+      "threadId": "01a07778-a4d9-7c91-afd9-b1d1d914f95c",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/033/77c048a49305009dce4fd9eef406325a19a506c8ad1f24e607f586ad0d5da117",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 34,
+      "exerciseId": "Elbow_to_Knee",
+      "threadId": "01a07778-cca6-7c83-9874-f066efe543be",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/034/baa6e3d3a15aca9bb3ced865023c7e664d90042634d2662711d8ae08897c8d06",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 35,
+      "exerciseId": "Elbows_Back",
+      "threadId": "01a07779-0990-7643-913c-17145f8281ac",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/035/61dc55494a6ad6f7d4371af211dfc0baf2b1bf348698c92b6e2b3c7cc3040a1c",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 36,
+      "exerciseId": "Elliptical_Trainer",
+      "threadId": "01a07779-472a-7600-98f1-4b106ee3eafe",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/036/d47be3df0e78675b8961a9a383792cf1d5d5c3a8dc92234d3a4482a6b2f97910",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 37,
+      "exerciseId": "EZ-Bar_Curl",
+      "threadId": "01a07779-83f2-77c3-8fa0-5effd62faef2",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/037/aa5b9126a3def64640ed6c8e8343d2759a75c2ff30ccb8b0571eb35e7bbd7afd",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 38,
+      "exerciseId": "Fast_Skipping",
+      "threadId": "01a07779-e866-7360-bd91-fbddd36e7d7f",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/038/f6d742e222f31b914c6be5049295c3263af087c6196080c1962bce3014421a72",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 39,
+      "threadId": "01a0777a-3a67-7590-bf1c-2ff836b6c2b3",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-06",
+      "index": 40,
+      "exerciseId": "Frog_Hops",
+      "threadId": "01a0777a-c94c-77e3-805d-18be9e85bf2f",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/040/f29f4ab6bffe9d95889a137580568450e0d381b7c4eb1bc945ed3fed9cc26490",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 41,
+      "exerciseId": "Front_Barbell_Squat",
+      "threadId": "01a0777f-71f8-7582-87bd-364fe716b355",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/041/4fd0ae216cc22ef41b5c159ea9f2541333ffb4b9e86b3bec601253ffe788ff7d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 42,
+      "exerciseId": "Front_Cable_Raise",
+      "threadId": "01a0777f-bebc-70d0-9bf0-026c5637523e",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/042/93de3c08d7008f538ce2a81fead84cacd9e6bb36b33391666304e322bef377a9",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 43,
+      "exerciseId": "Front_Dumbbell_Raise",
+      "threadId": "01a07780-47ec-7a10-87b7-0df4845e0146",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/043/9b4b2806e90fe027d73ebfd1a010852066872ada8de191ef98dfd323d7682d4b",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 44,
+      "threadId": "01a07780-c208-7643-834f-f5630b51e58a",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-06",
+      "index": 45,
+      "threadId": "01a07781-82f3-7990-89c1-dadaaf1e8e50",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-06",
+      "index": 46,
+      "exerciseId": "Advanced_Kettlebell_Windmill",
+      "threadId": "01a07781-d285-75f2-868a-2de10f301aa3",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/046/8966765db5e19a3e026312f3180f234143cf69d75979fd71bf7fb21685d1ec4f",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 47,
+      "exerciseId": "All_Fours_Quad_Stretch",
+      "threadId": "01a07782-1429-76b3-bc02-43bb6550d96f",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/047/be4354ea4bd0f7e30535116d41a16e2114a30bb06ed5f328f14411a0731be1bb",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 48,
+      "exerciseId": "Alternate_Hammer_Curl",
+      "threadId": "01a07782-4f31-7622-b77b-9789cefe3afa",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/048/b50f75443fa06fc7f3242da44b8427c78e25b1b0f8ab7857e1333ee142008499",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 49,
+      "exerciseId": "Alternate_Incline_Dumbbell_Curl",
+      "threadId": "01a07782-86f2-7db2-8062-48e05c720000",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/049/9f8e5cc498a0e2fcab77fa02dd3060e4674ab4c07a24332618d9669a6ddd07af",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 50,
+      "exerciseId": "Alternate_Leg_Diagonal_Bound",
+      "threadId": "01a07782-c7d2-74e0-bb5a-5e340a9345bd",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/050/40e49b824e8d5c55c1cefeecea95505c460e41691e2789f900e8d182be904f25",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 1,
+      "exerciseId": "Alternating_Kettlebell_Row",
+      "threadId": "01a07788-fa07-7ae0-b732-5ffc9d118a09",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/001/064eb7bab13c3e6715c35c8a4167f9351eba1b999da17b944f4b8b283e60d652",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 2,
+      "exerciseId": "Arm_Circles",
+      "threadId": "01a07789-46ac-7c60-b49f-323e0f0ef10d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/002/ccc32e9f16d1b6986c036a6432cebf3b4bc68633db45f734ea1d5d60e82f19c2",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 3,
+      "exerciseId": "Axle_Deadlift",
+      "threadId": "01a07789-8940-73f3-933f-789d8f10ed4c",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/003/8023151a5317247e84213d21740af6955d476c5acaddaf9c401d7c0b8b36babe",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 4,
+      "exerciseId": "Band_Pull_Apart",
+      "threadId": "01a07789-d990-74a0-8447-de3ed2ba8bb9",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/004/08237d49add07afc202d22670e3087731ab3af1a842d59418c866000c3ef03b4",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 5,
+      "exerciseId": "Band_Skull_Crusher",
+      "threadId": "01a0778a-ac7d-7ef0-b0c6-d743f0d64cc7",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/005/7d6ae62049189a537d7dd7a00595221e5ea15f461a38cae2e3fa5390c5792dd7",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 6,
+      "exerciseId": "Barbell_Ab_Rollout_-_On_Knees",
+      "threadId": "01a0778a-fae8-73a0-8a12-d7c1feb08abb",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/006/89c1ba7944b6705822362858e3a6def2d41acbd1a11bce096183ecf142ec6162",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 7,
+      "exerciseId": "Barbell_Full_Squat",
+      "threadId": "01a0778b-2cd8-7c80-baef-65cf8afbc2a4",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/007/927a51c418ef046576561bad2ce3a9e4731af914210a3083d8a7f96e77c87331",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 39,
+      "threadId": "01a0777a-3a67-7590-bf1c-2ff836b6c2b3",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-06",
+      "index": 44,
+      "exerciseId": "Front_Incline_Dumbbell_Raise",
+      "threadId": "01a07780-c208-7643-834f-f5630b51e58a",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/044/38ffc8dfa71645e2d20ffa6aaf43ce48f2007397a6a862be0d82eb64d2b3cc68",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 45,
+      "threadId": "01a07781-82f3-7990-89c1-dadaaf1e8e50",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 8,
+      "exerciseId": "Bench_Press_-_With_Bands",
+      "threadId": "01a0778a-23b4-7c11-9810-a9e1d57d9e05",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/008/07586eac2c97e8235a96ae2993fffc144f31752fe71f37c2331b65b83477efbc",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 9,
+      "exerciseId": "Cable_Incline_Triceps_Extension",
+      "threadId": "01a0778a-6d4e-72d0-888b-62ee3948f608",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/009/dbbf5c99388a0b1fe5b55d837fc24a044e810909c17743d2bb44bc96cd1cba6b",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 10,
+      "exerciseId": "Front_Raise_And_Pullover",
+      "threadId": "01a07788-a55d-77d3-a9f1-a580ddb89efa",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/010/c626cdaec029726a0445a3cbaec000579ce2c9e563fbacae28cfd31c1a566a13",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 11,
+      "threadId": "01a07794-6c7e-7463-95b1-df08cf570afe",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 12,
+      "threadId": "01a07794-7603-7672-a66b-ca3ecbb9e79e",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 13,
+      "exerciseId": "Front_Two-Dumbbell_Raise",
+      "threadId": "01a07794-8852-7260-b239-036400bd3cc2",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/013/55b8f4d340fae928289dd4c98660df0277a149170247dcf8467b7c89a3e6d7ec",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 14,
+      "threadId": "01a07794-7ed4-72d3-b3bf-5c4dd3283e4c",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 15,
+      "exerciseId": "Gironda_Sternum_Chins",
+      "threadId": "01a07794-9a1e-7de3-8355-d4ed40d54f26",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/015/0570953bbe1254881c480dd8ad067990e2e1f92ac6fe83492bdc9566b3493da9",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 16,
+      "exerciseId": "Glute_Ham_Raise",
+      "threadId": "01a07794-91cb-7513-a183-52f3d7be4a31",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/016/5533ee29629a00a6b08994ed3992f79c91ec344a63d4c0f036c316ef673ff016",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 17,
+      "exerciseId": "Glute_Kickback",
+      "threadId": "01a07794-b030-7220-ba3e-967e5caac64d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/017/e7e7124684fcb4fb6c0765fcaafa5e67e2d9877ed65f392d13ac5d99a123378f",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 18,
+      "exerciseId": "Goblet_Squat",
+      "threadId": "01a07794-c83f-7551-a78d-2008c828a52d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/018/7bd4f9650f575011bd0cf27c08a8038a376dc85ec0bc8f5904c5d5b43e043fde",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 19,
+      "exerciseId": "Good_Morning",
+      "threadId": "01a07794-bd0d-74c0-8556-9da0ac85db45",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/019/c17ff246bc425d6fc06b3ebc35c519d3a7af0ea1113fa8caff2312d52f111238",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 20,
+      "threadId": "01a07794-a48d-7481-bc94-9e0fcf92842a",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 21,
+      "threadId": "01a07794-e8e8-7720-aaf9-8127d230622d",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 22,
+      "exerciseId": "Groin_and_Back_Stretch",
+      "threadId": "01a07795-154c-70a0-8086-90d8144a7b82",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/022/27309f232f86d444488242df9e6e6642e6d189666e207e4bd6ba384de955a406",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 23,
+      "exerciseId": "Groiners",
+      "threadId": "01a07794-f7a7-7562-93cd-b95fa6e87ab0",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/023/a834da77f402af4ba5cc7191ec5c7ea5da6d7808635b3654b21acd79bb98c891",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 24,
+      "exerciseId": "Hack_Squat",
+      "threadId": "01a07795-03ee-78f3-a6b2-292d14bc34d2",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/024/ba271b4895f38ca0b1eb634831223a9595c9955c0b7bbcc20ca0046d6d1198cc",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 25,
+      "exerciseId": "Hammer_Curls",
+      "threadId": "01a07794-dc61-7d51-832b-349877604d7e",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/025/d9ba505f3be13bcd92bbfefc6a063d453267e9ac1f2c9dff5fb3da283f590caf",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 26,
+      "exerciseId": "Hammer_Grip_Incline_DB_Bench_Press",
+      "threadId": "01a07795-2f6a-73a3-a314-dfcbcd9c1da1",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/026/92c883e244262c61b40448390078f141c241408236988c9c3b1642faef4a8c3d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 27,
+      "exerciseId": "Hamstring_Stretch",
+      "threadId": "01a07795-3eb6-7421-90bd-1ed36dd51bc8",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/027/d33de323966818d5591ae3e5b73e8aa49d21cedb4eef920794c860eac7ee8408",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 28,
+      "threadId": "01a07795-51f8-7421-a950-4bfb72ae31e2",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 30,
+      "threadId": "01a07795-7c8d-7970-9e21-36d6d3adc593",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 29,
+      "exerciseId": "Handstand_Push-Ups",
+      "threadId": "01a07795-a4e6-7890-87d0-b16c29720adc",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/029/0a469e9c45b490acebcb562dbd20cf67d0be1d1fd64d68a380988cae6d4684b5",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 31,
+      "threadId": "01a0779b-568a-7531-9a4b-2671670321dd",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 32,
+      "exerciseId": "Hang_Snatch",
+      "threadId": "01a0779b-61ce-77e3-935c-3dfa38666759",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/032/0c95ff9b6a57311f5c291697eb6fad6a71482ae2ed87a3ed849e4a6ae7339022",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 33,
+      "threadId": "01a0779b-6bb4-7cc2-9cf2-500bd3a68ea9",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 34,
+      "threadId": "01a0779b-816e-7743-9d8b-e74eb15820fb",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 35,
+      "threadId": "01a0779b-7746-7681-9ab3-e8dad5292608",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 36,
+      "threadId": "01a0779b-8aba-7763-8a3c-1739133c0df8",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 37,
+      "threadId": "01a0779b-94f8-77a3-ba66-6f97f3360366",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 38,
+      "threadId": "01a0779b-a2b3-77f0-9739-5814fb02651b",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 39,
+      "threadId": "01a0779b-b074-7501-adc0-f6fe46797842",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 40,
+      "threadId": "01a0779b-bdb7-7873-bf52-6a173dc089e2",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 41,
+      "threadId": "01a0779b-df40-7bf1-ad58-ac51595a8947",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 42,
+      "exerciseId": "Hip_Flexion_with_Band",
+      "threadId": "01a0779b-d00c-7c40-956b-e2bc4856ab3d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/042/6e1e9c09c9b209fc2bbe09659b1dbb38c13870502282eb8a772fba70c695c17b",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 43,
+      "threadId": "01a0779b-f954-7b10-bc78-de1f42994799",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 44,
+      "threadId": "01a0779c-0a4f-7503-918a-b0f006aa8fce",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 45,
+      "threadId": "01a0779c-4121-7ac1-9162-c3f56e07d271",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 46,
+      "threadId": "01a0779c-312e-7e13-97f7-b30e68bd1d66",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 47,
+      "threadId": "01a0779c-1cf9-7320-92a0-83b18d878b51",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 48,
+      "threadId": "01a0779c-848b-72c0-bd7d-0c435c3e614c",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 49,
+      "threadId": "01a0779c-57a9-7413-bfd8-aaabf6dff7e6",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 50,
+      "threadId": "01a0779c-68fd-7380-8a5c-7ab9cd775ed1",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-08",
+      "index": 1,
+      "threadId": "01a0779d-b017-7d63-bba5-d771d44ac6fd",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-08",
+      "index": 2,
+      "threadId": "01a0779d-cff1-72a0-880f-7c93b0694b49",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-08",
+      "index": 11,
+      "exerciseId": "Incline_Inner_Biceps_Curl",
+      "threadId": "01a07763-3843-76a0-976c-e072e2f7d11b",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/011/acac4b6845ceaf8a697b14422be656638440316ad5fffee07dd792311cded246",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 12,
+      "exerciseId": "Incline_Push-Up",
+      "threadId": "01a07764-231f-7762-91d4-5f63a5364fa2",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/012/1d14710b632beaa82e0aed6428e60cec44bbda6d338cdd96b9c6cc94f71204a0",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 13,
+      "exerciseId": "Incline_Push-Up_Close-Grip",
+      "threadId": "01a07764-a3c8-7423-9eb2-6f7476d8b9cd",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/013/ddfe97bcaf73b52d5cfdf59fc476d2f7f11bba13425d502c18f51919dfbd3cee",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 14,
+      "exerciseId": "Incline_Push-Up_Depth_Jump",
+      "threadId": "01a07765-1cde-7460-8c29-59f3fe2ce920",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/014/cf8269c4a9b60a19bce67c72a4b6e0524137de1e618ed2aef64640c683b1ec73",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 15,
+      "exerciseId": "Incline_Push-Up_Medium",
+      "threadId": "01a07763-ab20-7f71-99c3-56c58aa0d53d",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/015/fcaa23c92c97b2e0df7b6c8be1c223f62c34e213061bed9fa1dbee69bdee3d24",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 16,
+      "exerciseId": "Incline_Push-Up_Reverse_Grip",
+      "threadId": "01a07765-dd85-7ff3-9e42-a01e2e75b70c",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/016/07f455700b87290defaa6ce694cad98702f78326f16de84784d844f537958c96",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 17,
+      "exerciseId": "Incline_Push-Up_Wide",
+      "threadId": "01a07766-5643-78d2-a3fe-89b02058dcf8",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/017/b1eccae12339d66d5bc84fa5b88320a1f8683caa5b67b074be4ea130f4bfd4e4",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 18,
+      "exerciseId": "Intermediate_Groin_Stretch",
+      "threadId": "01a07766-df96-71e0-9c80-c381978ce7e0",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/018/c782a3b1bbdeaddccbe449c544f99909f769534e2c08a1671da75ea2ffb1d93e",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 19,
+      "exerciseId": "Intermediate_Hip_Flexor_and_Quad_Stretch",
+      "threadId": "01a07767-7b49-7db0-a92c-b65559bbf9a4",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/019/54a4931eb3ce6b3bd6ca2cb6beabe61b0c50625643821ef0b7aea891eea0533c",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 20,
+      "exerciseId": "Internal_Rotation_with_Band",
+      "threadId": "01a07768-01ca-7311-af75-751e895ef12c",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/020/c02c31964448827886a642270bf9a4e616a79743249bff1c1b9dcc23c0eaa183",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 21,
+      "exerciseId": "Inverted_Row",
+      "threadId": "01a07771-b844-7fe2-ac41-6d1778e09e3e",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/021/b84461695a82d7a6db1e7ab76c2c8ae7d8770576250f5d361708f90eabbe3629",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 22,
+      "exerciseId": "Inverted_Row_with_Straps",
+      "threadId": "01a07771-ed8f-7283-9e8e-b3a40adce294",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/022/e10bb781cae04dcaf4ba9889c0c16e33860e2c3c1ff15974ceb070dfd2b6fb05",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 23,
+      "exerciseId": "Iron_Cross",
+      "threadId": "01a07772-4b47-7040-8da8-fdbda7ea9150",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/023/32649345f6539cd68ad4f6b318504436c944ba93ee6c5e150d790a501ccfb333",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 24,
+      "exerciseId": "Iron_Crosses_stretch",
+      "threadId": "01a07772-9ce6-7122-9687-67520fc777d9",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/024/4f4e32081d4c4c29727e4d977beeb834943383f3d7fb924f8faa49c22e76f91c",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 25,
+      "exerciseId": "Isometric_Chest_Squeezes",
+      "threadId": "01a07773-02fd-73a2-b250-4a108518553b",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/025/0714042534bf2f79051e878c7f2d28b61e3580d6a9c29f36d919bdcc5997ea5a",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 26,
+      "exerciseId": "Isometric_Neck_Exercise_-_Front_And_Back",
+      "threadId": "01a0777b-2860-77b0-87e5-0f9afdcfe528",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/026/13d87509858aa24e7a125a2b720d76e4d9e072091d49e7a8e0054ef9589ba382",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 27,
+      "exerciseId": "Isometric_Neck_Exercise_-_Sides",
+      "threadId": "01a0777b-8800-7583-8ae0-a7b83ed03549",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/027/c420b97e64eef844dc8adfb1912a3d746f594cad030daf31a1cf8ae7a3005cb6",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 28,
+      "exerciseId": "Isometric_Wipers",
+      "threadId": "01a0777b-ff9b-7a93-a74e-3b8f99094429",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/028/8356373377880c823a55d3fadb070313f26bcbe3d8658dfa2500d17abed5a099",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 29,
+      "exerciseId": "IT_Band_and_Glute_Stretch",
+      "threadId": "01a0777c-90a9-74c1-b20d-570a20513d7f",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/029/14a80d44f1386245493e489b5fdb63daba37ab4e0b4f453b7b4e2742727b683d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 30,
+      "exerciseId": "Jackknife_Sit-Up",
+      "threadId": "01a0777d-013c-7ab1-9dc7-d2a8258fd7d0",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/030/2bfaaa1a4b4478b0d7c061cfcefad4d03e27f20cadf3815f4d2ce29b1bb5e6c7",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 31,
+      "exerciseId": "Janda_Sit-Up",
+      "threadId": "01a0777d-8706-7772-bbaa-53c9a88f2d40",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/031/2957facf596d9e7440207e5a5444e9c5e3c16011484ba0af00cb5928e905b0ad",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 32,
+      "exerciseId": "Jefferson_Squats",
+      "threadId": "01a0777d-bb2f-7b63-9a80-3eff15360b16",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/032/2b54e9c361a56dcffe5a1aacdd3c9737becb8b3307621b2403dbbb523c19df3e",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 33,
+      "exerciseId": "Jerk_Balance",
+      "threadId": "01a0777e-0bfa-7751-8a75-1e4dbf37f162",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/033/9af78bbfc09a8ea020f52c8776bca2b7f4ad798ff44b05985f16980a9e44eb43",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 34,
+      "exerciseId": "Jerk_Dip_Squat",
+      "threadId": "01a0777f-1254-75b1-996f-13fd00ed8fb6",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/034/c2db72a3394283ce5b8a8c84e6c856500b9dc4802b676058fcb83eef8d1b2c5a",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 35,
+      "exerciseId": "JM_Press",
+      "threadId": "01a0777e-9ae2-77c1-87c4-761d7a5789ec",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/035/e68692d1a4ec3a4781c3a5fe2ab43a40f0b0806eb017e4dfa98201ef43d3afcf",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 36,
+      "exerciseId": "Jogging_Treadmill",
+      "threadId": "01a07787-fbaf-7e60-b206-d1832a759f90",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/036/8d231a2ae3e8769d546b632fade3774d59c1f9ec3200c0d01d9fc9ba13bcbbdc",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 37,
+      "exerciseId": "Kettlebell_Arnold_Press",
+      "threadId": "01a07788-445c-7a73-9086-f24370cd8015",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/037/38f05b75cc88d5fbe93817dd09750340c88df71cb95246050049d9e08b67b8e7",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 38,
+      "exerciseId": "Kettlebell_Dead_Clean",
+      "threadId": "01a07788-173b-76e1-a316-34395673b0e2",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/038/a3a27adfaac2fb4e7e35bdc40003647487b0f95c2ddfc9f89e807c9bf9ff930a",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 39,
+      "exerciseId": "Kettlebell_Figure_8",
+      "threadId": "01a07788-a39a-7000-979c-a4ef0bc59a16",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/039/8e8b6101d82c89ea7f8b685939250145a442d105ce49cefcdd4640fc2659388c",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 40,
+      "exerciseId": "Kettlebell_Hang_Clean",
+      "threadId": "01a07788-681d-7a20-9d7f-5cff235249b8",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/040/9bd7c1edbba801b594b9a1dacddf1b1b7737360c0f3708f84f79ca4206b78435",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 41,
+      "exerciseId": "Kettlebell_One-Legged_Deadlift",
+      "threadId": "01a07788-fbb9-7b83-8a92-64c9405fca99",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/041/fb703d112007d59e90434d3199894005f157299543a409e5737bee420d4f2890",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 42,
+      "exerciseId": "Kettlebell_Pass_Between_The_Legs",
+      "threadId": "01a07789-5525-7330-bd11-7dbf4b02979e",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/042/3bd5642f6878870534226342e1fbb49691ef8a4b7e6fa729946a106ddffcf249",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 43,
+      "exerciseId": "Kettlebell_Pirate_Ships",
+      "threadId": "01a07789-95fd-7f43-9931-503e704e309a",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/043/eacb9cb319f3092d0ec7f68882adc6ec34532e89494ff8017202c63ad99d7741",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 44,
+      "exerciseId": "Kettlebell_Pistol_Squat",
+      "threadId": "01a07789-ecd4-71c1-b263-0b3cb250a541",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/044/fe1f7173162e97c86494b9600e8132711f7c6566783669aef0ae2a39ba7afe69",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 45,
+      "exerciseId": "Kettlebell_Seated_Press",
+      "threadId": "01a0778a-3e6b-76e0-952e-b6bc85d66e59",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/045/2499d692f55d7dbe484cca67cf58162a0c4469f3b86ed2cabb943b8210814fb1",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 46,
+      "exerciseId": "Kettlebell_Seesaw_Press",
+      "threadId": "01a07794-3eb5-7d33-884f-4a2b8755b115",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/046/eaecf3f7eaf56a568240a7600248835c6b1cda8dffdf3e39fe5a83e14e109bcf",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 47,
+      "exerciseId": "Kettlebell_Sumo_High_Pull",
+      "threadId": "01a07794-5b7b-7180-967a-c33c1c4c686c",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/047/a4b11200709f2dd30403f94552a6024f66a614cd7e0ebd616ae9b08a348feb59",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 48,
+      "exerciseId": "Kettlebell_Thruster",
+      "threadId": "01a07794-5206-7891-bb71-4e1be7b59cf3",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/048/4c56d61d4ca4b9a89f7ba161d8727c7d91bb3275ce66b361865f29dabe72a46e",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 49,
+      "exerciseId": "Kettlebell_Windmill",
+      "threadId": "01a07794-47ed-7213-adcb-1ce8d4eea51b",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/049/e51f5d82cc2940aa5ef69bd2b284921a846fa073a984995170e2911fec11511d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 50,
+      "exerciseId": "Knee_Across_The_Body",
+      "threadId": "01a07794-6384-76a0-8e62-0a85b81b2a22",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/050/b57978c73b0a67b1111aea2bfd72e550bcc54ffece8c7afb7ac07a5325f476fc",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 39,
+      "exerciseId": "Foot-SMR",
+      "threadId": "01a0777a-3a67-7590-bf1c-2ff836b6c2b3",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/039/f34da0363735867c28f230f5e979f1efa662f3b1f8000529c681f0771ffe334e",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-06",
+      "index": 45,
+      "exerciseId": "Front_Leg_Raises",
+      "threadId": "01a07781-82f3-7990-89c1-dadaaf1e8e50",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-06/repair-pass-01/completed-snapshots/045/d5b97f97a0b311b49b94310f787e54ef2b1971396b8d8e45faeb0d4deb4330d6",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 11,
+      "exerciseId": "Front_Squat_Clean_Grip",
+      "threadId": "01a07794-6c7e-7463-95b1-df08cf570afe",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/011/0ee2f347a3c06e8b9fd402e853f2b46073073d82f4cd5ad10112c60b0556af98",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 12,
+      "exerciseId": "Front_Squats_With_Two_Kettlebells",
+      "threadId": "01a07794-7603-7672-a66b-ca3ecbb9e79e",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/012/11c10011d1ac9ab89429b4db9485cd6107525219ec531ae8dab7e0ae0e154856",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 14,
+      "exerciseId": "Full_Range-Of-Motion_Lat_Pulldown",
+      "threadId": "01a07794-7ed4-72d3-b3bf-5c4dd3283e4c",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/014/11019d9fc6189883ae1b77325d054fd4cc36559c5ba4adcedeedc3b0bba6af4c",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 20,
+      "exerciseId": "Good_Morning_off_Pins",
+      "threadId": "01a07794-a48d-7481-bc94-9e0fcf92842a",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/020/4d2bb03b725b2ef7008b2c685ad66ad90b8167595086b44e28b1d8e97e2c367d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 21,
+      "threadId": "01a07794-e8e8-7720-aaf9-8127d230622d",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 28,
+      "threadId": "01a07795-51f8-7421-a950-4bfb72ae31e2",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 30,
+      "exerciseId": "Hang_Clean",
+      "threadId": "01a07795-7c8d-7970-9e21-36d6d3adc593",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/030/e73fb368bf4e0e8820e95b2e3508e343e16d1b0ae015c420986b9910aba0bcd7",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 31,
+      "exerciseId": "Hang_Clean_-_Below_the_Knees",
+      "threadId": "01a0779b-568a-7531-9a4b-2671670321dd",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/031/607fe71c2bca430a44346126bca720c8b34a4742790dbb3d47c2ff6ab7abfff1",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 33,
+      "exerciseId": "Hang_Snatch_-_Below_Knees",
+      "threadId": "01a0779b-6bb4-7cc2-9cf2-500bd3a68ea9",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/033/2b0aecb02a386fbb5d449ab4b890f866d008d891028459e77517b373c9907929",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 34,
+      "exerciseId": "Hanging_Bar_Good_Morning",
+      "threadId": "01a0779b-816e-7743-9d8b-e74eb15820fb",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/034/b3523b8af0eeb0054f5c28586334b68ec4c0a5e5e07fc97250db30b625b86428",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 35,
+      "exerciseId": "Hanging_Leg_Raise",
+      "threadId": "01a0779b-7746-7681-9ab3-e8dad5292608",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/035/be2fef1db14f52bbe03137d8ea652edb38a5ed410acde5f5f7c5cc9f70ff9165",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 36,
+      "exerciseId": "Hanging_Pike",
+      "threadId": "01a0779b-8aba-7763-8a3c-1739133c0df8",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/036/4037795fbbc3ef90a65fd2ab6f1d147eed0ae849c30e09709ab924f46c9a0a75",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 37,
+      "exerciseId": "Heaving_Snatch_Balance",
+      "threadId": "01a0779b-94f8-77a3-ba66-6f97f3360366",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/037/7434735d1e4d6ddfa552a3a59aabb8f3c33e3d3c44f8ac34b69bd3de4aa1ef9d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 38,
+      "threadId": "01a0779b-a2b3-77f0-9739-5814fb02651b",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 39,
+      "threadId": "01a0779b-b074-7501-adc0-f6fe46797842",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 40,
+      "exerciseId": "Hip_Circles_prone",
+      "threadId": "01a0779b-bdb7-7873-bf52-6a173dc089e2",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/040/738eda7b421b40c09f70677622158e38f8e8a74ec609cf6f9755a43677d7069e",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 41,
+      "exerciseId": "Hip_Extension_with_Bands",
+      "threadId": "01a0779b-df40-7bf1-ad58-ac51595a8947",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/041/8f6c011133d8c8f28288bae9a99f27284ece74647e4b5823199444c1173b2f91",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 43,
+      "exerciseId": "Hip_Lift_with_Band",
+      "threadId": "01a0779b-f954-7b10-bc78-de1f42994799",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/043/fbbd042d516de5ef1a7828069f27721d9602af080c619515eaed8b1c5ad6e950",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 44,
+      "threadId": "01a0779c-0a4f-7503-918a-b0f006aa8fce",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 45,
+      "threadId": "01a0779c-4121-7ac1-9162-c3f56e07d271",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 46,
+      "exerciseId": "Hurdle_Hops",
+      "threadId": "01a0779c-312e-7e13-97f7-b30e68bd1d66",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/046/1576d3a82910efd049d0e3faf704897b09730f3558e712143ed2e51cb97fe98a",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 47,
+      "exerciseId": "Hyperextensions_Back_Extensions",
+      "threadId": "01a0779c-1cf9-7320-92a0-83b18d878b51",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/047/373e38e96c7240d430b32e3501faeea481cb985af58fa0156ce7911bfa544808",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 48,
+      "threadId": "01a0779c-848b-72c0-bd7d-0c435c3e614c",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-07",
+      "index": 49,
+      "exerciseId": "Iliotibial_Tract-SMR",
+      "threadId": "01a0779c-57a9-7413-bfd8-aaabf6dff7e6",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/049/944a9145d5207a7b68599d6ea98858a3db4d2c448320188a1365bc9f673edd3a",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-07",
+      "index": 50,
+      "exerciseId": "Inchworm",
+      "threadId": "01a0779c-68fd-7380-8a5c-7ab9cd775ed1",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-07/repair-pass-01/completed-snapshots/050/39a326b863259e3562b87a0d2b2bc76e4301e5d10c08f770db68ab74cf2b4db8",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 1,
+      "threadId": "01a0779d-b017-7d63-bba5-d771d44ac6fd",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-08",
+      "index": 2,
+      "exerciseId": "Incline_Bench_Pull",
+      "threadId": "01a0779d-cff1-72a0-880f-7c93b0694b49",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/002/e178bc783c6b53692eb608dfbb53277210c4f664e978e76eb9182d4154df3373",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 3,
+      "threadId": "01a0779e-25de-7240-84dc-d684f17abbda",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-08",
+      "index": 4,
+      "exerciseId": "Incline_Cable_Flye",
+      "threadId": "01a0779e-001e-7bc2-9475-cccba8b72afc",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/004/bd39dcb2a1f1a95bf309cb9f93da9fc31dab4aef7100341f6655c443c0f3abf3",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 5,
+      "exerciseId": "Incline_Dumbbell_Bench_With_Palms_Facing_In",
+      "threadId": "01a0779e-8088-7c50-ba9f-74700b83d324",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/005/b182953b8276191c272d5740242f56a0cbbdbbffbf54f5c81799e077d95fb08d",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 6,
+      "exerciseId": "Incline_Dumbbell_Curl",
+      "threadId": "01a0779f-5d40-7f51-ae31-8d30608387bb",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/006/8b5f5147bf973ce70b04214ab545db326bb11f117fc58c0b80a420613f9aed06",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 7,
+      "exerciseId": "Incline_Dumbbell_Flyes",
+      "threadId": "01a0779f-2850-7ec0-8c80-6d584496600a",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/007/730f821f8f20bd04b27ef3ab9a1bc203e1a8a697ff6ed65029eba0588ee20423",
+      "exceptions": []
+    },
+    {
+      "batch": "batch-08",
+      "index": 8,
+      "threadId": "01a0779f-98cb-7c11-a944-5724715f5bf4",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-08",
+      "index": 9,
+      "threadId": "01a0779e-bea5-73f0-ae77-7a7201b4f434",
+      "status": "notCompleted",
+      "live": "inProgress"
+    },
+    {
+      "batch": "batch-08",
+      "index": 10,
+      "exerciseId": "Incline_Hammer_Curls",
+      "threadId": "01a0779e-f36a-7091-b5ad-5b2516791938",
+      "status": "archived",
+      "snapshotDirectory": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-08/repair-pass-01/completed-snapshots/010/6ef1158441e6409f5e9f6e2bbecbfe91aa30c37058945e8cca5910a5f79cf1d3",
+      "exceptions": []
+    }
+  ]
+}

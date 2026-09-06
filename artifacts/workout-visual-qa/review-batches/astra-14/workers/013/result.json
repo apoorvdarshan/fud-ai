@@ -1,0 +1,290 @@
+{
+  "exerciseId": "Barbell_Hip_Thrust",
+  "status": "blocked",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013",
+  "findings": [
+    "Preserved revision 1 report, repository report, and all eight candidates in work/snapshots/revision-01 before edits. Old review-page candidate files remain untouched.",
+    "All eight revision-02 candidates are genuinely changed PNGs with real alpha; large white floor islands removed using localized masks while preserving original people, clothes, pose artwork and equipment.",
+    "Female bench-column missing surfaces restored using a small built-in imagegen crop keyed from deliberate solid green. Original cap/base/silhouette mostly retained; generated surface and label differ from original damaged surface.",
+    "Female frame 1 detached side fragments removed. Female frame 2 rear toe reconstructed with only a small keyed imagegen patch; the rest of generated shoes was discarded.",
+    "Pale edge pixels reduced and small equipment alpha fissures filled from adjacent neutral metal.",
+    "Similarity registration uses two shared shoe-sole/bench-base landmarks per gender, improving ground alignment without per-frame bounding-box normalization. Parameters saved in work/registration.json.",
+    "All eight final candidates inspected individually on white/dark composites; both sequences compared. Production assets remain unchanged.",
+    "Final resumed pass: verified current eight candidate hashes and reviewed fresh light/dark sequence composites. Snapshot preserved at work/snapshots/revision-02-before-final-pass.",
+    "Two further reference-guided built-in imagegen alternatives attempted and rejected. The two-reference attempt redesigned shoes, plates and bench; the sole-reference raised-phase retry introduced a floating detached rear bench foot and retained green foreground gaps."
+  ],
+  "unresolved": [
+    "Not ready for promotion: canonical bench-top height/shape still varies across phases, particularly elevated phases, despite improved ground anchors. A complete stationary bench/shoulder-contact correction remains unresolved.",
+    "Fine pale fringe and small metal-edge discontinuities remain at full resolution. Female frame 1 upright has a visible edge/surface step.",
+    "Generated upright surface/label has a smoother appearance than original illustration texture; the rear-toe patch changes local shoe detail. Human review is required for these targeted compromises.",
+    "No claim of complete repair or production readiness. This is a materially improved but imperfect revision.",
+    "Concrete blocker: a coupled bench/shoulder-contact repair has not preserved stationary equipment, original identity/detail, correct support topology and opaque foreground in the tested reference-guided alternatives. Small patches and ground registration improve local defects but cannot resolve this remaining sequence geometry. This set must remain unpublished."
+  ],
+  "frames": [
+    {
+      "filename": "Barbell_Hip_Thrust_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Hip_Thrust_male_v2_0.png",
+      "sourceSha256": "d5f12f5e9541b2967b65946973096924de8de971ba26e972dd27c6a79deefff3",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/Barbell_Hip_Thrust_male_v2_0.png",
+      "candidateSha256": "efed4fda5217a20e6f283ebfbba03ac9bdc5e83b04ecdf31a6c4e6507b75b57b",
+      "method": "localized deterministic alpha cleanup; original artwork retained; fixed-ground-landmark similarity registration; small metal alpha fissure closure using neighboring metal color",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Hip_Thrust_male_v2_1.png",
+      "sourceSha256": "13a985ca1c59f7112488282cf1464733b95bc33d609057dec04f82ec8223cac0",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/Barbell_Hip_Thrust_male_v2_1.png",
+      "candidateSha256": "80e05ac996ac187a463b8836dc37d6a87aea6b728df8889d9965e34c491ade28",
+      "method": "localized deterministic alpha cleanup; original artwork retained; fixed-ground-landmark similarity registration; small metal alpha fissure closure using neighboring metal color",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Hip_Thrust_male_v2_2.png",
+      "sourceSha256": "cc19ddda753c5b14f8bff4a1ed500624bc980bbb99bc30d9e3d2977d04e9b636",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/Barbell_Hip_Thrust_male_v2_2.png",
+      "candidateSha256": "fab0cc39267765bc01e346f01699e9994906598cc59767692e22a1ce623b5d02",
+      "method": "localized deterministic alpha cleanup; original artwork retained; fixed-ground-landmark similarity registration; small metal alpha fissure closure using neighboring metal color",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Hip_Thrust_male_v2_3.png",
+      "sourceSha256": "20195de79f63332a70cfa1ad4b9561b0076f583e4ed249965f8a6a2e6a63b463",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/Barbell_Hip_Thrust_male_v2_3.png",
+      "candidateSha256": "4c3a9602b3ac13f8bf0e300db273a958b8cb621e84d17d90e091943f9619b299",
+      "method": "localized deterministic alpha cleanup; original artwork retained; fixed-ground-landmark similarity registration; small metal alpha fissure closure using neighboring metal color",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Hip_Thrust_female_v2_0.png",
+      "sourceSha256": "a6ad97f135992a9fe20f9f1b083bea3cb1125d1ba2d61b077c3dc00fae0dc5f1",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/Barbell_Hip_Thrust_female_v2_0.png",
+      "candidateSha256": "219f31ff76fc2e396f075f79416fc5b3590663c8605543955da47a2348777661",
+      "method": "localized deterministic alpha cleanup; original artwork retained; fixed-ground-landmark similarity registration; keyed built-in imagegen upright surface patch; small metal alpha fissure closure using neighboring metal color",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Hip_Thrust_female_v2_1.png",
+      "sourceSha256": "b01e52a047d09e388402432475232b886d0c5ab0fd942310cb6c9af7c3810eff",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/Barbell_Hip_Thrust_female_v2_1.png",
+      "candidateSha256": "b99dba6ce356193adc8cc3b814039fa83fa23b593d1072889271fcce79fd44ba",
+      "method": "localized deterministic alpha cleanup; original artwork retained; fixed-ground-landmark similarity registration; keyed built-in imagegen upright surface patch; small metal alpha fissure closure using neighboring metal color",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Hip_Thrust_female_v2_2.png",
+      "sourceSha256": "ce054dc9da44ccf3da3b6a7ec7c8884703e71e2ccb4fbc7211e67d58606e6d21",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/Barbell_Hip_Thrust_female_v2_2.png",
+      "candidateSha256": "9c6af6b3adbf0ae3e1e6982f7ad798578f1731337423c8f5c42ea28e8edb7121",
+      "method": "localized deterministic alpha cleanup; original artwork retained; fixed-ground-landmark similarity registration; keyed built-in imagegen upright surface patch; keyed built-in imagegen rear-toe patch; small metal alpha fissure closure using neighboring metal color",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Hip_Thrust_female_v2_3.png",
+      "sourceSha256": "c046cf5efb3445f7ef67aad65e9045f7b2422a3b4990a3e5e59dbbfcb651eb4d",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/Barbell_Hip_Thrust_female_v2_3.png",
+      "candidateSha256": "21bf19517b920861f2fd1f9ca65be7c0d55a97b3156e5b2d6f36eb705f14108e",
+      "method": "localized deterministic alpha cleanup; original artwork retained; fixed-ground-landmark similarity registration; keyed built-in imagegen upright surface patch; small metal alpha fissure closure using neighboring metal color",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "text": "Use case: precise-object-edit. Edit this canonical male barbell hip thrust frame 0. Remove ONLY white/gray floor residue beneath and between shoes, plate and bench to real transparent alpha. Keep the man, face, black shirt, black shorts with red stripe, shoes, barbell and bench exactly in existing positions and sizes on 1024x768 canvas. Preserve illustration linework/shading. Bench white metal stays opaque. No camera zoom or recentering, no anatomy changes, no shadow backdrop. Output transparent PNG.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/work/exec-195fcf06-b52f-446e-8071-bf6cba1a3f46.png",
+      "outcome": "Rejected RGB 1448x1086 checkerboard and composition drift"
+    },
+    {
+      "text": "Edit target: original canonical male hip thrust PNG supplied. Remove white floor only. Output a PNG with actual transparent alpha channel, NOT a checkerboard drawing. If transparency cannot be encoded, use perfectly flat solid green #00FF00 background including every open gap for subsequent chroma extraction. No checkerboard whatsoever. Preserve EXACT original composition, camera, subject scale, pose, bench placement, shoes, clothing, illustration style. Do not enlarge or recenter. White bench remains solid foreground. This is an animation frame and any movement of feet or bench is unacceptable.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/work/exec-6a7752a0-2763-4433-8eb6-d828509cf728.png",
+      "outcome": "Rejected RGB 1459x1078 checkerboard and geometry drift"
+    },
+    {
+      "text": "Use case precise-object-edit. This is a cropped illustration of two black workout sneakers and lower legs. Repair ONLY the rear/upper sneaker toe: it has an unnatural straight vertical truncation on its left edge. Complete that toe smoothly extending slightly left, matching the black shoe and white sole. Keep both legs, both shoes, original black linework and textured illustration shading. Remove white floor residue. Background MUST be entirely flat solid vivid green #00FF00, including all open spaces between shoes. No checkerboard. No shadow on the green. Keep original crop framing and shoe scale; do not enlarge. Do not add any body parts. This will be used as a small patch on original art.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/work/shoe-keyed.png",
+      "outcome": "small rear toe patch adopted; remaining generated shoe discarded"
+    },
+    {
+      "text": "Precise object repair of this cropped exercise bench leg. Restore the missing vertical white metal surface where irregular black/transparent holes interrupt the column, including the damaged label. Keep original column silhouette, gray shading, black foot/base, upper black cap, and crop position exactly. Replace background and white floor residue with flat solid vivid green #00FF00. No checkerboard, no shadows on green, no white background. Do not redesign the bench. Keep the entire original base and column in same places. Repair surface only.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/work/bench-keyed.png",
+      "outcome": "interior upright surface adopted; original silhouette/cap/base retained"
+    },
+    {
+      "text": "Precise animation-frame repair. IMAGE 1 is the target raised hip-thrust phase. IMAGE 2 is the stationary bench/camera reference from the lowered phase. Repair target so the bench cushion, upright, near ground foot have EXACT same position, dimensions and perspective as IMAGE 2, while keeping IMAGE 1 woman's raised-hip pose with shoulder blades firmly on cushion, feet planted at same positions, barbell over hips. Preserve her original illustration style, face, hair, clothing, body proportions, shoes and barbell design. Only change what is necessary for stable bench and shoulder contact; do not zoom, recenter or redesign. Restore tiny green pinholes inside white shoes/bar/bench to opaque foreground. Keep background perfectly flat solid #00FF00 in all true open spaces. No shadows, checkerboard, text additions. Output 1024x768 composition. Target is one frame only, not a montage.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/work/exec-aa7d710c-aa08-41a6-83c6-d58e9d193579.png",
+      "outcome": "rejected: shoes, plates and bench redesigned; fixed reference geometry not maintained"
+    },
+    {
+      "text": "Edit this exact illustration into the raised phase of the SAME hip thrust animation. LOCK the entire bench and both shoes pixel-for-pixel: same cushion at x~800-970 y350-480, same near upright/base at x820-952 y480-755, same planted shoes. Keep head identity, hair, clothes, textured drawing style and loaded barbell design. Change only hip height by rotating torso around fixed shoulder-blade contact with bench and rotating thighs around knees. At top the torso/thighs should form approximately a straight line, no lumbar hyperextension. The bench MUST NOT move or resize. Do not zoom or recenter. Preserve label, plate design, shoe design. Background stays perfectly flat green #00FF00; restore pinholes inside foreground. Single image, same composition. Do not beautify or smooth drawing style.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/work/exec-54271bd6-f280-4756-b4cb-4f5b802f9634.png",
+      "outcome": "rejected: detached floating rear bench foot; green foreground gaps; original frame invariants not preserved"
+    }
+  ],
+  "revision": 2,
+  "snapshotPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/work/snapshots/revision-01",
+  "technicalValidation": [
+    {
+      "filename": "Barbell_Hip_Thrust_male_v2_0.png",
+      "size": [
+        1024,
+        768
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 593822,
+      "opaquePixels": 192610,
+      "intermediateAlphaPixels": 0,
+      "bbox": [
+        116,
+        214,
+        907,
+        728
+      ]
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_male_v2_1.png",
+      "size": [
+        1024,
+        768
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 578279,
+      "opaquePixels": 200259,
+      "intermediateAlphaPixels": 7894,
+      "bbox": [
+        115,
+        157,
+        909,
+        731
+      ]
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_male_v2_2.png",
+      "size": [
+        1024,
+        768
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 553165,
+      "opaquePixels": 223372,
+      "intermediateAlphaPixels": 9895,
+      "bbox": [
+        108,
+        145,
+        919,
+        737
+      ]
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_male_v2_3.png",
+      "size": [
+        1024,
+        768
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 590889,
+      "opaquePixels": 188582,
+      "intermediateAlphaPixels": 6961,
+      "bbox": [
+        120,
+        215,
+        902,
+        727
+      ]
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_female_v2_0.png",
+      "size": [
+        1024,
+        768
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 509861,
+      "opaquePixels": 276486,
+      "intermediateAlphaPixels": 85,
+      "bbox": [
+        52,
+        131,
+        971,
+        755
+      ]
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_female_v2_1.png",
+      "size": [
+        1024,
+        768
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 491852,
+      "opaquePixels": 284558,
+      "intermediateAlphaPixels": 10022,
+      "bbox": [
+        52,
+        90,
+        963,
+        756
+      ]
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_female_v2_2.png",
+      "size": [
+        1024,
+        768
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 512632,
+      "opaquePixels": 264460,
+      "intermediateAlphaPixels": 9340,
+      "bbox": [
+        63,
+        105,
+        972,
+        756
+      ]
+    },
+    {
+      "filename": "Barbell_Hip_Thrust_female_v2_3.png",
+      "size": [
+        1024,
+        768
+      ],
+      "mode": "RGBA",
+      "transparentPixels": 510662,
+      "opaquePixels": 267109,
+      "intermediateAlphaPixels": 8661,
+      "bbox": [
+        67,
+        127,
+        972,
+        755
+      ]
+    }
+  ],
+  "lightAndDarkReviewed": true,
+  "sequenceReviewed": true,
+  "evidencePaths": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/evidence/Barbell_Hip_Thrust_male_v2_0-light-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/evidence/Barbell_Hip_Thrust_male_v2_1-light-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/evidence/Barbell_Hip_Thrust_male_v2_2-light-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/evidence/Barbell_Hip_Thrust_male_v2_3-light-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/evidence/Barbell_Hip_Thrust_female_v2_0-light-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/evidence/Barbell_Hip_Thrust_female_v2_1-light-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/evidence/Barbell_Hip_Thrust_female_v2_2-light-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/outputs/revision-02/evidence/Barbell_Hip_Thrust_female_v2_3-light-dark.jpg"
+  ],
+  "publication": {
+    "published": false,
+    "reason": "Stationary bench geometry and foreground alpha checks fail. No publication lock acquired, ledger/snapshot/decisions untouched.",
+    "checkedAt": "2026-09-06T18:14:11.372Z"
+  },
+  "finalPassEvidence": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/work/latest-review-male.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/work/latest-review-female.jpg"
+  ]
+}

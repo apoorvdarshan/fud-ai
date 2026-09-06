@@ -1,0 +1,285 @@
+{
+  "exerciseId": "Bottoms_Up",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002",
+  "findings": [
+    "Created revision 02 with built-in imagegen anatomy repairs. Both start and return now depict supine rest with relaxed head, straight lowered legs and grounded heels; frames 1 show knee tuck and frames 2 show vertical legs with pelvis lifted.",
+    "Preserved original black shirts, black shorts with orange seams, black trainers, dark hair and ponytail, warm skin rendering and ink-outline illustration style using canonical references. Six unique images were edited; each return is an intentional exact copy of its corrected rest phase.",
+    "All phases use the same 0.64 scale and fixed framing. No phase-by-phase resizing. Peak outputs had whole-body vertical drift, corrected by -32 male/-62 female raw pixels before shared framing. Head, shoulder and palm locations now remain visually stable.",
+    "First transparent request returned RGB painted checkerboard and was rejected. A focused edit produced a deliberate green background. Pure-Pillow implementation of known-green unmixing produced actual alpha; no API fallback or install. All eight reviewed individually on white and #222222 backgrounds and as sequences.",
+    "All prior candidates and report were snapshotted before work. Revision 01 candidate paths remain unchanged. Production sources remain unchanged."
+  ],
+  "unresolved": [
+    "Minor garment-fold and limb-contour differences remain between generated phases; these do not show the former large body-size jumps in the reviewed contact sheets.",
+    "Four keyframes provide a coarse rest/tuck/lift/return sequence, not continuous motion. Human review remains final."
+  ],
+  "frames": [
+    {
+      "filename": "Bottoms_Up_male_v2_0.png",
+      "rawPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/raw/m0.png",
+      "rawSha256": "8061d302e73c7ccb42f5af1f38cfca2240650a1ea1545a31597ff900f2cb2b87",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/candidates/Bottoms_Up_male_v2_0.png",
+      "candidateSha256": "8ff85d767ceba705b4f1f6af3987b36aff7996ed9df45efa55fe1ddd075d1162",
+      "scale": 0.64,
+      "offset": [
+        48,
+        120
+      ],
+      "rawVerticalDriftCorrection": 0,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        57,
+        511,
+        967,
+        703
+      ],
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bottoms_Up_male_v2_0.png",
+      "sourceSha256": "0d4de73fa6954ea78a50f7da48456d21140e4a1e1ee859d0e4ec3afa532b3578",
+      "method": "built-in-imagegen-reference-guided-pose-repair-plus-known-green-alpha-extraction-and-shared-framing",
+      "visuallyReviewed": true,
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Bottoms_Up_male_v2_1.png",
+      "rawPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/raw/m1.png",
+      "rawSha256": "593eb73fb5c6b1adbae1e3715ff331839dad017e6db92ad647b482c2edda4a6d",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/candidates/Bottoms_Up_male_v2_1.png",
+      "candidateSha256": "034910ed82d9e0df734ccc91ee76bd729791648602af99ece35bd026c5338e50",
+      "scale": 0.64,
+      "offset": [
+        48,
+        120
+      ],
+      "rawVerticalDriftCorrection": 0,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        251,
+        351,
+        967,
+        703
+      ],
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bottoms_Up_male_v2_1.png",
+      "sourceSha256": "ab46caccf6d80acb613753538f8bb95f47b51c6b74f53cf21d5b60d4305acadb",
+      "method": "built-in-imagegen-reference-guided-pose-repair-plus-known-green-alpha-extraction-and-shared-framing",
+      "visuallyReviewed": true,
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Bottoms_Up_male_v2_2.png",
+      "rawPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/raw/m2.png",
+      "rawSha256": "52c790e41f2db795423f0c198843d3548759c6920d12abfcbca5b5b1467f4d21",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/candidates/Bottoms_Up_male_v2_2.png",
+      "candidateSha256": "3dbae2d3b0bceb2a4f3b51f02ebabe42afdae54b9f0a7ab8223602c2101494f0",
+      "scale": 0.64,
+      "offset": [
+        48,
+        120
+      ],
+      "rawVerticalDriftCorrection": -32,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        474,
+        134,
+        968,
+        704
+      ],
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bottoms_Up_male_v2_2.png",
+      "sourceSha256": "e31a5b7162271dc9a3623fa6b4f29e3c61fdf534816186e9b4fa7732789e6b7b",
+      "method": "built-in-imagegen-reference-guided-pose-repair-plus-known-green-alpha-extraction-and-shared-framing",
+      "visuallyReviewed": true,
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Bottoms_Up_male_v2_3.png",
+      "rawPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/raw/m0.png",
+      "rawSha256": "8061d302e73c7ccb42f5af1f38cfca2240650a1ea1545a31597ff900f2cb2b87",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/candidates/Bottoms_Up_male_v2_3.png",
+      "candidateSha256": "8ff85d767ceba705b4f1f6af3987b36aff7996ed9df45efa55fe1ddd075d1162",
+      "scale": 0.64,
+      "offset": [
+        48,
+        120
+      ],
+      "rawVerticalDriftCorrection": 0,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        57,
+        511,
+        967,
+        703
+      ],
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bottoms_Up_male_v2_3.png",
+      "sourceSha256": "3e7fe57632db68ac6df71f31a9f6e49a0d709c6fff644b58e567ad94c69b0171",
+      "method": "built-in-imagegen-reference-guided-pose-repair-plus-known-green-alpha-extraction-and-shared-framing-return-identical-to-corrected-rest",
+      "visuallyReviewed": true,
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Bottoms_Up_female_v2_0.png",
+      "rawPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/raw/f0.png",
+      "rawSha256": "0e2b2ab9bab6d6609d35883da3150d72179833e65bd9a776c30cb8f21e5c0549",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/candidates/Bottoms_Up_female_v2_0.png",
+      "candidateSha256": "7b21a0af0e01a1e1e2af0cedf1aac8918bb508827e94043faf2f4106ecf8d727",
+      "scale": 0.64,
+      "offset": [
+        48,
+        132
+      ],
+      "rawVerticalDriftCorrection": 0,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        56,
+        526,
+        967,
+        701
+      ],
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bottoms_Up_female_v2_0.png",
+      "sourceSha256": "54da825c991383d6ffb3675702d5f335f762fc4ccffe597b7270ec079d8031a9",
+      "method": "built-in-imagegen-reference-guided-pose-repair-plus-known-green-alpha-extraction-and-shared-framing",
+      "visuallyReviewed": true,
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Bottoms_Up_female_v2_1.png",
+      "rawPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/raw/f1.png",
+      "rawSha256": "394cfd730753d0b508fc57e6df0dbeddd41552a056b85e93d071fa27995a1130",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/candidates/Bottoms_Up_female_v2_1.png",
+      "candidateSha256": "813545f93558cc488b945d003b2619e6498933c83a6f5e9f5c5926d52f2e37b2",
+      "scale": 0.64,
+      "offset": [
+        48,
+        132
+      ],
+      "rawVerticalDriftCorrection": 0,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        327,
+        312,
+        968,
+        701
+      ],
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bottoms_Up_female_v2_1.png",
+      "sourceSha256": "e85b1a0000f91ac10c426f261b4351866e9d926b26d530571abad03d8c26d0a7",
+      "method": "built-in-imagegen-reference-guided-pose-repair-plus-known-green-alpha-extraction-and-shared-framing",
+      "visuallyReviewed": true,
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Bottoms_Up_female_v2_2.png",
+      "rawPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/raw/f2.png",
+      "rawSha256": "eab6266b322857ff208ae51da5842e53e3ab783e0cc459f27c57715429367a24",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/candidates/Bottoms_Up_female_v2_2.png",
+      "candidateSha256": "c08aa72703496fb92b600edcc03eb37df53c7e109e2886d8af8c8bec728c0744",
+      "scale": 0.64,
+      "offset": [
+        48,
+        132
+      ],
+      "rawVerticalDriftCorrection": -62,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        473,
+        107,
+        968,
+        701
+      ],
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bottoms_Up_female_v2_2.png",
+      "sourceSha256": "71fbe11ee999299c1182e4107d84f4d498210ca3bcfea98f0dfdc850efc4d216",
+      "method": "built-in-imagegen-reference-guided-pose-repair-plus-known-green-alpha-extraction-and-shared-framing",
+      "visuallyReviewed": true,
+      "lightAndDarkReviewed": true
+    },
+    {
+      "filename": "Bottoms_Up_female_v2_3.png",
+      "rawPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/raw/f0.png",
+      "rawSha256": "0e2b2ab9bab6d6609d35883da3150d72179833e65bd9a776c30cb8f21e5c0549",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/candidates/Bottoms_Up_female_v2_3.png",
+      "candidateSha256": "7b21a0af0e01a1e1e2af0cedf1aac8918bb508827e94043faf2f4106ecf8d727",
+      "scale": 0.64,
+      "offset": [
+        48,
+        132
+      ],
+      "rawVerticalDriftCorrection": 0,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bbox": [
+        56,
+        526,
+        967,
+        701
+      ],
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bottoms_Up_female_v2_3.png",
+      "sourceSha256": "d2c46ed7351897f471d7f4c03f79588bf0d3496794b43fed820a0183f8352c1c",
+      "method": "built-in-imagegen-reference-guided-pose-repair-plus-known-green-alpha-extraction-and-shared-framing-return-identical-to-corrected-rest",
+      "visuallyReviewed": true,
+      "lightAndDarkReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/prompts/f0.txt",
+      "sha256": "6108a030bfbdd8dc9295a6a0ca51e01c4395dab1a86748ba2e8841645071cc11"
+    },
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/prompts/f1.txt",
+      "sha256": "9fb8fcf6a4bf7e5fa251f9bf312a3e804484bdc464c3023197944b13147ee014"
+    },
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/prompts/f2.txt",
+      "sha256": "d163064b89c194d99378daecd70b0dc3475f0ad141bb414e15c6e01954fa32a5"
+    },
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/prompts/m0.txt",
+      "sha256": "6cc2b07e6b249b0437e28176943d462d4bbf0409c7f67ffff9b92efdc07428f9"
+    },
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/prompts/m0_key.txt",
+      "sha256": "ad83a54b44ee081e81d26e0c44a3dd57d90f4ae40c4024a927532197da9e83ec"
+    },
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/prompts/m1.txt",
+      "sha256": "f681622e32fc66b6da9979114f076ed3307b259e653c8d1af21c27f282e6d29a"
+    },
+    {
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/prompts/m2.txt",
+      "sha256": "968c65164360eb589e00f980262c03ec7c6bf26399e3827ac30e852960255ce9"
+    }
+  ],
+  "reviewAssets": {
+    "light": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/review-light.png",
+    "dark": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/review-dark.png"
+  },
+  "revision": "02",
+  "snapshotPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/work/snapshots/20260906-230047",
+  "newGenerationCount": 7,
+  "rejectedGeneration": {
+    "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-002/outputs/revision-02/raw/m0_failed_alpha.png",
+    "sha256": "6e76b662ee598ec8e698bfbec661d09e54954243718a0fba0e28f667e6f78aba",
+    "reason": "RGB painted checkerboard instead of transparency; not used in candidates."
+  },
+  "verification": "Eight source/candidate hashes, RGBA dimensions, transparent and opaque pixels, canvas margins, return/rest equality, and preservation of prior candidate hashes verified."
+}

@@ -1,0 +1,129 @@
+{
+  "model": "gpt-6-astra",
+  "reasoning": "low",
+  "assignments": [
+    {
+      "batch": "batch-02",
+      "index": 4,
+      "exerciseId": "Barbell_Incline_Shoulder_Raise",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-review-wave3-c.json",
+      "findings": [
+        "All eight expected names, canonical source paths, source/candidate hashes and real alpha pass; all eight candidate frames were visually inspected on light and dark backgrounds.",
+        "Black wrist wraps appear abruptly only in male and female frame 1, disappearing in frames 0, 2 and 3. This accessory discontinuity remains visible in the animation.",
+        "Female frame 0 has substantial fragmented/transparent damage across the lower diagonal bench support and upright near the front shoe; the continuous metal structure in the other phases becomes broken angular white/black fragments. Pale debris also remains below this area and below the male frame 2 central bench base, especially visible on dark.",
+        "Do not promote this set yet: restore coherent bench-support geometry/background edges and resolve the wrist-wrap discontinuity without redrawing the person or changing framing."
+      ],
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/luna-workers/004/result.json"
+    },
+    {
+      "batch": "batch-02",
+      "index": 6,
+      "exerciseId": "Barbell_Rollout_from_Bench",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-review-wave3-b.json",
+      "findings": [
+        "All 8 filenames, source/candidate hashes and real alpha verified; all 8 light/dark ordered frames visually inspected.",
+        "Blocking: male and female frame2 right barbell plate is visibly cut off by canvas edge.",
+        "Stationary bench position/geometry changes through phases; male frame0 lower front support differs strongly from return frame3, causing an equipment pop. Background cleanup does not resolve these sequence defects."
+      ],
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/luna-workers/006/result.json"
+    },
+    {
+      "batch": "batch-02",
+      "index": 8,
+      "exerciseId": "Barbell_Shoulder_Press",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-review-wave3-b.json",
+      "findings": [
+        "All 8 filenames, source/candidate hashes and true alpha verified. All 8 male/female ordered frames inspected on both light and dark backgrounds.",
+        "Blocking: both frame0 variants contain a straight vertical cut through the right rack, plate storage and barbell sleeve hardware within the canvas. It is missing foreground, not a clean transparent silhouette.",
+        "Frame2 rack top/rear support still changes shape and height relative to the other phases; stationary equipment continuity is not resolved by the underlay. Seated press movement is readable but equipment defects remain."
+      ],
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/luna-workers/008/result.json"
+    },
+    {
+      "batch": "batch-02",
+      "index": 10,
+      "exerciseId": "Barbell_Shrug_Behind_The_Back",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-review-wave3-a.json",
+      "findings": [
+        "All eight expected filenames/source hashes/candidate hashes and real alpha pass; background gaps are clear.",
+        "Mechanical layering defect: from this rear view, the central shaft disappears behind the shorts/buttocks in every frame. A behind-the-back bar should be visible across the back of the thighs between the hands; current bar reads as in front of body or passing through it.",
+        "Full-size male frame 0 confirms missing central bar segment. Repair correct rear shaft placement/contact in both sequences; cleanup alone is insufficient."
+      ],
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/luna-workers/010/result.json"
+    },
+    {
+      "batch": "batch-02",
+      "index": 15,
+      "exerciseId": "Barbell_Step_Ups",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-review-wave4-c.json",
+      "findings": [
+        "All eight filenames, canonical source paths, source/candidate hashes and real transparency pass; all eight frames inspected on both backgrounds. Box gaps are clean and no large opaque background islands remain.",
+        "Male sequence does not reach a clear completed step-up: frame 2 keeps the loaded left knee deeply flexed, much like frame 1, while the free foot lifts. Female frame 2 instead shows a fully extended support leg and raised opposite knee. The peak mechanics are inconsistent across the two gender sequences.",
+        "Female peak frame 2 visibly reduces head/body and plate scale relative to the descent/return illustrations and shifts the box/foot contact relative to adjacent phases. The foot changes its location on the box rather than preserving a stable planted contact. These continuity issues remain after the rigid reframe."
+      ],
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/luna-workers/015/result.json"
+    },
+    {
+      "batch": "batch-02",
+      "index": 17,
+      "exerciseId": "Battling_Ropes",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-review-wave4-b.json",
+      "findings": [
+        "All8 filenames, source/candidate hashes, dimensions and real alpha verified; all8 inspected on light/dark.",
+        "Male frame0 translation leaves both ropes abruptly cut off at a vertical boundary inside the canvas, unlike the edge-exiting ropes in frames1-3. Restore continuous rope exits while retaining the corrected athlete anchor.",
+        "Background islands are cleared and athlete mechanics/scale are otherwise plausible. Female frames2/3 have very similar hand phase but no major anatomy issue."
+      ],
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/luna-workers/017/result.json"
+    },
+    {
+      "batch": "batch-02",
+      "index": 21,
+      "exerciseId": "Bench_Dips",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-review-wave4-b.json",
+      "findings": [
+        "All8 exact filenames, source/candidate hashes, real alpha and dimensions verified; all8 light/dark ordered frames visually inspected.",
+        "Blocking sequence issue: the rear support bench becomes shorter at bottom phase2 in both sexes while the floor remains aligned. Its seat/hand-support surface drops roughly 20-25 pixels on the half-size review tile compared with phase0/3, so the bench visibly compresses with the athlete instead of remaining stationary.",
+        "Bench-dip movement and clear background are otherwise readable; complete equipment silhouettes remain in frame. Normalize stationary bench geometry/height without flattening intended body motion."
+      ],
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/luna-workers/021/result.json"
+    },
+    {
+      "batch": "batch-02",
+      "index": 22,
+      "exerciseId": "Bench_Jump",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-review-wave4-a.json",
+      "findings": [
+        "Eight expected filenames, source/candidate hashes and real alpha verified. Dark/light cutouts clean and bench location stable.",
+        "Mechanical mismatch: frame 3 lands both feet ON the bench. Canonical instructions specify jumping OVER the bench and landing beyond it, then turning around. Current sequence depicts a box jump instead.",
+        "Repair final landing phase beyond bench while preserving bench anchors and body continuity."
+      ],
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/luna-workers/022/result.json"
+    },
+    {
+      "batch": "batch-02",
+      "index": 25,
+      "exerciseId": "Bent_Over_Low-Pulley_Side_Lateral",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-review-wave4-a.json",
+      "findings": [
+        "All eight exact filenames/source hashes/candidate hashes and actual alpha verified; cleaned backgrounds and continuous cables visible.",
+        "Male raised phase (especially frame 2) sharply bends the working elbow near a right angle, pulling hand inward like a row; canonical instructions require only slight elbow bend with arm raised out to side in line with ear.",
+        "Female frame 2 depicts the extended lateral arm more faithfully. Male sequence needs matching lateral-raise mechanics rather than source-preserving background-only repair.",
+        "Minor authored pulley/foot placement variation also remains."
+      ],
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/luna-workers/025/result.json"
+    },
+    {
+      "batch": "batch-02",
+      "index": 28,
+      "exerciseId": "Bent-Arm_Barbell_Pullover",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-review-wave5-b.json",
+      "findings": [
+        "All8 exact filenames, source/candidate hashes, real alpha and dimensions verified; all8 ordered light/dark frames visually inspected.",
+        "Blocking male continuity defect remains: bench/body horizontal extent expands in frames2/3 compared with frames0/1, with larger shoes and feet displaced right despite the floor baseline alignment. Matching only the floor does not keep stationary bench geometry and athlete scale coherent.",
+        "Male barbell changes from strongly foreshortened plates in frame1 to a broad frontal span in frame2; this is substantial equipment/view inconsistency in addition to the bench/scale jump.",
+        "Background openings/perforations are genuinely transparent and female sequence is more stable; repair the male sequence before whole-set pass."
+      ],
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/luna-workers/028/result.json"
+    }
+  ]
+}

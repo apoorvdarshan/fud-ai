@@ -1,0 +1,11 @@
+{
+  "exerciseId": "Barbell_Hip_Thrust",
+  "published": false,
+  "reason": "Stationary bench geometry and foreground alpha checks fail. No publication lock acquired, ledger/snapshot/decisions untouched.",
+  "checkedAt": "2026-09-06T18:14:11.372Z",
+  "evidence": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/work/latest-review-male.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-013/work/latest-review-female.jpg"
+  ],
+  "reportPath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-14/workers/013/result.json"
+}

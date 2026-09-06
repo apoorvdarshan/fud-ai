@@ -1,0 +1,107 @@
+{
+  "createdAt": "2026-09-06T17:17:58.274Z",
+  "model": "gpt-6-astra",
+  "reasoning": "low",
+  "fastMode": "not exposed by task creation tool",
+  "scope": "Exactly14 new projectless tasks authorized; old400 stay archived, scheduler paused",
+  "assignments": [
+    {
+      "batch": "batch-01",
+      "index": 3,
+      "exerciseId": "Bent_Over_One-Arm_Long_Bar_Row",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-review-wave2-a.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/003/result.json"
+    },
+    {
+      "batch": "batch-01",
+      "index": 4,
+      "exerciseId": "Bottoms_Up",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-review-wave2-a.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/004/result.json"
+    },
+    {
+      "batch": "batch-01",
+      "index": 8,
+      "exerciseId": "Calf_Stretch_Elbows_Against_Wall",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-review-wave2-a.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/008/result.json"
+    },
+    {
+      "batch": "batch-01",
+      "index": 9,
+      "exerciseId": "Chest_Push_multiple_response",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-review-wave2-a.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/009/result.json"
+    },
+    {
+      "batch": "batch-01",
+      "index": 12,
+      "exerciseId": "Downward_Facing_Balance",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-review-wave2-a.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/012/result.json"
+    },
+    {
+      "batch": "batch-01",
+      "index": 13,
+      "exerciseId": "Dumbbell_Lying_One-Arm_Rear_Lateral_Raise",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-review-wave2-b.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/013/result.json"
+    },
+    {
+      "batch": "batch-01",
+      "index": 18,
+      "exerciseId": "Front_Barbell_Squat_To_A_Bench",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-review-wave2-b.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/018/result.json"
+    },
+    {
+      "batch": "batch-01",
+      "index": 19,
+      "exerciseId": "Kettlebell_Turkish_Get-Up_Lunge_style",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-review-wave2-b.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/019/result.json"
+    },
+    {
+      "batch": "batch-01",
+      "index": 37,
+      "exerciseId": "Back_Flyes_-_With_Bands",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-review-wave2-c.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/037/result.json"
+    },
+    {
+      "batch": "batch-01",
+      "index": 45,
+      "exerciseId": "Barbell_Ab_Rollout",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-review-wave2-c.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/045/result.json"
+    },
+    {
+      "batch": "batch-01",
+      "index": 46,
+      "exerciseId": "Barbell_Bench_Press_-_Medium_Grip",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-review-wave2-c.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/046/result.json"
+    },
+    {
+      "batch": "batch-01",
+      "index": 50,
+      "exerciseId": "Barbell_Guillotine_Bench_Press",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-review-wave2-c.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/050/result.json"
+    },
+    {
+      "batch": "batch-02",
+      "index": 2,
+      "exerciseId": "Barbell_Hip_Thrust",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-review-wave3-c.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/luna-workers/002/result.json"
+    },
+    {
+      "batch": "batch-02",
+      "index": 3,
+      "exerciseId": "Barbell_Incline_Bench_Press_-_Medium_Grip",
+      "reviewFile": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-review-wave3-c.json",
+      "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/luna-workers/003/result.json"
+    }
+  ]
+}

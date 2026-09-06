@@ -1,0 +1,28 @@
+{
+  "exerciseId": "Ankle_On_The_Knee",
+  "status": "needs_more_work",
+  "priorReport": "artifacts/workout-visual-qa/review-batches/astra-direct-10/workers/006/result.json",
+  "originalsPreserved": true,
+  "published": false,
+  "findings": [
+    "Personally inspected all eight prior candidates in full light/dark composites and ordered sheet.",
+    "Simple 0-1-2-1 loop would remove return-frame scale drift but not correct peak mechanics; rejected as insufficient.",
+    "Canonical instructions require grasping bottom thigh/knee and pulling legs toward chest with relaxed head and shoulders.",
+    "Prior male and female peak frames keep the bottom foot grounded and grasp the crossed leg rather than pulling supporting thigh.",
+    "Three focused built-in edits used a saturated magenta key to avoid previous opaque checkerboard failures. Background strategy succeeded, but pose/grip correctness did not."
+  ],
+  "unresolved": [
+    "Male peak attempt 2 lifts both feet but grip remains on incorrect thigh.",
+    "Focused grip attempt 3 moved hands to supporting ankle, not behind supporting thigh. Rejected.",
+    "Generated head/shoulder position differs from retained animation frames.",
+    "Female peak and both return-frame continuity still need correction."
+  ],
+  "attempts": [
+    {"file":"attempts/male-peak-01.png","sha256":"9fbfdf8b11750628330cdae2218a01603ffe009d46335a1e9b87d2da045266d6","accepted":false,"prompt":"Correct male figure-four stretch with bottom foot lifted, hands behind supporting thigh, relaxed head; preserve character/style; solid magenta background.","reason":"Bottom foot remains grounded."},
+    {"file":"attempts/male-peak-02.png","sha256":"765bdc0b43723bc5db284ef4f336caf94727aea81e589ee1d06420a8c5ebc964","accepted":false,"prompt":"Lift bottom-left shoe clearly airborne; supporting thigh toward chest; both hands behind supporting thigh, not crossed leg; preserve other artwork.","reason":"Feet lifted but hand contact on wrong thigh remains."},
+    {"file":"attempts/male-peak-03.png","sha256":"bc1e242046a5f5f5454ff27686407ed7794fe6b8f563975be9f47bbd55b13d6e","accepted":false,"prompt":"Change hands only to clasp behind thigh connected to far-left shoe, near supporting knee, one arm through leg triangle and other outside.","reason":"Hands moved to supporting ankle instead of thigh."}
+  ],
+  "review": {"priorEightFramesLightAndDark":true,"generatedAttemptsVisuallyInspected":3,"animationPlaybackVerified":false,"passed":false},
+  "tool": "built-in imagegen",
+  "promotedFrames": 0
+}

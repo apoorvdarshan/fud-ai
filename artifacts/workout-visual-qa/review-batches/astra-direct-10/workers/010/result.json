@@ -1,0 +1,141 @@
+{
+  "exerciseId": "Ball_Leg_Curl",
+  "index": 40,
+  "status": "blocked_not_published",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010",
+  "findings": [
+    "Inspected eight existing candidates individually on white and dark backgrounds and as ordered four-frame contact sequences.",
+    "Existing candidates have genuine transparency and preserve original artwork; hashes verified against previous report.",
+    "Male frames 2 and 3 have only 7 and 3 pixels bottom padding respectively.",
+    "Both sequences retain upper-body anchor/proportion drift, most prominent in male frame 3. Ball surface design also changes between phases.",
+    "Built-in substantive edit failed reference scale/anchor matching and returned an opaque painted checkerboard.",
+    "Focused background extraction retry produced RGBA transparency but changed framing and did not repair reference scale/anchors. Both generated edits rejected.",
+    "Original sources and shared publication ledger/collected candidates/human decisions were left unchanged."
+  ],
+  "unresolved": [
+    "No complete eight-frame corrected set passed visual review.",
+    "Body scale, resting shoulder/hand anchors and return-phase continuity still require substantive repair.",
+    "Existing candidates retain inadequate side/bottom padding.",
+    "Ordered animation GIFs were saved; temporal playback acceptance was not completed because static sequence review already failed."
+  ],
+  "frames": [
+    {
+      "filename": "Ball_Leg_Curl_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ball_Leg_Curl_male_v2_0.png",
+      "sourceSha256": "cddc748aedc053a6d7230c7e73c55b0130e45710cb88ca5bd4693abaa73105db",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/candidates/Ball_Leg_Curl_male_v2_0.png",
+      "candidateSha256": "3bbfabdd0f0ae853bb74430261b47029bcf95c6993228999af76b49e54bca4b1",
+      "method": "existing_candidate_preserved_for_evidence_not_accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ball_Leg_Curl_male_v2_1.png",
+      "sourceSha256": "eb1df21ef9727c7076cf1660721580a22c6622a17feadf6b3c444487fd039aed",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/candidates/Ball_Leg_Curl_male_v2_1.png",
+      "candidateSha256": "edf1141e8845758ad7257eb5759f4ebc3526907265823790b5bcf65b9670134e",
+      "method": "existing_candidate_preserved_for_evidence_not_accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ball_Leg_Curl_male_v2_2.png",
+      "sourceSha256": "b9828430c48805c6216f163f5e1e0288b31c4cde85bb48003ff27858e5c61070",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/candidates/Ball_Leg_Curl_male_v2_2.png",
+      "candidateSha256": "c08b44d7728558097c46a55bc0d46305b87476f62b02c28b32c7ae20a89d79f2",
+      "method": "existing_candidate_preserved_for_evidence_not_accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ball_Leg_Curl_male_v2_3.png",
+      "sourceSha256": "f81f0355fc4d1572f05a7db3ee02d3cf310b844db509e9dbaa9ea14d49a195bc",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/candidates/Ball_Leg_Curl_male_v2_3.png",
+      "candidateSha256": "9e6d6baac6c0dc548d2898a96a4f91962c2f7ecb7c7ca4d9a0140c7af83eaee3",
+      "method": "existing_candidate_preserved_for_evidence_not_accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ball_Leg_Curl_female_v2_0.png",
+      "sourceSha256": "f536814a236fbd035a5d4967b32215ae2112f6f55289767fa218810c816a0b61",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/candidates/Ball_Leg_Curl_female_v2_0.png",
+      "candidateSha256": "8cf7c3938c171fc731456c29ca59730b7b6d796ff76207cc3a845c27d63a8ef2",
+      "method": "existing_candidate_preserved_for_evidence_not_accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ball_Leg_Curl_female_v2_1.png",
+      "sourceSha256": "06d2fd28800ed5bb458c7d90032d55e9b4336fe28d1180c3bea4eace3fc5c32b",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/candidates/Ball_Leg_Curl_female_v2_1.png",
+      "candidateSha256": "1d9c601dcee9cd9b52aa33e3b8012d168e81cca9b5f8d1e7a6ef9ed87c278a3f",
+      "method": "existing_candidate_preserved_for_evidence_not_accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ball_Leg_Curl_female_v2_2.png",
+      "sourceSha256": "4ff7a0272538d9265f9422612640a96a7b74a34e9416acc2a5144b4b602bcc56",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/candidates/Ball_Leg_Curl_female_v2_2.png",
+      "candidateSha256": "50a88ef08a22041cac7be6a926e82125f54d9d412cd83077c996da67261c88ec",
+      "method": "existing_candidate_preserved_for_evidence_not_accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ball_Leg_Curl_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ball_Leg_Curl_female_v2_3.png",
+      "sourceSha256": "22dd49cc29e896a94415fdf3d5d8b524bb61b6a81454fc9c70730a08b341b0d4",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/candidates/Ball_Leg_Curl_female_v2_3.png",
+      "candidateSha256": "69e5f906e244bf155bdadf3394e1c18c8e8ffb36e2a745d4a23a780eda8c086b",
+      "method": "existing_candidate_preserved_for_evidence_not_accepted",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": {
+    "edit": "Use case: precise-object-edit. Input 1 is the edit target Ball_Leg_Curl male frame 3. Input 2 is the identity, exact body scale and ground anchor reference frame 0. Correct target athlete's oversized torso/head/arms to match reference scale and exact resting head/shoulder/hand positions. Preserve target's slightly bent knees return-phase leg curl, heels resting on black stability ball. Ball diameter must match reference and bottom remain at y700 on 1024x768 canvas. Preserve illustration style, man, clothes, shoe details, colors and linework. Entire silhouette must have at least 40 pixels padding. Actual transparent alpha background, no checkerboard drawn, no white background. No text. Return a single corrected frame."
+  },
+  "provenance": {
+    "previousReport": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/luna-workers/040/result.json",
+    "generator": "built-in image_gen image editing only",
+    "attempts": [
+      {
+        "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/rejected/exec-9e5f4fd5-ea54-41b4-960e-5372c083d124.png",
+        "sha256": "7303f32c28d83ced4a1d7b7befd4b9a7a3ff2cceaea0c539e1f0ce87eff2463b",
+        "mode": "RGB",
+        "size": [
+          1448,
+          1086
+        ],
+        "alphaExtrema": null,
+        "accepted": false
+      },
+      {
+        "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/rejected/exec-a8ad9eca-39d0-4080-9126-d12e696a23ff.png",
+        "sha256": "5206de3ba27db55b4b1a46d773e1333e881b610ddf4348d4dbb79ae1c247bb3c",
+        "mode": "RGBA",
+        "size": [
+          1536,
+          1024
+        ],
+        "alphaExtrema": [
+          0,
+          254
+        ],
+        "accepted": false
+      }
+    ]
+  },
+  "published": false,
+  "publicationEvidence": {
+    "reason": "Visual acceptance failed; publication not attempted. No publication lock acquired.",
+    "httpVerification": "not applicable; no new result published"
+  },
+  "evidence": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/existing-review.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/retry-review.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/alpha-evidence.json",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/male-ordered-animation.gif",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-010/work/female-ordered-animation.gif"
+  ]
+}

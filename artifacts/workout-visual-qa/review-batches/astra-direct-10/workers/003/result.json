@@ -1,0 +1,116 @@
+{
+  "exerciseId": "Ab_Crunch_Machine",
+  "status": "blocked",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-003",
+  "findings": [
+    "All eight retained candidates inspected in ordered 0-3 contact sheets on white and dark backgrounds. Existing partial rod and shoe cleanup retained unchanged.",
+    "Stationary tower and base geometry visibly differ across both sequences.",
+    "Built-in targeted equipment repair and focused transparency retry both returned opaque RGB checkerboard redraws; neither accepted.",
+    "Original source hashes verified unchanged. No publication or ledger changes performed."
+  ],
+  "unresolved": [
+    "Equipment anchor and scale drift across both sequences remains unresolved.",
+    "Built-in edits failed actual transparency and artwork-preservation requirements; no verified corrected eight-frame set available."
+  ],
+  "frames": [
+    {
+      "filename": "Ab_Crunch_Machine_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Crunch_Machine_male_v2_0.png",
+      "sourceSha256": "c6be93a479b34a67c84d8907e322a71f56c7a8763823e050d07c8b3f93f30cf2",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-003/work/candidates/Ab_Crunch_Machine_male_v2_0.png",
+      "candidateSha256": "7cdb4f3c6c13dda4527996ceaaa12d38468653345f90de7cde1fe03995eb64f0",
+      "method": "retained_previous_partial_candidate; no new repair accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Crunch_Machine_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Crunch_Machine_male_v2_1.png",
+      "sourceSha256": "d9c7c388c01b76bb801ea054164c2aed55cace9b11d2a39c1318ab5889c3e3f7",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-003/work/candidates/Ab_Crunch_Machine_male_v2_1.png",
+      "candidateSha256": "30b0b01568380f921bcc11fb62bc657563ec4b7ba27025a98a79118635119ace",
+      "method": "retained_previous_partial_candidate; no new repair accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Crunch_Machine_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Crunch_Machine_male_v2_2.png",
+      "sourceSha256": "47706995aff157d87552ea552a218736710d5d141aa8014cfa1f889863810b9d",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-003/work/candidates/Ab_Crunch_Machine_male_v2_2.png",
+      "candidateSha256": "934a57cf7af48c82c1dcf35b98984e8cc5f0cf06da9b36259a05e1b421af847b",
+      "method": "retained_previous_partial_candidate; no new repair accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Crunch_Machine_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Crunch_Machine_male_v2_3.png",
+      "sourceSha256": "ff11a2ed0ea1d61838c12c378a373643ffde2358fadca23630be7a35c7821ea9",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-003/work/candidates/Ab_Crunch_Machine_male_v2_3.png",
+      "candidateSha256": "01f3fe90a29bffe230e798fea241d4eb1d9cf5308316c5a6b8f0e260cbca3994",
+      "method": "retained_previous_partial_candidate; no new repair accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Crunch_Machine_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Crunch_Machine_female_v2_0.png",
+      "sourceSha256": "200e75f8924b3fe7aba03d175fb76c9475f0db96226cf83babfd549cf02025c2",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-003/work/candidates/Ab_Crunch_Machine_female_v2_0.png",
+      "candidateSha256": "0985d3546a2612778fddcecf36221f1fc31f9e2d0f57c210d2d0ccfd0f44ef48",
+      "method": "retained_previous_partial_candidate; no new repair accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Crunch_Machine_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Crunch_Machine_female_v2_1.png",
+      "sourceSha256": "2d359f6643d3a936ed0cfd46c02d2b089ca7be4e284f490501209ac42fabad47",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-003/work/candidates/Ab_Crunch_Machine_female_v2_1.png",
+      "candidateSha256": "975daa4d72a07937a04eb8d1444ed20fa17b5c4a8677e903cd9502222891b609",
+      "method": "retained_previous_partial_candidate; no new repair accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Crunch_Machine_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Crunch_Machine_female_v2_2.png",
+      "sourceSha256": "3001822235277ca16eaacad32c1d806f854bbe3b8c8174439618f663c68f690c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-003/work/candidates/Ab_Crunch_Machine_female_v2_2.png",
+      "candidateSha256": "b7b63ddce923a9e0aa6676a818cea33eb58f75b6c3769804c5714b4e665028f5",
+      "method": "retained_previous_partial_candidate; no new repair accepted",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ab_Crunch_Machine_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ab_Crunch_Machine_female_v2_3.png",
+      "sourceSha256": "0b6aff6141152aee91212a648df33bb165a099eb033c494ffbeca5a0fcc1705c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-003/work/candidates/Ab_Crunch_Machine_female_v2_3.png",
+      "candidateSha256": "53e57de7a3bab339f67cd8dcac1d00cb97a726c464f2c664997675b9565c9653",
+      "method": "retained_previous_partial_candidate; no new repair accepted",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": {
+    "mode": "built-in",
+    "attempts": [
+      {
+        "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-003/work/evidence/exec-579e5272-ea24-4215-99f4-666fb8cae964.png",
+        "sha256": "8f7e06a23540783e3b8c33cd85ac02a165fa56a4baeab288d6cd95c65745a5d1",
+        "accepted": false,
+        "reason": "RGB 1448x1086 with painted checkerboard; altered illustration and registration"
+      },
+      {
+        "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-003/work/evidence/exec-502b8f00-2e58-4e86-9825-b9e277a1486b.png",
+        "sha256": "37f8b22716ba1622d7a8b3ea46053c9b4bd6e5697f798a5996c6069d1b17f0b7",
+        "accepted": false,
+        "reason": "RGB 1448x1086 with painted checkerboard; altered illustration and registration"
+      }
+    ],
+    "requests": [
+      "Repair male frame 1 stationary tower/base using male frame 0 reference; preserve athlete and moving mechanism; continuous rods; genuine RGBA transparency.",
+      "Remove painted checkerboard with actual alpha=0 transparency, preserving athlete and equipment."
+    ],
+    "exactPrompts": "Recorded in task tool calls"
+  },
+  "publication": {
+    "published": false,
+    "reason": "Failed worker visual and alpha checks"
+  },
+  "reviewedAt": "2026-09-06T18:20:52.646616+00:00"
+}

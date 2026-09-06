@@ -1,0 +1,97 @@
+{
+  "exerciseId": "Bench_Dips",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-team-bench-dips",
+  "findings": [
+    "All eight candidates inspected in phase order on white and dark backgrounds.",
+    "Female phase2 both arms corrected with built-in edit; bench material restored from erroneously transparent metal.",
+    "Female phase1 previously missed painted-checkerboard island removed from foot stool gap.",
+    "Generated phase2 extracted from deliberate flat green backdrop; normalized to 1024x768 and ground aligned +50px. All candidates retain genuine alpha.",
+    "Removed near-invisible sub-8 alpha speckle across candidates. Source assets untouched.",
+    "Full-size validation caught additional checkerboard remnants in both phase1 stool gaps; narrowly scoped neutral-pixel alpha cleanup removed these. Both changed frames re-inspected full-size; all other frame hashes unchanged."
+  ],
+  "unresolved": [],
+  "reviewCaveats": [
+    "Minor equipment shading and small geometry variation remains between independent drawings, especially female phase2 bench (darker restored metal). No major missing limbs or painted background observed after repair. Parent must verify motion quality before publication."
+  ],
+  "frames": [
+    {
+      "filename": "Bench_Dips_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_male_v2_0.png",
+      "sourceSha256": "9c7ebb000a1f693162a6676e12c4944a4d9d27aea06e55c9d776cb207a589dac",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-team-bench-dips/candidates/Bench_Dips_male_v2_0.png",
+      "candidateSha256": "435d17625328eaba6fe84077514f7cc7bdbde6425f8f1a6d6df6fe0a693bdec0",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Dips_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_male_v2_1.png",
+      "sourceSha256": "e2a4fe5fe59f33cf1b66d279a1f7537acf7695d164c5e2a767d2fea86b222ee0",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-team-bench-dips/candidates/Bench_Dips_male_v2_1.png",
+      "candidateSha256": "ade7875f02513255b54ee267ad1d03896473120aac30c60e49c9a3918b3590f0",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Dips_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_male_v2_2.png",
+      "sourceSha256": "ffc9d9fba60cff2fceb0dd5f037d7d65d2ea6b003da5c23f256713605abfe093",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-team-bench-dips/candidates/Bench_Dips_male_v2_2.png",
+      "candidateSha256": "10e4f3771233c4145a653769894af418bf32841375dc2cd4441d2600ba49cf61",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Dips_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_male_v2_3.png",
+      "sourceSha256": "16ca315b766e1eac6b657a3f07dbd35e8775bd60b3fa65121da5f144e63489dd",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-team-bench-dips/candidates/Bench_Dips_male_v2_3.png",
+      "candidateSha256": "a7911631a62a5b348903f6629b356b99ea33f85abf88f283891c8248692b9d72",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Dips_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_female_v2_0.png",
+      "sourceSha256": "1fb984a2c864a9465b6fc1a6ff3e1de8cbc0c7b6ad488f60f56156f5ea4cc376",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-team-bench-dips/candidates/Bench_Dips_female_v2_0.png",
+      "candidateSha256": "cc4df112c226f1103bb489b1c23e7b3cb4231b5110e06ca2cc82959bd0676515",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Dips_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_female_v2_1.png",
+      "sourceSha256": "f19485a6e606cac68aa941ed19f548e598c00a9b848d99ce0799a175ecc1f9b4",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-team-bench-dips/candidates/Bench_Dips_female_v2_1.png",
+      "candidateSha256": "15f80fc520ed11447470c946d55f3372429f68182922d8dd99e81ed7de428ce9",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Dips_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_female_v2_2.png",
+      "sourceSha256": "b9640a7a8baebf1d4faa563825f7ff6611c99f0194ea94cc9c102e622d2b23b7",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-team-bench-dips/candidates/Bench_Dips_female_v2_2.png",
+      "candidateSha256": "dd260c6dec3e83d398f50003526b73d8a8615e2fca316ea01b3701360f93c06a",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Dips_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_female_v2_3.png",
+      "sourceSha256": "a5f3577ef40cdd0cddb90084ae9aba9648992e0b48f85bdb1b1d7d21623f3b14",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-team-bench-dips/candidates/Bench_Dips_female_v2_3.png",
+      "candidateSha256": "f6b28e76cda32cc5dff6cc08b70852034efdcaff2bdadf148b402f89b88749d2",
+      "visuallyReviewed": true
+    }
+  ],
+  "evidencePaths": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-team-bench-dips/male-review.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-team-bench-dips/female-review.jpg"
+  ],
+  "generatedPaths": [
+    "/Users/apoorvdarshan/.codex/generated_images/01a077f5-e124-7222-a606-3f78d4e13e48/exec-27d54258-a0ad-45b6-80e1-7e0ec456ecc5.png",
+    "/Users/apoorvdarshan/.codex/generated_images/01a077f5-e124-7222-a606-3f78d4e13e48/exec-1c0de4b4-ec4d-4665-b4bf-1a9622a22eae.png"
+  ],
+  "prompts": [
+    "Precise-object edit female phase2: restore solid bench metal, anatomically correct both bent arms keeping seat contact and athlete/equipment composition. Request genuine transparency.",
+    "Replace generated checkerboard only with solid RGB 0,255,0 backdrop in all gaps; preserve athlete and equipment."
+  ],
+  "productionModified": false,
+  "published": false
+}

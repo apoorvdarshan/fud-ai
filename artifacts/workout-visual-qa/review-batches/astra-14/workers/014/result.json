@@ -1,0 +1,140 @@
+{
+  "exerciseId": "Barbell_Incline_Bench_Press_-_Medium_Grip",
+  "status": "blocked",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014",
+  "findings": [
+    "Preserved the previous report and all eight previous candidates in work/snapshot-r1 before edits. Existing outputs/candidates files are unchanged; new files are in outputs/revision-2.",
+    "Reconstructed all four clipped male front shoes using one focused built-in imagegen crop on deliberate green. Only the spatially masked shoe/ankle patch was keyed and composited; generated equipment was excluded. All four soles are complete and clear of the image boundary.",
+    "Restored male and female frame-3 truncated left rack caps using intact same-gender frame-2 donor pixels.",
+    "Applied the same 901x748 rendering of a 1024x850 padded canvas at (61,10) to all eight frames. This creates a shared margin, not a per-frame anchor normalization.",
+    "All eight candidates reviewed on light and dark backgrounds; four male shoe joins and female rack-cap join additionally reviewed enlarged. Real RGBA alpha verified. No painted checkerboard accepted.",
+    "Two additional reference-guided phase edits were attempted after the successful shoe repair. Both changed stationary equipment/body details and were rejected. No pixels from those phase trials used.",
+    "Final resumed check: all eight revision-2 frames re-reviewed on light/dark and as ordered sequences. All exact filenames match batch-02 index 3; all sixteen source/candidate hashes recomputed and match.",
+    "An equipment-only imagegen repair was tried with frame 1 as target and frame 0 as stationary reference. It retained the wrongly displaced left upright, omitted reference left storage plates and redrew the athlete. Rejected; revision-2 candidates remain unchanged."
+  ],
+  "unresolved": [
+    "Both sequences still have original rack/bench geometry and ground-anchor drift. This revision is a partial repair and is not ready_for_parent_review.",
+    "Generated shoe preserves black athletic shoe appearance but has fewer side stripe details than the original; male frame 3 has a slight ankle transition line on enlarged inspection.",
+    "Original pale outline pixels remain visible on dark backgrounds around some equipment edges."
+  ],
+  "frames": [
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_0.png",
+      "sourceSha256": "3879e5c81afcd61207ed010ec9c010ef51bfe0c47916191f62ba1ea0e395ba7b",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/outputs/revision-2/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_0.png",
+      "candidateSha256": "4f9abbf584d27b2fba47da9121d73db859e4d7e18a3e60a8d1051c5b321de542",
+      "method": "built_in_imagegen_shoe_crop+green_key_spatial_mask+shared_inset",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_1.png",
+      "sourceSha256": "0947beeb3e889edb2500a0cc8da28bc5ecafb4162b559a7ec6bc7748c788ab1c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/outputs/revision-2/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_1.png",
+      "candidateSha256": "b44da7924debc99d748b919eabc43c56903c0a77f821a93d89bf5db84bee018b",
+      "method": "built_in_imagegen_shoe_crop+green_key_spatial_mask+shared_inset",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_2.png",
+      "sourceSha256": "66dc6f83573397c375375fde1d10865d1d1beb8e53b2a355c1c853ccb80de929",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/outputs/revision-2/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_2.png",
+      "candidateSha256": "2577afe03bcbc7cd2a7bde792360f063ab638208220155a832d2179b7384644e",
+      "method": "built_in_imagegen_shoe_crop+green_key_spatial_mask+shared_inset",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_3.png",
+      "sourceSha256": "28f5645149931102a07ff884ddb3c45f131fb25cd0468febd8f531217b73bf09",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/outputs/revision-2/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_3.png",
+      "candidateSha256": "e351e5dee268aaf79e943297e11974e303b5c9c4a4a7cd9144e2e3a30a15634d",
+      "method": "built_in_imagegen_shoe_crop+green_key_spatial_mask+shared_inset+same_gender_rack_cap_donor",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_0.png",
+      "sourceSha256": "610d6de654e77eeb40e745bfee3d2c100739616c435cfc48a3fbb6df46e309ca",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/outputs/revision-2/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_0.png",
+      "candidateSha256": "5aa6ef57147eee06730f1bd9bfbfe559672f7ee58a399bccf30eddc8c12a4fbd",
+      "method": "prior_alpha_cleanup+shared_inset",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_1.png",
+      "sourceSha256": "c7d94d2c81f8e74d63adc13a15500334d35ae018793e88bf0d14aa7fe01d29aa",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/outputs/revision-2/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_1.png",
+      "candidateSha256": "1af66d754cc7d86c571a35d624d92242043a14a6706a96538332576cde75533a",
+      "method": "prior_alpha_cleanup+shared_inset",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_2.png",
+      "sourceSha256": "cb1f83a10d8c416817b1da4b9abea81929dca601d7d347186a2db99f21e5efd7",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/outputs/revision-2/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_2.png",
+      "candidateSha256": "08beabbf4876f92bf9fde95165f40f60b37cc0d41fcf293793bb11b930d7f3da",
+      "method": "prior_alpha_cleanup+shared_inset",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_3.png",
+      "sourceSha256": "1df445ef7968ddc137c9fb7b763b0d41048ec7feac13abf1a1d05f88f1466048",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/outputs/revision-2/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_3.png",
+      "candidateSha256": "acb78c5037b86249c65c377783ec529e1174715be3c877c3ca6adeb24ee67721",
+      "method": "prior_alpha_cleanup+shared_inset+same_gender_rack_cap_donor",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "prompt": "Use case: precise-object-edit. Edit the supplied original workout illustration of male incline barbell bench press lockout. Preserve exact illustration style, man identity, black sleeveless shirt and shorts, black shoes, metallic rack and incline bench, barbell plates, medium grip and locked arms. Repair missing front/right shoe at bottom: reconstruct complete anatomically connected shoe and sole. Fit the entire artwork with small transparent margin, using a single uniform reduction if needed. Remove every opaque white/checkerboard background remnant including enclosed spaces between legs and bench/rack, yielding real alpha transparency. Do not remove light metallic equipment. No painted checkerboard, no new objects, no text. Keep camera and relative equipment geometry. This is a single frame, not a sheet.",
+      "targetPath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_0.png",
+      "attemptedImagePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/work/rejected-imagegen.png",
+      "attemptedImageSha256": "7560298d12da30777193e25f0c1672827da930b80405e73a8736432f83cb4ed6",
+      "outcome": "rejected"
+    },
+    {
+      "type": "shoe-repair",
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/work/shoe-repair.png",
+      "sha256": "b5d86803d89c803d939ff2bf5cf70e3fbe6a85a4fea26bdc43f61bf035ec5954",
+      "outcome": "accepted_shoe_crop_only",
+      "prompt": "Precise-object-edit. This is a cropped workout illustration. Reconstruct ONLY the missing bottom of the black athletic shoe connected to the central male ankle. Continue its toe toward lower left and complete the gray/white sole, using the existing inked shaded illustration style. Preserve calf, ankle, all equipment, their exact positions, scale, contours and pixels as closely as possible. Keep the entire complete shoe inside this crop with margin. Background must be perfectly flat solid chroma green RGB 0,255,0 including enclosed gaps; no checkerboard, shadows or gradients. Do not redesign equipment or calf. Single crop, not full person."
+    },
+    {
+      "type": "rejected-phase-two-reference",
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/work/rejected-phase-two-reference.png",
+      "sha256": "ff53f74de3ae3197328e6cda3e358f59a720afe41c48416c179da32953f74929",
+      "outcome": "rejected_stationary_geometry_and_rendering_drift",
+      "prompt": "Precise-object-edit for animation. Image 1 is the exact master setup to preserve: man, clothes, face, bench, rack, plates, scale, camera, feet/hips and every stationary piece. Change ONLY his upper arms, elbows, forearms and held barbell position into a lowered incline bench press pose, bar touching upper chest, elbows bent roughly 90 degrees with medium grip, forearms vertical. Image 2 shows intended lowered arm/bar pose ONLY; do not adopt its different rack, bench, camera or feet. Keep image 1's complete shoes and all lower body unchanged. Render exact master illustration style, no smoother or more detailed redraw. Keep canvas size/aspect and placement of image1. Replace empty background and all gaps with flat solid chroma green RGB 0 255 0. No checkerboard. One frame."
+    },
+    {
+      "type": "rejected-phase-single-reference",
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/work/rejected-phase-single-reference.png",
+      "sha256": "43bbd8e15e99e19be463b4826bfc1111822c2f5f22dd147e0edca7e735dfe953",
+      "outcome": "rejected_stationary_geometry_and_rendering_drift",
+      "prompt": "Edit this exact image, keeping the existing rack, bench, legs, feet, torso, head and clothing fixed in place. Do not rescale, recenter, redraw or move any of those. The only moving things are the athlete's arms and held barbell. Bend both elbows to lower the barbell from the overhead lockout down to the upper chest for an incline bench press. Maintain medium grip and hand contact. All stationary pixel locations and sizes must remain fixed, especially the LEFT RACK POST stays at its existing x position, behind the left plate. Keep original coarse shaded ink illustration style, face, black clothes and shoe details. Empty space must be flat chroma green RGB 0,255,0, including enclosed gaps. No checkerboard. Single image same composition and margins."
+    },
+    {
+      "type": "rejected_equipment_only_reference_edit",
+      "prompt": "Use case precise-object-edit. Image1 is target lowered incline bench press male frame. Image2 is stationary equipment reference. Repair ONLY target's rack and bench geometry to exactly match image2's equipment positions, proportions, camera and ground anchors. In target, left rack upright is wrongly shifted right; relocate it to reference x position and restore its reference feet, storage plates, safety arm and hook. Bench feet and right rack must match reference too. Keep target athlete's face, clothing, anatomy, lowered arms and held barbell pose, shoe shapes and style unchanged; no redesign, no new equipment. Preserve original coarse ink-and-shading illustration. Output same composition with flat solid chroma green RGB 0,255,0 in all empty gaps; no painted checkerboard. Do not rescale/reframe.",
+      "path": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/work/rejected-equipment-only.png",
+      "sha256": "1788f1a71ab83879fc1be12a12e27033154c2e1d8cca541f519e1fca52313d21",
+      "outcome": "rejected_wrong_rack_geometry_missing_storage_plates_and_athlete_redraw"
+    }
+  ],
+  "revision": 2,
+  "snapshotPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-014/work/snapshot-r1",
+  "publication": {
+    "publishedThisRevision": false,
+    "reason": "Failed stationary geometry/sequence check; no ledger or parent-collected snapshot changes made.",
+    "checkedAt": "2026-09-06T18:13:01.604774+00:00",
+    "filenamesAndHashesValid": true,
+    "humanApproved": false
+  }
+}

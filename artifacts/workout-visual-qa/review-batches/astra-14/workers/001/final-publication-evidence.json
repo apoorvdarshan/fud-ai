@@ -1,0 +1,14 @@
+{
+  "published": false,
+  "status": "blocked",
+  "allEightLightDarkReviewed": true,
+  "allSixteenHashesRevalidated": true,
+  "sharedLedgerModified": false,
+  "publicationLockAcquired": false,
+  "reason": "Male equipment continuity and female support anatomy fail. Failed revision was not published.",
+  "prompts": [
+    "Minimal surgical edit of the FAR pulling arm and attached bar only. Keep the entire NEAR supporting arm (large visible arm on viewer right ending in open palm on knee) pixel-for-pixel unchanged. Keep head, torso, hips, legs, feet and bottom-right landmine base unchanged. Raise the small FAR gripping hand at viewer left up and right until tucked immediately beneath lower chest. Its elbow flexes naturally behind torso. Move attached plate so rim touches lower chest. Straight single shaft from that same gripping hand to fixed landmine base; no bending or separate shaft. Do NOT change which arm grips, do NOT remove supporting hand, do NOT redraw body. Flat green backdrop remains. Exact original identity and style.",
+    "Change ONLY the far supporting hand at viewer-left knee: move palm upward onto TOP of bent knee and spread fingers naturally over kneecap so she clearly bears weight through palm. Keep supporting upper arm and all other anatomy as unchanged as possible. Keep near arm gripping bar, exact torso, head, face, clothing, legs, feet, barbell geometry, camera and landmine pivot. No added limbs, no other pose changes. Solid green background unchanged. This is a tiny hand-position repair."
+  ],
+  "resultEvidence": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-001/outputs/final-blocked-result.json"
+}

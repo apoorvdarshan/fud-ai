@@ -1,0 +1,15 @@
+{
+  "exerciseId": "Barbell_Step_Ups",
+  "status": "completed",
+  "publicationStatus": "verified",
+  "humanApproved": false,
+  "available": 8,
+  "resultPath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-next-10/workers/005/result.json",
+  "verificationPath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/astra-next-10/workers/005/publication-verification.json",
+  "snapshot": {
+    "snapshotPath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-02/repair-pass-01/parent-collected/015",
+    "backupPath": null,
+    "reportSha256": "9b71bd18a6b0dfcbaede0a3a99023c134ca6963e4accc78c62f02651a4973e9b",
+    "reviewRequestedAt": "2026-09-06T18:16:56.131429+00:00"
+  }
+}

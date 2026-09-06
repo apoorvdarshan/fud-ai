@@ -1,0 +1,122 @@
+{
+  "exerciseId": "Atlas_Stones",
+  "status": "ready_for_parent_review",
+  "published": false,
+  "originalsPreserved": true,
+  "frames": [
+    {
+      "filename": "Atlas_Stones_female_v2_0.png",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/atlas-stones/candidates/Atlas_Stones_female_v2_0.png",
+      "candidateSha256": "68ebc96f9fd9cb1125343a94aa072dabe21004049e311fbb174bccde3dbc82a8",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Atlas_Stones_female_v2_0.png",
+      "sourceSha256": "0ff334dc5a1529c8b58a6a96c1cae6781fe3ffad30442975384c5ad3389f78ad",
+      "method": "retained-previous-candidate",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Atlas_Stones_female_v2_1.png",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/atlas-stones/candidates/Atlas_Stones_female_v2_1.png",
+      "candidateSha256": "9037b24c8b5c485ca4e7e7d09d6a1e08458f93e79085597f1a6492d6a5f2b14d",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Atlas_Stones_female_v2_1.png",
+      "sourceSha256": "3ec341e13a285c260a425eea766f2c4d972f862c54934ea6a25f7f51d4ec4567",
+      "method": "retained-previous-candidate",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Atlas_Stones_female_v2_2.png",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/atlas-stones/candidates/Atlas_Stones_female_v2_2.png",
+      "candidateSha256": "e5df075f7092b1b5f969f695ff5c928971cb3abc0652b9942250065deb266f3a",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Atlas_Stones_female_v2_2.png",
+      "sourceSha256": "d011a535dd4343e2c733b681da189b831b77f07b1c3a35771e43670e9219fbe8",
+      "method": "retained-previous-candidate",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Atlas_Stones_female_v2_3.png",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/atlas-stones/candidates/Atlas_Stones_female_v2_3.png",
+      "candidateSha256": "6dcb8c38737f489d694d739d162e5e326b148fd3e0caee7d7dc7cc9c6e9965da",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Atlas_Stones_female_v2_3.png",
+      "sourceSha256": "f1297e5a4288b65ad5046db95976224f0bf71bd05c351b064946b4f7c446254c",
+      "method": "retained-previous-candidate",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Atlas_Stones_male_v2_0.png",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/atlas-stones/candidates/Atlas_Stones_male_v2_0.png",
+      "candidateSha256": "6ffe96a30279e437b30d12694cec1cc81ea80f6ed65441f9cb2b6f019b3bc4b4",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Atlas_Stones_male_v2_0.png",
+      "sourceSha256": "81c65b55761da16da80705c2b420c138596c40aa61dcf725ba1a745f82722890",
+      "method": "built-in-targeted-head-body-edit-green-key-extraction-and-alignment",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Atlas_Stones_male_v2_1.png",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/atlas-stones/candidates/Atlas_Stones_male_v2_1.png",
+      "candidateSha256": "fbec4bc35994f1165fb14ee9b3e55962a0a60f95fdbbd722dabdb68d2748127b",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Atlas_Stones_male_v2_1.png",
+      "sourceSha256": "3fa58ef69da87d128d97f5273e0cd66c6544e04096edf943bde25b4e847ac538",
+      "method": "built-in-targeted-proportion-edit-green-key-extraction-and-ground-alignment",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Atlas_Stones_male_v2_2.png",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/atlas-stones/candidates/Atlas_Stones_male_v2_2.png",
+      "candidateSha256": "249d7d8e883b0949532a44fe66e4ea590abdc8895950301cce1467df909a65eb",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Atlas_Stones_male_v2_2.png",
+      "sourceSha256": "b79a627b1e898c964a93384b25d68a858bfa72be76d3161f61d548f8fc70469c",
+      "method": "retained-previous-candidate",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Atlas_Stones_male_v2_3.png",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/atlas-stones/candidates/Atlas_Stones_male_v2_3.png",
+      "candidateSha256": "fc0974c93dc4f9a7197e9bd2567a24fcabf248f5819fc38400e06ca70286b559",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Atlas_Stones_male_v2_3.png",
+      "sourceSha256": "83100196a4a666ccb3aea3b415375f9b0468a92340033db7238caa41a6914347",
+      "method": "retained-previous-candidate",
+      "visuallyReviewed": true
+    }
+  ],
+  "findings": [
+    "Inspected all eight latest candidates individually and together on existing white/dark composites.",
+    "Recovered unfinished projectless task outputs; no latest worker result.json exists.",
+    "Existing generation plus similarity transforms already removed large trapped background gaps and approximately normalized stone diameter.",
+    "Male frame0 athlete/head appears smaller than frame1 despite stone size consistency; global rescaling alone cannot fix both invariants.",
+    "Fine colored chroma fringes remain at some contour edges. Pale patch behind male frame0 stone is rear shoe sole, not safe to delete as background.",
+    "No additional image generation, image modifications, ledger changes or publication performed in this bounded triage.",
+    "Targeted male0 built-in edit enlarged head and upper torso, preserving crouch and stone contact. First output had opaque checkerboard; second background-only edit produced usable saturated green, extracted with existing key_workout_chroma.py. Result alpha extrema0-255 at1024x768.",
+    "Aligned new male0 by0.96 scale and translation18,37 to approximately match stone size and ground; pre-alignment preserved.",
+    "Reinspected all8 combined dark/light. New male0 improved but male1 body remains bulkier; incomplete scale consistency.",
+    "Focused male1 edit reduced excessive head/torso bulk against male2 reference; retained midlift crouch and stone grip. True alpha extracted, translation and 4.5 percent uniform correction restore stone diameter/ground alignment.",
+    "All8 revised candidates validated1024x768 RGBA alpha0-255, no edge clipping (bbox maximum y760), and inspected combined white/dark. Core background and scale defects materially reduced."
+  ],
+  "unresolved": [
+    "Minor illustration/stone texture and hand shading variation remain between independently drawn phases; parent should judge animation continuity. No automatic human approval.",
+    "Browser animation playback was not performed; ordered frames inspected."
+  ],
+  "specificRepairPlan": [
+    "Do not regenerate entire sequence. Preserve frames2/3 as scale references.",
+    "Use narrowly masked built-in edit to correct only male0 head/upper-body proportions against male1 reference, retaining stone, hand contact and foot anchors.",
+    "For deterministic cleanup, isolate chroma contamination to low-alpha contour pixels rather than broad hue deletion; inspect all8 on dark/light after.",
+    "Require parent verification before publishing."
+  ],
+  "review": {
+    "allEightIndividuallyInspected": true,
+    "lightAndDarkReviewed": true,
+    "orderedSheetReviewed": true,
+    "animationPlaybackVerified": false,
+    "passed": true,
+    "evidencePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/atlas-stones/review-v3.jpg",
+    "passMeaning": "Static parent-review candidate; not human approved"
+  },
+  "generatedPaths": [
+    "/Users/apoorvdarshan/.codex/generated_images/01a077f5-fa01-7a80-be22-615c78c53eb3/exec-a13e350d-601d-4022-8a22-60399960f894.png",
+    "/Users/apoorvdarshan/.codex/generated_images/01a077f5-fa01-7a80-be22-615c78c53eb3/exec-3723bcdc-189a-495f-a318-db2feb48ca06.png",
+    "/Users/apoorvdarshan/.codex/generated_images/01a077f5-fa01-7a80-be22-615c78c53eb3/exec-0d295257-36e8-4c54-ad89-605dd959c693.png"
+  ],
+  "prompts": [
+    "male0: enlarge undersized head20percent with male1 identity/build reference, preserve crouch stone/contact; transparent output requested.",
+    "male0 background: replace checkerboard with saturated green only; preserve foreground.",
+    "male1: reduce head/torso/thigh bulk toward male2 leaner build, preserve crouch stone/contact and ground; saturated green background."
+  ]
+}

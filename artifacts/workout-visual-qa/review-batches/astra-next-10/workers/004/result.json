@@ -1,0 +1,270 @@
+{
+  "exerciseId": "Barbell_Shrug_Behind_The_Back",
+  "status": "needs_more_work",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004",
+  "findings": [
+    "All eight canonical/prior frames inspected; missing central shaft confirmed across both sequences.",
+    "All eight candidates now have a continuous silver shaft visible across rear shorts, joining original hand grips. Original finger pixels retained over insert.",
+    "First full imagegen output corrected mechanics but was an opaque 1448x1086 redraw. Rejected full redraw; narrowed correction to its small metal shaft crop and fitted only that generated insert to each original shaft line.",
+    "Original cleaned athlete, clothes, plates, camera and foot anchors retained pixel-for-pixel outside shaft insert. Prior cleared arm gaps retained.",
+    "Reviewed both four-phase sequences on light and dark backgrounds plus full-resolution grip crops. RGBA/alpha, source hashes and candidate hashes verified. No production promotion.",
+    "Resume review: narrowed finger preservation to hand junctions so orange shorts piping no longer occludes the generated shaft. Reviewed all eight on light and dark composites again.",
+    "Attempted whole-frame anchor translations, then rejected and preserved them in work/revision-2-anchor-attempt: the two feet and plate silhouettes vary independently, so translation cannot correct geometry. Final candidates retain source framing."
+  ],
+  "unresolved": [
+    "Full-sequence continuity fails: independently varying foot placement and plate silhouettes remain. Requires a consistent equipment/anatomy redraw across phases; current localized shaft repair is incomplete.",
+    "Pale source contour fringe remains on dark backgrounds."
+  ],
+  "frames": [
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_male_v2_0.png",
+      "sourceSha256": "e52644560eced69ad908d5341612d0dab19314668b005162d135901ed01a0e73",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/outputs/Barbell_Shrug_Behind_The_Back_male_v2_0.png",
+      "candidateSha256": "fb377066e9b50106e205a89ab976694ea3f6c408f59082e8ffa7fb8ff4da56dc",
+      "method": "prior_scoped_alpha_cleanup_plus_imagegen_shaft_insert_fitted_to_original_grip",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_male_v2_1.png",
+      "sourceSha256": "54fb7603e952672e5641243400c0b39d7e2de8a221d4e32c9a661f07b194f2a9",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/outputs/Barbell_Shrug_Behind_The_Back_male_v2_1.png",
+      "candidateSha256": "6dfe607f88a779d1747a1fa4ba75554218ccee7114fca35ec41c5b73a255309d",
+      "method": "prior_scoped_alpha_cleanup_plus_imagegen_shaft_insert_fitted_to_original_grip",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_male_v2_2.png",
+      "sourceSha256": "fecb0ffe7e38a983937dd897c598b651def3580f290746dd94b15d1b01aab580",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/outputs/Barbell_Shrug_Behind_The_Back_male_v2_2.png",
+      "candidateSha256": "300eee11487506bf9965b9ace866a7bc29fb99ed41cfcfec861c8ded58173617",
+      "method": "prior_scoped_alpha_cleanup_plus_imagegen_shaft_insert_fitted_to_original_grip",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_male_v2_3.png",
+      "sourceSha256": "d6a5b393f8aaf487bf92745bd46ebd966e9ac22a888641ee065dbaaf674f5926",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/outputs/Barbell_Shrug_Behind_The_Back_male_v2_3.png",
+      "candidateSha256": "28d4d913b96d369b34d5df2220134b91b2c8fc456fdd8d05a3582de8927c7367",
+      "method": "prior_scoped_alpha_cleanup_plus_imagegen_shaft_insert_fitted_to_original_grip",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_female_v2_0.png",
+      "sourceSha256": "f9086e1f92d545082ba024fa7ed170f02425c1a053066cbcef12f2e679f1122e",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/outputs/Barbell_Shrug_Behind_The_Back_female_v2_0.png",
+      "candidateSha256": "ec7359859b984c24685a68a88b5c4a74990b0033e6037f380abf5e7f6fe25891",
+      "method": "prior_scoped_alpha_cleanup_plus_imagegen_shaft_insert_fitted_to_original_grip",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_female_v2_1.png",
+      "sourceSha256": "a1d2c7e6d19cb71307d6a5f6c44eece343db382c958dd1d9244e8d12d1fdf685",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/outputs/Barbell_Shrug_Behind_The_Back_female_v2_1.png",
+      "candidateSha256": "cde407992848d9cf2ec8649995b519380389d9161fbbca79151e737a90ea2a13",
+      "method": "prior_scoped_alpha_cleanup_plus_imagegen_shaft_insert_fitted_to_original_grip",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_female_v2_2.png",
+      "sourceSha256": "e3d0117a6a97166fedf158fea26a09d9008b4d30d046fe740221614b2a8ceaf3",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/outputs/Barbell_Shrug_Behind_The_Back_female_v2_2.png",
+      "candidateSha256": "1aaf0699eb1b819295fe9f877e8a61263c1d97638121f321062bcfd6bf1cbd3e",
+      "method": "prior_scoped_alpha_cleanup_plus_imagegen_shaft_insert_fitted_to_original_grip",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_female_v2_3.png",
+      "sourceSha256": "2d017a70213e5a96fd7576a69aa00941da75a9f2610fe56048a13df7a8d0b9ac",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/outputs/Barbell_Shrug_Behind_The_Back_female_v2_3.png",
+      "candidateSha256": "981f5a3e4ca9bc363464f57b431086ddefadabbcc38c60ee60a89075597aa4b9",
+      "method": "prior_scoped_alpha_cleanup_plus_imagegen_shaft_insert_fitted_to_original_grip",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "text": "Use case: precise-object-edit. Edit target: supplied workout illustration. Fix ONLY missing center of barbell shaft: continue the existing thin silver straight bar between the two hands visibly OVER the rear black shorts, at the same line as the existing left/right shaft. Rear view behind-the-back shrug: the bar is behind his body and therefore in front of shorts in image layering. Hands wrap around shaft and remain visible over it. Preserve exact person, pose, anatomy, clothes, barbell plates, camera, scale, foot anchor and canvas. Do not redraw or recenter. Actual transparent background. No checkerboard. Keep 1024x768.",
+      "tool": "built-in imagegen",
+      "generatedPath": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-1c38-75a3-bda4-25fe813ba3d5/exec-902abf29-dded-46e3-b328-209cde1d9a05.png",
+      "generatedSha256": "356aab715b6d8eff5bbcdc4c8899efe12dbfd30759d476cd8b8003538819cbac",
+      "disposition": "Only metal crop (740,554)-(800,575) used; opaque background and redrawn athlete rejected."
+    }
+  ],
+  "validation": [
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_male_v2_0.png",
+      "mode": "RGBA",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "changedRgbBounds": [
+        480,
+        389,
+        637,
+        407
+      ],
+      "originalAlphaPreserved": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_male_v2_1.png",
+      "mode": "RGBA",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "changedRgbBounds": [
+        456,
+        392,
+        613,
+        410
+      ],
+      "originalAlphaPreserved": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_male_v2_2.png",
+      "mode": "RGBA",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "changedRgbBounds": [
+        466,
+        390,
+        630,
+        407
+      ],
+      "originalAlphaPreserved": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_male_v2_3.png",
+      "mode": "RGBA",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "changedRgbBounds": [
+        456,
+        395,
+        614,
+        414
+      ],
+      "originalAlphaPreserved": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_female_v2_0.png",
+      "mode": "RGBA",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "changedRgbBounds": [
+        464,
+        353,
+        636,
+        369
+      ],
+      "originalAlphaPreserved": false
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_female_v2_1.png",
+      "mode": "RGBA",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "changedRgbBounds": [
+        455,
+        352,
+        627,
+        368
+      ],
+      "originalAlphaPreserved": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_female_v2_2.png",
+      "mode": "RGBA",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "changedRgbBounds": [
+        460,
+        355,
+        632,
+        372
+      ],
+      "originalAlphaPreserved": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_female_v2_3.png",
+      "mode": "RGBA",
+      "size": [
+        1024,
+        768
+      ],
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "changedRgbBounds": [
+        455,
+        363,
+        622,
+        380
+      ],
+      "originalAlphaPreserved": true
+    }
+  ],
+  "evidencePaths": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/outputs/male-light.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/outputs/male-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/outputs/female-light.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/outputs/female-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/work/grips.png"
+  ],
+  "publication": {
+    "published": false,
+    "reason": "Full-sequence continuity check failed. No snapshot or ledger modified; no human decision made."
+  },
+  "validationAttemptEvidence": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/work/revision-2-anchor-attempt/male-dark.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-004/work/revision-2-anchor-attempt/female-dark.jpg"
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "exerciseId": "Bent-Arm_Barbell_Pullover",
+  "status": "working",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010",
+  "findings": [
+    "Inspected all eight originals and prior candidates. Confirmed male frame 2/3 bench, athlete scale and barbell perspective discontinuity. Prior female alpha cleanup candidates retained for full-size review."
+  ],
+  "unresolved": [
+    "Male continuity repairs in progress."
+  ],
+  "frames": [
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_male_v2_0.png",
+      "sourceSha256": "bab4fc431573806f45d481b5c4adf3ac79f17e4dfc7f24ff64d403e66474ce5d",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_male_v2_0.png",
+      "candidateSha256": "75196b22767eb2bd7ec5911b74555398abccc42049ad44b4cea148801117aeea",
+      "method": "Scoped neutral-light alpha cleanup plus premultiplied-alpha bench registration (sx=1.01449, sy=1.04878, tx=-51.86, ty=-36.83); dark/light reviewed.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_male_v2_1.png",
+      "sourceSha256": "70f0c08c3609f5f84a1d0e44a6a0dd5c3a1f90a1f92f96c6c48f1168b6070ac6",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_male_v2_1.png",
+      "candidateSha256": "352f3417c03ffd4da0c1c6a24422682696be171208cc5f2575bdc55aee1dac9e",
+      "method": "Scoped neutral-light alpha cleanup plus premultiplied-alpha bench registration (sx=0.98592, sy=1.00467, tx=-23.55, ty=-3.53); dark/light reviewed.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_male_v2_2.png",
+      "sourceSha256": "e60e21719f4618e0ce2851cf9448c7d88ba6d46ebe53519374912377337b1c15",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_male_v2_2.png",
+      "candidateSha256": "df1da24a76d13a75bfacc597d4b5e28e0532cf14f1d5116867b8f648c56bbc6c",
+      "method": "Scoped removal of the confirmed large arm-gap island and bench-hole fills plus premultiplied-alpha bench registration (sx=0.97902, sy=0.88477, tx=64.78, ty=87.00); dark/light reviewed.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_male_v2_3.png",
+      "sourceSha256": "c2fa480a8698bedbe64952ba563e154cfb6df664cff3f1439d6852535b734d3c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_male_v2_3.png",
+      "candidateSha256": "74cfcac964c777a6526ae7b7d0a3d679435d20edc7ca39a61de76b2a16cdda5b",
+      "method": "Scoped neutral-light alpha cleanup plus premultiplied-alpha bench registration (sx=1.11554, sy=0.97727, tx=-27.70, ty=17.16); dark/light reviewed.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_female_v2_0.png",
+      "sourceSha256": "0bd6f6f8510e991efdff580a188ae7a91d9085bc874265bb2882a1d592d22df2",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_female_v2_0.png",
+      "candidateSha256": "b78c9923481abe1da8f84236725b08d257f7bf90d909a9ec934536e14f3a561b",
+      "method": "Scoped cleanup of the confirmed low-contrast bench-gap sliver plus premultiplied-alpha bench registration (sx=1.07843, sy=1.06471, tx=-85.39, ty=-48.85); dark/light reviewed.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_female_v2_1.png",
+      "sourceSha256": "5cda67c68d9efb53b878166df6cd467797ce35200915b2251e2d7f2db82b29d5",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_female_v2_1.png",
+      "candidateSha256": "39137b172d6835dfe6d4089dfa3a82a6402017b7bbb7f4692059c2352a4c87da",
+      "method": "Scoped neutral-light alpha cleanup of the confirmed arm-gap and bench slivers plus premultiplied-alpha bench registration (sx=0.95238, sy=0.98907, tx=29.76, ty=8.25); dark/light reviewed.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_female_v2_2.png",
+      "sourceSha256": "28fb179acb926abb3b80471c26bcd4d3a6bb127ea9c255d36c7b0b6c65cc98c2",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_female_v2_2.png",
+      "candidateSha256": "b70baadb491480f09376f769d631754764828a48233eae66507e78609cd0076e",
+      "method": "Scoped removal of the confirmed large arm-gap island and bench-gap sliver plus premultiplied-alpha bench registration (sx=0.85271, sy=0.86190, tx=121.67, ty=104.26); dark/light reviewed.",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Barbell_Pullover_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bent-Arm_Barbell_Pullover_female_v2_3.png",
+      "sourceSha256": "1bb4a63f0812db2baa6c7069b6522fba5f6fe97b9d0a859d2af2c0f1d2859f5b",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-010/outputs/Bent-Arm_Barbell_Pullover_female_v2_3.png",
+      "candidateSha256": "298875f6b842cb0d446e98eaa678158109f788490bdbc6dfbde5c29fb207a4aa",
+      "method": "Scoped neutral-light alpha cleanup of the confirmed arm-gap and bench slivers plus premultiplied-alpha bench registration (sx=0.96491, sy=1.00556, tx=16.49, ty=-4.19); dark/light reviewed.",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "id": "built-in-imagegen-edit-trial",
+      "frames": [
+        "Bent-Arm_Barbell_Pullover_male_v2_2.png"
+      ],
+      "imagegenUsed": true,
+      "text": "Edit only the supplied male Bent-Arm Barbell Pullover frame. Remove the opaque enclosed arm-gap and bench-hole background remnants and return genuine transparent RGBA while preserving the exact athlete, barbell, bench, pose, linework, proportions, and 1024x768 framing.",
+      "outcome": "Rejected: returned an opaque RGB checkerboard and changed framing/scale. Not used as a candidate."
+    },
+    {
+      "id": "deterministic-alpha-and-registration",
+      "frames": [
+        "Bent-Arm_Barbell_Pullover_male_v2_0.png",
+        "Bent-Arm_Barbell_Pullover_male_v2_1.png",
+        "Bent-Arm_Barbell_Pullover_male_v2_2.png",
+        "Bent-Arm_Barbell_Pullover_male_v2_3.png",
+        "Bent-Arm_Barbell_Pullover_female_v2_0.png",
+        "Bent-Arm_Barbell_Pullover_female_v2_1.png",
+        "Bent-Arm_Barbell_Pullover_female_v2_2.png",
+        "Bent-Arm_Barbell_Pullover_female_v2_3.png"
+      ],
+      "imagegenUsed": false,
+      "text": "Process one original frame at a time. Remove only visually confirmed bright neutral enclosed background islands/slivers and bench-hole fills with scoped alpha cleanup. Preserve foreground artwork. Register each gender sequence to the median bench envelope with premultiplied-alpha resampling and a y=755 ground anchor. Recheck all eight exact-basename 1024x768 RGBA PNGs on dark and light composites."
+    }
+  ],
+  "reviewArtifacts": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b02-028/work",
+  "provenancePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b02-028/work/PROVENANCE.md"
+}

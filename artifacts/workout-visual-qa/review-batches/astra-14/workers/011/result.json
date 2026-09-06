@@ -1,0 +1,205 @@
+{
+  "exerciseId": "Barbell_Bench_Press_-_Medium_Grip",
+  "status": "ready_for_parent_review",
+  "revision": 2,
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011",
+  "snapshotPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/work/snapshots/revision-01",
+  "findings": [
+    "All eight revision-2 candidates are newly assembled, 1024x768 RGBA, and visually reviewed on light and dark backgrounds. Production source hashes match the revision-1 record.",
+    "Five built-in green-background edit calls: accepted male halfway, focused male bottom, female halfway and female bottom. Rejected the first male bottom attempt because the bar remained too high; corrected with an explicit chest-contact edit.",
+    "Frames 0 and 3 use the original frame3 top-position upper pose, a complete barbell and identical loop endpoints. This replaces male0 broken plate and removes endpoint framing drift without reconstructing its damaged edge.",
+    "A single keyed halfway-frame lower body and bench base is used within each gender. Entire y546..767 region is pixel-identical across each four-frame sequence, including shoes, bench feet and ground anchors. Fixed rack-top patches also share a common reference.",
+    "Female storage plate remains on the lower peg rather than jumping to the top upright. Moving bar follows top, halfway, chest-level bottom, top sequence. Major white floor islands and stray equipment fragments are absent from the revised set.",
+    "Green background was explicitly generated, then extracted with lightweight deterministic alpha/despill processing. No checkerboard accepted. Common output dimensions use the same 1448x1086-to-1024x768 resampling for every generated image; no independent subject recentering.",
+    "Original candidates and prior reports remain untouched, with an additional versioned snapshot. This report requests parent/human review and does not authorize production integration."
+  ],
+  "unresolved": [
+    "Human review should assess subtle contour, face and shading differences between the original top-position artwork and generated bent-arm regions. Exact pixel identity is not claimed; the illustration style, clothing colors and equipment type are retained.",
+    "Fine pale edge pixels from the original upper pose remain visible on dark backgrounds in places; the large floor patches are removed. No blanket white threshold was used that could erase shoe soles or metallic highlights."
+  ],
+  "frames": [
+    {
+      "filename": "Barbell_Bench_Press_-_Medium_Grip_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Bench_Press_-_Medium_Grip_male_v2_0.png",
+      "sourceSha256": "b4163b2b0c43cc25a93e556951f52ec6a24aca02840960d2af1f0122e24f026a",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/outputs/candidates-r02/Barbell_Bench_Press_-_Medium_Grip_male_v2_0.png",
+      "candidateSha256": "be19e6a4a72b3cf2c1695066f4ee949ffd4c8c2c3576162d6e1df1a005696200",
+      "method": "reference_top_pose_plus_common_keyed_stationary_regions",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Bench_Press_-_Medium_Grip_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Bench_Press_-_Medium_Grip_male_v2_1.png",
+      "sourceSha256": "fccfea57485ca2b4163d4e4bbd6cb0342e03ffb3f92d6e2b5a08f4f5232372ad",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/outputs/candidates-r02/Barbell_Bench_Press_-_Medium_Grip_male_v2_1.png",
+      "candidateSha256": "b3eb173db77f0082fc22887e0c7a42a714998d5f2c5903ba2653bfd7f1702394",
+      "method": "built_in_imagegen_pose_edit_green_key_and_common_stationary_composite",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Bench_Press_-_Medium_Grip_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Bench_Press_-_Medium_Grip_male_v2_2.png",
+      "sourceSha256": "f811fbd3b95439533b705fa1162ef0e4361e06007266279bccf82b7f43a6fd9f",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/outputs/candidates-r02/Barbell_Bench_Press_-_Medium_Grip_male_v2_2.png",
+      "candidateSha256": "eb9137c5a0eca438e6cab1c5725cf6db6d88eed0a3bd4f38e29e926ddcc38846",
+      "method": "built_in_imagegen_pose_edit_green_key_and_common_stationary_composite",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Bench_Press_-_Medium_Grip_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Bench_Press_-_Medium_Grip_male_v2_3.png",
+      "sourceSha256": "7252ee36e342f4b7a078c771e4414455ed89ae984b94f7d1434f0b0b365f8a1c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/outputs/candidates-r02/Barbell_Bench_Press_-_Medium_Grip_male_v2_3.png",
+      "candidateSha256": "be19e6a4a72b3cf2c1695066f4ee949ffd4c8c2c3576162d6e1df1a005696200",
+      "method": "reference_top_pose_plus_common_keyed_stationary_regions",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Bench_Press_-_Medium_Grip_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Bench_Press_-_Medium_Grip_female_v2_0.png",
+      "sourceSha256": "328167fd20abe7e5d33bc70857cf5db4802c9e13ffaf17fa164188500b20901f",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/outputs/candidates-r02/Barbell_Bench_Press_-_Medium_Grip_female_v2_0.png",
+      "candidateSha256": "9884359f49da136373c1815ca7277a422aa1a4196c30760ffc0667386b1fbb26",
+      "method": "reference_top_pose_plus_common_keyed_stationary_regions",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Bench_Press_-_Medium_Grip_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Bench_Press_-_Medium_Grip_female_v2_1.png",
+      "sourceSha256": "8185c34b0da3d3fb23c5cb7db88f405f2c5df9f83ac96407c803fac613145d36",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/outputs/candidates-r02/Barbell_Bench_Press_-_Medium_Grip_female_v2_1.png",
+      "candidateSha256": "5c3750c165efbfb6d0aab9d0dbf8b5234f6aff42fad60b5739e31af94f938415",
+      "method": "built_in_imagegen_pose_edit_green_key_and_common_stationary_composite",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Bench_Press_-_Medium_Grip_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Bench_Press_-_Medium_Grip_female_v2_2.png",
+      "sourceSha256": "ec6233568d45b6f9900b646705621ebd8af471592426451aadb41ccafbc5bf35",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/outputs/candidates-r02/Barbell_Bench_Press_-_Medium_Grip_female_v2_2.png",
+      "candidateSha256": "d37d8f2d506625a80b23eb2c02964e9493c92db7c22936a3ee341f402db33f7f",
+      "method": "built_in_imagegen_pose_edit_green_key_and_common_stationary_composite",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Bench_Press_-_Medium_Grip_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Bench_Press_-_Medium_Grip_female_v2_3.png",
+      "sourceSha256": "09eb229c37e5441c34cd1c1f8b96afda0659aa5df9361fd3b31dccd83da8bf0b",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/outputs/candidates-r02/Barbell_Bench_Press_-_Medium_Grip_female_v2_3.png",
+      "candidateSha256": "9884359f49da136373c1815ca7277a422aa1a4196c30760ffc0667386b1fbb26",
+      "method": "reference_top_pose_plus_common_keyed_stationary_regions",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "phase": "male_halfway",
+      "prompt": "Edit this exact illustration. Preserve 1024x768 composition and every stationary detail, athlete identity and black clothing. Change ONLY the arms and held barbell to the halfway-down phase of a medium-grip bench press: elbows bent, forearms vertical, bar halfway between current height and middle chest. Keep shoulders/head/torso, bench, rack, legs and planted shoes in exactly their current positions. Same barbell plate size. Solid pure green #00FF00 backdrop including every empty gap, no shadows, no white patches, no checkerboard. No new objects or text. Do not zoom, recenter or redesign.",
+      "outputPath": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-7bad-74c1-be0f-e93792b308dc/exec-82f44ba5-5276-4a99-ac94-ed291373e931.png",
+      "accepted": true,
+      "tool": "built-in imagegen"
+    },
+    {
+      "phase": "male_bottom_first",
+      "prompt": "Edit this exact illustration. Preserve 1024x768 composition and every stationary detail, athlete identity and black clothing. Change ONLY the arms and held barbell to the bottom phase of a medium-grip bench press: elbows bent, forearms vertical, bar gently touching the middle chest, elbows below bar with vertical forearms. Keep shoulders/head/torso, bench, rack, legs and planted shoes in exactly their current positions. Same barbell plate size. Solid pure green #00FF00 backdrop including every empty gap, no shadows, no white patches, no checkerboard. No new objects or text. Do not zoom, recenter or redesign.",
+      "outputPath": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-7bad-74c1-be0f-e93792b308dc/exec-03c6b71f-7a75-4664-ba7b-fc758655f141.png",
+      "accepted": false,
+      "tool": "built-in imagegen"
+    },
+    {
+      "phase": "male_bottom_focused",
+      "prompt": "Precise pose correction to this image only. The bar is currently too high. Lower the barbell and both hands another 75 pixels (at 1024x768 scale), until the bar physically touches the middle pectoral chest below the face. Bend elbows deeply and lower elbows beside the ribcage, below the bench cushion top; keep forearms nearly vertical. Preserve head, torso, legs, feet, bench and rack exactly. Same barbell size, same medium grip and cartoon illustration style. Keep pure #00FF00 background, including enclosed gaps. No floor or shadows. Do not move camera or scale.",
+      "outputPath": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-7bad-74c1-be0f-e93792b308dc/exec-5556c73c-33f5-4424-9a45-ed124aca4118.png",
+      "accepted": true,
+      "tool": "built-in imagegen"
+    },
+    {
+      "phase": "female_halfway",
+      "prompt": "Edit this exact illustration. Preserve 1024x768 composition and every stationary detail, athlete identity and black clothing. Change ONLY the arms and held barbell to the halfway-down phase of a medium-grip bench press: elbows bent, forearms vertical, bar halfway between current height and middle chest. Keep shoulders/head/torso, bench, rack, legs and planted shoes in exactly their current positions. Same barbell plate size. Solid pure green #00FF00 backdrop including every empty gap, no shadows, no white patches, no checkerboard. No new objects or text. Do not zoom, recenter or redesign. Preserve female ponytail and female body proportions. The single stored weight plate must remain on the LOW peg at hip height as shown, not move up the rack.",
+      "outputPath": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-7bad-74c1-be0f-e93792b308dc/exec-0af7de72-fb21-490e-b8a2-eecb36746c0f.png",
+      "accepted": true,
+      "tool": "built-in imagegen"
+    },
+    {
+      "phase": "female_bottom",
+      "prompt": "Precise pose correction to this exact female bench-press illustration. Lower the barbell and both hands another 110 pixels at 1024x768 scale, until the bar physically touches the middle pectoral chest below the face. Bend elbows deeply beside the ribcage below the bench cushion top; forearms nearly vertical. Preserve head, torso, female identity and ponytail, black clothes, legs, feet, bench and rack exactly. Same barbell size and medium grip. Keep the stored plate on the LOW peg at hip height, same position. Keep pure #00FF00 background including enclosed gaps. No floor shadows, no camera or scale change.",
+      "outputPath": "/Users/apoorvdarshan/.codex/generated_images/01a077ba-7bad-74c1-be0f-e93792b308dc/exec-00097afc-dbf9-47ab-9e39-be8a411cc085.png",
+      "accepted": true,
+      "tool": "built-in imagegen"
+    }
+  ],
+  "validation": {
+    "framesReviewed": 8,
+    "lightAndDarkReviewed": true,
+    "sequenceReviewed": true,
+    "commonLowerAnchorRegionPixelIdentical": true,
+    "loopEndpointsPixelIdentical": true,
+    "sourceHashesUnchanged": true,
+    "dimensions": "1024x768",
+    "mode": "RGBA",
+    "alphaStatistics": [
+      {
+        "filename": "Barbell_Bench_Press_-_Medium_Grip_male_v2_0.png",
+        "transparentPixels": 623008,
+        "opaquePixels": 160611,
+        "partialAlphaPixels": 2813
+      },
+      {
+        "filename": "Barbell_Bench_Press_-_Medium_Grip_male_v2_1.png",
+        "transparentPixels": 623515,
+        "opaquePixels": 157618,
+        "partialAlphaPixels": 5299
+      },
+      {
+        "filename": "Barbell_Bench_Press_-_Medium_Grip_male_v2_2.png",
+        "transparentPixels": 631138,
+        "opaquePixels": 150247,
+        "partialAlphaPixels": 5047
+      },
+      {
+        "filename": "Barbell_Bench_Press_-_Medium_Grip_male_v2_3.png",
+        "transparentPixels": 623008,
+        "opaquePixels": 160611,
+        "partialAlphaPixels": 2813
+      },
+      {
+        "filename": "Barbell_Bench_Press_-_Medium_Grip_female_v2_0.png",
+        "transparentPixels": 590502,
+        "opaquePixels": 192710,
+        "partialAlphaPixels": 3220
+      },
+      {
+        "filename": "Barbell_Bench_Press_-_Medium_Grip_female_v2_1.png",
+        "transparentPixels": 598497,
+        "opaquePixels": 181789,
+        "partialAlphaPixels": 6146
+      },
+      {
+        "filename": "Barbell_Bench_Press_-_Medium_Grip_female_v2_2.png",
+        "transparentPixels": 609587,
+        "opaquePixels": 171127,
+        "partialAlphaPixels": 5718
+      },
+      {
+        "filename": "Barbell_Bench_Press_-_Medium_Grip_female_v2_3.png",
+        "transparentPixels": 590502,
+        "opaquePixels": 192710,
+        "partialAlphaPixels": 3220
+      }
+    ],
+    "builtInImagegenAttemptsThisRevision": 5,
+    "acceptedGeneratedPoseSources": 4,
+    "productionSourcesChanged": false
+  },
+  "reviewEvidencePaths": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/outputs/male-r02-light.png",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/outputs/male-r02-dark.png",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/outputs/female-r02-light.png",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/outputs/female-r02-dark.png"
+  ],
+  "provenanceFiles": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/work/revision2.py",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/work/assemble_r02.py",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-011/work/prompts-r02.json"
+  ]
+}

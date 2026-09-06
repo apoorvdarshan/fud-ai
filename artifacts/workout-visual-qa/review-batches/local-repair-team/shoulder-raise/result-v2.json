@@ -1,0 +1,149 @@
+{
+  "exerciseId": "Barbell_Incline_Shoulder_Raise",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-001",
+  "findings": [
+    "Eight unique candidates using authorized source stationary-region compositing; no further image generation.",
+    "Locked feet, lower legs, lower bench supports and rack sides to frame0. Moving upper-body, arms and barbell artwork retained.",
+    "Removed isolated alpha fragments under80px and tightly bounded floor residue.",
+    "Revised first-pass torso/backrest and rack-tip mask seams. All8 inspected again on light/dark.",
+    "Production and prior candidates untouched; no publication."
+  ],
+  "unresolved": [
+    "Moving torso/backrest junction retains original phase-dependent backrest contour. Fixed lower bench and rack no longer jump, but residual upper backrest change needs parent judgment.",
+    "Original pale metal edge highlights preserved as foreground."
+  ],
+  "frames": [
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_male_v2_0.png",
+      "sourceSha256": "4f693e14634d6da64d5c87aa334dfbbccdee0e16a05111ec5bc02c2a73ea9caa",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/shoulder-raise/candidates-v2/Barbell_Incline_Shoulder_Raise_male_v2_0.png",
+      "candidateSha256": "4bfa0f0af37cc2c5bb97f19f58a8a717bef38b8c4fc411f1c7d9a8afeaf541c7",
+      "method": "stationary_source_region_compositing_and_targeted_alpha_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_male_v2_1.png",
+      "sourceSha256": "e6a43df5aa81f75452f023e545d77e6a6d3a5e85d88e4ade25a8827bbb508b43",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/shoulder-raise/candidates-v2/Barbell_Incline_Shoulder_Raise_male_v2_1.png",
+      "candidateSha256": "782668de962c2ee2eab82af37938b3268ecd6699d5981dc6369e50a52fb320fe",
+      "method": "stationary_source_region_compositing_and_targeted_alpha_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_male_v2_2.png",
+      "sourceSha256": "a8305fb3b70a6b812d4b17cd8837621069b1a1e24378730f35286bc09d9d35b5",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/shoulder-raise/candidates-v2/Barbell_Incline_Shoulder_Raise_male_v2_2.png",
+      "candidateSha256": "59e853a414da35c74a7d130fc8eea555869f06952f748cd1a0ecd6cff49fcaa1",
+      "method": "stationary_source_region_compositing_and_targeted_alpha_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_male_v2_3.png",
+      "sourceSha256": "56fd4dc19f92bf653eb78b3372ddc061ed65202068b274b183bea04ccd702bd6",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/shoulder-raise/candidates-v2/Barbell_Incline_Shoulder_Raise_male_v2_3.png",
+      "candidateSha256": "a329c95ca7b5de65b5b1b7ee5635ca7307cdb5073b9f3ccc388fb7ab801d5909",
+      "method": "stationary_source_region_compositing_and_targeted_alpha_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_female_v2_0.png",
+      "sourceSha256": "512b018df8c9a83c36926be34921aea8f1658cd783d221dcc38932cb2bac3128",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/shoulder-raise/candidates-v2/Barbell_Incline_Shoulder_Raise_female_v2_0.png",
+      "candidateSha256": "5c476512b9fbf04d2f5e62eb67b7721250836328cf68a8751cc033a438b08123",
+      "method": "stationary_source_region_compositing_and_targeted_alpha_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_female_v2_1.png",
+      "sourceSha256": "905683aace5b19a45f7019b79cf239ef15a0c8d4b5635028eb15b33aeb481a67",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/shoulder-raise/candidates-v2/Barbell_Incline_Shoulder_Raise_female_v2_1.png",
+      "candidateSha256": "5d2fe37a793cf0db454b5e045bebeb098d218499fa0e2842ae431bc8e23aeca8",
+      "method": "stationary_source_region_compositing_and_targeted_alpha_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_female_v2_2.png",
+      "sourceSha256": "895557f60afa3367a24a62a0dcfd0310607e5544ec164bdfcdd95b3eb106727c",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/shoulder-raise/candidates-v2/Barbell_Incline_Shoulder_Raise_female_v2_2.png",
+      "candidateSha256": "6d8b8bd1beb9e7f489764bb97889198b0c3b08f242ed6fc3d7bc145549dacebb",
+      "method": "stationary_source_region_compositing_and_targeted_alpha_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_female_v2_3.png",
+      "sourceSha256": "a4e02f2a4ad2a915df257ee0547b49b934ea781980bd7d36d4a6d170854eb2c2",
+      "candidatePath": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/shoulder-raise/candidates-v2/Barbell_Incline_Shoulder_Raise_female_v2_3.png",
+      "candidateSha256": "c1918088b512968b7d258dfe99a5c3301250ef7548dce48c1fed5df80f90e6ad",
+      "method": "stationary_source_region_compositing_and_targeted_alpha_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "attempt": 1,
+      "target": "male frame1 wrist crop",
+      "prompt": "Remove only two black wrist wraps; continuous tan skin; preserve grip, bar, forearms, exact crop; real transparency.",
+      "output": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-0e29-72b1-a3dd-ef1eb0ff601c/exec-e8ae4bb7-bcbf-48af-a56a-8ff1e8049fb2.png",
+      "outcome": "Rejected full output: RGB painted checkerboard and altered bar/palm. Interior patch trials rejected for seams."
+    },
+    {
+      "attempt": 2,
+      "target": "female frame1 wrist crop",
+      "prompt": "Remove only black wristbands; continuous tan skin; preserve silhouette, grip, bar, exact crop; solid #00ff00 background.",
+      "output": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-0e29-72b1-a3dd-ef1eb0ff601c/exec-225dc618-f1e9-4f61-9f0d-b69c7c9678f8.png",
+      "outcome": "Rejected: hand placement/detail mismatch; local patches left contour/seam and green-edge artifacts."
+    },
+    {
+      "attempt": 3,
+      "target": "female frame0 240x200 bench crop",
+      "prompt": "Restore fragmented diagonal and short upright as continuous gray rectangular metal tubing, preserve leg/shoe and all other equipment/crop positions; solid #00ff00 background.",
+      "output": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-0e29-72b1-a3dd-ef1eb0ff601c/exec-abd446ce-1044-49f2-848e-89c241744700.png",
+      "outcome": "Localized tube polygon retained; other generated scene pixels excluded; real alpha extracted in patch."
+    },
+    {
+      "attempt": 4,
+      "target": "female frame1 wrist crop with female frame0 same-person reference",
+      "prompt": "Edit image1 only. Image2 is same athlete bare wrists. Match exact anatomy/thin line style while preserving image1 silhouette, bar angle/thickness, crop and forearm positions; solid green.",
+      "output": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-0e29-72b1-a3dd-ef1eb0ff601c/exec-cb5bfaf3-fe46-45f9-a434-b1849b754b19.png",
+      "outcome": "Rejected: enlarged bar and simplified palm anatomy/shading still incompatible with exact insertion."
+    },
+    {
+      "attempt": 5,
+      "target": "female frame1 full frame as stronger spatial reference",
+      "prompt": "Remove wrist wraps and repair damaged bench support; preserve exact woman, pose, equipment scale and anchors; solid green background.",
+      "output": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-0e29-72b1-a3dd-ef1eb0ff601c/exec-3b7dcabd-38a2-416e-9e6a-994409ac5340.png",
+      "outcome": "Whole frame rejected for face/equipment redraw. Local wrist and upright patches retained; set still blocked by sequence quality."
+    },
+    {
+      "attempt": 6,
+      "target": "male frame1 full frame as stronger spatial reference",
+      "prompt": "Remove only both black wrist wraps; preserve exact positions, hand/bar angles, fine illustration, body and equipment; solid green backdrop.",
+      "output": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-0e29-72b1-a3dd-ef1eb0ff601c/exec-8d8319a6-5d43-4938-9cad-4859bacf20fb.png",
+      "outcome": "Whole frame rejected. Local wrist patches retained; set still blocked by bench/anchor quality."
+    }
+  ],
+  "evidencePaths": [
+    "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/shoulder-raise/candidates-v2/review-dark.jpg",
+    "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/local-repair-team/shoulder-raise/candidates-v2/review-light.jpg"
+  ],
+  "humanApproval": false,
+  "updatedAt": "2026-09-06T18:32:42.205Z",
+  "publication": {
+    "published": false
+  },
+  "humanApproved": false,
+  "localTeamReview": {
+    "allEightInspectedLightDark": true,
+    "compositingRevisions": 2,
+    "noFurtherImagegen": true
+  }
+}

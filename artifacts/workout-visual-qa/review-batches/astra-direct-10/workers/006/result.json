@@ -1,0 +1,130 @@
+{
+  "exerciseId": "Ankle_On_The_Knee",
+  "index": 31,
+  "status": "blocked",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-006",
+  "findings": [
+    "All eight existing candidates inspected in light and dark composites and ordered contact sheet.",
+    "Existing alpha cleanup correctly clears enclosed leg gaps; direct RGBA preview can misleadingly show hidden RGB pixels.",
+    "Return-pose frames 0 and 3 change torso length, arm placement and head position in both genders, especially female.",
+    "Eight canonical source hashes and candidate hashes verified; originals preserved.",
+    "Two fresh built-in edit attempts rejected; no generated output promoted."
+  ],
+  "unresolved": [
+    "Return-pose continuity and body-scale mismatch remain in both genders.",
+    "Built-in correction and focused transparency retry both returned opaque RGB checkerboard images, unsuitable for these transparent animation assets."
+  ],
+  "frames": [
+    {
+      "filename": "Ankle_On_The_Knee_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ankle_On_The_Knee_male_v2_0.png",
+      "sourceSha256": "6c3156777f926b8c342be1390aa5a97e000bc66db586396e7ef93a450ac50bc5",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-006/work/candidates/Ankle_On_The_Knee_male_v2_0.png",
+      "candidateSha256": "6c3156777f926b8c342be1390aa5a97e000bc66db586396e7ef93a450ac50bc5",
+      "method": "retained_previous_unchanged",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ankle_On_The_Knee_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ankle_On_The_Knee_male_v2_1.png",
+      "sourceSha256": "cfac5a299a1c24ded87a861a85af90f974f1fafc49b6adcd214bb1e2954406fb",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-006/work/candidates/Ankle_On_The_Knee_male_v2_1.png",
+      "candidateSha256": "a28a9eb49f7cf6b194594b7cd3679a1506d768101a77a0e9419cbefb49006f5f",
+      "method": "retained_previous_script_fix",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ankle_On_The_Knee_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ankle_On_The_Knee_male_v2_2.png",
+      "sourceSha256": "90e77a7e0e5c27f54a48774ab61be9a27b09148b8b14117543171ecfc7df9686",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-006/work/candidates/Ankle_On_The_Knee_male_v2_2.png",
+      "candidateSha256": "e3771bf6bfde444143653ad635e107cb025a06f95d1fa153833d390719b81d6c",
+      "method": "retained_previous_script_fix",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ankle_On_The_Knee_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ankle_On_The_Knee_male_v2_3.png",
+      "sourceSha256": "439ddf2d4bc9f8fb3e419c56778cbd1ae50368c90f51340f47850c3c3f581517",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-006/work/candidates/Ankle_On_The_Knee_male_v2_3.png",
+      "candidateSha256": "439ddf2d4bc9f8fb3e419c56778cbd1ae50368c90f51340f47850c3c3f581517",
+      "method": "retained_previous_unchanged",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ankle_On_The_Knee_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ankle_On_The_Knee_female_v2_0.png",
+      "sourceSha256": "a4474bdac31c442fe05cd0f172d751e51f5fcb29e52020867cdcc9dc1d6492af",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-006/work/candidates/Ankle_On_The_Knee_female_v2_0.png",
+      "candidateSha256": "b35fbb5dcb82cb69c6d8dfba91d2784b7a9f02423b8f372e56cc5ef4c5624b12",
+      "method": "retained_previous_script_fix",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ankle_On_The_Knee_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ankle_On_The_Knee_female_v2_1.png",
+      "sourceSha256": "4a6685776c644d45f10bdbf43daa87e4d79f3b82eea0cdbd9a63946ec243dd2d",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-006/work/candidates/Ankle_On_The_Knee_female_v2_1.png",
+      "candidateSha256": "53dcb4f9d60d6872ffc61fdbaaea66a4cf48d1b0f24d81b99768288b1fe18124",
+      "method": "retained_previous_script_fix",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ankle_On_The_Knee_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ankle_On_The_Knee_female_v2_2.png",
+      "sourceSha256": "63325ad74a78771382998e23614cde7dc947bed4b455c1e84e7a76b7e62b79ab",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-006/work/candidates/Ankle_On_The_Knee_female_v2_2.png",
+      "candidateSha256": "cf2a673656f2e71db05c251d6475207b74965d9acb6063f95d008d7b2726af37",
+      "method": "retained_previous_script_fix",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Ankle_On_The_Knee_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Ankle_On_The_Knee_female_v2_3.png",
+      "sourceSha256": "c5538415b0eff45f4fe7c38e6adbc8858ffba89265f681e46a0d5b48242ffb71",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-006/work/candidates/Ankle_On_The_Knee_female_v2_3.png",
+      "candidateSha256": "c5538415b0eff45f4fe7c38e6adbc8858ffba89265f681e46a0d5b48242ffb71",
+      "method": "retained_previous_unchanged",
+      "visuallyReviewed": true
+    }
+  ],
+  "prompts": [
+    {
+      "tool": "built_in_imagegen",
+      "prompt": "Use case: background-extraction and identity-preserve. Edit target Image 1 (female frame 0). Create a corrected exercise animation return frame identical in illustration, body proportions, canvas 1024x768, placement, face, clothes, shoes, bent knees, arms and pose to Image 1. Remove the remaining solid white triangular sliver BETWEEN the lower shins above the shoes: this is background and must be real alpha transparency. All empty space including enclosed gaps must be genuine alpha=0, never painted checkerboard/black/white. Image 2 is the faulty return pose reference only: do not reproduce its longer torso or displaced head. Preserve Image 1 artwork exactly and avoid cropping or rescaling. Return transparent RGBA PNG.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-006/work/exec-49797ae7-5a6c-41fa-9377-f96094252ee1.png",
+      "sha256": "0d9f394663db52e89b37f46daf616ffe9505f7442dcec187def0ed7f23727289",
+      "mode": "RGB",
+      "size": [
+        1448,
+        1086
+      ],
+      "status": "rejected",
+      "reason": "Opaque RGB painted checkerboard, changed framing/style; no usable alpha channel"
+    },
+    {
+      "tool": "built_in_imagegen",
+      "prompt": "Extract the person from this image as a truly transparent RGBA PNG with an alpha channel. Remove ALL gray and white checkerboard squares from exterior and enclosed leg gaps. Checkerboard is unwanted painted background; do not draw any checkerboard. Do not redraw or change the person. Retain exact pose, face, clothing, shoes, lines and colors. Output isolated person against actual transparent empty space.",
+      "outputPath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-direct10-006/work/exec-2d7a6fe2-40b5-4b2d-8a44-7c7526c6ad5f.png",
+      "sha256": "11f778c8d66a8a5bccbb7bd79d748a30f73ed188e69e8dfd76bfcdfab46a2564",
+      "mode": "RGB",
+      "size": [
+        1448,
+        1086
+      ],
+      "status": "rejected",
+      "reason": "Opaque RGB painted checkerboard, changed framing/style; no usable alpha channel"
+    }
+  ],
+  "review": {
+    "lightAndDark": true,
+    "orderedFramesReviewed": true,
+    "animationPlaybackVerified": false,
+    "passed": false
+  },
+  "publication": {
+    "published": false,
+    "reason": "Full visual checks did not pass; no ledger or collected-set changes made."
+  },
+  "createdAt": "2026-09-06T18:20:27.804389+00:00"
+}

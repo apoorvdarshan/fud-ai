@@ -1,0 +1,16 @@
+{
+  "source_sha256": "0ff334dc5a1529c8b58a6a96c1cae6781fe3ffad30442975384c5ad3389f78ad",
+  "candidate_sha256": "4ad9a55909a16649238315f23c67eb841e18b6f0438d34a2c97ce64cb2a14392",
+  "generated_sha256": "08d35fea277b1b1767aaeab62a89a635ce47103c4dfe97745d6852e14caf1fc4",
+  "generated_path": "/Users/apoorvdarshan/.codex/generated_images/01a05826-5c4d-7b12-b737-cce2f27797d0/exec-f5010057-1d29-4fc0-804a-ea1ec92e847c.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

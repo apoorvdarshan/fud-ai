@@ -1,0 +1,23 @@
+{
+  "exerciseId": "Bench_Dips",
+  "status": "ready_for_parent_review",
+  "candidateHashesMatchReport": 8,
+  "frameCount": 8,
+  "allMode": "RGBA",
+  "allDimensions": [1024,768],
+  "alphaZeroCountsMale0to3Female0to3": [643640,644366,637573,646485,642783,650198,654435,643490],
+  "inspection": "All eight individual full-size ordered frames plus prior white/dark contact sheets examined. Full-size inspection supersedes initial contactsheet readiness assessment.",
+  "blockingFindings": [
+    "Male phase1 foot stool still contains painted checkerboard in central gap approximately x735-775,y588-607 and far-right gap x791-802,y590-609.",
+    "Female phase1 central gap patch was removed but far-right internal gap still contains painted checkerboard approximately x790-801,y595-628."
+  ],
+  "otherFindings": [
+    "Female phase2 has both forearms and hands contacting rear seat; missing-arm defect resolved.",
+    "Female phase2 restored bench metal is darker than other phases; small bench geometry differences remain.",
+    "Ground baselines remain within approximately 4px female and 1px male. Rear seat near-edge height approximately y510-525 across phases, with frame-specific perspective variation.",
+    "White edge outlines remain from prior artwork cutout in several frames. No cropped athlete or equipment at canvas edges."
+  ],
+  "resolution": "Both phase1 central and far-right checkerboard gap remnants cleared with narrowly scoped neutral-pixel alpha cleanup. Both changed frames re-inspected at full size; six other candidate hashes unchanged. Report hashes updated.",
+  "publicationRecommendation": "Ready for parent check; historical blockingFindings above are resolved by this validation follow-up.",
+  "candidateFilesModifiedDuringValidation": true
+}

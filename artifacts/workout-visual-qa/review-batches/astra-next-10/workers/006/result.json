@@ -1,0 +1,215 @@
+{
+  "exerciseId": "Battling_Ropes",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-006",
+  "findings": [
+    "All eight inspected on light and dark. Confirmed male frame 0 rope truncation at x973.",
+    "Repaired rope exits by resizing only existing tail region x800:974 to x800:1024. Athlete and grips remain pixel-exact to aligned prior candidate.",
+    "Other seven reviewed candidates retained byte-for-byte; male frames 1-2 identical to canonical originals. Prior background cleanup remains clean.",
+    "Gender sequences have consistent scale and foot anchors, plausible alternating mechanics. Female phases 2/3 have similar hands but different rope waves; retained."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Battling_Ropes_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Battling_Ropes_male_v2_0.png",
+      "sourceSha256": "5d36cb34bc1c71a8b587b95cdd94c7cfcaada8cd22923e06c2c2d14b75d417cc",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-006/outputs/Battling_Ropes_male_v2_0.png",
+      "candidateSha256": "e18dc1c12754301b68125527171376200863fee6e670a9624bd20b582e3974eb",
+      "method": "Retained prior -50px alignment; horizontally resized existing RGBA rope tails only from x800:974 to x800:1024 with bicubic sampling. All pixels left of x800 unchanged.",
+      "visuallyReviewed": true,
+      "validation": {
+        "storedMode": "RGBA",
+        "decodedMode": "RGBA",
+        "dimensions": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 653173,
+        "partialAlphaPixels": 24216
+      }
+    },
+    {
+      "filename": "Battling_Ropes_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Battling_Ropes_male_v2_1.png",
+      "sourceSha256": "db25eb311ca1d8850ef18b6e4ac934c431747b24f53a6689dbb3d1e3ec2a4fbb",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-006/outputs/Battling_Ropes_male_v2_1.png",
+      "candidateSha256": "db25eb311ca1d8850ef18b6e4ac934c431747b24f53a6689dbb3d1e3ec2a4fbb",
+      "method": "unchanged",
+      "visuallyReviewed": true,
+      "validation": {
+        "storedMode": "P",
+        "decodedMode": "RGBA",
+        "dimensions": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 658638,
+        "partialAlphaPixels": 9772
+      }
+    },
+    {
+      "filename": "Battling_Ropes_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Battling_Ropes_male_v2_2.png",
+      "sourceSha256": "06d6390f9b01f9e3ae40c183cf3056842306d48e6b84fbd29e140e5a3e45cdc5",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-006/outputs/Battling_Ropes_male_v2_2.png",
+      "candidateSha256": "06d6390f9b01f9e3ae40c183cf3056842306d48e6b84fbd29e140e5a3e45cdc5",
+      "method": "unchanged",
+      "visuallyReviewed": true,
+      "validation": {
+        "storedMode": "P",
+        "decodedMode": "RGBA",
+        "dimensions": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 660464,
+        "partialAlphaPixels": 10211
+      }
+    },
+    {
+      "filename": "Battling_Ropes_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Battling_Ropes_male_v2_3.png",
+      "sourceSha256": "5f268916586c1587f8fd99ef11b03359fc20c00296867473363fe661b62f5a70",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-006/outputs/Battling_Ropes_male_v2_3.png",
+      "candidateSha256": "46a93b64943dac5ff6e3f78c718c5724591023f44d6b38fde8c1cc9c9d6bcf5c",
+      "method": "Retained reviewed prior candidate unchanged: Deterministic connected-component alpha cleanup of the two neutral-light opaque background regions in the arm gap and far-right rope-exit region; foreground artwork and pose were preserved.",
+      "visuallyReviewed": true,
+      "validation": {
+        "storedMode": "RGBA",
+        "decodedMode": "RGBA",
+        "dimensions": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 658149,
+        "partialAlphaPixels": 12860
+      }
+    },
+    {
+      "filename": "Battling_Ropes_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Battling_Ropes_female_v2_0.png",
+      "sourceSha256": "c2acb0391779aab27ec3b5b5fd70925c304ce82f1f7c299165e9d84cb00d4f6b",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-006/outputs/Battling_Ropes_female_v2_0.png",
+      "candidateSha256": "ae51542ca9a67d25576881f7e9ed27f3d3bd9afdca7b6872228985683c5a3dbe",
+      "method": "Retained reviewed prior candidate unchanged: Deterministic alpha cleanup of neutral-light opaque background pixels limited to the ponytail repair region x=200..349, y=45..199; foreground hair colors and pose were preserved.",
+      "visuallyReviewed": true,
+      "validation": {
+        "storedMode": "RGBA",
+        "decodedMode": "RGBA",
+        "dimensions": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 658153,
+        "partialAlphaPixels": 24870
+      }
+    },
+    {
+      "filename": "Battling_Ropes_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Battling_Ropes_female_v2_1.png",
+      "sourceSha256": "2be3df69b4f736e9a27d9dbcfd9ab379f225bfbcd3a93d23596d625b6f4d9bfa",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-006/outputs/Battling_Ropes_female_v2_1.png",
+      "candidateSha256": "3534fdeaa7756a335cab836d882fd447a13c60714513234ba53093eba5795b25",
+      "method": "Retained reviewed prior candidate unchanged: Deterministic alpha cleanup of neutral-light opaque background pixels limited to the ponytail repair region x=200..349, y=45..199; foreground hair colors and pose were preserved.",
+      "visuallyReviewed": true,
+      "validation": {
+        "storedMode": "RGBA",
+        "decodedMode": "RGBA",
+        "dimensions": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 659944,
+        "partialAlphaPixels": 19111
+      }
+    },
+    {
+      "filename": "Battling_Ropes_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Battling_Ropes_female_v2_2.png",
+      "sourceSha256": "710ac0bb87ba863d14476d3f8f0a4cae3844f4815f88503e20bf0ca60cd3cdb2",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-006/outputs/Battling_Ropes_female_v2_2.png",
+      "candidateSha256": "9f15a70bfda3c001137a28dc1e5bd12aae0d3e7475ac521e11a5a2ae19541bb5",
+      "method": "Retained reviewed prior candidate unchanged: Deterministic alpha cleanup of neutral-light opaque background pixels limited to the ponytail repair region x=200..349, y=45..199; foreground hair colors and pose were preserved.",
+      "visuallyReviewed": true,
+      "validation": {
+        "storedMode": "RGBA",
+        "decodedMode": "RGBA",
+        "dimensions": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 666475,
+        "partialAlphaPixels": 9069
+      }
+    },
+    {
+      "filename": "Battling_Ropes_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Battling_Ropes_female_v2_3.png",
+      "sourceSha256": "22914125b5b45109e90a4742ae7181f6fdae8a8b31c03348c48af7971a6df485",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-006/outputs/Battling_Ropes_female_v2_3.png",
+      "candidateSha256": "6fb9a4335826fb97e5aa1d757e2c4a9d6dbf2defcf920ae7880e142bacaee779",
+      "method": "Retained reviewed prior candidate unchanged: Deterministic alpha cleanup of neutral-light opaque background pixels limited to the ponytail repair region x=200..349, y=45..199; foreground hair colors and pose were preserved.",
+      "visuallyReviewed": true,
+      "validation": {
+        "storedMode": "RGBA",
+        "decodedMode": "RGBA",
+        "dimensions": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPixels": 663386,
+        "partialAlphaPixels": 10171
+      }
+    }
+  ],
+  "prompts": [
+    {
+      "kind": "built_in_imagegen",
+      "prompt": "Extend both cut rope tails from x973 to canvas edge x1023. Preserve athlete, pose, scale and existing pixels. Genuine transparent RGBA; no checkerboard.",
+      "accepted": false,
+      "outputPath": "/Users/apoorvdarshan/.codex/generated_images/01a077c9-2aef-74f1-bae4-fbfe0ec67e46/exec-845e757a-a922-4b02-9eef-e18029aa4789.png",
+      "reason": "1448x1086 RGB painted checkerboard and redrawn athlete; rejected."
+    },
+    {
+      "kind": "narrow_deterministic_revision",
+      "details": "Resize only existing rope tails from 174px to 224px width. Preserve existing alpha. Inspect joins, rope width and continuous exits on light/dark."
+    }
+  ],
+  "evidencePaths": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-006/outputs/review-light.png",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-006/outputs/review-dark.png"
+  ]
+}

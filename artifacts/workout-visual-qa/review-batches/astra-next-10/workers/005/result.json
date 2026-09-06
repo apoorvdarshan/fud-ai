@@ -1,0 +1,271 @@
+{
+  "exerciseId": "Barbell_Step_Ups",
+  "status": "ready_for_parent_review",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-005",
+  "reviewedAt": "2026-09-06T18:16:33.994049+00:00",
+  "findings": [
+    "All eight frames reviewed on light and dark backgrounds and as complete male/female phase sequences. Both peaks now fully extend the support hip and knee and bring the trailing foot onto the platform.",
+    "Peak platforms were reconstructed from the frame1 fixed-equipment reference. A magnified ankle inspection caught a composite seam; two additional built-in imagegen crop edits repaired the ankle/collar joins and sole contact. Their keyed lower-leg patches were blended into the peak without redrawing the upper body.",
+    "All eight use the same camera transform to restore canonical 1024x768 dimensions with transparent head and ground clearance; no independent visible-bbox recentering. Six nonpeak drawings were retained from the previous source-derived reframes.",
+    "Final inspection found no visible checkerboard, opaque background islands, clipped equipment/anatomy, doubled collar, or material platform/contact jump. Head and plate scale remain coherent through the peak; small hand-drawn contour/shading variations remain.",
+    "All expected basenames, canonical source paths and freshly recomputed source/candidate hashes validated against batch-02 index15. Canonical production assets untouched."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Step_Ups_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Step_Ups_male_v2_0.png",
+      "sourceSha256": "81aff5530911ed71114c40043b16a8dd69294cacddee990182e677e457bc67a3",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-005/outputs/resume-01/Barbell_Step_Ups_male_v2_0.png",
+      "candidateSha256": "a15ec0e9200107c93017caa81f01e6c9c58112eb69521a2fb2e645ac2dd437af",
+      "method": "prior_source_reframe_retained_shared_camera",
+      "visuallyReviewed": true,
+      "validation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          230,
+          196,
+          778,
+          738
+        ],
+        "transparentPixels": 674795,
+        "opaquePixels": 92837,
+        "intermediateAlphaPixels": 18800,
+        "lightAndDarkReviewed": true
+      }
+    },
+    {
+      "filename": "Barbell_Step_Ups_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Step_Ups_male_v2_1.png",
+      "sourceSha256": "787dea0fbf978eaa4a069671c3c2d3b894f4852a0382cd6183592d4a63df571b",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-005/outputs/resume-01/Barbell_Step_Ups_male_v2_1.png",
+      "candidateSha256": "424d143f5b7c95ddee2a7fc53798232b7b359bd14203ec776429545a407f9b6a",
+      "method": "prior_source_reframe_retained_shared_camera",
+      "visuallyReviewed": true,
+      "validation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          231,
+          167,
+          773,
+          734
+        ],
+        "transparentPixels": 679599,
+        "opaquePixels": 88609,
+        "intermediateAlphaPixels": 18224,
+        "lightAndDarkReviewed": true
+      }
+    },
+    {
+      "filename": "Barbell_Step_Ups_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Step_Ups_male_v2_2.png",
+      "sourceSha256": "23cdf5e4898750a82a174e7c519f1031118905f780b40af981e1ff29920cc781",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-005/outputs/resume-01/Barbell_Step_Ups_male_v2_2.png",
+      "candidateSha256": "3739ce1564d64dbd498a857206c048251bdf38be389005a73999ccb390dc5e19",
+      "method": "built_in_peak_edit_fixed_platform_ankle_refinement_chroma_shared_camera",
+      "visuallyReviewed": true,
+      "validation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          170,
+          32,
+          707,
+          734
+        ],
+        "transparentPixels": 678707,
+        "opaquePixels": 90051,
+        "intermediateAlphaPixels": 17674,
+        "lightAndDarkReviewed": true
+      }
+    },
+    {
+      "filename": "Barbell_Step_Ups_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Step_Ups_male_v2_3.png",
+      "sourceSha256": "41c0904467e3419cdefd814f8351e6e4419940b02debed6654df5805d3895198",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-005/outputs/resume-01/Barbell_Step_Ups_male_v2_3.png",
+      "candidateSha256": "0f9e7d7ee6011ffbb67496e5bcf346d261ae5bea1310e012daa36cacb39f10a5",
+      "method": "prior_source_reframe_retained_shared_camera",
+      "visuallyReviewed": true,
+      "validation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          224,
+          201,
+          782,
+          737
+        ],
+        "transparentPixels": 675895,
+        "opaquePixels": 93460,
+        "intermediateAlphaPixels": 17077,
+        "lightAndDarkReviewed": true
+      }
+    },
+    {
+      "filename": "Barbell_Step_Ups_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Step_Ups_female_v2_0.png",
+      "sourceSha256": "28bb104c041b37878a260b9cde4d2a92bde9fa9f3ecb17ae9b69c71c17fd9cc7",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-005/outputs/resume-01/Barbell_Step_Ups_female_v2_0.png",
+      "candidateSha256": "b3b90f50786bff7b395c4dd63a34db3c8cccaa36f89dd73dc02bef52dbad9232",
+      "method": "prior_source_reframe_retained_shared_camera",
+      "visuallyReviewed": true,
+      "validation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          275,
+          212,
+          746,
+          730
+        ],
+        "transparentPixels": 700400,
+        "opaquePixels": 70218,
+        "intermediateAlphaPixels": 15814,
+        "lightAndDarkReviewed": true
+      }
+    },
+    {
+      "filename": "Barbell_Step_Ups_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Step_Ups_female_v2_1.png",
+      "sourceSha256": "bc667a430d539e6b4c5404b2af4d36f72ee0a06a7e9ca76bf50971e345236b2c",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-005/outputs/resume-01/Barbell_Step_Ups_female_v2_1.png",
+      "candidateSha256": "f04cc68c5c780ebc09f1203fa247858e6417a16377f36a8cd4bb19a8aeaf4628",
+      "method": "prior_source_reframe_retained_shared_camera",
+      "visuallyReviewed": true,
+      "validation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          262,
+          187,
+          730,
+          729
+        ],
+        "transparentPixels": 706160,
+        "opaquePixels": 63551,
+        "intermediateAlphaPixels": 16721,
+        "lightAndDarkReviewed": true
+      }
+    },
+    {
+      "filename": "Barbell_Step_Ups_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Step_Ups_female_v2_2.png",
+      "sourceSha256": "75525898ecadcc01fab52c8e5db3e45db2c860b0726e4c110da5f13dc69d926a",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-005/outputs/resume-01/Barbell_Step_Ups_female_v2_2.png",
+      "candidateSha256": "ceceeab1761f97f5fecfd6c199843f0615c5ec4b017da7dd67041ccce8dd8d8a",
+      "method": "built_in_peak_edit_fixed_platform_ankle_refinement_chroma_shared_camera",
+      "visuallyReviewed": true,
+      "validation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          226,
+          64,
+          710,
+          728
+        ],
+        "transparentPixels": 698633,
+        "opaquePixels": 71233,
+        "intermediateAlphaPixels": 16566,
+        "lightAndDarkReviewed": true
+      }
+    },
+    {
+      "filename": "Barbell_Step_Ups_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Barbell_Step_Ups_female_v2_3.png",
+      "sourceSha256": "615f9667f6af8c38ed9a5815d1c6eed36c6b159bc8ff1023f8e05e0c719fd0c8",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-005/outputs/resume-01/Barbell_Step_Ups_female_v2_3.png",
+      "candidateSha256": "3c784a004167f35aaf97c3534dc19ffdd85d5c2bae047b5e36e16c73ac6a0551",
+      "method": "prior_source_reframe_retained_shared_camera",
+      "visuallyReviewed": true,
+      "validation": {
+        "mode": "RGBA",
+        "size": [
+          1024,
+          768
+        ],
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "alphaBBox": [
+          259,
+          242,
+          764,
+          736
+        ],
+        "transparentPixels": 695879,
+        "opaquePixels": 73274,
+        "intermediateAlphaPixels": 17279,
+        "lightAndDarkReviewed": true
+      }
+    }
+  ],
+  "prompts": {
+    "builtInImagegenUsed": true,
+    "priorPromptFile": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-005/outputs/prompts.json",
+    "resumePromptFile": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-005/outputs/resume-01/prompts.json",
+    "successfulCallsTotal": 8,
+    "resumeCalls": 2
+  },
+  "evidencePaths": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-005/outputs/resume-01/review-light.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-005/outputs/resume-01/review-dark.jpg"
+  ],
+  "humanApproved": false,
+  "limitations": [
+    "These are independently illustrated keyframes, not skeletal interpolation; minor drawn contour and shading variation remains. Human approval is pending."
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "verifiedAt": "2026-09-06T18:12:10.549542+00:00",
+  "manifestUrl": "http://127.0.0.1:8765/manifest.json",
+  "exerciseId": "Calf_Stretch_Elbows_Against_Wall",
+  "available": 8,
+  "humanApproved": false,
+  "humanDecision": "pending",
+  "candidateChecks": [
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Calf_Stretch_Elbows_Against_Wall_male_v2_0.png?v=020df65b31c2d92da59d256580e77319e9faab5741ffed9ff72717b615ad971f",
+      "httpStatus": 200,
+      "sha256": "020df65b31c2d92da59d256580e77319e9faab5741ffed9ff72717b615ad971f",
+      "bytes": 252469
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Calf_Stretch_Elbows_Against_Wall_male_v2_1.png?v=010d905f4a2cce15b83a2c17e30cec9be1f7e5dadcf139ae845efbc93e4909aa",
+      "httpStatus": 200,
+      "sha256": "010d905f4a2cce15b83a2c17e30cec9be1f7e5dadcf139ae845efbc93e4909aa",
+      "bytes": 249618
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Calf_Stretch_Elbows_Against_Wall_male_v2_2.png?v=310e3b54d3cf751174096fc4fc0d7188e5944df25a1c557250334a68a4d01d44",
+      "httpStatus": 200,
+      "sha256": "310e3b54d3cf751174096fc4fc0d7188e5944df25a1c557250334a68a4d01d44",
+      "bytes": 254834
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Calf_Stretch_Elbows_Against_Wall_male_v2_3.png?v=a3b82902075cf5add7c9ebd86591275eb2aee1a80c6203fc8e7d5ca2ca4cbdc5",
+      "httpStatus": 200,
+      "sha256": "a3b82902075cf5add7c9ebd86591275eb2aee1a80c6203fc8e7d5ca2ca4cbdc5",
+      "bytes": 254295
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Calf_Stretch_Elbows_Against_Wall_female_v2_0.png?v=f2200f46d4639349435ff39f49a92fa5d2de8eb58fd694906970fa8a1305db43",
+      "httpStatus": 200,
+      "sha256": "f2200f46d4639349435ff39f49a92fa5d2de8eb58fd694906970fa8a1305db43",
+      "bytes": 236394
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Calf_Stretch_Elbows_Against_Wall_female_v2_1.png?v=0d31181da479f1ddf66a33e8bcfb342ee30712af8d07585efb5d57b75c58e87b",
+      "httpStatus": 200,
+      "sha256": "0d31181da479f1ddf66a33e8bcfb342ee30712af8d07585efb5d57b75c58e87b",
+      "bytes": 247056
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Calf_Stretch_Elbows_Against_Wall_female_v2_2.png?v=037d8585136dfc4bf73094e12e8be7e539b7b6a20e10c640c08e181a781f45f9",
+      "httpStatus": 200,
+      "sha256": "037d8585136dfc4bf73094e12e8be7e539b7b6a20e10c640c08e181a781f45f9",
+      "bytes": 243079
+    },
+    {
+      "url": "http://127.0.0.1:8765/image/candidate/Calf_Stretch_Elbows_Against_Wall_female_v2_3.png?v=d7607a7e565bc4951ca98f2663115b6a73c34b71233fc5bda3b29730f014d307",
+      "httpStatus": 200,
+      "sha256": "d7607a7e565bc4951ca98f2663115b6a73c34b71233fc5bda3b29730f014d307",
+      "bytes": 243122
+    }
+  ],
+  "publication": {
+    "backup": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/008-backup-20260906T181200Z-ab7e6481",
+    "snapshot": "/Users/apoorvdarshan/fud-ai/artifacts/workout-visual-qa/review-batches/batch-01/repair-pass-01/parent-collected/008",
+    "reportSha256": "d2c422e68f3c3bb1c4c85a5fa6ff2cc90c8102e292295ebb3b3cf3a1602dc2f4",
+    "reviewRequestedAt": "2026-09-06T18:12:00.814Z"
+  },
+  "ledgerEntry": {
+    "index": 8,
+    "exerciseId": "Calf_Stretch_Elbows_Against_Wall",
+    "reportSha256": "d2c422e68f3c3bb1c4c85a5fa6ff2cc90c8102e292295ebb3b3cf3a1602dc2f4",
+    "status": "parent_pass_human_pending",
+    "humanApproved": false,
+    "reviewRequestedAt": "2026-09-06T18:12:00.814Z",
+    "reviewFindings": [
+      "Revision 2: stationary wall now uses one fixed layer across all eight frames; width, angle and placement no longer drift.",
+      "Ground anchors aligned; all eight male/female frames and lean progression reviewed on light and dark backgrounds. Source/candidate hashes and transparency checks pass.",
+      "Minor inherited shoe silhouette and clothing-fold variations remain; ground heights differ by up to one pixel from each reference. Human approval is pending."
+    ],
+    "frames": [
+      {
+        "filename": "Calf_Stretch_Elbows_Against_Wall_male_v2_0.png",
+        "sourceSha256": "c7256dca29acfc2bdef69a361631877788dbf5ac33126158f04ed413d1258048",
+        "candidateSha256": "020df65b31c2d92da59d256580e77319e9faab5741ffed9ff72717b615ad971f"
+      },
+      {
+        "filename": "Calf_Stretch_Elbows_Against_Wall_male_v2_1.png",
+        "sourceSha256": "2b5d534262bc198accaaea3039bbfd6cc05f04cf25f5a06f4d036d3646fb9591",
+        "candidateSha256": "010d905f4a2cce15b83a2c17e30cec9be1f7e5dadcf139ae845efbc93e4909aa"
+      },
+      {
+        "filename": "Calf_Stretch_Elbows_Against_Wall_male_v2_2.png",
+        "sourceSha256": "d542925482aaff11da022b978f2b30446f58903bfb1759df635f52dc8ca4cf2a",
+        "candidateSha256": "310e3b54d3cf751174096fc4fc0d7188e5944df25a1c557250334a68a4d01d44"
+      },
+      {
+        "filename": "Calf_Stretch_Elbows_Against_Wall_male_v2_3.png",
+        "sourceSha256": "39a480f659385d699e4908047e5b0c7d07d806ddc176d9daafeeafbd4675d1a9",
+        "candidateSha256": "a3b82902075cf5add7c9ebd86591275eb2aee1a80c6203fc8e7d5ca2ca4cbdc5"
+      },
+      {
+        "filename": "Calf_Stretch_Elbows_Against_Wall_female_v2_0.png",
+        "sourceSha256": "7f2b1179d786faef4ae5a5924b6396558b389b66166171b856dee96d5c7cc9b8",
+        "candidateSha256": "f2200f46d4639349435ff39f49a92fa5d2de8eb58fd694906970fa8a1305db43"
+      },
+      {
+        "filename": "Calf_Stretch_Elbows_Against_Wall_female_v2_1.png",
+        "sourceSha256": "c27c7efe7b6e5aa469a355c94c1b81fd2c60737d199da287f7e1686fe7962058",
+        "candidateSha256": "0d31181da479f1ddf66a33e8bcfb342ee30712af8d07585efb5d57b75c58e87b"
+      },
+      {
+        "filename": "Calf_Stretch_Elbows_Against_Wall_female_v2_2.png",
+        "sourceSha256": "65226432cb2ee4cf2fd4536d2df12a736357d559bd28bf918754f9977d355b72",
+        "candidateSha256": "037d8585136dfc4bf73094e12e8be7e539b7b6a20e10c640c08e181a781f45f9"
+      },
+      {
+        "filename": "Calf_Stretch_Elbows_Against_Wall_female_v2_3.png",
+        "sourceSha256": "a3faf21e425e549cc0e3e64440d2e65e48b8779e0c8e9ec72485c3daa4f95545",
+        "candidateSha256": "d7607a7e565bc4951ca98f2663115b6a73c34b71233fc5bda3b29730f014d307"
+      }
+    ],
+    "reviewEvidence": {
+      "reviewer": "exercise repair task direct publication authorized by user",
+      "revision": 2,
+      "framesVisuallyInspected": 8,
+      "lightAndDarkReviewed": true,
+      "fullSequenceReviewed": true,
+      "evidencePaths": [
+        "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/outputs/revision-2-male-review.png",
+        "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra14-003/outputs/revision-2-female-review.png"
+      ]
+    }
+  },
+  "productionAssetsModified": false,
+  "priorSnapshotPreserved": true
+}

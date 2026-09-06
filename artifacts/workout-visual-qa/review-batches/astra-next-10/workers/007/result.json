@@ -1,0 +1,165 @@
+{
+  "exerciseId": "Bench_Dips",
+  "status": "blocked",
+  "workspace": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007",
+  "findings": [
+    "Reviewed all eight canonical originals and all eight prior candidates on white and dark backgrounds. Original fill islands, clipped equipment and detached scraps were already repaired in the prior candidates.",
+    "Confirmed rear bench/hand support drops in phase2 in both sexes while floor remains fixed.",
+    "Saved an actual improved eight-frame set: six prior candidates retained byte-for-byte; both phase2 candidates have a localized 48px seat/hand lift, lengthened rear uprights and corrected horizontal support bar. Head, lowered hips, legs and front foot support retain target positions.",
+    "All final candidates are RGBA 1024x768 with real zero-alpha background. Inspected all eight ordered phases on light/dark and both changed frames at full resolution. No new checkerboard background was accepted.",
+    "Resumed: accepted a built-in male phase2 arm-anatomy revision with real alpha, raised elbow and improved forearm length; other seven candidates retained. Female full-frame and cropped follow-ups rejected."
+  ],
+  "unresolved": [
+    "Female phase2 forearm proportion remains shortened; full-frame follow-up changed framing and returned painted checkerboard. Arm-only follow-up erased the far forearm and also returned painted checkerboard. No safe female correction passed.",
+    "Residual equipment-length and line/shading variation inherited from prior redraws remains. Set is not eligible for publication."
+  ],
+  "frames": [
+    {
+      "filename": "Bench_Dips_male_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_male_v2_0.png",
+      "sourceSha256": "9c7ebb000a1f693162a6676e12c4944a4d9d27aea06e55c9d776cb207a589dac",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007/outputs/candidates/Bench_Dips_male_v2_0.png",
+      "candidateSha256": "ad3e9b160a5180d083390e98ce1c23985215e2372d616aeaf63abf8fd5032ccf",
+      "method": "Unchanged from inspected prior built-in imagegen cleanup candidate; byte-identical to prior candidate, not to canonical original.",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b02-021/candidates/Bench_Dips_male_v2_0.png",
+      "priorCandidateSha256": "ad3e9b160a5180d083390e98ce1c23985215e2372d616aeaf63abf8fd5032ccf",
+      "changedThisPass": false
+    },
+    {
+      "filename": "Bench_Dips_male_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_male_v2_1.png",
+      "sourceSha256": "e2a4fe5fe59f33cf1b66d279a1f7537acf7695d164c5e2a767d2fea86b222ee0",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007/outputs/candidates/Bench_Dips_male_v2_1.png",
+      "candidateSha256": "a568f7f658d4eb3408017e134ed28e26d2624ca03d283cb44146fd0914cdc6c4",
+      "method": "Unchanged from inspected prior built-in imagegen cleanup candidate; byte-identical to prior candidate, not to canonical original.",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b02-021/candidates/Bench_Dips_male_v2_1.png",
+      "priorCandidateSha256": "a568f7f658d4eb3408017e134ed28e26d2624ca03d283cb44146fd0914cdc6c4",
+      "changedThisPass": false
+    },
+    {
+      "filename": "Bench_Dips_male_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_male_v2_2.png",
+      "sourceSha256": "ffc9d9fba60cff2fceb0dd5f037d7d65d2ea6b003da5c23f256713605abfe093",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007/outputs/candidates/Bench_Dips_male_v2_2.png",
+      "candidateSha256": "e1f28f5be316bc439bd1d6b8075b04e25fea05402c3ee9e45d73164078eebe57",
+      "method": "Prior bench-height repair followed by built-in arm anatomy edit, resized to 1024x768 preserving generated real alpha.",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b02-021/candidates/Bench_Dips_male_v2_2.png",
+      "priorCandidateSha256": "4ac5ceb01f9214d320132e11c650257b3785c7c6c7c284babbb509dbd0abae99",
+      "changedThisPass": true
+    },
+    {
+      "filename": "Bench_Dips_male_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_male_v2_3.png",
+      "sourceSha256": "16ca315b766e1eac6b657a3f07dbd35e8775bd60b3fa65121da5f144e63489dd",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007/outputs/candidates/Bench_Dips_male_v2_3.png",
+      "candidateSha256": "d17a88e9e3e29eaf710011aca29964e5ec40532f0a8dd71efc65c3a3fb00db2d",
+      "method": "Unchanged from inspected prior built-in imagegen cleanup candidate; byte-identical to prior candidate, not to canonical original.",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b02-021/candidates/Bench_Dips_male_v2_3.png",
+      "priorCandidateSha256": "d17a88e9e3e29eaf710011aca29964e5ec40532f0a8dd71efc65c3a3fb00db2d",
+      "changedThisPass": false
+    },
+    {
+      "filename": "Bench_Dips_female_v2_0.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_female_v2_0.png",
+      "sourceSha256": "1fb984a2c864a9465b6fc1a6ff3e1de8cbc0c7b6ad488f60f56156f5ea4cc376",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007/outputs/candidates/Bench_Dips_female_v2_0.png",
+      "candidateSha256": "9af58f213bf5e4c7e7add2020f87adbba141ce37b960fb3570f78ddbac366283",
+      "method": "Unchanged from inspected prior built-in imagegen cleanup candidate; byte-identical to prior candidate, not to canonical original.",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b02-021/candidates/Bench_Dips_female_v2_0.png",
+      "priorCandidateSha256": "9af58f213bf5e4c7e7add2020f87adbba141ce37b960fb3570f78ddbac366283",
+      "changedThisPass": false
+    },
+    {
+      "filename": "Bench_Dips_female_v2_1.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_female_v2_1.png",
+      "sourceSha256": "f19485a6e606cac68aa941ed19f548e598c00a9b848d99ce0799a175ecc1f9b4",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007/outputs/candidates/Bench_Dips_female_v2_1.png",
+      "candidateSha256": "dd435b8310cc0d2b66ddcbfc7b7f844c61f014cedbea214d4aca9c24febf47d8",
+      "method": "Unchanged from inspected prior built-in imagegen cleanup candidate; byte-identical to prior candidate, not to canonical original.",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b02-021/candidates/Bench_Dips_female_v2_1.png",
+      "priorCandidateSha256": "dd435b8310cc0d2b66ddcbfc7b7f844c61f014cedbea214d4aca9c24febf47d8",
+      "changedThisPass": false
+    },
+    {
+      "filename": "Bench_Dips_female_v2_2.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_female_v2_2.png",
+      "sourceSha256": "b9640a7a8baebf1d4faa563825f7ff6611c99f0194ea94cc9c102e622d2b23b7",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007/outputs/candidates/Bench_Dips_female_v2_2.png",
+      "candidateSha256": "ccad4d5604320d5dfbb456c18547b5ba72c6ef53b41d94356db494182c5fb94c",
+      "method": "Prior built-in imagegen cleanup candidate plus localized 48px seat/hand lift, bench-upright extension with fixed floor, support-bar straightening and original torso/leg restoration; new full-frame generated edits rejected.",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b02-021/candidates/Bench_Dips_female_v2_2.png",
+      "priorCandidateSha256": "d0168b58af1d3aefd1e9d3c4f5ffc786a8828beb16598a7120f07574d5118373",
+      "changedThisPass": true
+    },
+    {
+      "filename": "Bench_Dips_female_v2_3.png",
+      "sourcePath": "/Users/apoorvdarshan/fud-ai/shared/workout-vectors/Bench_Dips_female_v2_3.png",
+      "sourceSha256": "a5f3577ef40cdd0cddb90084ae9aba9648992e0b48f85bdb1b1d7d21623f3b14",
+      "candidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007/outputs/candidates/Bench_Dips_female_v2_3.png",
+      "candidateSha256": "484a12892a6260224c1a8b75ae3863f073bf727579a3cc4d958d262841eca80d",
+      "method": "Unchanged from inspected prior built-in imagegen cleanup candidate; byte-identical to prior candidate, not to canonical original.",
+      "visuallyReviewed": true,
+      "priorCandidatePath": "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-repair-b02-021/candidates/Bench_Dips_female_v2_3.png",
+      "priorCandidateSha256": "484a12892a6260224c1a8b75ae3863f073bf727579a3cc4d958d262841eca80d",
+      "changedThisPass": false
+    }
+  ],
+  "prompts": {
+    "male": "Use case: precise-object-edit. Image1 is edit target, male bottom phase bench dip. Image2 is stationary bench geometry reference only. Correct ONLY the rear left bench and contacting hands/forearms in image1: raise the seat and hands approximately 50 pixels in original 1024x768 coordinates to match the bench height in image2, extend its uprights downward to the SAME current ground baseline. Preserve bent elbows, head, lowered torso/hips, legs, shoes, right foot stool, same athlete and clothing, style, scale and camera. Rear bench must be rigid and the same length/height as reference; body remains in deep dip. Do not copy reference's straight-arm pose. Entire equipment remains in frame. Output same 4:3 composition, genuine transparent RGBA background, no checkerboard or white fill, no text.",
+    "female": "Precise-object-edit. Image1 edit target. Image2 stationary equipment reference. Preserve image1 composition EXACTLY including head, hips, shoes, foot stool and ground positions. Change ONLY rear bench seat height: lift its seat and the touching hands by 45 pixels (on 1024x768 source), keeping elbow and shoulder locations unchanged, shorten forearms naturally to preserve contact, lengthen bench uprights to unchanged feet. Keep deep bottom dip, not reference straight-arm pose. Keep same woman, face, clothing, linework, full 4:3 canvas, equipment. Background must be perfectly flat solid bright green #00FF00 for deliberate chroma-key extraction, also in all enclosed gaps. No checkerboard, no white background. Do not resize/recenter athlete or equipment.",
+    "rejectedOutputs": [
+      "Generated images are saved to /Users/apoorvdarshan/.codex/generated_images/01a077c9-2602-79b0-a99e-423bf7e16f4a as /Users/apoorvdarshan/.codex/generated_images/01a077c9-2602-79b0-a99e-423bf7e16f4a/exec-e34f7103-7fdd-48e0-ba55-27e2a735a076.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "Generated images are saved to /Users/apoorvdarshan/.codex/generated_images/01a077c9-2602-79b0-a99e-423bf7e16f4a as /Users/apoorvdarshan/.codex/generated_images/01a077c9-2602-79b0-a99e-423bf7e16f4a/exec-0730dc80-f286-45f5-85f0-16aca289c2a4.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+    ],
+    "resumed": {
+      "male": "Precise-object-edit. Correct anatomy of the bent arms only in this bench-dip illustration. The forearms are too short: raise the elbows slightly and redraw anatomically proportional humerus/forearm with elbow flexion while keeping BOTH hands firmly at their CURRENT seat contact positions. Preserve head, face, shoulder, torso, hips, legs, shoes and both benches exactly in their current locations. Do not move the bench seat, feet or ground. Same male athlete black clothes red seam, same rendering style. Keep 1024x768 composition and proportions. Transparent background requested, never painted checkerboard. No zoom, reframe or text.",
+      "female": "Precise-object-edit. Correct anatomy of the bent arms only in this bench-dip illustration. The forearms are too short: raise the elbows slightly and redraw anatomically proportional humerus/forearm with elbow flexion while keeping BOTH hands firmly at their CURRENT seat contact positions. Preserve head, face, shoulder, torso, hips, legs, shoes and both benches exactly in their current locations. Do not move the bench seat, feet or ground. Same female athlete black clothes red seam, same rendering style. Keep 1024x768 composition and proportions. Transparent background requested, never painted checkerboard. No zoom, reframe or text.",
+      "femaleCrop": "Edit this exact cropped illustration patch. Raise the near elbow 25 pixels within this original 180x225 crop while keeping the wrist/hand at exactly its existing position, making the forearm anatomically longer. Preserve the shoulder sleeve connection and natural bent upper arm. Keep every patch boundary pixel unchanged so this fits back into its parent image. Same female athlete same style skin shading black short sleeve. Do not recenter, zoom or uncrop. Transparent background, no checkerboard; if unable to provide transparency use perfectly flat bright green background only in currently transparent regions. No other changes."
+    }
+  },
+  "attempts": [
+    {
+      "method": "Built-in male target plus frame0 bench reference",
+      "outcome": "Rejected: opaque painted checkerboard and shifted body/floor composition."
+    },
+    {
+      "method": "Built-in female tighter edit with solid green extraction background",
+      "outcome": "Rejected: green backdrop was suitable for extraction, but athlete and equipment anchors still shifted. No extraction accepted."
+    },
+    {
+      "method": "Localized piecewise image geometry on prior phase2 candidates",
+      "outcome": "48px hand/seat lift fixed most vertical bench compression. Initial crossbar kink was corrected, and original torso restored. Remaining shortened forearm proportions prevent a clean-pass claim."
+    },
+    {
+      "method": "Resumed built-in male anatomy edit",
+      "outcome": "Accepted: improved forearm length, real RGBA alpha, contact and seat/floor positions retained closely."
+    },
+    {
+      "method": "Resumed female full-frame anatomy edit",
+      "outcome": "Rejected: reframed athlete and opaque painted checkerboard."
+    },
+    {
+      "method": "Resumed female arm-only crop",
+      "outcome": "Rejected: far forearm removed and opaque painted checkerboard."
+    }
+  ],
+  "evidencePaths": [
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007/outputs/male-review.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007/outputs/female-review.jpg",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007/outputs/validation.json",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007/work/resume/exec-c540d083-3f9f-4c1f-9dbc-34650bbaabf8.png",
+    "/Users/apoorvdarshan/Documents/Codex/2026-09-06/workout-astra-next10-007/work/resume/exec-bb5566ef-0d0b-44d6-acd4-5a144aea238b.png"
+  ],
+  "productionModified": false,
+  "publication": {
+    "published": false,
+    "reason": "Female phase2 anatomy failed; snapshot and ledger untouched."
+  }
+}

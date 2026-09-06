@@ -1,0 +1,130 @@
+{
+  "exerciseId": "Bent-Arm_Barbell_Pullover",
+  "verifiedAt": "2026-09-06T18:12:50.505933+00:00",
+  "published": true,
+  "humanApproved": false,
+  "available": 8,
+  "manifestRow": {
+    "id": "Bent-Arm_Barbell_Pullover",
+    "batch": "batch-02",
+    "index": 28,
+    "severity": "major",
+    "findings": [
+      "Independently inspected all eight canonical originals, all eight prior candidates, parent review and canonical mechanics. Original enclosed white fills and male frame 2/3 scale/camera/barbell-view defects confirmed.",
+      "Preserved six prior candidates byte-for-byte: male 0/1 and female 0/1/2/3. Their background openings remain genuinely transparent and all were reviewed against light/dark backgrounds.",
+      "Repaired male frame 2 through three built-in imagegen iterations: rejected painted-checkerboard output; extracted deliberate green-background keyframe; narrowed third edit to correct overly straight elbows.",
+      "Male frame 2 stationary bench/legs below y565 and right torso/legs x510+ y448+ are pixel-identical to reference male frame 1. No independent whole-pose recentering. Frame 0 remains within the existing compatible bench/foot envelope.",
+      "Male frame 3 now retraces exact frame 1. This intentionally uses the same intermediate keyframe on outward and return legs of the pullover, removing prior frame 3 scale and equipment discontinuities.",
+      "Final all-eight ordered light/dark review: complete visible anatomy and grip, no clipped foreground, no painted checkerboard/large white background islands, same people/clothes/equipment, and no former male bench/body enlargement or frontal barbell switch.",
+      "All eight exact-basename candidates validated as 1024x768 RGBA with transparent and opaque pixels; source hashes verified unchanged. No production changes or promotion.",
+      "Resumed direct-publication review: all eight expected filenames match batch-02 index 28, source/candidate hashes rechecked; ordered light/dark review passed with no further raster changes.",
+      "Human approval pending. Male frame 3 intentionally retraces frame 1. Minor original linework and face redraw differences remain; no blocking defect found in the resumed all-eight review."
+    ],
+    "sources": [
+      "/image/original/Bent-Arm_Barbell_Pullover_male_v2_0.png?v=bab4fc431573806f45d481b5c4adf3ac79f17e4dfc7f24ff64d403e66474ce5d",
+      "/image/original/Bent-Arm_Barbell_Pullover_male_v2_1.png?v=70f0c08c3609f5f84a1d0e44a6a0dd5c3a1f90a1f92f96c6c48f1168b6070ac6",
+      "/image/original/Bent-Arm_Barbell_Pullover_male_v2_2.png?v=e60e21719f4618e0ce2851cf9448c7d88ba6d46ebe53519374912377337b1c15",
+      "/image/original/Bent-Arm_Barbell_Pullover_male_v2_3.png?v=c2fa480a8698bedbe64952ba563e154cfb6df664cff3f1439d6852535b734d3c",
+      "/image/original/Bent-Arm_Barbell_Pullover_female_v2_0.png?v=0bd6f6f8510e991efdff580a188ae7a91d9085bc874265bb2882a1d592d22df2",
+      "/image/original/Bent-Arm_Barbell_Pullover_female_v2_1.png?v=5cda67c68d9efb53b878166df6cd467797ce35200915b2251e2d7f2db82b29d5",
+      "/image/original/Bent-Arm_Barbell_Pullover_female_v2_2.png?v=28fb179acb926abb3b80471c26bcd4d3a6bb127ea9c255d36c7b0b6c65cc98c2",
+      "/image/original/Bent-Arm_Barbell_Pullover_female_v2_3.png?v=1bb4a63f0812db2baa6c7069b6522fba5f6fe97b9d0a859d2af2c0f1d2859f5b"
+    ],
+    "sourceHashes": [
+      "bab4fc431573806f45d481b5c4adf3ac79f17e4dfc7f24ff64d403e66474ce5d",
+      "70f0c08c3609f5f84a1d0e44a6a0dd5c3a1f90a1f92f96c6c48f1168b6070ac6",
+      "e60e21719f4618e0ce2851cf9448c7d88ba6d46ebe53519374912377337b1c15",
+      "c2fa480a8698bedbe64952ba563e154cfb6df664cff3f1439d6852535b734d3c",
+      "0bd6f6f8510e991efdff580a188ae7a91d9085bc874265bb2882a1d592d22df2",
+      "5cda67c68d9efb53b878166df6cd467797ce35200915b2251e2d7f2db82b29d5",
+      "28fb179acb926abb3b80471c26bcd4d3a6bb127ea9c255d36c7b0b6c65cc98c2",
+      "1bb4a63f0812db2baa6c7069b6522fba5f6fe97b9d0a859d2af2c0f1d2859f5b"
+    ],
+    "candidates": [
+      "/image/candidate/Bent-Arm_Barbell_Pullover_male_v2_0.png?v=75196b22767eb2bd7ec5911b74555398abccc42049ad44b4cea148801117aeea",
+      "/image/candidate/Bent-Arm_Barbell_Pullover_male_v2_1.png?v=352f3417c03ffd4da0c1c6a24422682696be171208cc5f2575bdc55aee1dac9e",
+      "/image/candidate/Bent-Arm_Barbell_Pullover_male_v2_2.png?v=ad99431b4e601b2b01a7896bdf74597ed5fef5fd213bdcef746c71c074083194",
+      "/image/candidate/Bent-Arm_Barbell_Pullover_male_v2_3.png?v=352f3417c03ffd4da0c1c6a24422682696be171208cc5f2575bdc55aee1dac9e",
+      "/image/candidate/Bent-Arm_Barbell_Pullover_female_v2_0.png?v=b78c9923481abe1da8f84236725b08d257f7bf90d909a9ec934536e14f3a561b",
+      "/image/candidate/Bent-Arm_Barbell_Pullover_female_v2_1.png?v=39137b172d6835dfe6d4089dfa3a82a6402017b7bbb7f4692059c2352a4c87da",
+      "/image/candidate/Bent-Arm_Barbell_Pullover_female_v2_2.png?v=b70baadb491480f09376f769d631754764828a48233eae66507e78609cd0076e",
+      "/image/candidate/Bent-Arm_Barbell_Pullover_female_v2_3.png?v=298875f6b842cb0d446e98eaa678158109f788490bdbc6dfbde5c29fb207a4aa"
+    ],
+    "hashes": [
+      "75196b22767eb2bd7ec5911b74555398abccc42049ad44b4cea148801117aeea",
+      "352f3417c03ffd4da0c1c6a24422682696be171208cc5f2575bdc55aee1dac9e",
+      "ad99431b4e601b2b01a7896bdf74597ed5fef5fd213bdcef746c71c074083194",
+      "352f3417c03ffd4da0c1c6a24422682696be171208cc5f2575bdc55aee1dac9e",
+      "b78c9923481abe1da8f84236725b08d257f7bf90d909a9ec934536e14f3a561b",
+      "39137b172d6835dfe6d4089dfa3a82a6402017b7bbb7f4692059c2352a4c87da",
+      "b70baadb491480f09376f769d631754764828a48233eae66507e78609cd0076e",
+      "298875f6b842cb0d446e98eaa678158109f788490bdbc6dfbde5c29fb207a4aa"
+    ],
+    "methods": [
+      "Retained prior alpha-cleaned/registered candidate byte-for-byte after independent all-phase and light/dark review. Prior method: Scoped neutral-light alpha cleanup plus premultiplied-alpha bench registration (sx=1.01449, sy=1.04878, tx=-51.86, ty=-36.83); dark/light reviewed.",
+      "Retained prior alpha-cleaned/registered candidate byte-for-byte after independent all-phase and light/dark review. Prior method: Scoped neutral-light alpha cleanup plus premultiplied-alpha bench registration (sx=0.98592, sy=1.00467, tx=-23.55, ty=-3.53); dark/light reviewed.",
+      "Built-in imagegen fixed-reference raised keyframe; rejected first opaque checkerboard attempt. Second green-background edit extracted with scoped chroma matte, resized to 1024x768 and bench-aligned by +44 px y. Restored reference frame 1 stationary pixels. Third narrow elbow-bend edit extracted and composited only arms/bar; original bench, legs and right torso retained. Scripts and revisions preserved in work/.",
+      "Consistent-keyframe return phase: exact copy of reviewed male frame 1 candidate, retracing the same pullover arc. Replaces distorted prior frame 3 bench/body and wide barbell.",
+      "Retained prior alpha-cleaned and registered female candidate byte-for-byte; independently reviewed on light/dark backgrounds and across all four phases.",
+      "Retained prior alpha-cleaned and registered female candidate byte-for-byte; independently reviewed on light/dark backgrounds and across all four phases.",
+      "Retained prior alpha-cleaned and registered female candidate byte-for-byte; independently reviewed on light/dark backgrounds and across all four phases.",
+      "Retained prior alpha-cleaned and registered female candidate byte-for-byte; independently reviewed on light/dark backgrounds and across all four phases."
+    ],
+    "available": 8,
+    "humanApproved": false,
+    "humanDecision": "pending",
+    "savedNotes": "",
+    "status": "Parent-reviewed \u00b7 Awaiting your approval",
+    "warning": "Review the full animation in both genders and backgrounds. Your decision does not replace app images automatically."
+  },
+  "imageChecks": [
+    {
+      "url": "/image/candidate/Bent-Arm_Barbell_Pullover_male_v2_0.png?v=75196b22767eb2bd7ec5911b74555398abccc42049ad44b4cea148801117aeea",
+      "status": 200,
+      "sha256": "75196b22767eb2bd7ec5911b74555398abccc42049ad44b4cea148801117aeea",
+      "bytes": 249086
+    },
+    {
+      "url": "/image/candidate/Bent-Arm_Barbell_Pullover_male_v2_1.png?v=352f3417c03ffd4da0c1c6a24422682696be171208cc5f2575bdc55aee1dac9e",
+      "status": 200,
+      "sha256": "352f3417c03ffd4da0c1c6a24422682696be171208cc5f2575bdc55aee1dac9e",
+      "bytes": 261476
+    },
+    {
+      "url": "/image/candidate/Bent-Arm_Barbell_Pullover_male_v2_2.png?v=ad99431b4e601b2b01a7896bdf74597ed5fef5fd213bdcef746c71c074083194",
+      "status": 200,
+      "sha256": "ad99431b4e601b2b01a7896bdf74597ed5fef5fd213bdcef746c71c074083194",
+      "bytes": 305607
+    },
+    {
+      "url": "/image/candidate/Bent-Arm_Barbell_Pullover_male_v2_3.png?v=352f3417c03ffd4da0c1c6a24422682696be171208cc5f2575bdc55aee1dac9e",
+      "status": 200,
+      "sha256": "352f3417c03ffd4da0c1c6a24422682696be171208cc5f2575bdc55aee1dac9e",
+      "bytes": 261476
+    },
+    {
+      "url": "/image/candidate/Bent-Arm_Barbell_Pullover_female_v2_0.png?v=b78c9923481abe1da8f84236725b08d257f7bf90d909a9ec934536e14f3a561b",
+      "status": 200,
+      "sha256": "b78c9923481abe1da8f84236725b08d257f7bf90d909a9ec934536e14f3a561b",
+      "bytes": 214870
+    },
+    {
+      "url": "/image/candidate/Bent-Arm_Barbell_Pullover_female_v2_1.png?v=39137b172d6835dfe6d4089dfa3a82a6402017b7bbb7f4692059c2352a4c87da",
+      "status": 200,
+      "sha256": "39137b172d6835dfe6d4089dfa3a82a6402017b7bbb7f4692059c2352a4c87da",
+      "bytes": 255105
+    },
+    {
+      "url": "/image/candidate/Bent-Arm_Barbell_Pullover_female_v2_2.png?v=b70baadb491480f09376f769d631754764828a48233eae66507e78609cd0076e",
+      "status": 200,
+      "sha256": "b70baadb491480f09376f769d631754764828a48233eae66507e78609cd0076e",
+      "bytes": 248650
+    },
+    {
+      "url": "/image/candidate/Bent-Arm_Barbell_Pullover_female_v2_3.png?v=298875f6b842cb0d446e98eaa678158109f788490bdbc6dfbde5c29fb207a4aa",
+      "status": 200,
+      "sha256": "298875f6b842cb0d446e98eaa678158109f788490bdbc6dfbde5c29fb207a4aa",
+      "bytes": 239996
+    }
+  ]
+}

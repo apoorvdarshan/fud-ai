@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/054/Inverted_Row_male_v2_0.png",
       "candidateSha256": "77cfbafe088b0b115e872031e198fa64b990504e4156fbb02c85d7e85781f48e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Inverted_Row_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/054/Inverted_Row_male_v2_1.png",
       "candidateSha256": "f9bbde021d73dd014c45112849a76092e285c9cde3bef60b9b96b6a831c7546a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Inverted_Row_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/054/Inverted_Row_male_v2_2.png",
       "candidateSha256": "1d2a68c2207a2cb44457e4a3ed4cbc5eebf407fba304093816b9d50b316673dd",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Inverted_Row_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/054/Inverted_Row_male_v2_3.png",
       "candidateSha256": "8be49be68cd450983cd71b2d57c5c591b8d6d6dadaa137297e30a90bd2eb10e9",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Inverted_Row_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/054/Inverted_Row_female_v2_0.png",
       "candidateSha256": "13449747e28049f990b5d0f8dd0eac34db6432add607c6e6c84168e8a4586809",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Inverted_Row_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/054/Inverted_Row_female_v2_1.png",
       "candidateSha256": "8f71312da8c6a86b6f0698ae1c480b20b2601c9227b7fbabd7b8612f2f64e7be",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Inverted_Row_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/054/Inverted_Row_female_v2_2.png",
       "candidateSha256": "690d2110623a166ee6f558d1865a42295eb5fc42b26563e96accdb85759e93dd",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Inverted_Row_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/054/Inverted_Row_female_v2_3.png",
       "candidateSha256": "8d88ea45f7aceeb2f7f9a447bfdf196bd3402a7841ecf024eb12decd1c7bca63",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

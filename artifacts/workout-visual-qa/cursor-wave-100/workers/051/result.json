@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_male_v2_0.png",
       "candidateSha256": "49bec664ce023d0454d4f1c01d4dc4f7b95ae166e03845bd324e58ee0ec02814",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Groin_Stretch_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_male_v2_1.png",
       "candidateSha256": "230295fb77ad2d7c9b7ecf42a2ccf7aff1a385a6d2cda2c25e06fab1f82ee2b2",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Groin_Stretch_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_male_v2_2.png",
       "candidateSha256": "39d48570d1d436719a8084c936949c507297d86f0434ad7ca3cd668a7ef31574",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Groin_Stretch_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_male_v2_3.png",
       "candidateSha256": "2c1a23eb6f5c61d890635237763e249023103c63ede2cdf14da6ff425a804a6a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Groin_Stretch_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_female_v2_0.png",
       "candidateSha256": "d6b1340ab60dde87f5fc71618a0a9f0adfbc8e9fbbb5f238f3cb8e802d3e8528",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Groin_Stretch_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_female_v2_1.png",
       "candidateSha256": "ef1cf67a87024b1e37cbc2e494654f2a3220bb2c4106f37c9ba21ff724532cf3",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Groin_Stretch_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_female_v2_2.png",
       "candidateSha256": "24a23bd0098a32d08da81320016795f9e97a9cc4226f76cc891faf7e379b0a6a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Groin_Stretch_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_female_v2_3.png",
       "candidateSha256": "62cbfc2fc88ef440987b9260c7072bbd2d5edc47e385a0266b01b27b2bde70f2",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

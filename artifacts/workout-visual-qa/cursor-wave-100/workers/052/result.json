@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/052/Intermediate_Hip_Flexor_and_Quad_Stretch_male_v2_0.png",
       "candidateSha256": "560e7f33f251751a849563c0c8b4caface13333df2fc185052b806de541f5f22",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Hip_Flexor_and_Quad_Stretch_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/052/Intermediate_Hip_Flexor_and_Quad_Stretch_male_v2_1.png",
       "candidateSha256": "79f7e1394b6a8840ab9b226dc075a05580f8dff849fb53f48c27e5d99a9dad02",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Hip_Flexor_and_Quad_Stretch_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/052/Intermediate_Hip_Flexor_and_Quad_Stretch_male_v2_2.png",
       "candidateSha256": "f53cf857255bf93bae24f70dd26d1446b98885efd1d8e8fbd2ec8e0f934ab3d4",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Hip_Flexor_and_Quad_Stretch_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/052/Intermediate_Hip_Flexor_and_Quad_Stretch_male_v2_3.png",
       "candidateSha256": "42260f5f0f0e494e2a2fccafab8a87dda377a68c01c180877cc949e39fb623c9",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Hip_Flexor_and_Quad_Stretch_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/052/Intermediate_Hip_Flexor_and_Quad_Stretch_female_v2_0.png",
       "candidateSha256": "bca992ae7f835e52e8ef3e3ead9e296d91b87902e96b42c156e3f593ae50ae4c",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Hip_Flexor_and_Quad_Stretch_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/052/Intermediate_Hip_Flexor_and_Quad_Stretch_female_v2_1.png",
       "candidateSha256": "d3f4d54e155a46abee5be58e111f498d8eda4536a7071c0ddcaeb3e2bfdbec72",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Hip_Flexor_and_Quad_Stretch_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/052/Intermediate_Hip_Flexor_and_Quad_Stretch_female_v2_2.png",
       "candidateSha256": "b61a000d32db3b92e6f37c68b19d9f9ea52a63faa8e2cc88aff3ff8e4891aa19",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Intermediate_Hip_Flexor_and_Quad_Stretch_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/052/Intermediate_Hip_Flexor_and_Quad_Stretch_female_v2_3.png",
       "candidateSha256": "63e54adca929bf0d7685fb36140861fe8e2ad97e5297164832a02a5141979d51",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

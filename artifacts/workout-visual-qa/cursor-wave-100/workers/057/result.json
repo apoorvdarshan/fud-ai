@@ -11,72 +11,72 @@
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Crosses_stretch_male_v2_0.png",
       "sourceSha256": "40e6079a43db3313d960ecaa1721ec5a3316d3016c5502d80e53dc74cc73808c",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/057/Iron_Crosses_stretch_male_v2_0.png",
-      "candidateSha256": "c0718ef1440e14d6f02263ace3f117951be47bc39461781260a21b1cca2fafe3",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "8bf0995d450fe25b9384edcf4c92e9b8d4e664a4f0900227bdb98008b97b9b17",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Crosses_stretch_male_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Crosses_stretch_male_v2_1.png",
       "sourceSha256": "5500ee96f24029aab0f702a5ff0b02b5458093a6639321a866e89ebafd2a8235",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/057/Iron_Crosses_stretch_male_v2_1.png",
-      "candidateSha256": "d5b0173056682d0f9e5a91b99b9decf7c739c5995cc386146d949b5526f2a619",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "26ce6584c500ad92f55d7810fa88a63476e64045e13f653a53975e457c2165ac",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Crosses_stretch_male_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Crosses_stretch_male_v2_2.png",
       "sourceSha256": "94575970f623538ab6235d7d087247350faf6adaffbe6247bf24895570b1e0bc",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/057/Iron_Crosses_stretch_male_v2_2.png",
-      "candidateSha256": "77b389d67a39e828b9a46a00390408fd69c0ed05a8ae819bdc5a2c76ee2f134b",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "9e810d1cab0c409ece99823a7aa4858cc1ee9120834ef797cf82b614700153fe",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Crosses_stretch_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Crosses_stretch_male_v2_3.png",
       "sourceSha256": "7fa73f18652765a01e5ba0f07017daba66a334ae0c3dc82f8d18019095f1c223",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/057/Iron_Crosses_stretch_male_v2_3.png",
-      "candidateSha256": "3260ca7b3a3dae151bf75d330ed36d3e323f3c046ff081b013fa293c13856558",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "eeade6034a1e88ae6d09565f997134be39bf70455c664d78e5592bf2195d0e96",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Crosses_stretch_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Crosses_stretch_female_v2_0.png",
       "sourceSha256": "bf70450d355ebdb66d6da1c6311b5b4a5cdecf4089dde685f3d7d5ecebadf172",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/057/Iron_Crosses_stretch_female_v2_0.png",
-      "candidateSha256": "a2ac2d63e52618f0de017dcd68c7c1eef0c1251b60bd63e37e6204184ea7acbf",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "2d2e2f48e5da0de98ca34c9eeef1ab5cc392fa7feb03c18675de410429cbc19c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Crosses_stretch_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Crosses_stretch_female_v2_1.png",
       "sourceSha256": "66e6d9b26e875df133ac62d416c1c22e9d4bb6bcadea920b686c0da82e30ae51",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/057/Iron_Crosses_stretch_female_v2_1.png",
-      "candidateSha256": "98b48963d751863d80fe261da4cf8c284021823f7356b8143eacd8594e32e051",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "4a076dcd3054178675e3bedd229be3629ed12df5e80db000260dcb36a8d716fd",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Crosses_stretch_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Crosses_stretch_female_v2_2.png",
       "sourceSha256": "35031f8d02417a85ad5e6270333c777430a74012f04c0b3caf8b4018b16f8097",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/057/Iron_Crosses_stretch_female_v2_2.png",
-      "candidateSha256": "c7ab1e4a8def9adef77158d11ec6241f65fc256e226a54d8f9263918324cccbc",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "ca62bb661834676d9a283d87db2ad4e37c4b080f16d962aefd039374746604ee",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Crosses_stretch_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Crosses_stretch_female_v2_3.png",
       "sourceSha256": "891b76a25c41a62814b9c83e6a39a11f675addcdc502c47af71a7e45520428ad",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/057/Iron_Crosses_stretch_female_v2_3.png",
-      "candidateSha256": "9cdc9c24af045365f009636e51e1c2ec542b5de9917581732a4002746a0fa009",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "752a34e7407a2a6c2929b349f58ee40c0d1760279dfbf5813e67d41cdf4f3d3a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

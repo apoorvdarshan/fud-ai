@@ -11,72 +11,72 @@
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Cross_male_v2_0.png",
       "sourceSha256": "356c8cc88fe2205a547d33b29f8c4a7328a3cee05bc929a6f8d975f7d1b1e85e",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/056/Iron_Cross_male_v2_0.png",
-      "candidateSha256": "b6da8c07c4214b319735b574b2d4ac621b1f790867282ae041e6234417837969",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "e832f2f47791cfda1748d9fbcb19edd77a39c5b21822fad8c9e5a9c822dd1f66",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Cross_male_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Cross_male_v2_1.png",
       "sourceSha256": "f06a221fb4b374abc036c210eea4dd132715c095c9231baeca34668edee243f0",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/056/Iron_Cross_male_v2_1.png",
-      "candidateSha256": "1a0ed0f13ef28abb4048e759d9781cb3c99493d9fab6934801129cc8714ed6a8",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "ea5afaa7c32c3c010b447cad911cfc0c9f611226f25577feaf574f2823c3d7da",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Cross_male_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Cross_male_v2_2.png",
       "sourceSha256": "4bde3856ca3f8813d5210d309d35b8cfddebdd621636ab1854e0dca7de293cef",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/056/Iron_Cross_male_v2_2.png",
-      "candidateSha256": "8ec2b949f1c850a0117d8e48d4ef1dbebe285e44fd0efb5d922b07038b11b80a",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "190b635c3ff183398aa0d4242bf56d8ad924b15130917f269b66eeccf4e3e56d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Cross_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Cross_male_v2_3.png",
       "sourceSha256": "bce7f321a38dc709ffd76ef9d431a9db1fa6ac9fa6fb4114fc71df503a83782f",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/056/Iron_Cross_male_v2_3.png",
-      "candidateSha256": "5c284d0c5732b3996b09a38f974bfaedabf47c518c9e7b1b3f699856b8b361de",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "a224b829aed79748b7f3a733021665c95e690c1b5d167afd66c13a5fbc7a7bd9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Cross_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Cross_female_v2_0.png",
       "sourceSha256": "125d49c14addf022e181ad25327a561c8489fcf7d9e8a83fb62365da7ce99e51",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/056/Iron_Cross_female_v2_0.png",
-      "candidateSha256": "e7d8703c760774333dc440094b78edcfb9dd3614399524c252723618080e9409",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "561df15dc26942a18feed9fc68bb7b31f250a48b693d679b5c6fa103b51182fd",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Cross_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Cross_female_v2_1.png",
       "sourceSha256": "53e4963c8dee74670a129de97a79d8597521bac411ab83c9761169b4de3899b7",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/056/Iron_Cross_female_v2_1.png",
-      "candidateSha256": "b3e147b3c2dc34b8ccb4883198f98601a04bedd0604791a1c0099921cfe111c5",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "daf7cb2ebc7c95824b9781aceb2141d90d5eabdba5e22e893a186d6187480c01",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Cross_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Cross_female_v2_2.png",
       "sourceSha256": "b275e788fbcb71165ed75446c4a609596828cda4ed1143088a132d4b98a7dc0c",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/056/Iron_Cross_female_v2_2.png",
-      "candidateSha256": "336b23c082d09622d4269e84da655520ac5665bdabcfea90e9e6c791742735f0",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "4dd10e39984d1c30e418cb84dbcd3c48aa3cd94833b462243b72172be2d79a56",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Iron_Cross_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Iron_Cross_female_v2_3.png",
       "sourceSha256": "562d03c94b407330b3d80a3a78e54911740921d46b36d8b9b69cdecf936e2247",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/056/Iron_Cross_female_v2_3.png",
-      "candidateSha256": "2ea0db15431bba2fe645f21c22f4d02656bbc8824f7b7199126abac6b0e7a620",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "55a7045f44657daf69b35099eb71c821fdd9d950661a9daad4c4507e5c93b93e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

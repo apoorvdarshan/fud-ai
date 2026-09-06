@@ -1,0 +1,100 @@
+{
+  "exerciseId": "Decline_Dumbbell_Bench_Press",
+  "shard": 2,
+  "index": 12,
+  "status": "ready_for_review",
+  "findings": [
+    "Official pale-neural-guard-v2 script pass staged all 8 frames but removed 0px; pale contour specks were below the area gate or voted foreground. Candidates after the script were RGB+alpha identical to sources.",
+    "Cursor GenerateImage was tried once on male frame 0 with the source as reference. The result was a 1152x864 opaque RGB full redraw on green, not a surgical edit. Rejected; chroma key was not applied.",
+    "Worker-local thin pale-edge alpha cleanup then zeroed only thin (radius<=1.6, area<=80) pale contour components that touch transparency. Original RGB is unchanged. Removed pixels: 0:256, 1:425, 2:324, 3:249, 0:77, 1:212, 2:111, 3:106.",
+    "Reviewed all eight candidates on dark (#090909) and light (#eeeeee). Official pale (lo>=185) contour specks are gone on 7 frames; male frame 2 keeps 4 residual official-pale edge pixels. Light-gray bench metal edges were left intact.",
+    "Stationary bench height drift from the manifest is unchanged. Fixing it would require a redraw and would break identity. Not attempted.",
+    "shared/workout-vectors/ was not modified. No app-asset promotion."
+  ],
+  "unresolved": [
+    "Male frames 2\u20133 sit slightly higher than 0\u20131; female frame 0 sits slightly lower than later frames. Bench feet move with the body. Left as original geometry.",
+    "Some mid-tone gray contour pixels remain on light metal; removing them would thin the bench frame."
+  ],
+  "frames": [
+    {
+      "filename": "Decline_Dumbbell_Bench_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_male_v2_0.png",
+      "sourceSha256": "12972b67ac9b7bb9444238d838c479db59d8260995c2296e0b6e52a9a1336ab2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/012/Decline_Dumbbell_Bench_Press_male_v2_0.png",
+      "candidateSha256": "15111a7aea0d838012eca7ac053806c5a1fdb83627f280f4b392fe19fe27ca8b",
+      "method": "script_zero_px_then_local_thin_pale_edge_alpha",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Dumbbell_Bench_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_male_v2_1.png",
+      "sourceSha256": "576340088d8c839710deb74c43327a14577ea358170e9e0c28a7645098558b90",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/012/Decline_Dumbbell_Bench_Press_male_v2_1.png",
+      "candidateSha256": "d5f466df4d7c939e5e53ca09edc074376cb82695b8b198cd74fd752466d93514",
+      "method": "script_zero_px_then_local_thin_pale_edge_alpha",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Dumbbell_Bench_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_male_v2_2.png",
+      "sourceSha256": "73919ee6fa3bf3091be69b3675c050e90fa1184a2a142c45ac3aa7114049c0c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/012/Decline_Dumbbell_Bench_Press_male_v2_2.png",
+      "candidateSha256": "0c2a26a4d28977f92d29da7d09296ba7474c09233a811e883b9d0775ce7c5224",
+      "method": "script_zero_px_then_local_thin_pale_edge_alpha",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Dumbbell_Bench_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_male_v2_3.png",
+      "sourceSha256": "d9407e5b8f6f82c663c8d98baab28215ea9b06d1cc9eabafbf9e7bd6f6c13970",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/012/Decline_Dumbbell_Bench_Press_male_v2_3.png",
+      "candidateSha256": "3f608dc8fa64365486d4ebf18efe310c405b4397a4de560e02f5e49e1d518d58",
+      "method": "script_zero_px_then_local_thin_pale_edge_alpha",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Dumbbell_Bench_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_female_v2_0.png",
+      "sourceSha256": "61cf5c7f5c48e6c718ba2cbea645d95336a6dc4b6c3e22b6fb3ae0c80d77e445",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/012/Decline_Dumbbell_Bench_Press_female_v2_0.png",
+      "candidateSha256": "fd1a85bb07ecc9e2812f4ab3a14816fb02ea44f9157f15146d9c67323869b068",
+      "method": "script_zero_px_then_local_thin_pale_edge_alpha",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Dumbbell_Bench_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_female_v2_1.png",
+      "sourceSha256": "28128170f365837ee6eab309b5d36b3bfa93c9f3472ce5c9995f736bc14763c7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/012/Decline_Dumbbell_Bench_Press_female_v2_1.png",
+      "candidateSha256": "c7051beb99ed0f0172b5d073d0ee418eda9bffae50e7e196007e43d992b350e8",
+      "method": "script_zero_px_then_local_thin_pale_edge_alpha",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Dumbbell_Bench_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_female_v2_2.png",
+      "sourceSha256": "ee357a62fd3734c1cf6caf97da39ddd6548323eab8dd132e27f898c25d4b7092",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/012/Decline_Dumbbell_Bench_Press_female_v2_2.png",
+      "candidateSha256": "a7b9d082c84ee99f4afbb2c5452643ccd521af325b0130862340144340515fa2",
+      "method": "script_zero_px_then_local_thin_pale_edge_alpha",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Decline_Dumbbell_Bench_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Decline_Dumbbell_Bench_Press_female_v2_3.png",
+      "sourceSha256": "02c16cc4481d4a6d2c3cb7c2bbc2e3288d0ed83d840fe4e6c35d8fa337bc9569",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/012/Decline_Dumbbell_Bench_Press_female_v2_3.png",
+      "candidateSha256": "176d07b5a4d8ba06e652886e20dc125cb547837ef8b19b31a4679d22400c365d",
+      "method": "script_zero_px_then_local_thin_pale_edge_alpha",
+      "visuallyReviewed": true
+    }
+  ],
+  "generateImage": {
+    "attempts": 1,
+    "accepted": 0,
+    "rejectedReason": "full redraw at 1152x864 RGB instead of surgical fringe edit",
+    "artifact": "/opt/cursor/artifacts/assets/Decline_Dumbbell_Bench_Press_male_v2_0_gen_test.png"
+  },
+  "changedFrameCount": 8,
+  "reviewedAt": "2026-09-06T20:49:06.563814+00:00"
+}

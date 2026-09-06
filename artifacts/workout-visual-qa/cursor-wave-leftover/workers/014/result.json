@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Dancers_Stretch",
+  "shard": 2,
+  "index": 14,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical + green chroma on 4 dirty frame(s) after script pass."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dancers_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dancers_Stretch_male_v2_0.png",
+      "sourceSha256": "763d9c4a1cfb9c17ecbc50ec7f73df7be6c66bbeefa872f89e6e4f52c8da99b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/014/Dancers_Stretch_male_v2_0.png",
+      "candidateSha256": "0c4ca4254f96b9d6fc1a24beaf40f98c45c9f4cb10b916c4d7124ac9fa4d5b73",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dancers_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dancers_Stretch_male_v2_1.png",
+      "sourceSha256": "e52d1fd40be43f937b1e951f40de356804ea2746462ee83140c29372e4ab1dbd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/014/Dancers_Stretch_male_v2_1.png",
+      "candidateSha256": "a5e32ab85b682e6e2acbd9f7195a4d6370d4ed002a93929406b0b7c0599a956e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dancers_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dancers_Stretch_male_v2_2.png",
+      "sourceSha256": "640514e4b32b7b5e595e33c8db742aef9ee86c75ecc4d8ea26293acff1c9362a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/014/Dancers_Stretch_male_v2_2.png",
+      "candidateSha256": "14a4f24ccb62db99c16f9326c287d5394048ad9d33f49ff6ac7395bf70c5e1cc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dancers_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dancers_Stretch_male_v2_3.png",
+      "sourceSha256": "34101fbfe7d6e6b590924ef07cba0dfb66bff3e07072ed829695d59fbf03c46b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/014/Dancers_Stretch_male_v2_3.png",
+      "candidateSha256": "8d8b878fc65bad0707158f9225cd92534f5f2b422aee18f08f1141e78753294e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dancers_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dancers_Stretch_female_v2_0.png",
+      "sourceSha256": "cbdc92eb4bfe13f86676c903f806f5d486a76217e92b7033ab849dd3f7dfbc53",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/014/Dancers_Stretch_female_v2_0.png",
+      "candidateSha256": "0dc6b7ad0005046fe61dbbe66d6a52c010312982acfcda18bc30043819068d4e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dancers_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dancers_Stretch_female_v2_1.png",
+      "sourceSha256": "c19e22bb30bf3a0ab252cf916909c6230f8711c854007d73e83cc884a1d1fb68",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/014/Dancers_Stretch_female_v2_1.png",
+      "candidateSha256": "b311fb0015a5b1f2264229bfefb603216947db23e192c66c5dbc247bb704fa8f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dancers_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dancers_Stretch_female_v2_2.png",
+      "sourceSha256": "28fa90aafb5078d113c4f57d3b9dc7a25bde8b7c96c1e74b87d14c256871d03d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/014/Dancers_Stretch_female_v2_2.png",
+      "candidateSha256": "3ae6c2c8afea3317b3e78ec6536243d2145464546dee92522803e106ce853c0d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dancers_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dancers_Stretch_female_v2_3.png",
+      "sourceSha256": "b94706b45091fa493f113708e49fc6f4c64adee2b5bc708cb5eb986bb16fdfed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/014/Dancers_Stretch_female_v2_3.png",
+      "candidateSha256": "88952143b367804389f1e6d688adc867fd99d81e04abb65875b7287a36bf87ac",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

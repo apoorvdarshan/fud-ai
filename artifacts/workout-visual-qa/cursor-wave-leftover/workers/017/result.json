@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Front_Barbell_Squat",
+  "shard": 2,
+  "index": 17,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Front_Barbell_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Barbell_Squat_male_v2_0.png",
+      "sourceSha256": "d02f30e63aff1ae7edd0ece7bc19c0b5d5f7dc2bf28f4982bd74060fa3352d5d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/017/Front_Barbell_Squat_male_v2_0.png",
+      "candidateSha256": "5aa276ca16c1ef3e0256c8a229b25edff35722b011f40b7d516738c3c5090309",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Barbell_Squat_male_v2_1.png",
+      "sourceSha256": "9681aef9b7fc5ac7cc36b23fb564453f0738a0eb802a50bb2e3ca21d710dd83b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/017/Front_Barbell_Squat_male_v2_1.png",
+      "candidateSha256": "0be25429ddd0d0df22a43121328cf50f805ae5a320c77f599e8b78453f6bf8af",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Barbell_Squat_male_v2_2.png",
+      "sourceSha256": "366d7de2c61ca03a7b175864503fe473da222155b66267d01c7831073b49a42c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/017/Front_Barbell_Squat_male_v2_2.png",
+      "candidateSha256": "3f64cdf9bd4cd05b067823e7c01476cdb775770eba8d2752112981b57307b44b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Barbell_Squat_male_v2_3.png",
+      "sourceSha256": "b4cb9f46d40caf19876bb50e97334c8833becf5d8a5f73a0394d0640b19b044c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/017/Front_Barbell_Squat_male_v2_3.png",
+      "candidateSha256": "6b7d6c8e03951cf46a23b39ed8eaf9b2f570fc6606932dc8550f12402c67ff9f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Barbell_Squat_female_v2_0.png",
+      "sourceSha256": "aaf8932710493182d64faa59410a572d39f3ca9967083c9d9e0026f51a87691a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/017/Front_Barbell_Squat_female_v2_0.png",
+      "candidateSha256": "795f77296c6f6b200b5ab15a406e65443c2d7b0a0d6f95bcd85621792e66b5dc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Barbell_Squat_female_v2_1.png",
+      "sourceSha256": "f04e1ebba14fc2300053fd4ce853bc556775fdb3def626ba49f79c789e5d2078",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/017/Front_Barbell_Squat_female_v2_1.png",
+      "candidateSha256": "825e7372b8ab772a002557cb73fb3f48f8539b5ee4afd084fad8b6b0f56a29ef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Barbell_Squat_female_v2_2.png",
+      "sourceSha256": "fd8a517dd6395fe6a75591c3791fa3142033fef71419ec4ce3166f7dbebd465f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/017/Front_Barbell_Squat_female_v2_2.png",
+      "candidateSha256": "d1144892a8697c3d4776ba0abe4e707078fd6e5292e7581b8af54ba4482e2e12",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Front_Barbell_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Front_Barbell_Squat_female_v2_3.png",
+      "sourceSha256": "df7d6289c6f5d1e8a10d5d53fba951742f27189eac0560f7c1a9894d7e730209",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/017/Front_Barbell_Squat_female_v2_3.png",
+      "candidateSha256": "fca7844121c5c4514d32939de29b569bea66053eed443dbe3c9bca2c9528273e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

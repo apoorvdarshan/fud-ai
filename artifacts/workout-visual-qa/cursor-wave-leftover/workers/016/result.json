@@ -1,0 +1,84 @@
+{
+  "exerciseId": "EZ-Bar_Skullcrusher",
+  "shard": 2,
+  "index": 16,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical + green chroma on 4 dirty frame(s) after script pass."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "EZ-Bar_Skullcrusher_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Skullcrusher_male_v2_0.png",
+      "sourceSha256": "58e5a0c57168ba795f28694dcfb20a15525304fd2dba4a4d25dee978ab4a5eb0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/016/EZ-Bar_Skullcrusher_male_v2_0.png",
+      "candidateSha256": "562dee58a06bf710d1489d8792dc4257cacf1affa8294813c185bb1277309dd4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "EZ-Bar_Skullcrusher_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Skullcrusher_male_v2_1.png",
+      "sourceSha256": "5e924ea3a420d01431441bae2ff171cebfab4e3314078b72b11048e7933c9ea6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/016/EZ-Bar_Skullcrusher_male_v2_1.png",
+      "candidateSha256": "e35708070cb2460e305c1712c153d76980e70909dac984d46583cd190076593b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "EZ-Bar_Skullcrusher_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Skullcrusher_male_v2_2.png",
+      "sourceSha256": "d485eee435f4f4f57c896590491f158df2a090896843a7f1563c6b2c210a1981",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/016/EZ-Bar_Skullcrusher_male_v2_2.png",
+      "candidateSha256": "038796bcbf4c240ed265ed9a2a5b19e8e228d23437c46b455193c8fd2213cfc4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "EZ-Bar_Skullcrusher_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Skullcrusher_male_v2_3.png",
+      "sourceSha256": "1886568388a98aef8c88d12ca7ccae0234b06f7201df19fc95f257b0de174243",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/016/EZ-Bar_Skullcrusher_male_v2_3.png",
+      "candidateSha256": "61ea58f566230d87b26b399dc27fd190b7173aa3ac149810d6e5967fd778278c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "EZ-Bar_Skullcrusher_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Skullcrusher_female_v2_0.png",
+      "sourceSha256": "9425796b2c6bf8e3956756c617b2dfd47cf4df5b92def6737691d2b67bef1ed3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/016/EZ-Bar_Skullcrusher_female_v2_0.png",
+      "candidateSha256": "5b708d39e4a76febd9a576d616d3fa344d687086990c16b2fc1736cce7b37c63",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "EZ-Bar_Skullcrusher_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Skullcrusher_female_v2_1.png",
+      "sourceSha256": "ffbaac69ce882b6d62c67aaf6b21cb3e97a8647b6c03b11c64cbdc752e98b123",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/016/EZ-Bar_Skullcrusher_female_v2_1.png",
+      "candidateSha256": "08cba65dce24c3aefdbeb86722445623400dac9160498b6801ba5fd3d6b2bbb8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "EZ-Bar_Skullcrusher_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Skullcrusher_female_v2_2.png",
+      "sourceSha256": "e6e0f8ed914df771556012cf076376b77090ff133a64678154a26bc038e61009",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/016/EZ-Bar_Skullcrusher_female_v2_2.png",
+      "candidateSha256": "da984b70dbf2c124159946a1040ac75867e727b2fc179a1e805e884809cbe59b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "EZ-Bar_Skullcrusher_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/EZ-Bar_Skullcrusher_female_v2_3.png",
+      "sourceSha256": "5efad3cde95bc1aca0c97d377ce396dd33af88081974f3f56817cb636a451c9b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/016/EZ-Bar_Skullcrusher_female_v2_3.png",
+      "candidateSha256": "cd5a6edcef98f590b4497ce02ffcd77f3c80e15337d0d826dd144331d795a6c2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

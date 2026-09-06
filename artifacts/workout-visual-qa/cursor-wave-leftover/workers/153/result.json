@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Romanian_Deadlift",
+  "shard": 16,
+  "index": 153,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 2 frame(s) with floor/fringe/noise artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Romanian_Deadlift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Romanian_Deadlift_male_v2_0.png",
+      "sourceSha256": "671e46fc5aaaa055c90aa8f26eac0b75075d25dec965637993ddd6463b01ba84",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/153/Romanian_Deadlift_male_v2_0.png",
+      "candidateSha256": "e2ff17837e2e12e41d1d5ff997cd4d46427b78348d63aef2a3bb5f67c0ae07aa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Romanian_Deadlift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Romanian_Deadlift_male_v2_1.png",
+      "sourceSha256": "f9d9a91941811cba26387f13fea5d957a65e576b85a8ccf0ea74bcb3551ffc31",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/153/Romanian_Deadlift_male_v2_1.png",
+      "candidateSha256": "bed65e052344819697b71b3dde605edc83e4d50a9a1d70aba1872de47bd6c8e6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Romanian_Deadlift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Romanian_Deadlift_male_v2_2.png",
+      "sourceSha256": "50658c1927d5ceb95b3df9821e347b9b7173674719145ac5dc4fe4fd53ea1b9a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/153/Romanian_Deadlift_male_v2_2.png",
+      "candidateSha256": "6ee312adec6233301c5299c75b72b3571c2181bb721eca0ca27ce78a63e76b12",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Romanian_Deadlift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Romanian_Deadlift_male_v2_3.png",
+      "sourceSha256": "8a729dd36cdaa1356e5bb98fe5a517477be4fecb34d196d28db3c2b27a4ffef8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/153/Romanian_Deadlift_male_v2_3.png",
+      "candidateSha256": "5e4c66ee809726cf3a0f1338f0adacad27ae53154dd59c3bb4570e6761b3bd44",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Romanian_Deadlift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Romanian_Deadlift_female_v2_0.png",
+      "sourceSha256": "063735aeca19fe2ef64cfea00afb63fb6fa4d79e375ad18d6346e278ac8cb7ce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/153/Romanian_Deadlift_female_v2_0.png",
+      "candidateSha256": "0a56d36dd8fdea82183b14e962e67be2f3075f2ad315c664cc3ad425144cf2e5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Romanian_Deadlift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Romanian_Deadlift_female_v2_1.png",
+      "sourceSha256": "202080a022a7d900f7ee5e7df95f059a1fed096e355c7b691d2afad0bdfe2539",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/153/Romanian_Deadlift_female_v2_1.png",
+      "candidateSha256": "907c9b4c474033561534246c80944dc0fad51eb6dbeed3d088cf1fe1393fed48",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Romanian_Deadlift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Romanian_Deadlift_female_v2_2.png",
+      "sourceSha256": "3f40e61a58354c585a3f5580a974d9af373069bac8152206bfa325f73784222c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/153/Romanian_Deadlift_female_v2_2.png",
+      "candidateSha256": "5a7d674d6101255497287600775eac88cd2dfcbc26fb780d5f27f233d9db5d3f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Romanian_Deadlift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Romanian_Deadlift_female_v2_3.png",
+      "sourceSha256": "cb70e402d9721006712505233772cac2065a2f551e55cfa2d2e312dd5e169c71",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/153/Romanian_Deadlift_female_v2_3.png",
+      "candidateSha256": "0d16f93697cf287c39c249f2110d35786ce06e1304e30bb47977701d05156120",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Rope_Climb",
+  "shard": 16,
+  "index": 155,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Rope_Climb_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Climb_male_v2_0.png",
+      "sourceSha256": "8b3ec9b8951d26ac5f8d5fa494a17c51a4dd2d439f82bc31b8deed0c8e6a2803",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/155/Rope_Climb_male_v2_0.png",
+      "candidateSha256": "eb83c5b67bdd90ca947a0f105fefd71ed1df22e15969d8076e3a8830b1b69e83",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Climb_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Climb_male_v2_1.png",
+      "sourceSha256": "47d19bbe6c7f439c7591aba989c243fb9fed393b9fe963821c0efc3f23d3f66f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/155/Rope_Climb_male_v2_1.png",
+      "candidateSha256": "12ad9b60535e23feb125ef442a4364a03dc0bc9bc17cf9a5f580ad9224264523",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Climb_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Climb_male_v2_2.png",
+      "sourceSha256": "2633740e165833c01a071b41fb13afeaca98b1f306f39a62b3126ddb3f76f671",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/155/Rope_Climb_male_v2_2.png",
+      "candidateSha256": "85459225c07582336b3dbd5f3970b2164fb181ecd2264a7f45c99e86cbdb4ed3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Climb_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Climb_male_v2_3.png",
+      "sourceSha256": "ca406f9c1fc63f398c0a31f3d18651968a3f6cfdc36123e9acd0c7fcd0ae7e7e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/155/Rope_Climb_male_v2_3.png",
+      "candidateSha256": "f0c17b799771a316de76c14c5c59ba8c4e2bd620ce08c16a7e173cceef64cf2d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Climb_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Climb_female_v2_0.png",
+      "sourceSha256": "0dd19afaf5fdab56f6cd3877bb520c9e57d229adb0d1863ca9294b10f9169b35",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/155/Rope_Climb_female_v2_0.png",
+      "candidateSha256": "ec9fb12594a3596732e684c193d82be9e25982a7793b3e3fa625dee37e8db107",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Climb_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Climb_female_v2_1.png",
+      "sourceSha256": "d5660e555683a1a40afabb93c8ce14c7543de0858d982e987c5e144a49009326",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/155/Rope_Climb_female_v2_1.png",
+      "candidateSha256": "7de851ce0ba60a885042b031674adc0eda1285c1f49973eef9e89113e6eaf076",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Climb_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Climb_female_v2_2.png",
+      "sourceSha256": "9131a73cc4b31fed80e4c4c0f58457011cab37db5e3a205ff259bfc917e4b3b6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/155/Rope_Climb_female_v2_2.png",
+      "candidateSha256": "6b3fd752a22ecd45cdc4498bc899b108392f4f0274ed6258adf477a49cf18975",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Climb_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Climb_female_v2_3.png",
+      "sourceSha256": "5e6fe93d488dedc3cabf1edbd29425ca28416c3d2c2e1d995c968838877b6c88",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/155/Rope_Climb_female_v2_3.png",
+      "candidateSha256": "c30f3814dfae134379438f45a796a99e5488f221a4354d72252899c5fd9ff6e2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

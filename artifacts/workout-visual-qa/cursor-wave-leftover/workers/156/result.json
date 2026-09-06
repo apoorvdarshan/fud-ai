@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Rope_Crunch",
+  "shard": 16,
+  "index": 156,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 2 frame(s) with floor/fringe/noise artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Rope_Crunch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Crunch_male_v2_0.png",
+      "sourceSha256": "86f39a78237cdef0d0030cc1568e36f0ad6bf97fd121970347db99f56960fc3c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/156/Rope_Crunch_male_v2_0.png",
+      "candidateSha256": "1f3ae48f71140fb01d2994b9449e37827ff234eac63455af0f183bb2948ca0ef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Crunch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Crunch_male_v2_1.png",
+      "sourceSha256": "1e56650da7f00b8ec0dbc7af28828a692846bc5b4f04cbeb16802433fc89e5f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/156/Rope_Crunch_male_v2_1.png",
+      "candidateSha256": "19b318e5600108302585f62dfd1c5e4dd35d6fba3ecf42c73aec350b7090b36a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Crunch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Crunch_male_v2_2.png",
+      "sourceSha256": "c9d01e54384e70a9cd546141fd2c7f915a74fccc0186f4309b83b80eeeafb853",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/156/Rope_Crunch_male_v2_2.png",
+      "candidateSha256": "760e053497e98fadc4008b3c15fa146c01a7075ec3624dadb50645faf3ffb0d5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Crunch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Crunch_male_v2_3.png",
+      "sourceSha256": "a9818dcceb7838e0661e44475c152440fb1ee40cfcd90f5a6b49f4fc5a773fee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/156/Rope_Crunch_male_v2_3.png",
+      "candidateSha256": "46630aba3c371364bd8828c47d2cf61f20cf66789dfa9f7d0f55403db480c352",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Crunch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Crunch_female_v2_0.png",
+      "sourceSha256": "74206a759455e4188a3dd58eef037abf7978d93dea1309b081c479507da7b1a8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/156/Rope_Crunch_female_v2_0.png",
+      "candidateSha256": "6d92cd91b7b761eee2af80b3b9d4813e211cb0800064e36cfb4e010f55b73f60",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Crunch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Crunch_female_v2_1.png",
+      "sourceSha256": "d3ce15ba42fe56d641e1c5e4ccceda6309064aff1e0d470ab6d96bc59b520264",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/156/Rope_Crunch_female_v2_1.png",
+      "candidateSha256": "f71353055650223fb2f12a77890c4357ea3cfa1f0b7d5ecd70e625443562bf1d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Crunch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Crunch_female_v2_2.png",
+      "sourceSha256": "7f16ed7fd4c1b1610f90de58a1d9f9cce3a766a32f491d674833ffce6f88b600",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/156/Rope_Crunch_female_v2_2.png",
+      "candidateSha256": "879bc3f950e9d19a773f20665c209713ed36753e2277244947f3b2d6ec1a176d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Crunch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Crunch_female_v2_3.png",
+      "sourceSha256": "fb61c0f7dcbd5eb16283e45365a6a4721942981cc12e5b2b5faaf25b033d4413",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/156/Rope_Crunch_female_v2_3.png",
+      "candidateSha256": "90bc5507f4db6f93bb2b5d19a5a149405836a2df5f6c530b63c8be70a2374430",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

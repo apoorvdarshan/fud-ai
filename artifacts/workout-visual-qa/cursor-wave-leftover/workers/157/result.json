@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Rope_Jumping",
+  "shard": 16,
+  "index": 157,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Rope_Jumping_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Jumping_male_v2_0.png",
+      "sourceSha256": "1d7112e1c9e3e37ec200da60169b3485597e1519dd4ad00f7f188b7148c1088a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/157/Rope_Jumping_male_v2_0.png",
+      "candidateSha256": "d4994cfa3ad17fbb72452f82b3d6dcb44d1a5267ba64f48b54cf9173f5d204e4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Jumping_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Jumping_male_v2_1.png",
+      "sourceSha256": "4031cd012abdd3b2e1fcf52f2977ab8cbede6348984d5b1a9bb54a13eec208a9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/157/Rope_Jumping_male_v2_1.png",
+      "candidateSha256": "48268c8041ebd10055e4870a0ec3ae58f20ad87daf1859cfde20660fe55dbcc6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Jumping_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Jumping_male_v2_2.png",
+      "sourceSha256": "efee67120edb3b964b6b5139a98be4485bffa4ed53cc033bd077c2073e2080f9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/157/Rope_Jumping_male_v2_2.png",
+      "candidateSha256": "586921eb4d7f40e7453d8eacd6ecd3d4e6040a83753b5a04ac090995d5a9e031",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Jumping_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Jumping_male_v2_3.png",
+      "sourceSha256": "9fd61d746dfb9f1a60ff7472576052bc57c3f37d1e5c2103b7379d93b590ec04",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/157/Rope_Jumping_male_v2_3.png",
+      "candidateSha256": "356f0b2d647ddfc2ef0a55dce7d26f36d1733eb3d7ec814cb67c29b67e8fb5b7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Jumping_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Jumping_female_v2_0.png",
+      "sourceSha256": "124f7ca105fc3656762cb8a11bdddc495f1a21306804d7919c83c251a4a8d858",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/157/Rope_Jumping_female_v2_0.png",
+      "candidateSha256": "2ad14b543aac1499486e6f3e14f4ab419485126248ee6df20b1b2e791edcc19b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Jumping_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Jumping_female_v2_1.png",
+      "sourceSha256": "9d88af69d45be6d4da39a73489c3d98fd123722b37ec785c337db202693d20e8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/157/Rope_Jumping_female_v2_1.png",
+      "candidateSha256": "cdf17662499cefd82316ac4783f12bfdf1de18be4ce299bc47425dedadd76f1b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Jumping_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Jumping_female_v2_2.png",
+      "sourceSha256": "615603be77e9c95a855f017a6e26028c023cccd3e9c7b747f215af116ab0ddbd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/157/Rope_Jumping_female_v2_2.png",
+      "candidateSha256": "2a8cf3c11c8e20770cca849d4d34f9069041f7ea64e5219aaa1096630bd09694",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rope_Jumping_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rope_Jumping_female_v2_3.png",
+      "sourceSha256": "eca03b94fc3bda5a080886f82a3e1cb752b4d374d97cd8305861918f9a609184",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/157/Rope_Jumping_female_v2_3.png",
+      "candidateSha256": "d869a2c3ea26c50d33e6f718aa93c812903bc94b439567680fb7289da5ebf09c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

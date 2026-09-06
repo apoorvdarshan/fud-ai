@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Round_The_World_Shoulder_Stretch",
+  "shard": 16,
+  "index": 159,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 3 frame(s) with floor/fringe/noise artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Round_The_World_Shoulder_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Round_The_World_Shoulder_Stretch_male_v2_0.png",
+      "sourceSha256": "7dfe437722dd116beb4c6843e38fbb37bcdb7ecc5d7a3fe3f2226efa6462ccd7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/159/Round_The_World_Shoulder_Stretch_male_v2_0.png",
+      "candidateSha256": "76677962d52acb92e36c18a0aac0f0b3be1d58a7b15947aa97c1b1ea5776201c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Round_The_World_Shoulder_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Round_The_World_Shoulder_Stretch_male_v2_1.png",
+      "sourceSha256": "676fc38146fd93819517b62a338cb912692cbf3443f7409f44d030dd91896ea5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/159/Round_The_World_Shoulder_Stretch_male_v2_1.png",
+      "candidateSha256": "87206c2fb6c18ac95c4e3cef6e169e01a2ae41d1a1b1524dc04967eb0863b267",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Round_The_World_Shoulder_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Round_The_World_Shoulder_Stretch_male_v2_2.png",
+      "sourceSha256": "60d1bcf9fe94c37fd0076917b9178ab2cd20dcc1322f3b8e24da49aa2671e508",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/159/Round_The_World_Shoulder_Stretch_male_v2_2.png",
+      "candidateSha256": "812f8ebb3077ecea7b6643642049f4b0425f8de573f475a879a88316957ed352",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Round_The_World_Shoulder_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Round_The_World_Shoulder_Stretch_male_v2_3.png",
+      "sourceSha256": "1819775973e9cfe5efa5e2389266b1aafbe0195a3eb0dae6447bacf418b4a865",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/159/Round_The_World_Shoulder_Stretch_male_v2_3.png",
+      "candidateSha256": "0091eaada0bce26fbdfaf24dc052a2878e4a41721fa37468828062db2bc419a0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Round_The_World_Shoulder_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Round_The_World_Shoulder_Stretch_female_v2_0.png",
+      "sourceSha256": "4c903e4ffd053f2d5eb15d5ffb277e259fba09f1f27c2547355d3516acbc0993",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/159/Round_The_World_Shoulder_Stretch_female_v2_0.png",
+      "candidateSha256": "1200bec7725a6200a395adb9fe7ac683944478d82258f93f91821628d026447e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Round_The_World_Shoulder_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Round_The_World_Shoulder_Stretch_female_v2_1.png",
+      "sourceSha256": "ad8b25753dfb601865abc7b0104bd66908caa78b8b424c50b06da80653706c50",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/159/Round_The_World_Shoulder_Stretch_female_v2_1.png",
+      "candidateSha256": "ab35ad725060e55c100be47c92a083da9901cdb38cc4c071691bf446955a2162",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Round_The_World_Shoulder_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Round_The_World_Shoulder_Stretch_female_v2_2.png",
+      "sourceSha256": "5f8cfb6c9cbe6b5c2ff96201e84974473cd1920cd6447318c6cf3cc171e4a7e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/159/Round_The_World_Shoulder_Stretch_female_v2_2.png",
+      "candidateSha256": "9a30c55ae9ed701e2b6489c7a084668b8f420aa6d83cad7422f8d7dd3188d413",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Round_The_World_Shoulder_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Round_The_World_Shoulder_Stretch_female_v2_3.png",
+      "sourceSha256": "4c8d9acd59521adeff088d988cb60e391191c1a0b76633d2e2c540c946cb7838",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/159/Round_The_World_Shoulder_Stretch_female_v2_3.png",
+      "candidateSha256": "6b546cae8e9fecc822ca83811ff7f0953026e1843ad33a1c626660b861d58af6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

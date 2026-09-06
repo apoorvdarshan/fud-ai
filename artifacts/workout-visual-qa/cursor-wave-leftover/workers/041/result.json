@@ -1,0 +1,82 @@
+{
+  "exerciseId": "One-Arm_Kettlebell_Para_Press",
+  "shard": 5,
+  "index": 41,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "One-Arm_Kettlebell_Para_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Para_Press_male_v2_0.png",
+      "sourceSha256": "7448cc5901932a6e881c5d6042c22bdb0de3731ecdaf10e390f52995276b5775",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/041/One-Arm_Kettlebell_Para_Press_male_v2_0.png",
+      "candidateSha256": "b055d360bbc0395be9c32e1d116d4e964950ab53a45fac703e29d8acb0d68da1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Para_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Para_Press_male_v2_1.png",
+      "sourceSha256": "b8fdd11bcd0fc440049d490290a0bffbf0d0d6a731181dd209140d2365a4a622",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/041/One-Arm_Kettlebell_Para_Press_male_v2_1.png",
+      "candidateSha256": "a077657a335bf24c6addeb5006263b2eb1ad04284ecece5c17792db31d85a470",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Para_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Para_Press_male_v2_2.png",
+      "sourceSha256": "8df9aa9df347148245c82662406b38d4e236ed42c64c3509f8ecd879e15672bb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/041/One-Arm_Kettlebell_Para_Press_male_v2_2.png",
+      "candidateSha256": "2a976fa6e57122492e145adde970d876b98d3e6e9f9333b0322d0614a1619843",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Para_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Para_Press_male_v2_3.png",
+      "sourceSha256": "55d76e64118139a3b52cc98417ecca7c14187aaed4ec17dab4a53dc406b94adf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/041/One-Arm_Kettlebell_Para_Press_male_v2_3.png",
+      "candidateSha256": "6bfecbac848c3c19559cf3672ad93bef76e56c73c27414559061ecb277ac265c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Para_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Para_Press_female_v2_0.png",
+      "sourceSha256": "ee3b5c3e10b280484ffde1b77789d522147295ad8a3133649a35df5e1e68e658",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/041/One-Arm_Kettlebell_Para_Press_female_v2_0.png",
+      "candidateSha256": "277722b90a766db141e94cb9ca70c9fb993a165c18eb139d24c1c61638f5c2b8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Para_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Para_Press_female_v2_1.png",
+      "sourceSha256": "9c495ce3154cc603f809018e6c6de186c3f1cec2ba6c10fb5353fa8bed22d3b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/041/One-Arm_Kettlebell_Para_Press_female_v2_1.png",
+      "candidateSha256": "868df14b67c80c66e0595bf0fd2ba539c546caceb319dc4185fbf1095e77442b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Para_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Para_Press_female_v2_2.png",
+      "sourceSha256": "581541082a9cbfaad4d59fcc042ebba5013c615aab7d1786e48eac14067bad74",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/041/One-Arm_Kettlebell_Para_Press_female_v2_2.png",
+      "candidateSha256": "dc9c3eb398ebdfa48bbf205b8df169ce055c1e07de4f568be74a17a061b78164",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "One-Arm_Kettlebell_Para_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/One-Arm_Kettlebell_Para_Press_female_v2_3.png",
+      "sourceSha256": "8ccb75468f5986593a3c08ef1fd94776d1ea7c34fc2fdb4cba62937979aea805",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/041/One-Arm_Kettlebell_Para_Press_female_v2_3.png",
+      "candidateSha256": "5aaf2da3c55624cd3fb3dc5f6eaff22f249c48bd0ee7608852ee1d36bd496a4f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

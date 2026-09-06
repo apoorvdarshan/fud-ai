@@ -26,6 +26,16 @@ test('one exercise has four simultaneous gender/background panels and no selecto
  assert.equal((html.match(/<select\b/g)||[]).length,0);
  assert.match(html,/header\{background:#181c24/);assert.doesNotMatch(html,/position:sticky/);
 });
+test('previous approve and next appear once together in the right-aligned navigation',()=>{
+ const nav=html.match(/<nav class="exercise-navigation"[\s\S]*?<\/nav>/)[0];
+ for(const id of ['previous','approve','next']){
+  assert.equal((html.match(new RegExp('id="'+id+'"','g'))||[]).length,1);
+  assert.ok(nav.includes('id="'+id+'"'));
+ }
+ assert.ok(nav.indexOf('id="previous"')<nav.indexOf('id="approve"'));
+ assert.ok(nav.indexOf('id="approve"')<nav.indexOf('id="next"'));
+ assert.match(html,/\.exercise-navigation\{[^}]*justify-content:flex-end/);
+});
 test('all panels wait for the matched four-image frame set',async()=>{
  const h=harness();h.run('renderExercise()');
  for(const j of h.jobs.slice(0,3))j.resolve();await h.settle();

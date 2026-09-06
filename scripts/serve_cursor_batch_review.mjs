@@ -5,7 +5,7 @@ import path from 'node:path';
 import http from 'node:http';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { matchesFrames, readJson, validateDecision } from './workout_review_state.mjs';
+import { collectReviewTotals, matchesFrames, readJson, validateDecision } from './workout_review_state.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const batchName = process.argv[2] || 'cursor-cloud-100';
@@ -15,15 +15,24 @@ const originalsOverride = path.join(batchRoot, 'originals');
 const originals = fs.existsSync(originalsOverride) ? originalsOverride : path.join(root, 'shared/workout-vectors');
 const candidates = path.join(batchRoot, 'candidates/images');
 const decisionsFile = path.join(batchRoot, 'human-decisions.json');
-const defaultPorts = { 'cursor-pilot-10': 8766, 'cursor-cloud-100': 8767, 'cursor-cloud-100-done30': 8766, 'cursor-promoted-5': 8766, 'cursor-next-10': 8766, 'cursor-shard-100': 8766, 'cursor-shard-100-done12': 8766, 'cursor-wave-100': 8766, 'cursor-wave-200': 8768 };
+const defaultPorts = { 'cursor-pilot-10': 8766, 'cursor-cloud-100': 8767, 'cursor-cloud-100-done30': 8766, 'cursor-promoted-5': 8766, 'cursor-next-10': 8766, 'cursor-shard-100': 8766, 'cursor-shard-100-done12': 8766, 'cursor-wave-100': 8766, 'cursor-wave-200': 8768, 'cursor-wave-300': 8766 };
+const sourceBatches = ['cursor-wave-100', 'cursor-wave-200'];
+const sourceIds = new Map(sourceBatches.flatMap(name => {
+  const exercises = readJson(path.join(root, 'artifacts/workout-visual-qa/review-batches', name, `${name}.json`), {}).exercises || [];
+  return exercises.map(e => [e.exerciseId, name]);
+}));
 const sha = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const images = new Map();
 
-function batchTotals(rows) {
-  const approved = rows.filter(r => ['approve_candidate', 'keep_original'].includes(r.humanDecision)).length;
-  const inProgress = rows.filter(r => r.humanDecision === 'needs_more_work').length;
-  const pending = rows.filter(r => r.humanDecision === 'pending').length;
-  return { total: rows.length, approved, inProgress, notStarted: pending, readyForReview: pending + inProgress };
+function writeDecision(file, batch, decision) {
+  const state = readJson(file, { batch, decisions: {} });
+  state.batch = batch;
+  state.decisions[decision.exerciseId] = decision;
+  state.updatedAt = decision.reviewedAt;
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  const temp = file + '.' + crypto.randomUUID() + '.tmp';
+  fs.writeFileSync(temp, JSON.stringify(state, null, 2), { mode: 0o600 });
+  fs.renameSync(temp, file);
 }
 
 function manifest() {
@@ -81,7 +90,7 @@ function manifest() {
   images.clear();
   for (const [key, value] of nextImages) images.set(key, value);
   const undecided = allRows.filter(r => r.humanDecision === 'pending');
-  return { batch: batchName, count: undecided.length, batchTotal: batch.exercises.length, readyCount: allRows.length, totals: batchTotals(allRows), rows: undecided };
+  return { batch: batchName, count: undecided.length, batchTotal: batch.exercises.length, readyCount: allRows.length, totals: collectReviewTotals(root), rows: undecided };
 }
 
 const server = http.createServer(async (req, res) => {
@@ -97,15 +106,13 @@ const server = http.createServer(async (req, res) => {
       const input = JSON.parse(body);
       const row = manifest().rows.find(r => r.id === input.exerciseId);
       const decision = validateDecision(input, row);
-      const state = readJson(decisionsFile, { batch: batchName, decisions: {} });
-      state.decisions[decision.exerciseId] = decision;
-      state.updatedAt = decision.reviewedAt;
-      fs.mkdirSync(batchRoot, { recursive: true });
-      const temp = decisionsFile + '.' + crypto.randomUUID() + '.tmp';
-      fs.writeFileSync(temp, JSON.stringify(state, null, 2), { mode: 0o600 });
-      fs.renameSync(temp, decisionsFile);
+      writeDecision(decisionsFile, batchName, decision);
+      const source = sourceIds.get(decision.exerciseId);
+      if (source && source !== batchName) {
+        writeDecision(path.join(root, 'artifacts/workout-visual-qa', source, 'human-decisions.json'), source, decision);
+      }
       res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
-      res.end(JSON.stringify({ saved: decision, totals: manifest().totals }));
+      res.end(JSON.stringify({ saved: decision, totals: collectReviewTotals(root) }));
       return;
     }
     if (req.method !== 'GET') { res.writeHead(405); res.end(); return; }

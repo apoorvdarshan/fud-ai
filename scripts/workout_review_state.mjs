@@ -52,6 +52,34 @@ export function collectReviewTotals(root) {
       else if (decision !== 'needs_more_work') ready.add(check.exerciseId);
     }
   }
-  return reviewTotals(ids, started, approved, ready);
+  const qa = path.join(root, 'artifacts/workout-visual-qa');
+  for (const file of listDecisionFiles(qa)) ingestDecisionFile(file, approved, started);
+  const totals = reviewTotals(ids, started, approved, ready);
+  return { ...totals, left: totals.total - totals.approved };
+}
+
+function ingestDecisionFile(file, approved, started) {
+  const payload = readJson(file, {});
+  for (const [id, row] of Object.entries(payload.decisions || {})) {
+    const decision = row?.decision;
+    if (['approve_candidate', 'keep_original'].includes(decision)) approved.add(id);
+    else if (decision === 'needs_more_work') started.add(id);
+  }
+  for (const row of payload.exercises || []) {
+    const id = row.exercise_id || row.exerciseId;
+    if (id) approved.add(id);
+  }
+}
+
+function listDecisionFiles(qa) {
+  if (!fs.existsSync(qa)) return [];
+  const files = [];
+  const approved = path.join(qa, 'human-approved-candidates.json');
+  if (fs.existsSync(approved)) files.push(approved);
+  for (const name of fs.readdirSync(qa)) {
+    const file = path.join(qa, name, 'human-decisions.json');
+    if (fs.existsSync(file)) files.push(file);
+  }
+  return files;
 }
 function readTextJson(text) { try { return JSON.parse(text); } catch { return null; } }

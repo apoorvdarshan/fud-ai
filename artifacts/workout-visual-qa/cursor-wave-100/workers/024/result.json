@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_male_v2_0.png",
       "candidateSha256": "cc34f1133b2ac4c1a9419d87538f8a9672b8264a4bee81972d0bb9f8a694f298",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Extension_with_Bands_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_male_v2_1.png",
       "candidateSha256": "5b2f9181ef29a4bcc6ef05d191ed399cc891eac7dde4e466d76be5a2866317c9",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Extension_with_Bands_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_male_v2_2.png",
       "candidateSha256": "4d34824b0b30d2a569551a00a4aa9b262abbb321d390555b63463d036b93fc26",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Extension_with_Bands_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_male_v2_3.png",
       "candidateSha256": "e34d2a53f20cf4320ff1a73a7a29eaa352624cada8c2a7be12b46d21ca8bc1aa",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Extension_with_Bands_female_v2_0.png",
@@ -49,25 +49,25 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_female_v2_0.png",
       "candidateSha256": "f382487b1ce9747316206f155470aa12e9abfa608e87b9fccc9e630bd51857a0",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Extension_with_Bands_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_female_v2_1.png",
       "sourceSha256": "1f613bd16f7502bd5ee695d5e2e4c8aa7fe00e910ca854e3ba88c815a05f3640",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_female_v2_1.png",
-      "candidateSha256": "f53cb67c4a8fb8e81bd6bf2846c85fed65a9be02cb43af21efd929722fef7680",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "271f5d69997584335fff76b98ec0b0aa7fe87742c34e82ec903c7636a37ec1e1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Extension_with_Bands_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hip_Extension_with_Bands_female_v2_2.png",
       "sourceSha256": "1047c856c18bb41373a3bb8ffaa92b65cfbc016d9b9dbd2ba788fa9b3f439d7b",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_female_v2_2.png",
-      "candidateSha256": "983e1f1a603ed87a664f64412744c0bfff696c6bbb9c0d3cc9df73dc4b1f143b",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "ac88f3f943e0fc4ab7c202af4b7faca7d0e1fca7b936407fe8a84ea45a7488ea",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Extension_with_Bands_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/024/Hip_Extension_with_Bands_female_v2_3.png",
       "candidateSha256": "92046b5f30f3df1bece027e024a70c3260985ca08b77f6e0b0f9e16b5d5a1106",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

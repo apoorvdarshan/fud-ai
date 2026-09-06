@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/027/Hug_A_Ball_male_v2_0.png",
       "candidateSha256": "c78a5e971302f41c421037a2843825ee4161f1a22c29a282836301e71e07b50d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_A_Ball_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/027/Hug_A_Ball_male_v2_1.png",
       "candidateSha256": "8ed8f93fad0aade0d82a4c65ea643f2d5a9330d7d35c72636b3609f49fe0e5a9",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_A_Ball_male_v2_2.png",
@@ -31,16 +31,16 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/027/Hug_A_Ball_male_v2_2.png",
       "candidateSha256": "a882e9449179a16ff84a90ee46d0b988241f7bace56d8a8c67658bd41a7a6f44",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_A_Ball_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hug_A_Ball_male_v2_3.png",
       "sourceSha256": "dbe8ef6de231f7883872139629db81bf85a6e9b47c5430f6cde6f8df2e365c9d",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/027/Hug_A_Ball_male_v2_3.png",
-      "candidateSha256": "fd64ed21289ebf3ca2253e0ed6c458018d0ecb9e6db371d1d132d266097e7466",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "74c7fd188b03913dfb478ba83374ead997c730306e5b98f20e76b5c65c83312f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_A_Ball_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/027/Hug_A_Ball_female_v2_0.png",
       "candidateSha256": "def4c0f695850010926c991a256fb9cf9b041e81e6003d436d19ea64c9ff229d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_A_Ball_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/027/Hug_A_Ball_female_v2_1.png",
       "candidateSha256": "9360a4680415490b9b19355f9ed7316f6fde60d2af093f34ae643fb74372c468",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_A_Ball_female_v2_2.png",
@@ -67,16 +67,16 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/027/Hug_A_Ball_female_v2_2.png",
       "candidateSha256": "47a85864ae31d32e80cea7c1e3879eb44f5af82573a205446a3a74253854ff71",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hug_A_Ball_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hug_A_Ball_female_v2_3.png",
       "sourceSha256": "94ffba0beb56562d13d72abea31503e627282e4c76d4e561461910170234b4d6",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/027/Hug_A_Ball_female_v2_3.png",
-      "candidateSha256": "f94abc540dc37092b9e3e1b79ccc56cf13fd654f1653ecae0751a8caa4a8e728",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "80cfcd4733535fe5da2e5eaf6821dce8264f15bc17418b86cf3a9ff4f3203ca1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

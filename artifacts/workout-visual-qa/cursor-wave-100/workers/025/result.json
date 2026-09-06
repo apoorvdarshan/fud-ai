@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/025/Hip_Flexion_with_Band_male_v2_0.png",
       "candidateSha256": "954dca17f176629ba4c388f273d35b388d61de5fc39775bcdaf96e3b7e2d9799",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Flexion_with_Band_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/025/Hip_Flexion_with_Band_male_v2_1.png",
       "candidateSha256": "8c40de51aab166a23c7fe4be7c1f79150c9b7848874ea27187117c625d603d46",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Flexion_with_Band_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/025/Hip_Flexion_with_Band_male_v2_2.png",
       "candidateSha256": "21760082031cb2ae747a5ee00edb639ae3bb270ac18f7166eb4ee6c48472a971",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Flexion_with_Band_male_v2_3.png",
@@ -40,16 +40,16 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/025/Hip_Flexion_with_Band_male_v2_3.png",
       "candidateSha256": "4bc20a40101ed985d53a7390693fd779de9f87bd4087e2a7432e4b9d2dcf0f8f",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Flexion_with_Band_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hip_Flexion_with_Band_female_v2_0.png",
       "sourceSha256": "55bbb6484e4476d4c18e281f6ab4de12fb83e3ad9bd7fe48441eaff27628f6de",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/025/Hip_Flexion_with_Band_female_v2_0.png",
-      "candidateSha256": "bccdece86471bcd800787a6624b04b450ed33ce0b0bcaff194cb398c31a6cb33",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "ed75fe504a28cb321f65fdf3fa1f637f819fa6064f8c37c88834028f0aa34d9e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Flexion_with_Band_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/025/Hip_Flexion_with_Band_female_v2_1.png",
       "candidateSha256": "371c876455d37fc8ca7dc8575a6dbc26ae07599790dd3160e4567c7f5d0e8c24",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Flexion_with_Band_female_v2_2.png",
@@ -67,16 +67,16 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/025/Hip_Flexion_with_Band_female_v2_2.png",
       "candidateSha256": "2a35c6b32c4bc884d20935e676edf9562a033ececc2dd22c3c43d859f01963e3",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Flexion_with_Band_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hip_Flexion_with_Band_female_v2_3.png",
       "sourceSha256": "cc587ab5596a1f9973af707f9f78bac93d144b692f695a5047f4f816a12e1bd6",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/025/Hip_Flexion_with_Band_female_v2_3.png",
-      "candidateSha256": "f70d35a2c920fdbd371d94b4c7e832d8b4ff375197de8332825b20ddb5f504c2",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "e73f3f6507d73602f43ad5cf41b1d663c8239f90bccdca5e431557e19bd88864",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

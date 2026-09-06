@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_male_v2_0.png",
       "candidateSha256": "7d97c4c9bf1b01d71b20fc5791dedc259446703e1fc990d7b057fdabcb19419b",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hyperextensions_Back_Extensions_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_male_v2_1.png",
       "candidateSha256": "e70d502126c880a12098b33d3f9adfebf6dfaccb96e8d5dcba5b8343c44d0980",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hyperextensions_Back_Extensions_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_male_v2_2.png",
       "candidateSha256": "7bf0fcd71197e03c85ec34809474bb521dcdbe0df88fe6f9261d734c4eb24686",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hyperextensions_Back_Extensions_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_male_v2_3.png",
       "candidateSha256": "363064598e00265bfaa384bad3e29de43a9a0f12bc7cbd1495531e1367ca9ffb",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hyperextensions_Back_Extensions_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_female_v2_0.png",
       "candidateSha256": "8646df7cd7e415131a11859d05505ed6048735d740f51014414a8d4a3ebf32ff",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hyperextensions_Back_Extensions_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_female_v2_1.png",
       "candidateSha256": "047f86fbde6483c6ad1bda37a5ffeef095c92889a6cfa75ba55cd7fd6febf1b0",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hyperextensions_Back_Extensions_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_female_v2_2.png",
       "candidateSha256": "64de82c4face0ab8180a13c16bc8694cf6bea90e38af1e990b4c97db09c9b4a6",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hyperextensions_Back_Extensions_female_v2_3.png",
@@ -76,7 +76,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/030/Hyperextensions_Back_Extensions_female_v2_3.png",
       "candidateSha256": "066680c961eadd0d3a0e5d3e154ae49f118db2bdb883c22d67c86616bc154628",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
   ]
 }

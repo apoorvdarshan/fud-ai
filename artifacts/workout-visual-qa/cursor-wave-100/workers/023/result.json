@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/023/Hip_Circles_prone_male_v2_0.png",
       "candidateSha256": "d26e49d0393d0646fcda7a0e0f123c80ad58e2e938bd940b630135463fdb5324",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Circles_prone_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/023/Hip_Circles_prone_male_v2_1.png",
       "candidateSha256": "a69c4810a1779ba5d9601c4f3fadca01c9e82fc38c6caa012ae93764d8fe74b1",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Circles_prone_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/023/Hip_Circles_prone_male_v2_2.png",
       "candidateSha256": "a494611c53a1ef6488de6f523ffa9763a03485851886c87cd58e8986d5a1ea80",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Circles_prone_male_v2_3.png",
@@ -40,43 +40,43 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/023/Hip_Circles_prone_male_v2_3.png",
       "candidateSha256": "dd2b93507e13b5ffdea49721204dd7143c48b4e646bc58758337714716b33743",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Circles_prone_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hip_Circles_prone_female_v2_0.png",
       "sourceSha256": "a34377bfd36ee6e3d94730d453b85b140139eaf2b58711f74e044c44980a2b6b",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/023/Hip_Circles_prone_female_v2_0.png",
-      "candidateSha256": "c2191bdcd853527a6b10dbe12d08aa37953b58fd6032777d65ee183b63f19180",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "4a4a3f52601f9d71160fdaa306189820acc21c651ba0cb13168dcfb210b592d4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Circles_prone_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hip_Circles_prone_female_v2_1.png",
       "sourceSha256": "d5aac96eea947030cdbfd9613c7305c914302870688315b55d9dc0554c69921a",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/023/Hip_Circles_prone_female_v2_1.png",
-      "candidateSha256": "360bb5b8f295eeea355d42b607aa895313208c83fb1790f72a6afffcf0e2b39f",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "cb03b7b6cfcd7c9e1357a6fc6ddbc11fdf868ae04e68f54e559c1db3e260bf53",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Circles_prone_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hip_Circles_prone_female_v2_2.png",
       "sourceSha256": "73633bcd4b23e4454cabaf5c0d6cdd79f68c1527bdadd280959678ece5803078",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/023/Hip_Circles_prone_female_v2_2.png",
-      "candidateSha256": "79575f6821fcbab1722518ed39509eefe2d67dfc39d9a770bc1e7a12ea3a7493",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "f6bdc8d69402d55c31842bafb2f20e34b3199604b791746cc404fef9be7d5e0d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Circles_prone_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hip_Circles_prone_female_v2_3.png",
       "sourceSha256": "8ecda6efbfcf6dd86830686359b3f0670a11b9c605fa4a37ea0392d4d1796307",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/023/Hip_Circles_prone_female_v2_3.png",
-      "candidateSha256": "523c13d864fb763a752dd483036f3797a154f775c031817491ad1270712ca894",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "e6b53707abaeffff4218595c5c4ffd8736e933978262dbc199899408ac24a7c8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

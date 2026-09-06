@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_male_v2_0.png",
       "candidateSha256": "a9b894d07752bb6db4e3f54575c305344dfc39067a62b33e2c9cfbbeca5ea00e",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Lift_with_Band_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_male_v2_1.png",
       "candidateSha256": "c382717d770f121f8fefcafb64fe49b6f6ebe423b2e0dcb305c7dc1fbca38b0d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Lift_with_Band_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_male_v2_2.png",
       "candidateSha256": "e707d48ca06a2f8a547e523d865fa938d5be18aa1b5228f22edef2a62bf82e26",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Lift_with_Band_male_v2_3.png",
@@ -40,43 +40,43 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_male_v2_3.png",
       "candidateSha256": "21b64cb23cfe04e8124fc72bf7d7d3df323bc28336ac744834fb16e4ec68368c",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Lift_with_Band_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hip_Lift_with_Band_female_v2_0.png",
       "sourceSha256": "d85a7e69cbdb9f92c56bbb80eabd32862e8b0520e57e4cdb5c4bfa1f9318b254",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_female_v2_0.png",
-      "candidateSha256": "1c603836d0ad056e4b64f42b794614b2a453cb51bf45987a5be2e9cb0940bc1c",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "acb95007fddfff5278c03130b44a7c93abbda5dd8762f2742386e9216cfb5f71",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Lift_with_Band_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hip_Lift_with_Band_female_v2_1.png",
       "sourceSha256": "52b22efeb29a98aa097c8d40e9f28addf5eb8bd1e1d891b7c756239542a01d95",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_female_v2_1.png",
-      "candidateSha256": "6d2a61556f7d5231e73542b4bfce2b799deca4376e03339cc8e74a760eb90075",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "870c7fe17a3857cbf9537f2425a98f95e5a7018f1dc372cfb48ebc45ce3b4d06",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Lift_with_Band_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hip_Lift_with_Band_female_v2_2.png",
       "sourceSha256": "d15607d17ebf3d68f63842f6c2e1b846fc318aef44746b221f331d59f8b27e4c",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_female_v2_2.png",
-      "candidateSha256": "c5f280a39bb0627371d3c0b432bdaa97fd277050b5f78afd769b21f31249be90",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "1decd7f559d721f50434d4f190fd954ae598d3d9b086d60c7a85674c93f47a0d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Hip_Lift_with_Band_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hip_Lift_with_Band_female_v2_3.png",
       "sourceSha256": "61080ed8537ec9e87863d441212eea78828207efde3626b8d11d6f1c4cae791b",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/026/Hip_Lift_with_Band_female_v2_3.png",
-      "candidateSha256": "1ba2f0fd7e406972f90fee464f4d5fa45f47e0401d9d7c89b794fbcd36aa6633",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "6d04bc728bee69ec4f0b73861f59a72ddcb36ac77011e5094a207e838f515517",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
   ]
 }

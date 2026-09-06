@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Suspended_Fallout",
+  "shard": 36,
+  "index": 355,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Suspended_Fallout_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Fallout_male_v2_0.png",
+      "sourceSha256": "4494c19a783dcabd013a1fd658e9fceeaddcf2ec42e6df4f4daca88816a117c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/355/Suspended_Fallout_male_v2_0.png",
+      "candidateSha256": "7acb4e2964156bb07e1c12919cd3c6b1c609c3e4b34976d3246cc577ee9b722b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Fallout_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Fallout_male_v2_1.png",
+      "sourceSha256": "43d9ee60a489e92a16965364db25b39a3c3407d59ecf435251bce0447c386eb5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/355/Suspended_Fallout_male_v2_1.png",
+      "candidateSha256": "bd84540f9e220c9b26b9ab0a075d82990dd16f511418bcbe09775a61c1220280",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Fallout_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Fallout_male_v2_2.png",
+      "sourceSha256": "8f3087e35d5cf56fd66e062a9174b7f3698e55712675d4cc08f0576b2697175c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/355/Suspended_Fallout_male_v2_2.png",
+      "candidateSha256": "89b2185d3d18b7a9cb6ba9af2b1cafa5b3bcc7a3b4072c9406f6166e11bde75c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Fallout_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Fallout_male_v2_3.png",
+      "sourceSha256": "35368261be3d40de85c99eaa13341ef3718acf65b38fe9c4a227923e0b5b2acc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/355/Suspended_Fallout_male_v2_3.png",
+      "candidateSha256": "9afe542a80949b8064012415024fb1a18cade9073656c8c29ca21f3a021bd273",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Fallout_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Fallout_female_v2_0.png",
+      "sourceSha256": "663d3e7bf7ea014d93c27299484235e07093da0847b2b7978ae67608ab6e4db4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/355/Suspended_Fallout_female_v2_0.png",
+      "candidateSha256": "792ba0b9f97202f7b426a3b9010a2a1b144ce65910ca2909a73778d010249b32",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Fallout_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Fallout_female_v2_1.png",
+      "sourceSha256": "44f9b97eb9bc5269416fb5093baaed825a2de11d4e0fcbe9cdeb5dde21d7d1a2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/355/Suspended_Fallout_female_v2_1.png",
+      "candidateSha256": "b89adc687c70b16a4e67954327ed601163dbf21b3ad57888ba328279cbea3309",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Fallout_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Fallout_female_v2_2.png",
+      "sourceSha256": "94b0de5f8de0e41a935de4737e534e505a021d7630cc6c61f9f181bb985e3105",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/355/Suspended_Fallout_female_v2_2.png",
+      "candidateSha256": "a98e70b4f0b3ddb3f9662256ceeab213748a8f51ef9eaabcbe15b4debd2111d1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Suspended_Fallout_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Suspended_Fallout_female_v2_3.png",
+      "sourceSha256": "831116457c9bb6a98f0d76b020b6098f299fd9fd4b78f3e827bfe13f64e747bf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/355/Suspended_Fallout_female_v2_3.png",
+      "candidateSha256": "44e850c818d0b4e85569b4dcea66db54a46f7209324bf8405ebab6f107973d28",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

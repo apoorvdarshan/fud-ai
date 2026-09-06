@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Supine_Chest_Throw",
+  "shard": 36,
+  "index": 352,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Supine_Chest_Throw_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Chest_Throw_male_v2_0.png",
+      "sourceSha256": "101d42a802a09de0e86f43394c22037aeee875e9bdc63f8cb055775adf7a9d28",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/352/Supine_Chest_Throw_male_v2_0.png",
+      "candidateSha256": "808bf84325a54659a151ccc1515a0c123d955ab30bb49f783cfaf5563e54757e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Chest_Throw_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Chest_Throw_male_v2_1.png",
+      "sourceSha256": "de3be757549064268154b75011009bd637eedfcec8a3ceee396946f0e4533b53",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/352/Supine_Chest_Throw_male_v2_1.png",
+      "candidateSha256": "7c94dbb7196a65004740d857acc178f6af17950aae268d035631317af7a4119d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Chest_Throw_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Chest_Throw_male_v2_2.png",
+      "sourceSha256": "5a742f5d90412bf3a8d3c9c863b690c504f367fb93c329a84b361d1c4155e1cf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/352/Supine_Chest_Throw_male_v2_2.png",
+      "candidateSha256": "8851313a0acad1f92ec2701e0ed8ee8b88e9cfaf5f83258475384ce640cd2373",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Chest_Throw_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Chest_Throw_male_v2_3.png",
+      "sourceSha256": "cbefd4f73b40a689b511291bdd273d70df2c83330e40c44c993c66785ff99f14",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/352/Supine_Chest_Throw_male_v2_3.png",
+      "candidateSha256": "d29f0ad47c203db17989acccb5f17e534e83c6e35bb07d3896a67980ee820fdb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Chest_Throw_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Chest_Throw_female_v2_0.png",
+      "sourceSha256": "f84963b204ff3ad75b365bc19e2b8dd1209475b33a3ea50b3a19f8b721d41def",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/352/Supine_Chest_Throw_female_v2_0.png",
+      "candidateSha256": "5cb7593b5b17c5704e79c57f23910048810ac84b8cec823516850683fcca55ce",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Chest_Throw_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Chest_Throw_female_v2_1.png",
+      "sourceSha256": "04c3ffe567940866aafd0d973f5b9a55ca5fb0943cd3342ce5290b8eea7da191",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/352/Supine_Chest_Throw_female_v2_1.png",
+      "candidateSha256": "90e98016af301b8beee979333ccdd73f5e6b5483bfd5af1bc3268ba3cab1acf4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Chest_Throw_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Chest_Throw_female_v2_2.png",
+      "sourceSha256": "aac6381563a91017ecc21b58ca52fe0f19b20ee506a5d01ab13bef082155025f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/352/Supine_Chest_Throw_female_v2_2.png",
+      "candidateSha256": "ae0034d5eb9cf48b65289ddff10dc3d490f8949167cf38a7e07f67ae475f5887",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Chest_Throw_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Chest_Throw_female_v2_3.png",
+      "sourceSha256": "9dc4c113ecc8b5b36db6fca40c79e95d04039c68fca18484e8f28cda1ced96fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/352/Supine_Chest_Throw_female_v2_3.png",
+      "candidateSha256": "0c997afaf14a7917ad6e245a384ff00f4518f9f3be808b59819bc45d6640299e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

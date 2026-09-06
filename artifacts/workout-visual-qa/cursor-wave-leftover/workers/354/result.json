@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Supine_Two-Arm_Overhead_Throw",
+  "shard": 36,
+  "index": 354,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Supine_Two-Arm_Overhead_Throw_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Two-Arm_Overhead_Throw_male_v2_0.png",
+      "sourceSha256": "3e0c4f24bef1fe82df50d3e5b1304cf41bb3bc011c0816fc460d1e6738e138fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/354/Supine_Two-Arm_Overhead_Throw_male_v2_0.png",
+      "candidateSha256": "65c32b436a156293bb999879c55378d0c7707cb8a95b7fbb55080b8820958d2f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Two-Arm_Overhead_Throw_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Two-Arm_Overhead_Throw_male_v2_1.png",
+      "sourceSha256": "f7e400eb19232721cf0d90ea2816859640add36edb35d85d33d4f264730fbaec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/354/Supine_Two-Arm_Overhead_Throw_male_v2_1.png",
+      "candidateSha256": "b4718a883b2a853d657a51e519b04c9a111803dd820b6fddf29003a7f4b31947",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Two-Arm_Overhead_Throw_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Two-Arm_Overhead_Throw_male_v2_2.png",
+      "sourceSha256": "263588813225b32b4bce0e6a44f177ac18ec0da3c1d2fdac86ad47b7383f0c15",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/354/Supine_Two-Arm_Overhead_Throw_male_v2_2.png",
+      "candidateSha256": "1e485395008c032d5dcbcbe4cb974e65b493356d4e91a76df6f85401c798ce7c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Two-Arm_Overhead_Throw_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Two-Arm_Overhead_Throw_male_v2_3.png",
+      "sourceSha256": "97ba0ee8cd43657198dcdb9be9209e9b04d9abae6c2137e1b7fe67f3f429e437",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/354/Supine_Two-Arm_Overhead_Throw_male_v2_3.png",
+      "candidateSha256": "fc11c54d583ef73b9a5f6ad41e52f6c00580524f87ec1135a81482b029ae8381",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Two-Arm_Overhead_Throw_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Two-Arm_Overhead_Throw_female_v2_0.png",
+      "sourceSha256": "ed34838e93ecefc61580b34f83bea4019adb9c417be7f61e4f85317b1fc64741",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/354/Supine_Two-Arm_Overhead_Throw_female_v2_0.png",
+      "candidateSha256": "5d6cd4f771237161e41b502445645ce38ec97c135642d573de18941430a31eea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Two-Arm_Overhead_Throw_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Two-Arm_Overhead_Throw_female_v2_1.png",
+      "sourceSha256": "6bd40c8a6774f4f4ee649d64b4b812e2b56330c9c564c3ef59f484892be800c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/354/Supine_Two-Arm_Overhead_Throw_female_v2_1.png",
+      "candidateSha256": "405904ab2a10af3a1f5050bb1f5cca72509950d1ebf301d254978f16f4de0e11",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Two-Arm_Overhead_Throw_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Two-Arm_Overhead_Throw_female_v2_2.png",
+      "sourceSha256": "be9c6dba6ad4e98afbd6129b6a9fe4a6af46a576de91fa4c44ed968e88a6a22a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/354/Supine_Two-Arm_Overhead_Throw_female_v2_2.png",
+      "candidateSha256": "8c9c7ae71b1da6decead50737d7ff2f8c77e61e192e7fdf6d8c58ff1c7843fce",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Supine_Two-Arm_Overhead_Throw_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Supine_Two-Arm_Overhead_Throw_female_v2_3.png",
+      "sourceSha256": "f20b06dcc8c9615464d8535dcbe6d0f44e2584dd99c65305bebf4dba384ef490",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/354/Supine_Two-Arm_Overhead_Throw_female_v2_3.png",
+      "candidateSha256": "2bc9d129a2abff3dae5d6ce11168a0d8b7e5c636a3eeba191a346c2b113335d8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

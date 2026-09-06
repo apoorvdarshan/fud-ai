@@ -35,14 +35,15 @@ export function collectReviewTotals(root) {
     const decisions = readJson(path.join(stage, 'human-decisions.json'), {}).decisions || {};
     const chat = fs.readdirSync(stage).filter(n => /^human-approval.*\.json$/.test(n)).flatMap(n => readJson(path.join(stage, n), {}).decisions || []);
     for (const check of readJson(path.join(stage, 'parent-review-passed.json'), {}).checks || []) {
-      if (check.status !== 'parent_pass_human_pending' || check.frames?.length !== 8) continue;
+      if (!['parent_pass_human_pending', 'user_requested_review'].includes(check.status) || check.frames?.length !== 8) continue;
       const frames = check.frames;
       const row = { sourceHashes: frames.map(f => f.sourceSha256), hashes: frames.map(f => f.candidateSha256) };
       // A stale source invalidates approval and readiness; generated files stay untouched.
       const collected = path.join(stage, 'parent-collected', String(check.index).padStart(3, '0'));
       if (!frames.every(f => path.basename(f.filename) === f.filename && fs.existsSync(path.join(root, 'shared/workout-vectors', f.filename)) && hashFile(path.join(root, 'shared/workout-vectors', f.filename)) === f.sourceSha256 && fs.existsSync(path.join(collected, f.filename)) && hashFile(path.join(collected, f.filename)) === f.candidateSha256)) continue;
       const web = decisions[check.exerciseId];
-      const decision = matchesFrames(web, row) ? web.decision : chat.some(a => a.exerciseId === check.exerciseId && a.decision === 'approve_candidate' && JSON.stringify(a.frames) === JSON.stringify(frames)) ? 'approve_candidate' : 'pending';
+      const renewedReview = check.reviewRequestedAt && (!web?.reviewedAt || web.reviewedAt < check.reviewRequestedAt);
+      const decision = renewedReview ? 'pending' : matchesFrames(web, row) ? web.decision : chat.some(a => a.exerciseId === check.exerciseId && a.decision === 'approve_candidate' && JSON.stringify(a.frames) === JSON.stringify(frames)) ? 'approve_candidate' : 'pending';
       if (['approve_candidate', 'keep_original'].includes(decision)) approved.add(check.exerciseId);
       else if (decision !== 'needs_more_work') ready.add(check.exerciseId);
     }

@@ -30,7 +30,7 @@ function manifest() {
   const approvals = fs.readdirSync(stage).filter(n => /^human-approval.*\.json$/.test(n)).flatMap(n => JSON.parse(fs.readFileSync(path.join(stage, n))).decisions || []);
   const webDecisions = readJson(path.join(stage, 'human-decisions.json'), {}).decisions || {};
   const rows = batch.exercises.map((e, index) => {
-    const accepted = passed.find(r => r.index === e.index && r.exerciseId === e.exerciseId && r.status === 'parent_pass_human_pending');
+    const accepted = passed.find(r => r.index === e.index && r.exerciseId === e.exerciseId && ['parent_pass_human_pending', 'user_requested_review'].includes(r.status));
     if (!accepted) return null;
     const collected = path.join(stage, 'parent-collected', String(e.index).padStart(3, '0'));
     const reportPath = path.join(collected, 'worker-result.json');
@@ -61,10 +61,11 @@ function manifest() {
       return i >= 0 && f.sourceSha256 === sourceHashes[i] && f.candidateSha256 === hashes[i];
     }));
     const saved = webDecisions[e.exerciseId];
-    const humanDecision = matchesFrames(saved, { sourceHashes, hashes }) ? saved.decision : chatApproved ? 'approve_candidate' : 'pending';
+    const renewedReview = accepted.reviewRequestedAt && (!saved?.reviewedAt || saved.reviewedAt < accepted.reviewRequestedAt);
+    const humanDecision = renewedReview ? 'pending' : matchesFrames(saved, { sourceHashes, hashes }) ? saved.decision : chatApproved ? 'approve_candidate' : 'pending';
     const humanApproved = ['approve_candidate', 'keep_original'].includes(humanDecision);
-    return { id: e.exerciseId, batch: name, index: e.index, severity: e.severity, findings: e.findings, suggestedRoute: e.suggestedRoute, sources, sourceHashes, candidates, hashes, methods, available,
-      humanApproved, humanDecision, savedNotes: saved?.notes || '', status: humanApproved ? 'Approved by you · Saved' : humanDecision === 'needs_more_work' ? 'In progress · Returned for correction' : 'Parent-reviewed · Awaiting your approval',
+    return { id: e.exerciseId, batch: name, index: e.index, severity: e.severity, findings: accepted.reviewFindings || e.findings, suggestedRoute: e.suggestedRoute, sources, sourceHashes, candidates, hashes, methods, available,
+      humanApproved, humanDecision, savedNotes: saved?.notes || '', status: humanApproved ? 'Approved by you · Saved' : humanDecision === 'needs_more_work' ? 'In progress · Returned for correction' : accepted.status === 'user_requested_review' ? (accepted.reviewLabel || 'Unfinished repair · Your review requested') : 'Parent-reviewed · Awaiting your approval',
       warning: 'Review the full animation in both genders and backgrounds. Your decision does not replace app images automatically.' };
   }).filter(Boolean).sort((a, b) => Number(a.humanApproved) - Number(b.humanApproved) || a.index - b.index);
   for (const row of rows) {

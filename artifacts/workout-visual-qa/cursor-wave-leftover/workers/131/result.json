@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Reverse_Band_Deadlift",
+  "shard": 14,
+  "index": 131,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left floor/rack matte on band deadlift frames; GenerateImage+green chroma cleaned backgrounds on 8/8"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Reverse_Band_Deadlift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Deadlift_male_v2_0.png",
+      "sourceSha256": "44c82468cc6b38fb3f47c3c103a872554f5c321807d238973ccfe44749e709bb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/131/Reverse_Band_Deadlift_male_v2_0.png",
+      "candidateSha256": "fa92dd459290e406008255ade47cce5ba4e72e6b0a6ed3882b70f644c5efc54f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Deadlift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Deadlift_male_v2_1.png",
+      "sourceSha256": "426ec946d1a403edbeed97b099e3e4179bcfc00f0587eb8b35b4601e80d4be84",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/131/Reverse_Band_Deadlift_male_v2_1.png",
+      "candidateSha256": "dcfe4fc2e1aaa0987431401707b9b5cd028c7f631bd5bbd0e8434496e8f7b385",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Deadlift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Deadlift_male_v2_2.png",
+      "sourceSha256": "e09fa1c47fc1882054ff869c03252062716e19d2d7feecae36756ee4a936565a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/131/Reverse_Band_Deadlift_male_v2_2.png",
+      "candidateSha256": "15e7883aa85fad7772b647ea1cd0b5d7f9bee140fed6976ff4fd15080830a585",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Deadlift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Deadlift_male_v2_3.png",
+      "sourceSha256": "558ded1b94bb7185e76852a6c15827ede25849b08d25199823fec841fd5804ac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/131/Reverse_Band_Deadlift_male_v2_3.png",
+      "candidateSha256": "15d62b3ac654d18861b7907b340b0f2a7ac1c4b6b2dc3f7240488df9818c5ae6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Deadlift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Deadlift_female_v2_0.png",
+      "sourceSha256": "3958f86a8fabff77334204b6156e583c05f57a4dae74a50521a699726e7db25f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/131/Reverse_Band_Deadlift_female_v2_0.png",
+      "candidateSha256": "90fdf0ca1645394410e1804e10d4bb7fb182b871a7befd782508b00f35e6bb42",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Deadlift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Deadlift_female_v2_1.png",
+      "sourceSha256": "5fc966982e0a28b78ede420a7f00ab556b4c9890d5fc1e38f2da8d74d0bb6822",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/131/Reverse_Band_Deadlift_female_v2_1.png",
+      "candidateSha256": "df5fadaad8807d0bb6b6e799d53e0d05029abbdd5cac87036db93938115c5945",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Deadlift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Deadlift_female_v2_2.png",
+      "sourceSha256": "2ee710d8ed8b6bb0db4a5cb75322e7131a6e27017cc8151ad84bdf54b8b039a7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/131/Reverse_Band_Deadlift_female_v2_2.png",
+      "candidateSha256": "6c98c92657271be61d8d4cd95d286b304c1dd4f816a117c6e8f0612e746ad4cf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Band_Deadlift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Band_Deadlift_female_v2_3.png",
+      "sourceSha256": "9fde4577f2560d81e18e35a042fea05893c53b5f75f3fd14b31261dbd4437cfc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/131/Reverse_Band_Deadlift_female_v2_3.png",
+      "candidateSha256": "ade7c72f8b5c3230cf7304650b6d67bc964bdcc8e0534bf7151af54b81b0929e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

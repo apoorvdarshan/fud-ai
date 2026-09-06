@@ -1,0 +1,16 @@
+{
+  "source_sha256": "7e037541f25269e27e0c94c4b68e1e643b7bd5c55630aa038f2740a6ecbd3fb7",
+  "candidate_sha256": "068db4cf25461312ffe7e7e0dd9fa380a41aa971c88a1c1e1ddb678d16719eea",
+  "generated_sha256": "ff4e5b10ed3b804ee1bf753df747abf93aef9de788a1a41d2f9c2cbff41bfbd6",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-132-Reverse_Band_Power_Squat_female_v2_1.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

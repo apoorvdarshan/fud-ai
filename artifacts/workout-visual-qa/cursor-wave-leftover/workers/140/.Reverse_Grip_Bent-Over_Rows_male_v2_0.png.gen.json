@@ -1,0 +1,16 @@
+{
+  "source_sha256": "a60a8c5c57bfcc28cc9cccb52530f53c26508b510c3da5f5eadb402c09ba6588",
+  "candidate_sha256": "d2b32541facafd0be272e30066b920382cd1814b07ce1a5b2de4b53cf14a2fde",
+  "generated_sha256": "ce93fa2c5843fd30d564b6baf1a100c08062c183b732c50e888011d4c7ba89d9",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-140-Reverse_Grip_Bent-Over_Rows_male_v2_0.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

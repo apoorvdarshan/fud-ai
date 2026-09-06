@@ -1,0 +1,16 @@
+{
+  "source_sha256": "124af288851f1179efe676c5fe4e5477867e8db266579baed4cb161acb33db37",
+  "candidate_sha256": "b9f28e00aefb2cf84d2c8996a630cee9e1494d10752abaee4897f00b8476586e",
+  "generated_sha256": "c949705121fdd6c52108e567f80f4dd4577e5fd1421e0ffcaf7d0bf18819b226",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-139-Reverse_Flyes_With_External_Rotation_male_v2_3.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Reverse_Grip_Bent-Over_Rows",
+  "shard": 14,
+  "index": 140,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left floor matte on bent-over row frames; GenerateImage+green chroma cleaned 8/8"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Reverse_Grip_Bent-Over_Rows_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Bent-Over_Rows_male_v2_0.png",
+      "sourceSha256": "a60a8c5c57bfcc28cc9cccb52530f53c26508b510c3da5f5eadb402c09ba6588",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/140/Reverse_Grip_Bent-Over_Rows_male_v2_0.png",
+      "candidateSha256": "d2b32541facafd0be272e30066b920382cd1814b07ce1a5b2de4b53cf14a2fde",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Bent-Over_Rows_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Bent-Over_Rows_male_v2_1.png",
+      "sourceSha256": "4bca69110207d01ae00cb21ef030e91ffcddeb12400f3c24e28a3b32801b94b7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/140/Reverse_Grip_Bent-Over_Rows_male_v2_1.png",
+      "candidateSha256": "d111bc37ca835fbb87e4018958861fadf82249a193032022783c57935c32a6bd",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Bent-Over_Rows_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Bent-Over_Rows_male_v2_2.png",
+      "sourceSha256": "160f75cf77698cd00345b08eba498656e7ca79f8a7b4817a399730e64b078b8c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/140/Reverse_Grip_Bent-Over_Rows_male_v2_2.png",
+      "candidateSha256": "570407030fbe35c6a8c5f1dada483a3093f28be0d5f278680da1029e3d46d89e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Bent-Over_Rows_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Bent-Over_Rows_male_v2_3.png",
+      "sourceSha256": "8355f4dbdc79699a289195a47bf55fad142097565fab98f639fe0a5c4bb57647",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/140/Reverse_Grip_Bent-Over_Rows_male_v2_3.png",
+      "candidateSha256": "411ead52705de053113f5de82fff4933bc62ab25097e8597dd416d8aa68e6682",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Bent-Over_Rows_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Bent-Over_Rows_female_v2_0.png",
+      "sourceSha256": "b9b5e8c346e0875bfb49555f3ca3d62b0729b4505fe19fceba6149c5a75d8111",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/140/Reverse_Grip_Bent-Over_Rows_female_v2_0.png",
+      "candidateSha256": "ec489357d4901f2fdb298b7309e0a12b9a0da9513fb772a40eea7fe78f4d344d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Bent-Over_Rows_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Bent-Over_Rows_female_v2_1.png",
+      "sourceSha256": "2b3465d11f1c471997c39eb445f7df3a95719e8d9298d2ffd27e6fd01ae8d21e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/140/Reverse_Grip_Bent-Over_Rows_female_v2_1.png",
+      "candidateSha256": "8555fb7f6227de7b6edbbe8acb2a70159b9ec32845810eb5bc02a2b1be9998bd",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Bent-Over_Rows_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Bent-Over_Rows_female_v2_2.png",
+      "sourceSha256": "f85f0f411d1f650e29951f3766ccac9e8d1f19899fde440562743261d270c67b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/140/Reverse_Grip_Bent-Over_Rows_female_v2_2.png",
+      "candidateSha256": "02a204a6f395662d1c41d2b2c4eb83de7db903fb7413f9fff61987f849baadcc",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Bent-Over_Rows_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Bent-Over_Rows_female_v2_3.png",
+      "sourceSha256": "3dfa85c567c9e8d4aeaf4fb4b85604a5ff1706a93560e2f6fe54f6983d7cbd85",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/140/Reverse_Grip_Bent-Over_Rows_female_v2_3.png",
+      "candidateSha256": "514ddec6f62792a8c2ca8e59362ae2ab4a62fb4de78f352a6305c8695c6336bf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "source_sha256": "f5f87f9162db98acd61450667fd2acf01b9322ee015a757140aa3390471eb852",
+  "candidate_sha256": "6ecb9f5096723e60ba1bb3637ba2f462b4724da329a531f2320d39570a6b9821",
+  "generated_sha256": "39ff0ceb70a180c921b3fa672f91f450ff5af89c564b2218a13e7a694f21d6a5",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-134-Reverse_Barbell_Curl_male_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

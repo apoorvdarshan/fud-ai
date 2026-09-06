@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Reverse_Flyes",
+  "shard": 14,
+  "index": 138,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left floor shadow under feet on reverse flyes; GenerateImage+green chroma cleaned 8/8"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Reverse_Flyes_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Flyes_male_v2_0.png",
+      "sourceSha256": "08a8e4b9af8c8d0291bbccbeb85f6e98b2beed40c9be57470c9b191244be4bfd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/138/Reverse_Flyes_male_v2_0.png",
+      "candidateSha256": "971cb48c3127b640db82fb39620ce884243048b3354aeab98fc2a93a65fe5911",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Flyes_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Flyes_male_v2_1.png",
+      "sourceSha256": "0bbb63139adc0ba1989a215cf4fa388fb3413e7fbc7405b43fb4b765aaa0ce84",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/138/Reverse_Flyes_male_v2_1.png",
+      "candidateSha256": "8599e21514a8ebca459922ea8dfd1665f521dd7703c28643bd615bd383d6fb22",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Flyes_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Flyes_male_v2_2.png",
+      "sourceSha256": "7040f7a7b440c9e8c78f6df2da248e61ff59040d635a287fdd1240ce2dd7b4bb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/138/Reverse_Flyes_male_v2_2.png",
+      "candidateSha256": "7d130fa68970f6d76fbc52c208e05ca3819b09b182de3d763d713269f4eba195",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Flyes_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Flyes_male_v2_3.png",
+      "sourceSha256": "cc90005b1a3084b44ced030d8a05edf2c40a0cdc8848e98273055263f8f471e6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/138/Reverse_Flyes_male_v2_3.png",
+      "candidateSha256": "71b92eaad4bb395017bab96e391654f7c5c77e4ff44e8086cb563486e4ba7e34",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Flyes_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Flyes_female_v2_0.png",
+      "sourceSha256": "72f4c7e0816e752aa0ce44f28a0792680852e5bfa8ceb91dad7b87dd81f7398c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/138/Reverse_Flyes_female_v2_0.png",
+      "candidateSha256": "cf63145f5a0714a8444965261540edaa5f9856989cc3db70ae10bd7d29a939f5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Flyes_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Flyes_female_v2_1.png",
+      "sourceSha256": "243a67476d4d3a6dab6acc710c8c59a7cf12f600b0c2003380add2c69fe9ec57",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/138/Reverse_Flyes_female_v2_1.png",
+      "candidateSha256": "d2611ec2f230e0e29e068bd64aea91b4493635bbbb25fbcbe43c476c1187910f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Flyes_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Flyes_female_v2_2.png",
+      "sourceSha256": "04069bef55982395581c802fa6b4ff2de1392b947730931f0e028849ae263f26",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/138/Reverse_Flyes_female_v2_2.png",
+      "candidateSha256": "b55df4af0e964f3c4c21aff055edee5ebe81f3688fc69a8f8dfd19acc3236955",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Flyes_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Flyes_female_v2_3.png",
+      "sourceSha256": "1af146f0b4219949996c9058acd53bf15dbcb1c86e0bac2261aa73e191e6df0f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/138/Reverse_Flyes_female_v2_3.png",
+      "candidateSha256": "c51ce197d97e8ce885112b0aa7069cfe3d6196dcb6a7c35224f76bad867e7354",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

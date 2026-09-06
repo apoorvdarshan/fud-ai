@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Reverse_Barbell_Curl",
+  "shard": 14,
+  "index": 134,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left green fringe and floor matte on barbell curl frames; GenerateImage+green chroma cleaned 8/8"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Reverse_Barbell_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Barbell_Curl_male_v2_0.png",
+      "sourceSha256": "d541d9edac72d3f9e5f462d7f78c0396ba90f5b7416ebe2ef8d34cbf0d4b4cf5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/134/Reverse_Barbell_Curl_male_v2_0.png",
+      "candidateSha256": "43fbed61849cbc171716af21189ae5127dd9668eb8fdb360c2b126198957070a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Barbell_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Barbell_Curl_male_v2_1.png",
+      "sourceSha256": "13e599cea918a2a13b0901e175f607e5a23c92bacb1b49b29bc023a38d178eaf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/134/Reverse_Barbell_Curl_male_v2_1.png",
+      "candidateSha256": "2012e214b149473129277a4beff85f4042fd2b270e2a6911805ba55a883a5d9d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Barbell_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Barbell_Curl_male_v2_2.png",
+      "sourceSha256": "f5f87f9162db98acd61450667fd2acf01b9322ee015a757140aa3390471eb852",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/134/Reverse_Barbell_Curl_male_v2_2.png",
+      "candidateSha256": "6ecb9f5096723e60ba1bb3637ba2f462b4724da329a531f2320d39570a6b9821",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Barbell_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Barbell_Curl_male_v2_3.png",
+      "sourceSha256": "73262da57c4a86cbf0c89256d6c568069592a5c4170f8bd1142e5abc7b2697b3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/134/Reverse_Barbell_Curl_male_v2_3.png",
+      "candidateSha256": "93b1c7e928a22a97655e660e8f6e342f305687a326ab539ab131266533595365",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Barbell_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Barbell_Curl_female_v2_0.png",
+      "sourceSha256": "5d07b6412e22a9fb52de195811ff62407c05e12073e3e2caaa58a2ee3be9a24e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/134/Reverse_Barbell_Curl_female_v2_0.png",
+      "candidateSha256": "6d1c63cb337cafdbad20e9b986397e2001ae24180d9a8d46dd25ae93e8fa939d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Barbell_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Barbell_Curl_female_v2_1.png",
+      "sourceSha256": "611e0c98560af698874f17e3b0258e6267c73dd60400988638beebeac955e334",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/134/Reverse_Barbell_Curl_female_v2_1.png",
+      "candidateSha256": "991fbf048ec8ad7af16afd1fd04b4dbf61cd7313088f4f98cf14cbb3b37f5697",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Barbell_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Barbell_Curl_female_v2_2.png",
+      "sourceSha256": "07c83d540a29af61c70f8eb1e20043e6c1f9383aedb88ae4ca737434d1ed2447",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/134/Reverse_Barbell_Curl_female_v2_2.png",
+      "candidateSha256": "1390e6d0691671152f2d1c7ab426d88faf02b3a2f4affa1c32ee061b650b451e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Barbell_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Barbell_Curl_female_v2_3.png",
+      "sourceSha256": "bcf66a665c47d5359dd29b94c4a78b1af96241afa44f5419858bccc0a9db173f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/134/Reverse_Barbell_Curl_female_v2_3.png",
+      "candidateSha256": "bff1e0d49bb9a784a8c369c62eee0a68464b331caf7b64379aaef7909ba96e22",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

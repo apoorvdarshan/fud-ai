@@ -1,0 +1,16 @@
+{
+  "source_sha256": "a58a3a9d5beeed2b61e77557481f4861c46f72f186e2553f5dd031a53fb3f8fc",
+  "candidate_sha256": "bab829b038a228e5d801152ea68a2c9d4ca396b5b8c1bc55a865f6d342a4cbbb",
+  "generated_sha256": "8513ea76ab1760549fa0aa96dda29b76a181c630419de8061e94fad627f73294",
+  "generated_path": "/cursor/stores/bc-dc825ea2-1a16-4289-afd7-a6d840bd4193/artifacts/assets/gen-135-Reverse_Barbell_Preacher_Curls_female_v2_3.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

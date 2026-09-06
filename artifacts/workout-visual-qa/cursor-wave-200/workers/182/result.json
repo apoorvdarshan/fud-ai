@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Lying_Prone_Quadriceps",
+  "shard": 19,
+  "index": 182,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_Prone_Quadriceps_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Prone_Quadriceps_male_v2_0.png",
+      "sourceSha256": "1db00f28be52ccb9da35375736a47194da8fc0264b45d691ec392aa45f81179d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/182/Lying_Prone_Quadriceps_male_v2_0.png",
+      "candidateSha256": "f40d6159a3be129b65f4246a7655ce7d901eabdeadf4f4f9166e8536e0d6f13a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Prone_Quadriceps_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Prone_Quadriceps_male_v2_1.png",
+      "sourceSha256": "4ed8cc5774494d2bb04189201475ea2bd39aa31116b551bea1f3c0b96880c75d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/182/Lying_Prone_Quadriceps_male_v2_1.png",
+      "candidateSha256": "e94f423b6fdc01f404ebf08be3b2551a20700c6cf7e7659441575f6cb22aae97",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Prone_Quadriceps_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Prone_Quadriceps_male_v2_2.png",
+      "sourceSha256": "c7bd7007e1213d29a2161ffa1d8c41ae02bbbbda9d53d32ce4f90cfe59f3e275",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/182/Lying_Prone_Quadriceps_male_v2_2.png",
+      "candidateSha256": "b7e1cfcaffb5baf20cb9ec1179878ebca78aace3086231767921552dc024c216",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Prone_Quadriceps_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Prone_Quadriceps_male_v2_3.png",
+      "sourceSha256": "f56adffc15599f631f82d9fb1c0fb53067288d82ce910c40d9a6b7bc3de41592",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/182/Lying_Prone_Quadriceps_male_v2_3.png",
+      "candidateSha256": "a1e3494791d869b1a858ddfecb1ac2a93cea95764e9246b2dc38d4a6ddb3bf20",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Prone_Quadriceps_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Prone_Quadriceps_female_v2_0.png",
+      "sourceSha256": "c632ed3ae364e875b48ffd74314280479486ce4a68f95effaf4ba35c02fc1619",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/182/Lying_Prone_Quadriceps_female_v2_0.png",
+      "candidateSha256": "2b1f9dfe24a553ade06156e822478eef0eb756bc3c72cd67b86455ac1eb14216",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Prone_Quadriceps_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Prone_Quadriceps_female_v2_1.png",
+      "sourceSha256": "a75a292ba16abbb0e184334cf9b2c8828a48c4e5ffcdf3dc00aeef96c7855df6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/182/Lying_Prone_Quadriceps_female_v2_1.png",
+      "candidateSha256": "4bb54df24fa818349348c903428a158e7703912211d2ebcae18d6e49f8bf7426",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Prone_Quadriceps_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Prone_Quadriceps_female_v2_2.png",
+      "sourceSha256": "71866972ce009511eb086334e8c3c123910a3ce91db159c0df9e2b4f9c8b55e0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/182/Lying_Prone_Quadriceps_female_v2_2.png",
+      "candidateSha256": "9397aa7dfc67acc74dde030ee5d3e4f2c799764884f82b47f3659f643814b70f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Prone_Quadriceps_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Prone_Quadriceps_female_v2_3.png",
+      "sourceSha256": "aa7d2648463e3b658589ac66dd2d20c7388df830d368a7b0b469d73d432815e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/182/Lying_Prone_Quadriceps_female_v2_3.png",
+      "candidateSha256": "1fe17474a1cd60a81065496eb2c8a8b5f87cf5eed4b6d49d29e4b03726d4f158",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

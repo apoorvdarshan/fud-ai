@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Machine_Preacher_Curls",
+  "shard": 19,
+  "index": 189,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left floor matte on preacher curl frames; GenerateImage+green chroma removed floor shadow on 7/8 frames"
+  ],
+  "unresolved": [
+    "Machine_Preacher_Curls_female_v2_1.png: GenerateImage rejected (no floor improvement)"
+  ],
+  "frames": [
+    {
+      "filename": "Machine_Preacher_Curls_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Preacher_Curls_male_v2_0.png",
+      "sourceSha256": "d06bcb1eb784f3298f7e995cd204df3ec90bb79e11811980ea89c9d6cd499e3d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/189/Machine_Preacher_Curls_male_v2_0.png",
+      "candidateSha256": "9f8b00d5cf29a9025f1d6cf7215cf5d00124f50908abdaacd2bb7b28cd9cf3d2",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Preacher_Curls_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Preacher_Curls_male_v2_1.png",
+      "sourceSha256": "58c281a8c17409aa28c3707af62dc1878ce6dd2597326a38d5aa27ca7fac951a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/189/Machine_Preacher_Curls_male_v2_1.png",
+      "candidateSha256": "ae5639cdb02f057a8eee22d7e34fd435e6874e2486f2e2f72b1b4c48ed88587b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Preacher_Curls_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Preacher_Curls_male_v2_2.png",
+      "sourceSha256": "a12e66c36890c405c368c4f903330fe9d3f54546f5888c0383da4917656352ba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/189/Machine_Preacher_Curls_male_v2_2.png",
+      "candidateSha256": "6ea757173a4aa31b1631f7b083fdf5c28972380b2c5519fa070f83a550c8a54d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Preacher_Curls_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Preacher_Curls_male_v2_3.png",
+      "sourceSha256": "2670804975c0de9d3830250f848b46c4d1343dda07302f7ded5c97238698d65c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/189/Machine_Preacher_Curls_male_v2_3.png",
+      "candidateSha256": "409528cebd129391b42eb62c0a9a974ea1b1ed912ed6414998f5d2a0e521b202",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Preacher_Curls_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Preacher_Curls_female_v2_0.png",
+      "sourceSha256": "abce6d1c484c6476a8e44c286279d5fa083d13799a9eaefb8bcff2f578a66bc1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/189/Machine_Preacher_Curls_female_v2_0.png",
+      "candidateSha256": "d865186610cb5f3cb0735c146f9f8b34f627bef4a45dd8416311f0d47d6c8de3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Preacher_Curls_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Preacher_Curls_female_v2_1.png",
+      "sourceSha256": "23e549e4b2eb7f87347c9b406a69a4a9ebedf03962900bae4499bf0f476d4ab4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/189/Machine_Preacher_Curls_female_v2_1.png",
+      "candidateSha256": "0ec58d7584b36b79e6623db2b76d1e8dd7fef3532ae1513b55251a1c0704685f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Preacher_Curls_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Preacher_Curls_female_v2_2.png",
+      "sourceSha256": "f5dc8b1530b768ae4020e44921eed3074a04f1ed1e8120a918da06a0dc5f328f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/189/Machine_Preacher_Curls_female_v2_2.png",
+      "candidateSha256": "1c5b573c35ddd64973f5b0502ce0c6b2ce1c0d68a294534ed426983a479e7238",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Preacher_Curls_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Preacher_Curls_female_v2_3.png",
+      "sourceSha256": "14738dfcb668162aaea03e353fbe039331dba60a1f845b9778f585ca80d53e51",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/189/Machine_Preacher_Curls_female_v2_3.png",
+      "candidateSha256": "720bcbb2f71358907827702700ca78cc7f279d2668fa03e4357379d687f97c65",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

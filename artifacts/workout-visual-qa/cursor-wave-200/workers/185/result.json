@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Lying_T-Bar_Row",
+  "shard": 19,
+  "index": 185,
+  "status": "ready_for_review",
+  "findings": [
+    "Female T-bar row frames had floor shadow; GenerateImage accepted on female v2_1 and v2_2"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_T-Bar_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_T-Bar_Row_male_v2_0.png",
+      "sourceSha256": "e9e4f267b5344a5459756e0077d6f8031758a660851e0f9c10d2885ad2097759",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/185/Lying_T-Bar_Row_male_v2_0.png",
+      "candidateSha256": "2aa3d4810eeeb5395e35a0db02821d2acbb7e76ab3b405c2761644ac87d9609a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_T-Bar_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_T-Bar_Row_male_v2_1.png",
+      "sourceSha256": "a9876e1a7d2583b09c072f51a9e3143f747703b9d1ff5d539af8fa178d240bdd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/185/Lying_T-Bar_Row_male_v2_1.png",
+      "candidateSha256": "e83da0d75fe58ff8c6ca8faaf28225f30ab7047eeb27017ba35c049ed576ed68",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_T-Bar_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_T-Bar_Row_male_v2_2.png",
+      "sourceSha256": "ac49b78b3a3ef6033c6e86cef78e15e95ad62d80c476134133bb46e38fb2cb51",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/185/Lying_T-Bar_Row_male_v2_2.png",
+      "candidateSha256": "25e59744beeb366ab6aafd16a7c99b00f8b6d94a07340f0fc9b78a1f1dbae731",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_T-Bar_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_T-Bar_Row_male_v2_3.png",
+      "sourceSha256": "9256c8189de9e7c900b4011b1146be14a18b08b27f274af96761d77780892feb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/185/Lying_T-Bar_Row_male_v2_3.png",
+      "candidateSha256": "9ae701271ebbfde46fc7ce4b798e3f5e418fb9f186c3dc794c7ebfbf5f457861",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_T-Bar_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_T-Bar_Row_female_v2_0.png",
+      "sourceSha256": "cb3fdee3a47da1e5c2b886da6d17e94447655236240162fee715a2ec9fb18b35",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/185/Lying_T-Bar_Row_female_v2_0.png",
+      "candidateSha256": "7a57e829e3309a3bb0875a80a7e7b29f9a3c80c1107b1c834238f23c9afbd358",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_T-Bar_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_T-Bar_Row_female_v2_1.png",
+      "sourceSha256": "1811abb580f5cfbcf24593da9f60d78ee5bdc3feef4443645466b0912f9de23b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/185/Lying_T-Bar_Row_female_v2_1.png",
+      "candidateSha256": "13c169cb2e20e16eb1e084e7950b3c0393f01380f6f9e497bb77b33e1d2f497b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_T-Bar_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_T-Bar_Row_female_v2_2.png",
+      "sourceSha256": "bb1cbc067fc274557246fa20e8b93dcbee661955e28c56bd9f31dcff06de0302",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/185/Lying_T-Bar_Row_female_v2_2.png",
+      "candidateSha256": "211269d094b1eb1b5f52fd6a5a4dd2905da4efd25b081eab667175c1e417b597",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_T-Bar_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_T-Bar_Row_female_v2_3.png",
+      "sourceSha256": "e10cc99e2bfaf56afacf32af981a65c2994374a60c34050413d0b5ca028269a2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/185/Lying_T-Bar_Row_female_v2_3.png",
+      "candidateSha256": "ee1ba9dce04829f91c1df1256d99d71dbf23d83ecca50548eb9d8a7ff28f2adf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

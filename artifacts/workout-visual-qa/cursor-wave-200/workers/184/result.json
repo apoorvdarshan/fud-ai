@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Lying_Supine_Dumbbell_Curl",
+  "shard": 19,
+  "index": 184,
+  "status": "ready_for_review",
+  "findings": [
+    "Heavy pale fringe on supine curl frames; GenerateImage surgical edit accepted on 4 worst frames"
+  ],
+  "unresolved": [
+    "Lying_Supine_Dumbbell_Curl_male_v2_1/2, female_v2_0/3: script fringe acceptable after review"
+  ],
+  "frames": [
+    {
+      "filename": "Lying_Supine_Dumbbell_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Supine_Dumbbell_Curl_male_v2_0.png",
+      "sourceSha256": "f0ef7e8672bb0972a572b483010ffbf51f61bc17e1fcc6b5179f441aeaac670d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/184/Lying_Supine_Dumbbell_Curl_male_v2_0.png",
+      "candidateSha256": "a7035b4322f22b1a62d74fef73eda798253b66838833d0d5abcfcf74b9bc926b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Supine_Dumbbell_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Supine_Dumbbell_Curl_male_v2_1.png",
+      "sourceSha256": "c640fb25ff3b2c138506f0b768904691779fb244d56b60c02189c7b8fcf77aff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/184/Lying_Supine_Dumbbell_Curl_male_v2_1.png",
+      "candidateSha256": "413bac9fb3642ee38c00e2657883ce947710faf0545302f977ecd6bd80bf03d1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Supine_Dumbbell_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Supine_Dumbbell_Curl_male_v2_2.png",
+      "sourceSha256": "d1e3acd02243deb03599d154a8b3ffc14f2acf98d5b47e0b791732ed2d255eb0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/184/Lying_Supine_Dumbbell_Curl_male_v2_2.png",
+      "candidateSha256": "f5ccff07f6795751e26ed6f4f50b36ec36f492c68cd5c4332adf37a1eabbc8a1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Supine_Dumbbell_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Supine_Dumbbell_Curl_male_v2_3.png",
+      "sourceSha256": "5bfe99f5bec7c35e7da6bed662afd9b0cf2464ac22860a6761ddbb36f5da2a43",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/184/Lying_Supine_Dumbbell_Curl_male_v2_3.png",
+      "candidateSha256": "9505e37a2fb30279ce1ff5179d927c6865e06180852fcac786aa5ec534c7d606",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Supine_Dumbbell_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Supine_Dumbbell_Curl_female_v2_0.png",
+      "sourceSha256": "19aa4250436d77894bcc52b26993274e4856c1b130e1a5bf688baf2627eec681",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/184/Lying_Supine_Dumbbell_Curl_female_v2_0.png",
+      "candidateSha256": "876af48442bc22f263812b703efcf74d9867121a9c0683ec0361c1d2ccaa64e1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Supine_Dumbbell_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Supine_Dumbbell_Curl_female_v2_1.png",
+      "sourceSha256": "5dbf351c2d463a7573ed40b490722c1a37d415846fa08de60f16e78a1a9f9c06",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/184/Lying_Supine_Dumbbell_Curl_female_v2_1.png",
+      "candidateSha256": "6f724c9bda61026cabfdf3a96911656b044af990b4c715a32188c77cd9c554c8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Supine_Dumbbell_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Supine_Dumbbell_Curl_female_v2_2.png",
+      "sourceSha256": "2bfe437bfc55093467e5cadce5a9ef4a2ac6e3e303465572a9c6c1840add3893",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/184/Lying_Supine_Dumbbell_Curl_female_v2_2.png",
+      "candidateSha256": "a52182803f364e400ff37b757afe2f2676c0a70de3d4bd81fb1430cca0eca4b1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_Supine_Dumbbell_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_Supine_Dumbbell_Curl_female_v2_3.png",
+      "sourceSha256": "63326163191ea0f80aec02169ccdc8d85634ae4bd9d1900dac9773983b428fad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/184/Lying_Supine_Dumbbell_Curl_female_v2_3.png",
+      "candidateSha256": "139047eb10bdcffcf896d60b06a2c3b43f5628817f14e781253e48c60b44b4f3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

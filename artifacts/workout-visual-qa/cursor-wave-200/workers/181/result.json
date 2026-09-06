@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Lying_One-Arm_Lateral_Raise",
+  "shard": 19,
+  "index": 181,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Lying_One-Arm_Lateral_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_One-Arm_Lateral_Raise_male_v2_0.png",
+      "sourceSha256": "72ef4d6e7525bf3217f0cbed79555a3988a3821052561c30376fb3f2da7783e1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/181/Lying_One-Arm_Lateral_Raise_male_v2_0.png",
+      "candidateSha256": "ed9fa7a4581a3530b814631ca083c797f20e3acaf50e8f754bebb4d5a581ab4c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_One-Arm_Lateral_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_One-Arm_Lateral_Raise_male_v2_1.png",
+      "sourceSha256": "1a69554757257956098612aedf4d9d794d90f49c04f3c3474901604ecaf2610b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/181/Lying_One-Arm_Lateral_Raise_male_v2_1.png",
+      "candidateSha256": "2546e384a8e8cf51b4b0b04b6ae5052603d24788f5f49172f95f41dace018fef",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_One-Arm_Lateral_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_One-Arm_Lateral_Raise_male_v2_2.png",
+      "sourceSha256": "ff43f9139ccdebe43c2e50c97d476c6a35265065eb64bf41e424a1ac392dba97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/181/Lying_One-Arm_Lateral_Raise_male_v2_2.png",
+      "candidateSha256": "cea017fa8e372ed392c0f041ff866c51f8ebf67bba00ffc458c327f50518f9a3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_One-Arm_Lateral_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_One-Arm_Lateral_Raise_male_v2_3.png",
+      "sourceSha256": "57669f59bbc4fc4ebefeb116c2caae85ab8dcfa9978626439e63dcbe8b4166cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/181/Lying_One-Arm_Lateral_Raise_male_v2_3.png",
+      "candidateSha256": "17272302d1891e1274b8be259a2f061ad5dc26a8bd548382b726d0c70a1865d8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_One-Arm_Lateral_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_One-Arm_Lateral_Raise_female_v2_0.png",
+      "sourceSha256": "ea6a1ab5625dfd95a70d6a4a36d8244d130e1530317bb546dfa7848a715da6d8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/181/Lying_One-Arm_Lateral_Raise_female_v2_0.png",
+      "candidateSha256": "c46dadd95d8fff4a5b8f1057af1b93bfaeaace008d031d587ec1229ebeb560b5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_One-Arm_Lateral_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_One-Arm_Lateral_Raise_female_v2_1.png",
+      "sourceSha256": "db5a12f6152a4660b0e124b32914d217e40041f8efb02876c6f43db4b09d3583",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/181/Lying_One-Arm_Lateral_Raise_female_v2_1.png",
+      "candidateSha256": "f5a86c14f6f857f670a6b7cf41a75fbcf6c6a389081a7a8148517b43b468e7d5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_One-Arm_Lateral_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_One-Arm_Lateral_Raise_female_v2_2.png",
+      "sourceSha256": "f36fea0c9167cda5da74e3d8b8cfa5de030c09d0a577605b82674cb65469ee76",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/181/Lying_One-Arm_Lateral_Raise_female_v2_2.png",
+      "candidateSha256": "f961ccbb788cb199119539ab9f6c58a25b6e8b2da1b9f27ab2c333d96a95782d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Lying_One-Arm_Lateral_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Lying_One-Arm_Lateral_Raise_female_v2_3.png",
+      "sourceSha256": "0505d6d42ae433b1ec02609d45918cf1fb005eb9b20a058bd4784a969fb175f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/181/Lying_One-Arm_Lateral_Raise_female_v2_3.png",
+      "candidateSha256": "37703c78842c87140106fe8495b746c66ee33c1ed34d1ccd846251cb3b2430b9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

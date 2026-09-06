@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Machine_Shoulder_Military_Press",
+  "shard": 19,
+  "index": 190,
+  "status": "ready_for_review",
+  "findings": [
+    "Shoulder press frames have moderate fringe; GenerateImage attempts rejected"
+  ],
+  "unresolved": [
+    "All 8 frames: GenerateImage increased fringe without clear win; script candidates retained"
+  ],
+  "frames": [
+    {
+      "filename": "Machine_Shoulder_Military_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Shoulder_Military_Press_male_v2_0.png",
+      "sourceSha256": "78241351677cd875fa4b1fa6092ea0523a913706e986179517edaddace6626c7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/190/Machine_Shoulder_Military_Press_male_v2_0.png",
+      "candidateSha256": "7f6af65e363e7ba31b397de8ed5fa7ba08f835e03a1922433bb06beecc2deabb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Shoulder_Military_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Shoulder_Military_Press_male_v2_1.png",
+      "sourceSha256": "e7ea9f6b67b45bab70238d0b0f97f39cceffd7ebafe58022ad977da66cf04dd3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/190/Machine_Shoulder_Military_Press_male_v2_1.png",
+      "candidateSha256": "4775a70caa10c0133eb50c7e9ac817a4ca56c49be20732d0cde2af6a3042d56b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Shoulder_Military_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Shoulder_Military_Press_male_v2_2.png",
+      "sourceSha256": "815ecff162c0eec5c89be5655ddb31bb528f35c9927348fb5f52f39e1d2017c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/190/Machine_Shoulder_Military_Press_male_v2_2.png",
+      "candidateSha256": "dcc78deea674556b4cc93df6e76507484ab9b609f72b5a28aa56a1e3a4b6521e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Shoulder_Military_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Shoulder_Military_Press_male_v2_3.png",
+      "sourceSha256": "da7fa5bf9da391e2a36ad67f3b5622c6b6f5fb3ac0733cc650368592f731494d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/190/Machine_Shoulder_Military_Press_male_v2_3.png",
+      "candidateSha256": "0400c90f47f57ab33550d899b7162469b40b23e37d8162ecf41c3121e98f164c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Shoulder_Military_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Shoulder_Military_Press_female_v2_0.png",
+      "sourceSha256": "a518b4b1141996be10d759817ee1e2f41dedfa78db0893817b7fc7563512a799",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/190/Machine_Shoulder_Military_Press_female_v2_0.png",
+      "candidateSha256": "bda23e0682da9ff1d1a665dae4ba971694824a6d81dba676a93bd3a1de2b6cf5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Shoulder_Military_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Shoulder_Military_Press_female_v2_1.png",
+      "sourceSha256": "108829ac067a8a1bc319834cebd9b705b5b50dd47b255e16a749a53a75588151",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/190/Machine_Shoulder_Military_Press_female_v2_1.png",
+      "candidateSha256": "4c2f30b4606cc291d7808d7351b17d3d13987985d506cfc94e0b042620f6aeb3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Shoulder_Military_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Shoulder_Military_Press_female_v2_2.png",
+      "sourceSha256": "41da8a945dc8df5d672ce236af63fe06dc81acae9b1ed6d21b81267c30375a4a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/190/Machine_Shoulder_Military_Press_female_v2_2.png",
+      "candidateSha256": "2a18b554b641beb4cdf4925d2b1e8fb3ede09c248b2968688ed7cafe52092282",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Shoulder_Military_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Shoulder_Military_Press_female_v2_3.png",
+      "sourceSha256": "1549a0ec5e26ba0fd2e816c92ca973b9e1bc3af48bb5b1613aa31b878cc86936",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/190/Machine_Shoulder_Military_Press_female_v2_3.png",
+      "candidateSha256": "d72d4b82ecac126c9f04e5a2f1840c16069ef1adfea7f02086d02308ad4e8c36",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

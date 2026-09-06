@@ -33,10 +33,14 @@ export function collectReviewTotals(root) {
       if (launch?.response?.isError === false && launch.response.content?.some(c => c.type === 'text' && readTextJson(c.text)?.threadId)) started.add(launch.exerciseId);
     }
     const decisions = readJson(path.join(stage, 'human-decisions.json'), {}).decisions || {};
+    const exercises = readJson(path.join(batches, name, `${name}.json`), {}).exercises || [];
     const chat = fs.readdirSync(stage).filter(n => /^human-approval.*\.json$/.test(n)).flatMap(n => readJson(path.join(stage, n), {}).decisions || []);
     for (const check of readJson(path.join(stage, 'parent-review-passed.json'), {}).checks || []) {
       if (!['parent_pass_human_pending', 'user_requested_review'].includes(check.status) || check.frames?.length !== 8) continue;
-      const frames = check.frames;
+      // Saved web decisions use the manifest order, not the worker's report order.
+      const exercise = exercises.find(e => e.index === check.index && e.exerciseId === check.exerciseId);
+      const frames = exercise?.sourceFramePaths?.map(file => check.frames.find(f => f.filename === path.basename(file)));
+      if (frames?.length !== 8 || frames.some(f => !f) || new Set(frames.map(f => f.filename)).size !== 8) continue;
       const row = { sourceHashes: frames.map(f => f.sourceSha256), hashes: frames.map(f => f.candidateSha256) };
       // A stale source invalidates approval and readiness; generated files stay untouched.
       const collected = path.join(stage, 'parent-collected', String(check.index).padStart(3, '0'));

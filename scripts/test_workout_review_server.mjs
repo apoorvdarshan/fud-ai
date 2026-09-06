@@ -31,7 +31,8 @@ test('combined review queue routes decisions to the correct batch and hides deci
     });
     const report = JSON.stringify({ frames });
     write(path.join(collected, 'worker-result.json'), report);
-    write(path.join(stage, 'parent-review-passed.json'), { checks: [{ index: 1, exerciseId: id, status: 'parent_pass_human_pending', reportSha256: hash(report), frames }] });
+    // Workers may report female-first while the UI uses male-first (or vice versa).
+    write(path.join(stage, 'parent-review-passed.json'), { checks: [{ index: 1, exerciseId: id, status: 'parent_pass_human_pending', reportSha256: hash(report), frames: [...frames].reverse() }] });
     write(path.join(batches, batch, `${batch}.json`), { exercises: [{ index: 1, exerciseId: id, sourceFramePaths: frames.map(f => f.sourcePath) }] });
   }
   write(path.join(root, 'shared/workout-vectors/exercise-visual-manifest.json'), { exercises: ids.map(exerciseId => ({ exerciseId })) });

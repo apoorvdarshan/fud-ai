@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl",
+  "shard": 21,
+  "index": 203,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_0.png",
+      "sourceSha256": "5f84220a7dcafa890811a93c0f772411c92809fd552ffef33e9e0181f7935e9f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_0.png",
+      "candidateSha256": "5efd02d006e37e6ede008717c25bc2295969b6b6fadc86e91d518ef327babbf8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_1.png",
+      "sourceSha256": "964e2b1d4b13d797dcc42c6b23cc585646dfff6a4e336671fbc0f3ddc7dc435c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_1.png",
+      "candidateSha256": "087dc3bd042ccb5f7519b0b5f77dbabc23c31637a3751349abd7a4005d5c05b2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_2.png",
+      "sourceSha256": "3e1a70740bcf47e6c266d975899aca6bb8c4bd5e2fd3b5fac191d9b4fa0915dd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_2.png",
+      "candidateSha256": "7763c1d37199a60a01523086d543286a49ddf3f58bdea5a93d0a2e24b6dc3be1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_3.png",
+      "sourceSha256": "c244b15195fa2ab177335149aaea7407358f7997856a9ae7a9b1bfdcecc8f88e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_3.png",
+      "candidateSha256": "2f3b856d71d5baac81e006ce4c06593cc7dae7028c5d6d8f3fb4cbd0e9b52732",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_0.png",
+      "sourceSha256": "1e678049efb69b859348b05f738684fcd86b63b64a8bf60d90ff53c5ac072a99",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_0.png",
+      "candidateSha256": "9e92105fc93d3da94e3b2b5935b8fa0989b6422e8d8e98f9691cb1fbb972b433",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_1.png",
+      "sourceSha256": "920ea06a2520df96fe1d5a9d19912d8d47cbede7759e8459e0f6e8f278a896f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_1.png",
+      "candidateSha256": "fe217d82afa6ca7805b57e9b8ab79e33e10a75aa747d57acdc616754a223aa45",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_2.png",
+      "sourceSha256": "69927418df44fb3c3bf82e08604c23b2095f4b1bea57ec5e0312de34f73f6a17",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_2.png",
+      "candidateSha256": "33ae47d55b532a99af758970640fe01249283c91282f71fbdccc9f1987ead73a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_3.png",
+      "sourceSha256": "095fe033f23bb9584f8abc3da6c7ce4995c6a53023fa5c8141f1de5da139ebd3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_3.png",
+      "candidateSha256": "b82b1d47ed86fa5dca5210878044bf156ed07977c25c7a722f04b28b38ab05a2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

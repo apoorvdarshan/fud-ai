@@ -1,0 +1,16 @@
+{
+  "source_sha256": "0f4372a19a5b4a94f94ad397b1c9aed9f27c462aa4e077cfb079b7168b47ad25",
+  "candidate_sha256": "131cc94d727b1306b28cf184212c1539abfe08ad7b877d2dc0476e35aaccf7cf",
+  "generated_sha256": "16423d26da45407f5164f2515e28918a4563085c5e9d2aa8ce67f0d346278726",
+  "generated_path": "/cursor/stores/bc-da946f50-1df6-4c3b-9301-5df57c779a54/artifacts/assets/gen_205_Shotgun_Row_male_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

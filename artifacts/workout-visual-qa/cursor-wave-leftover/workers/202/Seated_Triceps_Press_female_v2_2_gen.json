@@ -1,0 +1,16 @@
+{
+  "source_sha256": "099697060f0baf11c6d804e2ecfa7caafb0f68e14b6dbc82b99929a105c070d0",
+  "candidate_sha256": "60fa50c61fea55a4b3260655d003c2f39f2ca405183d5ed2fec0b488a9e90c23",
+  "generated_sha256": "ec64a4b20969f3c43489ed2043d83547401fccd03d88ab291376ffe7e1ce9fa3",
+  "generated_path": "/cursor/stores/bc-da946f50-1df6-4c3b-9301-5df57c779a54/artifacts/assets/gen_202_Seated_Triceps_Press_female_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

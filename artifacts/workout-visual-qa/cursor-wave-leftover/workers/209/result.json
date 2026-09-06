@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Shoulder_Stretch",
+  "shard": 21,
+  "index": 209,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Shoulder_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_male_v2_0.png",
+      "sourceSha256": "c9339ada1452424ad15e52a5067ec79979c2b4d155d0419634e9f4469ab2b6e1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_male_v2_0.png",
+      "candidateSha256": "d2189bec064764d0a66870b4a7d24562f8b16d3c7f4513323d3b9898215e8c6f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_male_v2_1.png",
+      "sourceSha256": "628305142e938424b0bd76d0b17297d2332a73847dd2d1e4bc823a68071d0fff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_male_v2_1.png",
+      "candidateSha256": "b6273985a2bb4d719c84895504bc24f476265d91d8d348d4b88e6fd264af915f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_male_v2_2.png",
+      "sourceSha256": "cfd7ff0dc12a95a05e4c2dc0b7a9cf996a672f16f67522bac4fb28a74349d785",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_male_v2_2.png",
+      "candidateSha256": "d63b7cbe52f359a86c84e741690f5d7183e07768bb07826dc4787add7ef87c0c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_male_v2_3.png",
+      "sourceSha256": "751340419e68b8b40aa95800dcf53f907d40a8b010fb791606593fb78d464abb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_male_v2_3.png",
+      "candidateSha256": "fe89645683e442447b569a6a96f8176cbd2db75a202036fda69b10b777d93c00",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_female_v2_0.png",
+      "sourceSha256": "6435a8778df386c077d413146c94fcfb90de1fee35340c5977f3b940eab0aac4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_female_v2_0.png",
+      "candidateSha256": "365fabf34d04b3b23691ee7d0af109afe537086c015411f56d63010bfbab20a9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_female_v2_1.png",
+      "sourceSha256": "f3922103860c7a2a9f4274e87b228f00dd835bab534fa07230b0c50947f0af97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_female_v2_1.png",
+      "candidateSha256": "345775c7755de106628c92e4ee2988e4378642c2c5c9b103718c164c7ae81a5d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_female_v2_2.png",
+      "sourceSha256": "851594b750bf783c45ee9bfd590a2ab7bc263b66b6d47e8730454389de2239b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_female_v2_2.png",
+      "candidateSha256": "291dc73f4b018ae872cd261964a08696256e482330a0b058954433266fad8258",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_female_v2_3.png",
+      "sourceSha256": "2800fa395f85505cacaea202b8ee4135330bac824e0d2b00ec83e5091ef6740e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_female_v2_3.png",
+      "candidateSha256": "01e76d58d55c018e8f34d2aa79a4000c2f9410d06cad6e90a32b115490ca47f5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -1,0 +1,83 @@
+{
+  "exerciseId": "Shoulder_Raise",
+  "shard": 21,
+  "index": 208,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Shoulder_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_male_v2_0.png",
+      "sourceSha256": "c9d4acdc82edf48cb39367788aff85e9936170468edb9f83d2c3ea8b1ab23721",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_male_v2_0.png",
+      "candidateSha256": "f38254c29b8029c0d02340e532983d7b869c653889877d009a79869a60f78a46",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_male_v2_1.png",
+      "sourceSha256": "08adb108db48614bf44fd1c1cee33151f58661fc9a29f8a990f64aac15969cf0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_male_v2_1.png",
+      "candidateSha256": "dedc41b8af81264030b2a39c219c4fa89cb30c028f2f5946142e4b50feb62774",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_male_v2_2.png",
+      "sourceSha256": "31695eeed96b14a56d9bceaf81646c396c481d27da521a45037667bae86a47f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_male_v2_2.png",
+      "candidateSha256": "5cdda39f6646a668c38417b33e36eae265dfa41e34b0f7463b7c4c203f657086",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_male_v2_3.png",
+      "sourceSha256": "c58f8d537cd5416f7d9f2d61b6507fe81aad08aa5b0b196fe2659203ee349cb2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_male_v2_3.png",
+      "candidateSha256": "d69ded5e90cda756da55a7e2e40720dd2d6775586b6a12a65e5fde50621f2652",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_female_v2_0.png",
+      "sourceSha256": "4c8b834c04b7fd265caf914333fa65ea9101db5db150bf1da4a04e370e3c55d6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_female_v2_0.png",
+      "candidateSha256": "efe64497b840d036b44c3506fdd9b75112517d7c518b935672b1d169b3015719",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_female_v2_1.png",
+      "sourceSha256": "cb73d9bff205cc65614452c5ba7e408f1bb1605c44ea0e4f482e372b7ff8ce5e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_female_v2_1.png",
+      "candidateSha256": "e809aca7e7dc38dcfb50d9a56ff160ba0c3b08869f78329310a767832285e256",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_female_v2_2.png",
+      "sourceSha256": "a48dc7e1cc340fcee94a031a1892af40f62294ac33f03b3a7277892428075e62",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_female_v2_2.png",
+      "candidateSha256": "d60026472dc40493ac795a967138c79548d7516d32d9908af4f41deb8d213dee",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Shoulder_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_female_v2_3.png",
+      "sourceSha256": "5977d7261a555582ec7ad34526ccadef92d03a17f2b951a62987eae9ed4086ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_female_v2_3.png",
+      "candidateSha256": "1d5341fbc5066f9b7492c53020764f2fb1c04bd91f751fbe347a2633fccf7733",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

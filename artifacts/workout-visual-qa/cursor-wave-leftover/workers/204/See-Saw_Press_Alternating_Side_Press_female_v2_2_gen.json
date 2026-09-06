@@ -1,0 +1,16 @@
+{
+  "source_sha256": "9747d2cf91e9f49d16bfd97bcbd6969cf8bc79e953937db39a45a09b2a6fd882",
+  "candidate_sha256": "50e5367c9fce23ff5f5e018b5b5373fbe1aa591b710619c136d23d06b0928a3e",
+  "generated_sha256": "010e2f154d586a85ccc196c587c4b80da68befc6eda1553474a335e73c135936",
+  "generated_path": "/cursor/stores/bc-da946f50-1df6-4c3b-9301-5df57c779a54/artifacts/assets/gen_204_See-Saw_Press_Alternating_Side_Press_female_v2_2.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

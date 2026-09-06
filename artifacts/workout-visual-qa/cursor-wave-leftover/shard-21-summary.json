@@ -1,0 +1,863 @@
+{
+  "shard": 21,
+  "batch": "cursor-wave-leftover",
+  "status": "ready_for_review",
+  "generateImageFrames": [
+    "Seated_Triceps_Press_female_v2_0.png",
+    "Seated_Triceps_Press_female_v2_1.png",
+    "Seated_Triceps_Press_female_v2_2.png",
+    "Seated_Triceps_Press_female_v2_3.png",
+    "Seated_Triceps_Press_male_v2_0.png",
+    "Seated_Triceps_Press_male_v2_1.png",
+    "Seated_Triceps_Press_male_v2_2.png",
+    "Seated_Triceps_Press_male_v2_3.png",
+    "See-Saw_Press_Alternating_Side_Press_female_v2_2.png",
+    "See-Saw_Press_Alternating_Side_Press_male_v2_2.png",
+    "Shotgun_Row_female_v2_3.png",
+    "Shotgun_Row_male_v2_0.png",
+    "Shotgun_Row_male_v2_1.png",
+    "Shotgun_Row_male_v2_2.png",
+    "Shoulder_Circles_female_v2_1.png",
+    "Shoulder_Circles_male_v2_0.png",
+    "Shoulder_Press_-_With_Bands_female_v2_2.png",
+    "Shoulder_Press_-_With_Bands_male_v2_2.png",
+    "Side-Lying_Floor_Stretch_female_v2_1.png",
+    "Side-Lying_Floor_Stretch_female_v2_2.png",
+    "Side-Lying_Floor_Stretch_female_v2_3.png",
+    "Side-Lying_Floor_Stretch_male_v2_1.png",
+    "Side-Lying_Floor_Stretch_male_v2_2.png",
+    "Side-Lying_Floor_Stretch_male_v2_3.png"
+  ],
+  "exercises": [
+    {
+      "exerciseId": "Seated_Side_Lateral_Raise",
+      "shard": 21,
+      "index": 201,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Seated_Side_Lateral_Raise_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_male_v2_0.png",
+          "sourceSha256": "2c052a018dbf6a073e98090224f21bb277d8fc4866903815feb86bf157951629",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_male_v2_0.png",
+          "candidateSha256": "e8c1ef63565403df265265ee99916a66ceb76cb75dab98dd5195d7aef16e984f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Side_Lateral_Raise_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_male_v2_1.png",
+          "sourceSha256": "be0ccf2b6c12fc7ea9e6ff0be4d617c27d854ad607d05a41e1ab1e2545939656",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_male_v2_1.png",
+          "candidateSha256": "c0ee723faabe10fac72899468e2e0a161eb5cf8f2359232c6eeac264141987af",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Side_Lateral_Raise_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_male_v2_2.png",
+          "sourceSha256": "e1947a59d41fe6514ab7759868216e9e5d8dd0c69fce3f2520d2748c69bfc394",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_male_v2_2.png",
+          "candidateSha256": "7d888f1a827bbd4bf251d1f33f46a913fb198b5ff6831e50b22ec96e772c343b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Side_Lateral_Raise_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_male_v2_3.png",
+          "sourceSha256": "f226aa82ef7e2a31a05cc8da5ecd557900ddfee872ea66aa0544658fac5df06b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_male_v2_3.png",
+          "candidateSha256": "280ad0762c933dee9a533c410f16f4d25b6c5cb38de98fea5004523b92dc772b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Side_Lateral_Raise_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_female_v2_0.png",
+          "sourceSha256": "240807fd545c753ecd6abf0ee2dbb1278627da4ead8dcd1838b0ef4d673e002c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_female_v2_0.png",
+          "candidateSha256": "78cf9cf53047d11ec017c043c56889d5f303bc84f4309b8d45c2055f34ab841d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Side_Lateral_Raise_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_female_v2_1.png",
+          "sourceSha256": "19e14e2bd89356f6fdf77a2ab89f14737b2051f12f572637f1717f7b31e7c59f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_female_v2_1.png",
+          "candidateSha256": "92137e475d8b8f0f64a89cc4383f83c374f9dc50cd8c3c974835c1f4dba70993",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Side_Lateral_Raise_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_female_v2_2.png",
+          "sourceSha256": "e8bc15dc91310fe302ec736ffc4ac7ae5a1337bd20718bf75eca23a7c5cceaf5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_female_v2_2.png",
+          "candidateSha256": "42b042ff471090a511ffccd68893bae3fb39f0bae208a9e133dc37bbce592398",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Side_Lateral_Raise_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Side_Lateral_Raise_female_v2_3.png",
+          "sourceSha256": "ecb720225b5a122d6725e5cd46e8e60179657de8149a63e4fb1a8698bbebab96",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/201/Seated_Side_Lateral_Raise_female_v2_3.png",
+          "candidateSha256": "0d547b84a7d2c4cfc362d37e3c21064e57d82370ec24c110449f4193b6f35cc7",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Seated_Triceps_Press",
+      "shard": 21,
+      "index": 202,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Seated_Triceps_Press_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_male_v2_0.png",
+          "sourceSha256": "b55534385a1b42df2129b345c1a621b5452786f86299583414b3721e19ded550",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_male_v2_0.png",
+          "candidateSha256": "47140d9adf7704448621cd2ea8642a0fd4a2d5876e08eb75bdc60249b935265c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Triceps_Press_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_male_v2_1.png",
+          "sourceSha256": "6ac00b49c0ea28b5508f1c1623410ae052f1cf15e5eb40fbe5d405d0223ff825",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_male_v2_1.png",
+          "candidateSha256": "94934097b8081b1696c9f682f94a26ceb7c971eb18c153a95c76c7609bc584ef",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Triceps_Press_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_male_v2_2.png",
+          "sourceSha256": "a5e37c87bd6a73539b7d589d8e1a1ae1b6df4e9dbb558eaad57e40e2f21f29d1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_male_v2_2.png",
+          "candidateSha256": "b1a30852746a7bada4e9235635bc1a1f2efb5d1b5f365d296314b999df1eabaf",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Triceps_Press_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_male_v2_3.png",
+          "sourceSha256": "8e87419f73160dce4a8ee6fdcff797856b6333d0b8494267d27b720747e8ed9d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_male_v2_3.png",
+          "candidateSha256": "301527dfbf6d6c4b2e451de30edcde6619385e9297f132fbaec16faf9a0fe547",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Triceps_Press_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_female_v2_0.png",
+          "sourceSha256": "89c7164ef756046161b05df3dc60580f754ef2cde42a767caa88aa097c95cd59",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_female_v2_0.png",
+          "candidateSha256": "5b1bb87f71336c05124ee4de0379da5c4de6affde88c8c3b5ee3c622bfdf99e0",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Triceps_Press_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_female_v2_1.png",
+          "sourceSha256": "800b21eb479bacc421ecf4da30931d75749c38e84e8cf90d05646eb472e31cd9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_female_v2_1.png",
+          "candidateSha256": "b9a0d8e0b6fa52f9e15cc2f8032d477f052bc089f3e60d0b584545ac87a22a52",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Triceps_Press_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_female_v2_2.png",
+          "sourceSha256": "099697060f0baf11c6d804e2ecfa7caafb0f68e14b6dbc82b99929a105c070d0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_female_v2_2.png",
+          "candidateSha256": "60fa50c61fea55a4b3260655d003c2f39f2ca405183d5ed2fec0b488a9e90c23",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Triceps_Press_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Triceps_Press_female_v2_3.png",
+          "sourceSha256": "5448a89f023c2357bd030ee769d675fcb74301e85f81a863dca0b4caea6c9c0c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/202/Seated_Triceps_Press_female_v2_3.png",
+          "candidateSha256": "d3659d5b1146c2e3112b690591c1f0fea663a61ac96027c0eb3a1589b75312f3",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl",
+      "shard": 21,
+      "index": 203,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_0.png",
+          "sourceSha256": "5f84220a7dcafa890811a93c0f772411c92809fd552ffef33e9e0181f7935e9f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_0.png",
+          "candidateSha256": "5efd02d006e37e6ede008717c25bc2295969b6b6fadc86e91d518ef327babbf8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_1.png",
+          "sourceSha256": "964e2b1d4b13d797dcc42c6b23cc585646dfff6a4e336671fbc0f3ddc7dc435c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_1.png",
+          "candidateSha256": "087dc3bd042ccb5f7519b0b5f77dbabc23c31637a3751349abd7a4005d5c05b2",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_2.png",
+          "sourceSha256": "3e1a70740bcf47e6c266d975899aca6bb8c4bd5e2fd3b5fac191d9b4fa0915dd",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_2.png",
+          "candidateSha256": "7763c1d37199a60a01523086d543286a49ddf3f58bdea5a93d0a2e24b6dc3be1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_3.png",
+          "sourceSha256": "c244b15195fa2ab177335149aaea7407358f7997856a9ae7a9b1bfdcecc8f88e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_male_v2_3.png",
+          "candidateSha256": "2f3b856d71d5baac81e006ce4c06593cc7dae7028c5d6d8f3fb4cbd0e9b52732",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_0.png",
+          "sourceSha256": "1e678049efb69b859348b05f738684fcd86b63b64a8bf60d90ff53c5ac072a99",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_0.png",
+          "candidateSha256": "9e92105fc93d3da94e3b2b5935b8fa0989b6422e8d8e98f9691cb1fbb972b433",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_1.png",
+          "sourceSha256": "920ea06a2520df96fe1d5a9d19912d8d47cbede7759e8459e0f6e8f278a896f7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_1.png",
+          "candidateSha256": "fe217d82afa6ca7805b57e9b8ab79e33e10a75aa747d57acdc616754a223aa45",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_2.png",
+          "sourceSha256": "69927418df44fb3c3bf82e08604c23b2095f4b1bea57ec5e0312de34f73f6a17",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_2.png",
+          "candidateSha256": "33ae47d55b532a99af758970640fe01249283c91282f71fbdccc9f1987ead73a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_3.png",
+          "sourceSha256": "095fe033f23bb9584f8abc3da6c7ce4995c6a53023fa5c8141f1de5da139ebd3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/203/Seated_Two-Arm_Palms-Up_Low-Pulley_Wrist_Curl_female_v2_3.png",
+          "candidateSha256": "b82b1d47ed86fa5dca5210878044bf156ed07977c25c7a722f04b28b38ab05a2",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "See-Saw_Press_Alternating_Side_Press",
+      "shard": 21,
+      "index": 204,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "See-Saw_Press_Alternating_Side_Press_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_male_v2_0.png",
+          "sourceSha256": "ba1471277bee4823e091731a0280b596b2197fd70dd868b6f3752d04df189f68",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_male_v2_0.png",
+          "candidateSha256": "598d330e5257700c8a8b5e03cdaa655367f427d5ca50967acdf9720401620ce1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "See-Saw_Press_Alternating_Side_Press_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_male_v2_1.png",
+          "sourceSha256": "f7d646a9dbb5c1e2095117266e815523d2a82ea06697fef54083b46798f046ff",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_male_v2_1.png",
+          "candidateSha256": "aa00415888c5c1e5fadab7ab4730f92fdd654de989e791f564e4b0f7c68c373a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "See-Saw_Press_Alternating_Side_Press_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_male_v2_2.png",
+          "sourceSha256": "1f5b0f201808036e6706c22a9e07893cdab4663a9c9c515e51664e4837a7a1f3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_male_v2_2.png",
+          "candidateSha256": "87399071ff3930bd6ef3fee57f295bfcd43c7cf33c4220397301d2417cec2914",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "See-Saw_Press_Alternating_Side_Press_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_male_v2_3.png",
+          "sourceSha256": "f7c403831b6e25bfecf18f937b639c0f950620ca65e65bb36bd7a86edd875d7f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_male_v2_3.png",
+          "candidateSha256": "609254b3d367224e46c6a71bc4ec08c8db31ba6470b316759ef6a6182cee98e1",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "See-Saw_Press_Alternating_Side_Press_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_female_v2_0.png",
+          "sourceSha256": "a7e109777cb59084a2b6da2699cc5ac2d899dac70d081e72bf5cbf84f240d3ad",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_female_v2_0.png",
+          "candidateSha256": "2fb237ad15a420f7999c1efb4784fcfcc8a42c7ed407524c39056092a1b09d98",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "See-Saw_Press_Alternating_Side_Press_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_female_v2_1.png",
+          "sourceSha256": "35b1660037816c6b5f2c2402c5da60b7a024c12bb83dfe9f973e9ac0d4450cff",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_female_v2_1.png",
+          "candidateSha256": "fd3e2f4942507d7cf1025db2668e8ed1c88446f00aebadfcf95c3893d3171607",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "See-Saw_Press_Alternating_Side_Press_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_female_v2_2.png",
+          "sourceSha256": "9747d2cf91e9f49d16bfd97bcbd6969cf8bc79e953937db39a45a09b2a6fd882",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_female_v2_2.png",
+          "candidateSha256": "50e5367c9fce23ff5f5e018b5b5373fbe1aa591b710619c136d23d06b0928a3e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "See-Saw_Press_Alternating_Side_Press_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/See-Saw_Press_Alternating_Side_Press_female_v2_3.png",
+          "sourceSha256": "af4e1060a4fbe74335a6728dfee507bd454de1c1cc7f1b4bb141f36e5b31377a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/204/See-Saw_Press_Alternating_Side_Press_female_v2_3.png",
+          "candidateSha256": "1fbffb958ae7ee88091d25446f4f9e98d31ea8d619d3a7fe9a91ea590143140a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Shotgun_Row",
+      "shard": 21,
+      "index": 205,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Shotgun_Row_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_male_v2_0.png",
+          "sourceSha256": "5f312dd9480e53311e3bdd88da0867c94a628b2531e747af162ad2d042dcd2fc",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_male_v2_0.png",
+          "candidateSha256": "028dd86b102bfaa78b476a0eac74c5b5ba9bf077c2586a75c592a801c385be7f",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shotgun_Row_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_male_v2_1.png",
+          "sourceSha256": "b46b911c2442e122e194763a60cdd1908b43d8e88fa50532cd2d13f2f5752608",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_male_v2_1.png",
+          "candidateSha256": "c84b224cdf8ddc738a6813e465c8babc328147d32e7c14ec897db5a6ef51a590",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shotgun_Row_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_male_v2_2.png",
+          "sourceSha256": "0f4372a19a5b4a94f94ad397b1c9aed9f27c462aa4e077cfb079b7168b47ad25",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_male_v2_2.png",
+          "candidateSha256": "131cc94d727b1306b28cf184212c1539abfe08ad7b877d2dc0476e35aaccf7cf",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shotgun_Row_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_male_v2_3.png",
+          "sourceSha256": "3c51a6549f78c99ebfd43bbae3863e7a0c62d1f6522ac7046770cd6142b8ee1c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_male_v2_3.png",
+          "candidateSha256": "ae3a72bc620b775d2ae6c1c93aec283aea10941f0a8bfd513d95bb2a6abe9bed",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shotgun_Row_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_female_v2_0.png",
+          "sourceSha256": "db1af369c632fd623c61aeebead777dc1e502cc5ee04824dc253af4753c6fd9a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_female_v2_0.png",
+          "candidateSha256": "9ac97f2e2476b43734194b7212f201b3a89795251d0eee49a0ded391cf557eb6",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shotgun_Row_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_female_v2_1.png",
+          "sourceSha256": "7ef119bd6b033284114eaaa207a572f227e2f2a7dee2c0a217c7cf94c24a194f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_female_v2_1.png",
+          "candidateSha256": "8e33bfc50458421c25e66507ce5a574b5022487e52cb46caa4c340952061a435",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shotgun_Row_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_female_v2_2.png",
+          "sourceSha256": "9c59428f3f70ece098d062c44185fecdeae839f2c03413023d95ef7e4cb30e57",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_female_v2_2.png",
+          "candidateSha256": "cedc9f6c6ac76cc6e86d9492f1efd3aa62e7e07e127e03ec4e47bdcbc8e4339b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shotgun_Row_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shotgun_Row_female_v2_3.png",
+          "sourceSha256": "90816e867a44290c37cd59c1f6def78d91ffdb757599bd3542952421e2824879",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/205/Shotgun_Row_female_v2_3.png",
+          "candidateSha256": "6279fb9fa1e578cfef550c4caeea3508f5cd02a779e0e266c592361031544328",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Shoulder_Circles",
+      "shard": 21,
+      "index": 206,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Shoulder_Circles_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_male_v2_0.png",
+          "sourceSha256": "da0a71c3bc3433daa48c1d5c1231a839916ea2ab5a61218a0c30c7a64fb13794",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_male_v2_0.png",
+          "candidateSha256": "75b823fe5746a43973dde1d247e925e087bcca97b223063a3be5f2c2c2d848a9",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Circles_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_male_v2_1.png",
+          "sourceSha256": "0f9c75dab576b26a0bedd093aab22182d7c51fa543e87182f4f0e5290969dec4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_male_v2_1.png",
+          "candidateSha256": "671599eecc6b79e2d41a306a20d4c69a8421e644a213b31c4f575527caf177ac",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Circles_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_male_v2_2.png",
+          "sourceSha256": "7a448e644b8e0ffd17bbea29c1cccafd941a2fbae8f4e18444a5b8142f2c6219",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_male_v2_2.png",
+          "candidateSha256": "5493adb5dd96597ed533c59928bdb3b64303bcca7e2b4318b79ec325678c5db4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Circles_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_male_v2_3.png",
+          "sourceSha256": "745f5161ac4b5857388be06f2e1656afa990ad28c0ed78c8209fb35859556662",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_male_v2_3.png",
+          "candidateSha256": "06125938698244a832835bd0cff45570f2e4efd3f40573015bccb910aa613bbd",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Circles_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_female_v2_0.png",
+          "sourceSha256": "8d13104c62dcdf3d0cc1a3e7b2e2c2f55c6ccff942dc5166625b4bf0168900ae",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_female_v2_0.png",
+          "candidateSha256": "f6ce34ff8c8b9ce0ebb912093352f7f96aa44a51da1de47a46f5c9be443ae7ff",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Circles_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_female_v2_1.png",
+          "sourceSha256": "85dca06a314b93752e9313d40bf958d826226cc371dd3de26237f8a86dcb22c6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_female_v2_1.png",
+          "candidateSha256": "0dbab9f89a9224a815f9105effe13ac5b9177d88e76e3fe424f3e98c21b89cfe",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Circles_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_female_v2_2.png",
+          "sourceSha256": "b18fa62cb0ce77b9bdbe763d90a0349a9dba19ee1e95ea86c43a1d7896b236d1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_female_v2_2.png",
+          "candidateSha256": "b2ea0dbafd399af809d309454c9f7a229c498674b9418ee680a1b1d184cc7a25",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Circles_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Circles_female_v2_3.png",
+          "sourceSha256": "e0b67368cd7347d030b2836d7290f5ce473efee4f37c945983f8332f9528acd1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/206/Shoulder_Circles_female_v2_3.png",
+          "candidateSha256": "86e655ef978959900daccbaeafdc4ab68b708a63a8388532f09d283e58c6e0e9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Shoulder_Press_-_With_Bands",
+      "shard": 21,
+      "index": 207,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Shoulder_Press_-_With_Bands_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_male_v2_0.png",
+          "sourceSha256": "325bb7440d08f5ba52a0fd3dc35b91672d8f62863796a1a4eb8cd1b48cf8aa66",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_male_v2_0.png",
+          "candidateSha256": "4cc17b87931e0da9cfc6cb11703a341c8f1855f52ade405162401d7bd30fb628",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Press_-_With_Bands_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_male_v2_1.png",
+          "sourceSha256": "d38be8a4df2544f22bde42d148c3bde79eb66b9c1d9270a489fd9872b2434897",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_male_v2_1.png",
+          "candidateSha256": "f96c85d400e4e3faaabdb3e3d201b48eec5e2e6ba83c49a3b5c94ff3ad62c923",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Press_-_With_Bands_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_male_v2_2.png",
+          "sourceSha256": "c58532afa78464782a6c5a4b7d205590f795e02d5d5de4c29fee11b844a3bd30",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_male_v2_2.png",
+          "candidateSha256": "6afca1dc48395057447a213267bd493f19c6fb6d8db3951533254f9ba01b19cb",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Press_-_With_Bands_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_male_v2_3.png",
+          "sourceSha256": "a7fe3947e31543724eda91480f00843d26a8503aac8e1930f02a621daf9c41cb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_male_v2_3.png",
+          "candidateSha256": "830c61850684d1cc1052131893c2476adc246ddfbe43193463f3d6f1ffacc798",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Press_-_With_Bands_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_female_v2_0.png",
+          "sourceSha256": "0efc5f7170a8f420040214feb0d5bfa27698dc0ead771e97095ed0b1bb1dda09",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_female_v2_0.png",
+          "candidateSha256": "ef52327daf10b05c15b8c0f492691c4a71f24fec501c07ab700575e961b3e139",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Press_-_With_Bands_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_female_v2_1.png",
+          "sourceSha256": "a678ec298a96d68e8d176e3756d0ee6e90c658e52086bdda216dbc2f030d1f41",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_female_v2_1.png",
+          "candidateSha256": "20a72d2f1ad773a8b5d845d0c38b525d7f0eb6a802dddf7b550caa496827e505",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Press_-_With_Bands_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_female_v2_2.png",
+          "sourceSha256": "834a90ebcd34b4d4030d017ff02069883033e94b1ab4632af887909bd4e9cdbb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_female_v2_2.png",
+          "candidateSha256": "ad5cabd224bb5b557860ac2ab65996046b981da5a845f04bce6d3c6edfea2962",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Press_-_With_Bands_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Press_-_With_Bands_female_v2_3.png",
+          "sourceSha256": "851e5f82ce6ecf826c3cd594dd6d5054bb36d6564f42fcf5c15d133f12309a3a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/207/Shoulder_Press_-_With_Bands_female_v2_3.png",
+          "candidateSha256": "d5c283dac8a94411036a09c01b773118398b038532f91928aa9734ff971e53ba",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Shoulder_Raise",
+      "shard": 21,
+      "index": 208,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Shoulder_Raise_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_male_v2_0.png",
+          "sourceSha256": "c9d4acdc82edf48cb39367788aff85e9936170468edb9f83d2c3ea8b1ab23721",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_male_v2_0.png",
+          "candidateSha256": "f38254c29b8029c0d02340e532983d7b869c653889877d009a79869a60f78a46",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Raise_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_male_v2_1.png",
+          "sourceSha256": "08adb108db48614bf44fd1c1cee33151f58661fc9a29f8a990f64aac15969cf0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_male_v2_1.png",
+          "candidateSha256": "dedc41b8af81264030b2a39c219c4fa89cb30c028f2f5946142e4b50feb62774",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Raise_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_male_v2_2.png",
+          "sourceSha256": "31695eeed96b14a56d9bceaf81646c396c481d27da521a45037667bae86a47f2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_male_v2_2.png",
+          "candidateSha256": "5cdda39f6646a668c38417b33e36eae265dfa41e34b0f7463b7c4c203f657086",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Raise_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_male_v2_3.png",
+          "sourceSha256": "c58f8d537cd5416f7d9f2d61b6507fe81aad08aa5b0b196fe2659203ee349cb2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_male_v2_3.png",
+          "candidateSha256": "d69ded5e90cda756da55a7e2e40720dd2d6775586b6a12a65e5fde50621f2652",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Raise_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_female_v2_0.png",
+          "sourceSha256": "4c8b834c04b7fd265caf914333fa65ea9101db5db150bf1da4a04e370e3c55d6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_female_v2_0.png",
+          "candidateSha256": "efe64497b840d036b44c3506fdd9b75112517d7c518b935672b1d169b3015719",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Raise_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_female_v2_1.png",
+          "sourceSha256": "cb73d9bff205cc65614452c5ba7e408f1bb1605c44ea0e4f482e372b7ff8ce5e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_female_v2_1.png",
+          "candidateSha256": "e809aca7e7dc38dcfb50d9a56ff160ba0c3b08869f78329310a767832285e256",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Raise_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_female_v2_2.png",
+          "sourceSha256": "a48dc7e1cc340fcee94a031a1892af40f62294ac33f03b3a7277892428075e62",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_female_v2_2.png",
+          "candidateSha256": "d60026472dc40493ac795a967138c79548d7516d32d9908af4f41deb8d213dee",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Raise_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Raise_female_v2_3.png",
+          "sourceSha256": "5977d7261a555582ec7ad34526ccadef92d03a17f2b951a62987eae9ed4086ed",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/208/Shoulder_Raise_female_v2_3.png",
+          "candidateSha256": "1d5341fbc5066f9b7492c53020764f2fb1c04bd91f751fbe347a2633fccf7733",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Shoulder_Stretch",
+      "shard": 21,
+      "index": 209,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Shoulder_Stretch_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_male_v2_0.png",
+          "sourceSha256": "c9339ada1452424ad15e52a5067ec79979c2b4d155d0419634e9f4469ab2b6e1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_male_v2_0.png",
+          "candidateSha256": "d2189bec064764d0a66870b4a7d24562f8b16d3c7f4513323d3b9898215e8c6f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Stretch_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_male_v2_1.png",
+          "sourceSha256": "628305142e938424b0bd76d0b17297d2332a73847dd2d1e4bc823a68071d0fff",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_male_v2_1.png",
+          "candidateSha256": "b6273985a2bb4d719c84895504bc24f476265d91d8d348d4b88e6fd264af915f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Stretch_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_male_v2_2.png",
+          "sourceSha256": "cfd7ff0dc12a95a05e4c2dc0b7a9cf996a672f16f67522bac4fb28a74349d785",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_male_v2_2.png",
+          "candidateSha256": "d63b7cbe52f359a86c84e741690f5d7183e07768bb07826dc4787add7ef87c0c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Stretch_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_male_v2_3.png",
+          "sourceSha256": "751340419e68b8b40aa95800dcf53f907d40a8b010fb791606593fb78d464abb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_male_v2_3.png",
+          "candidateSha256": "fe89645683e442447b569a6a96f8176cbd2db75a202036fda69b10b777d93c00",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Stretch_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_female_v2_0.png",
+          "sourceSha256": "6435a8778df386c077d413146c94fcfb90de1fee35340c5977f3b940eab0aac4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_female_v2_0.png",
+          "candidateSha256": "365fabf34d04b3b23691ee7d0af109afe537086c015411f56d63010bfbab20a9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Stretch_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_female_v2_1.png",
+          "sourceSha256": "f3922103860c7a2a9f4274e87b228f00dd835bab534fa07230b0c50947f0af97",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_female_v2_1.png",
+          "candidateSha256": "345775c7755de106628c92e4ee2988e4378642c2c5c9b103718c164c7ae81a5d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Stretch_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_female_v2_2.png",
+          "sourceSha256": "851594b750bf783c45ee9bfd590a2ab7bc263b66b6d47e8730454389de2239b5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_female_v2_2.png",
+          "candidateSha256": "291dc73f4b018ae872cd261964a08696256e482330a0b058954433266fad8258",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Shoulder_Stretch_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Shoulder_Stretch_female_v2_3.png",
+          "sourceSha256": "2800fa395f85505cacaea202b8ee4135330bac824e0d2b00ec83e5091ef6740e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/209/Shoulder_Stretch_female_v2_3.png",
+          "candidateSha256": "01e76d58d55c018e8f34d2aa79a4000c2f9410d06cad6e90a32b115490ca47f5",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    },
+    {
+      "exerciseId": "Side-Lying_Floor_Stretch",
+      "shard": 21,
+      "index": 210,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Side-Lying_Floor_Stretch_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_male_v2_0.png",
+          "sourceSha256": "c37e97427fadd86a098eaeb407b75f51e4868aa37d36e2491912f02df5e53ab0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_male_v2_0.png",
+          "candidateSha256": "a661d2aa55800cae1055a11d51da3fc9bfd48f75d1176921fa97d853b64ab627",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Side-Lying_Floor_Stretch_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_male_v2_1.png",
+          "sourceSha256": "d4d95ac97d079ddac715e2d1b74a1fb2c4cc3f9bd214b1ff124f6805178433aa",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_male_v2_1.png",
+          "candidateSha256": "dfb108bd5da75dc221eb5dd4cc1d2c609531714c8f24219125f15857df343488",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Side-Lying_Floor_Stretch_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_male_v2_2.png",
+          "sourceSha256": "dc17a122b0506ac9e6bcfff018aafaea7c70f92f34296ce11ae1b6ba21abc483",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_male_v2_2.png",
+          "candidateSha256": "242de65db0f2df87c06b392c5ab06d630ffb10e00f0387b50699b232f6fe28be",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Side-Lying_Floor_Stretch_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_male_v2_3.png",
+          "sourceSha256": "c87072cacadafc9547352fc5d3b4f79c4906759b2d74d6a5bc67bccdcd66caba",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_male_v2_3.png",
+          "candidateSha256": "ee7f8025413335c8d4b34bbef100e2b7503cf6b6a4af9c72effaca3123961deb",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Side-Lying_Floor_Stretch_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_female_v2_0.png",
+          "sourceSha256": "8c707d6920d332be3980895f14f36e57bba3b44a1d29a72ec4d415515147cd9d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_female_v2_0.png",
+          "candidateSha256": "0c667bbd80534f5ba415161802c292a8c0b372174416e008165edbb23374dcad",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Side-Lying_Floor_Stretch_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_female_v2_1.png",
+          "sourceSha256": "7b8e6d3fededdf3d88dd720e2e6645afebebdac4c249189efcb7ca2d00420bd8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_female_v2_1.png",
+          "candidateSha256": "cdee3df0e4d5cafe7caa14e1dfe0d89c362228b9f0c119ae7139fc965442ae89",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Side-Lying_Floor_Stretch_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_female_v2_2.png",
+          "sourceSha256": "e7581532038b1b5ded23d9c46e7928bbf7427560f061720baa7c1950a5a94f92",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_female_v2_2.png",
+          "candidateSha256": "9d4dfffae2131e181203ca466b9e38334cfb95ee3995bca445fb6c1ac0251ca4",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Side-Lying_Floor_Stretch_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Side-Lying_Floor_Stretch_female_v2_3.png",
+          "sourceSha256": "b7783de955859af6a29d47403204d88390adeff1079c612a6e21c7f4affab94a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/210/Side-Lying_Floor_Stretch_female_v2_3.png",
+          "candidateSha256": "c1cf849936168db9f2ac28af19a2bf8b757b8ef5edd8fbbb2d263325064c0987",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ],
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "source_sha256": "da0a71c3bc3433daa48c1d5c1231a839916ea2ab5a61218a0c30c7a64fb13794",
+  "candidate_sha256": "75b823fe5746a43973dde1d247e925e087bcca97b223063a3be5f2c2c2d848a9",
+  "generated_sha256": "02d2553e33351fb7ffd16b41f05b4410e913f6af93c4490245059e6422a7ae6a",
+  "generated_path": "/cursor/stores/bc-da946f50-1df6-4c3b-9301-5df57c779a54/artifacts/assets/gen_206_Shoulder_Circles_male_v2_0.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

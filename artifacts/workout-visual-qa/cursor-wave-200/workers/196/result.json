@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Middle_Back_Stretch",
+  "shard": 20,
+  "index": 196,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Middle_Back_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Stretch_male_v2_0.png",
+      "sourceSha256": "acdf5b254673cee7bd59fc9735e97e5ffc120a18bafcb433515ec39671ed26d6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/196/Middle_Back_Stretch_male_v2_0.png",
+      "candidateSha256": "9fa71dd0f1551a805e137bc055f46f212c1ef8c8fcf1c8ea116dff28a99a7949",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Stretch_male_v2_1.png",
+      "sourceSha256": "51e4e34029bb25bdc29d3b2101a737c561120b6c16885cfc4bb37b007c50a1cf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/196/Middle_Back_Stretch_male_v2_1.png",
+      "candidateSha256": "7ca17279a62ca8d2d3f1124c2aa63e4529c749f6ee4936ee7ce93c1ad47d3f8a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Stretch_male_v2_2.png",
+      "sourceSha256": "291eb43ab2b2dfcf06c1b4184374751bc1e3e42a3561798d5c51ff89aa7ce9a8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/196/Middle_Back_Stretch_male_v2_2.png",
+      "candidateSha256": "d5661532ce3d3b39971f786b727eb4db6b916c10d5f028c5b9fd8c2119f69f1e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Stretch_male_v2_3.png",
+      "sourceSha256": "681f7f07a96f020e47813585a6f8f66cd47e1af33fdf6b507c28f69c4612a907",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/196/Middle_Back_Stretch_male_v2_3.png",
+      "candidateSha256": "9ea003f27fa743efeb4b4404e620aa324569e969fb484df869102e7a690d69e8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Stretch_female_v2_0.png",
+      "sourceSha256": "a421ba4977616d78d6ab03c0b00c5d99a2c2a21f6a6e15701f76dad023217b4e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/196/Middle_Back_Stretch_female_v2_0.png",
+      "candidateSha256": "54a9d6e272d5f14849352bc2f57303eef34bcfcde7c0757baead308284130538",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Stretch_female_v2_1.png",
+      "sourceSha256": "c2935849dde3546b6b5281f6f732c3807b488b079d21c30b86d48de5a35c7439",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/196/Middle_Back_Stretch_female_v2_1.png",
+      "candidateSha256": "9300404464d5e39b5e534d3814fa1d58d39cf4915479345fb7701dcf5df7f27b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Stretch_female_v2_2.png",
+      "sourceSha256": "6347d221eb077116a080e86a20ff59dbc892938b13cf4e6840a623318561928a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/196/Middle_Back_Stretch_female_v2_2.png",
+      "candidateSha256": "567d03136d76ec648fc2b3d663158cc4836d18a9fb799b8c773073049d586ab5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Stretch_female_v2_3.png",
+      "sourceSha256": "1b144666fddba343692cb55521beb3ce6eb5b03d771e6950aed8676be59ae85f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/196/Middle_Back_Stretch_female_v2_3.png",
+      "candidateSha256": "682010321a5e40332ad1959ac8624daa036f4c1a1653ef107517401e9fce8d42",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

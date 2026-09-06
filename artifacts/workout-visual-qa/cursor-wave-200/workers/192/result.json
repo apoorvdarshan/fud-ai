@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Medicine_Ball_Chest_Pass",
+  "shard": 20,
+  "index": 192,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Medicine_Ball_Chest_Pass_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Chest_Pass_male_v2_0.png",
+      "sourceSha256": "dface290b70874d9bd7259f150c9b4c3213fc19eb0b8073c34ff788c86e90bfc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/192/Medicine_Ball_Chest_Pass_male_v2_0.png",
+      "candidateSha256": "9ede6088d050f57a0c7a8a118255e456ba8d041a9c6d9d56967ff6493ac7c5ca",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Chest_Pass_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Chest_Pass_male_v2_1.png",
+      "sourceSha256": "d8e19dade1855c77467f6d13b4713c01c1d70cf2cb4d932333f3cf5e25716d47",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/192/Medicine_Ball_Chest_Pass_male_v2_1.png",
+      "candidateSha256": "bfa23ee00df94b7590518fb76e98bff8c7913c3bd2cb977d8efeda1b4ec68c87",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Chest_Pass_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Chest_Pass_male_v2_2.png",
+      "sourceSha256": "ef3e59c1c035136edff2d92eefc0c4254f9e67ac729969fc0f6269fb7b1b29ba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/192/Medicine_Ball_Chest_Pass_male_v2_2.png",
+      "candidateSha256": "456640ac519f57d63790556d48fcab2057bf94937ea454e48f6bf9afe78d0e27",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Chest_Pass_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Chest_Pass_male_v2_3.png",
+      "sourceSha256": "0609a3b7002f1887d94991e904dab53c3d4a23ad0b411fcb15f8e55b75f7d94d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/192/Medicine_Ball_Chest_Pass_male_v2_3.png",
+      "candidateSha256": "a9994ba33648bd4fefecfe772e255d76965ce4dd6e4e7489100c06dc4811247a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Chest_Pass_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Chest_Pass_female_v2_0.png",
+      "sourceSha256": "7e45d07d75df656334c25ac4b0c775aec73f24c11373161726b544c3cfd3d07f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/192/Medicine_Ball_Chest_Pass_female_v2_0.png",
+      "candidateSha256": "081c518ceff969cef884bd08e32489be9ee5db624d8e2aeb8aef396300abeefb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Chest_Pass_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Chest_Pass_female_v2_1.png",
+      "sourceSha256": "615c4a4e0a278502e4b7e117f5fada32695ad00a58dcc06b40ccf15d0980863d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/192/Medicine_Ball_Chest_Pass_female_v2_1.png",
+      "candidateSha256": "cb74ff2fb1214040b6ca8ef9c52a1ad015b95f030985a1cabf7c2a4a11a8585a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Chest_Pass_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Chest_Pass_female_v2_2.png",
+      "sourceSha256": "dbc7b143611532627bfa02f7e81f33e5ca847110ed12b906ded8dc2b60209eb8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/192/Medicine_Ball_Chest_Pass_female_v2_2.png",
+      "candidateSha256": "b1379d61861c01fa229e3fc51115174a50935645d46da55df75e4063b2f61d67",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Chest_Pass_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Chest_Pass_female_v2_3.png",
+      "sourceSha256": "f14310e61e829542f60fc517e13cd3adecade5326bd1aa42723bfea15d71970b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/192/Medicine_Ball_Chest_Pass_female_v2_3.png",
+      "candidateSha256": "ffc6e7b838408b43fd1327ef1ac753732e228e913a7d17b979a218414d54c2fb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

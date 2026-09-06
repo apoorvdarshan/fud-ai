@@ -1,0 +1,16 @@
+{
+  "source_sha256": "0c47a9bc851b0a6b4f3e46fee05cd67cd7debcd3c156af1e154c5ce78e3819c1",
+  "candidate_sha256": "d983bc8ec34693dc9ec97b85b53ad432f6ecbb33b0f010b57eac342f0a071d32",
+  "generated_sha256": "dfef35c8d8ad998281b1889d5b5600e27858223ebf9cc55cbb83d5ea672e61d9",
+  "generated_path": "/cursor/stores/bc-c7fb58c4-f315-4b27-ba09-0694dec5b10f/artifacts/assets/gen_Medicine_Ball_Scoop_Throw_male_v2_0.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

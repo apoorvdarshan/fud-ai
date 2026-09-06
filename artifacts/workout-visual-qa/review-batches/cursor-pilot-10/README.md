@@ -30,11 +30,15 @@ First repair pass using **local Python background cleanup** (not Codex Imagen).
   --priority-audit artifacts/workout-visual-qa/audit.json --previews
 ```
 
-## Review
+## Review (localhost UI)
 
-- Summary: [`pilot-summary.json`](pilot-summary.json)
-- Candidate dark/light previews: `candidates/*-preview.png`
-- Before/after contact sheets: `previews/original/` vs `previews/candidate/`
+```sh
+node scripts/serve_cursor_pilot_review.mjs
+```
+
+Open **http://127.0.0.1:8766** — animated before/after on dark + light backgrounds. Buttons save to `cursor-pilot-10/human-decisions.json` (does not touch app images).
+
+Or static PNG contact sheets:
 
 ## Next (after your visual check)
 

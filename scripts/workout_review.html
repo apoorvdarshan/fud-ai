@@ -26,6 +26,7 @@ function validDecision(r,d){return d?.signature===signature(r)&&['pending','appr
 function effectiveDecision(r,d){return validDecision(r,d)?d.decision:r.humanDecision||(r.humanApproved?'approve_candidate':'pending')}
 function decisionPayload(d,ds){return {batch:d.batch,exportedAt:new Date().toISOString(),approvalDoesNotPromote:true,decisions:Object.fromEntries(d.rows.map(r=>{const old=ds[r.id],valid=validDecision(r,old);return [r.id,{decision:effectiveDecision(r,old),notes:old?.notes||'',signature:signature(r),sourceHashes:r.sourceHashes,candidateHashes:r.hashes,stalePreviousDecision:!!old&&!valid}]}))}}
 function imageUrls(r,f){return [r.sources[f],r.candidates[f],r.sources[4+f],r.candidates[4+f]]}
+function methodCaption(method){return String(method||'').includes('generateimage')?'Candidate · GenerateImage':'Candidate · Script'}
 function summary(){if(!data)return;const t=data.totals;if(t){const left=t.left??Math.max(0,t.total-t.approved);$('total-library').textContent=t.total;$('total-approved').textContent=t.approved;$('total-left').textContent=left;$('total-summary').textContent=t.total+' exercises in the library · '+t.approved+' approved · '+left+' left';}$('summary').textContent=data.count+' undecided in this queue · Approved sets are hidden';}
 function save(){try{localStorage.setItem(storageKey,JSON.stringify(decisions))}catch{$('error').textContent='Local save unavailable. Export your decisions before closing.'}summary()}
 function approval(){const r=row();if(!r)return;$('approve').disabled=saving||seen.size!==8||failed||r.available!==8;$('load-state').textContent=failed?'Image changed or failed to load. Refresh results.':seen.size===8?'All 8 frames displayed in both backgrounds. Ready for your decision.':seen.size+'/8 frames displayed · both genders and both backgrounds play together';$('decision-state').textContent=saving?'Saving…':['approve_candidate','keep_original'].includes(effectiveDecision(r,decisions[r.id]))?'Approved — saved for these exact frames':effectiveDecision(r,decisions[r.id])==='needs_more_work'?'In progress — returned to correction queue':''}
@@ -38,7 +39,7 @@ function renderExercise(){
  for(const gender of ['male','female'])for(const background of ['dark','light']){
   const section=make('section');section.className='panel '+background;const heading=make('div');heading.className='panel-head';heading.append(make('span',gender==='male'?'Male':'Female'),make('span',background==='dark'?'Dark background':'Light background'));section.append(heading);
   const comparison=make('div');comparison.className='comparison';const panel={gender};
-  for(const side of ['before','after']){const fig=make('figure');fig.className='cell';fig.append(make('figcaption',side==='before'?'Original':'Candidate'));const stage=make('div');stage.className='stage';const img=make('img');img.alt=r.id+' '+gender+' '+(side==='before'?'original':'candidate');stage.append(img);fig.append(stage);comparison.append(fig);panel[side]=img;}
+  for(const side of ['before','after']){const fig=make('figure');fig.className='cell';const cap=make('figcaption',side==='before'?'Original':'Candidate');const stage=make('div');stage.className='stage';const img=make('img');img.alt=r.id+' '+gender+' '+(side==='before'?'original':'candidate');stage.append(img);fig.append(cap,stage);comparison.append(fig);panel[side]=img;if(side==='after')panel.caption=cap;}
   section.append(comparison);$('views').append(section);panels.push(panel);
  }
  approval();draw();summary();
@@ -50,7 +51,7 @@ async function draw(){
   const urls=imageUrls(r,f);
   const imgs=await Promise.all(urls.map(async url=>{if(!url)throw Error('Missing frame');const img=new Image();loaded.push(img);img.src=url;await img.decode();if(!img.naturalWidth)throw Error('Invalid frame');return img}));
   if(token!==epoch||id!==selectedId||document.hidden||f!==frame)return;
-  for(const p of panels){const offset=p.gender==='male'?0:2;p.before.src=imgs[offset].src;p.after.src=imgs[offset+1].src;}
+  for(const p of panels){const offset=p.gender==='male'?0:2;p.before.src=imgs[offset].src;p.after.src=imgs[offset+1].src;if(p.caption)p.caption.textContent=methodCaption(r.methods[(p.gender==='male'?0:4)+f]);}
   seen.add(f);seen.add(4+f);failed=false;$('frame-label').textContent='Frame '+(f+1)+' / 4';approval();
  }catch(e){if(token===epoch){failed=true;seen.delete(f);seen.delete(4+f);for(const p of panels){p.before.removeAttribute('src');p.after.removeAttribute('src')}if(decisions[r.id]?.decision==='approve_candidate'){decisions[r.id].decision='pending';save()}approval();}}
  finally{for(const img of loaded)img.removeAttribute('src');busy=false;if(token!==epoch&&!document.hidden)draw();}

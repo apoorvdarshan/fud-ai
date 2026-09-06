@@ -23,6 +23,36 @@ const sourceIds = new Map(sourceBatches.flatMap(name => {
 }));
 const sha = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const images = new Map();
+const workerMeta = loadWorkerMeta();
+
+function loadWorkerMeta() {
+  const meta = new Map();
+  for (const name of new Set([batchName, ...sourceBatches])) {
+    const workers = path.join(root, 'artifacts/workout-visual-qa', name, 'workers');
+    if (!fs.existsSync(workers)) continue;
+    for (const entry of fs.readdirSync(workers, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      const result = readJson(path.join(workers, entry.name, 'result.json'), null);
+      if (!result?.exerciseId) continue;
+      const methods = {};
+      for (const frame of result.frames || []) {
+        if (frame.filename) methods[frame.filename] = frame.method || 'script_background_cleanup';
+      }
+      meta.set(result.exerciseId, { methods, findings: result.findings || [], unresolved: result.unresolved || [] });
+    }
+  }
+  return meta;
+}
+
+function methodStatus(methods, humanApproved, humanDecision) {
+  if (humanApproved) return 'Approved by you · Saved';
+  if (humanDecision === 'needs_more_work') return 'Needs Cursor image edit / more work';
+  const generated = methods.filter(m => String(m).includes('generateimage')).length;
+  const scripted = methods.length - generated;
+  if (generated && !scripted) return 'GenerateImage cleanup · Awaiting your approval';
+  if (generated) return `Mixed cleanup · ${generated} GenerateImage, ${scripted} script · Awaiting your approval`;
+  return 'Script cleanup · Awaiting your approval';
+}
 
 function writeDecision(file, batch, decision) {
   const state = readJson(file, { batch, decisions: {} });
@@ -42,6 +72,7 @@ function manifest() {
   const nextImages = new Map();
   const allRows = [];
   for (const e of batch.exercises) {
+    const worker = workerMeta.get(e.exerciseId) || { methods: {}, findings: [] };
     const sources = [], sourceHashes = [], candidateUrls = [], hashes = [], methods = [];
     let missing = false;
     for (const p of e.sourceFramePaths) {
@@ -60,7 +91,7 @@ function manifest() {
       sourceHashes.push(sourceHash);
       candidateUrls.push(candidateUrl);
       hashes.push(candidateHash);
-      methods.push('script_background_cleanup');
+      methods.push(worker.methods[name] || 'script_background_cleanup');
     }
     if (missing) continue;
     const saved = webDecisions[e.exerciseId];
@@ -71,7 +102,7 @@ function manifest() {
       batch: batchName,
       index: e.index,
       severity: e.severity,
-      findings: e.findings || [],
+      findings: [...new Set([...(e.findings || []), ...(worker.findings || [])])],
       suggestedRoute: e.suggestedRoute || 'script_fix',
       sources,
       sourceHashes,
@@ -82,7 +113,7 @@ function manifest() {
       humanApproved,
       humanDecision,
       savedNotes: saved?.notes || '',
-      status: humanApproved ? 'Approved by you · Saved' : humanDecision === 'needs_more_work' ? 'Needs Cursor image edit / more work' : 'Script cleanup · Awaiting your approval',
+      status: methodStatus(methods, humanApproved, humanDecision),
       warning: 'Approve saves decision only — app images stay unchanged.',
     });
   }

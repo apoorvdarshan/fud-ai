@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Speed_Band_Overhead_Triceps",
+  "shard": 28,
+  "index": 271,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Speed_Band_Overhead_Triceps_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Band_Overhead_Triceps_male_v2_0.png",
+      "sourceSha256": "e6d05e17f410a0989fe5b3879093b8cd854cfbd48fd4097414bc3e9d323de34e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/271/Speed_Band_Overhead_Triceps_male_v2_0.png",
+      "candidateSha256": "ed04ca2252ed252050aa0fe1799c686f3bd5ec4278aeb917123cda74a745f732",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Band_Overhead_Triceps_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Band_Overhead_Triceps_male_v2_1.png",
+      "sourceSha256": "3b6de97b66da75e38e47bb2bacf14ac054dbe221b42adc00515459ec8adcd244",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/271/Speed_Band_Overhead_Triceps_male_v2_1.png",
+      "candidateSha256": "258a0b4bd64bb7c98ad0621cf6571666e1ed7602ffd6c320a9bc00a19c184985",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Band_Overhead_Triceps_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Band_Overhead_Triceps_male_v2_2.png",
+      "sourceSha256": "f54165d7b72975215abc5a6c3964f079963e4218d4047b97b7d09d55b0e0a3a3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/271/Speed_Band_Overhead_Triceps_male_v2_2.png",
+      "candidateSha256": "d3f84ebaa742f4780e1bce83a629e5fd9cc28a394d068dd501e347447310f189",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Band_Overhead_Triceps_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Band_Overhead_Triceps_male_v2_3.png",
+      "sourceSha256": "0592e800ce92b3037e0b0e015c934f060575e74bbeb03a6e125e0320af598c70",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/271/Speed_Band_Overhead_Triceps_male_v2_3.png",
+      "candidateSha256": "b62e1629b0705132b7775c5bc718252cedba17efe78c325111df4d919fb78934",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Band_Overhead_Triceps_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Band_Overhead_Triceps_female_v2_0.png",
+      "sourceSha256": "617dfc0d8ebe4c3c7e8ee0198af1c6a9524e562a34992e52b07c8ef43e7cf951",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/271/Speed_Band_Overhead_Triceps_female_v2_0.png",
+      "candidateSha256": "c4cde13fa8830b2634553aebfb06ba3263089edd42218d5ab19475a3ab72685a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Band_Overhead_Triceps_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Band_Overhead_Triceps_female_v2_1.png",
+      "sourceSha256": "054f2bb37ec8d987f14930620bb050cee4b22bdd8ef8258d0f31e06710da7933",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/271/Speed_Band_Overhead_Triceps_female_v2_1.png",
+      "candidateSha256": "8d5041ecb525353e53dee1475d7ea591cfd4a91ac7947c148c5d06d6e6f239aa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Band_Overhead_Triceps_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Band_Overhead_Triceps_female_v2_2.png",
+      "sourceSha256": "1b2b613012898ddd38709c054bbb0843b161d9b48123c4432ef0bc9fa4282217",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/271/Speed_Band_Overhead_Triceps_female_v2_2.png",
+      "candidateSha256": "d18acde75da28bb446e2a79655d389e529b625149ad14de68413f9f7463c394c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Band_Overhead_Triceps_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Band_Overhead_Triceps_female_v2_3.png",
+      "sourceSha256": "0efe7a27b0a1f80a425ff0322cae174ebb9dadcc366d20a832309bb01e2fb10d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/271/Speed_Band_Overhead_Triceps_female_v2_3.png",
+      "candidateSha256": "e34e72ff22b0ae6c05d7abab0fe19c0b116ca9b9290652d7d63a17439553d53e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

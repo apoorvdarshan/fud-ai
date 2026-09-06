@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Spider_Curl",
+  "shard": 28,
+  "index": 276,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Spider_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Curl_male_v2_0.png",
+      "sourceSha256": "bb352a4abd57dce7a327f342144e63cfcb90a3a0d93b4c6d187a16988a63d663",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/276/Spider_Curl_male_v2_0.png",
+      "candidateSha256": "60ed5518f09d33497b20752fe82a53dabcf6418f1cab79376b87652002309722",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Curl_male_v2_1.png",
+      "sourceSha256": "0a29f492beca9a0fb5f171e62d7322911a060f89fe0dcf662e77c6ddee936841",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/276/Spider_Curl_male_v2_1.png",
+      "candidateSha256": "b4a2ce116b53ada8ee0ab394d0146dfd129463a39413d84abeb7919e850aa4fe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Curl_male_v2_2.png",
+      "sourceSha256": "17e050828cd791d3d48276582886fbb41594f04d9c5115416568aab696562d5f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/276/Spider_Curl_male_v2_2.png",
+      "candidateSha256": "4e4b20ad1fccbb543e3b6cfd69ccd9c2b64181dfef756a657e01c894f080f6b8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Curl_male_v2_3.png",
+      "sourceSha256": "c5d71001cdb528030b5bc5117512e3ab6664d6cbe639d72389683a30c1ea4759",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/276/Spider_Curl_male_v2_3.png",
+      "candidateSha256": "a043c3d83671b2e70c2bab3cf6e815ab017a47ab84f258c076292793f39d9076",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Curl_female_v2_0.png",
+      "sourceSha256": "4c8daa58afc27e77f2f97a7b89dd79e78c769ef1675ad2dce7d213aecdd4d9d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/276/Spider_Curl_female_v2_0.png",
+      "candidateSha256": "211e1e013aaca8b9387253803be00637af220dbb85b5d3247be331c9916f16e3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Curl_female_v2_1.png",
+      "sourceSha256": "fc730e58ca066a9c98675ad335098fb667d3596a3d2d079a1bf848d83655e36d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/276/Spider_Curl_female_v2_1.png",
+      "candidateSha256": "cff97428381bca842aac24b6952d15ca8cd6a4c710733b50030ea3ccb4b122c5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Curl_female_v2_2.png",
+      "sourceSha256": "81e66e6f3f0243c3d323d532a0cb5127912367c83880e6fd0669c9b13ca42983",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/276/Spider_Curl_female_v2_2.png",
+      "candidateSha256": "9ce7e7cbd7f69e38860b9c248d5be52883d56a3ac1ce99a064f5b195c4581941",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Curl_female_v2_3.png",
+      "sourceSha256": "6f330d8fc38b7f90a6cf4595bf96d2bf92846ec3576334f1780c8738775612e7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/276/Spider_Curl_female_v2_3.png",
+      "candidateSha256": "e416b5b89e2ac74953b5d2b39a39127994d3e609c9772b5956170c3f8e9fd371",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

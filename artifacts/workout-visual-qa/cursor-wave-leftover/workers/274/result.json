@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Spell_Caster",
+  "shard": 28,
+  "index": 274,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Spell_Caster_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spell_Caster_male_v2_0.png",
+      "sourceSha256": "e536ad3593a61c5ae98806dd03ae682e1d6362b381c1f6063902ebcf169a3b9b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/274/Spell_Caster_male_v2_0.png",
+      "candidateSha256": "e8882c7933f5726d5092615369757c9306291ebbf036a22ef80041aae9d5711d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spell_Caster_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spell_Caster_male_v2_1.png",
+      "sourceSha256": "17571a1e9f9b8c70b1dc14a53bdc18a30f5d6d127e8dad945238ba22b06b31ee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/274/Spell_Caster_male_v2_1.png",
+      "candidateSha256": "3f916c2ff003e0d42c39e1c6f7cd78fa5251e167e862a49740ed2157516e8dde",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spell_Caster_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spell_Caster_male_v2_2.png",
+      "sourceSha256": "26af70598daeff4d17ca1623773be63d7232558bb2825cc2b3caf44b803800f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/274/Spell_Caster_male_v2_2.png",
+      "candidateSha256": "093a52cc9f716adb27e852a3e74ce9f875887f178c41758bc879ef5fedfc599f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spell_Caster_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spell_Caster_male_v2_3.png",
+      "sourceSha256": "3a265c102cc58016864fcecb8f1640e3bbb6327b72d9ee62049ed8df8135f3fb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/274/Spell_Caster_male_v2_3.png",
+      "candidateSha256": "0999f06f77b7051881b352a68b11ca545e37951d5e4ac1529e06437fd4ad80c5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spell_Caster_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spell_Caster_female_v2_0.png",
+      "sourceSha256": "a37903c5fb9b45bc2a97169a6d750a9d0daac39cff38845da2ff3b9917b6de17",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/274/Spell_Caster_female_v2_0.png",
+      "candidateSha256": "c779e37953b76eb328398eb400aa25e04f07f19d0d92ff13f918c80c6eed85af",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spell_Caster_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spell_Caster_female_v2_1.png",
+      "sourceSha256": "7f616be023ff9f47fd30c8d8e3fa138425763fbe1ea1f688abc1421791192ae2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/274/Spell_Caster_female_v2_1.png",
+      "candidateSha256": "b5e42a33a155e97310ede3e85ddce26717e45a29a3cc5206d609618cfa45855f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spell_Caster_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spell_Caster_female_v2_2.png",
+      "sourceSha256": "4848ea17105171af4cccbc3e83e41c6c8c77700989ff148816a02aea6552d4fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/274/Spell_Caster_female_v2_2.png",
+      "candidateSha256": "0a6f5894df198b9568128e1c42c8108e67e7119d0ab2a558ab044ea4af6261d5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spell_Caster_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spell_Caster_female_v2_3.png",
+      "sourceSha256": "2ee17e73d450cef502f261fb97ed46e67142511898927adaf49f184b72b6bcf0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/274/Spell_Caster_female_v2_3.png",
+      "candidateSha256": "6af20892430dfc8c5c70c4eee8c3b7a03a7af486289b3c9caf7458f75eb72adc",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

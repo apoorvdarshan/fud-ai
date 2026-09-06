@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Spider_Crawl",
+  "shard": 28,
+  "index": 275,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Spider_Crawl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Crawl_male_v2_0.png",
+      "sourceSha256": "861708e6b5668798f281a878322539b4647fe0104ff57244d55a7af76154301a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/275/Spider_Crawl_male_v2_0.png",
+      "candidateSha256": "02032ba31e96489a99680b0f1f748d89a7bcc5fc05477684caead64fae89d8ab",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Crawl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Crawl_male_v2_1.png",
+      "sourceSha256": "2866c078516c619540a25ecd01c79956cc80b92686da0b0f71125cd40226faad",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/275/Spider_Crawl_male_v2_1.png",
+      "candidateSha256": "6b5d0a5270e3c4624233317f189357ef18c53d0605a81c0c994e6774e37a1578",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Crawl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Crawl_male_v2_2.png",
+      "sourceSha256": "266976d0f20cd0414a85b59b81c06bd1afa6a938bdae316ce320bb953aeaedfc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/275/Spider_Crawl_male_v2_2.png",
+      "candidateSha256": "c0147c15f62984e6c1f55ffb25dde538ba52fe211116abc8417e0c70a4785d38",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Crawl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Crawl_male_v2_3.png",
+      "sourceSha256": "be4f6c7fe50985d93cddf23bb054b116c18d5822e58330623b76ca17d83020e0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/275/Spider_Crawl_male_v2_3.png",
+      "candidateSha256": "1fadde37a691ab89752b858a1a023f88683584fad54d6cd13ace00319cf851be",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Crawl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Crawl_female_v2_0.png",
+      "sourceSha256": "652b7ce6119ade7e430ace75e0c88a67c0ec9b4f8043629a27eb142c93b9897d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/275/Spider_Crawl_female_v2_0.png",
+      "candidateSha256": "aa1d6a9dcd79dbe719438259eeeaaea7b9094676a2ce834718451c05948ba616",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Crawl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Crawl_female_v2_1.png",
+      "sourceSha256": "ce4e25ac6c5c9dd8885b3e6aec26247181427c93ed841acadd7cff596ec545d0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/275/Spider_Crawl_female_v2_1.png",
+      "candidateSha256": "8438e00e8cdcd42ac796d48154d6584a0c44fb7ec0cd7e9236396ad286420b5e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Crawl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Crawl_female_v2_2.png",
+      "sourceSha256": "525cde4f12a64083a17b125c33577fc2f7728d0e5823980cc8a1282309f36a18",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/275/Spider_Crawl_female_v2_2.png",
+      "candidateSha256": "9422e393bffe455e1e4198262236fd27cd2918fdc3b83fc9ec292c06762975db",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spider_Crawl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spider_Crawl_female_v2_3.png",
+      "sourceSha256": "8082b3839942687337d365f66b73582deb13a7b9a25726ef883a863a337d758d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/275/Spider_Crawl_female_v2_3.png",
+      "candidateSha256": "349b4bd3d42f34daafb3fa19205f878f949e4a4011e2786d3466cd5ab24b2ce7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

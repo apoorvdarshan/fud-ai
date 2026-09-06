@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Spinal_Stretch",
+  "shard": 28,
+  "index": 277,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Spinal_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spinal_Stretch_male_v2_0.png",
+      "sourceSha256": "d50847521bd379817f5ce523a0cd4d8ea29436a11d2371be8c14a670fd21eebb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/277/Spinal_Stretch_male_v2_0.png",
+      "candidateSha256": "a4e51351e05883337f82e30038cfa87bab857c837015ac011a31f7d6a05d2db1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spinal_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spinal_Stretch_male_v2_1.png",
+      "sourceSha256": "7e4f8b59b4fd88f055ee665b19806ecd60117a87dd54ac011e20c918c70b206b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/277/Spinal_Stretch_male_v2_1.png",
+      "candidateSha256": "d8e5ace2f2651a8e27693961677934705013d579ba025d9ad619278497ed564c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spinal_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spinal_Stretch_male_v2_2.png",
+      "sourceSha256": "878d1ed22e347b190bc24528b68d34a66f03ddd08fb41924bd366ab0fd180b21",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/277/Spinal_Stretch_male_v2_2.png",
+      "candidateSha256": "ffb4a582bbc07c69edf8579a5d46bd66efd74f23dee7d4a0454ffeb75adb4545",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spinal_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spinal_Stretch_male_v2_3.png",
+      "sourceSha256": "11ea4ea0c495309c11747fb5dabf0c8b9e22fed8a5d1f2884ca6fab0f55480da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/277/Spinal_Stretch_male_v2_3.png",
+      "candidateSha256": "e45eaf893436367fea602773d0103343fd6fe272cb365b599ce1720436b9803b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spinal_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spinal_Stretch_female_v2_0.png",
+      "sourceSha256": "009901d5bd4885cc7ed8cc901d6f7fe205d65d2746ae43617b5377866601b54d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/277/Spinal_Stretch_female_v2_0.png",
+      "candidateSha256": "e250bd0e8d05d80b071bc5977606cb932614af1415990e178fc1ddcf13b875c1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spinal_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spinal_Stretch_female_v2_1.png",
+      "sourceSha256": "9c3a43afef3a9ac0b6b1def5f169c50b7f30932ee306bff85bb020a677106b50",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/277/Spinal_Stretch_female_v2_1.png",
+      "candidateSha256": "b0d2771fb3443b437c77f2f0560915d2644e9ae5319778e4d5bbe346ec3da4a0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spinal_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spinal_Stretch_female_v2_2.png",
+      "sourceSha256": "3d8b02e27122304a2c49c2587aacdba3be3299c00bb78bbe57c696512df988a2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/277/Spinal_Stretch_female_v2_2.png",
+      "candidateSha256": "03d6237ee900579bc74f93a1377e5a550df81f560b938f317cff3235fa615c8d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Spinal_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Spinal_Stretch_female_v2_3.png",
+      "sourceSha256": "a29ccf72c9d3f9c845d994edc640f9cab5be67791be2fe2536eeaa6a8aa1d587",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/277/Spinal_Stretch_female_v2_3.png",
+      "candidateSha256": "f4913f3c0d9d6348669e915bc16a65129a28cc242a6e0e67f939572dfeeb6adc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

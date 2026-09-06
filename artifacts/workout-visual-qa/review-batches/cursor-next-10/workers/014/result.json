@@ -1,0 +1,155 @@
+{
+  "exerciseId": "Dip_Machine",
+  "shard": 2,
+  "index": 14,
+  "status": "ready_for_review",
+  "findings": [
+    "Script pale-neural-guard-v2 removed 0px on all eight frames (inference skipped: no eligible pale components; alpha is binary).",
+    "Restored interior highlight cutouts only: thin metal strips on machine uprights/base and shoe-sole/lace bands that previously took on the comparison background. Fill uses nearby light-neighbor color, else a light sneaker/metal highlight.",
+    "Left transparent: large enclosed machine-frame cavities (see-through structure) and both circular grip ends (uncertain open tubes, not a severity basis).",
+    "Did not attempt to normalize seat/backrest height/shape drift across frames; that remains original artwork continuity.",
+    "Cursor GenerateImage was not used; remaining defects were interior highlight cutouts, restored locally without a redraw."
+  ],
+  "unresolved": [
+    "Stationary seat/backrest geometry still changes height and shape across ordered frames, most visibly in frame 2.",
+    "Circular grip ends remain transparent (open-tube appearance on dark backgrounds)."
+  ],
+  "frames": [
+    {
+      "filename": "Dip_Machine_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dip_Machine_male_v2_0.png",
+      "sourceSha256": "3578368aa28978d1d34add091908143f4125a98960fc07fe869304d66d7b407d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/014/Dip_Machine_male_v2_0.png",
+      "candidateSha256": "3a8ca6a36c2d1ce7e418b1a2412a8d6e5250fe9abcfee2aab22c48332eebbb64",
+      "method": "script_background_cleanup+interior_highlight_restore",
+      "visuallyReviewed": true,
+      "fillStats": {
+        "thin": 19,
+        "shoe": 4,
+        "skipped_large": 4,
+        "skipped_grip": 2,
+        "skipped_other": 2,
+        "fill_px": 3433
+      }
+    },
+    {
+      "filename": "Dip_Machine_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dip_Machine_male_v2_1.png",
+      "sourceSha256": "7298f07412729f2fc9dd44acdf6a968873b681d425d937b313dba19fa5805954",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/014/Dip_Machine_male_v2_1.png",
+      "candidateSha256": "bc0b30bd4bac30a9a7029b4cc0dae5280da02fc854ad23b284190cd281e7a1c5",
+      "method": "script_background_cleanup+interior_highlight_restore",
+      "visuallyReviewed": true,
+      "fillStats": {
+        "thin": 13,
+        "shoe": 5,
+        "skipped_large": 4,
+        "skipped_grip": 2,
+        "skipped_other": 5,
+        "fill_px": 3136
+      }
+    },
+    {
+      "filename": "Dip_Machine_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dip_Machine_male_v2_2.png",
+      "sourceSha256": "4f0f881995011457c3d75ebbc84d80f3cf667b7ff2ab5285f033a9aba395d6e6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/014/Dip_Machine_male_v2_2.png",
+      "candidateSha256": "d414152657e1b4264a81b45e2f88e0bcf2609da3827146f1e27b1d69ae59fa39",
+      "method": "script_background_cleanup+interior_highlight_restore",
+      "visuallyReviewed": true,
+      "fillStats": {
+        "thin": 12,
+        "shoe": 5,
+        "skipped_large": 4,
+        "skipped_grip": 2,
+        "skipped_other": 5,
+        "fill_px": 2905
+      }
+    },
+    {
+      "filename": "Dip_Machine_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dip_Machine_male_v2_3.png",
+      "sourceSha256": "39e70d3d508242d54b07b7c0d823b06802d48ad2ae5e9072d5708285c55c5231",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/014/Dip_Machine_male_v2_3.png",
+      "candidateSha256": "c02e6955d84993a340a643756f37af89c7a8aaf467379136794c2f350a0838d2",
+      "method": "script_background_cleanup+interior_highlight_restore",
+      "visuallyReviewed": true,
+      "fillStats": {
+        "thin": 19,
+        "shoe": 5,
+        "skipped_large": 4,
+        "skipped_grip": 2,
+        "skipped_other": 4,
+        "fill_px": 3157
+      }
+    },
+    {
+      "filename": "Dip_Machine_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dip_Machine_female_v2_0.png",
+      "sourceSha256": "dffb928705604467c0063a9fe2efcaf2e555aa0742cba6ecd6bc968e9fd59c9a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/014/Dip_Machine_female_v2_0.png",
+      "candidateSha256": "0bbccefbbb6095c208c5d8508abe7a9f8267c18bed356cbb601c6e6414cb3308",
+      "method": "script_background_cleanup+interior_highlight_restore",
+      "visuallyReviewed": true,
+      "fillStats": {
+        "thin": 17,
+        "shoe": 5,
+        "skipped_large": 4,
+        "skipped_grip": 2,
+        "skipped_other": 3,
+        "fill_px": 3436
+      }
+    },
+    {
+      "filename": "Dip_Machine_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dip_Machine_female_v2_1.png",
+      "sourceSha256": "7ae23e5511685c58b469dbc039821220a9c38e29df328e5860b4c5d951384b59",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/014/Dip_Machine_female_v2_1.png",
+      "candidateSha256": "627c97abe0e7860b406ea672c0c1ac36cd60c7ef163b2db13e75e2bb4f1b31a9",
+      "method": "script_background_cleanup+interior_highlight_restore",
+      "visuallyReviewed": true,
+      "fillStats": {
+        "thin": 16,
+        "shoe": 5,
+        "skipped_large": 4,
+        "skipped_grip": 2,
+        "skipped_other": 4,
+        "fill_px": 3051
+      }
+    },
+    {
+      "filename": "Dip_Machine_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dip_Machine_female_v2_2.png",
+      "sourceSha256": "476cf38bb6d4577ab712c834f5d65dc7adc6be62963732a74565170f4eee0cab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/014/Dip_Machine_female_v2_2.png",
+      "candidateSha256": "78296babf570f02a11aee973175ad6ea9ca5766c9f3701446f28f242a3745483",
+      "method": "script_background_cleanup+interior_highlight_restore",
+      "visuallyReviewed": true,
+      "fillStats": {
+        "thin": 13,
+        "shoe": 5,
+        "skipped_large": 4,
+        "skipped_grip": 2,
+        "skipped_other": 5,
+        "fill_px": 3026
+      }
+    },
+    {
+      "filename": "Dip_Machine_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dip_Machine_female_v2_3.png",
+      "sourceSha256": "a209f5fbddb9361d8a9faf0f2dc06d8ffdd2ab767d9219921d0610457ffb7903",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/014/Dip_Machine_female_v2_3.png",
+      "candidateSha256": "95480210af999c8346a36a2a42c6538087b449d3fe4890d8c9ab4286f56ce9ab",
+      "method": "script_background_cleanup+interior_highlight_restore",
+      "visuallyReviewed": true,
+      "fillStats": {
+        "thin": 13,
+        "shoe": 5,
+        "skipped_large": 4,
+        "skipped_grip": 2,
+        "skipped_other": 4,
+        "fill_px": 3135
+      }
+    }
+  ]
+}

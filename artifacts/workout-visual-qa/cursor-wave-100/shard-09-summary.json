@@ -1,0 +1,826 @@
+{
+  "shard": 9,
+  "batch": "cursor-wave-100",
+  "exercises": [
+    {
+      "exerciseId": "Kettlebell_Thruster",
+      "shard": 9,
+      "index": 81,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Kettlebell_Thruster_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_male_v2_0.png",
+          "sourceSha256": "a213ff6adab797755dd74e1d9e314d91eeaa54ec36875ec28b4dc2223b1d1eaa",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_male_v2_0.png",
+          "candidateSha256": "0a9eb7481b1d43fd99530250da1f7e7b2169e6179eaa200b468a0718957842ac",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Thruster_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_male_v2_1.png",
+          "sourceSha256": "c0079304c0055891e53a2f6f4c99f7cf7271571e9c08cc67db0099afed1ff8cd",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_male_v2_1.png",
+          "candidateSha256": "b4ded4888dd89cb3f844643624bf11119fba8b6a879892e67bffc38ddb3a2132",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Thruster_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_male_v2_2.png",
+          "sourceSha256": "152d227d85198dcfc1008625f31892b8444f9f46e08efa607be80b8fd8b965e7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_male_v2_2.png",
+          "candidateSha256": "c1bff7d25b66ce0504f1ab7b7c507dfa1aad47ffcb297be556672296fe37945a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Thruster_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_male_v2_3.png",
+          "sourceSha256": "7d0826096c2a087dc561749cd58735c5e4e55360879795762257463beec6a857",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_male_v2_3.png",
+          "candidateSha256": "cb9a2b9ee4d70abbc8b2c13fca3e885d4e0adcfd20831e21ec2aacf02f38b593",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Thruster_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_female_v2_0.png",
+          "sourceSha256": "865a7c0ba1d95f32bd738ea8e8035a84efd79ecbdc6eb1ba55d39d3e4420be51",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_female_v2_0.png",
+          "candidateSha256": "ccf56f54a2c2f6ab39a0c20c70793d8c1ccd1e975eff27b3b872c8ec973a4b64",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Thruster_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_female_v2_1.png",
+          "sourceSha256": "35ed5220dac404321e01824ae866694d729c392511655ebc04c9904616201265",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_female_v2_1.png",
+          "candidateSha256": "6859908e08fa963cd52b51578ff2dd7d56ad6c697491a0cad8bddb4aae63c260",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Thruster_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_female_v2_2.png",
+          "sourceSha256": "021b6857dc0c2fd863a7d04bc795c916b138cb865be8aaeeafa3ab2b2f49adee",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_female_v2_2.png",
+          "candidateSha256": "a64b000ed81c2bb462ee7a4349deee8d14692f12a433e6014a50a531cc8826f8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Thruster_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Thruster_female_v2_3.png",
+          "sourceSha256": "0adbe0eb92609db191b11e0e66f3449e61fa9c482adb27cb8643ba3b91330da6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/081/Kettlebell_Thruster_female_v2_3.png",
+          "candidateSha256": "8cdb043e2416af8d04a2b8a02c5d2361efbe769775595f36c73b3a29c2e8ca85",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        }
+      ]
+    },
+    {
+      "exerciseId": "Kettlebell_Windmill",
+      "shard": 9,
+      "index": 82,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Kettlebell_Windmill_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Windmill_male_v2_0.png",
+          "sourceSha256": "87eccf36dee3d0ca160355d6ce359d6099f23dc40238399eb290c18be05a27e6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_male_v2_0.png",
+          "candidateSha256": "a5b3135cd784d23306465c214a7fe0af996c8df91b9c027d0dc8c969d160feab",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Windmill_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Windmill_male_v2_1.png",
+          "sourceSha256": "27a74962be2a8c39a68abee45720de2e80721876da4f1ad504992532d7dac8c0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_male_v2_1.png",
+          "candidateSha256": "eb4c7dedf318c1ff0f0f2fa7ec9352181605895e5a3cf3b99c507ced1be9a9a7",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Windmill_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Windmill_male_v2_2.png",
+          "sourceSha256": "9243af5c19b0ebce88c501d9e81d3a23c43c1be8b482217797dec42a49363271",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_male_v2_2.png",
+          "candidateSha256": "883f7db3aacc05e9e7983f5de8e40a0c204f985cc46bb67ba149d8fac9f36ae6",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Windmill_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Windmill_male_v2_3.png",
+          "sourceSha256": "bb4876d4f15a0eb991190cdacc03d6e9d46bfc087a2920478afe310218101dea",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_male_v2_3.png",
+          "candidateSha256": "7138b31ab7f96c6ded25657e21ca9357b478c614877a05d1c18d75dcf46afa27",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Windmill_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Windmill_female_v2_0.png",
+          "sourceSha256": "c56681516b3f168f487984db3f3516d39b6d5e3754760e0b3a7ee788ca16cfeb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_female_v2_0.png",
+          "candidateSha256": "8002598e1c9523d702e1477011022b77d1a7484a751ef8ce1189fb4a070f9c5e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Windmill_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Windmill_female_v2_1.png",
+          "sourceSha256": "a46fddfcf2da5c3bf357d3ccd9a73a925a3a263dd56c08ec288151fbe9aec0b3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_female_v2_1.png",
+          "candidateSha256": "229211be079f90f58d1af2928c4e55d676286291d2aae98c6fc960166f826c92",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Windmill_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Windmill_female_v2_2.png",
+          "sourceSha256": "2a14c1ceb8a42dedddc37e0dbae0a360c5c5fc095fda686435db77186acb8733",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_female_v2_2.png",
+          "candidateSha256": "6bebd96036d0d7c93e574fdf2fd2649e4741088c23f6863b9a2afca6d1e57a60",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kettlebell_Windmill_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Windmill_female_v2_3.png",
+          "sourceSha256": "a5c6bad27b897c0331ccae70933e62ceafd6101fc16fa840cb3da9e1eeb0f9a4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/082/Kettlebell_Windmill_female_v2_3.png",
+          "candidateSha256": "dff7a3cfce92fa2928186fa3e37d61fc89fa644d04bed9c355dbccc3ef3c1a17",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        }
+      ]
+    },
+    {
+      "exerciseId": "Knee_Across_The_Body",
+      "shard": 9,
+      "index": 83,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Knee_Across_The_Body_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Across_The_Body_male_v2_0.png",
+          "sourceSha256": "91683230a715be3a7a21b1375df1c90430dda8a2bd6c597c349e2bcc9a38bd24",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_male_v2_0.png",
+          "candidateSha256": "c52ec4d8ea7fd733625eb3fc0aa291635d051b3641611dc92b5ef69902fda7b8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Across_The_Body_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Across_The_Body_male_v2_1.png",
+          "sourceSha256": "8a1261a2b2cd2d950ec0769ed024d99d3e86b41659ad8710872baad9e180866a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_male_v2_1.png",
+          "candidateSha256": "323076b6e6d2e069c0866c184a3dbdddd3193e9b811fff99cb236ea02343c11e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Across_The_Body_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Across_The_Body_male_v2_2.png",
+          "sourceSha256": "35c119aa4172ca542ce3cf2b61efd57729f2b8cdb874390993adc8ecf77a762b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_male_v2_2.png",
+          "candidateSha256": "2011e73798eab7e39bf571c9766a4bd0dc714fcc5b4fa9c4f022ae5b71d7bf5e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Across_The_Body_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Across_The_Body_male_v2_3.png",
+          "sourceSha256": "ff4102ae91d5f4784a59bcc2ead76e926a7bd9d963b34bded261cfd9210096b3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_male_v2_3.png",
+          "candidateSha256": "e1f9fc6533aa95246d79fd5c9fc1050e19158f203be3298b996c6b7e39698299",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Across_The_Body_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Across_The_Body_female_v2_0.png",
+          "sourceSha256": "62618332634d10b2cb6b9e07c357dfd23066ce34e5da307aa0f83cbf96585913",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_female_v2_0.png",
+          "candidateSha256": "78cdd710a7e4bfff9b4e3b713d412b1529844f13b4f99cd253f149707fdc520c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Across_The_Body_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Across_The_Body_female_v2_1.png",
+          "sourceSha256": "921e2e02a6f379a5ef252946a612052990345fb03057501860ad3f8aa01eeea7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_female_v2_1.png",
+          "candidateSha256": "328d520c7a5828eeaf89a89a1241170ab80e8d9a8cdf8ed6764d7f98b4f54c6f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Across_The_Body_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Across_The_Body_female_v2_2.png",
+          "sourceSha256": "f0d197623a3e80bdecd6c35ee021425568ab5c88d12f0e2126da71286fb801b7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_female_v2_2.png",
+          "candidateSha256": "f848a32d3f4f55d4f9e5df2af88cf762e4501b5a9d80bf847f91d6aac57b4570",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Across_The_Body_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Across_The_Body_female_v2_3.png",
+          "sourceSha256": "333f65e9f8de61c1767b15e3f38edb06f1b4643797309c2a1de11a50116e03c6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/083/Knee_Across_The_Body_female_v2_3.png",
+          "candidateSha256": "1f1145b1679a013fd4dbbc62c84e6e9aa9bbc7ee0e9f990e36c7f12ab611f952",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        }
+      ]
+    },
+    {
+      "exerciseId": "Knee_Circles",
+      "shard": 9,
+      "index": 84,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Knee_Circles_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_male_v2_0.png",
+          "sourceSha256": "40b21e9fe4cd82e51badba157d9177913781fd01c4c623f73f5c84735f601e30",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_male_v2_0.png",
+          "candidateSha256": "29c2d19cf4b0ed6fc6e5f21eba2a7a3c014dd959f28f8e7ee4d210c0bfcc218a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Circles_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_male_v2_1.png",
+          "sourceSha256": "b9450d4b0cf892567cc80d9ed9d130ab371d45fabdd3181ff18f1b2849ec30c2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_male_v2_1.png",
+          "candidateSha256": "6f019d8a5b7a28600e201360e7c7166f6a9453e657e94f6adb69cbdf52de2c6f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Circles_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_male_v2_2.png",
+          "sourceSha256": "b8c91be5b7d02cf01d1ac7cf486d56ca92a308a9bb552f8f99b6c88fb569bf70",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_male_v2_2.png",
+          "candidateSha256": "4416aa916d832a3bf16afa0bb2079b0d2c238c0d3a24da540bb2480bf95a7e47",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Circles_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_male_v2_3.png",
+          "sourceSha256": "a0e2d0a6d0a2533bd6de5a7f45a1bd314e45520b3fc49b94c52755d1bc5ee917",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_male_v2_3.png",
+          "candidateSha256": "c7baf88f19006498eb1d5f38f3136423f96fb57da096ad07b52773fc7ca9212d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Circles_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_female_v2_0.png",
+          "sourceSha256": "572f8b2147d79fde08db75cbd61dffb24b5f793c0388a65cc62b565cf896a140",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_female_v2_0.png",
+          "candidateSha256": "29558963142172001c8bb0ae54ac4ad8b57dc934c17462863448635a47605b16",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Circles_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_female_v2_1.png",
+          "sourceSha256": "41b47a1d9c27551dd3e5027d897ba6f2c51081241b1c0d2138c950828120a909",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_female_v2_1.png",
+          "candidateSha256": "56dec4cddc7f2ad2ed1acc10650247b220a07beec84072f31ab3536abaf784b2",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Circles_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_female_v2_2.png",
+          "sourceSha256": "895ef72d0fbc5faca0628b9e3d4299282f2d958ed1756cfd962ddb7f26753ab8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_female_v2_2.png",
+          "candidateSha256": "2ff36a39c86a7e9f999827fc5cbccb3beb8255cc52d3ddc671cf47d29a2dbe98",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Circles_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Circles_female_v2_3.png",
+          "sourceSha256": "7d6c185b38a697ecfaf102df45a19eb2ded3f29bc9e2b9d82d1190576bfaa15a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/084/Knee_Circles_female_v2_3.png",
+          "candidateSha256": "622a0e06b335b684566dd0eff52ddefd4a7ab6f1a9fae2a31011b4d3dd748fff",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        }
+      ]
+    },
+    {
+      "exerciseId": "Knee_Hip_Raise_On_Parallel_Bars",
+      "shard": 9,
+      "index": 85,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Knee_Hip_Raise_On_Parallel_Bars_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_male_v2_0.png",
+          "sourceSha256": "e66e18a9bd2c5f7284645d04b368de4a00030690a1349314dee5691472a002c1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_male_v2_0.png",
+          "candidateSha256": "72b36521b5919021fdec4cf45c8a4cb8b2d563cefb3f9c818886a6884b5faada",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Hip_Raise_On_Parallel_Bars_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_male_v2_1.png",
+          "sourceSha256": "5d56b9c83e531a95ec31be56622160149eb8e0e201b7743c064102e10f6d2f14",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_male_v2_1.png",
+          "candidateSha256": "bed969d15d9b9740c0329386ebf6e1344a485e5d8c19ba9a5f2d708e8d37d115",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Hip_Raise_On_Parallel_Bars_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_male_v2_2.png",
+          "sourceSha256": "702f5fa2e0850d8ea08314e6d89c8d8084bf943afedb6d76aa120873fbfe0112",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_male_v2_2.png",
+          "candidateSha256": "82cb69793983606cd2a86f873aa79499984b0a9b48379ee9642299bea87471f5",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Hip_Raise_On_Parallel_Bars_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_male_v2_3.png",
+          "sourceSha256": "eeaccda2a1b1ce3f4bf04547f9b00d64bb0354d3c3a3411002db836b29366171",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_male_v2_3.png",
+          "candidateSha256": "e25e95c2840439c8865f7c14455fd632ff2b673ffb53ff1642aa20cf4a6c3021",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Hip_Raise_On_Parallel_Bars_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_female_v2_0.png",
+          "sourceSha256": "630e3f19f782f072b088c38a37c68e09d397f8f9549d7335d785e6a69b30e45c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_female_v2_0.png",
+          "candidateSha256": "edce0abb214fd05f2d955807bafafa7cd336b9289c3a499c4f8096fdf98bb6b6",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Hip_Raise_On_Parallel_Bars_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_female_v2_1.png",
+          "sourceSha256": "9b4d4d5e51b42a929c5831e47e4e9d9d1938ef464e81706aef7a922fb3b58b2e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_female_v2_1.png",
+          "candidateSha256": "b58d407c16ef6e5803e833fb86e40d40703f3425c47f1a14e4bf6a66ebbc93db",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Hip_Raise_On_Parallel_Bars_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_female_v2_2.png",
+          "sourceSha256": "e57abbce31e7b8e8c384a9740a08e890f6855037e1abec2898d4904cd8269ca5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_female_v2_2.png",
+          "candidateSha256": "ddcc8ea3649a25d7dcef3632957c295823881a1647619d14c0237ccc9b76d0e4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Hip_Raise_On_Parallel_Bars_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Hip_Raise_On_Parallel_Bars_female_v2_3.png",
+          "sourceSha256": "fdfce0b2e767d2b3df0ef18cb33ad9250be2edd847ffa7d946cc041fa87532b8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/085/Knee_Hip_Raise_On_Parallel_Bars_female_v2_3.png",
+          "candidateSha256": "64a6dcbdb48b36bd5201ff759a2db589cdb5116301b00dbc9660745e31bcd5e7",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        }
+      ]
+    },
+    {
+      "exerciseId": "Knee_Tuck_Jump",
+      "shard": 9,
+      "index": 86,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Knee_Tuck_Jump_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_male_v2_0.png",
+          "sourceSha256": "a1c2091040c5f64e63047d40e1fd39a9aa5531b70fed3056397f653363b5f513",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_male_v2_0.png",
+          "candidateSha256": "ff788dd3b3de3ac9f0868c40d60fc01096713df06aac4724f7787c8b1037df8a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Tuck_Jump_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_male_v2_1.png",
+          "sourceSha256": "6383a1df36628dea78734efa3937e7670f153a39766b3cd73dcb5187df801321",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_male_v2_1.png",
+          "candidateSha256": "483bfa7e6312b1f8bd762661375454a18605f983dfa4fca8fa2c5f039480977a",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Tuck_Jump_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_male_v2_2.png",
+          "sourceSha256": "5d7947197c213bf5ab2ba448b6a2f2e35d5f09c751108cb14247c2242dd27f8e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_male_v2_2.png",
+          "candidateSha256": "a8980ab447559ebd4566a7353ad91774e6554972270035f12dfcfb5d7c859b97",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Tuck_Jump_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_male_v2_3.png",
+          "sourceSha256": "08b4e8e1c1cd82b0e5b71fe3e68640ad4f706cf790eaf0f741e8c133c01efc8e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_male_v2_3.png",
+          "candidateSha256": "baf8b5026b3f91362803352e5a9b02409c576f11747abfa5eb4876d0a8c2efb2",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Tuck_Jump_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_female_v2_0.png",
+          "sourceSha256": "fc98ea3698d5b4e9a81e185d6748095ee3be19ee56e934b74a15e95bca4c9ca3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_female_v2_0.png",
+          "candidateSha256": "ef4ea1c77870ab166ca4ca17dc4d3850708258f56dc86d934e4a567c9d97fae8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Tuck_Jump_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_female_v2_1.png",
+          "sourceSha256": "2c9cd5db57486a5b6ddc7b561408184089d3fb7facb2c057066348783f385955",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_female_v2_1.png",
+          "candidateSha256": "aca11439fac83fc855e7c2617c01c0597915bc72dbdd27557abbe215ebf5b007",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Tuck_Jump_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_female_v2_2.png",
+          "sourceSha256": "01155c826322ff208043eb45394e4511711428a7d0c934f4ca99e6ffcb13a419",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_female_v2_2.png",
+          "candidateSha256": "ca8e8004a8473fa415866fd65bf0cbff67b7c623944f1fcbd2e8be24c99ca4ed",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Knee_Tuck_Jump_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Knee_Tuck_Jump_female_v2_3.png",
+          "sourceSha256": "010f285d3e91b59a6d01fb1b23c215660d9e0eef691571656cb32665d86e5032",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/086/Knee_Tuck_Jump_female_v2_3.png",
+          "candidateSha256": "216bdeeae97fe6ed7b18127762c27a5679fa297a6dd125952e0aa4880cee58bf",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        }
+      ]
+    },
+    {
+      "exerciseId": "Kneeling_Arm_Drill",
+      "shard": 9,
+      "index": 87,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Kneeling_Arm_Drill_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_male_v2_0.png",
+          "sourceSha256": "79d0ef78fb194fd6b7dee19c3a70d24ddecaa944904cd7462c83215208218689",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_male_v2_0.png",
+          "candidateSha256": "ff20caba0c153a0239132f24aa563efd2323b062a74c529abc0434bb6563606b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Arm_Drill_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_male_v2_1.png",
+          "sourceSha256": "14e9911c6e6037508769f69bc13320d0f99ad882cf518046866904c25884bc61",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_male_v2_1.png",
+          "candidateSha256": "a7a2c47ac449302e2c56d747bd8b4df249a5263aa6559df92a88b7f0ce384b09",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Arm_Drill_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_male_v2_2.png",
+          "sourceSha256": "32895acf52a6c1b79ce37922a257ddb068e0f0881a23551f752d1ce85d1af653",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_male_v2_2.png",
+          "candidateSha256": "45b60f3c1bf83fc3be72e1cde6657d226fd55586e18f4ae555a02eaca4a129ea",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Arm_Drill_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_male_v2_3.png",
+          "sourceSha256": "77f40c54ea079b19e0d5ade0f2921d106fd1a8a3469bf2e6d98ba3109aea6b10",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_male_v2_3.png",
+          "candidateSha256": "673086982222502e42fb70aeba5032c73e7372025fa57af60cf871fb73aa3cfc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Arm_Drill_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_female_v2_0.png",
+          "sourceSha256": "c4f5c27621f92026ea216ed039eafe35f156536712df62d7ba4877a050e10b9a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_female_v2_0.png",
+          "candidateSha256": "0b2b2d26b37677f691e74ecf1e9b5916a9e3d701548ffb7214213b5336cd3024",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Arm_Drill_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_female_v2_1.png",
+          "sourceSha256": "96a399901539cb0e5eb0df3deca15d27d15ac70aec543dff58a1c0cc6613d32f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_female_v2_1.png",
+          "candidateSha256": "3f80a1360a0f3f081e85b14be2a3051b942f2eb50aa5121ed9c07ec44924c67c",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Arm_Drill_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_female_v2_2.png",
+          "sourceSha256": "d7a5ffaf38a2cb18fd04228e0b389331be6d5a1c0267c8d365ebb889978a9aee",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_female_v2_2.png",
+          "candidateSha256": "5c615b4e36a45f507b7feb917bb2f8d32a1e58d042270e761e489cc4522daabe",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Arm_Drill_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_female_v2_3.png",
+          "sourceSha256": "0b5df571c2cca16b1238596ba3701d166f1fb515164dbc17198ca0572f94fdda",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_female_v2_3.png",
+          "candidateSha256": "de396760205aca734ed09b1f604c940e7361b4d47c66bb72284c992c59f6857e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        }
+      ]
+    },
+    {
+      "exerciseId": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists",
+      "shard": 9,
+      "index": 88,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_0.png",
+          "sourceSha256": "cd91d01fc12d085dee83bf30fdd163e3e6e77355d56299ba8e2a232d15598638",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_0.png",
+          "candidateSha256": "ae9a00c45a8a5845f443050e0db5b50d400d587f4b5a8467d39f44e6f3ee8354",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_1.png",
+          "sourceSha256": "9492c62c555d8b1194fe84125deeb497be7830f491607930ed74f363d7755c0e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_1.png",
+          "candidateSha256": "7bc99a3b99074142176152d825fd91f1c4ff7ba8d9e71825e48daab51369f21e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_2.png",
+          "sourceSha256": "924a80c35b2ebf2be2590b4afa1fc904595cf5690be5b239d7e4409312e4599f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_2.png",
+          "candidateSha256": "7058bec9d24c7e8bcbc8091695ce192496f4ab36aea2d3603917d1fe129ce23f",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_3.png",
+          "sourceSha256": "20222ccc71acdf0c1f71f7f48424b7bba34d5d8c50944cf2e8430988f30fa28f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_male_v2_3.png",
+          "candidateSha256": "9295cab53dbbaf2b97a7eb5cccc0e81abd25dc12a4da52987967e6e47333c518",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_0.png",
+          "sourceSha256": "457f1f519c94d583cc48f16d154134634a83cac0610e3c799338fea98c71bf4c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_0.png",
+          "candidateSha256": "f99f48b2cbf59081b65c5d5f333f2e33846245fc6006b32bcd1a35ebc5806d38",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_1.png",
+          "sourceSha256": "a694338bd341f7b5804cb051d702aec8ef86719786ee35a34de6d34962eb5e4d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_1.png",
+          "candidateSha256": "a2fe4497de525264f5ccf5a17c7ef8f6ff94a778bb28cd8bac5b918298645bf4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_2.png",
+          "sourceSha256": "52fdec98e6ca26e958c3c19d4f4a71bf4b4194985ef665a79749b64b8c2b6452",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_2.png",
+          "candidateSha256": "aa475d326ffa745e9e91f6df4eda9505756f0b62c4a5c9108700c7414808ea29",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_3.png",
+          "sourceSha256": "4d820a039c5adebf317eb0ff61fe5409bf5dd523b32bef1d926687c83fa28500",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/088/Kneeling_Cable_Crunch_With_Alternating_Oblique_Twists_female_v2_3.png",
+          "candidateSha256": "5ba8bf138f1c4cfba13bee0f13a9b07a338fabb5c3eb0dff8583841d1dc37fbc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        }
+      ]
+    },
+    {
+      "exerciseId": "90_90_Hamstring",
+      "shard": 9,
+      "index": 89,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "90_90_Hamstring_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/90_90_Hamstring_male_v2_0.png",
+          "sourceSha256": "ad6d5562cb400919fda62f8b9ce374d06657917d20a6cabf7bd01793a619ae0d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/089/90_90_Hamstring_male_v2_0.png",
+          "candidateSha256": "b925de5514b027d638698436f03083ee19828dadb894074f039432315e892e4b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "90_90_Hamstring_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/90_90_Hamstring_male_v2_1.png",
+          "sourceSha256": "2f6f8be18012d7cebb700744e7843f285f9a69e036acb2269dc919bc3ad157b1",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/089/90_90_Hamstring_male_v2_1.png",
+          "candidateSha256": "3afb8e603aa54980add0d5a3621d972bca721b2bf0863ae4cc4499272a89e8d3",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "90_90_Hamstring_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/90_90_Hamstring_male_v2_2.png",
+          "sourceSha256": "01130c499aa8f3f5f6f2d916d265de270827089f787b86f6428b901d747054d8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/089/90_90_Hamstring_male_v2_2.png",
+          "candidateSha256": "1cbab531428ad03fa8364441d21ef91e1e10a58d693916a85a3bac49e8d8ac99",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "90_90_Hamstring_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/90_90_Hamstring_male_v2_3.png",
+          "sourceSha256": "b4d53adcbc1f2d349e2fb5f62b43a19d093009c52ec4247afe7f5989c993bbe7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/089/90_90_Hamstring_male_v2_3.png",
+          "candidateSha256": "91517fce9bd6b859f2d355c56d34b86666c230412bcec8e97e40463ffd50d48d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "90_90_Hamstring_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/90_90_Hamstring_female_v2_0.png",
+          "sourceSha256": "47f3b6094712d63e4d24ac78cf96e3c7e26cc190c51c7a0b210ab63a915d7171",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/089/90_90_Hamstring_female_v2_0.png",
+          "candidateSha256": "6e718bab9860db71f030ee99b42b11ab27502995785a2f3cd125a6323e06dad3",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "90_90_Hamstring_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/90_90_Hamstring_female_v2_1.png",
+          "sourceSha256": "30d9cb8036079faa4a0b2ff85dc5465d252662936f4beb2612b4dcf656f83689",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/089/90_90_Hamstring_female_v2_1.png",
+          "candidateSha256": "7f7571f81cb32c957b5ce8439eb53cfddb465acc0b406bb9705ee12f0d632f6b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "90_90_Hamstring_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/90_90_Hamstring_female_v2_2.png",
+          "sourceSha256": "641d8c9ac4495fabb16731c1fc58b32990cb59e15ff9ce1db7146ef577c26662",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/089/90_90_Hamstring_female_v2_2.png",
+          "candidateSha256": "cde7af593b805ae3710858f8647f70a925bb20b12beea545c24ae6ccb839f3e4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "90_90_Hamstring_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/90_90_Hamstring_female_v2_3.png",
+          "sourceSha256": "8f7295d07133c81a243150faa95a22fafb4f0e2886ad66f5d3643245b25505f5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/089/90_90_Hamstring_female_v2_3.png",
+          "candidateSha256": "3a574aeccbc0140bfa2443a2aafca8bb26c8c41a00e7782c3965bf623f366ba3",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        }
+      ]
+    },
+    {
+      "exerciseId": "Ab_Crunch_Machine",
+      "shard": 9,
+      "index": 90,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Ab_Crunch_Machine_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Ab_Crunch_Machine_male_v2_0.png",
+          "sourceSha256": "c6be93a479b34a67c84d8907e322a71f56c7a8763823e050d07c8b3f93f30cf2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_male_v2_0.png",
+          "candidateSha256": "951e4de4076d7ff4cfc1cbaa11e306048f36172be3f030bf68a0b7f8c4747b62",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Ab_Crunch_Machine_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Ab_Crunch_Machine_male_v2_1.png",
+          "sourceSha256": "d9c7c388c01b76bb801ea054164c2aed55cace9b11d2a39c1318ab5889c3e3f7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_male_v2_1.png",
+          "candidateSha256": "5834c1958c255b6fda8070ab4a728c9bf990384f6dde806a67338732a1ecf5e4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Ab_Crunch_Machine_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Ab_Crunch_Machine_male_v2_2.png",
+          "sourceSha256": "47706995aff157d87552ea552a218736710d5d141aa8014cfa1f889863810b9d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_male_v2_2.png",
+          "candidateSha256": "3e5375a056304843eefa0e3781066ed9c80665361d1b6312a05046cd15338038",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Ab_Crunch_Machine_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Ab_Crunch_Machine_male_v2_3.png",
+          "sourceSha256": "ff11a2ed0ea1d61838c12c378a373643ffde2358fadca23630be7a35c7821ea9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_male_v2_3.png",
+          "candidateSha256": "d368fb9b3fa5a09db8f203db15adf9cb34dc8099657a58aa9cb8ed87b976033d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Ab_Crunch_Machine_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Ab_Crunch_Machine_female_v2_0.png",
+          "sourceSha256": "200e75f8924b3fe7aba03d175fb76c9475f0db96226cf83babfd549cf02025c2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_female_v2_0.png",
+          "candidateSha256": "7c8f0eef863e6883e63c0f49db546a853245b859fd4517391845e30376677f33",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Ab_Crunch_Machine_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Ab_Crunch_Machine_female_v2_1.png",
+          "sourceSha256": "2d359f6643d3a936ed0cfd46c02d2b089ca7be4e284f490501209ac42fabad47",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_female_v2_1.png",
+          "candidateSha256": "30309c5b3b5cef1ad5ff05269d85b7924ff3184f5dae504c0f25f01ed66ff503",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Ab_Crunch_Machine_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Ab_Crunch_Machine_female_v2_2.png",
+          "sourceSha256": "3001822235277ca16eaacad32c1d806f854bbe3b8c8174439618f663c68f690c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_female_v2_2.png",
+          "candidateSha256": "8620aa1b888f01b118129afce497329ed67df934377cef110e2834416d393cf0",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        },
+        {
+          "filename": "Ab_Crunch_Machine_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Ab_Crunch_Machine_female_v2_3.png",
+          "sourceSha256": "0b6aff6141152aee91212a648df33bb165a099eb033c494ffbeca5a0fcc1705c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/090/Ab_Crunch_Machine_female_v2_3.png",
+          "candidateSha256": "4b869798fe56ee4a7a9dcd45b860cacf8feb23d099b34beb4d85b1d1bc3b551e",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": false
+        }
+      ]
+    }
+  ]
+}

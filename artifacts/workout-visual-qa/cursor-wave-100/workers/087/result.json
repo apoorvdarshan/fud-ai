@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kneeling_Arm_Drill",
+  "shard": 9,
+  "index": 87,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kneeling_Arm_Drill_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_male_v2_0.png",
+      "sourceSha256": "79d0ef78fb194fd6b7dee19c3a70d24ddecaa944904cd7462c83215208218689",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_male_v2_0.png",
+      "candidateSha256": "ff20caba0c153a0239132f24aa563efd2323b062a74c529abc0434bb6563606b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Arm_Drill_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_male_v2_1.png",
+      "sourceSha256": "14e9911c6e6037508769f69bc13320d0f99ad882cf518046866904c25884bc61",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_male_v2_1.png",
+      "candidateSha256": "a7a2c47ac449302e2c56d747bd8b4df249a5263aa6559df92a88b7f0ce384b09",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Arm_Drill_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_male_v2_2.png",
+      "sourceSha256": "32895acf52a6c1b79ce37922a257ddb068e0f0881a23551f752d1ce85d1af653",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_male_v2_2.png",
+      "candidateSha256": "45b60f3c1bf83fc3be72e1cde6657d226fd55586e18f4ae555a02eaca4a129ea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Arm_Drill_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_male_v2_3.png",
+      "sourceSha256": "77f40c54ea079b19e0d5ade0f2921d106fd1a8a3469bf2e6d98ba3109aea6b10",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_male_v2_3.png",
+      "candidateSha256": "673086982222502e42fb70aeba5032c73e7372025fa57af60cf871fb73aa3cfc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Arm_Drill_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_female_v2_0.png",
+      "sourceSha256": "c4f5c27621f92026ea216ed039eafe35f156536712df62d7ba4877a050e10b9a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_female_v2_0.png",
+      "candidateSha256": "0b2b2d26b37677f691e74ecf1e9b5916a9e3d701548ffb7214213b5336cd3024",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Arm_Drill_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_female_v2_1.png",
+      "sourceSha256": "96a399901539cb0e5eb0df3deca15d27d15ac70aec543dff58a1c0cc6613d32f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_female_v2_1.png",
+      "candidateSha256": "3f80a1360a0f3f081e85b14be2a3051b942f2eb50aa5121ed9c07ec44924c67c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Arm_Drill_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_female_v2_2.png",
+      "sourceSha256": "d7a5ffaf38a2cb18fd04228e0b389331be6d5a1c0267c8d365ebb889978a9aee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_female_v2_2.png",
+      "candidateSha256": "5c615b4e36a45f507b7feb917bb2f8d32a1e58d042270e761e489cc4522daabe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kneeling_Arm_Drill_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kneeling_Arm_Drill_female_v2_3.png",
+      "sourceSha256": "0b5df571c2cca16b1238596ba3701d166f1fb515164dbc17198ca0572f94fdda",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/087/Kneeling_Arm_Drill_female_v2_3.png",
+      "candidateSha256": "de396760205aca734ed09b1f604c940e7361b4d47c66bb72284c992c59f6857e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

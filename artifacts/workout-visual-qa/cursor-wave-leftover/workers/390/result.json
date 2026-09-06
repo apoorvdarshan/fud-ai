@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Upward_Stretch",
+  "shard": 39,
+  "index": 390,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical edit + key_workout_chroma.py on 3 frame(s) with floor/fringe/plate/bar artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Upward_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upward_Stretch_male_v2_0.png",
+      "sourceSha256": "06a48c97bf0881ec7244d47dbc3ad58e1b7dceae3a2d4e8b0fede1462e9ec21a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/390/Upward_Stretch_male_v2_0.png",
+      "candidateSha256": "12066a867e4f897a7562bd59e212a3c3ac85a0c1ef996fb6b3bcdda29d191637",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upward_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upward_Stretch_male_v2_1.png",
+      "sourceSha256": "0a725a4264885435fd7477aece869144d031d29caade7b111bc36a9513159e6d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/390/Upward_Stretch_male_v2_1.png",
+      "candidateSha256": "46cd102da0a9646255af248980b0f8593fd052077696580b9c4c859cfe9c2e18",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upward_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upward_Stretch_male_v2_2.png",
+      "sourceSha256": "443879de62b703b299ebecdfa29782f1cdeba553e3148b71e604b56771d5bc6f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/390/Upward_Stretch_male_v2_2.png",
+      "candidateSha256": "1bcef5957c6cc5f7e9235a61e53a22d47f3bc094e86af2a0b112993c28ace5d5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upward_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upward_Stretch_male_v2_3.png",
+      "sourceSha256": "52b620396c0c91127eeaf99aa2c830933d6a56bd59e46cd63cdcf59598c53f55",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/390/Upward_Stretch_male_v2_3.png",
+      "candidateSha256": "151e9ab251c6c30ed4b86db58d6e9b2dda6ceda2d59d3612b9e39448bd79b809",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upward_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upward_Stretch_female_v2_0.png",
+      "sourceSha256": "bd2aa2c04a5a2589868b7115d420a731116e83f3e1cf2237cadfd7916ffc1a22",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/390/Upward_Stretch_female_v2_0.png",
+      "candidateSha256": "556b38f0ebd54e9b61e341b349489e1905eb85028b5a385604c4cf7ac9007a83",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upward_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upward_Stretch_female_v2_1.png",
+      "sourceSha256": "b38fb46b5a353716e07b7d6ce525199ac4eb338c56057c13e1116c9460dbc2ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/390/Upward_Stretch_female_v2_1.png",
+      "candidateSha256": "3291a66eff1a716138c6a9b71569ca713ff0c75023b2fae9bc41504659fa69fa",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upward_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upward_Stretch_female_v2_2.png",
+      "sourceSha256": "e972807cee9e9f1a1e5b113e7a92c8055017c28a9e36e34db2a31cb33766f3ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/390/Upward_Stretch_female_v2_2.png",
+      "candidateSha256": "d0d2d0e9128f8d4fbcfe7eddda3b17cfdab9fce96e08ede1a66103ee31b88e78",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upward_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upward_Stretch_female_v2_3.png",
+      "sourceSha256": "0fffe5ae67c5e0080012f298d637d48ba52337293f17669b9c97f2b41008cd30",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/390/Upward_Stretch_female_v2_3.png",
+      "candidateSha256": "edc9876236ad2bbd7a2c0e94fa863ebef47be8784830c44c9e74afbab3a99848",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

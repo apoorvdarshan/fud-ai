@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Upright_Row_-_With_Bands",
+  "shard": 39,
+  "index": 389,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical edit + key_workout_chroma.py on 4 frame(s) with floor/fringe/plate/bar artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Upright_Row_-_With_Bands_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Row_-_With_Bands_male_v2_0.png",
+      "sourceSha256": "bde5c7ce00a6d8aa0f5283a3e14af586c046130f64ed2227fcf3a70d3bae09c0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/389/Upright_Row_-_With_Bands_male_v2_0.png",
+      "candidateSha256": "0b2ec4128c4b6b19a3417b89536b738e0fb9bdb7b8d0a18b9017d264877f8d00",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Row_-_With_Bands_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Row_-_With_Bands_male_v2_1.png",
+      "sourceSha256": "678f22477cb0b4b683134085fb0ba8ed5991754a090f5e0d7206894ba729109a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/389/Upright_Row_-_With_Bands_male_v2_1.png",
+      "candidateSha256": "916cb23f031b4959fc1cd780001ebad005464a5788201ed89ecf355267da7b1b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Row_-_With_Bands_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Row_-_With_Bands_male_v2_2.png",
+      "sourceSha256": "d6f89ec72ccdce8d0cb4c67e70e4783a2f4e194193eedeb2f57c7a560f256ef4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/389/Upright_Row_-_With_Bands_male_v2_2.png",
+      "candidateSha256": "b2f8b1172aa079400fff8fdb37f68e382782346a67a8a7f33c55c9d5b06e9daa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Row_-_With_Bands_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Row_-_With_Bands_male_v2_3.png",
+      "sourceSha256": "469aa66f925de03bbf458450cb3b505643a48606a86e921c9b49a68cfe1ce000",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/389/Upright_Row_-_With_Bands_male_v2_3.png",
+      "candidateSha256": "b2a31d3bc62152191cfb3f4431d4f4cb2a9320c0e0995f410f9d1c6303c584c6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Row_-_With_Bands_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Row_-_With_Bands_female_v2_0.png",
+      "sourceSha256": "0518a6097d57c2684fc45cfe2af4ad9e6a0f38fe787fc32e218b720896f31426",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/389/Upright_Row_-_With_Bands_female_v2_0.png",
+      "candidateSha256": "30b3748f82504039d8d440325c4b3a4fccaee7e02fea49db8d18d97b29987605",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Row_-_With_Bands_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Row_-_With_Bands_female_v2_1.png",
+      "sourceSha256": "af26102304c2db032767d253c133adac2cc913fe787ce4f00216ca0882dcd401",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/389/Upright_Row_-_With_Bands_female_v2_1.png",
+      "candidateSha256": "bb78ccd3b9a0f1da11b49ee99ad24cfee7ec932d9652fe1b41e51fb267a9aceb",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Row_-_With_Bands_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Row_-_With_Bands_female_v2_2.png",
+      "sourceSha256": "db88fd31d3aa0c575a2f2241023ea6b371e9565f16d65bd0bb7e7d42c5fee3d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/389/Upright_Row_-_With_Bands_female_v2_2.png",
+      "candidateSha256": "219d06edd37541cf9da0002606130858b4d60dfe85b2552e943d4f376dc98d4c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Row_-_With_Bands_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Row_-_With_Bands_female_v2_3.png",
+      "sourceSha256": "9dc8ca42ae046c43ce6d65d9d01f51047aca016374c8cc5b76ab240f1fa952c4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/389/Upright_Row_-_With_Bands_female_v2_3.png",
+      "candidateSha256": "400a40c2693716cb21a0605241216f858127393973156c286e4414163d60eada",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

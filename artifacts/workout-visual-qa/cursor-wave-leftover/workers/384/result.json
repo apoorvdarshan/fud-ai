@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Underhand_Cable_Pulldowns",
+  "shard": 39,
+  "index": 384,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical edit + key_workout_chroma.py on 1 frame(s) with floor/fringe/plate/bar artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Underhand_Cable_Pulldowns_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Underhand_Cable_Pulldowns_male_v2_0.png",
+      "sourceSha256": "bd815f17726308bf0d14de5b96228bdd8bb3d56f76a3cd6007dce6a3a070ef9d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/384/Underhand_Cable_Pulldowns_male_v2_0.png",
+      "candidateSha256": "512459d3ce5e51fabb617b87610b67695a38ba2bc8fa7d0d671ecf3bb1aa72b4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Underhand_Cable_Pulldowns_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Underhand_Cable_Pulldowns_male_v2_1.png",
+      "sourceSha256": "b15e72423db95aaa1f070695b1a24c7c9659cd429c826af668c3928fded64178",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/384/Underhand_Cable_Pulldowns_male_v2_1.png",
+      "candidateSha256": "2cd35a39742918718e9b6ce5835fa6d664e859788814698879d3ede6f51f5253",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Underhand_Cable_Pulldowns_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Underhand_Cable_Pulldowns_male_v2_2.png",
+      "sourceSha256": "38a6864d12f62c709985f7b85c621dbee474c9f3ee81ba1edd301e120d76a3a3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/384/Underhand_Cable_Pulldowns_male_v2_2.png",
+      "candidateSha256": "251bff8c907bbe07438f661f5f24e4d457ee62f1b8fea8b804339c6e2193f4cf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Underhand_Cable_Pulldowns_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Underhand_Cable_Pulldowns_male_v2_3.png",
+      "sourceSha256": "6e48ba01ee1469339c63020d61be53b78612e78bb489666d8166525c4d3ab12c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/384/Underhand_Cable_Pulldowns_male_v2_3.png",
+      "candidateSha256": "e411dac476c49ca54b9e7256d5688982e360205a134916049f1572ced63b2ef6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Underhand_Cable_Pulldowns_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Underhand_Cable_Pulldowns_female_v2_0.png",
+      "sourceSha256": "dca07bfe6ca45b6d5c2785a01be3b29de4a9f2a1e2ec71c9ca7852875fb58fec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/384/Underhand_Cable_Pulldowns_female_v2_0.png",
+      "candidateSha256": "e2457ea0322e168130d77efbc1ae724886a0034c44de1383ffb3063e1b33b636",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Underhand_Cable_Pulldowns_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Underhand_Cable_Pulldowns_female_v2_1.png",
+      "sourceSha256": "bd5873a7527d6379d476ad13b695346d1ad810391f08053f832c9309b3197cca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/384/Underhand_Cable_Pulldowns_female_v2_1.png",
+      "candidateSha256": "e6d01e4fc03554d283cce0ccd81b5e6ee9b347882f988c658d85190f69273bd1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Underhand_Cable_Pulldowns_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Underhand_Cable_Pulldowns_female_v2_2.png",
+      "sourceSha256": "5a6535d3d57cd367b0733de8925bea600af0c4269ad4eefd528d6f12761b5010",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/384/Underhand_Cable_Pulldowns_female_v2_2.png",
+      "candidateSha256": "742153887c4c7b9a2fc8ec5597ac0f756ee64438b9875b70be6a0c0ddb4b1113",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Underhand_Cable_Pulldowns_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Underhand_Cable_Pulldowns_female_v2_3.png",
+      "sourceSha256": "6ba840714a936d56b4d26ed3811e0ac9c9094f36068e0ef0a46bf07185b11719",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/384/Underhand_Cable_Pulldowns_female_v2_3.png",
+      "candidateSha256": "808921953c76ea4747d74efd4998a3eb346a98d6e84f5fcb874e037800cb5cf6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Two-Arm_Kettlebell_Military_Press",
+  "shard": 39,
+  "index": 382,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical edit + key_workout_chroma.py on 1 frame(s) with floor/fringe/plate/bar artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Two-Arm_Kettlebell_Military_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Military_Press_male_v2_0.png",
+      "sourceSha256": "f1058029d0cf7d128b02f6f44d7dcd16dc6514af37b835b365cce17bafa44fa2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/382/Two-Arm_Kettlebell_Military_Press_male_v2_0.png",
+      "candidateSha256": "6037e1720e6439a467dd4ac872582201c1e35a7ad393d6b4f68c7eacef844792",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Military_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Military_Press_male_v2_1.png",
+      "sourceSha256": "5bf9e8003cc06860d768d681a2fc4fc86821c989e001c185cdeefedd8c05608b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/382/Two-Arm_Kettlebell_Military_Press_male_v2_1.png",
+      "candidateSha256": "dc0e94624d92c2e66d34b796f2d69c5510050f8b58af15eabf4e1e92bbee5310",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Military_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Military_Press_male_v2_2.png",
+      "sourceSha256": "59589c3761f8478f6403e8d07fc67dfcd4753239c8326e7c6a2aa83530fe53c8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/382/Two-Arm_Kettlebell_Military_Press_male_v2_2.png",
+      "candidateSha256": "d2ddac8a0cc50ce778ff163c79e78fd5bcb1732a14f1c42c880ba4ba84849bdc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Military_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Military_Press_male_v2_3.png",
+      "sourceSha256": "82727aa658a2cc663a0a4424b275b3aaf90d7289f76f3b7296ef434c99ce0881",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/382/Two-Arm_Kettlebell_Military_Press_male_v2_3.png",
+      "candidateSha256": "47230c50f367e5a407a7358ec754ddc5c3d526ad908e89ab77fde7417c44f3a0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Military_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Military_Press_female_v2_0.png",
+      "sourceSha256": "1a4471aa9e2f760847e40bea05165ee7746e8921d21fe3b70d27b14df4a05bbd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/382/Two-Arm_Kettlebell_Military_Press_female_v2_0.png",
+      "candidateSha256": "5010b8a67fc46d92df495b8c5cbb8b9c363f794ca9b3aec9c5beb0dbce5d5ba0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Military_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Military_Press_female_v2_1.png",
+      "sourceSha256": "1ed0e643d33b65e85491da32a564dcc72831372187dd96ea90acd8d7bd31beef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/382/Two-Arm_Kettlebell_Military_Press_female_v2_1.png",
+      "candidateSha256": "c09b5081860ac43994bfb0a0e11795c984b07febc1ac0a2dd18d3336c08c7aa8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Military_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Military_Press_female_v2_2.png",
+      "sourceSha256": "8db8cf9b380afc41c2cb584b5ea440d9acc0c6d986d64408213ed6b11f9dc0c5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/382/Two-Arm_Kettlebell_Military_Press_female_v2_2.png",
+      "candidateSha256": "e37ac578de561f26c827aa01ed36333bbdb6482585fcd9718e367aab07d74447",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Kettlebell_Military_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Kettlebell_Military_Press_female_v2_3.png",
+      "sourceSha256": "3ad8db772c340507c575e9e3ff75068eb5c15bebfc2f2b8538eb7eb898b16494",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/382/Two-Arm_Kettlebell_Military_Press_female_v2_3.png",
+      "candidateSha256": "3c62052d0ccd6ba7a5322a57690deccfa7b94c0263d5721fb829a49f129e11a3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

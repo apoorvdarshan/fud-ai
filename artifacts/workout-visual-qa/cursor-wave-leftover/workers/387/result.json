@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Upright_Barbell_Row",
+  "shard": 39,
+  "index": 387,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical edit + key_workout_chroma.py on 2 frame(s) with floor/fringe/plate/bar artifacts."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Upright_Barbell_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Barbell_Row_male_v2_0.png",
+      "sourceSha256": "5b7644072f424320afbbc652d7111ca692599b02dc1161bf6114f9aede9a4459",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/387/Upright_Barbell_Row_male_v2_0.png",
+      "candidateSha256": "da7f13b945b39e0c55091adb2d5d42d4475618548c1e9b59192902c96ddcdccc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Barbell_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Barbell_Row_male_v2_1.png",
+      "sourceSha256": "dfcbef2a6c8c61f15c31b6251dbf7a996da40328b1230ac1ccbcdf9622bf46cd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/387/Upright_Barbell_Row_male_v2_1.png",
+      "candidateSha256": "c693c6b4987848471cfa427041eb4edc4a9c45a8a2403af6082cf145ff21585d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Barbell_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Barbell_Row_male_v2_2.png",
+      "sourceSha256": "2b0aba468f441987c984278666e1bf315c60f55c4130fbd040638ae2b6fa39ab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/387/Upright_Barbell_Row_male_v2_2.png",
+      "candidateSha256": "aefc49c1cfc35f4e2bb9f813e84be7c4c2fe9cd4c44f86af8a90c8b092071755",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Barbell_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Barbell_Row_male_v2_3.png",
+      "sourceSha256": "a83565f064531630d2d0f1f9dcb5c8769f5707453d47be4373e0a7c86af17724",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/387/Upright_Barbell_Row_male_v2_3.png",
+      "candidateSha256": "c752fe007272b09f1f2cf7f75670d798a9c67c734b0df9329b835ed754aff1fc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Barbell_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Barbell_Row_female_v2_0.png",
+      "sourceSha256": "3f97945c6ca9f975928e86cbe2bf271aa4eec95572efb694f0b41f20fdd22320",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/387/Upright_Barbell_Row_female_v2_0.png",
+      "candidateSha256": "aba983c5ec36ac772b86ad28d9f93a83ac0e048426ae8ac49301ef6de7cb09f3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Barbell_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Barbell_Row_female_v2_1.png",
+      "sourceSha256": "e2ca3d6b66655439cb6dc9718e5fff82eea062f084f520032544594eb1b0de02",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/387/Upright_Barbell_Row_female_v2_1.png",
+      "candidateSha256": "b557145fc57eca8b3fdeddf9cc0b156cbd4085c21a66651588a3ca20104c288a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Barbell_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Barbell_Row_female_v2_2.png",
+      "sourceSha256": "6bae55f783c7aa01128f59642f351f0ac826ec2f18f8fd244d0c5492badda5f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/387/Upright_Barbell_Row_female_v2_2.png",
+      "candidateSha256": "1907d895a89c61593851bd8de21cc9f0eb9f7b08812a6e9eabc4fc2a6bf76c66",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Upright_Barbell_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Upright_Barbell_Row_female_v2_3.png",
+      "sourceSha256": "2e6500026eb5a8c5af974bc643b868b9ee8c7530fd5abe1a42a2be8220626408",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/387/Upright_Barbell_Row_female_v2_3.png",
+      "candidateSha256": "eb5497ee035ceadd60623e2cc59619fe669314ebdc06d88fe4a6716e1e09c2f0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

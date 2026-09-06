@@ -12,7 +12,7 @@ function harness(){
  const controls=Object.fromEntries(ids.map(k=>[k,new Element()]));
  const document={hidden:false,getElementById:k=>controls[k],createElement:()=>new Element(),addEventListener:(k,v)=>listeners[k]=v};
  class Image extends Element{constructor(){super();this.naturalWidth=1024}decode(){return new Promise((resolve,reject)=>jobs.push({image:this,resolve,reject}))}}
- const context=vm.createContext({document,Image,matchMedia:()=>({matches:false}),localStorage:{getItem:()=>null,setItem(){}},setInterval:fn=>{timers.set(++tid,fn);return tid},clearInterval:id=>timers.delete(id),setTimeout(){},URL:{createObjectURL:()=>'',revokeObjectURL(){}},Blob});
+ const context=vm.createContext({document,Image,matchMedia:()=>({matches:false}),fetch:async(url,options)=>({ok:true,json:async()=>({saved:JSON.parse(options.body)})}),localStorage:{getItem:()=>null,setItem(){}},setInterval:fn=>{timers.set(++tid,fn);return tid},clearInterval:id=>timers.delete(id),setTimeout(){},URL:{createObjectURL:()=>'',revokeObjectURL(){}},Blob});
  vm.runInContext(source,context);
  const run=s=>vm.runInContext(s,context);
  run("data={batch:'batch-01',count:2,rows:['First','Second'].map(id=>({id,index:1,status:'Review',findings:[],available:8,humanApproved:false,sources:Array.from({length:8},(_,i)=>'/original/'+id+'/'+i),candidates:Array.from({length:8},(_,i)=>'/candidate/'+id+'/'+i),sourceHashes:Array.from({length:8},(_,i)=>'s'+i),hashes:Array.from({length:8},(_,i)=>'c'+i)}))};selectedId='First';");
@@ -53,13 +53,20 @@ test('navigation discards a late frame from the previous exercise',async()=>{
  assert.equal(h.jobs.length,8);for(const j of h.jobs.slice(4))j.resolve();await h.settle();
  assert.equal(h.run('panels[0].before.src'),'/original/Second/0');
 });
-test('approval requires all eight frames and a failure revokes local approval',async()=>{
+test('approval requires all eight frames, removes the decided set, and selects next',async()=>{
  const h=harness();h.run('renderExercise();decide("approve_candidate")');
  assert.equal(h.run('decisions.First'),undefined);
  for(let f=0;f<4;f++){if(f)h.run('frame='+f+';draw()');const js=h.jobs.slice(-4);js.forEach(j=>j.resolve());await h.settle();}
- h.run('decide("approve_candidate")');assert.equal(h.run('decisions.First.decision'),'approve_candidate');
- h.run('draw()');h.jobs.at(-1).reject(Error('changed'));for(const j of h.jobs.slice(-4,-1))j.resolve();await h.settle();
- assert.equal(h.run('decisions.First.decision'),'pending');assert.equal(h.run('seen.size'),6);assert.equal(h.controls.approve.disabled,true);
+ await h.run('decide("approve_candidate")');assert.equal(h.run('decisions.First.decision'),'approve_candidate');
+ assert.equal(h.run('selectedId'),'Second');assert.equal(h.run('data.rows.length'),1);
+ h.jobs.at(-1).reject(Error('changed'));for(const j of h.jobs.slice(-4,-1))j.resolve();await h.settle();
+ assert.equal(h.run('seen.size'),0);assert.equal(h.controls.approve.disabled,true);
+});
+test('rejection saves to the coordinator and removes the set from judging',async()=>{
+ const h=harness();h.run('renderExercise()');await h.run('decide("needs_more_work")');
+ assert.equal(h.run('decisions.First.decision'),'needs_more_work');
+ assert.equal(h.run('data.rows.some(r=>r.id==="First")'),false);
+ assert.equal(h.run('selectedId'),'Second');
 });
 test('hidden tab releases all displayed images and pauses animation',async()=>{
  const h=harness();h.run('renderExercise();clock()');h.jobs.forEach(j=>j.resolve());await h.settle();

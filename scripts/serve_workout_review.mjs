@@ -1,10 +1,11 @@
 #!/usr/bin/env node
-// Loopback-only, read-only review. Never promotes candidates or writes decisions.
+// Loopback-only review. Writes human decisions, never promotes app images.
 import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { collectReviewTotals, matchesFrames, readJson, validateDecision } from './workout_review_state.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const batchName = process.argv[2] || 'batch-01';
 if (!/^batch-\d{2}$/.test(batchName)) throw new Error('Expected batch-NN');
@@ -18,6 +19,7 @@ function manifest() {
   const ledgerPath = path.join(stage, 'parent-review-passed.json');
   const passed = fs.existsSync(ledgerPath) ? JSON.parse(fs.readFileSync(ledgerPath)).checks : [];
   const approvals = fs.readdirSync(stage).filter(n => /^human-approval.*\.json$/.test(n)).flatMap(n => JSON.parse(fs.readFileSync(path.join(stage, n))).decisions || []);
+  const webDecisions = readJson(path.join(stage, 'human-decisions.json'), {}).decisions || {};
   const rows = batch.exercises.map((e, index) => {
     const accepted = passed.find(r => r.index === e.index && r.exerciseId === e.exerciseId && r.status === 'parent_pass_human_pending');
     if (!accepted) return null;
@@ -45,21 +47,53 @@ function manifest() {
     }
     const available = candidates.filter(Boolean).length;
     if (available !== 8) return null;
-    const humanApproved = approvals.some(a => a.exerciseId === e.exerciseId && a.decision === 'approve_candidate' && a.frames?.length === 8 && a.frames.every(f => {
+    const chatApproved = approvals.some(a => a.exerciseId === e.exerciseId && a.decision === 'approve_candidate' && a.frames?.length === 8 && a.frames.every(f => {
       const i = e.sourceFramePaths.findIndex(p => path.basename(p) === f.filename);
       return i >= 0 && f.sourceSha256 === sourceHashes[i] && f.candidateSha256 === hashes[i];
     }));
+    const saved = webDecisions[e.exerciseId];
+    const humanDecision = matchesFrames(saved, { sourceHashes, hashes }) ? saved.decision : chatApproved ? 'approve_candidate' : 'pending';
+    const humanApproved = ['approve_candidate', 'keep_original'].includes(humanDecision);
     return { id: e.exerciseId, index: e.index, severity: e.severity, findings: e.findings, suggestedRoute: e.suggestedRoute, sources, sourceHashes, candidates, hashes, methods, available,
-      humanApproved, status: humanApproved ? 'Approved by you · Saved' : 'Parent-reviewed · Awaiting your approval',
+      humanApproved, humanDecision, savedNotes: saved?.notes || '', status: humanApproved ? 'Approved by you · Saved' : humanDecision === 'needs_more_work' ? 'In progress · Returned for correction' : 'Parent-reviewed · Awaiting your approval',
       warning: 'Review the full animation in both genders and backgrounds. Your decision does not replace app images automatically.' };
   }).filter(Boolean).sort((a, b) => Number(a.humanApproved) - Number(b.humanApproved) || a.index - b.index);
   images.clear();for (const [key, value] of nextImages) images.set(key, value);
-  return { batch: batchName, count: rows.length, batchTotal: batch.exercises.length, rows };
+  const undecided = rows.filter(row => row.humanDecision === 'pending');
+  return { batch: batchName, count: undecided.length, batchTotal: batch.exercises.length, totals: collectReviewTotals(root), rows: undecided };
 }
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   try {
-  if (req.method !== 'GET') { res.writeHead(405); res.end(); return; }
   const url = new URL(req.url, 'http://localhost');
+  if (req.method === 'POST' && url.pathname === '/decision') {
+    const expectedOrigin = `http://127.0.0.1:${server.address().port}`;
+    if (req.headers.host !== `127.0.0.1:${server.address().port}` || req.headers.origin !== expectedOrigin || req.headers['content-type']?.split(';')[0] !== 'application/json') { res.writeHead(403); res.end('Same-origin JSON required'); return; }
+    let body = '';
+    for await (const chunk of req) { body += chunk; if (Buffer.byteLength(body) > 24000) { res.writeHead(413); res.end('Decision too large'); return; } }
+    try {
+      const input = JSON.parse(body), current = manifest(), row = current.rows.find(r => r.id === input.exerciseId);
+      const decision = validateDecision(input, row);
+      const file = path.join(stage, 'human-decisions.json');
+      const state = readJson(file, { batch: batchName, decisions: {} });
+      state.decisions[decision.exerciseId] = decision;
+      state.updatedAt = decision.reviewedAt;
+      const temp = file + '.' + crypto.randomUUID() + '.tmp';
+      fs.writeFileSync(temp, JSON.stringify(state, null, 2), { mode: 0o600 }); fs.renameSync(temp, file);
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      res.end(JSON.stringify({ saved: decision, totals: collectReviewTotals(root) }));
+    } catch (error) { res.writeHead(409, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ error: error.message })); }
+    return;
+  }
+  if (req.method !== 'GET') { res.writeHead(405); res.end(); return; }
+  if (url.pathname === '/decisions.json') {
+    const decisions = {};
+    for (const file of fs.readdirSync(stage).filter(n => /^human-approval.*\.json$/.test(n))) {
+      for (const d of readJson(path.join(stage, file), {}).decisions || []) decisions[d.exerciseId] = d;
+    }
+    Object.assign(decisions, readJson(path.join(stage, 'human-decisions.json'), {}).decisions || {});
+    res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+    res.end(JSON.stringify({ batch: batchName, exportedAt: new Date().toISOString(), approvalDoesNotPromote: true, decisions })); return;
+  }
   if (url.pathname === '/manifest.json') {
     const body = JSON.stringify(manifest());
     res.writeHead(200, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });res.end(body);return;

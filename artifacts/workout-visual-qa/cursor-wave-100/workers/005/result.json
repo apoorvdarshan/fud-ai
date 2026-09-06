@@ -3,7 +3,9 @@
   "shard": 1,
   "index": 5,
   "status": "ready_for_review",
-  "findings": [],
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 6 frame(s) with green/pale fringe artifacts."
+  ],
   "unresolved": [],
   "frames": [
     {
@@ -13,7 +15,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/005/Groin_and_Back_Stretch_male_v2_0.png",
       "candidateSha256": "33253597b3c1cc89e6c53f7e7347cb07d437a64d966217c0813f0d5f2495cb90",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Groin_and_Back_Stretch_male_v2_1.png",
@@ -22,61 +24,62 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/005/Groin_and_Back_Stretch_male_v2_1.png",
       "candidateSha256": "3d8662f8086aeb768a7e49263b7913aefbe8082b8e242dafbc2d2b2288896921",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Groin_and_Back_Stretch_male_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_male_v2_2.png",
       "sourceSha256": "e561659bed02668f55f984cec8ac5c12b785b457bad3366adcdf7a7652962807",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/005/Groin_and_Back_Stretch_male_v2_2.png",
-      "candidateSha256": "098f51eee368449b1f7c7ba07ecd72bfdd17a4ef3a751df647b68c66bc35286f",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "1cde55f916eb1f08d2bb2d27501458fbe37939ba96e6429c451128276baeed5e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Groin_and_Back_Stretch_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_male_v2_3.png",
       "sourceSha256": "2706190a54db1ec9ac65837c4666c2b15d52fd4da0250f98c741b04dd13fbee6",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/005/Groin_and_Back_Stretch_male_v2_3.png",
-      "candidateSha256": "612573e2480f6ffcbd82356eb7b50a9e5e3f4fc5cdd8f12034fb2ee9fb0e28fa",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "a5ada53fc51daa775b2f232cf5ccad80f2a8c67890150c1c6ae3fe5ecd9e9a4f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Groin_and_Back_Stretch_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_female_v2_0.png",
       "sourceSha256": "97bb4f950470abdb61a9ee36ae6ae3e544e5d238bfde823efac779613eb7782c",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/005/Groin_and_Back_Stretch_female_v2_0.png",
-      "candidateSha256": "5483f2a6a6330ae68a5e6e91b6ac090b9ac506314e27e5500fa0bb3438c29110",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "164817f835fc508fc435f6305207eed53c39860cd6b6db6e4fd1754ac5076103",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Groin_and_Back_Stretch_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_female_v2_1.png",
       "sourceSha256": "56a67edde8e39fb99cdcb6f15d064de127d61c9d6075a10db447c6a9c479a52e",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/005/Groin_and_Back_Stretch_female_v2_1.png",
-      "candidateSha256": "4c2d13e92b6ea9ff4d6a08791d03a890081f32b57574fded3c17bd1fb83bb441",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "6fcf11d857c6bca4eea707915052caa7365714d18f4b65d6920241e66379fd43",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Groin_and_Back_Stretch_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_female_v2_2.png",
       "sourceSha256": "d68dfbd12eca85cbaf16cd4e0196f94dc860879f305f5a97f57d3d9344fa770c",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/005/Groin_and_Back_Stretch_female_v2_2.png",
-      "candidateSha256": "e0e070fa221d1ae2a02dd233bae0d8d0ed731d029ae8ceef5f1aadec7f0428cb",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "7426f1b40da2d7bd892dbeaecf31c74ed03f9a876455b6d22d341dca006c1acb",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Groin_and_Back_Stretch_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Groin_and_Back_Stretch_female_v2_3.png",
       "sourceSha256": "f192a909383c1e91d737e7c8d01e05c5a0bae3878ce05b0bc92c43781bf5dd9c",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/005/Groin_and_Back_Stretch_female_v2_3.png",
-      "candidateSha256": "a7a4c865776d16701c1d7233c746e6d5f16c9fe7c5e105f9b0bda24ccb8334a1",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "53878acfe8ef2a438690b7d49b3143f05d8408439d227769a3ccec632675b4a5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
-  ]
+  ],
+  "changedFrameCount": 6
 }

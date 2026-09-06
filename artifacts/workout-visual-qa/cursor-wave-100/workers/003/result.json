@@ -3,7 +3,9 @@
   "shard": 1,
   "index": 3,
   "status": "ready_for_review",
-  "findings": [],
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 8 frame(s) with green/pale fringe artifacts."
+  ],
   "unresolved": [],
   "frames": [
     {
@@ -11,72 +13,73 @@
       "sourcePath": "/workspace/shared/workout-vectors/Good_Morning_off_Pins_male_v2_0.png",
       "sourceSha256": "60077c009ec446d2a68928beacffb7ff63254c2ee9c4167d649f402002000de1",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/003/Good_Morning_off_Pins_male_v2_0.png",
-      "candidateSha256": "1864f8047292c4f9166307395a321b91d9b1ee1a284741de7d8ffc083f531ee1",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "1acfe5a369e02e5409aaaad8951ab357f44794eccf5f090a5038486db2b392f8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Good_Morning_off_Pins_male_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Good_Morning_off_Pins_male_v2_1.png",
       "sourceSha256": "8fda173ba0dc758fcb9968508a11acb4739f9cab02c79383b7e1039c2b40d764",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/003/Good_Morning_off_Pins_male_v2_1.png",
-      "candidateSha256": "60279dbedbb141592657e4e7009bf0fbe000cd1f769ecce194e70bfb14624bb9",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "9f56521d9079ea959638fa4be924fe52840de1711a4b168d1f7eee22996050a3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Good_Morning_off_Pins_male_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Good_Morning_off_Pins_male_v2_2.png",
       "sourceSha256": "510e28f955740c11ddd4725e32fd4fb37478045383d153f071c00a59d903df97",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/003/Good_Morning_off_Pins_male_v2_2.png",
-      "candidateSha256": "be373727a425e35e2160ba6db1b10605e596546fe3ccf848251755185967e8eb",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "7cfd9c951145dd6ebed042650481744f08e1e795089e92763b463e3dfa9e7498",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Good_Morning_off_Pins_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Good_Morning_off_Pins_male_v2_3.png",
       "sourceSha256": "27e5485bb9b1b085494cac5757247413c547e1dc4dadbf1234e90b5827798142",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/003/Good_Morning_off_Pins_male_v2_3.png",
-      "candidateSha256": "c3ae16e0e1b40dbbb1a78da1dfefee70cf9ec706d2053010d3a6581330748df9",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "6b5b259370a5534542be84e0f18153e7c7e9fd4e6b9560da5f7de96ec3e6e760",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Good_Morning_off_Pins_female_v2_0.png",
       "sourcePath": "/workspace/shared/workout-vectors/Good_Morning_off_Pins_female_v2_0.png",
       "sourceSha256": "042dba2c1fd8aec40c5fad06910057b87d3122a6eda07ba341eb86e64f28d0b8",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/003/Good_Morning_off_Pins_female_v2_0.png",
-      "candidateSha256": "3c6674fa6703f14103b7e7f420c2be759ab92c445f5e68b313b5414dc33ee0e4",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "719199b47a665690de24f6c40d6a763fc8fd595c7da6f52b374ac6898c0aab4f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Good_Morning_off_Pins_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Good_Morning_off_Pins_female_v2_1.png",
       "sourceSha256": "483dcae9e5c0053e57ca2b7f004aca79270feb6af8602a9ea9773d79fc8a7fa9",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/003/Good_Morning_off_Pins_female_v2_1.png",
-      "candidateSha256": "4ef479d3037c48126199ad5d900481c15948a598462169e6ee192e37a8321a93",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "4afefdc5ede2134e988cb863006a8ce5deac3f7adbe43e3ea6ef15af5ec45047",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Good_Morning_off_Pins_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Good_Morning_off_Pins_female_v2_2.png",
       "sourceSha256": "e824c40144e6b382934f8f58cd7137c46d9054923d495c8afa14baf5c67e10f1",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/003/Good_Morning_off_Pins_female_v2_2.png",
-      "candidateSha256": "198dd3da2375e5eebc769aa9d0f713f4932ec7ab1fb92cb5b4f6f0e140e1c8c1",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "3faeeb823d690339d57220b5fba08dc36e31bf1ecaf7b6a8b355345b644290c7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     },
     {
       "filename": "Good_Morning_off_Pins_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Good_Morning_off_Pins_female_v2_3.png",
       "sourceSha256": "5690ed8c0c731efcde93e150582a68aa372099e8ceb800f5a9d74fa7b93d5d0d",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/003/Good_Morning_off_Pins_female_v2_3.png",
-      "candidateSha256": "09b5cb2b46dd2271b8debc98067e92d16fea9a6555b67364c2b146326395e8d6",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "b265c4b63490597e7a01263fe1a3658ed6348294f50cc6c6d32381c7768cd38b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
     }
-  ]
+  ],
+  "changedFrameCount": 8
 }

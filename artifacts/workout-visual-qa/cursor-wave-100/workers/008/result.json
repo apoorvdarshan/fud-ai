@@ -13,7 +13,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_male_v2_0.png",
       "candidateSha256": "e7fb445b87cc7a841fba3f01f7198e90c0c58fb546f098d71f682d00385c5515",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Curls_male_v2_1.png",
@@ -22,7 +22,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_male_v2_1.png",
       "candidateSha256": "e06b62f0e7f3f79d02270392449e8a5dfb16556148953b0a825cb8aa3a2b8271",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Curls_male_v2_2.png",
@@ -31,7 +31,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_male_v2_2.png",
       "candidateSha256": "8c6d6855664e5df110a6ee7a1fdc9f78921bc155cd4a5f7cd90f5a678b71c9e6",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Curls_male_v2_3.png",
@@ -40,7 +40,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_male_v2_3.png",
       "candidateSha256": "cd1c6a6da014caa868d26fb74139505a9cc64aaeb58dcce2e2eddca7a652fd56",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Curls_female_v2_0.png",
@@ -49,7 +49,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_female_v2_0.png",
       "candidateSha256": "832f5d824a3e45f6715ff26486bac27fb87e49a13fe9b194348c3883fe27f3c2",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Curls_female_v2_1.png",
@@ -58,7 +58,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_female_v2_1.png",
       "candidateSha256": "734d1e037fe365ec970474af4d79119d969236367ae6fac41be3d680a4d53dcf",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Curls_female_v2_2.png",
@@ -67,7 +67,7 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_female_v2_2.png",
       "candidateSha256": "a5d474b11dc751cd9fc52cdb2b4bdad1b0105c0acbdb2d6174a0860dd27d8bca",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     },
     {
       "filename": "Hammer_Curls_female_v2_3.png",
@@ -76,7 +76,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/008/Hammer_Curls_female_v2_3.png",
       "candidateSha256": "109124bef28c6696e0097c80feff4f57503651887eb4cc71804a3ea6380ef346",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true
     }
-  ]
+  ],
+  "changedFrameCount": 0
 }

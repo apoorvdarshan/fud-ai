@@ -1,0 +1,16 @@
+{
+  "source_sha256": "c7d94d2c81f8e74d63adc13a15500334d35ae018793e88bf0d14aa7fe01d29aa",
+  "candidate_sha256": "00ffc2351d83d66c29ba0e0448172ce97bed0911fb33fdbdfe4a0fb9da7601b6",
+  "generated_sha256": "4e0f51c3e2b423758abeb9f91678f2cd41714ec727cc3c7a071c26da0bfb9573",
+  "generated_path": "/cursor/stores/bc-59b94c69-a50b-467c-8bbc-d6c6087f891b/artifacts/assets/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_1_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

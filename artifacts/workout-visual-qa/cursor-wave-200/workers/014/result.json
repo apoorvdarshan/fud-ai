@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Barbell_Shoulder_Press",
+  "shard": 2,
+  "index": 14,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Shoulder_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_male_v2_0.png",
+      "sourceSha256": "eb8bf84bbd8edb78240b608b4e239f63a44540e7067c350e6c2232d9e701b1a3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_male_v2_0.png",
+      "candidateSha256": "53edc25425a45ab09795d21eb093bd23ef3e2da633311f762929f9676d3afed6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_male_v2_1.png",
+      "sourceSha256": "481a0da347c76579d97969b5fed43c713a9b142b26ea1e19ba7a35bc2f2d2fde",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_male_v2_1.png",
+      "candidateSha256": "e285e9288d497869d5d97a411748828caa958fc096cd0e045e27426e6b9f8a91",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_male_v2_2.png",
+      "sourceSha256": "6139f768de8ccea0faa3c61be8931cbc1756a682dcec4fd864e87f2209463397",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_male_v2_2.png",
+      "candidateSha256": "0bac18ce520af715d4c130aa689fd6b109f52d521feca5df75d0e69ad521d3ad",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_male_v2_3.png",
+      "sourceSha256": "1c11622a10506d2f52a26786fb2690a5af567cd7835ba2ee788fd7facf86f137",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_male_v2_3.png",
+      "candidateSha256": "d1dc65af6338f5ebfdf919694ce10a378fb6ab10f006d5bb8009db18cf644b6b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_female_v2_0.png",
+      "sourceSha256": "cae8d75c90828d7168f74684b522b2e2ce9f1bea9029b25a31b6114e4b8250f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_female_v2_0.png",
+      "candidateSha256": "2056de34b20c47a5376c959a6965bc3c5c5cc66180a0ccfd2c0b3bc46a4f6b5d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_female_v2_1.png",
+      "sourceSha256": "305a3d67b5ada6f13c13d18e4582214e6787b732e6ea63650aa1d87cfd6dceb5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_female_v2_1.png",
+      "candidateSha256": "ce4696406a9ce2d3ceeffc0bf1b1db136dbde70a5992546770803475a149b5e4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_female_v2_2.png",
+      "sourceSha256": "8f4883126e989e1b8e8e8308f8527cd26d90d09d8aa0d6bbe85fecdf177164f8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_female_v2_2.png",
+      "candidateSha256": "144536efbb5ea933f983ee5b6c488a7a68ce42d70f8cc4b375139fd550a5dc08",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shoulder_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_female_v2_3.png",
+      "sourceSha256": "101f7b06b864fc9702ae2d68483c0801a97e190a36b577c8ebf5b02e6c8cd1df",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_female_v2_3.png",
+      "candidateSha256": "edbc5aa5a4a66a7d7414b5d80a3608c475e2ee01c500f3fe44a54b7b9d7e709b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

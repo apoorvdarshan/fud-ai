@@ -1,0 +1,16 @@
+{
+  "source_sha256": "e48e7e6fe8f5760bd5b391da3fe1c2af3f5b65f8958e7206a2f527bdacab284c",
+  "candidate_sha256": "24978895a5cc66f2ffb2693d129eb6709627854b7e7d73a5337b3c8f2bc15258",
+  "generated_sha256": "afe65e9b1efe9c5a370d8ed0be9e0eed8fe6ee93ef581ab4aeff4a96433382eb",
+  "generated_path": "/cursor/stores/bc-59b94c69-a50b-467c-8bbc-d6c6087f891b/artifacts/assets/Bent-Arm_Dumbbell_Pullover_male_v2_0_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

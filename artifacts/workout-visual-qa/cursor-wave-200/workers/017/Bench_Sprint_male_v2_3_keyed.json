@@ -1,0 +1,16 @@
+{
+  "source_sha256": "7e5f2e1f967344060dd8c85aef0f1d0eb2a1063d97436458441ccaa4b16a5e45",
+  "candidate_sha256": "1c2ddea570d7f52a3926ab8dbbe5772a896c583df7ac589c989efbddc55123c8",
+  "generated_sha256": "acd0fe5c6fcf3fae21ccba96204d825162b829b141be2ac4b8dfc952726aa87d",
+  "generated_path": "/cursor/stores/bc-59b94c69-a50b-467c-8bbc-d6c6087f891b/artifacts/assets/Bench_Sprint_male_v2_3_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

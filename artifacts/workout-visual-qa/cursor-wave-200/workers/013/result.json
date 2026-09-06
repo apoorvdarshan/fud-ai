@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Barbell_Rollout_from_Bench",
+  "shard": 2,
+  "index": 13,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Rollout_from_Bench_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_male_v2_0.png",
+      "sourceSha256": "f7fecf3fdd800e92ddea127c3cee233c51699bac22378e0ffae25980b4e0874c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_male_v2_0.png",
+      "candidateSha256": "03b5570f5b0e43c5f9ae1c69ec6eada6c88a90aaba2ad28e96f44759f9cd7d5e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_male_v2_1.png",
+      "sourceSha256": "662f48c90007b5553d193bc2d0eff7fd21ab3a4663350dca6532f9beab46a9ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_male_v2_1.png",
+      "candidateSha256": "bec5c83804ed5c51e10f8c0d4c09e22630aaba04a8c5660208393a8581cab269",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_male_v2_2.png",
+      "sourceSha256": "1e6bc8cd6795b59aef0e6b03b5b3ef29c6fee978047e0babb7af35a8a4788e73",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_male_v2_2.png",
+      "candidateSha256": "4e8ddc9c5977617afe68853db5eea24b7e8cdd3435964e216cba03b15431fa2d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_male_v2_3.png",
+      "sourceSha256": "0576ba5aaf4a71b405125e45297c28e79a53384b9c665e94fcda7c04d637ca14",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_male_v2_3.png",
+      "candidateSha256": "236d45eba96c43be26c7910589e8fed19f8d4e810d1246254c13418d1a0cdf07",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_female_v2_0.png",
+      "sourceSha256": "1157c5663ecce400cff6aec133d3738985af7c8ef2549aa5d6d6396b66598caf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_female_v2_0.png",
+      "candidateSha256": "277a815626d7ed4fe3e37405fb4c8ca7d0f4923e6cedbbb0ab8db93f9117f0e0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_female_v2_1.png",
+      "sourceSha256": "80ebdbce70066e54304e5ff95ee289d586bb148bf0d0d6933bc80532e9afd3d4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_female_v2_1.png",
+      "candidateSha256": "65a42214f4a20d1e9be675e46e5fd37f21a511740de0d69a0d0b805c514206c6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_female_v2_2.png",
+      "sourceSha256": "4406179e147ff941adc1cb32344d3f48734db9e5f031ce4d0045ed11bd66b9ed",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_female_v2_2.png",
+      "candidateSha256": "7b1074de8594fae626d98d5bde5e6d5646538259f825d321a0ef91f1e0d88b44",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Rollout_from_Bench_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_female_v2_3.png",
+      "sourceSha256": "5e93a1899113c3cc20d147dc828d089be526b717a17f07922dc7ac68b5e211be",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_female_v2_3.png",
+      "candidateSha256": "54d5c345143ab050a3975dc65f30f5af0987ad68fc62331d9482a0d2d483e3c0",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bear_Crawl_Sled_Drags",
+  "shard": 2,
+  "index": 16,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bear_Crawl_Sled_Drags_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_male_v2_0.png",
+      "sourceSha256": "c3c9a37cce3502c800955074f1a1d5b59fe93f6d4e6f4af9e915043e1cf30ae9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_male_v2_0.png",
+      "candidateSha256": "fa8987b94f7fbc89e8c3921b6d4fdc9a93a23532b56a6bd7fb2796ca970bfbbf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bear_Crawl_Sled_Drags_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_male_v2_1.png",
+      "sourceSha256": "41a11abdd34bd38c3912b9a21b3156384842331d4594b13ec4fbfdf31eb33b00",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_male_v2_1.png",
+      "candidateSha256": "5177dfca1fba5057c391e2643b01a88bb7f4ac82ca93f0a3cca66618eaebc405",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bear_Crawl_Sled_Drags_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_male_v2_2.png",
+      "sourceSha256": "fa0ce512f01869594af413f243e391206137ab8eb51d43f5eb6d05157e48ede2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_male_v2_2.png",
+      "candidateSha256": "7ac84d589b857448ff488720b7d0ce6937fbe1e4fbec87005683881629026647",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bear_Crawl_Sled_Drags_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_male_v2_3.png",
+      "sourceSha256": "48243d5514386863da0c93875cf13db45ceaeb6862c162e49338588ad3719b38",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_male_v2_3.png",
+      "candidateSha256": "2b0ecca2f3ee31c01f1e4a6fac24e94d96c5b10aec07f8e1e3abbc5ca49292e0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bear_Crawl_Sled_Drags_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_female_v2_0.png",
+      "sourceSha256": "884c70c84259a98187afeea892a013a8429145af15dbbfe883e0dbd9e982b3e6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_female_v2_0.png",
+      "candidateSha256": "c307a69cc27db72a3141fe3fa1dbfcec3e79da4e7fc25ffb64cbeb6442ad3aeb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bear_Crawl_Sled_Drags_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_female_v2_1.png",
+      "sourceSha256": "bcbab7c6ac5de8c323d4da517cf2b6db818e070120434823ddae2b0cb97599a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_female_v2_1.png",
+      "candidateSha256": "9ae7b9cc249d6f333b9ca5a3b14ed759f8abe1acce4e9b890839c5fb1e8e99fa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bear_Crawl_Sled_Drags_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_female_v2_2.png",
+      "sourceSha256": "43b35daab02932be8e21eb4e9df98da6b384d044a6ee22f20c3de6a841ab808d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_female_v2_2.png",
+      "candidateSha256": "4ca6bbd905b7da5411956cb8efa51250ec3a28354871f27ecbefc0b4e9dd27fa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bear_Crawl_Sled_Drags_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_female_v2_3.png",
+      "sourceSha256": "008b5ac0d7f8c3db002793aa939de9807988bf4bb087d68fe7f8e1873ed49c97",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_female_v2_3.png",
+      "candidateSha256": "4729f9b69afe7986f2b4c57cd7e7d0f0f58f9508c6d2dc78da81d9d0ccc296d8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

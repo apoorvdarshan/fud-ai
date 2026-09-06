@@ -1,0 +1,16 @@
+{
+  "source_sha256": "e4b3d15c5af4296df9f0bb46b32b657a02910beef8616fc9c39cd834c1765800",
+  "candidate_sha256": "2134ffa37995bcf5e07bbbbdf7a009a16d346a48b58333e0ecd569fd38c78abc",
+  "generated_sha256": "d27d403d4defa07623b1bfb9077f4853605f39f5d4722e8cd6999173b25079fc",
+  "generated_path": "/cursor/stores/bc-59b94c69-a50b-467c-8bbc-d6c6087f891b/artifacts/assets/Bent-Arm_Dumbbell_Pullover_female_v2_1_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

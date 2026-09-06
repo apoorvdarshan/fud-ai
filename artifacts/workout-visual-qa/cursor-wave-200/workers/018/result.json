@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bent-Arm_Dumbbell_Pullover",
+  "shard": 2,
+  "index": 18,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bent-Arm_Dumbbell_Pullover_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_male_v2_0.png",
+      "sourceSha256": "e48e7e6fe8f5760bd5b391da3fe1c2af3f5b65f8958e7206a2f527bdacab284c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_male_v2_0.png",
+      "candidateSha256": "24978895a5cc66f2ffb2693d129eb6709627854b7e7d73a5337b3c8f2bc15258",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Dumbbell_Pullover_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_male_v2_1.png",
+      "sourceSha256": "4dcbd9c739057b346ba8e23feef02b07517da32899586e92a26c6351f9928ee0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_male_v2_1.png",
+      "candidateSha256": "c99ee1332f776c556fbe98e400a7ec5748faf17dd1fd52c7fa4601c0a32ec56c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Dumbbell_Pullover_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_male_v2_2.png",
+      "sourceSha256": "d195f8860443a190959343f251e261295d669c0abc3b7f76643b813da601c413",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_male_v2_2.png",
+      "candidateSha256": "1f8a0c992cf951bc8b3d9e48fbe1a631e82f3f5003bef375b371a5de3aadd83c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Dumbbell_Pullover_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_male_v2_3.png",
+      "sourceSha256": "aec705cb05b9170b83d8608e3ab79710da91c462a262c6cb461fab81781f811f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_male_v2_3.png",
+      "candidateSha256": "63e5e0f6c3b13ffae564c3d49d6624c83d75e42c440afaa803adfe47840e02a7",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Dumbbell_Pullover_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_female_v2_0.png",
+      "sourceSha256": "77acff297f854411fb27eb5e57edfd854860f6cb1ca1cbf771b61cdfa8387a74",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_female_v2_0.png",
+      "candidateSha256": "ac121081742d45ffb9a0f4400342fb75687fd44d3adab5d4b88672029acb31db",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Dumbbell_Pullover_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_female_v2_1.png",
+      "sourceSha256": "e4b3d15c5af4296df9f0bb46b32b657a02910beef8616fc9c39cd834c1765800",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_female_v2_1.png",
+      "candidateSha256": "2134ffa37995bcf5e07bbbbdf7a009a16d346a48b58333e0ecd569fd38c78abc",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Dumbbell_Pullover_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_female_v2_2.png",
+      "sourceSha256": "9e68f2b83e02de4095722b52e32a54fe5b7c57f3a89f9e72840873707618886f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_female_v2_2.png",
+      "candidateSha256": "b482665cd8fce23cb211d3303f18a90b05eceffe4c403651d9d29c7d2720e8e5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent-Arm_Dumbbell_Pullover_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_female_v2_3.png",
+      "sourceSha256": "6cf58151a1b102761d7eef82ba5451c4650b0cf695255a994114cbf91e973535",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_female_v2_3.png",
+      "candidateSha256": "58f250e311c7686c94ebfc33e42f15a60dfd333543cd80aa988f03e732300c70",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

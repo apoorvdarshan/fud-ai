@@ -1,0 +1,16 @@
+{
+  "source_sha256": "0576ba5aaf4a71b405125e45297c28e79a53384b9c665e94fcda7c04d637ca14",
+  "candidate_sha256": "236d45eba96c43be26c7910589e8fed19f8d4e810d1246254c13418d1a0cdf07",
+  "generated_sha256": "f43425491e58a6469f80a3ae23177f4664bb86227b16798e42eec1690d3ae112",
+  "generated_path": "/cursor/stores/bc-59b94c69-a50b-467c-8bbc-d6c6087f891b/artifacts/assets/Barbell_Rollout_from_Bench_male_v2_3_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

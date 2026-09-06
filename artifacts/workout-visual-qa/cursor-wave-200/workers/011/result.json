@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Barbell_Incline_Bench_Press_-_Medium_Grip",
+  "shard": 2,
+  "index": 11,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_0.png",
+      "sourceSha256": "3879e5c81afcd61207ed010ec9c010ef51bfe0c47916191f62ba1ea0e395ba7b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_0.png",
+      "candidateSha256": "b70a55af5f25a77fb6fdb552cac81b26242d2a2381cf2845232fcd1a85e5ee4f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_1.png",
+      "sourceSha256": "0947beeb3e889edb2500a0cc8da28bc5ecafb4162b559a7ec6bc7748c788ab1c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_1.png",
+      "candidateSha256": "d456309d559136c4ac17f54268a693956bb35831fb1d8be0d76eb08596816fc1",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_2.png",
+      "sourceSha256": "66dc6f83573397c375375fde1d10865d1d1beb8e53b2a355c1c853ccb80de929",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_2.png",
+      "candidateSha256": "ac665821a73773e4967f3081cc7d58a8144e57e1ada042cede4b450fe048451e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_3.png",
+      "sourceSha256": "28f5645149931102a07ff884ddb3c45f131fb25cd0468febd8f531217b73bf09",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_3.png",
+      "candidateSha256": "ce12e48a10ca85e53bc7ff7ee6f3ffdd7753e618377b79f0fc31e027814fd36e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_0.png",
+      "sourceSha256": "610d6de654e77eeb40e745bfee3d2c100739616c435cfc48a3fbb6df46e309ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_0.png",
+      "candidateSha256": "0d3cbdd73c9c26c56f7326256aaef4421f14fabbbb21027b88c61e921d019ff4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_1.png",
+      "sourceSha256": "c7d94d2c81f8e74d63adc13a15500334d35ae018793e88bf0d14aa7fe01d29aa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_1.png",
+      "candidateSha256": "00ffc2351d83d66c29ba0e0448172ce97bed0911fb33fdbdfe4a0fb9da7601b6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_2.png",
+      "sourceSha256": "cb1f83a10d8c416817b1da4b9abea81929dca601d7d347186a2db99f21e5efd7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_2.png",
+      "candidateSha256": "095b02959bafd0854011ace58050608273f22844b36816980711dd9d2bd0fdbb",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_3.png",
+      "sourceSha256": "1df445ef7968ddc137c9fb7b763b0d41048ec7feac13abf1a1d05f88f1466048",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_3.png",
+      "candidateSha256": "d2994157410a3ca8b8ddd5f43d061a7b1012194ddb3d759ce72a80bca3b1a6f6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

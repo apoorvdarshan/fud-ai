@@ -1,0 +1,16 @@
+{
+  "source_sha256": "f41c10976594f200914c26669793ada8d8f680bf7dd8850c97f788b85baa4f83",
+  "candidate_sha256": "e76ab74c6a125e7b81bd2eb8ddf43ae76f2c1d7c07e3bc729953a9f5c8c1f89a",
+  "generated_sha256": "a0a5b64c7ff0728819f5f54dc136c2cf9bdf53ae7011df91865d60d646c24449",
+  "generated_path": "/cursor/stores/bc-59b94c69-a50b-467c-8bbc-d6c6087f891b/artifacts/assets/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_2_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

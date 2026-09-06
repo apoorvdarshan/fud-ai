@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Hang_Snatch_-_Below_Knees",
+  "shard": 2,
+  "index": 16,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Hang_Snatch_-_Below_Knees_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_male_v2_0.png",
+      "sourceSha256": "fc6f44901ef1218d1de17e80a5b77776ea4a72f74dfcd516c07187d73e83c8c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_male_v2_0.png",
+      "candidateSha256": "6151f5953084c7f5f65aa8cf7a1e7fe3b3329c55ec821409dad6689d12652a6b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hang_Snatch_-_Below_Knees_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_male_v2_1.png",
+      "sourceSha256": "57c9c60c8109e781188827b3db6ba4e914099126b82ea8b40e563ea7266f696f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_male_v2_1.png",
+      "candidateSha256": "971671a049274ffd7557c3afe7cd6dfbbd9ff3347ed3c4cd488d8972d85a131b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hang_Snatch_-_Below_Knees_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_male_v2_2.png",
+      "sourceSha256": "9af7aedd5eed4cef62a1d25fd57c0fd4bebac1ea5971eafb7c484e57011288e8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_male_v2_2.png",
+      "candidateSha256": "18f60707b1d30970b06ddd04f6c5cb499a1c541bf54a0f34d120f3f2309ed407",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hang_Snatch_-_Below_Knees_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_male_v2_3.png",
+      "sourceSha256": "4cd6e35e194d532649b8f57b6fd20579f4cf9037ebbafa13e5f9ec89ec7e02b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_male_v2_3.png",
+      "candidateSha256": "9825b859cbdc2a626f015ba52bd6373311c00dfa793b714187dac87c6af70408",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hang_Snatch_-_Below_Knees_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_female_v2_0.png",
+      "sourceSha256": "fc4a31f9c3c85f234a95e4662deeac1adc3c4ef3339fdbfbfa62f8dad5cd83f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_female_v2_0.png",
+      "candidateSha256": "03263a57915e6c415e34591c6435567e7e00bd9fd77d74cf00ccd2b7404a6583",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hang_Snatch_-_Below_Knees_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_female_v2_1.png",
+      "sourceSha256": "7ed2be9b7fc50688cedc38fc490a72c73ee53e699c7df6aba804c8fbad214d19",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_female_v2_1.png",
+      "candidateSha256": "d4f6a3f2e2142e4867c626f5d131e473dd0bde983d0df044b28f4bf8aea05671",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hang_Snatch_-_Below_Knees_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_female_v2_2.png",
+      "sourceSha256": "320591a5966d308c69015d9d3e399a012f439ebbe518d405c1b9ce5415f54db7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_female_v2_2.png",
+      "candidateSha256": "9e8acf92bd93d2982504b819d8ef13717c215855f52eef3471ff36c6f5002f41",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hang_Snatch_-_Below_Knees_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hang_Snatch_-_Below_Knees_female_v2_3.png",
+      "sourceSha256": "8d5612320beadd3913e8ce14d3d59c87e38b838c8accaaa466812684f1c90d62",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_female_v2_3.png",
+      "candidateSha256": "55dfd9842fcc1cf276100d96adf838541ff057623fb503e31118c14486159d6b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

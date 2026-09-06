@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Hanging_Bar_Good_Morning",
+  "shard": 2,
+  "index": 17,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Hanging_Bar_Good_Morning_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_male_v2_0.png",
+      "sourceSha256": "fed73b1a61c04fe28481f4c3143b85a6bf529b1e3cc632d2b4e99599cdd98f6c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/017/Hanging_Bar_Good_Morning_male_v2_0.png",
+      "candidateSha256": "55caa46d1637eb950ab56779a1a099e2059b415e7dd78dea03acd122b38912cb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Bar_Good_Morning_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_male_v2_1.png",
+      "sourceSha256": "bd9a45a75e65e31257a53cff3db3abdc9fbef9faa0d99abf8fab990bef1c85c0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/017/Hanging_Bar_Good_Morning_male_v2_1.png",
+      "candidateSha256": "d3ea091555a68d5207c8de22b6ba6a586888aee0bb946ab68a41febecf81be62",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Bar_Good_Morning_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_male_v2_2.png",
+      "sourceSha256": "2b83e6c0f673ac467bb784f6608282be7a29af4970dde47f5ed865365421ee29",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/017/Hanging_Bar_Good_Morning_male_v2_2.png",
+      "candidateSha256": "677bc3537552f23ee30b596df5a732760f835a3ea8632c162f282137d8d4365c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Bar_Good_Morning_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_male_v2_3.png",
+      "sourceSha256": "e7e386f92932a1e81a75f31a8726041a7df4ef0debece291d397ceeb38607775",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/017/Hanging_Bar_Good_Morning_male_v2_3.png",
+      "candidateSha256": "8b4a99eee9a74a6c94364eb8f51c31c48a65e040f3920a2dc119b5a52496eec7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Bar_Good_Morning_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_female_v2_0.png",
+      "sourceSha256": "84cb9c8598cfef95122996583e56bd46d563b5de7d74a8e1ffe1affa002bc068",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/017/Hanging_Bar_Good_Morning_female_v2_0.png",
+      "candidateSha256": "bbb6b4cc1e6d2fd4ca58566f1a427450fd53b9a4d19c0e920d9df233cb605d35",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Bar_Good_Morning_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_female_v2_1.png",
+      "sourceSha256": "8ca5e0e07176d49c4764a4802d1760a9a03c7542aaba7e40d49d2a50054acd5d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/017/Hanging_Bar_Good_Morning_female_v2_1.png",
+      "candidateSha256": "1c10d63e8ac70caf4934b45150f55e101a2bf16bb3a22f6c80b2684e7bc5fc87",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Bar_Good_Morning_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_female_v2_2.png",
+      "sourceSha256": "1ec0a4b4fc4f7b111b1f896bc6d8819e1d7b053ff70f1182e2b7419afe08d264",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/017/Hanging_Bar_Good_Morning_female_v2_2.png",
+      "candidateSha256": "63aa6492f4f2cf11377e181dabf7a8272688906f002b80dd5e34899a16f53e60",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Bar_Good_Morning_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Bar_Good_Morning_female_v2_3.png",
+      "sourceSha256": "7d374911af1348d014fb74c692e04ae8058794b884025c870659f37a661339bd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/017/Hanging_Bar_Good_Morning_female_v2_3.png",
+      "candidateSha256": "9b1a72f27a52178255d9580af6317714d1269df53d5dfaca48e2320f074f3219",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

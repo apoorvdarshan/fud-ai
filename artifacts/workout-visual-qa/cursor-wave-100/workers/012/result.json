@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Handstand_Push-Ups",
+  "shard": 2,
+  "index": 12,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Handstand_Push-Ups_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Handstand_Push-Ups_male_v2_0.png",
+      "sourceSha256": "0cde2afac1cd792308984aa3bcf70d92a3dee3b2d4b8aed274e30276a54e12d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_male_v2_0.png",
+      "candidateSha256": "2a43abb742aab4caee11439c6e00ee4808a94dbd163016f559faaa485d39c1c8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Handstand_Push-Ups_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Handstand_Push-Ups_male_v2_1.png",
+      "sourceSha256": "112e81679818341896efe5261b40d5e806e944ff88ac00e70d70b360f1eba24e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_male_v2_1.png",
+      "candidateSha256": "c49d07c454c6e06ccd7d09676ce2bcb3b136f12f8ea8b4c6d03067c3c37a107a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Handstand_Push-Ups_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Handstand_Push-Ups_male_v2_2.png",
+      "sourceSha256": "b728fa8f5415998257d871fa040c288f65f32facffb0b582eacdb0f5c8915786",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_male_v2_2.png",
+      "candidateSha256": "4e663284cee6f1a24bf4f78675c9078cbd9ba32749d22c3a79f48a271dacd773",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Handstand_Push-Ups_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Handstand_Push-Ups_male_v2_3.png",
+      "sourceSha256": "c8b0e6e7724de5d728646bbb06055ab81261dce118777422a9adf6c2fbf5f111",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_male_v2_3.png",
+      "candidateSha256": "ac4adf78cd582df8025a6f6abee005e486a4d875399029a9f00d87beba3fe4d1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Handstand_Push-Ups_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Handstand_Push-Ups_female_v2_0.png",
+      "sourceSha256": "81ff5f6e16b34c28fe58586ae7017c2c188b27f7d21712f2496eacf43ddda013",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_female_v2_0.png",
+      "candidateSha256": "dd4db0d7a773ccf2efe95a5271c8cb6704cb7a8e18ad95a6417f5c2af9c5ca39",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Handstand_Push-Ups_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Handstand_Push-Ups_female_v2_1.png",
+      "sourceSha256": "7826a0ff14485b4f9003939292d0ee8e2f33417a619aadec76b4f7f8bf243323",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_female_v2_1.png",
+      "candidateSha256": "431b2a715f050826d7b9360fa70c386a98584c28703cfd670a5caf4b7d699c80",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Handstand_Push-Ups_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Handstand_Push-Ups_female_v2_2.png",
+      "sourceSha256": "749e5d598dad954f32910d75c6f15880af5f9f03ce8c0c2fca2d1b721af4134c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_female_v2_2.png",
+      "candidateSha256": "a1bb2b7b6d757701b0e45c50b05c07fe211bfceab8d346775df76c22932170fe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Handstand_Push-Ups_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Handstand_Push-Ups_female_v2_3.png",
+      "sourceSha256": "c3a9484b3744cf596022d39865da018aeb9d502142cb25b66a5ea1f954134db1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_female_v2_3.png",
+      "candidateSha256": "38b16f8cbb016529d1c3ca65ff34bf5fb4f8ae28377d5f2776ac9e41da5f7d86",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

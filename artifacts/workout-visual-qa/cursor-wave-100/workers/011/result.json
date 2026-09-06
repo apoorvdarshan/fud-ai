@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Hamstring-SMR",
+  "shard": 2,
+  "index": 11,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Hamstring-SMR_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_male_v2_0.png",
+      "sourceSha256": "d62e1144f8ba3538bc89888e7e7ececbee1345c696ea0932324e7d87fa052f6e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_male_v2_0.png",
+      "candidateSha256": "1a6f3e44c61b2305f65203f2e5343d050f95faf0fddcee33053c4ac2b2560734",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring-SMR_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_male_v2_1.png",
+      "sourceSha256": "7ef9b93346e1819c0b4c830fd79d8225b578bd51d7e9d3caedb7667353c2c1ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_male_v2_1.png",
+      "candidateSha256": "dc910b1a9fc2790468e6e53f7fec45ec3d9ec3f068749569d24854c1f7786936",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring-SMR_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_male_v2_2.png",
+      "sourceSha256": "c7df04eb29b11d1e04da777acabb3d5842e795f1d051d9e57c54c75ccbfa1f43",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_male_v2_2.png",
+      "candidateSha256": "cfb072233389d341578c9947622abe5799f118ad4071ffa0a9788bab3b9f317d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring-SMR_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_male_v2_3.png",
+      "sourceSha256": "e0236a6ab21116cf236020a346e7fead146e3b7c79783513c8b674d044485398",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_male_v2_3.png",
+      "candidateSha256": "e47e78937b7d2e024869dd4f87bafb8010ebea4b2248128f83ccea6eb82c4bfd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring-SMR_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_female_v2_0.png",
+      "sourceSha256": "a90f62c735f8b2e3a7640ca8d733c611ef591eaa88b9dd6e0ca61a77f2ca05d7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_female_v2_0.png",
+      "candidateSha256": "61a5eaba70f1ff9c7989a9a49f876bb25be2236406238550cd9ab0d5fa28618d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring-SMR_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_female_v2_1.png",
+      "sourceSha256": "0318136174ba2691b0e863d31d22f8ee1f02d25a00782c288d9e8465ad6971c9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_female_v2_1.png",
+      "candidateSha256": "ccf03d15308c131ca5c4914b51bbfe0ca7e0219554198f6edffa8fdce77bea3a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring-SMR_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_female_v2_2.png",
+      "sourceSha256": "b003484e1264f238ba53eaea71c0ed90ee596cef4cc93d82a291db193853bb6b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_female_v2_2.png",
+      "candidateSha256": "a0ff853c2b069f5d207a2683007af1063d1153db5285f17fc58da8715bce63e5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hamstring-SMR_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_female_v2_3.png",
+      "sourceSha256": "a77f2808eb112db496bcdf209d0299044b1821183977ede94bbde3db4a21a471",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_female_v2_3.png",
+      "candidateSha256": "db67e0c112d8cb11109059a81b31b51f29d6d844adc814051af65e6508b160db",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

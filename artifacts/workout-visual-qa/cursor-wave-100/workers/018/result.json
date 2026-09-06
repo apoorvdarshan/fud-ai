@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Hanging_Leg_Raise",
+  "shard": 2,
+  "index": 18,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Hanging_Leg_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Leg_Raise_male_v2_0.png",
+      "sourceSha256": "b0acb71f9b437a0356c85fa306d21ce841ee5df63e68e889596ef05190b3e47d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_male_v2_0.png",
+      "candidateSha256": "66a2905de18797b4e0679fc35939d6b4b221a15957434a84b4715a1e3a5df65e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Leg_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Leg_Raise_male_v2_1.png",
+      "sourceSha256": "ae5641ac5ba6bea1dadb36bba51d58a6584c7abbf7514ab919d7745bb5e2a843",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_male_v2_1.png",
+      "candidateSha256": "c40e4063dd01b90178dc32c254b676b9602090dbbb04d08d5588a9f395597170",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Leg_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Leg_Raise_male_v2_2.png",
+      "sourceSha256": "fc975641f04b9519d7f3ea0a265c76dcb113d7ddb0b101908d766ed0ca33f05f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_male_v2_2.png",
+      "candidateSha256": "f07e2d277e0e565ab690f8d72d5e3e9641fa3a06cd4327091e2cdb1ad4cb34a6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Leg_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Leg_Raise_male_v2_3.png",
+      "sourceSha256": "f03c699537ca372f5143834b620dec59a55679057ed8641c7222aeb386771a94",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_male_v2_3.png",
+      "candidateSha256": "61c8d36366f8527535ea121b5d27eb81cb987ab4d26e5b5ef0efdf0dc28a4425",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Leg_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Leg_Raise_female_v2_0.png",
+      "sourceSha256": "6a3e2c19a801b3812c7cb2cfbfc1a8e808a8361aeba6528db13955817edd6f8e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_female_v2_0.png",
+      "candidateSha256": "537a69563b1028cd2309cf0030581ea14aac73d308c9fcc88829d6e38d8c629a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Leg_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Leg_Raise_female_v2_1.png",
+      "sourceSha256": "e9307759a561278bf26f2db19b6f073af22e348dd3abdf821b89ceb0787e1a7a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_female_v2_1.png",
+      "candidateSha256": "a4adc29649ad1a3342662db6aec22fdc3eecd71038e279feec34f5ebbec5c45e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Leg_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Leg_Raise_female_v2_2.png",
+      "sourceSha256": "18dc0c6ba3b01ab7db1be7a25639c309eb3424978c60e7005215151dc34e77f6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_female_v2_2.png",
+      "candidateSha256": "8bc02ab58f955db9abdf055905580237d76540cdd0116a125ace867cfa4e56c5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Hanging_Leg_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Hanging_Leg_Raise_female_v2_3.png",
+      "sourceSha256": "de58033937bc40bb2a29cd636a91ede742abf614af5adcf99490415e0cb96914",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/018/Hanging_Leg_Raise_female_v2_3.png",
+      "candidateSha256": "a5cb8ca8153998a02f5db4f0638a45046feb736aacfd079a5983ba004c18bbf9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

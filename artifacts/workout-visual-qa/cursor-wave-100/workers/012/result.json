@@ -3,7 +3,9 @@
   "shard": 2,
   "index": 12,
   "status": "ready_for_review",
-  "findings": [],
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
   "unresolved": [],
   "frames": [
     {
@@ -13,7 +15,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_male_v2_0.png",
       "candidateSha256": "2a43abb742aab4caee11439c6e00ee4808a94dbd163016f559faaa485d39c1c8",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Handstand_Push-Ups_male_v2_1.png",
@@ -22,7 +25,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_male_v2_1.png",
       "candidateSha256": "c49d07c454c6e06ccd7d09676ce2bcb3b136f12f8ea8b4c6d03067c3c37a107a",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Handstand_Push-Ups_male_v2_2.png",
@@ -31,7 +35,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_male_v2_2.png",
       "candidateSha256": "4e663284cee6f1a24bf4f78675c9078cbd9ba32749d22c3a79f48a271dacd773",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Handstand_Push-Ups_male_v2_3.png",
@@ -40,7 +45,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_male_v2_3.png",
       "candidateSha256": "ac4adf78cd582df8025a6f6abee005e486a4d875399029a9f00d87beba3fe4d1",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Handstand_Push-Ups_female_v2_0.png",
@@ -49,7 +55,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_female_v2_0.png",
       "candidateSha256": "dd4db0d7a773ccf2efe95a5271c8cb6704cb7a8e18ad95a6417f5c2af9c5ca39",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Handstand_Push-Ups_female_v2_1.png",
@@ -58,7 +65,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_female_v2_1.png",
       "candidateSha256": "431b2a715f050826d7b9360fa70c386a98584c28703cfd670a5caf4b7d699c80",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Handstand_Push-Ups_female_v2_2.png",
@@ -67,7 +75,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_female_v2_2.png",
       "candidateSha256": "a1bb2b7b6d757701b0e45c50b05c07fe211bfceab8d346775df76c22932170fe",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Handstand_Push-Ups_female_v2_3.png",
@@ -76,7 +85,9 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/012/Handstand_Push-Ups_female_v2_3.png",
       "candidateSha256": "38b16f8cbb016529d1c3ca65ff34bf5fb4f8ae28377d5f2776ac9e41da5f7d86",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     }
-  ]
+  ],
+  "changedFrameCount": 0
 }

@@ -3,7 +3,10 @@
   "shard": 2,
   "index": 11,
   "status": "ready_for_review",
-  "findings": [],
+  "findings": [
+    "GenerateImage surgical edit + key_workout_chroma.py on 7 frame(s) with floor/fringe/plate/bar artifacts.",
+    "All 8 frames visually reviewed on dark background."
+  ],
   "unresolved": [],
   "frames": [
     {
@@ -11,36 +14,40 @@
       "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_male_v2_0.png",
       "sourceSha256": "d62e1144f8ba3538bc89888e7e7ececbee1345c696ea0932324e7d87fa052f6e",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_male_v2_0.png",
-      "candidateSha256": "1a6f3e44c61b2305f65203f2e5343d050f95faf0fddcee33053c4ac2b2560734",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "77db7d9cde4198aaaf9f940aa6dca720307aea621b9a76c27f9c6982b95c43d8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Hamstring-SMR_male_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_male_v2_1.png",
       "sourceSha256": "7ef9b93346e1819c0b4c830fd79d8225b578bd51d7e9d3caedb7667353c2c1ec",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_male_v2_1.png",
-      "candidateSha256": "dc910b1a9fc2790468e6e53f7fec45ec3d9ec3f068749569d24854c1f7786936",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "1d02d7e37f0fc12a5be6bcfed292e01c3789e6e2a8e8872636978fecf43ff4df",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Hamstring-SMR_male_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_male_v2_2.png",
       "sourceSha256": "c7df04eb29b11d1e04da777acabb3d5842e795f1d051d9e57c54c75ccbfa1f43",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_male_v2_2.png",
-      "candidateSha256": "cfb072233389d341578c9947622abe5799f118ad4071ffa0a9788bab3b9f317d",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "6bda3c900fdb940c9db23fd91c8de7cf816808f1aac943d49512f833a8157c96",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Hamstring-SMR_male_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_male_v2_3.png",
       "sourceSha256": "e0236a6ab21116cf236020a346e7fead146e3b7c79783513c8b674d044485398",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_male_v2_3.png",
-      "candidateSha256": "e47e78937b7d2e024869dd4f87bafb8010ebea4b2248128f83ccea6eb82c4bfd",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "f25226221b390e207365a4079c3d824de5afcb999f4d57e79fd121ad94698c26",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Hamstring-SMR_female_v2_0.png",
@@ -49,34 +56,39 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_female_v2_0.png",
       "candidateSha256": "61a5eaba70f1ff9c7989a9a49f876bb25be2236406238550cd9ab0d5fa28618d",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hamstring-SMR_female_v2_1.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_female_v2_1.png",
       "sourceSha256": "0318136174ba2691b0e863d31d22f8ee1f02d25a00782c288d9e8465ad6971c9",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_female_v2_1.png",
-      "candidateSha256": "ccf03d15308c131ca5c4914b51bbfe0ca7e0219554198f6edffa8fdce77bea3a",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "e707c31ca2037d3803948083b1f52838a1eb7ed4c99966ab90356a237109e84f",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Hamstring-SMR_female_v2_2.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_female_v2_2.png",
       "sourceSha256": "b003484e1264f238ba53eaea71c0ed90ee596cef4cc93d82a291db193853bb6b",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_female_v2_2.png",
-      "candidateSha256": "a0ff853c2b069f5d207a2683007af1063d1153db5285f17fc58da8715bce63e5",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "bcdd00352a8bc8fa33f047b63805f4df84bde3e688e86067644ca1c17a41c8c4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     },
     {
       "filename": "Hamstring-SMR_female_v2_3.png",
       "sourcePath": "/workspace/shared/workout-vectors/Hamstring-SMR_female_v2_3.png",
       "sourceSha256": "a77f2808eb112db496bcdf209d0299044b1821183977ede94bbde3db4a21a471",
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/011/Hamstring-SMR_female_v2_3.png",
-      "candidateSha256": "db67e0c112d8cb11109059a81b31b51f29d6d844adc814051af65e6508b160db",
-      "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "candidateSha256": "354a6547a12e0a638eaa4ed880987999bdbc39a9c3eb71a36ffb4db9013742f6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
     }
-  ]
+  ],
+  "changedFrameCount": 7
 }

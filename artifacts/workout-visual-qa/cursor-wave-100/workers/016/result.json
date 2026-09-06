@@ -3,7 +3,9 @@
   "shard": 2,
   "index": 16,
   "status": "ready_for_review",
-  "findings": [],
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
   "unresolved": [],
   "frames": [
     {
@@ -13,7 +15,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_male_v2_0.png",
       "candidateSha256": "6151f5953084c7f5f65aa8cf7a1e7fe3b3329c55ec821409dad6689d12652a6b",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hang_Snatch_-_Below_Knees_male_v2_1.png",
@@ -22,7 +25,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_male_v2_1.png",
       "candidateSha256": "971671a049274ffd7557c3afe7cd6dfbbd9ff3347ed3c4cd488d8972d85a131b",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hang_Snatch_-_Below_Knees_male_v2_2.png",
@@ -31,7 +35,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_male_v2_2.png",
       "candidateSha256": "18f60707b1d30970b06ddd04f6c5cb499a1c541bf54a0f34d120f3f2309ed407",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hang_Snatch_-_Below_Knees_male_v2_3.png",
@@ -40,7 +45,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_male_v2_3.png",
       "candidateSha256": "9825b859cbdc2a626f015ba52bd6373311c00dfa793b714187dac87c6af70408",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hang_Snatch_-_Below_Knees_female_v2_0.png",
@@ -49,7 +55,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_female_v2_0.png",
       "candidateSha256": "03263a57915e6c415e34591c6435567e7e00bd9fd77d74cf00ccd2b7404a6583",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hang_Snatch_-_Below_Knees_female_v2_1.png",
@@ -58,7 +65,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_female_v2_1.png",
       "candidateSha256": "d4f6a3f2e2142e4867c626f5d131e473dd0bde983d0df044b28f4bf8aea05671",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hang_Snatch_-_Below_Knees_female_v2_2.png",
@@ -67,7 +75,8 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_female_v2_2.png",
       "candidateSha256": "9e8acf92bd93d2982504b819d8ef13717c215855f52eef3471ff36c6f5002f41",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     },
     {
       "filename": "Hang_Snatch_-_Below_Knees_female_v2_3.png",
@@ -76,7 +85,9 @@
       "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/016/Hang_Snatch_-_Below_Knees_female_v2_3.png",
       "candidateSha256": "55dfd9842fcc1cf276100d96adf838541ff057623fb503e31118c14486159d6b",
       "method": "script_background_cleanup",
-      "visuallyReviewed": false
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": false
     }
-  ]
+  ],
+  "changedFrameCount": 0
 }

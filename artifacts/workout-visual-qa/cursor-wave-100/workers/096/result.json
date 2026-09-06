@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Alternating_Hang_Clean",
+  "shard": 10,
+  "index": 96,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Alternating_Hang_Clean_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Hang_Clean_male_v2_0.png",
+      "sourceSha256": "6e74e5f8b74bf426b23b084ddf0d064a40bf8b66b015694f278d3ebb921b4db3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/096/Alternating_Hang_Clean_male_v2_0.png",
+      "candidateSha256": "59cfc73c2ad6d00b55ec40a581c4a1652d4c72a7b1ef5902cae195a4b67da921",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Hang_Clean_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Hang_Clean_male_v2_1.png",
+      "sourceSha256": "c75546fb191e8d69b25cbe6d6c5795a329d9d9ddecb04d232f0ff91535fca6d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/096/Alternating_Hang_Clean_male_v2_1.png",
+      "candidateSha256": "0fbb16db0efaf7820c63b744e5a57b5c879be635e851e0326f158b7b5826f005",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Hang_Clean_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Hang_Clean_male_v2_2.png",
+      "sourceSha256": "c1b419c0cd9bec4bf227bbe3719050cc29ca43492747da702ab038dc8d0b60cf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/096/Alternating_Hang_Clean_male_v2_2.png",
+      "candidateSha256": "b13682e28723c06b2898001f870f496c28039f10348273d402ff919d9b93fce7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Hang_Clean_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Hang_Clean_male_v2_3.png",
+      "sourceSha256": "edb19f3e316516336d7359cf06ca6ea9f140512fd1ef1eacda9b3c2983d26919",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/096/Alternating_Hang_Clean_male_v2_3.png",
+      "candidateSha256": "421de712579128a97365b16d10b2d2f429f33a4c511634679571cd4485877bd8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Hang_Clean_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Hang_Clean_female_v2_0.png",
+      "sourceSha256": "e763b4113496ad9293449d1b2caee5b53162d0c2f1d777b948fa0e2c03049974",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/096/Alternating_Hang_Clean_female_v2_0.png",
+      "candidateSha256": "93aa8de6643dee40376a06770cc153991d6eaf56d0caf28239640d7127a93dc8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Hang_Clean_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Hang_Clean_female_v2_1.png",
+      "sourceSha256": "55176c96d2d7e7fac343a90eb2df61aa38988434b25d3b2c3316ea2ed9d91191",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/096/Alternating_Hang_Clean_female_v2_1.png",
+      "candidateSha256": "68174259bc0e2a151e282ed52767fc923c81e1a5a523e455ebbcbfb4cbce1ed6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Hang_Clean_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Hang_Clean_female_v2_2.png",
+      "sourceSha256": "48036963f59b02edb238cd44c43864a6d36be4665151133c1b5f75cc9edf969f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/096/Alternating_Hang_Clean_female_v2_2.png",
+      "candidateSha256": "8cc1f57401cb0304392cab533d5b2c06259711bb1352a8c3908e3b983b8016a2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Alternating_Hang_Clean_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Alternating_Hang_Clean_female_v2_3.png",
+      "sourceSha256": "f85ac8b47ff9e07a5df11063303dbd9f7078d4fdd619c98c22067ded4f971651",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/096/Alternating_Hang_Clean_female_v2_3.png",
+      "candidateSha256": "7a8c255a4b0cf90402f9279509c135aad714784015d98b658fa76e639abcfa6d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

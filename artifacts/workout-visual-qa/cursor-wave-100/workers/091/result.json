@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Ab_Roller",
+  "shard": 10,
+  "index": 91,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Ab_Roller_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ab_Roller_male_v2_0.png",
+      "sourceSha256": "d1c5b5ba15ce73b484ec2687348001ffac952c21199ddd438999f0fe9080bdd4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/091/Ab_Roller_male_v2_0.png",
+      "candidateSha256": "5a4938926f7edd344247fa3767f331e40dd89b3fbb7a86081faadcc0423d7506",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ab_Roller_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ab_Roller_male_v2_1.png",
+      "sourceSha256": "9c1b8b467c4fb542c0ddbc021804f831e39a98fc21dbd7c2e9686c9e0070d756",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/091/Ab_Roller_male_v2_1.png",
+      "candidateSha256": "50e4ee35f10b15a49ed44daea04a5567557a500bea973513d68a69bbaf4c521b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ab_Roller_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ab_Roller_male_v2_2.png",
+      "sourceSha256": "aeed98a77fe739e3ce6a195cbf91282c5424153e4bc55bb3be9514fc9fe6edd9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/091/Ab_Roller_male_v2_2.png",
+      "candidateSha256": "1f681bf46f044e1970b45bef3fea0401fac39268812a188abae659933a5b9a13",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ab_Roller_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ab_Roller_male_v2_3.png",
+      "sourceSha256": "2c30b6fce479927fb09ee0fc11c71369fd4164fe395db50d66bb2ee6cae371da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/091/Ab_Roller_male_v2_3.png",
+      "candidateSha256": "6148b59ad7be16408779eeae1bb26e7e87a31c176376d3ae199807de387ec342",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ab_Roller_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ab_Roller_female_v2_0.png",
+      "sourceSha256": "17697da8a2dd5d2f19d1a540863d5e247e0b4614ad6f30060583616e565a7e58",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/091/Ab_Roller_female_v2_0.png",
+      "candidateSha256": "fc7f50f25722b867f07774bb48b03a190b41a5003c35eed6b610decfb94bbf40",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ab_Roller_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ab_Roller_female_v2_1.png",
+      "sourceSha256": "310eca6f057343ef75627a6306194ed03d4a4b671c2d7ebae532bc2c629b093e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/091/Ab_Roller_female_v2_1.png",
+      "candidateSha256": "f9552af7a971fe07250d1d85e5b7af9ff8a068298d154d80739fa5566fbf96c0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ab_Roller_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ab_Roller_female_v2_2.png",
+      "sourceSha256": "f7951b9291a5188a8ac9b80020ab86c1a8dd110786bcba1c08843960d9dc4096",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/091/Ab_Roller_female_v2_2.png",
+      "candidateSha256": "f362902a6aa27cd62275503920910452d5d5ca5bd4d7b7f6a2916d9f6406c4b3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Ab_Roller_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Ab_Roller_female_v2_3.png",
+      "sourceSha256": "d400454cebc0b819f28b0da57869fd5dfc70e02d249fc8738d1a9bdfa3f3d791",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/091/Ab_Roller_female_v2_3.png",
+      "candidateSha256": "51cf30ff24ee55f4705fe5ee71fc0b846381aceb1a07c4af3c2af1880ba1366e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

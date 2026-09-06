@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Single_Leg_Glute_Bridge",
+  "shard": 24,
+  "index": 234,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 5 frame(s) with floor/fringe/artifact issues."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Single_Leg_Glute_Bridge_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Glute_Bridge_male_v2_0.png",
+      "sourceSha256": "822e12ba0f1935b44ccdc41ed5ec7cb796bfd05accf43a2fee963b95ad25d1be",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/234/Single_Leg_Glute_Bridge_male_v2_0.png",
+      "candidateSha256": "9ed7d461781bda5b0c8ca13e25c071681c9b63b111013630d9f2d19f4feb1653",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Glute_Bridge_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Glute_Bridge_male_v2_1.png",
+      "sourceSha256": "c8a28eef37684984fdce4f69bc0b6430191bd8f748560c42b5007e8242e4ce3d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/234/Single_Leg_Glute_Bridge_male_v2_1.png",
+      "candidateSha256": "d23e8d7bc31d9e0ad612dcefdde7ddae711b7f183220fbdca90b921772eea26d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Glute_Bridge_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Glute_Bridge_male_v2_2.png",
+      "sourceSha256": "26c2845e9ea482e489b041c5af53fef3f1e1e633d5edf4f0f4c4787a841502b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/234/Single_Leg_Glute_Bridge_male_v2_2.png",
+      "candidateSha256": "f98961d80418a5d745243a20cb4fcd967f9e0c8bc880c2c8bc990b9810735776",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Glute_Bridge_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Glute_Bridge_male_v2_3.png",
+      "sourceSha256": "6267e57cc9ef76ae50ecbb236960c6067f7cf5ae7faa1d461482ac9073183b9d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/234/Single_Leg_Glute_Bridge_male_v2_3.png",
+      "candidateSha256": "835f35d8e00cac2897017419f74922e740a3993a9bff7cbdcee5c25fe00839fe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Glute_Bridge_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Glute_Bridge_female_v2_0.png",
+      "sourceSha256": "8728e2abdf22e70dc5dc544d919742943673a8368bf4ea3b48658a73cec747ec",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/234/Single_Leg_Glute_Bridge_female_v2_0.png",
+      "candidateSha256": "cc7370ee79661882b437c72389310b89e68f8aa0082ae498061757d603a41e30",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Glute_Bridge_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Glute_Bridge_female_v2_1.png",
+      "sourceSha256": "38c7b03b02aeb912ff73a3b5ffb8548ce639e084b434645d3c5caea4a3d6c91c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/234/Single_Leg_Glute_Bridge_female_v2_1.png",
+      "candidateSha256": "5fb4282bad5eabb4945e22f90359930e88dcfca032ade8e36c4c371b71950a49",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Glute_Bridge_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Glute_Bridge_female_v2_2.png",
+      "sourceSha256": "7f7cc5444939b161bff31ee9542c242e3731cac8673b17166fd43fee0161dbac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/234/Single_Leg_Glute_Bridge_female_v2_2.png",
+      "candidateSha256": "679949273a9226b30db4f1b44c2df60ace125624e352fc7a8fe8d725b8931271",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Single_Leg_Glute_Bridge_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Single_Leg_Glute_Bridge_female_v2_3.png",
+      "sourceSha256": "995fc81cc3ecf64c60c49f16280a8c75a034fdc4314c9c8bcc8d687e799d2d1f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/234/Single_Leg_Glute_Bridge_female_v2_3.png",
+      "candidateSha256": "08ff1f4a625c514d1a5c6160e3f74e9ececf1199a15684ea7bd831888ceeb310",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

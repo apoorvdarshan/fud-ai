@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Skating",
+  "shard": 24,
+  "index": 238,
+  "status": "ready_for_review",
+  "findings": [
+    "Cursor GenerateImage surgical edit + key_workout_chroma.py on 6 frame(s) with floor/fringe/artifact issues."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Skating_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Skating_male_v2_0.png",
+      "sourceSha256": "1dac04fb67b1d82015318af51368a7a2df88c1d1d3ea3903b68395c16071431f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/238/Skating_male_v2_0.png",
+      "candidateSha256": "5cc2c27626c2b56fb7864b3d2910d395d740467dd6e5b73782cb36c7c5de49c1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Skating_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Skating_male_v2_1.png",
+      "sourceSha256": "aba2af18ef09430cf33dc8e2f873caa41f77a248a5a8cb97441914ec812bc227",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/238/Skating_male_v2_1.png",
+      "candidateSha256": "f7e431c6cb3867e2b6a51dd3b251efb9bd698a5d709ad344fb6adcd78255bb83",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Skating_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Skating_male_v2_2.png",
+      "sourceSha256": "de7f0ef7693e142905f8be6aa33b27ca3e95f65592329b2edcec728df4e53abe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/238/Skating_male_v2_2.png",
+      "candidateSha256": "f78b0f2168fdecce7afc58cf66ff2ceeffdfcddb06e779ff9ea0dec892cda211",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Skating_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Skating_male_v2_3.png",
+      "sourceSha256": "7a99413b6e95ab13e6ddb980b1fe1d1dfeca034c588155ba0b6fd4d4f11bc118",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/238/Skating_male_v2_3.png",
+      "candidateSha256": "b0894945c7bd36af038778f187a24a8c2237d85c0758bb420a21b1de04baa847",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Skating_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Skating_female_v2_0.png",
+      "sourceSha256": "47326e92de7999c80a0606c19be0765d08840c066655d3b153c262f5179a5289",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/238/Skating_female_v2_0.png",
+      "candidateSha256": "b93b0eaa9aa688d3025d0045610e2c2e8e76415dc4f355b4f212396bf912fc03",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Skating_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Skating_female_v2_1.png",
+      "sourceSha256": "e935f181d916f9cb68959f8f5574ecd4ba0659d6e4d5c1cdecb9c77b43258cd6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/238/Skating_female_v2_1.png",
+      "candidateSha256": "eb3a76c953fc8cde04e245b59eb8e0bcdddeb274475b2282857f290ac836341a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Skating_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Skating_female_v2_2.png",
+      "sourceSha256": "18326d397f49a30615194289226b6c901f5ed1d61e7dfcf1e9a7a8e0e3acda23",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/238/Skating_female_v2_2.png",
+      "candidateSha256": "a6f36205aa5d3852d531622b1baadb4523d99cc9444adbd37c8ee91b5e22b80a",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Skating_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Skating_female_v2_3.png",
+      "sourceSha256": "23707ae028e3ec67c14ec0f754f8817065bfaa80ba556e7e2d083d3e69fa217e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/238/Skating_female_v2_3.png",
+      "candidateSha256": "5f87d0f8ba966000f51652aa2faf95faeaf584771e1da8ae6d1fd2fc992433c3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

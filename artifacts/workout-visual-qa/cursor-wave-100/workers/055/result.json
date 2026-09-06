@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Inverted_Row_with_Straps",
+  "shard": 6,
+  "index": 55,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Inverted_Row_with_Straps_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_male_v2_0.png",
+      "sourceSha256": "88614794f6101c1b6d2078970ffe4de735245292e7a826e26569ac8d617894b2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/055/Inverted_Row_with_Straps_male_v2_0.png",
+      "candidateSha256": "c1efd19ec170da4979329beb8a9609c5b7490cd635e3f30cc08e571cc237cac9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Inverted_Row_with_Straps_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_male_v2_1.png",
+      "sourceSha256": "3744f748152359a6d894eba9d6206dd56fa981d3cd5af727074a47e802adbaf9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/055/Inverted_Row_with_Straps_male_v2_1.png",
+      "candidateSha256": "7307357705a578422044136655cde96e16a6fec63da11c1d734c8fcf66146d6c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Inverted_Row_with_Straps_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_male_v2_2.png",
+      "sourceSha256": "43ea56e83324d7dfc7d95927b71cf7049b03d651f82809de1e637663805701aa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/055/Inverted_Row_with_Straps_male_v2_2.png",
+      "candidateSha256": "84d67b25c485b54447f749c54f076039f92b6131e8d0b0a3efad5ede7f9d9c8c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Inverted_Row_with_Straps_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_male_v2_3.png",
+      "sourceSha256": "3fa63f90d80799fd191845141acd597a86f7bf435b0273b5cf8fcd03fcc8952f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/055/Inverted_Row_with_Straps_male_v2_3.png",
+      "candidateSha256": "83418f9ee3fe879fef15e44028be74f0cbf320682444893233634438ec81271e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Inverted_Row_with_Straps_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_female_v2_0.png",
+      "sourceSha256": "cd10030483f67acf70c80be390e5561a2b78d3ef4e8c8f0958257e71b47ed2e2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/055/Inverted_Row_with_Straps_female_v2_0.png",
+      "candidateSha256": "06061346857e932e7d45e08b4856d9ea94ef9250f4d2a3a26136f40e8ec435bb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Inverted_Row_with_Straps_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_female_v2_1.png",
+      "sourceSha256": "4429940c968b2a7a81a0837694a3dcc7f96d7d221dae0d852fb55422b44aa236",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/055/Inverted_Row_with_Straps_female_v2_1.png",
+      "candidateSha256": "4c78d3c6e40f466c8155dffbbf80fa83f6ea02b1c3b607e62568abe646d459d5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Inverted_Row_with_Straps_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_female_v2_2.png",
+      "sourceSha256": "1d303bab032826d9455efbe1434ee9ee7d4a7213419b1e8d379fb573b0d0b016",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/055/Inverted_Row_with_Straps_female_v2_2.png",
+      "candidateSha256": "bb9dbee211d3e5d7fdd0041b7bfb9e71669cf8d0321a09a792be0259237a43e0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Inverted_Row_with_Straps_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Inverted_Row_with_Straps_female_v2_3.png",
+      "sourceSha256": "febc1877da400a9bc203ce16b1f19d1a90bb96a05c97d1cbf4a0ad5b20594f15",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/055/Inverted_Row_with_Straps_female_v2_3.png",
+      "candidateSha256": "495dc4e7462d00f4c636e9393aba20954bb9e209cb345e3143a147dfff737041",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

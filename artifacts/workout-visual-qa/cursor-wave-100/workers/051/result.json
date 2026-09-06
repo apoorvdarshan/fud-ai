@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Intermediate_Groin_Stretch",
+  "shard": 6,
+  "index": 51,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Intermediate_Groin_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_male_v2_0.png",
+      "sourceSha256": "e6e523fd65f605ea9d5f0ba5d47e74e4a063d2c55dcb30bec0b25bca549e0fa8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_male_v2_0.png",
+      "candidateSha256": "49bec664ce023d0454d4f1c01d4dc4f7b95ae166e03845bd324e58ee0ec02814",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Intermediate_Groin_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_male_v2_1.png",
+      "sourceSha256": "84c8c5152a76518bc24992adc1a30836f1372b959d7762119ffee6a4a964b686",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_male_v2_1.png",
+      "candidateSha256": "230295fb77ad2d7c9b7ecf42a2ccf7aff1a385a6d2cda2c25e06fab1f82ee2b2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Intermediate_Groin_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_male_v2_2.png",
+      "sourceSha256": "5ecbd1e394b63d5153590b72e86257e22d951805da909f690bf7d69ec277b27b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_male_v2_2.png",
+      "candidateSha256": "39d48570d1d436719a8084c936949c507297d86f0434ad7ca3cd668a7ef31574",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Intermediate_Groin_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_male_v2_3.png",
+      "sourceSha256": "c4536732140fefd1a68518430dcce51a39c870254c173daa7f436bf430d0a077",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_male_v2_3.png",
+      "candidateSha256": "2c1a23eb6f5c61d890635237763e249023103c63ede2cdf14da6ff425a804a6a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Intermediate_Groin_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_female_v2_0.png",
+      "sourceSha256": "d1b8e389f68bfd0e336a1053d83652b963631f187af0ad624ef1eec9ab54bb42",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_female_v2_0.png",
+      "candidateSha256": "d6b1340ab60dde87f5fc71618a0a9f0adfbc8e9fbbb5f238f3cb8e802d3e8528",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Intermediate_Groin_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_female_v2_1.png",
+      "sourceSha256": "58fd44feeb6fda09d29ab068e1a553a40341f9b2124a3f03394d9525bbea7a1e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_female_v2_1.png",
+      "candidateSha256": "ef1cf67a87024b1e37cbc2e494654f2a3220bb2c4106f37c9ba21ff724532cf3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Intermediate_Groin_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_female_v2_2.png",
+      "sourceSha256": "ff60365a59a2f7488aad5a1388ec976732ccf2fc3b15dd565c16951a5575df3c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_female_v2_2.png",
+      "candidateSha256": "24a23bd0098a32d08da81320016795f9e97a9cc4226f76cc891faf7e379b0a6a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Intermediate_Groin_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Intermediate_Groin_Stretch_female_v2_3.png",
+      "sourceSha256": "4eeb84171148a1800251b7da90b5b7efe28728f2ea2480513a9ca6170fcb6ba7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/051/Intermediate_Groin_Stretch_female_v2_3.png",
+      "candidateSha256": "62cbfc2fc88ef440987b9260c7072bbd2d5edc47e385a0266b01b27b2bde70f2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

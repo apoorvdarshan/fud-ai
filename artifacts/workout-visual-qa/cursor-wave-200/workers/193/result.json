@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Medicine_Ball_Full_Twist",
+  "shard": 20,
+  "index": 193,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Medicine_Ball_Full_Twist_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Full_Twist_male_v2_0.png",
+      "sourceSha256": "e6e4d50a3d8c2d1f94990f7c803ec339e4954b857cc5aed4ab87cadcd4999293",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/193/Medicine_Ball_Full_Twist_male_v2_0.png",
+      "candidateSha256": "79dc5694ee535349f489d309d150d432687d596df85c3ac07dbca7232931da87",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Full_Twist_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Full_Twist_male_v2_1.png",
+      "sourceSha256": "27247dc088ce0b059e335b71150a3e333dc4cd6467357b1a493f39c62b45a314",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/193/Medicine_Ball_Full_Twist_male_v2_1.png",
+      "candidateSha256": "2e83d93604634f115cee4b0c01ac9842e231b4d4dbffb4056d753f8f0f9e8349",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Full_Twist_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Full_Twist_male_v2_2.png",
+      "sourceSha256": "bd937a50b5b30eecd623e355f2f6e6545e3f8b0356c59c415a093d7e2e3d9cd9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/193/Medicine_Ball_Full_Twist_male_v2_2.png",
+      "candidateSha256": "3cfa34eb21dbe9a0c52c11ac2a028cd0d86c6474814ebf1395dca95b95874027",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Full_Twist_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Full_Twist_male_v2_3.png",
+      "sourceSha256": "1a998d98e0702572223652a9761a00c71eda216d5d1fb9e3f02588d525808029",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/193/Medicine_Ball_Full_Twist_male_v2_3.png",
+      "candidateSha256": "65d9d02aaae4a90c054545f7cb42413157c5592f4845d4f0284f742423d7a221",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Full_Twist_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Full_Twist_female_v2_0.png",
+      "sourceSha256": "07c0c25c0f23b47eab2eb167b0edb27d43a1e73158eb77a0cee58449a44209e8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/193/Medicine_Ball_Full_Twist_female_v2_0.png",
+      "candidateSha256": "1b21e215bafd9565b3812af0f368100451be02c3e59a28173942061db1114cd2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Full_Twist_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Full_Twist_female_v2_1.png",
+      "sourceSha256": "05176cd77c91b6b2a25b8bac14dc510e64035c8584255a344997bfb3829202de",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/193/Medicine_Ball_Full_Twist_female_v2_1.png",
+      "candidateSha256": "0ceea24ddb73555853fc288502351a7fb7d23e39ea1e0db18d7f557f4f412298",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Full_Twist_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Full_Twist_female_v2_2.png",
+      "sourceSha256": "6e8e5a4abf7d17f712d8868dd64cd8f5816e370e33f6d6bd181bb8adb18210b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/193/Medicine_Ball_Full_Twist_female_v2_2.png",
+      "candidateSha256": "b5a93ac2d231c6fec98b7b32b4f0640dba144a2dc9a78462871287e6002c74a9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Full_Twist_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Full_Twist_female_v2_3.png",
+      "sourceSha256": "d228bdc81bfb733cfa9f6d2dbfaa9746defb80370223d7d8bef44628c8134fee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/193/Medicine_Ball_Full_Twist_female_v2_3.png",
+      "candidateSha256": "0825f4907f8576634fd301bd708149867e07d4a2167d48bf57b4ee6004541a5a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

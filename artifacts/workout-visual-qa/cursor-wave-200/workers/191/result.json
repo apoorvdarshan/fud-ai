@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Machine_Triceps_Extension",
+  "shard": 20,
+  "index": 191,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Machine_Triceps_Extension_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Triceps_Extension_male_v2_0.png",
+      "sourceSha256": "3a058c772e13c3344b1998bc62f83aea23c4169346857734120d2e286b2d42d0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/191/Machine_Triceps_Extension_male_v2_0.png",
+      "candidateSha256": "4d96cacb5ddc890012fb10e7720c6aedc298d8bacbdcc365b8349ae591ad0879",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Triceps_Extension_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Triceps_Extension_male_v2_1.png",
+      "sourceSha256": "510c2b27bae225809697d8e408be43b8f8a75c60c0c89a63ae681f20b1635068",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/191/Machine_Triceps_Extension_male_v2_1.png",
+      "candidateSha256": "cf91af8725132b8a8b185527083a319f978a9dfc38469f4f855c3f013d21e15f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Triceps_Extension_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Triceps_Extension_male_v2_2.png",
+      "sourceSha256": "b597c6f3ad459b585d1201d9eecf47b4a6a1c0bddbeeb6e2f52f7f22db7922c8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/191/Machine_Triceps_Extension_male_v2_2.png",
+      "candidateSha256": "9df59eea0218ea0438fe133f3165e712bfafea46d1a44ca9752ebaf206c5933c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Triceps_Extension_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Triceps_Extension_male_v2_3.png",
+      "sourceSha256": "d9824cd89254fda1be63e43cd43b552731b0fef2c27c7a50c0d9187802ef0a87",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/191/Machine_Triceps_Extension_male_v2_3.png",
+      "candidateSha256": "03780170129332f3a6d2690ae31ea14d48207735283ce7d5edb6d5cbd3ce1d66",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Triceps_Extension_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Triceps_Extension_female_v2_0.png",
+      "sourceSha256": "7144ed1f8f7005cabf778f4f8ebbb778960834ddba6893a17a7cfb5b9a5acc68",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/191/Machine_Triceps_Extension_female_v2_0.png",
+      "candidateSha256": "7841eb2890bec462aab107d8fc228c9100c04badfe1b32879f0945eef22d5677",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Triceps_Extension_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Triceps_Extension_female_v2_1.png",
+      "sourceSha256": "bd3bd5b162b76b1c1942dbc517eb1164cde17ec6212b884f887d026009463a17",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/191/Machine_Triceps_Extension_female_v2_1.png",
+      "candidateSha256": "9ec8b9bba7b495b172eb7ea9e2adefcd0dfe41585d898a8e8fb7ed33dff99fe6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Triceps_Extension_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Triceps_Extension_female_v2_2.png",
+      "sourceSha256": "0cf631007f33bcc83c2eae4f54b753cbf62a4e0a890727e20b9203d4b1f15b51",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/191/Machine_Triceps_Extension_female_v2_2.png",
+      "candidateSha256": "e51c5f84a592f39653dcd96f8437780a68ddadb586711ae8afcfb90031ac9885",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Machine_Triceps_Extension_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Machine_Triceps_Extension_female_v2_3.png",
+      "sourceSha256": "aedeefb8855a78a7d8b4631f7002b7444cbeca2c89060a62720747b2d8563a08",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/191/Machine_Triceps_Extension_female_v2_3.png",
+      "candidateSha256": "634becb0ba37362fdcfca60a6e828d993ca1da9a80f43c0b335e3be30e74ae5b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

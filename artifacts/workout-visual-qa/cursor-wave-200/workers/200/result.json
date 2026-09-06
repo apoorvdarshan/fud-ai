@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Moving_Claw_Series",
+  "shard": 20,
+  "index": 200,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Moving_Claw_Series_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Moving_Claw_Series_male_v2_0.png",
+      "sourceSha256": "63005782cc5ecc197d5921d197e1b07ce812fca796fb98dce6aae2772e7d6c79",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/200/Moving_Claw_Series_male_v2_0.png",
+      "candidateSha256": "b29f5e4455009c3844e78ab42a42042b164dbc2e009b97a4459349e668ed7137",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Moving_Claw_Series_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Moving_Claw_Series_male_v2_1.png",
+      "sourceSha256": "04101ca1cad8d0a1f513586345313ec8a456fbe20b3841d1a125b619de72c0ee",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/200/Moving_Claw_Series_male_v2_1.png",
+      "candidateSha256": "977150137a17d2c73a36ef63254fd88b436401f2496f32e9e7d899d77ba51ef6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Moving_Claw_Series_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Moving_Claw_Series_male_v2_2.png",
+      "sourceSha256": "dc793f36b890b94e5da4421425d269c9063a9e02fdd01a5c1d391d63450b191e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/200/Moving_Claw_Series_male_v2_2.png",
+      "candidateSha256": "08841e557e668f84a00905a035e8465f91f75c40dc221077b9402110b1a92c7d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Moving_Claw_Series_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Moving_Claw_Series_male_v2_3.png",
+      "sourceSha256": "b679e8c73acca5331bd4eb33e265a556de3970a7eefedf098bbc51f035a9ec7f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/200/Moving_Claw_Series_male_v2_3.png",
+      "candidateSha256": "42aa6325c3d392cb04c15eb4497efc86345d24523c0eb54515a2b6b7787cd72a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Moving_Claw_Series_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Moving_Claw_Series_female_v2_0.png",
+      "sourceSha256": "f639b707f9e8c35236af4d613adfa9843b75a4c03de767e51c7c4fae19688cd9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/200/Moving_Claw_Series_female_v2_0.png",
+      "candidateSha256": "b8d92c544e3aeaa3f54c29742855055cf64c1f875f39f1cafa0b8fce7900d63c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Moving_Claw_Series_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Moving_Claw_Series_female_v2_1.png",
+      "sourceSha256": "9684887e2fcbeda729ef6f8629544603f38208a92bd6c6fea732357bab178058",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/200/Moving_Claw_Series_female_v2_1.png",
+      "candidateSha256": "c3711a8c61cfa30742ce1249b788c50ed40a474d1c413c363686ad3d77b0c97a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Moving_Claw_Series_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Moving_Claw_Series_female_v2_2.png",
+      "sourceSha256": "9258f475ec2664b7735230129f65fa6c95b7371d780e3ce892cf0780621a2f2d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/200/Moving_Claw_Series_female_v2_2.png",
+      "candidateSha256": "828528fea0eb31a55db1a9e1a60e7aa54b19cc0907558aa69f4089de7f45da8a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Moving_Claw_Series_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Moving_Claw_Series_female_v2_3.png",
+      "sourceSha256": "39e7f016251460d097bdca8ddd783b9c74d5f20d700ef4d51d475315550c5d6a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/200/Moving_Claw_Series_female_v2_3.png",
+      "candidateSha256": "d2fb396f7c25f1d5ba590939b67d9f40935aec1d82d04ff412eb50bc69e0b28a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

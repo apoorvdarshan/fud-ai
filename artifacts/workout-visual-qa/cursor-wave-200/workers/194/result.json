@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Medicine_Ball_Scoop_Throw",
+  "shard": 20,
+  "index": 194,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Medicine_Ball_Scoop_Throw_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Scoop_Throw_male_v2_0.png",
+      "sourceSha256": "0c47a9bc851b0a6b4f3e46fee05cd67cd7debcd3c156af1e154c5ce78e3819c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/194/Medicine_Ball_Scoop_Throw_male_v2_0.png",
+      "candidateSha256": "d983bc8ec34693dc9ec97b85b53ad432f6ecbb33b0f010b57eac342f0a071d32",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Scoop_Throw_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Scoop_Throw_male_v2_1.png",
+      "sourceSha256": "cd6be08d3824f2ee1d0f77f9b2bc1553707e879abeb4eefe2ca764afb14fb05f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/194/Medicine_Ball_Scoop_Throw_male_v2_1.png",
+      "candidateSha256": "ff0fb10889def835c8eec1e7107579aecf24999405baedce5f3c1cb750660a35",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Scoop_Throw_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Scoop_Throw_male_v2_2.png",
+      "sourceSha256": "866f7cc8a6eaec5bdafd7da3e7c6c72717514b17085006db4d30797c74386b32",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/194/Medicine_Ball_Scoop_Throw_male_v2_2.png",
+      "candidateSha256": "a5af478e51a5a0747cfd91920a3af35a2264ac18d3d8441ae09519db81f39452",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Scoop_Throw_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Scoop_Throw_male_v2_3.png",
+      "sourceSha256": "27bbb5d6ded5dbc342eb157cf06f494a4c8742aeb903cb95aca6eb183ebb246d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/194/Medicine_Ball_Scoop_Throw_male_v2_3.png",
+      "candidateSha256": "61d3c98c7dbeda245db55ec86b54bdc9fdf0e1f3e1f68c8f3c3fe36e6015be37",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Scoop_Throw_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Scoop_Throw_female_v2_0.png",
+      "sourceSha256": "a40d025443033dfdc54a9dabb8c8c71423b2b2105945bcb715218457d7c8e04c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/194/Medicine_Ball_Scoop_Throw_female_v2_0.png",
+      "candidateSha256": "873be652f758c09f269a5338949380d47175ec068cb3651a549a6278bbba2e23",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Scoop_Throw_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Scoop_Throw_female_v2_1.png",
+      "sourceSha256": "3bb3edd6ea67654182c004836ebec1c440e22be7f2a4c62a66e6525e0ad55377",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/194/Medicine_Ball_Scoop_Throw_female_v2_1.png",
+      "candidateSha256": "6b96a4da76364aaf5326146e479456e51753a6f5778bf0d92b7b136cf7267d79",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Scoop_Throw_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Scoop_Throw_female_v2_2.png",
+      "sourceSha256": "3e278c6b05109d5e1b3bed5c2fd64ad2d4f4d726b04a146d586bd66105101e46",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/194/Medicine_Ball_Scoop_Throw_female_v2_2.png",
+      "candidateSha256": "57a0dff18773b6fb5e372c615173393149419a71d6285af4360caac7e1a234ff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Medicine_Ball_Scoop_Throw_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Medicine_Ball_Scoop_Throw_female_v2_3.png",
+      "sourceSha256": "881bc05af9f23f8d11125d8a82d43a46d8fc291931418279be79ca6e7ccee12c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/194/Medicine_Ball_Scoop_Throw_female_v2_3.png",
+      "candidateSha256": "57bc3cebfbea99998329dab0d49e918f9892d036fb2a5d0641d0482b6085c5a7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

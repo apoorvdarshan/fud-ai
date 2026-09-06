@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Mixed_Grip_Chin",
+  "shard": 20,
+  "index": 197,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Mixed_Grip_Chin_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mixed_Grip_Chin_male_v2_0.png",
+      "sourceSha256": "eb92bf4d6af8da2eafd283664596c8b22cae6aecdd822eec26fdd18999c8a505",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/197/Mixed_Grip_Chin_male_v2_0.png",
+      "candidateSha256": "6d9e1a5df0298ef1819067980b65cf936a486201e33be6915cbae8cc271ffba9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mixed_Grip_Chin_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mixed_Grip_Chin_male_v2_1.png",
+      "sourceSha256": "36f4bc5cf5d7e4bdb1a77681170cf07553928f63de64bb22be625a8b10b0f83d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/197/Mixed_Grip_Chin_male_v2_1.png",
+      "candidateSha256": "55eb19dfb2c4c3ad59408beb6d0b197a6ddd8ad5818b4bb5e44e7840aa1985af",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mixed_Grip_Chin_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mixed_Grip_Chin_male_v2_2.png",
+      "sourceSha256": "ff4823290dc1409d953acd82e6cfa27ae21f9627c37f8ad04b7f5380172b10bb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/197/Mixed_Grip_Chin_male_v2_2.png",
+      "candidateSha256": "ed19326e0958f3e16c717c66cc422666ea1162140594f1c0d59a408390fbb3f3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mixed_Grip_Chin_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mixed_Grip_Chin_male_v2_3.png",
+      "sourceSha256": "e88b19972870e30e75d525d6d9ea4b48ea40965cea269480e1857fb9798ed400",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/197/Mixed_Grip_Chin_male_v2_3.png",
+      "candidateSha256": "54837dd816e941500154e6270d15a3c26fc565bceb265adfafaffa84d28def85",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mixed_Grip_Chin_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mixed_Grip_Chin_female_v2_0.png",
+      "sourceSha256": "31aaf6f37647a4bae3af4242658406e2648c5bb960710b215ab344c19cacf9e6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/197/Mixed_Grip_Chin_female_v2_0.png",
+      "candidateSha256": "e77363f5462e6db243d3f3ca5c053dfd94291ce897d666dc112ddd73ee9c4ef4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mixed_Grip_Chin_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mixed_Grip_Chin_female_v2_1.png",
+      "sourceSha256": "f6a196a95641b76d6a8bacda5225488f506a9e67c6ee777fe7b0ef0dd6708270",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/197/Mixed_Grip_Chin_female_v2_1.png",
+      "candidateSha256": "b4b9418730b35ef199dbe4c965d8fff6a337aedcb30edc7890f3de3e0543d239",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mixed_Grip_Chin_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mixed_Grip_Chin_female_v2_2.png",
+      "sourceSha256": "6b0cf46e9ad8e3035ade5036811ec01ab059885b37970bbb371b9b5fa9a6aba3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/197/Mixed_Grip_Chin_female_v2_2.png",
+      "candidateSha256": "86f755ed0f7be8ae508d1008ef70270428540404f60393912e221a4839cf5792",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mixed_Grip_Chin_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mixed_Grip_Chin_female_v2_3.png",
+      "sourceSha256": "74352da4818f684cacd804bd66e87f00f1a75f0b4f8a29f43e6d6fe414c462c1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/197/Mixed_Grip_Chin_female_v2_3.png",
+      "candidateSha256": "2dbaf036389bd3e01af77cb35a7cc591a9a92b7b4b8fb6b85b0b9d7c61120497",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

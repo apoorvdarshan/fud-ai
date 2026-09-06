@@ -1,0 +1,16 @@
+{
+  "source_sha256": "a40d025443033dfdc54a9dabb8c8c71423b2b2105945bcb715218457d7c8e04c",
+  "candidate_sha256": "873be652f758c09f269a5338949380d47175ec068cb3651a549a6278bbba2e23",
+  "generated_sha256": "00773f265d0b2282c1b32ad98a47e239c0c6429a61f4d4bd8bd68ea27a3fef64",
+  "generated_path": "/cursor/stores/bc-c7fb58c4-f315-4b27-ba09-0694dec5b10f/artifacts/assets/gen_Medicine_Ball_Scoop_Throw_female_v2_0.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

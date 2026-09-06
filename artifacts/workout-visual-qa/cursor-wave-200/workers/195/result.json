@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Middle_Back_Shrug",
+  "shard": 20,
+  "index": 195,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Middle_Back_Shrug_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Shrug_male_v2_0.png",
+      "sourceSha256": "50551e2d51ebad93994048a54c3b1489ea1c8fecabc781fce5b2cce766006b64",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/195/Middle_Back_Shrug_male_v2_0.png",
+      "candidateSha256": "97b114b8a162fd42f759dc7d29f89e213d7bf10aa081794de11b9e24ab14efd8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Shrug_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Shrug_male_v2_1.png",
+      "sourceSha256": "4932b85326a2b82161c2a835452895ed257a2c21fbec6ff4cb08bb44a00b61d4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/195/Middle_Back_Shrug_male_v2_1.png",
+      "candidateSha256": "83675216227c21c5fc29b5bbdf8e7c6b5d7347706a30a105e7795b62e115d635",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Shrug_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Shrug_male_v2_2.png",
+      "sourceSha256": "f043ef03f35627019c40ec612f44b85e8ac5b89f32c18c1543caa34539be4d7f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/195/Middle_Back_Shrug_male_v2_2.png",
+      "candidateSha256": "431701256f55bd348e6a0c1951f4c21ffd5c551e6940a362753e2a1f560096f7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Shrug_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Shrug_male_v2_3.png",
+      "sourceSha256": "73bebc40e5aa2c914b97e8b17bd61455730d05404201151a181acc1864df7658",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/195/Middle_Back_Shrug_male_v2_3.png",
+      "candidateSha256": "b52d30cbf593ed76bddb0ff653ad4241dd3068632cd108b6f9079e8d21baebed",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Shrug_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Shrug_female_v2_0.png",
+      "sourceSha256": "ef69385b7369c621cbbf3f22885bd5353471feb163e9561511ef5d832405a3d8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/195/Middle_Back_Shrug_female_v2_0.png",
+      "candidateSha256": "4a319fbf0969d8a8b0d81dbbdb8a242c4dfb2309cac6db25cbba47cd13cf58fb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Shrug_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Shrug_female_v2_1.png",
+      "sourceSha256": "cc87fa1ae241ac6af1e555641ff5a505aafcf8eb3fd184ba3b16f8ce036da18d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/195/Middle_Back_Shrug_female_v2_1.png",
+      "candidateSha256": "f477fdb3a6b622ebdf6ffe1f8515e146e099ba20e4b88f694fc9b379150e4bdf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Shrug_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Shrug_female_v2_2.png",
+      "sourceSha256": "eb43ad7bc5099762710bc8ded9d9df3a9f29ba7fe8981ea22d57f2bb7d8d5bce",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/195/Middle_Back_Shrug_female_v2_2.png",
+      "candidateSha256": "4f972df682568e4fdbdb50625e46c888a76da6276b1f872a9f155dd13f051456",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Middle_Back_Shrug_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Middle_Back_Shrug_female_v2_3.png",
+      "sourceSha256": "7e87026d990fcd3615f2b0fc55f830ed246474d523609da43b4a0f5964cadefe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/195/Middle_Back_Shrug_female_v2_3.png",
+      "candidateSha256": "298d16455809531af744d252b4f5cf9434ee907ca6783e75a8379e075712dcd5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Monster_Walk",
+  "shard": 20,
+  "index": 198,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Monster_Walk_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Monster_Walk_male_v2_0.png",
+      "sourceSha256": "8d3e03593b1d4710f595bfa227a637a2c97cfa44e38be6b2ac19e5d2f95cfdd8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/198/Monster_Walk_male_v2_0.png",
+      "candidateSha256": "e92c55cf22d8fa66b8ab2c7f82718e4e189d6c613fddcba5815029199200b8b9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Monster_Walk_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Monster_Walk_male_v2_1.png",
+      "sourceSha256": "8219320fc4f2ea6658c929a23d8c2359339cb6c4682bf22fc8bcf5cabb362194",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/198/Monster_Walk_male_v2_1.png",
+      "candidateSha256": "16a40974a6e9c3827b69c1ae63d0c4d13efcd3029c2cbba1aafe7da2e6beded7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Monster_Walk_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Monster_Walk_male_v2_2.png",
+      "sourceSha256": "34517617e3f2cdd1be6d6bd3bebaed03c8dd72512207f1c098b3df9c1401014c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/198/Monster_Walk_male_v2_2.png",
+      "candidateSha256": "c464d80566675c836cc1638345a18e6b3c96588e03f434f49b833e8ab34f9207",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Monster_Walk_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Monster_Walk_male_v2_3.png",
+      "sourceSha256": "9d70406967e8651f963de30463bb60f313ab4ab1e29e4ed6e4fda3f66367a785",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/198/Monster_Walk_male_v2_3.png",
+      "candidateSha256": "c32f1ccb444cedc503da69d71d2b8fa94e74e771973ef949263b712b987c1223",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Monster_Walk_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Monster_Walk_female_v2_0.png",
+      "sourceSha256": "7d1376ad8349b69f195d9b67be800259dc8d2bbe03300e115c3f3abb5706887d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/198/Monster_Walk_female_v2_0.png",
+      "candidateSha256": "c7f962c944f99c1763af9809953d8148221c7b7e56a9584b0525fb8c42e5ac8d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Monster_Walk_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Monster_Walk_female_v2_1.png",
+      "sourceSha256": "c3c4c273c8cbaddf9a22f944f79b9220a3a1cc0993a347ecaedeea203204c951",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/198/Monster_Walk_female_v2_1.png",
+      "candidateSha256": "657ac25bbdf8195ed2d850f5c60e0714f969bda31f9b3c09f7199ae9c9fae439",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Monster_Walk_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Monster_Walk_female_v2_2.png",
+      "sourceSha256": "b980346ab11bd4b5667bb0e9ea0f00940c5b5e4be74c961b3108e70d432ade2a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/198/Monster_Walk_female_v2_2.png",
+      "candidateSha256": "5d52ef81b5d2fa9356bdf9277ce85912daf8d4fd8465c77cf16fc29f05f82008",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Monster_Walk_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Monster_Walk_female_v2_3.png",
+      "sourceSha256": "ab947184ccc3e434677f4971a65bf7d800b32cffc78f673040bfe707d3a8f8d4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/198/Monster_Walk_female_v2_3.png",
+      "candidateSha256": "f7bf2659ceb843f6ec37f151e172d2af59197f0116ebaa845136f76cb78485d4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Mountain_Climbers",
+  "shard": 20,
+  "index": 199,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Mountain_Climbers_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mountain_Climbers_male_v2_0.png",
+      "sourceSha256": "c0578f1979839ded3393a0c4e41982af3071d39efd15b522b9a45b1b0d695ecc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/199/Mountain_Climbers_male_v2_0.png",
+      "candidateSha256": "072f3c3f2c46bc0f53fbfc2519b2d8efc81f9314ba2c5624942983fd44a1fcc6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mountain_Climbers_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mountain_Climbers_male_v2_1.png",
+      "sourceSha256": "fc0db5947a2f02b05fd2ba18486dd029df856b4500de39d9d2208aa7b33883cb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/199/Mountain_Climbers_male_v2_1.png",
+      "candidateSha256": "c0c2bc540e04ce928bd63ddbbb9e38ce0a3380e57acc7762ca6f997b335cc1c7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mountain_Climbers_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mountain_Climbers_male_v2_2.png",
+      "sourceSha256": "c523f190bba7ca13eb1dec3b3c3db379e2298861b70e4e3490ac772f788e54ca",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/199/Mountain_Climbers_male_v2_2.png",
+      "candidateSha256": "e95937e6cab6e6a74d3bbc2431bd335d08edb60943e731c403f868e0f7c5f205",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mountain_Climbers_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mountain_Climbers_male_v2_3.png",
+      "sourceSha256": "c454582625cc42f669232b1450377654a5d9999681797fb9e407af89e05d67f6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/199/Mountain_Climbers_male_v2_3.png",
+      "candidateSha256": "6eaaeb0d9c907674cee276f426ca6611807afd5709e07e3a24c5fbb93d9b7722",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mountain_Climbers_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mountain_Climbers_female_v2_0.png",
+      "sourceSha256": "08d6f8d501803410dee6e5df0efe5a5412300e6a6136d0a25efc3edf71f63197",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/199/Mountain_Climbers_female_v2_0.png",
+      "candidateSha256": "eefe4813320da6cecdfb6c95254535f5aa0da359175193bfc53480e3a6e9691c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mountain_Climbers_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mountain_Climbers_female_v2_1.png",
+      "sourceSha256": "6830c7e8641b08224377dfcdd91a1ee8784b20c553a284b65061da9aa543b78c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/199/Mountain_Climbers_female_v2_1.png",
+      "candidateSha256": "f4ab7b9a64181b3c1b379b1984302e45ca38330f426a1ef9fa2835c9467efd00",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mountain_Climbers_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mountain_Climbers_female_v2_2.png",
+      "sourceSha256": "2d153097e61c7f1ec77a942c0550430dbf1b0f3ff37d6434ef0d26f0d0fcbc8a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/199/Mountain_Climbers_female_v2_2.png",
+      "candidateSha256": "7478b02fa53a034ba2589f76b8f0ec9c5ed6339b502613343303908de865b318",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Mountain_Climbers_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Mountain_Climbers_female_v2_3.png",
+      "sourceSha256": "a763a218dd0e5d75b4902596c70caa15b3180e947255056bde81f9814354d8fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/199/Mountain_Climbers_female_v2_3.png",
+      "candidateSha256": "9a14a55125c072b39541d416e9f6399f66ffa433fab77a7c5950a67eeb0e02f8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -13,16 +13,11 @@ const batch = JSON.parse(fs.readFileSync(path.join(base, batchName + '.json')));
 const stage = path.join(base, 'repair-pass-01');
 const sha = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const images = new Map();
-// Match json.dumps(..., sort_keys=True) used for cleanup override digests.
-function pythonJson(value) {
-  if (Array.isArray(value)) return '[' + value.map(pythonJson).join(', ') + ']';
-  if (value && typeof value === 'object') return '{' + Object.keys(value).sort().map(k => pythonJson(k) + ': ' + pythonJson(value[k])).join(', ') + '}';
-  return JSON.stringify(value).replace(/[\u007f-\uffff]/g, c => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
-}
 function manifest() {
   const nextImages = new Map();
   const ledgerPath = path.join(stage, 'parent-review-passed.json');
   const passed = fs.existsSync(ledgerPath) ? JSON.parse(fs.readFileSync(ledgerPath)).checks : [];
+  const approvals = fs.readdirSync(stage).filter(n => /^human-approval.*\.json$/.test(n)).flatMap(n => JSON.parse(fs.readFileSync(path.join(stage, n))).decisions || []);
   const rows = batch.exercises.map((e, index) => {
     const accepted = passed.find(r => r.index === e.index && r.exerciseId === e.exerciseId && r.status === 'parent_pass_human_pending');
     if (!accepted) return null;
@@ -50,10 +45,14 @@ function manifest() {
     }
     const available = candidates.filter(Boolean).length;
     if (available !== 8) return null;
+    const humanApproved = approvals.some(a => a.exerciseId === e.exerciseId && a.decision === 'approve_candidate' && a.frames?.length === 8 && a.frames.every(f => {
+      const i = e.sourceFramePaths.findIndex(p => path.basename(p) === f.filename);
+      return i >= 0 && f.sourceSha256 === sourceHashes[i] && f.candidateSha256 === hashes[i];
+    }));
     return { id: e.exerciseId, index: e.index, severity: e.severity, findings: e.findings, suggestedRoute: e.suggestedRoute, sources, sourceHashes, candidates, hashes, methods, available,
-      status: 'Parent-reviewed · Awaiting your approval',
+      humanApproved, status: humanApproved ? 'Approved by you · Saved' : 'Parent-reviewed · Awaiting your approval',
       warning: 'Review the full animation in both genders and backgrounds. Your decision does not replace app images automatically.' };
-  }).filter(Boolean);
+  }).filter(Boolean).sort((a, b) => Number(a.humanApproved) - Number(b.humanApproved) || a.index - b.index);
   images.clear();for (const [key, value] of nextImages) images.set(key, value);
   return { batch: batchName, count: rows.length, batchTotal: batch.exercises.length, rows };
 }

@@ -1,0 +1,9 @@
+# Rolling local repair pool
+
+Latest user instruction on 2026-09-06 supersedes the old wait-for-all-50/stop-before-Batch02 rule. Maintain up to 50 local projectless Luna Max repair assignments. After collecting and parent-reviewing a completed task, archive it and replace that slot with the next unique exercise. Keep failures in their original task for corrections. Never duplicate exercise assignments or replace originals without human approval.
+
+Batch01 retains its existing 50 IDs; batch02 contains the next50 previously audited exercises, excluding batch01. Create tasks from saved manifests, persist every launch receipt immediately under the assigned batch repair-pass-01/luna-launches/NNN.json. Respect existing receipts and archive records. Count all unarchived repair assignments across batches toward the 50-slot cap (finished-but-unreviewed tasks reserve their slot); this avoids overloading the Mac when retries resume. No local ML segmentation, API fallback, or added subworkers in repair tasks.
+
+Follow batch-01/WORKER-CONTRACT.md for image quality, filesystem scope and report schema, with the assigned batch and report directory replacing its batch01 references. Its old no-Batch02 gate no longer applies. Production images remain untouched until human review decisions and explicit integration work.
+
+Keep completed candidate sets flowing to the animated human review page, independently of pool refill. Parent-reviewed outputs live under each batch repair-pass-01/parent-collected/NNN with report snapshot, hashes and eight PNGs, listed in parent-review-passed.json. Never count an audit report or incomplete candidate set as a repaired exercise. Preserve explicit chat approvals against exact hashes (first3 approvals: batch01 indices28,29,42). Archive only this repair pool, never unrelated user tasks.

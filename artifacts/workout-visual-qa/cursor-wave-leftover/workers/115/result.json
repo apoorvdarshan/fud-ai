@@ -1,0 +1,85 @@
+{
+  "exerciseId": "Push_Press_-_Behind_the_Neck",
+  "shard": 12,
+  "index": 115,
+  "status": "ready_for_review",
+  "findings": [
+    "Script left white line artifacts under female feet on behind-neck push press; GenerateImage cleaned 4/8 female frames, male frames clean"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Push_Press_-_Behind_the_Neck_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_male_v2_0.png",
+      "sourceSha256": "10b7f6f3e7cffe3df2dbc5efc51c185e885636ebe4b90ffebdd438d2263863e7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_male_v2_0.png",
+      "candidateSha256": "573a491651809ad27b1971b92bb7cc83394ccf352c14dc0359a478cc71571cd3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Press_-_Behind_the_Neck_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_male_v2_1.png",
+      "sourceSha256": "02d5715fe0dd301331cff1ae81d417beb19fe1e7cbe538a6cdd2d75756a51b66",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_male_v2_1.png",
+      "candidateSha256": "8fb3d10300dbe93b96ccce90e2718f52670a11ae7e2c6a7d8cb217c77826f000",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Press_-_Behind_the_Neck_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_male_v2_2.png",
+      "sourceSha256": "c8505fddd1314e65e315c0bae72c72e8f31fd35102e099f20c845055af4bd4da",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_male_v2_2.png",
+      "candidateSha256": "a21a1cff6293606ad81065ae3273129447cffcb90ee17fc5a4219b84bf2ac64d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Press_-_Behind_the_Neck_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_male_v2_3.png",
+      "sourceSha256": "6560f8d0c2df0291cc1a6ff0abbd774f8f63a993be22a211e96d25993b1788e8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_male_v2_3.png",
+      "candidateSha256": "9ce1ac92f48e4101bdf4991f02a07914ca6a8920efc6c96dbc88037816794a2e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Press_-_Behind_the_Neck_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_female_v2_0.png",
+      "sourceSha256": "a35f9a048074d4441382b8f4d404a99a3f190a9ec0c23c05f5e5faf0828467f5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_female_v2_0.png",
+      "candidateSha256": "7f501a06b8b2a2516bb2d47a1e26b6ab6d57c454d6014128bde062979b09e350",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Press_-_Behind_the_Neck_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_female_v2_1.png",
+      "sourceSha256": "a81b0f4c2c2eb1409dff9f8dd1751ef6c959199098889cfbf59667c5d40a2572",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_female_v2_1.png",
+      "candidateSha256": "abb03c9d5decc91b8d718e0ec5413db185ab80ef495c31642acd78e3f068505d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Press_-_Behind_the_Neck_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_female_v2_2.png",
+      "sourceSha256": "092f5e767b9fc6b9f26e1ce628494808a367517ac1794f5d4c1845ccc56cffdc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_female_v2_2.png",
+      "candidateSha256": "05845c2bc5927049ae047f4e7c6156f7140bd334626b343c7eca46c7d4ae1665",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Push_Press_-_Behind_the_Neck_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Push_Press_-_Behind_the_Neck_female_v2_3.png",
+      "sourceSha256": "e35544c36320b9fc8a728a2ead14dd49e702ca0b2321ad5c54b382729ce79e77",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/115/Push_Press_-_Behind_the_Neck_female_v2_3.png",
+      "candidateSha256": "5bb79dbb2445eba8e4349045cf7430bd39a119427dc7caafde93becec6f87919",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ],
+  "visuallyReviewed": true
+}

@@ -126,8 +126,8 @@ def run_exercise(entry: dict, shard: int, workers: Path, staging: Path) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--batch", default=DEFAULT_BATCH, help="Review batch name")
-    parser.add_argument("--shard", type=int, help="Shard number 1–10")
-    parser.add_argument("--index", type=int, help="Single manifest index (1–100)")
+    parser.add_argument("--shard", type=int, help="Shard number (1 through exerciseCount/10)")
+    parser.add_argument("--index", type=int, help="Single manifest index")
     args = parser.parse_args()
     if bool(args.shard) == bool(args.index):
         raise SystemExit("pass exactly one of --shard or --index")
@@ -145,8 +145,9 @@ def main() -> None:
         result = run_exercise(entries[0], shard, workers, staging)
         print(f"index {args.index}: {entries[0]['exerciseId']} -> {result['status']}")
         return
-    if not 1 <= args.shard <= 10:
-        raise SystemExit("shard must be 1–10")
+    max_shard = max(1, (len(exercises) + 9) // 10)
+    if not 1 <= args.shard <= max_shard:
+        raise SystemExit(f"shard must be 1–{max_shard}")
     entries = shard_exercises(exercises, args.shard)
     if len(entries) != 10:
         raise SystemExit(f"expected 10 exercises, got {len(entries)}")

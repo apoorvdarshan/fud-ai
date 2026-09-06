@@ -1,7 +1,7 @@
 # cursor-wave-100
 
-Next 100 unapproved exercises after the approved 12. **10 Cloud Agents × 10 exercises.** Script background cleanup only. No GenerateImage. No PRs — push worker branches, merge to main.
+100 exercises. First pass was script-only and left dirty edges. **v2: visual review + GenerateImage.**
 
-```sh
-python3 scripts/run_cloud_worker_shard.py --batch cursor-wave-100 --shard 1
-```
+Skip `Goblet_Squat` (already approved). See [GENERATEIMAGE-WORKER-CONTRACT.md](../GENERATEIMAGE-WORKER-CONTRACT.md).
+
+8766 stays on this batch for human review. New candidates replace workers after v2 merges.

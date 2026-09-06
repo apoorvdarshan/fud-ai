@@ -42,3 +42,6 @@ artifacts/workout-visual-qa/cursor-shard-100/workers/
 artifacts/workout-visual-qa/cursor-wave-100/candidates/
 artifacts/workout-visual-qa/cursor-wave-100/staging/
 artifacts/workout-visual-qa/cursor-wave-100/workers/
+artifacts/workout-visual-qa/cursor-wave-200/candidates/
+artifacts/workout-visual-qa/cursor-wave-200/staging/
+artifacts/workout-visual-qa/cursor-wave-200/workers/

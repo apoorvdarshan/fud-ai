@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Reverse_Grip_Triceps_Pushdown",
+  "shard": 15,
+  "index": 141,
+  "status": "ready_for_review",
+  "findings": [
+    "Script removed pale ground speckles; female v2_2 had white block behind legs on dark composite.",
+    "GenerateImage surgical + green chroma on female v2_2. Other 7 frames clean after script pass."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Reverse_Grip_Triceps_Pushdown_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Triceps_Pushdown_male_v2_0.png",
+      "sourceSha256": "1eb01e29f6860bde6d240502cb2432ae5d471f6640914686650d8361fd123094",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/141/Reverse_Grip_Triceps_Pushdown_male_v2_0.png",
+      "candidateSha256": "4613a0a8c11e38763e78366fad436d1763e8f5514add06d68bf0bdfbf4cc9bd3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Triceps_Pushdown_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Triceps_Pushdown_male_v2_1.png",
+      "sourceSha256": "c728831062401b718338ccd07f39ca388de2c53c97d4bf381c29dd0e9e8acf62",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/141/Reverse_Grip_Triceps_Pushdown_male_v2_1.png",
+      "candidateSha256": "1d7ecb8d4874196814aa5c7b3302363d94aea441c58f9c040b115ec06d5240d8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Triceps_Pushdown_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Triceps_Pushdown_male_v2_2.png",
+      "sourceSha256": "277e3d91cc193be6597d1058c1b5f9eb83b045554917c8551cca5a85aa78ef02",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/141/Reverse_Grip_Triceps_Pushdown_male_v2_2.png",
+      "candidateSha256": "5e703366bce23252962235f32bb41cd694bf047c7ea550fdd5d600ded269ec5e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Triceps_Pushdown_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Triceps_Pushdown_male_v2_3.png",
+      "sourceSha256": "b6aefa056a7ece24fb2f6cc66bd906f069d74c2704336e320ee840e7142faf38",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/141/Reverse_Grip_Triceps_Pushdown_male_v2_3.png",
+      "candidateSha256": "e0b4c02936f23c2af594f4cb808e9ddf8f6c3adfd1f23b4cd7ba838d00354e5b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Triceps_Pushdown_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Triceps_Pushdown_female_v2_0.png",
+      "sourceSha256": "17cde9e362d535b2b53afb99d33f65c460502f8fcd0a5d63d3ddd13459ab560d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/141/Reverse_Grip_Triceps_Pushdown_female_v2_0.png",
+      "candidateSha256": "4ff8ce8d44a266941bd07e5e5fe5dcfa04933c9182871de2abc7592814a8df42",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Triceps_Pushdown_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Triceps_Pushdown_female_v2_1.png",
+      "sourceSha256": "98305556f7f3794bffec8e7fc714684f8613addab18d3a8bc17f1e2fbdb14901",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/141/Reverse_Grip_Triceps_Pushdown_female_v2_1.png",
+      "candidateSha256": "bb30de490e19f7386f81d615c816d95a0fcd316bb7f50e49967b63334ccdd18b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Triceps_Pushdown_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Triceps_Pushdown_female_v2_2.png",
+      "sourceSha256": "77cab51d22360c71f15ea9b1b2e4904bc903ce09eae59a0b4fe37919da835188",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/141/Reverse_Grip_Triceps_Pushdown_female_v2_2.png",
+      "candidateSha256": "9c52e525d800091b5024eb02da274d2cd65aa50bc5a5907fdccbdaa95a774b63",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Grip_Triceps_Pushdown_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Grip_Triceps_Pushdown_female_v2_3.png",
+      "sourceSha256": "0ca8ba490e21800618abcc2170142efde0d7a89a794224579e950139da9b602d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/141/Reverse_Grip_Triceps_Pushdown_female_v2_3.png",
+      "candidateSha256": "807ab3dabd50a6a8b9e99cc5b94415b83b8c094bfd62152073b2b7d7edfd709f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "changedFrameCount": 8
+}

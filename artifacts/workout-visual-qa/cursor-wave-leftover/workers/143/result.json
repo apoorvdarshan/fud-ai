@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Reverse_Machine_Flyes",
+  "shard": 15,
+  "index": 143,
+  "status": "ready_for_review",
+  "findings": [
+    "All 8 frames had massive BiRefNet ground removal (~430k px). White pivot-block artifacts remained on female v2_1, male v2_1/v2_2.",
+    "GenerateImage surgical + green chroma on 3 dirty frames. v2_0/v2_3 clean after script."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Reverse_Machine_Flyes_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Machine_Flyes_male_v2_0.png",
+      "sourceSha256": "4a573c1fd7abb2cfabb8f194a367c42cf638c415c0dd1ff242ba836375f7b49b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/143/Reverse_Machine_Flyes_male_v2_0.png",
+      "candidateSha256": "ea489f128bdae9787b8baf89687d3554ecd2a5ca9b9f9bd107048eb2004ceb5b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Machine_Flyes_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Machine_Flyes_male_v2_1.png",
+      "sourceSha256": "4a0c5a5a99569280bf5e8758ea67085632ac55653e23addb9337ac74a2f483e3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/143/Reverse_Machine_Flyes_male_v2_1.png",
+      "candidateSha256": "f5692db08a87ca5e2454742540e52d9eab2c1300eb5ad6d0cfa7c80847a3621e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Machine_Flyes_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Machine_Flyes_male_v2_2.png",
+      "sourceSha256": "8959cc28e8d3af33f4878e079787223bf4f858a4cd7bb8ada9f1632960a2beaf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/143/Reverse_Machine_Flyes_male_v2_2.png",
+      "candidateSha256": "119b5ad591dcf701c8a18c2e03d1ac73af6c4f34d13c2cc758731a97c4d93dc8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Machine_Flyes_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Machine_Flyes_male_v2_3.png",
+      "sourceSha256": "5812a4b72ac48eb170346550a5f5134b774b65cc796e1ee55e27ba805bc1003d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/143/Reverse_Machine_Flyes_male_v2_3.png",
+      "candidateSha256": "4cd28160577a20c068bb8efb07d3c9b31992479d093d3887f678db2779c39aff",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Machine_Flyes_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Machine_Flyes_female_v2_0.png",
+      "sourceSha256": "a659a7bdc4c9b9cf36202caa05e4c6ecb675222c854032eee33c5169a0aeac6c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/143/Reverse_Machine_Flyes_female_v2_0.png",
+      "candidateSha256": "9b40113c54d0056303792abdb6bfd4de4e02a9249e34dcbef4bd2867f0cc184b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Machine_Flyes_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Machine_Flyes_female_v2_1.png",
+      "sourceSha256": "13fcda2a482182b65fa052743694f410460d9688b9756fd1d8e241fdb80f21b8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/143/Reverse_Machine_Flyes_female_v2_1.png",
+      "candidateSha256": "e7c60204b41bfd0049e2050a97ad7612368543c36e58eb949c464c7168d5d5ba",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Machine_Flyes_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Machine_Flyes_female_v2_2.png",
+      "sourceSha256": "a8f3bcb098dee39620bf8323c34f5e7f21effdddb914d3dd8aea750fcab7d912",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/143/Reverse_Machine_Flyes_female_v2_2.png",
+      "candidateSha256": "3ea0ed353e683b3edb32044dbb6cd6616e3a526841e00c083f023b0ba22b9e71",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Reverse_Machine_Flyes_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Reverse_Machine_Flyes_female_v2_3.png",
+      "sourceSha256": "e0545201a1d1915eec02c8942055a085fa05033d69e151394c3b889cc1c839cb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/143/Reverse_Machine_Flyes_female_v2_3.png",
+      "candidateSha256": "622ad5ddba2a6388ebbfb90d9c8431fb287a393ca6775093e53d635a58f76cf9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "changedFrameCount": 8
+}

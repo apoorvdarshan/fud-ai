@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Rocket_Jump",
+  "shard": 15,
+  "index": 150,
+  "status": "ready_for_review",
+  "findings": [
+    "Female v2_2 had misplaced red hip blob artifact during mid-air rocket jump.",
+    "GenerateImage surgical + green chroma on female v2_2. Other 7 frames clean."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Rocket_Jump_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocket_Jump_male_v2_0.png",
+      "sourceSha256": "7db2fa44cf39f64cff0d5151d15ebe66b2cdc543f6f974d8e631d8c56058a4a2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/150/Rocket_Jump_male_v2_0.png",
+      "candidateSha256": "426ec68ac6a688d8b7e08c07728a1cf1425beafd8b50d47f8f362f3c77273d96",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocket_Jump_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocket_Jump_male_v2_1.png",
+      "sourceSha256": "e3e232a297268f45b41859ff2cd41dc94b5168c4171aa346e50f636d19e23891",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/150/Rocket_Jump_male_v2_1.png",
+      "candidateSha256": "096448cbf8ca973d46562cb2a87ac89b333041db1e171785617f326b7b8c4cc1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocket_Jump_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocket_Jump_male_v2_2.png",
+      "sourceSha256": "669c037c707cd4dd6b77b47daaac06b6de124fa5065015f23d486508bf7e7023",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/150/Rocket_Jump_male_v2_2.png",
+      "candidateSha256": "2ade3d3dedd6039d442eaf494330f1dbc03cf9a7ab6fa76db924dff9020ffa4d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocket_Jump_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocket_Jump_male_v2_3.png",
+      "sourceSha256": "fe07483631422004a22e372ba5f3e417ca4cc32a6c4233ffa5cc3baa0fe89ded",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/150/Rocket_Jump_male_v2_3.png",
+      "candidateSha256": "024b85e89faca8ae2f9125be5690d9b772438ea85d4262e2e8a945dd9ab7c759",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocket_Jump_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocket_Jump_female_v2_0.png",
+      "sourceSha256": "67061b629305ee4adfe37925889642537acde060a2e98132467fbcb4ba1919dc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/150/Rocket_Jump_female_v2_0.png",
+      "candidateSha256": "f697c000243e6928fcaaa798edee3e8250e9e713a44ac04c0484440910b57c6c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocket_Jump_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocket_Jump_female_v2_1.png",
+      "sourceSha256": "b65811311e20ae5571a76d6121f4004859d8c74c369a35c950972d57ed456e64",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/150/Rocket_Jump_female_v2_1.png",
+      "candidateSha256": "d1ed1ec3f066c2c6ce2b273a1f0543b9658c60b886ba2fea2b6ac98b29c0e7e4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocket_Jump_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocket_Jump_female_v2_2.png",
+      "sourceSha256": "4ff96687f36df3ef75b41757f6acacdb3dab535a9f753217444fd7d9ed0ef1c3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/150/Rocket_Jump_female_v2_2.png",
+      "candidateSha256": "60095b913dbaada61c1165908a6ec8254d42a435dc19c720ad39e7b8d221f7c5",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rocket_Jump_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rocket_Jump_female_v2_3.png",
+      "sourceSha256": "f138d263b19e70fe8bfa29d7e4d796398ee447eae3d2ba58ccdddeeb66024860",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/150/Rocket_Jump_female_v2_3.png",
+      "candidateSha256": "90b46643105499b998109446890e163082937ffce221a2422de3515b9f5cdd74",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "changedFrameCount": 8
+}

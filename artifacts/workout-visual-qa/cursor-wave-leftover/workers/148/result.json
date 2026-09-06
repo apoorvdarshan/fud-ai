@@ -1,0 +1,86 @@
+{
+  "exerciseId": "Rickshaw_Deadlift",
+  "shard": 15,
+  "index": 148,
+  "status": "ready_for_review",
+  "findings": [
+    "Script removed minor ground pixels on trap-bar deadlift. Dark composite: clean sequence.",
+    "GenerateImage not needed."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Rickshaw_Deadlift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Deadlift_male_v2_0.png",
+      "sourceSha256": "4be1bde53ae5812f4951c3e2801e273df3bc789bb6b62834d8bf16908baf6942",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/148/Rickshaw_Deadlift_male_v2_0.png",
+      "candidateSha256": "413c9c5cc7498cea97eed5e1fc9a4b32fff597b048adb49f921a2e7ba8eb42d9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Deadlift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Deadlift_male_v2_1.png",
+      "sourceSha256": "fb70e5b390a753e2138a919d84cea6f875ec50faf878ed9ff2f8c8602b01d3f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/148/Rickshaw_Deadlift_male_v2_1.png",
+      "candidateSha256": "5cb45b622f206d0486a6ee0779bc7aa35aa6b481165a223c4c0bf8d16d1cf93c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Deadlift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Deadlift_male_v2_2.png",
+      "sourceSha256": "32e376238be66cbdc8858a64ad9d80785401087d8a353e8dc7b5fd42d0825571",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/148/Rickshaw_Deadlift_male_v2_2.png",
+      "candidateSha256": "7dc149aed9a7442ae2764e8e5e1bd5fd0a1a359d9d55a35d5a4005f6947beaa5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Deadlift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Deadlift_male_v2_3.png",
+      "sourceSha256": "43a8101b736dd686676a2bdb63862d04e6e4a71ed1da1a1d537fc0b981d5461c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/148/Rickshaw_Deadlift_male_v2_3.png",
+      "candidateSha256": "765c6f2ac2025aed1066f46f8562f8495a6ded03961f84372fb1e95c6ab3b87a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Deadlift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Deadlift_female_v2_0.png",
+      "sourceSha256": "3a8c38b5dfe515bdb65f9edee98062d185aa6bda43bf9f4b41fce8516b501b13",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/148/Rickshaw_Deadlift_female_v2_0.png",
+      "candidateSha256": "3bbb34e28801ef0074e84d55c84e630ba59ef625a4a10a29c08342f107ab3176",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Deadlift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Deadlift_female_v2_1.png",
+      "sourceSha256": "a012f583b031d27e4c0886188eacf04034e75e75a87119fc8cb986a3863f94fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/148/Rickshaw_Deadlift_female_v2_1.png",
+      "candidateSha256": "1f75746eff320709f4de33219a36aa6adcb103aa21a4d76bef503ef164787378",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Deadlift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Deadlift_female_v2_2.png",
+      "sourceSha256": "6f0da9cdb0429f9988efb84166dc6721d1ebe7933ffb4f510c967b7a3d145dea",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/148/Rickshaw_Deadlift_female_v2_2.png",
+      "candidateSha256": "01bb2b60044bf2f3b5ded28a8e04e230c0cc9faa9aa4fc33f2cde9f3b875d48d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Rickshaw_Deadlift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Rickshaw_Deadlift_female_v2_3.png",
+      "sourceSha256": "35d52669c622410fcb9a96f5a775743bbb1d81380d37f5641e0883e14a089a71",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/148/Rickshaw_Deadlift_female_v2_3.png",
+      "candidateSha256": "e11c66cff022ed7f4a274a83112914174a53754189812a90ce5f6c820ea92ac0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ],
+  "changedFrameCount": 8
+}

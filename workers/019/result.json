@@ -1,0 +1,91 @@
+{
+  "exerciseId": "Dumbbell_Seated_One-Leg_Calf_Raise",
+  "shard": 2,
+  "index": 19,
+  "status": "ready_for_review",
+  "changedFrameCount": 5,
+  "findings": [
+    "Script pale-neural-guard-v2 pass removed leftover pale cutout pixels on 5/8 frames (male 0/2; female 1/2/3). RGB of the illustration was unchanged.",
+    "Thin pale/dashed remnants can still appear beneath bench feet and around some shoe soles on a dark background, most on the 3 frames the script left pixel-identical (male 1/3, female 0). No opaque exterior field or enclosed checkerboard.",
+    "Bench feet, seat and step still shift slightly across the sequence; frame 3 sits a bit lower. That is original equipment jitter, not introduced by cleanup, and the heel-raise remains readable.",
+    "GenerateImage was not used: remaining defects are the same minor fringe class the conservative script declined to cut, and a redraw would risk style/identity change."
+  ],
+  "unresolved": [
+    "Minor pale fringe/dashed remnants remain on some bench-foot and shoe-sole edges, especially male 1, male 3, and female 0.",
+    "Original limited bench/step/seat jitter across frames is unchanged."
+  ],
+  "frames": [
+    {
+      "filename": "Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_0.png",
+      "sourceSha256": "159e67384639f5a3d6e7d1027853b7a952c62c45c5817e043a234f0b175ebf26",
+      "candidatePath": "/workspace/workers/019/Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_0.png",
+      "candidateSha256": "dc111bc3736171c4c6f4f6dea9aa8eb5267573216cde51e837d026e9ac161753",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_1.png",
+      "sourceSha256": "33fef02f2f91fb0e02f0257d147085117de7a38de5bd554cdcf4b03c6356ef2d",
+      "candidatePath": "/workspace/workers/019/Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_1.png",
+      "candidateSha256": "33fef02f2f91fb0e02f0257d147085117de7a38de5bd554cdcf4b03c6356ef2d",
+      "method": "unchanged",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_2.png",
+      "sourceSha256": "6d35697304dbfe6a81423be800bc36de388f7082550b069b97aece23f9c82102",
+      "candidatePath": "/workspace/workers/019/Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_2.png",
+      "candidateSha256": "bf4884f886754794f630c8ae49c9474100618fb6fd8f63918ee4bcd566d44b34",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_3.png",
+      "sourceSha256": "e61b22e1a4bd265b051f5974a1e07148c86ebab8d00239f29477e845d0716090",
+      "candidatePath": "/workspace/workers/019/Dumbbell_Seated_One-Leg_Calf_Raise_male_v2_3.png",
+      "candidateSha256": "e61b22e1a4bd265b051f5974a1e07148c86ebab8d00239f29477e845d0716090",
+      "method": "unchanged",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_0.png",
+      "sourceSha256": "63a84dfaddd9d8fdebdd953ddebc37f0ebb62f484014a4d7ad22c0238b5e76f3",
+      "candidatePath": "/workspace/workers/019/Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_0.png",
+      "candidateSha256": "63a84dfaddd9d8fdebdd953ddebc37f0ebb62f484014a4d7ad22c0238b5e76f3",
+      "method": "unchanged",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_1.png",
+      "sourceSha256": "63587f040edd98d4cadf3265f488c13c504a582b8ea47d7ec767b99ed538e103",
+      "candidatePath": "/workspace/workers/019/Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_1.png",
+      "candidateSha256": "47e2d9f4e961dd725c5d02f3d1a176d83d7c4b05c254cbba4b743099c061ac26",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_2.png",
+      "sourceSha256": "98decb429b0feea9ebf78559e60f4c3f18d5b3701659b09bc1ca4637d2db2734",
+      "candidatePath": "/workspace/workers/019/Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_2.png",
+      "candidateSha256": "86bfd7851af646ae536e43419a4b186d3158595d727d84d357ef0b199296f375",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_3.png",
+      "sourceSha256": "aec715fc0f3d1f3a75d3ea307061f21561458f7d6220df1fac34a99d82180213",
+      "candidatePath": "/workspace/workers/019/Dumbbell_Seated_One-Leg_Calf_Raise_female_v2_3.png",
+      "candidateSha256": "4f2ede5678a043bcdb42892904040f97211983cb18ef5da334c32554448b76ad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

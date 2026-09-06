@@ -1,0 +1,87 @@
+{
+  "exerciseId": "Dumbbell_Shoulder_Press",
+  "shard": 2,
+  "index": 20,
+  "status": "ready_for_review",
+  "changedFrameCount": 7,
+  "findings": [
+    "Small irregular pale/white remnants between and beneath shoes and around bench feet, with thin light fringe on portions of the cutout perimeter. Most visible against dark background; limited in area and does not obscure the movement.",
+    "Tiny isolated spots on knees (male 1 and 3; female 0 and 2) and face (female 3) change from dark to light with the preview background, consistent with small unintended transparent pinholes. These are limited specks, not substantial anatomy loss.",
+    "Script pale-neural-guard-v2 removed 139–204 visible fringe pixels on 7/8 frames. male_v2_3 had 0 visible-pixel change (PNG re-encode only). All eight candidates reviewed on dark (#090909) and light (#eeeeee): pose, bench, and dumbbells preserved; no baked checkerboard. Remaining pale-edge clusters are tiny (≤19 px) at shoe/bench contact. Knee/face pinholes stay limited specks. GenerateImage not used."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Dumbbell_Shoulder_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_male_v2_0.png",
+      "sourceSha256": "b1ad1004df00c2a9e977e8308c98df3dbbbae992c2e2ab91a9f8c5f355e7739b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/020/Dumbbell_Shoulder_Press_male_v2_0.png",
+      "candidateSha256": "1889da074c7f9b800ffc2bbffe4c4ab533940b0941fc6795a54c31ed097cb09d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Shoulder_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_male_v2_1.png",
+      "sourceSha256": "2e6dd790a3a3b1e669695327e2d1773857ea57bec201ff87c5f318d3267a0ff3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/020/Dumbbell_Shoulder_Press_male_v2_1.png",
+      "candidateSha256": "32b6ffb8284a438b68da7f9018e28a52785e27eff484fd433d572e5bbeea05b0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Shoulder_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_male_v2_2.png",
+      "sourceSha256": "ff279f2dd6ac705bef069416632eb26454d72cbe1ecd8e5f74bcb14010ba57b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/020/Dumbbell_Shoulder_Press_male_v2_2.png",
+      "candidateSha256": "d8dd080cb580806ee610d4f6dbab74eb65ad04e47da9a1abb3db5028d3c08dd4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Shoulder_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_male_v2_3.png",
+      "sourceSha256": "01392a78e8e7af54fd6bd7b53ec54e68b5e5c67e041fe8e356f4c7c3ea0bf84a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/020/Dumbbell_Shoulder_Press_male_v2_3.png",
+      "candidateSha256": "86fc17558c8373f81558ccefc93a8c299288fe6ce76b283e1ddb39443a021363",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Shoulder_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_female_v2_0.png",
+      "sourceSha256": "204492eb62d0ce79374b7a1b56483e6df8493a5d267d7bfee58d162867fbb610",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/020/Dumbbell_Shoulder_Press_female_v2_0.png",
+      "candidateSha256": "5c34e76a2168ee72fb8638177c42457598bbd12a61ed32e5816f5b7710a671dc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Shoulder_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_female_v2_1.png",
+      "sourceSha256": "acb22787452fe77289493e94de8b9b7d3d74eb26952ac04909a3851efef366b1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/020/Dumbbell_Shoulder_Press_female_v2_1.png",
+      "candidateSha256": "c8bfd47ece7026234d6e456d4d97a391419ab2596948eb44582cf56e708dbe7d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Shoulder_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_female_v2_2.png",
+      "sourceSha256": "8e0db75e85a3769ad31112527c9eb405460717f6110fb6b3bacab4845b38f861",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/020/Dumbbell_Shoulder_Press_female_v2_2.png",
+      "candidateSha256": "285517b01cd4edad5e2a58e83ee8a6f9c6345698faf32c6750fd7cf87fa71093",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Dumbbell_Shoulder_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Dumbbell_Shoulder_Press_female_v2_3.png",
+      "sourceSha256": "0191095f9346b7f72ceb365532c563bfb144782cb1d5eb162608b921819f21dc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-cloud-100/workers/020/Dumbbell_Shoulder_Press_female_v2_3.png",
+      "candidateSha256": "86ffb5d6f4ca0f7f6761b226fcfd9bac3576c88b4421761e19f249168c443ec7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

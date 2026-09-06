@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Tuck_Crunch",
+  "shard": 38,
+  "index": 378,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Tuck_Crunch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_male_v2_0.png",
+      "sourceSha256": "977c88b32079be6ee3461501c1812345d931555b4ca3214a53992e8f245a26b7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_male_v2_0.png",
+      "candidateSha256": "5000fb5081926f1395a606094831506dbb04432eaffb73b12c906fbae22df82b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tuck_Crunch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_male_v2_1.png",
+      "sourceSha256": "6af465e88e841fe1a747ef10b37f897fcc5290f4f9a7e3604520353b00318f63",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_male_v2_1.png",
+      "candidateSha256": "2d72963055898245ea58791b0e4fca914339e83597903981d69d694dce4d122d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tuck_Crunch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_male_v2_2.png",
+      "sourceSha256": "ba4cc3d34a736ee7e1dbdeb138a7bc2cda0dbfe4ccbb40d547a1c85056f52846",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_male_v2_2.png",
+      "candidateSha256": "e5f20b4ee22ab02a806e01025bebd3b4e159345870b0e5b7351cbae2f2f3ff41",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tuck_Crunch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_male_v2_3.png",
+      "sourceSha256": "4ad14969fc72e1b71d520d735a288f82374231d5e757442226b2c3398ebd1ff2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_male_v2_3.png",
+      "candidateSha256": "9f67aad4f9326f8895947c2d8e3362d52774095479c3da17f7d300a4945fb640",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tuck_Crunch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_female_v2_0.png",
+      "sourceSha256": "c8afa61c2b0280fa8f50e1bf3f8d7396332aa916081eb6b545feae685637d818",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_female_v2_0.png",
+      "candidateSha256": "6b396fb54d2a2a48bc389209e5d3900d7ecdb4720c24666febb88fe45ad7432f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tuck_Crunch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_female_v2_1.png",
+      "sourceSha256": "f92fe15994ae1c74d0aa31a2c4083d25f0d895a9fdb45d541259d3c60f1c3124",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_female_v2_1.png",
+      "candidateSha256": "f0a58fc1f2bbb525d77dafc815c9aece0543a87437fc1dafa764d8c631bc198f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tuck_Crunch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_female_v2_2.png",
+      "sourceSha256": "b5abbe88e2179bdf8a5bb8de55d2816cb39aaad09ddbdca2a50d04a315723245",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_female_v2_2.png",
+      "candidateSha256": "8b3779971b204df7d8ee65559456f6b19e500cedd1e0af762849d13dfc06f39e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Tuck_Crunch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Tuck_Crunch_female_v2_3.png",
+      "sourceSha256": "552533929a01ace57c3b6950725f224470e4e46f9ec13890508983e7288097ff",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/378/Tuck_Crunch_female_v2_3.png",
+      "candidateSha256": "b627b2cbc60a98141cf0d05eeb31da995f82fafe7f115b50484e7fedcde99b2a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

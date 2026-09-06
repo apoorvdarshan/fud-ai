@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Two-Arm_Dumbbell_Preacher_Curl",
+  "shard": 38,
+  "index": 379,
+  "status": "ready_for_review",
+  "findings": [
+    "White speckled edge halos on female preacher curl frames 1-3; GenerateImage+green chroma cleaned"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Two-Arm_Dumbbell_Preacher_Curl_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_male_v2_0.png",
+      "sourceSha256": "b7af6d468c95bfb7e68962400d3c255ee2f791a242ee000e33360d7c2a2365b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_male_v2_0.png",
+      "candidateSha256": "e52d46c3a150f29eb60b72f5bd384841a260147b17d6d6bd490943d48ec1a254",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Dumbbell_Preacher_Curl_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_male_v2_1.png",
+      "sourceSha256": "9e49ac374668cadb8841f70eaa2e78b3e48208a7134d818370c0c087b2e3ef69",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_male_v2_1.png",
+      "candidateSha256": "1a5e563cb2c3d0dc83ec3bcb3a4a6af38b8d2c620d9ea7288973635d65029c15",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Dumbbell_Preacher_Curl_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_male_v2_2.png",
+      "sourceSha256": "067da7ca8bb229746dc8c827d2f263cd457b1a973273a105461cc60c8bd86457",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_male_v2_2.png",
+      "candidateSha256": "a8b722ed9085c6884b0a68fb2229310cb3f07ab06c9521c89249432ba46a8866",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Dumbbell_Preacher_Curl_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_male_v2_3.png",
+      "sourceSha256": "f2e76f852c558e1b81ae1dc16340c0b3ca7e0ec19e93cfb65dc20f06a6e45f61",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_male_v2_3.png",
+      "candidateSha256": "d9a8388f1d00806ff1f62ae0ba546bb6e7f7fabee9b054938b58de5597881f32",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Dumbbell_Preacher_Curl_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_female_v2_0.png",
+      "sourceSha256": "b6fe7af2f91d722dac72a0f950945b98c7ea0da7fc44ca1bcc80b79fd19dc9ba",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_female_v2_0.png",
+      "candidateSha256": "673320dafd8ba9c7def007640358b67de62ea5d6ff20d77b78e3066b9516ea80",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Dumbbell_Preacher_Curl_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_female_v2_1.png",
+      "sourceSha256": "aebbd2d62952015507af7d3dc2948391c39cf6d63a541dde8f871c19d5b98210",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_female_v2_1.png",
+      "candidateSha256": "eb18f6bc93a9f40bc64172da529958dff07c2e5e5f65243c06a43400686377a6",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Dumbbell_Preacher_Curl_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_female_v2_2.png",
+      "sourceSha256": "478e5a01b17a1a9a8ad11f7f0cf96a36dce8afc75e4b2476ef7491ccfbbf2734",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_female_v2_2.png",
+      "candidateSha256": "44b0d2578b15d211674b4655f06ac64d2c62e36576ca8a4bfc3a820a4ab4fcac",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Two-Arm_Dumbbell_Preacher_Curl_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Two-Arm_Dumbbell_Preacher_Curl_female_v2_3.png",
+      "sourceSha256": "44d8053e4275f28d73c37b27901bcf56313bcf8588abfd5c9bbd916628e881b9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/379/Two-Arm_Dumbbell_Preacher_Curl_female_v2_3.png",
+      "candidateSha256": "03be4dcedf6c525ea66febfc7fd7c7132189260512caabcef51af74cd1948a68",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

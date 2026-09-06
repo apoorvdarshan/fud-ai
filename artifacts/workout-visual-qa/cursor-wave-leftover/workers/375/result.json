@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Triceps_Pushdown_-_Rope_Attachment",
+  "shard": 38,
+  "index": 375,
+  "status": "ready_for_review",
+  "findings": [
+    "Checkerboard in cable machine frame and white base blocks on all 8 frames; GenerateImage+green chroma cleaned"
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Triceps_Pushdown_-_Rope_Attachment_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_male_v2_0.png",
+      "sourceSha256": "9810f4d5143acccc1a6524127f0638f93f6bd12c1f64c2927416a5e82413bf49",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_male_v2_0.png",
+      "candidateSha256": "74df363022a3e81711eb95dbe73861f5e765ae2436abc0d3db4be443182e172b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_-_Rope_Attachment_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_male_v2_1.png",
+      "sourceSha256": "3268ddb6add2e72477315e4964c12f30883e653055750711c2f24af5cbd906a5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_male_v2_1.png",
+      "candidateSha256": "fce954df9faed04b63bf94736de22fcee9bb6752020316e995b9bf5a8a0a0073",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_-_Rope_Attachment_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_male_v2_2.png",
+      "sourceSha256": "bdc87295a3c1018fcfc3116d890d8284ad5487806acdd96eb93eb6d5d3269a76",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_male_v2_2.png",
+      "candidateSha256": "2f56322798e5956c2dedc5d3cbdaa74823498b7c2728bd1b8d5079b484a4dd49",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_-_Rope_Attachment_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_male_v2_3.png",
+      "sourceSha256": "a46ad723c2c7450fc042c57e3a2716afad7583aec7fbc34a34225000edf9ad06",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_male_v2_3.png",
+      "candidateSha256": "0c85c2f76b6bfd3b321cb5ed961be48356c533edd71a05a2aff2c393518cdc73",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_-_Rope_Attachment_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_female_v2_0.png",
+      "sourceSha256": "ad5abb080832024f1d792a29f5298396bb45307aacdadfc9f649b45066867a00",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_female_v2_0.png",
+      "candidateSha256": "143847ee971af75ed75d7f4ef7177e86768640262ecc3efe6538cbbddf464534",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_-_Rope_Attachment_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_female_v2_1.png",
+      "sourceSha256": "327f32403af9a54f819d7b40e0d845cfe78ced964b818399eb098e038f984d29",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_female_v2_1.png",
+      "candidateSha256": "5bf1a40f71fcfc41198febbae8d3eadba29fcc5e83904fc64ffc9a618e61b933",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_-_Rope_Attachment_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_female_v2_2.png",
+      "sourceSha256": "871e071f37546e10256c551c3c51b0c1060762083fb48a0809de3e35f84d3f73",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_female_v2_2.png",
+      "candidateSha256": "ebab4804a2a0f7f17d78e8292f6427dba98e15b75e1ed347ef9f90b7e3e782ff",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Triceps_Pushdown_-_Rope_Attachment_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Triceps_Pushdown_-_Rope_Attachment_female_v2_3.png",
+      "sourceSha256": "085a3322a37c7e565eebaff6b56a410503392a015b50e1712101ad0f7e03cdf1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/375/Triceps_Pushdown_-_Rope_Attachment_female_v2_3.png",
+      "candidateSha256": "8925188850ea434ca2b9319ca8d947da171739a0f6e93e676aed7f40d8d3306d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

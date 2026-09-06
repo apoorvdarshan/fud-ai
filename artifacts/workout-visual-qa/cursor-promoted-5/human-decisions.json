@@ -1,0 +1,136 @@
+{
+  "batch": "cursor-promoted-5",
+  "decisions": {
+    "Band_Pull_Apart": {
+      "exerciseId": "Band_Pull_Apart",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "5a6e489447d0beb8d04b601c2d8fe56d9178e67221239292f96970376a91d8ac",
+        "9efd2f7cef62dd95163f3c2b4b310a024accc0c692c9702588fef5e3eb9105ea",
+        "c003d64ed7ad9941063791ee8b2d266dbe2989bcbe8f91b5a7f0d6152498a7c8",
+        "3835651d198701fdcfd9ff808699b4f6d6b89860937d2106be77e0876b33f5bd",
+        "bc9e73781e7bd7f41a3e66d65aab4a8aa24c754946b8a171ab4dd878f2673741",
+        "cdaa135f9c3cd82f22ff7667287063d1ea18cb646463c7ee7927610a7f07befd",
+        "395026470d87bc18987c5bb33be4bef75bcb3674d64a3ad1b54a933d997dbcbf",
+        "527ad64ef977aadd4d17c4ee626da54d3be1c6ec85cd9a87000084e223e46df9"
+      ],
+      "candidateHashes": [
+        "26729b06443b7d3f8107bb4a899c6731d792f484c56e34d7866cf4561daf10af",
+        "53eab3e8e9d3caa356315814c1de100565eac4ae4a6b01ec14b11668e11c7300",
+        "584b8b560557d7e6a7bb2a6e2cb439b48c406cfd25f3430374c9035bfecd6fcb",
+        "f20262e95d5192674deefaf1c7be99a224d89056bcdac8ee98cded076a01a30a",
+        "b8c5f1d7ab0623763a8477fe485b7c3550410ed75b191be67bc7fbd22b418dd7",
+        "0b94e49125bb1081c4b17373eca8759479d5233c87e98b022989a7127e07232b",
+        "cc8963db9f6a9c5565b392f568a1f2711d4de5891bf6b3ea67b097808bab6666",
+        "3a54d3dde729a6b3a57d74e28e3196e5a0bab0863824d238168e2081e6cfccbf"
+      ],
+      "reviewedAt": "2026-09-06T20:35:26.900Z"
+    },
+    "Band_Skull_Crusher": {
+      "exerciseId": "Band_Skull_Crusher",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "ff860a12e54b466f2372e528c987baf6e4ec2a2b1fea82d55fcd320b39ba5653",
+        "2b9f75311bf3abfa35d8d93c7fd505b5a9842b2020ed06ef251f9b9806a64bc0",
+        "e1e1fb7c0bd7ccc69a0eae8c983043d1b69c11eac194cd2b108cabc3b556445d",
+        "9a37fdb55568cfe47177e619d1f35260e10e8d2323f7eb85f5ce1f8f9588ee11",
+        "a4ca1efef722c69a270f4e7591a7367123f6f13dd49dc5401ce016b0c7ae0474",
+        "5e83abcb79ba9dda1ec152141bdc011728926951fd25ee60794fa2803982a08f",
+        "e989becfcd5dec68bf489aedb377180b10927d13ce894b6f506e29fb67c5cb4e",
+        "e4fbea5af88f678532cf1d108232b5ddbf6fa8bba9854998f784059139beb8f8"
+      ],
+      "candidateHashes": [
+        "f5f08fd4c4205d198e2522274b38a66cc51e8f30f29ccc693bab21ba6a5daaee",
+        "57dcb813ae60585d237c5bbbd79eb3cf756cd292b15de2120521dbd729446edc",
+        "f7031ca6c01458a25eb8e6593bbbd71a8696b934137f49ad0fc38bb4798fa5eb",
+        "65cf68dca3c6611991a88b75b2ce0dc474d3520708622126598ea0606b6953ae",
+        "cd4c47ee39f3d6391edf72495eb65d574056079cfd7bc005947ac4317d509db2",
+        "10248f05f459fc2d57952915ec169b15da90b3e4ace753fa12c290b1f35e3eba",
+        "06b5db22e8d1b379436d6a004254a0c92c17c2556def40319d099f6858cde00f",
+        "fdf8c13455f4b9cad3f1e71629a10c081edc283b192cf3a91f06d4077eab6f1b"
+      ],
+      "reviewedAt": "2026-09-06T20:35:32.412Z"
+    },
+    "Alternate_Hammer_Curl": {
+      "exerciseId": "Alternate_Hammer_Curl",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "8e484e6d9d0757eb88dd6278f6676780e36470410af8d5405a6fd4b53876d562",
+        "3f1abe513ab8752dcff0800997fda619d20c107fc817065325730422a9bb81cc",
+        "fb2c083aaac00f016a005699fb08f75d597e4b3ab10622d6169afb1bec1263b4",
+        "c5f2a1d54308104e85d481bda5a69224351eff9f3bd2b5859e310ebd8d05774d",
+        "a9a34b4db3ef4b3903eabcae740089140c16700eb45c131fc46e8910244e1bef",
+        "16741a982e47a221c7e33bab6a15574bcb6a35d6f7a7399b9fda46fe21d9cccb",
+        "935e1eb50c6d8770e2d753fc110b60e66bb6c033d6ca3497d5bea33dce4c64bd",
+        "de82f809b5e2be45acf16934a54eaa1613e87046f871b701fd9eb0b2dfaed059"
+      ],
+      "candidateHashes": [
+        "6defe9dbf7620ccfa3cff3c7640e6926aa6db86ca4d4da21ada3a25945614f10",
+        "725affa16316d7edd5bc9e1aabc4c03fc4e22538e374f2ebc96bbdbdcbd1c6c8",
+        "fe9e14b7b9357add6b9a5ac682e8b418b53ba8a5632a387c3d625c95d18a21cc",
+        "0f1aa0ec63f9e8107bf3538ca65ce8355fced3579d97ce8746425c45e94780ac",
+        "f8f3f0b6a471e634e29cc03cd8cea0e8111af51933d29b5216daecb844d6c8a2",
+        "212c942ae94bf32acabbcc2c2d93b0923a8392eb61d0453e4dd6776e14cd3b87",
+        "68c8c1d39fcd79c8a4650f50eaa5466e26be552c6770f87c0a84a6ab98b80584",
+        "e29a8c8429d29ebdc66a25df6bcd90a5bec91c1b5db27f449ed2f3c0218cc767"
+      ],
+      "reviewedAt": "2026-09-06T20:35:39.511Z"
+    },
+    "Barbell_Full_Squat": {
+      "exerciseId": "Barbell_Full_Squat",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "7b288c3fdacf8885ba9156695cbe12736405b38d15a298133f5a8528374dd06a",
+        "069451a3778521d55e29f1abcd480a7428b9eb28da7d677ffd2c6883b546edff",
+        "da077023f4b2a72dd217a8436da375478e5dbf75a4f648581067b681957d2690",
+        "79b7173621035e3e644d1c4832d46fe83e8f7e613e3a21e8eff292fdb947aabd",
+        "fabbae75ff100f2103c8baabced58b8b596e8f71a03f7fa50670c01a0a6c8647",
+        "396ba2f13143348b45fdccadc59740ae1e0ff11f0462904f333052b70d6e134b",
+        "8ca9e90b1ffe9df1fcc20473e87b39b88ec5c0a816261e242794aed378f8bd9d",
+        "de4497de4cc863e4ad0e7c2d04d199020c4efddb45093de5935e1659a9880725"
+      ],
+      "candidateHashes": [
+        "418f2460661bde1fcaa0c52cb19dcd2d903a323f9e52beca857c11156fa01e1d",
+        "6472180d7acf48a615a09942c2456ab34ff6022943de5dff82f3bfbd3d0d2403",
+        "0bd8e89a5f1560690be19a912cf57ddbda4b78fa39bd2cca0134ee186500dabc",
+        "7137a0b45c8b55b5afa4436483373f6c0007e4625eb1d83de70ce0455f1004b8",
+        "7578cfc5f372b48a2d2358600e9a0a8c4851205d453b504b9d46658837180d41",
+        "7481194b7d7dc6938a9008c63bad37973871d7260523d0d4b937860b1c24eda6",
+        "945b595eb19d686304e8ca708b851c04dbfa5a76d6bde0dd1086f7aa976f59b7",
+        "ccf1d368fb7b212dc5b51720466ae4525006636fa4f6dc9e057edbb08cfb805f"
+      ],
+      "reviewedAt": "2026-09-06T20:35:45.328Z"
+    },
+    "Barbell_Ab_Rollout_-_On_Knees": {
+      "exerciseId": "Barbell_Ab_Rollout_-_On_Knees",
+      "decision": "approve_candidate",
+      "notes": "",
+      "sourceHashes": [
+        "9b46018b87fba81763839979daf55f3ed30dff0129f8b32a30387fa40935d40d",
+        "02770ac1820a2f8710955fb2259b4c0809a460fd2aa02fef21f2f8b15898ed95",
+        "de641c6f23fc70bbc63bce547a21c82c5f3cda6512f593e230567c696a8c9578",
+        "13ef3c5f68579bea7d4c5133156ea2fa41125950a4371449a60ff8a82df622c3",
+        "3a181ce87d6856b01d805d4b3b1837ec569cb540f19a816a1cf4bb32556fcbc1",
+        "938a4076580e96f04b989d01273db3392eddb223a0da1c7fdd13df281fb10bcd",
+        "c464f0752862941fb6fa4ebc8cedbd6bf9bb49e391d1e49f6c77bab25e182792",
+        "ea3ffca9e7b5f6d58747392a2ca0d79704ebb6aec55b716a069bbd0d34b61f4b"
+      ],
+      "candidateHashes": [
+        "cac7f4a1f4a22617a274ddfc7087af63b67b6aa7ddf5a99316a9ba675c3c22b7",
+        "35f1d1445736bce8be3694c5476b6aa596d12985650620ded4a0781fbbb4747d",
+        "e9652676796fcc39e50ff2a5a8c7bda0232ce8bb99e9fd89809fd9427c7c40b3",
+        "5b558627b723380fdc14ff41c3cbd1d7022f0fbf9f3e842c5a928d2fa6b42427",
+        "fdcc5f4a36f9a5a303658167e698a08f05810484b56b45f848637544b89cece7",
+        "62ca49b16c5722f568bc5a8a0e3d6011bad8c86edfb24f69cc4d9bc00a0f45ea",
+        "010a1e539520d846dc43b3dec55c97433e2213fd1811ce03cb7b90fd326fb8bd",
+        "0f5cf2469144bd63f21ba9a95470f35a4e4ddbbfbfe3c92f9c7ee17fbfc839d4"
+      ],
+      "reviewedAt": "2026-09-06T20:35:50.460Z"
+    }
+  },
+  "updatedAt": "2026-09-06T20:35:50.460Z"
+}

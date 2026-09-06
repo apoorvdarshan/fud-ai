@@ -1,0 +1,826 @@
+{
+  "shard": 2,
+  "batch": "cursor-wave-200",
+  "exercises": [
+    {
+      "exerciseId": "Barbell_Incline_Bench_Press_-_Medium_Grip",
+      "shard": 2,
+      "index": 11,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_0.png",
+          "sourceSha256": "3879e5c81afcd61207ed010ec9c010ef51bfe0c47916191f62ba1ea0e395ba7b",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_0.png",
+          "candidateSha256": "b70a55af5f25a77fb6fdb552cac81b26242d2a2381cf2845232fcd1a85e5ee4f",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_1.png",
+          "sourceSha256": "0947beeb3e889edb2500a0cc8da28bc5ecafb4162b559a7ec6bc7748c788ab1c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_1.png",
+          "candidateSha256": "d456309d559136c4ac17f54268a693956bb35831fb1d8be0d76eb08596816fc1",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_2.png",
+          "sourceSha256": "66dc6f83573397c375375fde1d10865d1d1beb8e53b2a355c1c853ccb80de929",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_2.png",
+          "candidateSha256": "ac665821a73773e4967f3081cc7d58a8144e57e1ada042cede4b450fe048451e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_3.png",
+          "sourceSha256": "28f5645149931102a07ff884ddb3c45f131fb25cd0468febd8f531217b73bf09",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_3.png",
+          "candidateSha256": "ce12e48a10ca85e53bc7ff7ee6f3ffdd7753e618377b79f0fc31e027814fd36e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_0.png",
+          "sourceSha256": "610d6de654e77eeb40e745bfee3d2c100739616c435cfc48a3fbb6df46e309ca",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_0.png",
+          "candidateSha256": "0d3cbdd73c9c26c56f7326256aaef4421f14fabbbb21027b88c61e921d019ff4",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_1.png",
+          "sourceSha256": "c7d94d2c81f8e74d63adc13a15500334d35ae018793e88bf0d14aa7fe01d29aa",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_1.png",
+          "candidateSha256": "00ffc2351d83d66c29ba0e0448172ce97bed0911fb33fdbdfe4a0fb9da7601b6",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_2.png",
+          "sourceSha256": "cb1f83a10d8c416817b1da4b9abea81929dca601d7d347186a2db99f21e5efd7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_2.png",
+          "candidateSha256": "095b02959bafd0854011ace58050608273f22844b36816980711dd9d2bd0fdbb",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_3.png",
+          "sourceSha256": "1df445ef7968ddc137c9fb7b763b0d41048ec7feac13abf1a1d05f88f1466048",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/011/Barbell_Incline_Bench_Press_-_Medium_Grip_female_v2_3.png",
+          "candidateSha256": "d2994157410a3ca8b8ddd5f43d061a7b1012194ddb3d759ce72a80bca3b1a6f6",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Barbell_Incline_Shoulder_Raise",
+      "shard": 2,
+      "index": 12,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Barbell_Incline_Shoulder_Raise_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_male_v2_0.png",
+          "sourceSha256": "4f693e14634d6da64d5c87aa334dfbbccdee0e16a05111ec5bc02c2a73ea9caa",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_male_v2_0.png",
+          "candidateSha256": "371604b0fd407b4b93b72b3cd986f4425a660186f1732049ba15d1a37902d005",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Shoulder_Raise_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_male_v2_1.png",
+          "sourceSha256": "e6a43df5aa81f75452f023e545d77e6a6d3a5e85d88e4ade25a8827bbb508b43",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_male_v2_1.png",
+          "candidateSha256": "3a2d829fff6a8150ed47a701b7a7a18f6ebd4a85881ffc51733ca45ddc2e912c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Shoulder_Raise_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_male_v2_2.png",
+          "sourceSha256": "a8305fb3b70a6b812d4b17cd8837621069b1a1e24378730f35286bc09d9d35b5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_male_v2_2.png",
+          "candidateSha256": "38e2ff371cf36f3ad49161c8985d69afe92562aa114f2b8a6de244cea924b2a8",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Shoulder_Raise_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_male_v2_3.png",
+          "sourceSha256": "56fd4dc19f92bf653eb78b3372ddc061ed65202068b274b183bea04ccd702bd6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_male_v2_3.png",
+          "candidateSha256": "fe1e44310870dd0e35c0bdd68ad36767d3f71ee8f8dcdc3948b451b4d1f73778",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Shoulder_Raise_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_female_v2_0.png",
+          "sourceSha256": "512b018df8c9a83c36926be34921aea8f1658cd783d221dcc38932cb2bac3128",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_female_v2_0.png",
+          "candidateSha256": "e1efb78c8b6d8ee0d67f63062bd2bc0234a8f074bf8b817c3418ccf7c4768800",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Shoulder_Raise_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_female_v2_1.png",
+          "sourceSha256": "905683aace5b19a45f7019b79cf239ef15a0c8d4b5635028eb15b33aeb481a67",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_female_v2_1.png",
+          "candidateSha256": "441c2f286fe7368ea4c02e7d793e81e7ede4ac845e456ed75389632173711401",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Shoulder_Raise_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_female_v2_2.png",
+          "sourceSha256": "895557f60afa3367a24a62a0dcfd0310607e5544ec164bdfcdd95b3eb106727c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_female_v2_2.png",
+          "candidateSha256": "f98765ceb3ebdae3e7d8895350961a8ccc4949e0e559d46ba8f0caa4bdbe1826",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Incline_Shoulder_Raise_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_female_v2_3.png",
+          "sourceSha256": "a4e02f2a4ad2a915df257ee0547b49b934ea781980bd7d36d4a6d170854eb2c2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_female_v2_3.png",
+          "candidateSha256": "94727599065c9204c89cd871f14c320f4e5063f815108372d57ea1583f3ba86b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Barbell_Rollout_from_Bench",
+      "shard": 2,
+      "index": 13,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Barbell_Rollout_from_Bench_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_male_v2_0.png",
+          "sourceSha256": "f7fecf3fdd800e92ddea127c3cee233c51699bac22378e0ffae25980b4e0874c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_male_v2_0.png",
+          "candidateSha256": "03b5570f5b0e43c5f9ae1c69ec6eada6c88a90aaba2ad28e96f44759f9cd7d5e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Rollout_from_Bench_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_male_v2_1.png",
+          "sourceSha256": "662f48c90007b5553d193bc2d0eff7fd21ab3a4663350dca6532f9beab46a9ec",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_male_v2_1.png",
+          "candidateSha256": "bec5c83804ed5c51e10f8c0d4c09e22630aaba04a8c5660208393a8581cab269",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Rollout_from_Bench_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_male_v2_2.png",
+          "sourceSha256": "1e6bc8cd6795b59aef0e6b03b5b3ef29c6fee978047e0babb7af35a8a4788e73",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_male_v2_2.png",
+          "candidateSha256": "4e8ddc9c5977617afe68853db5eea24b7e8cdd3435964e216cba03b15431fa2d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Rollout_from_Bench_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_male_v2_3.png",
+          "sourceSha256": "0576ba5aaf4a71b405125e45297c28e79a53384b9c665e94fcda7c04d637ca14",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_male_v2_3.png",
+          "candidateSha256": "236d45eba96c43be26c7910589e8fed19f8d4e810d1246254c13418d1a0cdf07",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Rollout_from_Bench_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_female_v2_0.png",
+          "sourceSha256": "1157c5663ecce400cff6aec133d3738985af7c8ef2549aa5d6d6396b66598caf",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_female_v2_0.png",
+          "candidateSha256": "277a815626d7ed4fe3e37405fb4c8ca7d0f4923e6cedbbb0ab8db93f9117f0e0",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Rollout_from_Bench_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_female_v2_1.png",
+          "sourceSha256": "80ebdbce70066e54304e5ff95ee289d586bb148bf0d0d6933bc80532e9afd3d4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_female_v2_1.png",
+          "candidateSha256": "65a42214f4a20d1e9be675e46e5fd37f21a511740de0d69a0d0b805c514206c6",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Rollout_from_Bench_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_female_v2_2.png",
+          "sourceSha256": "4406179e147ff941adc1cb32344d3f48734db9e5f031ce4d0045ed11bd66b9ed",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_female_v2_2.png",
+          "candidateSha256": "7b1074de8594fae626d98d5bde5e6d5646538259f825d321a0ef91f1e0d88b44",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Rollout_from_Bench_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Rollout_from_Bench_female_v2_3.png",
+          "sourceSha256": "5e93a1899113c3cc20d147dc828d089be526b717a17f07922dc7ac68b5e211be",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/013/Barbell_Rollout_from_Bench_female_v2_3.png",
+          "candidateSha256": "54d5c345143ab050a3975dc65f30f5af0987ad68fc62331d9482a0d2d483e3c0",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Barbell_Shoulder_Press",
+      "shard": 2,
+      "index": 14,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Barbell_Shoulder_Press_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_male_v2_0.png",
+          "sourceSha256": "eb8bf84bbd8edb78240b608b4e239f63a44540e7067c350e6c2232d9e701b1a3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_male_v2_0.png",
+          "candidateSha256": "53edc25425a45ab09795d21eb093bd23ef3e2da633311f762929f9676d3afed6",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shoulder_Press_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_male_v2_1.png",
+          "sourceSha256": "481a0da347c76579d97969b5fed43c713a9b142b26ea1e19ba7a35bc2f2d2fde",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_male_v2_1.png",
+          "candidateSha256": "e285e9288d497869d5d97a411748828caa958fc096cd0e045e27426e6b9f8a91",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shoulder_Press_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_male_v2_2.png",
+          "sourceSha256": "6139f768de8ccea0faa3c61be8931cbc1756a682dcec4fd864e87f2209463397",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_male_v2_2.png",
+          "candidateSha256": "0bac18ce520af715d4c130aa689fd6b109f52d521feca5df75d0e69ad521d3ad",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shoulder_Press_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_male_v2_3.png",
+          "sourceSha256": "1c11622a10506d2f52a26786fb2690a5af567cd7835ba2ee788fd7facf86f137",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_male_v2_3.png",
+          "candidateSha256": "d1dc65af6338f5ebfdf919694ce10a378fb6ab10f006d5bb8009db18cf644b6b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shoulder_Press_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_female_v2_0.png",
+          "sourceSha256": "cae8d75c90828d7168f74684b522b2e2ce9f1bea9029b25a31b6114e4b8250f7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_female_v2_0.png",
+          "candidateSha256": "2056de34b20c47a5376c959a6965bc3c5c5cc66180a0ccfd2c0b3bc46a4f6b5d",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shoulder_Press_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_female_v2_1.png",
+          "sourceSha256": "305a3d67b5ada6f13c13d18e4582214e6787b732e6ea63650aa1d87cfd6dceb5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_female_v2_1.png",
+          "candidateSha256": "ce4696406a9ce2d3ceeffc0bf1b1db136dbde70a5992546770803475a149b5e4",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shoulder_Press_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_female_v2_2.png",
+          "sourceSha256": "8f4883126e989e1b8e8e8308f8527cd26d90d09d8aa0d6bbe85fecdf177164f8",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_female_v2_2.png",
+          "candidateSha256": "144536efbb5ea933f983ee5b6c488a7a68ce42d70f8cc4b375139fd550a5dc08",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shoulder_Press_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shoulder_Press_female_v2_3.png",
+          "sourceSha256": "101f7b06b864fc9702ae2d68483c0801a97e190a36b577c8ebf5b02e6c8cd1df",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/014/Barbell_Shoulder_Press_female_v2_3.png",
+          "candidateSha256": "edbc5aa5a4a66a7d7414b5d80a3608c475e2ee01c500f3fe44a54b7b9d7e709b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Barbell_Shrug_Behind_The_Back",
+      "shard": 2,
+      "index": 15,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Barbell_Shrug_Behind_The_Back_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_male_v2_0.png",
+          "sourceSha256": "e52644560eced69ad908d5341612d0dab19314668b005162d135901ed01a0e73",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_male_v2_0.png",
+          "candidateSha256": "a475773a4be0fcc7807b79dfa152b6493d2a10716a2d35aff03c14e25e21b206",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shrug_Behind_The_Back_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_male_v2_1.png",
+          "sourceSha256": "54fb7603e952672e5641243400c0b39d7e2de8a221d4e32c9a661f07b194f2a9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_male_v2_1.png",
+          "candidateSha256": "899c2d0e2781be111fd499c68b877fa156296d31f0015ce7656bb38e13f6083b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shrug_Behind_The_Back_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_male_v2_2.png",
+          "sourceSha256": "fecb0ffe7e38a983937dd897c598b651def3580f290746dd94b15d1b01aab580",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_male_v2_2.png",
+          "candidateSha256": "2786109b0473015d95eb9f3a7c3c121642db1c5da2ba700d281700c128386d35",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shrug_Behind_The_Back_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_male_v2_3.png",
+          "sourceSha256": "d6a5b393f8aaf487bf92745bd46ebd966e9ac22a888641ee065dbaaf674f5926",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_male_v2_3.png",
+          "candidateSha256": "066aa16c9b20940f997f9f601543433c0462d451060b55877336ef975b0edf7d",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shrug_Behind_The_Back_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_female_v2_0.png",
+          "sourceSha256": "f9086e1f92d545082ba024fa7ed170f02425c1a053066cbcef12f2e679f1122e",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_female_v2_0.png",
+          "candidateSha256": "ae05c02eebef2330b6cfe0dd5e6f5984281ee4338ab1958a85d2809f961543fe",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shrug_Behind_The_Back_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_female_v2_1.png",
+          "sourceSha256": "a1d2c7e6d19cb71307d6a5f6c44eece343db382c958dd1d9244e8d12d1fdf685",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_female_v2_1.png",
+          "candidateSha256": "70a523f3472baf1901685a61d4aa3f764e09339311c8867e35fdf70948273c8b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shrug_Behind_The_Back_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_female_v2_2.png",
+          "sourceSha256": "e3d0117a6a97166fedf158fea26a09d9008b4d30d046fe740221614b2a8ceaf3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_female_v2_2.png",
+          "candidateSha256": "30ec0b2ecad1fe4b45f804b7c058bbeee820da18b199f4695351ce2546275c4b",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Barbell_Shrug_Behind_The_Back_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_female_v2_3.png",
+          "sourceSha256": "2d017a70213e5a96fd7576a69aa00941da75a9f2610fe56048a13df7a8d0b9ac",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_female_v2_3.png",
+          "candidateSha256": "02a335219d4fdcdfb76c2740c608d4b13fc21209c4bb1e7c9677df01b275c5b9",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Bear_Crawl_Sled_Drags",
+      "shard": 2,
+      "index": 16,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Bear_Crawl_Sled_Drags_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_male_v2_0.png",
+          "sourceSha256": "c3c9a37cce3502c800955074f1a1d5b59fe93f6d4e6f4af9e915043e1cf30ae9",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_male_v2_0.png",
+          "candidateSha256": "fa8987b94f7fbc89e8c3921b6d4fdc9a93a23532b56a6bd7fb2796ca970bfbbf",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bear_Crawl_Sled_Drags_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_male_v2_1.png",
+          "sourceSha256": "41a11abdd34bd38c3912b9a21b3156384842331d4594b13ec4fbfdf31eb33b00",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_male_v2_1.png",
+          "candidateSha256": "5177dfca1fba5057c391e2643b01a88bb7f4ac82ca93f0a3cca66618eaebc405",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bear_Crawl_Sled_Drags_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_male_v2_2.png",
+          "sourceSha256": "fa0ce512f01869594af413f243e391206137ab8eb51d43f5eb6d05157e48ede2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_male_v2_2.png",
+          "candidateSha256": "7ac84d589b857448ff488720b7d0ce6937fbe1e4fbec87005683881629026647",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bear_Crawl_Sled_Drags_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_male_v2_3.png",
+          "sourceSha256": "48243d5514386863da0c93875cf13db45ceaeb6862c162e49338588ad3719b38",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_male_v2_3.png",
+          "candidateSha256": "2b0ecca2f3ee31c01f1e4a6fac24e94d96c5b10aec07f8e1e3abbc5ca49292e0",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bear_Crawl_Sled_Drags_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_female_v2_0.png",
+          "sourceSha256": "884c70c84259a98187afeea892a013a8429145af15dbbfe883e0dbd9e982b3e6",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_female_v2_0.png",
+          "candidateSha256": "c307a69cc27db72a3141fe3fa1dbfcec3e79da4e7fc25ffb64cbeb6442ad3aeb",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bear_Crawl_Sled_Drags_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_female_v2_1.png",
+          "sourceSha256": "bcbab7c6ac5de8c323d4da517cf2b6db818e070120434823ddae2b0cb97599a4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_female_v2_1.png",
+          "candidateSha256": "9ae7b9cc249d6f333b9ca5a3b14ed759f8abe1acce4e9b890839c5fb1e8e99fa",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bear_Crawl_Sled_Drags_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_female_v2_2.png",
+          "sourceSha256": "43b35daab02932be8e21eb4e9df98da6b384d044a6ee22f20c3de6a841ab808d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_female_v2_2.png",
+          "candidateSha256": "4ca6bbd905b7da5411956cb8efa51250ec3a28354871f27ecbefc0b4e9dd27fa",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bear_Crawl_Sled_Drags_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bear_Crawl_Sled_Drags_female_v2_3.png",
+          "sourceSha256": "008b5ac0d7f8c3db002793aa939de9807988bf4bb087d68fe7f8e1873ed49c97",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/016/Bear_Crawl_Sled_Drags_female_v2_3.png",
+          "candidateSha256": "4729f9b69afe7986f2b4c57cd7e7d0f0f58f9508c6d2dc78da81d9d0ccc296d8",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Bench_Sprint",
+      "shard": 2,
+      "index": 17,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Bench_Sprint_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_male_v2_0.png",
+          "sourceSha256": "ab3c54f7380fde38e74ab4bba8049e8b697f71319fe24a864366cf94997445b7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_male_v2_0.png",
+          "candidateSha256": "fbf1c8b6a572bee3989485f3b2e91cdf588d3a40fdd5a9c73298ab2a009cff43",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bench_Sprint_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_male_v2_1.png",
+          "sourceSha256": "81fb640b080f1c5b22f8622e39f82b7992c87023ac6bd2f63496ed2ce90c63ef",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_male_v2_1.png",
+          "candidateSha256": "7e9376b3bddfa766bfe1c5a8e892a6f5028d9a25b5ca7eb57dfc623b368751c9",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bench_Sprint_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_male_v2_2.png",
+          "sourceSha256": "b6494de2e525878bbaa02e1bb0a676661deef7aa42654baa20f76c2ee5335513",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_male_v2_2.png",
+          "candidateSha256": "ada7aa5b82583d87f9e59b84ba361c120a469115a181ba2f55e4133a71345abc",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bench_Sprint_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_male_v2_3.png",
+          "sourceSha256": "7e5f2e1f967344060dd8c85aef0f1d0eb2a1063d97436458441ccaa4b16a5e45",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_male_v2_3.png",
+          "candidateSha256": "1c2ddea570d7f52a3926ab8dbbe5772a896c583df7ac589c989efbddc55123c8",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bench_Sprint_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_female_v2_0.png",
+          "sourceSha256": "a653193f6a055fc453a27e39d7a9ab794b8cd3f247fb813a22e244423f7645b4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_female_v2_0.png",
+          "candidateSha256": "2da1a6e468bddef6b6cdfefba8708178260a99197a376e89baa06de8a287dd9b",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bench_Sprint_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_female_v2_1.png",
+          "sourceSha256": "6e1e960a7a11cce08d7f9cf469093b2259a7325431aac8fe46cfce78f89454c3",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_female_v2_1.png",
+          "candidateSha256": "f548cc534c7e28e4c1455849d05ed6b5f4b1b462775f59c058d0128194d6c132",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bench_Sprint_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_female_v2_2.png",
+          "sourceSha256": "ea6b6ca50998882a3fa28324ffdb96cd352bce6b74a781b697dc57de2ddb74a4",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_female_v2_2.png",
+          "candidateSha256": "6120a79d755df07b1ddd093c63b21e4525eff2abcd1bafc7c4b2f4dcdea5b085",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bench_Sprint_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_female_v2_3.png",
+          "sourceSha256": "32c0275f6ae5913c1e57e16d210cff5fe5b357ff84ac19d1a97931b9a66e36d5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_female_v2_3.png",
+          "candidateSha256": "18ea92f223e1cdf899ecb4ee8f0b7b53596a7da83e685f57785b7000d314e01c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Bent-Arm_Dumbbell_Pullover",
+      "shard": 2,
+      "index": 18,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Bent-Arm_Dumbbell_Pullover_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_male_v2_0.png",
+          "sourceSha256": "e48e7e6fe8f5760bd5b391da3fe1c2af3f5b65f8958e7206a2f527bdacab284c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_male_v2_0.png",
+          "candidateSha256": "24978895a5cc66f2ffb2693d129eb6709627854b7e7d73a5337b3c8f2bc15258",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent-Arm_Dumbbell_Pullover_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_male_v2_1.png",
+          "sourceSha256": "4dcbd9c739057b346ba8e23feef02b07517da32899586e92a26c6351f9928ee0",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_male_v2_1.png",
+          "candidateSha256": "c99ee1332f776c556fbe98e400a7ec5748faf17dd1fd52c7fa4601c0a32ec56c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent-Arm_Dumbbell_Pullover_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_male_v2_2.png",
+          "sourceSha256": "d195f8860443a190959343f251e261295d669c0abc3b7f76643b813da601c413",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_male_v2_2.png",
+          "candidateSha256": "1f8a0c992cf951bc8b3d9e48fbe1a631e82f3f5003bef375b371a5de3aadd83c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent-Arm_Dumbbell_Pullover_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_male_v2_3.png",
+          "sourceSha256": "aec705cb05b9170b83d8608e3ab79710da91c462a262c6cb461fab81781f811f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_male_v2_3.png",
+          "candidateSha256": "63e5e0f6c3b13ffae564c3d49d6624c83d75e42c440afaa803adfe47840e02a7",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent-Arm_Dumbbell_Pullover_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_female_v2_0.png",
+          "sourceSha256": "77acff297f854411fb27eb5e57edfd854860f6cb1ca1cbf771b61cdfa8387a74",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_female_v2_0.png",
+          "candidateSha256": "ac121081742d45ffb9a0f4400342fb75687fd44d3adab5d4b88672029acb31db",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent-Arm_Dumbbell_Pullover_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_female_v2_1.png",
+          "sourceSha256": "e4b3d15c5af4296df9f0bb46b32b657a02910beef8616fc9c39cd834c1765800",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_female_v2_1.png",
+          "candidateSha256": "2134ffa37995bcf5e07bbbbdf7a009a16d346a48b58333e0ecd569fd38c78abc",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent-Arm_Dumbbell_Pullover_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_female_v2_2.png",
+          "sourceSha256": "9e68f2b83e02de4095722b52e32a54fe5b7c57f3a89f9e72840873707618886f",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_female_v2_2.png",
+          "candidateSha256": "b482665cd8fce23cb211d3303f18a90b05eceffe4c403651d9d29c7d2720e8e5",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent-Arm_Dumbbell_Pullover_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent-Arm_Dumbbell_Pullover_female_v2_3.png",
+          "sourceSha256": "6cf58151a1b102761d7eef82ba5451c4650b0cf695255a994114cbf91e973535",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/018/Bent-Arm_Dumbbell_Pullover_female_v2_3.png",
+          "candidateSha256": "58f250e311c7686c94ebfc33e42f15a60dfd333543cd80aa988f03e732300c70",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Bent_Over_Barbell_Row",
+      "shard": 2,
+      "index": 19,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Bent_Over_Barbell_Row_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_male_v2_0.png",
+          "sourceSha256": "c822324b1d43eec4e846e0f88cde699bda5ac4821985e2637e42473e490e4c5d",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_male_v2_0.png",
+          "candidateSha256": "a4698d0af204ba93d5f4f8d13c08feababca15b9fd11a6e934b079d58438c4da",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Barbell_Row_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_male_v2_1.png",
+          "sourceSha256": "146c04a3f7457ce6f5a875f1bf65d7bf6c1de2bb5465d557afb4be69ad6db8e5",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_male_v2_1.png",
+          "candidateSha256": "8736bcf096c9dd195600479ae66fdafc2495525cd2bdb3e0980fb9f144dad3e7",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Barbell_Row_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_male_v2_2.png",
+          "sourceSha256": "5e56f2b94d687ea232aff00f43464efeb6e5825b29e2ed50a3ed3276231848af",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_male_v2_2.png",
+          "candidateSha256": "e7af72b1612cb0c9149cf820203fe169667f101e1ce586bf27399e266d1ae346",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Barbell_Row_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_male_v2_3.png",
+          "sourceSha256": "d31b2aeea468f29fb2901625d8720370cec2bd84e5e73a14881d087e28191830",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_male_v2_3.png",
+          "candidateSha256": "a65d92269b188186f8e3dfa51430f5a35da4437034409b6fff8c60e96987dad2",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Barbell_Row_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_female_v2_0.png",
+          "sourceSha256": "6dfd8775083a4a6407e4b61ba3e16f3ace4dea924eb6bf0046896e732191b97c",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_female_v2_0.png",
+          "candidateSha256": "38c3be64742ef8a917e5395e555932fa490eacff0d882269fcde4833fe8485a4",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Barbell_Row_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_female_v2_1.png",
+          "sourceSha256": "d5092318c1ba6686ecaf0d5409d83f0385ce6821b65cbb90e1fca35873ae94b7",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_female_v2_1.png",
+          "candidateSha256": "de3a0707fa7a4bfb131b78193958cb2689fb59560c0a6be798dbb75670658092",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Barbell_Row_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_female_v2_2.png",
+          "sourceSha256": "063fcc2fc96959b09892025994972c157cd1c3b340796bcaa43a8966c503ae02",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_female_v2_2.png",
+          "candidateSha256": "3cb7c8ac6556cd15b6dc9b91534b6dbec6fdc3e1576d6239fbf27a2b5cdc36b6",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Barbell_Row_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_female_v2_3.png",
+          "sourceSha256": "d2c10502b2fa8d87ad697404fb2fb5a2450940cd3d42f4c922d8daa818a9ee47",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_female_v2_3.png",
+          "candidateSha256": "ea5347c1b4b44ee10427b1cd655ad232185750ffe5540045d9e403d292179e34",
+          "method": "script_background_cleanup",
+          "visuallyReviewed": true
+        }
+      ]
+    },
+    {
+      "exerciseId": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench",
+      "shard": 2,
+      "index": 20,
+      "status": "ready_for_review",
+      "findings": [],
+      "unresolved": [],
+      "frames": [
+        {
+          "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_0.png",
+          "sourceSha256": "fd376e92e7d38a351f22860ddbf13f241cb5761659309c2de4a50573dffb8b76",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_0.png",
+          "candidateSha256": "ff7059cab542e26155825d8d1bb5eec235c9e48c5ed483ada74cac096e9bbd01",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_1.png",
+          "sourceSha256": "51f541d00bce2f899f3bfb8fd5ee1ccc6a2b290f1b5e7a7c78d1c8f9e248febd",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_1.png",
+          "candidateSha256": "55b89cb572cb4ab1f1c217a67f8f354d48e3088f5a099afe2987125afe92e169",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_2.png",
+          "sourceSha256": "f41c10976594f200914c26669793ada8d8f680bf7dd8850c97f788b85baa4f83",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_2.png",
+          "candidateSha256": "8dc125bb8440872a44f5602c63c377cf096eb5b1abc24df9df058a208c9acd43",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_3.png",
+          "sourceSha256": "94263abb2fc25c2ef81660bb86a8f21500fa2d3a27e0b404b42e1085e9923af2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_3.png",
+          "candidateSha256": "9a203efbe7e3122217f0c2c4c56ec6df6d927ec6b5b62592e7cd33e40dd0c3e4",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_0.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_0.png",
+          "sourceSha256": "1dd5bcdc9352be97cd1cfb74d83864ce92311dd362619af3bbf34db6cb3b58bb",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_0.png",
+          "candidateSha256": "860a0bb9b91399a4d12be2ad0adb5144159632f087257818863cc99e71cb6691",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_1.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_1.png",
+          "sourceSha256": "5a233cebeadefb41513f5480ea264c671390590da6a1ff1605a8ef47ad31b22a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_1.png",
+          "candidateSha256": "bc19c2fc2d90b93c455496bbb4101b044f84df9c771abbf3e235969fb2059e9e",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_2.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_2.png",
+          "sourceSha256": "6c12c38527a94826f7b8e0513db23647bab35f2adfb1d3a2d0c0e67edfbf694a",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_2.png",
+          "candidateSha256": "b7306e05e34a7ab5f7dce042aea9282e29e6ea5f2f6603fd3a90c312a0d4797c",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        },
+        {
+          "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_3.png",
+          "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_3.png",
+          "sourceSha256": "cd7835852605d29ae613405d60d7104ac3a57b16b7f6aee58b33c61e5e98b7f2",
+          "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_3.png",
+          "candidateSha256": "4435df36b37f5664ca06fd1ad951da16f8302abf3bf0f4d326c2b37393789023",
+          "method": "generateimage_surgical",
+          "visuallyReviewed": true
+        }
+      ]
+    }
+  ]
+}

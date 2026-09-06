@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bent_Over_Barbell_Row",
+  "shard": 2,
+  "index": 19,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bent_Over_Barbell_Row_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_male_v2_0.png",
+      "sourceSha256": "c822324b1d43eec4e846e0f88cde699bda5ac4821985e2637e42473e490e4c5d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_male_v2_0.png",
+      "candidateSha256": "a4698d0af204ba93d5f4f8d13c08feababca15b9fd11a6e934b079d58438c4da",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Barbell_Row_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_male_v2_1.png",
+      "sourceSha256": "146c04a3f7457ce6f5a875f1bf65d7bf6c1de2bb5465d557afb4be69ad6db8e5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_male_v2_1.png",
+      "candidateSha256": "8736bcf096c9dd195600479ae66fdafc2495525cd2bdb3e0980fb9f144dad3e7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Barbell_Row_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_male_v2_2.png",
+      "sourceSha256": "5e56f2b94d687ea232aff00f43464efeb6e5825b29e2ed50a3ed3276231848af",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_male_v2_2.png",
+      "candidateSha256": "e7af72b1612cb0c9149cf820203fe169667f101e1ce586bf27399e266d1ae346",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Barbell_Row_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_male_v2_3.png",
+      "sourceSha256": "d31b2aeea468f29fb2901625d8720370cec2bd84e5e73a14881d087e28191830",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_male_v2_3.png",
+      "candidateSha256": "a65d92269b188186f8e3dfa51430f5a35da4437034409b6fff8c60e96987dad2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Barbell_Row_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_female_v2_0.png",
+      "sourceSha256": "6dfd8775083a4a6407e4b61ba3e16f3ace4dea924eb6bf0046896e732191b97c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_female_v2_0.png",
+      "candidateSha256": "38c3be64742ef8a917e5395e555932fa490eacff0d882269fcde4833fe8485a4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Barbell_Row_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_female_v2_1.png",
+      "sourceSha256": "d5092318c1ba6686ecaf0d5409d83f0385ce6821b65cbb90e1fca35873ae94b7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_female_v2_1.png",
+      "candidateSha256": "de3a0707fa7a4bfb131b78193958cb2689fb59560c0a6be798dbb75670658092",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Barbell_Row_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_female_v2_2.png",
+      "sourceSha256": "063fcc2fc96959b09892025994972c157cd1c3b340796bcaa43a8966c503ae02",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_female_v2_2.png",
+      "candidateSha256": "3cb7c8ac6556cd15b6dc9b91534b6dbec6fdc3e1576d6239fbf27a2b5cdc36b6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Barbell_Row_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Barbell_Row_female_v2_3.png",
+      "sourceSha256": "d2c10502b2fa8d87ad697404fb2fb5a2450940cd3d42f4c922d8daa818a9ee47",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/019/Bent_Over_Barbell_Row_female_v2_3.png",
+      "candidateSha256": "ea5347c1b4b44ee10427b1cd655ad232185750ffe5540045d9e403d292179e34",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

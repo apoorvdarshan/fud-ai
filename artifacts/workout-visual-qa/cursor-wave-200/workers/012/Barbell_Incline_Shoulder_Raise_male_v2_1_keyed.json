@@ -1,0 +1,16 @@
+{
+  "source_sha256": "e6a43df5aa81f75452f023e545d77e6a6d3a5e85d88e4ade25a8827bbb508b43",
+  "candidate_sha256": "3a2d829fff6a8150ed47a701b7a7a18f6ebd4a85881ffc51733ca45ddc2e912c",
+  "generated_sha256": "9152ab7ddb56da45a7e4a5f61b38767f87b7b7ff2d54772725343e5ea56128e2",
+  "generated_path": "/cursor/stores/bc-59b94c69-a50b-467c-8bbc-d6c6087f891b/artifacts/assets/Barbell_Incline_Shoulder_Raise_male_v2_1_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

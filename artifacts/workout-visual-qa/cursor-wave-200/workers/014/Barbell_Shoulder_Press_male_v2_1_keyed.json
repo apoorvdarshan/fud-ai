@@ -1,0 +1,16 @@
+{
+  "source_sha256": "481a0da347c76579d97969b5fed43c713a9b142b26ea1e19ba7a35bc2f2d2fde",
+  "candidate_sha256": "e285e9288d497869d5d97a411748828caa958fc096cd0e045e27426e6b9f8a91",
+  "generated_sha256": "07a29c6e96c202173a2c4935ac6924e424ebc28ae1a1530070054ca4a11be7da",
+  "generated_path": "/cursor/stores/bc-59b94c69-a50b-467c-8bbc-d6c6087f891b/artifacts/assets/Barbell_Shoulder_Press_male_v2_1_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

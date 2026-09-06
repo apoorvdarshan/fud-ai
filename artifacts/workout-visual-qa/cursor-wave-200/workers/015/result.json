@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Barbell_Shrug_Behind_The_Back",
+  "shard": 2,
+  "index": 15,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_male_v2_0.png",
+      "sourceSha256": "e52644560eced69ad908d5341612d0dab19314668b005162d135901ed01a0e73",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_male_v2_0.png",
+      "candidateSha256": "a475773a4be0fcc7807b79dfa152b6493d2a10716a2d35aff03c14e25e21b206",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_male_v2_1.png",
+      "sourceSha256": "54fb7603e952672e5641243400c0b39d7e2de8a221d4e32c9a661f07b194f2a9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_male_v2_1.png",
+      "candidateSha256": "899c2d0e2781be111fd499c68b877fa156296d31f0015ce7656bb38e13f6083b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_male_v2_2.png",
+      "sourceSha256": "fecb0ffe7e38a983937dd897c598b651def3580f290746dd94b15d1b01aab580",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_male_v2_2.png",
+      "candidateSha256": "2786109b0473015d95eb9f3a7c3c121642db1c5da2ba700d281700c128386d35",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_male_v2_3.png",
+      "sourceSha256": "d6a5b393f8aaf487bf92745bd46ebd966e9ac22a888641ee065dbaaf674f5926",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_male_v2_3.png",
+      "candidateSha256": "066aa16c9b20940f997f9f601543433c0462d451060b55877336ef975b0edf7d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_female_v2_0.png",
+      "sourceSha256": "f9086e1f92d545082ba024fa7ed170f02425c1a053066cbcef12f2e679f1122e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_female_v2_0.png",
+      "candidateSha256": "ae05c02eebef2330b6cfe0dd5e6f5984281ee4338ab1958a85d2809f961543fe",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_female_v2_1.png",
+      "sourceSha256": "a1d2c7e6d19cb71307d6a5f6c44eece343db382c958dd1d9244e8d12d1fdf685",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_female_v2_1.png",
+      "candidateSha256": "70a523f3472baf1901685a61d4aa3f764e09339311c8867e35fdf70948273c8b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_female_v2_2.png",
+      "sourceSha256": "e3d0117a6a97166fedf158fea26a09d9008b4d30d046fe740221614b2a8ceaf3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_female_v2_2.png",
+      "candidateSha256": "30ec0b2ecad1fe4b45f804b7c058bbeee820da18b199f4695351ce2546275c4b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Shrug_Behind_The_Back_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Shrug_Behind_The_Back_female_v2_3.png",
+      "sourceSha256": "2d017a70213e5a96fd7576a69aa00941da75a9f2610fe56048a13df7a8d0b9ac",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/015/Barbell_Shrug_Behind_The_Back_female_v2_3.png",
+      "candidateSha256": "02a335219d4fdcdfb76c2740c608d4b13fc21209c4bb1e7c9677df01b275c5b9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

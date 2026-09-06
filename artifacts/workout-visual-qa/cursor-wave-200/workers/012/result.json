@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Barbell_Incline_Shoulder_Raise",
+  "shard": 2,
+  "index": 12,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_male_v2_0.png",
+      "sourceSha256": "4f693e14634d6da64d5c87aa334dfbbccdee0e16a05111ec5bc02c2a73ea9caa",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_male_v2_0.png",
+      "candidateSha256": "371604b0fd407b4b93b72b3cd986f4425a660186f1732049ba15d1a37902d005",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_male_v2_1.png",
+      "sourceSha256": "e6a43df5aa81f75452f023e545d77e6a6d3a5e85d88e4ade25a8827bbb508b43",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_male_v2_1.png",
+      "candidateSha256": "3a2d829fff6a8150ed47a701b7a7a18f6ebd4a85881ffc51733ca45ddc2e912c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_male_v2_2.png",
+      "sourceSha256": "a8305fb3b70a6b812d4b17cd8837621069b1a1e24378730f35286bc09d9d35b5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_male_v2_2.png",
+      "candidateSha256": "38e2ff371cf36f3ad49161c8985d69afe92562aa114f2b8a6de244cea924b2a8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_male_v2_3.png",
+      "sourceSha256": "56fd4dc19f92bf653eb78b3372ddc061ed65202068b274b183bea04ccd702bd6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_male_v2_3.png",
+      "candidateSha256": "fe1e44310870dd0e35c0bdd68ad36767d3f71ee8f8dcdc3948b451b4d1f73778",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_female_v2_0.png",
+      "sourceSha256": "512b018df8c9a83c36926be34921aea8f1658cd783d221dcc38932cb2bac3128",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_female_v2_0.png",
+      "candidateSha256": "e1efb78c8b6d8ee0d67f63062bd2bc0234a8f074bf8b817c3418ccf7c4768800",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_female_v2_1.png",
+      "sourceSha256": "905683aace5b19a45f7019b79cf239ef15a0c8d4b5635028eb15b33aeb481a67",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_female_v2_1.png",
+      "candidateSha256": "441c2f286fe7368ea4c02e7d793e81e7ede4ac845e456ed75389632173711401",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_female_v2_2.png",
+      "sourceSha256": "895557f60afa3367a24a62a0dcfd0310607e5544ec164bdfcdd95b3eb106727c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_female_v2_2.png",
+      "candidateSha256": "f98765ceb3ebdae3e7d8895350961a8ccc4949e0e559d46ba8f0caa4bdbe1826",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Barbell_Incline_Shoulder_Raise_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Barbell_Incline_Shoulder_Raise_female_v2_3.png",
+      "sourceSha256": "a4e02f2a4ad2a915df257ee0547b49b934ea781980bd7d36d4a6d170854eb2c2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/012/Barbell_Incline_Shoulder_Raise_female_v2_3.png",
+      "candidateSha256": "94727599065c9204c89cd871f14c320f4e5063f815108372d57ea1583f3ba86b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

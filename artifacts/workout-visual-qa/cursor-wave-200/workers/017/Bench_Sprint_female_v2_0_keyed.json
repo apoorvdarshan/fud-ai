@@ -1,0 +1,16 @@
+{
+  "source_sha256": "a653193f6a055fc453a27e39d7a9ab794b8cd3f247fb813a22e244423f7645b4",
+  "candidate_sha256": "2da1a6e468bddef6b6cdfefba8708178260a99197a376e89baa06de8a287dd9b",
+  "generated_sha256": "a37daf69e6e483b8a91d92b5b8deadfa1953f9aa0baca8fc6e2c18d8c2a4f6d7",
+  "generated_path": "/cursor/stores/bc-59b94c69-a50b-467c-8bbc-d6c6087f891b/artifacts/assets/Bench_Sprint_female_v2_0_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

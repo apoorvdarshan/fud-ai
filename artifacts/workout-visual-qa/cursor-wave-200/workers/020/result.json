@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench",
+  "shard": 2,
+  "index": 20,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_0.png",
+      "sourceSha256": "fd376e92e7d38a351f22860ddbf13f241cb5761659309c2de4a50573dffb8b76",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_0.png",
+      "candidateSha256": "ff7059cab542e26155825d8d1bb5eec235c9e48c5ed483ada74cac096e9bbd01",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_1.png",
+      "sourceSha256": "51f541d00bce2f899f3bfb8fd5ee1ccc6a2b290f1b5e7a7c78d1c8f9e248febd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_1.png",
+      "candidateSha256": "55b89cb572cb4ab1f1c217a67f8f354d48e3088f5a099afe2987125afe92e169",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_2.png",
+      "sourceSha256": "f41c10976594f200914c26669793ada8d8f680bf7dd8850c97f788b85baa4f83",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_2.png",
+      "candidateSha256": "8dc125bb8440872a44f5602c63c377cf096eb5b1abc24df9df058a208c9acd43",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_3.png",
+      "sourceSha256": "94263abb2fc25c2ef81660bb86a8f21500fa2d3a27e0b404b42e1085e9923af2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_male_v2_3.png",
+      "candidateSha256": "9a203efbe7e3122217f0c2c4c56ec6df6d927ec6b5b62592e7cd33e40dd0c3e4",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_0.png",
+      "sourceSha256": "1dd5bcdc9352be97cd1cfb74d83864ce92311dd362619af3bbf34db6cb3b58bb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_0.png",
+      "candidateSha256": "860a0bb9b91399a4d12be2ad0adb5144159632f087257818863cc99e71cb6691",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_1.png",
+      "sourceSha256": "5a233cebeadefb41513f5480ea264c671390590da6a1ff1605a8ef47ad31b22a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_1.png",
+      "candidateSha256": "bc19c2fc2d90b93c455496bbb4101b044f84df9c771abbf3e235969fb2059e9e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_2.png",
+      "sourceSha256": "6c12c38527a94826f7b8e0513db23647bab35f2adfb1d3a2d0c0e67edfbf694a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_2.png",
+      "candidateSha256": "b7306e05e34a7ab5f7dce042aea9282e29e6ea5f2f6603fd3a90c312a0d4797c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_3.png",
+      "sourceSha256": "cd7835852605d29ae613405d60d7104ac3a57b16b7f6aee58b33c61e5e98b7f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/020/Bent_Over_Dumbbell_Rear_Delt_Raise_With_Head_On_Bench_female_v2_3.png",
+      "candidateSha256": "4435df36b37f5664ca06fd1ad951da16f8302abf3bf0f4d326c2b37393789023",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

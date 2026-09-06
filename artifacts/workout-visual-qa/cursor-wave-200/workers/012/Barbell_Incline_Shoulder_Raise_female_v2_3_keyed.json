@@ -1,0 +1,16 @@
+{
+  "source_sha256": "a4e02f2a4ad2a915df257ee0547b49b934ea781980bd7d36d4a6d170854eb2c2",
+  "candidate_sha256": "94727599065c9204c89cd871f14c320f4e5063f815108372d57ea1583f3ba86b",
+  "generated_sha256": "0783f037d8289dac1df01fbf2754bb36d609e8d0e5e7091febd44a25316e40b6",
+  "generated_path": "/cursor/stores/bc-59b94c69-a50b-467c-8bbc-d6c6087f891b/artifacts/assets/Barbell_Incline_Shoulder_Raise_female_v2_3_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

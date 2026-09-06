@@ -1,0 +1,16 @@
+{
+  "source_sha256": "4406179e147ff941adc1cb32344d3f48734db9e5f031ce4d0045ed11bd66b9ed",
+  "candidate_sha256": "7b1074de8594fae626d98d5bde5e6d5646538259f825d321a0ef91f1e0d88b44",
+  "generated_sha256": "ade45e3de502f40d3b21c39dbaaec33b9b3c9e9cadc4f0d7387fa605e829392c",
+  "generated_path": "/cursor/stores/bc-59b94c69-a50b-467c-8bbc-d6c6087f891b/artifacts/assets/Barbell_Rollout_from_Bench_female_v2_2_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

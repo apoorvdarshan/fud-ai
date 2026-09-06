@@ -1,0 +1,16 @@
+{
+  "source_sha256": "cae8d75c90828d7168f74684b522b2e2ce9f1bea9029b25a31b6114e4b8250f7",
+  "candidate_sha256": "2056de34b20c47a5376c959a6965bc3c5c5cc66180a0ccfd2c0b3bc46a4f6b5d",
+  "generated_sha256": "fa0a7c7e19d4a8b5eeae95adb504fc02fda37c0ff3ffd9a81d35f415effa39e5",
+  "generated_path": "/cursor/stores/bc-59b94c69-a50b-467c-8bbc-d6c6087f891b/artifacts/assets/Barbell_Shoulder_Press_female_v2_0_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Bench_Sprint",
+  "shard": 2,
+  "index": 17,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Bench_Sprint_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_male_v2_0.png",
+      "sourceSha256": "ab3c54f7380fde38e74ab4bba8049e8b697f71319fe24a864366cf94997445b7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_male_v2_0.png",
+      "candidateSha256": "fbf1c8b6a572bee3989485f3b2e91cdf588d3a40fdd5a9c73298ab2a009cff43",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Sprint_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_male_v2_1.png",
+      "sourceSha256": "81fb640b080f1c5b22f8622e39f82b7992c87023ac6bd2f63496ed2ce90c63ef",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_male_v2_1.png",
+      "candidateSha256": "7e9376b3bddfa766bfe1c5a8e892a6f5028d9a25b5ca7eb57dfc623b368751c9",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Sprint_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_male_v2_2.png",
+      "sourceSha256": "b6494de2e525878bbaa02e1bb0a676661deef7aa42654baa20f76c2ee5335513",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_male_v2_2.png",
+      "candidateSha256": "ada7aa5b82583d87f9e59b84ba361c120a469115a181ba2f55e4133a71345abc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Sprint_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_male_v2_3.png",
+      "sourceSha256": "7e5f2e1f967344060dd8c85aef0f1d0eb2a1063d97436458441ccaa4b16a5e45",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_male_v2_3.png",
+      "candidateSha256": "1c2ddea570d7f52a3926ab8dbbe5772a896c583df7ac589c989efbddc55123c8",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Sprint_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_female_v2_0.png",
+      "sourceSha256": "a653193f6a055fc453a27e39d7a9ab794b8cd3f247fb813a22e244423f7645b4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_female_v2_0.png",
+      "candidateSha256": "2da1a6e468bddef6b6cdfefba8708178260a99197a376e89baa06de8a287dd9b",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Sprint_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_female_v2_1.png",
+      "sourceSha256": "6e1e960a7a11cce08d7f9cf469093b2259a7325431aac8fe46cfce78f89454c3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_female_v2_1.png",
+      "candidateSha256": "f548cc534c7e28e4c1455849d05ed6b5f4b1b462775f59c058d0128194d6c132",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Sprint_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_female_v2_2.png",
+      "sourceSha256": "ea6b6ca50998882a3fa28324ffdb96cd352bce6b74a781b697dc57de2ddb74a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_female_v2_2.png",
+      "candidateSha256": "6120a79d755df07b1ddd093c63b21e4525eff2abcd1bafc7c4b2f4dcdea5b085",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Bench_Sprint_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Bench_Sprint_female_v2_3.png",
+      "sourceSha256": "32c0275f6ae5913c1e57e16d210cff5fe5b357ff84ac19d1a97931b9a66e36d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-200/workers/017/Bench_Sprint_female_v2_3.png",
+      "candidateSha256": "18ea92f223e1cdf899ecb4ee8f0b7b53596a7da83e685f57785b7000d314e01c",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

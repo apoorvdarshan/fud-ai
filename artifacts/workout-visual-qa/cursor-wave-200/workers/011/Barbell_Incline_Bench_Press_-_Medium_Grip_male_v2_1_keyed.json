@@ -1,0 +1,16 @@
+{
+  "source_sha256": "0947beeb3e889edb2500a0cc8da28bc5ecafb4162b559a7ec6bc7748c788ab1c",
+  "candidate_sha256": "d456309d559136c4ac17f54268a693956bb35831fb1d8be0d76eb08596816fc1",
+  "generated_sha256": "409b60a5c89377f519806740f4aeaa554bd6c213c4be4386c6f03b1b7f48c6f2",
+  "generated_path": "/cursor/stores/bc-59b94c69-a50b-467c-8bbc-d6c6087f891b/artifacts/assets/Barbell_Incline_Bench_Press_-_Medium_Grip_male_v2_1_gen.png",
+  "method": "built-in-imagegen-plus-known-green-chroma-v2",
+  "size": [
+    1024,
+    768
+  ],
+  "alpha_extrema": [
+    0,
+    255
+  ],
+  "acceptance": "pending_visual_and_human_review"
+}

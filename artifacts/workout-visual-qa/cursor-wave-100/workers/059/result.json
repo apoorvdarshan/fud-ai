@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Isometric_Neck_Exercise_-_Front_And_Back",
+  "shard": 6,
+  "index": 59,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Isometric_Neck_Exercise_-_Front_And_Back_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_male_v2_0.png",
+      "sourceSha256": "73b6a09bf4c1c77649e8ef02a6691ed3160e77f291ba07cce6d2602e11bf25eb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/059/Isometric_Neck_Exercise_-_Front_And_Back_male_v2_0.png",
+      "candidateSha256": "1e235187a7f572ca9590b77a8331470ea98fe5b522461537e615d9a5a53442e3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Neck_Exercise_-_Front_And_Back_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_male_v2_1.png",
+      "sourceSha256": "5e4af023696ed022c3490216ca287aeb560bc6cf121e340a63a9f1826b25c8f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/059/Isometric_Neck_Exercise_-_Front_And_Back_male_v2_1.png",
+      "candidateSha256": "08388d0ad9aaa3c79d04cc84f7c66c9637cea288342f7cda3fb28ae69a827cd2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Neck_Exercise_-_Front_And_Back_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_male_v2_2.png",
+      "sourceSha256": "ffaf3b8f3a1bf27b8e43591344d7e664b5953f24585382a43cea863e10275727",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/059/Isometric_Neck_Exercise_-_Front_And_Back_male_v2_2.png",
+      "candidateSha256": "31cdc8ddf52ab95b7544ec26ebdee860de7041d84d480f36a456cb52a7b8aac9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Neck_Exercise_-_Front_And_Back_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_male_v2_3.png",
+      "sourceSha256": "e9941ec9d03d53a20be7be877305886be0f125e37a98c0a80505e1926b15a320",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/059/Isometric_Neck_Exercise_-_Front_And_Back_male_v2_3.png",
+      "candidateSha256": "011ae517d97d914bc74cbcfcc702f9b6236266638c67ea1ef044992839b816d8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Neck_Exercise_-_Front_And_Back_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_female_v2_0.png",
+      "sourceSha256": "7589fc204d2c2199a851e86ed6394ed71a558aa2e254219598959eb23950800c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/059/Isometric_Neck_Exercise_-_Front_And_Back_female_v2_0.png",
+      "candidateSha256": "c53276ec6d3eb7f59961add7d836be50d8d1517ba6203ddb67d4266daf04947f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Neck_Exercise_-_Front_And_Back_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_female_v2_1.png",
+      "sourceSha256": "42541bcce0fa8e9e24044d89417f67f4a19b15774b7a2a812802b17bbb9cbfeb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/059/Isometric_Neck_Exercise_-_Front_And_Back_female_v2_1.png",
+      "candidateSha256": "61ad4a17c22eb77b635e6fe94813bdad7fe4d9c65d6b796bf6b3b288751793f4",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Neck_Exercise_-_Front_And_Back_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_female_v2_2.png",
+      "sourceSha256": "c90052c3d6df8ef7c0dbb92f2191667e751fa8798eb7f176a76e8564d419c997",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/059/Isometric_Neck_Exercise_-_Front_And_Back_female_v2_2.png",
+      "candidateSha256": "c33daefb632daf5d27bf1016e594cd23312363961c1c7c2d5db03be03022f772",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Neck_Exercise_-_Front_And_Back_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Neck_Exercise_-_Front_And_Back_female_v2_3.png",
+      "sourceSha256": "0048504291bfbc00a98ea16337baf59621cb80f77b1b0f27afecafcd2877f520",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/059/Isometric_Neck_Exercise_-_Front_And_Back_female_v2_3.png",
+      "candidateSha256": "97ed9f3ef25510777fcf90266f76a1db85952514741a51b6d86dc3f0da7ada39",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

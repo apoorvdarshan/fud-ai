@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Isometric_Chest_Squeezes",
+  "shard": 6,
+  "index": 58,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Isometric_Chest_Squeezes_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_male_v2_0.png",
+      "sourceSha256": "e63929d8984238d1456e52798e89ca42965622a5dcc2b8a9e2f8af9958557472",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/058/Isometric_Chest_Squeezes_male_v2_0.png",
+      "candidateSha256": "b3867734f062b8d1a624b9e1b262ba10af71cc980521df9aba9a12d5ac36c072",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Chest_Squeezes_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_male_v2_1.png",
+      "sourceSha256": "bb8009d0b1ec1932f5ce4c8fb8c3cf0ef17aa4b660c9bac1c689e93e169018fe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/058/Isometric_Chest_Squeezes_male_v2_1.png",
+      "candidateSha256": "3b1b44606d5e176f3b962511f7d5380fe5f9d76a7a35c2bde7dd7778fad303cd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Chest_Squeezes_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_male_v2_2.png",
+      "sourceSha256": "bd39307d126f647dd49a0b72430e4fea22031307899c33fe605ef64fed32b583",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/058/Isometric_Chest_Squeezes_male_v2_2.png",
+      "candidateSha256": "ce464aa0e5f11f83559a23c30ab82760d3a651edad45697aeb423efe88061fd7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Chest_Squeezes_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_male_v2_3.png",
+      "sourceSha256": "676e845456130475b12f28b10b03375a9fb934a1652de52762b82a87a253989d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/058/Isometric_Chest_Squeezes_male_v2_3.png",
+      "candidateSha256": "e7bb25ada41067f145b9852c7be705796ee7364ce0f459cab801f42d21898648",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Chest_Squeezes_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_female_v2_0.png",
+      "sourceSha256": "13fad62a536792fbc010938ee1cf66c01214ebe809cc8038512e9ecdd6019ad5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/058/Isometric_Chest_Squeezes_female_v2_0.png",
+      "candidateSha256": "c565884d54f26f16db90118fb43964bcc38a7a39478bda3a34ed3fb50f2cac38",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Chest_Squeezes_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_female_v2_1.png",
+      "sourceSha256": "6d1535274841af4d10e0624777df3b2ea77e1edf686283ff10917444e7a0c895",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/058/Isometric_Chest_Squeezes_female_v2_1.png",
+      "candidateSha256": "94d8e93bf4cfd69f023c11f4892e34a8bf70a89b7a1e40bda31206f0c40b1f18",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Chest_Squeezes_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_female_v2_2.png",
+      "sourceSha256": "dd1db00e2418800c651a260ee4ce95f8e265eb67486ff9210eb20b6002f594f7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/058/Isometric_Chest_Squeezes_female_v2_2.png",
+      "candidateSha256": "77ce66928f4b2052604d33b055e233fd82c5d81a5fe8571ea5654b5c5c15fe12",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Isometric_Chest_Squeezes_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Isometric_Chest_Squeezes_female_v2_3.png",
+      "sourceSha256": "b6756a5e27c861b552ae84863f269bd4980591822b27d3534dc7676ae26395fd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/058/Isometric_Chest_Squeezes_female_v2_3.png",
+      "candidateSha256": "aa484de6cbc6b4e704e5824bdc585cc325089096498c4b760a60f1ebb79dc155",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

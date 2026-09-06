@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Speed_Box_Squat",
+  "shard": 28,
+  "index": 272,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Speed_Box_Squat_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Box_Squat_male_v2_0.png",
+      "sourceSha256": "a8216452a41b0a85fd0f33a56587976f00fa187772e9522353450d29ff6aaadb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/272/Speed_Box_Squat_male_v2_0.png",
+      "candidateSha256": "71e871a4d79b5c1b3652b0e66f62c883335e352cd0b48e305be6bafc02109e63",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Box_Squat_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Box_Squat_male_v2_1.png",
+      "sourceSha256": "ff6045e442fa780d46aa47da1cd5b74859ed37f5f663d7dbf8cc59281cc817d1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/272/Speed_Box_Squat_male_v2_1.png",
+      "candidateSha256": "21820a7a61bd40609ce811083681c85f4892379ccace08003de2784a8b6af050",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Box_Squat_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Box_Squat_male_v2_2.png",
+      "sourceSha256": "c64de4a481436015115f8ec76cf906013f6109c7a0584d2e13f44bbf7fca987b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/272/Speed_Box_Squat_male_v2_2.png",
+      "candidateSha256": "11709d5b25e3058e0a0e259f0a450211d456909fd6ff5ad5346d0256985c5719",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Box_Squat_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Box_Squat_male_v2_3.png",
+      "sourceSha256": "b6b4ae79ec5257da2029c939cbe19a2a1dc5a5cb53c97d08de6042f97ce0e0e9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/272/Speed_Box_Squat_male_v2_3.png",
+      "candidateSha256": "ca6017538df93f29f9b9a7f75c320d06c467db57e14ad64db358abc7d7559134",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Box_Squat_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Box_Squat_female_v2_0.png",
+      "sourceSha256": "62aae432f3bc9328a4e3b6e21f425032c24873b45b1107a398f4eacdd0b03b5e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/272/Speed_Box_Squat_female_v2_0.png",
+      "candidateSha256": "3250bae304efe8ec0625a513303e0cbd737d5d8c1172e2dcf3083233fb303637",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Box_Squat_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Box_Squat_female_v2_1.png",
+      "sourceSha256": "f6b5499a77227adeaca0e146582b8d297050be69baf33f4b41bcf857e27f18a4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/272/Speed_Box_Squat_female_v2_1.png",
+      "candidateSha256": "835aa4079e3f6f1d72952fad8c8713a1db0d52bbf87d163febcda295657398da",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Box_Squat_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Box_Squat_female_v2_2.png",
+      "sourceSha256": "0d592dff354399da4c45afb7dbda1a308bbd318c6ac92cc75ea26a04dd60cf4d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/272/Speed_Box_Squat_female_v2_2.png",
+      "candidateSha256": "47a8fbe350181a4dd7a7d0ad98187d59f4ac5612b1da69f756902f983c2969ad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Speed_Box_Squat_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Speed_Box_Squat_female_v2_3.png",
+      "sourceSha256": "fec48764e1df6f21156daa52a18eee912938c8eab0188893ea39684ed2c32724",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/272/Speed_Box_Squat_female_v2_3.png",
+      "candidateSha256": "3296fa6beadb5275256dd34cee639d2743bfba17efc484c76df9265917989f17",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Incline_Push-Up_Depth_Jump",
+  "shard": 5,
+  "index": 47,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Incline_Push-Up_Depth_Jump_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_male_v2_0.png",
+      "sourceSha256": "9a8349ebcfae880beeed0be91b47ec326c433f75a46bad206ad8f91748a1ec62",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/047/Incline_Push-Up_Depth_Jump_male_v2_0.png",
+      "candidateSha256": "b2e2e66793063f528f5e5465f9b41d7a5092d222a3f62f1c1d3c4ac0c6377b06",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Push-Up_Depth_Jump_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_male_v2_1.png",
+      "sourceSha256": "3ae0e12b7c2bcef30bd202d5e8f09bee5de39559356799a4ca75e3be632e180c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/047/Incline_Push-Up_Depth_Jump_male_v2_1.png",
+      "candidateSha256": "f5da40f1cf20c20873063fe877f59ef780c192122787077e55a3108d8319415d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Push-Up_Depth_Jump_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_male_v2_2.png",
+      "sourceSha256": "d430099cf40ae81d47c8244626e07f42c3ab5b259942248b80815484434ceb12",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/047/Incline_Push-Up_Depth_Jump_male_v2_2.png",
+      "candidateSha256": "f0b91b5c984ef5bb7bb92e5cd5304cb3e51c978da962a237a1953fe04d40319e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Push-Up_Depth_Jump_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_male_v2_3.png",
+      "sourceSha256": "193c5b6d5662cee21e01f2e244ae6fe102539ee88ec4e706a634b3a40b6c29db",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/047/Incline_Push-Up_Depth_Jump_male_v2_3.png",
+      "candidateSha256": "173f719c33e651b26a405968ed5e4f9c444c9f8270cfef12e883af26fc3af80b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Push-Up_Depth_Jump_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_female_v2_0.png",
+      "sourceSha256": "82ad32fa540366008c3aea27bf91d378e6f261994ae3d3f38e89815b7901a9b1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/047/Incline_Push-Up_Depth_Jump_female_v2_0.png",
+      "candidateSha256": "4e9095efbd495b2ac320545689662848182c293f629c40fa1bd5a5b454f8d89a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Push-Up_Depth_Jump_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_female_v2_1.png",
+      "sourceSha256": "4dea7b1d8263e6b9239f8d56eb8864826285508128e63c2d0d9992c292dc9989",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/047/Incline_Push-Up_Depth_Jump_female_v2_1.png",
+      "candidateSha256": "0f385976693e28c6212037aa651281a5346b29b59320e4706163d42a73080bec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Push-Up_Depth_Jump_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_female_v2_2.png",
+      "sourceSha256": "f09cb0fb9507946f9af7a8fc2e7aa8e8c5a167714300b6877a2e6c64c7d564b1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/047/Incline_Push-Up_Depth_Jump_female_v2_2.png",
+      "candidateSha256": "7a35797c1ffb7f4379846f37d64e22c7a6f4b1feb9d49db4764376aa2d8e5fd9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Push-Up_Depth_Jump_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Push-Up_Depth_Jump_female_v2_3.png",
+      "sourceSha256": "7ba9776e0896e4986581f4ceefed1a6698402eaa1c1a598d104971c89add47f6",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/047/Incline_Push-Up_Depth_Jump_female_v2_3.png",
+      "candidateSha256": "a2ab598455f8404220a799cf4d6695be2ed52935797e1a6c4f38051e042a0c22",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

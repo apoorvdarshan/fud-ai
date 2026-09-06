@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Incline_Dumbbell_Press",
+  "shard": 5,
+  "index": 42,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Incline_Dumbbell_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_male_v2_0.png",
+      "sourceSha256": "fbeb95eb03336c2dd4e595cffe91d0e093040afc6209921a20af03c738986118",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_male_v2_0.png",
+      "candidateSha256": "aa2165a0aeb679b13f2be7a9afbf3f46ca66bdfb9aa8959bd69217e9622aa5bc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Dumbbell_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_male_v2_1.png",
+      "sourceSha256": "5d5968883b6adcb2483c4f3008fb5dcb60ef34c9e924d2331e56295c4aa4f42f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_male_v2_1.png",
+      "candidateSha256": "f321555ef4d69e5d09919f9c119da3e40c653830d07dd68b58888226e471f061",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Dumbbell_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_male_v2_2.png",
+      "sourceSha256": "57e1bbb6d72cb6737b0369664720147cc3126c426ac64ce37400ea46909134d0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_male_v2_2.png",
+      "candidateSha256": "9becedf2ff91a00bf02780f615d4113771b508994c8ff92b65059dfd0cef28af",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Dumbbell_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_male_v2_3.png",
+      "sourceSha256": "efad028f349d6f5140479ca39779812cc1b93e486c3a68ae81c8af6310184412",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_male_v2_3.png",
+      "candidateSha256": "b66f0cb4725ceff0cfdd51ed06fc3b7d2c9b9e8632af583607fc5d9b2681a284",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Dumbbell_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_female_v2_0.png",
+      "sourceSha256": "9cd075cba8fbe1b11988d56756eafd6f1a142c3559dc0aa00c2eb47896918699",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_female_v2_0.png",
+      "candidateSha256": "d17d591099a08191d48c8572d42c5d66a87f5786e5acd7202da489404982a3fa",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Dumbbell_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_female_v2_1.png",
+      "sourceSha256": "94093456271c597906a2cf1130f2f1e0aa1c82b6005674a1559e7eb1a7939bcc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_female_v2_1.png",
+      "candidateSha256": "846779a581958f09dca01c1fa6f9d8f9acd5ba6684dd7d8c4eda7266222da9bd",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Dumbbell_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_female_v2_2.png",
+      "sourceSha256": "295e4b03ba0d26e0a359f1672ca5ccfc3e57116b19bbfeaf38ab61181a2a2c8d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_female_v2_2.png",
+      "candidateSha256": "645ea6bb8566d0782131bea020775215b9e27eb09b631bc5d352da2168bf98bf",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Incline_Dumbbell_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Incline_Dumbbell_Press_female_v2_3.png",
+      "sourceSha256": "63d82bd54b358e3f0bcebb2c3dcdad33a1514929182ebc220b89c2dd92e2ff89",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/042/Incline_Dumbbell_Press_female_v2_3.png",
+      "candidateSha256": "a2be60723fdb17336fc29fc0c7878de5d103400e7ded135b87e52c73cbcbcbd2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

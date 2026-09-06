@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kettlebell_Sumo_High_Pull",
+  "shard": 8,
+  "index": 80,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kettlebell_Sumo_High_Pull_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_male_v2_0.png",
+      "sourceSha256": "f033e3bdac090e4021ff80b3979b3d641e754acb196066a3d7275d2f245eefcc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/080/Kettlebell_Sumo_High_Pull_male_v2_0.png",
+      "candidateSha256": "148aab4829b2111b3ee48e5d96a49a2ff22fe82d98d1a5abd739c22cc101b58f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Sumo_High_Pull_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_male_v2_1.png",
+      "sourceSha256": "50b26a18dd12017501b3fb11482add40c11e4d7ebd6ced686121c200e21cf026",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/080/Kettlebell_Sumo_High_Pull_male_v2_1.png",
+      "candidateSha256": "dfe833093f4b8c7a3e106ca4e0cc42895026c9b4e19a2b18b90e864aebec7eec",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Sumo_High_Pull_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_male_v2_2.png",
+      "sourceSha256": "161f9a395b71e7a19160703551e1a58d9e282091435abb80eec85a02abf72d7d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/080/Kettlebell_Sumo_High_Pull_male_v2_2.png",
+      "candidateSha256": "6dd1d7ac6c15ec9d46bbbfdda02b40d7a56afe4fa8ee84ba09caab3c848a3852",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Sumo_High_Pull_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_male_v2_3.png",
+      "sourceSha256": "35119123463fec362921c75a7f64627a1a819d2ef0120261780f37dc31466637",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/080/Kettlebell_Sumo_High_Pull_male_v2_3.png",
+      "candidateSha256": "9b295c17376851dd03c9a1713b50409f0f2c3f383412b05f20f458f4bed92501",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Sumo_High_Pull_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_female_v2_0.png",
+      "sourceSha256": "00f6071d53a1b6701789d903dc749dde3494722e7f028dc78ffd55edffd370d5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/080/Kettlebell_Sumo_High_Pull_female_v2_0.png",
+      "candidateSha256": "832c1795cf7e27d23a0c8f2dd8f7374ab005f494e0ccdcb637760b2c854bed19",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Sumo_High_Pull_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_female_v2_1.png",
+      "sourceSha256": "b14a57e67ad8e80e271f3e60d48f90550c5fddaef8837a1d8d56cf1a866bce2e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/080/Kettlebell_Sumo_High_Pull_female_v2_1.png",
+      "candidateSha256": "804992fcebffb2c66f3ae01ea84d063b1c64e171d2b000ed105b34f2a779f51c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Sumo_High_Pull_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_female_v2_2.png",
+      "sourceSha256": "db544223d4a7220f17705fabaa89155fd17500703ff753bf35da3b2d1e6aed39",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/080/Kettlebell_Sumo_High_Pull_female_v2_2.png",
+      "candidateSha256": "e53045e394e5dff217dfca73ce07d9d0358994387cfa4bf7c7d5a94487a2dfc5",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Sumo_High_Pull_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Sumo_High_Pull_female_v2_3.png",
+      "sourceSha256": "46c8fe563c41364c77b88f464c77415e5487d9318a4aa14151712a9fdf405e53",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/080/Kettlebell_Sumo_High_Pull_female_v2_3.png",
+      "candidateSha256": "b1d0b6fa8e2b0c438bbb6a21f0adb4889197242f236b190087fe9ded40716750",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

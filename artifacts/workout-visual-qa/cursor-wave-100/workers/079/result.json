@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kettlebell_Seesaw_Press",
+  "shard": 8,
+  "index": 79,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kettlebell_Seesaw_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_male_v2_0.png",
+      "sourceSha256": "6358c7c6d16c2fd6fa195a2a4678d0252ebc0eb3f7d46c8414c3bfe492017c37",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/079/Kettlebell_Seesaw_Press_male_v2_0.png",
+      "candidateSha256": "15200b579eb3e7185407e013494bbc676c0c67caeb353c04e7fa77781669e89a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Seesaw_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_male_v2_1.png",
+      "sourceSha256": "e7fdfcb78ff570a762a5fd86fea7b79cc052d7454b7452cd3a39e7eb991033d1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/079/Kettlebell_Seesaw_Press_male_v2_1.png",
+      "candidateSha256": "26842e9e64363388817b2adcfccd76f3a967074a8478126fc0e89db537f374ad",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Seesaw_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_male_v2_2.png",
+      "sourceSha256": "3feff11e569b0edad03140a0b7afbca617659bfba65414e33ba5b6660393eac3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/079/Kettlebell_Seesaw_Press_male_v2_2.png",
+      "candidateSha256": "415ee34d06706d73fc44fcf939cac916cc51b887c3e8a4cedaba375eca497f13",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Seesaw_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_male_v2_3.png",
+      "sourceSha256": "8f39c074152266dea434d1327ab0ff5462cc836a4a7ed002bcd8707239242da0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/079/Kettlebell_Seesaw_Press_male_v2_3.png",
+      "candidateSha256": "70a95e2bddce0a3a1ddf64ab435d2dcae686f414fbafb3801fe1b0a03b85a25d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Seesaw_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_female_v2_0.png",
+      "sourceSha256": "631557e8c57671cbd8e4e18c1f7c8f914d51c114da073f1e34f7948d183012b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/079/Kettlebell_Seesaw_Press_female_v2_0.png",
+      "candidateSha256": "fda86195acc3206e7556fa72e6d45e142daa8b40a84f7974ac49925a5872e5ab",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Seesaw_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_female_v2_1.png",
+      "sourceSha256": "2c99a15a7a8d02382f135db82a040b0a56c82da3c38ffa0e3b49f915e4352f44",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/079/Kettlebell_Seesaw_Press_female_v2_1.png",
+      "candidateSha256": "d4dc72b053a2bca6435e9fac99f4f775649c624aaaf3984d2c829133c949f88d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Seesaw_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_female_v2_2.png",
+      "sourceSha256": "4d09bff1eb0b8ba6ea020526bbd4701a9a7080b2c21898531904028333186116",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/079/Kettlebell_Seesaw_Press_female_v2_2.png",
+      "candidateSha256": "60516df2b13b68d7ae708dddc5a16ecdb644daf15f44883e91f3f1db0ce95ca9",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Seesaw_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Seesaw_Press_female_v2_3.png",
+      "sourceSha256": "4f0939b1f43bcd030dc8f75f452b5ab701f280250ce8dd338516bc9008cf8223",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/079/Kettlebell_Seesaw_Press_female_v2_3.png",
+      "candidateSha256": "087a7b4b6f86cc647735aeafaff7da8278d5a7d58f5bf52e12d20cae56588f16",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

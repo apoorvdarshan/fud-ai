@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kettlebell_One-Legged_Deadlift",
+  "shard": 8,
+  "index": 74,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kettlebell_One-Legged_Deadlift_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_male_v2_0.png",
+      "sourceSha256": "9d1c79d4841202e4d47dac6417b0e62089d7c3cc43d8ae9ad067867de1bc94e1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_male_v2_0.png",
+      "candidateSha256": "4c44de79d587de1b3287793b41bdb504a6e1f615133050b880939b0f7306b71b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_One-Legged_Deadlift_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_male_v2_1.png",
+      "sourceSha256": "4f9c656b8ca798d4225dbe15b9ac88e3ddd4c600bf910e1f18257e78d665e220",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_male_v2_1.png",
+      "candidateSha256": "b1d3d7d058fd0624e0758769b721f126ae99522c1c877fee887a15ba5978c9ea",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_One-Legged_Deadlift_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_male_v2_2.png",
+      "sourceSha256": "52396ead13481f48a1d1acc607c042da9df3eb29382a696734c9336eea6343e9",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_male_v2_2.png",
+      "candidateSha256": "b25c57dd6bde1bec90c3deb85da745e82f68f228d17da53234b1c684427d274c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_One-Legged_Deadlift_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_male_v2_3.png",
+      "sourceSha256": "971fbd487c0d154d8fab33760db94543a76c62d941236750cebc11900539f3ab",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_male_v2_3.png",
+      "candidateSha256": "172a6b509894e827a38f90f79ebf2d37243dd85c2e73b79cb1bd0a9bd313860e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_One-Legged_Deadlift_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_female_v2_0.png",
+      "sourceSha256": "b050839ca2c0cd5a6daaf986d875cb3337f07e51fc975cc82fe424082129a356",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_female_v2_0.png",
+      "candidateSha256": "a35cfca5faf835da99e42ae7ff5aec8bb99a3c4e03d63dbd63d86fc5ce1d8e0e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_One-Legged_Deadlift_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_female_v2_1.png",
+      "sourceSha256": "d883a9e158e7d44a32da19c2785d3f9109646e4674563c42ff00adadefaf797f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_female_v2_1.png",
+      "candidateSha256": "d265bee1cd70886ba2221da3e96ac02fa985b2d93649b8ecec74ec8fcbb2e619",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_One-Legged_Deadlift_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_female_v2_2.png",
+      "sourceSha256": "f3c93c1414792c2033f2fb6c618d0c065c1b9cb1b9deb38dddd26f84589ae436",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_female_v2_2.png",
+      "candidateSha256": "f3947776a908455521c5e29fd12a07a089210de05ca8444a1cd94a4d1b925995",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_One-Legged_Deadlift_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_One-Legged_Deadlift_female_v2_3.png",
+      "sourceSha256": "f26b3e0018c9613f9ccd0f645e5bce628629c7d7fca9d1fb9bac19ad54b96a71",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/074/Kettlebell_One-Legged_Deadlift_female_v2_3.png",
+      "candidateSha256": "5f069147fbf6b0e81dc1e0372428a23d911014e4ee744ca46cd46f73268be745",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kettlebell_Dead_Clean",
+  "shard": 8,
+  "index": 71,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kettlebell_Dead_Clean_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_male_v2_0.png",
+      "sourceSha256": "4dd15dbfca02c31638fcbca4ae99cacfefbe4dccbd7c7e7feb6360a6a618d05f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/071/Kettlebell_Dead_Clean_male_v2_0.png",
+      "candidateSha256": "a5f8e9b6485ef6c04db47cb2418341188f29bbfb23e96c397c741fe0283ef6eb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Dead_Clean_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_male_v2_1.png",
+      "sourceSha256": "0ccd9e1787bbf33098d105d500c20a77910ada986758cb9a35b1139281dc06dd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/071/Kettlebell_Dead_Clean_male_v2_1.png",
+      "candidateSha256": "0811e53d6265a5ac37f4fdcb8d823476d120ec213fa0ee7601635d7d373b48ac",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Dead_Clean_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_male_v2_2.png",
+      "sourceSha256": "92232b5f8e6ddfa55b9736329eb88c7fe23e390612927e4ed1a0e6129ba45073",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/071/Kettlebell_Dead_Clean_male_v2_2.png",
+      "candidateSha256": "3823f6b325c16ed5fa9ef302e055aa5b115b8be84555f3316b135172d932b85f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Dead_Clean_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_male_v2_3.png",
+      "sourceSha256": "f69980e2ef08c6ca8bbfa4b6fe9ffafc5365d0d4227b34d16b06ecbaa9cd6be4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/071/Kettlebell_Dead_Clean_male_v2_3.png",
+      "candidateSha256": "22ba54e2cb8338197a9227debc13d3dd95bc45b1742a4d7647aef298b99fb0d6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Dead_Clean_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_female_v2_0.png",
+      "sourceSha256": "8b95229c5a0f0f39ec61ad8e36a37830710d20309ab29ac19c5c82998ad83177",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/071/Kettlebell_Dead_Clean_female_v2_0.png",
+      "candidateSha256": "5078a894b7fc93485ae97677c03cc1a93aeef4caa2f44a747408d64c8e282cbb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Dead_Clean_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_female_v2_1.png",
+      "sourceSha256": "9d479d0e5eb86a0565e1ecd1e4e9a3c842ccb94c40287c042adab6f2111da34f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/071/Kettlebell_Dead_Clean_female_v2_1.png",
+      "candidateSha256": "9a4fd77f79dad0a5c26674c864164aa44c4ddb65fcdb322610d8019a6a064b29",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Dead_Clean_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_female_v2_2.png",
+      "sourceSha256": "13a46e7f6dab35e1c2479e6b3bd454f403b7fe75978a61563142d7c54bd08dd3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/071/Kettlebell_Dead_Clean_female_v2_2.png",
+      "candidateSha256": "b1b170566d04844051bc63fa09fd55d669e3a5f0a7026cc9ab5807d1cf3d800a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Dead_Clean_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Dead_Clean_female_v2_3.png",
+      "sourceSha256": "98afe81ccdf6c6bed73823f86dc3872298b3de4e571738561305985464938dd5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/071/Kettlebell_Dead_Clean_female_v2_3.png",
+      "candidateSha256": "f049a1eaf8ca5eee6f26221fa7c2dffd864ccd8c7832ba4718a66b0300a1aa5e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

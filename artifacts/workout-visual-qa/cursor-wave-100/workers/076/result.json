@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Kettlebell_Pirate_Ships",
+  "shard": 8,
+  "index": 76,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Kettlebell_Pirate_Ships_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_male_v2_0.png",
+      "sourceSha256": "6d5eaa6ba0c43f842f35a53d6059c838dd1778534a3224f1bf54e33724a9ddc1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/076/Kettlebell_Pirate_Ships_male_v2_0.png",
+      "candidateSha256": "97b6181a896d88445e7710faec26118502d60c87cc877b6f6af254fcdf9d07a1",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pirate_Ships_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_male_v2_1.png",
+      "sourceSha256": "a55d9b2938f2982e691d1cb0758fd0d35ba42fc6d232207d9431e12153f38abe",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/076/Kettlebell_Pirate_Ships_male_v2_1.png",
+      "candidateSha256": "032cb0b2d5d11d2bc3dbc88e0792c792e08590f600d1badfb6e8297e7f168951",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pirate_Ships_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_male_v2_2.png",
+      "sourceSha256": "c7e4d1cd1942c08ed61e37e1f082cbbc852b6967b90354625ef5efbe2dc19fcf",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/076/Kettlebell_Pirate_Ships_male_v2_2.png",
+      "candidateSha256": "ad24a9cacbbbef88704e73076107d36c9611e055989b2fb7bf5cf66220948426",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pirate_Ships_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_male_v2_3.png",
+      "sourceSha256": "366223316ff1752d491d4f809808b65068dc4dbbb0a8ca5806df2c5428e7b2e3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/076/Kettlebell_Pirate_Ships_male_v2_3.png",
+      "candidateSha256": "6fcf3de0b86c86d391a61b22328482daabfb84948fb28ba3f900cdbc3c59861f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pirate_Ships_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_female_v2_0.png",
+      "sourceSha256": "78d73372754172f5fc624a4fd1841483810c6a1c80d855f1978c6b268f5a1ee7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/076/Kettlebell_Pirate_Ships_female_v2_0.png",
+      "candidateSha256": "d2e9936816c6bdc7e7d0eb6fe149c7c31d3b52059bde8751462ec38cbfd705ae",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pirate_Ships_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_female_v2_1.png",
+      "sourceSha256": "77e1fa41ae60c71edb723475ed825017ca155fc7d1d225b31b4726e4d3e057f2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/076/Kettlebell_Pirate_Ships_female_v2_1.png",
+      "candidateSha256": "87b161e36ce06d5382a26f45dd6c05c6f61721fb1bf08eb76853357d7a1e0b36",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pirate_Ships_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_female_v2_2.png",
+      "sourceSha256": "bdc10ca5ff454f236fac6187ed8b3a3830004eb6963c640a9577c959e7d10dd5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/076/Kettlebell_Pirate_Ships_female_v2_2.png",
+      "candidateSha256": "f2f5262d26483f4cc8616166b82aa62f0e5dfb22131a15d963678c22fe75d103",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    },
+    {
+      "filename": "Kettlebell_Pirate_Ships_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Kettlebell_Pirate_Ships_female_v2_3.png",
+      "sourceSha256": "c67f76c9e49ac8bb2b7b4014b5a67db245ef9edca4f074ac99d8acc07d9a0e4b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-100/workers/076/Kettlebell_Pirate_Ships_female_v2_3.png",
+      "candidateSha256": "c8a9352a19132d0ef38d2e025d487c6eae1675c7491eb78fe854bf5cfd49704d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": false
+    }
+  ]
+}

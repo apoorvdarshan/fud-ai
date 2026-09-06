@@ -1,0 +1,84 @@
+{
+  "exerciseId": "Standing_Bradford_Press",
+  "shard": 30,
+  "index": 297,
+  "status": "needs_more_work",
+  "findings": [],
+  "unresolved": [
+    "Standing_Bradford_Press_female_v2_1.png"
+  ],
+  "frames": [
+    {
+      "filename": "Standing_Bradford_Press_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Bradford_Press_male_v2_0.png",
+      "sourceSha256": "6d2ea89e3e29237618e80886ec0148bbdfb258736e42a3990acaf75f55f5c17c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/297/Standing_Bradford_Press_male_v2_0.png",
+      "candidateSha256": "54077977c91cb7a2e76e4240ac9dd8e29507e5147d5084dca138c2f0e8b6a1ca",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Bradford_Press_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Bradford_Press_male_v2_1.png",
+      "sourceSha256": "ba78a9233d15cdcc43785d5f044f6c0e4e09911c07bd16a578b09d2ec6d275e4",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/297/Standing_Bradford_Press_male_v2_1.png",
+      "candidateSha256": "73fe228757eb007a8ee87368f4b5c64f07132471318af1bdf0bc43ea98c3dddc",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Bradford_Press_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Bradford_Press_male_v2_2.png",
+      "sourceSha256": "a2befaf4ef17d24a6620d937f683f78813a29d7153a8429f3788e48dde2ed96e",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/297/Standing_Bradford_Press_male_v2_2.png",
+      "candidateSha256": "b400177531740e6a35cb93d562f935466278d7d701e91e9796869f3532995594",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Bradford_Press_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Bradford_Press_male_v2_3.png",
+      "sourceSha256": "4ed42c50a71c3c1386d82d4f2a9cca61c20aea8575b3f9b49b60d2f745e72aea",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/297/Standing_Bradford_Press_male_v2_3.png",
+      "candidateSha256": "ed18c534d7b9419b286516cb727a591123c84b5d56f4bbbb056d57f73ed6b510",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Bradford_Press_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Bradford_Press_female_v2_0.png",
+      "sourceSha256": "594585ea7a871778a9000327d074374764aa383506f0fe32ea2b7f6de7c5081a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/297/Standing_Bradford_Press_female_v2_0.png",
+      "candidateSha256": "5a34073f897d20138291e46ec551b83b65b10fcea8d8caa77ca5a3889d6a0512",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Bradford_Press_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Bradford_Press_female_v2_1.png",
+      "sourceSha256": "b5a497706a3381e4989259943eac6dc322af427941fd9a54e7fdc4e02a4f46b0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/297/Standing_Bradford_Press_female_v2_1.png",
+      "candidateSha256": "b70a5843001499845cf7002064509f8030362bc4eb5af70c72ac0b89e97a633b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Bradford_Press_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Bradford_Press_female_v2_2.png",
+      "sourceSha256": "9984f0ab05a67d7ed2aacf55fe97b4f082fde9f9ef0b690ba55c6c0306c24df2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/297/Standing_Bradford_Press_female_v2_2.png",
+      "candidateSha256": "39468adebcdd73b6e9493aed2812ce7c073a172227a29b85b1c199e0a9d87de8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Bradford_Press_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Bradford_Press_female_v2_3.png",
+      "sourceSha256": "0468ae1eb987d8ad1f18fcb29c30d1f7e37e4751d83c274eaa8cbf62d1ea2409",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/297/Standing_Bradford_Press_female_v2_3.png",
+      "candidateSha256": "9842e35193d240d0c8046934e734dff217105688b7551cbd01d6a0460f85a851",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true
+    }
+  ]
+}

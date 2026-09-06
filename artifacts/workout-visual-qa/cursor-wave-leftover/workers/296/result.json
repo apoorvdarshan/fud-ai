@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Biceps_Stretch",
+  "shard": 30,
+  "index": 296,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Biceps_Stretch_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Stretch_male_v2_0.png",
+      "sourceSha256": "e76c9eb3093d9343c31416e61f103414574489f2b170f01a9c6ecfb44c9d5545",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/296/Standing_Biceps_Stretch_male_v2_0.png",
+      "candidateSha256": "14ed1017799faf3ef8aef6c2cb081c1af76ed0660ac8933bd183baf58ced212e",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Stretch_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Stretch_male_v2_1.png",
+      "sourceSha256": "d75887375ebc9dab73f6cee8026212bafec72434b3263cd8157fb9673de01a79",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/296/Standing_Biceps_Stretch_male_v2_1.png",
+      "candidateSha256": "1f068b06d90160c40aa8b771e9105849417e0f291265a8ed2f7bd17c07b342df",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Stretch_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Stretch_male_v2_2.png",
+      "sourceSha256": "49a4254cd630eaa2c66dcdddcfd2d51ba46703473323eebfc6bebbb539a33a3c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/296/Standing_Biceps_Stretch_male_v2_2.png",
+      "candidateSha256": "aad4384c3618684bac32e06624bad0f193f770d6963c3cbe560a8648aa8b6fb8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Stretch_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Stretch_male_v2_3.png",
+      "sourceSha256": "78384d311d36848cf8c07d90284cf162c0d3cad2a193b93d6f809d89375f2a37",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/296/Standing_Biceps_Stretch_male_v2_3.png",
+      "candidateSha256": "753d8d4ba8f7af882c698b8d652c9aac61659e18d246e141afa01ff0a367d587",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Stretch_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Stretch_female_v2_0.png",
+      "sourceSha256": "0a4806c45f6cb59aec47d98a5212086231a0ec2a4af210aeb2b8f95a3027c4a5",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/296/Standing_Biceps_Stretch_female_v2_0.png",
+      "candidateSha256": "0e8b36839e54773040016737124b4f3863e9f73cf74b6a553ac432baedd4f924",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Stretch_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Stretch_female_v2_1.png",
+      "sourceSha256": "4efdb7028df9efcd71031c2027bb6fac7b4adff2b154c3812c25b167a762f109",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/296/Standing_Biceps_Stretch_female_v2_1.png",
+      "candidateSha256": "b4d89954fcf4d1c47595f334885315db2ae2f3c2659159a49ea53ad14549c825",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Stretch_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Stretch_female_v2_2.png",
+      "sourceSha256": "a16c7c847ea4b3bede25dfd5a969587f2ec918f3f2633f370e07937285629b0a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/296/Standing_Biceps_Stretch_female_v2_2.png",
+      "candidateSha256": "e29f7dae7810dcdec054afcc667ac619f2b2dffeb142e3a7e5ac428500a9a268",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Biceps_Stretch_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Biceps_Stretch_female_v2_3.png",
+      "sourceSha256": "326d47e973218d30d922af93954dac1f69bbbf97c85c68bb069880fadbceb2e0",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/296/Standing_Biceps_Stretch_female_v2_3.png",
+      "candidateSha256": "2031d6be620d674a682c6350f5e838c6692799b71266acaeec7d7d770b0b600b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

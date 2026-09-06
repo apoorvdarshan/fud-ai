@@ -1,0 +1,82 @@
+{
+  "exerciseId": "Standing_Barbell_Press_Behind_Neck",
+  "shard": 30,
+  "index": 292,
+  "status": "ready_for_review",
+  "findings": [],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Standing_Barbell_Press_Behind_Neck_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Press_Behind_Neck_male_v2_0.png",
+      "sourceSha256": "df1097a9e25cad9ee621595a3a382cdb8c39a189f47752de54b6797ae94a3947",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/292/Standing_Barbell_Press_Behind_Neck_male_v2_0.png",
+      "candidateSha256": "ef668cd995420a3bdbcef93af7b7e02d289f9e09839b439e26fa2933826bfc0c",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Press_Behind_Neck_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Press_Behind_Neck_male_v2_1.png",
+      "sourceSha256": "cd77e5dc6ee687f39381201f508f4293ce8beb3f168d0a61c113c4fb6cfb9826",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/292/Standing_Barbell_Press_Behind_Neck_male_v2_1.png",
+      "candidateSha256": "c34b20ef8e7e485ec05554d9cca0389d595b525eaa7a9614525902c44100b3f0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Press_Behind_Neck_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Press_Behind_Neck_male_v2_2.png",
+      "sourceSha256": "9ec8047984c7f7631a571a615f69aa6356af8d0e6be130387eae117a7536fef8",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/292/Standing_Barbell_Press_Behind_Neck_male_v2_2.png",
+      "candidateSha256": "ed10ed3f08cd5af36dd8005fb31e424e32f284dbc7d57fcfd1c511c001de2da7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Press_Behind_Neck_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Press_Behind_Neck_male_v2_3.png",
+      "sourceSha256": "681a306182c8f59e9c84b7f8602c222eb02bf7b708e5e76ad24a57e31974ddbb",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/292/Standing_Barbell_Press_Behind_Neck_male_v2_3.png",
+      "candidateSha256": "1013026e834a5715a1528e7b514a81cdc4fa6ef4319940545ceb72a0566a609a",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Press_Behind_Neck_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Press_Behind_Neck_female_v2_0.png",
+      "sourceSha256": "bee24ca244c133559999fe3daa856579f46d001cba07f859d1340f5645052dd2",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/292/Standing_Barbell_Press_Behind_Neck_female_v2_0.png",
+      "candidateSha256": "e38728659d87d7a3c6acdd5cb2495d659bb96ea981fcb56bc59bb0ea0b7ff0f8",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Press_Behind_Neck_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Press_Behind_Neck_female_v2_1.png",
+      "sourceSha256": "9cb60ca404f326c280205cef1f52b6ca4b03a0460faccdf17dcf9bfcdd28173b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/292/Standing_Barbell_Press_Behind_Neck_female_v2_1.png",
+      "candidateSha256": "17986af487ead5ad968f8629557c0e0edb78ec5e0ab40815c72c33c35c8b6ef0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Press_Behind_Neck_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Press_Behind_Neck_female_v2_2.png",
+      "sourceSha256": "1cad940c53fdec145b25a2e74bce1d688ee36b9d4ef3910c44b2c1957406784f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/292/Standing_Barbell_Press_Behind_Neck_female_v2_2.png",
+      "candidateSha256": "be9c8c406673dcbd86d1a6e5822556653b0a8a6b0643e9e29821db09403c5077",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    },
+    {
+      "filename": "Standing_Barbell_Press_Behind_Neck_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Standing_Barbell_Press_Behind_Neck_female_v2_3.png",
+      "sourceSha256": "9047c8654ba5e807432b6d2b7a60de15202127e4f810600de5fcf28ee9034c23",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/292/Standing_Barbell_Press_Behind_Neck_female_v2_3.png",
+      "candidateSha256": "7507bfa285a302f1719ae7d32956778d8d364a73997a2d63224322001b1a7f6f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true
+    }
+  ]
+}

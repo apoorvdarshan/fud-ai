@@ -1,0 +1,93 @@
+{
+  "exerciseId": "Weighted_Sit-Ups_-_With_Bands",
+  "shard": 41,
+  "index": 402,
+  "status": "ready_for_review",
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Weighted_Sit-Ups_-_With_Bands_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_male_v2_0.png",
+      "sourceSha256": "5e0ed97fa0611bd274c2559c5211bb32e380a62a96f518aed8dd9a419b89929b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_male_v2_0.png",
+      "candidateSha256": "6877437d750647c1f8202a1844e602f9817c441b7c2251ddf19733d97bd4a1d2",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sit-Ups_-_With_Bands_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_male_v2_1.png",
+      "sourceSha256": "1eb2127255031214ec4f062478cca42a964c967a2a39201630953f2c3cad8ab3",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_male_v2_1.png",
+      "candidateSha256": "aba4a7b20e54029c80a87dda1fc1b3b63ddf0d7a41175a9eebc868e839e45ee6",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sit-Ups_-_With_Bands_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_male_v2_2.png",
+      "sourceSha256": "ffe4aab0f21b43b88eab522c719274356f36372bbb0aeeebb423f9808ec7bc31",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_male_v2_2.png",
+      "candidateSha256": "ce263fca183b775990fb3ef24d3d1192de5c4e3a59f3ede646aea33929298f83",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sit-Ups_-_With_Bands_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_male_v2_3.png",
+      "sourceSha256": "db18fafaa107db85164ed51e2c388ebc485fdc60fca2d9357bab5e7355327885",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_male_v2_3.png",
+      "candidateSha256": "a806b623e5a24be286e65d858a73c4d86984af3e07a77bcebf2ddb597202b4d0",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sit-Ups_-_With_Bands_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_female_v2_0.png",
+      "sourceSha256": "9a9c301b44b36ddea702eae61a1f7c45a61080a778f9111b4ff8c1a51f5482fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_female_v2_0.png",
+      "candidateSha256": "0ea55501cdffc4a5b8a7c846e73db1c5fc674e13bf74bfb5cd46ec3b6fcd35a7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sit-Ups_-_With_Bands_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_female_v2_1.png",
+      "sourceSha256": "b82b89dcb045ff5b2bfb7f5304ece31defb8c0e59e7def00eed1d737384f040d",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_female_v2_1.png",
+      "candidateSha256": "81932be2744b80a7a61696fba8bf60f2247533b7bd4427d8b008bd384dcfcc5b",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sit-Ups_-_With_Bands_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_female_v2_2.png",
+      "sourceSha256": "e04b318e4199661f2f19887593837a6a3f1355163e7687f64a2e86c1991b29e7",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_female_v2_2.png",
+      "candidateSha256": "0149679b37c9098724db84cdeb1b98fc9918dbd3156eb72d832297290606094f",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Weighted_Sit-Ups_-_With_Bands_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Weighted_Sit-Ups_-_With_Bands_female_v2_3.png",
+      "sourceSha256": "1ad96c0621c9d49ba6c6ef50c7d6f77a20ca9fb58856cf8a3d9c1b63cea39177",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/402/Weighted_Sit-Ups_-_With_Bands_female_v2_3.png",
+      "candidateSha256": "f10089cc83d96e4834b309b20582080c25561a922ad2551a0c5b79a54ac513cc",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "visuallyReviewed": true
+}

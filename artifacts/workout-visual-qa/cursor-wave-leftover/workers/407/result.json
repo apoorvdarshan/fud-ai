@@ -1,0 +1,93 @@
+{
+  "exerciseId": "Wide-Grip_Lat_Pulldown",
+  "shard": 41,
+  "index": 407,
+  "status": "ready_for_review",
+  "findings": [
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Wide-Grip_Lat_Pulldown_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_male_v2_0.png",
+      "sourceSha256": "1438a952119a9b5cd1b85b5e3f15353bc52359c8c29e2c3d4f27866ed053081c",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_male_v2_0.png",
+      "candidateSha256": "0324bfd94ecea462aea3244b587d1f620eb093a1581353250b7dc65713095a8d",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Lat_Pulldown_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_male_v2_1.png",
+      "sourceSha256": "d1d0bf559de5782790f67f5d4c7e3bcd99b1201f0650320fd17ef7b4644a8cda",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_male_v2_1.png",
+      "candidateSha256": "22896ddca74908d8534e150aaf24b8004d4aa0f79b41de7a86a66a32f67ce091",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Lat_Pulldown_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_male_v2_2.png",
+      "sourceSha256": "f11952384c1c9edbb7aea1cfc337cf1c1a6e5a6638a669b6fac10e833bedd3fc",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_male_v2_2.png",
+      "candidateSha256": "e120f45e09c9f884c34e7f07c11677d42538431270887e2aa2da9637a487ba33",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Lat_Pulldown_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_male_v2_3.png",
+      "sourceSha256": "29c02853961482629972e6162e40c56505d1448312038fd8ea43c0fc7a319573",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_male_v2_3.png",
+      "candidateSha256": "ee7a71de6e96163ad0651da829ce84629cfb9c7ce8725ea30ad87292236c1bf3",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Lat_Pulldown_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_female_v2_0.png",
+      "sourceSha256": "d2710bfab492465d2bcbfe3cf8f88b26cfdff1cd55d38111983c2425ae1caf86",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_female_v2_0.png",
+      "candidateSha256": "ac1e5d891295aec896b4bc958ac13492925c6ea19c1331d406bcec63ff1a41b7",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Lat_Pulldown_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_female_v2_1.png",
+      "sourceSha256": "07660f147200cf4806e29f9644905b1e21ba275323b26aa2d42b2ce7f66e2e47",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_female_v2_1.png",
+      "candidateSha256": "2c9a3a64b43f95c7468a77f1e965801e8f32b27bbc675c0a6d830df15f499406",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Lat_Pulldown_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_female_v2_2.png",
+      "sourceSha256": "69ffb7afc916b2be77685de224d72ae669bbfeb8f74283fd0f6999bb6696d96f",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_female_v2_2.png",
+      "candidateSha256": "e5d474e8d36d00452d462c0f5345789339fb8baa8cb97b89d6bdf295608518fb",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Lat_Pulldown_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Lat_Pulldown_female_v2_3.png",
+      "sourceSha256": "1660a3f8936fa8e19eb09621d2bc7ab514b891a49c35df6ee9f5d010bb961f38",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/407/Wide-Grip_Lat_Pulldown_female_v2_3.png",
+      "candidateSha256": "de01631868608458bc415b9ea0da9fdd32a6c1d35a333c7cf0c87ef797e628de",
+      "method": "script_background_cleanup",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "visuallyReviewed": true
+}

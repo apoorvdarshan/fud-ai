@@ -1,0 +1,95 @@
+{
+  "exerciseId": "Wide-Grip_Pulldown_Behind_The_Neck",
+  "shard": 41,
+  "index": 408,
+  "status": "ready_for_review",
+  "findings": [
+    "GenerateImage surgical edit + key_workout_chroma.py on 8 frame(s) with pale fringe/floor matte artifacts.",
+    "All 8 frames visually reviewed on dark background."
+  ],
+  "unresolved": [],
+  "frames": [
+    {
+      "filename": "Wide-Grip_Pulldown_Behind_The_Neck_male_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_0.png",
+      "sourceSha256": "3814e22911f6b335928330ec6a18fa30f4975ce7cd4b3d5e6cf0575c1683364b",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_0.png",
+      "candidateSha256": "c1157e821c3bc476aea1b4110f1b1ed81637bcfd01e514a3ef859fbfcfac7eab",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Pulldown_Behind_The_Neck_male_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_1.png",
+      "sourceSha256": "b60f78dc186b18bdedd30b476e03c85f90be3e41f44ff29f61de1f0d1209e569",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_1.png",
+      "candidateSha256": "8623c33c241ae10d98c8bedbd451227dca3dc0d765eca1d7a942a00c3924011e",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Pulldown_Behind_The_Neck_male_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_2.png",
+      "sourceSha256": "791a37f1392c8d8ec898644b183ebbcdf500d401b1ddfaf374bfce2807c880f1",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_2.png",
+      "candidateSha256": "c40f8148bf98e59dab698e511efc91730572a13ccdd2e725a046a3ea821aa95d",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Pulldown_Behind_The_Neck_male_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_3.png",
+      "sourceSha256": "64c31cfde5da48bce5a46783ecdc11dc1ebc299a365111f573c82a074403dd06",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_male_v2_3.png",
+      "candidateSha256": "0264004e1f99b9b192f8ff235147a06fcc4c5180151cbe0ce9a40bcdd924a0cf",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Pulldown_Behind_The_Neck_female_v2_0.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_0.png",
+      "sourceSha256": "7c8d6c8e56072f81903614960adfa13aecf09f9a5dfb0a3ba2f84ba8f2c388dd",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_0.png",
+      "candidateSha256": "63d5d13e29afed59d1b3f4ed2e0a72338ef19b7fec9a13452d42c114f158ce28",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Pulldown_Behind_The_Neck_female_v2_1.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_1.png",
+      "sourceSha256": "3e8aa6dd33a0312f48413e336e6ace6d2a01144abb8286fec6c874e314e49e53",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_1.png",
+      "candidateSha256": "c18df7f24b55caaeabc17b0df58cf9f3a6c9379b40855d34a9782ee6ed9316bb",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Pulldown_Behind_The_Neck_female_v2_2.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_2.png",
+      "sourceSha256": "4cf77cb7b068524ce5e2fd0bda4e86ebcd5fefe512b47292138c81b5eff881df",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_2.png",
+      "candidateSha256": "e911d79ff7a3eec394bf0290e8cf6d9067db85636c0ec7de4148100c04901255",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    },
+    {
+      "filename": "Wide-Grip_Pulldown_Behind_The_Neck_female_v2_3.png",
+      "sourcePath": "/workspace/shared/workout-vectors/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_3.png",
+      "sourceSha256": "256a34b5eed0b9b40ee67a133b04da5617300ac3e6beca539bcd33f1e031cd4a",
+      "candidatePath": "/workspace/artifacts/workout-visual-qa/cursor-wave-leftover/workers/408/Wide-Grip_Pulldown_Behind_The_Neck_female_v2_3.png",
+      "candidateSha256": "0d485ace718b08519a508e192e4e65cb8266d1e9a708b17a242947622f1e8dd3",
+      "method": "generateimage_surgical",
+      "visuallyReviewed": true,
+      "pixelsChangedFromSource": true
+    }
+  ],
+  "visuallyReviewed": true,
+  "changedFrameCount": 8
+}

@@ -119,7 +119,9 @@ import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.models.BodyFatEntry
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.HeartRateSource
+import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
+import com.apoorvdarshan.calorietracker.models.OptionalNutrientGoals
 import com.apoorvdarshan.calorietracker.models.WeightEntry
 import com.apoorvdarshan.calorietracker.models.WorkoutSession
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
@@ -191,6 +193,9 @@ private fun MyProgressContent(container: AppContainer) {
     val ui by vm.ui.collectAsState()
     val foods by container.foodRepository.entries.collectAsState(initial = emptyList())
     val weightUnit by container.prefs.weightUnit.collectAsState(initial = "kg")
+    val optionalNutrientGoals by container.prefs.optionalNutrientGoals.collectAsState(
+        initial = OptionalNutrientGoals.Default
+    )
     val weightMetric = weightUnit == "kg"
 
     var range by rememberSaveable { mutableStateOf(TimeRange.WEEK) }
@@ -287,6 +292,36 @@ private fun MyProgressContent(container: AppContainer) {
             n += 1
         }
         if (n == 0) Triple(0.0, 0.0, 0.0) else Triple(p / n, c / n, f / n)
+    }
+
+    val nutrientAverageItems = remember(foods, range, ui.profile, optionalNutrientGoals) {
+        val nutrients = HomeTopNutrient.entries.filter {
+            it != HomeTopNutrient.PROTEIN && it != HomeTopNutrient.CARBS && it != HomeTopNutrient.FAT
+        }
+        val today = LocalDate.now()
+        val totals = mutableMapOf<HomeTopNutrient, Double>().withDefault { 0.0 }
+        var n = 0
+        for (offset in 0 until range.days) {
+            val day = today.minusDays(offset.toLong())
+            val dayEntries = foods.filter { it.timestamp.atZone(zone).toLocalDate() == day }
+            if (dayEntries.isEmpty()) continue
+            for (nutrient in nutrients) {
+                totals[nutrient] = totals.getValue(nutrient) + nutrient.current(dayEntries)
+            }
+            n += 1
+        }
+        nutrients.mapNotNull { nutrient ->
+            val average = if (n == 0) 0.0 else totals.getValue(nutrient) / n
+            val goal = nutrient.goal(ui.profile, optionalNutrientGoals)
+            if (average < 0.05 && goal == 0) null
+            else NutrientAverageItem(
+                key = nutrient.storageKey,
+                labelRes = nutrient.displayNameRes,
+                current = average,
+                goal = goal,
+                unitRes = nutrient.unitRes
+            )
+        }
     }
 
     Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
@@ -387,6 +422,15 @@ private fun MyProgressContent(container: AppContainer) {
                             carbsGoal = p.effectiveCarbs,
                             fatGoal = p.effectiveFat
                         )
+                    }
+                }
+            }
+
+            // 7. Micronutrient / other nutrient averages
+            if (nutrientAverageItems.isNotEmpty()) {
+                item {
+                    CardSection {
+                        NutrientAveragesSection(items = nutrientAverageItems)
                     }
                 }
             }
@@ -1414,21 +1458,51 @@ private fun MacroAveragesSection(
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(stringResource(R.string.progress_macro_averages), fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
-        MacroProgressRow(stringResource(R.string.macro_protein), avgProtein, proteinGoal)
-        MacroProgressRow(stringResource(R.string.macro_carbs), avgCarbs, carbsGoal)
-        MacroProgressRow(stringResource(R.string.macro_fat), avgFat, fatGoal)
+        MacroProgressRow(stringResource(R.string.macro_protein), avgProtein, proteinGoal, stringResource(R.string.unit_g))
+        MacroProgressRow(stringResource(R.string.macro_carbs), avgCarbs, carbsGoal, stringResource(R.string.unit_g))
+        MacroProgressRow(stringResource(R.string.macro_fat), avgFat, fatGoal, stringResource(R.string.unit_g))
+    }
+}
+
+private data class NutrientAverageItem(
+    val key: String,
+    val labelRes: Int,
+    val current: Double,
+    val goal: Int,
+    val unitRes: Int
+)
+
+@Composable
+private fun NutrientAveragesSection(items: List<NutrientAverageItem>) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        Text(stringResource(R.string.progress_nutrient_averages), fontSize = 17.sp, fontWeight = FontWeight.SemiBold)
+        items.forEach { item ->
+            key(item.key) {
+                MacroProgressRow(
+                    label = stringResource(item.labelRes),
+                    current = item.current,
+                    goal = item.goal,
+                    unit = stringResource(item.unitRes)
+                )
+            }
+        }
     }
 }
 
 @Composable
-private fun MacroProgressRow(label: String, current: Double, goal: Int) {
+private fun MacroProgressRow(label: String, current: Double, goal: Int, unit: String) {
     val progress = if (goal > 0) (current.toFloat() / goal).coerceIn(0f, 1f) else 0f
+    val valueText = if (goal > 0) {
+        "${MacroValueFormatter.string(current)}$unit / ${goal}$unit"
+    } else {
+        "${MacroValueFormatter.string(current)}$unit"
+    }
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(label, fontSize = 15.sp, fontWeight = FontWeight.Medium)
             Spacer(Modifier.weight(1f))
             Text(
-                "${MacroValueFormatter.string(current)}g / ${goal}g",
+                valueText,
                 fontSize = 15.sp,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
             )

@@ -578,6 +578,7 @@
     <string name="progress_no_food">No food logged yet</string>
 
     <string name="progress_macro_averages">Macro Averages</string>
+    <string name="progress_nutrient_averages">Nutrient Averages</string>
     <string name="progress_macro_progress_format">%1$dg / %2$dg</string>
 
     <string name="progress_log_weight_title">Log Weight</string>

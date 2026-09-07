@@ -3136,6 +3136,40 @@ struct ProgressTabView: View {
         return (totalP / Double(count), totalC / Double(count), totalF / Double(count))
     }
 
+    /// Daily averages for micros / other nutrients over logged days in the range.
+    private var nutrientAverageItems: [NutrientAverageItem] {
+        let nutrients = HomeTopNutrient.allCases.filter { $0 != .protein && $0 != .carbs && $0 != .fat }
+        let optionalGoals = OptionalNutrientGoals.current
+        let calendar = Calendar.current
+        let days = timeRange.days
+        let today = calendar.startOfDay(for: .now)
+
+        var totals: [HomeTopNutrient: Double] = Dictionary(uniqueKeysWithValues: nutrients.map { ($0, 0.0) })
+        var count = 0
+        for offset in 0..<days {
+            guard let date = calendar.date(byAdding: .day, value: -offset, to: today) else { continue }
+            if foodStore.entries(for: date).isEmpty { continue }
+            for nutrient in nutrients {
+                totals[nutrient, default: 0] += nutrient.value(from: foodStore, on: date)
+            }
+            count += 1
+        }
+
+        return nutrients.compactMap { nutrient in
+            let average = count > 0 ? (totals[nutrient] ?? 0) / Double(count) : 0
+            let goal = Int(nutrient.goal(for: userProfile, optionalGoals: optionalGoals).rounded())
+            // Hide unused supplements (goal 0 and no intake) to keep Progress scannable.
+            if average < 0.05 && goal == 0 { return nil }
+            return NutrientAverageItem(
+                id: nutrient.rawValue,
+                label: nutrient.optionalNutrient?.displayName ?? nutrient.displayName,
+                current: average,
+                goal: goal,
+                unit: nutrient.unit
+            )
+        }
+    }
+
     var body: some View {
         let _ = profileStore.profile
         return NavigationStack {
@@ -3255,6 +3289,11 @@ struct ProgressTabView: View {
                         fatGoal: userProfile.effectiveFat
                     )
                     .padding(.horizontal)
+
+                    if !nutrientAverageItems.isEmpty {
+                        NutrientAveragesSection(items: nutrientAverageItems)
+                            .padding(.horizontal)
+                    }
 
                         }
                         .padding(.vertical)

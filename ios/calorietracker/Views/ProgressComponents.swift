@@ -480,9 +480,42 @@ struct MacroAveragesSection: View {
             Text("Macro Averages")
                 .font(.system(.headline, design: .rounded, weight: .semibold))
 
-            MacroProgressRow(label: "Protein", current: avgProtein, goal: proteinGoal, color: AppColors.protein, gradientColors: AppColors.proteinGradient)
-            MacroProgressRow(label: "Carbs", current: avgCarbs, goal: carbsGoal, color: AppColors.carbs, gradientColors: AppColors.carbsGradient)
-            MacroProgressRow(label: "Fat", current: avgFat, goal: fatGoal, color: AppColors.fat, gradientColors: AppColors.fatGradient)
+            MacroProgressRow(label: "Protein", current: avgProtein, goal: proteinGoal, unit: "g", color: AppColors.protein, gradientColors: AppColors.proteinGradient)
+            MacroProgressRow(label: "Carbs", current: avgCarbs, goal: carbsGoal, unit: "g", color: AppColors.carbs, gradientColors: AppColors.carbsGradient)
+            MacroProgressRow(label: "Fat", current: avgFat, goal: fatGoal, unit: "g", color: AppColors.fat, gradientColors: AppColors.fatGradient)
+        }
+        .padding()
+        .progressCardStyle()
+    }
+}
+
+struct NutrientAverageItem: Identifiable {
+    let id: String
+    let label: String
+    let current: Double
+    let goal: Int
+    let unit: String
+}
+
+struct NutrientAveragesSection: View {
+    let items: [NutrientAverageItem]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Nutrient Averages")
+                .font(.system(.headline, design: .rounded, weight: .semibold))
+
+            ForEach(items) { item in
+                MacroProgressRow(
+                    label: item.label,
+                    current: item.current,
+                    goal: item.goal,
+                    unit: item.unit,
+                    color: AppColors.calorie,
+                    gradientColors: AppColors.calorieGradient,
+                    localizeLabel: false
+                )
+            }
         }
         .padding()
         .progressCardStyle()
@@ -493,20 +526,30 @@ struct MacroProgressRow: View {
     let label: String
     let current: Double
     let goal: Int
+    var unit: String = "g"
     let color: Color
     let gradientColors: [Color]
+    var localizeLabel: Bool = true
 
     private var progress: Double {
         goal > 0 ? min(current / Double(goal), 1.0) : 0
     }
 
+    private var valueText: String {
+        let amount = "\(MacroValueFormatter.string(current))\(unit)"
+        if goal > 0 {
+            return "\(amount) / \(goal)\(unit)"
+        }
+        return amount
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             HStack {
-                Text(LocalizedDisplayText.text(label))
+                Text(localizeLabel ? LocalizedDisplayText.text(label) : label)
                     .font(.system(.subheadline, design: .rounded, weight: .medium))
                 Spacer()
-                Text("\(MacroValueFormatter.withUnit(current)) / \(goal)g")
+                Text(valueText)
                     .font(.system(.subheadline, design: .rounded))
                     .foregroundStyle(.secondary)
             }

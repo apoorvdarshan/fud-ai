@@ -712,3 +712,98 @@ struct FoodEntry: Identifiable, Codable {
         )
     }
 }
+
+extension FoodEntry {
+    /// One ingredient line for combine / add-ingredient flows (nested ingredients stay collapsed).
+    nonisolated func asMealIngredient() -> MealIngredient {
+        MealIngredient(
+            name: name,
+            grams: servingSizeGrams.flatMap { $0.isFinite && $0 > 0 ? $0 : nil } ?? 0,
+            calories: calories,
+            protein: protein,
+            carbs: carbs,
+            fat: fat
+        )
+    }
+
+    /// Recompute parent macros from an ingredient list.
+    nonisolated func withIngredients(_ ingredients: [MealIngredient]) -> FoodEntry {
+        let totals = ingredients.ingredientTotals
+        return FoodEntry(
+            id: id,
+            name: name,
+            calories: totals.calories,
+            protein: totals.protein,
+            carbs: totals.carbs,
+            fat: totals.fat,
+            timestamp: timestamp,
+            imageData: imageData,
+            imageFilename: imageFilename,
+            additionalImageData: additionalImageData,
+            additionalImageFilenames: additionalImageFilenames,
+            emoji: emoji,
+            source: source,
+            mealType: mealType,
+            sugar: sugar,
+            addedSugar: addedSugar,
+            fiber: fiber,
+            saturatedFat: saturatedFat,
+            monounsaturatedFat: monounsaturatedFat,
+            polyunsaturatedFat: polyunsaturatedFat,
+            cholesterol: cholesterol,
+            caffeine: caffeine,
+            supplementalNutrients: supplementalNutrients,
+            sodium: sodium,
+            potassium: potassium,
+            transFat: transFat,
+            calcium: calcium,
+            iron: iron,
+            magnesium: magnesium,
+            zinc: zinc,
+            vitaminA: vitaminA,
+            vitaminC: vitaminC,
+            vitaminD: vitaminD,
+            vitaminB12: vitaminB12,
+            vitaminE: vitaminE,
+            vitaminK: vitaminK,
+            folate: folate,
+            omega3: omega3,
+            servingSizeGrams: totals.grams > 0 ? totals.grams : servingSizeGrams,
+            servingUnitOptions: [],
+            selectedServingUnit: nil,
+            selectedServingQuantity: nil,
+            customNote: customNote,
+            progressiveMeal: progressiveMeal,
+            ingredients: ingredients,
+            productMetadata: productMetadata
+        )
+    }
+}
+
+enum CombinedMeal {
+    nonisolated static func combinedName(for entries: [FoodEntry]) -> String {
+        let names = entries.map { $0.name.trimmingCharacters(in: .whitespacesAndNewlines) }.filter { !$0.isEmpty }
+        if names.isEmpty { return "Combined meal" }
+        if names.count <= 3 { return names.joined(separator: " + ") }
+        return names.prefix(2).joined(separator: " + ") + " + \(names.count - 2) more"
+    }
+
+    nonisolated static func combine(_ entries: [FoodEntry]) -> FoodEntry {
+        precondition(entries.count >= 2, "Combine requires at least two food entries")
+        let ingredients = entries.map { $0.asMealIngredient() }
+        let totals = ingredients.ingredientTotals
+        let latest = entries.max(by: { $0.timestamp < $1.timestamp }) ?? entries[0]
+        return FoodEntry(
+            name: combinedName(for: entries),
+            calories: totals.calories,
+            protein: totals.protein,
+            carbs: totals.carbs,
+            fat: totals.fat,
+            timestamp: latest.timestamp,
+            source: .manual,
+            mealType: latest.mealType,
+            servingSizeGrams: totals.grams > 0 ? totals.grams : nil,
+            ingredients: ingredients
+        )
+    }
+}

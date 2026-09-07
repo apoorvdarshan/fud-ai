@@ -286,12 +286,19 @@ struct EditFoodEntryView: View {
                         onEdit: { index in
                             ingredientEditor = IngredientEditorTarget(index: index, ingredient: scaledIngredients[index])
                         },
-                        onAdd: {
-                            ingredientEditor = IngredientEditorTarget(
-                                index: nil,
-                                ingredient: MealIngredient(name: "", grams: 100, calories: 0, protein: 0, carbs: 0, fat: 0)
+                        addMenu: AnyView(
+                            IngredientAddMenuButton(
+                                onManual: {
+                                    ingredientEditor = IngredientEditorTarget(
+                                        index: nil,
+                                        ingredient: MealIngredient(name: "", grams: 100, calories: 0, protein: 0, carbs: 0, fat: 0)
+                                    )
+                                },
+                                onIngredient: { ingredient in
+                                    applyIngredientChanges(scaledIngredients + [ingredient])
+                                }
                             )
-                        }
+                        )
                     )
 
                     Section {

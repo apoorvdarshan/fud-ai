@@ -652,6 +652,29 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
         }
     }
 
+    suspend fun analyzeIngredientText(description: String): FoodAnalysis =
+        container.foodAnalysis.analyzeText(description)
+
+    suspend fun analyzeIngredientImage(bytes: ByteArray): FoodAnalysis =
+        container.foodAnalysis.analyzeAuto(bytes)
+
+    suspend fun lookupIngredientBarcode(barcode: String): FoodAnalysis =
+        OpenFoodFactsService.lookupWithImage(barcode).analysis
+
+    fun combineIntoMeal(ids: Set<UUID>, onDone: (FoodEntry?) -> Unit = {}) {
+        if (ids.size < 2) {
+            onDone(null)
+            return
+        }
+        viewModelScope.launch {
+            val combined = container.foodRepository.combineIntoMeal(ids)
+            if (combined == null) {
+                reportFoodBlockedByFast()
+            }
+            onDone(combined)
+        }
+    }
+
     fun toggleFavorite(entry: FoodEntry) {
         viewModelScope.launch {
             container.foodRepository.toggleFavorite(entry)

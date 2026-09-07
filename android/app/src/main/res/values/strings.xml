@@ -1215,6 +1215,9 @@
     <string name="ingredients_remove">Remove</string>
     <string name="ingredients_weight">Weight</string>
     <string name="ingredients_footer">Ingredient changes update the meal’s calorie and macro totals automatically.</string>
+    <string name="combine_into_meal">Combine into Meal</string>
+    <string name="combine_selected_count">%1$d selected</string>
+    <string name="ingredients_add_menu_title">Add Ingredient</string>
     <string name="progressive_meal_title">Progressive Meal</string>
     <string name="progressive_meal_description">Photo 1 → 2 → 3 follows each ingredient added to the same plate. Visible scale differences become ingredient weights.</string>
     <string name="progressive_meal_info_title">How Progressive Meal works</string>

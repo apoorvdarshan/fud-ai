@@ -2,6 +2,7 @@ package com.apoorvdarshan.calorietracker.data
 
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
+import com.apoorvdarshan.calorietracker.models.combineFoodEntries
 import com.apoorvdarshan.calorietracker.services.ReviewPrompter
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.services.FoodImageStore
@@ -107,6 +108,29 @@ class FoodRepository(
         // Delete even when sync is off (iOS parity, best-effort) — a surviving
         // fudai-tagged record would resurrect through restoreFromHealthConnect.
         health?.deleteNutrition(entryId)
+    }
+
+    /**
+     * Merge selected diary foods into one combined meal entry and remove the
+     * originals so macros are not double-counted.
+     */
+    suspend fun combineIntoMeal(entryIds: Collection<UUID>): FoodEntry? {
+        if (prefs.fastingSessions.first().any { it.isActive }) return null
+        ensureFavoritesMigrated()
+        val idSet = entryIds.toSet()
+        if (idSet.size < 2) return null
+        val current = prefs.foodEntries.first()
+        val selected = current.filter { it.id in idSet }
+        if (selected.size < 2) return null
+        val combined = combineFoodEntries(selected)
+        val remaining = current.filter { it.id !in idSet }
+        prefs.setFoodEntries(remaining + combined)
+        pruneOrphanedImages()
+        selected.forEach { health?.deleteNutrition(it.id) }
+        if (shouldSyncHealth()) {
+            health?.writeNutrition(combined)
+        }
+        return combined
     }
 
     suspend fun replaceAll(entries: List<FoodEntry>) {

@@ -393,6 +393,33 @@ class FoodStore {
         onEntryDeleted?(id)
     }
 
+    /// Merge selected diary foods into one combined meal and remove the originals.
+    @discardableResult
+    func combineIntoMeal(ids: Set<UUID>) -> FoodEntry? {
+        guard FastingStore.persistedActiveSession(defaults: defaults) == nil else { return nil }
+        guard ids.count >= 2 else { return nil }
+        let selected = entries.filter { ids.contains($0.id) }
+        guard selected.count >= 2 else { return nil }
+        var combined = CombinedMeal.combine(selected)
+        offloadImageToDiskIfNeeded(&combined)
+        let favoriteFilenames = Set(favorites.flatMap(\.allImageFilenames))
+        for old in selected {
+            for filename in old.allImageFilenames {
+                if favoriteFilenames.contains(filename) { continue }
+                if combined.allImageFilenames.contains(filename) { continue }
+                if isImageStillReferenced(filename: filename, excludingEntryID: old.id) { continue }
+                FoodImageStore.shared.delete(filename: filename)
+            }
+            onEntryDeleted?(old.id)
+        }
+        entries = entries.filter { !ids.contains($0.id) } + [combined]
+        saveEntries()
+        onEntriesChanged?()
+        onEntryAdded?(combined)
+        ReviewPrompter.foodWasLogged()
+        return combined
+    }
+
     func replaceAllEntries(_ newEntries: [FoodEntry]) {
         // Delete on-disk JPEGs for any entry that's about to be removed —
         // otherwise Clear Food Log / Delete All Data orphan files in

@@ -18,8 +18,15 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.activity.compose.BackHandler
 import androidx.compose.material.icons.filled.IosShare
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.outlined.Circle
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import java.util.UUID
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -208,6 +215,8 @@ fun HomeScreen(
     var addMenuGroup by remember { mutableStateOf<AddMenuGroup?>(null) }
     var showSortMenu by remember { mutableStateOf(false) }
     var editingEntry by remember { mutableStateOf<FoodEntry?>(null) }
+    var selectedFoodIds by remember { mutableStateOf<Set<UUID>>(emptySet()) }
+    val selectionMode = selectedFoodIds.isNotEmpty()
     var showNutritionDetail by remember { mutableStateOf(false) }
     var showCustomWaterLog by remember { mutableStateOf(false) }
     var showFastingStart by remember { mutableStateOf(false) }
@@ -329,6 +338,10 @@ fun HomeScreen(
             }
         }
         onQuickActionHandled(request.id)
+    }
+
+    BackHandler(enabled = selectionMode) {
+        selectedFoodIds = emptySet()
     }
 
     val today = LocalDate.now()
@@ -495,13 +508,30 @@ fun HomeScreen(
                                 is HomeDiaryItem.Food -> {
                                     val entry = item.entry
                                     // Tap row -> open EditFoodEntrySheet (matches iOS .onTapGesture).
-                                    // Swipe trailing edge -> delete; swipe leading edge -> toggle favorite.
+                                    // Long-press -> multi-select combine. Swipe trailing -> delete;
+                                    // swipe leading -> toggle favorite (disabled while selecting).
                                     val isFav = ui.isFavorite(entry)
+                                    val isSelected = entry.id in selectedFoodIds
                                     SwipeableFoodRow(
                                         entry = entry,
                                         isFavorite = isFav,
                                         rowShape = rowShape,
-                                        onTap = { editingEntry = entry },
+                                        selectionMode = selectionMode,
+                                        selected = isSelected,
+                                        onTap = {
+                                            if (selectionMode) {
+                                                selectedFoodIds = if (isSelected) {
+                                                    selectedFoodIds - entry.id
+                                                } else {
+                                                    selectedFoodIds + entry.id
+                                                }
+                                            } else {
+                                                editingEntry = entry
+                                            }
+                                        },
+                                        onLongPress = {
+                                            selectedFoodIds = selectedFoodIds + entry.id
+                                        },
                                         onDelete = { vm.deleteEntry(entry.id) },
                                         onToggleFavorite = { vm.toggleFavorite(entry) }
                                     )
@@ -534,6 +564,52 @@ fun HomeScreen(
         // bottom nav bar. The parent Scaffold renders content full-screen behind the
         // bar, so the Scaffold FAB slot would sit hidden underneath it. Mirrors the iOS
         // ContentView FAB: .overlay(alignment: .bottomTrailing) + .padding(.bottom).
+        if (selectionMode) {
+            Row(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .navigationBarsPadding()
+                    .padding(start = 16.dp, end = 16.dp, bottom = 100.dp)
+                    .fillMaxWidth()
+                    .clip(RoundedCornerShape(18.dp))
+                    .background(MaterialTheme.colorScheme.surface)
+                    .border(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f), RoundedCornerShape(18.dp))
+                    .padding(horizontal = 14.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Icon(
+                    Icons.Filled.Close,
+                    contentDescription = stringResource(R.string.action_cancel),
+                    modifier = Modifier
+                        .size(28.dp)
+                        .clickable { selectedFoodIds = emptySet() },
+                    tint = MaterialTheme.colorScheme.onSurface
+                )
+                Text(
+                    stringResource(R.string.combine_selected_count, selectedFoodIds.size),
+                    modifier = Modifier.weight(1f),
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 16.sp
+                )
+                Text(
+                    stringResource(R.string.combine_into_meal),
+                    color = if (selectedFoodIds.size >= 2) AppColors.Calorie
+                    else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.clickable(enabled = selectedFoodIds.size >= 2) {
+                        val ids = selectedFoodIds
+                        vm.combineIntoMeal(ids) { combined ->
+                            selectedFoodIds = emptySet()
+                            if (combined != null) {
+                                editingEntry = combined
+                            }
+                        }
+                    }
+                )
+            }
+        } else {
         Box(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
@@ -641,6 +717,7 @@ fun HomeScreen(
                     }
                 }
             }
+        }
         }
         }
     }
@@ -795,6 +872,10 @@ fun HomeScreen(
             entry = entry,
             preferGramsByDefault = ui.preferGramsByDefault,
             isFavorite = ui.isFavorite(entry),
+            container = container,
+            analyzeIngredientText = vm::analyzeIngredientText,
+            lookupIngredientBarcode = vm::lookupIngredientBarcode,
+            analyzeIngredientImage = vm::analyzeIngredientImage,
             onReprocess = { updatedNote ->
                 vm.reprocessFoodEntry(entry, updatedNote)
             },
@@ -835,6 +916,10 @@ fun HomeScreen(
             profile = ui.profile,
             dayEntries = ui.todayEntries,
             isSubmitting = ui.foodSaveInProgress,
+            container = container,
+            analyzeIngredientText = vm::analyzeIngredientText,
+            lookupIngredientBarcode = vm::lookupIngredientBarcode,
+            analyzeIngredientImage = vm::analyzeIngredientImage,
             source = ui.pendingReviewSource?.source
                 ?: ui.pendingFoodSource
                 ?: if (ui.pendingImageBytes != null) FoodSource.SNAP_FOOD else FoodSource.TEXT_INPUT,
@@ -1820,12 +1905,16 @@ private fun Divider() {
  * The dismiss state is reset on a no-confirm swing-back so partial swipes don't
  * leave the row stuck mid-flight when the user releases short of the threshold.
  */
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun SwipeableFoodRow(
     entry: FoodEntry,
     isFavorite: Boolean,
     rowShape: RoundedCornerShape,
+    selectionMode: Boolean = false,
+    selected: Boolean = false,
     onTap: () -> Unit,
+    onLongPress: () -> Unit = {},
     onDelete: () -> Unit,
     onToggleFavorite: () -> Unit
 ) {
@@ -1839,36 +1928,55 @@ private fun SwipeableFoodRow(
     ) {
         val maxSwipePx = with(density) { maxWidth.toPx() * 0.72f }
         Box(Modifier.fillMaxWidth()) {
-            SwipeBackground(offsetPx = offsetPx, isFavorite = isFavorite)
+            if (!selectionMode) {
+                SwipeBackground(offsetPx = offsetPx, isFavorite = isFavorite)
+            }
             Box(
                 modifier = Modifier
-                    .offset { IntOffset(offsetPx.roundToInt(), 0) }
-                    .pointerInput(entry.id, maxSwipePx) {
-                        detectHorizontalDragGestures(
-                            onHorizontalDrag = { change, dragAmount ->
-                                change.consume()
-                                offsetPx = (offsetPx + dragAmount).coerceIn(-maxSwipePx, maxSwipePx)
-                            },
-                            onDragEnd = {
-                                val finalOffset = offsetPx
-                                offsetPx = 0f
-                                when {
-                                    finalOffset <= -deleteTriggerPx -> onDelete()
-                                    finalOffset >= favoriteTriggerPx -> onToggleFavorite()
+                    .offset { IntOffset(if (selectionMode) 0 else offsetPx.roundToInt(), 0) }
+                    .then(
+                        if (selectionMode) {
+                            Modifier.clickable(onClick = onTap)
+                        } else {
+                            Modifier
+                                .pointerInput(entry.id, maxSwipePx) {
+                                    detectHorizontalDragGestures(
+                                        onHorizontalDrag = { change, dragAmount ->
+                                            change.consume()
+                                            offsetPx = (offsetPx + dragAmount).coerceIn(-maxSwipePx, maxSwipePx)
+                                        },
+                                        onDragEnd = {
+                                            val finalOffset = offsetPx
+                                            offsetPx = 0f
+                                            when {
+                                                finalOffset <= -deleteTriggerPx -> onDelete()
+                                                finalOffset >= favoriteTriggerPx -> onToggleFavorite()
+                                            }
+                                        },
+                                        onDragCancel = {
+                                            offsetPx = 0f
+                                        }
+                                    )
                                 }
-                            },
-                            onDragCancel = {
-                                offsetPx = 0f
-                            }
-                        )
-                    }
-                    .clickable(onClick = onTap)
+                                .combinedClickable(
+                                    onClick = onTap,
+                                    onLongClick = onLongPress
+                                )
+                        }
+                    )
             ) {
-                FoodRow(entry = entry, isFavorite = isFavorite, rowShape = rowShape)
+                FoodRow(
+                    entry = entry,
+                    isFavorite = isFavorite,
+                    rowShape = rowShape,
+                    selectionMode = selectionMode,
+                    selected = selected
+                )
             }
         }
     }
 }
+
 
 @Composable
 private fun SwipeableWaterRow(
@@ -2069,7 +2177,9 @@ private data class Quad<A, B, C, D>(val a: A, val b: B, val c: C, val d: D)
 private fun FoodRow(
     entry: FoodEntry,
     isFavorite: Boolean = false,
-    rowShape: RoundedCornerShape = RoundedCornerShape(22.dp)
+    rowShape: RoundedCornerShape = RoundedCornerShape(22.dp),
+    selectionMode: Boolean = false,
+    selected: Boolean = false
 ) {
     val ctx = LocalContext.current
     val timeFmt = DateTimeFormatter.ofPattern(clockTimePattern(ctx), Locale.US).withZone(ZoneId.systemDefault())
@@ -2084,7 +2194,10 @@ private fun FoodRow(
             .fillMaxWidth()
             .clip(rowShape)
             .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.86f))
-            .background(AppColors.Calorie.copy(alpha = 0.025f))
+            .background(
+                if (selected) AppColors.Calorie.copy(alpha = 0.12f)
+                else AppColors.Calorie.copy(alpha = 0.025f)
+            )
             .border(
                 0.7.dp,
                 Brush.linearGradient(
@@ -2100,6 +2213,16 @@ private fun FoodRow(
         verticalAlignment = Alignment.Top,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
+        if (selectionMode) {
+            Icon(
+                imageVector = if (selected) Icons.Filled.CheckCircle else Icons.Outlined.Circle,
+                contentDescription = null,
+                tint = if (selected) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f),
+                modifier = Modifier
+                    .padding(top = 28.dp)
+                    .size(26.dp)
+            )
+        }
         Box(
             Modifier
                 .size(76.dp)

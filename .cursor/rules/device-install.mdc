@@ -8,6 +8,7 @@ Personal test installs for Apoorv only — not App Store / Play Store release sh
 After every code change that affects the apps, rebuild, install, and open on my connected phones before finishing (unless I explicitly say not to or a device is disconnected):
 
 - **iOS**: Release build only. Install over the existing App Store / prior install. Never uninstall first. Launch `com.apoorvdarshan.calorietracker` after install.
+- **iOS DerivedData (critical)**: Always reuse a stable path — prefer `~/Library/Developer/Xcode/DerivedData/calorietracker-device-release` with `-derivedDataPath`. Never `rm -rf` DerivedData before a normal install build, and never invent a fresh `/tmp/fud-ai-*` tree each attempt. Cold Release rebuilds of RevenueCat + SPM deps take 15–30+ min; wiping forces that every time and makes builds look “stuck” when interrupted mid-RevenueCat. Incremental reuse is required.
 - **Android**: Debug build only (`com.apoorvdarshan.calorietracker.debug`). Use `adb install -r` over the existing debug install. Never uninstall first or clear app data. Launch the debug MainActivity after install. Do not expect to overwrite the Play Store package (signature mismatch).
 - Preserve existing on-device data unless I explicitly ask to wipe or reinstall clean.
 - Prefer the currently connected device (Apoorv’s iPhone / USB Android) when installing.

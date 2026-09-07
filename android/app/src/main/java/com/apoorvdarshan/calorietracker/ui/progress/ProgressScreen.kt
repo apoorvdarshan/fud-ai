@@ -274,7 +274,7 @@ private fun MyProgressContent(container: AppContainer) {
             item { TimeRangePicker(selected = range, onSelect = { range = it }) }
 
             // 2. Progress metric selector. Optional metrics keep their stable
-            //    preference order while Heart Rate remains available for a first reading.
+            //    preference order.
             item {
                 ProgressMetricSelector(
                     metrics = availableMetrics,

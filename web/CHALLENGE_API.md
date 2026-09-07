@@ -3,7 +3,7 @@
 The opt-in Weekly Challenge is the only Fud AI-operated sync service. It stores a
 pseudonymous challenge profile, weekly aggregate scores, and moderation reports;
 it never receives food/workout logs, photos, body measurements, date of birth, API
-keys, or camera heart-rate data.
+keys, or camera frames.
 
 Base path: `/api/challenge/v1`. All request and response bodies are JSON. Except for
 joining, every route requires `Authorization: Bearer <token>`. The join token is

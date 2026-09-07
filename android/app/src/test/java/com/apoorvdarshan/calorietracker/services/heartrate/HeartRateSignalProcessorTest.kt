@@ -68,19 +68,20 @@ class HeartRateSignalProcessorTest {
     }
 
     @Test
-    fun contactGateRejectsClippingSaturationAndSpatiallyUnevenFrames() {
+    fun contactGateAcceptsBrightTorchFingerAndRejectsNonRedScenes() {
         assertTrue(HeartRateSignalProcessor.hasFingerContact(contactSample(timestampNanos = 1L)))
-        assertTrue(!HeartRateSignalProcessor.hasFingerContact(
-            contactSample(timestampNanos = 1L, redMean = 254.0)
+        // Real torch+fingertip frames are often near-saturated red.
+        assertTrue(HeartRateSignalProcessor.hasFingerContact(
+            contactSample(timestampNanos = 1L, redMean = 254.0, clippedFraction = 0.85)
         ))
-        assertTrue(!HeartRateSignalProcessor.hasFingerContact(
-            contactSample(timestampNanos = 1L, clippedFraction = 0.45)
-        ))
-        assertTrue(!HeartRateSignalProcessor.hasFingerContact(
+        assertTrue(HeartRateSignalProcessor.hasFingerContact(
             contactSample(timestampNanos = 1L, spatialStdDev = 85.0)
         ))
         assertTrue(!HeartRateSignalProcessor.hasFingerContact(
             contactSample(timestampNanos = 1L, redMean = 100.0, greenMean = 95.0)
+        ))
+        assertTrue(!HeartRateSignalProcessor.hasFingerContact(
+            contactSample(timestampNanos = 1L, redMean = 20.0, greenMean = 18.0, blueMean = 16.0)
         ))
     }
 

@@ -65,28 +65,30 @@ struct HeartRatePPGProcessorTests {
         #expect(processor.retainedSampleCount == 0)
     }
 
-    @Test func contactGateRejectsSaturationClippingAndSpatialNonuniformity() {
+    @Test func contactGateAcceptsBrightTorchFingerAndRejectsNonRedScenes() {
         var good = HeartRatePPGProcessor()
         #expect(good.process(sample: contactSample(timestamp: 0, red: 0.78)).contactDetected)
 
         var saturated = HeartRatePPGProcessor()
-        #expect(!saturated.process(sample: contactSample(
+        #expect(saturated.process(sample: contactSample(
             timestamp: 0,
-            red: 254.0 / 255.0
-        )).contactDetected)
-
-        var clipped = HeartRatePPGProcessor()
-        #expect(!clipped.process(sample: contactSample(
-            timestamp: 0,
-            red: 0.78,
-            redClippedFraction: 0.40
+            red: 254.0 / 255.0,
+            redClippedFraction: 0.85
         )).contactDetected)
 
         var uneven = HeartRatePPGProcessor()
-        #expect(!uneven.process(sample: contactSample(
+        #expect(uneven.process(sample: contactSample(
             timestamp: 0,
             red: 0.78,
             redSpatialStandardDeviation: 80.0 / 255.0
+        )).contactDetected)
+
+        var notRed = HeartRatePPGProcessor()
+        #expect(!notRed.process(sample: HeartRatePPGSample(
+            timestamp: 0,
+            red: 0.40,
+            green: 0.39,
+            blue: 0.38
         )).contactDetected)
     }
 

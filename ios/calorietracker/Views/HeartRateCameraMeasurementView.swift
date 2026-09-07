@@ -536,8 +536,14 @@ private final class HeartRateCaptureViewController: UIViewController {
                 }
                 try camera.lockForConfiguration()
                 do {
-                    try camera.setTorchModeOn(level: min(0.55, AVCaptureDevice.maxAvailableTorchLevel))
+                    try camera.setTorchModeOn(level: AVCaptureDevice.maxAvailableTorchLevel)
                     if camera.isFocusModeSupported(.locked) { camera.focusMode = .locked }
+                    if camera.isWhiteBalanceModeSupported(.continuousAutoWhiteBalance) {
+                        camera.whiteBalanceMode = .continuousAutoWhiteBalance
+                    }
+                    if camera.isExposureModeSupported(.continuousAutoExposure) {
+                        camera.exposureMode = .continuousAutoExposure
+                    }
                     camera.unlockForConfiguration()
                 } catch {
                     camera.unlockForConfiguration()

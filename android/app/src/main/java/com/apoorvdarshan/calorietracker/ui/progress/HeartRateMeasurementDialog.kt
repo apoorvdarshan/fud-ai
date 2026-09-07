@@ -207,12 +207,8 @@ internal fun HeartRateMeasurementDialog(
                     issue = HeartRateCameraIssue.FLASH
                     releaseCapture()
                 } else {
-                    val exposureRange = camera.cameraInfo.exposureState.exposureCompensationRange
-                    if (exposureRange.contains(-1)) {
-                        // A small exposure reduction preserves the pulse waveform instead of
-                        // flattening the red channel under a close-range torch.
-                        camera.cameraControl.setExposureCompensationIndex(-1)
-                    }
+                    // Keep auto-exposure; forced underexposure made side-lit fingertips too dark
+                    // to pass contact detection on many phones.
                     val torchFuture = camera.cameraControl.enableTorch(true)
                     torchFuture.addListener(
                         {

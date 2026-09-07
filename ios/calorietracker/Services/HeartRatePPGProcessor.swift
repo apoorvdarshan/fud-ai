@@ -74,13 +74,14 @@ nonisolated struct HeartRatePPGProcessor {
         var maximumBPM: Double = 200
         var minimumSamplingRate: Double = 15
         var maximumSamplingRate: Double = 90
-        var minimumRedLevel: Double = 0.32
-        var maximumRedLevel: Double = 252.0 / 255.0
-        var minimumBrightness: Double = 0.16
-        var minimumRedDominanceRatio: Double = 1.05
-        var minimumRedDominanceDifference: Double = 0.02
-        var maximumRedClippedFraction: Double = 0.30
-        var maximumRedSpatialStandardDeviation: Double = 70.0 / 255.0
+        var minimumRedLevel: Double = 0.18
+        var maximumRedLevel: Double = 1.0
+        var minimumBrightness: Double = 0.10
+        var minimumRedDominanceRatio: Double = 1.03
+        var minimumRedDominanceDifference: Double = 0.015
+        // Torch through a fingertip often saturates the red channel; that is contact, not failure.
+        var maximumRedClippedFraction: Double = 0.98
+        var maximumRedSpatialStandardDeviation: Double = 140.0 / 255.0
         var analysisInterval: TimeInterval = 0.5
         /// Brief fingertip slip / uneven flash coverage should not wipe the whole window.
         var missedContactToleranceFrames: Int = 12

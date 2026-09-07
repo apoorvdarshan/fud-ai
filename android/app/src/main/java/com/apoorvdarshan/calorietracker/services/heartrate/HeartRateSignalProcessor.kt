@@ -171,13 +171,14 @@ class HeartRateSignalProcessor(
         private const val MAX_CADENCE_COEFFICIENT = 0.45
         private const val MAX_CADENCE_OUTLIER_FRACTION = 0.30
 
-        // Looser gates so covering only the main camera (flash lighting the finger side) still counts.
-        private const val MIN_RED_LEVEL = 70.0
-        private const val MAX_RED_LEVEL = 252.0
-        private const val MIN_RED_DOMINANCE_RATIO = 1.04
-        private const val MIN_RED_DOMINANCE_DELTA = 8.0
-        private const val MAX_RED_CLIPPED_FRACTION = 0.30
-        private const val MAX_RED_SPATIAL_STD_DEV = 70.0
+        // Torch + fingertip PPG is usually bright/near-saturated red. Rejecting high
+        // red means or clipped pixels made real devices never detect contact.
+        private const val MIN_RED_LEVEL = 35.0
+        private const val MAX_RED_LEVEL = 255.0
+        private const val MIN_RED_DOMINANCE_RATIO = 1.03
+        private const val MIN_RED_DOMINANCE_DELTA = 5.0
+        private const val MAX_RED_CLIPPED_FRACTION = 0.98
+        private const val MAX_RED_SPATIAL_STD_DEV = 140.0
 
         private const val MIN_SIGNAL_STD_DEV = 0.12
         private const val MAX_SIGNAL_STD_DEV = 30.0

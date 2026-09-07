@@ -133,8 +133,8 @@
     },
     "Band_Good_Morning_Pull_Through": {
       "exerciseId": "Band_Good_Morning_Pull_Through",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "004508d38943befac58fe2e13bf54a0a57be4f866571b75734bd5a1e673150c7",
         "818259a0a064580160ce0fa5f531029bc02d4e5c5f1eea3106d9b8e4184d4d4b",
@@ -155,7 +155,7 @@
         "6566cb06180b4343c5d9b46fc9954770294712c042d0446c8dad1d8fa925460c",
         "b1392685341e8a7bebbd9a4c17a5e930c916314647c6edd480c3402983e71550"
       ],
-      "reviewedAt": "2026-09-06T23:02:24.607Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Barbell_Ab_Rollout": {
       "exerciseId": "Barbell_Ab_Rollout",
@@ -549,8 +549,8 @@
     },
     "Bent_Over_One-Arm_Long_Bar_Row": {
       "exerciseId": "Bent_Over_One-Arm_Long_Bar_Row",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "0134e3320ea63282f01e42e0dbbf17dae46a33e02ecb5e615c74b17ad8eb9b61",
         "4ffee1fa253597cbb273c888dc8d50b41bbb96b8b8376773d3786c80512579cc",
@@ -571,7 +571,7 @@
         "3ae2c31d80bdc90a280d7c2ba2b3479d6f7ae7b2021e5a9a662420b6371b460a",
         "cbe102dd28f49aef460102130815951ab56a34f76827358629e6104544869123"
       ],
-      "reviewedAt": "2026-09-06T23:04:37.605Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Bent_Over_Two-Dumbbell_Row_With_Palms_In": {
       "exerciseId": "Bent_Over_Two-Dumbbell_Row_With_Palms_In",
@@ -5202,5 +5202,5 @@
       "reviewedAt": "2026-09-06T23:17:11.599Z"
     }
   },
-  "updatedAt": "2026-09-06T23:17:11.599Z"
+  "updatedAt": "2026-09-07T01:40:38.934Z"
 }

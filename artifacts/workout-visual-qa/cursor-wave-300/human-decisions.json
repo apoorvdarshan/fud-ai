@@ -29,8 +29,8 @@
     },
     "Good_Morning": {
       "exerciseId": "Good_Morning",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "90d34bef222df1e1f5868e43d3bc54143010c176afe1f5cb633af056183cba54",
         "fc5452ca90eb97412c03e5d6192a24acf9f244ad9e015fa411a5e8c263f22d91",
@@ -51,7 +51,7 @@
         "51119871fb75c4fa03280a04303961aa03f5ae365f8d63a59d90a27aacd0452c",
         "33a73d8bc474ea381bd8c9ce756f84fca362608157720f1ae29fd0a2522be9f7"
       ],
-      "reviewedAt": "2026-09-06T22:47:39.975Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Around_The_Worlds": {
       "exerciseId": "Around_The_Worlds",
@@ -289,8 +289,8 @@
     },
     "Good_Morning_off_Pins": {
       "exerciseId": "Good_Morning_off_Pins",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "60077c009ec446d2a68928beacffb7ff63254c2ee9c4167d649f402002000de1",
         "8fda173ba0dc758fcb9968508a11acb4739f9cab02c79383b7e1039c2b40d764",
@@ -311,12 +311,12 @@
         "3faeeb823d690339d57220b5fba08dc36e31bf1ecaf7b6a8b355345b644290c7",
         "b265c4b63490597e7a01263fe1a3658ed6348294f50cc6c6d32381c7768cd38b"
       ],
-      "reviewedAt": "2026-09-06T22:47:41.572Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Hammer_Grip_Incline_DB_Bench_Press": {
       "exerciseId": "Hammer_Grip_Incline_DB_Bench_Press",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "f337f39df298f7f7c0cdea6b30045e04eef5cbd4984ea2d150bec8146427f711",
         "25d06b33fcb83a96f62c2304a3a4159b813d5322fbfd67255cf1866fc68bd0c2",
@@ -337,7 +337,7 @@
         "88060c2c37fdfc793454d8e430a90539d3b267b874b8d6d28fd4f9d41f01778b",
         "7f266972e0adcef7cbfaf04e8a9b336988cc78d16d8c5e03af1f6e088174039b"
       ],
-      "reviewedAt": "2026-09-06T22:47:43.543Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Hamstring-SMR": {
       "exerciseId": "Hamstring-SMR",
@@ -419,8 +419,8 @@
     },
     "Hang_Clean_-_Below_the_Knees": {
       "exerciseId": "Hang_Clean_-_Below_the_Knees",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "29af9dacc92f0613e89e8cc7bf641822bdb673c80cc98e738faeb8ce317f3327",
         "5f4f89a0c212ec524e02d344c646a9dd78abaad778ff06796cb4c45ea3688a9d",
@@ -441,7 +441,7 @@
         "fb9a90ac6af0f9b6b60903773f413bf60533f6ea0f59930d34e434ba1500d44b",
         "ce946abebcc01ffcab301345bc3924fd7d9548c963aed8b6d87c109012e3d1b8"
       ],
-      "reviewedAt": "2026-09-06T22:51:08.381Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Hang_Snatch": {
       "exerciseId": "Hang_Snatch",
@@ -575,8 +575,8 @@
     },
     "Heaving_Snatch_Balance": {
       "exerciseId": "Heaving_Snatch_Balance",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "aa438c3c387bcd0d3151868868c1b34c62728fbe1c64be9915518a9259126143",
         "c6d0dfa9b3b4465766d86a4f4ea0108b6e6fb9542d6eca4ea3ee75d31cdd34cd",
@@ -597,7 +597,7 @@
         "9c0409a560431d4fefacc19b29933aadcca963d2d841ade24897fa6037154ed2",
         "6be4cc5918f5cca1bdbb5585982ed3512fd9c303fffd061f7ca66f51590bcdd9"
       ],
-      "reviewedAt": "2026-09-06T22:51:58.186Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Heavy_Bag_Thrust": {
       "exerciseId": "Heavy_Bag_Thrust",
@@ -1173,8 +1173,8 @@
     },
     "Incline_Hammer_Curls": {
       "exerciseId": "Incline_Hammer_Curls",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "fa579cbfd16f445019e6c3b4791b236d196a8434f4f517a5cb81cf84c4734a76",
         "39d685bafee9f30305b652562c535605cca4d662e9096b62d5a6b32b9b571c33",
@@ -1195,7 +1195,7 @@
         "b24194199a82c5ed3aca7997a6ca4fa6902f853659adc4efefad09f45435125d",
         "b9174a2a9e0c6efb7aa1da04bfd2c88a2260ed8ccdbe07452cc23ed5df057514"
       ],
-      "reviewedAt": "2026-09-06T22:55:04.820Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Incline_Inner_Biceps_Curl": {
       "exerciseId": "Incline_Inner_Biceps_Curl",
@@ -1225,8 +1225,8 @@
     },
     "Incline_Push-Up": {
       "exerciseId": "Incline_Push-Up",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "ddd07ac4a17e3cda1ebd8af19aacb9a04e11d6a2181ced0cbc6308c81f37c230",
         "ef67fe4dd6b6388ca000c31d88968a49466b6a351bcbe20418d35ae687eb745c",
@@ -1247,7 +1247,7 @@
         "08ed6ff80574495714a9e995cb83d37d173d2a9c864eb760cd668fd63839dbd6",
         "5ddf12ac8875454907b83b2afcc5676c2f14723fbf8b27ca3be810e170d611e6"
       ],
-      "reviewedAt": "2026-09-06T22:55:18.756Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Incline_Push-Up_Close-Grip": {
       "exerciseId": "Incline_Push-Up_Close-Grip",
@@ -1953,8 +1953,8 @@
     },
     "Kettlebell_Hang_Clean": {
       "exerciseId": "Kettlebell_Hang_Clean",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "858bc63a7b72510736210c587b7da476fc6a713766f20c0a3ac7b57952abe0de",
         "17a8960e37bc8591635c3e4e6a08b6de937c1940a75bbe3ffa0b7e4f4ff5f6b8",
@@ -1975,7 +1975,7 @@
         "7bab510fdb0f388cdf5d0afc0501ba130a9dd0916747fb712971b8a5e3682519",
         "c942b8e3c934281c6b6d1989f2ff4bcbca5d1faaab1a86a27ab087d5f9b6b24e"
       ],
-      "reviewedAt": "2026-09-06T22:59:15.546Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Kettlebell_One-Legged_Deadlift": {
       "exerciseId": "Kettlebell_One-Legged_Deadlift",
@@ -2239,8 +2239,8 @@
     },
     "Knee_Circles": {
       "exerciseId": "Knee_Circles",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "40b21e9fe4cd82e51badba157d9177913781fd01c4c623f73f5c84735f601e30",
         "b9450d4b0cf892567cc80d9ed9d130ab371d45fabdd3181ff18f1b2849ec30c2",
@@ -2261,7 +2261,7 @@
         "2ff36a39c86a7e9f999827fc5cbccb3beb8255cc52d3ddc671cf47d29a2dbe98",
         "622a0e06b335b684566dd0eff52ddefd4a7ab6f1a9fae2a31011b4d3dd748fff"
       ],
-      "reviewedAt": "2026-09-06T23:00:44.236Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Knee_Hip_Raise_On_Parallel_Bars": {
       "exerciseId": "Knee_Hip_Raise_On_Parallel_Bars",
@@ -2733,8 +2733,8 @@
     },
     "Band_Good_Morning_Pull_Through": {
       "exerciseId": "Band_Good_Morning_Pull_Through",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "004508d38943befac58fe2e13bf54a0a57be4f866571b75734bd5a1e673150c7",
         "818259a0a064580160ce0fa5f531029bc02d4e5c5f1eea3106d9b8e4184d4d4b",
@@ -2755,7 +2755,7 @@
         "6566cb06180b4343c5d9b46fc9954770294712c042d0446c8dad1d8fa925460c",
         "b1392685341e8a7bebbd9a4c17a5e930c916314647c6edd480c3402983e71550"
       ],
-      "reviewedAt": "2026-09-06T23:02:24.607Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Barbell_Ab_Rollout": {
       "exerciseId": "Barbell_Ab_Rollout",
@@ -3149,8 +3149,8 @@
     },
     "Bent_Over_One-Arm_Long_Bar_Row": {
       "exerciseId": "Bent_Over_One-Arm_Long_Bar_Row",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "0134e3320ea63282f01e42e0dbbf17dae46a33e02ecb5e615c74b17ad8eb9b61",
         "4ffee1fa253597cbb273c888dc8d50b41bbb96b8b8376773d3786c80512579cc",
@@ -3171,7 +3171,7 @@
         "3ae2c31d80bdc90a280d7c2ba2b3479d6f7ae7b2021e5a9a662420b6371b460a",
         "cbe102dd28f49aef460102130815951ab56a34f76827358629e6104544869123"
       ],
-      "reviewedAt": "2026-09-06T23:04:37.605Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Bent_Over_Two-Dumbbell_Row_With_Palms_In": {
       "exerciseId": "Bent_Over_Two-Dumbbell_Row_With_Palms_In",
@@ -7802,5 +7802,5 @@
       "reviewedAt": "2026-09-06T23:17:11.599Z"
     }
   },
-  "updatedAt": "2026-09-06T23:17:11.599Z"
+  "updatedAt": "2026-09-07T01:40:38.934Z"
 }

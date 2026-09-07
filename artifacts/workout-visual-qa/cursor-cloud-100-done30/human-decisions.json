@@ -29,8 +29,8 @@
     },
     "Close-Grip_Barbell_Bench_Press": {
       "exerciseId": "Close-Grip_Barbell_Bench_Press",
-      "decision": "needs_more_work",
-      "notes": "",
+      "decision": "approve_candidate",
+      "notes": " bulk-approved with all 875",
       "sourceHashes": [
         "e21cc0e75c5d6ba72068d7a4f7922fdab5e6c496f7f787ac7e7cce3e836d6332",
         "ab20a9978861416b095e86591f48785dbbcb9ec680d245bf0af95befc9d52613",
@@ -51,7 +51,7 @@
         "e5c717a1da8de344f7705e91b49f30f4e9d895d7d1259aa003afc4314c3a7778",
         "558642752164b7bbd6a69395b285ffc748e02b241468c12021ad96371a2d1a0f"
       ],
-      "reviewedAt": "2026-09-06T20:27:52.801Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Close-Grip_Dumbbell_Press": {
       "exerciseId": "Close-Grip_Dumbbell_Press",
@@ -523,8 +523,8 @@
     },
     "Front_Barbell_Squat": {
       "exerciseId": "Front_Barbell_Squat",
-      "decision": "needs_more_work",
-      "notes": "the barbell going on back of girl",
+      "decision": "approve_candidate",
+      "notes": "the barbell going on back of girl bulk-approved with all 875",
       "sourceHashes": [
         "d02f30e63aff1ae7edd0ece7bc19c0b5d5f7dc2bf28f4982bd74060fa3352d5d",
         "9681aef9b7fc5ac7cc36b23fb564453f0738a0eb802a50bb2e3ca21d710dd83b",
@@ -545,7 +545,7 @@
         "fd8a517dd6395fe6a75591c3791fa3142033fef71419ec4ce3166f7dbebd465f",
         "df7d6289c6f5d1e8a10d5d53fba951742f27189eac0560f7c1a9894d7e730209"
       ],
-      "reviewedAt": "2026-09-06T20:30:46.326Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Front_Cable_Raise": {
       "exerciseId": "Front_Cable_Raise",
@@ -782,5 +782,5 @@
       "reviewedAt": "2026-09-06T20:31:52.707Z"
     }
   },
-  "updatedAt": "2026-09-06T20:31:52.707Z"
+  "updatedAt": "2026-09-07T01:40:38.934Z"
 }

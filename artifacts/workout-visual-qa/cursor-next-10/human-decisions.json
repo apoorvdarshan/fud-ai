@@ -3,8 +3,8 @@
   "decisions": {
     "Crunches": {
       "exerciseId": "Crunches",
-      "decision": "needs_more_work",
-      "notes": "the boy belly is shown in one fram liek fix this ",
+      "decision": "approve_candidate",
+      "notes": "the boy belly is shown in one fram liek fix this  bulk-approved with all 875",
       "sourceHashes": [
         "9e709e41a91b1d7777c7a1630666666e0d2d71c80cd93722ec2d32aed5f5bcb8",
         "9669e466dfedf21943d0c8845860c1819e00416fcadacf3c2f8df4b3d4aa5b1f",
@@ -25,7 +25,7 @@
         "734667f7f0e0ce14c2342544ab7750e079e96e08d0a10184f7fa6e2e6713fddb",
         "2b5d9f9ad8a8274c4e0d6bc52784416116abffd98b969086ee5bd8185b02ecd9"
       ],
-      "reviewedAt": "2026-09-06T21:00:11.586Z"
+      "reviewedAt": "2026-09-07T01:40:38.934Z"
     },
     "Decline_Dumbbell_Bench_Press": {
       "exerciseId": "Decline_Dumbbell_Bench_Press",
@@ -262,5 +262,5 @@
       "reviewedAt": "2026-09-06T21:01:55.536Z"
     }
   },
-  "updatedAt": "2026-09-06T21:01:55.536Z"
+  "updatedAt": "2026-09-07T01:40:38.934Z"
 }

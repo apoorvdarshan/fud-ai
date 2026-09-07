@@ -73,7 +73,6 @@ import kotlinx.coroutines.withContext
 
 enum class AboutSettingsCategory(val titleRes: Int, val icon: ImageVector) {
     APP_UPDATES(R.string.about_category_app_updates, Icons.Filled.SystemUpdate),
-    WEB_APP(R.string.about_category_web_app, Icons.Filled.Sync),
     SUPPORT(R.string.about_category_support, Icons.Filled.Favorite),
     HELP_FEEDBACK(R.string.about_category_help_feedback, Icons.Filled.BugReport),
     COMMUNITY(R.string.about_category_community, Icons.Filled.AlternateEmail),
@@ -170,35 +169,6 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
                 Hairline()
                 AboutRow(Icons.Filled.Code, stringResource(R.string.about_open_source)) {
                     open("https://github.com/apoorvdarshan/fud-ai")
-                }
-            }
-
-            AboutSettingsCategory.WEB_APP -> {
-                Text(
-                    text = stringResource(R.string.about_web_intro),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f),
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
-                )
-                Text(
-                    text = stringResource(R.string.about_web_deployment),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f),
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
-                )
-                Text(
-                    text = stringResource(R.string.about_web_native_limit),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f),
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
-                )
-                Hairline()
-                AboutRow(Icons.Filled.Sync, stringResource(R.string.about_web_visit)) {
-                    open("https://fud-ai.app")
-                }
-                Hairline()
-                AboutRow(Icons.Filled.Code, stringResource(R.string.about_web_guide)) {
-                    open("https://github.com/apoorvdarshan/fud-ai/tree/main/self-hosted")
                 }
             }
 

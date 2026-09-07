@@ -1586,28 +1586,6 @@ button.diary-row:hover {
   line-height: 1.4;
 }
 
-.settings-info-card {
-  display: grid;
-  gap: 7px;
-  margin: 18px 0;
-  padding: 14px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: rgb(255 255 255 / 3%);
-  color: var(--muted-strong);
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.settings-info-card strong {
-  color: var(--text);
-  font-size: 13px;
-}
-
-.settings-info-card p {
-  margin: 0;
-}
-
 .toggle-row {
   display: flex;
   min-height: 68px;

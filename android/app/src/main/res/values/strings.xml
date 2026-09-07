@@ -563,10 +563,10 @@
     <string name="progress_heart_rate_bpm_label">Beats per minute</string>
     <string name="progress_heart_rate_manual_range">Enter a value from 30 to 250 bpm.</string>
     <string name="progress_heart_rate_camera_title">Measure Heart Rate</string>
-    <string name="progress_heart_rate_camera_guidance">Cover the flash and the main rear camera next to it with one fingertip. You do not need to cover every lens—only the main camera and flash together.</string>
+    <string name="progress_heart_rate_camera_guidance">Put your fingertip over the main rear camera (the lens closest to the flash). You do not need to cover the flash—it only needs to light the side of your finger. Press gently.</string>
     <string name="progress_heart_rate_camera_measuring">Reading your pulse…</string>
-    <string name="progress_heart_rate_camera_refining">Still checking for a stable pulse. Keep covering the main camera and flash.</string>
-    <string name="progress_heart_rate_camera_hold_still">Keep your finger still and breathe normally. Press gently—not hard.</string>
+    <string name="progress_heart_rate_camera_refining">Still checking for a stable pulse. Keep the main camera covered and press gently.</string>
+    <string name="progress_heart_rate_camera_hold_still">Keep your finger still over the main camera and breathe normally. Press gently—not hard.</string>
     <string name="progress_heart_rate_camera_result">%1$d bpm</string>
     <string name="progress_heart_rate_camera_poor_signal">The signal was not clear enough. Adjust your fingertip and try again.</string>
     <string name="progress_heart_rate_camera_unavailable">A rear camera is unavailable. You can still log your heart rate manually.</string>
@@ -889,7 +889,6 @@
     <string name="about_litert_notices">LiteRT-LM third-party notices</string>
     <string name="about_litert_notices_load_error">Could not load the LiteRT-LM third-party notices.</string>
     <string name="about_category_app_updates">App &amp; Updates</string>
-    <string name="about_category_web_app">Web App &amp; Sync</string>
     <string name="about_category_support">Support Fud AI</string>
     <string name="about_category_help_feedback">Help &amp; Feedback</string>
     <string name="about_category_community">Community</string>
@@ -898,11 +897,6 @@
     <string name="about_with_care">with care, for everyone</string>
     <string name="about_share_message">I\'ve been tracking my meals with Fud AI — snap a photo, speak it, or type it, and the AI logs the calories. It\'s free, open source, and your data stays on your device.\n\nDownload: https://fud-ai.app</string>
     <string name="about_share_chooser">Share Fud AI</string>
-    <string name="about_web_intro">No Fud AI account or sign-in is required to use a Web deployment. Open its URL in a browser and the diary works locally in that browser.</string>
-    <string name="about_web_deployment">A deployment owner configures hosting, HTTPS, a database, and a random sync token. Encrypted Sync is optional; trusted browsers use the server URL, token, and a pairing bundle to share encrypted records.</string>
-    <string name="about_web_native_limit">The native iOS and Android apps do not sync with the Web PWA yet. The current fud-ai.app address is the marketing site; a separate Web deployment URL is needed to try the PWA.</string>
-    <string name="about_web_visit">Visit fud-ai.app</string>
-    <string name="about_web_guide">Web deployment guide</string>
 
     <!-- Notifications -->
     <string name="notif_channel_streak">Streak Reminder</string>

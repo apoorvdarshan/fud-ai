@@ -243,11 +243,6 @@ internal enum class SettingsCategory(
         AboutSettingsCategory.APP_UPDATES.icon,
         AboutSettingsCategory.APP_UPDATES
     ),
-    WEB_APP(
-        R.string.about_category_web_app,
-        AboutSettingsCategory.WEB_APP.icon,
-        AboutSettingsCategory.WEB_APP
-    ),
     SUPPORT(
         R.string.about_category_support,
         AboutSettingsCategory.SUPPORT.icon,

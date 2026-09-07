@@ -223,7 +223,6 @@ struct ContentView: View {
 // MARK: - About (embedded as the last Settings section)
 enum AboutSettingsCategory: String, CaseIterable, Identifiable, Hashable {
     case appUpdates
-    case webApp
     case support
     case helpFeedback
     case community
@@ -234,7 +233,6 @@ enum AboutSettingsCategory: String, CaseIterable, Identifiable, Hashable {
     var title: LocalizedStringResource {
         switch self {
         case .appUpdates: "App & Updates"
-        case .webApp: "Web App & Sync"
         case .support: "Support Fud AI"
         case .helpFeedback: "Help & Feedback"
         case .community: "Community"
@@ -245,7 +243,6 @@ enum AboutSettingsCategory: String, CaseIterable, Identifiable, Hashable {
     var systemImage: String {
         switch self {
         case .appUpdates: "arrow.triangle.2.circlepath.circle.fill"
-        case .webApp: "globe"
         case .support: "heart.fill"
         case .helpFeedback: "exclamationmark.bubble.fill"
         case .community: "person.3.fill"
@@ -329,42 +326,6 @@ private struct AboutSettingsSections: View {
                             Text("Open Source (MIT)")
                         } icon: {
                             Image(systemName: "chevron.left.forwardslash.chevron.right")
-                                .foregroundStyle(AppColors.calorie)
-                        }
-                    }
-                    .tint(.primary)
-                }
-                .listRowBackground(AppColors.appCard)
-
-            case .webApp:
-                Section {
-                    Text("No Fud AI account or sign-in is required to use a Web deployment. Open its URL in a browser and the diary works locally in that browser.")
-                        .font(.system(.footnote, design: .rounded))
-                        .foregroundStyle(.secondary)
-
-                    Text("A deployment owner configures the hosting provider, HTTPS, database, and a random sync token. Encrypted Sync is optional; trusted browsers use the server URL, token, and a pairing bundle to share encrypted records.")
-                        .font(.system(.footnote, design: .rounded))
-                        .foregroundStyle(.secondary)
-
-                    Text("The native iOS and Android apps do not sync with the Web PWA yet. The current fud-ai.app address is the marketing site; a separate Web deployment URL is needed to try the PWA.")
-                        .font(.system(.footnote, design: .rounded))
-                        .foregroundStyle(.secondary)
-
-                    Link(destination: URL(string: "https://fud-ai.app")!) {
-                        Label {
-                            Text("Visit fud-ai.app")
-                        } icon: {
-                            Image(systemName: "safari.fill")
-                                .foregroundStyle(AppColors.calorie)
-                        }
-                    }
-                    .tint(.primary)
-
-                    Link(destination: URL(string: "https://github.com/apoorvdarshan/fud-ai/tree/main/self-hosted")!) {
-                        Label {
-                            Text("Web deployment guide")
-                        } icon: {
-                            Image(systemName: "doc.text.fill")
                                 .foregroundStyle(AppColors.calorie)
                         }
                     }
@@ -3474,7 +3435,6 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
     case healthData
     case dataManagement
     case appUpdates
-    case webApp
     case support
     case helpFeedback
     case community
@@ -3495,7 +3455,6 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
 
     static let appInfoCases: [Self] = [
         .appUpdates,
-        .webApp,
         .support,
         .helpFeedback,
         .community,
@@ -3517,7 +3476,6 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         case .healthData: "Health & Data"
         case .dataManagement: "Data Management"
         case .appUpdates: "App & Updates"
-        case .webApp: "Web App & Sync"
         case .support: "Support Fud AI"
         case .helpFeedback: "Help & Feedback"
         case .community: "Community"
@@ -3538,7 +3496,6 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         case .healthData: "heart"
         case .dataManagement: "externaldrive"
         case .appUpdates: "arrow.triangle.2.circlepath.circle.fill"
-        case .webApp: "globe"
         case .support: "heart.fill"
         case .helpFeedback: "exclamationmark.bubble.fill"
         case .community: "person.3.fill"
@@ -3549,7 +3506,6 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
     var aboutCategory: AboutSettingsCategory? {
         switch self {
         case .appUpdates: .appUpdates
-        case .webApp: .webApp
         case .support: .support
         case .helpFeedback: .helpFeedback
         case .community: .community

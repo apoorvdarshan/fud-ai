@@ -162,11 +162,6 @@ export function SettingsScreen() {
 
           <section className="settings-section" id="sync">
             <div className="settings-section-title"><span><Cloud /></span><div><h2>Encrypted Sync</h2><p>The server stores opaque ciphertext. Your encryption key stays in this browser.</p></div></div>
-            <div className="settings-info-card" role="note">
-              <strong>No account or sign-in is required</strong>
-              <p>Open a Web deployment URL and your diary works locally in that browser. A deployment owner handles hosting, HTTPS, the database, and the server token.</p>
-              <p>Only enable sync when a trusted owner gives you a server URL and token. Pairing bundles include the token and encryption key, so treat them like a password.</p>
-            </div>
             <form className="form-stack" onSubmit={saveSync}>
               <label className="toggle-row"><span><strong>Enable sync</strong><small>Keep local data available offline and copy encrypted changes to your server.</small></span><input type="checkbox" disabled={syncState === "syncing"} checked={syncDraft.enabled} onChange={(event) => setSyncDraft((current) => ({ ...current, enabled: event.target.checked }))} /></label>
               <label className="field"><span>Server URL <small>Cloudflare, Vercel, or Docker</small></span><div className="input-with-icon"><Server /><input type="url" disabled={syncState === "syncing"} placeholder="https://fud.example.com" value={syncDraft.endpoint} onChange={(event) => setSyncDraft((current) => ({ ...current, endpoint: event.target.value }))} /></div></label>

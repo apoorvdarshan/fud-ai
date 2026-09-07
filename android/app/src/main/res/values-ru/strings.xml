@@ -671,9 +671,10 @@
     <string name="progress_heart_rate_bpm_label">Ударов в минуту</string>
     <string name="progress_heart_rate_manual_range">Введите значение от 30 до 250 уд/мин.</string>
     <string name="progress_heart_rate_camera_title">Измерить пульс</string>
-    <string name="progress_heart_rate_camera_guidance">Аккуратно накройте кончиком пальца заднюю камеру и вспышку.</string>
+    <string name="progress_heart_rate_camera_guidance">Cover the flash and the main rear camera next to it with one fingertip. You do not need to cover every lens—only the main camera and flash together.</string>
+    <string name="progress_heart_rate_camera_refining">Still checking for a stable pulse. Keep covering the main camera and flash.</string>
     <string name="progress_heart_rate_camera_measuring">Измеряем ваш пульс…</string>
-    <string name="progress_heart_rate_camera_hold_still">Не двигайте палец и дышите спокойно.</string>
+    <string name="progress_heart_rate_camera_hold_still">Keep your finger still and breathe normally. Press gently—not hard.</string>
     <string name="progress_heart_rate_camera_result">%1$d уд/мин</string>
     <string name="progress_heart_rate_camera_poor_signal">Сигнал недостаточно чёткий. Поправьте положение пальца и повторите попытку.</string>
     <string name="progress_heart_rate_camera_unavailable">Задняя камера недоступна. Пульс можно записать вручную.</string>

@@ -671,9 +671,10 @@
     <string name="progress_heart_rate_bpm_label">1分あたりの拍動</string>
     <string name="progress_heart_rate_manual_range">30〜250 bpm の値を入力してください。</string>
     <string name="progress_heart_rate_camera_title">心拍数を測定</string>
-    <string name="progress_heart_rate_camera_guidance">指先で背面カメラとフラッシュを軽く覆ってください。</string>
+    <string name="progress_heart_rate_camera_guidance">Cover the flash and the main rear camera next to it with one fingertip. You do not need to cover every lens—only the main camera and flash together.</string>
+    <string name="progress_heart_rate_camera_refining">Still checking for a stable pulse. Keep covering the main camera and flash.</string>
     <string name="progress_heart_rate_camera_measuring">脈拍を読み取っています…</string>
-    <string name="progress_heart_rate_camera_hold_still">指を動かさず、普通に呼吸してください。</string>
+    <string name="progress_heart_rate_camera_hold_still">Keep your finger still and breathe normally. Press gently—not hard.</string>
     <string name="progress_heart_rate_camera_result">%1$d bpm</string>
     <string name="progress_heart_rate_camera_poor_signal">信号が不鮮明でした。指先の位置を調整して再試行してください。</string>
     <string name="progress_heart_rate_camera_unavailable">背面カメラを使用できません。心拍数は手動で記録できます。</string>

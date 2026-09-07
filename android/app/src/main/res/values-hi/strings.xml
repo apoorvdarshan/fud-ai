@@ -671,9 +671,10 @@
     <string name="progress_heart_rate_bpm_label">प्रति मिनट धड़कन</string>
     <string name="progress_heart_rate_manual_range">30 से 250 बीपीएम के बीच मान दर्ज करें।</string>
     <string name="progress_heart_rate_camera_title">हृदय गति मापें</string>
-    <string name="progress_heart_rate_camera_guidance">पीछे के कैमरे और फ्लैश को उंगली के सिरे से हल्के से ढकें।</string>
+    <string name="progress_heart_rate_camera_guidance">Cover the flash and the main rear camera next to it with one fingertip. You do not need to cover every lens—only the main camera and flash together.</string>
+    <string name="progress_heart_rate_camera_refining">Still checking for a stable pulse. Keep covering the main camera and flash.</string>
     <string name="progress_heart_rate_camera_measuring">आपकी नाड़ी पढ़ी जा रही है…</string>
-    <string name="progress_heart_rate_camera_hold_still">उंगली स्थिर रखें और सामान्य रूप से साँस लें।</string>
+    <string name="progress_heart_rate_camera_hold_still">Keep your finger still and breathe normally. Press gently—not hard.</string>
     <string name="progress_heart_rate_camera_result">%1$d बीपीएम</string>
     <string name="progress_heart_rate_camera_poor_signal">सिग्नल पर्याप्त साफ़ नहीं था। उंगली की स्थिति बदलकर फिर प्रयास करें।</string>
     <string name="progress_heart_rate_camera_unavailable">पीछे का कैमरा उपलब्ध नहीं है। आप हृदय गति मैन्युअल रूप से दर्ज कर सकते हैं।</string>

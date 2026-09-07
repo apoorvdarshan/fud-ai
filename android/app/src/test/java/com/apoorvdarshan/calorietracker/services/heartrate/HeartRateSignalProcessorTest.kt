@@ -280,13 +280,16 @@ class HeartRateSignalProcessorTest {
         var atDeadline: PpgUpdate? = null
         for (index in 0..449) {
             val update = processor.ingest(contactSample(index * FRAME_NANOS, redMean = 178.0))
-            if (index == 360) atMinimum = update
+            if (index == 361) atMinimum = update
             if (index == 449) beforeDeadline = update
         }
         atDeadline = processor.ingest(contactSample(15_000_000_000L, redMean = 178.0))
 
         assertEquals(PpgStage.MEASURING, atMinimum?.stage)
+        assertEquals(true, atMinimum?.refiningSignal)
+        assertEquals(12.0 / 15.0, atMinimum?.progress ?: -1.0, 0.03)
         assertEquals(PpgStage.MEASURING, beforeDeadline?.stage)
+        assertEquals(true, beforeDeadline?.refiningSignal)
         assertEquals(PpgStage.POOR_SIGNAL, atDeadline?.stage)
     }
 

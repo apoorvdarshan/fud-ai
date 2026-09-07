@@ -671,9 +671,10 @@
     <string name="progress_heart_rate_bpm_label">Slagen per minuut</string>
     <string name="progress_heart_rate_manual_range">Voer een waarde tussen 30 en 250 bpm in.</string>
     <string name="progress_heart_rate_camera_title">Hartslag meten</string>
-    <string name="progress_heart_rate_camera_guidance">Bedek de camera en flitser aan de achterkant voorzichtig met je vingertop.</string>
+    <string name="progress_heart_rate_camera_guidance">Cover the flash and the main rear camera next to it with one fingertip. You do not need to cover every lens—only the main camera and flash together.</string>
+    <string name="progress_heart_rate_camera_refining">Still checking for a stable pulse. Keep covering the main camera and flash.</string>
     <string name="progress_heart_rate_camera_measuring">Je polsslag wordt gemeten…</string>
-    <string name="progress_heart_rate_camera_hold_still">Houd je vinger stil en adem normaal.</string>
+    <string name="progress_heart_rate_camera_hold_still">Keep your finger still and breathe normally. Press gently—not hard.</string>
     <string name="progress_heart_rate_camera_result">%1$d bpm</string>
     <string name="progress_heart_rate_camera_poor_signal">Het signaal was niet duidelijk genoeg. Verplaats je vingertop en probeer opnieuw.</string>
     <string name="progress_heart_rate_camera_unavailable">Er is geen camera aan de achterkant beschikbaar. Je kunt je hartslag handmatig invoeren.</string>

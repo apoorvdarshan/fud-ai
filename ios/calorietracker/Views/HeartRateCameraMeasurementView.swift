@@ -226,9 +226,9 @@ struct HeartRateCameraMeasurementView: View {
 
     private var statusTitle: LocalizedStringKey {
         switch event {
-        case .waitingForContact: "Cover the Camera and Flash"
+        case .waitingForContact: "Cover Main Camera + Flash"
         case .measuring: "Measuring…"
-        case .improveSignal: "Hold Still"
+        case .improveSignal: "Almost There"
         case .completed: "Estimated Heart Rate"
         case .failed(.permissionDenied): "Camera Access Needed"
         case .failed(.unavailable): "Camera Unavailable"
@@ -240,11 +240,11 @@ struct HeartRateCameraMeasurementView: View {
     private var statusGuidance: LocalizedStringKey {
         switch event {
         case .waitingForContact:
-            "Gently cover the rear camera and flash with one fingertip. Keep your hand relaxed."
+            "Cover the flash and the main rear camera next to it with one fingertip. You do not need every lens—only the main camera and flash together. Press gently."
         case .measuring:
-            "Keep your fingertip still while Fud AI checks the pulse signal for about 20 seconds."
+            "Keep your fingertip still while Fud AI checks the pulse signal."
         case .improveSignal:
-            "Keep the camera fully covered and reduce pressure or movement."
+            "Still checking for a stable pulse. Keep covering the main camera and flash—press gently, not hard."
         case .completed:
             "Review the quality-checked estimate, then save it to Heart Rate History if it looks plausible."
         case .failed(.permissionDenied):
@@ -254,15 +254,15 @@ struct HeartRateCameraMeasurementView: View {
         case .failed(.interrupted):
             "The camera session stopped. Try again when the app is active."
         case .failed(.timedOut):
-            "No stable pulse was found within 30 seconds. Rest your hand and try again."
+            "No stable pulse was found. Cover only the main camera next to the flash, press gently, and try again."
         }
     }
 
     private var statusAnnouncement: String {
         switch event {
-        case .waitingForContact: String(localized: "Cover the Camera and Flash")
+        case .waitingForContact: String(localized: "Cover Main Camera + Flash")
         case .measuring: String(localized: "Measuring…")
-        case .improveSignal: String(localized: "Hold Still")
+        case .improveSignal: String(localized: "Almost There")
         case let .completed(result):
             String(localized: "\(result.bpm) beats per minute, ready to save")
         case .failed(.permissionDenied): String(localized: "Camera Access Needed")
@@ -608,11 +608,16 @@ nonisolated private final class HeartRateCaptureGate: @unchecked Sendable {
 
 nonisolated private final class HeartRateFrameAnalyzer: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate, @unchecked Sendable {
     private static let maximumContinuousContactDuration: TimeInterval = 30
-    private static let minimumAcceptedQuality = 0.45
+    private static let minimumAcceptedQuality = 0.32
 
     private let onEvent: @MainActor @Sendable (HeartRateCameraEvent) -> Void
     private let lock = NSLock()
-    private var processor = HeartRatePPGProcessor()
+    private var processor = HeartRatePPGProcessor(
+        configuration: HeartRatePPGProcessor.Configuration(
+            minimumMeasurementDuration: 15,
+            maximumMeasurementDuration: 30
+        )
+    )
     private var contactStartedAt: TimeInterval?
     private var finished = false
 
@@ -656,6 +661,10 @@ nonisolated private final class HeartRateFrameAnalyzer: NSObject, AVCaptureVideo
                 return .waitingForContact
             }
             if contactStartedAt == nil { contactStartedAt = timestamp }
+            let contactElapsed = timestamp - (contactStartedAt ?? timestamp)
+            // Stretch the ring across the full contact budget so it does not look "done"
+            // while quality checks are still running after the minimum window.
+            let displayProgress = min(max(contactElapsed / Self.maximumContinuousContactDuration, 0), 1)
 
             if let result = update.result,
                update.status == .ready,
@@ -673,12 +682,10 @@ nonisolated private final class HeartRateFrameAnalyzer: NSObject, AVCaptureVideo
             switch update.status {
             case .waitingForContact:
                 return .waitingForContact
-            case .collecting:
-                return .measuring(progress: update.progress)
-            case .ready:
-                return .improveSignal(progress: update.progress)
-            case .rejected:
-                return .improveSignal(progress: update.progress)
+            case .collecting where displayProgress < 0.5:
+                return .measuring(progress: displayProgress)
+            case .collecting, .ready, .rejected:
+                return .improveSignal(progress: displayProgress)
             }
         }
 

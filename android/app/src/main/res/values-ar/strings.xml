@@ -671,9 +671,10 @@
     <string name="progress_heart_rate_bpm_label">النبضات في الدقيقة</string>
     <string name="progress_heart_rate_manual_range">أدخل قيمة بين 30 و250 نبضة/دقيقة.</string>
     <string name="progress_heart_rate_camera_title">قياس معدل ضربات القلب</string>
-    <string name="progress_heart_rate_camera_guidance">غطِّ الكاميرا الخلفية والفلاش بلطف بطرف إصبعك.</string>
+    <string name="progress_heart_rate_camera_guidance">Cover the flash and the main rear camera next to it with one fingertip. You do not need to cover every lens—only the main camera and flash together.</string>
+    <string name="progress_heart_rate_camera_refining">Still checking for a stable pulse. Keep covering the main camera and flash.</string>
     <string name="progress_heart_rate_camera_measuring">جارٍ قراءة نبضك…</string>
-    <string name="progress_heart_rate_camera_hold_still">أبقِ إصبعك ثابتًا وتنفس بشكل طبيعي.</string>
+    <string name="progress_heart_rate_camera_hold_still">Keep your finger still and breathe normally. Press gently—not hard.</string>
     <string name="progress_heart_rate_camera_result">%1$d نبضة/دقيقة</string>
     <string name="progress_heart_rate_camera_poor_signal">لم تكن الإشارة واضحة بما يكفي. عدّل موضع إصبعك وحاول مجددًا.</string>
     <string name="progress_heart_rate_camera_unavailable">الكاميرا الخلفية غير متاحة. لا يزال بإمكانك تسجيل معدل ضربات القلب يدويًا.</string>

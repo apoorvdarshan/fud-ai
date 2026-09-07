@@ -671,9 +671,10 @@
     <string name="progress_heart_rate_bpm_label">Dəqiqədə vurğu</string>
     <string name="progress_heart_rate_manual_range">30–250 vurğu/dəq arasında dəyər daxil edin.</string>
     <string name="progress_heart_rate_camera_title">Ürək ritmini ölç</string>
-    <string name="progress_heart_rate_camera_guidance">Arxa kameranı və flaşı barmağınızın ucu ilə yüngülcə örtün.</string>
+    <string name="progress_heart_rate_camera_guidance">Cover the flash and the main rear camera next to it with one fingertip. You do not need to cover every lens—only the main camera and flash together.</string>
+    <string name="progress_heart_rate_camera_refining">Still checking for a stable pulse. Keep covering the main camera and flash.</string>
     <string name="progress_heart_rate_camera_measuring">Nəbziniz oxunur…</string>
-    <string name="progress_heart_rate_camera_hold_still">Barmağınızı tərpətməyin və normal nəfəs alın.</string>
+    <string name="progress_heart_rate_camera_hold_still">Keep your finger still and breathe normally. Press gently—not hard.</string>
     <string name="progress_heart_rate_camera_result">%1$d vurğu/dəq</string>
     <string name="progress_heart_rate_camera_poor_signal">Siqnal kifayət qədər aydın olmadı. Barmağınızı düzəldib yenidən sınayın.</string>
     <string name="progress_heart_rate_camera_unavailable">Arxa kamera mövcud deyil. Ürək ritmini əl ilə qeyd edə bilərsiniz.</string>

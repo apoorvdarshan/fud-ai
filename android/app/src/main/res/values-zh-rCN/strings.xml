@@ -671,9 +671,10 @@
     <string name="progress_heart_rate_bpm_label">每分钟心跳数</string>
     <string name="progress_heart_rate_manual_range">请输入 30 到 250 次/分钟之间的数值。</string>
     <string name="progress_heart_rate_camera_title">测量心率</string>
-    <string name="progress_heart_rate_camera_guidance">用指尖轻轻盖住后置相机和闪光灯。</string>
+    <string name="progress_heart_rate_camera_guidance">Cover the flash and the main rear camera next to it with one fingertip. You do not need to cover every lens—only the main camera and flash together.</string>
+    <string name="progress_heart_rate_camera_refining">Still checking for a stable pulse. Keep covering the main camera and flash.</string>
     <string name="progress_heart_rate_camera_measuring">正在读取脉搏…</string>
-    <string name="progress_heart_rate_camera_hold_still">保持手指不动并正常呼吸。</string>
+    <string name="progress_heart_rate_camera_hold_still">Keep your finger still and breathe normally. Press gently—not hard.</string>
     <string name="progress_heart_rate_camera_result">%1$d 次/分钟</string>
     <string name="progress_heart_rate_camera_poor_signal">信号不够清晰。请调整指尖位置后重试。</string>
     <string name="progress_heart_rate_camera_unavailable">后置相机不可用。你仍可手动记录心率。</string>

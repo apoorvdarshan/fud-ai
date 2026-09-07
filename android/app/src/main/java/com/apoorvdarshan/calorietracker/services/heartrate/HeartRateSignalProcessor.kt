@@ -36,7 +36,9 @@ data class HeartRateMeasurement(
 data class PpgUpdate(
     val stage: PpgStage,
     val progress: Double = 0.0,
-    val measurement: HeartRateMeasurement? = null
+    val measurement: HeartRateMeasurement? = null,
+    /** True once the minimum capture window has elapsed but a stable BPM is not ready yet. */
+    val refiningSignal: Boolean = false
 )
 
 /**
@@ -121,9 +123,12 @@ class HeartRateSignalProcessor(
         // An inconclusive early analysis is not terminal: use the remaining continuous-contact
         // budget to collect a cleaner signal, including one final analysis at the deadline.
         if (elapsed >= maximumSessionSeconds) return terminalPoorSignal()
+        // Map progress across the full contact budget so the bar does not sit at 100% while
+        // quality checks continue after the minimum capture window.
         return PpgUpdate(
             stage = PpgStage.MEASURING,
-            progress = (elapsed / targetSeconds).coerceIn(0.0, 1.0)
+            progress = (elapsed / maximumSessionSeconds).coerceIn(0.0, 1.0),
+            refiningSignal = elapsed >= targetSeconds
         )
     }
 

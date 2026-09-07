@@ -671,9 +671,10 @@
     <string name="progress_heart_rate_bpm_label">분당 심박수</string>
     <string name="progress_heart_rate_manual_range">30~250 bpm 사이의 값을 입력하세요.</string>
     <string name="progress_heart_rate_camera_title">심박수 측정</string>
-    <string name="progress_heart_rate_camera_guidance">손가락 끝으로 후면 카메라와 플래시를 가볍게 덮으세요.</string>
+    <string name="progress_heart_rate_camera_guidance">Cover the flash and the main rear camera next to it with one fingertip. You do not need to cover every lens—only the main camera and flash together.</string>
+    <string name="progress_heart_rate_camera_refining">Still checking for a stable pulse. Keep covering the main camera and flash.</string>
     <string name="progress_heart_rate_camera_measuring">맥박을 읽는 중…</string>
-    <string name="progress_heart_rate_camera_hold_still">손가락을 움직이지 말고 평소처럼 호흡하세요.</string>
+    <string name="progress_heart_rate_camera_hold_still">Keep your finger still and breathe normally. Press gently—not hard.</string>
     <string name="progress_heart_rate_camera_result">%1$d bpm</string>
     <string name="progress_heart_rate_camera_poor_signal">신호가 충분히 선명하지 않습니다. 손가락 위치를 조정하고 다시 시도하세요.</string>
     <string name="progress_heart_rate_camera_unavailable">후면 카메라를 사용할 수 없습니다. 심박수를 직접 기록할 수 있습니다.</string>

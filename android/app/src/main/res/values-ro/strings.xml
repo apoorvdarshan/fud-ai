@@ -671,9 +671,10 @@
     <string name="progress_heart_rate_bpm_label">Bătăi pe minut</string>
     <string name="progress_heart_rate_manual_range">Introdu o valoare între 30 și 250 bpm.</string>
     <string name="progress_heart_rate_camera_title">Măsoară ritmul cardiac</string>
-    <string name="progress_heart_rate_camera_guidance">Acoperă ușor camera din spate și blițul cu vârful degetului.</string>
+    <string name="progress_heart_rate_camera_guidance">Cover the flash and the main rear camera next to it with one fingertip. You do not need to cover every lens—only the main camera and flash together.</string>
+    <string name="progress_heart_rate_camera_refining">Still checking for a stable pulse. Keep covering the main camera and flash.</string>
     <string name="progress_heart_rate_camera_measuring">Îți citim pulsul…</string>
-    <string name="progress_heart_rate_camera_hold_still">Ține degetul nemișcat și respiră normal.</string>
+    <string name="progress_heart_rate_camera_hold_still">Keep your finger still and breathe normally. Press gently—not hard.</string>
     <string name="progress_heart_rate_camera_result">%1$d bpm</string>
     <string name="progress_heart_rate_camera_poor_signal">Semnalul nu a fost suficient de clar. Repoziționează degetul și încearcă din nou.</string>
     <string name="progress_heart_rate_camera_unavailable">Camera din spate nu este disponibilă. Poți înregistra ritmul cardiac manual.</string>

@@ -347,7 +347,13 @@ private fun HeartRateMeasurementContent(
 ) {
     val guidance = when (update.stage) {
         PpgStage.FINDING_FINGER -> stringResource(R.string.progress_heart_rate_camera_guidance)
-        PpgStage.MEASURING -> stringResource(R.string.progress_heart_rate_camera_measuring)
+        PpgStage.MEASURING -> stringResource(
+            if (update.refiningSignal) {
+                R.string.progress_heart_rate_camera_refining
+            } else {
+                R.string.progress_heart_rate_camera_measuring
+            }
+        )
         PpgStage.COMPLETE -> stringResource(
             R.string.progress_heart_rate_camera_result,
             update.measurement?.bpm ?: 0

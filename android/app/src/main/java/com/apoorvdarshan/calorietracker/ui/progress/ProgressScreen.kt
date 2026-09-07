@@ -1,10 +1,5 @@
 package com.apoorvdarshan.calorietracker.ui.progress
 
-import android.Manifest
-import android.content.pm.PackageManager
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -118,11 +113,9 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.core.content.ContextCompat
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.models.BodyFatEntry
 import com.apoorvdarshan.calorietracker.models.FoodEntry
-import com.apoorvdarshan.calorietracker.models.HeartRateSource
 import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
 import com.apoorvdarshan.calorietracker.models.OptionalNutrientGoals
@@ -208,11 +201,6 @@ private fun MyProgressContent(container: AppContainer) {
     var showAllWeights by remember { mutableStateOf(false) }
     var showAllBodyFats by remember { mutableStateOf(false) }
     var showAllWorkouts by remember { mutableStateOf(false) }
-    var showAllHeartRates by remember { mutableStateOf(false) }
-    var showHeartRateMeasurement by remember { mutableStateOf(false) }
-    var showManualHeartRate by remember { mutableStateOf(false) }
-    var showHeartRatePermissionFallback by remember { mutableStateOf(false) }
-    var manualHeartRateValue by remember { mutableStateOf("") }
     var workoutPendingDelete by remember { mutableStateOf<WorkoutSession?>(null) }
     var selectedMetric by rememberSaveable { mutableStateOf(ProgressMetric.WEIGHT) }
 
@@ -238,9 +226,6 @@ private fun MyProgressContent(container: AppContainer) {
             date in rangeStartDate..rangeEndDate
         } == true
     }
-    val filteredHeartRates = ui.heartRateEntries
-        .filter { it.date >= rangeStart && it.date < rangeEndExclusive }
-        .sortedBy { it.date }
     // Body Fat segment only renders when the user has opted in — same visibility
     // rule as iOS: hidden entirely for users who never set body fat OR a goal.
     val bodyFatAvailable = ui.bodyFatEntries.isNotEmpty()
@@ -252,22 +237,6 @@ private fun MyProgressContent(container: AppContainer) {
     )
     LaunchedEffect(availableMetrics, selectedMetric) {
         if (selectedMetric !in availableMetrics) selectedMetric = ProgressMetric.WEIGHT
-    }
-
-    val context = LocalContext.current
-    val heartRateCameraPermission = rememberLauncherForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { granted ->
-        if (granted) showHeartRateMeasurement = true else showHeartRatePermissionFallback = true
-    }
-    fun openHeartRateCamera() {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) ==
-            PackageManager.PERMISSION_GRANTED
-        ) {
-            showHeartRateMeasurement = true
-        } else {
-            heartRateCameraPermission.launch(Manifest.permission.CAMERA)
-        }
     }
 
     // Nutrition aggregates load on a background dispatcher. Changing `range`
@@ -333,14 +302,6 @@ private fun MyProgressContent(container: AppContainer) {
                             onLogBodyFat = { showAddBodyFatDialog = true }
                         )
                         ProgressMetric.WORKOUTS -> WorkoutProgressSection(filteredWorkouts)
-                        ProgressMetric.HEART_RATE -> HeartRateProgressSection(
-                            entries = filteredHeartRates,
-                            onMeasure = ::openHeartRateCamera,
-                            onLogManual = {
-                                manualHeartRateValue = ""
-                                showManualHeartRate = true
-                            }
-                        )
                     }
                 }
             }
@@ -357,11 +318,6 @@ private fun MyProgressContent(container: AppContainer) {
                 ProgressMetric.WORKOUTS -> if (reliableWorkoutBurnSessions.isNotEmpty()) {
                     item {
                         WorkoutHistoryLink(reliableWorkoutBurnSessions.size) { showAllWorkouts = true }
-                    }
-                }
-                ProgressMetric.HEART_RATE -> if (ui.heartRateEntries.isNotEmpty()) {
-                    item {
-                        HeartRateHistoryLink(ui.heartRateEntries.size) { showAllHeartRates = true }
                     }
                 }
             }
@@ -476,99 +432,6 @@ private fun MyProgressContent(container: AppContainer) {
             onRequestDelete = { workoutPendingDelete = it },
             onDismiss = { showAllWorkouts = false }
         )
-    }
-    if (showAllHeartRates) {
-        AllHeartRateHistorySheet(
-            entries = ui.heartRateEntries,
-            onDelete = { vm.deleteHeartRate(it.id) },
-            onDismiss = { showAllHeartRates = false }
-        )
-    }
-    if (showManualHeartRate) {
-        ManualHeartRateDialog(
-            value = manualHeartRateValue,
-            onValueChange = { manualHeartRateValue = it },
-            onDismiss = { showManualHeartRate = false },
-            onSave = { bpm ->
-                vm.addHeartRate(bpm, HeartRateSource.MANUAL)
-                showManualHeartRate = false
-            }
-        )
-    }
-    if (showHeartRateMeasurement) {
-        HeartRateMeasurementDialog(
-            onSave = { measurement ->
-                vm.addHeartRate(
-                    bpm = measurement.bpm,
-                    source = HeartRateSource.CAMERA,
-                    quality = measurement.quality
-                )
-                showHeartRateMeasurement = false
-            },
-            onManualFallback = {
-                showHeartRateMeasurement = false
-                manualHeartRateValue = ""
-                showManualHeartRate = true
-            },
-            onDismiss = { showHeartRateMeasurement = false }
-        )
-    }
-    if (showHeartRatePermissionFallback) {
-        FudGlassDialog(onDismissRequest = { showHeartRatePermissionFallback = false }) {
-            Text(
-                stringResource(R.string.progress_heart_rate_camera_title),
-                fontSize = 21.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                stringResource(R.string.progress_heart_rate_permission_denied),
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
-            )
-            FudGlassDialogActions(
-                primaryText = stringResource(R.string.progress_heart_rate_log_manual),
-                onPrimary = {
-                    showHeartRatePermissionFallback = false
-                    manualHeartRateValue = ""
-                    showManualHeartRate = true
-                },
-                dismissText = stringResource(R.string.action_cancel),
-                onDismiss = { showHeartRatePermissionFallback = false }
-            )
-        }
-    }
-    if (ui.heartRateSaveFailed) {
-        FudGlassDialog(onDismissRequest = vm::dismissHeartRateSaveError) {
-            Text(
-                stringResource(R.string.progress_heart_rate_save_error_title),
-                fontSize = 21.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                stringResource(R.string.progress_heart_rate_save_error_message),
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
-            )
-            FudGlassDialogActions(
-                primaryText = stringResource(R.string.action_ok),
-                onPrimary = vm::dismissHeartRateSaveError
-            )
-        }
-    }
-    if (ui.heartRateDeleteFailed) {
-        FudGlassDialog(onDismissRequest = vm::dismissHeartRateDeleteError) {
-            Text(
-                stringResource(R.string.progress_heart_rate_delete_error_title),
-                fontSize = 21.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                stringResource(R.string.progress_heart_rate_delete_error_message),
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
-            )
-            FudGlassDialogActions(
-                primaryText = stringResource(R.string.action_ok),
-                onPrimary = vm::dismissHeartRateDeleteError
-            )
-        }
     }
     workoutPendingDelete?.let { session ->
         FudGlassDialog(onDismissRequest = { workoutPendingDelete = null }) {
@@ -1926,8 +1789,7 @@ private fun ProgressMetricSelector(
     val labels = mapOf(
         ProgressMetric.WEIGHT to stringResource(R.string.progress_metric_weight),
         ProgressMetric.BODY_FAT to stringResource(R.string.progress_metric_body_fat),
-        ProgressMetric.WORKOUTS to stringResource(R.string.progress_metric_workouts),
-        ProgressMetric.HEART_RATE to stringResource(R.string.progress_metric_heart_rate)
+        ProgressMetric.WORKOUTS to stringResource(R.string.progress_metric_workouts)
     )
     IosStyleSegmentedControl(
         options = metrics,

@@ -14,7 +14,6 @@ import com.apoorvdarshan.calorietracker.models.BodyMeasurement
 import com.apoorvdarshan.calorietracker.models.ChatMessage
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FastingSession
-import com.apoorvdarshan.calorietracker.models.HeartRateEntry
 import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.MealSchedule
 import com.apoorvdarshan.calorietracker.models.OptionalNutrientGoals
@@ -86,7 +85,7 @@ class PreferencesStore(
     private val context: Context,
     private val isLocalGemmaExecutable: () -> Boolean = { false },
     private val isLocalWhisperExecutable: () -> Boolean = { false }
-) : WorkoutStateStore, HeartRateStateStore {
+) : WorkoutStateStore {
 
     private val json = Json { ignoreUnknownKeys = true }
     private val ds get() = context.fudaiDataStore
@@ -926,21 +925,6 @@ class PreferencesStore(
         ds.edit { it[Keys.BODY_FAT_ENTRIES] = json.encodeToString(ListSerializer(BodyFatEntry.serializer()), entries) }
     }
 
-    // -- Heart-rate spot checks -------------------------------------------
-    override val heartRateEntries: Flow<List<HeartRateEntry>?> = ds.data.map { prefs ->
-        val persisted = prefs[Keys.HEART_RATE_ENTRIES] ?: return@map emptyList()
-        runCatching {
-            json.decodeFromString(ListSerializer(HeartRateEntry.serializer()), persisted)
-        }.getOrNull()
-    }
-
-    override suspend fun setHeartRateEntries(entries: List<HeartRateEntry>) {
-        ds.edit {
-            it[Keys.HEART_RATE_ENTRIES] =
-                json.encodeToString(ListSerializer(HeartRateEntry.serializer()), entries)
-        }
-    }
-
     // -- Body measurement (circumference) entries --------------------------
     val bodyMeasurements: Flow<List<BodyMeasurement>> = ds.data.map { prefs ->
         prefs[Keys.BODY_MEASUREMENTS]?.let {
@@ -1070,7 +1054,6 @@ class PreferencesStore(
         val PENDING_FOOD_ANALYSIS_DRAFT = stringPreferencesKey("pendingFoodAnalysisDraft")
         val WEIGHT_ENTRIES = stringPreferencesKey("weightEntries")
         val BODY_FAT_ENTRIES = stringPreferencesKey("bodyFatEntries")
-        val HEART_RATE_ENTRIES = stringPreferencesKey("heartRateEntriesV1")
         val BODY_MEASUREMENTS = stringPreferencesKey("bodyMeasurements")
         val CHAT_HISTORY = stringPreferencesKey("coachChatHistory")
         val WIDGET_SNAPSHOT = stringPreferencesKey("widget_snapshot_v1")

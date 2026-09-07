@@ -3,8 +3,7 @@ package com.apoorvdarshan.calorietracker.ui.progress
 enum class ProgressMetric {
     WEIGHT,
     BODY_FAT,
-    WORKOUTS,
-    HEART_RATE
+    WORKOUTS
 }
 
 /** Stable preference order; conditional metrics disappear without reordering the remaining tabs. */
@@ -15,5 +14,4 @@ internal fun availableProgressMetrics(
     add(ProgressMetric.WEIGHT)
     if (bodyFatAvailable) add(ProgressMetric.BODY_FAT)
     if (workoutHistoryAvailable) add(ProgressMetric.WORKOUTS)
-    add(ProgressMetric.HEART_RATE)
 }

@@ -6,8 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.models.BodyFatEntry
 import com.apoorvdarshan.calorietracker.models.BodyMeasurement
-import com.apoorvdarshan.calorietracker.models.HeartRateEntry
-import com.apoorvdarshan.calorietracker.models.HeartRateSource
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.WeightEntry
 import com.apoorvdarshan.calorietracker.models.WorkoutSession
@@ -26,11 +24,8 @@ data class ProgressUiState(
     val bodyFatEntries: List<BodyFatEntry> = emptyList(),
     val bodyMeasurements: List<BodyMeasurement> = emptyList(),
     val workoutBurnSessions: List<WorkoutSession> = emptyList(),
-    val heartRateEntries: List<HeartRateEntry> = emptyList(),
     val profile: UserProfile? = null,
-    val goalReached: Boolean = false,
-    val heartRateSaveFailed: Boolean = false,
-    val heartRateDeleteFailed: Boolean = false
+    val goalReached: Boolean = false
 )
 
 class ProgressViewModel(private val container: AppContainer) : ViewModel() {
@@ -52,8 +47,6 @@ class ProgressViewModel(private val container: AppContainer) : ViewModel() {
                 bodyMeasurements = measurements,
                 workoutBurnSessions = workouts
             )
-        }.combine(container.heartRateRepository.entries) { state, heartRates ->
-            state.copy(heartRateEntries = heartRates)
         }.onEach { _ui.value = it }.launchIn(viewModelScope)
     }
 
@@ -95,31 +88,6 @@ class ProgressViewModel(private val container: AppContainer) : ViewModel() {
 
     fun deleteWorkoutBurn(id: UUID) {
         viewModelScope.launch { container.workoutRepository.deleteSession(id) }
-    }
-
-    fun addHeartRate(bpm: Int, source: HeartRateSource, quality: Double? = null) {
-        viewModelScope.launch {
-            val saved = container.heartRateRepository.addEntry(
-                HeartRateEntry(bpm = bpm, source = source, quality = quality)
-            )
-            if (!saved) _ui.value = _ui.value.copy(heartRateSaveFailed = true)
-        }
-    }
-
-    fun deleteHeartRate(id: UUID) {
-        viewModelScope.launch {
-            if (!container.heartRateRepository.deleteEntry(id)) {
-                _ui.value = _ui.value.copy(heartRateDeleteFailed = true)
-            }
-        }
-    }
-
-    fun dismissHeartRateSaveError() {
-        _ui.value = _ui.value.copy(heartRateSaveFailed = false)
-    }
-
-    fun dismissHeartRateDeleteError() {
-        _ui.value = _ui.value.copy(heartRateDeleteFailed = false)
     }
 
     fun dismissGoalReached() {

@@ -12,13 +12,12 @@ class ProgressMetricTest {
             listOf(
                 ProgressMetric.WEIGHT,
                 ProgressMetric.BODY_FAT,
-                ProgressMetric.WORKOUTS,
-                ProgressMetric.HEART_RATE
+                ProgressMetric.WORKOUTS
             ),
             availableProgressMetrics(bodyFatAvailable = true, workoutHistoryAvailable = true)
         )
         assertEquals(
-            listOf(ProgressMetric.WEIGHT, ProgressMetric.HEART_RATE),
+            listOf(ProgressMetric.WEIGHT),
             availableProgressMetrics(bodyFatAvailable = false, workoutHistoryAvailable = false)
         )
     }

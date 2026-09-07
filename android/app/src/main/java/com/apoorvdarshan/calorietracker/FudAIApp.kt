@@ -5,7 +5,6 @@ import com.apoorvdarshan.calorietracker.data.BodyFatRepository
 import com.apoorvdarshan.calorietracker.data.BodyMeasurementRepository
 import com.apoorvdarshan.calorietracker.data.ChatRepository
 import com.apoorvdarshan.calorietracker.data.FoodRepository
-import com.apoorvdarshan.calorietracker.data.HeartRateRepository
 import com.apoorvdarshan.calorietracker.data.FastingRepository
 import com.apoorvdarshan.calorietracker.data.KeyStore
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
@@ -204,7 +203,6 @@ class AppContainer(app: FudAIApp) {
     val foodRepository = FoodRepository(prefs, health, imageStore)
     val weightRepository = WeightRepository(prefs, profileRepository, health)
     val bodyFatRepository = BodyFatRepository(prefs, profileRepository, health)
-    val heartRateRepository = HeartRateRepository(prefs)
     val bodyMeasurementRepository = BodyMeasurementRepository(prefs)
     val chatRepository = ChatRepository(prefs)
     val waterRepository = WaterRepository(prefs)

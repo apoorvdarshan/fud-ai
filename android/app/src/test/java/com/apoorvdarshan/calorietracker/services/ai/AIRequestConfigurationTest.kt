@@ -20,6 +20,7 @@ class AIRequestConfigurationTest {
         val registries = linkedMapOf(
             AIProvider.GEMINI to listOf(
                 "gemini-3.5-flash-lite",
+                "gemini-3.8-flash",
                 "gemini-3.7-flash",
                 "gemini-3.6-flash",
                 "gemini-3.5-flash",
@@ -41,14 +42,13 @@ class AIRequestConfigurationTest {
                 "claude-opus-5",
                 "claude-fable-5",
                 "claude-opus-4-8",
-                "claude-haiku-4-5",
-                "claude-sonnet-4-6",
-                "claude-opus-4-7"
+                "claude-haiku-4-5"
             ),
-            AIProvider.XAI to listOf("grok-4.3", "grok-4.6"),
+            AIProvider.XAI to listOf("grok-4.6", "grok-4.3"),
             AIProvider.OPENROUTER to listOf(
                 "openrouter/free",
                 "google/gemini-3.5-flash-lite",
+                "google/gemini-3.8-flash",
                 "google/gemini-3.7-flash",
                 "openai/gpt-5.6-luna",
                 "qwen/qwen3.8-27b",
@@ -146,6 +146,14 @@ class AIRequestConfigurationTest {
         assertEquals(
             "mistral-medium-3-5",
             AIProvider.upgradedLegacyModel(AIProvider.MISTRAL, "mistral-medium-2604")
+        )
+        assertEquals(
+            "claude-sonnet-5",
+            AIProvider.upgradedLegacyModel(AIProvider.ANTHROPIC, "claude-sonnet-4-6")
+        )
+        assertEquals(
+            "claude-opus-5",
+            AIProvider.upgradedLegacyModel(AIProvider.ANTHROPIC, "claude-opus-4-7")
         )
 
         assertNull(AIProvider.upgradedLegacyModel(AIProvider.OPENAI, "gpt-5.4-mini"))

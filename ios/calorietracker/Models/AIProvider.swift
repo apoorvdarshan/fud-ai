@@ -153,6 +153,10 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
             return "Qwen/Qwen3.8-27B"
         case (.mistral, "mistral-medium-2604"):
             return "mistral-medium-3-5"
+        case (.anthropic, "claude-sonnet-4-6"):
+            return "claude-sonnet-5"
+        case (.anthropic, "claude-opus-4-7"):
+            return "claude-opus-5"
         default:
             return nil
         }
@@ -178,15 +182,16 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 
     /// Only models that are currently in service AND accept image input + return structured text.
     /// Text-only and deprecated models are excluded since this app needs vision for food photos.
-    /// Lineups verified against provider docs on 2026-08-26.
+    /// Lineups verified against provider docs on 2026-09-07.
     var models: [String] {
         switch self {
         case .appleIntelligence: [] // text-only system model; never offered for image requests
         case .gemma4Local: [Gemma4LocalModelManager.modelID]
         case .gemini: [
             "gemini-3.5-flash-lite",         // vision, cheapest current stable model (default)
-            "gemini-3.7-flash",              // vision, latest Flash model
-            "gemini-3.6-flash",              // vision, latest stable Flash model
+            "gemini-3.8-flash",              // vision, latest Flash model (GA 2026-09-02)
+            "gemini-3.7-flash",              // vision, prior Flash model
+            "gemini-3.6-flash",              // vision, prior stable Flash model
             "gemini-3.5-flash",              // vision, stable Flash model
             "gemini-3.1-pro-preview",        // vision, current flagship (preview)
         ]
@@ -205,18 +210,17 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
             "claude-sonnet-5",             // vision, current Sonnet (default)
             "claude-opus-5",               // vision, latest flagship
             "claude-fable-5",              // vision, latest efficient model
-            "claude-opus-4-8",             // vision, current flagship
+            "claude-opus-4-8",             // vision, prior flagship
             "claude-haiku-4-5",            // vision, current Haiku, fastest
-            "claude-sonnet-4-6",           // vision, prior Sonnet
-            "claude-opus-4-7",             // vision, prior Opus
         ]
         case .xai: [
-            "grok-4.3",                  // vision, current (grok-4 and grok-2-vision retired)
             "grok-4.6",                  // vision, latest
+            "grok-4.3",                  // vision, prior (grok-4 and grok-2-vision retired)
         ]
         case .openrouter: [
             "openrouter/free",           // free tier, vision, no credits required
             "google/gemini-3.5-flash-lite",
+            "google/gemini-3.8-flash",
             "google/gemini-3.7-flash",
             "openai/gpt-5.6-luna",
             "qwen/qwen3.8-27b",
@@ -276,7 +280,7 @@ enum AIProvider: String, CaseIterable, Codable, Identifiable {
 
     /// Text-capable presets. Existing image models remain valid for text, while
     /// providers with broader text catalogs expose those additional choices here.
-    /// Current hosted IDs verified against provider docs on 2026-08-29.
+    /// Current hosted IDs verified against provider docs on 2026-09-07.
     var textModels: [String] {
         switch self {
         case .appleIntelligence:
@@ -426,7 +430,7 @@ struct AIProviderSettings {
     private static let textFallbackModelKey = "selectedTextFallbackAIModel"
     private static let geminiModelMigrationVersionKey = "geminiModelMigrationVersion"
     private static let modelRegistryMigrationVersionKey = "aiModelRegistryMigrationVersion"
-    private static let currentModelRegistryMigrationVersion = 1
+    private static let currentModelRegistryMigrationVersion = 2
     private static let maxResponseTokensKey = "aiMaxResponseTokens"
     private static let requestTimeoutSecondsKey = "aiRequestTimeoutSeconds"
 

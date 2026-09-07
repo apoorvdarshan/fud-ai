@@ -529,7 +529,7 @@ class PreferencesStore(
                 prefs[Keys.GEMINI_MODEL_MIGRATION_VERSION] = 1
             }
 
-            if ((prefs[Keys.AI_MODEL_REGISTRY_MIGRATION_VERSION] ?: 0) < 1) {
+            if ((prefs[Keys.AI_MODEL_REGISTRY_MIGRATION_VERSION] ?: 0) < 2) {
                 val primaryProvider = storedAIProvider(
                     prefs[Keys.SELECTED_AI_PROVIDER]
                 ) ?: AIProvider.GEMINI
@@ -545,7 +545,7 @@ class PreferencesStore(
                     )?.let { prefs[Keys.FALLBACK_MODEL] = it }
                 }
 
-                prefs[Keys.AI_MODEL_REGISTRY_MIGRATION_VERSION] = 1
+                prefs[Keys.AI_MODEL_REGISTRY_MIGRATION_VERSION] = 2
             }
         }
     }

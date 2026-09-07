@@ -8,6 +8,7 @@ struct AIModelRegistryTests {
         var registries: [(provider: AIProvider, models: [String])] = [
             (.gemini, [
                 "gemini-3.5-flash-lite",
+                "gemini-3.8-flash",
                 "gemini-3.7-flash",
                 "gemini-3.6-flash",
                 "gemini-3.5-flash",
@@ -30,16 +31,15 @@ struct AIModelRegistryTests {
                 "claude-fable-5",
                 "claude-opus-4-8",
                 "claude-haiku-4-5",
-                "claude-sonnet-4-6",
-                "claude-opus-4-7",
             ]),
             (.xai, [
-                "grok-4.3",
                 "grok-4.6",
+                "grok-4.3",
             ]),
             (.openrouter, [
                 "openrouter/free",
                 "google/gemini-3.5-flash-lite",
+                "google/gemini-3.8-flash",
                 "google/gemini-3.7-flash",
                 "openai/gpt-5.6-luna",
                 "qwen/qwen3.8-27b",
@@ -128,6 +128,8 @@ struct AIModelRegistryTests {
         #expect(AIProvider.upgradedLegacyModel(for: .openrouter, model: "google/gemini-3.1-flash-lite") == "google/gemini-3.5-flash-lite")
         #expect(AIProvider.upgradedLegacyModel(for: .huggingface, model: "Qwen/Qwen2.5-VL-72B-Instruct") == "Qwen/Qwen3.8-27B")
         #expect(AIProvider.upgradedLegacyModel(for: .mistral, model: "mistral-medium-2604") == "mistral-medium-3-5")
+        #expect(AIProvider.upgradedLegacyModel(for: .anthropic, model: "claude-sonnet-4-6") == "claude-sonnet-5")
+        #expect(AIProvider.upgradedLegacyModel(for: .anthropic, model: "claude-opus-4-7") == "claude-opus-5")
 
         #expect(AIProvider.upgradedLegacyModel(for: .openrouter, model: "gemini-3.1-flash-lite") == nil)
         #expect(AIProvider.upgradedLegacyModel(for: .openai, model: "gpt-5.4-mini") == nil)
@@ -140,6 +142,8 @@ struct AIModelRegistryTests {
             (.openrouter, "google/gemini-3.1-flash-lite", "google/gemini-3.5-flash-lite"),
             (.huggingface, "Qwen/Qwen2.5-VL-72B-Instruct", "Qwen/Qwen3.8-27B"),
             (.mistral, "mistral-medium-2604", "mistral-medium-3-5"),
+            (.anthropic, "claude-sonnet-4-6", "claude-sonnet-5"),
+            (.anthropic, "claude-opus-4-7", "claude-opus-5"),
         ]
 
         for migration in migrations {

@@ -65,11 +65,12 @@ enum class AIProvider {
 
     /**
      * Only models that are currently in service AND accept image input + return structured text.
-     * Lineups verified against provider docs on 2026-08-26. Mirrors iOS AIProvider.swift.
+     * Lineups verified against provider docs on 2026-09-07. Mirrors iOS AIProvider.swift.
      */
     val models: List<String> get() = when (this) {
         GEMINI -> listOf(
             "gemini-3.5-flash-lite",
+            "gemini-3.8-flash",
             "gemini-3.7-flash",
             "gemini-3.6-flash",
             "gemini-3.5-flash",
@@ -91,17 +92,16 @@ enum class AIProvider {
             "claude-opus-5",
             "claude-fable-5",
             "claude-opus-4-8",
-            "claude-haiku-4-5",
-            "claude-sonnet-4-6",
-            "claude-opus-4-7"
+            "claude-haiku-4-5"
         )
         XAI -> listOf(
-            "grok-4.3",
-            "grok-4.6"
+            "grok-4.6",
+            "grok-4.3"
         )
         OPENROUTER -> listOf(
             "openrouter/free",
             "google/gemini-3.5-flash-lite",
+            "google/gemini-3.8-flash",
             "google/gemini-3.7-flash",
             "openai/gpt-5.6-luna",
             "qwen/qwen3.8-27b",
@@ -292,6 +292,10 @@ enum class AIProvider {
                     "Qwen/Qwen3.8-27B"
                 provider == MISTRAL && normalized == "mistral-medium-2604" ->
                     "mistral-medium-3-5"
+                provider == ANTHROPIC && normalized == "claude-sonnet-4-6" ->
+                    "claude-sonnet-5"
+                provider == ANTHROPIC && normalized == "claude-opus-4-7" ->
+                    "claude-opus-5"
                 else -> null
             }
         }

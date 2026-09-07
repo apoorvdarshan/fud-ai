@@ -2746,6 +2746,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
             return
         }
         session.addInput(input)
+        configureCameraForBarcodeScanning(camera)
 
         let output = AVCaptureMetadataOutput()
         guard session.canAddOutput(output) else {
@@ -2785,6 +2786,48 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
 
         DispatchQueue.global(qos: .userInitiated).async {
             session.startRunning()
+        }
+    }
+
+    /// Food photo camera uses UIKit/system capture with autofocus. This scanner
+    /// previously left the device on its default focus, which often stays soft
+    /// at barcode distance on multi-camera iPhones.
+    private func configureCameraForBarcodeScanning(_ camera: AVCaptureDevice) {
+        do {
+            try camera.lockForConfiguration()
+            defer { camera.unlockForConfiguration() }
+
+            if camera.isFocusModeSupported(.continuousAutoFocus) {
+                camera.focusMode = .continuousAutoFocus
+            } else if camera.isFocusModeSupported(.autoFocus) {
+                camera.focusMode = .autoFocus
+            }
+
+            if camera.isFocusPointOfInterestSupported {
+                camera.focusPointOfInterest = CGPoint(x: 0.5, y: 0.5)
+            }
+
+            if camera.isAutoFocusRangeRestrictionSupported {
+                camera.autoFocusRangeRestriction = .near
+            }
+
+            if camera.isSmoothAutoFocusSupported {
+                camera.isSmoothAutoFocusEnabled = true
+            }
+
+            if camera.isExposureModeSupported(.continuousAutoExposure) {
+                camera.exposureMode = .continuousAutoExposure
+            }
+
+            if camera.isExposurePointOfInterestSupported {
+                camera.exposurePointOfInterest = CGPoint(x: 0.5, y: 0.5)
+            }
+
+            if camera.isLowLightBoostSupported {
+                camera.automaticallyEnablesLowLightBoostWhenAvailable = true
+            }
+        } catch {
+            // Keep scanning available even if focus tuning fails.
         }
     }
 

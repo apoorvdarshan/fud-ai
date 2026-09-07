@@ -15,6 +15,7 @@ class QuickActionTest {
     @Test
     fun storedValuesRoundTripAndInvalidValuesFallBack() {
         assertEquals(QuickAction.FAVORITES, QuickAction.fromStorage("FAVORITES"))
+        assertEquals(QuickAction.FASTING, QuickAction.fromStorage("FASTING"))
         assertEquals(QuickAction.VOICE, QuickAction.fromStorage("unknown", QuickAction.VOICE))
     }
 }

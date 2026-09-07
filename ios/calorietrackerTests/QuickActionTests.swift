@@ -19,10 +19,12 @@ struct QuickActionTests {
         defer { store.removePersistentDomain(forName: suiteName) }
 
         store.set(QuickAction.favorites.rawValue, forKey: QuickActionSettings.storageKeys[0])
+        store.set(QuickAction.fasting.rawValue, forKey: QuickActionSettings.storageKeys[2])
         store.set("unknown", forKey: QuickActionSettings.storageKeys[1])
 
         #expect(QuickActionSettings.action(for: 0, store: store) == .favorites)
         #expect(QuickActionSettings.action(for: 1, store: store) == .voice)
+        #expect(QuickActionSettings.action(for: 2, store: store) == .fasting)
     }
 
     @Test func shortcutTypesMapOnlyToTheThreeSupportedSlots() {

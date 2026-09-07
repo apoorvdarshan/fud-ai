@@ -11,6 +11,7 @@ enum QuickAction: String, CaseIterable, Identifiable, Sendable {
     case frequent
     case recent
     case manual
+    case fasting
 
     var id: String { rawValue }
 
@@ -25,6 +26,7 @@ enum QuickAction: String, CaseIterable, Identifiable, Sendable {
         case .frequent: "Frequent"
         case .recent: "Recent"
         case .manual: "Manual"
+        case .fasting: "Fasting"
         }
     }
 
@@ -39,6 +41,7 @@ enum QuickAction: String, CaseIterable, Identifiable, Sendable {
         case .frequent: "repeat"
         case .recent: "clock.arrow.circlepath"
         case .manual: "square.and.pencil"
+        case .fasting: "timer"
         }
     }
 }

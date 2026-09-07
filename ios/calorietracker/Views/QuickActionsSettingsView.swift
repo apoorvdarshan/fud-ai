@@ -14,7 +14,7 @@ struct QuickActionsSettingsView: View {
             } header: {
                 Text("App Icon Shortcuts")
             } footer: {
-                Text("Hold the Fud AI app icon to use these shortcuts. On iPhone, Quick Action 1–3 can also be assigned in Shortcuts to the Action Button or Back Tap.")
+                Text("Hold the Fud AI app icon to use these shortcuts. Each slot opens its selected action directly. On iPhone, Quick Action 1–3 can also be assigned in Shortcuts to the Action Button or Back Tap.")
             }
         }
         .navigationTitle("Quick Actions")

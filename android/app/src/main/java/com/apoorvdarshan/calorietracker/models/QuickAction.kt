@@ -9,7 +9,8 @@ enum class QuickAction(val title: String) {
     FAVORITES("Favorites"),
     FREQUENT("Frequent"),
     RECENT("Recent"),
-    MANUAL("Manual");
+    MANUAL("Manual"),
+    FASTING("Fasting");
 
     companion object {
         val Defaults = listOf(CAMERA, VOICE, BARCODE)

@@ -100,6 +100,10 @@ fun EditFoodEntrySheet(
     entry: FoodEntry,
     preferGramsByDefault: Boolean = false,
     isFavorite: Boolean,
+    container: com.apoorvdarshan.calorietracker.AppContainer,
+    analyzeIngredientText: suspend (String) -> FoodAnalysis,
+    lookupIngredientBarcode: suspend (String) -> FoodAnalysis,
+    analyzeIngredientImage: suspend (ByteArray) -> FoodAnalysis,
     onReprocess: suspend (updatedNote: String) -> FoodAnalysis,
     onSave: (FoodEntry) -> Unit,
     onToggleFavorite: () -> Unit,
@@ -496,10 +500,21 @@ fun EditFoodEntrySheet(
                     onEdit = { index ->
                         ingredientEditor = IngredientEditorTarget(index, scaledIngredients()[index])
                     },
-                    onAdd = {
-                        ingredientEditor = IngredientEditorTarget(
-                            null,
-                            MealIngredient("", 100.0, 0, 0.0, 0.0, 0.0)
+                    addMenu = {
+                        IngredientIntakeSection(
+                            container = container,
+                            analyzeText = analyzeIngredientText,
+                            lookupBarcode = lookupIngredientBarcode,
+                            analyzeImage = analyzeIngredientImage,
+                            onIngredient = { ingredient ->
+                                applyIngredientChanges(scaledIngredients() + ingredient)
+                            },
+                            onManual = {
+                                ingredientEditor = IngredientEditorTarget(
+                                    null,
+                                    MealIngredient("", 100.0, 0, 0.0, 0.0, 0.0)
+                                )
+                            }
                         )
                     }
                 )

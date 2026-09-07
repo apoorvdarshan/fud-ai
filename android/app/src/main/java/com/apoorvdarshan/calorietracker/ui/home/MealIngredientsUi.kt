@@ -46,7 +46,8 @@ internal data class IngredientEditorTarget(
 internal fun MealIngredientsCard(
     ingredients: List<MealIngredient>,
     onEdit: (Int) -> Unit,
-    onAdd: () -> Unit
+    onAdd: () -> Unit = {},
+    addMenu: (@Composable () -> Unit)? = null
 ) {
     SheetPillCard {
         if (ingredients.isEmpty()) {
@@ -94,21 +95,30 @@ internal fun MealIngredientsCard(
             }
         }
         SheetHairline()
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clickable(onClick = onAdd)
-                .padding(horizontal = 18.dp, vertical = 13.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(Icons.Filled.AddCircle, contentDescription = null, tint = AppColors.Calorie)
-            Spacer(Modifier.width(10.dp))
-            Text(
-                stringResource(R.string.ingredients_add),
-                color = AppColors.Calorie,
-                fontWeight = FontWeight.SemiBold
-            )
+        if (addMenu != null) {
+            addMenu()
+        } else {
+            MealIngredientsAddRow(onClick = onAdd)
         }
+    }
+}
+
+@Composable
+internal fun MealIngredientsAddRow(onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .padding(horizontal = 18.dp, vertical = 13.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(Icons.Filled.AddCircle, contentDescription = null, tint = AppColors.Calorie)
+        Spacer(Modifier.width(10.dp))
+        Text(
+            stringResource(R.string.ingredients_add),
+            color = AppColors.Calorie,
+            fontWeight = FontWeight.SemiBold
+        )
     }
 }
 

@@ -435,12 +435,19 @@ struct FoodResultView: View {
                         onEdit: { index in
                             ingredientEditor = IngredientEditorTarget(index: index, ingredient: scaledIngredients[index])
                         },
-                        onAdd: {
-                            ingredientEditor = IngredientEditorTarget(
-                                index: nil,
-                                ingredient: MealIngredient(name: "", grams: 100, calories: 0, protein: 0, carbs: 0, fat: 0)
+                        addMenu: AnyView(
+                            IngredientAddMenuButton(
+                                onManual: {
+                                    ingredientEditor = IngredientEditorTarget(
+                                        index: nil,
+                                        ingredient: MealIngredient(name: "", grams: 100, calories: 0, protein: 0, carbs: 0, fat: 0)
+                                    )
+                                },
+                                onIngredient: { ingredient in
+                                    applyIngredientChanges(scaledIngredients + [ingredient])
+                                }
                             )
-                        }
+                        )
                     )
 
                     Section {
@@ -644,7 +651,8 @@ struct IngredientEditorTarget: Identifiable {
 struct MealIngredientsSection: View {
     let ingredients: [MealIngredient]
     let onEdit: (Int) -> Void
-    let onAdd: () -> Void
+    var onAdd: (() -> Void)? = nil
+    var addMenu: AnyView? = nil
 
     var body: some View {
         Section {
@@ -682,11 +690,15 @@ struct MealIngredientsSection: View {
                 }
             }
 
-            Button(action: onAdd) {
-                Label("Add Ingredient", systemImage: "plus.circle.fill")
-                    .font(.system(.body, design: .rounded, weight: .semibold))
+            if let addMenu {
+                addMenu
+            } else if let onAdd {
+                Button(action: onAdd) {
+                    Label("Add Ingredient", systemImage: "plus.circle.fill")
+                        .font(.system(.body, design: .rounded, weight: .semibold))
+                }
+                .tint(AppColors.calorie)
             }
-            .tint(AppColors.calorie)
         } header: {
             Text("Ingredients")
         } footer: {

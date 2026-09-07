@@ -657,6 +657,8 @@ struct HomeView: View {
     }
     @State private var activeSheet: ActiveSheet?
     @State private var editingEntry: FoodEntry?
+    @State private var selectedFoodIDs: Set<UUID> = []
+    private var isFoodSelectionMode: Bool { !selectedFoodIDs.isEmpty }
     @State private var pendingSharedMeals: [FoodEntry] = []
 
     @State private var currentFoodResult: GeminiService.FoodAnalysis?
@@ -954,13 +956,32 @@ struct HomeView: View {
                                 Group {
                                     switch item {
                                     case .food(let entry):
-                                        FoodRow(entry: entry)
-                                            .contentShape(Rectangle())
-                                            .onTapGesture {
+                                        HStack(spacing: 12) {
+                                            if isFoodSelectionMode {
+                                                Image(systemName: selectedFoodIDs.contains(entry.id) ? "checkmark.circle.fill" : "circle")
+                                                    .font(.title2)
+                                                    .foregroundStyle(selectedFoodIDs.contains(entry.id) ? AppColors.calorie : .secondary)
+                                            }
+                                            FoodRow(entry: entry)
+                                        }
+                                        .contentShape(Rectangle())
+                                        .onTapGesture {
+                                            if isFoodSelectionMode {
+                                                if selectedFoodIDs.contains(entry.id) {
+                                                    selectedFoodIDs.remove(entry.id)
+                                                } else {
+                                                    selectedFoodIDs.insert(entry.id)
+                                                }
+                                            } else {
                                                 editingEntry = entry
                                                 activeSheet = .editFood
                                             }
-                                            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                        }
+                                        .onLongPressGesture {
+                                            selectedFoodIDs.insert(entry.id)
+                                        }
+                                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                                            if !isFoodSelectionMode {
                                                 Button(role: .destructive) {
                                                     foodStore.deleteEntry(entry)
                                                 } label: {
@@ -973,6 +994,7 @@ struct HomeView: View {
                                                 }
                                                 .tint(AppColors.calorie)
                                             }
+                                        }
                                     case .water(let entry):
                                         WaterLogRow(entry: entry, unit: waterUnit)
                                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
@@ -1222,6 +1244,9 @@ struct HomeView: View {
                                 .background(AppColors.calorie, in: Circle())
                         }
                         .accessibilityIdentifier("home.add")
+                        .opacity(isFoodSelectionMode ? 0 : 1)
+                        .disabled(isFoodSelectionMode)
+                        .allowsHitTesting(!isFoodSelectionMode)
                         .popover(isPresented: $showTextPopover) {
                             TextFoodInputView(
                                 onCancel: {
@@ -1266,6 +1291,44 @@ struct HomeView: View {
                             .presentationCompactAdaptation(.popover)
                         }
                         .padding(24)
+            }
+            .overlay(alignment: .bottom) {
+                if isFoodSelectionMode {
+                    HStack(spacing: 12) {
+                        Button {
+                            selectedFoodIDs.removeAll()
+                        } label: {
+                            Image(systemName: "xmark")
+                                .font(.body.weight(.semibold))
+                                .frame(width: 28, height: 28)
+                        }
+                        .tint(.primary)
+                        Text("\(selectedFoodIDs.count) selected")
+                            .font(.system(.body, design: .rounded, weight: .semibold))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Button("Combine into Meal") {
+                            let ids = selectedFoodIDs
+                            if let combined = foodStore.combineIntoMeal(ids: ids) {
+                                selectedFoodIDs.removeAll()
+                                editingEntry = combined
+                                activeSheet = .editFood
+                            } else {
+                                selectedFoodIDs.removeAll()
+                                errorMessage = "Can't combine foods while fasting is active."
+                                showError = true
+                            }
+                        }
+                        .font(.system(.body, design: .rounded, weight: .bold))
+                        .disabled(selectedFoodIDs.count < 2)
+                        .tint(AppColors.calorie)
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 12)
+                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 100)
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
             }
             .fullScreenCover(isPresented: $showCamera) {
                 CameraView(

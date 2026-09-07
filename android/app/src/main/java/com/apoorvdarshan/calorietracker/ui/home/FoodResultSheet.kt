@@ -88,6 +88,10 @@ fun FoodResultSheet(
     dayEntries: List<FoodEntry> = emptyList(),
     source: FoodSource = FoodSource.TEXT_INPUT,
     isSubmitting: Boolean = false,
+    container: com.apoorvdarshan.calorietracker.AppContainer,
+    analyzeIngredientText: suspend (String) -> FoodAnalysis,
+    lookupIngredientBarcode: suspend (String) -> FoodAnalysis,
+    analyzeIngredientImage: suspend (ByteArray) -> FoodAnalysis,
     onWhatIfSuggestion: (suspend (FoodEntry) -> String)? = null,
     onSave: (
         name: String,
@@ -500,10 +504,21 @@ fun FoodResultSheet(
                     onEdit = { index ->
                         ingredientEditor = IngredientEditorTarget(index, scaledIngredients()[index])
                     },
-                    onAdd = {
-                        ingredientEditor = IngredientEditorTarget(
-                            null,
-                            MealIngredient("", 100.0, 0, 0.0, 0.0, 0.0)
+                    addMenu = {
+                        IngredientIntakeSection(
+                            container = container,
+                            analyzeText = analyzeIngredientText,
+                            lookupBarcode = lookupIngredientBarcode,
+                            analyzeImage = analyzeIngredientImage,
+                            onIngredient = { ingredient ->
+                                applyIngredientChanges(scaledIngredients() + ingredient)
+                            },
+                            onManual = {
+                                ingredientEditor = IngredientEditorTarget(
+                                    null,
+                                    MealIngredient("", 100.0, 0, 0.0, 0.0, 0.0)
+                                )
+                            }
                         )
                     }
                 )

@@ -1,0 +1,32 @@
+---
+description: How to close GitHub issues with a warm fix summary and store rating ask
+alwaysApply: true
+---
+
+# Closing GitHub issues
+
+When the user asks to close a GitHub issue (e.g. “close issue 182”), do all of the following:
+
+1. Close the issue with **one** closing comment (do not leave a terse stub and then add a second comment).
+2. In that comment, explain **what was fixed** with enough concrete detail that the reporter understands the change (feature behavior, where to find it, platforms if relevant).
+3. Say clearly that it **will be released in the next update**.
+4. Warmly ask them to rate Fud AI on the App Store / Play Store if they like the app, and include both links:
+   - App Store: https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726
+   - Play Store: https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker
+5. Use a few friendly emojis so the note feels lovely — not spammy (roughly 3–6 total).
+
+## Example closing comment
+
+```markdown
+Fixed! ✨ Fasting is now available as a configurable app-icon quick action (Settings → Quick Actions). Long-press the Fud AI icon to start or manage a fast.
+
+This will be released in the next update. 🚀
+
+If you enjoy Fud AI, a quick rating would mean a lot 💛
+- App Store: https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726
+- Play Store: https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker
+
+Thanks for reporting this! 🙏
+```
+
+Do not post a vague “addressing / will release” comment without the fix details and store links.

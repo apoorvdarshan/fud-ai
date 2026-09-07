@@ -802,7 +802,10 @@ struct ExerciseLibraryDetailView: View {
                             .frame(width: screenWidth, height: 294)
 
                         VStack(alignment: .leading, spacing: 24) {
-                            DetailInstructionSection(instructions: item.instructions)
+                            DetailInstructionSection(
+                                exerciseName: item.name,
+                                instructions: item.instructions
+                            )
                         }
                         .padding(.horizontal, 20)
                         .padding(.top, 24)
@@ -954,7 +957,9 @@ private struct ExerciseHeroMetricOverlay: View {
 }
 
 private struct DetailInstructionSection: View {
+    let exerciseName: String
     let instructions: [String]
+    @Environment(\.openURL) private var openURL
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -1006,7 +1011,54 @@ private struct DetailInstructionSection: View {
                     }
                 }
             }
+
+            Button {
+                if let url = youtubeSearchURL(for: exerciseName) {
+                    openURL(url)
+                }
+            } label: {
+                HStack(spacing: 12) {
+                    Image(systemName: "play.rectangle.fill")
+                        .font(.body.weight(.bold))
+                        .foregroundStyle(Color.workoutAccent)
+                        .frame(width: 30, height: 30)
+                        .background(Color.workoutAccent.opacity(0.12), in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Watch on YouTube")
+                            .font(.callout.weight(.bold))
+                            .foregroundStyle(Color.workoutCharcoal)
+                        Text("Opens YouTube search — not an official Fud AI video")
+                            .font(.caption)
+                            .foregroundStyle(Color.workoutMutedText)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+
+                    Spacer(minLength: 0)
+
+                    Image(systemName: "arrow.up.right")
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(Color.workoutMutedText)
+                }
+                .padding(14)
+                .background(Color.workoutPanel.opacity(0.16), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 18, style: .continuous)
+                        .stroke(Color.workoutHairline.opacity(0.20), lineWidth: 0.5)
+                }
+            }
+            .buttonStyle(.plain)
+            .workoutPressable()
+            .accessibilityHint(String(localized: "Opens YouTube search — not an official Fud AI video"))
         }
+    }
+
+    private func youtubeSearchURL(for exerciseName: String) -> URL? {
+        var components = URLComponents(string: "https://www.youtube.com/results")
+        components?.queryItems = [
+            URLQueryItem(name: "search_query", value: "\(exerciseName) exercise")
+        ]
+        return components?.url
     }
 }
 

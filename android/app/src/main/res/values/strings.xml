@@ -929,6 +929,8 @@
     <string name="filter_all_count">All %d</string>
     <string name="hide_details">Hide details</string>
     <string name="instructions">Instructions</string>
+    <string name="watch_on_youtube">Watch on YouTube</string>
+    <string name="watch_on_youtube_hint">Opens YouTube search — not an official Fud AI video</string>
     <string name="label_category">Category</string>
     <string name="label_equipment">Equipment</string>
     <string name="label_force">Force</string>

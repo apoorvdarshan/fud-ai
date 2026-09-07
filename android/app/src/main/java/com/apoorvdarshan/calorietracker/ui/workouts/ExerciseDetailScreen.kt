@@ -30,7 +30,9 @@ import androidx.compose.material.icons.filled.BarChart
 import androidx.compose.material.icons.filled.FormatListNumbered
 import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.GpsFixed
+import androidx.compose.material.icons.automirrored.filled.OpenInNew
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material.icons.filled.Tag
@@ -47,17 +49,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import android.content.Intent
+import android.net.Uri
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.data.ExerciseItem
 import com.apoorvdarshan.calorietracker.data.ExerciseVisual
 import com.apoorvdarshan.calorietracker.ui.workouts.AnimatedExerciseImage
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 private val HERO_HEIGHT = 294.dp
 
@@ -102,7 +109,11 @@ fun ExerciseDetailScreen(
             ) {
                 item(key = "herospace") { Spacer(Modifier.height(HERO_HEIGHT)) }
                 item(key = "instructions") {
-                    InstructionSection(item.instructions, Modifier.padding(horizontal = 20.dp, vertical = 24.dp))
+                    InstructionSection(
+                        exerciseName = item.name,
+                        instructions = item.instructions,
+                        modifier = Modifier.padding(horizontal = 20.dp, vertical = 24.dp)
+                    )
                 }
                 item(key = "pad") { Spacer(Modifier.size(40.dp)) }
             }
@@ -211,8 +222,13 @@ private fun MetricCard(title: String, value: String, icon: ImageVector, valueMax
 }
 
 @Composable
-private fun InstructionSection(instructions: List<String>, modifier: Modifier = Modifier) {
+private fun InstructionSection(
+    exerciseName: String,
+    instructions: List<String>,
+    modifier: Modifier = Modifier
+) {
     val colors = workoutsColors()
+    val context = LocalContext.current
     Column(modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
             Box(
@@ -255,6 +271,43 @@ private fun InstructionSection(instructions: List<String>, modifier: Modifier = 
                     )
                 }
             }
+        }
+
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(18.dp))
+                .background(colors.panel.copy(alpha = 0.16f))
+                .border(0.5.dp, colors.hairline.copy(alpha = 0.20f), RoundedCornerShape(18.dp))
+                .clickable {
+                    val query = URLEncoder.encode("$exerciseName exercise", StandardCharsets.UTF_8.toString())
+                    val uri = Uri.parse("https://www.youtube.com/results?search_query=$query")
+                    context.startActivity(Intent(Intent.ACTION_VIEW, uri))
+                }
+                .padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Box(
+                Modifier.size(30.dp).clip(RoundedCornerShape(10.dp)).background(colors.accent.copy(alpha = 0.12f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(Icons.Filled.PlayCircle, null, tint = colors.accent, modifier = Modifier.size(18.dp))
+            }
+            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(
+                    stringResource(R.string.watch_on_youtube),
+                    color = colors.charcoal,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    stringResource(R.string.watch_on_youtube_hint),
+                    color = colors.mutedText,
+                    fontSize = 12.sp
+                )
+            }
+            Icon(Icons.AutoMirrored.Filled.OpenInNew, null, tint = colors.mutedText, modifier = Modifier.size(16.dp))
         }
     }
 }

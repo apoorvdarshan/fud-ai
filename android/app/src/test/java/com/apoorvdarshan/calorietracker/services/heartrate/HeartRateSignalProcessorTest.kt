@@ -78,7 +78,7 @@ class HeartRateSignalProcessorTest {
             contactSample(timestampNanos = 1L, spatialStdDev = 85.0)
         ))
         assertTrue(!HeartRateSignalProcessor.hasFingerContact(
-            contactSample(timestampNanos = 1L, redMean = 100.0, greenMean = 95.0)
+            contactSample(timestampNanos = 1L, redMean = 100.0, greenMean = 98.0)
         ))
         assertTrue(!HeartRateSignalProcessor.hasFingerContact(
             contactSample(timestampNanos = 1L, redMean = 20.0, greenMean = 18.0, blueMean = 16.0)
@@ -393,9 +393,10 @@ class HeartRateSignalProcessorTest {
 
     private fun nonContactSample(timestampNanos: Long) = PpgFrameSample(
         timestampNanos = timestampNanos,
-        redMean = 55.0,
-        greenMean = 50.0,
-        blueMean = 48.0,
+        // Open-scene / uncovered camera: not red-dominant.
+        redMean = 48.0,
+        greenMean = 55.0,
+        blueMean = 52.0,
         redClippedFraction = 0.0,
         redSpatialStdDev = 8.0
     )

@@ -630,7 +630,13 @@ struct HomeView: View {
     @State private var showPhotoPicker = false
     @State private var showError = false
     @State private var errorMessage = ""
-    @State private var errorOffersScanLabel = false
+    /// Kept inside the barcode lookup sheet so SwiftUI does not dismiss/re-present
+    /// an alert during the sheet transition (which made the error flash away).
+    @State private var barcodeLookupFailure: BarcodeLookupFailure?
+    private struct BarcodeLookupFailure: Equatable {
+        let message: String
+        let offersScanLabel: Bool
+    }
     private enum RetryRequest {
         case analysis(images: [UIImage], mode: CameraMode, description: String?, progressiveMeal: Bool)
         case text(String)
@@ -668,6 +674,7 @@ struct HomeView: View {
     @State private var showCustomWaterLog = false
     @State private var showFastingStart = false
     @State private var editingFastingSession: FastingSession?
+    @State private var showFastingQuickActionDisabled = false
     @State private var showFoodLoggingBlocked = false
     @State private var hasPresentedFoodDestination = false
     @State private var didPrewarmFoodDestinations = false
@@ -1382,7 +1389,33 @@ struct HomeView: View {
                 case .analyzingText:
                     AnalyzingView(image: nil, message: "Looking up nutrition...")
                 case .lookingUpBarcode:
-                    AnalyzingView(image: nil, message: "Looking up barcode...")
+                    if let failure = barcodeLookupFailure {
+                        BarcodeLookupFailureView(
+                            message: failure.message,
+                            offersScanLabel: failure.offersScanLabel,
+                            onScanLabel: {
+                                barcodeLookupFailure = nil
+                                retryRequest = nil
+                                activeSheet = nil
+                                openCameraForNutritionLabel()
+                            },
+                            onRetry: {
+                                barcodeLookupFailure = nil
+                                if case let .barcode(code)? = retryRequest {
+                                    startBarcodeLookup(code)
+                                } else {
+                                    activeSheet = nil
+                                }
+                            },
+                            onCancel: {
+                                barcodeLookupFailure = nil
+                                retryRequest = nil
+                                activeSheet = nil
+                            }
+                        )
+                    } else {
+                        AnalyzingView(image: nil, message: "Looking up barcode...")
+                    }
                 case .foodResult:
                     if let result = currentFoodResult {
                         FoodResultView(
@@ -1541,7 +1574,11 @@ struct HomeView: View {
                         }
                 }
             }
-            .interactiveDismissDisabled(activeSheet == .analyzing || activeSheet == .analyzingText || activeSheet == .lookingUpBarcode)
+            .interactiveDismissDisabled(
+                activeSheet == .analyzing
+                    || activeSheet == .analyzingText
+                    || (activeSheet == .lookingUpBarcode && barcodeLookupFailure == nil)
+            )
             .photosPicker(
                 isPresented: $showPhotoPicker,
                 selection: $selectedPhotoItems,
@@ -1573,20 +1610,8 @@ struct HomeView: View {
                 }
             }
             .alert("Error", isPresented: $showError) {
-                if errorOffersScanLabel {
-                    Button("Scan Label") {
-                        errorOffersScanLabel = false
-                        retryRequest = nil
-                        openCameraForNutritionLabel()
-                    }
-                    Button("Cancel", role: .cancel) {
-                        errorOffersScanLabel = false
-                        retryRequest = nil
-                    }
-                } else {
-                    Button("Retry") { retryLastRequest() }
-                    Button("Cancel", role: .cancel) { retryRequest = nil }
-                }
+                Button("Retry") { retryLastRequest() }
+                Button("Cancel", role: .cancel) { retryRequest = nil }
             } message: {
                 Text(errorMessage)
             }
@@ -1594,6 +1619,11 @@ struct HomeView: View {
                 Button("OK", role: .cancel) { }
             } message: {
                 Text("End or cancel your active fast before logging food.")
+            }
+            .alert("Fasting Tracking off", isPresented: $showFastingQuickActionDisabled) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text("Enable Fasting Tracking in Settings to use this shortcut.")
             }
             .sheet(isPresented: $showNutritionDetail) {
                 NutritionDetailView(date: selectedDate, homeTopNutrientsRaw: $homeTopNutrientsRaw)
@@ -1653,15 +1683,10 @@ struct HomeView: View {
     private func presentQuickActionIfPossible() {
         guard let request = quickActionRequest, activeSheet == nil else { return }
 
-        guard fastingStore.activeSession == nil else {
-            onQuickActionHandled(request.id)
-            showFoodLoggingBlocked = true
-            return
-        }
-
         let hadOpenDestination = showCamera || showBarcodeScanner || showPhotoPicker
             || showVoicePopover || showTextPopover || showManualPopover
             || savedMealsMode != nil || showContextSheet || showMultiPhotoCaptureSheet
+            || showFastingStart || editingFastingSession != nil
 
         showCamera = false
         showBarcodeScanner = false
@@ -1676,8 +1701,35 @@ struct HomeView: View {
         showNutritionDetail = false
         showCustomWaterLog = false
         showError = false
-        errorOffersScanLabel = false
+        barcodeLookupFailure = nil
+        showFastingStart = false
+        editingFastingSession = nil
         selectedDate = .now
+
+        if request.action == .fasting {
+            onQuickActionHandled(request.id)
+            let launchFasting: @MainActor @Sendable () -> Void = {
+                if !fastingTrackingEnabled {
+                    showFastingQuickActionDisabled = true
+                } else if let active = fastingStore.activeSession {
+                    editingFastingSession = active
+                } else {
+                    showFastingStart = true
+                }
+            }
+            if hadOpenDestination {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: launchFasting)
+            } else {
+                launchFasting()
+            }
+            return
+        }
+
+        guard fastingStore.activeSession == nil else {
+            onQuickActionHandled(request.id)
+            showFoodLoggingBlocked = true
+            return
+        }
 
         onQuickActionHandled(request.id)
         let launch: @MainActor @Sendable () -> Void = {
@@ -1710,6 +1762,8 @@ struct HomeView: View {
                     savedMealsMode = .recent
                 case .manual:
                     showManualPopover = true
+                case .fasting:
+                    break
                 }
             }
         }
@@ -1800,6 +1854,7 @@ struct HomeView: View {
         currentImages = []
         currentEmoji = nil
         currentFoodSource = .barcode
+        barcodeLookupFailure = nil
         activeSheet = .lookingUpBarcode
 
         Task {
@@ -1814,9 +1869,27 @@ struct HomeView: View {
                     currentImages = [image]
                 }
                 retryRequest = nil
+                barcodeLookupFailure = nil
                 activeSheet = .foodResult
             } catch {
-                presentAnalysisError(error)
+                let offersScanLabel: Bool
+                if let lookupError = error as? OpenFoodFactsService.LookupError {
+                    switch lookupError {
+                    case .missingNutrition, .productNotFound:
+                        offersScanLabel = true
+                    default:
+                        offersScanLabel = false
+                    }
+                } else {
+                    offersScanLabel = false
+                }
+                // Keep the sheet open and swap to the failure UI. Dismissing the
+                // sheet then presenting an alert in the same transition drops the
+                // alert on iOS.
+                barcodeLookupFailure = BarcodeLookupFailure(
+                    message: error.localizedDescription,
+                    offersScanLabel: offersScanLabel
+                )
             }
         }
     }
@@ -1839,24 +1912,12 @@ struct HomeView: View {
 
     /// Dismiss the loading sheet first, then present the alert after the sheet
     /// animation finishes. Presenting both in the same turn makes SwiftUI flash
-    /// or drop the alert (common after barcode lookup failures).
+    /// or drop the alert.
     @MainActor
     private func presentAnalysisError(_ error: Error) {
-        let offersScanLabel: Bool
-        if let lookupError = error as? OpenFoodFactsService.LookupError {
-            switch lookupError {
-            case .missingNutrition, .productNotFound:
-                offersScanLabel = true
-            default:
-                offersScanLabel = false
-            }
-        } else {
-            offersScanLabel = false
-        }
         activeSheet = nil
         errorMessage = error.localizedDescription
-        errorOffersScanLabel = offersScanLabel
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
             showError = true
         }
     }
@@ -1868,7 +1929,9 @@ struct HomeView: View {
         isImportingPhotos = false
         captureImages = []
         contextDescription = ""
-        showCamera = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+            showCamera = true
+        }
     }
 
     private func retryLastRequest() {
@@ -1888,6 +1951,67 @@ struct HomeView: View {
         }
     }
 
+}
+
+private struct BarcodeLookupFailureView: View {
+    let message: String
+    let offersScanLabel: Bool
+    let onScanLabel: () -> Void
+    let onRetry: () -> Void
+    let onCancel: () -> Void
+
+    var body: some View {
+        VStack(spacing: 20) {
+            Spacer()
+
+            Image(systemName: "barcode.viewfinder")
+                .font(.system(size: 56))
+                .foregroundStyle(AppColors.calorie)
+
+            Text("Couldn't use this barcode")
+                .font(.title2.weight(.bold))
+                .multilineTextAlignment(.center)
+
+            Text(message)
+                .font(.body)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 28)
+
+            Spacer()
+
+            VStack(spacing: 12) {
+                if offersScanLabel {
+                    Button(action: onScanLabel) {
+                        Text("Scan Label")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(AppColors.calorie)
+                } else {
+                    Button(action: onRetry) {
+                        Text("Retry")
+                            .font(.headline)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .tint(AppColors.calorie)
+                }
+
+                Button("Cancel", action: onCancel)
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                    .padding(.bottom, 8)
+            }
+            .padding(.horizontal, 24)
+            .padding(.bottom, 28)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.background)
+    }
 }
 
 // MARK: - Siri Phrases

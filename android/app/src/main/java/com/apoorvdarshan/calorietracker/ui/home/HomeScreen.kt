@@ -212,6 +212,7 @@ fun HomeScreen(
     var showCustomWaterLog by remember { mutableStateOf(false) }
     var showFastingStart by remember { mutableStateOf(false) }
     var editingFast by remember { mutableStateOf<FastingSession?>(null) }
+    var showFastingQuickActionDisabled by remember { mutableStateOf(false) }
 
     var showCameraCapture by remember { mutableStateOf(false) }
     var showMultiPhotoCapture by remember { mutableStateOf(false) }
@@ -294,7 +295,8 @@ fun HomeScreen(
         showMultiPhotoCapture = false
         vm.setSelectedDate(LocalDate.now())
 
-        if (ui.activeFast != null) {
+        // Fasting shortcuts manage the fast itself; food shortcuts stay blocked while one is active.
+        if (request.action != QuickAction.FASTING && ui.activeFast != null) {
             vm.reportFoodBlockedByFast()
             onQuickActionHandled(request.id)
             return@LaunchedEffect
@@ -318,6 +320,13 @@ fun HomeScreen(
             QuickAction.FREQUENT -> savedMealsTab = SavedTab.FREQUENT
             QuickAction.RECENT -> savedMealsTab = SavedTab.RECENTS
             QuickAction.MANUAL -> showManual = true
+            QuickAction.FASTING -> {
+                when {
+                    !ui.fastingTrackingEnabled -> showFastingQuickActionDisabled = true
+                    ui.activeFast != null -> editingFast = ui.activeFast
+                    else -> showFastingStart = true
+                }
+            }
         }
         onQuickActionHandled(request.id)
     }
@@ -848,7 +857,13 @@ fun HomeScreen(
 
     ui.error?.let { err ->
         FudGlassDialog(onDismissRequest = { vm.dismissPending() }) {
-            Text(stringResource(R.string.error_title), fontSize = 21.sp, fontWeight = FontWeight.Bold)
+            Text(
+                stringResource(
+                    if (ui.errorOffersScanLabel) R.string.error_barcode_title else R.string.error_title
+                ),
+                fontSize = 21.sp,
+                fontWeight = FontWeight.Bold
+            )
             Text(err, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f))
             FudGlassDialogActions(
                 primaryText = stringResource(
@@ -878,6 +893,24 @@ fun HomeScreen(
                 primaryText = stringResource(R.string.action_ok),
                 onPrimary = vm::dismissFoodBlocked,
                 onDismiss = vm::dismissFoodBlocked
+            )
+        }
+    }
+    if (showFastingQuickActionDisabled) {
+        FudGlassDialog(onDismissRequest = { showFastingQuickActionDisabled = false }) {
+            Text(
+                stringResource(R.string.fasting_quick_action_disabled_title),
+                fontSize = 21.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                stringResource(R.string.fasting_quick_action_disabled_message),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
+            )
+            FudGlassDialogActions(
+                primaryText = stringResource(R.string.action_ok),
+                onPrimary = { showFastingQuickActionDisabled = false },
+                onDismiss = { showFastingQuickActionDisabled = false }
             )
         }
     }

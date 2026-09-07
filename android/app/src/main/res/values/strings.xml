@@ -384,6 +384,7 @@
     <string name="manual_meal_type">Meal Type</string>
 
     <string name="error_title">Something went wrong</string>
+    <string name="error_barcode_title">Couldn\'t use this barcode</string>
 
     <!-- Food sheets shared primitives -->
     <string name="sheet_food_details">Food Details</string>
@@ -732,6 +733,8 @@
     <string name="fasting_overlap_message">Adjust the start or end time so fasting sessions do not overlap.</string>
     <string name="food_logging_paused">Food logging paused</string>
     <string name="food_blocked_by_active_fast">End or cancel your active fast before logging food.</string>
+    <string name="fasting_quick_action_disabled_title">Fasting Tracking off</string>
+    <string name="fasting_quick_action_disabled_message">Enable Fasting Tracking in Settings to use this shortcut.</string>
     <string name="home_todays_diary">Today\'s Diary</string>
     <string name="home_diary">Diary</string>
     <string name="home_no_diary_entries">No diary entries</string>
@@ -1219,7 +1222,7 @@
     <string name="settings_quick_actions">Quick Actions</string>
     <string name="settings_app_icon_shortcuts">App Icon Shortcuts</string>
     <string name="settings_quick_action_number">Quick Action %1$d</string>
-    <string name="settings_quick_actions_footer">Hold the Fud AI app icon to use these shortcuts. Each slot opens its selected logging method directly.</string>
+    <string name="settings_quick_actions_footer">Hold the Fud AI app icon to use these shortcuts. Each slot opens its selected action directly.</string>
     <string name="about_whisper_notices">Whisper Base third-party notices</string>
     <string name="about_whisper_notices_load_error">Could not load the Whisper Base third-party notices.</string>
 </resources>

@@ -608,9 +608,27 @@ private fun MyProgressContent(container: AppContainer) {
 
 @Composable
 private fun TimeRangePicker(selected: TimeRange, onSelect: (TimeRange) -> Unit) {
-    // iOS .pickerStyle(.segmented): a track tinted with the system fill colour,
-    // active segment drawn as a slightly raised darker pill, active text uses
-    // the primary on-background colour (white in dark mode), not the brand pink.
+    // Match iOS `.pickerStyle(.segmented)` for 1W / 1M / … — elevated selected
+    // pill on a muted track, not the brand gradient chips.
+    IosStyleSegmentedControl(
+        options = TimeRange.values().toList(),
+        selected = selected,
+        label = { stringResource(it.labelRes) },
+        onSelect = onSelect
+    )
+}
+
+/**
+ * Plain iOS-style segmented control used for time range and progress metrics.
+ */
+@Composable
+private fun <T> IosStyleSegmentedControl(
+    options: List<T>,
+    selected: T,
+    label: @Composable (T) -> String,
+    onSelect: (T) -> Unit,
+    modifier: Modifier = Modifier
+) {
     val shape = RoundedCornerShape(16.dp)
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
     val trackFill = if (isDark) {
@@ -618,9 +636,14 @@ private fun TimeRangePicker(selected: TimeRange, onSelect: (TimeRange) -> Unit) 
     } else {
         Color(0xFFE5DAD3).copy(alpha = 0.88f)
     }
+    val selectedFill = if (isDark) {
+        Color.White.copy(alpha = 0.18f)
+    } else {
+        Color.White
+    }
     val shadowAlpha = if (isDark) 0.16f else 0.06f
     Row(
-        Modifier
+        modifier
             .fillMaxWidth()
             .shadow(
                 elevation = if (isDark) 10.dp else 4.dp,
@@ -630,46 +653,52 @@ private fun TimeRangePicker(selected: TimeRange, onSelect: (TimeRange) -> Unit) 
             )
             .clip(shape)
             .background(trackFill)
-            .background(
-                Brush.verticalGradient(
-                    listOf(
-                        Color.White.copy(alpha = if (isDark) 0.08f else 0.20f),
-                        Color.White.copy(alpha = if (isDark) 0.02f else 0.05f),
-                        AppColors.Calorie.copy(alpha = if (isDark) 0.025f else 0.045f)
-                    )
-                )
-            )
             .border(
                 0.7.dp,
-                Brush.linearGradient(
-                    listOf(
-                        Color.White.copy(alpha = if (isDark) 0.15f else 0.50f),
-                        AppColors.Calorie.copy(alpha = if (isDark) 0.08f else 0.16f)
-                    )
-                ),
+                Color.White.copy(alpha = if (isDark) 0.10f else 0.45f),
                 shape
             )
             .padding(3.dp)
+            .selectableGroup()
     ) {
-        for (r in TimeRange.values()) {
-            val isSel = r == selected
+        options.forEach { option ->
+            val isSel = option == selected
             Box(
                 Modifier
                     .weight(1f)
                     .clip(RoundedCornerShape(13.dp))
                     .then(
-                        if (isSel) Modifier.background(AppColors.CalorieGradient)
-                        else Modifier.background(Color.Transparent)
+                        if (isSel) {
+                            Modifier
+                                .shadow(
+                                    elevation = if (isDark) 2.dp else 3.dp,
+                                    shape = RoundedCornerShape(13.dp),
+                                    ambientColor = Color.Black.copy(alpha = if (isDark) 0.25f else 0.08f),
+                                    spotColor = Color.Black.copy(alpha = if (isDark) 0.25f else 0.08f)
+                                )
+                                .background(selectedFill)
+                        } else {
+                            Modifier.background(Color.Transparent)
+                        }
                     )
-                    .clickable { onSelect(r) }
-                    .padding(vertical = 7.dp),
+                    .selectable(
+                        selected = isSel,
+                        role = Role.Tab,
+                        onClick = { onSelect(option) }
+                    )
+                    .padding(vertical = 8.dp, horizontal = 4.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    stringResource(r.labelRes),
+                    label(option),
                     fontSize = 13.sp,
                     fontWeight = if (isSel) FontWeight.SemiBold else FontWeight.Medium,
-                    color = if (isSel) Color.White else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f)
+                    maxLines = 1,
+                    color = if (isSel) {
+                        MaterialTheme.colorScheme.onSurface
+                    } else {
+                        MaterialTheme.colorScheme.onSurface.copy(alpha = 0.72f)
+                    }
                 )
             }
         }
@@ -1893,95 +1922,19 @@ private fun ProgressMetricSelector(
     selected: ProgressMetric,
     onSelect: (ProgressMetric) -> Unit
 ) {
+    // Match iOS `ProgressMetricSelector` segmented pill (text only, equal weight).
     val labels = mapOf(
         ProgressMetric.WEIGHT to stringResource(R.string.progress_metric_weight),
         ProgressMetric.BODY_FAT to stringResource(R.string.progress_metric_body_fat),
         ProgressMetric.WORKOUTS to stringResource(R.string.progress_metric_workouts),
         ProgressMetric.HEART_RATE to stringResource(R.string.progress_metric_heart_rate)
     )
-    val shape = RoundedCornerShape(18.dp)
-    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
-    val trackFill = if (isDark) {
-        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.34f)
-    } else {
-        Color(0xFFE5DAD3).copy(alpha = 0.88f)
-    }
-    val shadowAlpha = if (isDark) 0.14f else 0.05f
-    val scrollState = rememberScrollState()
-    val density = LocalDensity.current
-    LaunchedEffect(selected, metrics, scrollState.maxValue) {
-        val selectedIndex = metrics.indexOf(selected).coerceAtLeast(0)
-        val targetOffset = with(density) { (selectedIndex * 108).dp.roundToPx() }
-        scrollState.animateScrollTo(targetOffset.coerceAtMost(scrollState.maxValue))
-    }
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .shadow(
-                elevation = if (isDark) 10.dp else 4.dp,
-                shape = shape,
-                ambientColor = Color.Black.copy(alpha = shadowAlpha),
-                spotColor = Color.Black.copy(alpha = shadowAlpha)
-            )
-            .clip(shape)
-            .background(trackFill)
-            .background(
-                Brush.verticalGradient(
-                    listOf(
-                        Color.White.copy(alpha = if (isDark) 0.08f else 0.20f),
-                        Color.White.copy(alpha = if (isDark) 0.02f else 0.05f),
-                        AppColors.Calorie.copy(alpha = if (isDark) 0.025f else 0.045f)
-                    )
-                )
-            )
-            .border(
-                0.7.dp,
-                Brush.linearGradient(
-                    listOf(
-                        Color.White.copy(alpha = if (isDark) 0.15f else 0.50f),
-                        AppColors.Calorie.copy(alpha = if (isDark) 0.08f else 0.16f)
-                    )
-                ),
-                shape
-            )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .horizontalScroll(scrollState)
-                .selectableGroup()
-                .padding(3.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
-            metrics.forEach { metric ->
-                val isSelected = metric == selected
-                Box(
-                    modifier = Modifier
-                        .widthIn(min = 104.dp)
-                        .heightIn(min = 48.dp)
-                        .clip(RoundedCornerShape(15.dp))
-                        .then(
-                            if (isSelected) Modifier.background(AppColors.CalorieGradient)
-                            else Modifier.background(Color.Transparent)
-                        )
-                        .selectable(
-                            selected = isSelected,
-                            role = Role.Tab,
-                            onClick = { onSelect(metric) }
-                        )
-                        .padding(horizontal = 16.dp, vertical = 10.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        labels.getValue(metric),
-                        fontSize = 14.sp,
-                        fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Medium,
-                        color = if (isSelected) Color.White else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                    )
-                }
-            }
-        }
-    }
+    IosStyleSegmentedControl(
+        options = metrics,
+        selected = selected,
+        label = { labels.getValue(it) },
+        onSelect = onSelect
+    )
 }
 
 @Composable

@@ -1,0 +1,11 @@
+---
+description: Real-phone install defaults for Fud AI testing
+alwaysApply: true
+---
+
+When installing Fud AI on my real phones for testing:
+
+- **iOS**: Release build only. Install over the existing App Store / prior install. Never uninstall first.
+- **Android**: Debug build only. Use `adb install -r` (or equivalent replace) over the existing install. Never uninstall first or clear app data.
+- Preserve existing on-device data unless I explicitly ask to wipe or reinstall clean.
+- Prefer the currently connected device (Apoorv’s iPhone / USB Android) when I ask to install without naming one.

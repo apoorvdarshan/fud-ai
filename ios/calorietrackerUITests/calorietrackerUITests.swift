@@ -275,69 +275,6 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
-    func testProgressPulseSelectorOpensHeartRateAndManualLog() throws {
-        let app = XCUIApplication()
-        app.launchArguments += [
-            "-AppleLanguages", "(en)",
-            "-hasCompletedOnboarding", "YES",
-            "--ui-test-reset-heart-rate",
-        ]
-        app.launch()
-
-        let progress = app.tabBars.buttons["Progress"]
-        XCTAssertTrue(progress.waitForExistence(timeout: 8))
-        progress.tap()
-
-        let pulse = app.buttons["Pulse"]
-        XCTAssertTrue(pulse.waitForExistence(timeout: 3))
-        pulse.tap()
-
-        XCTAssertTrue(app.staticTexts["Heart Rate"].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.buttons["Measure Heart Rate"].exists)
-        XCTAssertTrue(app.staticTexts["Measure or log your first heart rate to see a trend"].exists)
-        XCTAssertFalse(app.staticTexts["Heart Rate History"].exists)
-
-        let screenshot = XCTAttachment(screenshot: app.screenshot())
-        screenshot.name = "Progress - Heart Rate Empty State"
-        screenshot.lifetime = .keepAlways
-        add(screenshot)
-
-        app.buttons["Measure Heart Rate"].tap()
-        XCTAssertTrue(app.staticTexts["Camera Unavailable"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.buttons["Cancel"].exists)
-        XCTAssertFalse(app.buttons["Save Reading"].exists)
-
-        let unavailableCameraScreenshot = XCTAttachment(screenshot: app.screenshot())
-        unavailableCameraScreenshot.name = "Progress - Heart Rate Camera Unavailable"
-        unavailableCameraScreenshot.lifetime = .keepAlways
-        add(unavailableCameraScreenshot)
-
-        app.buttons["Cancel"].tap()
-        XCTAssertTrue(app.staticTexts["Heart Rate"].waitForExistence(timeout: 3))
-        XCTAssertFalse(app.staticTexts["Heart Rate History"].exists)
-
-        let manualLog = app.buttons["Log Manually"]
-        XCTAssertTrue(manualLog.exists)
-        manualLog.tap()
-        XCTAssertTrue(app.navigationBars["Log Heart Rate"].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.staticTexts["Date and Time"].exists)
-
-        let manualScreenshot = XCTAttachment(screenshot: app.screenshot())
-        manualScreenshot.name = "Progress - Manual Heart Rate"
-        manualScreenshot.lifetime = .keepAlways
-        add(manualScreenshot)
-
-        app.buttons["Save"].tap()
-        XCTAssertTrue(app.staticTexts["Heart Rate History"].waitForExistence(timeout: 3))
-        XCTAssertTrue(app.staticTexts["1 entry · tap to view or delete"].exists)
-
-        let populatedScreenshot = XCTAttachment(screenshot: app.screenshot())
-        populatedScreenshot.name = "Progress - Heart Rate Populated"
-        populatedScreenshot.lifetime = .keepAlways
-        add(populatedScreenshot)
-    }
-
-    @MainActor
     func testLaunchPerformance() throws {
         // This measures how long it takes to launch your application.
         measure(metrics: [XCTApplicationLaunchMetric()]) {

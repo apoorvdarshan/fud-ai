@@ -699,7 +699,7 @@
 				INFOPLIST_KEY_AppGroupIdentifier = "$(APP_GROUP_IDENTIFIER)";
 				INFOPLIST_KEY_CFBundleDisplayName = "$(APP_DISPLAY_NAME)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Fud AI uses the camera to scan food and barcodes and to estimate heart rate when you place a fingertip over the rear camera and flash.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Fud AI uses the camera to scan food and barcodes.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read your weight, height, body composition, nutrition, and Fud AI workout calories to keep your history in sync.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Write, update, or remove your nutrition, body measurements, and calculated workout calories when you change your logs.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Fud AI needs microphone access so you can log food by voice.";
@@ -751,7 +751,7 @@
 				INFOPLIST_KEY_AppGroupIdentifier = "$(APP_GROUP_IDENTIFIER)";
 				INFOPLIST_KEY_CFBundleDisplayName = "$(APP_DISPLAY_NAME)";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Fud AI uses the camera to scan food and barcodes and to estimate heart rate when you place a fingertip over the rear camera and flash.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Fud AI uses the camera to scan food and barcodes.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Read your weight, height, body composition, nutrition, and Fud AI workout calories to keep your history in sync.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Write, update, or remove your nutrition, body measurements, and calculated workout calories when you change your logs.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Fud AI needs microphone access so you can log food by voice.";

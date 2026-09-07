@@ -1,107 +1,107 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "NSCameraUsageDescription" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "يستخدم Fud AI الكاميرا لمسح الطعام والرموز الشريطية وتقدير معدل ضربات القلب عند وضع طرف إصبعك على الكاميرا الخلفية والفلاش."
+  "sourceLanguage": "en",
+  "strings": {
+    "NSCameraUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يستخدم Fud AI الكاميرا لمسح الطعام والرموز الشريطية."
           }
         },
-        "az" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AI qida və ştrix-kodları skan etmək, həmçinin barmaq ucunuzu arxa kamera və flaşın üzərinə qoyduğunuzda ürək döyüntüsünü təxmin etmək üçün kameradan istifadə edir."
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI qida və ştrix-kodları skan etmək üçün kameradan istifadə edir."
           }
         },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AI verwendet die Kamera, um Lebensmittel und Barcodes zu scannen und die Herzfrequenz zu schätzen, wenn du eine Fingerspitze auf die rückseitige Kamera und den Blitz legst."
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI verwendet die Kamera, um Lebensmittel und Barcodes zu scannen."
           }
         },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AI uses the camera to scan food and barcodes and to estimate heart rate when you place a fingertip over the rear camera and flash."
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI uses the camera to scan food and barcodes."
           }
         },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AI usa la cámara para escanear alimentos y códigos de barras, y para estimar la frecuencia cardíaca cuando colocas la yema de un dedo sobre la cámara trasera y el flash."
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI usa la cámara para escanear alimentos y códigos de barras."
           }
         },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AI utilise l’appareil photo pour scanner les aliments et les codes-barres, et pour estimer la fréquence cardiaque lorsque vous placez le bout d’un doigt sur l’appareil photo arrière et le flash."
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI utilise l’appareil photo pour scanner les aliments et les codes-barres."
           }
         },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AI भोजन और बारकोड स्कैन करने तथा पीछे के कैमरे और फ़्लैश पर उंगली का सिरा रखने पर हृदय गति का अनुमान लगाने के लिए कैमरे का उपयोग करता है।"
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI भोजन और बारकोड स्कैन करने के लिए कैमरे का उपयोग करता है।"
           }
         },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AI usa la fotocamera per scansionare alimenti e codici a barre e per stimare la frequenza cardiaca quando appoggi la punta di un dito sulla fotocamera posteriore e sul flash."
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI usa la fotocamera per scansionare alimenti e codici a barre."
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AIは、食品やバーコードのスキャンと、背面カメラとフラッシュに指先を当てたときの心拍数の推定にカメラを使用します。"
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AIは、食品やバーコードのスキャンにカメラを使用します。"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AI는 음식과 바코드를 스캔하고 손가락 끝으로 후면 카메라와 플래시를 덮었을 때 심박수를 추정하기 위해 카메라를 사용합니다."
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI는 음식과 바코드를 스캔하기 위해 카메라를 사용합니다."
           }
         },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AI gebruikt de camera om voedsel en barcodes te scannen en om je hartslag te schatten wanneer je een vingertop over de camera en flitser aan de achterkant legt."
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI gebruikt de camera om voedsel en barcodes te scannen."
           }
         },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AI używa aparatu do skanowania żywności i kodów kreskowych oraz szacowania tętna po przyłożeniu opuszka palca do tylnego aparatu i lampy błyskowej."
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI używa aparatu do skanowania żywności i kodów kreskowych."
           }
         },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "O Fud AI usa a câmera para escanear alimentos e códigos de barras e para estimar a frequência cardíaca quando você coloca a ponta do dedo sobre a câmera traseira e o flash."
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Fud AI usa a câmera para escanear alimentos e códigos de barras."
           }
         },
-        "ro" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AI folosește camera pentru a scana alimente și coduri de bare și pentru a estima ritmul cardiac atunci când așezi vârful degetului peste camera din spate și bliț."
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI folosește camera pentru a scana alimente și coduri de bare."
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AI использует камеру для сканирования продуктов и штрихкодов, а также для оценки пульса, когда вы прикладываете кончик пальца к задней камере и вспышке."
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI использует камеру для сканирования продуктов и штрихкодов."
           }
         },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Fud AI 使用相机扫描食物和条形码，并在您将指尖覆盖在后置相机和闪光灯上时估算心率。"
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI 使用相机扫描食物和条形码。"
           }
         }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

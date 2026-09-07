@@ -16,7 +16,6 @@ struct calorietrackerApp: App {
     @State private var foodStore = FoodStore()
     @State private var weightStore = WeightStore()
     @State private var bodyFatStore = BodyFatStore()
-    @State private var heartRateStore: HeartRateStore
     @State private var bodyMeasurementStore = BodyMeasurementStore()
     @State private var notificationManager = NotificationManager()
     @State private var healthKitManager = HealthKitManager()
@@ -42,15 +41,6 @@ struct calorietrackerApp: App {
     }
 
     init() {
-#if DEBUG
-        // Keep Progress UI tests repeatable without changing any normal launch.
-        // This flag is never passed by the app itself or included in release builds.
-        if CommandLine.arguments.contains("--ui-test-reset-heart-rate") {
-            UserDefaults.standard.removeObject(forKey: HeartRateStore.defaultStorageKey)
-        }
-#endif
-        _heartRateStore = State(initialValue: HeartRateStore())
-
         // Tip-jar IAPs are tracked through RevenueCat (public SDK key, safe to ship).
         Purchases.logLevel = .warn
         Purchases.configure(withAPIKey: "appl_kOERxwXPyEUPZVCKhuuuNnUuGUZ")
@@ -73,7 +63,6 @@ struct calorietrackerApp: App {
                         .environment(foodStore)
                         .environment(weightStore)
                         .environment(bodyFatStore)
-                        .environment(heartRateStore)
                         .environment(bodyMeasurementStore)
                         .environment(notificationManager)
                         .environment(healthKitManager)

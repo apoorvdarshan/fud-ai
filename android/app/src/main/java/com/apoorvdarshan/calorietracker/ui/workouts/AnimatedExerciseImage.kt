@@ -114,7 +114,7 @@ fun AnimatedExerciseImage(
         }
     }
 
-    Box(modifier) {
+    Box(modifier.background(colors.background)) {
         imagePaths.forEachIndexed { i, path ->
             key(path, visual.format) {
                 val assetUri = ExerciseRepository.imageAssetUri(path)

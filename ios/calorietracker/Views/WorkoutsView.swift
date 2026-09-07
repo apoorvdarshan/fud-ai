@@ -827,6 +827,11 @@ struct ExerciseLibraryDetailView: View {
 
     private func detailHero(width: CGFloat) -> some View {
         ZStack(alignment: .topTrailing) {
+            // Opaque fill so transparent PNG cutouts don't let instructions
+            // show through while this pinned hero covers the scroll content.
+            Color.workoutBackground
+                .frame(width: width, height: 294)
+
             AnimatedExerciseVisual(
                 exerciseName: item.name,
                 imagePaths: item.imagePaths,

@@ -111,9 +111,11 @@ private struct ExerciseImageView: View {
 
     var body: some View {
         ZStack {
-            if !frames.isEmpty {
-                Color.workoutPanel.opacity(0.18)
+            // Opaque in light and dark so transparent PNG cutouts never
+            // composite over scrolling content behind a sticky hero.
+            Color.workoutBackground
 
+            if !frames.isEmpty {
                 ZStack {
                     ForEach(frames.indices, id: \.self) { index in
                         exerciseFrame(frames[index])
@@ -122,8 +124,6 @@ private struct ExerciseImageView: View {
                             .opacity(index == frameIndex ? 1 : 0)
                     }
                 }
-            } else {
-                Color.workoutPanel.opacity(0.18)
             }
         }
         .task(id: taskID) {

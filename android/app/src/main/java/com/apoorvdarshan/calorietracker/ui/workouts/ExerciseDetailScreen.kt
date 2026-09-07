@@ -115,12 +115,14 @@ fun ExerciseDetailScreen(
 @Composable
 private fun Hero(item: ExerciseItem, visual: ExerciseVisual, showMetrics: Boolean, onToggle: () -> Unit) {
     val colors = workoutsColors()
+    // Opaque screen background so transparent PNG cutouts don't let
+    // instructions show through when this pinned hero covers the scroll.
     Box(
         Modifier
             .fillMaxWidth()
             .height(HERO_HEIGHT)
             .clip(RoundedCornerShape(20.dp))
-            .background(colors.panel.copy(alpha = 0.32f))
+            .background(colors.background)
             .border(0.5.dp, colors.hairline.copy(alpha = 0.35f), RoundedCornerShape(20.dp))
     ) {
         AnimatedExerciseImage(visual, Modifier.fillMaxSize(), fallbackLabel = item.name)

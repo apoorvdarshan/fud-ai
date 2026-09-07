@@ -42,26 +42,25 @@ enum ProgressMetric: String, CaseIterable, Identifiable, Equatable {
     }
 }
 
-struct ProgressMetricSelector: View {
-    let metrics: [ProgressMetric]
-    @Binding var selection: ProgressMetric
+struct ProgressOverviewModeSelector: View {
+    @Binding var selection: ProgressOverviewMode
 
     var body: some View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal) {
                 HStack(spacing: 6) {
-                    ForEach(metrics) { metric in
+                    ForEach(ProgressOverviewMode.allCases) { mode in
                         Button {
-                            withAnimation(.snappy) { selection = metric }
+                            withAnimation(.snappy) { selection = mode }
                         } label: {
-                            Label(metric.title, systemImage: metric.icon)
+                            Label(mode.title, systemImage: mode.icon)
                                 .font(.system(.subheadline, design: .rounded, weight: .semibold))
-                                .foregroundStyle(selection == metric ? Color.white : Color.secondary)
+                                .foregroundStyle(selection == mode ? Color.white : Color.secondary)
                                 .lineLimit(1)
                                 .padding(.horizontal, 14)
                                 .frame(minHeight: 44)
                                 .background {
-                                    if selection == metric {
+                                    if selection == mode {
                                         Capsule().fill(
                                             LinearGradient(
                                                 colors: AppColors.calorieGradient,
@@ -75,8 +74,8 @@ struct ProgressMetricSelector: View {
                                 }
                         }
                         .buttonStyle(.plain)
-                        .accessibilityAddTraits(selection == metric ? .isSelected : [])
-                        .id(metric)
+                        .accessibilityAddTraits(selection == mode ? .isSelected : [])
+                        .id(mode)
                     }
                 }
                 .padding(4)
@@ -87,11 +86,32 @@ struct ProgressMetricSelector: View {
                 Capsule().stroke(AppColors.calorie.opacity(0.12), lineWidth: 0.75)
             }
             .accessibilityElement(children: .contain)
-            .accessibilityLabel("Progress metric")
+            .accessibilityLabel(WeeklyChallengeL10n.text("Progress view"))
             .onChange(of: selection) { _, selected in
                 withAnimation(.snappy) {
                     proxy.scrollTo(selected, anchor: .center)
                 }
+            }
+        }
+    }
+}
+
+struct ProgressMetricSelector: View {
+    let metrics: [ProgressMetric]
+    @Binding var selection: ProgressMetric
+
+    var body: some View {
+        Picker("Progress metric", selection: $selection) {
+            ForEach(metrics) { metric in
+                Text(metric.title).tag(metric)
+            }
+        }
+        .pickerStyle(.segmented)
+        .tint(AppColors.calorie)
+        .accessibilityLabel("Progress metric")
+        .onChange(of: metrics) { _, available in
+            if !available.contains(selection), let first = available.first {
+                selection = first
             }
         }
     }

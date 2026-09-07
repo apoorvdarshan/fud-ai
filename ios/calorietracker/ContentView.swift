@@ -3116,17 +3116,7 @@ struct ProgressTabView: View {
         let _ = profileStore.profile
         return NavigationStack {
             VStack(spacing: 0) {
-                Picker(
-                    WeeklyChallengeL10n.text("Progress view"),
-                    selection: $progressOverviewMode
-                ) {
-                    Text(WeeklyChallengeL10n.text("My Progress"))
-                        .tag(ProgressOverviewMode.myProgress)
-                    Text(WeeklyChallengeL10n.text("Weekly Challenge"))
-                        .tag(ProgressOverviewMode.weeklyChallenge)
-                }
-                .pickerStyle(.segmented)
-                .tint(AppColors.calorie)
+                ProgressOverviewModeSelector(selection: $progressOverviewMode)
                 .padding(.horizontal)
                 .padding(.top, 10)
                 .padding(.bottom, 4)

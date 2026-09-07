@@ -629,8 +629,6 @@ struct HomeView: View {
     @State private var selectedPhotoItems: [PhotosPickerItem] = []
     @State private var showPhotoPicker = false
     @State private var showError = false
-    @State private var showBarcodeScanLabelError = false
-    @State private var showBarcodeRetryError = false
     @State private var errorMessage = ""
     private enum RetryRequest {
         case analysis(images: [UIImage], mode: CameraMode, description: String?, progressiveMeal: Bool)
@@ -1448,37 +1446,6 @@ struct HomeView: View {
                     AnalyzingView(image: nil, message: "Looking up nutrition...")
                 case .lookingUpBarcode:
                     AnalyzingView(image: nil, message: "Looking up barcode...")
-                        // Own the alert on this sheet so it isn't dropped when the
-                        // loading sheet would otherwise dismiss mid-presentation.
-                        .alert("Couldn't use this barcode", isPresented: $showBarcodeScanLabelError) {
-                            Button("Scan Label") {
-                                retryRequest = nil
-                                activeSheet = nil
-                                openCameraForNutritionLabel()
-                            }
-                            Button("Cancel", role: .cancel) {
-                                retryRequest = nil
-                                activeSheet = nil
-                            }
-                        } message: {
-                            Text(errorMessage)
-                        }
-                        .alert("Error", isPresented: $showBarcodeRetryError) {
-                            Button("Retry") {
-                                showBarcodeRetryError = false
-                                if case let .barcode(code) = retryRequest {
-                                    startBarcodeLookup(code)
-                                } else {
-                                    activeSheet = nil
-                                }
-                            }
-                            Button("Cancel", role: .cancel) {
-                                retryRequest = nil
-                                activeSheet = nil
-                            }
-                        } message: {
-                            Text(errorMessage)
-                        }
                 case .foodResult:
                     if let result = currentFoodResult {
                         FoodResultView(
@@ -1735,6 +1702,16 @@ struct HomeView: View {
                     wasBackgrounded = true
                 }
             }
+            .onReceive(NotificationCenter.default.publisher(for: .fudBarcodeAlertScanLabel)) { _ in
+                retryRequest = nil
+                openCameraForNutritionLabel()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .fudBarcodeAlertRetry)) { _ in
+                retryLastRequest()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .fudBarcodeAlertCancel)) { _ in
+                retryRequest = nil
+            }
         }
     }
 
@@ -1760,8 +1737,6 @@ struct HomeView: View {
         showNutritionDetail = false
         showCustomWaterLog = false
         showError = false
-        showBarcodeScanLabelError = false
-        showBarcodeRetryError = false
         showFastingStart = false
         editingFastingSession = nil
         selectedDate = .now
@@ -1914,8 +1889,6 @@ struct HomeView: View {
         currentImages = []
         currentEmoji = nil
         currentFoodSource = .barcode
-        showBarcodeScanLabelError = false
-        showBarcodeRetryError = false
         activeSheet = .lookingUpBarcode
 
         Task {
@@ -1979,15 +1952,14 @@ struct HomeView: View {
             offersScanLabel = false
         }
 
-        // Keep `.lookingUpBarcode` presented and show the system alert on that
-        // sheet. Dismissing the sheet then presenting a Home-level alert is what
-        // made the popup appear and vanish on iOS.
-        errorMessage = error.localizedDescription
-        if offersScanLabel {
-            showBarcodeScanLabelError = true
-        } else {
-            showBarcodeRetryError = true
-        }
+        let message = error.localizedDescription
+        errorMessage = message
+        // End the loading sheet first, then show only the system popup.
+        activeSheet = nil
+        BarcodeLookupAlertPresenter.present(
+            message: message,
+            offersScanLabel: offersScanLabel
+        )
     }
 
     @MainActor
@@ -2019,6 +1991,55 @@ struct HomeView: View {
         }
     }
 
+}
+
+private extension Notification.Name {
+    static let fudBarcodeAlertScanLabel = Notification.Name("fudBarcodeAlertScanLabel")
+    static let fudBarcodeAlertRetry = Notification.Name("fudBarcodeAlertRetry")
+    static let fudBarcodeAlertCancel = Notification.Name("fudBarcodeAlertCancel")
+}
+
+/// UIKit alert so the barcode error popup survives SwiftUI sheet dismissal.
+@MainActor
+private enum BarcodeLookupAlertPresenter {
+    static func present(message: String, offersScanLabel: Bool, attempt: Int = 0) {
+        guard let root = keyRootViewController() else { return }
+
+        // Wait until the "Looking up barcode..." sheet has fully dismissed.
+        if root.presentedViewController != nil, attempt < 30 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
+                present(message: message, offersScanLabel: offersScanLabel, attempt: attempt + 1)
+            }
+            return
+        }
+
+        let alert = UIAlertController(
+            title: "Couldn't use this barcode",
+            message: message,
+            preferredStyle: .alert
+        )
+        if offersScanLabel {
+            alert.addAction(UIAlertAction(title: "Scan Label", style: .default) { _ in
+                NotificationCenter.default.post(name: .fudBarcodeAlertScanLabel, object: nil)
+            })
+        } else {
+            alert.addAction(UIAlertAction(title: "Retry", style: .default) { _ in
+                NotificationCenter.default.post(name: .fudBarcodeAlertRetry, object: nil)
+            })
+        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            NotificationCenter.default.post(name: .fudBarcodeAlertCancel, object: nil)
+        })
+        root.present(alert, animated: true)
+    }
+
+    private static func keyRootViewController() -> UIViewController? {
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap(\.windows)
+            .first(where: \.isKeyWindow)?
+            .rootViewController
+    }
 }
 
 // MARK: - Siri Phrases

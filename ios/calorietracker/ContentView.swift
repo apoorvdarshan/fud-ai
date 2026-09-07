@@ -630,6 +630,7 @@ struct HomeView: View {
     @State private var showPhotoPicker = false
     @State private var showError = false
     @State private var errorMessage = ""
+    @State private var errorOffersScanLabel = false
     private enum RetryRequest {
         case analysis(images: [UIImage], mode: CameraMode, description: String?, progressiveMeal: Bool)
         case text(String)
@@ -1572,8 +1573,20 @@ struct HomeView: View {
                 }
             }
             .alert("Error", isPresented: $showError) {
-                Button("Retry") { retryLastRequest() }
-                Button("Cancel", role: .cancel) { retryRequest = nil }
+                if errorOffersScanLabel {
+                    Button("Scan Label") {
+                        errorOffersScanLabel = false
+                        retryRequest = nil
+                        openCameraForNutritionLabel()
+                    }
+                    Button("Cancel", role: .cancel) {
+                        errorOffersScanLabel = false
+                        retryRequest = nil
+                    }
+                } else {
+                    Button("Retry") { retryLastRequest() }
+                    Button("Cancel", role: .cancel) { retryRequest = nil }
+                }
             } message: {
                 Text(errorMessage)
             }
@@ -1663,6 +1676,7 @@ struct HomeView: View {
         showNutritionDetail = false
         showCustomWaterLog = false
         showError = false
+        errorOffersScanLabel = false
         selectedDate = .now
 
         onQuickActionHandled(request.id)
@@ -1772,9 +1786,7 @@ struct HomeView: View {
 
                 }
             } catch {
-                activeSheet = nil
-                errorMessage = error.localizedDescription
-                showError = true
+                presentAnalysisError(error)
             }
         }
     }
@@ -1804,9 +1816,7 @@ struct HomeView: View {
                 retryRequest = nil
                 activeSheet = .foodResult
             } catch {
-                activeSheet = nil
-                errorMessage = error.localizedDescription
-                showError = true
+                presentAnalysisError(error)
             }
         }
     }
@@ -1822,11 +1832,43 @@ struct HomeView: View {
                 retryRequest = nil
                 activeSheet = .foodResult
             } catch {
-                activeSheet = nil
-                errorMessage = error.localizedDescription
-                showError = true
+                presentAnalysisError(error)
             }
         }
+    }
+
+    /// Dismiss the loading sheet first, then present the alert after the sheet
+    /// animation finishes. Presenting both in the same turn makes SwiftUI flash
+    /// or drop the alert (common after barcode lookup failures).
+    @MainActor
+    private func presentAnalysisError(_ error: Error) {
+        let offersScanLabel: Bool
+        if let lookupError = error as? OpenFoodFactsService.LookupError {
+            switch lookupError {
+            case .missingNutrition, .productNotFound:
+                offersScanLabel = true
+            default:
+                offersScanLabel = false
+            }
+        } else {
+            offersScanLabel = false
+        }
+        activeSheet = nil
+        errorMessage = error.localizedDescription
+        errorOffersScanLabel = offersScanLabel
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            showError = true
+        }
+    }
+
+    @MainActor
+    private func openCameraForNutritionLabel() {
+        guard canBeginFoodLogging() else { return }
+        cameraMode = .snapFoodWithContext
+        isImportingPhotos = false
+        captureImages = []
+        contextDescription = ""
+        showCamera = true
     }
 
     private func retryLastRequest() {

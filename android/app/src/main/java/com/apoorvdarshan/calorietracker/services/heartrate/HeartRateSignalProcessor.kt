@@ -61,6 +61,8 @@ class HeartRateSignalProcessor(
     private var lastFrameNanos: Long? = null
     private var lastAnalysisNanos: Long? = null
     private var terminalUpdate: PpgUpdate? = null
+    private var consecutiveMissedContactFrames = 0
+    private var lastMeasuringUpdate: PpgUpdate? = null
 
     init {
         require(targetSeconds in MIN_ANALYSIS_SECONDS..maximumSessionSeconds)
@@ -76,6 +78,8 @@ class HeartRateSignalProcessor(
         lastFrameNanos = null
         lastAnalysisNanos = null
         terminalUpdate = null
+        consecutiveMissedContactFrames = 0
+        lastMeasuringUpdate = null
     }
 
     fun ingest(sample: PpgFrameSample): PpgUpdate {
@@ -96,9 +100,17 @@ class HeartRateSignalProcessor(
         }
 
         if (!hasFingerContact(sample)) {
-            clearContactWindow()
-            return PpgUpdate(PpgStage.FINDING_FINGER)
+            consecutiveMissedContactFrames += 1
+            if (contactStartNanos == null ||
+                consecutiveMissedContactFrames > MISSED_CONTACT_TOLERANCE_FRAMES
+            ) {
+                clearContactWindow()
+                return PpgUpdate(PpgStage.FINDING_FINGER)
+            }
+            // Keep measuring through brief coverage gaps (uneven flash / slight finger slip).
+            return lastMeasuringUpdate ?: PpgUpdate(PpgStage.MEASURING)
         }
+        consecutiveMissedContactFrames = 0
 
         val contactStart = contactStartNanos
             ?: sample.timestampNanos.also { contactStartNanos = it }
@@ -129,13 +141,15 @@ class HeartRateSignalProcessor(
             stage = PpgStage.MEASURING,
             progress = (elapsed / maximumSessionSeconds).coerceIn(0.0, 1.0),
             refiningSignal = elapsed >= targetSeconds
-        )
+        ).also { lastMeasuringUpdate = it }
     }
 
     private fun clearContactWindow() {
         samples.clear()
         contactStartNanos = null
         lastAnalysisNanos = null
+        consecutiveMissedContactFrames = 0
+        lastMeasuringUpdate = null
     }
 
     private fun terminalPoorSignal(): PpgUpdate =
@@ -147,6 +161,7 @@ class HeartRateSignalProcessor(
         private const val ANALYSIS_INTERVAL_SECONDS = 0.5
         private const val DEFAULT_SAMPLE_CAPACITY = 960
         internal const val MAX_BUFFERED_SAMPLES = 2_701 // 30 seconds at the accepted 90 Hz ceiling.
+        private const val MISSED_CONTACT_TOLERANCE_FRAMES = 12
 
         private const val MIN_ANALYSIS_SECONDS = 10.0
         private const val MIN_SAMPLE_RATE_HZ = 10.0
@@ -156,12 +171,13 @@ class HeartRateSignalProcessor(
         private const val MAX_CADENCE_COEFFICIENT = 0.45
         private const val MAX_CADENCE_OUTLIER_FRACTION = 0.30
 
-        private const val MIN_RED_LEVEL = 85.0
+        // Looser gates so covering only the main camera (flash lighting the finger side) still counts.
+        private const val MIN_RED_LEVEL = 70.0
         private const val MAX_RED_LEVEL = 252.0
-        private const val MIN_RED_DOMINANCE_RATIO = 1.08
-        private const val MIN_RED_DOMINANCE_DELTA = 12.0
-        private const val MAX_RED_CLIPPED_FRACTION = 0.16
-        private const val MAX_RED_SPATIAL_STD_DEV = 42.0
+        private const val MIN_RED_DOMINANCE_RATIO = 1.04
+        private const val MIN_RED_DOMINANCE_DELTA = 8.0
+        private const val MAX_RED_CLIPPED_FRACTION = 0.30
+        private const val MAX_RED_SPATIAL_STD_DEV = 70.0
 
         private const val MIN_SIGNAL_STD_DEV = 0.12
         private const val MAX_SIGNAL_STD_DEV = 30.0

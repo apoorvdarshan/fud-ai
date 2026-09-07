@@ -36,7 +36,8 @@ struct HeartRatePPGProcessorTests {
         _ = feedSignal(bpm: 72, duration: 8, processor: &processor)
         #expect(processor.retainedSampleCount > 200)
 
-        let update = processor.process(
+        // A single miss should not wipe the window.
+        var update = processor.process(
             sample: HeartRatePPGSample(
                 timestamp: 8.1,
                 red: 0.28,
@@ -44,6 +45,19 @@ struct HeartRatePPGProcessorTests {
                 blue: 0.29
             )
         )
+        #expect(update.contactDetected)
+        #expect(processor.retainedSampleCount > 200)
+
+        for frame in 1...13 {
+            update = processor.process(
+                sample: HeartRatePPGSample(
+                    timestamp: 8.1 + Double(frame) / 30.0,
+                    red: 0.28,
+                    green: 0.31,
+                    blue: 0.29
+                )
+            )
+        }
 
         #expect(!update.contactDetected)
         #expect(update.status == .waitingForContact)
@@ -52,22 +66,27 @@ struct HeartRatePPGProcessorTests {
     }
 
     @Test func contactGateRejectsSaturationClippingAndSpatialNonuniformity() {
-        var processor = HeartRatePPGProcessor()
-        #expect(processor.process(sample: contactSample(timestamp: 0, red: 0.78)).contactDetected)
+        var good = HeartRatePPGProcessor()
+        #expect(good.process(sample: contactSample(timestamp: 0, red: 0.78)).contactDetected)
 
-        #expect(!processor.process(sample: contactSample(
-            timestamp: 1,
+        var saturated = HeartRatePPGProcessor()
+        #expect(!saturated.process(sample: contactSample(
+            timestamp: 0,
             red: 254.0 / 255.0
         )).contactDetected)
-        #expect(!processor.process(sample: contactSample(
-            timestamp: 2,
+
+        var clipped = HeartRatePPGProcessor()
+        #expect(!clipped.process(sample: contactSample(
+            timestamp: 0,
             red: 0.78,
-            redClippedFraction: 0.25
+            redClippedFraction: 0.40
         )).contactDetected)
-        #expect(!processor.process(sample: contactSample(
-            timestamp: 3,
+
+        var uneven = HeartRatePPGProcessor()
+        #expect(!uneven.process(sample: contactSample(
+            timestamp: 0,
             red: 0.78,
-            redSpatialStandardDeviation: 60.0 / 255.0
+            redSpatialStandardDeviation: 80.0 / 255.0
         )).contactDetected)
     }
 

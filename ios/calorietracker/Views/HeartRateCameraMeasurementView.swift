@@ -226,7 +226,7 @@ struct HeartRateCameraMeasurementView: View {
 
     private var statusTitle: LocalizedStringKey {
         switch event {
-        case .waitingForContact: "Cover Main Camera + Flash"
+        case .waitingForContact: "Cover the Main Camera"
         case .measuring: "Measuring…"
         case .improveSignal: "Almost There"
         case .completed: "Estimated Heart Rate"
@@ -240,11 +240,11 @@ struct HeartRateCameraMeasurementView: View {
     private var statusGuidance: LocalizedStringKey {
         switch event {
         case .waitingForContact:
-            "Cover the flash and the main rear camera next to it with one fingertip. You do not need every lens—only the main camera and flash together. Press gently."
+            "Put your fingertip over the main rear camera (the lens closest to the flash). You do not need to cover the flash—it only needs to light the side of your finger. Press gently."
         case .measuring:
-            "Keep your fingertip still while Fud AI checks the pulse signal."
+            "Keep your fingertip still over the main camera while Fud AI checks the pulse."
         case .improveSignal:
-            "Still checking for a stable pulse. Keep covering the main camera and flash—press gently, not hard."
+            "Still checking for a stable pulse. Keep the main camera covered and press gently, not hard."
         case .completed:
             "Review the quality-checked estimate, then save it to Heart Rate History if it looks plausible."
         case .failed(.permissionDenied):
@@ -254,13 +254,13 @@ struct HeartRateCameraMeasurementView: View {
         case .failed(.interrupted):
             "The camera session stopped. Try again when the app is active."
         case .failed(.timedOut):
-            "No stable pulse was found. Cover only the main camera next to the flash, press gently, and try again."
+            "No stable pulse was found. Cover the main camera next to the flash (flash can stay uncovered), press gently, and try again."
         }
     }
 
     private var statusAnnouncement: String {
         switch event {
-        case .waitingForContact: String(localized: "Cover Main Camera + Flash")
+        case .waitingForContact: String(localized: "Cover the Main Camera")
         case .measuring: String(localized: "Measuring…")
         case .improveSignal: String(localized: "Almost There")
         case let .completed(result):
@@ -536,7 +536,7 @@ private final class HeartRateCaptureViewController: UIViewController {
                 }
                 try camera.lockForConfiguration()
                 do {
-                    try camera.setTorchModeOn(level: min(0.35, AVCaptureDevice.maxAvailableTorchLevel))
+                    try camera.setTorchModeOn(level: min(0.55, AVCaptureDevice.maxAvailableTorchLevel))
                     if camera.isFocusModeSupported(.locked) { camera.focusMode = .locked }
                     camera.unlockForConfiguration()
                 } catch {
@@ -710,12 +710,12 @@ nonisolated private final class HeartRateFrameAnalyzer: NSObject, AVCaptureVideo
         let bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer)
         guard width > 0, height > 0 else { return nil }
 
-        let xStart = width / 4
-        let xEnd = width * 3 / 4
-        let yStart = height / 4
-        let yEnd = height * 3 / 4
-        let xStep = max(1, (xEnd - xStart) / 24)
-        let yStep = max(1, (yEnd - yStart) / 24)
+        let xStart = width / 3
+        let xEnd = width * 2 / 3
+        let yStart = height / 3
+        let yEnd = height * 2 / 3
+        let xStep = max(1, (xEnd - xStart) / 20)
+        let yStep = max(1, (yEnd - yStart) / 20)
         let bytes = baseAddress.assumingMemoryBound(to: UInt8.self)
         var red = 0.0
         var redSquared = 0.0

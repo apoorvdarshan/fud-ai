@@ -33,15 +33,16 @@ class HeartRateFrameExtractionTest {
 
     @Test
     fun reportsMultiPixelSaturationAndSpatialVariance() {
-        val width = 12
-        val height = 12
+        val width = 24
+        val height = 24
         val pixelStride = 4
         val rowStride = width * pixelStride + 8
         val buffer = ByteBuffer.allocate(rowStride * height)
         val redValues = listOf(250, 255, 200, 100)
         var index = 0
-        for (y in 3 until 9 step 4) {
-            for (x in 3 until 9 step 4) {
+        // Center-third ROI with step 4 samples (8,8), (12,8), (8,12), (12,12).
+        for (y in 8 until 16 step 4) {
+            for (x in 8 until 16 step 4) {
                 val offset = y * rowStride + x * pixelStride
                 buffer.put(offset, redValues[index++].toByte())
                 buffer.put(offset + 1, 70.toByte())

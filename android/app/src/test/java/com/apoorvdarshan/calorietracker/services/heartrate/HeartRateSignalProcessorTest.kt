@@ -74,10 +74,10 @@ class HeartRateSignalProcessorTest {
             contactSample(timestampNanos = 1L, redMean = 254.0)
         ))
         assertTrue(!HeartRateSignalProcessor.hasFingerContact(
-            contactSample(timestampNanos = 1L, clippedFraction = 0.25)
+            contactSample(timestampNanos = 1L, clippedFraction = 0.45)
         ))
         assertTrue(!HeartRateSignalProcessor.hasFingerContact(
-            contactSample(timestampNanos = 1L, spatialStdDev = 60.0)
+            contactSample(timestampNanos = 1L, spatialStdDev = 85.0)
         ))
         assertTrue(!HeartRateSignalProcessor.hasFingerContact(
             contactSample(timestampNanos = 1L, redMean = 100.0, greenMean = 95.0)
@@ -218,12 +218,20 @@ class HeartRateSignalProcessorTest {
             processor.ingest(contactSample(index * FRAME_NANOS, pulseValue(90, time)))
         }
 
+        // Brief misses should keep the measuring window alive.
         assertEquals(
-            PpgStage.FINDING_FINGER,
+            PpgStage.MEASURING,
             processor.ingest(nonContactSample(301 * FRAME_NANOS)).stage
         )
+
+        var lost: PpgUpdate? = null
+        for (index in 302..(301 + 13)) {
+            lost = processor.ingest(nonContactSample(index * FRAME_NANOS))
+        }
+        assertEquals(PpgStage.FINDING_FINGER, lost?.stage)
+
         val resumed = processor.ingest(
-            contactSample(302 * FRAME_NANOS, pulseValue(90, 302 / 30.0))
+            contactSample(320 * FRAME_NANOS, pulseValue(90, 320 / 30.0))
         )
 
         assertEquals(PpgStage.MEASURING, resumed.stage)

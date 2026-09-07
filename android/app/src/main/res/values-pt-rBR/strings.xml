@@ -671,10 +671,10 @@
     <string name="progress_heart_rate_bpm_label">Batimentos por minuto</string>
     <string name="progress_heart_rate_manual_range">Digite um valor entre 30 e 250 bpm.</string>
     <string name="progress_heart_rate_camera_title">Medir frequência cardíaca</string>
-    <string name="progress_heart_rate_camera_guidance">Cover the flash and the main rear camera next to it with one fingertip. You do not need to cover every lens—only the main camera and flash together.</string>
-    <string name="progress_heart_rate_camera_refining">Still checking for a stable pulse. Keep covering the main camera and flash.</string>
+    <string name="progress_heart_rate_camera_guidance">Put your fingertip over the main rear camera (the lens closest to the flash). You do not need to cover the flash—it only needs to light the side of your finger. Press gently.</string>
+    <string name="progress_heart_rate_camera_refining">Still checking for a stable pulse. Keep the main camera covered and press gently.</string>
     <string name="progress_heart_rate_camera_measuring">Lendo seu pulso…</string>
-    <string name="progress_heart_rate_camera_hold_still">Keep your finger still and breathe normally. Press gently—not hard.</string>
+    <string name="progress_heart_rate_camera_hold_still">Keep your finger still over the main camera and breathe normally. Press gently—not hard.</string>
     <string name="progress_heart_rate_camera_result">%1$d bpm</string>
     <string name="progress_heart_rate_camera_poor_signal">O sinal não ficou nítido o suficiente. Ajuste a ponta do dedo e tente novamente.</string>
     <string name="progress_heart_rate_camera_unavailable">A câmera traseira não está disponível. Você ainda pode registrar a frequência cardíaca manualmente.</string>

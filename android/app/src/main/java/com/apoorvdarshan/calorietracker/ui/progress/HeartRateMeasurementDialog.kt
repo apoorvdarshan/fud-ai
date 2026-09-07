@@ -457,10 +457,10 @@ internal fun extractRgbaMeans(
 ): RgbMeans? {
     val bytes = buffer.duplicate()
     if (pixelStride < 4 || rowStride <= 0) return null
-    val left = width / 4
-    val right = width * 3 / 4
-    val top = height / 4
-    val bottom = height * 3 / 4
+    val left = width / 3
+    val right = width * 2 / 3
+    val top = height / 3
+    val bottom = height * 2 / 3
     var red = 0L
     var redSquared = 0.0
     var redClipped = 0L

@@ -79,7 +79,9 @@ data class HomeUiState(
     val foodSaveInProgress: Boolean = false,
     val foodLoggingBlocked: Boolean = false,
     val fastingOverlap: Boolean = false,
-    val error: String? = null
+    val error: String? = null,
+    /** When true, the error dialog's primary action opens the food camera instead of retrying. */
+    val errorOffersScanLabel: Boolean = false
 ) {
     val caloriesToday: Int get() = todayEntries.sumOf { it.calories }
     val proteinToday: Double get() = todayEntries.sumOf { it.protein }
@@ -306,6 +308,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             _ui.value = _ui.value.copy(
                 analyzing = true,
                 error = null,
+                errorOffersScanLabel = false,
                 pendingAnalysis = null,
                 pendingImageBytes = null,
                 pendingAdditionalImageBytes = emptyList(),
@@ -319,9 +322,9 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 val analysis = container.foodAnalysis.analyzeText(description)
                 savePendingDraft(analysis, imageBytes = null, source = FoodSource.TEXT_INPUT)
             } catch (e: AiError) {
-                _ui.value = _ui.value.copy(analyzing = false, error = e.message)
+                _ui.value = _ui.value.copy(analyzing = false, error = e.message, errorOffersScanLabel = false)
             } catch (e: Throwable) {
-                _ui.value = _ui.value.copy(analyzing = false, error = e.localizedMessage ?: container.appContext.getString(R.string.error_analysis_failed))
+                _ui.value = _ui.value.copy(analyzing = false, error = e.localizedMessage ?: container.appContext.getString(R.string.error_analysis_failed), errorOffersScanLabel = false)
             } finally {
                 container.analyzingFood.value = false
             }
@@ -336,6 +339,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             _ui.value = _ui.value.copy(
                 analyzing = true,
                 error = null,
+                errorOffersScanLabel = false,
                 pendingAnalysis = null,
                 pendingImageBytes = bytes,
                 pendingAdditionalImageBytes = emptyList(),
@@ -349,9 +353,9 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 val analysis = container.foodAnalysis.analyzeAuto(bytes)
                 savePendingDraft(analysis, imageBytes = bytes, source = FoodSource.SNAP_FOOD)
             } catch (e: AiError) {
-                _ui.value = _ui.value.copy(analyzing = false, error = e.message)
+                _ui.value = _ui.value.copy(analyzing = false, error = e.message, errorOffersScanLabel = false)
             } catch (e: Throwable) {
-                _ui.value = _ui.value.copy(analyzing = false, error = e.localizedMessage ?: container.appContext.getString(R.string.error_analysis_failed))
+                _ui.value = _ui.value.copy(analyzing = false, error = e.localizedMessage ?: container.appContext.getString(R.string.error_analysis_failed), errorOffersScanLabel = false)
             } finally {
                 container.analyzingFood.value = false
             }
@@ -373,6 +377,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             _ui.value = _ui.value.copy(
                 analyzing = true,
                 error = null,
+                errorOffersScanLabel = false,
                 pendingAnalysis = null,
                 pendingImageBytes = images.first(),
                 pendingAdditionalImageBytes = images.drop(1),
@@ -390,9 +395,9 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 ).copy(customNote = note?.takeIf { it.isNotBlank() })
                 savePendingDraft(analysis, imageBytesList = images, source = FoodSource.SNAP_FOOD)
             } catch (e: AiError) {
-                _ui.value = _ui.value.copy(analyzing = false, error = e.message)
+                _ui.value = _ui.value.copy(analyzing = false, error = e.message, errorOffersScanLabel = false)
             } catch (e: Throwable) {
-                _ui.value = _ui.value.copy(analyzing = false, error = e.localizedMessage ?: container.appContext.getString(R.string.error_analysis_failed))
+                _ui.value = _ui.value.copy(analyzing = false, error = e.localizedMessage ?: container.appContext.getString(R.string.error_analysis_failed), errorOffersScanLabel = false)
             } finally {
                 container.analyzingFood.value = false
             }
@@ -407,6 +412,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             _ui.value = _ui.value.copy(
                 analyzing = true,
                 error = null,
+                errorOffersScanLabel = false,
                 pendingAnalysis = null,
                 pendingImageBytes = null,
                 pendingAdditionalImageBytes = emptyList(),
@@ -428,10 +434,16 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             } catch (error: OpenFoodFactsService.LookupException) {
                 _ui.value = _ui.value.copy(
                     analyzing = false,
-                    error = barcodeLookupErrorMessage(error)
+                    error = barcodeLookupErrorMessage(error),
+                    errorOffersScanLabel = error.failure == OpenFoodFactsService.LookupFailure.MISSING_NUTRITION ||
+                        error.failure == OpenFoodFactsService.LookupFailure.PRODUCT_NOT_FOUND
                 )
             } catch (e: Throwable) {
-                _ui.value = _ui.value.copy(analyzing = false, error = e.localizedMessage ?: container.appContext.getString(R.string.error_barcode_lookup_failed))
+                _ui.value = _ui.value.copy(
+                    analyzing = false,
+                    error = e.localizedMessage ?: container.appContext.getString(R.string.error_barcode_lookup_failed),
+                    errorOffersScanLabel = false
+                )
             } finally {
                 container.analyzingFood.value = false
             }
@@ -564,7 +576,8 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 throw error
             } catch (error: Throwable) {
                 _ui.value = _ui.value.copy(
-                    error = error.localizedMessage ?: container.appContext.getString(R.string.error_analysis_failed)
+                    error = error.localizedMessage ?: container.appContext.getString(R.string.error_analysis_failed),
+                    errorOffersScanLabel = false
                 )
             } finally {
                 foodSubmissionGate.finish()
@@ -596,7 +609,8 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             pendingDraftImageFilename = null,
             pendingDraftAdditionalImageFilenames = emptyList(),
             pendingReviewSource = null,
-            error = null
+            error = null,
+            errorOffersScanLabel = false
         )
         viewModelScope.launch {
             discardPendingDraft(previousDraftImages)
@@ -605,7 +619,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
 
     fun retryPendingAnalysis() {
         val action = retryAction ?: return
-        _ui.value = _ui.value.copy(error = null)
+        _ui.value = _ui.value.copy(error = null, errorOffersScanLabel = false)
         action()
     }
 

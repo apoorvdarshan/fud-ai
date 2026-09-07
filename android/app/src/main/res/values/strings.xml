@@ -30,6 +30,7 @@
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_retry">Retry</string>
+    <string name="action_scan_label">Scan Label</string>
     <string name="action_done">Done</string>
     <string name="action_ok">OK</string>
     <string name="action_info">Info</string>

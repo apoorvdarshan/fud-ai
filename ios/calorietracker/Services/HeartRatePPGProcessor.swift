@@ -74,14 +74,16 @@ nonisolated struct HeartRatePPGProcessor {
         var maximumBPM: Double = 200
         var minimumSamplingRate: Double = 15
         var maximumSamplingRate: Double = 90
-        var minimumRedLevel: Double = 0.45
+        var minimumRedLevel: Double = 0.32
         var maximumRedLevel: Double = 252.0 / 255.0
-        var minimumBrightness: Double = 0.24
-        var minimumRedDominanceRatio: Double = 1.12
-        var minimumRedDominanceDifference: Double = 0.04
-        var maximumRedClippedFraction: Double = 0.16
-        var maximumRedSpatialStandardDeviation: Double = 42.0 / 255.0
+        var minimumBrightness: Double = 0.16
+        var minimumRedDominanceRatio: Double = 1.05
+        var minimumRedDominanceDifference: Double = 0.02
+        var maximumRedClippedFraction: Double = 0.30
+        var maximumRedSpatialStandardDeviation: Double = 70.0 / 255.0
         var analysisInterval: TimeInterval = 0.5
+        /// Brief fingertip slip / uneven flash coverage should not wipe the whole window.
+        var missedContactToleranceFrames: Int = 12
         /// A hard memory ceiling independent of timestamps or camera frame rate.
         var maximumRetainedSamples: Int = 3_601
     }
@@ -99,6 +101,7 @@ nonisolated struct HeartRatePPGProcessor {
     private let configuration: Configuration
     private var samples: RingBuffer<TimedValue>
     private var lastAnalysisTimestamp: TimeInterval?
+    private var consecutiveMissedContactFrames = 0
     private(set) var currentUpdate = HeartRatePPGUpdate(
         contactDetected: false,
         progress: 0,
@@ -124,6 +127,7 @@ nonisolated struct HeartRatePPGProcessor {
     mutating func reset() {
         samples.removeAll()
         lastAnalysisTimestamp = nil
+        consecutiveMissedContactFrames = 0
         currentUpdate = HeartRatePPGUpdate(
             contactDetected: false,
             progress: 0,
@@ -135,10 +139,13 @@ nonisolated struct HeartRatePPGProcessor {
     /// Adds one frame-derived sample and returns the latest measurement state.
     @discardableResult
     mutating func process(sample: HeartRatePPGSample) -> HeartRatePPGUpdate {
-        guard isValid(sample), hasFingerContact(sample) else {
-            reset()
-            return currentUpdate
+        guard isValid(sample) else {
+            return registerMissedContact()
         }
+        guard hasFingerContact(sample) else {
+            return registerMissedContact()
+        }
+        consecutiveMissedContactFrames = 0
 
         if let last = samples.last, sample.timestamp <= last.timestamp {
             samples.removeAll()
@@ -215,6 +222,18 @@ nonisolated struct HeartRatePPGProcessor {
             && (0...1).contains(sample.blue)
             && (0...1).contains(sample.redClippedFraction)
             && (0...1).contains(sample.redSpatialStandardDeviation)
+    }
+
+    private mutating func registerMissedContact() -> HeartRatePPGUpdate {
+        consecutiveMissedContactFrames += 1
+        if samples.count == 0
+            || consecutiveMissedContactFrames > configuration.missedContactToleranceFrames {
+            reset()
+            return currentUpdate
+        }
+        // Keep the in-progress window through brief coverage gaps so the UI does not
+        // flicker between “measuring” and “cover the camera” on every noisy frame.
+        return currentUpdate
     }
 
     private func hasFingerContact(_ sample: HeartRatePPGSample) -> Bool {

@@ -271,39 +271,45 @@ enum HomeTopNutrient: String, CaseIterable, Identifiable {
     }
 
     func value(from foodStore: FoodStore, on date: Date) -> Double {
+        total(in: foodStore.entries(for: date))
+    }
+
+    /// Sum this nutrient across an already-fetched day (or range) of entries.
+    /// Prefer this in Progress aggregates so we don't re-filter FoodStore per nutrient.
+    func total(in entries: [FoodEntry]) -> Double {
         switch self {
-        case .protein: foodStore.protein(for: date)
-        case .carbs: foodStore.carbs(for: date)
-        case .fat: foodStore.fat(for: date)
-        case .fiber: foodStore.fiber(for: date)
-        case .sugar: foodStore.sugar(for: date)
-        case .addedSugar: foodStore.addedSugar(for: date)
-        case .saturatedFat: foodStore.saturatedFat(for: date)
-        case .cholesterol: foodStore.cholesterol(for: date)
-        case .caffeine: foodStore.caffeine(for: date)
-        case .creatine: foodStore.supplementalNutrient(.creatine, for: date)
-        case .betaAlanine: foodStore.supplementalNutrient(.betaAlanine, for: date)
-        case .lCitrulline: foodStore.supplementalNutrient(.lCitrulline, for: date)
-        case .lCarnitine: foodStore.supplementalNutrient(.lCarnitine, for: date)
-        case .lArginine: foodStore.supplementalNutrient(.lArginine, for: date)
-        case .taurine: foodStore.supplementalNutrient(.taurine, for: date)
-        case .betaine: foodStore.supplementalNutrient(.betaine, for: date)
-        case .hmb: foodStore.supplementalNutrient(.hmb, for: date)
-        case .sodium: foodStore.sodium(for: date)
-        case .potassium: foodStore.potassium(for: date)
-        case .transFat: foodStore.transFat(for: date)
-        case .calcium: foodStore.calcium(for: date)
-        case .iron: foodStore.iron(for: date)
-        case .magnesium: foodStore.magnesium(for: date)
-        case .zinc: foodStore.zinc(for: date)
-        case .vitaminA: foodStore.vitaminA(for: date)
-        case .vitaminC: foodStore.vitaminC(for: date)
-        case .vitaminD: foodStore.vitaminD(for: date)
-        case .vitaminB12: foodStore.vitaminB12(for: date)
-        case .vitaminE: foodStore.vitaminE(for: date)
-        case .vitaminK: foodStore.vitaminK(for: date)
-        case .folate: foodStore.folate(for: date)
-        case .omega3: foodStore.omega3(for: date)
+        case .protein: entries.reduce(0) { $0 + $1.protein }
+        case .carbs: entries.reduce(0) { $0 + $1.carbs }
+        case .fat: entries.reduce(0) { $0 + $1.fat }
+        case .fiber: entries.reduce(0) { $0 + ($1.fiber ?? 0) }
+        case .sugar: entries.reduce(0) { $0 + ($1.sugar ?? 0) }
+        case .addedSugar: entries.reduce(0) { $0 + ($1.addedSugar ?? 0) }
+        case .saturatedFat: entries.reduce(0) { $0 + ($1.saturatedFat ?? 0) }
+        case .cholesterol: entries.reduce(0) { $0 + ($1.cholesterol ?? 0) }
+        case .caffeine: entries.reduce(0) { $0 + ($1.caffeine ?? 0) }
+        case .creatine: entries.reduce(0) { $0 + ($1.supplementalNutrients[SupplementalNutrient.creatine.rawValue] ?? 0) }
+        case .betaAlanine: entries.reduce(0) { $0 + ($1.supplementalNutrients[SupplementalNutrient.betaAlanine.rawValue] ?? 0) }
+        case .lCitrulline: entries.reduce(0) { $0 + ($1.supplementalNutrients[SupplementalNutrient.lCitrulline.rawValue] ?? 0) }
+        case .lCarnitine: entries.reduce(0) { $0 + ($1.supplementalNutrients[SupplementalNutrient.lCarnitine.rawValue] ?? 0) }
+        case .lArginine: entries.reduce(0) { $0 + ($1.supplementalNutrients[SupplementalNutrient.lArginine.rawValue] ?? 0) }
+        case .taurine: entries.reduce(0) { $0 + ($1.supplementalNutrients[SupplementalNutrient.taurine.rawValue] ?? 0) }
+        case .betaine: entries.reduce(0) { $0 + ($1.supplementalNutrients[SupplementalNutrient.betaine.rawValue] ?? 0) }
+        case .hmb: entries.reduce(0) { $0 + ($1.supplementalNutrients[SupplementalNutrient.hmb.rawValue] ?? 0) }
+        case .sodium: entries.reduce(0) { $0 + ($1.sodium ?? 0) }
+        case .potassium: entries.reduce(0) { $0 + ($1.potassium ?? 0) }
+        case .transFat: entries.reduce(0) { $0 + ($1.transFat ?? 0) }
+        case .calcium: entries.reduce(0) { $0 + ($1.calcium ?? 0) }
+        case .iron: entries.reduce(0) { $0 + ($1.iron ?? 0) }
+        case .magnesium: entries.reduce(0) { $0 + ($1.magnesium ?? 0) }
+        case .zinc: entries.reduce(0) { $0 + ($1.zinc ?? 0) }
+        case .vitaminA: entries.reduce(0) { $0 + ($1.vitaminA ?? 0) }
+        case .vitaminC: entries.reduce(0) { $0 + ($1.vitaminC ?? 0) }
+        case .vitaminD: entries.reduce(0) { $0 + ($1.vitaminD ?? 0) }
+        case .vitaminB12: entries.reduce(0) { $0 + ($1.vitaminB12 ?? 0) }
+        case .vitaminE: entries.reduce(0) { $0 + ($1.vitaminE ?? 0) }
+        case .vitaminK: entries.reduce(0) { $0 + ($1.vitaminK ?? 0) }
+        case .folate: entries.reduce(0) { $0 + ($1.folate ?? 0) }
+        case .omega3: entries.reduce(0) { $0 + ($1.omega3 ?? 0) }
         }
     }
 

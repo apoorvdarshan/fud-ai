@@ -3064,8 +3064,15 @@ struct ProgressTabView: View {
     @State private var showHeartRateHistory = false
     @State private var showHeartRateSaveFailed = false
     @State private var progressOverviewMode: ProgressOverviewMode = .myProgress
+    @State private var foodRangeStats: ProgressFoodRangeStats?
+    @State private var isLoadingFoodRangeStats = false
 
     private var userProfile: UserProfile { profileStore.profile }
+
+    private var foodRangeStatsTaskKey: String {
+        let latest = foodStore.entries.first?.id.uuidString ?? "none"
+        return "\(timeRange.rawValue)|\(foodStore.entries.count)|\(latest)"
+    }
 
     private var dateRange: ClosedRange<Date> { timeRange.dateRange() }
 
@@ -3103,71 +3110,6 @@ struct ProgressTabView: View {
         !bodyFatStore.entries.isEmpty
             || userProfile.bodyFatPercentage != nil
             || userProfile.goalBodyFatPercentage != nil
-    }
-
-    private var dailyCalories: [(date: Date, calories: Int)] {
-        let calendar = Calendar.current
-        let days = timeRange.days
-        let today = calendar.startOfDay(for: .now)
-        return (0..<days).compactMap { offset in
-            guard let date = calendar.date(byAdding: .day, value: -offset, to: today) else { return nil }
-            let cals = foodStore.calories(for: date)
-            if cals == 0 { return nil }
-            return (date: date, calories: cals)
-        }.reversed()
-    }
-
-    private var macroAverages: (protein: Double, carbs: Double, fat: Double) {
-        let calendar = Calendar.current
-        let days = timeRange.days
-        let today = calendar.startOfDay(for: .now)
-        var totalP = 0.0, totalC = 0.0, totalF = 0.0
-        var count = 0
-        for offset in 0..<days {
-            guard let date = calendar.date(byAdding: .day, value: -offset, to: today) else { continue }
-            let dayEntries = foodStore.entries(for: date)
-            if dayEntries.isEmpty { continue }
-            totalP += dayEntries.reduce(0) { $0 + $1.protein }
-            totalC += dayEntries.reduce(0) { $0 + $1.carbs }
-            totalF += dayEntries.reduce(0) { $0 + $1.fat }
-            count += 1
-        }
-        guard count > 0 else { return (0, 0, 0) }
-        return (totalP / Double(count), totalC / Double(count), totalF / Double(count))
-    }
-
-    /// Daily averages for micros / other nutrients over logged days in the range.
-    private var nutrientAverageItems: [NutrientAverageItem] {
-        let nutrients = HomeTopNutrient.allCases.filter { $0 != .protein && $0 != .carbs && $0 != .fat }
-        let optionalGoals = OptionalNutrientGoals.current
-        let calendar = Calendar.current
-        let days = timeRange.days
-        let today = calendar.startOfDay(for: .now)
-
-        var totals: [HomeTopNutrient: Double] = Dictionary(uniqueKeysWithValues: nutrients.map { ($0, 0.0) })
-        var count = 0
-        for offset in 0..<days {
-            guard let date = calendar.date(byAdding: .day, value: -offset, to: today) else { continue }
-            if foodStore.entries(for: date).isEmpty { continue }
-            for nutrient in nutrients {
-                totals[nutrient, default: 0] += nutrient.value(from: foodStore, on: date)
-            }
-            count += 1
-        }
-
-        return nutrients.compactMap { nutrient in
-            let average = count > 0 ? (totals[nutrient] ?? 0) / Double(count) : 0
-            let goal = Int(nutrient.goal(for: userProfile, optionalGoals: optionalGoals).rounded())
-            // Hide unused supplements (goal 0 and no intake) to keep Progress scannable.
-            if average < 0.05 && goal == 0 { return nil }
-            return NutrientAverageItem(
-                id: nutrient.rawValue,
-                label: nutrient.optionalNutrient?.displayName ?? nutrient.displayName,
-                current: average,
-                goal: goal,
-                unit: nutrient.unit
-            )
-        }
     }
 
     var body: some View {
@@ -3272,26 +3214,44 @@ struct ProgressTabView: View {
                     }
                     .padding(.horizontal)
 
-                    // Calorie Trend
-                    CalorieChartSection(
-                        dailyCalories: dailyCalories,
-                        calorieGoal: userProfile.effectiveCalories
-                    )
-                    .padding(.horizontal)
+                    // Calorie / macro / nutrient stats load asynchronously so the
+                    // range picker stays instant and interruptible mid-load.
+                    if isLoadingFoodRangeStats && foodRangeStats == nil {
+                        ProgressNutritionLoadingCard()
+                            .padding(.horizontal)
+                    } else if let foodRangeStats {
+                        CalorieChartSection(
+                            dailyCalories: foodRangeStats.dailyCalories,
+                            calorieGoal: userProfile.effectiveCalories
+                        )
+                        .padding(.horizontal)
+                        .opacity(isLoadingFoodRangeStats ? 0.45 : 1)
+                        .overlay(alignment: .topTrailing) {
+                            if isLoadingFoodRangeStats {
+                                ProgressView()
+                                    .tint(AppColors.calorie)
+                                    .padding(12)
+                            }
+                        }
 
-                    // Macro Averages
-                    MacroAveragesSection(
-                        avgProtein: macroAverages.protein,
-                        avgCarbs: macroAverages.carbs,
-                        avgFat: macroAverages.fat,
-                        proteinGoal: userProfile.effectiveProtein,
-                        carbsGoal: userProfile.effectiveCarbs,
-                        fatGoal: userProfile.effectiveFat
-                    )
-                    .padding(.horizontal)
+                        MacroAveragesSection(
+                            avgProtein: foodRangeStats.avgProtein,
+                            avgCarbs: foodRangeStats.avgCarbs,
+                            avgFat: foodRangeStats.avgFat,
+                            proteinGoal: userProfile.effectiveProtein,
+                            carbsGoal: userProfile.effectiveCarbs,
+                            fatGoal: userProfile.effectiveFat
+                        )
+                        .padding(.horizontal)
+                        .opacity(isLoadingFoodRangeStats ? 0.45 : 1)
 
-                    if !nutrientAverageItems.isEmpty {
-                        NutrientAveragesSection(items: nutrientAverageItems)
+                        if !foodRangeStats.nutrientItems.isEmpty {
+                            NutrientAveragesSection(items: foodRangeStats.nutrientItems)
+                                .padding(.horizontal)
+                                .opacity(isLoadingFoodRangeStats ? 0.45 : 1)
+                        }
+                    } else {
+                        ProgressNutritionLoadingCard()
                             .padding(.horizontal)
                     }
 
@@ -3305,6 +3265,24 @@ struct ProgressTabView: View {
             }
             .background(AppColors.appBackground)
             .navigationBarHidden(true)
+            .task(id: foodRangeStatsTaskKey) {
+                isLoadingFoodRangeStats = true
+                // Drop stale nutrition for a different range so charts don't lie
+                // while a longer window is still computing. Switching ranges
+                // cancels this task immediately via task(id:).
+                foodRangeStats = nil
+                // Let the picker / loading card paint before the (now single-pass) work.
+                await Task.yield()
+                let stats = ProgressFoodRangeStats.compute(
+                    entries: foodStore.entries,
+                    dayCount: timeRange.days,
+                    profile: userProfile,
+                    optionalGoals: .current
+                )
+                guard !Task.isCancelled else { return }
+                foodRangeStats = stats
+                isLoadingFoodRangeStats = false
+            }
             .onChange(of: availableProgressMetrics, initial: true) { _, metrics in
                 if !metrics.contains(progressMetric) {
                     progressMetric = .weight

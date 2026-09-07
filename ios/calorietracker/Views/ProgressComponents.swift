@@ -467,6 +467,120 @@ struct CalorieChartSection: View {
 
 // MARK: - Macro Averages Section
 
+/// One-pass Progress nutrition aggregates for a selected time range.
+/// Built off the main path so range switching stays interruptible.
+struct ProgressFoodRangeStats {
+    let dailyCalories: [(date: Date, calories: Int)]
+    let avgProtein: Double
+    let avgCarbs: Double
+    let avgFat: Double
+    let nutrientItems: [NutrientAverageItem]
+
+    static let empty = ProgressFoodRangeStats(
+        dailyCalories: [],
+        avgProtein: 0,
+        avgCarbs: 0,
+        avgFat: 0,
+        nutrientItems: []
+    )
+
+    static func compute(
+        entries: [FoodEntry],
+        dayCount: Int,
+        profile: UserProfile,
+        optionalGoals: OptionalNutrientGoals
+    ) -> ProgressFoodRangeStats {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: .now)
+        guard let rangeStart = calendar.date(byAdding: .day, value: -(dayCount - 1), to: today) else {
+            return .empty
+        }
+
+        var buckets: [Date: [FoodEntry]] = [:]
+        for entry in entries {
+            let day = calendar.startOfDay(for: entry.timestamp)
+            guard day >= rangeStart, day <= today else { continue }
+            buckets[day, default: []].append(entry)
+        }
+
+        let nutrients = HomeTopNutrient.allCases.filter { $0 != .protein && $0 != .carbs && $0 != .fat }
+        var dailyCalories: [(date: Date, calories: Int)] = []
+        var totalP = 0.0, totalC = 0.0, totalF = 0.0
+        var loggedDays = 0
+        var nutrientTotals = Dictionary(uniqueKeysWithValues: nutrients.map { ($0, 0.0) })
+
+        for day in buckets.keys.sorted() {
+            let dayEntries = buckets[day] ?? []
+            guard !dayEntries.isEmpty else { continue }
+
+            let calories = dayEntries.reduce(0) { $0 + $1.calories }
+            if calories > 0 {
+                dailyCalories.append((day, calories))
+            }
+
+            totalP += dayEntries.reduce(0) { $0 + $1.protein }
+            totalC += dayEntries.reduce(0) { $0 + $1.carbs }
+            totalF += dayEntries.reduce(0) { $0 + $1.fat }
+            loggedDays += 1
+
+            for nutrient in nutrients {
+                nutrientTotals[nutrient, default: 0] += nutrient.total(in: dayEntries)
+            }
+        }
+
+        let divisor = Double(max(loggedDays, 1))
+        let nutrientItems: [NutrientAverageItem] = loggedDays == 0
+            ? []
+            : nutrients.compactMap { nutrient in
+                let average = (nutrientTotals[nutrient] ?? 0) / divisor
+                let goal = Int(nutrient.goal(for: profile, optionalGoals: optionalGoals).rounded())
+                if average < 0.05 && goal == 0 { return nil }
+                return NutrientAverageItem(
+                    id: nutrient.rawValue,
+                    label: nutrient.optionalNutrient?.displayName ?? nutrient.displayName,
+                    current: average,
+                    goal: goal,
+                    unit: nutrient.unit
+                )
+            }
+
+        if loggedDays == 0 {
+            return ProgressFoodRangeStats(
+                dailyCalories: dailyCalories,
+                avgProtein: 0,
+                avgCarbs: 0,
+                avgFat: 0,
+                nutrientItems: []
+            )
+        }
+
+        return ProgressFoodRangeStats(
+            dailyCalories: dailyCalories,
+            avgProtein: totalP / divisor,
+            avgCarbs: totalC / divisor,
+            avgFat: totalF / divisor,
+            nutrientItems: nutrientItems
+        )
+    }
+}
+
+struct ProgressNutritionLoadingCard: View {
+    var body: some View {
+        HStack(spacing: 12) {
+            ProgressView()
+                .tint(AppColors.calorie)
+            Text(LocalizedDisplayText.text("Loading nutrition…", polish: "Ładowanie wartości odżywczych…"))
+                .font(.system(.subheadline, design: .rounded, weight: .medium))
+                .foregroundStyle(.secondary)
+            Spacer(minLength: 0)
+        }
+        .padding()
+        .progressCardStyle()
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(LocalizedDisplayText.text("Loading nutrition…", polish: "Ładowanie wartości odżywczych…"))
+    }
+}
+
 struct MacroAveragesSection: View {
     let avgProtein: Double
     let avgCarbs: Double

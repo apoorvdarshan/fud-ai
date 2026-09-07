@@ -61,6 +61,10 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -266,62 +270,24 @@ private fun MyProgressContent(container: AppContainer) {
         }
     }
 
-    // Build per-day calorie totals over the range (drop empty days, like iOS)
-    val dailyCalories = remember(foods, range) {
-        val today = LocalDate.now()
-        (0 until range.days).mapNotNull { offset ->
-            val day = today.minusDays(offset.toLong())
-            val cals = foods
-                .filter { it.timestamp.atZone(zone).toLocalDate() == day }
-                .sumOf { it.calories }
-            if (cals == 0) null else day to cals
-        }.reversed()
-    }
-
-    // Macro averages over the range, only counting days with logged food
-    val macroAverages = remember(foods, range) {
-        val today = LocalDate.now()
-        var p = 0.0; var c = 0.0; var f = 0.0; var n = 0
-        for (offset in 0 until range.days) {
-            val day = today.minusDays(offset.toLong())
-            val dayEntries = foods.filter { it.timestamp.atZone(zone).toLocalDate() == day }
-            if (dayEntries.isEmpty()) continue
-            p += dayEntries.sumOf { it.protein }
-            c += dayEntries.sumOf { it.carbs }
-            f += dayEntries.sumOf { it.fat }
-            n += 1
-        }
-        if (n == 0) Triple(0.0, 0.0, 0.0) else Triple(p / n, c / n, f / n)
-    }
-
-    val nutrientAverageItems = remember(foods, range, ui.profile, optionalNutrientGoals) {
-        val nutrients = HomeTopNutrient.entries.filter {
-            it != HomeTopNutrient.PROTEIN && it != HomeTopNutrient.CARBS && it != HomeTopNutrient.FAT
-        }
-        val today = LocalDate.now()
-        val totals = mutableMapOf<HomeTopNutrient, Double>().withDefault { 0.0 }
-        var n = 0
-        for (offset in 0 until range.days) {
-            val day = today.minusDays(offset.toLong())
-            val dayEntries = foods.filter { it.timestamp.atZone(zone).toLocalDate() == day }
-            if (dayEntries.isEmpty()) continue
-            for (nutrient in nutrients) {
-                totals[nutrient] = totals.getValue(nutrient) + nutrient.current(dayEntries)
-            }
-            n += 1
-        }
-        nutrients.mapNotNull { nutrient ->
-            val average = if (n == 0) 0.0 else totals.getValue(nutrient) / n
-            val goal = nutrient.goal(ui.profile, optionalNutrientGoals)
-            if (average < 0.05 && goal == 0) null
-            else NutrientAverageItem(
-                key = nutrient.storageKey,
-                labelRes = nutrient.displayNameRes,
-                current = average,
-                goal = goal,
-                unitRes = nutrient.unitRes
+    // Nutrition aggregates load on a background dispatcher. Changing `range`
+    // cancels the previous LaunchedEffect so the picker stays interruptible.
+    var foodRangeStats by remember { mutableStateOf<ProgressFoodRangeStats?>(null) }
+    var isLoadingFoodRangeStats by remember { mutableStateOf(false) }
+    LaunchedEffect(foods, range, ui.profile, optionalNutrientGoals) {
+        isLoadingFoodRangeStats = true
+        foodRangeStats = null
+        val computed = withContext(Dispatchers.Default) {
+            computeProgressFoodRangeStats(
+                foods = foods,
+                dayCount = range.days,
+                zone = zone,
+                profile = ui.profile,
+                optionalGoals = optionalNutrientGoals
             )
         }
+        foodRangeStats = computed
+        isLoadingFoodRangeStats = false
     }
 
     Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
@@ -400,37 +366,61 @@ private fun MyProgressContent(container: AppContainer) {
                 }
             }
 
-            // 5. Calorie chart section
-            item {
-                CardSection {
-                    CalorieSection(
-                        dailyCalories = dailyCalories,
-                        calorieGoal = ui.profile?.effectiveCalories ?: 2000
-                    )
-                }
-            }
-
-            // 6. Macro averages
-            ui.profile?.let { p ->
+            // 5–7. Nutrition sections: show a loading card while computing so
+            // range switches stay instant and can be interrupted mid-load.
+            if (isLoadingFoodRangeStats && foodRangeStats == null) {
                 item {
-                    CardSection {
-                        MacroAveragesSection(
-                            avgProtein = macroAverages.first,
-                            avgCarbs = macroAverages.second,
-                            avgFat = macroAverages.third,
-                            proteinGoal = p.effectiveProtein,
-                            carbsGoal = p.effectiveCarbs,
-                            fatGoal = p.effectiveFat
-                        )
+                    CardSection { ProgressNutritionLoadingCard() }
+                }
+            } else {
+                val stats = foodRangeStats
+                if (stats != null) {
+                    item {
+                        CardSection {
+                            Box {
+                                CalorieSection(
+                                    dailyCalories = stats.dailyCalories,
+                                    calorieGoal = ui.profile?.effectiveCalories ?: 2000
+                                )
+                                if (isLoadingFoodRangeStats) {
+                                    CircularProgressIndicator(
+                                        modifier = Modifier
+                                            .align(Alignment.TopEnd)
+                                            .padding(4.dp)
+                                            .size(18.dp),
+                                        strokeWidth = 2.dp,
+                                        color = AppColors.Calorie
+                                    )
+                                }
+                            }
+                        }
                     }
-                }
-            }
 
-            // 7. Micronutrient / other nutrient averages
-            if (nutrientAverageItems.isNotEmpty()) {
-                item {
-                    CardSection {
-                        NutrientAveragesSection(items = nutrientAverageItems)
+                    ui.profile?.let { p ->
+                        item {
+                            CardSection {
+                                MacroAveragesSection(
+                                    avgProtein = stats.avgProtein,
+                                    avgCarbs = stats.avgCarbs,
+                                    avgFat = stats.avgFat,
+                                    proteinGoal = p.effectiveProtein,
+                                    carbsGoal = p.effectiveCarbs,
+                                    fatGoal = p.effectiveFat
+                                )
+                            }
+                        }
+                    }
+
+                    if (stats.nutrientItems.isNotEmpty()) {
+                        item {
+                            CardSection {
+                                NutrientAveragesSection(items = stats.nutrientItems)
+                            }
+                        }
+                    }
+                } else {
+                    item {
+                        CardSection { ProgressNutritionLoadingCard() }
                     }
                 }
             }
@@ -1461,6 +1451,100 @@ private fun MacroAveragesSection(
         MacroProgressRow(stringResource(R.string.macro_protein), avgProtein, proteinGoal, stringResource(R.string.unit_g))
         MacroProgressRow(stringResource(R.string.macro_carbs), avgCarbs, carbsGoal, stringResource(R.string.unit_g))
         MacroProgressRow(stringResource(R.string.macro_fat), avgFat, fatGoal, stringResource(R.string.unit_g))
+    }
+}
+
+
+private data class ProgressFoodRangeStats(
+    val dailyCalories: List<Pair<LocalDate, Int>>,
+    val avgProtein: Double,
+    val avgCarbs: Double,
+    val avgFat: Double,
+    val nutrientItems: List<NutrientAverageItem>
+)
+
+private fun computeProgressFoodRangeStats(
+    foods: List<FoodEntry>,
+    dayCount: Int,
+    zone: ZoneId,
+    profile: com.apoorvdarshan.calorietracker.models.UserProfile?,
+    optionalGoals: OptionalNutrientGoals
+): ProgressFoodRangeStats {
+    val today = LocalDate.now()
+    val rangeStart = today.minusDays((dayCount - 1).toLong())
+    val buckets = linkedMapOf<LocalDate, MutableList<FoodEntry>>()
+    for (entry in foods) {
+        val day = entry.timestamp.atZone(zone).toLocalDate()
+        if (day < rangeStart || day > today) continue
+        buckets.getOrPut(day) { mutableListOf() }.add(entry)
+    }
+
+    val nutrients = HomeTopNutrient.entries.filter {
+        it != HomeTopNutrient.PROTEIN && it != HomeTopNutrient.CARBS && it != HomeTopNutrient.FAT
+    }
+    val dailyCalories = mutableListOf<Pair<LocalDate, Int>>()
+    var totalP = 0.0
+    var totalC = 0.0
+    var totalF = 0.0
+    var loggedDays = 0
+    val nutrientTotals = mutableMapOf<HomeTopNutrient, Double>().withDefault { 0.0 }
+
+    for (day in buckets.keys.sorted()) {
+        val dayEntries = buckets[day].orEmpty()
+        if (dayEntries.isEmpty()) continue
+        val calories = dayEntries.sumOf { it.calories }
+        if (calories > 0) dailyCalories.add(day to calories)
+        totalP += dayEntries.sumOf { it.protein }
+        totalC += dayEntries.sumOf { it.carbs }
+        totalF += dayEntries.sumOf { it.fat }
+        loggedDays += 1
+        for (nutrient in nutrients) {
+            nutrientTotals[nutrient] = nutrientTotals.getValue(nutrient) + nutrient.current(dayEntries)
+        }
+    }
+
+    if (loggedDays == 0) {
+        return ProgressFoodRangeStats(dailyCalories, 0.0, 0.0, 0.0, emptyList())
+    }
+    val divisor = loggedDays.toDouble()
+    val nutrientItems = nutrients.mapNotNull { nutrient ->
+        val average = nutrientTotals.getValue(nutrient) / divisor
+        val goal = nutrient.goal(profile, optionalGoals)
+        if (average < 0.05 && goal == 0) null
+        else NutrientAverageItem(
+            key = nutrient.storageKey,
+            labelRes = nutrient.displayNameRes,
+            current = average,
+            goal = goal,
+            unitRes = nutrient.unitRes
+        )
+    }
+    return ProgressFoodRangeStats(
+        dailyCalories = dailyCalories,
+        avgProtein = totalP / divisor,
+        avgCarbs = totalC / divisor,
+        avgFat = totalF / divisor,
+        nutrientItems = nutrientItems
+    )
+}
+
+@Composable
+private fun ProgressNutritionLoadingCard() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        CircularProgressIndicator(
+            modifier = Modifier.size(18.dp),
+            strokeWidth = 2.dp,
+            color = AppColors.Calorie
+        )
+        Text(
+            stringResource(R.string.progress_loading_nutrition),
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+        )
     }
 }
 

@@ -14,7 +14,8 @@ Each complete exercise set uses:
 
 Each manifest entry contains 3–5 ordered frames with matching male and female sets.
 The apps select an authored animation only when both variants and every packaged file
-are complete; otherwise they retain the exercise database's existing JPEG sequence.
+are complete. Upstream Free Exercise DB JPEG photos are no longer shipped; the
+production corpus covers every catalogue exercise.
 `exercise-visual-manifest.json` is the runtime source of truth for format, frame names,
 frame count, and the representative static frame. The current production v2 PNG sets
 use four frames, with the exact motion adapted to each exercise:

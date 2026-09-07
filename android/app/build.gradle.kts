@@ -93,16 +93,13 @@ android {
         disable += "MissingTranslation"
     }
 
-    // Workouts (exercise library ported from Delts): mirror the iOS app's exercise
-    // dataset + images without duplicating ~98MB in git — pull the JSON/JPEGs from
-    // the existing FreeExerciseDB resources and gender-aware authored frames from the
-    // shared workout-visual source. The merged filenames are available at the assets root.
+    // Workouts: mirror iOS exercises.json plus gender-aware authored frames from
+    // shared/workout-vectors. Upstream Free Exercise DB JPEGs are no longer shipped.
     sourceSets {
         getByName("main") {
             assets.srcDirs(
                 "src/main/assets",
                 "../../ios/calorietracker/Resources/FreeExerciseDB/dist",
-                "../../ios/calorietracker/Resources/FreeExerciseDB/images",
                 "../../shared/workout-vectors",
                 "../../local-models/legal"
             )

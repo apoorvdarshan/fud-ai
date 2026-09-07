@@ -5,10 +5,10 @@ alwaysApply: true
 
 Personal test installs for Apoorv only — not App Store / Play Store release shipping.
 
-When installing Fud AI on my real phones so I can test:
+After every code change that affects the apps, rebuild, install, and open on my connected phones before finishing (unless I explicitly say not to or a device is disconnected):
 
-- **iOS**: Release build only. Install over the existing App Store / prior install. Never uninstall first.
-- **Android**: Debug build only. Use `adb install -r` (or equivalent replace) over the existing install. Never uninstall first or clear app data.
+- **iOS**: Release build only. Install over the existing App Store / prior install. Never uninstall first. Launch `com.apoorvdarshan.calorietracker` after install.
+- **Android**: Debug build only (`com.apoorvdarshan.calorietracker.debug`). Use `adb install -r` over the existing debug install. Never uninstall first or clear app data. Launch the debug MainActivity after install. Do not expect to overwrite the Play Store package (signature mismatch).
 - Preserve existing on-device data unless I explicitly ask to wipe or reinstall clean.
-- Prefer the currently connected device (Apoorv’s iPhone / USB Android) when I ask to install without naming one.
+- Prefer the currently connected device (Apoorv’s iPhone / USB Android) when installing.
 - After promoting workout images, rebuild so Android assets are refreshed before install; verify a sample promoted frame is in the APK.

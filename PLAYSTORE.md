@@ -85,7 +85,7 @@ OPTIONAL FASTING TRACKING
 Off by default. Choose a 1–168 hour goal, start/end/cancel from the Home + menu, keep the timer across app restarts, optionally receive a local goal alert, and edit completed sessions. Fasting stays on your device and is not sent to Health Connect.
 
 15 LANGUAGES
-Auto-selected by phone language: English, Spanish, French, German, Italian, Portuguese (BR), Dutch, Russian, Japanese, Korean, Chinese, Hindi, Arabic, Romanian, Azerbaijani.
+Auto-selected by phone language: English, Spanish, French, German, Italian, Portuguese (BR), Dutch, Russian, Japanese, Korean, Chinese, Hindi, Arabic, Romanian, Azerbaijani, Polish.
 
 PRIVACY FIRST
 Core tracking needs no account and Fud AI has no analytics, behavioral tracking, or ads. The optional 18+ Weekly Challenge creates a first-party challenge profile and uploads only a display name, optional single social handle, anonymous participant ID, and weekly aggregate milestones—never raw food, weight, meal, workout, or Health Connect records. Android backup may apply under system settings. Keys are encrypted; AI/STT requests go directly to your provider. MIT licensed.

@@ -1,0 +1,811 @@
+<resources>
+    <string name="app_name">Fud AI</string>
+
+    <!-- Widgets -->
+    <string name="widget_calorie_label">Fud AI Kalorie</string>
+    <string name="widget_calorie_description">Zobacz dzisiejsze kalorie i makroskładniki w skrócie.</string>
+    <string name="widget_protein_label">Fud AI Białko</string>
+    <string name="widget_protein_description">Zobacz dzisiejszy postęp białka w skrócie.</string>
+    <string name="widget_today">Dziś</string>
+    <string name="widget_protein">Białko</string>
+    <string name="widget_calories">Kalorie</string>
+    <string name="widget_carbs">Węglowodany</string>
+    <string name="widget_fat">Tłuszcz</string>
+    <string name="widget_kcal_left_format">pozostało %1$d kcal</string>
+    <string name="widget_g_left_format">pozostało %1$dg</string>
+    <string name="widget_kcal">kcal</string>
+    <string name="widget_protein_g">białko g</string>
+    <string name="widget_value_unit_format">%1$d%2$s / %3$d%4$s</string>
+    <string name="widget_center_small_format">/ %1$d</string>
+    <string name="widget_center_small_g_format">/ %1$dg</string>
+    <string name="widget_center_large_g_format">%1$d g</string>
+
+    <!-- Common buttons / actions -->
+    <string name="action_save">Zapisz</string>
+    <string name="action_cancel">Anuluj</string>
+    <string name="action_done">Gotowe</string>
+    <string name="action_ok">OK</string>
+    <string name="action_clear">Wyczyść</string>
+    <string name="action_delete">Usuń</string>
+    <string name="action_continue">Kontynuuj</string>
+    <string name="action_get_started">Zaczynamy</string>
+    <string name="action_log">Dodaj</string>
+    <string name="action_analyze">Analizuj</string>
+    <string name="action_discard">Odrzuć</string>
+    <string name="action_reset">Resetuj</string>
+    <string name="action_keep_going">Kontynuuj</string>
+    <string name="action_send">Wyślij</string>
+    <string name="action_pin">Przypnij</string>
+
+    <!-- Generic units / labels -->
+    <string name="unit_kcal">kcal</string>
+    <string name="unit_g">g</string>
+    <string name="unit_mg">mg</string>
+    <string name="unit_percent">%</string>
+    <string name="unit_cm">cm</string>
+    <string name="unit_kg">kg</string>
+    <string name="unit_lbs">lbs</string>
+    <string name="unit_ft">ft</string>
+    <string name="unit_in">in</string>
+    <string name="unit_ft_in">ft / in</string>
+    <string name="kcal_value_format">%1$,d kcal</string>
+    <string name="grams_value_format">%1$d g</string>
+    <string name="grams_value_decimal_format">%1$.1fg</string>
+    <string name="kg_value_format">%1$.1f kg</string>
+    <string name="lbs_value_format">%1$.1f lbs</string>
+    <string name="kg_per_week_format">%1$.2f kg/tyg.</string>
+    <string name="lbs_per_week_format">%1$.2f lbs/tyg.</string>
+    <string name="height_cm_format">%1$d cm</string>
+    <string name="feet_inches_format">%1$d\' %2$d\"</string>
+    <string name="value_unit_format">%1$d %2$s</string>
+    <string name="ft_label_format">%1$d ft</string>
+    <string name="in_label_format">%1$d in</string>
+    <string name="bullet">·</string>
+
+    <!-- Macros / Goal labels -->
+    <string name="macro_protein">Białko</string>
+    <string name="macro_carbs">Węglowodany</string>
+    <string name="macro_fat">Tłuszcz</string>
+    <string name="macro_calories">Kalorie</string>
+
+    <!-- Gender -->
+    <string name="gender_male">Mężczyzna</string>
+    <string name="gender_female">Kobieta</string>
+    <string name="gender_other">Inne</string>
+
+    <!-- Activity Level -->
+    <string name="activity_sedentary">Siedzący</string>
+    <string name="activity_light">Lekka</string>
+    <string name="activity_moderate">Umiarkowana</string>
+    <string name="activity_active">Aktywna</string>
+    <string name="activity_very_active">Bardzo aktywna</string>
+    <string name="activity_extra_active">Ekstremalnie aktywna</string>
+    <string name="activity_sedentary_subtitle">Głównie siedzący tryb w pracy i w domu; mało lub brak zaplanowanego ruchu.\nOrientacyjnie: poniżej 5000 kroków/dzień.</string>
+    <string name="activity_light_subtitle">Głównie siedzący tryb; lekki trening lub aktywność 1–3 dni w tygodniu.\nOrientacyjnie: 5000–7499 kroków/dzień.</string>
+    <string name="activity_moderate_subtitle">Regularna siłownia, cardio, wspinaczka, rower lub sport 3–5 dni w tygodniu.\nOrientacyjnie: 7500–9999 kroków/dzień.</string>
+    <string name="activity_active_subtitle">Trening przez większość dni albo praca ze znaczną ilością stania, ruchu lub dźwigania.\nOrientacyjnie: 10 000–12 499 kroków/dzień.</string>
+    <string name="activity_very_active_subtitle">Ciężki trening 6–7 dni w tygodniu, trening wytrzymałościowy lub wymagająca praca fizyczna.\nOrientacyjnie: 12 500–14 999 kroków/dzień.</string>
+    <string name="activity_extra_active_subtitle">Sportowiec wyczynowy/z dużą objętością, dwa treningi dziennie albo ciężka praca fizyczna plus częsty trening.\nOrientacyjnie: 15 000+ kroków/dzień.</string>
+
+    <!-- Weight Goal -->
+    <string name="goal_lose">Schudnąć / Redukcja</string>
+    <string name="goal_maintain">Utrzymać / Rekompozycja</string>
+    <string name="goal_gain">Przybrać / Masa</string>
+
+    <!-- Meal Type -->
+    <string name="meal_breakfast">Śniadanie</string>
+    <string name="meal_lunch">Lunch</string>
+    <string name="meal_dinner">Kolacja</string>
+    <string name="meal_snack">Przekąska</string>
+    <string name="meal_other">Inne</string>
+
+    <!-- AutoBalance Macro -->
+    <string name="autobalance_protein">Białko</string>
+    <string name="autobalance_carbs">Węglowodany</string>
+    <string name="autobalance_fat">Tłuszcz</string>
+
+    <!-- AI Provider names -->
+    <string name="ai_provider_gemini">Google Gemini</string>
+    <string name="ai_provider_openai">OpenAI</string>
+    <string name="ai_provider_anthropic">Anthropic Claude</string>
+    <string name="ai_provider_xai">xAI Grok</string>
+    <string name="ai_provider_openrouter">OpenRouter</string>
+    <string name="ai_provider_together">Together AI</string>
+    <string name="ai_provider_groq">Groq</string>
+    <string name="ai_provider_huggingface">Hugging Face</string>
+    <string name="ai_provider_fireworks">Fireworks AI</string>
+    <string name="ai_provider_deepinfra">DeepInfra</string>
+    <string name="ai_provider_mistral">Mistral</string>
+    <string name="ai_provider_ollama">Ollama (lokalnie)</string>
+    <string name="ai_provider_custom">Własny (kompatybilny z OpenAI)</string>
+
+    <!-- AI Provider API key placeholders -->
+    <string name="ai_key_placeholder_gemini">AIza…</string>
+    <string name="ai_key_placeholder_openai">sk-…</string>
+    <string name="ai_key_placeholder_anthropic">sk-ant-…</string>
+    <string name="ai_key_placeholder_xai">xai-…</string>
+    <string name="ai_key_placeholder_openrouter">sk-or-…</string>
+    <string name="ai_key_placeholder_together">…</string>
+    <string name="ai_key_placeholder_groq">gsk_…</string>
+    <string name="ai_key_placeholder_huggingface">hf_…</string>
+    <string name="ai_key_placeholder_fireworks">fw_…</string>
+    <string name="ai_key_placeholder_deepinfra">…</string>
+    <string name="ai_key_placeholder_mistral">…</string>
+    <string name="ai_key_placeholder_ollama">Klucz niepotrzebny</string>
+    <string name="ai_key_placeholder_custom">Klucz API (lub cokolwiek, jeśli endpoint go nie wymaga)</string>
+
+    <!-- Speech Provider -->
+    <string name="speech_provider_native">Natywne (na urządzeniu)</string>
+    <string name="speech_provider_openai">OpenAI GPT-Transcribe</string>
+    <string name="speech_provider_groq">Groq (Whisper)</string>
+    <string name="speech_provider_deepgram">Deepgram</string>
+    <string name="speech_provider_assemblyai">AssemblyAI</string>
+
+    <string name="speech_key_placeholder_native">Niepotrzebne</string>
+    <string name="speech_key_placeholder_openai">sk-…</string>
+    <string name="speech_key_placeholder_groq">gsk_…</string>
+    <string name="speech_key_placeholder_deepgram">Token your-deepgram-key</string>
+    <string name="speech_key_placeholder_assemblyai">Twój klucz AssemblyAI</string>
+
+    <string name="speech_description_native">Rozpoznawanie mowy Androida na urządzeniu. Darmowe, działa offline na większości telefonów, wyniki częściowe w czasie rzeczywistym. Zalecane domyślne.</string>
+    <string name="speech_description_openai">OpenAI GPT-Transcribe — aktualny, dokładny model do nagranego audio.</string>
+    <string name="speech_description_groq">Whisper Large v3 na Groq. Bardzo szybka inferencja, ma darmowy plan.</string>
+    <string name="speech_description_deepgram">Deepgram Nova. Tryby czasu rzeczywistego i wsadowe — szybki i dokładny.</string>
+    <string name="speech_description_assemblyai">Model Universal AssemblyAI. Wysoka dokładność, dostępny darmowy plan.</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_home">Ekran główny</string>
+    <string name="nav_progress">Postęp</string>
+    <string name="nav_coach">Trener</string>
+    <string name="nav_settings">Ustawienia</string>
+    <string name="nav_about">O aplikacji</string>
+
+    <!-- Day-of-week narrow letters (for week strip) -->
+    <string name="dow_narrow_monday">P</string>
+    <string name="dow_narrow_tuesday">W</string>
+    <string name="dow_narrow_wednesday">Ś</string>
+    <string name="dow_narrow_thursday">C</string>
+    <string name="dow_narrow_friday">P</string>
+    <string name="dow_narrow_saturday">S</string>
+    <string name="dow_narrow_sunday">N</string>
+
+    <!-- Months (full) -->
+    <string name="month_january">Styczeń</string>
+    <string name="month_february">Luty</string>
+    <string name="month_march">Marzec</string>
+    <string name="month_april">Kwiecień</string>
+    <string name="month_may">Maj</string>
+    <string name="month_june">Czerwiec</string>
+    <string name="month_july">Lipiec</string>
+    <string name="month_august">Sierpień</string>
+    <string name="month_september">Wrzesień</string>
+    <string name="month_october">Październik</string>
+    <string name="month_november">Listopad</string>
+    <string name="month_december">Grudzień</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_back">Wstecz</string>
+    <string name="onboarding_logo_description">Logo Fud AI</string>
+    <string name="onboarding_welcome_line1">Jedz mądrze,</string>
+    <string name="onboarding_welcome_line2">Żyj lepiej</string>
+    <string name="onboarding_welcome_subtitle">Po prostu zrób zdjęcie, śledź i rozwijaj się.\nTwoje odżywianie, uproszczone.</string>
+
+    <string name="onboarding_gender_title">Jaka jest Twoja płeć?</string>
+    <string name="onboarding_gender_subtitle">Pomaga obliczyć metabolizm</string>
+
+    <string name="onboarding_birthday_title">Kiedy masz urodziny?</string>
+    <string name="onboarding_birthday_subtitle">Służy do obliczenia dziennego zapotrzebowania</string>
+
+    <string name="onboarding_height_weight_title">Wzrost i waga</string>
+    <string name="onboarding_height_weight_subtitle">Zachowamy to w prywatności</string>
+    <string name="onboarding_imperial">Imperialne</string>
+    <string name="onboarding_metric">Metryczne</string>
+    <string name="onboarding_height">Wzrost</string>
+    <string name="onboarding_weight">Waga</string>
+    <string name="onboarding_feet">Stopy</string>
+    <string name="onboarding_inches">Cale</string>
+
+    <string name="onboarding_activity_title">Jak aktywny jesteś?</string>
+    <string name="onboarding_activity_subtitle">Wybierz na podstawie przeciętnego tygodnia, w tym pracy i treningu.</string>
+
+    <string name="onboarding_goal_title">Jaki jest Twój cel?</string>
+    <string name="onboarding_goal_subtitle">Możesz to zmienić w każdej chwili</string>
+
+    <string name="onboarding_desired_weight_title">Jaka jest Twoja\ndocelowa waga?</string>
+
+    <string name="onboarding_body_fat_title">Czy znasz swój\nprocent tkanki tłuszczowej?</string>
+    <string name="onboarding_body_fat_subtitle">Pomaga dokładniej obliczyć metabolizm</string>
+    <string name="onboarding_yes">Tak</string>
+    <string name="onboarding_no">Nie</string>
+    <string name="onboarding_body_fat_ranges">Typowe zakresy: mężczyźni 10–25%, kobiety 18–35%</string>
+    <string name="onboarding_body_fat_no_worries">Spokojnie! Użyjemy standardowego wzoru\nna podstawie wzrostu, wagi i wieku.</string>
+
+    <string name="onboarding_pace_title_maintain">Twoje tempo</string>
+    <string name="onboarding_pace_subtitle_maintain">Ustawimy zrównoważony plan</string>
+    <string name="onboarding_pace_title_change">Jak szybko chcesz\nosiągnąć cel?</string>
+    <string name="onboarding_pace_subtitle_lose">Tempo utraty wagi na tydzień</string>
+    <string name="onboarding_pace_subtitle_gain">Tempo przyrostu wagi na tydzień</string>
+    <string name="onboarding_pace_balanced_set">Ustawiono zrównoważone tempo</string>
+    <string name="onboarding_pace_balanced_subtitle">Utrzymamy stałą liczbę kalorii,\naby zachować obecną wagę.</string>
+    <string name="onboarding_pace_per_week">tygodniowo</string>
+    <string name="onboarding_pace_slow">Wolno</string>
+    <string name="onboarding_pace_recommended">Zalecane</string>
+    <string name="onboarding_pace_fast">Szybko</string>
+    <string name="onboarding_pace_reach_prefix">Osiągniesz cel za</string>
+    <string name="onboarding_pace_days_format">%1$d dni</string>
+    <string name="onboarding_pace_caption_slow">Łagodne i trwałe. Dobre dla długoterminowych nawyków.</string>
+    <string name="onboarding_pace_caption_fast">Agresywne, ale wykonalne. Wymaga dużej dyscypliny.</string>
+    <string name="onboarding_pace_caption_recommended">Najbardziej zrównoważone tempo, motywujące i trwałe.</string>
+
+    <string name="onboarding_notifications_title">Otrzymuj przypomnienia,\naby logować posiłki</string>
+    <string name="onboarding_notifications_subtitle">Otrzymuj delikatne przypomnienia w porach posiłków,\naby nie zapomnieć o śledzeniu.</string>
+    <string name="onboarding_notifications_enabled">Przypomnienia włączone</string>
+    <string name="onboarding_notifications_allow">Zezwól na powiadomienia</string>
+    <string name="onboarding_notifications_change_anytime">Możesz to zmienić w każdej chwili w Ustawieniach.</string>
+
+    <string name="onboarding_health_title">Połącz z\nHealth Connect</string>
+    <string name="onboarding_health_subtitle">Automatycznie synchronizuj odżywianie\ni pomiary ciała.</string>
+    <string name="onboarding_health_feature_nutrition">Dane żywieniowe</string>
+    <string name="onboarding_health_feature_weight">Synchronizacja wagi</string>
+    <string name="onboarding_health_feature_body">Pomiary ciała</string>
+    <string name="onboarding_health_unavailable">Health Connect niedostępny</string>
+    <string name="onboarding_health_connected">Połączono</string>
+    <string name="onboarding_health_connect">Połącz</string>
+
+    <string name="onboarding_provider_title">Własna AI</string>
+    <string name="onboarding_provider_subtitle">Fud AI potrzebuje klucza dostawcy AI,\naby analizować jedzenie. Własny klucz.</string>
+    <string name="onboarding_provider_recommended_title">Zalecane: Google Gemini</string>
+    <string name="onboarding_provider_recommended_subtitle">Dostępny darmowy poziom, szybko i dokładnie</string>
+    <string name="onboarding_provider_step_1">Pobierz darmowy klucz na aistudio.google.com/apikey</string>
+    <string name="onboarding_provider_step_2">Otwórz Ustawienia → Dostawca AI</string>
+    <string name="onboarding_provider_step_3">Wklej klucz — gotowe</string>
+    <string name="onboarding_provider_footer">Obsługiwanych 13 dostawców. Klucz zostaje\nna tym urządzeniu, zaszyfrowany.</string>
+
+    <string name="onboarding_building_calories">Kalorie</string>
+    <string name="onboarding_building_carbs">Węglowodany</string>
+    <string name="onboarding_building_protein">Białko</string>
+    <string name="onboarding_building_fats">Tłuszcze</string>
+    <string name="onboarding_building_health_score">Wynik zdrowia</string>
+    <string name="onboarding_building_percent_format">%1$d%%</string>
+    <string name="onboarding_building_setting_up">Konfigurujemy wszystko\ndla Ciebie</string>
+    <string name="onboarding_building_finalizing">Finalizowanie wyników…</string>
+    <string name="onboarding_building_recommendation">Dzienne zalecenie dla</string>
+    <string name="onboarding_building_bullet">•</string>
+
+    <string name="onboarding_plan_title">Twój plan</string>
+    <string name="onboarding_plan_subtitle">Dotknij wartości, aby edytować</string>
+    <string name="onboarding_plan_daily_calories">dzienne kalorie</string>
+    <string name="onboarding_plan_doctor_title">Skonsultuj się z lekarzem</string>
+    <string name="onboarding_plan_doctor_message">Minimalne zalecenie to 1200 kalorii dziennie.</string>
+
+    <string name="onboarding_plan_field_calories">Dzienne kalorie</string>
+    <string name="onboarding_plan_field_protein">Białko</string>
+    <string name="onboarding_plan_field_carbs">Węglowodany</string>
+    <string name="onboarding_plan_field_fat">Tłuszcz</string>
+
+
+    <!-- Home -->
+    <string name="home_add_food">Dodaj jedzenie</string>
+    <string name="home_menu_camera">Aparat</string>
+    <string name="home_menu_camera_note">Aparat + notatka</string>
+    <string name="home_menu_nutrition_label">Etykieta żywieniowa</string>
+    <string name="home_menu_from_photos">Ze zdjęć</string>
+    <string name="home_menu_text_input">Wpis tekstowy</string>
+    <string name="home_menu_voice">Głos</string>
+    <string name="home_menu_manual_entry">Wpis ręczny</string>
+    <string name="home_menu_saved_meals">Zapisane posiłki</string>
+    <string name="home_kcal_of_format">z %1$s kcal</string>
+    <string name="home_kcal_left_format">pozostało %1$s</string>
+    <string name="home_view_more">Zobacz więcej</string>
+    <string name="home_todays_food">Dzisiejsze jedzenie</string>
+    <string name="home_no_foods_logged">Brak dodanych posiłków</string>
+    <string name="home_swipe_delete">Usuń</string>
+    <string name="home_swipe_favorite">Ulubione</string>
+    <string name="home_swipe_unfavorite">Usuń z ulubionych</string>
+    <string name="home_favorited">Ulubione</string>
+    <string name="home_macro_chip_format">%1$s %2$dg</string>
+    <string name="home_analyzing_food">Analizowanie jedzenia…</string>
+    <string name="home_looking_up_nutrition">Wyszukiwanie wartości odżywczych…</string>
+    <string name="home_fiber_format">Błonnik: %1$.1fg</string>
+    <string name="home_sugar_format">Cukier: %1$.1fg</string>
+    <string name="home_sat_fat_format">Tłuszcze nasycone: %1$.1fg</string>
+    <string name="home_sodium_format">Sód: %1$.1fmg</string>
+    <string name="home_potassium_format">Potas: %1$.1fmg</string>
+    <string name="home_cholesterol_format">Cholesterol: %1$.1fmg</string>
+    <string name="home_serving_format">Porcja: ~%1$dg</string>
+    <string name="home_protein_value">Białko: %1$dg</string>
+    <string name="home_carbs_value">Węglowodany: %1$dg</string>
+    <string name="home_fat_value">Tłuszcz: %1$dg</string>
+
+    <string name="text_input_placeholder_1">2 jajka, tost z masłem i kawa</string>
+    <string name="text_input_placeholder_2">Miska burrito Chipotle z kurczakiem i ryżem</string>
+    <string name="text_input_placeholder_3">Pizza pepperoni Domino\'s, 2 kawałki</string>
+    <string name="text_input_placeholder_4">Grecki jogurt z granolą i borówkami</string>
+
+    <string name="manual_title">Wpis ręczny</string>
+    <string name="manual_name">Nazwa</string>
+    <string name="manual_name_placeholder">np. Domowa sałatka</string>
+    <string name="manual_calories">Kalorie</string>
+    <string name="manual_protein">Białko (g)</string>
+    <string name="manual_carbs">Węglowodany (g)</string>
+    <string name="manual_fat">Tłuszcz (g)</string>
+    <string name="manual_zero_placeholder">0</string>
+    <string name="manual_meal_type">Typ posiłku</string>
+
+    <string name="error_title">Coś poszło nie tak</string>
+
+    <!-- Food sheets shared primitives -->
+    <string name="sheet_food_details">Szczegóły jedzenia</string>
+    <string name="sheet_serving">Porcja</string>
+    <string name="sheet_nutrition">Odżywianie</string>
+    <string name="sheet_meal">Posiłek</string>
+    <string name="sheet_more_nutrition">Więcej wartości odżywczych</string>
+    <string name="sheet_name">Nazwa</string>
+    <string name="sheet_quantity">Ilość</string>
+    <string name="sheet_meal_type">Typ posiłku</string>
+    <string name="sheet_review_food">Sprawdź jedzenie</string>
+    <string name="sheet_edit_food">Edytuj jedzenie</string>
+
+    <string name="sheet_micro_sugar">Cukier</string>
+    <string name="sheet_micro_added_sugar">Cukier dodany</string>
+    <string name="sheet_micro_fiber">Błonnik</string>
+    <string name="sheet_micro_saturated_fat">Tłuszcze nasycone</string>
+    <string name="sheet_micro_mono_fat">Tłuszcze mono</string>
+    <string name="sheet_micro_poly_fat">Tłuszcze poli</string>
+    <string name="sheet_micro_cholesterol">Cholesterol</string>
+    <string name="sheet_micro_sodium">Sód</string>
+    <string name="sheet_micro_potassium">Potas</string>
+
+    <!-- Context note sheet -->
+    <string name="context_note_title">Dodaj notatkę</string>
+    <string name="context_note_section">Dodaj notatkę (opcjonalnie)</string>
+    <string name="context_note_placeholder">np. bez oleju, więcej sera, duża porcja</string>
+
+    <!-- Voice input sheet -->
+    <string name="voice_listening">Słucham…</string>
+    <string name="voice_tap_to_start">Stuknij mikrofon, aby zacząć</string>
+    <string name="voice_transcribing_format">Transkrypcja przez %1$s…</string>
+    <string name="voice_mic_permission_denied">Odmowa dostępu do mikrofonu.</string>
+    <string name="voice_mic_start_failed">Nie udało się uruchomić mikrofonu. Sprawdź uprawnienia.</string>
+    <string name="voice_transcription_failed">Transkrypcja nie powiodła się</string>
+    <string name="voice_stop">Stop</string>
+    <string name="voice_record">Nagraj</string>
+
+    <!-- Saved Meals sheet -->
+    <string name="saved_meals_title">Zapisane posiłki</string>
+    <string name="saved_meals_tab_recents">Ostatnie</string>
+    <string name="saved_meals_tab_frequent">Częste</string>
+    <string name="saved_meals_tab_favorites">Ulubione</string>
+    <string name="saved_meals_no_logs">Brak zapisanych posiłków</string>
+    <string name="saved_meals_no_favorites">Brak ulubionych\nPrzesuń w lewo na posiłku, aby dodać</string>
+    <string name="saved_meals_count_format">zapisano %1$d×</string>
+    <string name="saved_meals_log_action">Dodaj</string>
+    <string name="saved_meals_remove_favorite">Usuń z ulubionych</string>
+    <string name="saved_meals_move_up">Przenieś w górę</string>
+    <string name="saved_meals_move_down">Przenieś w dół</string>
+
+    <!-- Nutrition detail sheet -->
+    <string name="nutrition_details_title">Szczegóły odżywiania</string>
+    <string name="nutrition_section_macros">Makra</string>
+    <string name="nutrition_section_detailed">Szczegółowe wartości odżywcze</string>
+    <string name="nutrition_label_calories">Kalorie</string>
+    <string name="nutrition_label_protein">Białko</string>
+    <string name="nutrition_label_carbs">Węglowodany</string>
+    <string name="nutrition_label_fat">Tłuszcz</string>
+    <string name="nutrition_label_sugar">Cukier</string>
+    <string name="nutrition_label_added_sugar">Cukier dodany</string>
+    <string name="nutrition_label_fiber">Błonnik</string>
+    <string name="nutrition_label_saturated_fat">Tłuszcze nasycone</string>
+    <string name="nutrition_label_mono_fat">Tłuszcze jednonienasycone</string>
+    <string name="nutrition_label_poly_fat">Tłuszcze wielonienasycone</string>
+    <string name="nutrition_label_cholesterol">Cholesterol</string>
+    <string name="nutrition_label_sodium">Sód</string>
+    <string name="nutrition_label_potassium">Potas</string>
+    <string name="nutrition_em_dash">—</string>
+
+    <!-- Coach -->
+    <string name="coach_title">Trener</string>
+    <string name="coach_reset_chat_a11y">Zresetuj czat</string>
+    <string name="coach_send_a11y">Wyślij</string>
+    <string name="coach_input_voice_a11y">Wprowadzanie głosowe</string>
+    <string name="coach_input_placeholder">Zapytaj trenera…</string>
+    <string name="coach_empty_title">Zapytaj trenera</string>
+    <string name="coach_empty_subtitle">Twój trener widzi historię wagi, dziennik kalorii i cele. Zapytaj o przewidywaną wagę, co zjeść albo jak trafić w cel.</string>
+    <string name="coach_reset_dialog_title">Zresetuj czat</string>
+    <string name="coach_reset_dialog_message">Wyczyścić wszystkie wiadomości i zacząć od nowa? Tego nie można cofnąć.</string>
+    <string name="coach_reset_confirm">Resetuj</string>
+    <string name="coach_no_profile_error">Brak profilu. Najpierw dokończ onboarding.</string>
+    <string name="coach_chat_failed">Czat nie powiódł się</string>
+
+    <string name="coach_chip_predict_30_days">Jaka będzie moja przewidywana waga za 30 dni?</string>
+    <string name="coach_chip_lose_faster">Jak bezpiecznie szybciej schudnąć?</string>
+    <string name="coach_chip_eating_too_much">Czy jem za dużo?</string>
+    <string name="coach_chip_what_dinner">Co zjeść na kolację?</string>
+    <string name="coach_chip_gain_healthy">Jak zdrowo przybrać na wadze?</string>
+    <string name="coach_chip_eating_enough">Czy jem wystarczająco?</string>
+    <string name="coach_chip_high_protein">Jakie wysokobiałkowe produkty mogę dodać?</string>
+    <string name="coach_chip_holding_weight">Czy utrzymuję wagę?</string>
+    <string name="coach_chip_average_intake">Jaka jest moja średnia podaż?</string>
+    <string name="coach_chip_macro_suggestions">Sugestie makro?</string>
+    <string name="coach_chip_trend">Jak wygląda mój trend?</string>
+    <string name="coach_chip_doing_this_week">Jak mi idzie w tym tygodniu?</string>
+    <string name="coach_chip_log_advice">Jakaś rada na podstawie mojego dziennika?</string>
+
+    <!-- Progress -->
+    <string name="progress_range_week">1T</string>
+    <string name="progress_range_month">1M</string>
+    <string name="progress_range_3m">3M</string>
+    <string name="progress_range_6m">6M</string>
+    <string name="progress_range_year">1R</string>
+    <string name="progress_range_all">Wszystko</string>
+
+    <string name="progress_weight_section">Waga</string>
+    <string name="progress_log_weight">Dodaj wagę</string>
+    <string name="progress_stat_current">Aktualna</string>
+    <string name="progress_stat_goal">Cel</string>
+    <string name="progress_log_first_weight">Zapisz pierwszą wagę, aby zobaczyć trendy</string>
+
+    <string name="progress_weight_history">Historia wagi</string>
+    <string name="progress_body_fat_history">Historia tkanki tłuszczowej</string>
+    <plurals name="progress_history_count_format">
+        <item quantity="one">%1$d Eintrag · tippen zum Anzeigen oder Löschen</item>
+        <item quantity="other">%1$d Einträge · tippen zum Anzeigen oder Löschen</item>
+    </plurals>
+
+    <string name="progress_calories_section">Kalorie</string>
+    <string name="progress_avg_format">Śr.: %1$,d kcal</string>
+    <string name="progress_no_food">Brak zapisanych posiłków</string>
+
+    <string name="progress_macro_averages">Średnie makro</string>
+    <string name="progress_macro_progress_format">%1$dg / %2$dg</string>
+
+    <string name="progress_log_weight_title">Dodaj wagę</string>
+
+    <string name="progress_goal_reached_title">Gratulacje! 🎉</string>
+    <string name="progress_goal_reached_message">Osiągnąłeś docelową wagę! Przejdź do Ustawień, zmień cel i stuknij Przelicz cele, aby odświeżyć cele.</string>
+
+    <!-- Settings -->
+    <string name="settings_section_personal">Dane osobiste</string>
+    <string name="settings_section_goals">Cele i odżywianie</string>
+    <string name="settings_section_daily_targets">Cele dzienne</string>
+    <string name="settings_section_app">Ustawienia aplikacji</string>
+    <string name="settings_section_tracking_reminders">Śledzenie i przypomnienia</string>
+    <string name="settings_category_ai_providers">Dostawcy AI i opcje awaryjne</string>
+    <string name="settings_section_workout">Trening</string>
+    <string name="settings_section_ai">Główne AI</string>
+    <string name="settings_section_speech">Mowa na tekst</string>
+    <string name="settings_section_health">Zdrowie i dane</string>
+    <string name="settings_section_data_management">Zarządzanie danymi</string>
+
+    <string name="settings_gender">Płeć</string>
+    <string name="settings_birthday">Data urodzenia</string>
+    <string name="settings_height">Wzrost</string>
+    <string name="settings_weight">Waga</string>
+    <string name="settings_body_fat">Tkanka tłuszczowa</string>
+    <string name="settings_not_set">Nie ustawiono</string>
+    <string name="settings_birthday_age_format">%1$s (wiek %2$d)</string>
+
+    <string name="settings_weight_goal">Cel wagi</string>
+    <string name="settings_activity_level">Poziom aktywności</string>
+    <string name="settings_weekly_change">Zmiana tygodniowa</string>
+    <string name="settings_weekly_default">0,50 kg/tyg.</string>
+    <string name="settings_goal_weight">Waga docelowa</string>
+    <string name="settings_calories">Kalorie</string>
+    <string name="settings_recalculate_goals">Przelicz cele</string>
+    <string name="settings_macro_pinned_format">%1$d g</string>
+    <string name="settings_macro_auto_format">%1$d g · auto</string>
+    <string name="settings_macro_pinned_a11y">Przypięte</string>
+    <string name="settings_macro_auto_a11y">Auto</string>
+
+    <string name="settings_appearance">Wygląd</string>
+    <string name="settings_appearance_system">System</string>
+    <string name="settings_appearance_light">Lekka</string>
+    <string name="settings_appearance_dark">Ciemny</string>
+    <string name="settings_metric_units">Jednostki metryczne</string>
+    <string name="settings_height_unit">Jednostka wzrostu</string>
+    <string name="settings_weight_unit">Jednostka wagi</string>
+    <string name="settings_week_starts">Tydzień zaczyna się od</string>
+    <string name="settings_week_monday">Poniedziałek</string>
+    <string name="settings_week_sunday">Niedziela</string>
+    <string name="settings_notifications">Powiadomienia</string>
+    <string name="settings_battery_opt">Optymalizacja baterii</string>
+    <string name="settings_battery_opt_value">Dodaj Fud AI do wyjątków</string>
+
+    <string name="settings_ai_provider">Dostawca</string>
+    <string name="settings_ai_model">Model</string>
+    <string name="settings_ai_model_unset">(ustaw poniżej)</string>
+    <string name="settings_api_key">Klucz API</string>
+    <string name="settings_base_url">Bazowy URL</string>
+    <string name="settings_server_url">URL serwera</string>
+    <string name="settings_tap_to_edit">Dotknij, aby edytować</string>
+    <string name="settings_custom_url_placeholder">https://your-endpoint.com/v1</string>
+    <string name="settings_custom_url_title">Własny bazowy URL</string>
+    <string name="settings_clear_key">Wyczyść klucz</string>
+
+    <string name="settings_health_connect">Health Connect</string>
+    <string name="settings_clear_food_log">Wyczyść dziennik jedzenia</string>
+    <string name="settings_delete_all_data">Usuń wszystkie dane</string>
+
+    <!-- Settings dialogs -->
+    <string name="settings_clear_food_title">Wyczyścić dziennik jedzenia?</string>
+    <string name="settings_clear_food_message">Usuwa wszystkie wpisy i zdjęcia. Profil, wagi i ustawienia zostają.</string>
+    <string name="settings_delete_all_title">Usunąć wszystkie lokalne dane?</string>
+    <string name="settings_delete_all_message">Usuwa profil, dziennik jedzenia, historię wagi, czat i klucze API, a potem wraca do onboardingu. Dane Health Connect pozostają.</string>
+    <string name="settings_max_pinned_title">Maks. 2 zablokowane makra</string>
+    <string name="settings_max_pinned_message">Jednocześnie można zablokować najwyżej 2 makra, aby jedno pozostało wolne do bilansowania. Najpierw odblokuj inne makro (stuknij ikonę kłódki).</string>
+    <string name="settings_recalc_title">Przeliczyć cele?</string>
+    <string name="settings_recalc_message">Resetuje kalorie i makro do domyślnych wzorów z wzrostu/wagi/aktywności/celu. Przypięte makro są czyszczone.</string>
+    <string name="settings_recalc_confirm">Przelicz</string>
+    <string name="settings_invalid_goal_title">Waga docelowa nie pasuje do celu</string>
+    <string name="settings_invalid_goal_lose">Cel „Schudnąć” wymaga wagi poniżej obecnej.</string>
+    <string name="settings_invalid_goal_gain">Cel „Przybrać” wymaga wagi powyżej obecnej.</string>
+    <string name="settings_permission_title">Potrzebne uprawnienie</string>
+
+    <string name="settings_notifications_denied">Odmowa powiadomień. Włącz je w Ustawieniach systemu → Aplikacje → Fud AI → Powiadomienia, aby otrzymywać przypomnienia.</string>
+
+    <!-- Notification copy -->
+    <string name="notif_weight_log_title">Czas się zważyć</string>
+    <string name="notif_weight_log_text">Zapisz dzisiejszą wagę, aby wykres postępu był dokładny.</string>
+    <string name="settings_health_unavailable">Zainstaluj lub zaktualizuj Health Connect ze Sklepu Play, potem ponownie włącz przełącznik.</string>
+
+    <!-- Settings sheets / pickers -->
+    <string name="sheet_ai_provider">Dostawca AI</string>
+    <string name="sheet_model">Model</string>
+    <string name="sheet_model_footer">Albo wpisz poniżej dowolne własne ID modelu.</string>
+    <string name="sheet_any_model_id">Dowolne ID modelu</string>
+    <string name="sheet_api_key_format">Klucz API — %1$s</string>
+    <string name="sheet_speech_api_key_format">Klucz API mowy — %1$s</string>
+    <string name="sheet_speech_engine">Silnik mowy</string>
+    <string name="sheet_gender">Płeć</string>
+    <string name="sheet_activity_level">Poziom aktywności</string>
+    <string name="sheet_goal">Cel</string>
+    <string name="sheet_target_weight">Waga docelowa</string>
+    <string name="sheet_weight">Waga</string>
+    <string name="sheet_birthday">Data urodzenia</string>
+    <string name="sheet_appearance">Wygląd</string>
+    <string name="sheet_week_starts">Tydzień zaczyna się od</string>
+    <string name="sheet_height">Wzrost</string>
+    <string name="sheet_body_fat_percent">Tkanka tłuszczowa %</string>
+    <string name="sheet_weekly_change">Zmiana tygodniowa</string>
+    <string name="sheet_weekly_change_format">%1$.1f %2$s/tydzień %3$s</string>
+    <string name="sheet_weekly_change_loss">spadek</string>
+    <string name="sheet_weekly_change_gain">przyrost</string>
+    <string name="sheet_pace_slow">Wolno</string>
+    <string name="sheet_pace_recommended">Zalecane</string>
+    <string name="sheet_pace_fast">Szybko</string>
+    <string name="sheet_selected_a11y">Wybrano</string>
+    <string name="sheet_reset_to_auto">Resetuj do automatycznego równoważenia</string>
+
+    <string name="sheet_macros">Makra</string>
+    <string name="sheet_macros_subtitle">Przypnij do 2 makro do dokładnych gramów. Nieprzypięte automatycznie równoważą się z pozostałych kalorii.</string>
+    <string name="sheet_macro_pinned">przypięte</string>
+    <string name="sheet_macro_auto">auto</string>
+    <string name="sheet_macro_label_format">%1$s (%2$s)</string>
+
+    <!-- About -->
+    <string name="about_rate">Oceń aplikację</string>
+    <string name="about_share">Udostępnij aplikację</string>
+    <string name="about_open_source">Open Source (MIT)</string>
+    <string name="about_star_github">Dodaj gwiazdkę na GitHubie</string>
+    <string name="about_vote_ph">Zagłosuj na Product Hunt</string>
+    <string name="about_leave_tip_kofi">Zostaw napiwek na Ko-fi</string>
+    <string name="about_report_issue">Zgłoś problem</string>
+    <string name="about_request_feature">Poproś o funkcję</string>
+    <string name="about_contact">Kontakt</string>
+    <string name="about_follow_x">Obserwuj na X</string>
+    <string name="about_follow_linkedin">Obserwuj na LinkedIn</string>
+    <string name="about_privacy">Polityka prywatności</string>
+    <string name="about_terms">Warunki korzystania</string>
+    <string name="about_category_app_updates">Aplikacja i aktualizacje</string>
+    <string name="about_category_support">Wesprzyj Fud AI</string>
+    <string name="about_category_help_feedback">Pomoc i opinie</string>
+    <string name="about_category_community">Społeczność</string>
+    <string name="about_category_legal">Informacje prawne</string>
+    <string name="about_made_by">Autor: Apoorv Darshan</string>
+    <string name="about_with_care">z troską, dla wszystkich</string>
+    <string name="about_share_message">Śledzę posiłki z Fud AI — zrób zdjęcie, powiedz albo wpisz posiłek, a AI zapisze kalorie. To darmowa aplikacja open source, a Twoje dane zostają na urządzeniu.\n\nPobierz: https://fud-ai.app</string>
+    <string name="about_share_chooser">Udostępnij Fud AI</string>
+
+    <!-- Notifications -->
+    <string name="notif_channel_streak">Przypomnienie o serii</string>
+    <string name="notif_channel_streak_desc">Codzienne przypomnienie o zapisaniu posiłku i utrzymaniu serii.</string>
+    <string name="notif_channel_daily">Podsumowanie dnia</string>
+    <string name="notif_channel_daily_desc">Podsumowanie kalorii i makro na koniec dnia.</string>
+    <string name="notif_channel_weight_goal">Cel wagi</string>
+    <string name="notif_channel_weight_goal_desc">Gratulacje po osiągnięciu wagi docelowej.</string>
+    <string name="notif_streak_title">Nie zapomnij zapisać posiłków</string>
+    <string name="notif_streak_text">Utrzymaj serię — zapisz coś z dzisiaj.</string>
+    <string name="notif_summary_title">Dzisiejsze podsumowanie jest gotowe</string>
+    <string name="notif_summary_text">Dotknij, aby zobaczyć, jak ułożyły się dzisiejsze makro.</string>
+
+    <string name="onboarding_goal_optional">Cel (opcjonalnie)</string>
+    <string name="onboarding_goal_set_later">Możesz ustawić to później w Ustawieniach.</string>
+    <string name="settings_goal_body_fat">Docelowa tkanka tłuszczowa</string>
+    <string name="settings_use_body_fat_bmr">Używaj tkanki tłuszczowej do BMR</string>
+    <string name="settings_use_body_fat_bmr_subtitle">Wł. = Katch-McArdle (używa beztłuszczowej masy dla dokładniejszego BMR). Wył. = Mifflin-St Jeor (tylko wzrost/waga/wiek). Wyłącz, jeśli pomiar tkanki tłuszczowej jest nieaktualny.</string>
+    <string name="sheet_goal_body_fat">Cel tkanki tłuszczowej</string>
+    <string name="sheet_goal_body_fat_currently">Obecnie %1$d%%</string>
+    <string name="action_remove_goal">Usuń cel</string>
+    <string name="progress_metric_weight">Waga</string>
+    <string name="progress_metric_body_fat">Tkanka tłuszczowa</string>
+    <string name="progress_metric_workouts">Treningi</string>
+    <string name="progress_metric_heart_rate">Tętno</string>
+    <string name="progress_workout_history">Historia treningów</string>
+    <plurals name="progress_workout_history_count_format">
+        <item quantity="one">%1$d berechneter Verbrauch · zum Anzeigen oder Löschen tippen</item>
+        <item quantity="other">%1$d berechnete Verbräuche · zum Anzeigen oder Löschen tippen</item>
+    </plurals>
+    <string name="progress_workout_delete_title">Usunąć spalanie z treningu?</string>
+    <string name="progress_workout_delete_message">To usuwa obliczone spalanie z Fud AI i Health Connect. Plan treningu w dzienniku zostaje.</string>
+    <string name="progress_workout_section">Aktywność treningowa</string>
+    <string name="progress_workout_stat_workouts">Treningi</string>
+    <string name="progress_workout_stat_total">Całkowite spalanie</string>
+    <string name="progress_workout_stat_average">Śr. spalanie</string>
+    <string name="progress_workout_stat_latest">Ostatni</string>
+    <string name="progress_workout_stat_days">Dni</string>
+    <string name="progress_workout_no_range">Brak obliczonych spałań treningowych w tym zakresie</string>
+    <string name="progress_workout_chart_description">Wykres spalania treningowego od %1$s do %2$s. Razem %3$d kilokalorii; ostatnie %4$d kilokalorii.</string>
+    <string name="progress_heart_rate_section">Tętno</string>
+    <string name="progress_heart_rate_measure">Zmierz</string>
+    <string name="progress_heart_rate_log_manual">Wpisz ręcznie</string>
+    <string name="progress_heart_rate_save_reading">Zapisz odczyt</string>
+    <string name="progress_heart_rate_no_range">Brak pomiarów tętna w tym zakresie</string>
+    <string name="progress_heart_rate_stat_latest">Ostatni</string>
+    <string name="progress_heart_rate_stat_min">Minimum</string>
+    <string name="progress_heart_rate_stat_max">Maksimum</string>
+    <string name="progress_bpm_format">%1$d bpm</string>
+    <string name="progress_heart_rate_history">Historia tętna</string>
+    <string name="progress_heart_rate_delete_title">Usunąć pomiar tętna?</string>
+    <string name="progress_heart_rate_delete_message">%1$d bpm z %2$s zostanie trwale usunięte.</string>
+    <string name="progress_heart_rate_source_camera">Aparat</string>
+    <string name="progress_heart_rate_source_manual">Ręcznie</string>
+    <string name="progress_heart_rate_history_detail">%1$s · %2$s</string>
+    <string name="progress_heart_rate_save_error_title">Nie udało się zapisać tętna</string>
+    <string name="progress_heart_rate_save_error_message">Nie udało się odczytać istniejących danych tętna, więc pozostały bez zmian. Nowy pomiar nie został zapisany.</string>
+    <string name="progress_heart_rate_delete_error_title">Nie udało się usunąć pomiaru tętna</string>
+    <string name="progress_heart_rate_delete_error_message">Nie udało się usunąć pomiaru. Istniejące dane tętna pozostały bez zmian.</string>
+    <string name="progress_heart_rate_quality_format">Jakość sygnału: %1$d%%</string>
+    <string name="progress_heart_rate_disclaimer">Tylko szacunek wellness — nie pomiar medyczny. Nie diagnostykuje chorób serca.</string>
+    <string name="progress_heart_rate_chart_description">Wykres tętna od %1$s do %2$s. Ostatnie %3$d bpm; zakres %4$d do %5$d bpm.</string>
+    <string name="progress_heart_rate_manual_title">Zapisz tętno</string>
+    <string name="progress_heart_rate_bpm_label">Uderzenia na minutę</string>
+    <string name="progress_heart_rate_manual_range">Wpisz wartość od 30 do 250 bpm.</string>
+    <string name="progress_heart_rate_camera_title">Zmierz tętno</string>
+    <string name="progress_heart_rate_camera_guidance">Przyłóż opuszek palca do głównego tylnego aparatu (obiektyw najbliżej flesza). Nie musisz zasłaniać flesza — ma tylko oświetlać bok palca. Lekko dociśnij.</string>
+    <string name="progress_heart_rate_camera_refining">Nadal sprawdzamy stabilne tętno. Trzymaj główny aparat zasłonięty i lekko dociśnij.</string>
+    <string name="progress_heart_rate_camera_measuring">Odczytywanie tętna…</string>
+    <string name="progress_heart_rate_camera_hold_still">Trzymaj palec nieruchomo na głównym aparacie i oddychaj normalnie. Lekko — nie mocno.</string>
+    <string name="progress_heart_rate_camera_result">%1$d bpm</string>
+    <string name="progress_heart_rate_camera_poor_signal">Sygnał był zbyt słaby. Popraw ułożenie opuszka i spróbuj ponownie.</string>
+    <string name="progress_heart_rate_camera_unavailable">Tylny aparat jest niedostępny. Nadal możesz zapisać tętno ręcznie.</string>
+    <string name="progress_heart_rate_flash_unavailable">Do pomiaru aparatem wymagany jest flesz tylnego aparatu. Nadal możesz zapisać ręcznie.</string>
+    <string name="progress_heart_rate_permission_denied">Nie przyznano dostępu do aparatu. Możesz go włączyć w ustawieniach systemu lub zapisać ręcznie.</string>
+    <string name="progress_heart_rate_warmth_warning">Flesz może być ciepły. Odsuń palec i przerwij, jeśli robi się niekomfortowo.</string>
+    <string name="progress_log_body_fat">Dodaj pomiar tkanki tłuszczowej</string>
+    <string name="progress_log_first_body_fat">Dodaj pierwszy pomiar % tkanki tłuszczowej, aby zobaczyć trendy</string>
+    <string name="progress_log_body_fat_title">Dodaj pomiar tkanki tłuszczowej</string>
+    <string name="notif_body_fat_log_title">Kontrola tkanki tłuszczowej</string>
+    <string name="notif_body_fat_log_text">Zapisz dzisiejszy % tkanki tłuszczowej, aby śledzić trend sylwetki.</string>
+    <string name="saved_meals_search_placeholder">Szukaj zapisanych produktów</string>
+    <string name="saved_meals_no_match">Brak pasujących produktów</string>
+    <string name="settings_section_custom_instructions">Własne instrukcje AI</string>
+    <string name="settings_custom_instructions_placeholder">np. Mieszkam w Niemczech, zakładaj europejskie porcje, preferuj marki ALDI/REWE. Jestem na redukcji kulturystycznej.</string>
+    <string name="settings_custom_instructions_footer">Opcjonalny kontekst wysyłany z każdym żądaniem AI — region, dieta, cele sportowe, wszystko, co normalnie trzeba powtarzać. Zostaw puste, aby wyłączyć.</string>
+    <string name="settings_save">Zapisz</string>
+    <string name="settings_saved">Zapisano</string>
+    <string name="settings_section_fallback">Zapasowe AI do zdjęć</string>
+    <string name="settings_enable_fallback">Włącz dostawcę zapasowego</string>
+    <string name="settings_fallback_footer">Używane tylko, gdy żądanie AI zawiera zdjęcie. Ten sam dostawca co główny jest dozwolony — wybierz po prostu inny model.</string>
+    <string name="widget_all_metrics_label">Fud AI Dziś</string>
+    <string name="widget_all_metrics_description">Zobacz dzisiejsze kalorie, białko, węglowodany i tłuszcz w jednym widżecie.</string>
+    <string name="settings_needs_health_connect">Wymaga Health Connect</string>
+    <string name="settings_energy_goals_info">Gdy włączone, Fud AI używa niedawnego okna zmierzonej energii z Health Connect jako kotwicy utrzymania przy obliczaniu celów zamiast szacunku ze wzoru: zmierzona całkowita energia, gdy jest wystarczająco dni; w przeciwnym razie średnia zmierzona energia aktywna + BMR ze wzoru. AI nie odczytuje Twojego spalania. Wymaga Health Connect. Działa z przyciskiem Przelicz oraz z Celami adaptacyjnymi.</string>
+    <string name="settings_adaptive_goals_info">Mniej więcej raz w tygodniu, po otwarciu aplikacji, Fud AI automatycznie ponawia pełne obliczanie celów — to samo, którego używa przycisk Przelicz — na podstawie Twojego profilu, ostatnio zapisanych posiłków i trendu wagi. Jeśli Energy Burn jest włączone, zmierzone spalanie służy jako punkt odniesienia podtrzymania. Gdy AI jest niedostępne, uruchomienie jest pomijane po cichu. Wyłączenie przywraca cele sprzed pierwszej zmiany dokonanej przez tę funkcję. To nie jest porada medyczna.</string>
+    <string name="ad_label">Reklama</string>
+    <string name="onboarding_plan_adaptive_note">Twój plan dostosowuje się co tydzień na podstawie wpisów — wyłącz Cele adaptacyjne w Ustawieniach, aby pozostał stały.</string>
+    <string name="onboarding_feature_snap">Zrób zdjęcie — AI je zapisze</string>
+    <string name="onboarding_feature_coach">Trener, który zna Twoje dane</string>
+    <string name="onboarding_feature_library">Biblioteka 870+ ćwiczeń</string>
+    <string name="onboarding_feature_widgets">Widżety ekranu głównego</string>
+    <string name="whats_new_v30_workouts">Nowa karta Treningi — przeglądaj 873 ćwiczenia ze zdjęciami, filtrami mięśni i sprzętu, wyszukiwaniem i stronami szczegółów.</string>
+    <string name="whats_new_v30_home">Nowy ekran główny: prędkościomierz kalorii, pionowe paski makro, cztery karty składników i pływający przycisk dodawania.</string>
+    <string name="whats_new_v30_coach_voice">Zapytaj Trenera głosowo dzięki nowemu wbudowanemu rejestratorowi.</string>
+    <string name="whats_new_v30_share">Udostępnij dowolny posiłek jako link, który otwiera się od razu w Fud AI na iPhonie lub Androidzie.</string>
+    <string name="whats_new_v30_export">Eksportuj dziennik żywieniowy jako JSON, Markdown lub CSV w Ustawieniach.</string>
+    <string name="whats_new_v30_reprocess">Przetwórz ponownie zapisany posiłek z AI — zmień nazwę, porcję lub notatkę i przeanalizuj od nowa.</string>
+    <string name="whats_new_v30_camera">Aparat + Aparat zachowuje oba ujęcia, połączone obok siebie.</string>
+    <string name="whats_new_v30_colors">10 nowych kolorów motywu, wybieranych teraz bezpośrednio w Ustawieniach.</string>
+    <string name="whats_new_v30_bodyfat">Historia tkanki tłuszczowej: przeglądaj i usuwaj pojedyncze wpisy, tak jak przy wadze.</string>
+    <string name="whats_new_v30_units">Jednostki wzrostu i wagi ustawia się teraz niezależnie.</string>
+    <string name="whats_new_v30_adaptive">Cele adaptacyjne i Spalanie energii wyszły z fazy eksperymentalnej i są domyślnie włączone przy nowych instalacjach.</string>
+    <string name="whats_new_v30_widgets">Przebudowa widżetów: styl prędkościomierza na ekranie głównym, rysowany w rzeczywistym rozmiarze widżetu.</string>
+    <string name="whats_new_v30_restore">Przeinstalowałeś lub zmieniłeś telefon? Dziennik jedzenia, waga i tkanka tłuszczowa przywracają się automatycznie z Health Connect.</string>
+    <string name="settings_fasting_tracking">Śledzenie postu</string>
+    <string name="settings_fasting_goal">Domyślny cel postu</string>
+    <string name="settings_fasting_goal_value">%1$d godzin</string>
+    <string name="settings_notif_fasting_goal">Cel postu osiągnięty</string>
+    <string name="fasting">Post</string>
+    <string name="fasting_start">Rozpocznij post</string>
+    <string name="fasting_end">Zakończ post</string>
+    <string name="fasting_cancel">Anuluj post</string>
+    <string name="fasting_in_progress">Post trwa</string>
+    <string name="fasting_completed_format">Post %1$s</string>
+    <string name="fasting_goal_format">Cel %1$s</string>
+    <string name="fasting_started_format">Rozpoczęto %1$s</string>
+    <string name="fasting_choose_goal">Wybierz cel postu</string>
+    <string name="fasting_hours">godziny</string>
+    <string name="fasting_edit">Edytuj post</string>
+    <string name="fasting_active">Aktywny post</string>
+    <string name="fasting_started">Rozpoczęto</string>
+    <string name="fasting_ended">Zakończono</string>
+    <string name="fasting_delete">Usuń post</string>
+    <string name="fasting_overlap_title">Post nakłada się na inną sesję</string>
+    <string name="fasting_overlap_message">Zmień czas rozpoczęcia lub zakończenia, aby sesje postu się nie nakładały.</string>
+    <string name="food_logging_paused">Rejestrowanie jedzenia wstrzymane</string>
+    <string name="food_blocked_by_active_fast">Zakończ lub anuluj aktywny post przed dodaniem jedzenia.</string>
+    <string name="home_todays_diary">Dzisiejszy dziennik</string>
+    <string name="home_diary">Dziennik</string>
+    <string name="home_no_diary_entries">Brak wpisów w dzienniku</string>
+    <string name="home_menu_photo_scan">Zdjęcie i skan</string>
+    <string name="home_menu_describe_meal">Opisz posiłek</string>
+    <string name="home_menu_reuse_meal">Użyj posiłku ponownie</string>
+    <string name="notif_channel_fasting">Post</string>
+    <string name="notif_channel_fasting_desc">Powiadomienia, gdy aktywny post osiągnie cel.</string>
+    <string name="notif_fasting_goal_title">Cel postu osiągnięty</string>
+    <string name="notif_fasting_goal_text">Osiągnąłeś cel postu %1$s. Zakończ post, gdy będziesz gotowy.</string>
+    <string name="home_menu_barcode">Kod kreskowy</string>
+    <string name="settings_calc_methods">Metody obliczeń</string>
+    <string name="settings_calc_calorie_target">Cel kalorii dla celu</string>
+    <string name="settings_calc_maintenance">Utrzymanie i korekta celu</string>
+    <string name="settings_calc_macro_split">Podział makroskładników</string>
+    <string name="settings_calc_micro_values">Wartości mikroelementów</string>
+    <string name="settings_calc_intro">Twoje dzienne cele kalorii i makro ustawia AI. Gdy stukniesz Przelicz cele — albo automatycznie co ok. tydzień, jeśli Cele adaptacyjne są włączone — Fud AI wysyła do dostawcy AI Twój profil, poniższe równania referencyjne, bezpieczne pod względem prywatności dzienne sumy żywieniowe, dokładne datowane pomiary wagi, tkanki tłuszczowej i obwodów, zagregowane liczby treningów, czas, serie i powtórzenia oraz opcjonalną energię z Health Connect. Nazwy posiłków, notatki, zdjęcia, składniki i nazwy ćwiczeń nie są wysyłane do tej kalkulacji. Zaczyna od tych recenzowanych wzorów, a potem dopasowuje je do Twoich danych, aby oszacować prawdziwe utrzymanie i cele.</string>
+    <string name="settings_calc_sec_bmr">Metabolizm spoczynkowy (BMR)</string>
+    <string name="settings_calc_sec_tdee">Dzienne wydatkowanie energii (TDEE)</string>
+    <string name="settings_calc_mifflin_name">Równanie Mifflina–St Jeora</string>
+    <string name="settings_calc_mifflin_used">Domyślny wzór metabolizmu spoczynkowego. Używany, gdy poziom tkanki tłuszczowej jest niedostępny.</string>
+    <string name="settings_calc_mifflin_formula">Mężczyźni: 10×masa ciała(kg) + 6,25×wzrost(cm) − 5×wiek + 5\nKobiety: 10×masa ciała(kg) + 6,25×wzrost(cm) − 5×wiek − 161</string>
+    <string name="settings_calc_katch_name">Równanie Katcha–McArdle’a</string>
+    <string name="settings_calc_katch_used">Używane, gdy podałeś % tkanki tłuszczowej. Wylicza BMR z masy beztłuszczowej zamiast całkowitej wagi.</string>
+    <string name="settings_calc_katch_formula">BMR = 370 + 21,6 × BMC(kg)\nBMC = masa ciała × (1 − procent tkanki tłuszczowej)</string>
+    <string name="settings_calc_tdee_name">Metoda mnożnika aktywności</string>
+    <string name="settings_calc_tdee_used">TDEE = BMR × mnożnik aktywności. Mnożnik odpowiada wybranemu poziomowi aktywności. To bazowe utrzymanie ze wzoru. Gdy Spalanie energii jest włączone, kalkulacja używa zamiast tego niedawnego okna zmierzonej energii z Health Connect: zmierzona całkowita energia, gdy jest wystarczająco dni; w przeciwnym razie średnia zmierzona energia aktywna + BMR ze wzoru.</string>
+    <string name="settings_calc_tdee_formula">Siedzący: 1,2 · Lekki: 1,375 · Umiarkowany: 1,465 · Aktywny: 1,55 · Bardzo aktywny: 1,725 · Extra aktywny: 1,9</string>
+    <string name="settings_calc_target_name">Utrzymanie i korekta celu</string>
+    <string name="settings_calc_target_used">Utrzymanie zaczyna od TDEE — albo, gdy Spalanie energii jest włączone, od niedawnego okna zmierzonej energii z Health Connect zamiast szacunku ze wzoru: zmierzona całkowita energia, gdy jest wystarczająco dni; w przeciwnym razie średnia zmierzona energia aktywna + BMR ze wzoru. AI doprecyzowuje utrzymanie względem zapisanego spożycia i trendu wagi, potem stosuje Twój cel: tygodniowa zmiana wagi staje się dziennym deficytem (Schudnąć) lub nadwyżką (Przybrać).</string>
+    <string name="settings_calc_target_formula">1 lb tkanki tłuszczowej ≈ 3500 kcal · 1 kg ≈ 7700 kcal\nTygodniowe tempo ÷ 7 jest odejmowane od zapotrzebowania (utrata) lub do niego dodawane (przyrost), aby ustalić dzienny cel kalorii.</string>
+    <string name="settings_calc_split_name">Cele dla białka, węglowodanów i tłuszczu</string>
+    <string name="settings_calc_split_used">AI dopasowuje białko, węglowodany i tłuszcz do celu kalorii, kierując się tymi wartościami referencyjnymi. Białko korzysta ze stawek zależnych od aktywności, liczonych od całkowitej masy ciała; tłuszcz jest ustalany z masy ciała; węglowodany uzupełniają resztę. Każdą wartość możesz zablokować lub edytować w Ustawieniach.</string>
+    <string name="settings_calc_split_formula">Białko: ok. 0,8–2,2 g na kg zależnie od poziomu aktywności (nieco więcej przy redukcji)\nTłuszcz: ok. 0,6 g na kg masy ciała\nWęglowodany: pozostałe kalorie ÷ 4 kcal/g</string>
+    <string name="settings_calc_micro_name">Szacunki dla każdego posiłku</string>
+    <string name="settings_calc_micro_used">Kalorie, makroskładniki, błonnik, cukier, tłuszcze nasycone, cholesterol, kofeina, sód, potas i inne szczegółowe wartości odżywcze zwracane dla każdego posiłku są szacunkami generowanymi przez AI na podstawie zdjęcia jedzenia, transkrypcji głosu lub opisu tekstowego przy użyciu wybranego dostawcy AI.</string>
+    <string name="settings_calc_mifflin_citation">Mifflin MD, St Jeor ST, et al. (1990). „Nowe równanie prognostyczne spoczynkowego wydatku energetycznego u osób zdrowych”. Am J Clin Nutr 51(2):241–247.</string>
+    <string name="settings_calc_katch_citation">McArdle WD, Katch FI, Katch VL. Fizjologia wysiłku: żywienie, energia i sprawność człowieka, wyd. 7. Lippincott Williams &amp; Wilkins, 2010.</string>
+    <string name="settings_calc_tdee_citation">Standardowe współczynniki PAL (poziomu aktywności fizycznej) ze wspólnej konsultacji ekspertów FAO/WHO/UNU dotyczącej zapotrzebowania energetycznego człowieka (2001). Są też powszechnie stosowane przez ACSM i w wytycznych żywieniowych USDA.</string>
+    <string name="settings_calc_target_citation">Hall KD, et al. (2011). „Ilościowe określenie wpływu nierównowagi energetycznej na masę ciała”. Lancet 378(9793):826–837. Klasyczna reguła 3500 kcal na funt pochodzi od Wishnofsky M (1958), Am J Clin Nutr 6:542–546.</string>
+    <string name="settings_calc_split_citation">Morton RW, et al. (2018). „Przegląd systematyczny, metaanaliza i metaregresja wpływu suplementacji białkiem na przyrost masy mięśniowej i siły wywołany treningiem oporowym”. Br J Sports Med 52(6):376–384.</string>
+    <string name="settings_calc_micro_citation">Szacunki opierają się na danych treningowych bazowego modelu AI (USDA FoodData Central, etykietach producentów i literaturze naukowej). Dokładność zależy od produktu, widoczności wielkości porcji i modelu dostawcy. W przypadku często rejestrowanych produktów zawsze porównuj wynik z etykietą.</string>
+    <string name="about_litert_notices">Informacje zewnętrzne LiteRT-LM</string>
+    <string name="about_litert_notices_load_error">Nie udało się wczytać informacji zewnętrznych LiteRT-LM.</string>
+    <string name="settings_model_source">Źródło modelu</string>
+    <string name="settings_model_license_format">Licencja %1$s</string>
+    <string name="settings_model_requires_8gb">Wymaga urządzenia z 8 GB RAM</string>
+    <string name="settings_model_low_ram_unsupported">Nieobsługiwane na urządzeniach z małą ilością RAM</string>
+    <string name="settings_model_processor_unsupported">Procesor tego urządzenia nie jest obsługiwany</string>
+    <string name="action_download">Pobierz</string>
+    <string name="ai_provider_local_gemma">Gemma 4 E2B (na urządzeniu)</string>
+    <string name="ai_key_placeholder_local">Klucz niepotrzebny</string>
+    <string name="speech_provider_local_whisper">Whisper Base (na urządzeniu)</string>
+    <string name="speech_key_placeholder_local">Niepotrzebne</string>
+    <string name="speech_description_local_whisper">Pobrany wielojęzyczny Whisper Base. Audio zostaje na tym urządzeniu i nie jest potrzebny klucz API.</string>
+    <string name="settings_on_device_models">Modele na urządzeniu</string>
+    <string name="settings_on_device_models_info">Modele pobierają się do prywatnej pamięci aplikacji i działają bez wysyłania zdjęć, promptów ani audio na serwer. Obowiązują rozmiar pobierania i warunki licencji modelu.</string>
+    <string name="settings_local_model_not_downloaded_format">%1$s · Nie pobrano</string>
+    <string name="settings_local_model_downloading_format">Pobieranie · %1$d%%</string>
+    <string name="settings_local_model_installed">Zainstalowano · Gotowe offline</string>
+    <string name="settings_view_model_license">Zobacz licencję modelu</string>
+    <string name="settings_info_speech_fallback">Ponawia transkrypcję, gdy wybrany dostawca STT dla nagranego audio zawiedzie. Tworzy tylko transkrypt; ten transkrypt nadal idzie zwykłą ścieżką tekstowego AI. Natywna mowa Androida ma własny mechanizm odzyskiwania rozpoznawania.</string>
+    <string name="settings_speech_fallback_footer">Używane tylko, gdy wybrany dostawca mowy dla nagranego audio zawiedzie. Natywna mowa już ponawia tryby rozpoznawania na urządzeniu i online.</string>
+    <string name="about_whisper_notices">Informacje zewnętrzne Whisper Base</string>
+    <string name="about_whisper_notices_load_error">Nie udało się wczytać informacji zewnętrznych Whisper Base.</string>
+</resources>

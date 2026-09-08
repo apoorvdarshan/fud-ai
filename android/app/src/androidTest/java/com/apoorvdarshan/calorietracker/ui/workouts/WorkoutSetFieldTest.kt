@@ -17,7 +17,7 @@ import org.junit.Test
 class WorkoutSetFieldTest {
     @get:Rule val compose = createComposeRule()
 
-    @Test fun effortHelpMatchesEverySupportedScale() {
+    @Test fun compactRpeFieldKeepsAccessibleHelpForEveryScale() {
         val scale = mutableStateOf(com.apoorvdarshan.calorietracker.models.WorkoutRpeScale.STRENGTH)
         compose.setContent {
             MaterialTheme {
@@ -31,10 +31,15 @@ class WorkoutSetFieldTest {
         }
         for (selected in com.apoorvdarshan.calorietracker.models.WorkoutRpeScale.entries) {
             compose.runOnIdle { scale.value = selected }
-            compose.onNodeWithText(selected.inputPlaceholder).assertIsDisplayed()
-            compose.onNodeWithText("Effort (RPE)").performClick()
-            compose.onNodeWithText("Optional—how hard this set felt.", substring = true).assertIsDisplayed()
-            compose.onNodeWithText("OK").performClick()
+            compose.onNodeWithText("RPE").assertIsDisplayed()
+            compose.onNodeWithText("Effort (RPE)").assertDoesNotExist()
+            val helpResource = when (selected) {
+                com.apoorvdarshan.calorietracker.models.WorkoutRpeScale.STRENGTH -> com.apoorvdarshan.calorietracker.R.string.workout_rpe_help_strength
+                com.apoorvdarshan.calorietracker.models.WorkoutRpeScale.CR10 -> com.apoorvdarshan.calorietracker.R.string.workout_rpe_help_cr10
+                com.apoorvdarshan.calorietracker.models.WorkoutRpeScale.BORG -> com.apoorvdarshan.calorietracker.R.string.workout_rpe_help_borg
+            }
+            val context = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().targetContext
+            compose.onNodeWithContentDescription(context.getString(helpResource)).assertIsDisplayed()
         }
     }
 

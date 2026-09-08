@@ -300,7 +300,24 @@ struct FoodResultView: View {
         NavigationStack {
             ScrollViewReader { scrollProxy in
                 List {
-                    if !images.isEmpty {
+                    if let imageURL = productMetadata?.imageURL {
+                        Section {
+                            HStack {
+                                Spacer()
+                                AsyncImage(url: imageURL) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                                .frame(maxHeight: 100)
+                                .cornerRadius(8)
+                                Spacer()
+                            }
+                            .listRowBackground(Color.clear)
+                        }
+                    } else if !images.isEmpty {
                         Section {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(spacing: 12) {

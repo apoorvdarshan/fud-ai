@@ -133,7 +133,6 @@ If you want to chat before opening a big PR, or you hit a wall and need help:
 
 - **Email:** **apoorv@fud-ai.app** or **ad13dtu@gmail.com**
 - **X (Twitter):** [@apoorvdarshan](https://x.com/apoorvdarshan)
-- **Instagram:** [@fudai.app](https://www.instagram.com/fudai.app/)
 - **GitHub Issues:** [github.com/apoorvdarshan/fud-ai/issues](https://github.com/apoorvdarshan/fud-ai/issues)
 
 ## License

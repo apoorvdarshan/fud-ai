@@ -371,9 +371,7 @@ MIT License. See [LICENSE](LICENSE).
 - **Developer:** Apoorv Darshan
 - **Email:** apoorv@fud-ai.app or ad13dtu@gmail.com
 - **Follow on X:** [@apoorvdarshan](https://x.com/apoorvdarshan)
-- **Follow on Instagram:** [@fudai.app](https://www.instagram.com/fudai.app/)
 - **Follow on LinkedIn:** [Fud AI](https://www.linkedin.com/company/fud-ai-app)
-- **View on TrustMRR:** [Fud AI - Calorie Tracker](https://trustmrr.com/startup/fud-ai-calorie-tracker)
 - **Report an Issue:** [github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20)
 - **Request a Feature:** [github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20)
 

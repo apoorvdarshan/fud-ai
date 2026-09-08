@@ -1,5 +1,13 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -68,6 +76,19 @@ internal fun MealIngredientsCard(
                     verticalArrangement = Arrangement.spacedBy(5.dp)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
+                        val context = LocalContext.current
+                        val store = remember(context) { FoodImageStore(context) }
+                        val thumbnail = remember(ingredient.imageFilename) {
+                            ingredient.imageFilename?.let { store.loadThumbnail(it) }
+                        }
+                        if (thumbnail != null) {
+                            Image(thumbnail.asImageBitmap(), contentDescription = null,
+                                modifier = Modifier.size(44.dp).clip(RoundedCornerShape(10.dp)),
+                                contentScale = ContentScale.Crop)
+                        } else {
+                            Text(ingredient.emoji ?: "🍽️", fontSize = 26.sp)
+                        }
+                        Spacer(Modifier.width(10.dp))
                         Text(
                             ingredient.name,
                             fontSize = 16.sp,
@@ -158,7 +179,10 @@ internal fun MealIngredientEditorDialog(
             calories = kotlin.math.round(parsedCalories).toInt(),
             protein = parsedProtein,
             carbs = parsedCarbs,
-            fat = parsedFat
+            fat = parsedFat,
+            imageFilename = target.ingredient.imageFilename,
+            additionalImageFilenames = target.ingredient.additionalImageFilenames,
+            emoji = target.ingredient.emoji
         )
     }
 

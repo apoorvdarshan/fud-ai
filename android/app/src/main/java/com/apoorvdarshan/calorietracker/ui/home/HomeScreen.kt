@@ -2194,8 +2194,8 @@ private fun FoodRow(
     val ctx = LocalContext.current
     val timeFmt = DateTimeFormatter.ofPattern(clockTimePattern(ctx), Locale.US).withZone(ZoneId.systemDefault())
     val container = (ctx.applicationContext as com.apoorvdarshan.calorietracker.FudAIApp).container
-    val bitmap = remember(entry.imageFilename) {
-        entry.imageFilename?.let { container.imageStore.loadThumbnail(it) }
+    val bitmap = remember(entry.allImageFilenames) {
+        entry.allImageFilenames.firstOrNull()?.let { container.imageStore.loadThumbnail(it) }
     }
     // iOS layout: large 76dp square thumb · column with (Name + heart on left,
     // time on right) · pink kcal · serving · macro tag pills row.
@@ -2255,9 +2255,9 @@ private fun FoodRow(
                     modifier = Modifier.size(28.dp)
                 )
             }
-            if (entry.additionalImageFilenames.isNotEmpty()) {
+            if (entry.allImageFilenames.size > 1) {
                 Text(
-                    "+${entry.additionalImageFilenames.size}",
+                    "+${entry.allImageFilenames.size - 1}",
                     color = Color.White,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,

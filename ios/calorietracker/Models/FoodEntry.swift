@@ -253,6 +253,9 @@ struct MealIngredient: Identifiable, Codable, Equatable, Sendable {
     var protein: Double
     var carbs: Double
     var fat: Double
+    var imageFilename: String?
+    var additionalImageFilenames: [String]?
+    var emoji: String?
 
     nonisolated init(
         id: UUID = UUID(),
@@ -261,7 +264,10 @@ struct MealIngredient: Identifiable, Codable, Equatable, Sendable {
         calories: Int,
         protein: Double,
         carbs: Double,
-        fat: Double
+        fat: Double,
+        imageFilename: String? = nil,
+        additionalImageFilenames: [String]? = nil,
+        emoji: String? = nil
     ) {
         self.id = id
         self.name = name
@@ -270,6 +276,13 @@ struct MealIngredient: Identifiable, Codable, Equatable, Sendable {
         self.protein = protein
         self.carbs = carbs
         self.fat = fat
+        self.imageFilename = imageFilename
+        self.additionalImageFilenames = additionalImageFilenames
+        self.emoji = emoji
+    }
+
+    nonisolated var allImageFilenames: [String] {
+        (imageFilename.map { [$0] } ?? []) + (additionalImageFilenames ?? [])
     }
 
     nonisolated func scaled(by factor: Double) -> MealIngredient {
@@ -652,11 +665,31 @@ struct FoodEntry: Identifiable, Codable {
     }
 
     var allImageData: [Data] {
-        (imageData.map { [$0] } ?? []) + additionalImageData
+        var result: [Data] = []
+        var seen = Set<String>()
+        if let data = imageData ?? imageFilename.flatMap({ FoodImageStore.shared.load(filename: $0) }) {
+            result.append(data)
+            if let imageFilename { seen.insert(imageFilename) }
+        }
+        for index in 0..<max(additionalImageData.count, additionalImageFilenames.count) {
+            let filename = additionalImageFilenames.indices.contains(index) ? additionalImageFilenames[index] : nil
+            if let filename, seen.contains(filename) { continue }
+            let data = additionalImageData.indices.contains(index) ? additionalImageData[index] : filename.flatMap { FoodImageStore.shared.load(filename: $0) }
+            if let data {
+                result.append(data)
+                if let filename { seen.insert(filename) }
+            }
+        }
+        for filename in ingredients.flatMap(\.allImageFilenames) where seen.insert(filename).inserted {
+            if let data = FoodImageStore.shared.load(filename: filename) { result.append(data) }
+        }
+        return result
     }
 
-    var allImageFilenames: [String] {
-        (imageFilename.map { [$0] } ?? []) + additionalImageFilenames
+    nonisolated var allImageFilenames: [String] {
+        var seen = Set<String>()
+        return ((imageFilename.map { [$0] } ?? []) + additionalImageFilenames + ingredients.flatMap(\.allImageFilenames))
+            .filter { seen.insert($0).inserted }
     }
 
     /// New entry for the given log date (new id), copying nutrition and media from this entry.
@@ -722,7 +755,10 @@ extension FoodEntry {
             calories: calories,
             protein: protein,
             carbs: carbs,
-            fat: fat
+            fat: fat,
+            imageFilename: allImageFilenames.first,
+            additionalImageFilenames: Array(allImageFilenames.dropFirst()),
+            emoji: emoji
         )
     }
 
@@ -793,6 +829,8 @@ enum CombinedMeal {
         let ingredients = entries.map { $0.asMealIngredient() }
         let totals = ingredients.ingredientTotals
         let latest = entries.max(by: { $0.timestamp < $1.timestamp }) ?? entries[0]
+        var seen = Set<String>()
+        let filenames = entries.flatMap(\.allImageFilenames).filter { seen.insert($0).inserted }
         return FoodEntry(
             name: combinedName(for: entries),
             calories: totals.calories,
@@ -800,6 +838,9 @@ enum CombinedMeal {
             carbs: totals.carbs,
             fat: totals.fat,
             timestamp: latest.timestamp,
+            imageFilename: filenames.first,
+            additionalImageFilenames: Array(filenames.dropFirst()),
+            emoji: entries.compactMap(\.emoji).first,
             source: .manual,
             mealType: latest.mealType,
             servingSizeGrams: totals.grams > 0 ? totals.grams : nil,

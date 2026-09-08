@@ -527,6 +527,12 @@ class FoodStore {
             }
             entry.additionalImageFilenames = filenames
         }
+        let filenames = entry.allImageFilenames
+        if entry.imageFilename == nil { entry.imageFilename = filenames.first }
+        entry.additionalImageFilenames = filenames.filter { $0 != entry.imageFilename }
+        if entry.imageData == nil, let filename = entry.imageFilename {
+            entry.imageData = FoodImageStore.shared.load(filename: filename)
+        }
     }
 
     /// Used by deleteEntry / replaceAllEntries to decide whether the on-disk

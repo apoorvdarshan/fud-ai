@@ -3,6 +3,23 @@ import Testing
 @testable import calorietracker
 
 struct CombinedMealTests {
+    @Test func combinedMediaSurvivesPersistenceAndScaling() throws {
+        let a = FoodEntry(name: "Apple", calories: 80, protein: 0, carbs: 20, fat: 0,
+            imageFilename: "apple.jpg", additionalImageFilenames: ["label.jpg"], emoji: "🍎", source: .manual)
+        var b = a
+        b.name = "Banana"
+        b.imageFilename = "banana.jpg"
+        b.emoji = "🍌"
+        let combined = CombinedMeal.combine([a, b])
+        #expect(combined.allImageFilenames == ["apple.jpg", "label.jpg", "banana.jpg"])
+        #expect(combined.ingredients[1].imageFilename == "banana.jpg")
+        #expect(combined.ingredients[1].scaled(by: 2).emoji == "🍌")
+        let restored = try JSONDecoder().decode(FoodEntry.self, from: JSONEncoder().encode(combined))
+        #expect(restored.ingredients == combined.ingredients)
+        let legacy = Data(#"{"id":"00000000-0000-0000-0000-000000000001","name":"Old","grams":10,"calories":10,"protein":0,"carbs":0,"fat":0}"#.utf8)
+        #expect(try JSONDecoder().decode(MealIngredient.self, from: legacy).imageFilename == nil)
+    }
+
     @Test func asMealIngredientCollapsesNestedIngredients() {
         let entry = FoodEntry(
             name: "Bowl",

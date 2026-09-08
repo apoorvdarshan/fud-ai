@@ -71,13 +71,15 @@ internal fun IngredientIntakeSection(
     var busy by remember { mutableStateOf(false) }
     var errorText by remember { mutableStateOf<String?>(null) }
 
-    fun runAnalysis(block: suspend () -> FoodAnalysis) {
+    fun runAnalysis(imageBytes: ByteArray? = null, block: suspend () -> FoodAnalysis) {
         if (busy) return
         busy = true
         errorText = null
         scope.launch {
             try {
-                onIngredient(block().toMealIngredient())
+                val ingredient = block().toMealIngredient()
+                val filename = imageBytes?.let { container.imageStore.storeBytes(it, java.util.UUID.randomUUID()) }
+                onIngredient(ingredient.copy(imageFilename = filename))
             } catch (e: Exception) {
                 errorText = e.message?.takeIf { it.isNotBlank() }
                     ?: ctx.getString(R.string.error_analysis_failed)
@@ -94,7 +96,7 @@ internal fun IngredientIntakeSection(
         val bytes = runCatching {
             ctx.contentResolver.openInputStream(uri)?.use { it.readBytes() }
         }.getOrNull()
-        if (bytes != null) runAnalysis { analyzeImage(bytes) }
+        if (bytes != null) runAnalysis(imageBytes = bytes) { analyzeImage(bytes) }
     }
 
     val cameraPermission = rememberLauncherForActivityResult(
@@ -257,7 +259,7 @@ internal fun IngredientIntakeSection(
         InAppCameraCaptureDialog(
             onCapture = { bytes ->
                 showCamera = false
-                runAnalysis { analyzeImage(bytes) }
+                runAnalysis(imageBytes = bytes) { analyzeImage(bytes) }
             },
             onDismiss = { showCamera = false }
         )

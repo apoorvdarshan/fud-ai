@@ -10,8 +10,14 @@ data class MealIngredient(
     val calories: Int,
     val protein: Double,
     val carbs: Double,
-    val fat: Double
+    val fat: Double,
+    val imageFilename: String? = null,
+    val additionalImageFilenames: List<String> = emptyList(),
+    val emoji: String? = null
 ) {
+    val allImageFilenames: List<String>
+        get() = (listOfNotNull(imageFilename) + additionalImageFilenames).distinct()
+
     fun scaled(factor: Double): MealIngredient = copy(
         grams = grams * factor,
         calories = (calories * factor).roundToInt(),

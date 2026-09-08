@@ -135,5 +135,5 @@ data class FoodEntry(
     )
 
     val allImageFilenames: List<String>
-        get() = listOfNotNull(imageFilename) + additionalImageFilenames
+        get() = (listOfNotNull(imageFilename) + additionalImageFilenames + ingredients.flatMap { it.allImageFilenames }).distinct()
 }

@@ -8,6 +8,26 @@ import java.time.Instant
 
 class CombinedMealTest {
     @Test
+    fun combinedMediaSurvivesSerializationScalingAndLegacyIngredients() {
+        val a = FoodEntry(name = "Apple", calories = 80, protein = 0.0, carbs = 20.0,
+            fat = 0.0, timestamp = Instant.ofEpochMilli(1000), source = FoodSource.MANUAL, imageFilename = "apple.jpg",
+            additionalImageFilenames = listOf("label.jpg"), emoji = "🍎")
+        val b = a.copy(name = "Banana", imageFilename = "banana.jpg", emoji = "🍌")
+        val combined = combineFoodEntries(listOf(a, b))
+        assertEquals(listOf("apple.jpg", "label.jpg", "banana.jpg"), combined.allImageFilenames)
+        assertEquals("banana.jpg", combined.ingredients[1].imageFilename)
+        assertEquals("🍌", combined.ingredients[1].scaled(2.0).emoji)
+        val json = kotlinx.serialization.json.Json
+        val restored = json.decodeFromString(FoodEntry.serializer(), json.encodeToString(FoodEntry.serializer(), combined))
+        assertEquals(combined, restored)
+        val legacy = json.decodeFromString(MealIngredient.serializer(),
+            """{"name":"Old","grams":10,"calories":10,"protein":0,"carbs":0,"fat":0}""")
+        assertTrue(legacy.allImageFilenames.isEmpty())
+        assertEquals(listOf("apple.jpg", "label.jpg"), a.copy(imageFilename = null,
+            additionalImageFilenames = emptyList(), ingredients = listOf(a.toMealIngredient())).allImageFilenames)
+    }
+
+    @Test
     fun foodEntryMapsToIngredientWithoutFlatteningNested() {
         val entry = FoodEntry(
             name = "Bowl",

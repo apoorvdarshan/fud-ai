@@ -10,7 +10,8 @@ extension GeminiService.FoodAnalysis {
             calories: calories,
             protein: protein,
             carbs: carbs,
-            fat: fat
+            fat: fat,
+            emoji: emoji
         )
     }
 }
@@ -142,7 +143,7 @@ struct IngredientAddMenuButton: View {
             guard let image else { return }
             capturedImage = nil
             showCamera = false
-            runAnalysis {
+            runAnalysis(image: image) {
                 try await GeminiService.analyzeFood(images: [image])
             }
         }
@@ -156,7 +157,7 @@ struct IngredientAddMenuButton: View {
                     errorMessage = "Couldn't load that photo."
                     return
                 }
-                runAnalysis {
+                runAnalysis(image: image) {
                     try await GeminiService.analyzeFood(images: [image])
                 }
             }
@@ -168,7 +169,7 @@ struct IngredientAddMenuButton: View {
         }
     }
 
-    private func runAnalysis(_ work: @escaping () async throws -> GeminiService.FoodAnalysis) {
+    private func runAnalysis(image: UIImage? = nil, _ work: @escaping () async throws -> GeminiService.FoodAnalysis) {
         guard !isBusy else { return }
         isBusy = true
         errorMessage = nil
@@ -177,7 +178,11 @@ struct IngredientAddMenuButton: View {
                 let analysis = try await work()
                 await MainActor.run {
                     isBusy = false
-                    onIngredient(analysis.asMealIngredient())
+                    var ingredient = analysis.asMealIngredient()
+                    if let data = image?.jpegData(compressionQuality: 0.8) {
+                        ingredient.imageFilename = FoodImageStore.shared.store(data: data, for: ingredient.id)
+                    }
+                    onIngredient(ingredient)
                 }
             } catch {
                 await MainActor.run {

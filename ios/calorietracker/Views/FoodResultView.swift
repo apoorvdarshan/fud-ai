@@ -667,6 +667,18 @@ struct MealIngredientsSection: View {
                     } label: {
                         VStack(alignment: .leading, spacing: 6) {
                             HStack {
+                                Group {
+                                    if let filename = ingredient.imageFilename,
+                                       let data = FoodImageStore.shared.load(filename: filename),
+                                       let image = UIImage(data: data) {
+                                        Image(uiImage: image).resizable().scaledToFill()
+                                    } else {
+                                        Text(ingredient.emoji ?? "🍽️").font(.title2)
+                                    }
+                                }
+                                .frame(width: 44, height: 44)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .accessibilityHidden(true)
                                 Text(ingredient.name)
                                     .font(.system(.body, design: .rounded, weight: .semibold))
                                     .foregroundStyle(.primary)
@@ -754,7 +766,10 @@ struct IngredientEditorSheet: View {
             calories: Int(round(calories)),
             protein: protein,
             carbs: carbs,
-            fat: fat
+            fat: fat,
+            imageFilename: target.ingredient.imageFilename,
+            additionalImageFilenames: target.ingredient.additionalImageFilenames,
+            emoji: target.ingredient.emoji
         )
     }
 

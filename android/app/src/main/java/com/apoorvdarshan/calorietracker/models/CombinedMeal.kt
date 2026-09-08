@@ -10,7 +10,10 @@ fun FoodEntry.toMealIngredient(): MealIngredient = MealIngredient(
     calories = calories,
     protein = protein,
     carbs = carbs,
-    fat = fat
+    fat = fat,
+    imageFilename = allImageFilenames.firstOrNull(),
+    additionalImageFilenames = allImageFilenames.drop(1),
+    emoji = emoji
 )
 
 /** Map an analysis result to one ingredient line (nested ingredients stay collapsed). */
@@ -20,7 +23,8 @@ fun FoodAnalysis.toMealIngredient(): MealIngredient = MealIngredient(
     calories = calories,
     protein = protein,
     carbs = carbs,
-    fat = fat
+    fat = fat,
+    emoji = emoji
 )
 
 /** Recompute parent macros from an ingredient list. */
@@ -52,6 +56,7 @@ object CombinedMeal {
         val ingredients = entries.map { it.toMealIngredient() }
         val totals = ingredients.totals()
         val latest = entries.maxByOrNull { it.timestamp } ?: entries.first()
+        val filenames = entries.flatMap { it.allImageFilenames }.distinct()
         return FoodEntry(
             id = UUID.randomUUID(),
             name = combinedName(entries),
@@ -60,6 +65,9 @@ object CombinedMeal {
             carbs = totals.carbs,
             fat = totals.fat,
             timestamp = latest.timestamp,
+            imageFilename = filenames.firstOrNull(),
+            additionalImageFilenames = filenames.drop(1),
+            emoji = entries.firstNotNullOfOrNull { it.emoji },
             source = FoodSource.MANUAL,
             mealType = latest.mealType,
             servingSizeGrams = totals.grams.takeIf { it > 0 },

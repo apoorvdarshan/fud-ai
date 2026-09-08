@@ -830,6 +830,31 @@ class PreferencesStore(
         ds.edit { it[Keys.FOOD_ENTRIES] = json.encodeToString(ListSerializer(FoodEntry.serializer()), entries) }
     }
 
+    // Keep this ledger after local deletion so repeat imports never resurrect removed meals.
+    private val nutritionImportLedgerKey = stringPreferencesKey("healthNutritionImportedKeys")
+    val nutritionImportedKeys: Flow<Set<String>> = ds.data.map {
+        it[nutritionImportLedgerKey]?.let { raw -> json.decodeFromString<Set<String>>(raw) } ?: emptySet()
+    }
+
+    /** Commit the log and import ledger together, checking duplicates again after preview. */
+    suspend fun importHealthNutrition(
+        records: List<com.apoorvdarshan.calorietracker.services.health.ExternalNutrition>,
+        fallbackName: String
+    ): Int {
+        var count = 0
+        ds.edit { stored ->
+            val current = stored[Keys.FOOD_ENTRIES]?.let { json.decodeFromString<List<FoodEntry>>(it) }
+                ?: emptyList()
+            val ledger = stored[nutritionImportLedgerKey]?.let { json.decodeFromString<Set<String>>(it) }
+                ?: emptySet()
+            val merged = mergeNutritionImport(current, ledger, records, context.packageName, fallbackName)
+            stored[Keys.FOOD_ENTRIES] = json.encodeToString(ListSerializer(FoodEntry.serializer()), merged.entries)
+            stored[nutritionImportLedgerKey] = json.encodeToString(SetSerializer(String.serializer()), merged.ledger)
+            count = merged.added
+        }
+        return count
+    }
+
     val favoriteKeys: Flow<Set<String>> = ds.data.map { prefs ->
         prefs[Keys.FAVORITE_KEYS]?.let {
             runCatching { json.decodeFromString(SetSerializer(String.serializer()), it) }.getOrNull()

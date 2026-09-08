@@ -1,0 +1,21 @@
+<resources>
+    <string name="health_import_title">Import nutrition history</string>
+    <string name="health_import_action">Import</string>
+    <string name="health_import_description">Bring food records from another app into your diary. Preview the available records, then choose one source app to avoid counting shared records twice.</string>
+    <string name="health_import_from">From (YYYY-MM-DD)</string>
+    <string name="health_import_to">Through (YYYY-MM-DD)</string>
+    <string name="health_import_history_hint">Without history access, choose dates within the last 30 days. Older records require history access on a supported device.</string>
+    <string name="health_import_grant">Grant nutrition and history access</string>
+    <string name="health_import_access_result">Access settings updated. Preview again to check available records.</string>
+    <string name="health_import_access_needed">Allow nutrition read access in Health Connect, then preview again.</string>
+    <string name="health_import_invalid_dates">Enter valid dates as YYYY-MM-DD. The end date must be on or after the start date and no later than today.</string>
+    <string name="health_import_history_needed">This range needs history access. Grant access on a supported device, or choose dates within the last 30 days.</string>
+    <string name="health_import_preview">Preview available records</string>
+    <string name="health_import_failed">Could not complete the import. Check Health Connect access and try again.</string>
+    <string name="health_import_empty">No new nutrition records from other apps were found in this range. Check that your source app has shared nutrition with Health Connect. Previously imported records are skipped, including ones removed from your diary.</string>
+    <string name="health_import_count">%1$d new records · %2$d kcal</string>
+    <string name="health_import_unnamed">Imported meal</string>
+    <string name="health_import_local_only">These are local copies. Edits and deletions stay in Fud AI. Repeating an import skips previously imported records; it does not update them.</string>
+    <string name="health_import_done">Imported %1$d records into your diary.</string>
+    <string name="health_import_close">Close</string>
+</resources>

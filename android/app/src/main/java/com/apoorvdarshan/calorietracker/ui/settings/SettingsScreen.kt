@@ -278,6 +278,10 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     val latestMeasurement by container.bodyMeasurementRepository.latest.collectAsState(initial = null)
 
     var sheet by remember { mutableStateOf<SettingsSheet?>(null) }
+    var showNutritionImport by remember { mutableStateOf(false) }
+    if (showNutritionImport) {
+        HealthNutritionImportDialog(container) { showNutritionImport = false }
+    }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showClearFoodDialog by remember { mutableStateOf(false) }
     var showExportSheet by remember { mutableStateOf(false) }
@@ -1143,6 +1147,12 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
             if (selectedCategory == SettingsCategory.HEALTH_DATA) {
             SectionCard {
                 ToggleRow(stringResource(R.string.settings_health_connect), ui.healthConnectEnabled, icon = Icons.Outlined.Favorite, onChange = ::onHealthConnectToggle)
+                HorizontalDivider()
+                SettingRow(
+                    stringResource(R.string.health_import_title),
+                    stringResource(R.string.health_import_action),
+                    icon = Icons.Outlined.Favorite
+                ) { showNutritionImport = true }
                 if (ui.healthConnectEnabled && !ui.workoutHealthWriteGranted) {
                     HorizontalDivider()
                     SettingRow(

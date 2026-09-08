@@ -55,6 +55,9 @@ data class FoodEntry(
     val customNote: String? = null,
     val progressiveMeal: Boolean = false,
     val ingredients: List<MealIngredient> = emptyList(),
+    /** Origin of a Health Connect import; never export these entries back to Health Connect. */
+    val healthConnectOrigin: String? = null,
+    val healthConnectRecordId: String? = null,
     val productMetadata: FoodProductMetadata? = null
 ) {
     /** Unique key for favorite deduplication (name + calorie combo). */

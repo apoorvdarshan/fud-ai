@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.UserManager
+import androidx.health.connect.client.HealthConnectFeatures
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
 import androidx.health.connect.client.changes.UpsertionChange
@@ -131,6 +132,18 @@ class HealthConnectManager(
     /** Requested only when Daily Summary is enabled. Keeping it out of [permissions]
      *  avoids asking every Health Connect user for background access. */
     val dailySummaryPermissions: Set<String> = permissions + backgroundRead
+
+    fun supportsNutritionHistory(): Boolean = runCatching {
+        client?.features?.getFeatureStatus(HealthConnectFeatures.FEATURE_READ_HEALTH_DATA_HISTORY) ==
+            HealthConnectFeatures.FEATURE_STATUS_AVAILABLE
+    }.getOrDefault(false)
+
+    val nutritionImportPermissions: Set<String>
+        get() = setOf(nutritionRead) + if (supportsNutritionHistory())
+            setOf(HealthPermission.PERMISSION_READ_HEALTH_DATA_HISTORY) else emptySet()
+
+    suspend fun hasNutritionHistory(): Boolean = supportsNutritionHistory() &&
+        HealthPermission.PERMISSION_READ_HEALTH_DATA_HISTORY in granted()
 
     private suspend fun granted(): Set<String> =
         runCatching { client?.permissionController?.getGrantedPermissions() }.getOrNull() ?: emptySet()
@@ -315,6 +328,7 @@ class HealthConnectManager(
     // -- Nutrition --------------------------------------------------------
 
     suspend fun writeNutrition(entry: FoodEntry): Boolean {
+        if (entry.healthConnectOrigin != null) return true
         val c = client ?: return false
         val start = entry.timestamp
         if (start.isAfter(Instant.now())) return false
@@ -433,7 +447,9 @@ class HealthConnectManager(
                         vitaminE = it.vitaminE?.inMilligrams,
                         vitaminK = it.vitaminK?.inMicrograms,
                         folate = it.folate?.inMicrograms,
-                        clientRecordId = it.metadata.clientRecordId
+                        clientRecordId = it.metadata.clientRecordId,
+                        recordId = it.metadata.id,
+                        originPackage = it.metadata.dataOrigin.packageName
                     )
                 )
             }
@@ -868,7 +884,9 @@ data class ExternalNutrition(
     val vitaminE: Double?,
     val vitaminK: Double?,
     val folate: Double?,
-    val clientRecordId: String?
+    val clientRecordId: String?,
+    val recordId: String = "",
+    val originPackage: String = ""
 )
 
 data class ExternalWeight(

@@ -69,6 +69,7 @@ object CombinedMeal {
             additionalImageFilenames = filenames.drop(1),
             emoji = entries.firstNotNullOfOrNull { it.emoji },
             source = FoodSource.MANUAL,
+            healthConnectOrigin = entries.firstNotNullOfOrNull { it.healthConnectOrigin },
             mealType = latest.mealType,
             servingSizeGrams = totals.grams.takeIf { it > 0 },
             ingredients = ingredients

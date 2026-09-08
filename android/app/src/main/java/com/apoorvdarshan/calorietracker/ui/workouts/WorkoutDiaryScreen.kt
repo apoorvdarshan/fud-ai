@@ -9,6 +9,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsDraggedAsState
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -22,6 +23,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
@@ -158,8 +160,11 @@ internal fun WorkoutDiaryScreen(
         keyboard?.hide()
     }
 
-    LaunchedEffect(listState.isScrollInProgress) {
-        if (listState.isScrollInProgress) dismissKeyboard()
+    // Focus relocation and IME resizing also scroll the list. Only a user's
+    // drag should dismiss input; automatic scrolling must keep typing active.
+    val isDragging by listState.interactionSource.collectIsDraggedAsState()
+    LaunchedEffect(isDragging) {
+        if (isDragging) dismissKeyboard()
     }
 
     LaunchedEffect(state.exercises.map { it.id }) {
@@ -192,12 +197,11 @@ internal fun WorkoutDiaryScreen(
     ) {
         LazyColumn(
             state = listState,
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize().imePadding(),
             contentPadding = PaddingValues(
                 start = 16.dp,
                 top = 64.dp,
-                end = 16.dp,
-                bottom = BottomNavScrollPadding + 76.dp
+                end = 16.dp
             ),
             verticalArrangement = Arrangement.spacedBy(14.dp)
         ) {
@@ -298,7 +302,10 @@ internal fun WorkoutDiaryScreen(
                 }
             }
 
-            item(key = "workout-extra-space") { Spacer(Modifier.height(24.dp)) }
+            // Real scrollable space lets the final set move clear of the IME.
+            item(key = "workout-extra-space") {
+                Spacer(Modifier.height(BottomNavScrollPadding + 100.dp))
+            }
         }
 
         WorkoutModeToggleButton(

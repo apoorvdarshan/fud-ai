@@ -10,7 +10,7 @@ const cached = {
 
 function environment(history: typeof cached | null = cached) {
   const put = vi.fn().mockResolvedValue(undefined);
-  const env = { STAR_HISTORY: { get: vi.fn().mockResolvedValue(JSON.stringify(history)), put } } as unknown as Env;
+  const env = { GITHUB_TOKEN: "test-only-github-token", STAR_HISTORY: { get: vi.fn().mockResolvedValue(JSON.stringify(history)), put } } as unknown as Env;
   return { env, put };
 }
 
@@ -19,7 +19,7 @@ const request = (path = "json") => new Request(`https://fud-ai.app/star-history.
 afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks(); });
 
 describe("star history refresh", () => {
-  it("refreshes stale data using every public history page and the current count", async () => {
+  it("refreshes stale data using authenticated requests for every history page and the current count", async () => {
     const { env, put } = environment();
     const fetch = vi.fn()
       .mockResolvedValueOnce(Response.json([{ week: 1788652800, total: 2, days: [2, 0, 0, 0, 0, 0, 0] }], { headers: { Link: '<https://api.github.com/next>; rel="next"' } }))
@@ -32,7 +32,9 @@ describe("star history refresh", () => {
     expect(history.points.map(point => point.count)).toEqual([3, 5, 4]);
     expect(history.points.at(-1)?.date).toBe(new Date().toISOString().slice(0, 10));
     expect(fetch.mock.calls[1][0]).toContain("page=2");
-    expect(fetch.mock.calls[0][1].headers).not.toHaveProperty("Authorization");
+    for (const [, options] of fetch.mock.calls) {
+      expect(options.headers.Authorization).toBe("Bearer test-only-github-token");
+    }
     expect(put).toHaveBeenCalledOnce();
     expect(response.headers.get("Cache-Control")).toBe("public, max-age=300, s-maxage=300, must-revalidate");
   });
@@ -52,6 +54,18 @@ describe("star history refresh", () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
     const response = await worker.fetch(request(), env);
     expect(await response.json()).toEqual(cached);
+    expect(put).not.toHaveBeenCalled();
+  });
+
+  it("does not silently switch to unauthenticated requests when the secret is missing", async () => {
+    const { env, put } = environment();
+    env.GITHUB_TOKEN = "";
+    const fetch = vi.fn();
+    vi.stubGlobal("fetch", fetch);
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const response = await worker.fetch(request(), env);
+    expect(await response.json()).toEqual(cached);
+    expect(fetch).not.toHaveBeenCalled();
     expect(put).not.toHaveBeenCalled();
   });
 

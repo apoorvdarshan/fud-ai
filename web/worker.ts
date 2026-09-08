@@ -98,10 +98,12 @@ async function getHistory(env: Env): Promise<StarHistory> {
   }
 }
 
-async function fetchGitHub(path: string): Promise<Response> {
+async function fetchGitHub(path: string, token: string): Promise<Response> {
+  if (!token) throw new Error("GITHUB_TOKEN is required for star history refresh");
   const response = await fetch(`${GITHUB_REPOSITORY_URL}${path}`, {
     headers: {
       Accept: "application/vnd.github+json",
+      Authorization: `Bearer ${token}`,
       "User-Agent": "fud-ai-star-history",
       "X-GitHub-Api-Version": "2026-03-10",
     },
@@ -114,16 +116,16 @@ async function fetchGitHub(path: string): Promise<Response> {
 }
 
 async function refreshHistory(env: Env): Promise<StarHistory> {
-  // Aggregate history is public and does not depend on a personal access token
-  // or permission to enumerate individual stargazers.
+  // Use aggregate history with the existing Cloudflare secret to retain
+  // GitHub's authenticated rate limit without enumerating individual users.
   const weeks: GitHubStarWeek[] = [];
   for (let page = 1; ; page += 1) {
     if (page > 100) throw new Error("GitHub star history pagination limit exceeded");
-    const response = await fetchGitHub(`/stargazers/history?per_page=30&page=${page}`);
+    const response = await fetchGitHub(`/stargazers/history?per_page=30&page=${page}`, env.GITHUB_TOKEN);
     weeks.push(...await response.json() as GitHubStarWeek[]);
     if (!response.headers.get("Link")?.includes('rel="next"')) break;
   }
-  const response = await fetchGitHub("/stargazers/count");
+  const response = await fetchGitHub("/stargazers/count", env.GITHUB_TOKEN);
   const { count } = await response.json() as { count: number };
   const points: StarPoint[] = [];
   let runningTotal = 0;

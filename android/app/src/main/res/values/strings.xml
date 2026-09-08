@@ -1178,6 +1178,7 @@
     <string name="ingredients_remove">Remove</string>
     <string name="ingredients_weight">Weight</string>
     <string name="ingredients_footer">Ingredient changes update the meal’s calorie and macro totals automatically.</string>
+    <string name="combine_action">Combine</string>
     <string name="combine_into_meal">Combine into Meal</string>
     <string name="combine_selected_count">%1$d selected</string>
     <string name="ingredients_add_menu_title">Add Ingredient</string>

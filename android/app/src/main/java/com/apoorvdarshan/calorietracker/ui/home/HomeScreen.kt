@@ -459,6 +459,53 @@ fun HomeScreen(
                 }
             }
 
+            if (selectionMode) {
+                item(key = "food-selection") {
+                    Row(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(20.dp))
+                            .background(MaterialTheme.colorScheme.surface)
+                            .padding(horizontal = 8.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        IconButton(onClick = { selectedFoodIds = emptySet() }) {
+                            Icon(
+                                Icons.Filled.Close,
+                                contentDescription = stringResource(R.string.action_cancel),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        Text(
+                            stringResource(R.string.combine_selected_count, selectedFoodIds.size),
+                            modifier = Modifier.weight(1f),
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                        Button(
+                            onClick = {
+                                val ids = selectedFoodIds
+                                vm.combineIntoMeal(ids) { combined ->
+                                    selectedFoodIds = emptySet()
+                                    if (combined != null) editingEntry = combined
+                                }
+                            },
+                            enabled = selectedFoodIds.size >= 2,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = AppColors.Calorie.copy(alpha = 0.12f),
+                                contentColor = AppColors.Calorie,
+                                disabledContainerColor = AppColors.Calorie.copy(alpha = 0.12f),
+                                disabledContentColor = AppColors.Calorie.copy(alpha = 0.45f)
+                            )
+                        ) {
+                            Text(stringResource(R.string.combine_action), fontWeight = FontWeight.SemiBold)
+                        }
+                    }
+                }
+            }
+
             // Unified diary. Water and fasting remain excluded from nutrition totals and sharing.
             item { Spacer(Modifier.height(8.dp)) }
             if (diaryMealGroups.isEmpty()) {
@@ -564,52 +611,7 @@ fun HomeScreen(
         // bottom nav bar. The parent Scaffold renders content full-screen behind the
         // bar, so the Scaffold FAB slot would sit hidden underneath it. Mirrors the iOS
         // ContentView FAB: .overlay(alignment: .bottomTrailing) + .padding(.bottom).
-        if (selectionMode) {
-            Row(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .navigationBarsPadding()
-                    .padding(start = 16.dp, end = 16.dp, bottom = 100.dp)
-                    .fillMaxWidth()
-                    .clip(RoundedCornerShape(18.dp))
-                    .background(MaterialTheme.colorScheme.surface)
-                    .border(1.dp, MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f), RoundedCornerShape(18.dp))
-                    .padding(horizontal = 14.dp, vertical = 12.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Icon(
-                    Icons.Filled.Close,
-                    contentDescription = stringResource(R.string.action_cancel),
-                    modifier = Modifier
-                        .size(28.dp)
-                        .clickable { selectedFoodIds = emptySet() },
-                    tint = MaterialTheme.colorScheme.onSurface
-                )
-                Text(
-                    stringResource(R.string.combine_selected_count, selectedFoodIds.size),
-                    modifier = Modifier.weight(1f),
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 16.sp
-                )
-                Text(
-                    stringResource(R.string.combine_into_meal),
-                    color = if (selectedFoodIds.size >= 2) AppColors.Calorie
-                    else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp,
-                    modifier = Modifier.clickable(enabled = selectedFoodIds.size >= 2) {
-                        val ids = selectedFoodIds
-                        vm.combineIntoMeal(ids) { combined ->
-                            selectedFoodIds = emptySet()
-                            if (combined != null) {
-                                editingEntry = combined
-                            }
-                        }
-                    }
-                )
-            }
-        } else {
+        if (!selectionMode) {
         Box(
             modifier = Modifier
                 .align(Alignment.BottomEnd)

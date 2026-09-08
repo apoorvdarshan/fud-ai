@@ -658,6 +658,53 @@ struct HomeView: View {
     @State private var editingEntry: FoodEntry?
     @State private var selectedFoodIDs: Set<UUID> = []
     private var isFoodSelectionMode: Bool { !selectedFoodIDs.isEmpty }
+    private var foodSelectionSummary: some View {
+        HStack(spacing: 8) {
+            Button {
+                selectedFoodIDs.removeAll()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    .frame(width: 44, height: 44)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(.secondary)
+            .accessibilityLabel("Cancel selection")
+
+            Text("\(selectedFoodIDs.count) selected")
+                .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                .fixedSize(horizontal: true, vertical: false)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+
+    private var combineFoodButton: some View {
+        Button {
+            let ids = selectedFoodIDs
+            if let combined = foodStore.combineIntoMeal(ids: ids) {
+                selectedFoodIDs.removeAll()
+                editingEntry = combined
+                activeSheet = .editFood
+            } else {
+                selectedFoodIDs.removeAll()
+                errorMessage = "Can't combine foods while fasting is active."
+                showError = true
+            }
+        } label: {
+            Text("Combine")
+                .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                .fixedSize()
+                .padding(.horizontal, 16)
+                .frame(minHeight: 44)
+                .foregroundStyle(AppColors.calorie.opacity(selectedFoodIDs.count < 2 ? 0.45 : 1))
+                .background(AppColors.calorie.opacity(0.12), in: Capsule())
+        }
+        .buttonStyle(.plain)
+        .disabled(selectedFoodIDs.count < 2)
+        .accessibilityLabel("Combine into Meal")
+    }
+
     @State private var pendingSharedMeals: [FoodEntry] = []
 
     @State private var currentFoodResult: GeminiService.FoodAnalysis?
@@ -927,6 +974,24 @@ struct HomeView: View {
                     }
                     .listRowBackground(Color.clear)
                     .listRowSeparator(.hidden)
+                }
+
+                if isFoodSelectionMode {
+                    Section {
+                        ViewThatFits(in: .horizontal) {
+                            HStack(spacing: 12) {
+                                foodSelectionSummary
+                                combineFoodButton
+                            }
+                            VStack(alignment: .leading, spacing: 8) {
+                                foodSelectionSummary
+                                combineFoodButton
+                            }
+                        }
+                        .padding(.vertical, 4)
+                        .listRowBackground(AppColors.appCard)
+                        .listRowSeparator(.hidden)
+                    }
                 }
 
                 // Unified diary: water and fasting are grouped by their log/end time,
@@ -1290,44 +1355,6 @@ struct HomeView: View {
                             .presentationCompactAdaptation(.popover)
                         }
                         .padding(24)
-            }
-            .overlay(alignment: .bottom) {
-                if isFoodSelectionMode {
-                    HStack(spacing: 12) {
-                        Button {
-                            selectedFoodIDs.removeAll()
-                        } label: {
-                            Image(systemName: "xmark")
-                                .font(.body.weight(.semibold))
-                                .frame(width: 28, height: 28)
-                        }
-                        .tint(.primary)
-                        Text("\(selectedFoodIDs.count) selected")
-                            .font(.system(.body, design: .rounded, weight: .semibold))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Button("Combine into Meal") {
-                            let ids = selectedFoodIDs
-                            if let combined = foodStore.combineIntoMeal(ids: ids) {
-                                selectedFoodIDs.removeAll()
-                                editingEntry = combined
-                                activeSheet = .editFood
-                            } else {
-                                selectedFoodIDs.removeAll()
-                                errorMessage = "Can't combine foods while fasting is active."
-                                showError = true
-                            }
-                        }
-                        .font(.system(.body, design: .rounded, weight: .bold))
-                        .disabled(selectedFoodIDs.count < 2)
-                        .tint(AppColors.calorie)
-                    }
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 12)
-                    .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 100)
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
-                }
             }
             .fullScreenCover(isPresented: $showCamera) {
                 CameraView(

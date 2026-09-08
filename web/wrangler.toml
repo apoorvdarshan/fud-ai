@@ -8,7 +8,7 @@ preview_urls = false
 directory = "."
 binding = "ASSETS"
 not_found_handling = "404-page"
-run_worker_first = ["/star-history.svg", "/star-history.json", "/api/challenge/v1/*"]
+run_worker_first = ["/star-history.svg", "/star-history.json", "/api/challenge/v1/*", "/api/meal-shares", "/m/*"]
 
 [[kv_namespaces]]
 binding = "STAR_HISTORY"
@@ -47,3 +47,22 @@ custom_domain = true
 [[routes]]
 pattern = "www.fud-ai.app"
 custom_domain = true
+
+# Provisioned by Wrangler on the first authenticated deployment. See MEAL_SHARES.md.
+[[kv_namespaces]]
+binding = "MEAL_SHARES"
+id = "fbe7eb78e4654506b55e77a70ce623f5"
+
+[[ratelimits]]
+name = "MEAL_SHARE_CREATE_RATE_LIMITER"
+namespace_id = "61003"
+  [ratelimits.simple]
+  limit = 10
+  period = 60
+
+[[ratelimits]]
+name = "MEAL_SHARE_READ_RATE_LIMITER"
+namespace_id = "61004"
+  [ratelimits.simple]
+  limit = 120
+  period = 60

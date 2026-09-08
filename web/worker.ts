@@ -1,3 +1,4 @@
+import { MEAL_SHARE_API, handleMealShareRequest } from "./meal-shares";
 import {
   CHALLENGE_API_PREFIX,
   cleanupChallengeData,
@@ -30,6 +31,10 @@ interface StarHistory {
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
+
+    if (url.pathname === MEAL_SHARE_API || url.pathname.startsWith("/m/")) {
+      return handleMealShareRequest(request, env);
+    }
 
     if (
       url.pathname === CHALLENGE_API_PREFIX ||

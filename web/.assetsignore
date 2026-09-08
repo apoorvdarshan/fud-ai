@@ -20,3 +20,6 @@ migrations/
 tests/
 CHALLENGE_API.md
 scripts/
+
+meal-shares.ts
+MEAL_SHARES.md

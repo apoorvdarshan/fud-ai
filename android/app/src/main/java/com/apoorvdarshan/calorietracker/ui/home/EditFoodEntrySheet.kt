@@ -748,7 +748,7 @@ fun EditFoodEntrySheet(
                     Row(
                         Modifier
                             .fillMaxWidth()
-                            .clickable { MealShare.share(context, listOf(currentBaseEntry)) }
+                            .clickable { scope.launch { MealShare.share(context, listOf(currentBaseEntry)) } }
                             .padding(horizontal = 18.dp, vertical = 14.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {

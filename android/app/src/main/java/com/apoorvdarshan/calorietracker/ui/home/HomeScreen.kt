@@ -183,6 +183,8 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.WeekFields
 import java.util.Locale
 import kotlin.math.roundToInt
+import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
 
 private enum class AddMenuGroup {
@@ -202,6 +204,7 @@ fun HomeScreen(
 ) {
     val vm: HomeViewModel = viewModel(factory = HomeViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
+    val shareScope = rememberCoroutineScope()
     val ctx = LocalContext.current
     val weekStartsOnMonday by container.prefs.weekStartsOnMonday.collectAsState(initial = true)
     val allEntries by container.foodRepository.entries.collectAsState(initial = emptyList())
@@ -551,7 +554,7 @@ fun HomeScreen(
                             totalCarbs = group.totalCarbs,
                             totalFat = group.totalFat,
                             onShare = if (foodEntries.isEmpty()) null else {
-                                { MealShare.share(ctx, foodEntries) }
+                                { shareScope.launch { MealShare.share(ctx, foodEntries) } }
                             },
                             showSortMenu = groupIndex == 0,
                             sortOrder = ui.foodLogSortOrder,

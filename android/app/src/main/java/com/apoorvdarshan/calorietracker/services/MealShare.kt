@@ -10,6 +10,14 @@ import com.apoorvdarshan.calorietracker.models.MealIngredient
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
 import org.json.JSONArray
 import org.json.JSONObject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.util.concurrent.TimeUnit
+import java.io.IOException
 import java.util.Base64
 import kotlin.math.roundToInt
 
@@ -27,6 +35,11 @@ object MealShare {
     const val WEB_PATH = "/add-meal"
     private const val VERSION = 1
 
+    private val shareClient by lazy {
+        OkHttpClient.Builder().callTimeout(5, TimeUnit.SECONDS)
+            .followRedirects(false).followSslRedirects(false).build()
+    }
+
     // MARK: Encode
 
     /**
@@ -43,18 +56,40 @@ object MealShare {
         return "https://$WEB_HOST$WEB_PATH?d=$b64"
     }
 
+    /** Failed/offline creation preserves the existing self-contained link. */
+    internal suspend fun preferredLink(
+        entries: List<FoodEntry>,
+        create: suspend (String) -> String? = ::createShortLink
+    ): String {
+        val fallback = link(entries)
+        val payload = String(Base64.getUrlDecoder().decode(fallback.substringAfter("?d=")), Charsets.UTF_8)
+        val short = try { create(payload) } catch (_: IOException) { null }
+        return short?.takeIf { it.matches(Regex("https://www\\.fud-ai\\.app/m/[A-Za-z0-9_-]{22}")) } ?: fallback
+    }
+
+    private suspend fun createShortLink(payload: String): String? = withContext(Dispatchers.IO) {
+        val request = Request.Builder().url("https://$WEB_HOST/api/meal-shares")
+            .post(payload.toRequestBody("application/json".toMediaType())).build()
+        shareClient.newCall(request).execute().use { response ->
+            if (response.code != 201) return@withContext null
+            try { JSONObject(response.body?.string().orEmpty()).optString("url").takeIf { it.isNotEmpty() } }
+            catch (_: org.json.JSONException) { null }
+        }
+    }
+
     /** Fire the system share sheet with a readable summary + the fudai://add-meal link. */
-    fun share(context: Context, entries: List<FoodEntry>) {
+    suspend fun share(context: Context, entries: List<FoodEntry>) {
         if (entries.isEmpty()) return
+        val shareLink = preferredLink(entries)
         val send = Intent(Intent.ACTION_SEND).apply {
             type = "text/plain"
-            putExtra(Intent.EXTRA_TEXT, shareText(entries))
+            putExtra(Intent.EXTRA_TEXT, shareText(entries, shareLink))
         }
         context.startActivity(Intent.createChooser(send, "Share meal"))
     }
 
     /** Human-readable summary plus the import link — the text put on the share sheet. */
-    fun shareText(entries: List<FoodEntry>): String {
+    fun shareText(entries: List<FoodEntry>, shareLink: String = link(entries)): String {
         val lines = entries.map { e ->
             val macros = "${e.protein.roundToInt()}P · ${e.carbs.roundToInt()}C · ${e.fat.roundToInt()}F"
             val prefix = e.emoji?.let { "$it " } ?: ""
@@ -62,7 +97,7 @@ object MealShare {
         }.toMutableList()
         lines.add("")
         lines.add("Open in Fud AI to add:")
-        lines.add(link(entries))
+        lines.add(shareLink)
         return lines.joinToString("\n")
     }
 

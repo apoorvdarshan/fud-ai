@@ -13,6 +13,13 @@ enum MealShare {
     static let webHost = "www.fud-ai.app"
     static let webPath = "/add-meal"
     private static let version = 1
+    private static let shareSession: URLSession = {
+        let configuration = URLSessionConfiguration.ephemeral
+        configuration.timeoutIntervalForRequest = 5
+        configuration.timeoutIntervalForResource = 5
+        configuration.waitsForConnectivity = false
+        return URLSession(configuration: configuration)
+    }()
 
     // MARK: - Encode
 
@@ -32,14 +39,42 @@ enum MealShare {
         return comps.url
     }
 
+    /// Try the short-link service, falling back to the self-contained link on any failure.
+    static func preferredLink(
+        for entries: [FoodEntry],
+        send: (URLRequest) async throws -> (Data, URLResponse) = { try await shareSession.data(for: $0) }
+    ) async -> URL? {
+        guard let fallback = link(for: entries),
+              let encoded = URLComponents(url: fallback, resolvingAgainstBaseURL: false)?.queryItems?.first(where: { $0.name == "d" })?.value,
+              let payload = data(fromBase64url: encoded) else { return nil }
+        var request = URLRequest(url: URL(string: "https://\(webHost)/api/meal-shares")!)
+        request.httpMethod = "POST"
+        request.timeoutInterval = 5
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = payload
+        do {
+            let (data, response) = try await send(request)
+            guard (response as? HTTPURLResponse)?.statusCode == 201,
+                  let result = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let value = result["url"] as? String,
+                  let url = URL(string: value),
+                  url.scheme == "https", url.host == webHost,
+                  url.user == nil, url.password == nil, url.port == nil,
+                  url.query == nil, url.fragment == nil,
+                  url.path.range(of: "^/m/[A-Za-z0-9_-]{22}$", options: .regularExpression) != nil
+            else { return fallback }
+            return url
+        } catch { return fallback }
+    }
+
     /// Human-readable summary plus the import link — the text put on the share sheet.
-    static func shareText(for entries: [FoodEntry]) -> String {
+    static func shareText(for entries: [FoodEntry], using shareLink: URL? = nil) -> String {
         var lines = entries.map { e -> String in
             let macros = "\(Int(e.protein.rounded()))P · \(Int(e.carbs.rounded()))C · \(Int(e.fat.rounded()))F"
             let prefix = e.emoji.map { "\($0) " } ?? ""
             return "\(prefix)\(e.name) — \(e.calories) kcal · \(macros)"
         }
-        if let link = link(for: entries) {
+        if let link = shareLink ?? link(for: entries) {
             lines.append("")
             lines.append("Open in Fud AI to add:")
             lines.append(link.absoluteString)
@@ -191,7 +226,15 @@ enum MealShare {
     /// SwiftUI `.sheet` nested inside another sheet).
     static func presentShareSheet(for entries: [FoodEntry]) {
         guard !entries.isEmpty else { return }
-        let av = UIActivityViewController(activityItems: [shareText(for: entries)], applicationActivities: nil)
+        Task { @MainActor in
+            let link = await preferredLink(for: entries)
+            guard !Task.isCancelled else { return }
+            presentShareText(shareText(for: entries, using: link))
+        }
+    }
+
+    private static func presentShareText(_ text: String) {
+        let av = UIActivityViewController(activityItems: [text], applicationActivities: nil)
         guard let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
               let root = scene.windows.first(where: { $0.isKeyWindow })?.rootViewController else { return }
         var top = root

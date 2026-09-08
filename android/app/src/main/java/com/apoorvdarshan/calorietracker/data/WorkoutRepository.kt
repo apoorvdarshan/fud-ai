@@ -2,6 +2,8 @@ package com.apoorvdarshan.calorietracker.data
 
 import com.apoorvdarshan.calorietracker.models.CompletedExercise
 import com.apoorvdarshan.calorietracker.models.CompletedSet
+import com.apoorvdarshan.calorietracker.models.ExerciseTimer
+import com.apoorvdarshan.calorietracker.models.ExerciseTimerAction
 import com.apoorvdarshan.calorietracker.models.PlannedExercise
 import com.apoorvdarshan.calorietracker.models.PlannedSet
 import com.apoorvdarshan.calorietracker.models.WorkoutBurnEstimate
@@ -13,6 +15,7 @@ import com.apoorvdarshan.calorietracker.models.WorkoutPreferences
 import com.apoorvdarshan.calorietracker.models.WorkoutSession
 import com.apoorvdarshan.calorietracker.models.WorkoutTabMode
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
+import com.apoorvdarshan.calorietracker.models.WorkoutIntensity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
@@ -164,15 +167,15 @@ class WorkoutRepository(
             var changedSet = exercise.sets[setIndex]
             if (weight != null) {
                 changedSet = changedSet.copy(
-                    weight = decimalText(weight),
+                    weight = com.apoorvdarshan.calorietracker.models.WorkoutSetInput.weight(weight),
                     weightUnit = weightUnit ?: changedSet.weightUnit
                 )
             }
             if (reps != null) {
-                changedSet = changedSet.copy(reps = reps.filter(Char::isDigit).take(4))
+                changedSet = changedSet.copy(reps = com.apoorvdarshan.calorietracker.models.WorkoutSetInput.reps(reps))
             }
             if (rpe != null) {
-                val scale = current.preferences.rpeScale
+                val scale = changedSet.rpeScale ?: current.preferences.rpeScale
                 changedSet = changedSet.copy(
                     rpe = scale.sanitize(rpe, changedSet.rpe),
                     rpeScale = scale
@@ -193,6 +196,31 @@ class WorkoutRepository(
             val saved = current.savedExerciseIds.toMutableSet()
             if (!saved.add(itemId)) saved.remove(itemId)
             current.copy(savedExerciseIds = saved)
+        }
+    }
+
+    suspend fun updateTimer(
+        exerciseId: UUID,
+        date: LocalDate,
+        action: ExerciseTimerAction,
+        at: Instant = Instant.now()
+    ) {
+        updateExercise(WorkoutDate.key(date), exerciseId) { exercise ->
+            val timer = exercise.timer ?: ExerciseTimer()
+            val updated = when (action) {
+                ExerciseTimerAction.START, ExerciseTimerAction.RESUME -> timer.start(at)
+                ExerciseTimerAction.PAUSE -> timer.pause(at)
+                ExerciseTimerAction.STOP -> timer.stop(at)
+                ExerciseTimerAction.RESTART -> timer.restart(at)
+                ExerciseTimerAction.DISCARD -> null
+            }
+            exercise.copy(timer = updated)
+        }
+    }
+
+    suspend fun setTimerIntensity(exerciseId: UUID, date: LocalDate, intensity: WorkoutIntensity) {
+        updateExercise(WorkoutDate.key(date), exerciseId) { exercise ->
+            exercise.copy(timer = (exercise.timer ?: ExerciseTimer()).copy(intensity = intensity))
         }
     }
 
@@ -262,17 +290,7 @@ class WorkoutRepository(
         bodyWeightKg: Double,
         weightUnit: WorkoutWeightUnit,
         calculatedAt: Instant = Instant.now()
-    ): WorkoutSession? {
-        val key = WorkoutDate.requireKey(dateKey)
-        val current = snapshot()
-        val estimate = WorkoutBurnEstimator.estimate(
-            exercises = current.dayPlans[key]?.exercises.orEmpty(),
-            bodyWeightKg = bodyWeightKg,
-            defaultWeightUnit = weightUnit,
-            defaultRpeScale = current.preferences.rpeScale
-        ) ?: return null
-        return upsertCalculatedWorkout(key, estimate.calories, weightUnit, calculatedAt)
-    }
+    ): WorkoutSession? = saveCalculatedWorkout(dateKey, null, bodyWeightKg, weightUnit, calculatedAt)
 
     suspend fun upsertCalculatedWorkout(
         date: LocalDate,
@@ -292,6 +310,14 @@ class WorkoutRepository(
         caloriesBurned: Int,
         weightUnit: WorkoutWeightUnit,
         calculatedAt: Instant = Instant.now()
+    ): WorkoutSession? = saveCalculatedWorkout(dateKey, caloriesBurned, null, weightUnit, calculatedAt)
+
+    private suspend fun saveCalculatedWorkout(
+        dateKey: String,
+        suppliedCalories: Int?,
+        bodyWeightKg: Double?,
+        weightUnit: WorkoutWeightUnit,
+        calculatedAt: Instant
     ): WorkoutSession? {
         val key = WorkoutDate.requireKey(dateKey)
         var savedSession: WorkoutSession? = null
@@ -301,7 +327,14 @@ class WorkoutRepository(
             val current = store.workoutState.first().sanitized()
             val planned = current.dayPlans[key]?.exercises.orEmpty()
             val logs = completedLogs(planned, weightUnit, current.preferences)
-            if (logs.flatMap { it.sets }.none { it.isPerformed }) return@withLock
+            if (planned.none { it.hasCalculableWork }) return@withLock
+            // Derive burn and completed logs from the same plan while edits are excluded.
+            val caloriesBurned = suppliedCalories ?: WorkoutBurnEstimator.estimate(
+                exercises = planned,
+                bodyWeightKg = bodyWeightKg ?: 70.0,
+                defaultWeightUnit = weightUnit,
+                defaultRpeScale = current.preferences.rpeScale
+            )?.calories ?: return@withLock
 
             val existingBurns = current.completedSessions
                 .filter { it.diaryDateKey == key && it.caloriesBurned != null }
@@ -312,6 +345,7 @@ class WorkoutRepository(
                 diaryDateKey = key,
                 startedAt = calculatedAt,
                 completedAt = calculatedAt,
+                // Exercise timers may overlap; the daily snapshot has no session interval.
                 durationSeconds = 0,
                 exercises = logs,
                 caloriesBurned = caloriesBurned.coerceIn(1, 5_000),
@@ -509,13 +543,40 @@ class WorkoutRepository(
     }
 
     private suspend fun updatePlan(dateKey: String, transform: (WorkoutDayPlan) -> WorkoutDayPlan) {
-        updateState { current ->
-            val changed = transform(current.dayPlans[dateKey] ?: WorkoutDayPlan(dateKey))
+        var invalidatedBurns: List<WorkoutSession> = emptyList()
+        stateMutex.withLock {
+            val current = store.workoutState.first().sanitized()
+            val previous = current.dayPlans[dateKey] ?: WorkoutDayPlan(dateKey)
+            val changed = transform(previous)
             val plans = current.dayPlans.toMutableMap()
             if (changed.exercises.isEmpty()) plans.remove(dateKey) else plans[dateKey] = changed
-            current.copy(dayPlans = plans)
+            // A saved timer change invalidates the daily estimate; unsaved ticks/pauses do not.
+            // Clear the whole snapshot because mixed strength/timer calories cannot be subtracted safely.
+            if (savedTimerInputs(previous) != savedTimerInputs(changed)) {
+                invalidatedBurns = current.completedSessions.filter {
+                    it.diaryDateKey == dateKey && it.caloriesBurned != null
+                }
+            }
+            val invalidatedIds = invalidatedBurns.mapTo(mutableSetOf()) { it.id.toString() }
+            val next = current.copy(
+                dayPlans = plans,
+                completedSessions = current.completedSessions.filterNot { it.id.toString() in invalidatedIds },
+                healthDeletionTombstones = current.healthDeletionTombstones +
+                    invalidatedBurns.associate { it.id.toString() to it.diaryDateKey },
+                pendingHealthDeleteIds = current.pendingHealthDeleteIds + invalidatedIds,
+                pendingHealthUpsertIds = current.pendingHealthUpsertIds - invalidatedIds
+            )
+            if (next != current) store.setWorkoutState(next)
         }
+        invalidatedBurns.forEach { performHealthDelete(it.id, it.diaryDateKey) }
     }
+
+    private fun savedTimerInputs(plan: WorkoutDayPlan): Map<UUID, Pair<Double, WorkoutIntensity>> =
+        plan.exercises.mapNotNull { exercise ->
+            val timer = exercise.timer ?: return@mapNotNull null
+            val seconds = timer.savedSeconds.takeIf { it > 0.0 } ?: return@mapNotNull null
+            exercise.id to (seconds to timer.intensity)
+        }.toMap()
 
     private suspend fun updateExercise(
         dateKey: String,
@@ -637,6 +698,8 @@ class WorkoutRepository(
             name = exercise.name,
             targetMuscles = exercise.primaryMuscles,
             equipment = exercise.equipment,
+            durationSeconds = exercise.timer?.savedSeconds?.takeIf { it > 0.0 },
+            intensity = exercise.timer?.takeIf { it.savedSeconds > 0.0 }?.intensity,
             sets = exercise.sets.mapIndexed { index, set ->
                 CompletedSet(
                     setNumber = index + 1,
@@ -651,7 +714,10 @@ class WorkoutRepository(
     }
 
     private fun mergeBurnSession(local: WorkoutSession, imported: WorkoutSession): WorkoutSession =
-        imported.copy(exercises = imported.exercises.ifEmpty { local.exercises })
+        imported.copy(
+            exercises = imported.exercises.ifEmpty { local.exercises },
+            durationSeconds = if (imported.exercises.isEmpty()) local.durationSeconds else imported.durationSeconds
+        )
 
     private fun preferredBurn(state: WorkoutPersistedState, dateKey: String): WorkoutSession? =
         state.completedSessions
@@ -663,20 +729,6 @@ class WorkoutRepository(
             .groupBy { it.diaryDateKey }
             .mapValues { (_, values) -> values.maxWith(preferredSessionComparator) }
 
-    private fun decimalText(value: String): String {
-        val output = StringBuilder()
-        var hasDecimal = false
-        for (character in value.replace(',', '.')) {
-            if (character.isDigit()) {
-                output.append(character)
-            } else if (character == '.' && !hasDecimal) {
-                hasDecimal = true
-                output.append(character)
-            }
-            if (output.length >= 7) break
-        }
-        return output.toString()
-    }
 
     companion object {
         private val sessionDescendingComparator =

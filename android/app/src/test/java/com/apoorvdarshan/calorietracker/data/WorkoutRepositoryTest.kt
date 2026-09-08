@@ -2,6 +2,8 @@ package com.apoorvdarshan.calorietracker.data
 
 import com.apoorvdarshan.calorietracker.models.CompletedExercise
 import com.apoorvdarshan.calorietracker.models.CompletedSet
+import com.apoorvdarshan.calorietracker.models.ExerciseTimerAction
+import com.apoorvdarshan.calorietracker.models.WorkoutIntensity
 import com.apoorvdarshan.calorietracker.models.PlannedSet
 import com.apoorvdarshan.calorietracker.models.WorkoutDayPlan
 import com.apoorvdarshan.calorietracker.models.WorkoutPersistedState
@@ -175,6 +177,114 @@ class WorkoutRepositoryTest {
         assertEquals(WorkoutTabMode.LIBRARY, current.mode)
         assertEquals(setOf("bench"), current.savedExerciseIds)
         assertNull(current.completedSessions.firstOrNull())
+    }
+
+    @Test
+    fun exerciseTimersRemainIndependentAcrossExerciseDayAndRepositoryRestart() = runBlocking {
+        val store = FakeWorkoutStateStore()
+        var repository = WorkoutRepository(store)
+        val date = LocalDate.of(2026, 9, 8)
+        val previous = date.minusDays(1)
+        val item = exerciseItem()
+        repository.toggleExercise(item, date)
+        repository.toggleExercise(item.copy(id = "run", name = "Running", category = "cardio"), date)
+        repository.toggleExercise(item, previous)
+        val exercises = repository.planNow(date).exercises
+        val startedAt = Instant.parse("2026-09-08T10:00:00Z")
+        repository.updateTimer(exercises[0].id, date, ExerciseTimerAction.START, startedAt)
+        repository.updateTimer(exercises[1].id, date, ExerciseTimerAction.START, startedAt.plusSeconds(30))
+        repository = WorkoutRepository(store)
+        repository.updateTimer(exercises[0].id, date, ExerciseTimerAction.PAUSE, startedAt.plusSeconds(60))
+        assertEquals(60.0, repository.planNow(date).exercises[0].timer!!.elapsedSeconds(startedAt.plusSeconds(300)), 0.001)
+        assertEquals(270.0, repository.planNow(date).exercises[1].timer!!.elapsedSeconds(startedAt.plusSeconds(300)), 0.001)
+        assertNull(repository.planNow(previous).exercises.single().timer)
+        repository.updateTimer(exercises[0].id, date, ExerciseTimerAction.RESUME, startedAt.plusSeconds(300))
+        repository.updateTimer(exercises[0].id, date, ExerciseTimerAction.STOP, startedAt.plusSeconds(360))
+        repository.copyPlan(date, date.plusDays(1))
+        assertTrue(repository.planNow(date.plusDays(1)).exercises.all { it.timer == null })
+        assertEquals(120.0, repository.planNow(date).exercises[0].timer!!.savedSeconds, 0.001)
+        repository.updateTimer(exercises[0].id, date, ExerciseTimerAction.DISCARD)
+        assertNull(repository.planNow(date).exercises[0].timer)
+        assertTrue(repository.planNow(date).exercises[1].timer!!.isRunning)
+        assertEquals(2, repository.planNow(date).exercises.size)
+    }
+
+    @Test
+    fun savedTimerBurnUpsertsOneDailySnapshotWithDurationAndSurvivesHealthRestore() = runBlocking {
+        val store = FakeWorkoutStateStore()
+        val repository = WorkoutRepository(store)
+        val date = LocalDate.of(2026, 9, 8)
+        val startedAt = Instant.parse("2026-09-08T10:00:00Z")
+        repository.toggleExercise(exerciseItem().copy(id = "Running_Treadmill", category = "cardio"), date)
+        val exercise = repository.planNow(date).exercises.single()
+        repository.updateTimer(exercise.id, date, ExerciseTimerAction.START, startedAt)
+        assertNull(repository.calculateBurn(date, 70.0, WorkoutWeightUnit.KG))
+        repository.updateTimer(exercise.id, date, ExerciseTimerAction.STOP, startedAt.plusSeconds(1_800))
+        val first = repository.calculateBurn(date, 70.0, WorkoutWeightUnit.KG, startedAt.plusSeconds(1_800))!!
+        val repeated = repository.calculateBurn(date, 70.0, WorkoutWeightUnit.KG, startedAt.plusSeconds(1_801))!!
+        assertEquals(first.id, repeated.id)
+        repository.setTimerIntensity(exercise.id, date, WorkoutIntensity.VIGOROUS)
+        assertTrue(repository.snapshot().completedSessions.isEmpty())
+        val second = repository.calculateBurn(date, 70.0, WorkoutWeightUnit.KG, startedAt.plusSeconds(1_801))!!
+        assertNotEquals(first.id, second.id)
+        assertEquals(1, repository.snapshot().completedSessions.size)
+        assertEquals(0, second.durationSeconds)
+        assertEquals(1_800.0, second.exercises.single().durationSeconds!!, 0.001)
+        assertEquals(WorkoutIntensity.VIGOROUS, second.exercises.single().intensity)
+        assertTrue(second.caloriesBurned!! > first.caloriesBurned!!)
+        repository.importWorkoutBurnSessions(listOf(second.copy(exercises = emptyList(), durationSeconds = 0, healthSyncVersion = 3)))
+        val restored = repository.snapshot().completedSessions.single()
+        assertEquals(0, restored.durationSeconds)
+        assertEquals(1_800.0, restored.exercises.single().durationSeconds!!, 0.001)
+    }
+
+    @Test
+    fun discardingSavedTimerInvalidatesOnlyThatDaysBurnAndQueuesHealthDeletion() = runBlocking {
+        val date = LocalDate.of(2026, 9, 8)
+        val previousBurn = burnSession()
+        val legacySession = burnSession().copy(diaryDateKey = date.toString(), caloriesBurned = null)
+        val store = FakeWorkoutStateStore(WorkoutPersistedState(completedSessions = listOf(previousBurn, legacySession)))
+        val health = FakeWorkoutHealthSync(deleteSucceeds = false)
+        val repository = WorkoutRepository(store, health)
+        repository.toggleExercise(exerciseItem().copy(id = "Running_Treadmill", category = "cardio"), date)
+        val exercise = repository.planNow(date).exercises.single()
+        val start = Instant.parse("2026-09-08T10:00:00Z")
+        repository.updateTimer(exercise.id, date, ExerciseTimerAction.START, start)
+        repository.updateTimer(exercise.id, date, ExerciseTimerAction.STOP, start.plusSeconds(600))
+        val calculated = repository.calculateBurn(date, 70.0, WorkoutWeightUnit.KG)!!
+        repository.updateTimer(exercise.id, date, ExerciseTimerAction.DISCARD)
+        val state = repository.snapshot()
+        assertEquals(setOf(previousBurn.id, legacySession.id), state.completedSessions.map { it.id }.toSet())
+        assertEquals(date.toString(), state.healthDeletionTombstones[calculated.id.toString()])
+        assertTrue(calculated.id.toString() in state.pendingHealthDeleteIds)
+        assertTrue(calculated.id.toString() !in state.pendingHealthUpsertIds)
+        assertEquals(listOf(calculated.id to date.toString()), health.deleted)
+        assertNull(repository.calculateBurn(date, 70.0, WorkoutWeightUnit.KG))
+    }
+
+    @Test
+    fun unsavedTimerTransitionsPreserveStrengthBurnAndSavedTimerRemovalInvalidatesIt() = runBlocking {
+        val repository = WorkoutRepository(FakeWorkoutStateStore())
+        val date = LocalDate.of(2026, 9, 8)
+        repository.toggleExercise(exerciseItem(), date)
+        val strength = repository.planNow(date).exercises.single()
+        repository.updateSet(strength.id, strength.sets.single().id, date, reps = "10")
+        val strengthBurn = repository.calculateBurn(date, 70.0, WorkoutWeightUnit.KG)!!
+        repository.toggleExercise(exerciseItem().copy(id = "Running_Treadmill", category = "cardio"), date)
+        val cardio = repository.planNow(date).exercises.last()
+        val start = Instant.parse("2026-09-08T10:00:00Z")
+        repository.updateTimer(cardio.id, date, ExerciseTimerAction.START, start)
+        repository.updateTimer(cardio.id, date, ExerciseTimerAction.PAUSE, start.plusSeconds(30))
+        repository.setTimerIntensity(cardio.id, date, WorkoutIntensity.VIGOROUS)
+        repository.updateTimer(cardio.id, date, ExerciseTimerAction.RESUME, start.plusSeconds(60))
+        assertEquals(strengthBurn.id, repository.snapshot().completedSessions.single().id)
+        repository.updateTimer(cardio.id, date, ExerciseTimerAction.STOP, start.plusSeconds(90))
+        assertTrue(repository.snapshot().completedSessions.isEmpty())
+        val mixedBurn = repository.calculateBurn(date, 70.0, WorkoutWeightUnit.KG)!!
+        repository.removeExercise(cardio.id, date)
+        assertTrue(repository.snapshot().completedSessions.isEmpty())
+        assertTrue(mixedBurn.id.toString() in repository.snapshot().pendingHealthDeleteIds)
+        assertEquals(strengthBurn.caloriesBurned, repository.calculateBurn(date, 70.0, WorkoutWeightUnit.KG)!!.caloriesBurned)
     }
 
     private fun exerciseItem() = ExerciseItem(

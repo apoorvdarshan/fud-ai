@@ -272,6 +272,7 @@ class CoachTools(
 
     private fun getWorkoutPlans(args: ToolArguments): String {
         val range = parsePlanRange(args)
+        val now = clock.instant()
         val plans = workoutPlans
             .filter { it.exercises.isNotEmpty() }
             .filter { plan -> WorkoutDate.parse(plan.dateKey)?.let { it in range.from..range.to } == true }
@@ -286,11 +287,12 @@ class CoachTools(
                     linkedMapOf(
                         "date" to plan.dateKey,
                         "exercises" to plan.exercises.map { exercise ->
-                            linkedMapOf(
+                            linkedMapOf<String, Any?>(
                                 "catalog_id" to exercise.itemId,
                                 "name" to exercise.name,
                                 "target_muscles" to exercise.primaryMuscles,
                                 "equipment" to exercise.equipment,
+                                "performed" to exercise.hasCalculableWork,
                                 "sets" to exercise.sets.mapIndexed { index, set ->
                                     linkedMapOf<String, Any?>(
                                         "set" to index + 1,
@@ -304,7 +306,25 @@ class CoachTools(
                                         }
                                     }
                                 }
-                            )
+                            ).apply {
+                                exercise.timer?.let { timer ->
+                                    val elapsed = timer.elapsedSeconds(now)
+                                    val state = when {
+                                        timer.isRunning -> "running"
+                                        timer.isSaved -> "saved"
+                                        elapsed > 0.0 -> "paused"
+                                        else -> "idle"
+                                    }
+                                    put("timer", linkedMapOf<String, Any?>(
+                                        "state" to state,
+                                        "elapsed_seconds" to elapsed
+                                    ).apply {
+                                        timer.runningSince?.let { put("running_since", DateTimeFormatter.ISO_INSTANT.format(it)) }
+                                    })
+                                    put("intensity", timer.intensity.title)
+                                    if (timer.savedSeconds > 0.0) put("duration_seconds", timer.savedSeconds)
+                                }
+                            }
                         }
                     )
                 }
@@ -346,6 +366,9 @@ class CoachTools(
             for (exercise in session.exercises) {
                 val aggregate = aggregates.getOrPut(exercise.name) { ExerciseAggregate() }
                 aggregate.sessionIds.add(session.id)
+                exercise.durationSeconds?.takeIf { it.isFinite() && it > 0.0 }?.let {
+                    aggregate.durationSeconds += it
+                }
                 for (set in exercise.sets.filter { it.isPerformed }) {
                     aggregate.sets += 1
                     val reps = set.reps.toIntOrNull() ?: 0
@@ -368,6 +391,7 @@ class CoachTools(
             linkedMapOf<String, Any?>(
                 "name" to name,
                 "sessions" to aggregate.sessionIds.size,
+                "duration_seconds" to aggregate.durationSeconds,
                 "sets" to aggregate.sets,
                 "reps" to aggregate.reps,
                 "external_load_volume_kg" to round1(aggregate.volumeKg)
@@ -395,6 +419,7 @@ class CoachTools(
                 "reps" to sessions.sumOf { it.repCount },
                 "calories_burned" to sessions.sumOf { it.caloriesBurned ?: 0 },
                 "minutes" to sessions.sumOf { it.durationMinutes },
+                "timed_exercise_seconds" to aggregates.values.sumOf { it.durationSeconds },
                 "by_exercise" to exercisePayloads
             )
         )
@@ -408,11 +433,12 @@ class CoachTools(
             "completed_at" to DateTimeFormatter.ISO_INSTANT.format(session.completedAt),
             "duration_seconds" to session.durationSeconds,
             "exercises" to session.exercises.map { exercise ->
-                linkedMapOf(
+                linkedMapOf<String, Any?>(
                     "catalog_id" to exercise.itemId,
                     "name" to exercise.name,
                     "target_muscles" to exercise.targetMuscles,
                     "equipment" to exercise.equipment,
+                    "performed" to ((exercise.durationSeconds ?: 0.0) > 0.0 || exercise.sets.any { it.isPerformed }),
                     "sets" to exercise.sets.map { set ->
                         linkedMapOf<String, Any?>(
                             "set" to set.setNumber,
@@ -428,7 +454,12 @@ class CoachTools(
                             }
                         }
                     }
-                )
+                ).apply {
+                    exercise.durationSeconds?.takeIf { it.isFinite() && it > 0.0 }?.let {
+                        put("duration_seconds", it)
+                        exercise.intensity?.let { intensity -> put("intensity", intensity.title) }
+                    }
+                }
             }
         ).apply {
             session.caloriesBurned?.let { put("calories_burned", it) }
@@ -546,6 +577,7 @@ class CoachTools(
 
     private data class ExerciseAggregate(
         val sessionIds: MutableSet<UUID> = mutableSetOf(),
+        var durationSeconds: Double = 0.0,
         var sets: Int = 0,
         var reps: Int = 0,
         var volumeKg: Double = 0.0,
@@ -582,10 +614,10 @@ class CoachTools(
             "get_calorie_totals" to "Daily calorie totals (sum of all logged foods per day) between two dates. Returns date + kcal. Use when the user asks about intake patterns older than the last 14 days.",
             "get_food_entries" to "Individual logged food items (name + calories + macros) between two dates. Use when the user asks about specific meals, what they ate on a given date, or wants macro breakdowns rather than just kcal totals.",
             "get_fasting_history" to "Fetch explicitly tracked fasting sessions between two dates, including start/end timestamps, duration, goal, and whether the goal was reached. Never infer fasting from missing food logs.",
-            "get_workout_history" to "Fetch completed strength workouts between two dates, including calculated calorie burn and every exercise and logged set with weight, reps, and RPE.",
-            "get_workout_plans" to "Fetch dated workout diary plans and set targets. Optional ISO from/to dates narrow the result; without them it returns recent and upcoming plans around today.",
+            "get_workout_history" to "Fetch completed workouts between two dates, including calculated calorie burn, saved exercise durations and intensity, and logged sets with weight, reps, and RPE. A timed exercise can be performed without any reps or sets.",
+            "get_workout_plans" to "Fetch dated workout diary plans, set targets, saved exercise durations, and current timer state. Running or paused timer time is unsaved. Optional ISO from/to dates narrow the result; without them it returns recent and upcoming plans around today.",
             "get_workout_preferences" to "Fetch workout-only preferences such as target muscles, injuries or issues, equipment, schedule, split, RPE scale, and strength numbers.",
-            "get_training_summary" to "Summarize strength training between two dates: calculated calorie burn plus sessions, sets, reps, volume, best load, and average RPE by exercise."
+            "get_training_summary" to "Summarize workouts between two dates: calculated calorie burn plus sessions, saved exercise duration, sets, reps, volume, best load, and average RPE by exercise. Timed cardio does not require reps or sets."
         )
 
         /** One schema source is wrapped for Gemini, Anthropic, and OpenAI by [ChatService]. */

@@ -76,10 +76,10 @@ struct CoachTools {
         "get_calorie_totals": "Daily calorie totals (sum of all logged foods per day) between two dates. Returns date + kcal. Use when the user asks about intake patterns older than the last 14 days.",
         "get_food_entries": "Individual logged food items (name + calories + macros) between two dates. Use when the user asks about specific meals, what they ate on a given date, or wants macro breakdowns rather than just kcal totals.",
         "get_fasting_history": "Fetch explicitly tracked fasting sessions between two dates, including start/end timestamps, duration, goal, and whether the goal was reached. Never infer fasting from missing food logs.",
-        "get_workout_history": "Fetch completed strength workouts between two dates, including calculated calorie burn and every exercise and logged set with weight, reps, and RPE.",
-        "get_workout_plans": "Fetch dated workout diary plans and set targets. Optional ISO from/to dates narrow the result; without them it returns recent and upcoming plans around today.",
+        "get_workout_history": "Fetch completed workouts between two dates, including calculated calorie burn, saved exercise durations and intensity, and logged sets with weight, reps, and RPE. A timed exercise can be performed without any reps or sets.",
+        "get_workout_plans": "Fetch dated workout diary plans, set targets, saved exercise durations, and current timer state. Running or paused timer time is unsaved. Optional ISO from/to dates narrow the result; without them it returns recent and upcoming plans around today.",
         "get_workout_preferences": "Fetch workout-only preferences such as target muscles, injuries or issues, equipment, schedule, split, RPE scale, and strength numbers.",
-        "get_training_summary": "Summarize strength training between two dates: calculated calorie burn plus sessions, sets, reps, volume, best load, and average RPE by exercise.",
+        "get_training_summary": "Summarize workouts between two dates: calculated calorie burn plus sessions, saved exercise duration, sets, reps, volume, best load, and average RPE by exercise. Timed cardio does not require reps or sets.",
     ]
 
     /// One schema source is translated to each provider's wrapper by
@@ -361,6 +361,7 @@ struct CoachTools {
 
     private func getWorkoutPlans(arguments: [String: Any]) -> String {
         let (from, to) = parsePlanRange(arguments)
+        let now = Date.now
         let limit = (arguments["limit"] as? Int).map { min(max($0, 1), 120) } ?? 120
         let plans = workoutPlans
             .filter { !$0.exercises.isEmpty }
@@ -374,11 +375,13 @@ struct CoachTools {
                 [
                     "date": plan.dateKey,
                     "exercises": plan.exercises.map { exercise -> [String: Any] in
-                        [
+                        var payload: [String: Any] = [
                             "catalog_id": exercise.itemID,
                             "name": exercise.name,
                             "target_muscles": exercise.primaryMuscles,
                             "equipment": exercise.rawEquipment,
+                            "performed": (exercise.timer?.savedDurationSeconds ?? 0) > 0
+                                || (!exercise.isCardio && exercise.sets.contains { (Int($0.reps) ?? 0) > 0 }),
                             "sets": exercise.sets.enumerated().map { index, set -> [String: Any] in
                                 var value: [String: Any] = [
                                     "set": index + 1,
@@ -395,6 +398,23 @@ struct CoachTools {
                                 return value
                             },
                         ]
+                        if let timer = exercise.timer {
+                            let elapsed = timer.elapsedSeconds(at: now)
+                            let state = timer.isRunning ? "running" : timer.isSaved ? "saved" : elapsed > 0 ? "paused" : "idle"
+                            var timerPayload: [String: Any] = [
+                                "state": state,
+                                "elapsed_seconds": elapsed,
+                            ]
+                            if let runningSince = timer.runningSince {
+                                timerPayload["running_since"] = Self.isoTimestamp(runningSince)
+                            }
+                            payload["timer"] = timerPayload
+                            payload["intensity"] = timer.intensity.title
+                            if let duration = timer.savedDurationSeconds, duration.isFinite, duration > 0, !timer.isRunning {
+                                payload["duration_seconds"] = duration
+                            }
+                        }
+                        return payload
                     },
                 ]
             }
@@ -441,6 +461,7 @@ struct CoachTools {
         }
         struct ExerciseAggregate {
             var sessionIDs: Set<UUID> = []
+            var durationSeconds = 0.0
             var sets = 0
             var reps = 0
             var volumeKg = 0.0
@@ -456,6 +477,9 @@ struct CoachTools {
             for exercise in session.exercises {
                 var aggregate = aggregates[exercise.name] ?? ExerciseAggregate()
                 aggregate.sessionIDs.insert(session.id)
+                if let duration = exercise.durationSeconds, duration.isFinite, duration > 0 {
+                    aggregate.durationSeconds += duration
+                }
                 for set in exercise.sets where set.isPerformed {
                     aggregate.sets += 1
                     let reps = Int(set.reps) ?? 0
@@ -479,6 +503,7 @@ struct CoachTools {
             var payload: [String: Any] = [
                 "name": name,
                 "sessions": value.sessionIDs.count,
+                "duration_seconds": value.durationSeconds,
                 "sets": value.sets,
                 "reps": value.reps,
                 "external_load_volume_kg": (value.volumeKg * 10).rounded() / 10,
@@ -504,6 +529,7 @@ struct CoachTools {
             "reps": sessions.reduce(0) { $0 + $1.repCount },
             "calories_burned": sessions.reduce(0) { $0 + ($1.caloriesBurned ?? 0) },
             "minutes": sessions.reduce(0) { $0 + $1.durationMinutes },
+            "timed_exercise_seconds": aggregates.values.reduce(0) { $0 + $1.durationSeconds },
             "by_exercise": exercisePayloads,
         ])
     }
@@ -516,11 +542,12 @@ struct CoachTools {
             "completed_at": Self.isoTimestamp(session.completedAt),
             "duration_seconds": session.durationSeconds,
             "exercises": session.exercises.map { exercise -> [String: Any] in
-                [
+                var exercisePayload: [String: Any] = [
                     "catalog_id": exercise.itemID,
                     "name": exercise.name,
                     "target_muscles": exercise.targetMuscles,
                     "equipment": exercise.equipment,
+                    "performed": (exercise.durationSeconds ?? 0) > 0 || exercise.sets.contains(where: \.isPerformed),
                     "sets": exercise.sets.map { set -> [String: Any] in
                         var payload: [String: Any] = [
                             "set": set.setNumber,
@@ -539,6 +566,11 @@ struct CoachTools {
                         return payload
                     },
                 ]
+                if let duration = exercise.durationSeconds, duration.isFinite, duration > 0 {
+                    exercisePayload["duration_seconds"] = duration
+                    if let intensity = exercise.intensity { exercisePayload["intensity"] = intensity.title }
+                }
+                return exercisePayload
             },
         ]
         if let caloriesBurned = session.caloriesBurned {

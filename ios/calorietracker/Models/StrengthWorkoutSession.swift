@@ -263,6 +263,66 @@ struct StrengthPlannedSet: Identifiable, Codable, Equatable, Hashable {
     }
 }
 
+enum StrengthWorkoutIntensity: String, Codable, CaseIterable, Identifiable {
+    case light
+    case moderate
+    case vigorous
+
+    var id: String { rawValue }
+    var title: String { rawValue.capitalized }
+}
+
+enum StrengthExerciseTimerAction {
+    case start, pause, resume, stop, restart, discard
+}
+
+/// Persisted timestamps keep each exercise's stopwatch accurate while the app
+/// is backgrounded or terminated, without depending on a UI tick to save time.
+struct StrengthExerciseTimer: Codable, Equatable, Hashable {
+    var accumulatedSeconds: Double = 0
+    var runningSince: Date?
+    var savedDurationSeconds: Double?
+    var intensity: StrengthWorkoutIntensity = .moderate
+
+    var isRunning: Bool { runningSince != nil }
+    var isSaved: Bool {
+        guard let savedDurationSeconds else { return false }
+        return !isRunning && savedDurationSeconds.isFinite && savedDurationSeconds > 0
+    }
+
+    func elapsedSeconds(at now: Date = .now) -> Double {
+        let accumulated = accumulatedSeconds.isFinite ? max(0, accumulatedSeconds) : 0
+        guard let runningSince else { return accumulated }
+        let elapsed = now.timeIntervalSince(runningSince)
+        return accumulated + (elapsed.isFinite ? max(0, elapsed) : 0)
+    }
+
+    mutating func apply(_ action: StrengthExerciseTimerAction, at now: Date) {
+        switch action {
+        case .start, .resume:
+            guard !isRunning else { return }
+            runningSince = now
+            savedDurationSeconds = nil
+        case .pause:
+            guard isRunning else { return }
+            accumulatedSeconds = elapsedSeconds(at: now)
+            runningSince = nil
+        case .stop:
+            accumulatedSeconds = elapsedSeconds(at: now)
+            runningSince = nil
+            savedDurationSeconds = accumulatedSeconds > 0 ? accumulatedSeconds : nil
+        case .restart:
+            accumulatedSeconds = 0
+            runningSince = now
+            savedDurationSeconds = nil
+        case .discard:
+            accumulatedSeconds = 0
+            runningSince = nil
+            savedDurationSeconds = nil
+        }
+    }
+}
+
 struct StrengthPlannedExercise: Identifiable, Codable, Equatable, Hashable {
     var id = UUID()
     let itemID: String
@@ -277,6 +337,8 @@ struct StrengthPlannedExercise: Identifiable, Codable, Equatable, Hashable {
     var secondaryMuscles: [String]
     var instructions: [String]
     var sets: [StrengthPlannedSet]
+    /// Optional so diaries created before exercise timers still decode.
+    var timer: StrengthExerciseTimer?
 
     init(item: ExerciseLibraryItem) {
         itemID = item.id
@@ -291,7 +353,10 @@ struct StrengthPlannedExercise: Identifiable, Codable, Equatable, Hashable {
         secondaryMuscles = item.secondaryMuscles
         instructions = item.instructions
         sets = [StrengthPlannedSet()]
+        timer = nil
     }
+
+    var isCardio: Bool { category.caseInsensitiveCompare("cardio") == .orderedSame }
 
     var libraryItem: ExerciseLibraryItem {
         ExerciseLibraryItem(
@@ -313,6 +378,7 @@ struct StrengthPlannedExercise: Identifiable, Codable, Equatable, Hashable {
         var copy = self
         copy.id = UUID()
         copy.sets = [StrengthPlannedSet()]
+        copy.timer = nil
         return copy
     }
 }
@@ -347,6 +413,10 @@ struct StrengthCompletedExercise: Identifiable, Codable, Equatable, Hashable {
     let targetMuscles: [String]
     let equipment: String
     let sets: [StrengthCompletedSet]
+    /// Saved exercise time is included in snapshots; active/paused timers are
+    /// only drafts until the user chooses Stop & save.
+    var durationSeconds: Double? = nil
+    var intensity: StrengthWorkoutIntensity? = nil
 }
 
 struct StrengthWorkoutSession: Identifiable, Codable, Equatable, Hashable {
@@ -394,11 +464,10 @@ struct StrengthWorkoutBurnEstimate: Equatable {
     let repCount: Int
 }
 
-/// Offline strength-training burn estimate used by the explicit Calculate
-/// button. Resistance training has no exact set-only calorie equation, so this
-/// models active repetition time, normal between-set recovery, perceived effort,
-/// external load, and body mass. It intentionally ignores unperformed planned
-/// sets and is kept out of nutrition-goal calculations.
+/// Offline burn estimate used by the explicit Calculate button. Saved exercise
+/// timers use duration and an activity/intensity MET estimate. Untimed strength
+/// exercises retain the set-based estimate. Timed exercises are counted once,
+/// and these estimates are kept out of nutrition-goal calculations.
 enum StrengthWorkoutBurnEstimator {
     static func estimate(
         exercises: [StrengthPlannedExercise],
@@ -414,15 +483,27 @@ enum StrengthWorkoutBurnEstimator {
         var effortTotal = 0.0
         var relativeLoadTotal = 0.0
         var exercisesWithWork = 0
+        var untimedSetCount = 0
+        var timedCalories = 0.0
 
         for exercise in exercises {
+            let savedSeconds = exercise.timer?.savedDurationSeconds ?? 0
+            let hasSavedDuration = exercise.timer?.isSaved == true
+            if hasSavedDuration {
+                let met = timedMET(for: exercise, intensity: exercise.timer?.intensity ?? .moderate)
+                timedCalories += met * 3.5 * safeBodyWeight / 200 * (savedSeconds / 60)
+            }
             var performedInExercise = 0
             for set in exercise.sets {
                 guard let rawReps = Int(set.reps), rawReps > 0 else { continue }
                 let reps = min(rawReps, 100)
                 performedSetCount += 1
-                performedInExercise += 1
                 repCount += reps
+                // Keep the diary's sets/reps statistics, but never add the
+                // set-based calorie estimate on top of this exercise's timer.
+                guard !hasSavedDuration, !exercise.isCardio else { continue }
+                performedInExercise += 1
+                untimedSetCount += 1
 
                 // Roughly 2.5–3 seconds per controlled rep, bounded for unusual
                 // logging values. Recovery is modeled separately below.
@@ -438,7 +519,7 @@ enum StrengthWorkoutBurnEstimator {
             if performedInExercise > 0 { exercisesWithWork += 1 }
         }
 
-        guard performedSetCount > 0 else { return nil }
+        guard untimedSetCount > 0 || timedCalories > 0 else { return nil }
 
         // The final set does not need a full recovery block. Add a small,
         // exercise-level allowance for setup and transitions, then enforce a
@@ -446,16 +527,53 @@ enum StrengthWorkoutBurnEstimator {
         recoveryMinutes = max(0, recoveryMinutes - 1.60)
         let transitionMinutes = Double(exercisesWithWork) * 0.75
         let estimatedMinutes = max(4, activeMinutes + recoveryMinutes + transitionMinutes)
-        let averageEffort = effortTotal / Double(performedSetCount)
-        let averageRelativeLoad = relativeLoadTotal / Double(performedSetCount)
+        let averageEffort = untimedSetCount > 0 ? effortTotal / Double(untimedSetCount) : 0
+        let averageRelativeLoad = untimedSetCount > 0 ? relativeLoadTotal / Double(untimedSetCount) : 0
         let met = min(max(3.8 + (2.4 * averageEffort) + (0.5 * averageRelativeLoad), 3.5), 8.0)
-        let rawCalories = met * 3.5 * safeBodyWeight / 200 * estimatedMinutes
+        let strengthCalories = untimedSetCount > 0 ? met * 3.5 * safeBodyWeight / 200 * estimatedMinutes : 0
+        let rawCalories = min(strengthCalories + timedCalories, 5_000)
 
         return StrengthWorkoutBurnEstimate(
             calories: min(max(Int(rawCalories.rounded()), 1), 5_000),
             performedSetCount: performedSetCount,
             repCount: repCount
         )
+    }
+
+    /// Representative activity values from the 2024 Adult Compendium:
+    /// https://pacompendium.com/bicycling/ , /walking/ , /running/ , /sports/
+    /// and /conditioning-exercise/. Intensity is a user-selected approximation
+    /// of pace/effort, not a measured speed, power output, or energy expenditure.
+    private static func timedMET(for exercise: StrengthPlannedExercise, intensity: StrengthWorkoutIntensity) -> Double {
+        let values: (Double, Double, Double)
+        if exercise.isCardio {
+            switch exercise.itemID {
+            case "Bicycling": values = (4.3, 7, 9)
+            case "Bicycling_Stationary", "Recumbent_Bike": values = (3.5, 6, 10.8)
+            case "Elliptical_Trainer": values = (5, 5, 9)
+            case "Walking_Treadmill": values = (2.8, 3.8, 4.8)
+            case "Jogging_Treadmill", "Running_Treadmill": values = (6.5, 8.5, 10.5)
+            case "Rope_Jumping": values = (8.3, 11.8, 12.3)
+            case "Rowing_Stationary": values = (5, 7.3, 11)
+            case "Skating": values = (7.5, 9.8, 12.3)
+            case "Stairmaster", "Step_Mill": values = (4.5, 6.8, 9.3)
+            case "Trail_Running_Walking": values = (3.8, 6, 9.3)
+            default: values = (3.5, 5, 7.5)
+            }
+        } else if exercise.category.caseInsensitiveCompare("stretching") == .orderedSame {
+            // Compendium 02101 describes mild stretching; it does not provide
+            // distinct light/moderate/vigorous stretching values.
+            values = (2.3, 2.3, 2.3)
+        } else if exercise.category.caseInsensitiveCompare("plyometrics") == .orderedSame {
+            values = (3.5, 5, 7.5)
+        } else {
+            values = (3.5, 5, 6)
+        }
+        switch intensity {
+        case .light: return values.0
+        case .moderate: return values.1
+        case .vigorous: return values.2
+        }
     }
 
     private static func normalizedEffort(_ text: String, scale: StrengthWorkoutRPEScale) -> Double {

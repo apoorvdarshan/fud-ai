@@ -5,6 +5,9 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.time.Instant
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 class WorkoutModelsTest {
     @Test
@@ -87,6 +90,99 @@ class WorkoutModelsTest {
         assertEquals(setOf("Chest", "Shoulders"), groups.first { it.title == "Push" }.muscles)
         assertEquals(setOf("Biceps", "Lats"), groups.first { it.title == "Pull" }.muscles)
     }
+
+    @Test
+    fun timerPersistsRunningAnchorAndExcludesPausedTime() {
+        val start = Instant.parse("2026-09-08T10:00:00Z")
+        val running = ExerciseTimer().start(start)
+        val restored = Json.decodeFromString<ExerciseTimer>(Json.encodeToString(running))
+        assertEquals(600.0, restored.elapsedSeconds(start.plusSeconds(600)), 0.001)
+        val paused = restored.pause(start.plusSeconds(90))
+        assertEquals(90.0, paused.elapsedSeconds(start.plusSeconds(900)), 0.001)
+        val resumed = paused.start(start.plusSeconds(900))
+        val saved = resumed.stop(start.plusSeconds(960))
+        assertEquals(150.0, saved.savedSeconds, 0.001)
+        assertTrue(saved.isSaved)
+        assertEquals(150.0, saved.elapsedSeconds(start.plusSeconds(2_000)), 0.001)
+        val extended = saved.start(start.plusSeconds(2_000)).stop(start.plusSeconds(2_010))
+        assertEquals(160.0, extended.savedSeconds, 0.001)
+        val restarted = saved.restart(start.plusSeconds(2_000))
+        assertEquals(0.0, restarted.savedSeconds, 0.001)
+        assertTrue(restarted.isRunning)
+        assertEquals(10.0, restarted.elapsedSeconds(start.plusSeconds(2_010)), 0.001)
+        assertEquals(0.0, running.elapsedSeconds(start.minusSeconds(60)), 0.001)
+        assertTrue(!running.stop(start).isSaved)
+        assertTrue(!ExerciseTimer(savedDurationSeconds = Double.POSITIVE_INFINITY).isSaved)
+        assertEquals(0.0, saved.copy(runningSince = start).savedSeconds, 0.001)
+    }
+
+    @Test
+    fun oldPlansDecodeAndCopiedPlansClearOnlyTheirTimer() {
+        val untimed = exercise(PlannedSet(reps = "10"))
+        val oldJson = Json.encodeToString(untimed)
+        assertTrue(!oldJson.contains("timer"))
+        assertNull(Json.decodeFromString<PlannedExercise>(oldJson).timer)
+        val timed = untimed.copy(timer = ExerciseTimer(accumulatedSeconds = 120.0, savedDurationSeconds = 120.0))
+        val restored = Json.decodeFromString<PlannedExercise>(Json.encodeToString(timed))
+        assertEquals(120.0, restored.timer!!.savedSeconds, 0.001)
+        assertNull(restored.copiedForNewDay().timer)
+        assertEquals(120.0, timed.timer!!.savedSeconds, 0.001)
+    }
+
+    @Test
+    fun savedCardioTimerCalculatesWithoutRepsAndDoesNotCountRepsTwice() {
+        val cardio = exercise(PlannedSet()).copy(
+            itemId = "Running_Treadmill",
+            category = "cardio",
+            timer = ExerciseTimer(accumulatedSeconds = 1_800.0, savedDurationSeconds = 1_800.0)
+        )
+        val moderate = estimate(listOf(cardio))!!
+        assertEquals(312, moderate.calories)
+        assertEquals(0, moderate.performedSetCount)
+        val withReps = estimate(listOf(cardio.copy(sets = listOf(PlannedSet(reps = "10")))))!!
+        assertEquals(moderate.calories, withReps.calories)
+        assertEquals(10, withReps.repCount)
+        assertEquals(1, withReps.performedSetCount)
+        val vigorous = estimate(listOf(cardio.copy(timer = cardio.timer!!.copy(intensity = WorkoutIntensity.VIGOROUS))))!!
+        assertTrue(vigorous.calories > moderate.calories)
+        val running = cardio.copy(timer = ExerciseTimer().start(Instant.now()))
+        val paused = cardio.copy(timer = ExerciseTimer(accumulatedSeconds = 1_800.0))
+        assertNull(estimate(listOf(running)))
+        assertNull(estimate(listOf(paused)))
+        assertTrue(cardio.hasCalculableWork)
+        assertTrue(!running.hasCalculableWork)
+    }
+
+    @Test
+    fun mixedTimedCardioAndUntimedStrengthRetainLegacyStrengthEstimate() {
+        val strength = exercise(PlannedSet(reps = "10", weight = "20", rpe = "7"))
+        val cardio = exercise(PlannedSet()).copy(
+            itemId = "Walking_Treadmill", category = "cardio",
+            timer = ExerciseTimer(accumulatedSeconds = 600.0, savedDurationSeconds = 600.0)
+        )
+        val strengthOnly = estimate(listOf(strength))!!
+        val cardioOnly = estimate(listOf(cardio))!!
+        val mixed = estimate(listOf(cardio, strength))!!
+        assertEquals((strengthOnly.calories + cardioOnly.calories).toDouble(), mixed.calories.toDouble(), 1.0)
+        assertEquals(1, mixed.performedSetCount)
+        assertEquals(10, mixed.repCount)
+        val confusingName = strength.copy(name = "Bicycling", timer = cardio.timer)
+        val plainStrength = strength.copy(timer = cardio.timer)
+        assertEquals(estimate(listOf(plainStrength))!!.calories, estimate(listOf(confusingName))!!.calories)
+        val legacyCardio = cardio.copy(timer = null, sets = listOf(PlannedSet(reps = "100")))
+        assertNull(estimate(listOf(legacyCardio)))
+        assertTrue(!legacyCardio.hasCalculableWork)
+        assertEquals(strengthOnly.calories, estimate(listOf(legacyCardio, strength))!!.calories)
+        val stretching = cardio.copy(
+            category = "stretching",
+            timer = cardio.timer!!.copy(intensity = WorkoutIntensity.VIGOROUS)
+        )
+        assertEquals(28, estimate(listOf(stretching))!!.calories)
+    }
+
+    private fun estimate(exercises: List<PlannedExercise>): WorkoutBurnEstimate? = WorkoutBurnEstimator.estimate(
+        exercises, 70.0, WorkoutWeightUnit.KG, WorkoutRpeScale.STRENGTH
+    )
 
     private fun exercise(set: PlannedSet): PlannedExercise = PlannedExercise.from(
         ExerciseItem(

@@ -478,6 +478,301 @@ struct StrengthWorkoutStoreTests {
         #expect(deletedIDs == [second.id])
     }
 
+    @Test func exerciseTimersPersistThroughReloadAndExcludePausedTime() throws {
+        let fixture = WorkoutTestFixture()
+        defer { fixture.cleanUp() }
+        let date = WorkoutTestFixture.date(2026, 9, 8)
+        let start = date.addingTimeInterval(3_600)
+        var store = fixture.makeStore()
+        store.toggleExercise(WorkoutTestFixture.exercise(id: "run", name: "Running"), on: date)
+        let exerciseID = try #require(store.exercises(for: date).first?.id)
+
+        store.updateTimer(.start, exerciseID: exerciseID, on: date, now: start)
+        store.updateTimer(.start, exerciseID: exerciseID, on: date, now: start.addingTimeInterval(10))
+        store = fixture.makeStore()
+        let running = try #require(store.exercises(for: date).first?.timer)
+        #expect(running.isRunning)
+        #expect(running.elapsedSeconds(at: start.addingTimeInterval(90)) == 90)
+        #expect(running.elapsedSeconds(at: start.addingTimeInterval(-30)) == 0)
+
+        store.updateTimer(.pause, exerciseID: exerciseID, on: date, now: start.addingTimeInterval(90))
+        store = fixture.makeStore()
+        #expect(store.exercises(for: date)[0].timer?.elapsedSeconds(at: start.addingTimeInterval(900)) == 90)
+        store.updateTimer(.resume, exerciseID: exerciseID, on: date, now: start.addingTimeInterval(900))
+        store.updateTimer(.stop, exerciseID: exerciseID, on: date, now: start.addingTimeInterval(960))
+        let saved = try #require(fixture.makeStore().exercises(for: date).first?.timer)
+        #expect(saved.savedDurationSeconds == 150)
+        #expect(saved.isSaved)
+        #expect(!saved.isRunning)
+
+        // A saved timer can be extended, and is not a saved estimate while running.
+        store.updateTimer(.resume, exerciseID: exerciseID, on: date, now: start.addingTimeInterval(1_000))
+        #expect(store.exercises(for: date)[0].timer?.savedDurationSeconds == nil)
+        store.updateTimer(.stop, exerciseID: exerciseID, on: date, now: start.addingTimeInterval(1_030))
+        #expect(store.exercises(for: date)[0].timer?.savedDurationSeconds == 180)
+    }
+
+    @Test func exerciseTimerRestartDiscardAndCopyLeaveOtherExercisesAndDaysUntouched() throws {
+        let fixture = WorkoutTestFixture()
+        defer { fixture.cleanUp() }
+        let date = WorkoutTestFixture.date(2026, 9, 8)
+        let tomorrow = WorkoutTestFixture.date(2026, 9, 9)
+        let store = fixture.makeStore()
+        store.toggleExercise(WorkoutTestFixture.exercise(id: "run", name: "Running"), on: date)
+        store.toggleExercise(WorkoutTestFixture.exercise(id: "cycle", name: "Cycling"), on: date)
+        let first = store.exercises(for: date)[0].id
+        let second = store.exercises(for: date)[1].id
+        store.updateTimer(.start, exerciseID: first, on: date, now: date)
+        store.setTimerIntensity(.vigorous, exerciseID: first, on: date)
+        store.updateTimer(.start, exerciseID: second, on: date, now: date.addingTimeInterval(10))
+        store.copyPlan(from: date, to: tomorrow)
+        #expect(store.exercises(for: tomorrow).allSatisfy { $0.timer == nil })
+
+        store.updateTimer(.restart, exerciseID: first, on: date, now: date.addingTimeInterval(100))
+        #expect(store.exercises(for: date)[0].timer?.elapsedSeconds(at: date.addingTimeInterval(130)) == 30)
+        #expect(store.exercises(for: date)[0].timer?.intensity == .vigorous)
+        #expect(store.exercises(for: date)[1].timer?.elapsedSeconds(at: date.addingTimeInterval(130)) == 120)
+        store.updateTimer(.stop, exerciseID: first, on: date, now: date.addingTimeInterval(140))
+        #expect(store.exercises(for: date)[0].timer?.savedDurationSeconds == 40)
+        store.updateTimer(.discard, exerciseID: first, on: date, now: date.addingTimeInterval(150))
+        let restored = fixture.makeStore()
+        #expect(restored.exercises(for: date).count == 2)
+        #expect(restored.exercises(for: date)[0].timer == nil)
+        #expect(restored.exercises(for: date)[1].timer?.isRunning == true)
+        #expect(restored.exercises(for: tomorrow).allSatisfy { $0.timer == nil })
+    }
+
+    @Test func savedTimerSupportsCardioBurnWithoutRepsAndSurvivesCompletedSnapshotReload() throws {
+        let fixture = WorkoutTestFixture()
+        defer { fixture.cleanUp() }
+        let date = WorkoutTestFixture.date(2026, 9, 8)
+        let store = fixture.makeStore()
+        store.toggleExercise(
+            WorkoutTestFixture.exercise(id: "Walking_Treadmill", name: "Walking", category: "cardio"),
+            on: date
+        )
+        let exerciseID = store.exercises(for: date)[0].id
+        store.setTimerIntensity(.light, exerciseID: exerciseID, on: date)
+        store.updateTimer(.start, exerciseID: exerciseID, on: date, now: date)
+        #expect(StrengthWorkoutBurnEstimator.estimate(
+            exercises: store.exercises(for: date), bodyWeightKg: 70,
+            defaultWeightUnit: .kg, defaultRPEScale: .strength
+        ) == nil)
+        store.updateTimer(.pause, exerciseID: exerciseID, on: date, now: date.addingTimeInterval(600))
+        #expect(store.upsertCalculatedWorkout(on: date, caloriesBurned: 35, weightUnit: .kg) == nil)
+        store.updateTimer(.stop, exerciseID: exerciseID, on: date, now: date.addingTimeInterval(900))
+        let estimate = try #require(StrengthWorkoutBurnEstimator.estimate(
+            exercises: store.exercises(for: date), bodyWeightKg: 70,
+            defaultWeightUnit: .kg, defaultRPEScale: .strength
+        ))
+        #expect(estimate.calories == 34) // 2.8 MET × 70 kg × ten active minutes.
+        #expect(estimate.performedSetCount == 0)
+        #expect(estimate.repCount == 0)
+        let first = try #require(store.upsertCalculatedWorkout(on: date, caloriesBurned: estimate.calories, weightUnit: .kg))
+        let second = try #require(store.upsertCalculatedWorkout(on: date, caloriesBurned: estimate.calories, weightUnit: .kg))
+        #expect(first.id == second.id)
+        let restored = try #require(fixture.makeStore().workoutBurnSessions.first)
+        #expect(restored.exercises[0].durationSeconds == 600)
+        #expect(restored.exercises[0].intensity == .light)
+        #expect(restored.performedSetCount == 0)
+        #expect(restored.healthSyncVersion == 2)
+    }
+
+    @Test func timedBurnReplacesSameExerciseRepsAndAddsToUntimedStrength() throws {
+        var run = StrengthPlannedExercise(item: WorkoutTestFixture.exercise(
+            id: "Running_Treadmill", name: "Running", category: "cardio"
+        ))
+        run.timer = StrengthExerciseTimer(accumulatedSeconds: 600, savedDurationSeconds: 600)
+        var strength = StrengthPlannedExercise(item: WorkoutTestFixture.exercise(id: "curl", name: "Curl"))
+        strength.sets[0].reps = "12"
+        strength.sets[0].weight = "20"
+        func estimate(_ exercises: [StrengthPlannedExercise]) throws -> StrengthWorkoutBurnEstimate {
+            try #require(StrengthWorkoutBurnEstimator.estimate(
+                exercises: exercises, bodyWeightKg: 70,
+                defaultWeightUnit: .kg, defaultRPEScale: .strength
+            ))
+        }
+        let timedOnly = try estimate([run])
+        #expect(timedOnly.calories == 104)
+        run.sets[0].reps = "100"
+        run.sets[0].weight = "100"
+        let timedWithReps = try estimate([run])
+        #expect(timedWithReps.calories == timedOnly.calories)
+        #expect(timedWithReps.repCount == 100)
+        let strengthOnly = try estimate([strength])
+        let mixed = try estimate([run, strength])
+        #expect(abs(mixed.calories - timedOnly.calories - strengthOnly.calories) <= 1)
+        #expect(mixed.performedSetCount == 2)
+        #expect(mixed.repCount == 112)
+        run.timer?.intensity = .vigorous
+        #expect(try estimate([run]).calories > timedOnly.calories)
+        run.timer?.savedDurationSeconds = 1_200
+        #expect(try estimate([run]).calories > timedOnly.calories * 2)
+    }
+
+    @Test func legacyCardioRepsNeedSavedTimeAndCannotAddSetBasedCaloriesToStrength() throws {
+        var cardio = StrengthPlannedExercise(item: WorkoutTestFixture.exercise(
+            id: "Running_Treadmill", name: "Running", category: "cardio"
+        ))
+        cardio.sets[0].reps = "100"
+        #expect(StrengthWorkoutBurnEstimator.estimate(
+            exercises: [cardio], bodyWeightKg: 70,
+            defaultWeightUnit: .kg, defaultRPEScale: .strength
+        ) == nil)
+        var strength = StrengthPlannedExercise(item: WorkoutTestFixture.exercise(id: "curl", name: "Curl"))
+        strength.sets[0].reps = "10"
+        let baseline = try #require(StrengthWorkoutBurnEstimator.estimate(
+            exercises: [strength], bodyWeightKg: 70,
+            defaultWeightUnit: .kg, defaultRPEScale: .strength
+        ))
+        let mixed = try #require(StrengthWorkoutBurnEstimator.estimate(
+            exercises: [cardio, strength], bodyWeightKg: 70,
+            defaultWeightUnit: .kg, defaultRPEScale: .strength
+        ))
+        #expect(mixed.calories == baseline.calories)
+        #expect(mixed.repCount == 110)
+    }
+
+    @Test func timedStretchingUsesStretchingMETInsteadOfResistanceTraining() throws {
+        var stretch = StrengthPlannedExercise(item: WorkoutTestFixture.exercise(
+            id: "hamstring-stretch", name: "Hamstring Stretch", category: "stretching"
+        ))
+        stretch.timer = StrengthExerciseTimer(accumulatedSeconds: 600, savedDurationSeconds: 600, intensity: .vigorous)
+        let estimate = try #require(StrengthWorkoutBurnEstimator.estimate(
+            exercises: [stretch], bodyWeightKg: 70,
+            defaultWeightUnit: .kg, defaultRPEScale: .strength
+        ))
+        #expect(estimate.calories == 28)
+    }
+
+    @Test func legacyExerciseJSONWithoutTimerOrCompletedDurationStillDecodes() throws {
+        let exercise = StrengthPlannedExercise(item: WorkoutTestFixture.exercise(id: "row", name: "Barbell Row"))
+        var plannedJSON = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(exercise)) as? [String: Any])
+        plannedJSON.removeValue(forKey: "timer")
+        let restored = try JSONDecoder().decode(StrengthPlannedExercise.self, from: JSONSerialization.data(withJSONObject: plannedJSON))
+        #expect(restored.timer == nil)
+        #expect(restored.sets == exercise.sets)
+        let completedJSON: [String: Any] = [
+            "id": UUID().uuidString, "itemID": "row", "name": "Barbell Row",
+            "targetMuscles": ["back"], "equipment": "barbell", "sets": []
+        ]
+        let completed = try JSONDecoder().decode(StrengthCompletedExercise.self, from: JSONSerialization.data(withJSONObject: completedJSON))
+        #expect(completed.durationSeconds == nil)
+        #expect(completed.intensity == nil)
+    }
+
+    @Test func runningTimerEditsPreserveStrengthBurnUntilDurationIsSaved() throws {
+        let fixture = WorkoutTestFixture()
+        defer { fixture.cleanUp() }
+        let date = WorkoutTestFixture.date(2026, 9, 8)
+        let store = fixture.makeStore()
+        store.toggleExercise(WorkoutTestFixture.exercise(id: "curl", name: "Curl"), on: date)
+        let exercise = store.exercises(for: date)[0]
+        store.updateSet(exerciseID: exercise.id, setID: exercise.sets[0].id, on: date, reps: "10")
+        let original = try #require(store.upsertCalculatedWorkout(on: date, caloriesBurned: 40, weightUnit: .kg))
+        var deleted: [UUID] = []
+        store.onWorkoutBurnDeleted = { deleted.append($0) }
+
+        store.setTimerIntensity(.vigorous, exerciseID: exercise.id, on: date)
+        store.updateTimer(.start, exerciseID: exercise.id, on: date, now: date)
+        store.updateTimer(.pause, exerciseID: exercise.id, on: date, now: date.addingTimeInterval(60))
+        store.updateTimer(.resume, exerciseID: exercise.id, on: date, now: date.addingTimeInterval(100))
+        #expect(store.caloriesBurned(on: date) == 40)
+        #expect(deleted.isEmpty)
+
+        store.updateTimer(.stop, exerciseID: exercise.id, on: date, now: date.addingTimeInterval(160))
+        #expect(store.caloriesBurned(on: date) == nil)
+        #expect(fixture.makeStore().caloriesBurned(on: date) == nil)
+        #expect(deleted == [original.id])
+        let replacement = try #require(store.upsertCalculatedWorkout(on: date, caloriesBurned: 60, weightUnit: .kg))
+        // Repeating Stop does not change the saved inputs or remove the result.
+        store.updateTimer(.stop, exerciseID: exercise.id, on: date, now: date.addingTimeInterval(200))
+        #expect(store.latestSession(on: date)?.id == replacement.id)
+        #expect(deleted == [original.id])
+    }
+
+    @Test func resumingRestartingAndDiscardingSavedTimersRemoveTheirCalculatedBurn() throws {
+        for action in [StrengthExerciseTimerAction.resume, .restart, .discard] {
+            let fixture = WorkoutTestFixture()
+            defer { fixture.cleanUp() }
+            let date = WorkoutTestFixture.date(2026, 9, 8)
+            let store = fixture.makeStore()
+            store.toggleExercise(WorkoutTestFixture.exercise(id: "run", name: "Run", category: "cardio"), on: date)
+            let exerciseID = store.exercises(for: date)[0].id
+            store.updateTimer(.start, exerciseID: exerciseID, on: date, now: date)
+            store.updateTimer(.stop, exerciseID: exerciseID, on: date, now: date.addingTimeInterval(300))
+            let burn = try #require(store.upsertCalculatedWorkout(on: date, caloriesBurned: 50, weightUnit: .kg))
+            var deleted: [UUID] = []
+            store.onWorkoutBurnDeleted = {
+                deleted.append($0)
+                #expect(fixture.makeStore().caloriesBurned(on: date) == nil)
+            }
+
+            store.updateTimer(action, exerciseID: exerciseID, on: date, now: date.addingTimeInterval(400))
+            #expect(store.caloriesBurned(on: date) == nil)
+            #expect(deleted == [burn.id])
+            #expect(store.exercises(for: date).count == 1)
+        }
+    }
+
+    @Test func changingSavedTimerIntensityInvalidatesBurnButSameIntensityDoesNot() throws {
+        let fixture = WorkoutTestFixture()
+        defer { fixture.cleanUp() }
+        let date = WorkoutTestFixture.date(2026, 9, 8)
+        let store = fixture.makeStore()
+        store.toggleExercise(WorkoutTestFixture.exercise(id: "run", name: "Run", category: "cardio"), on: date)
+        let exerciseID = store.exercises(for: date)[0].id
+        store.updateTimer(.start, exerciseID: exerciseID, on: date, now: date)
+        store.updateTimer(.stop, exerciseID: exerciseID, on: date, now: date.addingTimeInterval(300))
+        let burn = try #require(store.upsertCalculatedWorkout(on: date, caloriesBurned: 50, weightUnit: .kg))
+        var deleted: [UUID] = []
+        store.onWorkoutBurnDeleted = { deleted.append($0) }
+
+        store.setTimerIntensity(.moderate, exerciseID: exerciseID, on: date)
+        #expect(store.caloriesBurned(on: date) == 50)
+        #expect(deleted.isEmpty)
+        store.setTimerIntensity(.light, exerciseID: exerciseID, on: date)
+        #expect(store.caloriesBurned(on: date) == nil)
+        #expect(deleted == [burn.id])
+        #expect(store.exercises(for: date)[0].timer?.savedDurationSeconds == 300)
+    }
+
+    @Test func removingSavedTimedExerciseInvalidatesOnlyItsDayAndPreservesLegacySessions() throws {
+        for toggleRemoval in [false, true] {
+            let fixture = WorkoutTestFixture()
+            defer { fixture.cleanUp() }
+            let date = WorkoutTestFixture.date(2026, 9, 8)
+            let otherDate = WorkoutTestFixture.date(2026, 9, 7)
+            let store = fixture.makeStore()
+            let item = WorkoutTestFixture.exercise(id: "run", name: "Run", category: "cardio")
+            for day in [date, otherDate] {
+                store.toggleExercise(item, on: day)
+                let id = store.exercises(for: day)[0].id
+                store.updateTimer(.start, exerciseID: id, on: day, now: day)
+                store.updateTimer(.stop, exerciseID: id, on: day, now: day.addingTimeInterval(300))
+                _ = try #require(store.upsertCalculatedWorkout(on: day, caloriesBurned: 50, weightUnit: .kg))
+            }
+            let removedBurn = try #require(store.workoutBurnSessions.first { $0.stableDiaryDateKey == StrengthWorkoutStore.dateKey(for: date) })
+            let otherBurn = try #require(store.workoutBurnSessions.first { $0.stableDiaryDateKey == StrengthWorkoutStore.dateKey(for: otherDate) })
+            let legacy = try #require(store.completeWorkout(
+                on: date, startedAt: date, completedAt: date.addingTimeInterval(300),
+                elapsedSeconds: 300, weightUnit: .kg
+            ))
+            var deleted: [UUID] = []
+            store.onWorkoutBurnDeleted = { deleted.append($0) }
+            if toggleRemoval {
+                store.toggleExercise(item, on: date)
+            } else {
+                store.removeExercise(store.exercises(for: date)[0].id, on: date)
+            }
+            let restored = fixture.makeStore()
+            #expect(restored.caloriesBurned(on: date) == nil)
+            #expect(restored.caloriesBurned(on: otherDate) == 50)
+            #expect(Set(restored.completedSessions.map(\.id)) == [legacy.id, otherBurn.id])
+            #expect(deleted == [removedBurn.id])
+        }
+    }
+
     @Test func timerEraSessionJSONWithoutBurnFieldsStillDecodes() throws {
         let fixture = WorkoutTestFixture()
         defer { fixture.cleanUp() }
@@ -631,7 +926,8 @@ final class WorkoutTestFixture {
         id: String,
         name: String,
         equipment: String = "barbell",
-        muscles: [String] = ["chest"]
+        muscles: [String] = ["chest"],
+        category: String = "strength"
     ) -> ExerciseLibraryItem {
         ExerciseLibraryItem(
             id: id,
@@ -639,7 +935,7 @@ final class WorkoutTestFixture {
             rawLevel: "intermediate",
             force: "push",
             mechanic: "compound",
-            category: "strength",
+            category: category,
             rawEquipment: equipment,
             primaryMuscles: muscles,
             secondaryMuscles: ["triceps"],

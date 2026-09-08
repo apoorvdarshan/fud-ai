@@ -49,6 +49,8 @@ import androidx.compose.material.icons.filled.ContentCopy
 import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.LocalFireDepartment
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material.icons.filled.Repeat
 import androidx.compose.material.icons.filled.Save
@@ -58,6 +60,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.runtime.key
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -68,6 +71,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
@@ -85,6 +89,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
@@ -102,6 +107,10 @@ import com.apoorvdarshan.calorietracker.data.ExerciseRepository
 import com.apoorvdarshan.calorietracker.data.ExerciseVisual
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.PlannedExercise
+import com.apoorvdarshan.calorietracker.models.ExerciseTimerAction
+import com.apoorvdarshan.calorietracker.models.WorkoutIntensity
+import com.apoorvdarshan.calorietracker.models.WorkoutRpeScale
+import com.apoorvdarshan.calorietracker.models.WorkoutSetInput
 import com.apoorvdarshan.calorietracker.models.PlannedSet
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
@@ -114,6 +123,7 @@ import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import com.apoorvdarshan.calorietracker.ui.util.formattedWholeNumber
 import coil.compose.AsyncImage
 import java.time.DayOfWeek
+import java.time.Instant
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -121,6 +131,7 @@ import java.util.Locale
 import java.util.UUID
 import kotlin.math.abs
 import kotlin.math.roundToInt
+import kotlinx.coroutines.delay
 
 private const val WORKOUT_WEEKS = 53
 private const val CURRENT_WORKOUT_WEEK = WORKOUT_WEEKS - 1
@@ -272,7 +283,8 @@ internal fun WorkoutDiaryScreen(
                             exercise = exercise,
                             visual = exerciseRepository.visualFor(exercise.asExerciseItem(), state.visualGender),
                             weightUnit = state.weightUnit,
-                            rpePlaceholder = state.preferences.rpeScale.inputPlaceholder,
+                            rpeScale = state.preferences.rpeScale,
+                            editingDate = state.selectedDate,
                             isSaved = isSaved,
                             onOpen = { viewModel.openDiaryExercise(exercise) },
                             onToggleSaved = toggleSaved,
@@ -280,7 +292,9 @@ internal fun WorkoutDiaryScreen(
                             onSetCount = { viewModel.setSetCount(exercise.id, it) },
                             onWeight = { setId, value -> viewModel.updateWeight(exercise.id, setId, value) },
                             onReps = { setId, value -> viewModel.updateReps(exercise.id, setId, value) },
-                            onRpe = { setId, value -> viewModel.updateRpe(exercise.id, setId, value) }
+                            onRpe = { setId, value -> viewModel.updateRpe(exercise.id, setId, value) },
+                            onTimerAction = { viewModel.updateTimer(exercise.id, it) },
+                            onTimerIntensity = { viewModel.setTimerIntensity(exercise.id, it) }
                         )
                     }
                 }
@@ -409,7 +423,7 @@ internal fun WorkoutDiaryScreen(
     state.notice?.let { message ->
         FudGlassDialog(onDismissRequest = viewModel::dismissNotice) {
             Text(
-                text = "Log reps first",
+                text = "Log your workout first",
                 color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
@@ -811,7 +825,8 @@ private fun WorkoutExerciseCard(
     visual: ExerciseVisual,
     modifier: Modifier = Modifier,
     weightUnit: WorkoutWeightUnit,
-    rpePlaceholder: String,
+    rpeScale: WorkoutRpeScale,
+    editingDate: LocalDate,
     isSaved: Boolean,
     onOpen: () -> Unit,
     onToggleSaved: () -> Unit,
@@ -819,7 +834,9 @@ private fun WorkoutExerciseCard(
     onSetCount: (Int) -> Unit,
     onWeight: (UUID, String) -> Unit,
     onReps: (UUID, String) -> Unit,
-    onRpe: (UUID, String) -> Unit
+    onRpe: (UUID, String) -> Unit,
+    onTimerAction: (ExerciseTimerAction) -> Unit,
+    onTimerIntensity: (WorkoutIntensity) -> Unit
 ) {
     FudGlassSurface(
         modifier = modifier.fillMaxWidth(),
@@ -884,36 +901,41 @@ private fun WorkoutExerciseCard(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Icon(Icons.Filled.Checklist, contentDescription = null, tint = AppColors.Calorie, modifier = Modifier.size(17.dp))
-                Spacer(Modifier.width(6.dp))
-                Text(
-                    "Sets",
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f),
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(Modifier.weight(1f))
-                IconButton(
-                    onClick = { onSetCount(exercise.sets.size - 1) },
-                    enabled = exercise.sets.size > 1,
-                    modifier = Modifier.size(34.dp)
-                ) {
-                    Icon(Icons.Filled.Remove, contentDescription = "Remove set", modifier = Modifier.size(18.dp))
-                }
-                Text(
-                    "${exercise.sets.size} ${if (exercise.sets.size == 1) "set" else "sets"}",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.width(54.dp)
-                )
-                IconButton(
-                    onClick = { onSetCount(exercise.sets.size + 1) },
-                    enabled = exercise.sets.size < 12,
-                    modifier = Modifier.size(34.dp)
-                ) {
-                    Icon(Icons.Filled.Add, contentDescription = "Add blank set", modifier = Modifier.size(18.dp))
+                if (!exercise.isCardio) {
+                    Icon(Icons.Filled.Checklist, contentDescription = null, tint = AppColors.Calorie, modifier = Modifier.size(17.dp))
+                    Spacer(Modifier.width(6.dp))
+                    Text(
+                        "Sets",
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(Modifier.weight(1f))
+                    IconButton(
+                        onClick = { onSetCount(exercise.sets.size - 1) },
+                        enabled = exercise.sets.size > 1,
+                        modifier = Modifier.size(34.dp)
+                    ) {
+                        Icon(Icons.Filled.Remove, contentDescription = "Remove set", modifier = Modifier.size(18.dp))
+                    }
+                    Text(
+                        "${exercise.sets.size} ${if (exercise.sets.size == 1) "set" else "sets"}",
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.width(54.dp)
+                    )
+                    IconButton(
+                        onClick = { onSetCount(exercise.sets.size + 1) },
+                        enabled = exercise.sets.size < 12,
+                        modifier = Modifier.size(34.dp)
+                    ) {
+                        Icon(Icons.Filled.Add, contentDescription = "Add blank set", modifier = Modifier.size(18.dp))
+                    }
+                } else {
+                    Text("Timed activity", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f), fontSize = 12.sp)
+                    Spacer(Modifier.weight(1f))
                 }
                 IconButton(onClick = onToggleSaved, modifier = Modifier.size(36.dp)) {
                     Icon(
@@ -933,17 +955,21 @@ private fun WorkoutExerciseCard(
                 }
             }
 
-            Column {
+            WorkoutExerciseTimer(exercise, onTimerAction, onTimerIntensity)
+
+            if (!exercise.isCardio) Column {
                 exercise.sets.forEachIndexed { index, set ->
-                    WorkoutSetRow(
-                        index = index,
-                        set = set,
-                        weightUnit = weightUnit,
-                        rpePlaceholder = set.rpeScale?.inputPlaceholder ?: rpePlaceholder,
-                        onWeight = { onWeight(set.id, it) },
-                        onReps = { onReps(set.id, it) },
-                        onRpe = { onRpe(set.id, it) }
-                    )
+                    key(editingDate, set.id) {
+                        WorkoutSetRow(
+                            index = index,
+                            set = set,
+                            weightUnit = weightUnit,
+                            rpeScale = set.rpeScale ?: rpeScale,
+                            onWeight = { onWeight(set.id, it) },
+                            onReps = { onReps(set.id, it) },
+                            onRpe = { onRpe(set.id, it) }
+                        )
+                    }
                     if (index < exercise.sets.lastIndex) {
                         HorizontalDivider(
                             modifier = Modifier.padding(start = 54.dp),
@@ -958,11 +984,129 @@ private fun WorkoutExerciseCard(
 }
 
 @Composable
-private fun WorkoutSetRow(
+private fun WorkoutExerciseTimer(
+    exercise: PlannedExercise,
+    onAction: (ExerciseTimerAction) -> Unit,
+    onIntensity: (WorkoutIntensity) -> Unit
+) {
+    val timer = exercise.timer
+    var now by remember { mutableStateOf(Instant.now()) }
+    var menuExpanded by remember { mutableStateOf(false) }
+    var pendingAction by remember { mutableStateOf<ExerciseTimerAction?>(null) }
+    LaunchedEffect(timer) {
+        now = Instant.now()
+        while (timer?.isRunning == true) {
+            delay(1_000)
+            now = Instant.now()
+        }
+    }
+    val elapsed = (timer?.elapsedSeconds(now) ?: 0.0).toLong()
+    val time = if (elapsed >= 3_600) {
+        String.format(Locale.US, "%d:%02d:%02d", elapsed / 3_600, elapsed / 60 % 60, elapsed % 60)
+    } else {
+        String.format(Locale.US, "%02d:%02d", elapsed / 60, elapsed % 60)
+    }
+    Column(
+        modifier = Modifier.fillMaxWidth()
+            .clip(RoundedCornerShape(16.dp))
+            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.48f))
+            .padding(horizontal = 12.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Icon(Icons.Filled.Timer, contentDescription = null, tint = AppColors.Calorie, modifier = Modifier.size(20.dp))
+            Spacer(Modifier.width(8.dp))
+            Column(Modifier.weight(1f)) {
+                Text(time, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                Text(
+                    when {
+                        timer?.isRunning == true -> "Timing"
+                        timer?.isSaved == true -> "Duration saved"
+                        elapsed > 0 -> "Paused"
+                        else -> "Exercise timer"
+                    },
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f),
+                    fontSize = 11.sp
+                )
+            }
+            FudGlassTextButton(
+                text = when {
+                    timer?.isRunning == true -> "Pause"
+                    elapsed > 0 || timer?.isSaved == true -> "Resume"
+                    else -> "Start"
+                },
+                onClick = {
+                    onAction(when {
+                        timer?.isRunning == true -> ExerciseTimerAction.PAUSE
+                        elapsed > 0 || timer?.isSaved == true -> ExerciseTimerAction.RESUME
+                        else -> ExerciseTimerAction.START
+                    })
+                }
+            )
+            if (timer != null && (elapsed > 0 || timer.isRunning || timer.isSaved)) {
+                Box {
+                    IconButton(onClick = { menuExpanded = true }, modifier = Modifier.size(40.dp)) {
+                        Icon(Icons.Filled.MoreVert, contentDescription = "Timer options for ${exercise.name}")
+                    }
+                    SheetGlassDropdownMenu(expanded = menuExpanded, onDismissRequest = { menuExpanded = false }, menuWidth = 200.dp) {
+                        SheetGlassDropdownMenuItem(label = "Restart timer", onClick = {
+                            menuExpanded = false
+                            pendingAction = ExerciseTimerAction.RESTART
+                        })
+                        SheetGlassDropdownMenuItem(label = "Discard timer", onClick = {
+                            menuExpanded = false
+                            pendingAction = ExerciseTimerAction.DISCARD
+                        })
+                    }
+                }
+            }
+        }
+        if (timer != null && (timer.isRunning || elapsed > 0)) {
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                WorkoutIntensity.entries.forEach { intensity ->
+                    androidx.compose.material3.FilterChip(
+                        selected = timer.intensity == intensity,
+                        onClick = { onIntensity(intensity) },
+                        label = { Text(intensity.title, fontSize = 11.sp, maxLines = 1) },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
+            if (!timer.isSaved) {
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                    FudGlassTextButton(text = "Stop & save", onClick = { onAction(ExerciseTimerAction.STOP) })
+                }
+            } else {
+                Text("Calculate calorie burn to update your daily burn total.", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f), fontSize = 11.sp)
+            }
+        }
+    }
+    pendingAction?.let { action ->
+        FudGlassDialog(onDismissRequest = { pendingAction = null }) {
+            Text(
+                if (action == ExerciseTimerAction.RESTART) "Restart timer?" else "Discard timer?",
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Text("This clears the recorded time for ${exercise.name}.", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f))
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
+                FudGlassTextButton(text = "Cancel", onClick = { pendingAction = null })
+                FudGlassTextButton(text = if (action == ExerciseTimerAction.RESTART) "Restart" else "Discard", onClick = {
+                    pendingAction = null
+                    onAction(action)
+                })
+            }
+        }
+    }
+}
+
+@Composable
+internal fun WorkoutSetRow(
     index: Int,
     set: PlannedSet,
     weightUnit: WorkoutWeightUnit,
-    rpePlaceholder: String,
+    rpeScale: WorkoutRpeScale,
     onWeight: (String) -> Unit,
     onReps: (String) -> Unit,
     onRpe: (String) -> Unit
@@ -970,7 +1114,7 @@ private fun WorkoutSetRow(
     val focusManager = LocalFocusManager.current
     Row(
         modifier = Modifier.fillMaxWidth().padding(vertical = 7.dp),
-        verticalAlignment = Alignment.CenterVertically,
+        verticalAlignment = Alignment.Bottom,
         horizontalArrangement = Arrangement.spacedBy(7.dp)
     ) {
         Text(
@@ -983,6 +1127,8 @@ private fun WorkoutSetRow(
         )
         WorkoutSetField(
             value = set.displayWeight(weightUnit),
+            editingKey = weightUnit,
+            sanitize = { proposed, _ -> WorkoutSetInput.weight(proposed) },
             onValueChange = onWeight,
             placeholder = weightUnit.storageValue,
             keyboardType = KeyboardType.Decimal,
@@ -990,35 +1136,69 @@ private fun WorkoutSetRow(
         )
         WorkoutSetField(
             value = set.reps,
+            sanitize = { proposed, _ -> WorkoutSetInput.reps(proposed) },
             onValueChange = onReps,
             placeholder = "Reps",
             keyboardType = KeyboardType.Number,
             modifier = Modifier.weight(1f)
         )
-        WorkoutSetField(
-            value = set.rpe,
-            onValueChange = onRpe,
-            placeholder = rpePlaceholder,
-            keyboardType = KeyboardType.Decimal,
-            modifier = Modifier.weight(1f),
-            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
-        )
+        Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
+            val help = stringResource(when (rpeScale) {
+                WorkoutRpeScale.STRENGTH -> R.string.workout_rpe_help_strength
+                WorkoutRpeScale.CR10 -> R.string.workout_rpe_help_cr10
+                WorkoutRpeScale.BORG -> R.string.workout_rpe_help_borg
+            })
+            var showHelp by remember { mutableStateOf(false) }
+            Text(
+                text = stringResource(R.string.workout_rpe_label),
+                fontSize = 12.sp,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .clickable(role = Role.Button) { showHelp = true }
+                    .padding(vertical = 8.dp)
+            )
+            WorkoutSetField(
+                value = set.rpe,
+                editingKey = rpeScale,
+                sanitize = rpeScale::sanitize,
+                onValueChange = onRpe,
+                placeholder = rpeScale.inputPlaceholder,
+                keyboardType = if (rpeScale.allowsDecimalInput) KeyboardType.Decimal else KeyboardType.Number,
+                modifier = Modifier.fillMaxWidth().semantics { contentDescription = help },
+                imeAction = ImeAction.Done,
+                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
+            )
+            if (showHelp) {
+                FudGlassDialog(onDismissRequest = { showHelp = false }) {
+                    Text(stringResource(R.string.workout_rpe_label), style = MaterialTheme.typography.titleMedium)
+                    Text(help, style = MaterialTheme.typography.bodyMedium)
+                    FudGlassTextButton(text = stringResource(android.R.string.ok), onClick = { showHelp = false })
+                }
+            }
+        }
     }
 }
 
 @Composable
-private fun WorkoutSetField(
+internal fun WorkoutSetField(
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String,
     keyboardType: KeyboardType,
     modifier: Modifier = Modifier,
-    keyboardActions: KeyboardActions = KeyboardActions.Default
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    imeAction: ImeAction = ImeAction.Next,
+    editingKey: Any = Unit,
+    sanitize: (String, String) -> String = { proposed, _ -> proposed }
 ) {
+    val editor = remember(editingKey) { WorkoutFieldEditor(value) }
+    LaunchedEffect(value, editor) { editor.receive(value) }
     val shape = RoundedCornerShape(11.dp)
     BasicTextField(
-        value = value,
-        onValueChange = onValueChange,
+        value = editor.value,
+        onValueChange = { proposed ->
+            editor.edit(proposed, sanitize)?.let(onValueChange)
+        },
         singleLine = true,
         textStyle = TextStyle(
             color = MaterialTheme.colorScheme.onSurface,
@@ -1029,10 +1209,11 @@ private fun WorkoutSetField(
         cursorBrush = SolidColor(AppColors.Calorie),
         keyboardOptions = KeyboardOptions(
             keyboardType = keyboardType,
-            imeAction = ImeAction.Next
+            imeAction = imeAction
         ),
         keyboardActions = keyboardActions,
         modifier = modifier
+            .onFocusChanged { editor.setFocused(it.isFocused) }
             .height(39.dp)
             .clip(shape)
             .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.62f))
@@ -1040,7 +1221,7 @@ private fun WorkoutSetField(
             .padding(horizontal = 7.dp),
         decorationBox = { inner ->
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                if (value.isEmpty()) {
+                if (editor.value.text.isEmpty()) {
                     Text(
                         placeholder,
                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.35f),

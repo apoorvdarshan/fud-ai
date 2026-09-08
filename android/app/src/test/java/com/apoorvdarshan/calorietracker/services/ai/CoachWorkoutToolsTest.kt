@@ -2,10 +2,12 @@ package com.apoorvdarshan.calorietracker.services.ai
 
 import com.apoorvdarshan.calorietracker.models.CompletedExercise
 import com.apoorvdarshan.calorietracker.models.CompletedSet
+import com.apoorvdarshan.calorietracker.models.ExerciseTimer
 import com.apoorvdarshan.calorietracker.models.PlannedExercise
 import com.apoorvdarshan.calorietracker.models.PlannedSet
 import com.apoorvdarshan.calorietracker.models.WorkoutDayPlan
 import com.apoorvdarshan.calorietracker.models.WorkoutIssue
+import com.apoorvdarshan.calorietracker.models.WorkoutIntensity
 import com.apoorvdarshan.calorietracker.models.WorkoutPreferences
 import com.apoorvdarshan.calorietracker.models.WorkoutRpeScale
 import com.apoorvdarshan.calorietracker.models.WorkoutSession
@@ -20,9 +22,77 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.Instant
+import java.time.Clock
+import java.time.ZoneOffset
 import java.util.UUID
 
 class CoachWorkoutToolsTest {
+
+    @Test
+    fun savedCardioCountsAsPerformedAndKeepsDurationWithoutSetsOrReps() {
+        val cardio = plannedExercise(emptyList()).copy(
+            itemId = "Running_Treadmill",
+            name = "Running, Treadmill",
+            category = "cardio",
+            timer = ExerciseTimer(accumulatedSeconds = 600.5, savedDurationSeconds = 600.5, intensity = WorkoutIntensity.VIGOROUS)
+        )
+        val completed = CompletedExercise(
+            itemId = cardio.itemId,
+            name = cardio.name,
+            targetMuscles = cardio.primaryMuscles,
+            equipment = cardio.equipment,
+            sets = emptyList(),
+            durationSeconds = 600.5,
+            intensity = WorkoutIntensity.VIGOROUS
+        )
+        val workout = session("2026-07-20", "2026-07-20T10:00:00Z", durationSeconds = 0, caloriesBurned = 120,
+            exercise = cardio.name, sets = emptyList()).copy(exercises = listOf(completed))
+        val tools = tools(workoutSessions = listOf(workout), workoutPlans = listOf(WorkoutDayPlan("2026-07-20", listOf(cardio))))
+        val range = mapOf("from" to "2026-07-20", "to" to "2026-07-20")
+        val planExercise = json(tools.execute("get_workout_plans", range)).getAsJsonArray("plans")[0].asJsonObject
+            .getAsJsonArray("exercises")[0].asJsonObject
+        assertTrue(planExercise["performed"].asBoolean)
+        assertEquals(600.5, planExercise["duration_seconds"].asDouble, 0.001)
+        assertEquals("saved", planExercise.getAsJsonObject("timer")["state"].asString)
+        val historyExercise = json(tools.execute("get_workout_history", range)).getAsJsonArray("workouts")[0].asJsonObject
+            .getAsJsonArray("exercises")[0].asJsonObject
+        assertTrue(historyExercise["performed"].asBoolean)
+        assertEquals(600.5, historyExercise["duration_seconds"].asDouble, 0.001)
+        assertEquals("Vigorous", historyExercise["intensity"].asString)
+        assertEquals(0, historyExercise.getAsJsonArray("sets").size())
+        val summary = json(tools.execute("get_training_summary", range))
+        assertEquals(0, summary["sets"].asInt)
+        assertEquals(0, summary["reps"].asInt)
+        assertEquals(600.5, summary["timed_exercise_seconds"].asDouble, 0.001)
+        assertEquals(600.5, summary.getAsJsonArray("by_exercise")[0].asJsonObject["duration_seconds"].asDouble, 0.001)
+    }
+
+    @Test
+    fun runningAndPausedPlanTimersRemainUnsaved() {
+        val now = Instant.parse("2026-07-20T10:00:00Z")
+        val running = plannedExercise(emptyList()).copy(
+            timer = ExerciseTimer(accumulatedSeconds = 30.0, runningSince = now.minusSeconds(90))
+        )
+        val paused = running.copy(timer = ExerciseTimer(accumulatedSeconds = 45.0))
+        val tools = CoachTools(
+            weights = emptyList(), bodyFats = emptyList(), foods = emptyList(),
+            workoutPlans = listOf(WorkoutDayPlan("2026-07-20", listOf(running, paused))),
+            clock = Clock.fixed(now, ZoneOffset.UTC)
+        )
+        val exercises = json(tools.execute("get_workout_plans", mapOf("from" to "2026-07-20", "to" to "2026-07-20")))
+            .getAsJsonArray("plans")[0].asJsonObject.getAsJsonArray("exercises")
+        val runningPayload = exercises[0].asJsonObject
+        val pausedPayload = exercises[1].asJsonObject
+        assertEquals("running", runningPayload.getAsJsonObject("timer")["state"].asString)
+        assertEquals(120.0, runningPayload.getAsJsonObject("timer")["elapsed_seconds"].asDouble, 0.001)
+        assertEquals("2026-07-20T09:58:30Z", runningPayload.getAsJsonObject("timer")["running_since"].asString)
+        assertEquals("paused", pausedPayload.getAsJsonObject("timer")["state"].asString)
+        assertEquals(45.0, pausedPayload.getAsJsonObject("timer")["elapsed_seconds"].asDouble, 0.001)
+        for (payload in listOf(runningPayload, pausedPayload)) {
+            assertFalse(payload.has("duration_seconds"))
+            assertFalse(payload["performed"].asBoolean)
+        }
+    }
 
     @Test
     fun workoutToolsAreAlwaysAvailableAndOnlyRangeQueriesRequireDates() {

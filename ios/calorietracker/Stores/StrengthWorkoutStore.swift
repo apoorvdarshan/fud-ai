@@ -131,6 +131,35 @@ final class StrengthWorkoutStore {
         save()
     }
 
+    func updateTimer(
+        _ action: StrengthExerciseTimerAction,
+        exerciseID: UUID,
+        on date: Date,
+        now: Date = .now
+    ) {
+        updateExercise(exerciseID, on: date) { exercise in
+            if case .discard = action {
+                exercise.timer = nil
+                return
+            }
+            var timer = exercise.timer ?? StrengthExerciseTimer()
+            timer.apply(action, at: now)
+            exercise.timer = timer
+        }
+    }
+
+    func setTimerIntensity(
+        _ intensity: StrengthWorkoutIntensity,
+        exerciseID: UUID,
+        on date: Date
+    ) {
+        updateExercise(exerciseID, on: date) { exercise in
+            var timer = exercise.timer ?? StrengthExerciseTimer()
+            timer.intensity = intensity
+            exercise.timer = timer
+        }
+    }
+
     func copyPlan(from sourceDate: Date, to targetDate: Date) {
         let source = exercises(for: sourceDate)
         guard !source.isEmpty else { return }
@@ -163,24 +192,7 @@ final class StrengthWorkoutStore {
         let planned = exercises(for: date)
         guard !planned.isEmpty else { return nil }
 
-        let logs = planned.map { exercise in
-            StrengthCompletedExercise(
-                itemID: exercise.itemID,
-                name: exercise.name,
-                targetMuscles: exercise.primaryMuscles,
-                equipment: exercise.rawEquipment,
-                sets: exercise.sets.enumerated().map { index, set in
-                    StrengthCompletedSet(
-                        setNumber: index + 1,
-                        weight: set.weight.trimmingCharacters(in: .whitespacesAndNewlines),
-                        weightUnit: set.weightUnit ?? weightUnit.rawValue,
-                        reps: set.reps.trimmingCharacters(in: .whitespacesAndNewlines),
-                        rpe: set.rpe.trimmingCharacters(in: .whitespacesAndNewlines),
-                        rpeScale: set.rpeScale ?? preferences.rpeScale
-                    )
-                }
-            )
-        }
+        let logs = completedExerciseLogs(from: planned, weightUnit: weightUnit)
         let session = StrengthWorkoutSession(
             diaryDate: Calendar.current.startOfDay(for: date),
             diaryDateKey: Self.dateKey(for: date),
@@ -206,7 +218,10 @@ final class StrengthWorkoutStore {
     ) -> StrengthWorkoutSession? {
         let planned = exercises(for: date)
         let logs = completedExerciseLogs(from: planned, weightUnit: weightUnit)
-        guard logs.flatMap(\.sets).contains(where: \.isPerformed) else { return nil }
+        guard planned.contains(where: {
+            $0.timer?.isSaved == true
+                || (!$0.isCardio && $0.sets.contains { (Int($0.reps) ?? 0) > 0 })
+        }) else { return nil }
 
         let key = Self.dateKey(for: date)
         let existingBurns = sortedCompletedSessions.filter {
@@ -326,7 +341,7 @@ final class StrengthWorkoutStore {
             diaryDateKey: imported.diaryDateKey,
             startedAt: imported.startedAt,
             completedAt: imported.completedAt,
-            durationSeconds: imported.durationSeconds,
+            durationSeconds: imported.exercises.isEmpty ? local.durationSeconds : imported.durationSeconds,
             exercises: imported.exercises.isEmpty ? local.exercises : imported.exercises,
             caloriesBurned: imported.caloriesBurned,
             healthSyncVersion: imported.healthSyncVersion
@@ -350,13 +365,46 @@ final class StrengthWorkoutStore {
     private func updatePlan(for date: Date, mutate: (inout StrengthWorkoutDayPlan) -> Void) {
         let key = Self.dateKey(for: date)
         var plan = dayPlans[key] ?? StrengthWorkoutDayPlan(dateKey: key)
+        let previousTimerInputs = savedTimerBurnInputs(in: plan)
         mutate(&plan)
         if plan.exercises.isEmpty {
             dayPlans.removeValue(forKey: key)
         } else {
             dayPlans[key] = plan
         }
+
+        // The explicit Calculate action owns daily burn snapshots. Changing
+        // their saved timer inputs invalidates both the local estimate and its
+        // Health sample; otherwise discarded time would keep counting forever.
+        let invalidatedBurnIDs: [UUID]
+        if previousTimerInputs != savedTimerBurnInputs(in: plan) {
+            invalidatedBurnIDs = completedSessions.filter {
+                $0.stableDiaryDateKey == key && $0.caloriesBurned != nil
+            }.map(\.id)
+            completedSessions.removeAll {
+                $0.stableDiaryDateKey == key && $0.caloriesBurned != nil
+            }
+        } else {
+            invalidatedBurnIDs = []
+        }
         save()
+        for id in invalidatedBurnIDs { onWorkoutBurnDeleted?(id) }
+    }
+
+    private struct SavedTimerBurnInput: Equatable {
+        let durationSeconds: Double
+        let intensity: StrengthWorkoutIntensity
+    }
+
+    private func savedTimerBurnInputs(in plan: StrengthWorkoutDayPlan) -> [UUID: SavedTimerBurnInput] {
+        plan.exercises.reduce(into: [:]) { inputs, exercise in
+            guard let timer = exercise.timer,
+                  !timer.isRunning,
+                  timer.isSaved,
+                  let duration = timer.savedDurationSeconds
+            else { return }
+            inputs[exercise.id] = SavedTimerBurnInput(durationSeconds: duration, intensity: timer.intensity)
+        }
     }
 
     private func updateExercise(_ exerciseID: UUID, on date: Date, mutate: (inout StrengthPlannedExercise) -> Void) {
@@ -385,7 +433,9 @@ final class StrengthWorkoutStore {
                         rpe: set.rpe.trimmingCharacters(in: .whitespacesAndNewlines),
                         rpeScale: set.rpeScale ?? preferences.rpeScale
                     )
-                }
+                },
+                durationSeconds: exercise.timer?.isSaved == true ? exercise.timer?.savedDurationSeconds : nil,
+                intensity: exercise.timer?.isSaved == true ? exercise.timer?.intensity : nil
             )
         }
     }

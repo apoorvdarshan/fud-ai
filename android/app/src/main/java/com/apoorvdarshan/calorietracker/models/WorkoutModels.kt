@@ -3,6 +3,7 @@ package com.apoorvdarshan.calorietracker.models
 import com.apoorvdarshan.calorietracker.data.ExerciseItem
 import kotlinx.serialization.Serializable
 import java.time.Instant
+import java.time.Duration
 import java.time.LocalDate
 import java.util.Locale
 import java.util.UUID
@@ -247,6 +248,54 @@ data class PlannedSet(
 }
 
 @Serializable
+enum class WorkoutIntensity(val title: String) {
+    LIGHT("Light"), MODERATE("Moderate"), VIGOROUS("Vigorous")
+}
+
+/** Persist only transitions; wall-clock anchors keep timers alive across process death. */
+@Serializable
+data class ExerciseTimer(
+    val accumulatedSeconds: Double = 0.0,
+    @Serializable(with = InstantSerializer::class)
+    val runningSince: Instant? = null,
+    val savedDurationSeconds: Double? = null,
+    val intensity: WorkoutIntensity = WorkoutIntensity.MODERATE
+) {
+    val isRunning: Boolean get() = runningSince != null
+    val isSaved: Boolean
+        get() = !isRunning && savedDurationSeconds?.let { it.isFinite() && it > 0.0 } == true
+    val savedSeconds: Double
+        get() = if (isSaved) savedDurationSeconds?.takeIf { it.isFinite() && it > 0.0 } ?: 0.0 else 0.0
+
+    fun elapsedSeconds(at: Instant = Instant.now()): Double {
+        val accumulated = accumulatedSeconds.takeIf { it.isFinite() && it >= 0.0 } ?: 0.0
+        val running = runningSince?.let {
+            val elapsed = Duration.between(it, at)
+            (elapsed.seconds.toDouble() + elapsed.nano / 1_000_000_000.0).coerceAtLeast(0.0)
+        } ?: 0.0
+        return accumulated + running
+    }
+
+    fun start(at: Instant = Instant.now()): ExerciseTimer =
+        if (isRunning) this else copy(runningSince = at, savedDurationSeconds = null)
+
+    fun pause(at: Instant = Instant.now()): ExerciseTimer =
+        if (!isRunning) this else copy(accumulatedSeconds = elapsedSeconds(at), runningSince = null)
+
+    fun stop(at: Instant = Instant.now()): ExerciseTimer {
+        val duration = elapsedSeconds(at)
+        return copy(accumulatedSeconds = duration, runningSince = null, savedDurationSeconds = duration)
+    }
+
+    fun restart(at: Instant = Instant.now()): ExerciseTimer = ExerciseTimer(
+        runningSince = at,
+        intensity = intensity
+    )
+}
+
+enum class ExerciseTimerAction { START, PAUSE, RESUME, STOP, RESTART, DISCARD }
+
+@Serializable
 data class PlannedExercise(
     @Serializable(with = UuidSerializer::class)
     val id: UUID = UUID.randomUUID(),
@@ -261,11 +310,20 @@ data class PlannedExercise(
     val primaryMuscles: List<String>,
     val secondaryMuscles: List<String>,
     val instructions: List<String>,
-    val sets: List<PlannedSet> = listOf(PlannedSet())
+    val sets: List<PlannedSet> = listOf(PlannedSet()),
+    val timer: ExerciseTimer? = null
 ) {
+    val isCardio: Boolean
+        get() = category.equals("cardio", ignoreCase = true)
+
+    val hasCalculableWork: Boolean
+        get() = (timer?.savedSeconds ?: 0.0) > 0.0 ||
+            (!isCardio && sets.any { (it.reps.toIntOrNull() ?: 0) > 0 })
+
     fun copiedForNewDay(): PlannedExercise = copy(
         id = UUID.randomUUID(),
-        sets = listOf(PlannedSet())
+        sets = listOf(PlannedSet()),
+        timer = null
     )
 
     fun asExerciseItem(): ExerciseItem = ExerciseItem(
@@ -328,7 +386,9 @@ data class CompletedExercise(
     val name: String,
     val targetMuscles: List<String>,
     val equipment: String,
-    val sets: List<CompletedSet>
+    val sets: List<CompletedSet>,
+    val durationSeconds: Double? = null,
+    val intensity: WorkoutIntensity? = null
 )
 
 @Serializable
@@ -387,7 +447,7 @@ data class WorkoutBurnEstimate(
     val repCount: Int
 )
 
-/** Exact offline port of iOS `StrengthWorkoutBurnEstimator`. */
+/** Saved exercise timers replace that exercise's rep-based estimate. */
 object WorkoutBurnEstimator {
     fun estimate(
         exercises: List<PlannedExercise>,
@@ -403,13 +463,31 @@ object WorkoutBurnEstimator {
         var effortTotal = 0.0
         var relativeLoadTotal = 0.0
         var exercisesWithWork = 0
+        var timedCalories = 0.0
+        var strengthSetCount = 0
 
         for (exercise in exercises) {
+            val timedSeconds = exercise.timer?.savedSeconds ?: 0.0
+            if (timedSeconds > 0.0 || exercise.isCardio) {
+                if (timedSeconds > 0.0) {
+                    val intensity = exercise.timer?.intensity ?: WorkoutIntensity.MODERATE
+                    val met = timedMet(exercise, intensity)
+                    timedCalories += met * 3.5 * safeBodyWeight / 200.0 * (timedSeconds / 60.0)
+                }
+                // Logged reps remain useful statistics; their estimate must not be added twice.
+                exercise.sets.forEach { set ->
+                    val reps = set.reps.toIntOrNull()?.takeIf { it > 0 } ?: return@forEach
+                    performedSetCount += 1
+                    repCount += reps.coerceAtMost(100)
+                }
+                continue
+            }
             var performedInExercise = 0
             for (set in exercise.sets) {
                 val rawReps = set.reps.toIntOrNull()?.takeIf { it > 0 } ?: continue
                 val reps = rawReps.coerceAtMost(100)
                 performedSetCount += 1
+                strengthSetCount += 1
                 performedInExercise += 1
                 repCount += reps
                 activeMinutes += (reps * 2.75 / 60.0).coerceIn(0.30, 1.50)
@@ -424,21 +502,52 @@ object WorkoutBurnEstimator {
             if (performedInExercise > 0) exercisesWithWork += 1
         }
 
-        if (performedSetCount == 0) return null
+        if (strengthSetCount == 0 && timedCalories <= 0.0) return null
 
         recoveryMinutes = (recoveryMinutes - 1.60).coerceAtLeast(0.0)
         val transitionMinutes = exercisesWithWork * 0.75
         val estimatedMinutes = (activeMinutes + recoveryMinutes + transitionMinutes).coerceAtLeast(4.0)
-        val averageEffort = effortTotal / performedSetCount
-        val averageRelativeLoad = relativeLoadTotal / performedSetCount
+        val averageEffort = effortTotal / strengthSetCount.coerceAtLeast(1)
+        val averageRelativeLoad = relativeLoadTotal / strengthSetCount.coerceAtLeast(1)
         val met = (3.8 + (2.4 * averageEffort) + (0.5 * averageRelativeLoad)).coerceIn(3.5, 8.0)
-        val rawCalories = met * 3.5 * safeBodyWeight / 200.0 * estimatedMinutes
+        val strengthCalories = if (strengthSetCount > 0) met * 3.5 * safeBodyWeight / 200.0 * estimatedMinutes else 0.0
+        val rawCalories = strengthCalories + timedCalories
 
         return WorkoutBurnEstimate(
             calories = rawCalories.roundToInt().coerceIn(1, 5_000),
             performedSetCount = performedSetCount,
             repCount = repCount
         )
+    }
+
+    /**
+     * Representative effort estimates from the 2024 Adult Compendium of Physical Activities:
+     * https://pacompendium.com/{bicycling,walking,running,sports,conditioning-exercise}/
+     * Effort labels are approximate; pace, watts, and individual efficiency are not measured.
+     */
+    private fun timedMet(exercise: PlannedExercise, intensity: WorkoutIntensity): Double {
+        val values = if (exercise.isCardio) {
+            when (exercise.itemId) {
+                "Bicycling" -> listOf(4.3, 7.0, 9.0)
+                "Bicycling_Stationary", "Recumbent_Bike" -> listOf(3.5, 6.0, 10.8)
+                "Walking_Treadmill" -> listOf(2.8, 3.8, 4.8)
+                "Running_Treadmill", "Jogging_Treadmill" -> listOf(6.5, 8.5, 10.5)
+                "Rope_Jumping" -> listOf(8.3, 11.8, 12.3)
+                "Trail_Running_Walking" -> listOf(3.8, 6.0, 9.3)
+                "Skating" -> listOf(7.5, 9.8, 12.3)
+                "Stairmaster", "Step_Mill" -> listOf(4.5, 6.8, 9.3)
+                "Elliptical_Trainer" -> listOf(5.0, 5.0, 9.0)
+                "Rowing_Stationary" -> listOf(5.0, 7.3, 11.0)
+                else -> listOf(3.5, 5.0, 7.5)
+            }
+        } else {
+            when (exercise.category.lowercase(Locale.ROOT)) {
+                "stretching" -> listOf(2.3, 2.3, 2.3)
+                "plyometrics" -> listOf(3.5, 5.0, 7.5)
+                else -> listOf(3.5, 5.0, 6.0)
+            }
+        }
+        return values[intensity.ordinal]
     }
 
     private fun normalizedEffort(text: String, scale: WorkoutRpeScale): Double {

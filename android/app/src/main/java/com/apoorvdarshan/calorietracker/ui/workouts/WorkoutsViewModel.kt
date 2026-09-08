@@ -12,6 +12,8 @@ import com.apoorvdarshan.calorietracker.data.ExerciseRepository
 import com.apoorvdarshan.calorietracker.data.ExerciseSort
 import com.apoorvdarshan.calorietracker.data.WorkoutRepository
 import com.apoorvdarshan.calorietracker.models.Gender
+import com.apoorvdarshan.calorietracker.models.ExerciseTimerAction
+import com.apoorvdarshan.calorietracker.models.WorkoutIntensity
 import com.apoorvdarshan.calorietracker.models.PlannedExercise
 import com.apoorvdarshan.calorietracker.models.WorkoutDate
 import com.apoorvdarshan.calorietracker.models.WorkoutPersistedState
@@ -218,6 +220,16 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch { workoutRepository?.setSetCount(count, exerciseId, date) }
     }
 
+    fun updateTimer(exerciseId: UUID, action: ExerciseTimerAction) {
+        val date = diaryUiState.selectedDate
+        viewModelScope.launch { workoutRepository?.updateTimer(exerciseId, date, action) }
+    }
+
+    fun setTimerIntensity(exerciseId: UUID, intensity: WorkoutIntensity) {
+        val date = diaryUiState.selectedDate
+        viewModelScope.launch { workoutRepository?.setTimerIntensity(exerciseId, date, intensity) }
+    }
+
     fun updateWeight(exerciseId: UUID, setId: UUID, value: String) {
         updateSet(exerciseId, setId, weight = value)
     }
@@ -302,9 +314,9 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
 
     fun calculateBurn() {
         if (diaryUiState.isCalculatingBurn) return
-        if (diaryUiState.exercises.flatMap(PlannedExercise::sets).none { it.reps.isNotBlank() }) {
+        if (diaryUiState.exercises.none { it.hasCalculableWork }) {
             diaryUiState = diaryUiState.copy(
-                notice = "Enter reps for at least one set before calculating workout calories."
+                notice = "Stop and save an exercise timer, or enter reps for at least one set, before calculating workout calories."
             )
             return
         }
@@ -322,7 +334,7 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
             diaryUiState = diaryUiState.copy(
                 isCalculatingBurn = false,
                 notice = if (saved == null) {
-                    "Enter reps for at least one set before calculating workout calories."
+                    "Stop and save an exercise timer, or enter reps for at least one set, before calculating workout calories."
                 } else null
             )
         }

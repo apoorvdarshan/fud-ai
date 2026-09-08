@@ -4,6 +4,79 @@ import Testing
 
 @MainActor
 struct CoachWorkoutToolsTests {
+    @Test func savedCardioCountsAsPerformedAndKeepsDurationWithoutSetsOrReps() throws {
+        let date = WorkoutTestFixture.date(2026, 7, 20)
+        var cardio = StrengthPlannedExercise(item: WorkoutTestFixture.exercise(id: "Running_Treadmill", name: "Running, Treadmill"))
+        cardio.category = "cardio"
+        cardio.sets = []
+        cardio.timer = StrengthExerciseTimer(accumulatedSeconds: 600.5, savedDurationSeconds: 600.5, intensity: .vigorous)
+        let completed = StrengthCompletedExercise(
+            itemID: cardio.itemID, name: cardio.name, targetMuscles: cardio.primaryMuscles,
+            equipment: cardio.rawEquipment, sets: [], durationSeconds: 600.5, intensity: .vigorous
+        )
+        let session = StrengthWorkoutSession(
+            diaryDate: date, startedAt: date, completedAt: date,
+            durationSeconds: 0, exercises: [completed], caloriesBurned: 120
+        )
+        let tools = CoachTools(
+            weights: [], bodyFats: [], foods: [], workoutSessions: [session],
+            workoutPlans: [StrengthWorkoutDayPlan(dateKey: "2026-07-20", exercises: [cardio])],
+            workoutAccessEnabled: true
+        )
+        let range: [String: Any] = ["from": "2026-07-20", "to": "2026-07-20"]
+        let plans = try WorkoutCoachFixture.jsonObject(tools.execute(name: "get_workout_plans", arguments: range))
+        let planPayloads = try #require(plans["plans"] as? [[String: Any]])
+        let planned = try #require(planPayloads[0]["exercises"] as? [[String: Any]])
+        #expect(planned[0]["performed"] as? Bool == true)
+        #expect(planned[0]["duration_seconds"] as? Double == 600.5)
+        let timer = try #require(planned[0]["timer"] as? [String: Any])
+        #expect(timer["state"] as? String == "saved")
+        let history = try WorkoutCoachFixture.jsonObject(tools.execute(name: "get_workout_history", arguments: range))
+        let workouts = try #require(history["workouts"] as? [[String: Any]])
+        let exercises = try #require(workouts[0]["exercises"] as? [[String: Any]])
+        #expect(exercises[0]["performed"] as? Bool == true)
+        #expect(exercises[0]["duration_seconds"] as? Double == 600.5)
+        #expect(exercises[0]["intensity"] as? String == "Vigorous")
+        let sets = try #require(exercises[0]["sets"] as? [[String: Any]])
+        #expect(sets.isEmpty)
+        let summary = try WorkoutCoachFixture.jsonObject(tools.execute(name: "get_training_summary", arguments: range))
+        #expect(summary["sets"] as? Int == 0)
+        #expect(summary["reps"] as? Int == 0)
+        #expect(summary["timed_exercise_seconds"] as? Double == 600.5)
+        let byExercise = try #require(summary["by_exercise"] as? [[String: Any]])
+        #expect(byExercise[0]["duration_seconds"] as? Double == 600.5)
+    }
+
+    @Test func runningAndPausedPlanTimersRemainUnsaved() throws {
+        let now = Date.now
+        var running = StrengthPlannedExercise(item: WorkoutTestFixture.exercise(id: "run", name: "Running"))
+        running.sets = []
+        running.timer = StrengthExerciseTimer(accumulatedSeconds: 30, runningSince: now.addingTimeInterval(-90))
+        var paused = running
+        paused.timer = StrengthExerciseTimer(accumulatedSeconds: 45)
+        let tools = CoachTools(
+            weights: [], bodyFats: [], foods: [],
+            workoutPlans: [StrengthWorkoutDayPlan(dateKey: "2026-07-20", exercises: [running, paused])],
+            workoutAccessEnabled: true
+        )
+        let plans = try WorkoutCoachFixture.jsonObject(tools.execute(
+            name: "get_workout_plans", arguments: ["from": "2026-07-20", "to": "2026-07-20"]
+        ))
+        let planPayloads = try #require(plans["plans"] as? [[String: Any]])
+        let exercises = try #require(planPayloads[0]["exercises"] as? [[String: Any]])
+        let runningTimer = try #require(exercises[0]["timer"] as? [String: Any])
+        let pausedTimer = try #require(exercises[1]["timer"] as? [String: Any])
+        #expect(runningTimer["state"] as? String == "running")
+        #expect((runningTimer["elapsed_seconds"] as? Double ?? 0) >= 120)
+        #expect(runningTimer["running_since"] as? String != nil)
+        #expect(pausedTimer["state"] as? String == "paused")
+        #expect(pausedTimer["elapsed_seconds"] as? Double == 45)
+        for exercise in exercises {
+            #expect(exercise["duration_seconds"] == nil)
+            #expect(exercise["performed"] as? Bool == false)
+        }
+    }
+
     @Test func disabledWorkoutAccessDoesNotAdvertiseOrReturnWorkoutData() throws {
         let session = WorkoutCoachFixture.session(
             date: WorkoutTestFixture.date(2026, 7, 10),

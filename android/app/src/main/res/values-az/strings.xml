@@ -771,4 +771,5 @@
     <string name="settings_speech_fallback_footer">Seçilmiş yazılmış audio təminatçısı uğursuz olduqda istifadə edilir. Android-in daxili nitq tanıması artıq öz bərpa mexanizminə malikdir.</string>
     <string name="about_whisper_notices">Whisper Base üçün üçüncü tərəf bildirişləri</string>
     <string name="about_whisper_notices_load_error">Whisper Base üçün üçüncü tərəf bildirişlərini yükləmək mümkün olmadı.</string>
+    <string name="cd_remove_image">Şəkli sil</string>
 </resources>

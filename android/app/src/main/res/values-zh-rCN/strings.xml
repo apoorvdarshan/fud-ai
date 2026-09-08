@@ -771,4 +771,5 @@
     <string name="settings_speech_fallback_footer">所选录音提供商失败时使用。Android 原生语音识别已有自己的恢复机制。</string>
     <string name="about_whisper_notices">Whisper Base 第三方声明</string>
     <string name="about_whisper_notices_load_error">无法加载 Whisper Base 第三方声明。</string>
+    <string name="cd_remove_image">移除图片</string>
 </resources>

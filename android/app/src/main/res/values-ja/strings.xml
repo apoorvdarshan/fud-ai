@@ -771,4 +771,5 @@
     <string name="settings_speech_fallback_footer">選択した録音音声プロバイダでエラーが発生した場合に使用されます。Android の標準音声認識には独自の復旧機能があります。</string>
     <string name="about_whisper_notices">Whisper Base のサードパーティ通知</string>
     <string name="about_whisper_notices_load_error">Whisper Base のサードパーティ通知を読み込めませんでした。</string>
+    <string name="cd_remove_image">画像を削除</string>
 </resources>

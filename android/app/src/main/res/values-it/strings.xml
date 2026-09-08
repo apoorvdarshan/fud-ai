@@ -771,4 +771,5 @@
     <string name="settings_speech_fallback_footer">Utilizzato se il provider per l’audio registrato selezionato non riesce. Il riconoscimento vocale nativo di Android dispone già di un proprio sistema di recupero.</string>
     <string name="about_whisper_notices">Avvisi di terze parti di Whisper Base</string>
     <string name="about_whisper_notices_load_error">Impossibile caricare gli avvisi di terze parti di Whisper Base.</string>
+    <string name="cd_remove_image">Rimuovi immagine</string>
 </resources>

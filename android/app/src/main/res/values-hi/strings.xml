@@ -771,4 +771,5 @@
     <string name="settings_speech_fallback_footer">चुना गया रिकॉर्डेड-ऑडियो प्रोवाइडर विफल होने पर इसका उपयोग होता है। Android की मूल स्पीच सुविधा में पहले से अपनी रिकवरी व्यवस्था है।</string>
     <string name="about_whisper_notices">Whisper Base के तृतीय-पक्ष नोटिस</string>
     <string name="about_whisper_notices_load_error">Whisper Base के तृतीय-पक्ष नोटिस लोड नहीं किए जा सके।</string>
+    <string name="cd_remove_image">चित्र हटाएँ</string>
 </resources>

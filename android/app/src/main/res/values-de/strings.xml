@@ -771,4 +771,5 @@
     <string name="settings_speech_fallback_footer">Wird verwendet, wenn der ausgewählte Anbieter für Audioaufnahmen fehlschlägt. Die native Android-Spracherkennung verfügt bereits über eine eigene Wiederherstellung.</string>
     <string name="about_whisper_notices">Drittanbieterhinweise zu Whisper Base</string>
     <string name="about_whisper_notices_load_error">Die Drittanbieterhinweise zu Whisper Base konnten nicht geladen werden.</string>
+    <string name="cd_remove_image">Bild entfernen</string>
 </resources>

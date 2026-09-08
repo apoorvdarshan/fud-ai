@@ -771,4 +771,5 @@
     <string name="settings_speech_fallback_footer">Se utilizează dacă furnizorul selectat pentru înregistrări audio eșuează. Recunoașterea vocală nativă Android are deja propriul mecanism de recuperare.</string>
     <string name="about_whisper_notices">Notificări terțe Whisper Base</string>
     <string name="about_whisper_notices_load_error">Notificările terțe Whisper Base nu au putut fi încărcate.</string>
+    <string name="cd_remove_image">Elimină imaginea</string>
 </resources>

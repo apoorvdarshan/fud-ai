@@ -918,8 +918,8 @@ fun HomeScreen(
             analyzeIngredientText = vm::analyzeIngredientText,
             lookupIngredientBarcode = vm::lookupIngredientBarcode,
             analyzeIngredientImage = vm::analyzeIngredientImage,
-            onReprocess = { updatedNote ->
-                vm.reprocessFoodEntry(entry, updatedNote)
+            onReprocess = { updatedEntry, updatedNote ->
+                vm.reprocessFoodEntry(updatedEntry, updatedNote)
             },
             onSave = { updated ->
                 vm.updateEntry(updated)

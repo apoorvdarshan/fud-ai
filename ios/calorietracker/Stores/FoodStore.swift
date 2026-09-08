@@ -369,10 +369,16 @@ class FoodStore {
 
     func updateEntry(_ entry: FoodEntry) {
         guard let index = entries.firstIndex(where: { $0.id == entry.id }) else { return }
+        let previousFilenames = Set(entries[index].allImageFilenames)
         var entry = entry
         offloadImageToDiskIfNeeded(&entry)
         entries[index] = entry
-        saveEntries()
+        if saveEntries() {
+            let removedFilenames = previousFilenames.subtracting(entry.allImageFilenames)
+            for filename in removedFilenames where !isImageStillReferenced(filename: filename, excludingEntryID: entry.id) {
+                FoodImageStore.shared.delete(filename: filename)
+            }
+        }
         onEntriesChanged?()
         // Single callback so HealthKit can serialize delete-then-write atomically.
         onEntryUpdated?(entry)
@@ -510,16 +516,20 @@ class FoodStore {
     /// there are no bytes, or when a filename is already set (idempotent).
     /// The 4 MiB UserDefaults cap demands we never persist raw bytes.
     private func offloadImageToDiskIfNeeded(_ entry: inout FoodEntry) {
+        let primaryStorageID = isImageStillReferenced(filename: "\(entry.id.uuidString).jpg", excludingEntryID: entry.id)
+            ? UUID() : entry.id
         if entry.imageFilename == nil, let data = entry.imageData,
-           let filename = FoodImageStore.shared.store(data: data, for: entry.id) {
+           let filename = FoodImageStore.shared.store(data: data, for: primaryStorageID) {
             entry.imageFilename = filename
         }
         if entry.additionalImageFilenames.count < entry.additionalImageData.count {
             var filenames = entry.additionalImageFilenames
             for index in filenames.count..<entry.additionalImageData.count {
+                let storageID = isImageStillReferenced(filename: "\(entry.id.uuidString)-\(index + 1).jpg", excludingEntryID: entry.id)
+                    ? UUID() : entry.id
                 if let filename = FoodImageStore.shared.store(
                     data: entry.additionalImageData[index],
-                    for: entry.id,
+                    for: storageID,
                     index: index + 1
                 ) {
                     filenames.append(filename)
@@ -578,11 +588,13 @@ class FoodStore {
         )
     }
 
-    private func saveEntries() {
+    @discardableResult
+    private func saveEntries() -> Bool {
         if let data = try? JSONEncoder().encode(entries) {
             defaults.set(data, forKey: storageKey)
-            defaults.synchronize()
+            return defaults.synchronize()
         }
+        return false
     }
 
     private func loadEntries() {

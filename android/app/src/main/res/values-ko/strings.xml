@@ -771,4 +771,5 @@
     <string name="settings_speech_fallback_footer">선택한 녹음 오디오 제공업체가 실패할 때 사용됩니다. Android 기본 음성 인식에는 자체 복구 기능이 이미 있습니다.</string>
     <string name="about_whisper_notices">Whisper Base 타사 고지</string>
     <string name="about_whisper_notices_load_error">Whisper Base 타사 고지를 불러올 수 없습니다.</string>
+    <string name="cd_remove_image">이미지 제거</string>
 </resources>

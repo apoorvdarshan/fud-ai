@@ -85,11 +85,22 @@ class FoodRepository(
     }
 
     suspend fun updateEntry(entry: FoodEntry) {
+        // Legacy favorites must keep their original photos before the diary copy changes.
+        ensureFavoritesMigrated()
         val current = prefs.foodEntries.first()
         val index = current.indexOfFirst { it.id == entry.id }
         if (index < 0) return
+        val removedImages = current[index].allImageFilenames.toSet() - entry.allImageFilenames.toSet()
         val updated = current.toMutableList().also { it[index] = entry }
         prefs.setFoodEntries(updated)
+        if (imageStore != null && removedImages.isNotEmpty()) {
+            // Only consider this edit's removed files, preserving shared saved meals,
+            // other log entries and the recoverable analysis draft. A decode failure
+            // skips cleanup instead of treating unreadable owners as absent.
+            prefs.foodImageReferenceFilenames()?.let { referenced ->
+                removedImages.filterNot { it in referenced }.forEach(imageStore::delete)
+            }
+        }
         if (shouldSyncHealth()) {
             health?.updateNutrition(entry)
         } else {

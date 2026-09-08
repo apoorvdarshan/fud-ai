@@ -771,4 +771,5 @@
     <string name="settings_speech_fallback_footer">Wordt gebruikt als de geselecteerde provider voor opgenomen audio mislukt. De systeemeigen spraakherkenning van Android heeft al een eigen herstelmechanisme.</string>
     <string name="about_whisper_notices">Kennisgevingen van derden voor Whisper Base</string>
     <string name="about_whisper_notices_load_error">De kennisgevingen van derden voor Whisper Base konden niet worden geladen.</string>
+    <string name="cd_remove_image">Afbeelding verwijderen</string>
 </resources>

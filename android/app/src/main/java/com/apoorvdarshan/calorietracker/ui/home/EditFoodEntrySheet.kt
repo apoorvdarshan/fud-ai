@@ -16,12 +16,14 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -34,6 +36,7 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
@@ -104,7 +107,7 @@ fun EditFoodEntrySheet(
     analyzeIngredientText: suspend (String) -> FoodAnalysis,
     lookupIngredientBarcode: suspend (String) -> FoodAnalysis,
     analyzeIngredientImage: suspend (ByteArray) -> FoodAnalysis,
-    onReprocess: suspend (updatedNote: String) -> FoodAnalysis,
+    onReprocess: suspend (updatedEntry: FoodEntry, updatedNote: String) -> FoodAnalysis,
     onSave: (FoodEntry) -> Unit,
     onToggleFavorite: () -> Unit,
     onDelete: () -> Unit,
@@ -115,6 +118,8 @@ fun EditFoodEntrySheet(
         confirmValueChange = { it != SheetValue.Hidden }
     )
     var currentBaseEntry by remember(entry) { mutableStateOf(entry) }
+    // Stage removals separately so tapping × does not reset the other editor fields.
+    var removedImageFilenames by remember(entry) { mutableStateOf(emptySet<String>()) }
     var noteText by remember(entry) { mutableStateOf(entry.customNote ?: "") }
     var isReprocessing by remember { mutableStateOf(false) }
     var errorText by remember { mutableStateOf<String?>(null) }
@@ -179,8 +184,11 @@ fun EditFoodEntrySheet(
 
     fun scaledInt(v: Int) = (v * scale).roundToInt()
     fun scaledMacro(v: Double) = v * scale
-    fun scaledD(v: Double?) = v?.let { ((it * scale) * 10).roundToInt() / 10.0 }
-    fun scaledIngredients() = currentBaseEntry.ingredients.map { it.scaled(scale) }
+    fun scaledD(v: Double?) = v?.let {
+        if (scale == 1.0) it else ((it * scale) * 10).roundToInt() / 10.0
+    }
+    fun scaledIngredients() = currentBaseEntry.withoutImages(removedImageFilenames)
+        .ingredients.map { it.scaled(scale) }
     fun applyIngredientChanges(displayedIngredients: List<MealIngredient>) {
         val totals = displayedIngredients.totals()
         currentBaseEntry = currentBaseEntry.copy(
@@ -202,7 +210,10 @@ fun EditFoodEntrySheet(
         protein = scaledMacro(currentBaseEntry.protein),
         carbs = scaledMacro(currentBaseEntry.carbs),
         fat = scaledMacro(currentBaseEntry.fat),
-        timestamp = loggedDate.atTime(loggedTime).atZone(zone).toInstant(),
+        timestamp = if (
+            loggedDate == initialLoggedAt.toLocalDate() &&
+            loggedTime == initialLoggedAt.toLocalTime().withSecond(0).withNano(0)
+        ) entry.timestamp else loggedDate.atTime(loggedTime).atZone(zone).toInstant(),
         mealType = mealType,
         customNote = noteText.trim().takeIf { it.isNotEmpty() },
         sugar = scaledD(currentBaseEntry.sugar),
@@ -241,8 +252,8 @@ fun EditFoodEntrySheet(
         } else {
             selectedServingQuantity
         },
-        ingredients = scaledIngredients()
-    )
+        ingredients = currentBaseEntry.ingredients.map { it.scaled(scale) }
+    ).withoutImages(removedImageFilenames)
 
     // Re-run the AI on this entry with the edited note and overwrite the fields in
     // place; marking customNote as the current note flips the primary button back to Save.
@@ -251,7 +262,7 @@ fun EditFoodEntrySheet(
             isReprocessing = true
             errorText = null
             try {
-                val newAnalysis = onReprocess(noteText)
+                val newAnalysis = onReprocess(buildUpdated(), noteText)
                 currentBaseEntry = currentBaseEntry.copy(
                     name = newAnalysis.name,
                     calories = newAnalysis.calories,
@@ -385,18 +396,18 @@ fun EditFoodEntrySheet(
             ) {
             // Swipeable originals gallery OR 80sp emoji fallback — centered.
             item {
-                val ctx = LocalContext.current
-                val container = (ctx.applicationContext as com.apoorvdarshan.calorietracker.FudAIApp).container
-                val bitmaps = remember(currentBaseEntry.allImageFilenames) {
-                    currentBaseEntry.allImageFilenames.mapNotNull { container.imageStore.load(it) }
-                }
+                val photos = remember(currentBaseEntry.allImageFilenames) {
+                    currentBaseEntry.allImageFilenames.mapNotNull { filename ->
+                        container.imageStore.load(filename)?.let { filename to it }
+                    }
+                }.filterNot { (filename, _) -> filename in removedImageFilenames }
                 Box(
                     Modifier.fillMaxWidth().padding(vertical = 8.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    if (bitmaps.isNotEmpty()) {
+                    if (photos.isNotEmpty()) {
                         LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                            itemsIndexed(bitmaps) { index, bitmap ->
+                            itemsIndexed(photos, key = { _, photo -> photo.first }) { index, (filename, bitmap) ->
                                 Box {
                                     androidx.compose.foundation.Image(
                                         bitmap = bitmap.asImageBitmap(),
@@ -406,9 +417,24 @@ fun EditFoodEntrySheet(
                                             .size(240.dp)
                                             .clip(RoundedCornerShape(20.dp))
                                     )
-                                    if (bitmaps.size > 1) {
+                                    IconButton(
+                                        onClick = { removedImageFilenames = removedImageFilenames + filename },
+                                        enabled = !isReprocessing,
+                                        modifier = Modifier
+                                            .align(Alignment.TopEnd)
+                                            .padding(8.dp)
+                                            .size(34.dp)
+                                            .background(Color.Black.copy(alpha = 0.62f), CircleShape)
+                                    ) {
+                                        Icon(
+                                            Icons.Filled.Close,
+                                            contentDescription = stringResource(R.string.cd_remove_image),
+                                            tint = Color.White
+                                        )
+                                    }
+                                    if (photos.size > 1) {
                                         Text(
-                                            "${index + 1}/${bitmaps.size}",
+                                            "${index + 1}/${photos.size}",
                                             color = Color.White,
                                             fontSize = 11.sp,
                                             fontWeight = FontWeight.SemiBold,

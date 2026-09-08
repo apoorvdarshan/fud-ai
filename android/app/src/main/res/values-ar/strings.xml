@@ -771,4 +771,5 @@
     <string name="settings_speech_fallback_footer">يُستخدم إذا فشل موفر الصوت المسجّل المحدد. تتضمن ميزة الكلام الأصلية في Android آلية استرداد خاصة بها بالفعل.</string>
     <string name="about_whisper_notices">إشعارات الجهات الخارجية لـ Whisper Base</string>
     <string name="about_whisper_notices_load_error">تعذّر تحميل إشعارات الجهات الخارجية لـ Whisper Base.</string>
+    <string name="cd_remove_image">إزالة الصورة</string>
 </resources>

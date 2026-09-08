@@ -50,6 +50,7 @@ struct EditFoodEntryView: View {
     @State private var isReprocessing: Bool = false
     @State private var reprocessingError: String? = nil
     @State private var isDeleteConfirmationPresented = false
+    @State private var removedPhotoIDs = Set<FoodEntryPhoto.ID>()
 
     @State private var name: String
     @State private var servingSizeGrams: Double
@@ -69,38 +70,50 @@ struct EditFoodEntryView: View {
     private var scaledProtein: Double { baseProtein * scale }
     private var scaledCarbs: Double { baseCarbs * scale }
     private var scaledFat: Double { baseFat * scale }
-    private var scaledSugar: Double? { baseSugar.map { round($0 * scale * 10) / 10 } }
-    private var scaledAddedSugar: Double? { baseAddedSugar.map { round($0 * scale * 10) / 10 } }
-    private var scaledFiber: Double? { baseFiber.map { round($0 * scale * 10) / 10 } }
-    private var scaledSaturatedFat: Double? { baseSaturatedFat.map { round($0 * scale * 10) / 10 } }
-    private var scaledMonounsaturatedFat: Double? { baseMonounsaturatedFat.map { round($0 * scale * 10) / 10 } }
-    private var scaledPolyunsaturatedFat: Double? { basePolyunsaturatedFat.map { round($0 * scale * 10) / 10 } }
-    private var scaledCholesterol: Double? { baseCholesterol.map { round($0 * scale * 10) / 10 } }
-    private var scaledCaffeine: Double? { baseCaffeine.map { round($0 * scale * 10) / 10 } }
+    private var scaledSugar: Double? { baseSugar.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledAddedSugar: Double? { baseAddedSugar.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledFiber: Double? { baseFiber.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledSaturatedFat: Double? { baseSaturatedFat.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledMonounsaturatedFat: Double? { baseMonounsaturatedFat.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledPolyunsaturatedFat: Double? { basePolyunsaturatedFat.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledCholesterol: Double? { baseCholesterol.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledCaffeine: Double? { baseCaffeine.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
     private var scaledSupplementalNutrients: [String: Double] {
-        baseSupplementalNutrients.mapValues { round($0 * scale * 10) / 10 }
+        baseSupplementalNutrients.mapValues { scale == 1 ? $0 : round($0 * scale * 10) / 10 }
     }
-    private var scaledSodium: Double? { baseSodium.map { round($0 * scale * 10) / 10 } }
-    private var scaledPotassium: Double? { basePotassium.map { round($0 * scale * 10) / 10 } }
-    private var scaledTransFat: Double? { baseTransFat.map { round($0 * scale * 10) / 10 } }
-    private var scaledCalcium: Double? { baseCalcium.map { round($0 * scale * 10) / 10 } }
-    private var scaledIron: Double? { baseIron.map { round($0 * scale * 10) / 10 } }
-    private var scaledMagnesium: Double? { baseMagnesium.map { round($0 * scale * 10) / 10 } }
-    private var scaledZinc: Double? { baseZinc.map { round($0 * scale * 10) / 10 } }
-    private var scaledVitaminA: Double? { baseVitaminA.map { round($0 * scale * 10) / 10 } }
-    private var scaledVitaminC: Double? { baseVitaminC.map { round($0 * scale * 10) / 10 } }
-    private var scaledVitaminD: Double? { baseVitaminD.map { round($0 * scale * 10) / 10 } }
-    private var scaledVitaminB12: Double? { baseVitaminB12.map { round($0 * scale * 10) / 10 } }
-    private var scaledVitaminE: Double? { baseVitaminE.map { round($0 * scale * 10) / 10 } }
-    private var scaledVitaminK: Double? { baseVitaminK.map { round($0 * scale * 10) / 10 } }
-    private var scaledFolate: Double? { baseFolate.map { round($0 * scale * 10) / 10 } }
-    private var scaledOmega3: Double? { baseOmega3.map { round($0 * scale * 10) / 10 } }
-    private var scaledIngredients: [MealIngredient] { baseIngredients.map { $0.scaled(by: scale) } }
+    private var scaledSodium: Double? { baseSodium.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledPotassium: Double? { basePotassium.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledTransFat: Double? { baseTransFat.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledCalcium: Double? { baseCalcium.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledIron: Double? { baseIron.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledMagnesium: Double? { baseMagnesium.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledZinc: Double? { baseZinc.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledVitaminA: Double? { baseVitaminA.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledVitaminC: Double? { baseVitaminC.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledVitaminD: Double? { baseVitaminD.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledVitaminB12: Double? { baseVitaminB12.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledVitaminE: Double? { baseVitaminE.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledVitaminK: Double? { baseVitaminK.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledFolate: Double? { baseFolate.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledOmega3: Double? { baseOmega3.map { scale == 1 ? $0 : round($0 * scale * 10) / 10 } }
+    private var scaledIngredients: [MealIngredient] {
+        baseIngredients.map { $0.removingPhotos(withIDs: removedPhotoIDs).scaled(by: scale) }
+    }
     private var selectedServingOption: ServingUnitOption {
         ServingUnitOption.option(matching: selectedServingUnitID, in: servingUnitOptions)
     }
     private var selectedServingQuantity: Double? {
         ServingAmountExpression.evaluate(servingSizeText)
+    }
+
+    private var entryWithEditedIngredients: FoodEntry {
+        var edited = entry
+        edited.ingredients = baseIngredients
+        return edited
+    }
+
+    private var visiblePhotos: [FoodEntryPhoto] {
+        entryWithEditedIngredients.editablePhotos.filter { !removedPhotoIDs.contains($0.id) }
     }
 
     init(entry: FoodEntry) {
@@ -189,27 +202,51 @@ struct EditFoodEntryView: View {
         NavigationStack {
             ScrollViewReader { scrollProxy in
                 List {
-                    let entryImages = entry.allImageData.compactMap(UIImage.init(data:))
-                    if !entryImages.isEmpty {
+                    let photos = visiblePhotos
+                    if !photos.isEmpty {
                         Section {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(spacing: 12) {
-                                    ForEach(Array(entryImages.enumerated()), id: \.offset) { index, image in
-                                        Image(uiImage: image)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 220, height: 200)
-                                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                                            .overlay(alignment: .bottomTrailing) {
-                                                if entryImages.count > 1 {
-                                                    Text("\(index + 1)/\(entryImages.count)")
-                                                        .font(.caption2.weight(.semibold))
-                                                        .padding(.horizontal, 8)
-                                                        .padding(.vertical, 5)
-                                                        .background(.ultraThinMaterial, in: Capsule())
-                                                        .padding(8)
-                                                }
+                                    ForEach(Array(photos.enumerated()), id: \.element.id) { index, photo in
+                                        Group {
+                                            if let image = photo.data.flatMap(UIImage.init(data:)) {
+                                                Image(uiImage: image)
+                                                    .resizable()
+                                                    .scaledToFill()
+                                            } else {
+                                                Image(systemName: "photo")
+                                                    .font(.largeTitle)
+                                                    .foregroundStyle(.secondary)
                                             }
+                                        }
+                                        .frame(width: 220, height: 200)
+                                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                        .overlay(alignment: .topTrailing) {
+                                            Button {
+                                                removedPhotoIDs.insert(photo.id)
+                                            } label: {
+                                                Image(systemName: "xmark")
+                                                    .font(.system(size: 14, weight: .bold))
+                                                    .foregroundStyle(.white)
+                                                    .frame(width: 32, height: 32)
+                                                    .background(.black.opacity(0.6), in: Circle())
+                                                    .frame(width: 44, height: 44)
+                                                    .contentShape(Rectangle())
+                                            }
+                                            .buttonStyle(.plain)
+                                            .accessibilityLabel("Remove photo")
+                                            .padding(4)
+                                        }
+                                        .overlay(alignment: .bottomTrailing) {
+                                            if photos.count > 1 {
+                                                Text("\(index + 1)/\(photos.count)")
+                                                    .font(.caption2.weight(.semibold))
+                                                    .padding(.horizontal, 8)
+                                                    .padding(.vertical, 5)
+                                                    .background(.ultraThinMaterial, in: Capsule())
+                                                    .padding(8)
+                                            }
+                                        }
                                     }
                                 }
                                 .scrollTargetLayout()
@@ -496,7 +533,8 @@ struct EditFoodEntryView: View {
             isReprocessing = true
             reprocessingError = nil
             do {
-                let newAnalysis = try await foodStore.reprocessEntry(entry, withNote: customNote)
+                let editedEntry = entryWithEditedIngredients.removingPhotos(withIDs: removedPhotoIDs)
+                let newAnalysis = try await foodStore.reprocessEntry(editedEntry, withNote: customNote)
 
                 name = newAnalysis.name
                 baseCalories = newAnalysis.calories
@@ -615,7 +653,7 @@ struct EditFoodEntryView: View {
             ingredients: scaledIngredients,
             productMetadata: entry.productMetadata
         )
-        foodStore.updateEntry(updated)
+        foodStore.updateEntry(updated.removingPhotos(withIDs: removedPhotoIDs))
         dismiss()
     }
 }

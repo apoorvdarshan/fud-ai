@@ -771,4 +771,5 @@
     <string name="settings_speech_fallback_footer">Se usa si falla el proveedor de audio grabado seleccionado. El reconocimiento de voz nativo de Android ya cuenta con su propio mecanismo de recuperación.</string>
     <string name="about_whisper_notices">Avisos de terceros de Whisper Base</string>
     <string name="about_whisper_notices_load_error">No se pudieron cargar los avisos de terceros de Whisper Base.</string>
+    <string name="cd_remove_image">Quitar imagen</string>
 </resources>

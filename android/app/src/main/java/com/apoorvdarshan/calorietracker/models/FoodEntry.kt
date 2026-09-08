@@ -139,4 +139,24 @@ data class FoodEntry(
 
     val allImageFilenames: List<String>
         get() = (listOfNotNull(imageFilename) + additionalImageFilenames + ingredients.flatMap { it.allImageFilenames }).distinct()
+
+    /** Remove gallery photos everywhere they occur without changing the logged food. */
+    fun withoutImages(filenames: Set<String>): FoodEntry {
+        if (allImageFilenames.none { it in filenames }) return this
+        val remainingImages = (listOfNotNull(imageFilename) + additionalImageFilenames)
+            .distinct().filterNot { it in filenames }
+        val remainingIngredients = ingredients.map { ingredient ->
+            val images = ingredient.allImageFilenames.filterNot { it in filenames }
+            ingredient.copy(
+                imageFilename = images.firstOrNull(),
+                additionalImageFilenames = images.drop(1)
+            )
+        }
+        return copy(
+            imageFilename = remainingImages.firstOrNull()
+                ?: remainingIngredients.firstNotNullOfOrNull { it.imageFilename },
+            additionalImageFilenames = remainingImages.drop(1),
+            ingredients = remainingIngredients
+        )
+    }
 }

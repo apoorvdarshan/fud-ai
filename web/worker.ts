@@ -6,57 +6,13 @@ import {
 
 const REPOSITORY = "apoorvdarshan/fud-ai";
 const HISTORY_KEY = "github-star-history-v1";
-const GITHUB_GRAPHQL_URL = "https://api.github.com/graphql";
+const HISTORY_MAX_AGE_MS = 60 * 60 * 1000;
+const GITHUB_REPOSITORY_URL = `https://api.github.com/repos/${REPOSITORY}`;
 
-interface GitHubStargazerEdge {
-  starredAt: string;
-}
-
-interface GitHubGraphQLResponse {
-  data?: {
-    repository: {
-      stargazerCount: number;
-      stargazers: {
-        edges: GitHubStargazerEdge[];
-        pageInfo: {
-          endCursor: string | null;
-          hasNextPage: boolean;
-        };
-      };
-    };
-  };
-  errors?: Array<{
-    message: string;
-  }>;
-}
-
-interface GitHubStargazerPage {
-  edges: GitHubStargazerEdge[];
-  endCursor: string | null;
-  hasNextPage: boolean;
+interface GitHubStarWeek {
+  week: number;
   total: number;
-}
-
-interface GitHubGraphQLVariables {
-  owner: string;
-  name: string;
-  cursor: string | null;
-}
-
-interface GitHubGraphQLPayload {
-  query: string;
-  variables: GitHubGraphQLVariables;
-}
-
-interface GitHubGraphQLRepository {
-  stargazerCount: number;
-  stargazers: {
-    edges: GitHubStargazerEdge[];
-    pageInfo: {
-      endCursor: string | null;
-      hasNextPage: boolean;
-    };
-  };
+  days: number[];
 }
 
 interface StarPoint {
@@ -125,131 +81,78 @@ async function runScheduledMaintenance(env: Env): Promise<void> {
 }
 
 async function getHistory(env: Env): Promise<StarHistory> {
-  const cached = await env.STAR_HISTORY.get(HISTORY_KEY);
-  if (cached) {
-    return JSON.parse(cached) as StarHistory;
+  const stored = await env.STAR_HISTORY.get(HISTORY_KEY);
+  const cached = stored ? JSON.parse(stored) as StarHistory : null;
+  if (cached && Date.now() - Date.parse(cached.generatedAt) < HISTORY_MAX_AGE_MS) {
+    return cached;
   }
 
-  return refreshHistory(env);
+  try {
+    return await refreshHistory(env);
+  } catch (error) {
+    console.error(JSON.stringify({ event: "star_history_refresh_failed", error: String(error) }));
+    // Preserve the last successful chart during GitHub outages; keep its original
+    // timestamp so subsequent requests still attempt to refresh it.
+    if (cached) return cached;
+    throw error;
+  }
+}
+
+async function fetchGitHub(path: string): Promise<Response> {
+  const response = await fetch(`${GITHUB_REPOSITORY_URL}${path}`, {
+    headers: {
+      Accept: "application/vnd.github+json",
+      "User-Agent": "fud-ai-star-history",
+      "X-GitHub-Api-Version": "2026-03-10",
+    },
+    signal: AbortSignal.timeout(10_000),
+  });
+  if (!response.ok) {
+    throw new Error(`GitHub star history request failed with status ${response.status}`);
+  }
+  return response;
 }
 
 async function refreshHistory(env: Env): Promise<StarHistory> {
-  const stargazers: GitHubStargazerEdge[] = [];
-  let cursor: string | null = null;
-  let hasNextPage = true;
-  let reportedTotal = 0;
-
-  while (hasNextPage) {
-    const page = await fetchStargazerPage(env.GITHUB_TOKEN, cursor);
-    stargazers.push(...page.edges);
-    cursor = page.endCursor;
-    hasNextPage = page.hasNextPage;
-    reportedTotal = page.total;
+  // Aggregate history is public and does not depend on a personal access token
+  // or permission to enumerate individual stargazers.
+  const weeks: GitHubStarWeek[] = [];
+  for (let page = 1; ; page += 1) {
+    if (page > 100) throw new Error("GitHub star history pagination limit exceeded");
+    const response = await fetchGitHub(`/stargazers/history?per_page=30&page=${page}`);
+    weeks.push(...await response.json() as GitHubStarWeek[]);
+    if (!response.headers.get("Link")?.includes('rel="next"')) break;
   }
-
-  const history = buildHistory(stargazers, reportedTotal);
-  await env.STAR_HISTORY.put(HISTORY_KEY, JSON.stringify(history));
-  return history;
-}
-
-async function fetchStargazerPage(
-  token: string,
-  cursor: string | null,
-): Promise<GitHubStargazerPage> {
-  const payload: GitHubGraphQLPayload = {
-    query: `query StarHistory($owner: String!, $name: String!, $cursor: String) {
-      repository(owner: $owner, name: $name) {
-        stargazerCount
-        stargazers(first: 100, after: $cursor) {
-          edges {
-            starredAt
-          }
-          pageInfo {
-            endCursor
-            hasNextPage
-          }
-        }
-      }
-    }`,
-    variables: {
-      owner: "apoorvdarshan",
-      name: "fud-ai",
-      cursor,
-    },
-  };
-  const response = await fetch(GITHUB_GRAPHQL_URL, {
-    method: "POST",
-    headers: {
-      Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-      "User-Agent": "fud-ai-star-history",
-    },
-    body: JSON.stringify(payload),
-  });
-  if (!response.ok) {
-    throw new Error(`GitHub GraphQL request failed with status ${response.status}`);
-  }
-
-  const result = (await response.json()) as GitHubGraphQLResponse;
-  if (result.errors?.length || !result.data?.repository) {
-    throw new Error(result.errors?.[0]?.message ?? "GitHub returned no repository data");
-  }
-
-  return parseGraphQLRepository(result.data.repository);
-}
-
-function parseGraphQLRepository(repository: GitHubGraphQLRepository): GitHubStargazerPage {
-  return {
-    edges: repository.stargazers.edges,
-    endCursor: repository.stargazers.pageInfo.endCursor,
-    hasNextPage: repository.stargazers.pageInfo.hasNextPage,
-    total: repository.stargazerCount,
-  };
-}
-
-function buildHistory(
-  stargazers: GitHubStargazerEdge[],
-  reportedTotal: number,
-): StarHistory {
-  const dailyCounts = new Map<string, number>();
-
-  for (const stargazer of stargazers) {
-    const date = stargazer.starredAt.slice(0, 10);
-    dailyCounts.set(date, (dailyCounts.get(date) ?? 0) + 1);
-  }
-
+  const response = await fetchGitHub("/stargazers/count");
+  const { count } = await response.json() as { count: number };
+  const points: StarPoint[] = [];
   let runningTotal = 0;
-  const points = [...dailyCounts.entries()]
-    .sort(([left], [right]) => left.localeCompare(right))
-    .map(([date, stars]) => {
+  for (const week of weeks.sort((left, right) => left.week - right.week)) {
+    for (const [day, stars] of week.days.entries()) {
+      if (stars === 0) continue;
       runningTotal += stars;
-      return { date, count: runningTotal };
-    });
-
-  if (reportedTotal !== runningTotal) {
-    if (points.length === 0) {
       points.push({
-        date: new Date().toISOString().slice(0, 10),
-        count: reportedTotal,
+        date: new Date((week.week + day * 86_400) * 1000).toISOString().slice(0, 10),
+        count: runningTotal,
       });
-    } else {
-      points[points.length - 1].count = reportedTotal;
     }
   }
+  // The count excludes removed stars. Anchor the chart to today's actual total
+  // without rewriting the date or value of the last historical observation.
+  const generatedAt = new Date().toISOString();
+  const today = generatedAt.slice(0, 10);
+  if (points.at(-1)?.date === today) points[points.length - 1].count = count;
+  else points.push({ date: today, count });
 
-  return {
-    repository: REPOSITORY,
-    generatedAt: new Date().toISOString(),
-    total: reportedTotal,
-    points,
-  };
+  const history: StarHistory = { repository: REPOSITORY, generatedAt, total: count, points };
+  await env.STAR_HISTORY.put(HISTORY_KEY, JSON.stringify(history));
+  return history;
 }
 
 function publicCacheHeaders(contentType: string): HeadersInit {
   return {
     "Access-Control-Allow-Origin": "*",
-    "Cache-Control": "public, max-age=900, s-maxage=3600, stale-while-revalidate=86400",
+    "Cache-Control": "public, max-age=300, s-maxage=300, must-revalidate",
     "Content-Type": contentType,
     "X-Content-Type-Options": "nosniff",
   };
@@ -284,7 +187,7 @@ function renderChart(history: StarHistory, theme: "dark" | "light"): string {
   const firstDate = Date.parse(history.points[0].date);
   const lastDate = Date.parse(history.points.at(-1)!.date);
   const dateSpan = Math.max(lastDate - firstDate, 86_400_000);
-  const yMax = Math.max(10, Math.ceil(history.total / 10) * 10);
+  const yMax = Math.max(10, Math.ceil(Math.max(history.total, ...history.points.map((point) => point.count)) / 10) * 10);
   const x = (date: string) =>
     padding.left + ((Date.parse(date) - firstDate) / dateSpan) * plotWidth;
   const y = (count: number) =>

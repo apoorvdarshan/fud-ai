@@ -5,6 +5,7 @@ import UIKit
 /// then hand the file to the system share sheet.
 struct ExportDiaryView: View {
     @Environment(FoodStore.self) private var foodStore
+    @Environment(WaterStore.self) private var waterStore
     @Environment(ProfileStore.self) private var profileStore
     @Environment(\.dismiss) private var dismiss
 
@@ -53,7 +54,7 @@ struct ExportDiaryView: View {
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
                 } footer: {
-                    Text("Exports your logged meals — totals, targets, and each item's macros — as a file you can save or send to another app.")
+                    Text("Exports your logged meals, nutrition totals, and water intake as a file you can save or send to another app.")
                 }
             }
             .navigationTitle("Export Food Diary")
@@ -66,15 +67,15 @@ struct ExportDiaryView: View {
             .alert("Nothing to export", isPresented: $emptyNotice) {
                 Button("OK", role: .cancel) {}
             } message: {
-                Text("There are no logged meals in the selected range.")
+                Text("There are no food or water entries in the selected range.")
             }
         }
     }
 
     private func exportNow() {
-        let (start, end) = DiaryExporter.resolve(range, customStart: customStart, customEnd: customEnd, foodStore: foodStore)
+        let (start, end) = DiaryExporter.resolve(range, customStart: customStart, customEnd: customEnd, foodStore: foodStore, waterEntries: waterStore.entries)
         guard let (name, data) = DiaryExporter.build(
-            from: start, to: end, format: format, foodStore: foodStore, profile: profileStore.profile
+            from: start, to: end, format: format, foodStore: foodStore, profile: profileStore.profile, waterEntries: waterStore.entries
         ) else {
             emptyNotice = true
             return

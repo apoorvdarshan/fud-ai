@@ -65,7 +65,7 @@ fun ExportDiarySheet(
     onDismiss: () -> Unit,
 ) {
     val context = LocalContext.current
-    val noMealsMessage = stringResource(R.string.export_no_meals)
+    val emptyDiaryMessage = stringResource(R.string.export_empty_diary)
     val exportTitle = stringResource(R.string.export_diary_title)
     val exportFailedMessage = stringResource(R.string.export_failed)
     val scope = rememberCoroutineScope()
@@ -144,13 +144,14 @@ fun ExportDiarySheet(
                         status = null
                         scope.launch {
                             val entries = container.foodRepository.entries.first()
-                            val (lo, hi) = DiaryExporter.resolveRange(range, customStart, customEnd, entries)
+                            val water = container.waterRepository.entries.first()
+                            val (lo, hi) = DiaryExporter.resolveRange(range, customStart, customEnd, entries, water)
                             val result = DiaryExporter.build(
                                 entries = entries, start = lo, end = hi, format = format,
-                                profile = profile, mealDisplay = { mealNames[it] ?: it.name },
+                                waterEntries = water, profile = profile, mealDisplay = { mealNames[it] ?: it.name },
                             )
                             if (result == null) {
-                                status = noMealsMessage
+                                status = emptyDiaryMessage
                                 return@launch
                             }
                             val (name, content) = result

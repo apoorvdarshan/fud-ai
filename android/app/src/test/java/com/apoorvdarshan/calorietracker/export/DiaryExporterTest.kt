@@ -14,6 +14,58 @@ import java.time.LocalDate
 import java.time.ZoneId
 
 class DiaryExporterTest {
+    @Test fun waterOnlyDaysRoundTripAndExportWithoutCalories() {
+        val day = LocalDate.of(2026, 9, 1)
+        val water = com.apoorvdarshan.calorietracker.models.WaterEntry(
+            date = day.atTime(10, 15).atZone(ZoneId.systemDefault()).toInstant(), milliliters = 250)
+        fun export(format: DiaryFormat) = requireNotNull(DiaryExporter.build(
+            entries = emptyList(), start = day, end = day, format = format,
+            profile = null, mealDisplay = { it.name }, waterEntries = listOf(water))).second
+        val json = export(DiaryFormat.JSON)
+        val data = JsonParser.parseString(json).asJsonObject["days"].asJsonArray[0].asJsonObject
+        assertEquals(250, data["water_total_ml"].asInt)
+        assertEquals(0, data["totals"].asJsonObject["calories"].asInt)
+        val preview = DiaryImporter.parse(json)
+        assertTrue(preview.entries.isEmpty())
+        assertEquals(listOf(water), preview.waterEntries)
+        assertEquals(day, DiaryExporter.resolveRange(DiaryRange.ALL_TIME, day, day, emptyList(), listOf(water)).first)
+        assertTrue(export(DiaryFormat.MARKDOWN).contains("| 10:15 | 250 |"))
+        val csv = export(DiaryFormat.CSV).trimEnd().lines().map { it.split(',') }
+        assertEquals(3, csv.size)
+        assertTrue(csv.all { it.size == csv[0].size })
+        assertEquals("water", csv[1][35])
+        assertEquals("250", csv[1][36])
+        assertEquals("water_total", csv[2][35])
+        assertEquals("250", csv[2][37])
+        assertEquals(listOf(water), DiaryImporter.applyingWater(preview, listOf(water), DiaryImportMode.REPLACE_DATE_RANGE))
+        assertTrue(DiaryImporter.applyingWater(preview.copy(waterEntries = emptyList()), listOf(water), DiaryImportMode.REPLACE_DATE_RANGE).isEmpty())
+        val added = DiaryImporter.applyingWater(preview, listOf(water), DiaryImportMode.ADD_AS_NEW)
+        assertEquals(2, added.map { it.id }.toSet().size)
+        val legacy = preview.copy(waterEntries = emptyList(), includesWater = false)
+        assertEquals(listOf(water), DiaryImporter.applyingWater(legacy, listOf(water), DiaryImportMode.REPLACE_DATE_RANGE))
+        val outside = water.copy(date = water.date.minusSeconds(86400))
+        val replaced = DiaryImporter.applyingWater(preview, listOf(outside), DiaryImportMode.REPLACE_DATE_RANGE)
+        assertEquals(outside, replaced.first())
+        assertEquals(2, replaced.map { it.id }.toSet().size)
+        val invalid = json.replace("\"milliliters\": 250", "\"milliliters\": -1")
+        org.junit.Assert.assertThrows(DiaryImportException::class.java) { DiaryImporter.parse(invalid) }
+        org.junit.Assert.assertThrows(DiaryImportException::class.java) { DiaryImporter.parse(json.replace("10:15", "25:15")) }
+    }
+
+    @Test fun mixedDiaryFiltersWaterAndPreservesNutrition() {
+        val food = nutrientEntry()
+        val date = food.timestamp.atZone(ZoneId.systemDefault()).toLocalDate()
+        val water = com.apoorvdarshan.calorietracker.models.WaterEntry(date = food.timestamp, milliliters = 500)
+        val outside = water.copy(date = water.date.minusSeconds(86400), milliliters = 250)
+        val json = requireNotNull(DiaryExporter.build(entries = listOf(food), start = date, end = date,
+            format = DiaryFormat.JSON, profile = null, mealDisplay = { it.name },
+            waterEntries = listOf(outside, water))).second
+        val preview = DiaryImporter.parse(json)
+        assertEquals(1, preview.entries.size)
+        assertEquals(food.calories, preview.entries[0].calories)
+        assertEquals(listOf(500), preview.waterEntries.map { it.milliliters })
+    }
+
     private val nutrientFields = listOf(
         "sugar_g", "added_sugar_g", "fiber_g", "saturated_fat_g",
         "monounsaturated_fat_g", "polyunsaturated_fat_g", "cholesterol_mg",
@@ -29,7 +81,7 @@ class DiaryExporterTest {
         val date = entry.timestamp.atZone(ZoneId.systemDefault()).toLocalDate()
         val (_, json) = requireNotNull(build(entry, date, DiaryFormat.JSON))
         val root = JsonParser.parseString(json).asJsonObject
-        assertEquals("1.4", root["export"].asJsonObject["format_version"].asString)
+        assertEquals("1.5", root["export"].asJsonObject["format_version"].asString)
         val item = root["days"].asJsonArray[0].asJsonObject["meals"].asJsonArray[0]
             .asJsonObject["items"].asJsonArray[0].asJsonObject
 

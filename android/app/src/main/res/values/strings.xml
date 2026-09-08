@@ -1194,6 +1194,10 @@
     <string name="settings_quick_actions_footer">Hold the Fud AI app icon to use these shortcuts. Each slot opens its selected action directly.</string>
     <string name="about_whisper_notices">Whisper Base third-party notices</string>
     <string name="about_whisper_notices_load_error">Could not load the Whisper Base third-party notices.</string>
+    <string name="import_water_entries">Water entries</string>
+    <string name="import_diary_success">Imported %1$d diary entries.</string>
+    <string name="import_replace_with_water_explanation">Replace removes food logs within the exported date range and restores them from this file. Water logs in that range are also replaced when the file includes water data. Older food-only files leave water logs unchanged. Matching food entries keep their photos. Add keeps the current diary and creates duplicates as new entries.</string>
+    <string name="export_empty_diary">No food or water entries in the selected range.</string>
     <string name="workout_rpe_label">Effort (RPE)</string>
     <string name="workout_rpe_help_strength">Optional—how hard this set felt. Strength scale: 1 = very easy; 10 = maximum effort. Decimals are allowed. Leave blank if unsure.</string>
     <string name="workout_rpe_help_cr10">Optional—how hard this set felt. CR10 scale: 0 = no effort; 10 = maximum effort. Decimals are allowed. Leave blank if unsure.</string>

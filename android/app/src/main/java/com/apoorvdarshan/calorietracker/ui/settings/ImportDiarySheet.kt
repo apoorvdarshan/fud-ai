@@ -73,6 +73,7 @@ fun ImportDiarySheet(
                     verticalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     SummaryRow(stringResource(R.string.import_entries), preview.entries.size.toString())
+                    SummaryRow(stringResource(R.string.import_water_entries), preview.waterEntries.size.toString())
                     HorizontalDivider(color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.09f))
                     SummaryRow(
                         stringResource(R.string.import_date_range),
@@ -81,7 +82,7 @@ fun ImportDiarySheet(
                 }
 
                 Text(
-                    stringResource(R.string.import_replace_explanation),
+                    stringResource(R.string.import_replace_with_water_explanation),
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f),
                     fontSize = 13.sp,
                     lineHeight = 19.sp,

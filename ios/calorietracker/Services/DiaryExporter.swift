@@ -48,14 +48,16 @@ enum DiaryExporter {
         to endDay: Date,
         format: DiaryExportFormat,
         foodStore: FoodStore,
-        profile: UserProfile
+        profile: UserProfile,
+        waterEntries: [WaterEntry] = []
     ) -> (filename: String, data: Data)? {
         build(
             from: startDay,
             to: endDay,
             format: format,
             entries: foodStore.entries,
-            profile: profile
+            profile: profile,
+            waterEntries: waterEntries
         )
     }
 
@@ -65,7 +67,8 @@ enum DiaryExporter {
         to endDay: Date,
         format: DiaryExportFormat,
         entries: [FoodEntry],
-        profile: UserProfile
+        profile: UserProfile,
+        waterEntries: [WaterEntry] = []
     ) -> (filename: String, data: Data)? {
         let cal = Calendar.current
         let start = cal.startOfDay(for: min(startDay, endDay))
@@ -77,13 +80,14 @@ enum DiaryExporter {
             let dayEntries = entries
                 .filter { cal.isDate($0.timestamp, inSameDayAs: day) }
                 .sorted { $0.timestamp > $1.timestamp }
-            if !dayEntries.isEmpty {
+            let water = waterEntries.filter { cal.isDate($0.date, inSameDayAs: day) }.sorted { $0.date < $1.date }
+            if !dayEntries.isEmpty || !water.isEmpty {
                 let groups = MealType.allCases.compactMap { meal -> FoodLogMealGroup? in
                     let mealEntries = dayEntries.filter { $0.mealType == meal }
                     guard !mealEntries.isEmpty else { return nil }
                     return FoodLogMealGroup(id: "export-\(meal.rawValue)", meal: meal, entries: mealEntries)
                 }
-                days.append(DayBundle(date: day, groups: groups))
+                days.append(DayBundle(date: day, groups: groups, water: water))
             }
             guard let next = cal.date(byAdding: .day, value: 1, to: day) else { break }
             day = next
@@ -111,7 +115,7 @@ enum DiaryExporter {
     // MARK: - Range resolution
 
     /// Resolves a preset (or custom bounds) into an inclusive (startDay, endDay).
-    static func resolve(_ range: DiaryExportRange, customStart: Date, customEnd: Date, foodStore: FoodStore) -> (Date, Date) {
+    static func resolve(_ range: DiaryExportRange, customStart: Date, customEnd: Date, foodStore: FoodStore, waterEntries: [WaterEntry] = []) -> (Date, Date) {
         let cal = Calendar.current
         let today = cal.startOfDay(for: .now)
         switch range {
@@ -124,7 +128,7 @@ enum DiaryExporter {
             let start = cal.dateInterval(of: .month, for: today)?.start ?? today
             return (start, today)
         case .allTime:
-            let earliest = foodStore.entries.map(\.timestamp).min().map { cal.startOfDay(for: $0) } ?? today
+            let earliest = (foodStore.entries.map(\.timestamp) + waterEntries.map(\.date)).min().map { cal.startOfDay(for: $0) } ?? today
             return (earliest, today)
         case .custom:
             return (cal.startOfDay(for: customStart), cal.startOfDay(for: customEnd))
@@ -133,7 +137,7 @@ enum DiaryExporter {
 
     // MARK: - Internal shapes
 
-    private struct DayBundle { let date: Date; let groups: [FoodLogMealGroup] }
+    private struct DayBundle { let date: Date; let groups: [FoodLogMealGroup]; let water: [WaterEntry] }
     private struct Targets { let calories: Int; let protein: Double; let carbs: Double; let fat: Double }
 
     private static func totals(_ groups: [FoodLogMealGroup]) -> (cal: Int, p: Double, c: Double, f: Double) {
@@ -182,7 +186,8 @@ enum DiaryExporter {
             let time: String; let source: String; let note: String?; let ingredients: [Ingredient]
         }
         struct Meal: Encodable { let type: String; let items: [Item] }
-        struct Day: Encodable { let date: String; let totals: Macro; let targets: Macro; let remaining: Macro; let meals: [Meal] }
+        struct Water: Encodable { let entry_id: String; let time: String; let milliliters: Int }
+        struct Day: Encodable { let date: String; let totals: Macro; let targets: Macro; let remaining: Macro; let meals: [Meal]; let water_entries: [Water]; let water_total_ml: Int }
         struct Meta: Encodable { struct Range: Encodable { let start: String; let end: String }
             let app: String; let format_version: String; let date_range: Range }
         struct Doc: Encodable { let export: Meta; let days: [Day] }
@@ -225,10 +230,12 @@ enum DiaryExporter {
                                  protein_g: r1(max(0, targets.protein - t.p)),
                                  carbs_g: r1(max(0, targets.carbs - t.c)),
                                  fat_g: r1(max(0, targets.fat - t.f))),
-                meals: meals
+                meals: meals,
+                water_entries: bundle.water.map { Water(entry_id: $0.id.uuidString, time: timeFmt.string(from: $0.date), milliliters: $0.milliliters) },
+                water_total_ml: bundle.water.reduce(0) { $0 + $1.milliliters }
             )
         }
-        let doc = Doc(export: Meta(app: "Fud AI", format_version: "1.4",
+        let doc = Doc(export: Meta(app: "Fud AI", format_version: "1.5",
                                    date_range: Meta.Range(start: dayFmt.string(from: start), end: dayFmt.string(from: end))),
                       days: dayDocs)
         let enc = JSONEncoder()
@@ -250,6 +257,13 @@ enum DiaryExporter {
             s += "- Protein: \(r1(t.p)) / \(Int(targets.protein)) g\n"
             s += "- Carbs: \(r1(t.c)) / \(Int(targets.carbs)) g\n"
             s += "- Fat: \(r1(t.f)) / \(Int(targets.fat)) g\n"
+            s += "- Water: \(bundle.water.reduce(0) { $0 + $1.milliliters }) ml\n"
+            if !bundle.water.isEmpty {
+                s += "### Water\n| Time | Amount (ml) |\n|---|---:|\n"
+                for entry in bundle.water {
+                    s += "| \(timeFmt.string(from: entry.date)) | \(entry.milliliters) |\n"
+                }
+            }
             for g in bundle.groups {
                 s += "### \(g.meal.displayName)\n"
                 s += "| Time | Food | Weight | Calories | Protein (g) | Carbs (g) | Fat (g) | Sugar (g) | Added sugar (g) | Fiber (g) | Saturated fat (g) | Monounsaturated fat (g) | Polyunsaturated fat (g) | Cholesterol (mg) | Caffeine (mg) | Sodium (mg) | Potassium (mg) | Trans fat (g) | Calcium (mg) | Iron (mg) | Magnesium (mg) | Zinc (mg) | Vitamin A (mcg) | Vitamin C (mg) | Vitamin D (mcg) | Vitamin B12 (mcg) | Vitamin E (mg) | Vitamin K (mcg) | Folate (mcg) | Omega-3 (g) | Source | Ingredients |\n"
@@ -283,7 +297,7 @@ enum DiaryExporter {
     // MARK: - CSV
 
     private static func csv(_ days: [DayBundle]) -> String {
-        var s = "date,meal,time,food,weight_g,calories,protein_g,carbs_g,fat_g,sugar_g,added_sugar_g,fiber_g,saturated_fat_g,monounsaturated_fat_g,polyunsaturated_fat_g,cholesterol_mg,caffeine_mg,sodium_mg,potassium_mg,trans_fat_g,calcium_mg,iron_mg,magnesium_mg,zinc_mg,vitamin_a_mcg,vitamin_c_mg,vitamin_d_mcg,vitamin_b12_mcg,vitamin_e_mg,vitamin_k_mcg,folate_mcg,omega3_g,source,note,ingredients\n"
+        var s = "date,meal,time,food,weight_g,calories,protein_g,carbs_g,fat_g,sugar_g,added_sugar_g,fiber_g,saturated_fat_g,monounsaturated_fat_g,polyunsaturated_fat_g,cholesterol_mg,caffeine_mg,sodium_mg,potassium_mg,trans_fat_g,calcium_mg,iron_mg,magnesium_mg,zinc_mg,vitamin_a_mcg,vitamin_c_mg,vitamin_d_mcg,vitamin_b12_mcg,vitamin_e_mg,vitamin_k_mcg,folate_mcg,omega3_g,source,note,ingredients,entry_type,water_ml,water_total_ml\n"
         for bundle in days {
             let date = dayFmt.string(from: bundle.date)
             for g in bundle.groups {
@@ -300,11 +314,21 @@ enum DiaryExporter {
                         optionalNumber(e.zinc), optionalNumber(e.vitaminA), optionalNumber(e.vitaminC),
                         optionalNumber(e.vitaminD), optionalNumber(e.vitaminB12), optionalNumber(e.vitaminE),
                         optionalNumber(e.vitaminK), optionalNumber(e.folate), optionalNumber(e.omega3),
-                        sourceLabel(e.source), e.customNote ?? "", ingredientsText(e)
+                        sourceLabel(e.source), e.customNote ?? "", ingredientsText(e), "food", "", ""
                     ]
                     s += cols.map(csvEscape).joined(separator: ",") + "\n"
                 }
             }
+            let total = bundle.water.reduce(0) { $0 + $1.milliliters }
+            for entry in bundle.water {
+                var cols = Array(repeating: "", count: 38)
+                cols[0] = date; cols[2] = timeFmt.string(from: entry.date); cols[3] = "Water"
+                cols[35] = "water"; cols[36] = String(entry.milliliters)
+                s += cols.map(csvEscape).joined(separator: ",") + "\n"
+            }
+            var summary = Array(repeating: "", count: 38)
+            summary[0] = date; summary[35] = "water_total"; summary[37] = String(total)
+            s += summary.joined(separator: ",") + "\n"
         }
         return s
     }

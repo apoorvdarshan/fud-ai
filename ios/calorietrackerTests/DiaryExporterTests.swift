@@ -3,6 +3,69 @@ import Testing
 @testable import calorietracker
 
 struct DiaryExporterTests {
+    @Test func waterOnlyDaysRoundTripAndExportWithoutCalories() throws {
+        let day = Calendar.current.date(from: DateComponents(year: 2026, month: 9, day: 1, hour: 10, minute: 15))!
+        let water = WaterEntry(date: day, milliliters: 250)
+        func export(_ format: DiaryExportFormat) throws -> Data {
+            try #require(DiaryExporter.build(from: day, to: day, format: format,
+                entries: [], profile: makeProfile(), waterEntries: [water])).data
+        }
+        let json = try export(.json)
+        let root = try #require(JSONSerialization.jsonObject(with: json) as? [String: Any])
+        let days = try #require(root["days"] as? [[String: Any]])
+        #expect(days[0]["water_total_ml"] as? Int == 250)
+        #expect((days[0]["totals"] as? [String: Any])?["calories"] as? Int == 0)
+        let preview = try DiaryImporter.parse(json)
+        #expect(preview.entries.isEmpty)
+        #expect(preview.waterEntries == [water])
+        #expect(String(decoding: try export(.markdown), as: UTF8.self).contains("| 10:15 | 250 |"))
+        let csv = String(decoding: try export(.csv), as: UTF8.self).split(separator: "\n")
+            .map { $0.split(separator: ",", omittingEmptySubsequences: false) }
+        #expect(csv.count == 3)
+        #expect(csv.allSatisfy { $0.count == csv[0].count })
+        #expect(csv[1][35] == "water")
+        #expect(csv[1][36] == "250")
+        #expect(csv[2][35] == "water_total")
+        #expect(csv[2][37] == "250")
+        #expect(DiaryImporter.applyingWater(preview, to: [water], mode: .replaceDateRange) == [water])
+        var emptyWater = preview
+        emptyWater.waterEntries = []
+        #expect(DiaryImporter.applyingWater(emptyWater, to: [water], mode: .replaceDateRange).isEmpty)
+        let added = DiaryImporter.applyingWater(preview, to: [water], mode: .addAsNew)
+        #expect(Set(added.map(\.id)).count == 2)
+        let legacy = DiaryImportPreview(entries: [], startDate: preview.startDate, endDate: preview.endDate)
+        #expect(DiaryImporter.applyingWater(legacy, to: [water], mode: .replaceDateRange) == [water])
+        let outside = WaterEntry(id: water.id, date: day.addingTimeInterval(-86400), milliliters: 500)
+        let replaced = DiaryImporter.applyingWater(preview, to: [outside], mode: .replaceDateRange)
+        #expect(replaced.first == outside)
+        #expect(Set(replaced.map(\.id)).count == 2)
+        let invalid = String(decoding: json, as: UTF8.self).replacingOccurrences(of: "\"milliliters\" : 250", with: "\"milliliters\" : -1")
+        #expect(throws: DiaryImportError.self) { try DiaryImporter.parse(Data(invalid.utf8)) }
+        let invalidTime = String(decoding: json, as: UTF8.self).replacingOccurrences(of: "10:15", with: "25:15")
+        #expect(throws: DiaryImportError.self) { try DiaryImporter.parse(Data(invalidTime.utf8)) }
+    }
+
+    @Test func mixedDiaryFiltersWaterAndPreservesNutrition() throws {
+        let fixture = makeFixture()
+        let date = fixture.date
+        let water = WaterEntry(date: date, milliliters: 500)
+        let previous = Calendar.current.date(byAdding: .day, value: -1, to: date)!
+        let outside = WaterEntry(date: previous, milliliters: 250)
+        let export = try #require(DiaryExporter.build(from: date, to: date, format: .json,
+            entries: [fixture.entry], profile: makeProfile(), waterEntries: [outside, water]))
+        let preview = try DiaryImporter.parse(export.data)
+        #expect(preview.entries.count == 1)
+        #expect(preview.entries[0].calories == fixture.entry.calories)
+        #expect(preview.waterEntries.map(\.milliliters) == [500])
+        let suite = "DiaryWaterTests-\(UUID())"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let store = FoodStore(observesExternalChanges: false, defaults: defaults)
+        let range = DiaryExporter.resolve(.allTime, customStart: date, customEnd: date,
+            foodStore: store, waterEntries: [outside, water])
+        #expect(range.0 == Calendar.current.startOfDay(for: previous))
+    }
+
     private let nutrientFields = [
         "sugar_g", "added_sugar_g", "fiber_g", "saturated_fat_g",
         "monounsaturated_fat_g", "polyunsaturated_fat_g", "cholesterol_mg",
@@ -24,7 +87,7 @@ struct DiaryExporterTests {
 
         let root = try #require(JSONSerialization.jsonObject(with: export.data) as? [String: Any])
         let metadata = try #require(root["export"] as? [String: Any])
-        #expect(metadata["format_version"] as? String == "1.4")
+        #expect(metadata["format_version"] as? String == "1.5")
         let days = try #require(root["days"] as? [[String: Any]])
         let meals = try #require(days.first?["meals"] as? [[String: Any]])
         let items = try #require(meals.first?["items"] as? [[String: Any]])

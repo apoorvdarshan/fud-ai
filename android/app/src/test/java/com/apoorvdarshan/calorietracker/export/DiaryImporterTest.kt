@@ -70,6 +70,14 @@ class DiaryImporterTest {
         assertNotEquals(result[0].id, result[1].id)
     }
 
+    @Test fun legacyFoodDiaryPreservesWater() {
+        val preview = DiaryImporter.parse(validLegacyDiary)
+        val water = com.apoorvdarshan.calorietracker.models.WaterEntry(
+            date = preview.startDate.atStartOfDay(ZoneId.systemDefault()).toInstant(), milliliters = 250)
+        assertTrue(!preview.includesWater)
+        assertEquals(listOf(water), DiaryImporter.applyingWater(preview, listOf(water), DiaryImportMode.REPLACE_DATE_RANGE))
+    }
+
     private val validLegacyDiary = """
         {
           "export": {

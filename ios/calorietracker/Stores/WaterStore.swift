@@ -97,6 +97,12 @@ final class WaterStore {
         onEntriesChanged?()
     }
 
+    func replaceEntriesFromImport(_ imported: [WaterEntry]) {
+        entries = imported
+        save()
+        onEntriesChanged?()
+    }
+
     func clear() {
         entries = []
         defaults.removeObject(forKey: WaterSettings.entriesKey)

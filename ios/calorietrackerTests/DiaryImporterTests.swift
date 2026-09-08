@@ -69,6 +69,13 @@ struct DiaryImporterTests {
         #expect(imported.imageFilename == "meal.jpg")
     }
 
+    @Test func legacyFoodDiaryPreservesWater() throws {
+        let preview = try DiaryImporter.parse(Data(validDiary.utf8))
+        let water = WaterEntry(date: preview.startDate, milliliters: 250)
+        #expect(!preview.includesWater)
+        #expect(DiaryImporter.applyingWater(preview, to: [water], mode: .replaceDateRange) == [water])
+    }
+
     @Test func addModeAlwaysCreatesANewIdentity() throws {
         let data = Data(validDiary.utf8)
         let preview = try DiaryImporter.parse(data)

@@ -2,6 +2,7 @@ package com.apoorvdarshan.calorietracker.export
 
 import com.apoorvdarshan.calorietracker.R
 
+import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MealType
@@ -48,6 +49,7 @@ object DiaryExporter {
         customStart: LocalDate,
         customEnd: LocalDate,
         entries: List<FoodEntry>,
+        waterEntries: List<WaterEntry> = emptyList(),
     ): Pair<LocalDate, LocalDate> {
         val today = LocalDate.now()
         return when (range) {
@@ -55,7 +57,7 @@ object DiaryExporter {
             DiaryRange.THIS_WEEK -> today.with(DayOfWeek.MONDAY) to today
             DiaryRange.THIS_MONTH -> today.withDayOfMonth(1) to today
             DiaryRange.ALL_TIME -> {
-                val earliest = entries.minOfOrNull { it.timestamp.atZone(zone).toLocalDate() } ?: today
+                val earliest = (entries.map { it.timestamp.atZone(zone).toLocalDate() } + waterEntries.map { it.date.atZone(zone).toLocalDate() }).minOrNull() ?: today
                 earliest to today
             }
             DiaryRange.CUSTOM -> customStart to customEnd
@@ -70,6 +72,7 @@ object DiaryExporter {
         format: DiaryFormat,
         profile: UserProfile?,
         mealDisplay: (MealType) -> String,
+        waterEntries: List<WaterEntry> = emptyList(),
     ): Pair<String, String>? {
         val lo = if (start.isAfter(end)) end else start
         val hi = if (start.isAfter(end)) start else end
@@ -81,7 +84,10 @@ object DiaryExporter {
             }
             .groupBy { it.timestamp.atZone(zone).toLocalDate() }
             .toSortedMap()
-        if (byDay.isEmpty()) return null
+        val water = waterEntries.filter { it.date.atZone(zone).toLocalDate() in lo..hi }
+            .sortedBy { it.date }.groupBy { it.date.atZone(zone).toLocalDate() }
+        val days = (byDay.keys + water.keys).associateWith { byDay[it].orEmpty() }.toSortedMap()
+        if (days.isEmpty()) return null
 
         val targets = Targets(
             calories = profile?.effectiveCalories ?: 0,
@@ -91,9 +97,9 @@ object DiaryExporter {
         )
 
         val content = when (format) {
-            DiaryFormat.JSON -> json(byDay, lo, hi, targets)
-            DiaryFormat.MARKDOWN -> markdown(byDay, lo, hi, targets, mealDisplay)
-            DiaryFormat.CSV -> csv(byDay)
+            DiaryFormat.JSON -> json(days, lo, hi, targets, water)
+            DiaryFormat.MARKDOWN -> markdown(days, lo, hi, targets, mealDisplay, water)
+            DiaryFormat.CSV -> csv(days, water)
         }
         val name = "Fud-Food-Diary-${dayFmt.format(lo)}_to_${dayFmt.format(hi)}.${format.ext}"
         return name to content
@@ -147,14 +153,15 @@ object DiaryExporter {
         val ingredients: List<IngredientDto> = emptyList(),
     )
     @Serializable private data class MealDto(val type: String, val items: List<ItemDto>)
-    @Serializable private data class DayDto(val date: String, val totals: Macro, val targets: Macro, val remaining: Macro, val meals: List<MealDto>)
+    @Serializable private data class WaterDto(val entry_id: String, val time: String, val milliliters: Int)
+    @Serializable private data class DayDto(val date: String, val totals: Macro, val targets: Macro, val remaining: Macro, val meals: List<MealDto>, val water_entries: List<WaterDto>, val water_total_ml: Long)
     @Serializable private data class RangeDto(val start: String, val end: String)
     @Serializable private data class MetaDto(val app: String, val format_version: String, val date_range: RangeDto)
     @Serializable private data class Doc(val export: MetaDto, val days: List<DayDto>)
 
     private val jsonPretty = Json { prettyPrint = true; encodeDefaults = true }
 
-    private fun json(byDay: Map<LocalDate, List<FoodEntry>>, lo: LocalDate, hi: LocalDate, t: Targets): String {
+    private fun json(byDay: Map<LocalDate, List<FoodEntry>>, lo: LocalDate, hi: LocalDate, t: Targets, water: Map<LocalDate, List<WaterEntry>>): String {
         val days = byDay.map { (date, dayEntries) ->
             val tot = totals(dayEntries)
             val mealDtos = meals(dayEntries).map { (mt, items) ->
@@ -207,10 +214,12 @@ object DiaryExporter {
                     r1(max(0.0, t.fat - tot[3])),
                 ),
                 meals = mealDtos,
+                water_entries = water[date].orEmpty().map { WaterDto(it.id.toString(), timeFmt.format(it.date.atZone(zone)), it.milliliters) },
+                water_total_ml = water[date].orEmpty().sumOf { it.milliliters.toLong() },
             )
         }
         val doc = Doc(
-            export = MetaDto("Fud AI", "1.4", RangeDto(dayFmt.format(lo), dayFmt.format(hi))),
+            export = MetaDto("Fud AI", "1.5", RangeDto(dayFmt.format(lo), dayFmt.format(hi))),
             days = days,
         )
         return jsonPretty.encodeToString(Doc.serializer(), doc)
@@ -222,6 +231,7 @@ object DiaryExporter {
         byDay: Map<LocalDate, List<FoodEntry>>,
         lo: LocalDate, hi: LocalDate, t: Targets,
         mealDisplay: (MealType) -> String,
+        water: Map<LocalDate, List<WaterEntry>>,
     ): String {
         val sb = StringBuilder()
         sb.append("# Food diary export\n")
@@ -235,6 +245,11 @@ object DiaryExporter {
             sb.append("- Protein: ${r1(tot[1])} / ${t.protein.roundToInt()} g\n")
             sb.append("- Carbs: ${r1(tot[2])} / ${t.carbs.roundToInt()} g\n")
             sb.append("- Fat: ${r1(tot[3])} / ${t.fat.roundToInt()} g\n")
+            sb.append("- Water: ${water[date].orEmpty().sumOf { it.milliliters.toLong() }} ml\n")
+            if (!water[date].isNullOrEmpty()) {
+                sb.append("### Water\n| Time | Amount (ml) |\n|---|---:|\n")
+                water[date].orEmpty().forEach { sb.append("| ${timeFmt.format(it.date.atZone(zone))} | ${it.milliliters} |\n") }
+            }
             for ((mt, items) in meals(dayEntries)) {
                 sb.append("### ${mealDisplay(mt)}\n")
                 sb.append("| Time | Food | Weight | Calories | Protein (g) | Carbs (g) | Fat (g) | Sugar (g) | Added sugar (g) | Fiber (g) | Saturated fat (g) | Monounsaturated fat (g) | Polyunsaturated fat (g) | Cholesterol (mg) | Caffeine (mg) | Sodium (mg) | Potassium (mg) | Trans fat (g) | Calcium (mg) | Iron (mg) | Magnesium (mg) | Zinc (mg) | Vitamin A (mcg) | Vitamin C (mg) | Vitamin D (mcg) | Vitamin B12 (mcg) | Vitamin E (mg) | Vitamin K (mcg) | Folate (mcg) | Omega-3 (g) | Source | Ingredients |\n")
@@ -264,9 +279,9 @@ object DiaryExporter {
 
     // --- CSV ---
 
-    private fun csv(byDay: Map<LocalDate, List<FoodEntry>>): String {
+    private fun csv(byDay: Map<LocalDate, List<FoodEntry>>, water: Map<LocalDate, List<WaterEntry>>): String {
         val sb = StringBuilder()
-        sb.append("date,meal,time,food,weight_g,calories,protein_g,carbs_g,fat_g,sugar_g,added_sugar_g,fiber_g,saturated_fat_g,monounsaturated_fat_g,polyunsaturated_fat_g,cholesterol_mg,caffeine_mg,sodium_mg,potassium_mg,trans_fat_g,calcium_mg,iron_mg,magnesium_mg,zinc_mg,vitamin_a_mcg,vitamin_c_mg,vitamin_d_mcg,vitamin_b12_mcg,vitamin_e_mg,vitamin_k_mcg,folate_mcg,omega3_g,source,note,ingredients\n")
+        sb.append("date,meal,time,food,weight_g,calories,protein_g,carbs_g,fat_g,sugar_g,added_sugar_g,fiber_g,saturated_fat_g,monounsaturated_fat_g,polyunsaturated_fat_g,cholesterol_mg,caffeine_mg,sodium_mg,potassium_mg,trans_fat_g,calcium_mg,iron_mg,magnesium_mg,zinc_mg,vitamin_a_mcg,vitamin_c_mg,vitamin_d_mcg,vitamin_b12_mcg,vitamin_e_mg,vitamin_k_mcg,folate_mcg,omega3_g,source,note,ingredients,entry_type,water_ml,water_total_ml\n")
         for ((date, dayEntries) in byDay) {
             val d = dayFmt.format(date)
             for ((mt, items) in meals(dayEntries)) {
@@ -283,11 +298,21 @@ object DiaryExporter {
                         optionalNumber(e.vitaminA), optionalNumber(e.vitaminC), optionalNumber(e.vitaminD),
                         optionalNumber(e.vitaminB12), optionalNumber(e.vitaminE), optionalNumber(e.vitaminK),
                         optionalNumber(e.folate), optionalNumber(e.omega3),
-                        sourceLabel(e.source), e.customNote ?: "", ingredientsText(e),
+                        sourceLabel(e.source), e.customNote ?: "", ingredientsText(e), "food", "", "",
                     )
                     sb.append(cols.joinToString(",") { csvEscape(it) }).append("\n")
                 }
             }
+            water[date].orEmpty().forEach { entry ->
+                val cols = MutableList(38) { "" }
+                cols[0] = d; cols[2] = timeFmt.format(entry.date.atZone(zone)); cols[3] = "Water"
+                cols[35] = "water"; cols[36] = entry.milliliters.toString()
+                sb.append(cols.joinToString(",", transform = ::csvEscape)).append("\n")
+            }
+            val summary = MutableList(38) { "" }
+            summary[0] = d; summary[35] = "water_total"
+            summary[37] = water[date].orEmpty().sumOf { it.milliliters.toLong() }.toString()
+            sb.append(summary.joinToString(",")).append("\n")
         }
         return sb.toString()
     }

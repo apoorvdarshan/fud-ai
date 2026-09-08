@@ -3,6 +3,7 @@ import UniformTypeIdentifiers
 
 struct ImportDiaryView: View {
     @Environment(FoodStore.self) private var foodStore
+    @Environment(WaterStore.self) private var waterStore
     @Environment(\.dismiss) private var dismiss
 
     @State private var isPickingFile = false
@@ -26,12 +27,13 @@ struct ImportDiaryView: View {
                     .listRowInsets(EdgeInsets())
                     .listRowBackground(Color.clear)
                 } footer: {
-                    Text("Choose a JSON file previously exported by Fud AI. The file is validated before any food log is changed.")
+                    Text("Choose a JSON file previously exported by Fud AI. The file is validated before any diary entry is changed.")
                 }
 
                 if let preview {
                     Section("Import Preview") {
                         LabeledContent("Food entries", value: "\(preview.entryCount)")
+                        LabeledContent("Water entries", value: "\(preview.waterEntries.count)")
                         LabeledContent("Date range", value: rangeText(preview))
                     }
 
@@ -60,7 +62,7 @@ struct ImportDiaryView: View {
                         .listRowInsets(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0))
                         .listRowBackground(Color.clear)
                     } footer: {
-                        Text("Replace removes existing food logs only within the exported date range, then recreates that range from this file. Matching entries keep their photos. Add keeps the current diary and creates duplicates as new entries.")
+                        Text("Replace removes existing food logs only within the exported date range, then recreates that range from this file. Water logs in that range are also replaced when the file includes water data. Older food-only files leave water logs unchanged. Matching entries keep their photos. Add keeps the current diary and creates duplicates as new entries.")
                     }
                 }
             }
@@ -93,7 +95,7 @@ struct ImportDiaryView: View {
             )) {
                 Button("Done") { dismiss() }
             } message: {
-                Text("Imported \(importedCount ?? 0) food entries.")
+                Text("Imported \(importedCount ?? 0) diary entries.")
             }
         }
     }
@@ -118,7 +120,10 @@ struct ImportDiaryView: View {
     private func apply(_ preview: DiaryImportPreview, mode: DiaryImportMode) {
         let updated = DiaryImporter.applying(preview, to: foodStore.entries, mode: mode)
         foodStore.replaceEntriesFromImport(updated)
-        importedCount = preview.entryCount
+        if preview.includesWater {
+            waterStore.replaceEntriesFromImport(DiaryImporter.applyingWater(preview, to: waterStore.entries, mode: mode))
+        }
+        importedCount = preview.entryCount + preview.waterEntries.count
         self.preview = nil
     }
 

@@ -1287,11 +1287,12 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                                 DiaryImporter.applying(selected, current, mode)
                             }
                             container.foodRepository.replaceFromImport(updated)
+                            container.waterRepository.importDiary(selected, mode)
                         }.onSuccess {
                             showImportSheet = false
                             importPreview = null
                             importError = null
-                            permissionDeniedMessage = resources.getString(R.string.import_success, selected.entries.size)
+                            permissionDeniedMessage = resources.getString(R.string.import_diary_success, selected.entries.size + selected.waterEntries.size)
                         }.onFailure { error ->
                             importError = error.localizedMessage ?: importReadFailedMessage
                         }

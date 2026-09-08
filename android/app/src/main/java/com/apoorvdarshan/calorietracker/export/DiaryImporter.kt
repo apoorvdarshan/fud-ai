@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.export
 
+import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MealIngredient
@@ -21,6 +22,8 @@ data class DiaryImportPreview(
     val entries: List<FoodEntry>,
     val startDate: LocalDate,
     val endDate: LocalDate,
+    val waterEntries: List<WaterEntry> = emptyList(),
+    val includesWater: Boolean = false,
 )
 
 class DiaryImportException(message: String) : IllegalArgumentException(message)
@@ -45,7 +48,10 @@ object DiaryImporter {
     private data class DateRange(val start: String, val end: String)
 
     @Serializable
-    private data class Day(val date: String, val meals: List<Meal>)
+    private data class Day(val date: String, val meals: List<Meal>, val water_entries: List<WaterItem>? = null)
+
+    @Serializable
+    private data class WaterItem(val entry_id: String, val time: String, val milliliters: Int)
 
     @Serializable
     private data class Meal(val type: String, val items: List<Item>)
@@ -119,11 +125,22 @@ object DiaryImporter {
         val end = parseDate(document.metadata.date_range.end)
         val lower = minOf(start, end)
         val upper = maxOf(start, end)
+        val waterEntries = mutableListOf<WaterEntry>()
         val entries = buildList {
             document.days.forEach { day ->
                 val date = parseDate(day.date)
                 if (date.isBefore(lower) || date.isAfter(upper)) {
                     throw DiaryImportException("The diary contains a date outside its exported range: ${day.date}.")
+                }
+                day.water_entries.orEmpty().forEach { water ->
+                    if (water.milliliters <= 0) throw DiaryImportException("The diary contains an invalid water amount.")
+                    val entry = runCatching {
+                        require(water.time.matches(Regex("[0-9]{2}:[0-9]{2}")))
+                        WaterEntry(id = UUID.fromString(water.entry_id),
+                            date = LocalDateTime.of(date, LocalTime.parse(water.time)).atZone(zone).toInstant(),
+                            milliliters = water.milliliters)
+                    }.getOrElse { throw DiaryImportException("The diary contains an invalid water entry.") }
+                    waterEntries += entry
                 }
                 day.meals.forEach { meal ->
                     val mealType = MealType.values().firstOrNull { it.name.equals(meal.type, ignoreCase = true) }
@@ -191,8 +208,8 @@ object DiaryImporter {
                 }
             }
         }
-        if (entries.isEmpty()) throw DiaryImportException("The selected diary does not contain any food entries.")
-        return DiaryImportPreview(entries, lower, upper)
+        if (entries.isEmpty() && waterEntries.isEmpty()) throw DiaryImportException("The selected diary does not contain any food or water entries.")
+        return DiaryImportPreview(entries, lower, upper, waterEntries, document.days.any { it.water_entries != null })
     }
 
     fun applying(
@@ -230,6 +247,20 @@ object DiaryImporter {
                 }
             }
             outside + imported
+        }
+    }
+
+    /** Preserve water when importing legacy food-only documents. */
+    fun applyingWater(preview: DiaryImportPreview, existing: List<WaterEntry>, mode: DiaryImportMode): List<WaterEntry> {
+        if (!preview.includesWater) return existing
+        val retained = if (mode == DiaryImportMode.ADD_AS_NEW) existing else existing.filter {
+            it.date.atZone(zone).toLocalDate() !in preview.startDate..preview.endDate
+        }
+        val occupied = retained.mapTo(mutableSetOf()) { it.id }
+        return retained + preview.waterEntries.map { entry ->
+            val id = if (mode == DiaryImportMode.ADD_AS_NEW || entry.id in occupied) UUID.randomUUID() else entry.id
+            occupied += id
+            entry.copy(id = id)
         }
     }
 

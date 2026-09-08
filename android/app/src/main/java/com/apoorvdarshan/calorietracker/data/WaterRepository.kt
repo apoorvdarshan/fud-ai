@@ -1,6 +1,9 @@
 package com.apoorvdarshan.calorietracker.data
 
 import com.apoorvdarshan.calorietracker.models.WaterEntry
+import com.apoorvdarshan.calorietracker.export.DiaryImporter
+import com.apoorvdarshan.calorietracker.export.DiaryImportPreview
+import com.apoorvdarshan.calorietracker.export.DiaryImportMode
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -16,6 +19,13 @@ class WaterRepository(private val prefs: PreferencesStore) {
         if (entry.milliliters <= 0) return
         mutationMutex.withLock {
             prefs.setWaterEntries(prefs.waterEntries.first() + entry)
+        }
+    }
+
+    suspend fun importDiary(preview: DiaryImportPreview, mode: DiaryImportMode) {
+        if (!preview.includesWater) return
+        mutationMutex.withLock {
+            prefs.setWaterEntries(DiaryImporter.applyingWater(preview, prefs.waterEntries.first(), mode))
         }
     }
 

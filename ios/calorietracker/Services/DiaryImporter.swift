@@ -9,6 +9,8 @@ struct DiaryImportPreview {
     let entries: [FoodEntry]
     let startDate: Date
     let endDate: Date
+    var waterEntries: [WaterEntry] = []
+    var includesWater: Bool = false
 
     var entryCount: Int { entries.count }
 }
@@ -21,6 +23,7 @@ enum DiaryImportError: LocalizedError {
     case invalidDate(String)
     case invalidMeal(String)
     case invalidEntry(String)
+    case invalidWaterEntry
 
     var errorDescription: String? {
         switch self {
@@ -31,11 +34,13 @@ enum DiaryImportError: LocalizedError {
         case .unsupportedDocument:
             return "This food diary format is not supported."
         case .noEntries:
-            return "The selected diary does not contain any food entries."
+            return "The selected diary does not contain any food or water entries."
         case .invalidDate(let value):
             return "The diary contains an invalid date or time: \(value)."
         case .invalidMeal(let value):
             return "The diary contains an unknown meal type: \(value)."
+        case .invalidWaterEntry:
+            return "The diary contains an invalid water entry."
         case .invalidEntry(let value):
             return "The diary contains an invalid food entry: \(value)."
         }
@@ -64,6 +69,13 @@ enum DiaryImporter {
     private struct Day: Decodable {
         let date: String
         let meals: [Meal]
+        let water_entries: [WaterItem]?
+    }
+
+    private struct WaterItem: Decodable {
+        let entry_id: String
+        let time: String
+        let milliliters: Int
     }
 
     private struct Meal: Decodable {
@@ -142,10 +154,25 @@ enum DiaryImporter {
         let upperBound = calendar.startOfDay(for: max(start, end))
 
         var entries: [FoodEntry] = []
+        var waterEntries: [WaterEntry] = []
         for day in document.days {
             let date = try parseDay(day.date, calendar: calendar)
             guard date >= lowerBound, date <= upperBound else {
                 throw DiaryImportError.invalidDate(day.date)
+            }
+            for water in day.water_entries ?? [] {
+                guard water.milliliters > 0, water.milliliters <= Int(Int32.max),
+                      let id = UUID(uuidString: water.entry_id) else {
+                    throw DiaryImportError.invalidWaterEntry
+                }
+                let timestamp = try parseTimestamp(day: day.date, time: water.time, calendar: calendar)
+                let components = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: timestamp)
+                let parsedDay = String(format: "%04d-%02d-%02d", components.year ?? 0, components.month ?? 0, components.day ?? 0)
+                let parsedTime = String(format: "%02d:%02d", components.hour ?? 0, components.minute ?? 0)
+                guard parsedDay == day.date, parsedTime == water.time else {
+                    throw DiaryImportError.invalidDate("\(day.date) \(water.time)")
+                }
+                waterEntries.append(WaterEntry(id: id, date: timestamp, milliliters: water.milliliters))
             }
             for meal in day.meals {
                 guard let mealType = MealType(rawValue: meal.type.lowercased()) else {
@@ -210,8 +237,9 @@ enum DiaryImporter {
                 }
             }
         }
-        guard !entries.isEmpty else { throw DiaryImportError.noEntries }
-        return DiaryImportPreview(entries: entries, startDate: lowerBound, endDate: upperBound)
+        guard !entries.isEmpty || !waterEntries.isEmpty else { throw DiaryImportError.noEntries }
+        return DiaryImportPreview(entries: entries, startDate: lowerBound, endDate: upperBound,
+                                  waterEntries: waterEntries, includesWater: document.days.contains { $0.water_entries != nil })
     }
 
     static func applying(
@@ -267,6 +295,23 @@ enum DiaryImporter {
             }
             return outsideRange + imported
         }
+    }
+
+    /// Legacy food-only files must never erase hydration history.
+    static func applyingWater(_ preview: DiaryImportPreview, to existing: [WaterEntry],
+                              mode: DiaryImportMode, calendar: Calendar = .current) -> [WaterEntry] {
+        guard preview.includesWater else { return existing }
+        let retained = mode == .addAsNew ? existing : existing.filter {
+            let day = calendar.startOfDay(for: $0.date)
+            return day < preview.startDate || day > preview.endDate
+        }
+        var occupied = Set(retained.map(\.id))
+        let imported = preview.waterEntries.map { entry in
+            let id = mode == .addAsNew || occupied.contains(entry.id) ? UUID() : entry.id
+            occupied.insert(id)
+            return WaterEntry(id: id, date: entry.date, milliliters: entry.milliliters)
+        }
+        return retained + imported
     }
 
     private static func entry(from imported: FoodEntry, preserving old: FoodEntry?, id: UUID) -> FoodEntry {

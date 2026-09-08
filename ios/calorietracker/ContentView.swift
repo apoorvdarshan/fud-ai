@@ -976,24 +976,6 @@ struct HomeView: View {
                     .listRowSeparator(.hidden)
                 }
 
-                if isFoodSelectionMode {
-                    Section {
-                        ViewThatFits(in: .horizontal) {
-                            HStack(spacing: 12) {
-                                foodSelectionSummary
-                                combineFoodButton
-                            }
-                            VStack(alignment: .leading, spacing: 8) {
-                                foodSelectionSummary
-                                combineFoodButton
-                            }
-                        }
-                        .padding(.vertical, 4)
-                        .listRowBackground(AppColors.appCard)
-                        .listRowSeparator(.hidden)
-                    }
-                }
-
                 // Unified diary: water and fasting are grouped by their log/end time,
                 // but stay excluded from food calories, macros, sharing and favorites.
                 // Tracking preferences control new-entry UI, not persisted history.
@@ -1159,7 +1141,30 @@ struct HomeView: View {
             .scrollContentBackground(.hidden)
             .background(AppColors.appBackground)
             .animation(.snappy, value: selectedDate)
-            .contentMargins(.bottom, 96, for: .scrollContent)
+            .contentMargins(.bottom, isFoodSelectionMode ? 8 : 96, for: .scrollContent)
+            .sensoryFeedback(.selection, trigger: selectedFoodIDs) { _, selection in
+                !selection.isEmpty
+            }
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                if isFoodSelectionMode {
+                    ViewThatFits(in: .horizontal) {
+                        HStack(spacing: 12) {
+                            foodSelectionSummary
+                            combineFoodButton
+                        }
+                        VStack(alignment: .leading, spacing: 8) {
+                            foodSelectionSummary
+                            combineFoodButton
+                        }
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 8)
+                    .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 20))
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 8)
+                    .background(AppColors.appBackground)
+                }
+            }
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .overlay(alignment: .bottomTrailing) {

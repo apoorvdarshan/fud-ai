@@ -170,6 +170,7 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassPrimaryButton
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.components.WeekEnergyStrip
+import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavDockedControlPadding
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import java.time.DayOfWeek
@@ -375,12 +376,66 @@ fun HomeScreen(
     // ad strip above this screen (TabWithBanner) now owns that inset.
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
+        bottomBar = {
+            if (selectionMode) {
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .background(MaterialTheme.colorScheme.background)
+                        .navigationBarsPadding()
+                        .padding(bottom = BottomNavDockedControlPadding)
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(20.dp))
+                            .background(MaterialTheme.colorScheme.surface)
+                            .padding(horizontal = 8.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        IconButton(onClick = { selectedFoodIds = emptySet() }) {
+                            Icon(
+                                Icons.Filled.Close,
+                                contentDescription = stringResource(R.string.action_cancel),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        Text(
+                            stringResource(R.string.combine_selected_count, selectedFoodIds.size),
+                            modifier = Modifier.weight(1f),
+                            style = MaterialTheme.typography.bodyMedium,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                        Button(
+                            onClick = {
+                                val ids = selectedFoodIds
+                                vm.combineIntoMeal(ids) { combined ->
+                                    selectedFoodIds = emptySet()
+                                    if (combined != null) editingEntry = combined
+                                }
+                            },
+                            enabled = selectedFoodIds.size >= 2,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = AppColors.Calorie.copy(alpha = 0.12f),
+                                contentColor = AppColors.Calorie,
+                                disabledContainerColor = AppColors.Calorie.copy(alpha = 0.12f),
+                                disabledContentColor = AppColors.Calorie.copy(alpha = 0.45f)
+                            )
+                        ) {
+                            Text(stringResource(R.string.combine_action), fontWeight = FontWeight.SemiBold)
+                        }
+                    }
+                }
+            }
+        },
     ) { padding ->
         Box(Modifier.fillMaxSize().padding(padding)) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
-            contentPadding = androidx.compose.foundation.layout.PaddingValues(top = 8.dp, bottom = BottomNavScrollPadding + 72.dp)
+            contentPadding = androidx.compose.foundation.layout.PaddingValues(top = 8.dp, bottom = if (selectionMode) 8.dp else BottomNavScrollPadding + 72.dp)
         ) {
             // Week strip — verbatim port of WeekEnergyStrip in HomeComponents.swift,
             // with horizontal pagination across 53 weeks of history.
@@ -454,53 +509,6 @@ fun HomeScreen(
                     ) {
                         Box(modifier = Modifier.clickable { showNutritionDetail = true }) {
                             ViewMoreButton()
-                        }
-                    }
-                }
-            }
-
-            if (selectionMode) {
-                item(key = "food-selection") {
-                    Row(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp, vertical = 8.dp)
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(20.dp))
-                            .background(MaterialTheme.colorScheme.surface)
-                            .padding(horizontal = 8.dp, vertical = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        IconButton(onClick = { selectedFoodIds = emptySet() }) {
-                            Icon(
-                                Icons.Filled.Close,
-                                contentDescription = stringResource(R.string.action_cancel),
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                        Text(
-                            stringResource(R.string.combine_selected_count, selectedFoodIds.size),
-                            modifier = Modifier.weight(1f),
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        Button(
-                            onClick = {
-                                val ids = selectedFoodIds
-                                vm.combineIntoMeal(ids) { combined ->
-                                    selectedFoodIds = emptySet()
-                                    if (combined != null) editingEntry = combined
-                                }
-                            },
-                            enabled = selectedFoodIds.size >= 2,
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = AppColors.Calorie.copy(alpha = 0.12f),
-                                contentColor = AppColors.Calorie,
-                                disabledContainerColor = AppColors.Calorie.copy(alpha = 0.12f),
-                                disabledContentColor = AppColors.Calorie.copy(alpha = 0.45f)
-                            )
-                        ) {
-                            Text(stringResource(R.string.combine_action), fontWeight = FontWeight.SemiBold)
                         }
                     }
                 }

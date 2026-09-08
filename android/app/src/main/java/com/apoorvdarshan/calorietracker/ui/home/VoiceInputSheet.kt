@@ -49,6 +49,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -62,18 +63,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
-import com.apoorvdarshan.calorietracker.models.SpeechLanguage
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
 import com.apoorvdarshan.calorietracker.services.speech.AudioRecorder
 import com.apoorvdarshan.calorietracker.services.speech.NativeSpeechRecognizer
 import com.apoorvdarshan.calorietracker.services.speech.SttEvent
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.currentCoroutineContext
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
-
-private enum class VoicePhase { IDLE, RECORDING, REVIEWING, TRANSCRIBING }
 
 private enum class NativeRecognitionMode {
     OFFLINE_LANGUAGE,
@@ -101,27 +104,82 @@ fun VoiceInputSheet(
     // Wait for the persisted configuration before auto-starting so a remote
     // provider is never briefly mistaken for the native default.
     val persistedProvider by container.prefs.selectedSpeechProvider.collectAsState(initial = null)
-    val provider = persistedProvider ?: return
-    val persistedSpeechLanguage by container.prefs.selectedSpeechLanguage(provider)
+    val configuredProvider = persistedProvider ?: return
+    val persistedSpeechLanguage by container.prefs.selectedSpeechLanguage(configuredProvider)
         .collectAsState(initial = null)
-    val speechLanguage = persistedSpeechLanguage ?: return
+    val configuredLanguage = persistedSpeechLanguage ?: return
+    val draft = rememberSaveable(saver = VoiceInputDraftState.Saver) {
+        VoiceInputDraftState(configuredProvider, configuredLanguage)
+    }
+    val provider = draft.provider
+    val speechLanguage = draft.speechLanguage
     val micDeniedMsg = stringResource(R.string.voice_mic_permission_denied)
     val micStartFailedMsg = stringResource(R.string.voice_mic_start_failed)
     val transcriptionFailedMsg = stringResource(R.string.voice_transcription_failed)
 
-    var phase by remember { mutableStateOf(VoicePhase.IDLE) }
-    var transcript by remember { mutableStateOf("") }
+    var phase by draft::phase
+    var transcript by draft::transcript
     // Native SpeechRecognizer naturally finalizes after a silence window. To
     // make recording continuous (no auto-stop), we accumulate every final
     // segment here and immediately re-arm the recognizer; the displayed
     // [transcript] is committed + the in-flight partial.
-    var committed by remember { mutableStateOf("") }
-    var error by remember { mutableStateOf<String?>(null) }
+    var committed by draft::committed
+    var error by draft::error
     val recorder = remember(ctx) { AudioRecorder(ctx) }
     val native = remember(ctx) { NativeSpeechRecognizer(ctx) }
-    var recordedFile by remember { mutableStateOf<File?>(null) }
     var nativeJob by remember { mutableStateOf<Job?>(null) }
+    var transcriptionJob by remember { mutableStateOf<Job?>(null) }
     var nativeRecognitionMode by remember { mutableStateOf(NativeRecognitionMode.OFFLINE_LANGUAGE) }
+    var permissionRequestedHere by remember { mutableStateOf(false) }
+
+    fun discardRecording() {
+        transcriptionJob?.cancel()
+        recorder.cancel()
+        draft.recordedFilePath?.let { File(it).delete() }
+        draft.recordedFilePath = null
+    }
+
+    fun dismiss() {
+        nativeJob?.cancel()
+        discardRecording()
+        onDismiss()
+    }
+
+    fun transcribeRecording() {
+        val file = draft.recordedFilePath?.let(::File)?.takeIf { it.isFile }
+        if (file == null) {
+            draft.recordedFilePath = null
+            error = transcriptionFailedMsg
+            phase = VoicePhase.IDLE
+            return
+        }
+        error = null
+        phase = VoicePhase.TRANSCRIBING
+        transcriptionJob = scope.launch {
+            var uploadFile: File? = null
+            try {
+                // SpeechService deletes its input after every attempt. Retain the
+                // original so rotation/cancellation can offer a deliberate retry.
+                val copy = withContext(Dispatchers.IO) {
+                    File.createTempFile("transcribe-", ".wav", file.parentFile).also {
+                        uploadFile = it
+                        file.copyTo(it, overwrite = true)
+                    }
+                }
+                transcript = container.speechService.transcribeRecordedAudio(copy)
+                committed = transcript
+                phase = VoicePhase.REVIEWING
+            } catch (cancelled: CancellationException) {
+                throw cancelled
+            } catch (e: Throwable) {
+                currentCoroutineContext().ensureActive()
+                error = e.localizedMessage ?: transcriptionFailedMsg
+                phase = VoicePhase.REVIEWING
+            } finally {
+                uploadFile?.delete()
+            }
+        }
+    }
 
     // Internal helper: spin up a fresh native recognizer session, appending
     // to [committed] on each Final event so a long pause doesn't end the
@@ -188,6 +246,7 @@ fun VoiceInputSheet(
     }
 
     fun startRecordingNow() {
+        discardRecording()
         transcript = ""
         committed = ""
         error = null
@@ -200,7 +259,7 @@ fun VoiceInputSheet(
             if (file == null) {
                 error = micStartFailedMsg
             } else {
-                recordedFile = file
+                draft.recordedFilePath = file.absolutePath
                 phase = VoicePhase.RECORDING
             }
         }
@@ -209,34 +268,42 @@ fun VoiceInputSheet(
     val micPermission = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
-        if (granted) {
+        if (granted && permissionRequestedHere) {
             startRecordingNow()
-        } else {
+        } else if (!granted) {
             error = micDeniedMsg
         }
+        permissionRequestedHere = false
     }
 
-    LaunchedEffect(Unit) {
+    fun requestRecording() {
         if (native.hasMicPermission()) {
             startRecordingNow()
         } else {
+            permissionRequestedHere = true
             micPermission.launch(Manifest.permission.RECORD_AUDIO)
         }
     }
 
-    DisposableEffect(Unit) {
+    LaunchedEffect(Unit) {
+        if (!draft.autoStartAttempted) {
+            draft.autoStartAttempted = true
+            requestRecording()
+        }
+    }
+
+    DisposableEffect(recorder, native) {
         onDispose {
             nativeJob?.cancel()
-            recorder.cancel()
+            transcriptionJob?.cancel()
+            // The filename was saved when capture began. Finalize its WAV header
+            // on recreation, without deleting the captured audio or reopening mic.
+            recorder.stop()
         }
     }
 
     ModalBottomSheet(
-        onDismissRequest = {
-            nativeJob?.cancel()
-            recorder.cancel()
-            onDismiss()
-        },
+        onDismissRequest = ::dismiss,
         sheetState = sheetState,
         shape = RoundedCornerShape(topStart = 28.dp, topEnd = 28.dp),
         containerColor = MaterialTheme.colorScheme.surface
@@ -275,6 +342,7 @@ fun VoiceInputSheet(
             // Always-visible transcript box (gray rounded surface). Shows placeholder
             // when empty, "Transcribing…" while remote upload is running, or the live
             // transcript otherwise.
+            val hasPendingAudio = draft.recordedFilePath != null && transcript.isBlank()
             Box(
                 Modifier
                     .fillMaxWidth()
@@ -311,6 +379,13 @@ fun VoiceInputSheet(
                             Text(transcript, fontSize = 16.sp)
                         }
                     }
+                    hasPendingAudio && phase != VoicePhase.RECORDING -> {
+                        Text(
+                            stringResource(R.string.voice_recording_saved),
+                            fontSize = 16.sp,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                        )
+                    }
                     else -> {
                         Text(
                             if (phase == VoicePhase.RECORDING) stringResource(R.string.voice_listening) else stringResource(R.string.voice_tap_to_start),
@@ -335,7 +410,7 @@ fun VoiceInputSheet(
                         when (phase) {
                             // IDLE only happens after an error or initial gate
                             // before mic permission. Tapping the mic restarts.
-                            VoicePhase.IDLE -> startRecordingNow()
+                            VoicePhase.IDLE -> requestRecording()
                             VoicePhase.RECORDING -> {
                                 if (provider == SpeechProvider.NATIVE) {
                                     nativeJob?.cancel()
@@ -343,17 +418,10 @@ fun VoiceInputSheet(
                                 } else {
                                     val file = recorder.stop()
                                     if (file != null) {
-                                        phase = VoicePhase.TRANSCRIBING
-                                        scope.launch {
-                                            try {
-                                                transcript = container.speechService.transcribeRecordedAudio(file)
-                                                phase = VoicePhase.REVIEWING
-                                            } catch (e: Throwable) {
-                                                error = e.localizedMessage ?: transcriptionFailedMsg
-                                                phase = VoicePhase.IDLE
-                                            }
-                                        }
+                                        draft.recordedFilePath = file.absolutePath
+                                        transcribeRecording()
                                     } else {
+                                        draft.recordedFilePath = null
                                         phase = VoicePhase.IDLE
                                     }
                                 }
@@ -361,7 +429,7 @@ fun VoiceInputSheet(
                             // Tapping the mic again after a transcript is shown
                             // discards it and starts a fresh recording — same
                             // "retry" behavior the user expects.
-                            VoicePhase.REVIEWING -> startRecordingNow()
+                            VoicePhase.REVIEWING -> requestRecording()
                             VoicePhase.TRANSCRIBING -> Unit
                         }
                     }
@@ -372,22 +440,35 @@ fun VoiceInputSheet(
             // a secondary Cancel text button. Native is one-tap (stops the live
             // recognizer and submits in one click); recorded-audio STT is two-tap (mic to
             // stop+transcribe, then Analyze on the reviewed transcript).
-            val canAnalyze = transcript.trim().isNotEmpty() && phase != VoicePhase.TRANSCRIBING
+            val canTranscribe = hasPendingAudio && phase != VoicePhase.RECORDING
+            val canAnalyze = (transcript.isNotBlank() || canTranscribe) && phase != VoicePhase.TRANSCRIBING
             Spacer(Modifier.height(20.dp))
             Button(
                 onClick = {
+                    if (canTranscribe) {
+                        transcribeRecording()
+                        return@Button
+                    }
                     if (provider == SpeechProvider.NATIVE && phase == VoicePhase.RECORDING) {
                         nativeJob?.cancel()
                         phase = VoicePhase.REVIEWING
                     }
-                    if (transcript.trim().isNotEmpty()) onSubmit(transcript.trim())
+                    if (transcript.trim().isNotEmpty()) {
+                        discardRecording()
+                        onSubmit(transcript.trim())
+                    }
                 },
                 enabled = canAnalyze,
                 colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie),
                 shape = RoundedCornerShape(20.dp),
                 modifier = Modifier.fillMaxWidth().height(52.dp)
             ) {
-                Text(stringResource(R.string.action_analyze), color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 16.sp)
+                Text(
+                    stringResource(if (canTranscribe) R.string.voice_transcribe else R.string.action_analyze),
+                    color = Color.White,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 16.sp
+                )
             }
 
             error?.let {
@@ -396,11 +477,7 @@ fun VoiceInputSheet(
             }
 
             Spacer(Modifier.height(4.dp))
-            TextButton(onClick = {
-                nativeJob?.cancel()
-                recorder.cancel()
-                onDismiss()
-            }, modifier = Modifier.fillMaxWidth()) {
+            TextButton(onClick = ::dismiss, modifier = Modifier.fillMaxWidth()) {
                 Text(stringResource(R.string.action_cancel), color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f))
             }
         }

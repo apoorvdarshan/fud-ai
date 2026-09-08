@@ -36,6 +36,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -57,12 +58,15 @@ fun MultiPhotoCaptureSheet(
     onAddPhoto: () -> Unit,
     onRemove: (Int) -> Unit,
     onAnalyze: (String?, Boolean) -> Unit,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    isBusy: Boolean = false,
+    note: String = "",
+    onNoteChange: (String) -> Unit = {},
+    progressiveMeal: Boolean = false,
+    onProgressiveMealChange: (Boolean) -> Unit = {}
 ) {
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
-    var note by remember { mutableStateOf("") }
-    var progressiveMeal by remember { mutableStateOf(false) }
-    var showProgressiveInfo by remember { mutableStateOf(false) }
+    var showProgressiveInfo by rememberSaveable { mutableStateOf(false) }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
@@ -73,6 +77,7 @@ fun MultiPhotoCaptureSheet(
         SheetReviewToolbar(
             title = "Meal Photos",
             primaryLabel = stringResource(R.string.action_analyze),
+            primaryEnabled = !isBusy,
             onCancel = onDismiss,
             onPrimary = {
                 onAnalyze(
@@ -121,6 +126,7 @@ fun MultiPhotoCaptureSheet(
                         }
                         IconButton(
                             onClick = { onRemove(index) },
+                            enabled = !isBusy,
                             modifier = Modifier
                                 .align(Alignment.TopEnd)
                                 .padding(8.dp)
@@ -147,7 +153,7 @@ fun MultiPhotoCaptureSheet(
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    Button(onClick = onAddPhoto) {
+                    Button(onClick = onAddPhoto, enabled = !isBusy) {
                         Icon(
                             if (addsFromLibrary) Icons.Filled.PhotoLibrary else Icons.Filled.CameraAlt,
                             contentDescription = null,
@@ -201,7 +207,7 @@ fun MultiPhotoCaptureSheet(
                 }
                 Switch(
                     checked = progressiveMeal,
-                    onCheckedChange = { progressiveMeal = it },
+                    onCheckedChange = onProgressiveMealChange,
                     enabled = imageBytesList.size > 1
                 )
             }
@@ -213,7 +219,7 @@ fun MultiPhotoCaptureSheet(
                 SheetSectionHeader("Note for food analysis (optional)")
                 OutlinedTextField(
                     value = note,
-                    onValueChange = { note = it },
+                    onValueChange = onNoteChange,
                     placeholder = { Text("e.g. chicken is 180g, rice is 220g, use half the sauce") },
                     shape = RoundedCornerShape(20.dp),
                     modifier = Modifier.fillMaxWidth().heightIn(min = 110.dp)

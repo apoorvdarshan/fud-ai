@@ -39,6 +39,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -112,9 +113,9 @@ fun FoodResultSheet(
         skipPartiallyExpanded = true,
         confirmValueChange = { it != SheetValue.Hidden }
     )
-    var name by remember { mutableStateOf(analysis.name) }
-    var servingSizeIsKnown by remember(analysis) { mutableStateOf(analysis.servingSizeIsKnown) }
-    var servingUnitOptions by remember(analysis.servingUnitOptions, analysis.servingSizeGrams, analysis.servingSizeIsKnown) {
+    var name by rememberSaveable { mutableStateOf(analysis.name) }
+    var servingSizeIsKnown by rememberSaveable(analysis) { mutableStateOf(analysis.servingSizeIsKnown) }
+    var servingUnitOptions by rememberSaveable(analysis.servingUnitOptions, analysis.servingSizeGrams, analysis.servingSizeIsKnown, stateSaver = foodDraftSaver<List<ServingUnitOption>>()) {
         mutableStateOf(
             if (analysis.servingSizeIsKnown) {
                 ServingUnitOption.normalizedOptions(analysis.servingUnitOptions, analysis.servingSizeGrams)
@@ -128,12 +129,12 @@ fun FoodResultSheet(
     } else {
         analysis.selectedServingUnit
     }
-    var selectedServingUnitId by remember(analysis, servingUnitOptions, preferGramsByDefault) {
+    var selectedServingUnitId by rememberSaveable(analysis, servingUnitOptions, preferGramsByDefault) {
         mutableStateOf(ServingUnitOption.initialUnitId(initialServingUnit, servingUnitOptions))
     }
-    var baseServingGrams by remember(analysis) { mutableStateOf(analysis.servingSizeGrams) }
-    var servingGrams by remember(analysis) { mutableStateOf(analysis.servingSizeGrams) }
-    var servingQuantityText by remember(analysis, servingUnitOptions, preferGramsByDefault) {
+    var baseServingGrams by rememberSaveable(analysis) { mutableStateOf(analysis.servingSizeGrams) }
+    var servingGrams by rememberSaveable(analysis) { mutableStateOf(analysis.servingSizeGrams) }
+    var servingQuantityText by rememberSaveable(analysis, servingUnitOptions, preferGramsByDefault) {
         mutableStateOf(
             ServingUnitOption.initialQuantityText(
                 totalGrams = analysis.servingSizeGrams,
@@ -146,41 +147,41 @@ fun FoodResultSheet(
     val selectedServingOption = ServingUnitOption.optionMatching(selectedServingUnitId, servingUnitOptions)
     val selectedServingQuantity = ServingAmountExpression.evaluate(servingQuantityText)?.takeIf { it > 0 }
     val scale = if (baseServingGrams > 0) servingGrams / baseServingGrams else 1.0
-    var mealType by remember { mutableStateOf(MealType.currentMeal) }
-    var moreNutritionExpanded by remember { mutableStateOf(false) }
-    var nutritionUnlocked by remember { mutableStateOf(false) }
-    var editableCalories by remember(analysis) { mutableStateOf(analysis.calories) }
-    var editableProtein by remember(analysis) { mutableStateOf(analysis.protein) }
-    var editableCarbs by remember(analysis) { mutableStateOf(analysis.carbs) }
-    var editableFat by remember(analysis) { mutableStateOf(analysis.fat) }
-    var editableSugar by remember(analysis) { mutableStateOf(analysis.sugar) }
-    var editableAddedSugar by remember(analysis) { mutableStateOf(analysis.addedSugar) }
-    var editableFiber by remember(analysis) { mutableStateOf(analysis.fiber) }
-    var editableSaturatedFat by remember(analysis) { mutableStateOf(analysis.saturatedFat) }
-    var editableMonounsaturatedFat by remember(analysis) { mutableStateOf(analysis.monounsaturatedFat) }
-    var editablePolyunsaturatedFat by remember(analysis) { mutableStateOf(analysis.polyunsaturatedFat) }
-    var editableCholesterol by remember(analysis) { mutableStateOf(analysis.cholesterol) }
-    var editableCaffeine by remember(analysis) { mutableStateOf(analysis.caffeine) }
-    var editableSupplementalNutrients by remember(analysis) { mutableStateOf(analysis.supplementalNutrients) }
-    var editableSodium by remember(analysis) { mutableStateOf(analysis.sodium) }
-    var editablePotassium by remember(analysis) { mutableStateOf(analysis.potassium) }
-    var editableTransFat by remember(analysis) { mutableStateOf(analysis.transFat) }
-    var editableCalcium by remember(analysis) { mutableStateOf(analysis.calcium) }
-    var editableIron by remember(analysis) { mutableStateOf(analysis.iron) }
-    var editableMagnesium by remember(analysis) { mutableStateOf(analysis.magnesium) }
-    var editableZinc by remember(analysis) { mutableStateOf(analysis.zinc) }
-    var editableVitaminA by remember(analysis) { mutableStateOf(analysis.vitaminA) }
-    var editableVitaminC by remember(analysis) { mutableStateOf(analysis.vitaminC) }
-    var editableVitaminD by remember(analysis) { mutableStateOf(analysis.vitaminD) }
-    var editableVitaminB12 by remember(analysis) { mutableStateOf(analysis.vitaminB12) }
-    var editableVitaminE by remember(analysis) { mutableStateOf(analysis.vitaminE) }
-    var editableVitaminK by remember(analysis) { mutableStateOf(analysis.vitaminK) }
-    var editableFolate by remember(analysis) { mutableStateOf(analysis.folate) }
-    var editableOmega3 by remember(analysis) { mutableStateOf(analysis.omega3) }
-    var editableIngredients by remember(analysis) { mutableStateOf(analysis.ingredients) }
-    var ingredientEditor by remember { mutableStateOf<IngredientEditorTarget?>(null) }
-    var mealMenuExpanded by remember { mutableStateOf(false) }
-    var servingMenuExpanded by remember { mutableStateOf(false) }
+    var mealType by rememberSaveable { mutableStateOf(MealType.currentMeal) }
+    var moreNutritionExpanded by rememberSaveable { mutableStateOf(false) }
+    var nutritionUnlocked by rememberSaveable { mutableStateOf(false) }
+    var editableCalories by rememberSaveable(analysis) { mutableStateOf(analysis.calories) }
+    var editableProtein by rememberSaveable(analysis) { mutableStateOf(analysis.protein) }
+    var editableCarbs by rememberSaveable(analysis) { mutableStateOf(analysis.carbs) }
+    var editableFat by rememberSaveable(analysis) { mutableStateOf(analysis.fat) }
+    var editableSugar by rememberSaveable(analysis) { mutableStateOf(analysis.sugar) }
+    var editableAddedSugar by rememberSaveable(analysis) { mutableStateOf(analysis.addedSugar) }
+    var editableFiber by rememberSaveable(analysis) { mutableStateOf(analysis.fiber) }
+    var editableSaturatedFat by rememberSaveable(analysis) { mutableStateOf(analysis.saturatedFat) }
+    var editableMonounsaturatedFat by rememberSaveable(analysis) { mutableStateOf(analysis.monounsaturatedFat) }
+    var editablePolyunsaturatedFat by rememberSaveable(analysis) { mutableStateOf(analysis.polyunsaturatedFat) }
+    var editableCholesterol by rememberSaveable(analysis) { mutableStateOf(analysis.cholesterol) }
+    var editableCaffeine by rememberSaveable(analysis) { mutableStateOf(analysis.caffeine) }
+    var editableSupplementalNutrients by rememberSaveable(analysis, stateSaver = foodDraftSaver<Map<String, Double>>()) { mutableStateOf(analysis.supplementalNutrients) }
+    var editableSodium by rememberSaveable(analysis) { mutableStateOf(analysis.sodium) }
+    var editablePotassium by rememberSaveable(analysis) { mutableStateOf(analysis.potassium) }
+    var editableTransFat by rememberSaveable(analysis) { mutableStateOf(analysis.transFat) }
+    var editableCalcium by rememberSaveable(analysis) { mutableStateOf(analysis.calcium) }
+    var editableIron by rememberSaveable(analysis) { mutableStateOf(analysis.iron) }
+    var editableMagnesium by rememberSaveable(analysis) { mutableStateOf(analysis.magnesium) }
+    var editableZinc by rememberSaveable(analysis) { mutableStateOf(analysis.zinc) }
+    var editableVitaminA by rememberSaveable(analysis) { mutableStateOf(analysis.vitaminA) }
+    var editableVitaminC by rememberSaveable(analysis) { mutableStateOf(analysis.vitaminC) }
+    var editableVitaminD by rememberSaveable(analysis) { mutableStateOf(analysis.vitaminD) }
+    var editableVitaminB12 by rememberSaveable(analysis) { mutableStateOf(analysis.vitaminB12) }
+    var editableVitaminE by rememberSaveable(analysis) { mutableStateOf(analysis.vitaminE) }
+    var editableVitaminK by rememberSaveable(analysis) { mutableStateOf(analysis.vitaminK) }
+    var editableFolate by rememberSaveable(analysis) { mutableStateOf(analysis.folate) }
+    var editableOmega3 by rememberSaveable(analysis) { mutableStateOf(analysis.omega3) }
+    var editableIngredients by rememberSaveable(analysis, stateSaver = foodDraftSaver<List<MealIngredient>>()) { mutableStateOf(analysis.ingredients) }
+    var ingredientEditor by rememberSaveable(stateSaver = foodDraftSaver<IngredientEditorTarget?>()) { mutableStateOf<IngredientEditorTarget?>(null) }
+    var mealMenuExpanded by rememberSaveable { mutableStateOf(false) }
+    var servingMenuExpanded by rememberSaveable { mutableStateOf(false) }
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
     val sheetSurface = if (isDark) MaterialTheme.colorScheme.surface else Color(0xFFFAF3EE)
     val focusManager = LocalFocusManager.current
@@ -313,7 +314,7 @@ fun FoodResultSheet(
         ingredients = scaledIngredients(),
         productMetadata = analysis.productMetadata
     )
-    var whatIfEntry by remember { mutableStateOf<FoodEntry?>(null) }
+    var whatIfEntry by rememberSaveable(stateSaver = foodDraftSaver<FoodEntry?>()) { mutableStateOf<FoodEntry?>(null) }
 
     ModalBottomSheet(
         onDismissRequest = { if (!isSubmitting) onDismiss() },
@@ -749,10 +750,7 @@ private fun ReviewNutritionValueRow(
     dim: Boolean = false,
     onEdit: (String) -> Unit
 ) {
-    var draft by remember { mutableStateOf(editValue) }
-    LaunchedEffect(unlocked) {
-        if (unlocked) draft = editValue
-    }
+    var draft by rememberSaveable(unlocked) { mutableStateOf(editValue) }
     Row(
         Modifier.fillMaxWidth().padding(horizontal = 18.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically

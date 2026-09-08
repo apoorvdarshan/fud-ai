@@ -1,6 +1,9 @@
 package com.apoorvdarshan.calorietracker.ui.home
 
 import android.Manifest
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.pm.PackageManager
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -23,10 +26,12 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -34,6 +39,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.MealIngredient
@@ -44,7 +54,7 @@ import com.apoorvdarshan.calorietracker.ui.components.FudGlassPrimaryButton
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.components.InAppCameraCaptureDialog
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
-import kotlinx.coroutines.launch
+import java.util.UUID
 
 /**
  * Add-ingredient plus menu for review/edit sheets. Analysis and saved-meal
@@ -61,32 +71,37 @@ internal fun IngredientIntakeSection(
     onManual: () -> Unit
 ) {
     val ctx = LocalContext.current
-    val scope = rememberCoroutineScope()
-    var menuExpanded by remember { mutableStateOf(false) }
-    var showText by remember { mutableStateOf(false) }
-    var showVoice by remember { mutableStateOf(false) }
-    var showBarcode by remember { mutableStateOf(false) }
-    var showCamera by remember { mutableStateOf(false) }
-    var savedTab by remember { mutableStateOf<SavedTab?>(null) }
-    var busy by remember { mutableStateOf(false) }
-    var errorText by remember { mutableStateOf<String?>(null) }
+    val sessionId = rememberSaveable { UUID.randomUUID().toString() }
+    val intake: IngredientIntakeViewModel = viewModel(key = "ingredient-intake-$sessionId")
+    val intakeState by intake.state.collectAsStateWithLifecycle()
+    val currentOnIngredient by rememberUpdatedState(onIngredient)
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val activity = ctx.ingredientIntakeActivity()
+    var menuExpanded by rememberSaveable { mutableStateOf(false) }
+    var showText by rememberSaveable { mutableStateOf(false) }
+    var showVoice by rememberSaveable { mutableStateOf(false) }
+    var showBarcode by rememberSaveable { mutableStateOf(false) }
+    var showCamera by rememberSaveable { mutableStateOf(false) }
+    var savedTab by rememberSaveable { mutableStateOf<SavedTab?>(null) }
 
-    fun runAnalysis(imageBytes: ByteArray? = null, block: suspend () -> FoodAnalysis) {
-        if (busy) return
-        busy = true
-        errorText = null
-        scope.launch {
-            try {
-                val ingredient = block().toMealIngredient()
-                val filename = imageBytes?.let { container.imageStore.storeBytes(it, java.util.UUID.randomUUID()) }
-                onIngredient(ingredient.copy(imageFilename = filename))
-            } catch (e: Exception) {
-                errorText = e.message?.takeIf { it.isNotBlank() }
-                    ?: ctx.getString(R.string.error_analysis_failed)
-            } finally {
-                busy = false
+    LaunchedEffect(intake, lifecycleOwner) {
+        lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            intake.state.collect { state ->
+                state.result?.let { ingredient ->
+                    currentOnIngredient(ingredient)
+                    intake.consumeResult()
+                }
             }
         }
+    }
+    DisposableEffect(intake, activity) {
+        onDispose {
+            if (activity?.isChangingConfigurations != true) intake.discard()
+        }
+    }
+
+    fun runAnalysis(imageBytes: ByteArray? = null, block: suspend () -> FoodAnalysis) {
+        intake.analyze(imageBytes, container.imageStore, ctx.getString(R.string.error_analysis_failed), block)
     }
 
     val photoPicker = rememberLauncherForActivityResult(
@@ -204,7 +219,7 @@ internal fun IngredientIntakeSection(
         }
     }
 
-    if (busy) {
+    if (intakeState.busy) {
         Box(
             Modifier
                 .fillMaxWidth()
@@ -215,10 +230,10 @@ internal fun IngredientIntakeSection(
         }
     }
 
-    errorText?.let { message ->
-        FudGlassDialog(onDismissRequest = { errorText = null }) {
+    intakeState.error?.let { message ->
+        FudGlassDialog(onDismissRequest = { intake.dismissError() }) {
             Text(message, color = MaterialTheme.colorScheme.onSurface)
-            TextButton(onClick = { errorText = null }, modifier = Modifier.fillMaxWidth()) {
+            TextButton(onClick = { intake.dismissError() }, modifier = Modifier.fillMaxWidth()) {
                 Text(stringResource(R.string.action_ok))
             }
         }
@@ -280,7 +295,7 @@ internal fun IngredientIntakeSection(
 
 @Composable
 private fun IngredientTextDialog(onDismiss: () -> Unit, onSubmit: (String) -> Unit) {
-    var input by remember { mutableStateOf("") }
+    var input by rememberSaveable { mutableStateOf("") }
     FudGlassDialog(onDismissRequest = onDismiss) {
         FudGlassTextField(
             value = input,
@@ -303,4 +318,10 @@ private fun IngredientTextDialog(onDismiss: () -> Unit, onSubmit: (String) -> Un
             )
         }
     }
+}
+
+private tailrec fun Context.ingredientIntakeActivity(): Activity? = when (this) {
+    is Activity -> this
+    is ContextWrapper -> baseContext.ingredientIntakeActivity()
+    else -> null
 }

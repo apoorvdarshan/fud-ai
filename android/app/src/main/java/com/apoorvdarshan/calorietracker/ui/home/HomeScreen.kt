@@ -206,11 +206,11 @@ fun HomeScreen(
     val weekStartsOnMonday by container.prefs.weekStartsOnMonday.collectAsState(initial = true)
     val allEntries by container.foodRepository.entries.collectAsState(initial = emptyList())
 
-    var showText by remember { mutableStateOf(false) }
-    var showVoice by remember { mutableStateOf(false) }
-    var showManual by remember { mutableStateOf(false) }
+    var showText by rememberSaveable { mutableStateOf(false) }
+    var showVoice by rememberSaveable { mutableStateOf(false) }
+    var showManual by rememberSaveable { mutableStateOf(false) }
     var savedMealsTab by remember { mutableStateOf<SavedTab?>(null) }
-    var showBarcodeScanner by remember { mutableStateOf(false) }
+    var showBarcodeScanner by rememberSaveable { mutableStateOf(false) }
     var showCopyFromDay by remember { mutableStateOf(false) }
     var showAddMenu by remember { mutableStateOf(false) }
     var addMenuGroup by remember { mutableStateOf<AddMenuGroup?>(null) }
@@ -224,10 +224,21 @@ fun HomeScreen(
     var editingFast by remember { mutableStateOf<FastingSession?>(null) }
     var showFastingQuickActionDisabled by remember { mutableStateOf(false) }
 
-    var showCameraCapture by remember { mutableStateOf(false) }
-    var showMultiPhotoCapture by remember { mutableStateOf(false) }
-    var pendingCaptureImageBytes by remember { mutableStateOf<List<ByteArray>>(emptyList()) }
-    var isImportingPhotos by remember { mutableStateOf(false) }
+    var showCameraCapture by rememberSaveable { mutableStateOf(false) }
+    var showMultiPhotoCapture by rememberSaveable { mutableStateOf(false) }
+    val captureDraft: PhotoCaptureDraftViewModel = viewModel(factory = PhotoCaptureDraftViewModel.factory(ctx))
+    val pendingCaptureImageBytes by captureDraft.images.collectAsState()
+    val captureDraftBusy by captureDraft.busy.collectAsState()
+    val captureDraftError by captureDraft.error.collectAsState()
+    var captureNote by rememberSaveable { mutableStateOf("") }
+    var captureProgressiveMeal by rememberSaveable { mutableStateOf(false) }
+
+    fun clearCaptureDraft() {
+        captureDraft.clear()
+        captureNote = ""
+        captureProgressiveMeal = false
+    }
+    var isImportingPhotos by rememberSaveable { mutableStateOf(false) }
 
     val photoPicker = rememberLauncherForActivityResult(
         ActivityResultContracts.PickMultipleVisualMedia(maxItems = 10)
@@ -237,16 +248,16 @@ fun HomeScreen(
             ctx.contentResolver.openInputStream(uri)?.use { it.readBytes() }
         }
         if (imported.isNotEmpty()) {
-            pendingCaptureImageBytes = (pendingCaptureImageBytes + imported).take(10)
+            captureDraft.append(imported)
         }
-        if (pendingCaptureImageBytes.isNotEmpty()) showMultiPhotoCapture = true
+        if (imported.isNotEmpty() || pendingCaptureImageBytes.isNotEmpty()) showMultiPhotoCapture = true
     }
 
     val cameraPermission = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
         if (granted) {
-            pendingCaptureImageBytes = emptyList()
+            clearCaptureDraft()
             showCameraCapture = true
         }
     }
@@ -256,7 +267,7 @@ fun HomeScreen(
         if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.CAMERA) ==
             PackageManager.PERMISSION_GRANTED
         ) {
-            pendingCaptureImageBytes = emptyList()
+            clearCaptureDraft()
             showCameraCapture = true
         } else {
             cameraPermission.launch(Manifest.permission.CAMERA)
@@ -316,7 +327,7 @@ fun HomeScreen(
             QuickAction.CAMERA -> openCamera()
             QuickAction.PHOTOS -> {
                 isImportingPhotos = true
-                pendingCaptureImageBytes = emptyList()
+                clearCaptureDraft()
                 photoPicker.launch(
                     PickVisualMediaRequest(
                         ActivityResultContracts.PickVisualMedia.ImageOnly
@@ -682,7 +693,7 @@ fun HomeScreen(
                             showAddMenu = false
                             addMenuGroup = null
                             isImportingPhotos = true
-                            pendingCaptureImageBytes = emptyList()
+                            clearCaptureDraft()
                             photoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                         }
                         SheetGlassDropdownMenuItem(label = stringResource(R.string.home_menu_barcode), leadingIcon = Icons.Filled.QrCodeScanner) { showAddMenu = false; addMenuGroup = null; openBarcodeScanner() }
@@ -834,7 +845,7 @@ fun HomeScreen(
         InAppCameraCaptureDialog(
             onCapture = { bytes ->
                 showCameraCapture = false
-                pendingCaptureImageBytes = (pendingCaptureImageBytes + bytes).take(10)
+                captureDraft.append(listOf(bytes))
                 showMultiPhotoCapture = true
             },
             onDismiss = {
@@ -846,10 +857,29 @@ fun HomeScreen(
         )
     }
 
+    if (showMultiPhotoCapture && captureDraftBusy && pendingCaptureImageBytes.isEmpty()) {
+        AlertDialog(
+            onDismissRequest = { showMultiPhotoCapture = false; clearCaptureDraft() },
+            text = { CircularProgressIndicator() },
+            confirmButton = {}
+        )
+    }
+    if (captureDraftError != null) {
+        AlertDialog(
+            onDismissRequest = { captureDraft.dismissError() },
+            text = { Text(captureDraftError.orEmpty()) },
+            confirmButton = { TextButton(onClick = { captureDraft.dismissError() }) { Text(stringResource(R.string.action_ok)) } }
+        )
+    }
     if (showMultiPhotoCapture && pendingCaptureImageBytes.isNotEmpty()) {
         MultiPhotoCaptureSheet(
             imageBytesList = pendingCaptureImageBytes,
             addsFromLibrary = isImportingPhotos,
+            isBusy = captureDraftBusy,
+            note = captureNote,
+            onNoteChange = { captureNote = it },
+            progressiveMeal = captureProgressiveMeal,
+            onProgressiveMealChange = { captureProgressiveMeal = it },
             onAddPhoto = {
                 if (pendingCaptureImageBytes.size < 10) {
                     if (isImportingPhotos) {
@@ -861,18 +891,20 @@ fun HomeScreen(
                 }
             },
             onRemove = { index ->
-                pendingCaptureImageBytes = pendingCaptureImageBytes.filterIndexed { itemIndex, _ -> itemIndex != index }
-                if (pendingCaptureImageBytes.isEmpty()) showMultiPhotoCapture = false
+                captureDraft.remove(index)
+                if (pendingCaptureImageBytes.size == 1) showMultiPhotoCapture = false
             },
             onAnalyze = { note, progressiveMeal ->
-                val images = pendingCaptureImageBytes
-                pendingCaptureImageBytes = emptyList()
-                showMultiPhotoCapture = false
-                vm.analyzePhotos(images, note, progressiveMeal)
+                if (!captureDraft.busy.value) {
+                    val images = captureDraft.images.value
+                    clearCaptureDraft()
+                    showMultiPhotoCapture = false
+                    vm.analyzePhotos(images, note, progressiveMeal)
+                }
             },
             onDismiss = {
                 showMultiPhotoCapture = false
-                pendingCaptureImageBytes = emptyList()
+                clearCaptureDraft()
             }
         )
     }
@@ -2700,7 +2732,7 @@ private fun AnalysisResultDialog(
 }
 
 @Composable
-private fun TextInputDialog(onDismiss: () -> Unit, onSubmit: (String) -> Unit) {
+internal fun TextInputDialog(onDismiss: () -> Unit, onSubmit: (String) -> Unit) {
     // Keep the input composable stable so rotating placeholder examples do not drop IME focus.
     val placeholders = listOf(
         stringResource(R.string.text_input_placeholder_1),
@@ -2708,7 +2740,7 @@ private fun TextInputDialog(onDismiss: () -> Unit, onSubmit: (String) -> Unit) {
         stringResource(R.string.text_input_placeholder_3),
         stringResource(R.string.text_input_placeholder_4)
     )
-    var input by remember { mutableStateOf("") }
+    var input by rememberSaveable { mutableStateOf("") }
     var placeholderIdx by remember { mutableIntStateOf(0) }
     LaunchedEffect(Unit) {
         while (true) {
@@ -2738,17 +2770,17 @@ private fun TextInputDialog(onDismiss: () -> Unit, onSubmit: (String) -> Unit) {
 }
 
 @Composable
-private fun ManualEntryDialog(
+internal fun ManualEntryDialog(
     onDismiss: () -> Unit,
     onSave: (name: String, calories: Int, protein: Double, carbs: Double, fat: Double, fiber: Double?, mealType: MealType) -> Unit
 ) {
-    var name by remember { mutableStateOf("") }
-    var calories by remember { mutableStateOf("") }
-    var protein by remember { mutableStateOf("") }
-    var carbs by remember { mutableStateOf("") }
-    var fat by remember { mutableStateOf("") }
-    var fiber by remember { mutableStateOf("") }
-    var mealType by remember { mutableStateOf(MealType.currentMeal) }
+    var name by rememberSaveable { mutableStateOf("") }
+    var calories by rememberSaveable { mutableStateOf("") }
+    var protein by rememberSaveable { mutableStateOf("") }
+    var carbs by rememberSaveable { mutableStateOf("") }
+    var fat by rememberSaveable { mutableStateOf("") }
+    var fiber by rememberSaveable { mutableStateOf("") }
+    var mealType by rememberSaveable { mutableStateOf(MealType.currentMeal) }
     var mealMenuExpanded by remember { mutableStateOf(false) }
     var isSubmitting by remember { mutableStateOf(false) }
     val submissionGate = remember { FoodSubmissionGate() }

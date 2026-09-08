@@ -422,6 +422,8 @@
     <!-- Voice input sheet -->
     <string name="voice_listening">Listening…</string>
     <string name="voice_tap_to_start">Tap the mic to start</string>
+    <string name="voice_recording_saved">Recording saved. Transcribe it to continue.</string>
+    <string name="voice_transcribe">Transcribe</string>
     <string name="voice_transcribing_format">Transcribing via %1$s…</string>
     <string name="voice_mic_permission_denied">Microphone permission denied.</string>
     <string name="voice_mic_start_failed">Couldn\'t start the mic. Check permissions.</string>

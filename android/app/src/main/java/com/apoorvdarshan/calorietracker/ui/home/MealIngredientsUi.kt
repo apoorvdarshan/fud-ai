@@ -31,6 +31,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.listSaver
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,7 +48,9 @@ import kotlin.math.roundToInt
 import com.apoorvdarshan.calorietracker.models.IngredientPortion
 import com.apoorvdarshan.calorietracker.models.MealIngredient
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import kotlinx.serialization.Serializable
 
+@Serializable
 internal data class IngredientEditorTarget(
     val index: Int?,
     val ingredient: MealIngredient
@@ -155,6 +159,11 @@ private fun IngredientMacro(label: String, value: Double, color: androidx.compos
     )
 }
 
+internal val IngredientPortionSaver = listSaver<IngredientPortion, Double>(
+    save = { listOf(it.grams, it.calories, it.protein, it.carbs, it.fat) },
+    restore = { IngredientPortion(it[0], it[1], it[2], it[3], it[4]) }
+)
+
 @Composable
 internal fun MealIngredientEditorDialog(
     target: IngredientEditorTarget,
@@ -162,13 +171,13 @@ internal fun MealIngredientEditorDialog(
     onDelete: (() -> Unit)?,
     onDismiss: () -> Unit
 ) {
-    var name by remember(target) { mutableStateOf(target.ingredient.name) }
-    var grams by remember(target) { mutableStateOf(MacroValueFormatter.string(target.ingredient.grams)) }
-    var calories by remember(target) { mutableStateOf(target.ingredient.calories.toString()) }
-    var protein by remember(target) { mutableStateOf(MacroValueFormatter.string(target.ingredient.protein)) }
-    var carbs by remember(target) { mutableStateOf(MacroValueFormatter.string(target.ingredient.carbs)) }
-    var fat by remember(target) { mutableStateOf(MacroValueFormatter.string(target.ingredient.fat)) }
-    var nutritionBase by remember(target) { mutableStateOf(IngredientPortion(
+    var name by rememberSaveable(target) { mutableStateOf(target.ingredient.name) }
+    var grams by rememberSaveable(target) { mutableStateOf(MacroValueFormatter.string(target.ingredient.grams)) }
+    var calories by rememberSaveable(target) { mutableStateOf(target.ingredient.calories.toString()) }
+    var protein by rememberSaveable(target) { mutableStateOf(MacroValueFormatter.string(target.ingredient.protein)) }
+    var carbs by rememberSaveable(target) { mutableStateOf(MacroValueFormatter.string(target.ingredient.carbs)) }
+    var fat by rememberSaveable(target) { mutableStateOf(MacroValueFormatter.string(target.ingredient.fat)) }
+    var nutritionBase by rememberSaveable(target, stateSaver = IngredientPortionSaver) { mutableStateOf(IngredientPortion(
         target.ingredient.grams, target.ingredient.calories.toDouble(),
         target.ingredient.protein, target.ingredient.carbs, target.ingredient.fat
     )) }

@@ -42,6 +42,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
+import kotlin.math.roundToInt
+import com.apoorvdarshan.calorietracker.models.IngredientPortion
 import com.apoorvdarshan.calorietracker.models.MealIngredient
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 
@@ -166,17 +168,35 @@ internal fun MealIngredientEditorDialog(
     var protein by remember(target) { mutableStateOf(MacroValueFormatter.string(target.ingredient.protein)) }
     var carbs by remember(target) { mutableStateOf(MacroValueFormatter.string(target.ingredient.carbs)) }
     var fat by remember(target) { mutableStateOf(MacroValueFormatter.string(target.ingredient.fat)) }
-    fun number(text: String) = text.trim().replace(',', '.').toDoubleOrNull()?.takeIf { it >= 0 }
+    var nutritionBase by remember(target) { mutableStateOf(IngredientPortion(
+        target.ingredient.grams, target.ingredient.calories.toDouble(),
+        target.ingredient.protein, target.ingredient.carbs, target.ingredient.fat
+    )) }
+    fun number(text: String) = text.trim().replace(',', '.').toDoubleOrNull()?.takeIf { it.isFinite() && it >= 0 }
+    fun rebaseNutrition() {
+        val weight = number(grams)?.takeIf { it > 0 } ?: return
+        nutritionBase = IngredientPortion(weight, number(calories) ?: return,
+            number(protein) ?: return, number(carbs) ?: return, number(fat) ?: return)
+    }
+    fun changeWeight(text: String) {
+        grams = text
+        val weight = number(text) ?: return
+        val scaled = nutritionBase.resized(weight) ?: return
+        calories = scaled.calories.roundToInt().toString()
+        protein = MacroValueFormatter.string(scaled.protein)
+        carbs = MacroValueFormatter.string(scaled.carbs)
+        fat = MacroValueFormatter.string(scaled.fat)
+    }
     val parsed = name.trim().takeIf { it.isNotEmpty() }?.let { validName ->
-        val parsedGrams = number(grams)?.takeIf { it > 0 } ?: return@let null
-        val parsedCalories = number(calories) ?: return@let null
+        val parsedGrams = number(grams)?.takeIf { it > 0 && nutritionBase.resized(it) != null } ?: return@let null
+        val parsedCalories = number(calories)?.takeIf { it < Int.MAX_VALUE.toDouble() } ?: return@let null
         val parsedProtein = number(protein) ?: return@let null
         val parsedCarbs = number(carbs) ?: return@let null
         val parsedFat = number(fat) ?: return@let null
         MealIngredient(
             name = validName,
             grams = parsedGrams,
-            calories = kotlin.math.round(parsedCalories).toInt(),
+            calories = parsedCalories.roundToInt(),
             protein = parsedProtein,
             carbs = parsedCarbs,
             fat = parsedFat,
@@ -195,11 +215,11 @@ internal fun MealIngredientEditorDialog(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 OutlinedTextField(value = name, onValueChange = { name = it }, label = { Text(stringResource(R.string.sheet_name)) }, singleLine = true)
-                IngredientNumberField(stringResource(R.string.ingredients_weight), grams, { grams = it }, stringResource(R.string.unit_g))
-                IngredientNumberField(stringResource(R.string.nutrition_label_calories), calories, { calories = it }, stringResource(R.string.unit_kcal))
-                IngredientNumberField(stringResource(R.string.nutrition_label_protein), protein, { protein = it }, stringResource(R.string.unit_g))
-                IngredientNumberField(stringResource(R.string.nutrition_label_carbs), carbs, { carbs = it }, stringResource(R.string.unit_g))
-                IngredientNumberField(stringResource(R.string.nutrition_label_fat), fat, { fat = it }, stringResource(R.string.unit_g))
+                IngredientNumberField(stringResource(R.string.ingredients_weight), grams, ::changeWeight, stringResource(R.string.unit_g))
+                IngredientNumberField(stringResource(R.string.nutrition_label_calories), calories, { calories = it; rebaseNutrition() }, stringResource(R.string.unit_kcal))
+                IngredientNumberField(stringResource(R.string.nutrition_label_protein), protein, { protein = it; rebaseNutrition() }, stringResource(R.string.unit_g))
+                IngredientNumberField(stringResource(R.string.nutrition_label_carbs), carbs, { carbs = it; rebaseNutrition() }, stringResource(R.string.unit_g))
+                IngredientNumberField(stringResource(R.string.nutrition_label_fat), fat, { fat = it; rebaseNutrition() }, stringResource(R.string.unit_g))
             }
         },
         confirmButton = {

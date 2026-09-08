@@ -737,11 +737,16 @@ struct IngredientEditorSheet: View {
     @State private var protein: String
     @State private var carbs: String
     @State private var fat: String
+    @State private var nutritionBase: IngredientPortion
 
     init(target: IngredientEditorTarget, onSave: @escaping (MealIngredient) -> Void, onDelete: (() -> Void)?) {
         self.target = target
         self.onSave = onSave
         self.onDelete = onDelete
+        _nutritionBase = State(initialValue: IngredientPortion(
+            grams: target.ingredient.grams, calories: Double(target.ingredient.calories),
+            protein: target.ingredient.protein, carbs: target.ingredient.carbs, fat: target.ingredient.fat
+        ))
         _name = State(initialValue: target.ingredient.name)
         _grams = State(initialValue: MacroValueFormatter.string(target.ingredient.grams))
         _calories = State(initialValue: String(target.ingredient.calories))
@@ -753,8 +758,8 @@ struct IngredientEditorSheet: View {
     private var parsedIngredient: MealIngredient? {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty,
-              let grams = decimal(grams), grams > 0,
-              let calories = decimal(calories),
+              let grams = decimal(grams), grams > 0, nutritionBase.resized(to: grams) != nil,
+              let calories = decimal(calories), calories < Double(Int32.max),
               let protein = decimal(protein),
               let carbs = decimal(carbs),
               let fat = decimal(fat)
@@ -778,13 +783,13 @@ struct IngredientEditorSheet: View {
             Form {
                 Section("Ingredient") {
                     TextField("Name", text: $name)
-                    valueRow("Weight", text: $grams, unit: "g")
-                    valueRow("Calories", text: $calories, unit: "kcal")
+                    valueRow("Weight", text: Binding(get: { grams }, set: changeWeight), unit: "g")
+                    valueRow("Calories", text: nutritionBinding($calories), unit: "kcal")
                 }
                 Section("Macros") {
-                    valueRow("Protein", text: $protein, unit: "g")
-                    valueRow("Carbs", text: $carbs, unit: "g")
-                    valueRow("Fat", text: $fat, unit: "g")
+                    valueRow("Protein", text: nutritionBinding($protein), unit: "g")
+                    valueRow("Carbs", text: nutritionBinding($carbs), unit: "g")
+                    valueRow("Fat", text: nutritionBinding($fat), unit: "g")
                 }
                 if let onDelete {
                     Section {
@@ -817,6 +822,25 @@ struct IngredientEditorSheet: View {
         }
     }
 
+    private func changeWeight(_ text: String) {
+        grams = text
+        guard let weight = decimal(text), let scaled = nutritionBase.resized(to: weight) else { return }
+        calories = String(Int(round(scaled.calories)))
+        protein = MacroValueFormatter.string(scaled.protein)
+        carbs = MacroValueFormatter.string(scaled.carbs)
+        fat = MacroValueFormatter.string(scaled.fat)
+    }
+
+    private func nutritionBinding(_ field: Binding<String>) -> Binding<String> {
+        Binding(get: { field.wrappedValue }, set: { value in
+            field.wrappedValue = value
+            guard let weight = decimal(grams), weight > 0,
+                  let energy = decimal(calories), let p = decimal(protein),
+                  let c = decimal(carbs), let f = decimal(fat) else { return }
+            nutritionBase = IngredientPortion(grams: weight, calories: energy, protein: p, carbs: c, fat: f)
+        })
+    }
+
     private func valueRow(_ label: String, text: Binding<String>, unit: String) -> some View {
         HStack {
             Text(label)
@@ -832,7 +856,7 @@ struct IngredientEditorSheet: View {
 
     private func decimal(_ value: String) -> Double? {
         let normalized = value.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: ",", with: ".")
-        guard let number = Double(normalized), number >= 0 else { return nil }
+        guard let number = Double(normalized), number.isFinite, number >= 0 else { return nil }
         return number
     }
 }

@@ -1260,6 +1260,14 @@ struct OnboardingView: View {
                 editedProfile.autoBalanceMacro = .carbs
                 editedProfile.save()
                 SpeechSettings.setInitialProvider(matching: byokProvider)
+                // Seed only new users; keep the legacy fallback and saved choices intact.
+                if !hasCompletedOnboarding,
+                   UserDefaults.standard.object(forKey: FoodLogSortOrder.storageKey) == nil {
+                    UserDefaults.standard.set(
+                        FoodLogSortOrder.latestMealsFirst.rawValue,
+                        forKey: FoodLogSortOrder.storageKey
+                    )
+                }
                 hasCompletedOnboarding = true
             } label: {
                 Text("Let's get started!")

@@ -102,7 +102,15 @@ class PreferencesStore(
     // -- Onboarding -------------------------------------------------------
     val hasCompletedOnboarding: Flow<Boolean> = ds.data.map { it[Keys.ONBOARDING_COMPLETED] ?: false }
     suspend fun setOnboardingCompleted(value: Boolean) {
-        ds.edit { it[Keys.ONBOARDING_COMPLETED] = value }
+        ds.edit { prefs ->
+            // Seed only new users; keep the legacy fallback and saved choices intact.
+            if (value && prefs[Keys.ONBOARDING_COMPLETED] != true &&
+                prefs[Keys.FOOD_LOG_SORT_ORDER] == null
+            ) {
+                prefs[Keys.FOOD_LOG_SORT_ORDER] = "latestMealsFirst"
+            }
+            prefs[Keys.ONBOARDING_COMPLETED] = value
+        }
     }
 
     // -- Notifications ----------------------------------------------------

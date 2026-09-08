@@ -842,7 +842,7 @@ private fun WorkoutExerciseCard(
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
             Row(
                 modifier = Modifier
@@ -1060,7 +1060,7 @@ internal fun WorkoutSetRow(
 ) {
     val focusManager = LocalFocusManager.current
     Row(
-        modifier = Modifier.fillMaxWidth().padding(vertical = 7.dp),
+        modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
         verticalAlignment = Alignment.Bottom,
         horizontalArrangement = Arrangement.spacedBy(7.dp)
     ) {
@@ -1089,40 +1089,22 @@ internal fun WorkoutSetRow(
             keyboardType = KeyboardType.Number,
             modifier = Modifier.weight(1f)
         )
-        Column(Modifier.weight(1f), horizontalAlignment = Alignment.CenterHorizontally) {
-            val help = stringResource(when (rpeScale) {
-                WorkoutRpeScale.STRENGTH -> R.string.workout_rpe_help_strength
-                WorkoutRpeScale.CR10 -> R.string.workout_rpe_help_cr10
-                WorkoutRpeScale.BORG -> R.string.workout_rpe_help_borg
-            })
-            var showHelp by remember { mutableStateOf(false) }
-            Text(
-                text = stringResource(R.string.workout_rpe_label),
-                fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier
-                    .clickable(role = Role.Button) { showHelp = true }
-                    .padding(vertical = 8.dp)
-            )
-            WorkoutSetField(
-                value = set.rpe,
-                editingKey = rpeScale,
-                sanitize = rpeScale::sanitize,
-                onValueChange = onRpe,
-                placeholder = rpeScale.inputPlaceholder,
-                keyboardType = if (rpeScale.allowsDecimalInput) KeyboardType.Decimal else KeyboardType.Number,
-                modifier = Modifier.fillMaxWidth().semantics { contentDescription = help },
-                imeAction = ImeAction.Done,
-                keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
-            )
-            if (showHelp) {
-                FudGlassDialog(onDismissRequest = { showHelp = false }) {
-                    Text(stringResource(R.string.workout_rpe_label), style = MaterialTheme.typography.titleMedium)
-                    Text(help, style = MaterialTheme.typography.bodyMedium)
-                    FudGlassTextButton(text = stringResource(android.R.string.ok), onClick = { showHelp = false })
-                }
-            }
-        }
+        val rpeHelp = stringResource(when (rpeScale) {
+            WorkoutRpeScale.STRENGTH -> R.string.workout_rpe_help_strength
+            WorkoutRpeScale.CR10 -> R.string.workout_rpe_help_cr10
+            WorkoutRpeScale.BORG -> R.string.workout_rpe_help_borg
+        })
+        WorkoutSetField(
+            value = set.rpe,
+            editingKey = rpeScale,
+            sanitize = rpeScale::sanitize,
+            onValueChange = onRpe,
+            placeholder = "RPE",
+            keyboardType = if (rpeScale.allowsDecimalInput) KeyboardType.Decimal else KeyboardType.Number,
+            modifier = Modifier.weight(1f).semantics { contentDescription = rpeHelp },
+            imeAction = ImeAction.Done,
+            keyboardActions = KeyboardActions(onDone = { focusManager.clearFocus() })
+        )
     }
 }
 

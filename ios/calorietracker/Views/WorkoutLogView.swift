@@ -1105,7 +1105,7 @@ private struct WorkoutLogSetRow: View {
             .frame(maxWidth: .infinity)
 
             WorkoutLogSetValueField(
-                placeholder: set.rpeScale?.inputPlaceholder ?? rpeScale.inputPlaceholder,
+                placeholder: "RPE",
                 text: Binding(get: { set.rpe }, set: updateRPE),
                 keyboardType: rpeScale.allowsDecimalInput ? .decimalPad : .numberPad,
                 focus: WorkoutLogSetFocus(exerciseID: exerciseID, setID: set.id, field: .rpe),

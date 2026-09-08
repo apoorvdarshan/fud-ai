@@ -1192,4 +1192,8 @@
     <string name="settings_quick_actions_footer">Hold the Fud AI app icon to use these shortcuts. Each slot opens its selected action directly.</string>
     <string name="about_whisper_notices">Whisper Base third-party notices</string>
     <string name="about_whisper_notices_load_error">Could not load the Whisper Base third-party notices.</string>
+    <string name="workout_rpe_label">Effort (RPE)</string>
+    <string name="workout_rpe_help_strength">Optional—how hard this set felt. Strength scale: 1 = very easy; 10 = maximum effort. Decimals are allowed. Leave blank if unsure.</string>
+    <string name="workout_rpe_help_cr10">Optional—how hard this set felt. CR10 scale: 0 = no effort; 10 = maximum effort. Decimals are allowed. Leave blank if unsure.</string>
+    <string name="workout_rpe_help_borg">Optional—how hard this set felt. Borg scale: 6 = no exertion; 20 = maximum exertion. Use whole numbers. Leave blank if unsure.</string>
 </resources>

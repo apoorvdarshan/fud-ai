@@ -197,7 +197,7 @@ internal fun WorkoutDiaryScreen(
     ) {
         LazyColumn(
             state = listState,
-            modifier = Modifier.fillMaxSize().imePadding(),
+            modifier = Modifier.fillMaxSize().imePadding().padding(bottom = 8.dp),
             contentPadding = PaddingValues(
                 start = 16.dp,
                 top = 64.dp,

@@ -228,9 +228,6 @@ struct WorkoutLogView: View {
                                         dismissSetKeyboard()
                                         workoutStore.updateTimer(action, exerciseID: exercise.id, on: selectedDate)
                                     },
-                                    updateIntensity: { intensity in
-                                        workoutStore.setTimerIntensity(intensity, exerciseID: exercise.id, on: selectedDate)
-                                    },
                                     updateSetCount: { count in
                                         workoutStore.setSetCount(count, exerciseID: exercise.id, on: selectedDate)
                                     },
@@ -857,7 +854,6 @@ private struct WorkoutLogExerciseCard: View {
     let toggleSaved: () -> Void
     let removeExercise: () -> Void
     let timerAction: (StrengthExerciseTimerAction) -> Void
-    let updateIntensity: (StrengthWorkoutIntensity) -> Void
     let updateSetCount: (Int) -> Void
     let updateWeight: (UUID, String) -> Void
     let updateReps: (UUID, String) -> Void
@@ -913,29 +909,37 @@ private struct WorkoutLogExerciseCard: View {
             .accessibilityHint("Opens exercise instructions")
 
             VStack(alignment: .leading, spacing: 10) {
-                HStack(alignment: .center, spacing: 10) {
-                    Label(isCardio ? "Timed workout" : "Sets", systemImage: isCardio ? "timer" : "list.number")
+                HStack(alignment: .center, spacing: 6) {
+                    Image(systemName: isCardio ? "figure.run" : "list.number")
                         .font(.caption.weight(.heavy))
                         .foregroundStyle(Color.workoutMutedText)
 
-                    Spacer(minLength: 8)
+                    Spacer(minLength: 0)
 
                     if !isCardio {
                         Stepper(
                             value: Binding(get: { exercise.sets.count }, set: updateSetCount),
                             in: 1...12
                         ) {
-                            Text("\(exercise.sets.count) \(exercise.sets.count == 1 ? "set" : "sets")")
+                            Text("\(exercise.sets.count)")
                                 .font(.caption.weight(.heavy))
                                 .foregroundStyle(Color.workoutCharcoal)
                                 .lineLimit(1)
                         }
                         .fixedSize()
+                        .accessibilityLabel("Sets")
+                        .accessibilityValue("\(exercise.sets.count)")
                         .accessibilityHint("Adjust from one to twelve sets")
 
                     }
 
                     HStack(spacing: 0) {
+                        WorkoutExerciseTimerControls(
+                            exerciseID: exercise.id,
+                            exerciseName: exercise.name,
+                            timer: exercise.timer,
+                            action: timerAction
+                        )
                         Button(action: toggleSaved) {
                             Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
                                 .font(.system(size: 17, weight: .bold))
@@ -988,14 +992,6 @@ private struct WorkoutLogExerciseCard: View {
                     }
                 }
 
-                WorkoutExerciseTimerControls(
-                    exerciseID: exercise.id,
-                    exerciseName: exercise.name,
-                    timer: exercise.timer,
-                    isCardio: isCardio,
-                    action: timerAction,
-                    updateIntensity: updateIntensity
-                )
 
             }
         }
@@ -1018,105 +1014,46 @@ private struct WorkoutExerciseTimerControls: View {
     let exerciseID: UUID
     let exerciseName: String
     let timer: StrengthExerciseTimer?
-    let isCardio: Bool
     let action: (StrengthExerciseTimerAction) -> Void
-    let updateIntensity: (StrengthWorkoutIntensity) -> Void
+    @State private var showingActions = false
 
     private var isRunning: Bool { timer?.isRunning == true }
     private var isSaved: Bool { timer?.isSaved == true }
-    private var hasTime: Bool { (timer?.elapsedSeconds() ?? 0) > 0 }
-    private var primaryTitle: String { isRunning ? "Pause" : (hasTime || isSaved ? "Resume" : "Start") }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack(spacing: 8) {
-                Image(systemName: "timer")
-                    .foregroundStyle(Color.workoutAccent)
-
-                // Only the clock redraws each second. The persisted timestamp, not
-                // a background task, keeps elapsed time across app suspension.
-                TimelineView(.animation(minimumInterval: 1, paused: !isRunning)) { context in
-                    Text(durationText(at: context.date))
-                        .font(.system(.title3, design: .rounded, weight: .bold).monospacedDigit())
-                        .foregroundStyle(Color.workoutCharcoal)
-                        .accessibilityLabel("Elapsed time for \(exerciseName)")
-                        .accessibilityValue(durationText(at: context.date))
-                        .accessibilityIdentifier("workout.timer.\(exerciseID).elapsed")
-                }
-
-                Spacer(minLength: 4)
-
-                if isSaved || isRunning || hasTime {
-                    Text(isSaved ? "Saved" : (isRunning ? "Running" : "Paused"))
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(isRunning ? Color.workoutAccent : Color.workoutMutedText)
-                }
-
+        Button {
+            if timer == nil { action(.start) } else { showingActions = true }
+        } label: {
+            VStack(spacing: 1) {
+                Image(systemName: isRunning ? "stopwatch.fill" : "stopwatch")
+                    .font(.system(size: 17, weight: .bold))
                 if timer != nil {
-                    Menu {
-                        Button("Restart timer", systemImage: "arrow.counterclockwise") { action(.restart) }
-                        Button("Discard timer", systemImage: "trash", role: .destructive) { action(.discard) }
-                    } label: {
-                        Image(systemName: "ellipsis")
-                            .font(.headline)
-                            .frame(width: 44, height: 44)
-                            .contentShape(Rectangle())
-                    }
-                    .tint(Color.workoutMutedText)
-                    .accessibilityLabel("Timer options for \(exerciseName)")
-                }
-            }
-
-            HStack(spacing: 10) {
-                Button {
-                    action(isRunning ? .pause : (hasTime || isSaved ? .resume : .start))
-                } label: {
-                    Label(primaryTitle, systemImage: isRunning ? "pause.fill" : "play.fill")
-                        .font(.subheadline.weight(.bold))
-                        .frame(maxWidth: .infinity, minHeight: 44)
-                        .foregroundStyle(Color.workoutOnAccent)
-                        .background(Color.workoutAccent, in: RoundedRectangle(cornerRadius: 12))
-                }
-                .buttonStyle(.plain)
-                .accessibilityLabel("\(primaryTitle) timer for \(exerciseName)")
-                .accessibilityIdentifier("workout.timer.\(exerciseID).primary")
-
-                if timer != nil && !isSaved {
-                    Button { action(.stop) } label: {
-                        Label("Stop & save", systemImage: "stop.fill")
-                            .font(.subheadline.weight(.bold))
-                            .frame(maxWidth: .infinity, minHeight: 44)
-                            .foregroundStyle(Color.workoutCharcoal)
-                            .background(Color.workoutCard, in: RoundedRectangle(cornerRadius: 12))
-                    }
-                    .buttonStyle(.plain)
-                    .disabled(!isRunning && !hasTime)
-                    .accessibilityLabel("Stop and save timer for \(exerciseName)")
-                }
-            }
-
-            if isCardio || timer != nil {
-                Text("Intensity")
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(Color.workoutMutedText)
-                Picker("Intensity for \(exerciseName)", selection: Binding(
-                    get: { timer?.intensity ?? .moderate },
-                    set: updateIntensity
-                )) {
-                    ForEach(StrengthWorkoutIntensity.allCases, id: \.self) { intensity in
-                        Text(intensity.title).tag(intensity)
+                    TimelineView(.animation(minimumInterval: 1, paused: !isRunning)) { context in
+                        Text(durationText(at: context.date))
+                            .font(.system(size: 9, weight: .semibold, design: .rounded).monospacedDigit())
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.6)
+                            .accessibilityIdentifier("workout.timer.\(exerciseID).elapsed")
                     }
                 }
-                .pickerStyle(.segmented)
-
-                Text(isSaved ? "Saved time is used when you calculate calorie burn." : "Pause during breaks. Stop and save before calculating calorie burn.")
-                    .font(.caption2)
-                    .foregroundStyle(Color.workoutMutedText)
-                    .fixedSize(horizontal: false, vertical: true)
             }
+            .frame(width: 44, height: 44)
+            .contentShape(Rectangle())
         }
-        .padding(12)
-        .background(Color.workoutCard.opacity(0.45), in: RoundedRectangle(cornerRadius: 16))
+        .buttonStyle(.plain)
+        .foregroundStyle(timer == nil ? Color.workoutMutedText.opacity(0.72) : Color.workoutAccent)
+        .accessibilityLabel("\(timer == nil ? "Start timer" : "Timer options") for \(exerciseName)")
+        .accessibilityValue(timer == nil ? "" : "\(durationText(at: .now)), \(isRunning ? "running" : (isSaved ? "saved" : "paused"))")
+        .accessibilityIdentifier("workout.timer.\(exerciseID).primary")
+        .confirmationDialog("Timer for \(exerciseName)", isPresented: $showingActions, titleVisibility: .visible) {
+            Button(isRunning ? "Pause" : "Resume") { action(isRunning ? .pause : .resume) }
+            if !isSaved {
+                Button("Stop & save") { action(.stop) }
+            }
+            Button("Restart timer") { action(.restart) }
+            Button("Discard timer", role: .destructive) { action(.discard) }
+            Button("Cancel", role: .cancel) { }
+        }
     }
 
     private func durationText(at date: Date) -> String {

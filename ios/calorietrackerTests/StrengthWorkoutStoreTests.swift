@@ -578,6 +578,34 @@ struct StrengthWorkoutStoreTests {
         #expect(restored.healthSyncVersion == 2)
     }
 
+    @Test func timedCaloriesFollowRPEAndInvalidateSavedBurn() throws {
+        let fixture = WorkoutTestFixture()
+        let store = fixture.makeStore()
+        let date = WorkoutTestFixture.date(2026, 9, 8)
+        store.toggleExercise(WorkoutTestFixture.exercise(id: "curl", name: "Curl"), on: date)
+        let exercise = try #require(store.exercises(for: date).first)
+        store.updateTimer(.start, exerciseID: exercise.id, on: date, now: date)
+        store.updateTimer(.stop, exerciseID: exercise.id, on: date, now: date.addingTimeInterval(600))
+        func estimate() throws -> StrengthWorkoutBurnEstimate {
+            try #require(StrengthWorkoutBurnEstimator.estimate(exercises: store.exercises(for: date), bodyWeightKg: 70, defaultWeightUnit: .kg, defaultRPEScale: .strength))
+        }
+        store.updateSet(exerciseID: exercise.id, setID: exercise.sets[0].id, on: date, rpe: "3")
+        let light = try estimate()
+        _ = store.upsertCalculatedWorkout(on: date, caloriesBurned: light.calories, weightUnit: .kg)
+        store.updateSet(exerciseID: exercise.id, setID: exercise.sets[0].id, on: date, rpe: "9")
+        #expect(store.workoutBurnSessions.isEmpty)
+        let hard = try estimate()
+        #expect(hard.calories > light.calories)
+        let saved = try #require(store.upsertCalculatedWorkout(on: date, caloriesBurned: hard.calories, weightUnit: .kg))
+        #expect(saved.exercises[0].intensity == .vigorous)
+        var timed = store.exercises(for: date)[0]
+        for (rpe, scale) in [("9", StrengthWorkoutRPEScale.cr10), ("19", .borg)] {
+            timed.sets[0].rpe = rpe
+            timed.sets[0].rpeScale = scale
+            #expect(StrengthWorkoutBurnEstimator.timerIntensity(for: timed, defaultRPEScale: .strength) == .vigorous)
+        }
+    }
+
     @Test func timedBurnReplacesSameExerciseRepsAndAddsToUntimedStrength() throws {
         var run = StrengthPlannedExercise(item: WorkoutTestFixture.exercise(
             id: "Running_Treadmill", name: "Running", category: "cardio"

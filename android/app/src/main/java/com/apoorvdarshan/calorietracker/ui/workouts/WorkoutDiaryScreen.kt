@@ -108,7 +108,6 @@ import com.apoorvdarshan.calorietracker.data.ExerciseVisual
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.PlannedExercise
 import com.apoorvdarshan.calorietracker.models.ExerciseTimerAction
-import com.apoorvdarshan.calorietracker.models.WorkoutIntensity
 import com.apoorvdarshan.calorietracker.models.WorkoutRpeScale
 import com.apoorvdarshan.calorietracker.models.WorkoutSetInput
 import com.apoorvdarshan.calorietracker.models.PlannedSet
@@ -293,8 +292,7 @@ internal fun WorkoutDiaryScreen(
                             onWeight = { setId, value -> viewModel.updateWeight(exercise.id, setId, value) },
                             onReps = { setId, value -> viewModel.updateReps(exercise.id, setId, value) },
                             onRpe = { setId, value -> viewModel.updateRpe(exercise.id, setId, value) },
-                            onTimerAction = { viewModel.updateTimer(exercise.id, it) },
-                            onTimerIntensity = { viewModel.setTimerIntensity(exercise.id, it) }
+                            onTimerAction = { viewModel.updateTimer(exercise.id, it) }
                         )
                     }
                 }
@@ -835,8 +833,7 @@ private fun WorkoutExerciseCard(
     onWeight: (UUID, String) -> Unit,
     onReps: (UUID, String) -> Unit,
     onRpe: (UUID, String) -> Unit,
-    onTimerAction: (ExerciseTimerAction) -> Unit,
-    onTimerIntensity: (WorkoutIntensity) -> Unit
+    onTimerAction: (ExerciseTimerAction) -> Unit
 ) {
     FudGlassSurface(
         modifier = modifier.fillMaxWidth(),
@@ -903,13 +900,6 @@ private fun WorkoutExerciseCard(
             ) {
                 if (!exercise.isCardio) {
                     Icon(Icons.Filled.Checklist, contentDescription = null, tint = AppColors.Calorie, modifier = Modifier.size(17.dp))
-                    Spacer(Modifier.width(6.dp))
-                    Text(
-                        "Sets",
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold
-                    )
                     Spacer(Modifier.weight(1f))
                     IconButton(
                         onClick = { onSetCount(exercise.sets.size - 1) },
@@ -937,6 +927,7 @@ private fun WorkoutExerciseCard(
                     Text("Timed activity", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f), fontSize = 12.sp)
                     Spacer(Modifier.weight(1f))
                 }
+                WorkoutExerciseTimer(exercise, onTimerAction)
                 IconButton(onClick = onToggleSaved, modifier = Modifier.size(36.dp)) {
                     Icon(
                         if (isSaved) Icons.Filled.Bookmark else Icons.Filled.BookmarkBorder,
@@ -954,8 +945,6 @@ private fun WorkoutExerciseCard(
                     )
                 }
             }
-
-            WorkoutExerciseTimer(exercise, onTimerAction, onTimerIntensity)
 
             if (!exercise.isCardio) Column {
                 exercise.sets.forEachIndexed { index, set ->
@@ -986,8 +975,7 @@ private fun WorkoutExerciseCard(
 @Composable
 private fun WorkoutExerciseTimer(
     exercise: PlannedExercise,
-    onAction: (ExerciseTimerAction) -> Unit,
-    onIntensity: (WorkoutIntensity) -> Unit
+    onAction: (ExerciseTimerAction) -> Unit
 ) {
     val timer = exercise.timer
     var now by remember { mutableStateOf(Instant.now()) }
@@ -1006,79 +994,38 @@ private fun WorkoutExerciseTimer(
     } else {
         String.format(Locale.US, "%02d:%02d", elapsed / 60, elapsed % 60)
     }
-    Column(
-        modifier = Modifier.fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.48f))
-            .padding(horizontal = 12.dp, vertical = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(4.dp)
-    ) {
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Icon(Icons.Filled.Timer, contentDescription = null, tint = AppColors.Calorie, modifier = Modifier.size(20.dp))
-            Spacer(Modifier.width(8.dp))
-            Column(Modifier.weight(1f)) {
-                Text(time, color = MaterialTheme.colorScheme.onSurface, fontWeight = FontWeight.Bold, fontSize = 20.sp)
-                Text(
-                    when {
-                        timer?.isRunning == true -> "Timing"
-                        timer?.isSaved == true -> "Duration saved"
-                        elapsed > 0 -> "Paused"
-                        else -> "Exercise timer"
-                    },
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f),
-                    fontSize = 11.sp
+    Box {
+        IconButton(
+            onClick = { if (timer == null) onAction(ExerciseTimerAction.START) else menuExpanded = true },
+            modifier = Modifier.size(48.dp)
+        ) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                Icon(
+                    Icons.Filled.Timer,
+                    contentDescription = if (timer == null) "Start timer for ${exercise.name}" else "Timer options for ${exercise.name}, $time, ${if (timer.isRunning) "running" else if (timer.isSaved) "saved" else "paused"}",
+                    tint = if (timer == null) MaterialTheme.colorScheme.onSurface.copy(alpha = 0.48f) else AppColors.Calorie,
+                    modifier = Modifier.size(19.dp)
                 )
-            }
-            FudGlassTextButton(
-                text = when {
-                    timer?.isRunning == true -> "Pause"
-                    elapsed > 0 || timer?.isSaved == true -> "Resume"
-                    else -> "Start"
-                },
-                onClick = {
-                    onAction(when {
-                        timer?.isRunning == true -> ExerciseTimerAction.PAUSE
-                        elapsed > 0 || timer?.isSaved == true -> ExerciseTimerAction.RESUME
-                        else -> ExerciseTimerAction.START
-                    })
-                }
-            )
-            if (timer != null && (elapsed > 0 || timer.isRunning || timer.isSaved)) {
-                Box {
-                    IconButton(onClick = { menuExpanded = true }, modifier = Modifier.size(40.dp)) {
-                        Icon(Icons.Filled.MoreVert, contentDescription = "Timer options for ${exercise.name}")
-                    }
-                    SheetGlassDropdownMenu(expanded = menuExpanded, onDismissRequest = { menuExpanded = false }, menuWidth = 200.dp) {
-                        SheetGlassDropdownMenuItem(label = "Restart timer", onClick = {
-                            menuExpanded = false
-                            pendingAction = ExerciseTimerAction.RESTART
-                        })
-                        SheetGlassDropdownMenuItem(label = "Discard timer", onClick = {
-                            menuExpanded = false
-                            pendingAction = ExerciseTimerAction.DISCARD
-                        })
-                    }
-                }
+                if (timer != null) Text(time, color = AppColors.Calorie, fontSize = 9.sp, maxLines = 1)
             }
         }
-        if (timer != null && (timer.isRunning || elapsed > 0)) {
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                WorkoutIntensity.entries.forEach { intensity ->
-                    androidx.compose.material3.FilterChip(
-                        selected = timer.intensity == intensity,
-                        onClick = { onIntensity(intensity) },
-                        label = { Text(intensity.title, fontSize = 11.sp, maxLines = 1) },
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
-            if (!timer.isSaved) {
-                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    FudGlassTextButton(text = "Stop & save", onClick = { onAction(ExerciseTimerAction.STOP) })
-                }
-            } else {
-                Text("Calculate calorie burn to update your daily burn total.", color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f), fontSize = 11.sp)
-            }
+        SheetGlassDropdownMenu(expanded = menuExpanded, onDismissRequest = { menuExpanded = false }, menuWidth = 200.dp) {
+            SheetGlassDropdownMenuItem(label = if (timer?.isRunning == true) "Pause" else "Resume", onClick = {
+                menuExpanded = false
+                onAction(if (timer?.isRunning == true) ExerciseTimerAction.PAUSE else ExerciseTimerAction.RESUME)
+            })
+            if (timer?.isSaved != true) SheetGlassDropdownMenuItem(label = "Stop & save", onClick = {
+                menuExpanded = false
+                onAction(ExerciseTimerAction.STOP)
+            })
+            SheetGlassDropdownMenuItem(label = "Restart timer", onClick = {
+                menuExpanded = false
+                pendingAction = ExerciseTimerAction.RESTART
+            })
+            SheetGlassDropdownMenuItem(label = "Discard timer", onClick = {
+                menuExpanded = false
+                pendingAction = ExerciseTimerAction.DISCARD
+            })
         }
     }
     pendingAction?.let { action ->

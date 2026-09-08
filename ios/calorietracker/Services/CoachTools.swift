@@ -409,7 +409,7 @@ struct CoachTools {
                                 timerPayload["running_since"] = Self.isoTimestamp(runningSince)
                             }
                             payload["timer"] = timerPayload
-                            payload["intensity"] = timer.intensity.title
+                            payload["intensity"] = StrengthWorkoutBurnEstimator.timerIntensity(for: exercise, defaultRPEScale: workoutPreferences?.rpeScale ?? .strength).title
                             if let duration = timer.savedDurationSeconds, duration.isFinite, duration > 0, !timer.isRunning {
                                 payload["duration_seconds"] = duration
                             }

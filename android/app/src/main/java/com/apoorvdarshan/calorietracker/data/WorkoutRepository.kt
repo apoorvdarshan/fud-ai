@@ -155,14 +155,12 @@ class WorkoutRepository(
         rpe: String? = null
     ) {
         val key = WorkoutDate.requireKey(dateKey)
-        stateMutex.withLock {
-            val current = store.workoutState.first().sanitized()
-            val plan = current.dayPlans[key] ?: return@withLock
+        updatePlanWithPreferences(key) { plan, preferences ->
             val exerciseIndex = plan.exercises.indexOfFirst { it.id == exerciseId }
-            if (exerciseIndex < 0) return@withLock
+            if (exerciseIndex < 0) return@updatePlanWithPreferences plan
             val exercise = plan.exercises[exerciseIndex]
             val setIndex = exercise.sets.indexOfFirst { it.id == setId }
-            if (setIndex < 0) return@withLock
+            if (setIndex < 0) return@updatePlanWithPreferences plan
 
             var changedSet = exercise.sets[setIndex]
             if (weight != null) {
@@ -175,7 +173,7 @@ class WorkoutRepository(
                 changedSet = changedSet.copy(reps = com.apoorvdarshan.calorietracker.models.WorkoutSetInput.reps(reps))
             }
             if (rpe != null) {
-                val scale = changedSet.rpeScale ?: current.preferences.rpeScale
+                val scale = changedSet.rpeScale ?: preferences.rpeScale
                 changedSet = changedSet.copy(
                     rpe = scale.sanitize(rpe, changedSet.rpe),
                     rpeScale = scale
@@ -186,8 +184,7 @@ class WorkoutRepository(
             val changedExercises = plan.exercises.toMutableList().also {
                 it[exerciseIndex] = exercise.copy(sets = changedSets)
             }
-            val nextPlan = plan.copy(exercises = changedExercises)
-            store.setWorkoutState(current.copy(dayPlans = current.dayPlans + (key to nextPlan)))
+            plan.copy(exercises = changedExercises)
         }
     }
 
@@ -542,17 +539,23 @@ class WorkoutRepository(
         stateMutex.withLock { store.clearWorkoutState() }
     }
 
-    private suspend fun updatePlan(dateKey: String, transform: (WorkoutDayPlan) -> WorkoutDayPlan) {
+    private suspend fun updatePlan(dateKey: String, transform: (WorkoutDayPlan) -> WorkoutDayPlan) =
+        updatePlanWithPreferences(dateKey) { plan, _ -> transform(plan) }
+
+    private suspend fun updatePlanWithPreferences(
+        dateKey: String,
+        transform: (WorkoutDayPlan, WorkoutPreferences) -> WorkoutDayPlan
+    ) {
         var invalidatedBurns: List<WorkoutSession> = emptyList()
         stateMutex.withLock {
             val current = store.workoutState.first().sanitized()
             val previous = current.dayPlans[dateKey] ?: WorkoutDayPlan(dateKey)
-            val changed = transform(previous)
+            val changed = transform(previous, current.preferences)
             val plans = current.dayPlans.toMutableMap()
             if (changed.exercises.isEmpty()) plans.remove(dateKey) else plans[dateKey] = changed
             // A saved timer change invalidates the daily estimate; unsaved ticks/pauses do not.
             // Clear the whole snapshot because mixed strength/timer calories cannot be subtracted safely.
-            if (savedTimerInputs(previous) != savedTimerInputs(changed)) {
+            if (savedTimerInputs(previous, current.preferences.rpeScale) != savedTimerInputs(changed, current.preferences.rpeScale)) {
                 invalidatedBurns = current.completedSessions.filter {
                     it.diaryDateKey == dateKey && it.caloriesBurned != null
                 }
@@ -571,11 +574,11 @@ class WorkoutRepository(
         invalidatedBurns.forEach { performHealthDelete(it.id, it.diaryDateKey) }
     }
 
-    private fun savedTimerInputs(plan: WorkoutDayPlan): Map<UUID, Pair<Double, WorkoutIntensity>> =
+    private fun savedTimerInputs(plan: WorkoutDayPlan, rpeScale: com.apoorvdarshan.calorietracker.models.WorkoutRpeScale): Map<UUID, Pair<Double, WorkoutIntensity>> =
         plan.exercises.mapNotNull { exercise ->
             val timer = exercise.timer ?: return@mapNotNull null
             val seconds = timer.savedSeconds.takeIf { it > 0.0 } ?: return@mapNotNull null
-            exercise.id to (seconds to timer.intensity)
+            exercise.id to (seconds to WorkoutBurnEstimator.timerIntensity(exercise, rpeScale))
         }.toMap()
 
     private suspend fun updateExercise(
@@ -699,7 +702,7 @@ class WorkoutRepository(
             targetMuscles = exercise.primaryMuscles,
             equipment = exercise.equipment,
             durationSeconds = exercise.timer?.savedSeconds?.takeIf { it > 0.0 },
-            intensity = exercise.timer?.takeIf { it.savedSeconds > 0.0 }?.intensity,
+            intensity = exercise.timer?.takeIf { it.savedSeconds > 0.0 }?.let { WorkoutBurnEstimator.timerIntensity(exercise, preferences.rpeScale) },
             sets = exercise.sets.mapIndexed { index, set ->
                 CompletedSet(
                     setNumber = index + 1,

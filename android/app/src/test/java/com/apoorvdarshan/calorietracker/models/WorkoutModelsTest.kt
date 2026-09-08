@@ -180,6 +180,20 @@ class WorkoutModelsTest {
         assertEquals(28, estimate(listOf(stretching))!!.calories)
     }
 
+    @Test
+    fun timedCaloriesUseRpeAcrossScalesAndIgnoreBlankSets() {
+        fun timed(rpe: String, scale: WorkoutRpeScale) = exercise(PlannedSet(rpe = rpe, rpeScale = scale)).copy(
+            timer = ExerciseTimer(accumulatedSeconds = 600.0, savedDurationSeconds = 600.0)
+        )
+        val light = timed("3", WorkoutRpeScale.STRENGTH)
+        val hard = timed("9", WorkoutRpeScale.STRENGTH)
+        assertTrue(estimate(listOf(hard))!!.calories > estimate(listOf(light))!!.calories)
+        assertEquals(estimate(listOf(hard)), estimate(listOf(timed("9", WorkoutRpeScale.CR10))))
+        assertEquals(estimate(listOf(hard)), estimate(listOf(timed("19", WorkoutRpeScale.BORG))))
+        assertEquals(estimate(listOf(hard)), estimate(listOf(hard.copy(sets = hard.sets + PlannedSet()))))
+        assertEquals(WorkoutIntensity.MODERATE, WorkoutBurnEstimator.timerIntensity(timed("", WorkoutRpeScale.STRENGTH), WorkoutRpeScale.STRENGTH))
+    }
+
     private fun estimate(exercises: List<PlannedExercise>): WorkoutBurnEstimate? = WorkoutBurnEstimator.estimate(
         exercises, 70.0, WorkoutWeightUnit.KG, WorkoutRpeScale.STRENGTH
     )

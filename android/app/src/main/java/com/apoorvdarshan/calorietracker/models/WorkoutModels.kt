@@ -470,7 +470,7 @@ object WorkoutBurnEstimator {
             val timedSeconds = exercise.timer?.savedSeconds ?: 0.0
             if (timedSeconds > 0.0 || exercise.isCardio) {
                 if (timedSeconds > 0.0) {
-                    val intensity = exercise.timer?.intensity ?: WorkoutIntensity.MODERATE
+                    val intensity = timerIntensity(exercise, defaultRpeScale)
                     val met = timedMet(exercise, intensity)
                     timedCalories += met * 3.5 * safeBodyWeight / 200.0 * (timedSeconds / 60.0)
                 }
@@ -518,6 +518,20 @@ object WorkoutBurnEstimator {
             performedSetCount = performedSetCount,
             repCount = repCount
         )
+    }
+
+    /** RPE drives timed effort; missing RPE preserves legacy effort or the moderate default. */
+    fun timerIntensity(exercise: PlannedExercise, defaultRpeScale: WorkoutRpeScale): WorkoutIntensity {
+        val efforts = exercise.sets.mapNotNull { set ->
+            set.rpe.replace(',', '.').toDoubleOrNull()?.takeIf { it.isFinite() } ?: return@mapNotNull null
+            normalizedEffort(set.rpe, set.rpeScale ?: defaultRpeScale)
+        }
+        if (efforts.isEmpty()) return exercise.timer?.intensity ?: WorkoutIntensity.MODERATE
+        return when {
+            efforts.average() < 0.4 -> WorkoutIntensity.LIGHT
+            efforts.average() >= 0.75 -> WorkoutIntensity.VIGOROUS
+            else -> WorkoutIntensity.MODERATE
+        }
     }
 
     /**

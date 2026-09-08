@@ -321,7 +321,7 @@ class CoachTools(
                                     ).apply {
                                         timer.runningSince?.let { put("running_since", DateTimeFormatter.ISO_INSTANT.format(it)) }
                                     })
-                                    put("intensity", timer.intensity.title)
+                                    put("intensity", com.apoorvdarshan.calorietracker.models.WorkoutBurnEstimator.timerIntensity(exercise, workoutPreferences.rpeScale).title)
                                     if (timer.savedSeconds > 0.0) put("duration_seconds", timer.savedSeconds)
                                 }
                             }

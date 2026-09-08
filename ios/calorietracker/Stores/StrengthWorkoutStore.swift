@@ -403,7 +403,7 @@ final class StrengthWorkoutStore {
                   timer.isSaved,
                   let duration = timer.savedDurationSeconds
             else { return }
-            inputs[exercise.id] = SavedTimerBurnInput(durationSeconds: duration, intensity: timer.intensity)
+            inputs[exercise.id] = SavedTimerBurnInput(durationSeconds: duration, intensity: StrengthWorkoutBurnEstimator.timerIntensity(for: exercise, defaultRPEScale: preferences.rpeScale))
         }
     }
 
@@ -435,7 +435,7 @@ final class StrengthWorkoutStore {
                     )
                 },
                 durationSeconds: exercise.timer?.isSaved == true ? exercise.timer?.savedDurationSeconds : nil,
-                intensity: exercise.timer?.isSaved == true ? exercise.timer?.intensity : nil
+                intensity: exercise.timer?.isSaved == true ? StrengthWorkoutBurnEstimator.timerIntensity(for: exercise, defaultRPEScale: preferences.rpeScale) : nil
             )
         }
     }

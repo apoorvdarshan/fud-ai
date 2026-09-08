@@ -287,6 +287,25 @@ class WorkoutRepositoryTest {
         assertEquals(strengthBurn.caloriesBurned, repository.calculateBurn(date, 70.0, WorkoutWeightUnit.KG)!!.caloriesBurned)
     }
 
+    @Test
+    fun editingTimedRpeInvalidatesBurnAndLogsDerivedEffort() = runBlocking {
+        val repository = WorkoutRepository(FakeWorkoutStateStore())
+        val date = LocalDate.of(2026, 9, 8)
+        val start = Instant.parse("2026-09-08T10:00:00Z")
+        repository.toggleExercise(exerciseItem(), date)
+        val exercise = repository.planNow(date).exercises.single()
+        repository.updateTimer(exercise.id, date, ExerciseTimerAction.START, start)
+        repository.updateTimer(exercise.id, date, ExerciseTimerAction.STOP, start.plusSeconds(600))
+        repository.updateSet(exercise.id, exercise.sets[0].id, date, rpe = "3")
+        val light = repository.calculateBurn(date, 70.0, WorkoutWeightUnit.KG)!!
+        repository.updateSet(exercise.id, exercise.sets[0].id, date, rpe = "9")
+        assertTrue(repository.snapshot().completedSessions.isEmpty())
+        val hard = repository.calculateBurn(date, 70.0, WorkoutWeightUnit.KG)!!
+        assertTrue(hard.caloriesBurned!! > light.caloriesBurned!!)
+        assertEquals(WorkoutIntensity.VIGOROUS, hard.exercises.single().intensity)
+        assertEquals(600.0, hard.exercises.single().durationSeconds!!, 0.001)
+    }
+
     private fun exerciseItem() = ExerciseItem(
         id = "bench",
         name = "Bench Press",

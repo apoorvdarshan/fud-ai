@@ -490,7 +490,7 @@ enum StrengthWorkoutBurnEstimator {
             let savedSeconds = exercise.timer?.savedDurationSeconds ?? 0
             let hasSavedDuration = exercise.timer?.isSaved == true
             if hasSavedDuration {
-                let met = timedMET(for: exercise, intensity: exercise.timer?.intensity ?? .moderate)
+                let met = timedMET(for: exercise, intensity: timerIntensity(for: exercise, defaultRPEScale: defaultRPEScale))
                 timedCalories += met * 3.5 * safeBodyWeight / 200 * (savedSeconds / 60)
             }
             var performedInExercise = 0
@@ -540,9 +540,20 @@ enum StrengthWorkoutBurnEstimator {
         )
     }
 
+    /// RPE drives timed effort too; missing RPE retains legacy saved effort or the moderate default.
+    static func timerIntensity(for exercise: StrengthPlannedExercise, defaultRPEScale: StrengthWorkoutRPEScale) -> StrengthWorkoutIntensity {
+        let efforts = exercise.sets.compactMap { set -> Double? in
+            guard let value = Double(set.rpe.replacingOccurrences(of: ",", with: ".")), value.isFinite else { return nil }
+            return normalizedEffort(set.rpe, scale: set.rpeScale ?? defaultRPEScale)
+        }
+        guard !efforts.isEmpty else { return exercise.timer?.intensity ?? .moderate }
+        let effort = efforts.reduce(0, +) / Double(efforts.count)
+        return effort < 0.4 ? .light : (effort >= 0.75 ? .vigorous : .moderate)
+    }
+
     /// Representative activity values from the 2024 Adult Compendium:
     /// https://pacompendium.com/bicycling/ , /walking/ , /running/ , /sports/
-    /// and /conditioning-exercise/. Intensity is a user-selected approximation
+    /// and /conditioning-exercise/. Intensity is an RPE-derived approximation
     /// of pace/effort, not a measured speed, power output, or energy expenditure.
     private static func timedMET(for exercise: StrengthPlannedExercise, intensity: StrengthWorkoutIntensity) -> Double {
         let values: (Double, Double, Double)

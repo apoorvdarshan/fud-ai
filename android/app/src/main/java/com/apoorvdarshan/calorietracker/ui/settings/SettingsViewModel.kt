@@ -1200,13 +1200,11 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         }
         if (caps.weightWrite) {
             container.weightRepository.entries.first().forEach { entry ->
-                container.health.deleteWeight(entry.id)
                 container.health.writeWeight(entry)
             }
         }
         if (caps.bodyFatWrite) {
             container.bodyFatRepository.entries.first().forEach { entry ->
-                container.health.deleteBodyFat(entry.id)
                 container.health.writeBodyFat(entry)
             }
         }

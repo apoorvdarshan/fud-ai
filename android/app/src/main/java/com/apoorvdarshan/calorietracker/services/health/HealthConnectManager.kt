@@ -66,7 +66,23 @@ internal fun resolveHealthConnectAvailability(
     else -> HealthConnectAvailability.UNAVAILABLE
 }
 
-class HealthConnectManager(private val context: Context) {
+class HealthConnectManager(
+    private val context: Context,
+    private val scheduleRetries: Boolean = true
+) {
+
+    private suspend fun writeWithRetry(
+        kind: String, id: UUID, delete: Boolean = false, write: suspend () -> Unit
+    ): Boolean = retryHealthWrite(
+        deferred = {
+            if (scheduleRetries) HealthWriteRetryWorker.enqueue(context, kind, id, delete)
+        },
+        failed = { error ->
+            // Log only the failure class; records and health values stay private.
+            android.util.Log.w("FudAIHealth", "Health Connect $kind write failed: ${error.javaClass.simpleName}")
+        },
+        write = write
+    )
 
     private val client: HealthConnectClient? by lazy {
         runCatching { HealthConnectClient.getOrCreate(context) }.getOrNull()
@@ -188,20 +204,23 @@ class HealthConnectManager(private val context: Context) {
             time = entry.date,
             zoneOffset = null,
             weight = Mass.kilograms(entry.weightKg),
-            metadata = Metadata.manualEntry(clientRecordId = tag(entry.id))
+            metadata = Metadata.manualEntry(
+                clientRecordId = tag(entry.id),
+                clientRecordVersion = writeVersions.next()
+            )
         )
-        return runCatching { c.insertRecords(listOf(record)) }.isSuccess
+        return writeWithRetry("weight", entry.id) { c.insertRecords(listOf(record)) }
     }
 
     suspend fun deleteWeight(entryId: UUID): Boolean {
         val c = client ?: return false
-        return runCatching {
+        return writeWithRetry("weight", entryId, delete = true) {
             c.deleteRecords(
                 recordType = WeightRecord::class,
                 recordIdsList = emptyList(),
                 clientRecordIdsList = listOf(tag(entryId))
             )
-        }.isSuccess
+        }
     }
 
     suspend fun readWeights(from: Instant, to: Instant): List<ExternalWeight> {
@@ -244,20 +263,23 @@ class HealthConnectManager(private val context: Context) {
             zoneOffset = null,
             // BodyFatRecord wants 0–100 percent, not a fraction.
             percentage = Percentage(entry.bodyFatFraction * 100),
-            metadata = Metadata.manualEntry(clientRecordId = tag(entry.id))
+            metadata = Metadata.manualEntry(
+                clientRecordId = tag(entry.id),
+                clientRecordVersion = writeVersions.next()
+            )
         )
-        return runCatching { c.insertRecords(listOf(record)) }.isSuccess
+        return writeWithRetry("bodyFat", entry.id) { c.insertRecords(listOf(record)) }
     }
 
     suspend fun deleteBodyFat(entryId: UUID): Boolean {
         val c = client ?: return false
-        return runCatching {
+        return writeWithRetry("bodyFat", entryId, delete = true) {
             c.deleteRecords(
                 recordType = BodyFatRecord::class,
                 recordIdsList = emptyList(),
                 clientRecordIdsList = listOf(tag(entryId))
             )
-        }.isSuccess
+        }
     }
 
     suspend fun readBodyFats(from: Instant, to: Instant): List<ExternalBodyFat> {
@@ -298,7 +320,10 @@ class HealthConnectManager(private val context: Context) {
         if (start.isAfter(Instant.now())) return false
         // Nutrition records need a non-zero duration or Health Connect rejects them; use 1 minute.
         val end = start.plusSeconds(60)
-        return runCatching {
+        // Keep the same version across retries so an older in-flight write
+        // cannot overwrite a later edit that has already reached Health Connect.
+        val version = writeVersions.next()
+        return writeWithRetry("nutrition", entry.id) {
             val record = NutritionRecord(
                 startTime = start,
                 endTime = end,
@@ -331,28 +356,30 @@ class HealthConnectManager(private val context: Context) {
                 vitaminE = entry.vitaminE?.let { Mass.milligrams(it) },
                 vitaminK = entry.vitaminK?.let { Mass.micrograms(it) },
                 folate = entry.folate?.let { Mass.micrograms(it) },
-                metadata = Metadata.manualEntry(clientRecordId = tag(entry.id))
+                metadata = Metadata.manualEntry(
+                    clientRecordId = tag(entry.id),
+                    clientRecordVersion = version
+                )
             )
             c.insertRecords(listOf(record))
-        }.isSuccess
+        }
     }
 
     suspend fun updateNutrition(entry: FoodEntry): Boolean {
-        // Health Connect doesn't allow true updates across clientRecordIds; delete-then-write
-        // preserves the UUID linkage.
-        deleteNutrition(entry.id)
+        // Versioned upsert preserves the existing record if a write fails and
+        // emits one change for readers instead of a deletion plus an insertion.
         return writeNutrition(entry)
     }
 
     suspend fun deleteNutrition(entryId: UUID): Boolean {
         val c = client ?: return false
-        return runCatching {
+        return writeWithRetry("nutrition", entryId, delete = true) {
             c.deleteRecords(
                 recordType = NutritionRecord::class,
                 recordIdsList = emptyList(),
                 clientRecordIdsList = listOf(tag(entryId))
             )
-        }.isSuccess
+        }
     }
 
     /** All NutritionRecords in the range, mapped back to Fud AI's units (the exact
@@ -725,6 +752,8 @@ class HealthConnectManager(private val context: Context) {
     }
 
     companion object {
+        private val writeVersions = HealthWriteVersions()
+
         private const val ACTION_MANAGE_HEALTH_PERMISSIONS =
             "android.health.connect.action.MANAGE_HEALTH_PERMISSIONS"
         private const val CLIENT_PREFIX = "fudai_"

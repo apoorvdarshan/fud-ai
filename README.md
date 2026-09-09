@@ -18,6 +18,7 @@
   <img src="https://img.shields.io/badge/privacy-local--first-brightgreen" alt="Local-first privacy">
   <img src="https://img.shields.io/badge/languages-iOS%2016%20%2F%20Android%2015-blue" alt="iOS 16 languages / Android 15 languages">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
+  <a href="https://www.qodo.ai/solutions/open-source/"><img src="https://img.shields.io/badge/Code_reviews-Qodo-634FD1" alt="Code reviews by Qodo"></a>
   <a href="https://www.bestpractices.dev/projects/14553"><img src="https://www.bestpractices.dev/projects/14553/badge" alt="OpenSSF Best Practices Passing"></a>
   <a href="https://scorecard.dev/viewer/?uri=github.com/apoorvdarshan/fud-ai"><img src="https://api.scorecard.dev/projects/github.com/apoorvdarshan/fud-ai/badge" alt="OpenSSF Scorecard"></a>
   <img src="https://img.shields.io/badge/Udyam-Registered-green" alt="Udyam Registered">
@@ -412,5 +413,7 @@ Thanks to everyone who has contributed to making Fud AI better:
 </a>
 
 ## Credits
+
+Thanks to [Qodo](https://www.qodo.ai/solutions/open-source/) for providing free AI code reviews through its open-source program.
 
 Exercise data, muscle glyphs, and barcode nutrition data come from open projects — see [ASSET_CREDITS.md](ASSET_CREDITS.md).

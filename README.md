@@ -19,6 +19,7 @@
   <img src="https://img.shields.io/badge/languages-iOS%2016%20%2F%20Android%2015-blue" alt="iOS 16 languages / Android 15 languages">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
   <a href="https://www.bestpractices.dev/projects/14553"><img src="https://www.bestpractices.dev/projects/14553/badge" alt="OpenSSF Best Practices Passing"></a>
+  <a href="https://scorecard.dev/viewer/?uri=github.com/apoorvdarshan/fud-ai"><img src="https://api.scorecard.dev/projects/github.com/apoorvdarshan/fud-ai/badge" alt="OpenSSF Scorecard"></a>
   <a href="https://udyamregistration.gov.in/verifyudyambarcode.aspx?verifyudrn=qVfNp9DBkYqvYKHEsvBgD4h+/n49mlNZ+PkaaIAifvQ="><img src="https://img.shields.io/badge/Udyam-Registered-green" alt="Udyam Registered"></a>
   <a href="https://github.com/apoorvdarshan/fud-ai/stargazers"><img src="https://img.shields.io/github/stars/apoorvdarshan/fud-ai?style=flat&logo=github&color=yellow" alt="GitHub stars"></a>
   <a href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726"><img src="https://img.shields.io/badge/App%20Store-Download-black?logo=apple" alt="App Store"></a>

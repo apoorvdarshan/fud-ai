@@ -941,6 +941,18 @@ struct HomeView: View {
     }
 
     var body: some View {
+        homeContent
+            .alert(pendingDiaryDeletion?.title ?? "Delete Entry?", isPresented: isDiaryDeletionPresented, presenting: pendingDiaryDeletion) { target in
+                Button("Cancel", role: .cancel) { pendingDiaryDeletion = nil }
+                Button("Delete", role: .destructive) {
+                    confirmDiaryDeletion(target)
+                }
+            } message: { target in
+                Text(target.message)
+            }
+    }
+
+    private var homeContent: some View {
         // Explicit observation tracking — reads profileStore.profile at body root
         // so SwiftUI invalidates this view on every profile mutation.
         let _ = profileStore.profile
@@ -1709,14 +1721,6 @@ struct HomeView: View {
                         }
                     }
                 }
-            }
-            .alert(pendingDiaryDeletion?.title ?? "Delete Entry?", isPresented: isDiaryDeletionPresented, presenting: pendingDiaryDeletion) { target in
-                Button("Cancel", role: .cancel) { pendingDiaryDeletion = nil }
-                Button("Delete", role: .destructive) {
-                    confirmDiaryDeletion(target)
-                }
-            } message: { target in
-                Text(target.message)
             }
             .alert("Error", isPresented: $showError) {
                 Button("Retry") { retryLastRequest() }

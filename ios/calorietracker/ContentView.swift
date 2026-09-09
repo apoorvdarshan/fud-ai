@@ -678,6 +678,15 @@ struct HomeView: View {
         }
     }
     @State private var selectedFoodIDs: Set<UUID> = []
+    private var isDiaryDeletionPresented: Binding<Bool> {
+        Binding<Bool>(
+            get: { pendingDiaryDeletion != nil },
+            set: { presented in
+                if !presented { pendingDiaryDeletion = nil }
+            }
+        )
+    }
+
     private func confirmDiaryDeletion(_ target: DiaryDeletion) {
         switch target {
         case .food(let entry): foodStore.deleteEntry(entry)
@@ -1701,10 +1710,7 @@ struct HomeView: View {
                     }
                 }
             }
-            .alert(pendingDiaryDeletion?.title ?? "Delete Entry?", isPresented: Binding(
-                get: { pendingDiaryDeletion != nil },
-                set: { if !$0 { pendingDiaryDeletion = nil } }
-            ), presenting: pendingDiaryDeletion) { target in
+            .alert(pendingDiaryDeletion?.title ?? "Delete Entry?", isPresented: isDiaryDeletionPresented, presenting: pendingDiaryDeletion) { target in
                 Button("Cancel", role: .cancel) { pendingDiaryDeletion = nil }
                 Button("Delete", role: .destructive) {
                     confirmDiaryDeletion(target)

@@ -3,7 +3,6 @@ package com.apoorvdarshan.calorietracker.ui.coach
 import android.Manifest
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -108,6 +107,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
+import com.apoorvdarshan.calorietracker.services.FoodImageDecoder
 import com.apoorvdarshan.calorietracker.R
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -707,7 +707,7 @@ private fun Bubble(content: String, isUser: Boolean, attachmentImageBase64: Stri
                 val bitmap = remember(encoded) {
                     runCatching {
                         val bytes = Base64.getDecoder().decode(encoded)
-                        BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                        FoodImageDecoder.decode(bytes)
                     }.getOrNull()
                 }
                 if (bitmap != null) {
@@ -851,7 +851,7 @@ private fun InputBar(
             .padding(start = 4.dp, end = 5.dp, top = 4.dp, bottom = 4.dp),
     ) {
         attachedImageBytes?.let { bytes ->
-            val bitmap = remember(bytes) { BitmapFactory.decodeByteArray(bytes, 0, bytes.size) }
+            val bitmap = remember(bytes) { FoodImageDecoder.decode(bytes) }
             if (bitmap != null) {
                 Box(
                     modifier = Modifier
@@ -1037,19 +1037,7 @@ private fun SendButton(canSend: Boolean, onClick: () -> Unit) {
 }
 
 private fun resizedJpeg(bytes: ByteArray, maxDimension: Int, quality: Int): ByteArray? {
-    val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size) ?: return null
-    val longest = maxOf(bitmap.width, bitmap.height)
-    val scaled = if (longest > maxDimension) {
-        val ratio = maxDimension.toFloat() / longest.toFloat()
-        Bitmap.createScaledBitmap(
-            bitmap,
-            (bitmap.width * ratio).toInt().coerceAtLeast(1),
-            (bitmap.height * ratio).toInt().coerceAtLeast(1),
-            true
-        )
-    } else {
-        bitmap
-    }
+    val scaled = FoodImageDecoder.decode(bytes, maxDimension) ?: return null
     return ByteArrayOutputStream().use { out ->
         scaled.compress(Bitmap.CompressFormat.JPEG, quality.coerceIn(1, 100), out)
         out.toByteArray()

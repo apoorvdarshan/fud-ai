@@ -46,6 +46,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.apoorvdarshan.calorietracker.services.FoodImageDecoder
 import com.apoorvdarshan.calorietracker.R
 
 /** Camera review step. Photos stay as ordered independent byte arrays; the
@@ -112,7 +113,7 @@ fun MultiPhotoCaptureSheet(
                 contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 20.dp)
             ) {
                 itemsIndexed(imageBytesList, key = { index, bytes -> "$index-${bytes.size}" }) { index, bytes ->
-                    val bitmap = remember(bytes) { decodePreview(bytes) }
+                    val bitmap = remember(bytes) { FoodImageDecoder.decode(bytes, 720) }
                     Box {
                         if (bitmap != null) {
                             androidx.compose.foundation.Image(
@@ -240,17 +241,4 @@ fun MultiPhotoCaptureSheet(
             }
         )
     }
-}
-
-private fun decodePreview(bytes: ByteArray): android.graphics.Bitmap? {
-    val bounds = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
-    android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size, bounds)
-    var sample = 1
-    while (maxOf(bounds.outWidth, bounds.outHeight) / sample > 720) sample *= 2
-    return android.graphics.BitmapFactory.decodeByteArray(
-        bytes,
-        0,
-        bytes.size,
-        android.graphics.BitmapFactory.Options().apply { inSampleSize = sample }
-    )
 }

@@ -13,6 +13,7 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.runtime.saveable.rememberSaveable
+import com.apoorvdarshan.calorietracker.services.FoodImageDecoder
 import com.apoorvdarshan.calorietracker.ui.navigation.LocalLaunchFillEpoch
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -2576,7 +2577,7 @@ private fun AnalyzingOverlay(imageBytes: ByteArray? = null) {
     //   VStack { (image | text.magnifyingglass) → ProgressView(.large) → "Analyzing your food..." }
     //   filling the screen, opaque background, calorie-pink accents.
     val bitmap = remember(imageBytes) {
-        imageBytes?.let { android.graphics.BitmapFactory.decodeByteArray(it, 0, it.size) }
+        imageBytes?.let { FoodImageDecoder.decode(it) }
     }
     Box(
         Modifier

@@ -57,6 +57,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.apoorvdarshan.calorietracker.services.FoodImageDecoder
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
@@ -107,7 +108,7 @@ fun FoodResultSheet(
     onDismiss: () -> Unit
 ) {
     val bitmaps = remember(imageBytesList) {
-        imageBytesList.mapNotNull(::decodeFoodResultPreview)
+        imageBytesList.mapNotNull { FoodImageDecoder.decode(it, 720) }
     }
     val state = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
@@ -680,20 +681,6 @@ fun FoodResultSheet(
             onDismiss = { ingredientEditor = null }
         )
     }
-}
-
-private fun decodeFoodResultPreview(bytes: ByteArray): android.graphics.Bitmap? {
-    if (bytes.isEmpty()) return null
-    val bounds = android.graphics.BitmapFactory.Options().apply { inJustDecodeBounds = true }
-    android.graphics.BitmapFactory.decodeByteArray(bytes, 0, bytes.size, bounds)
-    var sample = 1
-    while (maxOf(bounds.outWidth, bounds.outHeight) / sample > 720) sample *= 2
-    return android.graphics.BitmapFactory.decodeByteArray(
-        bytes,
-        0,
-        bytes.size,
-        android.graphics.BitmapFactory.Options().apply { inSampleSize = sample }
-    )
 }
 
 private data class ReviewNutrientEditSpec(

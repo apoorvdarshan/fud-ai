@@ -2,12 +2,11 @@ package com.apoorvdarshan.calorietracker.services
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.util.LruCache
+import com.apoorvdarshan.calorietracker.services.FoodImageDecoder.scaledToMaxDimension
 import java.io.File
 import java.io.FileOutputStream
 import java.util.UUID
-import kotlin.math.max
 
 /**
  * Local food-photo cache. Port of iOS FoodImageStore.
@@ -19,6 +18,12 @@ class FoodImageStore(context: Context) {
     private val thumbnailDir: File = File(context.filesDir, THUMBNAIL_DIR_NAME).apply { mkdirs() }
     private val thumbnailCache = object : LruCache<String, Bitmap>(THUMBNAIL_CACHE_KB) {
         override fun sizeOf(key: String, value: Bitmap): Int = value.byteCount / 1024
+    }
+
+    init {
+        // Legacy thumbnails lost EXIF orientation during compression. Rebuild them
+        // lazily in the new cache directory; original photos remain byte-identical.
+        runCatching { File(context.filesDir, "fudai-food-thumbnails").deleteRecursively() }
     }
 
     /** Writes the bitmap as JPEG (quality 80) under a new filename. Returns filename or null. */
@@ -35,13 +40,13 @@ class FoodImageStore(context: Context) {
         val filename = "${entryId}.jpg"
         File(dir, filename).writeBytes(bytes)
         runCatching {
-            decodeSampled(bytes, THUMBNAIL_MAX_DIMENSION)?.let { writeThumbnail(filename, it) }
+            FoodImageDecoder.decode(bytes, THUMBNAIL_MAX_DIMENSION)?.let { writeThumbnail(filename, it) }
         }
         filename
     }.getOrNull()
 
     fun load(filename: String): Bitmap? =
-        runCatching { BitmapFactory.decodeFile(File(dir, filename).absolutePath) }.getOrNull()
+        runCatching { FoodImageDecoder.decode(File(dir, filename)) }.getOrNull()
 
     fun loadThumbnail(filename: String, maxDimension: Int = THUMBNAIL_MAX_DIMENSION): Bitmap? {
         val key = "$filename:$maxDimension"
@@ -50,11 +55,11 @@ class FoodImageStore(context: Context) {
         val thumbFile = File(thumbnailDir, filename)
         val bitmap = when {
             thumbFile.exists() -> runCatching {
-                BitmapFactory.decodeFile(thumbFile.absolutePath)
+                FoodImageDecoder.decode(thumbFile, maxDimension)
             }.getOrNull()
             else -> runCatching {
                 val fullFile = File(dir, filename)
-                decodeSampled(fullFile, maxDimension)?.also { writeThumbnail(filename, it) }
+                FoodImageDecoder.decode(fullFile, maxDimension)?.also { writeThumbnail(filename, it) }
             }.getOrNull()
         }
 
@@ -107,42 +112,6 @@ class FoodImageStore(context: Context) {
         thumbnailCache.put("$filename:$THUMBNAIL_MAX_DIMENSION", thumb)
     }
 
-    private fun decodeSampled(file: File, maxDimension: Int): Bitmap? {
-        if (!file.exists()) return null
-        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        BitmapFactory.decodeFile(file.absolutePath, bounds)
-        val sampleSize = sampleSizeFor(bounds.outWidth, bounds.outHeight, maxDimension)
-        val options = BitmapFactory.Options().apply { inSampleSize = sampleSize }
-        return BitmapFactory.decodeFile(file.absolutePath, options)?.scaledToMaxDimension(maxDimension)
-    }
-
-    private fun decodeSampled(bytes: ByteArray, maxDimension: Int): Bitmap? {
-        val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-        BitmapFactory.decodeByteArray(bytes, 0, bytes.size, bounds)
-        val sampleSize = sampleSizeFor(bounds.outWidth, bounds.outHeight, maxDimension)
-        val options = BitmapFactory.Options().apply { inSampleSize = sampleSize }
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.size, options)?.scaledToMaxDimension(maxDimension)
-    }
-
-    private fun sampleSizeFor(width: Int, height: Int, maxDimension: Int): Int {
-        val largest = max(width, height)
-        if (largest <= maxDimension || largest <= 0) return 1
-        var sampleSize = 1
-        while (largest / (sampleSize * 2) >= maxDimension) {
-            sampleSize *= 2
-        }
-        return sampleSize
-    }
-
-    private fun Bitmap.scaledToMaxDimension(maxDimension: Int): Bitmap {
-        val largest = max(width, height)
-        if (largest <= maxDimension || largest <= 0) return this
-        val scale = maxDimension.toFloat() / largest.toFloat()
-        val targetWidth = (width * scale).toInt().coerceAtLeast(1)
-        val targetHeight = (height * scale).toInt().coerceAtLeast(1)
-        return Bitmap.createScaledBitmap(this, targetWidth, targetHeight, true)
-    }
-
     private fun evictThumbnails(filename: String) {
         for (key in thumbnailCache.snapshot().keys) {
             if (key.startsWith("$filename:")) thumbnailCache.remove(key)
@@ -151,7 +120,7 @@ class FoodImageStore(context: Context) {
 
     companion object {
         private const val DIR_NAME = "fudai-food-images"
-        private const val THUMBNAIL_DIR_NAME = "fudai-food-thumbnails"
+        private const val THUMBNAIL_DIR_NAME = "fudai-food-thumbnails-v2"
         private const val THUMBNAIL_MAX_DIMENSION = 320
         private const val THUMBNAIL_CACHE_KB = 12 * 1024
     }

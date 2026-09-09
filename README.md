@@ -40,7 +40,7 @@ The app also includes faster Saved Meal reuse, current-time meal copying, export
 
 ## Business Registration
 
-Fud AI is a Udyam-registered micro enterprise in India, operating as a sole proprietorship in Services.
+Fud AI is a Udyam-registered micro enterprise in India, operating as a sole proprietorship in Services. Registration number: **UDYAM-DL-06-0225072**, registered on **9 September 2026**.
 
 ## Features
 

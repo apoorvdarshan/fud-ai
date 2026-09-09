@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.settings
 
+import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -40,6 +41,7 @@ data class SettingsUiState(
     val selectedTextAI: AIProvider = AIProvider.GEMINI,
     val selectedTextModel: String = AIProvider.GEMINI.defaultTextModel,
     val textApiKeyMasked: String = "",
+    val openRouterReasoningEffort: OpenRouterReasoningEffort = OpenRouterReasoningEffort.AUTO,
     val maxResponseTokens: Int = 1024,
     val aiRequestTimeoutSeconds: Int = AIProvider.DEFAULT_REQUEST_TIMEOUT_SECONDS,
     val selectedSpeech: SpeechProvider = SpeechProvider.NATIVE,
@@ -251,6 +253,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 selectedTextModel = textModel,
                 textApiKeyMasked = textMasked,
                 maxResponseTokens = maxTokens,
+                openRouterReasoningEffort = container.prefs.openRouterReasoningEffort.first(),
                 aiRequestTimeoutSeconds = requestTimeoutSeconds,
                 selectedSpeech = speech,
                 selectedSpeechLanguage = speechLanguage,
@@ -381,6 +384,13 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         viewModelScope.launch {
             container.prefs.setUserContext(value)
             _ui.value = _ui.value.copy(userContext = value.trim())
+        }
+    }
+
+    fun setOpenRouterReasoningEffort(value: OpenRouterReasoningEffort) {
+        viewModelScope.launch {
+            container.prefs.setOpenRouterReasoningEffort(value)
+            _ui.value = _ui.value.copy(openRouterReasoningEffort = value)
         }
     }
 

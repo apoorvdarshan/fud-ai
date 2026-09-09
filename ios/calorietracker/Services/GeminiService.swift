@@ -994,9 +994,7 @@ struct GeminiService {
             ]
             body[provider.openAICompatibleTokenLimitKey(for: model)] = AIProviderSettings.maxResponseTokens
             if provider == .openrouter {
-                var reasoning: [String: Any] = ["exclude": true]
-                if compactRetry { reasoning["effort"] = "low" }
-                body["reasoning"] = reasoning
+                body["reasoning"] = AIProviderSettings.openRouterReasoningEffort.requestOptions(compactRetry: compactRetry, exclude: true)
             }
             let data = try await makeRequest(url: url, headers: headers, body: body, provider: provider)
             return try parseOpenAITextResponse(from: data)

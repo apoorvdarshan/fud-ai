@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.data
 
+import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
 import android.content.Context
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -672,6 +673,13 @@ class PreferencesStore(
 
     /** AI output-token cap sent with every request. Default 1024; raise it for local
      *  models whose replies get truncated. */
+    val openRouterReasoningEffort: Flow<OpenRouterReasoningEffort> = ds.data.map {
+        OpenRouterReasoningEffort.fromValue(it[Keys.OPENROUTER_REASONING_EFFORT])
+    }
+    suspend fun setOpenRouterReasoningEffort(value: OpenRouterReasoningEffort) {
+        ds.edit { it[Keys.OPENROUTER_REASONING_EFFORT] = value.value }
+    }
+
     val maxResponseTokens: Flow<Int> = ds.data.map { it[Keys.MAX_RESPONSE_TOKENS] ?: 1024 }
     suspend fun setMaxResponseTokens(v: Int) { ds.edit { it[Keys.MAX_RESPONSE_TOKENS] = v.coerceAtLeast(1) } }
 
@@ -1065,6 +1073,7 @@ class PreferencesStore(
         val SELECTED_TEXT_AI_MODEL = stringPreferencesKey("selectedTextAIModel")
         val GEMINI_MODEL_MIGRATION_VERSION = intPreferencesKey("geminiModelMigrationVersion")
         val AI_MODEL_REGISTRY_MIGRATION_VERSION = intPreferencesKey("aiModelRegistryMigrationVersion")
+        val OPENROUTER_REASONING_EFFORT = stringPreferencesKey("openRouterReasoningEffort")
         val MAX_RESPONSE_TOKENS = intPreferencesKey("maxResponseTokens")
         val AI_REQUEST_TIMEOUT_SECONDS = intPreferencesKey("aiRequestTimeoutSeconds")
         val USER_CONTEXT = stringPreferencesKey("userContext")

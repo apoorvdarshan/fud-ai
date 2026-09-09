@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.settings
 
+import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -209,7 +210,7 @@ import java.time.LocalTime
 import kotlin.math.roundToInt
 
 private enum class SettingsSheet {
-    AI_PROVIDER, AI_MODEL, MAX_TOKENS, REQUEST_TIMEOUT, API_KEY, CUSTOM_BASE_URL, SPEECH_PROVIDER, SPEECH_LANGUAGE, SPEECH_KEY,
+    AI_PROVIDER, AI_MODEL, REASONING_EFFORT, MAX_TOKENS, REQUEST_TIMEOUT, API_KEY, CUSTOM_BASE_URL, SPEECH_PROVIDER, SPEECH_LANGUAGE, SPEECH_KEY,
     TEXT_PROVIDER, TEXT_MODEL, TEXT_KEY, TEXT_BASE_URL,
     TEXT_FALLBACK_PROVIDER, TEXT_FALLBACK_MODEL, TEXT_FALLBACK_KEY, TEXT_FALLBACK_BASE_URL,
     FALLBACK_PROVIDER, FALLBACK_MODEL, FALLBACK_KEY, FALLBACK_BASE_URL,
@@ -863,6 +864,17 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                         stringResource(R.string.settings_seconds_format, ui.aiRequestTimeoutSeconds),
                         icon = Icons.Outlined.Schedule
                     ) { sheet = SettingsSheet.REQUEST_TIMEOUT }
+                }
+                if (ui.selectedAI == AIProvider.OPENROUTER ||
+                    (ui.separateTextProviderEnabled && ui.selectedTextAI == AIProvider.OPENROUTER) ||
+                    (ui.fallbackEnabled && ui.fallbackProvider == AIProvider.OPENROUTER) ||
+                    (ui.textFallbackEnabled && ui.textFallbackProvider == AIProvider.OPENROUTER)) {
+                    HorizontalDivider()
+                    SettingRow(
+                        stringResource(R.string.settings_reasoning_effort),
+                        stringResource(ui.openRouterReasoningEffort.labelRes),
+                        icon = Icons.Outlined.Tune
+                    ) { sheet = SettingsSheet.REASONING_EFFORT }
                 }
                 // Only OpenAI-compatible + Anthropic send a token cap; Gemini is left
                 // uncapped, so hide this for Gemini.
@@ -2268,6 +2280,14 @@ private fun SettingsSheets(
                         onSave = { vm.setCustomBaseUrl(ui.textFallbackProvider, it); onDismiss() }
                     )
                 }
+                SettingsSheet.REASONING_EFFORT -> ListSheet(
+                    title = stringResource(R.string.settings_reasoning_effort),
+                    items = OpenRouterReasoningEffort.entries,
+                    label = { stringResource(it.labelRes) },
+                    selected = { it == ui.openRouterReasoningEffort },
+                    onSelect = { vm.setOpenRouterReasoningEffort(it); onDismiss() },
+                    footer = stringResource(R.string.settings_reasoning_effort_help)
+                )
                 SettingsSheet.MAX_TOKENS -> {
                     TextFieldSheet(
                         title = stringResource(R.string.settings_max_tokens),

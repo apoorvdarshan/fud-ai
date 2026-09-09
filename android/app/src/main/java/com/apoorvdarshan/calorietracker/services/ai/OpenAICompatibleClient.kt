@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.services.ai
 
+import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
@@ -38,7 +39,8 @@ object OpenAICompatibleClient {
         prompt: String,
         imageBytesList: List<ByteArray>,
         provider: AIProvider,
-        maxTokens: Int
+        maxTokens: Int,
+        reasoningEffort: OpenRouterReasoningEffort = OpenRouterReasoningEffort.AUTO
     ): String {
         val url = "$baseUrl/chat/completions"
 
@@ -64,9 +66,7 @@ object OpenAICompatibleClient {
             if (provider == AIProvider.OPENROUTER) {
                 body.put(
                     "reasoning",
-                    JSONObject()
-                        .put("exclude", true)
-                        .apply { if (compactRetry) put("effort", "low") }
+                    JSONObject(reasoningEffort.requestOptions(compactRetry, exclude = true).orEmpty())
                 )
             }
 

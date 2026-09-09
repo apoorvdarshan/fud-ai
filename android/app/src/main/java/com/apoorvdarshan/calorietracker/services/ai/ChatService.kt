@@ -323,6 +323,7 @@ class ChatService(
         imageBytes: ByteArray?,
         maxTokens: Int
     ): String {
+        val reasoningEffort = prefs.openRouterReasoningEffort.first()
         val url = "$baseUrl/chat/completions"
         // OpenAI tool schema: {type:function, function:{name, description, parameters}}
         val toolsArr = JSONArray()
@@ -354,8 +355,10 @@ class ChatService(
                     put("tools", toolsArr)
                     put("tool_choice", "auto")
                     put(OpenAICompatibleClient.tokenLimitParameter(provider, model), maxTokens)
-                    if (provider == AIProvider.OPENROUTER && compactRetry) {
-                        put("reasoning", JSONObject().put("effort", "low").put("exclude", true))
+                    if (provider == AIProvider.OPENROUTER) {
+                        reasoningEffort.requestOptions(compactRetry, exclude = false)?.let {
+                            put("reasoning", JSONObject(it))
+                        }
                     }
                 }
                 val builder = Request.Builder()

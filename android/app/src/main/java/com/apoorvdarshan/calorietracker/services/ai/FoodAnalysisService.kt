@@ -595,7 +595,7 @@ class FoodAnalysisService(
             AIProvider.ApiFormat.ANTHROPIC ->
                 AnthropicClient.analyze(requestClient, baseUrl, model, apiKey!!, prompt, imageBytesList, maxTokens)
             AIProvider.ApiFormat.OPENAI_COMPATIBLE ->
-                OpenAICompatibleClient.analyze(requestClient, baseUrl, model, apiKey, prompt, imageBytesList, provider, maxTokens)
+                OpenAICompatibleClient.analyze(requestClient, baseUrl, model, apiKey, prompt, imageBytesList, provider, maxTokens, prefs.openRouterReasoningEffort.first())
             AIProvider.ApiFormat.LOCAL -> error("Local inference must be dispatched before network setup.")
         }
     }

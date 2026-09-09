@@ -413,7 +413,36 @@ extension AIProvider {
 
 // MARK: - Settings Persistence
 
+enum OpenRouterReasoningEffort: String, CaseIterable, Identifiable {
+    case auto, none, minimal, low, medium, high, xhigh, max
+    var id: String { rawValue }
+    var title: String {
+        switch self {
+        case .auto: String(localized: "Default / Auto")
+        case .none: String(localized: "None")
+        case .minimal: String(localized: "Minimal")
+        case .low: String(localized: "Low")
+        case .medium: String(localized: "Medium")
+        case .high: String(localized: "High")
+        case .xhigh: String(localized: "Extra High")
+        case .max: String(localized: "Max")
+        }
+    }
+    func requestOptions(compactRetry: Bool, exclude: Bool) -> [String: Any]? {
+        var options: [String: Any] = [:]
+        if exclude || compactRetry { options["exclude"] = true }
+        if compactRetry { options["effort"] = "low" }
+        else if self != .auto { options["effort"] = rawValue }
+        return options.isEmpty ? nil : options
+    }
+}
+
 struct AIProviderSettings {
+    static var openRouterReasoningEffort: OpenRouterReasoningEffort {
+        get { OpenRouterReasoningEffort(rawValue: UserDefaults.standard.string(forKey: "openRouterReasoningEffort") ?? "auto") ?? .auto }
+        set { UserDefaults.standard.set(newValue.rawValue, forKey: "openRouterReasoningEffort") }
+    }
+
     private static let providerKey = "selectedAIProvider"
     private static let modelKey = "selectedAIModel"
     private static let separateTextProviderEnabledKey = "separateTextProviderEnabled"

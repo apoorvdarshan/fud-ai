@@ -385,8 +385,8 @@ struct ChatService {
                     "tool_choice": "auto",
                 ]
                 body[provider.openAICompatibleTokenLimitKey(for: model)] = AIProviderSettings.maxResponseTokens
-                if provider == .openrouter, compactRetry {
-                    body["reasoning"] = ["effort": "low", "exclude": true]
+                if provider == .openrouter {
+                    body["reasoning"] = AIProviderSettings.openRouterReasoningEffort.requestOptions(compactRetry: compactRetry, exclude: false)
                 }
                 let data = try await send(url: url, headers: headers, body: body, provider: provider)
                 guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any]

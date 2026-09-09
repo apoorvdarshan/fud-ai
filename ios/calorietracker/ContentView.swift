@@ -3884,6 +3884,7 @@ struct ProfileView: View {
     @State private var selectedModel: String = AIProviderSettings.selectedModel
     @State private var apiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedProvider) ?? ""
     @State private var customBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedProvider) ?? ""
+    @AppStorage("openRouterReasoningEffort") private var openRouterReasoningEffort: OpenRouterReasoningEffort = .auto
     @State private var maxResponseTokensText: String = String(AIProviderSettings.maxResponseTokens)
     @State private var requestTimeoutSecondsText: String = String(AIProviderSettings.requestTimeoutSeconds)
     @State private var showAPIKey = false
@@ -4722,6 +4723,20 @@ struct ProfileView: View {
                                 Text("sec")
                                     .foregroundStyle(.secondary)
                             }
+                        }
+
+                        if selectedProvider == .openrouter
+                            || (separateTextProviderEnabled && selectedTextProvider == .openrouter)
+                            || (fallbackEnabled && selectedFallbackProvider == .openrouter)
+                            || (textFallbackEnabled && selectedTextFallbackProvider == .openrouter) {
+                            Picker("OpenRouter Reasoning Effort", selection: $openRouterReasoningEffort) {
+                                ForEach(OpenRouterReasoningEffort.allCases) { effort in
+                                    Text(effort.title).tag(effort)
+                                }
+                            }
+                            Text("Applies to all OpenRouter requests. Supported levels vary by model. Higher effort may take longer and cost more. Auto keeps the model default; incomplete responses retry with Low.")
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
                         }
 
                         // Only OpenAI-compatible + Anthropic send a token cap; Gemini is

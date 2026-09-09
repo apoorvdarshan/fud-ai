@@ -1,0 +1,12 @@
+<resources>
+    <string name="settings_reasoning_effort">OpenRouter Reasoning Effort</string>
+    <string name="settings_reasoning_effort_help">Applies to all OpenRouter requests. Supported levels vary by model. Higher effort may take longer and cost more. Auto keeps the model default; incomplete responses retry with Low.</string>
+    <string name="reasoning_effort_auto">Default / Auto</string>
+    <string name="reasoning_effort_none">None</string>
+    <string name="reasoning_effort_minimal">Minimal</string>
+    <string name="reasoning_effort_low">Low</string>
+    <string name="reasoning_effort_medium">Medium</string>
+    <string name="reasoning_effort_high">High</string>
+    <string name="reasoning_effort_xhigh">Extra High</string>
+    <string name="reasoning_effort_max">Max</string>
+</resources>

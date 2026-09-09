@@ -18,6 +18,7 @@
   <img src="https://img.shields.io/badge/privacy-local--first-brightgreen" alt="Local-first privacy">
   <img src="https://img.shields.io/badge/languages-iOS%2016%20%2F%20Android%2015-blue" alt="iOS 16 languages / Android 15 languages">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
+  <a href="https://udyamregistration.gov.in/verifyudyambarcode.aspx?verifyudrn=qVfNp9DBkYqvYKHEsvBgD4h+/n49mlNZ+PkaaIAifvQ="><img src="https://img.shields.io/badge/Udyam-Registered-green" alt="Udyam Registered"></a>
   <a href="https://github.com/apoorvdarshan/fud-ai/stargazers"><img src="https://img.shields.io/github/stars/apoorvdarshan/fud-ai?style=flat&logo=github&color=yellow" alt="GitHub stars"></a>
   <a href="https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726"><img src="https://img.shields.io/badge/App%20Store-Download-black?logo=apple" alt="App Store"></a>
   <a href="https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker"><img src="https://img.shields.io/badge/Google%20Play-Download-414141?logo=googleplay" alt="Google Play"></a>
@@ -34,6 +35,20 @@ The app also includes faster Saved Meal reuse, current-time meal copying, export
 [App Store](https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726) · [Google Play](https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker) · [Website](https://fud-ai.app) · [Report an Issue](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20) · [Request a Feature](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20)
 
 ---
+
+## Business Registration
+
+Fud AI is a Udyam-registered micro enterprise in India, operating as a sole proprietorship in Services. Registration number: **UDYAM-DL-06-0225072**, registered on **9 September 2026**.
+
+Scan or click the QR code to view the registration on the official Udyam portal.
+
+<p align="center">
+  <a href="https://udyamregistration.gov.in/verifyudyambarcode.aspx?verifyudrn=qVfNp9DBkYqvYKHEsvBgD4h+/n49mlNZ+PkaaIAifvQ=">
+    <img src="docs/assets/udyam-verification-qr.png" width="244" height="244" alt="QR code to verify Fud AI's Udyam registration on the official government portal">
+  </a>
+  <br>
+  <a href="https://udyamregistration.gov.in/verifyudyambarcode.aspx?verifyudrn=qVfNp9DBkYqvYKHEsvBgD4h+/n49mlNZ+PkaaIAifvQ=">Verify Udyam registration</a>
+</p>
 
 ## Features
 

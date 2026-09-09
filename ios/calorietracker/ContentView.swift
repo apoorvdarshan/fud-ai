@@ -678,6 +678,17 @@ struct HomeView: View {
         }
     }
     @State private var selectedFoodIDs: Set<UUID> = []
+    private func confirmDiaryDeletion(_ target: DiaryDeletion) {
+        switch target {
+        case .food(let entry): foodStore.deleteEntry(entry)
+        case .water(let entry): waterStore.delete(id: entry.id)
+        case .fasting(let session):
+            fastingStore.delete(id: session.id)
+            refreshFastingGoalNotification()
+        }
+        pendingDiaryDeletion = nil
+    }
+
     private var isFoodSelectionMode: Bool { !selectedFoodIDs.isEmpty }
     private var foodSelectionSummary: some View {
         HStack(spacing: 8) {
@@ -1696,14 +1707,7 @@ struct HomeView: View {
             ), presenting: pendingDiaryDeletion) { target in
                 Button("Cancel", role: .cancel) { pendingDiaryDeletion = nil }
                 Button("Delete", role: .destructive) {
-                    switch target {
-                    case .food(let entry): foodStore.deleteEntry(entry)
-                    case .water(let entry): waterStore.delete(id: entry.id)
-                    case .fasting(let session):
-                        fastingStore.delete(id: session.id)
-                        refreshFastingGoalNotification()
-                    }
-                    pendingDiaryDeletion = nil
+                    confirmDiaryDeletion(target)
                 }
             } message: { target in
                 Text(target.message)

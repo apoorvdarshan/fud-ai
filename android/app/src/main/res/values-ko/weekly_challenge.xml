@@ -12,7 +12,7 @@
     <string name="challenge_privacy_disclosure">Fud AI는 모든 값을 기기에서 계산합니다. 주 시작일, 종합 점수, 조건을 충족한 활동·영양·꾸준함·수분 섭취 일수와 총 활동 칼로리만 업로드합니다. 음식 이름, 식사, 체중, 운동 세부 정보 및 Health Connect 기록은 절대 업로드하지 않습니다.</string>
     <string name="challenge_public_profile_disclosure">표시 이름과 선택한 X 또는 Instagram 사용자 이름 하나만 참가자에게 공개됩니다. 체중과 체중 감량은 순위에 사용되지 않습니다.</string>
     <string name="challenge_points_title">점수 계산 방식</string>
-    <string name="challenge_points_explanation">활동: 양수의 운동 소모 칼로리를 기록한 날. 영양: 하루 칼로리가 목표의 85~115%인 날. 꾸준함: 그날 음식을 하나라도 기록한 날. 수분 섭취: 추적이 켜진 상태에서 물 목표를 달성한 날. 종합: 네 가지 일수의 합계로 최대 28점입니다.</string>
+    <string name="challenge_points_explanation" formatted="false">활동: 양수의 운동 소모 칼로리를 기록한 날. 영양: 하루 칼로리가 목표의 85~115%인 날. 꾸준함: 그날 음식을 하나라도 기록한 날. 수분 섭취: 추적이 켜진 상태에서 물 목표를 달성한 날. 종합: 네 가지 일수의 합계로 최대 28점입니다.</string>
     <string name="challenge_join_action">챌린지 참여</string>
     <string name="challenge_pending_delete_title">연결되면 삭제 예정</string>
     <string name="challenge_pending_delete_message">이 기기에서 챌린지 프로필을 숨겼습니다. 온라인 상태가 되면 Fud AI가 원격 프로필과 주간 점수 삭제를 다시 시도합니다.</string>

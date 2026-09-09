@@ -12,7 +12,7 @@
     <string name="challenge_privacy_disclosure">Fud AI berekent alles op je apparaat. Alleen het begin van de week, totaalscore, aantallen geldige activiteits-, voedings-, regelmaat- en hydratatiedagen en totale activiteitscalorieën worden geüpload. Namen van voeding, maaltijden, gewicht, trainingsdetails en Health Connect-gegevens worden nooit geüpload.</string>
     <string name="challenge_public_profile_disclosure">Alleen je weergavenaam en eventueel één X- of Instagram-gebruikersnaam zijn zichtbaar voor deelnemers. Gewicht en gewichtsverlies krijgen nooit een rang.</string>
     <string name="challenge_points_title">Zo werken punten</string>
-    <string name="challenge_points_explanation">Activiteit: een dag met positief geregistreerd trainingsverbruik. Voeding: dagelijkse calorieën binnen 85–115% van je doel. Regelmaat: die dag is voeding geregistreerd. Hydratatie: waterdoel gehaald wanneer bijhouden is ingeschakeld. Totaal: de vier aantallen dagen opgeteld, maximaal 28.</string>
+    <string name="challenge_points_explanation" formatted="false">Activiteit: een dag met positief geregistreerd trainingsverbruik. Voeding: dagelijkse calorieën binnen 85–115% van je doel. Regelmaat: die dag is voeding geregistreerd. Hydratatie: waterdoel gehaald wanneer bijhouden is ingeschakeld. Totaal: de vier aantallen dagen opgeteld, maximaal 28.</string>
     <string name="challenge_join_action">Meedoen aan uitdaging</string>
     <string name="challenge_pending_delete_title">Verwijdering wacht op verbinding</string>
     <string name="challenge_pending_delete_message">Je uitdagingsprofiel is verborgen op dit apparaat. Fud AI probeert het externe profiel en de weekscores opnieuw te verwijderen wanneer je online bent.</string>

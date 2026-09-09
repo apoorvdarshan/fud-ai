@@ -12,7 +12,7 @@
     <string name="challenge_privacy_disclosure">O Fud AI calcula tudo no seu dispositivo. Ele envia somente o início da semana, os pontos gerais, as contagens de dias válidos de atividade, nutrição, consistência e hidratação, e o total de calorias da atividade. Nomes de alimentos, refeições, peso, detalhes de treinos e registros do Health Connect nunca são enviados.</string>
     <string name="challenge_public_profile_disclosure">Somente seu nome de exibição e, opcionalmente, um único perfil do X ou Instagram ficam visíveis para os participantes. Peso e perda de peso nunca entram no ranking.</string>
     <string name="challenge_points_title">Como funcionam os pontos</string>
-    <string name="challenge_points_explanation">Atividade: um dia com calorias positivas de treino registradas. Nutrição: calorias diárias entre 85 e 115% da meta. Consistência: qualquer alimento registrado nesse dia. Hidratação: meta de água atingida com o acompanhamento ativado. Geral: soma das quatro contagens de dias, até 28.</string>
+    <string name="challenge_points_explanation" formatted="false">Atividade: um dia com calorias positivas de treino registradas. Nutrição: calorias diárias entre 85 e 115% da meta. Consistência: qualquer alimento registrado nesse dia. Hidratação: meta de água atingida com o acompanhamento ativado. Geral: soma das quatro contagens de dias, até 28.</string>
     <string name="challenge_join_action">Participar do desafio</string>
     <string name="challenge_pending_delete_title">Exclusão aguardando conexão</string>
     <string name="challenge_pending_delete_message">Seu perfil do desafio está oculto neste dispositivo. O Fud AI tentará excluir novamente o perfil remoto e as pontuações semanais quando você estiver on-line.</string>

@@ -12,7 +12,7 @@
     <string name="challenge_privacy_disclosure">Fud AI calculates everything on your device. It uploads only the week start, overall points, qualifying activity, nutrition, consistency and hydration day counts, and total activity calories. Food names, meals, weight, workout details, and Health Connect records are never uploaded.</string>
     <string name="challenge_public_profile_disclosure">Only your display name and optional single X or Instagram handle are visible to participants. Weight and weight loss are never ranked.</string>
     <string name="challenge_points_title">How points work</string>
-    <string name="challenge_points_explanation">Activity: a day with a positive logged workout burn. Nutrition: daily calories within 85–115% of your goal. Consistency: any food logged that day. Hydration: water goal met when tracking is enabled. Overall: the four day counts added together, up to 28.</string>
+    <string name="challenge_points_explanation" formatted="false">Activity: a day with a positive logged workout burn. Nutrition: daily calories within 85–115% of your goal. Consistency: any food logged that day. Hydration: water goal met when tracking is enabled. Overall: the four day counts added together, up to 28.</string>
     <string name="challenge_join_action">Join challenge</string>
     <string name="challenge_pending_delete_title">Deletion waiting for a connection</string>
     <string name="challenge_pending_delete_message">Your challenge profile is hidden on this device. Fud AI will retry deleting its remote profile and weekly scores when you are online.</string>

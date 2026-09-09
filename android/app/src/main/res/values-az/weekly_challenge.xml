@@ -12,7 +12,7 @@
     <string name="challenge_privacy_disclosure">Fud AI hər şeyi cihazınızda hesablayır. Yalnız həftənin başlanğıcı, ümumi xallar, uyğun fəaliyyət, qidalanma, ardıcıllıq və su qəbulu günlərinin sayı və ümumi fəaliyyət kaloriləri göndərilir. Qida adları, yeməklər, çəki, məşq təfərrüatları və Health Connect qeydləri heç vaxt göndərilmir.</string>
     <string name="challenge_public_profile_disclosure">İştirakçılara yalnız ekran adınız və istəyə bağlı bir X və ya Instagram istifadəçi adı görünür. Çəki və çəki itkisi heç vaxt sıralanmır.</string>
     <string name="challenge_points_title">Xallar necə hesablanır</string>
-    <string name="challenge_points_explanation">Fəaliyyət: müsbət məşq kalorisi qeydə alınan gün. Qidalanma: gündəlik kalorilər hədəfin 85–115%-i arasındadır. Ardıcıllıq: həmin gün hər hansı qida qeydə alınıb. Su qəbulu: izləmə aktiv olduqda su hədəfinə çatılıb. Ümumi: dörd gün sayının cəmi, maksimum 28.</string>
+    <string name="challenge_points_explanation" formatted="false">Fəaliyyət: müsbət məşq kalorisi qeydə alınan gün. Qidalanma: gündəlik kalorilər hədəfin 85–115%-i arasındadır. Ardıcıllıq: həmin gün hər hansı qida qeydə alınıb. Su qəbulu: izləmə aktiv olduqda su hədəfinə çatılıb. Ümumi: dörd gün sayının cəmi, maksimum 28.</string>
     <string name="challenge_join_action">Çağırışa qoşul</string>
     <string name="challenge_pending_delete_title">Silmə bağlantını gözləyir</string>
     <string name="challenge_pending_delete_message">Çağırış profiliniz bu cihazda gizlədilib. Onlayn olduqda Fud AI uzaq profili və həftəlik xalları yenidən silməyə çalışacaq.</string>

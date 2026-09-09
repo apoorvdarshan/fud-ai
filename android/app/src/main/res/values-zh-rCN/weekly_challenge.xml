@@ -12,7 +12,7 @@
     <string name="challenge_privacy_disclosure">Fud AI 在您的设备上完成所有计算。仅上传周开始日期、总分、达到要求的活动、营养、坚持和饮水天数，以及活动总卡路里。绝不会上传食物名称、餐食、体重、锻炼详情或 Health Connect 记录。</string>
     <string name="challenge_public_profile_disclosure">参与者只能看到您的显示名称，以及可选的一个 X 或 Instagram 用户名。体重和减重情况绝不会用于排名。</string>
     <string name="challenge_points_title">积分计算方式</string>
-    <string name="challenge_points_explanation">活动：记录了正数锻炼消耗的日期。营养：每日卡路里在目标的 85–115% 以内。坚持：当天记录了任何食物。饮水：启用跟踪时达到饮水目标。综合：四项天数之和，最高 28 分。</string>
+    <string name="challenge_points_explanation" formatted="false">活动：记录了正数锻炼消耗的日期。营养：每日卡路里在目标的 85–115% 以内。坚持：当天记录了任何食物。饮水：启用跟踪时达到饮水目标。综合：四项天数之和，最高 28 分。</string>
     <string name="challenge_join_action">加入挑战</string>
     <string name="challenge_pending_delete_title">连接后将删除</string>
     <string name="challenge_pending_delete_message">此设备上已隐藏您的挑战个人资料。联网后，Fud AI 将再次尝试删除远程个人资料和每周得分。</string>

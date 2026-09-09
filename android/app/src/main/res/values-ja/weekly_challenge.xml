@@ -12,7 +12,7 @@
     <string name="challenge_privacy_disclosure">Fud AI はすべて端末上で計算します。アップロードするのは週の開始日、総合ポイント、条件を満たした運動・栄養・継続・水分補給の日数、運動カロリー合計だけです。食品名、食事、体重、ワークアウトの詳細、Health Connect の記録は一切アップロードしません。</string>
     <string name="challenge_public_profile_disclosure">参加者に表示されるのは表示名と、任意で選択した X または Instagram のどちらか1つのユーザー名だけです。体重や減量を順位付けすることはありません。</string>
     <string name="challenge_points_title">ポイントの仕組み</string>
-    <string name="challenge_points_explanation">運動：消費カロリーが正のワークアウトを記録した日。栄養：1日のカロリーが目標の85～115%以内。継続：その日に食品を1つ以上記録。水分補給：記録が有効なときに水分目標を達成。総合：4つの日数の合計で、最大28です。</string>
+    <string name="challenge_points_explanation" formatted="false">運動：消費カロリーが正のワークアウトを記録した日。栄養：1日のカロリーが目標の85～115%以内。継続：その日に食品を1つ以上記録。水分補給：記録が有効なときに水分目標を達成。総合：4つの日数の合計で、最大28です。</string>
     <string name="challenge_join_action">チャレンジに参加</string>
     <string name="challenge_pending_delete_title">接続後に削除します</string>
     <string name="challenge_pending_delete_message">この端末ではチャレンジプロフィールを非表示にしました。オンラインになったとき、Fud AI がリモートプロフィールと週間スコアの削除を再試行します。</string>

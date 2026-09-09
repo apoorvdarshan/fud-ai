@@ -1022,10 +1022,10 @@
     <string name="nutrition_label_folate">Folate</string>
     <string name="nutrition_label_omega3">Omega-3</string>
     <string name="nutrition_section_home_cards">Home Cards</string>
-    <string name="home_nutrients_pick_four">Pick exactly four nutrients for the Home summary row.</string>
-    <string name="home_nutrients_pick_three_water">Pick three nutrients. Water stays fixed as the fourth Home pillar while tracking is enabled.</string>
-    <string name="home_nutrients_water_fixed">Water stays fixed as the fourth Home pillar while Water Tracking is enabled.</string>
-    <string name="home_nutrients_water_fixed_short">Fixed fourth pillar</string>
+    <string name="home_nutrients_pick_four">Pick one to four nutrients for the Home summary row.</string>
+    <string name="home_nutrients_pick_three_water">Pick one to three nutrients. Water is shown after them while tracking is enabled.</string>
+    <string name="home_nutrients_water_fixed">Water is shown after your selected nutrients while Water Tracking is enabled.</string>
+    <string name="home_nutrients_water_fixed_short">Shown after selected nutrients</string>
     <string name="nutrition_section_water">Water</string>
     <string name="error_analysis_failed">Analysis failed</string>
     <string name="error_barcode_lookup_failed">Barcode lookup failed</string>

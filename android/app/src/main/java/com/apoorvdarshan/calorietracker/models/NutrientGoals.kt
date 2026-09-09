@@ -133,9 +133,7 @@ enum class HomeTopNutrient(
             normalized(selection).joinToString(",") { it.storageKey }
 
         fun normalized(selection: List<HomeTopNutrient>): List<HomeTopNutrient> =
-            (selection.distinct() + DefaultSelection)
-                .distinct()
-                .take(4)
+            selection.distinct().take(4).ifEmpty { DefaultSelection }
     }
 }
 

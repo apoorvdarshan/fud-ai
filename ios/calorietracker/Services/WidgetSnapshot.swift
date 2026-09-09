@@ -190,9 +190,9 @@ struct WidgetSnapshot: Codable, Equatable {
     }
 
     var displayedHomeNutrients: [WidgetNutrientValue] {
-        let selected = homeNutrients?.filter { !$0.id.isEmpty } ?? []
+        let selected = homeNutrients?.filter { !$0.id.isEmpty && $0.id != "water" } ?? []
         var merged: [WidgetNutrientValue] = []
-        for nutrient in selected + defaultHomeNutrients {
+        for nutrient in selected.isEmpty ? defaultHomeNutrients : selected {
             guard !merged.contains(where: { $0.id == nutrient.id }) else { continue }
             merged.append(nutrient)
             if merged.count == (waterIsEnabled ? 3 : 4) { break }

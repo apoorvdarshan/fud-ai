@@ -333,12 +333,12 @@ enum HomeTopNutrient: String, CaseIterable, Identifiable {
             .compactMap { HomeTopNutrient(rawValue: String($0)) }
 
         var selection: [HomeTopNutrient] = []
-        for nutrient in parsed + defaultSelection {
+        for nutrient in parsed {
             guard !selection.contains(nutrient) else { continue }
             selection.append(nutrient)
             if selection.count == 4 { break }
         }
-        return selection
+        return selection.isEmpty ? defaultSelection : selection
     }
 
     static func storageValue(for nutrients: [HomeTopNutrient]) -> String {
@@ -389,7 +389,7 @@ struct HomeNutrientPickerSheet: View {
                             Label("Water", systemImage: "drop.fill")
                                 .foregroundStyle(AppColors.calorie)
                             Spacer()
-                            Text("4")
+                            Text("\(draftSelection.count + 1)")
                                 .font(.system(.caption, design: .rounded, weight: .semibold))
                                 .foregroundStyle(.secondary)
                             Image(systemName: "lock.fill")
@@ -397,7 +397,7 @@ struct HomeNutrientPickerSheet: View {
                                 .foregroundStyle(.secondary)
                         }
                         .accessibilityElement(children: .combine)
-                        .accessibilityLabel("Water, fixed as the fourth Home pillar")
+                        .accessibilityLabel("Water, shown after selected nutrients")
                     }
                 }
                 .listRowBackground(AppColors.appCard)
@@ -423,15 +423,15 @@ struct HomeNutrientPickerSheet: View {
                     }
                 } header: {
                     if waterTrackingEnabled {
-                        Text("Choose 3 Nutrients")
+                        Text("Choose 1–3 Nutrients")
                     } else {
-                        Text("Choose 4 Nutrients")
+                        Text("Choose 1–4 Nutrients")
                     }
                 } footer: {
                     if waterTrackingEnabled {
-                        Text("Pick three nutrients. Water stays fixed as the fourth Home pillar while tracking is enabled.")
+                        Text("Pick one to three nutrients. Water is shown after them while tracking is enabled.")
                     } else {
-                        Text("Pick exactly four nutrients for the Home summary row.")
+                        Text("Pick one to four nutrients for the Home summary row.")
                     }
                 }
                 .listRowBackground(AppColors.appCard)
@@ -459,7 +459,7 @@ struct HomeNutrientPickerSheet: View {
                         dismiss()
                     }
                     .tint(AppColors.calorie)
-                    .disabled(draftSelection.count != selectionLimit)
+                    .disabled(draftSelection.isEmpty || draftSelection.count > selectionLimit)
                 }
             }
         }
@@ -467,6 +467,7 @@ struct HomeNutrientPickerSheet: View {
 
     private func toggle(_ nutrient: HomeTopNutrient) {
         if let index = draftSelection.firstIndex(of: nutrient) {
+            guard draftSelection.count > 1 else { return }
             draftSelection.remove(at: index)
         } else if draftSelection.count < selectionLimit {
             draftSelection.append(nutrient)
@@ -477,16 +478,11 @@ struct HomeNutrientPickerSheet: View {
     }
 
     private var persistedSelection: [HomeTopNutrient] {
-        guard waterTrackingEnabled else { return draftSelection }
-
-        var result = draftSelection
-        let candidates = [hiddenFourthNutrient].compactMap { $0 }
-            + HomeTopNutrient.defaultSelection
-            + HomeTopNutrient.allCases
-        if let hidden = candidates.first(where: { !result.contains($0) }) {
-            result.append(hidden)
-        }
-        return result
+        // Preserve an existing fourth choice only while all three visible slots remain occupied.
+        guard waterTrackingEnabled, draftSelection.count == 3,
+              let hidden = hiddenFourthNutrient, !draftSelection.contains(hidden)
+        else { return draftSelection }
+        return draftSelection + [hidden]
     }
 }
 

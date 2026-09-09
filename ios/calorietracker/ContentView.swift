@@ -2396,7 +2396,7 @@ struct NutritionDetailView: View {
                     } header: {
                         Text("Water")
                     } footer: {
-                        Text("Water stays fixed as the fourth Home pillar while Water Tracking is enabled.")
+                        Text("Water is shown after your selected nutrients while Water Tracking is enabled.")
                     }
                     .listRowBackground(AppColors.appCard)
                 }

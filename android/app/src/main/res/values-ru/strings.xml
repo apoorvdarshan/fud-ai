@@ -871,10 +871,10 @@
     <string name="nutrition_label_folate">Фолат</string>
     <string name="nutrition_label_omega3">Омега-3</string>
     <string name="nutrition_section_home_cards">Карточки на главной</string>
-    <string name="home_nutrients_pick_four">Выберите ровно четыре нутриента для сводки на главном экране.</string>
-    <string name="home_nutrients_pick_three_water">Выберите три нутриента. При включённом учёте воды вода всегда остаётся четвёртым показателем.</string>
-    <string name="home_nutrients_water_fixed">Вода остаётся четвёртым показателем, пока включён учёт воды.</string>
-    <string name="home_nutrients_water_fixed_short">Закреплено как четвёртый показатель</string>
+    <string name="home_nutrients_pick_four">Выберите от одного до четырёх нутриентов для сводки на главном экране.</string>
+    <string name="home_nutrients_pick_three_water">Выберите от одного до трёх нутриентов. При включённом учёте воды вода отображается после них.</string>
+    <string name="home_nutrients_water_fixed">При включённом учёте воды вода отображается после выбранных нутриентов.</string>
+    <string name="home_nutrients_water_fixed_short">После выбранных нутриентов</string>
     <string name="nutrition_section_water">Вода</string>
     <string name="error_analysis_failed">Не удалось выполнить анализ</string>
     <string name="error_barcode_lookup_failed">Не удалось найти штрихкод</string>

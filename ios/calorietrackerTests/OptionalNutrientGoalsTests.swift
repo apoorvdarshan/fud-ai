@@ -20,4 +20,15 @@ struct OptionalNutrientGoalsTests {
         #expect(OptionalNutrient.vitaminD.customValueDetail(for: 250) == "10000 IU")
         #expect(OptionalNutrient.vitaminC.customValueDetail(for: 250) == nil)
     }
+
+    @Test func homeSelectionPreservesOneToFourChoices() {
+        let choices: [HomeTopNutrient] = [.sodium, .fiber, .protein, .carbs]
+        for count in 1...4 {
+            let selection = Array(choices.prefix(count))
+            #expect(HomeTopNutrient.selection(from: HomeTopNutrient.storageValue(for: selection)) == selection)
+        }
+        #expect(HomeTopNutrient.selection(from: "sodium,sodium,unknown") == [.sodium])
+        #expect(HomeTopNutrient.selection(from: "") == HomeTopNutrient.defaultSelection)
+        #expect(HomeTopNutrient.selection(from: "unknown") == HomeTopNutrient.defaultSelection)
+    }
 }

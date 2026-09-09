@@ -25,6 +25,25 @@ class WidgetSnapshotWaterTest {
         assertEquals(listOf("protein", "carbs", "fat", "fiber"), disabled.displayedHomeNutrients.map { it.id })
     }
 
+    @Test
+    fun shorterSelectionsRoundTripWithoutDefaultPadding() {
+        val choices = listOf(HomeTopNutrient.SODIUM, HomeTopNutrient.FIBER, HomeTopNutrient.PROTEIN, HomeTopNutrient.CARBS)
+        for (count in 1..4) {
+            val selected = choices.take(count)
+            assertEquals(selected, HomeTopNutrient.fromStorage(HomeTopNutrient.toStorage(selected)))
+            val widgetNutrients = selected.map { WidgetNutrient(it.storageKey, it.displayName, it.unit, 1.0, 2.0) }
+            for (waterEnabled in listOf(false, true)) {
+                val widget = snapshot(waterEnabled).copy(homeNutrients = widgetNutrients)
+                val expected = selected.take(if (waterEnabled) 3 else 4).map { it.storageKey } +
+                    if (waterEnabled) listOf("water") else emptyList()
+                assertEquals(expected, widget.displayedHomeNutrients.map { it.id })
+            }
+        }
+        assertEquals(listOf(HomeTopNutrient.SODIUM), HomeTopNutrient.fromStorage("sodium,sodium,unknown"))
+        assertEquals(HomeTopNutrient.DefaultSelection, HomeTopNutrient.fromStorage(""))
+        assertEquals(HomeTopNutrient.DefaultSelection, HomeTopNutrient.fromStorage("unknown"))
+    }
+
     private fun snapshot(waterEnabled: Boolean) = WidgetSnapshot(
         date = Instant.EPOCH,
         dayStart = Instant.EPOCH,

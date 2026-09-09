@@ -485,20 +485,16 @@ private fun HomeTopNutrientPickerDialog(
         FudGlassDialogActions(
             primaryText = stringResource(R.string.action_done),
             onPrimary = {
-                val savedSelection = if (waterTrackingEnabled) {
-                    val hidden = (listOfNotNull(hiddenFourthNutrient) +
-                        HomeTopNutrient.DefaultSelection + HomeTopNutrient.values())
-                        .first { it !in draft }
-                    draft + hidden
-                } else {
-                    draft
-                }
+                // Keep an existing hidden choice only when all three visible slots are used.
+                val savedSelection = if (waterTrackingEnabled && draft.size == 3 &&
+                    hiddenFourthNutrient != null && hiddenFourthNutrient !in draft
+                ) draft + hiddenFourthNutrient else draft
                 onSave(HomeTopNutrient.normalized(savedSelection))
                 onDismiss()
             },
             dismissText = stringResource(R.string.action_cancel),
             onDismiss = onDismiss,
-            primaryEnabled = draft.size == selectionLimit
+            primaryEnabled = draft.size in 1..selectionLimit
         )
     }
 }

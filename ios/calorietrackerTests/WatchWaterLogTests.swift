@@ -188,4 +188,62 @@ struct WatchWaterLogTests {
         )
         #expect(disabled.displayedHomeNutrients.map(\.id) == ["protein", "carbs", "fat", "fiber"])
     }
+    @Test func singleNutrientWidgetDoesNotRestoreDefaults() {
+        let nutrients = ["sodium"].map { id in
+            WidgetNutrientValue(
+                id: id,
+                label: id.capitalized,
+                shortLabel: String(id.prefix(1)).uppercased(),
+                unit: "g",
+                iconName: "circle",
+                value: 1,
+                goal: 2
+            )
+        }
+        let enabled = WidgetSnapshot(
+            date: .now,
+            dayStart: Calendar.current.startOfDay(for: .now),
+            calories: 0,
+            calorieGoal: 2_000,
+            protein: 0,
+            proteinGoal: 150,
+            carbs: 0,
+            carbsGoal: 220,
+            fat: 0,
+            fatGoal: 70,
+            homeNutrients: nutrients,
+            waterTrackingEnabled: true,
+            waterCurrentMl: 750,
+            waterGoalMl: 2_000,
+            waterUnitRaw: WaterUnit.milliliters.rawValue,
+            themeStartHex: nil,
+            themeEndHex: nil
+        )
+
+        #expect(enabled.displayedHomeNutrients.map(\.id) == ["sodium", "water"])
+        #expect(enabled.emptyForToday().displayedHomeNutrients.map(\.id) == ["sodium", "water"])
+        #expect(enabled.displayedHomeNutrients.last?.value == 750)
+        #expect(enabled.displayedHomeNutrients.last?.goal == 2_000)
+
+        let disabled = WidgetSnapshot(
+            date: enabled.date,
+            dayStart: enabled.dayStart,
+            calories: enabled.calories,
+            calorieGoal: enabled.calorieGoal,
+            protein: enabled.protein,
+            proteinGoal: enabled.proteinGoal,
+            carbs: enabled.carbs,
+            carbsGoal: enabled.carbsGoal,
+            fat: enabled.fat,
+            fatGoal: enabled.fatGoal,
+            homeNutrients: nutrients,
+            waterTrackingEnabled: false,
+            waterCurrentMl: enabled.waterCurrentMl,
+            waterGoalMl: enabled.waterGoalMl,
+            waterUnitRaw: enabled.waterUnitRaw,
+            themeStartHex: nil,
+            themeEndHex: nil
+        )
+        #expect(disabled.displayedHomeNutrients.map(\.id) == ["sodium"])
+    }
 }

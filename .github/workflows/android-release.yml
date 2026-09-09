@@ -75,6 +75,9 @@ jobs:
           track: production
           status: draft
 
+      - name: Prepare reviewed release notes
+        run: python3 scripts/release_notes.py "$GITHUB_REF_NAME" > "$RUNNER_TEMP/release-notes.md"
+
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -85,5 +88,5 @@ jobs:
           cp android/app/build/outputs/apk/release/app-release.apk "fudai-v${VERSION}.apk"
           gh release create "$GITHUB_REF_NAME" \
             --title "Android ${VERSION} (versionCode ${VCODE})" \
-            --generate-notes --latest \
+            --notes-file "$RUNNER_TEMP/release-notes.md" --latest \
             "fudai-v${VERSION}.aab" "fudai-v${VERSION}.apk"

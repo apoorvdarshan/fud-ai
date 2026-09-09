@@ -124,6 +124,15 @@ the exact release commit and run the affected iOS tests. Resolve lint errors;
 review warnings and document any accepted limitations before release. Security
 findings require explicit triage and remediation, not a blanket lint baseline.
 
+## Release notes
+
+Before creating a release tag, add a matching `## <tag>` section to
+[`RELEASE_NOTES.md`](RELEASE_NOTES.md). Summarize user-visible changes, upgrade
+impact and publicly known security fixes, including identifiers when available.
+Do not substitute raw commit logs for release notes. Keep App Store and Google
+Play copy aligned with this summary. The release workflows reject tags without
+an exact reviewed note section.
+
 ## Reporting Issues
 
 Open a bug at [github.com/apoorvdarshan/fud-ai/issues/new?labels=bug](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20) with:

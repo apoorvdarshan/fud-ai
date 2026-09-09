@@ -138,6 +138,8 @@ For Android phones where native speech is inconsistent, Groq (Whisper) or Deepgr
 
 API keys are stored encrypted on-device: **iOS Keychain** on iOS and **EncryptedSharedPreferences backed by Android Keystore** on Android.
 
+[Release notes and upgrade changes](RELEASE_NOTES.md)
+
 ## How It Works
 
 ```

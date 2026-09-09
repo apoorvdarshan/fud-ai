@@ -28,6 +28,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Prepare reviewed release notes
+        run: python3 scripts/release_notes.py "$GITHUB_REF_NAME" > "$RUNNER_TEMP/release-notes.md"
+
       - name: Create GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -36,4 +39,4 @@ jobs:
           BUILD=$(grep -m1 'CURRENT_PROJECT_VERSION' ios/calorietracker.xcodeproj/project.pbxproj | tr -dc '0-9')
           gh release create "$GITHUB_REF_NAME" \
             --title "iOS ${VERSION} (build ${BUILD})" \
-            --generate-notes --latest
+            --notes-file "$RUNNER_TEMP/release-notes.md" --latest

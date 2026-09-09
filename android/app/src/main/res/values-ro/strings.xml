@@ -449,7 +449,8 @@
     <string name="progress_body_fat_history">Istoric grăsime corporală</string>
     <plurals name="progress_history_count_format">
         <item quantity="one">%1$d intrare · atinge pentru a vedea sau șterge</item>
-        <item quantity="other">%1$d intrări · atinge pentru a vedea sau șterge</item>
+        <item quantity="few">%1$d intrări · atinge pentru a vedea sau șterge</item>
+        <item quantity="other">%1$d de intrări · atinge pentru a vedea sau șterge</item>
     </plurals>
 
     <string name="progress_calories_section">Calorii</string>
@@ -632,7 +633,8 @@
     <string name="progress_workout_history">Istoric antrenamente</string>
     <plurals name="progress_workout_history_count_format">
         <item quantity="one">%1$d consum calculat · atinge pentru a vedea sau șterge</item>
-        <item quantity="other">%1$d consumuri calculate · atinge pentru a vedea sau șterge</item>
+        <item quantity="few">%1$d consumuri calculate · atinge pentru a vedea sau șterge</item>
+        <item quantity="other">%1$d de consumuri calculate · atinge pentru a vedea sau șterge</item>
     </plurals>
     <string name="progress_workout_delete_title">Ștergi consumul antrenamentului?</string>
     <string name="progress_workout_delete_message">Se elimină consumul calculat din Fud AI și Health Connect. Planul din jurnalul de antrenament rămâne salvat.</string>

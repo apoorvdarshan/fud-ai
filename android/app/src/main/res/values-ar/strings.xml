@@ -448,8 +448,12 @@
     <string name="progress_weight_history">سجل الوزن</string>
     <string name="progress_body_fat_history">سجل نسبة الدهون</string>
     <plurals name="progress_history_count_format">
+        <item quantity="zero">%1$d إدخال · اضغط للعرض أو الحذف</item>
         <item quantity="one">%1$d إدخال · اضغط للعرض أو الحذف</item>
-        <item quantity="other">%1$d إدخالات · اضغط للعرض أو الحذف</item>
+        <item quantity="two">%1$d إدخالان · اضغط للعرض أو الحذف</item>
+        <item quantity="few">%1$d إدخالات · اضغط للعرض أو الحذف</item>
+        <item quantity="many">%1$d إدخالًا · اضغط للعرض أو الحذف</item>
+        <item quantity="other">%1$d إدخال · اضغط للعرض أو الحذف</item>
     </plurals>
 
     <string name="progress_calories_section">السعرات الحرارية</string>
@@ -631,8 +635,12 @@
     <string name="progress_metric_workouts">التمارين</string>
     <string name="progress_workout_history">سجل التمارين</string>
     <plurals name="progress_workout_history_count_format">
+        <item quantity="zero">%1$d عملية حرق محسوبة · اضغط للعرض أو الحذف</item>
         <item quantity="one">%1$d عملية حرق محسوبة · اضغط للعرض أو الحذف</item>
-        <item quantity="other">%1$d عمليات حرق محسوبة · اضغط للعرض أو الحذف</item>
+        <item quantity="two">%1$d عمليتا حرق محسوبتان · اضغط للعرض أو الحذف</item>
+        <item quantity="few">%1$d عمليات حرق محسوبة · اضغط للعرض أو الحذف</item>
+        <item quantity="many">%1$d عملية حرق محسوبة · اضغط للعرض أو الحذف</item>
+        <item quantity="other">%1$d عملية حرق محسوبة · اضغط للعرض أو الحذف</item>
     </plurals>
     <string name="progress_workout_delete_title">حذف حرق التمرين؟</string>
     <string name="progress_workout_delete_message">يؤدي هذا إلى إزالة الحرق المحسوب من Fud AI وHealth Connect. ستظل خطة يوميات التمرين محفوظة.</string>

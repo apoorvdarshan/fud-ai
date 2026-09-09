@@ -24,7 +24,13 @@ on:
       - "android-v*"
 
 jobs:
+  quality:
+    uses: ./.github/workflows/quality.yml
+    permissions:
+      contents: read
+
   release:
+    needs: quality
     runs-on: ubuntu-latest
     permissions:
       contents: write # create the GitHub Release

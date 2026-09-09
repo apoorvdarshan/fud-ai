@@ -448,8 +448,10 @@
     <string name="progress_weight_history">Historia wagi</string>
     <string name="progress_body_fat_history">Historia tkanki tłuszczowej</string>
     <plurals name="progress_history_count_format">
-        <item quantity="one">%1$d Eintrag · tippen zum Anzeigen oder Löschen</item>
-        <item quantity="other">%1$d Einträge · tippen zum Anzeigen oder Löschen</item>
+        <item quantity="one">%1$d wpis · dotknij, aby wyświetlić lub usunąć</item>
+        <item quantity="few">%1$d wpisy · dotknij, aby wyświetlić lub usunąć</item>
+        <item quantity="many">%1$d wpisów · dotknij, aby wyświetlić lub usunąć</item>
+        <item quantity="other">%1$d wpisów · dotknij, aby wyświetlić lub usunąć</item>
     </plurals>
 
     <string name="progress_calories_section">Kalorie</string>
@@ -631,8 +633,10 @@
     <string name="progress_metric_workouts">Treningi</string>
     <string name="progress_workout_history">Historia treningów</string>
     <plurals name="progress_workout_history_count_format">
-        <item quantity="one">%1$d berechneter Verbrauch · zum Anzeigen oder Löschen tippen</item>
-        <item quantity="other">%1$d berechnete Verbräuche · zum Anzeigen oder Löschen tippen</item>
+        <item quantity="one">%1$d obliczony wydatek energii · dotknij, aby wyświetlić lub usunąć</item>
+        <item quantity="few">%1$d obliczone wydatki energii · dotknij, aby wyświetlić lub usunąć</item>
+        <item quantity="many">%1$d obliczonych wydatków energii · dotknij, aby wyświetlić lub usunąć</item>
+        <item quantity="other">%1$d obliczonych wydatków energii · dotknij, aby wyświetlić lub usunąć</item>
     </plurals>
     <string name="progress_workout_delete_title">Usunąć spalanie z treningu?</string>
     <string name="progress_workout_delete_message">To usuwa obliczone spalanie z Fud AI i Health Connect. Plan treningu w dzienniku zostaje.</string>

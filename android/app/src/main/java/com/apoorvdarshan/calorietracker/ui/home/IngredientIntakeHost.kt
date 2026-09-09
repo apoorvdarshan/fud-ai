@@ -100,8 +100,10 @@ internal fun IngredientIntakeSection(
         }
     }
 
+    val analysisFailedMessage = stringResource(R.string.error_analysis_failed)
+
     fun runAnalysis(imageBytes: ByteArray? = null, block: suspend () -> FoodAnalysis) {
-        intake.analyze(imageBytes, container.imageStore, ctx.getString(R.string.error_analysis_failed), block)
+        intake.analyze(imageBytes, container.imageStore, analysisFailedMessage, block)
     }
 
     val photoPicker = rememberLauncherForActivityResult(

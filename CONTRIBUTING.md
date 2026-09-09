@@ -87,6 +87,43 @@ For a codebase overview, start with the Architecture and Source Layout sections 
 5. Address P1 and P2 findings. P3 is judgment-call
 6. Write a clear PR description explaining the **why**, not just the **what**
 
+## Automated tests and release checks
+
+Major new functionality must include automated tests for its behavior. Bug fixes
+should include a regression test when practical. Cover successful inputs, invalid
+inputs and failure paths; keep mobile behavior aligned across iOS and Android.
+Explain any testing limitation in the pull request. Device checks complement the
+automated suite rather than replacing it.
+
+Run the checks relevant to your change before opening a pull request:
+
+```bash
+cd web
+npm ci
+npm run check
+```
+
+```bash
+cd android
+./gradlew :app:testDebugUnitTest :app:lintRelease
+```
+
+The web suite includes fast-check generated-input tests for malformed JSON,
+unknown fields and score validation. They run 1,000 generated cases per property
+on each check; use the reported seed and shrink path to reproduce a failure.
+
+Run affected iOS tests through Xcode's Test action on a supported simulator. Run
+instrumented Android tests on an emulator or device for Android framework paths.
+Do not uninstall an existing app or clear its data as part of routine validation.
+
+The Quality checks workflow runs web tests, Android unit tests and Android lint
+on pushes, pull requests and daily. Release workflows require these checks before
+creating their release artifacts/entries. Before an App Store release through
+Xcode Cloud, the maintainer must also verify a successful Quality checks run for
+the exact release commit and run the affected iOS tests. Resolve lint errors;
+review warnings and document any accepted limitations before release. Security
+findings require explicit triage and remediation, not a blanket lint baseline.
+
 ## Reporting Issues
 
 Open a bug at [github.com/apoorvdarshan/fud-ai/issues/new?labels=bug](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20) with:

@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.apoorvdarshan.calorietracker.AppContainer
@@ -26,6 +27,7 @@ import java.time.temporal.ChronoUnit
 @Composable
 internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () -> Unit) {
     val context = LocalContext.current
+    val resources = LocalResources.current
     val scope = rememberCoroutineScope()
     var fromText by remember { mutableStateOf(LocalDate.now().minusDays(29).toString()) }
     var toText by remember { mutableStateOf(LocalDate.now().toString()) }
@@ -36,7 +38,7 @@ internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () 
     var finished by remember { mutableStateOf(false) }
     val selected = records.orEmpty().filter { it.originPackage == selectedSource }
     val permissionLauncher = rememberLauncherForActivityResult(container.health.permissionRequestContract()) {
-        message = context.getString(R.string.health_import_access_result)
+        message = resources.getString(R.string.health_import_access_result)
         records = null
         selectedSource = null
     }
@@ -48,7 +50,7 @@ internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () 
         scope.launch {
             try {
                 if (!container.health.isAvailable() || !container.health.hasNutritionRead()) {
-                    message = context.getString(R.string.health_import_access_needed)
+                    message = resources.getString(R.string.health_import_access_needed)
                     return@launch
                 }
                 val range = runCatching {
@@ -59,27 +61,27 @@ internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () 
                         minOf(to.plusDays(1).atStartOfDay(ZoneId.systemDefault()).toInstant(), Instant.now())
                 }.getOrNull()
                 if (range == null) {
-                    message = context.getString(R.string.health_import_invalid_dates)
+                    message = resources.getString(R.string.health_import_invalid_dates)
                     return@launch
                 }
                 // Conservative fallback: never imply older history was searched without access.
                 if (!container.health.hasNutritionHistory() &&
                     range.first.isBefore(Instant.now().minus(30, ChronoUnit.DAYS))) {
-                    message = context.getString(R.string.health_import_history_needed)
+                    message = resources.getString(R.string.health_import_history_needed)
                     return@launch
                 }
                 val read = container.health.readNutrition(range.first, range.second)
                 if (read == null) {
-                    message = context.getString(R.string.health_import_failed)
+                    message = resources.getString(R.string.health_import_failed)
                 } else {
                     records = nutritionImportCandidates(read, context.packageName, container.prefs.nutritionImportedKeys.first())
                     selectedSource = records?.map { it.originPackage }?.distinct()?.singleOrNull()
-                    if (records.isNullOrEmpty()) message = context.getString(R.string.health_import_empty)
+                    if (records.isNullOrEmpty()) message = resources.getString(R.string.health_import_empty)
                 }
             } catch (cancelled: CancellationException) {
                 throw cancelled
             } catch (_: Exception) {
-                message = context.getString(R.string.health_import_failed)
+                message = resources.getString(R.string.health_import_failed)
             } finally {
                 busy = false
             }
@@ -101,7 +103,7 @@ internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () 
                     Text(stringResource(R.string.health_import_history_hint), style = MaterialTheme.typography.bodySmall)
                     TextButton(enabled = !busy && container.health.isAvailable(), onClick = {
                         runCatching { permissionLauncher.launch(container.health.nutritionImportPermissions) }
-                            .onFailure { message = context.getString(R.string.health_import_access_needed) }
+                            .onFailure { message = resources.getString(R.string.health_import_access_needed) }
                     }) { Text(stringResource(R.string.health_import_grant)) }
                     TextButton(enabled = !busy, onClick = ::preview) { Text(stringResource(R.string.health_import_preview)) }
                     records?.map { it.originPackage }?.distinct()?.sorted()?.forEach { source ->
@@ -122,7 +124,7 @@ internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () 
                     if (selected.isNotEmpty()) {
                         Text(stringResource(R.string.health_import_count, selected.size, selected.sumOf { it.calories ?: 0.0 }.toInt()))
                         selected.take(5).forEach { record ->
-                            Text("${record.time.atZone(ZoneId.systemDefault()).toLocalDate()} · ${record.name?.takeIf { it.isNotBlank() } ?: context.getString(R.string.health_import_unnamed)}", style = MaterialTheme.typography.bodySmall)
+                            Text("${record.time.atZone(ZoneId.systemDefault()).toLocalDate()} · ${record.name?.takeIf { it.isNotBlank() } ?: resources.getString(R.string.health_import_unnamed)}", style = MaterialTheme.typography.bodySmall)
                         }
                         Text(stringResource(R.string.health_import_local_only), style = MaterialTheme.typography.bodySmall)
                     }
@@ -138,16 +140,16 @@ internal fun HealthNutritionImportDialog(container: AppContainer, onDismiss: () 
                     try {
                         // Permission may have been revoked while the preview was displayed.
                         if (!container.health.hasNutritionRead()) {
-                            message = context.getString(R.string.health_import_access_needed)
+                            message = resources.getString(R.string.health_import_access_needed)
                             return@launch
                         }
-                        val count = container.prefs.importHealthNutrition(selected, context.getString(R.string.health_import_unnamed))
-                        message = context.getString(R.string.health_import_done, count)
+                        val count = container.prefs.importHealthNutrition(selected, resources.getString(R.string.health_import_unnamed))
+                        message = resources.getString(R.string.health_import_done, count)
                         finished = true
                     } catch (cancelled: CancellationException) {
                         throw cancelled
                     } catch (_: Exception) {
-                        message = context.getString(R.string.health_import_failed)
+                        message = resources.getString(R.string.health_import_failed)
                     } finally {
                         busy = false
                     }

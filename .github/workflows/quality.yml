@@ -1,0 +1,52 @@
+name: Quality checks
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  schedule:
+    - cron: '23 3 * * *'
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+        working-directory: web
+      - run: npm run check
+        working-directory: web
+
+  android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Unit tests and release lint
+        working-directory: android
+        run: ./gradlew :app:testDebugUnitTest :app:lintRelease
+      - name: Retain test and lint reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-quality-reports
+          path: |
+            android/app/build/reports/tests/
+            android/app/build/reports/lint-results-release.*

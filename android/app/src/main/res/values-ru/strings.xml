@@ -449,6 +449,8 @@
     <string name="progress_body_fat_history">История жира тела</string>
     <plurals name="progress_history_count_format">
         <item quantity="one">%1$d запись · коснитесь, чтобы посмотреть или удалить</item>
+        <item quantity="few">%1$d записи · коснитесь, чтобы посмотреть или удалить</item>
+        <item quantity="many">%1$d записей · коснитесь, чтобы посмотреть или удалить</item>
         <item quantity="other">%1$d записей · коснитесь, чтобы посмотреть или удалить</item>
     </plurals>
 
@@ -631,8 +633,10 @@
     <string name="progress_metric_workouts">Тренировки</string>
     <string name="progress_workout_history">История тренировок</string>
     <plurals name="progress_workout_history_count_format">
-        <item quantity="one">%1$d расчёт расхода · нажмите для просмотра или удаления</item>
-        <item quantity="other">%1$d расчётов расхода · нажмите для просмотра или удаления</item>
+        <item quantity="one">%1$d расчёт расхода · коснитесь, чтобы посмотреть или удалить</item>
+        <item quantity="few">%1$d расчёта расхода · коснитесь, чтобы посмотреть или удалить</item>
+        <item quantity="many">%1$d расчётов расхода · коснитесь, чтобы посмотреть или удалить</item>
+        <item quantity="other">%1$d расчётов расхода · коснитесь, чтобы посмотреть или удалить</item>
     </plurals>
     <string name="progress_workout_delete_title">Удалить расход тренировки?</string>
     <string name="progress_workout_delete_message">Расчётный расход будет удалён из Fud AI и Health Connect. План в дневнике тренировок сохранится.</string>

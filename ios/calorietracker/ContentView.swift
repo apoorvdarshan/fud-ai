@@ -656,6 +656,27 @@ struct HomeView: View {
     }
     @State private var activeSheet: ActiveSheet?
     @State private var editingEntry: FoodEntry?
+    @State private var pendingDiaryDeletion: DiaryDeletion?
+
+    private enum DiaryDeletion {
+        case food(FoodEntry), water(WaterEntry), fasting(FastingSession)
+
+        var title: String {
+            switch self {
+            case .food: return "Delete Food Log?"
+            case .water: return "Delete Water Log?"
+            case .fasting: return "Delete Fasting Log?"
+            }
+        }
+
+        var message: String {
+            switch self {
+            case .food: return "This removes the food from your diary. Saved favorites are kept."
+            case .water: return "This removes the water entry from your diary."
+            case .fasting: return "This removes the completed fast from your diary."
+            }
+        }
+    }
     @State private var selectedFoodIDs: Set<UUID> = []
     private var isFoodSelectionMode: Bool { !selectedFoodIDs.isEmpty }
     private var foodSelectionSummary: some View {
@@ -1028,11 +1049,12 @@ struct HomeView: View {
                                         }
                                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                             if !isFoodSelectionMode {
-                                                Button(role: .destructive) {
-                                                    foodStore.deleteEntry(entry)
+                                                Button {
+                                                    pendingDiaryDeletion = .food(entry)
                                                 } label: {
                                                     Label("Delete", systemImage: "trash.fill")
                                                 }
+                                                .tint(.red)
                                                 Button {
                                                     foodStore.toggleFavorite(entry)
                                                 } label: {
@@ -1044,11 +1066,12 @@ struct HomeView: View {
                                     case .water(let entry):
                                         WaterLogRow(entry: entry, unit: waterUnit)
                                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                                Button(role: .destructive) {
-                                                    waterStore.delete(id: entry.id)
+                                                Button {
+                                                    pendingDiaryDeletion = .water(entry)
                                                 } label: {
                                                     Label("Delete", systemImage: "trash.fill")
                                                 }
+                                                .tint(.red)
                                             }
                                     case .fasting(let session):
                                         Button {
@@ -1076,12 +1099,12 @@ struct HomeView: View {
                                                     Label("Cancel Fast", systemImage: "trash.fill")
                                                 }
                                             } else {
-                                                Button(role: .destructive) {
-                                                    fastingStore.delete(id: session.id)
-                                                    refreshFastingGoalNotification()
+                                                Button {
+                                                    pendingDiaryDeletion = .fasting(session)
                                                 } label: {
                                                     Label("Delete", systemImage: "trash.fill")
                                                 }
+                                                .tint(.red)
                                             }
                                         }
                                     }
@@ -1666,6 +1689,24 @@ struct HomeView: View {
                         }
                     }
                 }
+            }
+            .alert(pendingDiaryDeletion?.title ?? "Delete Entry?", isPresented: Binding(
+                get: { pendingDiaryDeletion != nil },
+                set: { if !$0 { pendingDiaryDeletion = nil } }
+            ), presenting: pendingDiaryDeletion) { target in
+                Button("Cancel", role: .cancel) { pendingDiaryDeletion = nil }
+                Button("Delete", role: .destructive) {
+                    switch target {
+                    case .food(let entry): foodStore.deleteEntry(entry)
+                    case .water(let entry): waterStore.delete(id: entry.id)
+                    case .fasting(let session):
+                        fastingStore.delete(id: session.id)
+                        refreshFastingGoalNotification()
+                    }
+                    pendingDiaryDeletion = nil
+                }
+            } message: { target in
+                Text(target.message)
             }
             .alert("Error", isPresented: $showError) {
                 Button("Retry") { retryLastRequest() }

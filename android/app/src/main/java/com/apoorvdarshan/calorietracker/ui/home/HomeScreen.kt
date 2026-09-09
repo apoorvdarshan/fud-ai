@@ -226,6 +226,7 @@ fun HomeScreen(
     var showCustomWaterLog by remember { mutableStateOf(false) }
     var showFastingStart by remember { mutableStateOf(false) }
     var editingFast by remember { mutableStateOf<FastingSession?>(null) }
+    var pendingDiaryDeletion by remember { mutableStateOf<HomeDiaryItem?>(null) }
     var showFastingQuickActionDisabled by remember { mutableStateOf(false) }
 
     var showCameraCapture by rememberSaveable { mutableStateOf(false) }
@@ -602,7 +603,7 @@ fun HomeScreen(
                                         onLongPress = {
                                             selectedFoodIds = selectedFoodIds + entry.id
                                         },
-                                        onDelete = { vm.deleteEntry(entry.id) },
+                                        onDelete = { pendingDiaryDeletion = item },
                                         onToggleFavorite = { vm.toggleFavorite(entry) }
                                     )
                                 }
@@ -611,7 +612,7 @@ fun HomeScreen(
                                         entry = item.entry,
                                         unit = ui.waterUnit,
                                         rowShape = rowShape,
-                                        onDelete = { vm.deleteWater(item.entry.id) }
+                                        onDelete = { pendingDiaryDeletion = item }
                                     )
                                 }
                                 is HomeDiaryItem.Fasting -> {
@@ -619,7 +620,7 @@ fun HomeScreen(
                                         session = item.session,
                                         rowShape = rowShape,
                                         onTap = { editingFast = item.session },
-                                        onDelete = { vm.deleteFast(item.session.id) }
+                                        onDelete = { pendingDiaryDeletion = item }
                                     )
                                 }
                             }
@@ -773,6 +774,42 @@ fun HomeScreen(
             },
             onDismiss = { showFastingStart = false }
         )
+    }
+
+    pendingDiaryDeletion?.let { target ->
+        val title = when (target) {
+            is HomeDiaryItem.Food -> "Delete Food Log?"
+            is HomeDiaryItem.Water -> "Delete Water Log?"
+            is HomeDiaryItem.Fasting -> "Delete Fasting Log?"
+        }
+        val message = when (target) {
+            is HomeDiaryItem.Food -> "This removes the food from your diary. Saved favorites are kept."
+            is HomeDiaryItem.Water -> "This removes the water entry from your diary."
+            is HomeDiaryItem.Fasting -> "This removes the completed fast from your diary."
+        }
+        FudGlassDialog(onDismissRequest = { pendingDiaryDeletion = null }) {
+            Text(title, fontSize = 21.sp, fontWeight = FontWeight.Bold)
+            Text(
+                message,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f),
+                fontSize = 15.sp,
+                lineHeight = 21.sp
+            )
+            FudGlassDialogActions(
+                primaryText = stringResource(R.string.action_delete),
+                onPrimary = {
+                    pendingDiaryDeletion = null
+                    when (target) {
+                        is HomeDiaryItem.Food -> vm.deleteEntry(target.entry.id)
+                        is HomeDiaryItem.Water -> vm.deleteWater(target.entry.id)
+                        is HomeDiaryItem.Fasting -> vm.deleteFast(target.session.id)
+                    }
+                },
+                dismissText = stringResource(R.string.action_cancel),
+                onDismiss = { pendingDiaryDeletion = null },
+                destructive = true
+            )
+        }
     }
 
     editingFast?.let { session ->

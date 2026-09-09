@@ -7,6 +7,8 @@ same marketing version can share a feature summary while identifying different b
 
 ## Unreleased
 
+- Security: updated the web development toolchain to sharp 0.35.4 for GHSA-rgj7-g3m4-5g8c (libheif vulnerabilities). This dependency is used by local tooling, not shipped in the mobile apps.
+
 - Added automated web and Android checks before GitHub release workflows proceed.
 - Added generated-input tests for challenge API validation.
 - Fixed Android resource access during Compose updates and completed history-counter plural forms.

@@ -18,6 +18,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: web
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -33,6 +35,10 @@ jobs:
     timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            android
+            shared
       - uses: actions/setup-java@v4
         with:
           distribution: temurin

@@ -7,6 +7,8 @@ same marketing version can share a feature summary while identifying different b
 
 ## Unreleased
 
+- Android HTTPS now requires modern TLS and strong certificate keys. Outdated custom HTTPS servers may need a certificate/TLS upgrade. User-selected local HTTP remains supported.
+
 - Security: updated the web development toolchain to sharp 0.35.4 for GHSA-rgj7-g3m4-5g8c (libheif vulnerabilities). This dependency is used by local tooling, not shipped in the mobile apps.
 
 - Added automated web and Android checks before GitHub release workflows proceed.

@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.services.challenge
 
+import com.apoorvdarshan.calorietracker.services.SecureHttpClient
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeAggregate
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeCategory
 import com.apoorvdarshan.calorietracker.models.WeeklyChallengeCreateProfileRequest
@@ -103,7 +104,7 @@ private data class WeeklyChallengeErrorBody(
 
 internal class WeeklyChallengeApi(
     private val baseUrl: String = BASE_URL,
-    private val client: OkHttpClient = OkHttpClient.Builder()
+    private val client: OkHttpClient = SecureHttpClient.builder()
         .connectTimeout(15, TimeUnit.SECONDS)
         .readTimeout(20, TimeUnit.SECONDS)
         .writeTimeout(20, TimeUnit.SECONDS)

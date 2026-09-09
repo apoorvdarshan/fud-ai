@@ -36,7 +36,7 @@ object MealShare {
     private const val VERSION = 1
 
     private val shareClient by lazy {
-        OkHttpClient.Builder().callTimeout(5, TimeUnit.SECONDS)
+        SecureHttpClient.builder().callTimeout(5, TimeUnit.SECONDS)
             .followRedirects(false).followSslRedirects(false).build()
     }
 

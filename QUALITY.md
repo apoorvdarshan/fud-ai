@@ -63,3 +63,20 @@ found by that scan; secret scanning and push protection remain enabled on GitHub
 The historical CodeQL records contained five fixed high-severity alerts and one
 false positive. This evidence does not replace ongoing review or confidential
 vulnerability reporting.
+
+## HTTPS strength requirements
+
+Android's shared SecureHttpClient restricts HTTPS to OkHttp RESTRICTED_TLS
+(TLS 1.2/1.3 with authenticated modern cipher suites). After normal platform
+certificate/hostname validation and before sending each network request, it
+rejects RSA certificate keys below 2048 bits, EC keys below 256 bits, unsupported
+key types, and MD2/MD5/SHA-1 certificate signatures. Explicit local HTTP remains
+available and is not described as encrypted. Old custom HTTPS servers may need
+a certificate/TLS upgrade; do not bypass validation to restore connectivity.
+
+Four loopback TLS tests verify a trusted strong certificate, rejection of a
+1024-bit RSA certificate before an Authorization header is sent, preserved
+hostname verification, and explicit HTTP support. These bring the Android unit
+suite to 215 tests. iOS retains platform ATS requirements rather than implementing
+a custom trust policy. A live check of www.fud-ai.app on 2026-09-09 negotiated
+TLS 1.3/AES-256-GCM with a 256-bit ECDSA certificate signed using SHA-256.

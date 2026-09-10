@@ -24,6 +24,7 @@ struct MealShareTests {
             #expect(request.httpMethod == "POST")
             #expect(request.timeoutInterval == 5)
             #expect(request.value(forHTTPHeaderField: "Content-Type") == "application/json")
+            #expect(request.value(forHTTPHeaderField: "User-Agent") == "FudAI/1.0 (iOS; MealShare)")
             let body = try #require(request.httpBody)
             let payload = try #require(JSONSerialization.jsonObject(with: body) as? [String: Any])
             #expect(payload["v"] as? Int == 1)
@@ -34,6 +35,19 @@ struct MealShareTests {
         let text = MealShare.shareText(for: entries, using: result)
         #expect(text.contains(short))
         #expect(!text.contains("?d="))
+    }
+
+    @Test func retriesOnceOnRateLimit() async throws {
+        let short = "https://www.fud-ai.app/m/abcdefghijklmnopqrstuv"
+        var attempts = 0
+        let result = await MealShare.preferredLink(for: entries) { request in
+            attempts += 1
+            let status = attempts == 1 ? 429 : 201
+            let body = attempts == 1 ? "{}" : "{\"url\":\"\(short)\"}"
+            return (Data(body.utf8), HTTPURLResponse(url: request.url!, statusCode: status, httpVersion: nil, headerFields: nil)!)
+        }
+        #expect(attempts == 2)
+        #expect(result?.absoluteString == short)
     }
 
     @Test func failuresKeepTheLongLink() async {

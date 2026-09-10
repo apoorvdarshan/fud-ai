@@ -287,7 +287,11 @@
 
     <!-- Home -->
     <plurals name="home_daily_steps">
+        <item quantity="zero">لا خطوات (%1$s)</item>
         <item quantity="one">خطوة واحدة (%1$s)</item>
+        <item quantity="two">خطوتان (%1$s)</item>
+        <item quantity="few">%1$s خطوات</item>
+        <item quantity="many">%1$s خطوة</item>
         <item quantity="other">%1$s خطوة</item>
     </plurals>
 

@@ -288,7 +288,9 @@
     <!-- Home -->
     <plurals name="home_daily_steps">
         <item quantity="one">%1$s krok</item>
-        <item quantity="other">%1$s kroki</item>
+        <item quantity="few">%1$s kroki</item>
+        <item quantity="many">%1$s kroków</item>
+        <item quantity="other">%1$s kroków</item>
     </plurals>
 
     <string name="home_add_food">Dodaj jedzenie</string>

@@ -288,6 +288,8 @@
     <!-- Home -->
     <plurals name="home_daily_steps">
         <item quantity="one">%1$s шаг</item>
+        <item quantity="few">%1$s шага</item>
+        <item quantity="many">%1$s шагов</item>
         <item quantity="other">%1$s шагов</item>
     </plurals>
 

@@ -80,7 +80,17 @@ struct WorkoutLogView: View {
     @State private var isNoPerformedSetAlertPresented = false
     @State private var isCalculatingBurn = false
     @State private var workoutCardFrames: [UUID: CGRect] = [:]
+    @State private var pendingWorkoutDeletion: StrengthPlannedExercise?
     @FocusState private var focusedSetField: WorkoutLogSetFocus?
+
+    private var isWorkoutDeletionPresented: Binding<Bool> {
+        Binding(
+            get: { pendingWorkoutDeletion != nil },
+            set: { presented in
+                if !presented { pendingWorkoutDeletion = nil }
+            }
+        )
+    }
 
     private var library: ExerciseLibraryService { workoutStore.exerciseLibrary }
     private let session: WorkoutLogSessionState
@@ -169,6 +179,18 @@ struct WorkoutLogView: View {
         .workoutScreen()
         // Observe theme changes without re-keying the selected diary day.
         .animation(.easeInOut(duration: 0.2), value: appThemeColorRaw)
+        .alert(
+            "Delete Workout Log?",
+            isPresented: isWorkoutDeletionPresented,
+            presenting: pendingWorkoutDeletion
+        ) { exercise in
+            Button("Cancel", role: .cancel) { pendingWorkoutDeletion = nil }
+            Button("Delete", role: .destructive) {
+                confirmWorkoutDeletion(exercise)
+            }
+        } message: { _ in
+            Text("This removes the workout from your diary. Saved exercises are kept.")
+        }
     }
 
     private var workoutContent: some View {
@@ -223,8 +245,7 @@ struct WorkoutLogView: View {
                                         workoutStore.toggleSaved(exercise.itemID)
                                     },
                                     removeExercise: {
-                                        focusedSetField = nil
-                                        workoutStore.removeExercise(exercise.id, on: selectedDate)
+                                        requestWorkoutDeletion(exercise)
                                     },
                                     timerAction: { action in
                                         dismissSetKeyboard()
@@ -278,8 +299,8 @@ struct WorkoutLogView: View {
                                 .listRowSeparator(.hidden)
                                 .listRowInsets(EdgeInsets(top: 7, leading: 16, bottom: 7, trailing: 16))
                                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                    Button(role: .destructive) {
-                                        workoutStore.removeExercise(exercise.id, on: selectedDate)
+                                    Button {
+                                        requestWorkoutDeletion(exercise)
                                     } label: {
                                         Label("Delete", systemImage: "trash.fill")
                                     }
@@ -374,10 +395,12 @@ struct WorkoutLogView: View {
                     }
                 }
 
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()
-                    Button("Done") {
-                        dismissSetKeyboard()
+                if focusedSetField != nil {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button("Done") {
+                            dismissSetKeyboard()
+                        }
                     }
                 }
             }
@@ -547,6 +570,16 @@ struct WorkoutLogView: View {
         guard focusedSetField != nil else { return }
         focusedSetField = nil
         dismissKeyboard()
+    }
+
+    private func requestWorkoutDeletion(_ exercise: StrengthPlannedExercise) {
+        dismissSetKeyboard()
+        pendingWorkoutDeletion = exercise
+    }
+
+    private func confirmWorkoutDeletion(_ exercise: StrengthPlannedExercise) {
+        workoutStore.removeExercise(exercise.id, on: selectedDate)
+        pendingWorkoutDeletion = nil
     }
 }
 
@@ -1462,8 +1495,12 @@ private struct WorkoutLogExercisePickerSheet: View {
                             WorkoutLogPickerRow(
                                 item: item,
                                 isSelected: workoutStore.containsExercise(item.id, on: selectedDate),
+                                isSaved: workoutStore.savedExerciseIDs.contains(item.id),
                                 action: {
                                     workoutStore.toggleExercise(item, on: selectedDate)
+                                },
+                                toggleSaved: {
+                                    workoutStore.toggleSaved(item.id)
                                 },
                                 previewAction: {
                                     dismissKeyboard()
@@ -1473,17 +1510,11 @@ private struct WorkoutLogExercisePickerSheet: View {
                             .listRowBackground(
                                 Color.workoutPanel.opacity(workoutStore.containsExercise(item.id, on: selectedDate) ? 0.28 : 0.18)
                             )
+                            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                                bookmarkSwipe(for: item)
+                            }
                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                                Button {
-                                    workoutStore.toggleSaved(item.id)
-                                } label: {
-                                    let isSaved = workoutStore.savedExerciseIDs.contains(item.id)
-                                    Label(
-                                        isSaved ? "Unsave" : "Save",
-                                        systemImage: isSaved ? "bookmark.slash.fill" : "bookmark.fill"
-                                    )
-                                }
-                                .tint(Color.workoutAccent)
+                                bookmarkSwipe(for: item)
                             }
                         }
                     }
@@ -1538,6 +1569,19 @@ private struct WorkoutLogExercisePickerSheet: View {
         .onChange(of: filterState) { _, state in
             WorkoutLogPickerFilterStateStore.save(state, contextID: request.context.id)
         }
+    }
+
+    private func bookmarkSwipe(for item: ExerciseLibraryItem) -> some View {
+        Button {
+            workoutStore.toggleSaved(item.id)
+        } label: {
+            let isSaved = workoutStore.savedExerciseIDs.contains(item.id)
+            Label(
+                isSaved ? "Unsave" : "Save",
+                systemImage: isSaved ? "bookmark.slash.fill" : "bookmark.fill"
+            )
+        }
+        .tint(Color.workoutAccent)
     }
 
     private var resultsHeader: some View {
@@ -1880,7 +1924,9 @@ private struct WorkoutLogFilterPill: View {
 private struct WorkoutLogPickerRow: View {
     let item: ExerciseLibraryItem
     let isSelected: Bool
+    let isSaved: Bool
     let action: () -> Void
+    let toggleSaved: () -> Void
     let previewAction: () -> Void
 
     var body: some View {
@@ -1926,6 +1972,17 @@ private struct WorkoutLogPickerRow: View {
             .accessibilityLabel("\(item.name), \(item.primaryMusclesTitle), \(item.rawEquipment)")
             .accessibilityValue(isSelected ? "Added" : "Not added")
             .accessibilityHint(isSelected ? "Double tap to remove from this day" : "Double tap to add to this day")
+
+            Button(action: toggleSaved) {
+                Image(systemName: isSaved ? "bookmark.fill" : "bookmark")
+                    .font(.system(size: 17, weight: .bold))
+                    .foregroundStyle(isSaved ? Color.workoutAccent : Color.workoutMutedText.opacity(0.72))
+                    .frame(width: 34, height: 34)
+                    .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(isSaved ? "Unsave exercise" : "Save exercise")
+            .accessibilityHint(isSaved ? "Removes this exercise from Saved" : "Adds this exercise to Saved")
 
             Button(action: previewAction) {
                 Image(systemName: "info.circle.fill")

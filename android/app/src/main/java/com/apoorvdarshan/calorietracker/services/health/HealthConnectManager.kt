@@ -32,6 +32,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.util.UUID
+import java.util.concurrent.atomic.AtomicReference
 import kotlin.math.roundToInt
 
 /**
@@ -124,11 +125,25 @@ class HealthConnectManager(
             providerUpdateRequired =
                 sdkStatus == HealthConnectClient.SDK_UNAVAILABLE_PROVIDER_UPDATE_REQUIRED
         )
+        logAvailabilityIfNeeded(sdkStatus, isProfile, resolved)
+        return resolved
+    }
+
+    private fun logAvailabilityIfNeeded(
+        sdkStatus: Int,
+        isProfile: Boolean,
+        resolved: HealthConnectAvailability
+    ) {
+        if (resolved == HealthConnectAvailability.AVAILABLE) {
+            lastLoggedAvailabilityKey.set(null)
+            return
+        }
+        val key = "$sdkStatus|$isProfile|$resolved"
+        if (lastLoggedAvailabilityKey.getAndSet(key) == key) return
         android.util.Log.w(
             "FudAIHealth",
             "Health Connect availability sdkStatus=$sdkStatus isProfile=$isProfile resolved=$resolved"
         )
-        return resolved
     }
 
     fun isAvailable(): Boolean = availability() == HealthConnectAvailability.AVAILABLE
@@ -812,6 +827,7 @@ class HealthConnectManager(
     }
 
     companion object {
+        private val lastLoggedAvailabilityKey = AtomicReference<String?>(null)
         private val writeVersions = HealthWriteVersions()
 
         const val HEALTH_CONNECT_PROVIDER_PACKAGE = "com.google.android.apps.healthdata"

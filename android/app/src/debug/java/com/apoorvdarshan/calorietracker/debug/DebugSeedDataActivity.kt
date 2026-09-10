@@ -20,13 +20,13 @@ class DebugSeedDataActivity : ComponentActivity() {
                 withContext(Dispatchers.IO) {
                     DebugDemoDataSeeder(
                         application = application as FudAIApp
-                    ).seed()
+                    ).seed(futureDays = intent.getIntExtra("future_days", 0))
                 }
             }.onSuccess { report ->
                 Log.i(TAG, "Demo seed complete: $report")
                 Toast.makeText(
                     this@DebugSeedDataActivity,
-                    "Debug demo data ready (${report.foodEntries} food logs, ${report.days} days)",
+                    "Debug demo data ready (${report.foodEntries} food logs, through ${report.throughDate})",
                     Toast.LENGTH_LONG
                 ).show()
             }.onFailure { error ->

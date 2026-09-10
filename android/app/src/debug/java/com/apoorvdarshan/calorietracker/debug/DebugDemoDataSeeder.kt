@@ -38,6 +38,7 @@ import kotlinx.coroutines.flow.first
 
 internal data class DebugSeedReport(
     val days: Int,
+    val throughDate: LocalDate,
     val foodEntries: Int,
     val weightEntries: Int,
     val bodyFatEntries: Int,
@@ -48,36 +49,38 @@ internal data class DebugSeedReport(
 )
 
 /**
- * Builds a realistic, stable year of local demo history without calling any sync API.
+ * Builds a year of local demo history, with an optional future horizon, without calling any sync API.
  *
  * This file lives under src/debug, so neither the dataset nor its launch hook can be packaged in
  * release. UUIDs are deterministic, making repeated ADB launches safe: generated rows are merged
  * by id and existing user-created debug rows are preserved. The seed rolls forward with the current
- * date so short progress ranges never become stale between debug sessions.
+ * date; futureDays can prefill up to a year ahead for daily testing without another ADB launch.
  */
 internal class DebugDemoDataSeeder(private val application: FudAIApp) {
     private val container get() = application.container
     private val zone: ZoneId = ZoneId.systemDefault()
 
-    suspend fun seed(): DebugSeedReport {
+    suspend fun seed(futureDays: Int = 0): DebugSeedReport {
+        require(futureDays in 0..YEAR_DAYS) { "futureDays must be between 0 and $YEAR_DAYS" }
         val anchor = LocalDate.now(zone)
-        val dates = (YEAR_DAYS - 1 downTo 0).map { offset -> anchor.minusDays(offset.toLong()) }
+        val throughDate = anchor.plusDays(futureDays.toLong())
+        val dates = (YEAR_DAYS - 1 downTo -futureDays).map { offset -> anchor.minusDays(offset.toLong()) }
 
         val foods = dates.flatMapIndexed(::foodsForDate)
         val firstDate = dates.first()
         val totalDays = (YEAR_DAYS - 1).toDouble()
-        val weights = sampleDates(dates, intervalDays = 7, denseTailDays = 14).map { date ->
+        val weights = (sampleDates(dates, intervalDays = 7, denseTailDays = 14) + anchor).distinct().sorted().map { date ->
             val elapsedDays = java.time.temporal.ChronoUnit.DAYS.between(firstDate, date).toDouble()
-            val progress = elapsedDays / totalDays
+            val progress = (elapsedDays / totalDays).coerceIn(0.0, 1.0)
             WeightEntry(
                 id = stableId("weight:$date"),
                 date = instant(date, LocalTime.of(7, 10)),
                 weightKg = oneDecimal(79.2 - 8.1 * progress + sin(elapsedDays / 7.0 * 0.73) * 0.35)
             )
         }
-        val bodyFat = sampleDates(dates, intervalDays = 14, denseTailDays = 14).map { date ->
+        val bodyFat = (sampleDates(dates, intervalDays = 14, denseTailDays = 14) + anchor).distinct().sorted().map { date ->
             val elapsedDays = java.time.temporal.ChronoUnit.DAYS.between(firstDate, date).toDouble()
-            val progress = elapsedDays / totalDays
+            val progress = (elapsedDays / totalDays).coerceIn(0.0, 1.0)
             BodyFatEntry(
                 id = stableId("body-fat:$date"),
                 date = instant(date, LocalTime.of(7, 15)),
@@ -109,7 +112,7 @@ internal class DebugDemoDataSeeder(private val application: FudAIApp) {
             )
         }
         val fasting = dates.asSequence()
-            .filter { it < anchor && it.dayOfWeek in setOf(DayOfWeek.MONDAY, DayOfWeek.THURSDAY) }
+            .filter { it < throughDate && it.dayOfWeek in setOf(DayOfWeek.MONDAY, DayOfWeek.THURSDAY) }
             .mapIndexed { index, date ->
                 val start = instant(date, LocalTime.of(20, 0))
                 val durationHours = if (index % 4 == 0) 14L else 16L
@@ -148,15 +151,16 @@ internal class DebugDemoDataSeeder(private val application: FudAIApp) {
         }
         container.prefs.setOnboardingCompleted(true)
 
-        container.foodRepository.replaceAll(
+        // Write local demo rows without pruning photos or applying future measurements to the profile.
+        container.prefs.setFoodEntries(
             mergeById(container.foodRepository.entries.first(), foods) { it.id }
                 .sortedBy { it.timestamp }
         )
-        container.weightRepository.replaceAll(
+        container.prefs.setWeightEntries(
             mergeById(container.weightRepository.entries.first(), weights) { it.id }
                 .sortedBy { it.date }
         )
-        container.bodyFatRepository.replaceAll(
+        container.prefs.setBodyFatEntries(
             mergeById(container.bodyFatRepository.entries.first(), bodyFat) { it.id }
                 .sortedBy { it.date }
         )
@@ -176,15 +180,8 @@ internal class DebugDemoDataSeeder(private val application: FudAIApp) {
         val currentWorkout = container.workoutRepository.snapshot()
         val mergedPlans = currentWorkout.dayPlans.toMutableMap()
         workoutSessions.forEach { session ->
-            val seedPlan = session.asDayPlan()
-            val existingPlan = mergedPlans[session.diaryDateKey]
-            mergedPlans[session.diaryDateKey] = if (existingPlan == null) {
-                seedPlan
-            } else {
-                existingPlan.copy(
-                    exercises = mergeById(existingPlan.exercises, seedPlan.exercises) { it.id }
-                )
-            }
+            // Existing plans may have been edited since the last seed. Only fill new dates.
+            mergedPlans.putIfAbsent(session.diaryDateKey, session.asDayPlan())
         }
         val seededPreferences = when {
             currentWorkout.completedSessions.isEmpty() -> demoWorkoutPreferences
@@ -213,6 +210,7 @@ internal class DebugDemoDataSeeder(private val application: FudAIApp) {
 
         return DebugSeedReport(
             days = dates.size,
+            throughDate = throughDate,
             foodEntries = foods.size,
             weightEntries = weights.size,
             bodyFatEntries = bodyFat.size,

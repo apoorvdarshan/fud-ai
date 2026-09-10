@@ -15,6 +15,8 @@ import com.apoorvdarshan.calorietracker.models.PendingFoodAnalysisDraft
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WaterUnit
+import com.apoorvdarshan.calorietracker.services.CalorieBalanceDirection
+import com.apoorvdarshan.calorietracker.services.DailySummaryPolicy
 import com.apoorvdarshan.calorietracker.services.OpenFoodFactsService
 import com.apoorvdarshan.calorietracker.services.ai.AiError
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
@@ -33,6 +35,12 @@ import java.time.ZoneId
 import java.util.UUID
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.roundToInt
+
+data class HomeBurnSummary(
+    val burnedCalories: Int,
+    val direction: CalorieBalanceDirection,
+    val differenceCalories: Int
+)
 
 enum class FoodLogSortOrder(val storageValue: String, val displayName: String, val displayNameRes: Int) {
     STANDARD("standard", "Breakfast → Lunch → Dinner", R.string.sort_standard),
@@ -81,7 +89,8 @@ data class HomeUiState(
     val fastingOverlap: Boolean = false,
     val error: String? = null,
     /** When true, the error dialog's primary action opens the food camera instead of retrying. */
-    val errorOffersScanLabel: Boolean = false
+    val errorOffersScanLabel: Boolean = false,
+    val homeBurnSummary: HomeBurnSummary? = null
 ) {
     val caloriesToday: Int get() = todayEntries.sumOf { it.calories }
     val proteinToday: Double get() = todayEntries.sumOf { it.protein }
@@ -200,6 +209,60 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
 
         viewModelScope.launch {
             container.prefs.pendingFoodAnalysisDraft.first()?.let { restorePendingDraft(it) }
+        }
+
+        combine(
+            container.prefs.healthConnectEnabled,
+            _selectedDate,
+            container.foodRepository.entries,
+            container.profileRepository.profile
+        ) { healthEnabled, day, entries, profile ->
+            BurnRefreshInputs(healthEnabled, day, entries, profile)
+        }
+            .onEach { inputs -> refreshHomeBurnSummary(inputs) }
+            .launchIn(viewModelScope)
+    }
+
+    private data class BurnRefreshInputs(
+        val healthEnabled: Boolean,
+        val day: LocalDate,
+        val entries: List<FoodEntry>,
+        val profile: UserProfile?
+    )
+
+    private fun refreshHomeBurnSummary(inputs: BurnRefreshInputs) {
+        viewModelScope.launch {
+            if (!inputs.healthEnabled) {
+                _ui.value = _ui.value.copy(homeBurnSummary = null)
+                return@launch
+            }
+            val zone = ZoneId.systemDefault()
+            val eaten = inputs.entries
+                .filter { it.timestamp.atZone(zone).toLocalDate() == inputs.day }
+                .sumOf { it.calories }
+            val energy = container.health.readEnergyForDay(inputs.day) ?: run {
+                _ui.value = _ui.value.copy(homeBurnSummary = null)
+                return@launch
+            }
+            val burned = DailySummaryPolicy.resolveBurnedCalories(
+                measuredTotalCalories = energy.totalCalories,
+                externalActiveCalories = energy.activeCalories,
+                profileBmrCalories = inputs.profile?.bmr?.roundToInt()
+            ) ?: run {
+                _ui.value = _ui.value.copy(homeBurnSummary = null)
+                return@launch
+            }
+            val balance = DailySummaryPolicy.balance(
+                eatenCalories = eaten,
+                burnedCalories = burned
+            )
+            _ui.value = _ui.value.copy(
+                homeBurnSummary = HomeBurnSummary(
+                    burnedCalories = balance.burnedCalories,
+                    direction = balance.direction,
+                    differenceCalories = balance.differenceCalories
+                )
+            )
         }
     }
 

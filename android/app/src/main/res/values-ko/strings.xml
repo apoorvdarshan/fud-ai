@@ -297,6 +297,9 @@
     <string name="home_kcal_of_format">/ %1$s kcal</string>
     <string name="home_kcal_left_format">%1$s 남음</string>
     <string name="home_view_more">더 보기</string>
+    <string name="home_burn_deficit">%1$s burned · %2$s deficit</string>
+    <string name="home_burn_surplus">%1$s burned · %2$s surplus</string>
+    <string name="home_burn_balanced">%1$s burned · balanced</string>
     <string name="home_todays_food">오늘의 음식</string>
     <string name="home_no_foods_logged">기록된 음식 없음</string>
     <string name="home_swipe_delete">삭제</string>

@@ -21,6 +21,12 @@ struct HealthEnergyDay: Equatable {
     }
 }
 
+/// Measured burn for one local calendar day. Used by the home burn line and nightly summary.
+struct HealthDailyEnergy: Equatable {
+    let activeCalories: Int
+    let totalCalories: Int?
+}
+
 /// Custom metadata attached to every app-owned HealthKit nutrition sample.
 /// HealthKit has no first-class food-mass field, so this is the only lossless
 /// path for restoring the original serving after an app reinstall.
@@ -1164,6 +1170,61 @@ class HealthKitManager {
                     }
                 }
                 continuation.resume(returning: values)
+            }
+            healthStore.execute(query)
+        }
+    }
+
+    /// Measured burn for one local calendar day. Returns nil when Health is off, active energy
+    /// is unavailable, or the day has no positive external active-energy signal.
+    func readEnergyForDay(_ date: Date) async -> HealthDailyEnergy? {
+        guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return nil }
+        let calendar = Calendar.current
+        let start = calendar.startOfDay(for: date)
+        guard let dayEnd = calendar.date(byAdding: .day, value: 1, to: start) else { return nil }
+        let end = min(dayEnd, Date())
+        guard end > start else { return nil }
+
+        async let active = sumEnergy(.activeEnergyBurned, from: start, to: end)
+        async let basal = sumEnergy(.basalEnergyBurned, from: start, to: end)
+        let activeValue = await active
+        guard activeValue > 0 else { return nil }
+        let basalValue = await basal
+        let total = basalValue > 0 ? Int((activeValue + basalValue).rounded()) : nil
+        return HealthDailyEnergy(
+            activeCalories: Int(activeValue.rounded()),
+            totalCalories: total
+        )
+    }
+
+    private func sumEnergy(
+        _ identifier: HKQuantityTypeIdentifier,
+        from start: Date,
+        to end: Date
+    ) async -> Double {
+        let type = HKQuantityType(identifier)
+        let datePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictStartDate)
+        let predicate: NSPredicate
+        if identifier == .activeEnergyBurned {
+            let taggedWorkoutBurn = HKQuery.predicateForObjects(withMetadataKey: workoutBurnSessionIDKey)
+            predicate = NSCompoundPredicate(
+                andPredicateWithSubpredicates: [
+                    datePredicate,
+                    NSCompoundPredicate(notPredicateWithSubpredicate: taggedWorkoutBurn),
+                ]
+            )
+        } else {
+            predicate = datePredicate
+        }
+
+        return await withCheckedContinuation { continuation in
+            let query = HKStatisticsQuery(
+                quantityType: type,
+                quantitySamplePredicate: predicate,
+                options: .cumulativeSum
+            ) { _, statistics, _ in
+                let value = statistics?.sumQuantity()?.doubleValue(for: .kilocalorie()) ?? 0
+                continuation.resume(returning: value)
             }
             healthStore.execute(query)
         }

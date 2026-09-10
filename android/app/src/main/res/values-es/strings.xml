@@ -297,6 +297,9 @@
     <string name="home_kcal_of_format">de %1$s kcal</string>
     <string name="home_kcal_left_format">%1$s restantes</string>
     <string name="home_view_more">Ver más</string>
+    <string name="home_burn_deficit">%1$s burned · %2$s deficit</string>
+    <string name="home_burn_surplus">%1$s burned · %2$s surplus</string>
+    <string name="home_burn_balanced">%1$s burned · balanced</string>
     <string name="home_todays_food">Comida de hoy</string>
     <string name="home_no_foods_logged">No hay alimentos registrados</string>
     <string name="home_swipe_delete">Eliminar</string>

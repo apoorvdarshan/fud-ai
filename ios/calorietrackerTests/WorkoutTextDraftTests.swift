@@ -66,6 +66,19 @@ struct WorkoutTextDraftTests {
         }
     }
 
+    @Test func missingRepsAsksInsteadOfShowingARedError() throws {
+        let json = #"{"date":"2026-09-09","exercises":[{"exercise_id":"Bench","name":"Bench press","minutes":null,"unit":"kg","sets":[{"weight":null,"reps":null}]}]}"#
+        do {
+            _ = try WorkoutTextDraft.parse(json, library: library, today: today)
+            Issue.record("Expected clarification")
+        } catch let question as WorkoutClarification {
+            #expect(question.question == "How many sets and reps of Bench press did you do?")
+            #expect(question.options == ["3x10", "3x8", "3x12"])
+        } catch {
+            Issue.record("Expected WorkoutClarification, got \(error)")
+        }
+    }
+
     @Test func unresolvedStrengthDraftBecomesClarificationNotARedError() throws {
         let json = #"{"date":"2026-09-09","exercises":[{"exercise_id":null,"name":"Bench press","minutes":null,"unit":"kg","sets":[{"weight":null,"reps":10},{"weight":null,"reps":10}]}]}"#
         do {

@@ -27,7 +27,10 @@ struct WorkoutTextDraft: Codable {
                 throw WorkoutTextError.invalid("Choose light, moderate, or vigorous effort.")
             }
             let sets: [StrengthPlannedSet] = try entry.sets.map { set in
-                guard let reps = Int(set.reps), (1...999).contains(reps) else {
+                guard let reps = Int(set.reps) else {
+                    throw Self.missingDetails(name: entry.name, item: item)
+                }
+                guard (1...999).contains(reps) else {
                     throw WorkoutTextError.invalid("Enter 1–999 reps for each set.")
                 }
                 let weight = try number(set.weight, range: 0...1500, message: "Enter a valid weight between 0 and 1,500.")
@@ -40,19 +43,32 @@ struct WorkoutTextDraft: Codable {
                 result.rpeScale = rpe == nil ? nil : .strength
                 return result
             }
-            guard minutes != nil || !sets.isEmpty else { throw WorkoutTextError.invalid("Add a duration or completed sets.") }
+            guard minutes != nil || !sets.isEmpty else {
+                throw Self.missingDetails(name: entry.name, item: item)
+            }
             guard item != nil || (minutes != nil && sets.isEmpty) else {
                 throw WorkoutClarification(question: "Which variation of \(entry.name) did you do?",
                     options: ["Barbell", "Dumbbells", "Machine"])
             }
             let resolved = item ?? ExerciseLibraryItem(id: "custom_activity_\(entry.id.uuidString)", name: entry.name, category: "cardio")
             var exercise = StrengthPlannedExercise(item: resolved)
-            guard !exercise.isCardio || minutes != nil else { throw WorkoutTextError.invalid("Timed activities need a duration.") }
+            guard !exercise.isCardio || minutes != nil else {
+                throw Self.missingDetails(name: entry.name, item: item)
+            }
             exercise.id = entry.id
             exercise.sets = sets
             exercise.timer = minutes.map { StrengthExerciseTimer(accumulatedSeconds: $0 * 60, savedDurationSeconds: $0 * 60, intensity: intensity) }
             return exercise
         }
+    }
+
+    private static func missingDetails(name: String, item: ExerciseLibraryItem?) -> WorkoutClarification {
+        let label = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        let display = label.isEmpty ? "that exercise" : label
+        if item?.category.compare("cardio", options: .caseInsensitive) == .orderedSame {
+            return WorkoutClarification(question: "How many minutes of \(display) did you do?", options: ["10", "20", "30", "45"])
+        }
+        return WorkoutClarification(question: "How many sets and reps of \(display) did you do?", options: ["3x10", "3x8", "3x12"])
     }
 
     private func number(_ text: String, range: ClosedRange<Double>, message: String) throws -> Double? {

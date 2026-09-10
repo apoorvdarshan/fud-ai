@@ -128,6 +128,23 @@ class WorkoutTextSheetTest {
         compose.onNodeWithText("Analyze").assertIsNotEnabled()
     }
 
+    @Test fun missingRepsShowsAnswerFieldNotOnlyRetry() {
+        compose.setContent {
+            MaterialTheme {
+                WorkoutTextSheet(container, emptyList(), LocalDate.now(), WorkoutWeightUnit.KG, 70.0, WorkoutRpeScale.STRENGTH,
+                    onAdded = {}, onDismiss = {}, initialDescription = "Add Pullup", analyzeOnOpen = true,
+                    analyzeWorkout = { throw WorkoutClarification("How many sets and reps of Wide-Grip Rear Pull-Up did you do?", listOf("3x10", "3x8", "3x12")) },
+                    saveWorkout = { error("Must not save") })
+            }
+        }
+        compose.onNodeWithText("Add Pullup").assertExists()
+        compose.onNodeWithText("How many sets and reps of Wide-Grip Rear Pull-Up did you do?").assertExists()
+        compose.onNodeWithText("Your answer").assertExists()
+        compose.onNodeWithText("3x10").assertExists()
+        compose.onNodeWithText("Enter 1–999 reps for each set.").assertDoesNotExist()
+        compose.onNodeWithText("Add to diary").assertDoesNotExist()
+    }
+
     @Test fun clarificationKeepsDescriptionAndDoesNotSave() {
         compose.setContent {
             MaterialTheme {

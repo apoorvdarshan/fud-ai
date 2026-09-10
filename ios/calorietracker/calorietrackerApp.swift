@@ -25,6 +25,7 @@ struct calorietrackerApp: App {
     @State private var fastingStore = FastingStore()
     @State private var strengthWorkoutStore = StrengthWorkoutStore()
     @State private var weeklyChallengeStore = WeeklyChallengeStore()
+    @State private var cloudBackupService = CloudBackupService()
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @AppStorage("appearanceMode") private var appearanceMode = "system"
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
@@ -72,6 +73,7 @@ struct calorietrackerApp: App {
                         .environment(fastingStore)
                         .environment(strengthWorkoutStore)
                         .environment(weeklyChallengeStore)
+                        .environment(cloudBackupService)
                 } else {
                     OnboardingView(hasCompletedOnboarding: $hasCompletedOnboarding)
                         .environment(notificationManager)
@@ -97,11 +99,26 @@ struct calorietrackerApp: App {
             .onReceive(NotificationCenter.default.publisher(for: .userProfileDidChange)) { _ in
                 refreshWidgetSnapshot()
             }
+            .onReceive(NotificationCenter.default.publisher(for: .cloudBackupDidRestore)) { _ in
+                foodStore.reloadFromDefaults()
+                weightStore.reloadFromDefaults()
+                bodyFatStore.reloadFromDefaults()
+                bodyMeasurementStore.reloadFromDefaults()
+                waterStore.reloadFromDefaults()
+                fastingStore.reloadFromDefaults()
+                chatStore.reloadFromDefaults()
+                strengthWorkoutStore.reloadFromDefaults()
+                profileStore.reloadFromDisk()
+                refreshWidgetSnapshot()
+            }
             .task {
                 await weeklyChallengeStore.retryPendingDeletionIfNeeded()
             }
         }
         .onChange(of: scenePhase) { _, newPhase in
+            if newPhase == .background {
+                Task { await cloudBackupService.autoBackupIfNeeded() }
+            }
             if newPhase == .active {
                 Task {
                     await notificationManager.refreshAuthorizationStatus()

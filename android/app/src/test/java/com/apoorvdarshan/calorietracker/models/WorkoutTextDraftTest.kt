@@ -66,6 +66,13 @@ class WorkoutTextDraftTest {
         assertEquals(listOf("Barbell", "Dumbbells", "Machine"), error.options)
     }
 
+    @Test fun missingRepsAsksInsteadOfShowingARedError() {
+        val json = """{"date":"2026-09-09","exercises":[{"exercise_id":"Bench","name":"Bench press","minutes":null,"unit":"kg","sets":[{"weight":null,"reps":null}]}]}"""
+        val error = runCatching { WorkoutTextDraft.parse(json, library, today) }.exceptionOrNull() as WorkoutClarification
+        assertEquals("How many sets and reps of Bench press did you do?", error.message)
+        assertEquals(listOf("3x10", "3x8", "3x12"), error.options)
+    }
+
     @Test fun candidateCatalogPrioritizesNamedExercisesAndBoundsContext() {
         val many = (1..100).map { bench.copy(id = "Squat_$it", name = "Squat $it") } + bench
         val candidates = WorkoutTextDraft.candidates("bench press 3 sets of 10", many)

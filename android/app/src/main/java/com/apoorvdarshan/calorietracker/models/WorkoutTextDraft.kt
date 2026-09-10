@@ -28,7 +28,8 @@ data class WorkoutTextDraft(val date: String, val exercises: List<WorkoutTextExe
                 ?: error("Choose light, moderate, or vigorous effort.")
             val sets = entry.sets.map { set ->
                 val reps = set.reps.toIntOrNull()
-                require(reps != null && reps in 1..999) { "Enter 1–999 reps for each set." }
+                if (reps == null) throw missingDetails(entry, item)
+                require(reps in 1..999) { "Enter 1–999 reps for each set." }
                 val weight = set.weight.takeIf { it.isNotBlank() }?.let {
                     it.replace(',', '.').toDoubleOrNull()?.takeIf { n -> n.isFinite() && n in 0.0..1500.0 }
                         ?: error("Enter a valid weight between 0 and 1,500.")
@@ -39,7 +40,7 @@ data class WorkoutTextDraft(val date: String, val exercises: List<WorkoutTextExe
                     rpe = rpe?.toString().orEmpty(), rpeScale = rpe?.let { WorkoutRpeScale.STRENGTH },
                     weightUnit = WorkoutWeightUnit.fromStorage(entry.unit))
             }
-            require(minutes != null || sets.isNotEmpty()) { "Add a duration or completed sets." }
+            if (minutes == null && sets.isEmpty()) throw missingDetails(entry, item)
             if (item == null && (minutes == null || sets.isNotEmpty())) {
                 throw WorkoutClarification(
                     "Which variation of ${entry.name} did you do?",
@@ -51,10 +52,18 @@ data class WorkoutTextDraft(val date: String, val exercises: List<WorkoutTextExe
                 imagePaths = emptyList(), force = "", mechanic = "", category = "cardio",
                 equipment = "", primaryMuscles = emptyList(), secondaryMuscles = emptyList(), instructions = emptyList()
             )
-            require(!base.isCardio || minutes != null) { "Timed activities need a duration." }
+            if (base.isCardio && minutes == null) throw missingDetails(entry, item)
             base.copy(id = UUID.fromString(entry.id), sets = sets,
                 timer = minutes?.let { ExerciseTimer(accumulatedSeconds = it * 60, savedDurationSeconds = it * 60, intensity = intensity) })
         }
+    }
+
+    private fun missingDetails(entry: WorkoutTextExercise, item: ExerciseItem?): Nothing {
+        val name = entry.name.trim().ifBlank { "that exercise" }
+        if (item?.category.equals("cardio", ignoreCase = true)) {
+            throw WorkoutClarification("How many minutes of $name did you do?", listOf("10", "20", "30", "45"))
+        }
+        throw WorkoutClarification("How many sets and reps of $name did you do?", listOf("3x10", "3x8", "3x12"))
     }
 
     companion object {
@@ -75,7 +84,7 @@ data class WorkoutTextDraft(val date: String, val exercises: List<WorkoutTextExe
                     minutes = field("minutes"), unit = field("unit"), intensity = field("intensity").ifBlank { "moderate" },
                     sets = obj.getValue("sets").jsonArray.map { set ->
                         WorkoutTextSet(weight = set.jsonObject["weight"]?.jsonPrimitive?.contentOrNull.orEmpty(),
-                            reps = set.jsonObject.getValue("reps").jsonPrimitive.content,
+                            reps = set.jsonObject["reps"]?.jsonPrimitive?.contentOrNull.orEmpty(),
                             rpe = set.jsonObject["rpe"]?.jsonPrimitive?.contentOrNull.orEmpty())
                     })
             })

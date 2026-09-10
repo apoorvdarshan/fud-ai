@@ -19,7 +19,7 @@ Off by default in Settings → Data Management. Sign-in runs only when the user 
 | `FudAIBackup` | `backupAsset` | Asset |
 | `FudAIBackup` | `contentSha256` | String |
 
-The app writes a single record named `current` in the user’s private database (`CloudBackupService.swift`).
+The app writes a single record named `current` in the user’s private database (`CloudBackupService.swift`). The smoke test uses a separate record named `smoke-test` so it never overwrites or deletes the user’s real backup.
 
 **Production — deploy before App Store release:**
 
@@ -33,7 +33,7 @@ The app writes a single record named `current` in the user’s private database 
 
 ### CloudKit smoke test (device)
 
-Automated backup → restore → delete check. Safe for Release builds; runs once per launch when the argument is present.
+Automated upload → download/validate → delete check against the dedicated `smoke-test` record. Safe for Release builds; runs once per launch when the argument is present. Does not call production restore (no local prefs, photos, or HealthKit recovery flags are changed). If upload succeeds but a later step fails, the smoke-test record is still deleted before exit.
 
 **Launch argument:** `-fudai.cloudBackup.smokeTest`
 
@@ -44,7 +44,7 @@ Automated backup → restore → delete check. Safe for Release builds; runs onc
 1. Product → Scheme → Edit Scheme → **Run** → **Arguments**.
 2. Under **Arguments Passed On Launch**, add `-fudai.cloudBackup.smokeTest`.
 3. Select a physical iPhone (simulator iCloud is unreliable for CloudKit private DB).
-4. Run. On first launch the app uploads, restores, deletes the cloud backup, then restores local backup prefs to their pre-test values.
+4. Run. On first launch the app uploads to `smoke-test`, validates the downloaded archive hash, deletes the smoke-test record, and leaves the user’s `current` backup and local data untouched.
 
 **Run on an installed Release build:**
 

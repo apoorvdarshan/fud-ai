@@ -2,6 +2,7 @@ package com.apoorvdarshan.calorietracker.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -71,6 +72,7 @@ import com.apoorvdarshan.calorietracker.models.totals
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.allergenAnalysis
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
+import com.apoorvdarshan.calorietracker.ui.components.FullScreenImageViewer
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import kotlin.math.roundToInt
 import java.time.Instant
@@ -110,6 +112,9 @@ fun FoodResultSheet(
 ) {
     val bitmaps = remember(imageBytesList) {
         imageBytesList.mapNotNull { FoodImageDecoder.decode(it, 720) }
+    }
+    val previewBitmaps = remember(imageBytesList) {
+        imageBytesList.mapNotNull { FoodImageDecoder.decode(it, 2048) }
     }
     val state = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
@@ -182,6 +187,7 @@ fun FoodResultSheet(
     var editableOmega3 by rememberSaveable(analysis) { mutableStateOf(analysis.omega3) }
     var editableIngredients by rememberSaveable(analysis, stateSaver = foodDraftSaver<List<MealIngredient>>()) { mutableStateOf(analysis.ingredients) }
     var ingredientEditor by rememberSaveable(stateSaver = foodDraftSaver<IngredientEditorTarget?>()) { mutableStateOf<IngredientEditorTarget?>(null) }
+    var previewPhotoIndex by remember { mutableStateOf<Int?>(null) }
     var mealMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var servingMenuExpanded by rememberSaveable { mutableStateOf(false) }
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
@@ -370,11 +376,12 @@ fun FoodResultSheet(
                                 Box {
                                     androidx.compose.foundation.Image(
                                         bitmap = bitmap.asImageBitmap(),
-                                        contentDescription = "Photo ${index + 1}",
+                                        contentDescription = stringResource(R.string.cd_view_full_photo),
                                         contentScale = androidx.compose.ui.layout.ContentScale.Crop,
                                         modifier = Modifier
                                             .size(240.dp)
                                             .clip(RoundedCornerShape(20.dp))
+                                            .clickable { previewPhotoIndex = index }
                                     )
                                     if (bitmaps.size > 1) {
                                         Text(
@@ -720,6 +727,16 @@ fun FoodResultSheet(
             },
             onDismiss = { ingredientEditor = null }
         )
+    }
+    previewPhotoIndex?.let { index ->
+        val images = previewBitmaps.ifEmpty { bitmaps }
+        if (images.isNotEmpty()) {
+            FullScreenImageViewer(
+                bitmaps = images,
+                initialIndex = index.coerceIn(0, images.lastIndex),
+                onDismiss = { previewPhotoIndex = null }
+            )
+        }
     }
 }
 

@@ -52,6 +52,7 @@ struct EditFoodEntryView: View {
     @State private var reprocessingError: String? = nil
     @State private var isDeleteConfirmationPresented = false
     @State private var removedPhotoIDs = Set<FoodEntryPhoto.ID>()
+    @State private var imagePreview: FullScreenImagePreview?
 
     @State private var name: String
     @State private var servingSizeGrams: Double
@@ -222,6 +223,17 @@ struct EditFoodEntryView: View {
                                         }
                                         .frame(width: 220, height: 200)
                                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                        .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                        .onTapGesture {
+                                            let previewImages = photos.compactMap { $0.data.flatMap(UIImage.init(data:)) }
+                                            guard !previewImages.isEmpty else { return }
+                                            imagePreview = FullScreenImagePreview(
+                                                images: previewImages,
+                                                initialIndex: min(index, previewImages.count - 1)
+                                            )
+                                        }
+                                        .accessibilityAddTraits(.isButton)
+                                        .accessibilityLabel("View full photo")
                                         .overlay(alignment: .topTrailing) {
                                             Button {
                                                 removedPhotoIDs.insert(photo.id)
@@ -530,6 +542,7 @@ struct EditFoodEntryView: View {
                         }
                     )
                 }
+                .fullScreenImagePreview($imagePreview)
             }
         }
     }

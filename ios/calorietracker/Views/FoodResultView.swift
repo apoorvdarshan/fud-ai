@@ -63,6 +63,7 @@ struct FoodResultView: View {
     @State private var editableIngredients: [MealIngredient]
     @State private var ingredientEditor: IngredientEditorTarget?
     @State private var showWhatIfSheet = false
+    @State private var imagePreview: FullScreenImagePreview?
     @State private var submissionGate = FoodSubmissionGate()
     @State var mealType: MealType = .currentMeal
 
@@ -310,6 +311,12 @@ struct FoodResultView: View {
                                             .scaledToFill()
                                             .frame(width: 220, height: 200)
                                             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                            .onTapGesture {
+                                                imagePreview = FullScreenImagePreview(images: images, initialIndex: index)
+                                            }
+                                            .accessibilityAddTraits(.isButton)
+                                            .accessibilityLabel("View full photo")
                                             .overlay(alignment: .bottomTrailing) {
                                                 if images.count > 1 {
                                                     Text("\(index + 1)/\(images.count)")
@@ -589,6 +596,7 @@ struct FoodResultView: View {
                         }
                     )
                 }
+                .fullScreenImagePreview($imagePreview)
             }
         }
     }

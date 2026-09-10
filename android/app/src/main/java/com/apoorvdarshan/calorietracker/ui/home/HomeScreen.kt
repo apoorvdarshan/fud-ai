@@ -163,6 +163,7 @@ import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import com.apoorvdarshan.calorietracker.ui.components.InAppCameraCaptureDialog
+import com.apoorvdarshan.calorietracker.ui.components.FullScreenImageViewer
 import com.apoorvdarshan.calorietracker.ui.components.MacroCard
 import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
@@ -2271,6 +2272,7 @@ private fun FoodRow(
     val bitmap = remember(entry.allImageFilenames) {
         entry.allImageFilenames.firstOrNull()?.let { container.imageStore.loadThumbnail(it) }
     }
+    var previewPhotos by remember { mutableStateOf<Pair<List<android.graphics.Bitmap>, Int>?>(null) }
     // iOS layout: large 76dp square thumb · column with (Name + heart on left,
     // time on right) · pink kcal · serving · macro tag pills row.
     Row(
@@ -2311,13 +2313,23 @@ private fun FoodRow(
             Modifier
                 .size(76.dp)
                 .clip(RoundedCornerShape(14.dp))
-                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f)),
+                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f))
+                .then(
+                    if (bitmap != null && !selectionMode) {
+                        Modifier.clickable {
+                            val photos = entry.allImageFilenames.mapNotNull { container.imageStore.load(it) }
+                            if (photos.isNotEmpty()) previewPhotos = photos to 0
+                        }
+                    } else {
+                        Modifier
+                    }
+                ),
             contentAlignment = Alignment.Center
         ) {
             when {
                 bitmap != null -> androidx.compose.foundation.Image(
                     bitmap = bitmap.asImageBitmap(),
-                    contentDescription = entry.name,
+                    contentDescription = stringResource(R.string.cd_view_full_photo),
                     contentScale = androidx.compose.ui.layout.ContentScale.Crop,
                     modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(14.dp))
                 )
@@ -2419,6 +2431,13 @@ private fun FoodRow(
                 MacroChip("F", entry.fat)
             }
         }
+    }
+    previewPhotos?.let { (bitmaps, index) ->
+        FullScreenImageViewer(
+            bitmaps = bitmaps,
+            initialIndex = index,
+            onDismiss = { previewPhotos = null }
+        )
     }
 }
 

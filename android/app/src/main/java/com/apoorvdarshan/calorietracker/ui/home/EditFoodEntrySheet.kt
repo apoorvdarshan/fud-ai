@@ -81,7 +81,9 @@ import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
+import com.apoorvdarshan.calorietracker.ui.components.FullScreenImageViewer
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import android.graphics.Bitmap
 import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
@@ -123,6 +125,7 @@ fun EditFoodEntrySheet(
     var currentBaseEntry by remember(entry) { mutableStateOf(entry) }
     // Stage removals separately so tapping × does not reset the other editor fields.
     var removedImageFilenames by remember(entry) { mutableStateOf(emptySet<String>()) }
+    var previewPhotos by remember { mutableStateOf<Pair<List<Bitmap>, Int>?>(null) }
     var noteText by remember(entry) { mutableStateOf(entry.customNote ?: "") }
     var isReprocessing by remember { mutableStateOf(false) }
     var errorText by remember { mutableStateOf<String?>(null) }
@@ -414,11 +417,14 @@ fun EditFoodEntrySheet(
                                 Box {
                                     androidx.compose.foundation.Image(
                                         bitmap = bitmap.asImageBitmap(),
-                                        contentDescription = "Photo ${index + 1}",
+                                        contentDescription = stringResource(R.string.cd_view_full_photo),
                                         contentScale = androidx.compose.ui.layout.ContentScale.Crop,
                                         modifier = Modifier
                                             .size(240.dp)
                                             .clip(RoundedCornerShape(20.dp))
+                                            .clickable {
+                                                previewPhotos = photos.map { it.second } to index
+                                            }
                                     )
                                     IconButton(
                                         onClick = { removedImageFilenames = removedImageFilenames + filename },
@@ -869,6 +875,13 @@ fun EditFoodEntrySheet(
                 }
             },
             onDismiss = { ingredientEditor = null }
+        )
+    }
+    previewPhotos?.let { (bitmaps, index) ->
+        FullScreenImageViewer(
+            bitmaps = bitmaps,
+            initialIndex = index,
+            onDismiss = { previewPhotos = null }
         )
     }
 }

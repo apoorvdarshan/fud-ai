@@ -78,6 +78,8 @@ import com.apoorvdarshan.calorietracker.models.ServingAmountExpression
 import com.apoorvdarshan.calorietracker.models.SupplementalNutrient
 import com.apoorvdarshan.calorietracker.models.totals
 import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
+import com.apoorvdarshan.calorietracker.ui.components.FullscreenMealPhotoViewer
+import com.apoorvdarshan.calorietracker.ui.components.MealPhotoViewerState
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
@@ -172,6 +174,7 @@ fun EditFoodEntrySheet(
     var showDatePicker by remember { mutableStateOf(false) }
     var showTimePicker by remember { mutableStateOf(false) }
     var showDeleteConfirmation by remember { mutableStateOf(false) }
+    var photoViewerState by remember { mutableStateOf<MealPhotoViewerState?>(null) }
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
     val sheetSurface = if (isDark) MaterialTheme.colorScheme.surface else Color(0xFFFAF3EE)
     val context = LocalContext.current
@@ -419,6 +422,12 @@ fun EditFoodEntrySheet(
                                         modifier = Modifier
                                             .size(240.dp)
                                             .clip(RoundedCornerShape(20.dp))
+                                            .clickable {
+                                                photoViewerState = MealPhotoViewerState(
+                                                    bitmaps = photos.map { it.second },
+                                                    startIndex = index
+                                                )
+                                            }
                                     )
                                     IconButton(
                                         onClick = { removedImageFilenames = removedImageFilenames + filename },
@@ -869,6 +878,12 @@ fun EditFoodEntrySheet(
                 }
             },
             onDismiss = { ingredientEditor = null }
+        )
+    }
+    photoViewerState?.let { viewerState ->
+        FullscreenMealPhotoViewer(
+            state = viewerState,
+            onDismiss = { photoViewerState = null }
         )
     }
 }

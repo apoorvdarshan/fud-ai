@@ -52,6 +52,7 @@ struct EditFoodEntryView: View {
     @State private var reprocessingError: String? = nil
     @State private var isDeleteConfirmationPresented = false
     @State private var removedPhotoIDs = Set<FoodEntryPhoto.ID>()
+    @State private var photoViewerItem: MealPhotoViewerItem?
 
     @State private var name: String
     @State private var servingSizeGrams: Double
@@ -222,6 +223,15 @@ struct EditFoodEntryView: View {
                                         }
                                         .frame(width: 220, height: 200)
                                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                        .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                        .onTapGesture {
+                                            let images = photos.compactMap { photo -> UIImage? in
+                                                guard let data = photo.data else { return nil }
+                                                return UIImage(data: data)
+                                            }
+                                            guard !images.isEmpty else { return }
+                                            photoViewerItem = MealPhotoViewerItem(images: images, startIndex: index)
+                                        }
                                         .overlay(alignment: .topTrailing) {
                                             Button {
                                                 removedPhotoIDs.insert(photo.id)
@@ -529,6 +539,9 @@ struct EditFoodEntryView: View {
                             }
                         }
                     )
+                }
+                .fullScreenCover(item: $photoViewerItem) { item in
+                    MealPhotoViewerView(images: item.images, startIndex: item.startIndex)
                 }
             }
         }

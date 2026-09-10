@@ -63,6 +63,7 @@ struct FoodResultView: View {
     @State private var editableIngredients: [MealIngredient]
     @State private var ingredientEditor: IngredientEditorTarget?
     @State private var showWhatIfSheet = false
+    @State private var photoViewerItem: MealPhotoViewerItem?
     @State private var submissionGate = FoodSubmissionGate()
     @State var mealType: MealType = .currentMeal
 
@@ -310,6 +311,10 @@ struct FoodResultView: View {
                                             .scaledToFill()
                                             .frame(width: 220, height: 200)
                                             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                            .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                            .onTapGesture {
+                                                photoViewerItem = MealPhotoViewerItem(images: images, startIndex: index)
+                                            }
                                             .overlay(alignment: .bottomTrailing) {
                                                 if images.count > 1 {
                                                     Text("\(index + 1)/\(images.count)")
@@ -588,6 +593,9 @@ struct FoodResultView: View {
                             }
                         }
                     )
+                }
+                .fullScreenCover(item: $photoViewerItem) { item in
+                    MealPhotoViewerView(images: item.images, startIndex: item.startIndex)
                 }
             }
         }

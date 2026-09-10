@@ -3215,6 +3215,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
 struct FoodRow: View {
     let entry: FoodEntry
     @Environment(FoodStore.self) private var foodStore
+    @State private var photoViewerItem: MealPhotoViewerItem?
 
     private var servingText: String? {
         guard let grams = entry.servingSizeGrams else {
@@ -3239,26 +3240,34 @@ struct FoodRow: View {
         HStack(spacing: 12) {
             // Thumbnail
             if let imageData = entry.imageData, let uiImage = UIImage(data: imageData) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 56, height: 56)
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .strokeBorder(AppColors.calorie.opacity(0.15), lineWidth: 1)
-                    )
-                    .overlay(alignment: .bottomTrailing) {
-                        if !entry.additionalImageData.isEmpty {
-                            Text("+\(entry.additionalImageData.count)")
-                                .font(.caption2.weight(.bold))
-                                .foregroundStyle(.white)
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 3)
-                                .background(.black.opacity(0.65), in: Capsule())
-                                .padding(4)
+                Button {
+                    let images = MealPhotoLoader.images(from: entry)
+                    guard !images.isEmpty else { return }
+                    photoViewerItem = MealPhotoViewerItem(images: images)
+                } label: {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 56, height: 56)
+                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .strokeBorder(AppColors.calorie.opacity(0.15), lineWidth: 1)
+                        )
+                        .overlay(alignment: .bottomTrailing) {
+                            if !entry.additionalImageData.isEmpty {
+                                Text("+\(entry.additionalImageData.count)")
+                                    .font(.caption2.weight(.bold))
+                                    .foregroundStyle(.white)
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 3)
+                                    .background(.black.opacity(0.65), in: Capsule())
+                                    .padding(4)
+                            }
                         }
-                    }
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("View meal photo")
             } else if let emoji = entry.emoji {
                 Text(emoji)
                     .font(.system(size: 28))
@@ -3313,6 +3322,9 @@ struct FoodRow: View {
             }
         }
         .padding(.vertical, 4)
+        .fullScreenCover(item: $photoViewerItem) { item in
+            MealPhotoViewerView(images: item.images, startIndex: item.startIndex)
+        }
     }
 }
 

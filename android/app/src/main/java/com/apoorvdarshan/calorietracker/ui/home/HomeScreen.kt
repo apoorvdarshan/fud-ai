@@ -162,7 +162,9 @@ import com.apoorvdarshan.calorietracker.models.ServingUnitOption
 import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
+import com.apoorvdarshan.calorietracker.ui.components.FullscreenMealPhotoViewer
 import com.apoorvdarshan.calorietracker.ui.components.InAppCameraCaptureDialog
+import com.apoorvdarshan.calorietracker.ui.components.MealPhotoViewerState
 import com.apoorvdarshan.calorietracker.ui.components.MacroCard
 import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
@@ -2268,8 +2270,12 @@ private fun FoodRow(
     val ctx = LocalContext.current
     val timeFmt = DateTimeFormatter.ofPattern(clockTimePattern(ctx), Locale.US).withZone(ZoneId.systemDefault())
     val container = (ctx.applicationContext as com.apoorvdarshan.calorietracker.FudAIApp).container
+    var photoViewerState by remember { mutableStateOf<MealPhotoViewerState?>(null) }
     val bitmap = remember(entry.allImageFilenames) {
         entry.allImageFilenames.firstOrNull()?.let { container.imageStore.loadThumbnail(it) }
+    }
+    val fullBitmaps = remember(entry.allImageFilenames) {
+        entry.allImageFilenames.mapNotNull { container.imageStore.load(it) }
     }
     // iOS layout: large 76dp square thumb · column with (Name + heart on left,
     // time on right) · pink kcal · serving · macro tag pills row.
@@ -2311,7 +2317,16 @@ private fun FoodRow(
             Modifier
                 .size(76.dp)
                 .clip(RoundedCornerShape(14.dp))
-                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f)),
+                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f))
+                .then(
+                    if (fullBitmaps.isNotEmpty()) {
+                        Modifier.clickable {
+                            photoViewerState = MealPhotoViewerState(bitmaps = fullBitmaps)
+                        }
+                    } else {
+                        Modifier
+                    }
+                ),
             contentAlignment = Alignment.Center
         ) {
             when {
@@ -2419,6 +2434,13 @@ private fun FoodRow(
                 MacroChip("F", entry.fat)
             }
         }
+    }
+
+    photoViewerState?.let { viewerState ->
+        FullscreenMealPhotoViewer(
+            state = viewerState,
+            onDismiss = { photoViewerState = null }
+        )
     }
 }
 

@@ -71,7 +71,10 @@ import com.apoorvdarshan.calorietracker.models.totals
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.allergenAnalysis
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
+import com.apoorvdarshan.calorietracker.ui.components.FullscreenMealPhotoViewer
+import com.apoorvdarshan.calorietracker.ui.components.MealPhotoViewerState
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import androidx.compose.foundation.clickable
 import kotlin.math.roundToInt
 import java.time.Instant
 
@@ -182,6 +185,7 @@ fun FoodResultSheet(
     var editableOmega3 by rememberSaveable(analysis) { mutableStateOf(analysis.omega3) }
     var editableIngredients by rememberSaveable(analysis, stateSaver = foodDraftSaver<List<MealIngredient>>()) { mutableStateOf(analysis.ingredients) }
     var ingredientEditor by rememberSaveable(stateSaver = foodDraftSaver<IngredientEditorTarget?>()) { mutableStateOf<IngredientEditorTarget?>(null) }
+    var photoViewerState by remember { mutableStateOf<MealPhotoViewerState?>(null) }
     var mealMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var servingMenuExpanded by rememberSaveable { mutableStateOf(false) }
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
@@ -375,6 +379,12 @@ fun FoodResultSheet(
                                         modifier = Modifier
                                             .size(240.dp)
                                             .clip(RoundedCornerShape(20.dp))
+                                            .clickable {
+                                                photoViewerState = MealPhotoViewerState(
+                                                    bitmaps = bitmaps,
+                                                    startIndex = index
+                                                )
+                                            }
                                     )
                                     if (bitmaps.size > 1) {
                                         Text(
@@ -719,6 +729,12 @@ fun FoodResultSheet(
                 }
             },
             onDismiss = { ingredientEditor = null }
+        )
+    }
+    photoViewerState?.let { viewerState ->
+        FullscreenMealPhotoViewer(
+            state = viewerState,
+            onDismiss = { photoViewerState = null }
         )
     }
 }

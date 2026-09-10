@@ -38,7 +38,8 @@ class MealShareTest {
         var attempts = 0
         val result = MealShare.preferredLink(entries) {
             attempts += 1
-            if (attempts == 1) null else short
+            if (attempts == 1) throw MealShare.RateLimited()
+            short
         }
         assertEquals(2, attempts)
         assertEquals(short, result)

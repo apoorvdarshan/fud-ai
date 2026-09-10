@@ -297,9 +297,6 @@
     <string name="home_kcal_of_format">din %1$s kcal</string>
     <string name="home_kcal_left_format">%1$s rămase</string>
     <string name="home_view_more">Vezi mai multe</string>
-    <string name="home_burn_deficit">%1$s burned · %2$s deficit</string>
-    <string name="home_burn_surplus">%1$s burned · %2$s surplus</string>
-    <string name="home_burn_balanced">%1$s burned · balanced</string>
     <string name="home_todays_food">Mâncarea de azi</string>
     <string name="home_no_foods_logged">Niciun aliment înregistrat</string>
     <string name="home_swipe_delete">Șterge</string>

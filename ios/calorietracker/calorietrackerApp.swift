@@ -151,9 +151,10 @@ struct calorietrackerApp: App {
                 // Existing users are untouched — these keys are only written here
                 // and by the Settings toggles. Onboarding just calculated goals, so
                 // mark the weekly adaptive check as done; the first run lands next week.
-                if !UserDefaults.standard.bool(forKey: "onboardingPlanEdited") {
-                    UserDefaults.standard.set(true, forKey: AdaptiveGoalSettings.enabledKey)
-                }
+                UserDefaults.standard.set(
+                    !UserDefaults.standard.bool(forKey: "onboardingPlanEdited"),
+                    forKey: AdaptiveGoalSettings.enabledKey
+                )
                 UserDefaults.standard.set(true, forKey: EnergyBurnSettings.enabledKey)
                 AdaptiveGoalSettings.markCheckedToday()
                 wireUpFoodStoreCallback()
@@ -414,7 +415,7 @@ struct calorietrackerApp: App {
     @MainActor
     private func refreshAdaptiveGoalsIfNeeded() {
         guard !isAutoRefreshingAdaptiveGoals else { return }
-        guard UserDefaults.standard.bool(forKey: AdaptiveGoalSettings.enabledKey) else { return }
+        guard AdaptiveGoalSettings.isEnabled else { return }
         guard AdaptiveGoalSettings.shouldCheckThisWeek() else { return }
         guard let profile = UserProfile.load() else { return }
 
@@ -436,7 +437,7 @@ struct calorietrackerApp: App {
             var healthEnergy = energyBurnOn && healthOn
                 ? await healthKitManager.fetchRecentEnergyHistory(days: 14)
                 : []
-            let adaptiveStillOn = UserDefaults.standard.bool(forKey: AdaptiveGoalSettings.enabledKey)
+            let adaptiveStillOn = AdaptiveGoalSettings.isEnabled
             let healthStillOn = UserDefaults.standard.bool(forKey: "healthKitEnabled")
             let energyBurnStillOn = UserDefaults.standard.bool(forKey: EnergyBurnSettings.enabledKey)
             guard adaptiveStillOn,
@@ -472,7 +473,7 @@ struct calorietrackerApp: App {
                 )
                 // The provider call can take seconds. Never overwrite profile/target edits the
                 // user made while it was in flight; the next foreground can recalculate afresh.
-                guard UserDefaults.standard.bool(forKey: AdaptiveGoalSettings.enabledKey),
+                guard AdaptiveGoalSettings.isEnabled,
                       UserDefaults.standard.bool(forKey: "healthKitEnabled") == healthOn,
                       UserDefaults.standard.bool(forKey: EnergyBurnSettings.enabledKey) == energyBurnOn,
                       let latest = UserProfile.load(), latest == profile
@@ -489,7 +490,7 @@ struct calorietrackerApp: App {
                 AdaptiveGoalSettings.markCheckedToday()
             } catch {
                 // AI unavailable — keep existing goals; mark checked so we don't retry every open.
-                if UserDefaults.standard.bool(forKey: AdaptiveGoalSettings.enabledKey),
+                if AdaptiveGoalSettings.isEnabled,
                    UserDefaults.standard.bool(forKey: "healthKitEnabled") == healthOn,
                    UserDefaults.standard.bool(forKey: EnergyBurnSettings.enabledKey) == energyBurnOn {
                     AdaptiveGoalSettings.markCheckedToday()

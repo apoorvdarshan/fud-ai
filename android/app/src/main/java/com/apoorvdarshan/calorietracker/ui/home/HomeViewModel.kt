@@ -24,8 +24,11 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -114,12 +117,19 @@ internal class FoodSubmissionGate {
     }
 }
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModel(private val container: AppContainer) : ViewModel() {
     private val _ui = MutableStateFlow(HomeUiState())
     val ui: StateFlow<HomeUiState> = _ui.asStateFlow()
     private val _selectedDate = MutableStateFlow(LocalDate.now())
+    private val _burnRefreshTick = MutableStateFlow(0)
     private var retryAction: (() -> Unit)? = null
     private val foodSubmissionGate = FoodSubmissionGate()
+
+    /** Re-read Health Connect energy after resume or other external invalidation. */
+    fun bumpBurnRefresh() {
+        _burnRefreshTick.value += 1
+    }
 
     init {
         combine(
@@ -215,11 +225,17 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             container.prefs.healthConnectEnabled,
             _selectedDate,
             container.foodRepository.entries,
-            container.profileRepository.profile
-        ) { healthEnabled, day, entries, profile ->
+            container.profileRepository.profile,
+            _burnRefreshTick
+        ) { healthEnabled, day, entries, profile, _ ->
             BurnRefreshInputs(healthEnabled, day, entries, profile)
         }
-            .onEach { inputs -> refreshHomeBurnSummary(inputs) }
+            .flatMapLatest { inputs ->
+                flow { emit(computeHomeBurnSummary(inputs)) }
+            }
+            .onEach { summary ->
+                _ui.value = _ui.value.copy(homeBurnSummary = summary)
+            }
             .launchIn(viewModelScope)
     }
 
@@ -230,40 +246,27 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
         val profile: UserProfile?
     )
 
-    private fun refreshHomeBurnSummary(inputs: BurnRefreshInputs) {
-        viewModelScope.launch {
-            if (!inputs.healthEnabled) {
-                _ui.value = _ui.value.copy(homeBurnSummary = null)
-                return@launch
-            }
-            val zone = ZoneId.systemDefault()
-            val eaten = inputs.entries
-                .filter { it.timestamp.atZone(zone).toLocalDate() == inputs.day }
-                .sumOf { it.calories }
-            val energy = container.health.readEnergyForDay(inputs.day) ?: run {
-                _ui.value = _ui.value.copy(homeBurnSummary = null)
-                return@launch
-            }
-            val burned = DailySummaryPolicy.resolveBurnedCalories(
-                measuredTotalCalories = energy.totalCalories,
-                externalActiveCalories = energy.activeCalories,
-                profileBmrCalories = inputs.profile?.bmr?.roundToInt()
-            ) ?: run {
-                _ui.value = _ui.value.copy(homeBurnSummary = null)
-                return@launch
-            }
-            val balance = DailySummaryPolicy.balance(
-                eatenCalories = eaten,
-                burnedCalories = burned
-            )
-            _ui.value = _ui.value.copy(
-                homeBurnSummary = HomeBurnSummary(
-                    burnedCalories = balance.burnedCalories,
-                    direction = balance.direction,
-                    differenceCalories = balance.differenceCalories
-                )
-            )
-        }
+    private suspend fun computeHomeBurnSummary(inputs: BurnRefreshInputs): HomeBurnSummary? {
+        if (!inputs.healthEnabled) return null
+        val zone = ZoneId.systemDefault()
+        val eaten = inputs.entries
+            .filter { it.timestamp.atZone(zone).toLocalDate() == inputs.day }
+            .sumOf { it.calories }
+        val energy = container.health.readEnergyForDay(inputs.day) ?: return null
+        val burned = DailySummaryPolicy.resolveBurnedCalories(
+            measuredTotalCalories = energy.totalCalories,
+            externalActiveCalories = energy.activeCalories,
+            profileBmrCalories = inputs.profile?.bmr?.roundToInt()
+        ) ?: return null
+        val balance = DailySummaryPolicy.balance(
+            eatenCalories = eaten,
+            burnedCalories = burned
+        )
+        return HomeBurnSummary(
+            burnedCalories = balance.burnedCalories,
+            direction = balance.direction,
+            differenceCalories = balance.differenceCalories
+        )
     }
 
     fun setSelectedDate(date: LocalDate) {

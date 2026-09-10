@@ -783,6 +783,7 @@ struct HomeView: View {
     @AppStorage("healthKitEnabled") private var healthKitEnabled = false
     @Environment(ProfileStore.self) private var profileStore
     @State private var homeBurnLine: String?
+    @State private var homeBurnRefreshGeneration = 0
 
     /// Force a body re-evaluation whenever profileStore.profile changes by reading it
     /// at the top of body. SwiftUI's @Observable tracking sometimes misses the access
@@ -835,7 +836,8 @@ struct HomeView: View {
     }
 
     private var homeBurnRefreshToken: String {
-        "\(healthKitEnabled)-\(selectedDate.timeIntervalSince1970)-\(selectedCalories)"
+        let profileBmr = Int(userProfile.bmr.rounded())
+        return "\(healthKitEnabled)-\(selectedDate.timeIntervalSince1970)-\(selectedCalories)-\(profileBmr)-\(homeBurnRefreshGeneration)"
     }
 
     private func formattedHomeBurnLine(from balance: DailyCalorieBalance) -> String {
@@ -859,25 +861,40 @@ struct HomeView: View {
     }
 
     private func refreshHomeBurnLine() async {
-        guard healthKitEnabled else {
+        let requestDate = selectedDate
+        let requestCalories = selectedCalories
+        let requestBmr = Int(userProfile.bmr.rounded())
+        let requestHealthEnabled = healthKitEnabled
+
+        func inputsStillMatch() -> Bool {
+            healthKitEnabled == requestHealthEnabled
+                && Calendar.current.isDate(selectedDate, inSameDayAs: requestDate)
+                && selectedCalories == requestCalories
+                && Int(userProfile.bmr.rounded()) == requestBmr
+        }
+
+        guard requestHealthEnabled else {
             homeBurnLine = nil
             return
         }
-        guard let energy = await healthKitManager.readEnergyForDay(selectedDate) else {
+        guard let energy = await healthKitManager.readEnergyForDay(requestDate) else {
+            guard !Task.isCancelled, inputsStillMatch() else { return }
             homeBurnLine = nil
             return
         }
-        let profileBmr = Int(userProfile.bmr.rounded())
+        guard !Task.isCancelled, inputsStillMatch() else { return }
         guard let burned = DailySummaryPolicy.resolveBurnedCalories(
             measuredTotalCalories: energy.totalCalories,
             externalActiveCalories: energy.activeCalories,
-            profileBmrCalories: profileBmr
+            profileBmrCalories: requestBmr
         ) else {
+            guard inputsStillMatch() else { return }
             homeBurnLine = nil
             return
         }
+        guard inputsStillMatch() else { return }
         let balance = DailySummaryPolicy.balance(
-            eatenCalories: selectedCalories,
+            eatenCalories: requestCalories,
             burnedCalories: burned
         )
         homeBurnLine = formattedHomeBurnLine(from: balance)
@@ -1847,6 +1864,7 @@ struct HomeView: View {
                         launchFillEpoch += 1
                         wasBackgrounded = false
                     }
+                    homeBurnRefreshGeneration += 1
                 } else if newPhase == .background {
                     wasBackgrounded = true
                 }

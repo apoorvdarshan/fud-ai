@@ -803,6 +803,7 @@
     <string name="settings_health_unavailable">Install or update Health Connect from the Play Store, then re-tap the toggle.</string>
     <string name="settings_health_profile_unsupported">Health Connect can show Fud AI as approved, but Android does not allow Health Connect from a Work Profile, Private Space, or cloned app profile. Install and open Fud AI in your phone\'s main profile.</string>
     <string name="settings_health_system_unavailable">Health Connect\'s system service is unavailable. It requires Android 9 or newer; on a newer phone, install Android and Google Play system updates, restart, then try again.</string>
+    <string name="settings_get_health_connect">Get Health Connect</string>
 
     <!-- Settings sheets / pickers -->
     <string name="sheet_ai_provider">AI Provider</string>

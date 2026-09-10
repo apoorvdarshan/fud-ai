@@ -6511,12 +6511,8 @@ private struct AllergenSensitivitiesDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
-                Button("Save") {
-                    addCurrentValue()
-                    onSave(allergens)
-                    dismiss()
-                }
-                .fontWeight(.semibold)
+                Button("Save", action: save)
+                    .fontWeight(.semibold)
             }
         }
         .alert("Remove allergen?", isPresented: Binding(
@@ -6542,6 +6538,12 @@ private struct AllergenSensitivitiesDetailView: View {
             allergens.append(next)
         }
         value = ""
+    }
+
+    private func save() {
+        addCurrentValue()
+        onSave(allergens)
+        dismiss()
     }
 }
 

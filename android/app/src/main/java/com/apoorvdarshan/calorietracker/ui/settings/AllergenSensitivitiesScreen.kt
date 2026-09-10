@@ -44,7 +44,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
@@ -137,49 +136,9 @@ fun AllergenSensitivitiesScreen(
                         } else {
                             allergens.forEachIndexed { index, allergen ->
                                 key(allergen) {
-                                    val dismissState = rememberSwipeToDismissBoxState(
-                                        confirmValueChange = { dismissValue ->
-                                            if (dismissValue == SwipeToDismissBoxValue.EndToStart) {
-                                                pendingDelete = allergen
-                                            }
-                                            false
-                                        }
-                                    )
-                                    SwipeToDismissBox(
-                                        state = dismissState,
-                                        enableDismissFromStartToEnd = false,
-                                        backgroundContent = {
-                                            Box(
-                                                Modifier
-                                                    .fillMaxSize()
-                                                    .background(MaterialTheme.colorScheme.errorContainer)
-                                                    .padding(horizontal = 20.dp),
-                                                contentAlignment = Alignment.CenterEnd
-                                            ) {
-                                                Text(
-                                                    stringResource(R.string.action_remove),
-                                                    color = MaterialTheme.colorScheme.onErrorContainer,
-                                                    fontWeight = FontWeight.SemiBold
-                                                )
-                                            }
-                                        },
-                                        content = {
-                                            Row(
-                                                modifier = Modifier
-                                                    .fillMaxWidth()
-                                                    .background(MaterialTheme.colorScheme.surface)
-                                                    .clickable { pendingDelete = allergen }
-                                                    .padding(horizontal = 16.dp, vertical = 14.dp),
-                                                verticalAlignment = Alignment.CenterVertically
-                                            ) {
-                                                Text(
-                                                    allergen,
-                                                    modifier = Modifier.weight(1f),
-                                                    fontSize = 16.sp,
-                                                    fontWeight = FontWeight.Medium
-                                                )
-                                            }
-                                        }
+                                    AllergenDismissibleRow(
+                                        allergen = allergen,
+                                        onRequestDelete = { pendingDelete = allergen }
                                     )
                                 }
                                 if (index != allergens.lastIndex) {
@@ -205,10 +164,7 @@ fun AllergenSensitivitiesScreen(
                             modifier = Modifier.fillMaxWidth(),
                             placeholder = { Text(stringResource(R.string.settings_allergen_add_placeholder)) },
                             singleLine = true,
-                            keyboardOptions = KeyboardOptions(
-                                keyboardType = KeyboardType.Text,
-                                imeAction = ImeAction.Done
-                            ),
+                            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
                             keyboardActions = KeyboardActions(onDone = { addCurrentValue() }),
                             supportingText = {
                                 Text(stringResource(R.string.settings_allergen_add_hint))
@@ -248,4 +204,50 @@ fun AllergenSensitivitiesScreen(
             }
         )
     }
+}
+
+@Composable
+private fun AllergenDismissibleRow(
+    allergen: String,
+    onRequestDelete: () -> Unit
+) {
+    val dismissState = rememberSwipeToDismissBoxState(
+        confirmValueChange = { dismissValue ->
+            if (dismissValue == SwipeToDismissBoxValue.EndToStart) {
+                onRequestDelete()
+            }
+            false
+        }
+    )
+    SwipeToDismissBox(
+        state = dismissState,
+        enableDismissFromStartToEnd = false,
+        backgroundContent = {
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.errorContainer)
+                    .padding(horizontal = 20.dp),
+                contentAlignment = Alignment.CenterEnd
+            ) {
+                Text(
+                    stringResource(R.string.action_remove),
+                    color = MaterialTheme.colorScheme.onErrorContainer,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
+        },
+        content = {
+            Text(
+                allergen,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.surface)
+                    .clickable(onClick = onRequestDelete)
+                    .padding(horizontal = 16.dp, vertical = 14.dp),
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium
+            )
+        }
+    )
 }

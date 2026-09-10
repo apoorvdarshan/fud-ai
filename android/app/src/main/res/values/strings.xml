@@ -560,7 +560,6 @@
     <!-- Settings -->
     <string name="settings_section_personal">Personal Info</string>
     <string name="settings_allergen_sensitivities">Allergen sensitivities</string>
-    <string name="settings_allergen_placeholder">e.g. milk, peanuts, shellfish</string>
     <string name="settings_allergen_add_placeholder">Type an allergen</string>
     <string name="settings_allergen_add_hint">Press Done to add. Swipe left or tap a row to remove.</string>
     <string name="settings_allergen_empty">No sensitivities added</string>

@@ -34,6 +34,11 @@
         <intent>
             <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE" />
         </intent>
+        <!-- Android 14+ resolves this to the system Health Connect controller, not the
+             standalone com.google.android.apps.healthdata package. -->
+        <intent>
+            <action android:name="android.health.connect.action.MANAGE_HEALTH_PERMISSIONS" />
+        </intent>
     </queries>
 
     <application

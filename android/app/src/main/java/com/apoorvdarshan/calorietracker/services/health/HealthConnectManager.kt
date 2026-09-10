@@ -2,6 +2,7 @@ package com.apoorvdarshan.calorietracker.services.health
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.UserManager
 import androidx.health.connect.client.HealthConnectFeatures
@@ -31,6 +32,7 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.util.UUID
+import java.util.concurrent.atomic.AtomicReference
 import kotlin.math.roundToInt
 
 /**
@@ -54,6 +56,23 @@ enum class HealthConnectAvailability {
     PROFILE_UNSUPPORTED,
     PROVIDER_UPDATE_REQUIRED,
     UNAVAILABLE
+}
+
+/** Which settings/unavailable copy to show; null means Health Connect is usable. */
+internal enum class HealthAvailabilityMessageKind {
+    PROFILE_UNSUPPORTED,
+    PROVIDER_UPDATE_REQUIRED,
+    SYSTEM_UNAVAILABLE
+}
+
+internal fun healthAvailabilityMessageKind(
+    availability: HealthConnectAvailability
+): HealthAvailabilityMessageKind? = when (availability) {
+    HealthConnectAvailability.AVAILABLE -> null
+    HealthConnectAvailability.PROFILE_UNSUPPORTED -> HealthAvailabilityMessageKind.PROFILE_UNSUPPORTED
+    HealthConnectAvailability.PROVIDER_UPDATE_REQUIRED ->
+        HealthAvailabilityMessageKind.PROVIDER_UPDATE_REQUIRED
+    HealthConnectAvailability.UNAVAILABLE -> HealthAvailabilityMessageKind.SYSTEM_UNAVAILABLE
 }
 
 internal fun resolveHealthConnectAvailability(
@@ -99,12 +118,31 @@ class HealthConnectManager(
             runCatching {
                 (context.getSystemService(Context.USER_SERVICE) as? UserManager)?.isProfile == true
             }.getOrDefault(false)
-        val sdkStatus = HealthConnectClient.getSdkStatus(context)
-        return resolveHealthConnectAvailability(
+        val sdkStatus = HealthConnectClient.getSdkStatus(context, HEALTH_CONNECT_PROVIDER_PACKAGE)
+        val resolved = resolveHealthConnectAvailability(
             isProfile = isProfile,
             sdkAvailable = sdkStatus == HealthConnectClient.SDK_AVAILABLE,
             providerUpdateRequired =
                 sdkStatus == HealthConnectClient.SDK_UNAVAILABLE_PROVIDER_UPDATE_REQUIRED
+        )
+        logAvailabilityIfNeeded(sdkStatus, isProfile, resolved)
+        return resolved
+    }
+
+    private fun logAvailabilityIfNeeded(
+        sdkStatus: Int,
+        isProfile: Boolean,
+        resolved: HealthConnectAvailability
+    ) {
+        if (resolved == HealthConnectAvailability.AVAILABLE) {
+            lastLoggedAvailabilityKey.set(null)
+            return
+        }
+        val key = "$sdkStatus|$isProfile|$resolved"
+        if (lastLoggedAvailabilityKey.getAndSet(key) == key) return
+        android.util.Log.w(
+            "FudAIHealth",
+            "Health Connect availability sdkStatus=$sdkStatus isProfile=$isProfile resolved=$resolved"
         )
     }
 
@@ -208,6 +246,27 @@ class HealthConnectManager(
             generic
         }).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     }
+
+    /** Play Store listing for the standalone Health Connect app (pre-Android 14 devices). */
+    fun playStoreIntent(): Intent {
+        val marketUri = Uri.parse(
+            "market://details?id=$HEALTH_CONNECT_PROVIDER_PACKAGE&url=healthconnect%3A%2F%2Fonboarding"
+        )
+        return Intent(Intent.ACTION_VIEW, marketUri).apply {
+            setPackage("com.android.vending")
+            putExtra("overlay", true)
+            putExtra("callerId", context.packageName)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+    }
+
+    fun playStoreWebIntent(): Intent =
+        Intent(Intent.ACTION_VIEW, Uri.parse(HEALTH_CONNECT_PLAY_STORE_WEB))
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+    fun openPlayStore(): Boolean =
+        runCatching { context.startActivity(playStoreIntent()) }.isSuccess ||
+            runCatching { context.startActivity(playStoreWebIntent()) }.isSuccess
 
     // -- Weight -----------------------------------------------------------
 
@@ -768,7 +827,12 @@ class HealthConnectManager(
     }
 
     companion object {
+        private val lastLoggedAvailabilityKey = AtomicReference<String?>(null)
         private val writeVersions = HealthWriteVersions()
+
+        const val HEALTH_CONNECT_PROVIDER_PACKAGE = "com.google.android.apps.healthdata"
+        const val HEALTH_CONNECT_PLAY_STORE_WEB =
+            "https://play.google.com/store/apps/details?id=$HEALTH_CONNECT_PROVIDER_PACKAGE"
 
         private const val ACTION_MANAGE_HEALTH_PERMISSIONS =
             "android.health.connect.action.MANAGE_HEALTH_PERMISSIONS"

@@ -177,7 +177,9 @@ import com.apoorvdarshan.calorietracker.models.WorkoutSplit
 import com.apoorvdarshan.calorietracker.export.DiaryImportMode
 import com.apoorvdarshan.calorietracker.export.DiaryImportPreview
 import com.apoorvdarshan.calorietracker.export.DiaryImporter
+import com.apoorvdarshan.calorietracker.services.health.HealthAvailabilityMessageKind
 import com.apoorvdarshan.calorietracker.services.health.HealthConnectAvailability
+import com.apoorvdarshan.calorietracker.services.health.healthAvailabilityMessageKind
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelId
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelIneligibility
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelInstallStatus
@@ -232,6 +234,11 @@ private enum class SettingsSheet {
 private enum class HealthConnectPermissionAction {
     SYNC, ENERGY_GOALS, DAILY_SUMMARY
 }
+
+private data class PermissionDialogState(
+    val message: String,
+    val healthAvailability: HealthConnectAvailability? = null
+)
 
 internal enum class SettingsCategory(
     val titleRes: Int,
@@ -303,7 +310,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     var showMaxPinnedAlert by remember { mutableStateOf(false) }
     var showRebalanceBlockedAlert by remember { mutableStateOf(false) }
     var showAdaptiveLockHint by remember { mutableStateOf(false) }
-    var permissionDeniedMessage by remember { mutableStateOf<String?>(null) }
+    var permissionDialog by remember { mutableStateOf<PermissionDialogState?>(null) }
     var showHealthPermissionHelp by remember { mutableStateOf(false) }
     var showDefaultGramsInfo by remember { mutableStateOf(false) }
     var showHealthEnergyGoalsInfo by remember { mutableStateOf(false) }
@@ -320,6 +327,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     val resources = LocalResources.current
     val settingsScope = rememberCoroutineScope()
     val importReadFailedMessage = stringResource(R.string.import_read_failed)
+    val cloudBackupSignInFailed = stringResource(R.string.cloud_backup_sign_in_failed)
     val cloudBackup by container.cloudBackup.ui.collectAsState()
     LaunchedEffect(selectedCategory) {
         if (selectedCategory == SettingsCategory.DATA_MANAGEMENT) {
@@ -351,7 +359,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     val startDriveSignIn: () -> Unit = {
         val activity = activityContext as? Activity
         if (activity == null) {
-            cloudBackupError = activityContext.getString(R.string.cloud_backup_sign_in_failed)
+            cloudBackupError = cloudBackupSignInFailed
         } else {
             settingsScope.launch {
                 runCatching { container.cloudBackup.authorize(activity) }
@@ -400,18 +408,27 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     val healthProfileUnsupportedMsg = stringResource(R.string.settings_health_profile_unsupported)
     val healthSystemUnavailableMsg = stringResource(R.string.settings_health_system_unavailable)
 
-    fun healthAvailabilityMessage(): String = when (container.health.availability()) {
-        HealthConnectAvailability.PROFILE_UNSUPPORTED -> healthProfileUnsupportedMsg
-        HealthConnectAvailability.PROVIDER_UPDATE_REQUIRED -> healthUnavailableMsg
-        HealthConnectAvailability.UNAVAILABLE,
-        HealthConnectAvailability.AVAILABLE -> healthSystemUnavailableMsg
+    fun healthAvailabilityMessage(availability: HealthConnectAvailability): String =
+        when (healthAvailabilityMessageKind(availability)) {
+            HealthAvailabilityMessageKind.PROFILE_UNSUPPORTED -> healthProfileUnsupportedMsg
+            HealthAvailabilityMessageKind.PROVIDER_UPDATE_REQUIRED -> healthUnavailableMsg
+            HealthAvailabilityMessageKind.SYSTEM_UNAVAILABLE -> healthSystemUnavailableMsg
+            null -> healthDeniedMsg
+        }
+
+    fun showHealthAvailabilityDialog() {
+        val availability = container.health.availability()
+        permissionDialog = PermissionDialogState(
+            message = healthAvailabilityMessage(availability),
+            healthAvailability = availability
+        )
     }
 
     val notificationLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { granted ->
         if (granted) vm.setNotificationsEnabled(true)
-        else permissionDeniedMessage = notifDeniedMsg
+        else permissionDialog = PermissionDialogState(notifDeniedMsg)
     }
 
     // Health Connect honors partial grants: any granted permission connects the app, and
@@ -435,7 +452,13 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
 
     fun openHealthConnectAccess() {
         runCatching { activityContext.startActivity(container.health.manageAccessIntent()) }
-            .onFailure { permissionDeniedMessage = healthAvailabilityMessage() }
+            .onFailure { showHealthAvailabilityDialog() }
+    }
+
+    fun openHealthConnectStore() {
+        if (!container.health.openPlayStore()) {
+            permissionDialog = PermissionDialogState(healthUnavailableMsg)
+        }
     }
 
     fun onNotificationsToggle(enabled: Boolean) {
@@ -476,7 +499,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
             return
         }
         if (!container.health.isAvailable()) {
-            permissionDeniedMessage = healthAvailabilityMessage()
+            showHealthAvailabilityDialog()
             return
         }
         // Don't pre-check granted state — Health Connect's contract handles the
@@ -494,7 +517,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
             return
         }
         if (!container.health.isAvailable()) {
-            permissionDeniedMessage = healthAvailabilityMessage()
+            showHealthAvailabilityDialog()
             return
         }
         pendingHealthPermissionAction = HealthConnectPermissionAction.ENERGY_GOALS
@@ -1467,7 +1490,12 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                             showImportSheet = false
                             importPreview = null
                             importError = null
-                            permissionDeniedMessage = resources.getString(R.string.import_diary_success, selected.entries.size + selected.waterEntries.size)
+                            permissionDialog = PermissionDialogState(
+                                resources.getString(
+                                    R.string.import_diary_success,
+                                    selected.entries.size + selected.waterEntries.size
+                                )
+                            )
                         }.onFailure { error ->
                             importError = error.localizedMessage ?: importReadFailedMessage
                         }
@@ -1742,13 +1770,36 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
         }
     }
 
-    permissionDeniedMessage?.let { msg ->
-        FudGlassDialog(onDismissRequest = { permissionDeniedMessage = null }) {
+    permissionDialog?.let { dialog ->
+        val getHealthConnectLabel = stringResource(R.string.settings_get_health_connect)
+        val manageHealthLabel = stringResource(R.string.settings_manage_health_access)
+        val (primaryText, onPrimary) = when (dialog.healthAvailability) {
+            HealthConnectAvailability.PROVIDER_UPDATE_REQUIRED -> getHealthConnectLabel to {
+                permissionDialog = null
+                openHealthConnectStore()
+            }
+            HealthConnectAvailability.UNAVAILABLE -> manageHealthLabel to {
+                permissionDialog = null
+                openHealthConnectAccess()
+            }
+            else -> stringResource(R.string.action_ok) to { permissionDialog = null }
+        }
+        val dismissForUnavailable = dialog.healthAvailability == HealthConnectAvailability.UNAVAILABLE
+        FudGlassDialog(onDismissRequest = { permissionDialog = null }) {
             Text(stringResource(R.string.settings_permission_title), fontSize = 21.sp, fontWeight = FontWeight.Bold)
-            Text(msg, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f))
+            Text(dialog.message, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f))
             FudGlassDialogActions(
-                primaryText = stringResource(R.string.action_ok),
-                onPrimary = { permissionDeniedMessage = null }
+                primaryText = primaryText,
+                onPrimary = onPrimary,
+                dismissText = if (dismissForUnavailable) getHealthConnectLabel else null,
+                onDismiss = if (dismissForUnavailable) {
+                    {
+                        permissionDialog = null
+                        openHealthConnectStore()
+                    }
+                } else {
+                    null
+                }
             )
         }
     }

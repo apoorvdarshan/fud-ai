@@ -34,6 +34,7 @@ object MealShare {
     const val WEB_HOST = "www.fud-ai.app"
     const val WEB_PATH = "/add-meal"
     private const val VERSION = 1
+    private const val SHARE_USER_AGENT = "FudAI/1.0 (Android; MealShare)"
 
     private val shareClient by lazy {
         SecureHttpClient.builder().callTimeout(5, TimeUnit.SECONDS)
@@ -56,20 +57,29 @@ object MealShare {
         return "https://$WEB_HOST$WEB_PATH?d=$b64"
     }
 
-    /** Failed/offline creation preserves the existing self-contained link. */
+    /** Failed/offline/rate-limited creation preserves the existing self-contained link. */
     internal suspend fun preferredLink(
         entries: List<FoodEntry>,
         create: suspend (String) -> String? = ::createShortLink
     ): String {
         val fallback = link(entries)
         val payload = String(Base64.getUrlDecoder().decode(fallback.substringAfter("?d=")), Charsets.UTF_8)
-        val short = try { create(payload) } catch (_: IOException) { null }
-        return short?.takeIf { it.matches(Regex("https://www\\.fud-ai\\.app/m/[A-Za-z0-9_-]{22}")) } ?: fallback
+        val pattern = Regex("https://www\\.fud-ai\\.app/m/[A-Za-z0-9_-]{22}")
+        // One attempt only: the Worker rate-limits for 60s, so an immediate 429 retry
+        // still fails and would burn quota / delay the share sheet for no gain.
+        val short = try {
+            create(payload)
+        } catch (_: IOException) {
+            null
+        }
+        return short?.takeIf { it.matches(pattern) } ?: fallback
     }
 
     private suspend fun createShortLink(payload: String): String? = withContext(Dispatchers.IO) {
         val request = Request.Builder().url("https://$WEB_HOST/api/meal-shares")
-            .post(payload.toRequestBody("application/json".toMediaType())).build()
+            .post(payload.toRequestBody("application/json".toMediaType()))
+            .header("User-Agent", SHARE_USER_AGENT)
+            .build()
         shareClient.newCall(request).execute().use { response ->
             if (response.code != 201) return@withContext null
             try { JSONObject(response.body?.string().orEmpty()).optString("url").takeIf { it.isNotEmpty() } }

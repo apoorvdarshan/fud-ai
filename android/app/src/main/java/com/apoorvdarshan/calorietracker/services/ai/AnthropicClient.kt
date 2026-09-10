@@ -1,5 +1,7 @@
 package com.apoorvdarshan.calorietracker.services.ai
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.jsonArray
@@ -36,38 +38,40 @@ object AnthropicClient {
         val url = "$baseUrl/messages"
 
         suspend fun request(requestPrompt: String): AnthropicTextResponse {
-            val content = JSONArray().apply {
-                imageBytesList.forEach {
-                    put(
-                        JSONObject()
-                            .put("type", "image")
-                            .put(
-                                "source",
+            val bodyStr = withContext(Dispatchers.IO) {
+                RetryPolicy.execute {
+                    val content = JSONArray().apply {
+                        imageBytesList.forEach {
+                            put(
                                 JSONObject()
-                                    .put("type", "base64")
-                                    .put("media_type", "image/jpeg")
-                                    .put("data", Base64.getEncoder().encodeToString(it))
+                                    .put("type", "image")
+                                    .put(
+                                        "source",
+                                        JSONObject()
+                                            .put("type", "base64")
+                                            .put("media_type", "image/jpeg")
+                                            .put("data", Base64.getEncoder().encodeToString(it))
+                                    )
                             )
+                        }
+                        put(JSONObject().put("type", "text").put("text", requestPrompt))
+                    }
+
+                    val body = JSONObject()
+                        .put("model", model)
+                        .put("max_tokens", maxTokens)
+                        .put("messages", JSONArray().put(JSONObject().put("role", "user").put("content", content)))
+
+                    client.newCall(
+                        Request.Builder()
+                            .url(url)
+                            .addHeader("Content-Type", "application/json")
+                            .addHeader("x-api-key", apiKey)
+                            .addHeader("anthropic-version", API_VERSION)
+                            .post(body.toString().toRequestBody(jsonMedia))
+                            .build()
                     )
                 }
-                put(JSONObject().put("type", "text").put("text", requestPrompt))
-            }
-
-            val body = JSONObject()
-                .put("model", model)
-                .put("max_tokens", maxTokens)
-                .put("messages", JSONArray().put(JSONObject().put("role", "user").put("content", content)))
-
-            val bodyStr = RetryPolicy.execute {
-                client.newCall(
-                    Request.Builder()
-                        .url(url)
-                        .addHeader("Content-Type", "application/json")
-                        .addHeader("x-api-key", apiKey)
-                        .addHeader("anthropic-version", API_VERSION)
-                        .post(body.toString().toRequestBody(jsonMedia))
-                        .build()
-                )
             }
             return AnthropicResponseParser.parse(bodyStr)
         }

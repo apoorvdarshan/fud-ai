@@ -2,6 +2,8 @@ package com.apoorvdarshan.calorietracker.services.ai
 
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
 import com.apoorvdarshan.calorietracker.models.AIProvider
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonPrimitive
@@ -45,42 +47,49 @@ object OpenAICompatibleClient {
         val url = "$baseUrl/chat/completions"
 
         suspend fun request(requestPrompt: String, compactRetry: Boolean): OpenAITextResponse {
-            val content = JSONArray().apply {
-                imageBytesList.forEach {
-                    put(
-                        JSONObject()
-                            .put("type", "image_url")
-                            .put(
-                                "image_url",
-                                JSONObject().put("url", "data:image/jpeg;base64,${Base64.getEncoder().encodeToString(it)}")
+            val bodyStr = withContext(Dispatchers.IO) {
+                RetryPolicy.execute {
+                    val content = JSONArray().apply {
+                        imageBytesList.forEach {
+                            put(
+                                JSONObject()
+                                    .put("type", "image_url")
+                                    .put(
+                                        "image_url",
+                                        JSONObject().put(
+                                            "url",
+                                            "data:image/jpeg;base64,${Base64.getEncoder().encodeToString(it)}"
+                                        )
+                                    )
                             )
-                    )
+                        }
+                        put(JSONObject().put("type", "text").put("text", requestPrompt))
+                    }
+
+                    val body = JSONObject()
+                        .put("model", model)
+                        .put("messages", JSONArray().put(JSONObject().put("role", "user").put("content", content)))
+                        .put(tokenLimitParameter(provider, model), maxTokens)
+                    if (provider == AIProvider.OPENROUTER) {
+                        body.put(
+                            "reasoning",
+                            JSONObject(reasoningEffort.requestOptions(compactRetry, exclude = true).orEmpty())
+                        )
+                    }
+
+                    val builder = Request.Builder()
+                        .url(url)
+                        .addHeader("Content-Type", "application/json")
+                        .post(body.toString().toRequestBody(jsonMedia))
+                    if (!apiKey.isNullOrEmpty()) builder.addHeader("Authorization", "Bearer $apiKey")
+                    if (provider == AIProvider.OPENROUTER) {
+                        builder.addHeader("HTTP-Referer", "https://github.com/apoorvdarshan/fud-ai")
+                        builder.addHeader("X-Title", "Fud AI")
+                    }
+
+                    client.newCall(builder.build())
                 }
-                put(JSONObject().put("type", "text").put("text", requestPrompt))
             }
-
-            val body = JSONObject()
-                .put("model", model)
-                .put("messages", JSONArray().put(JSONObject().put("role", "user").put("content", content)))
-                .put(tokenLimitParameter(provider, model), maxTokens)
-            if (provider == AIProvider.OPENROUTER) {
-                body.put(
-                    "reasoning",
-                    JSONObject(reasoningEffort.requestOptions(compactRetry, exclude = true).orEmpty())
-                )
-            }
-
-            val builder = Request.Builder()
-                .url(url)
-                .addHeader("Content-Type", "application/json")
-                .post(body.toString().toRequestBody(jsonMedia))
-            if (!apiKey.isNullOrEmpty()) builder.addHeader("Authorization", "Bearer $apiKey")
-            if (provider == AIProvider.OPENROUTER) {
-                builder.addHeader("HTTP-Referer", "https://github.com/apoorvdarshan/fud-ai")
-                builder.addHeader("X-Title", "Fud AI")
-            }
-
-            val bodyStr = RetryPolicy.execute { client.newCall(builder.build()) }
             return OpenAIResponseParser.parse(bodyStr)
         }
 

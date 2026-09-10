@@ -232,8 +232,9 @@ fun FudAINavHost(
                     BodyMeasurementsScreen(container = container, onBack = { nav.popBackStack() })
                 }
                 composable(FudAIRoutes.ALLERGEN_SENSITIVITIES) {
+                    val settingsUi by settingsViewModel.ui.collectAsState()
                     AllergenSensitivitiesScreen(
-                        current = settingsViewModel.ui.value.profile?.allergenSensitivities.orEmpty(),
+                        current = settingsUi.profile?.allergenSensitivities.orEmpty(),
                         onSave = { values -> settingsViewModel.updateProfile { it.copy(allergenSensitivities = values) } },
                         onBack = { nav.popBackStack() },
                         foodAnalysis = container.foodAnalysis

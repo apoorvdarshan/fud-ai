@@ -1,5 +1,7 @@
 package com.apoorvdarshan.calorietracker.services.ai
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -28,34 +30,35 @@ object GeminiClient {
     ): String {
         val url = "$baseUrl/models/$model:generateContent"
 
-        val parts = JSONArray().apply {
-            imageBytesList.forEach {
-                put(
-                    JSONObject().put(
-                        "inlineData",
-                        JSONObject()
-                            .put("mimeType", "image/jpeg")
-                            .put("data", Base64.getEncoder().encodeToString(it))
-                    )
+        val bodyStr = withContext(Dispatchers.IO) {
+            RetryPolicy.execute {
+                val parts = JSONArray().apply {
+                    imageBytesList.forEach {
+                        put(
+                            JSONObject().put(
+                                "inlineData",
+                                JSONObject()
+                                    .put("mimeType", "image/jpeg")
+                                    .put("data", Base64.getEncoder().encodeToString(it))
+                            )
+                        )
+                    }
+                    put(JSONObject().put("text", prompt))
+                }
+
+                val body = JSONObject().apply {
+                    put("contents", JSONArray().put(JSONObject().put("parts", parts)))
+                }
+
+                client.newCall(
+                    Request.Builder()
+                        .url(url)
+                        .addHeader("Content-Type", "application/json")
+                        .addHeader("X-goog-api-key", apiKey)
+                        .post(body.toString().toRequestBody(jsonMedia))
+                        .build()
                 )
             }
-            put(JSONObject().put("text", prompt))
-        }
-
-        val body = JSONObject().apply {
-            put("contents", JSONArray().put(JSONObject().put("parts", parts)))
-        }
-
-        val requestBody = body.toString().toRequestBody(jsonMedia)
-        val bodyStr = RetryPolicy.execute {
-            client.newCall(
-                Request.Builder()
-                    .url(url)
-                    .addHeader("Content-Type", "application/json")
-                    .addHeader("X-goog-api-key", apiKey)
-                    .post(requestBody)
-                    .build()
-            )
         }
 
         return parseText(bodyStr)

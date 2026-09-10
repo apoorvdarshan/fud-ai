@@ -33,6 +33,17 @@ class MealShareTest {
         assertFalse(MealShare.shareText(entries, result).contains("?d="))
     }
 
+    @Test fun rateLimitFallsBackWithoutRetry() = runBlocking {
+        val fallback = MealShare.link(entries)
+        var attempts = 0
+        val result = MealShare.preferredLink(entries) {
+            attempts += 1
+            null
+        }
+        assertEquals(1, attempts)
+        assertEquals(fallback, result)
+    }
+
     @Test fun failuresPreserveLongLink() = runBlocking {
         val fallback = MealShare.link(entries)
         assertEquals(fallback, MealShare.preferredLink(entries) { throw IOException("offline") })

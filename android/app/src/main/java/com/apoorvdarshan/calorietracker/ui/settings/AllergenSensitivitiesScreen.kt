@@ -46,6 +46,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableFloatStateOf
@@ -104,6 +105,12 @@ fun AllergenSensitivitiesScreen(
     var importError by remember { mutableStateOf<String?>(null) }
     var pendingImport by remember { mutableStateOf<List<String>?>(null) }
     var selectedImport by remember { mutableStateOf<Set<String>>(emptySet()) }
+
+    // Profile may load after this route opens; keep local list in sync. Edits call
+    // persist() immediately, so there is no unsaved draft to preserve across refreshes.
+    LaunchedEffect(current) {
+        if (allergens != current) allergens = current
+    }
 
     fun persist(next: List<String>) {
         allergens = next

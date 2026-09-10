@@ -18,20 +18,25 @@ struct CloudBackupSettingsSection: View {
             )) {
                 Label("iCloud Backup", systemImage: "icloud")
             }
+            .accessibilityIdentifier("settings.cloudBackup.toggle")
             .disabled(backup.busy)
 
             if let last = backup.lastAt {
                 (Text("Last backup: ") + Text(shortDate(last)))
                     .font(.footnote)
                     .foregroundStyle(.secondary)
+                    .accessibilityIdentifier("settings.cloudBackup.lastBackup")
             }
 
             if backup.enabled {
                 Button("Back up now") { Task { await run { try await backup.backupNow() } } }
+                    .accessibilityIdentifier("settings.cloudBackup.backupNow")
                     .disabled(backup.busy)
                 Button("Restore now") { Task { await run { try await backup.restoreNow() } } }
+                    .accessibilityIdentifier("settings.cloudBackup.restoreNow")
                     .disabled(backup.busy)
                 Button("Delete cloud backup", role: .destructive) { showDeleteConfirm = true }
+                    .accessibilityIdentifier("settings.cloudBackup.delete")
                     .disabled(backup.busy)
             }
         } footer: {

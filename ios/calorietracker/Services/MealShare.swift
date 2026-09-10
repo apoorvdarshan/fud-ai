@@ -39,6 +39,8 @@ enum MealShare {
         return comps.url
     }
 
+    private static let shareUserAgent = "FudAI/1.0 (iOS; MealShare)"
+
     /// Try the short-link service, falling back to the self-contained link on any failure.
     static func preferredLink(
         for entries: [FoodEntry],
@@ -51,10 +53,14 @@ enum MealShare {
         request.httpMethod = "POST"
         request.timeoutInterval = 5
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(shareUserAgent, forHTTPHeaderField: "User-Agent")
         request.httpBody = payload
+        // One attempt only: Worker 429s use Retry-After: 60, so an immediate retry
+        // still fails and only delays the share sheet.
         do {
             let (data, response) = try await send(request)
-            guard (response as? HTTPURLResponse)?.statusCode == 201,
+            let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+            guard status == 201,
                   let result = try JSONSerialization.jsonObject(with: data) as? [String: Any],
                   let value = result["url"] as? String,
                   let url = URL(string: value),

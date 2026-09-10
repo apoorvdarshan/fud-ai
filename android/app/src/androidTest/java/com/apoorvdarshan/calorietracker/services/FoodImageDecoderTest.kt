@@ -42,6 +42,19 @@ class FoodImageDecoderTest {
         }
     }
 
+    @Test fun uploadPreprocessorCapsDimensionsWithoutChangingOriginal() {
+        withPhoto(null) { file ->
+            val original = file.readBytes()
+            val upload = FoodImagePreprocessor.prepareForUpload(original)
+            assertTrue(upload.isNotEmpty())
+            assertFalse(upload.contentEquals(original))
+            val decoded = FoodImageDecoder.decode(upload)!!
+            assertTrue(maxOf(decoded.width, decoded.height) <= 1_600)
+            decoded.recycle()
+            assertArrayEquals(original, file.readBytes())
+        }
+    }
+
     @Test fun untaggedPhotosAndInvalidInputsAreSafe() {
         withPhoto(null) { file ->
             val bitmap = FoodImageDecoder.decode(file)!!

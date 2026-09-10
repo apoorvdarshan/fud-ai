@@ -11,7 +11,9 @@ import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.services.GoalEvidence
 import com.apoorvdarshan.calorietracker.services.health.HealthEnergySummary
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalGemmaRuntime
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import java.util.Locale
 
@@ -514,7 +516,9 @@ class FoodAnalysisService(
         if (primary.requiresApiKey && primaryKey.isNullOrEmpty()) throw AiError.NoApiKey
         val maxTokens = prefs.maxResponseTokens.first()
         val requestTimeoutSeconds = prefs.aiRequestTimeoutSeconds.first()
-        val uploadImages = imageBytesList.map(FoodImagePreprocessor::prepareForUpload)
+        val uploadImages = withContext(Dispatchers.IO) {
+            imageBytesList.map(FoodImagePreprocessor::prepareForUpload)
+        }
 
         return try {
             dispatch(primary, primaryModel, primaryBaseUrl, primaryKey, finalPrompt, uploadImages, maxTokens, requestTimeoutSeconds)

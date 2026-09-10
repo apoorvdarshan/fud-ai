@@ -451,7 +451,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
 
     fun openHealthConnectAccess() {
         runCatching { activityContext.startActivity(container.health.manageAccessIntent()) }
-            .onFailure { permissionDialog = PermissionDialogState(message = healthDeniedMsg) }
+            .onFailure { showHealthAvailabilityDialog() }
     }
 
     fun openHealthConnectStore() {

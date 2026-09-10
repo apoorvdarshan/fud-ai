@@ -2660,7 +2660,7 @@ private fun AnalyzingOverlay(imageBytes: ByteArray? = null) {
             // "Looking up nutrition..." (see ContentView.swift cases .analyzing /
             // .analyzingText). pendingImageBytes is the discriminator.
             Text(
-                if (bitmap != null) stringResource(R.string.home_analyzing_food) else stringResource(R.string.home_looking_up_nutrition),
+                if (imageBytes != null) stringResource(R.string.home_analyzing_food) else stringResource(R.string.home_looking_up_nutrition),
                 fontSize = 17.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = AppColors.Calorie

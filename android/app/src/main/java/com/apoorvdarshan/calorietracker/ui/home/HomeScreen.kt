@@ -2633,16 +2633,16 @@ private fun AnalyzingOverlay(imageBytes: ByteArray? = null) {
             verticalArrangement = Arrangement.spacedBy(24.dp),
             modifier = Modifier.padding(horizontal = 32.dp)
         ) {
-            if (bitmap != null) {
+            bitmap?.let { bmp ->
                 androidx.compose.foundation.Image(
-                    bitmap = bitmap.asImageBitmap(),
+                    bitmap = bmp.asImageBitmap(),
                     contentDescription = null,
                     contentScale = androidx.compose.ui.layout.ContentScale.Fit,
                     modifier = Modifier
                         .size(250.dp)
                         .clip(RoundedCornerShape(16.dp))
                 )
-            } else {
+            } ?: run {
                 Icon(
                     Icons.Filled.ImageSearch,
                     contentDescription = null,

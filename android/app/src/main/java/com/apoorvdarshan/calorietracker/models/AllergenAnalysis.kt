@@ -93,7 +93,6 @@ data class AllergenAnalysis(
             term == candidate ||
                 term + "s" == candidate ||
                 (candidate.endsWith("s") && candidate.dropLast(1) == term)
-        }
     }
 }
 

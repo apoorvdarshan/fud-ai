@@ -121,6 +121,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalDensity
@@ -185,8 +186,10 @@ import java.time.temporal.WeekFields
 import java.util.Locale
 import kotlin.math.roundToInt
 import androidx.compose.runtime.rememberCoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 private enum class AddMenuGroup {
     PhotoAndScan,
@@ -2614,8 +2617,10 @@ private fun AnalyzingOverlay(imageBytes: ByteArray? = null) {
     // Verbatim port of ios/calorietracker/Views/AnalyzingView.swift:
     //   VStack { (image | text.magnifyingglass) → ProgressView(.large) → "Analyzing your food..." }
     //   filling the screen, opaque background, calorie-pink accents.
-    val bitmap = remember(imageBytes) {
-        imageBytes?.let { FoodImageDecoder.decode(it) }
+    val bitmap by produceState<android.graphics.Bitmap?>(initialValue = null, imageBytes) {
+        value = withContext(Dispatchers.IO) {
+            imageBytes?.let { FoodImageDecoder.decode(it, 720) }
+        }
     }
     Box(
         Modifier
@@ -2628,16 +2633,16 @@ private fun AnalyzingOverlay(imageBytes: ByteArray? = null) {
             verticalArrangement = Arrangement.spacedBy(24.dp),
             modifier = Modifier.padding(horizontal = 32.dp)
         ) {
-            if (bitmap != null) {
+            bitmap?.let { bmp ->
                 androidx.compose.foundation.Image(
-                    bitmap = bitmap.asImageBitmap(),
+                    bitmap = bmp.asImageBitmap(),
                     contentDescription = null,
                     contentScale = androidx.compose.ui.layout.ContentScale.Fit,
                     modifier = Modifier
                         .size(250.dp)
                         .clip(RoundedCornerShape(16.dp))
                 )
-            } else {
+            } ?: run {
                 Icon(
                     Icons.Filled.ImageSearch,
                     contentDescription = null,
@@ -2655,7 +2660,7 @@ private fun AnalyzingOverlay(imageBytes: ByteArray? = null) {
             // "Looking up nutrition..." (see ContentView.swift cases .analyzing /
             // .analyzingText). pendingImageBytes is the discriminator.
             Text(
-                if (bitmap != null) stringResource(R.string.home_analyzing_food) else stringResource(R.string.home_looking_up_nutrition),
+                if (imageBytes != null) stringResource(R.string.home_analyzing_food) else stringResource(R.string.home_looking_up_nutrition),
                 fontSize = 17.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = AppColors.Calorie

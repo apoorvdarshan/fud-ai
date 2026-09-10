@@ -42,6 +42,19 @@ class FoodImageDecoderTest {
         }
     }
 
+    @Test fun uploadPreprocessorCapsDimensionsWithoutChangingOriginal() {
+        withPhoto(null, width = 2_400, height = 1_800) { file ->
+            val original = file.readBytes()
+            val upload = FoodImagePreprocessor.prepareForUpload(original)
+            assertTrue(upload.isNotEmpty())
+            assertFalse(upload.contentEquals(original))
+            val decoded = FoodImageDecoder.decode(upload)!!
+            assertEquals(1_600, maxOf(decoded.width, decoded.height))
+            decoded.recycle()
+            assertArrayEquals(original, file.readBytes())
+        }
+    }
+
     @Test fun untaggedPhotosAndInvalidInputsAreSafe() {
         withPhoto(null) { file ->
             val bitmap = FoodImageDecoder.decode(file)!!
@@ -89,12 +102,17 @@ class FoodImageDecoderTest {
         }
     }
 
-    private fun withPhoto(orientation: Int?, block: (File) -> Unit) {
+    private fun withPhoto(
+        orientation: Int?,
+        width: Int = 120,
+        height: Int = 80,
+        block: (File) -> Unit
+    ) {
         val file = File.createTempFile("orientation-", ".jpg", context.cacheDir)
         try {
-            val bitmap = Bitmap.createBitmap(120, 80, Bitmap.Config.ARGB_8888)
-            for (y in 0 until 80) for (x in 0 until 120) {
-                bitmap.setPixel(x, y, colors[(if (y >= 40) 2 else 0) + (if (x >= 60) 1 else 0)])
+            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            for (y in 0 until height) for (x in 0 until width) {
+                bitmap.setPixel(x, y, colors[(if (y >= height / 2) 2 else 0) + (if (x >= width / 2) 1 else 0)])
             }
             file.outputStream().use { bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it) }
             bitmap.recycle()

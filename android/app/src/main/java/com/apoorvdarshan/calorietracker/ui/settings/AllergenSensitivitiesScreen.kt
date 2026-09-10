@@ -93,6 +93,9 @@ fun AllergenSensitivitiesScreen(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+    val importReadFailed = stringResource(R.string.settings_allergen_import_read_failed)
+    val importNoneFound = stringResource(R.string.settings_allergen_import_none_found)
+    val importFailed = stringResource(R.string.settings_allergen_import_failed)
     var allergens by rememberSaveable { mutableStateOf(current) }
     var value by rememberSaveable { mutableStateOf("") }
     var pendingDelete by rememberSaveable { mutableStateOf<String?>(null) }
@@ -145,22 +148,21 @@ fun AllergenSensitivitiesScreen(
         scope.launch {
             val result = runCatching {
                 val images = withContext(Dispatchers.IO) { loadImages() }
-                if (images.isEmpty()) error(context.getString(R.string.settings_allergen_import_read_failed))
+                if (images.isEmpty()) error(importReadFailed)
                 foodAnalysis.extractAllergensFromLabReport(images)
             }
             isImporting = false
             result.fold(
                 onSuccess = { names ->
                     if (names.isEmpty()) {
-                        importError = context.getString(R.string.settings_allergen_import_none_found)
+                        importError = importNoneFound
                     } else {
                         selectedImport = names.toSet()
                         pendingImport = names
                     }
                 },
                 onFailure = { error ->
-                    importError = error.message
-                        ?: context.getString(R.string.settings_allergen_import_failed)
+                    importError = error.message ?: importFailed
                 }
             )
         }
@@ -172,7 +174,7 @@ fun AllergenSensitivitiesScreen(
         if (uri == null) return@rememberLauncherForActivityResult
         runLabReportImport {
             val bytes = context.contentResolver.openInputStream(uri)?.use { it.readBytes() }
-                ?: error(context.getString(R.string.settings_allergen_import_read_failed))
+                ?: error(importReadFailed)
             listOf(bytes)
         }
     }
@@ -182,7 +184,7 @@ fun AllergenSensitivitiesScreen(
     ) { uri ->
         if (uri == null) return@rememberLauncherForActivityResult
         runLabReportImport {
-            labReportImagesFromUri(context, uri)
+            labReportImagesFromUri(context, uri, importReadFailed)
         }
     }
 
@@ -503,10 +505,10 @@ fun AllergenSensitivitiesScreen(
     }
 }
 
-private fun labReportImagesFromUri(context: Context, uri: Uri): List<ByteArray> {
+private fun labReportImagesFromUri(context: Context, uri: Uri, readFailedMessage: String): List<ByteArray> {
     val mime = context.contentResolver.getType(uri).orEmpty()
     val bytes = context.contentResolver.openInputStream(uri)?.use { it.readBytes() }
-        ?: error(context.getString(R.string.settings_allergen_import_read_failed))
+        ?: error(readFailedMessage)
     val isPdf = mime.equals("application/pdf", ignoreCase = true) ||
         (uri.lastPathSegment?.endsWith(".pdf", ignoreCase = true) == true)
     return if (isPdf) {

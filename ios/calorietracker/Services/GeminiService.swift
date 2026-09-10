@@ -1120,11 +1120,12 @@ struct GeminiService {
 
     // MARK: - Network
 
-    private static func makeRequest(
+    static func makeRequest(
         url: URL,
         headers: [String: String],
         body: [String: Any],
-        provider: AIProvider
+        provider: AIProvider,
+        session: URLSession = .shared
     ) async throws -> Data {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -1145,7 +1146,7 @@ struct GeminiService {
         for attempt in 0...retryDelaysNs.count {
             let (data, response): (Data, URLResponse)
             do {
-                (data, response) = try await URLSession.shared.data(for: request)
+                (data, response) = try await session.data(for: request)
             } catch is CancellationError {
                 throw CancellationError()
             } catch let error as URLError where error.code == .cancelled {

@@ -106,7 +106,7 @@ final class calorietrackerUITests: XCTestCase {
     }
 
     @MainActor
-    fun testSettingsHubShowsFiveFocusedAppInfoCategories() throws {
+    func testSettingsHubShowsFiveFocusedAppInfoCategories() throws {
         let app = XCUIApplication()
         app.launchArguments += ["-AppleLanguages", "(en)"]
         app.launch()

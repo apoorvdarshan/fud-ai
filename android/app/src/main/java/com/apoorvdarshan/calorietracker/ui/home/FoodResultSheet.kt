@@ -829,13 +829,14 @@ private fun WhatIfMealImpactDialog(
 
     val onboardingFallback = stringResource(R.string.finish_onboarding_hint)
     val suggestionError = stringResource(R.string.error_ai_suggestion)
+    val errorContext = androidx.compose.ui.platform.LocalContext.current
     LaunchedEffect(entry.id) {
         loading = true
         suggestion = null
         error = null
         runCatching { onSuggest?.invoke(entry) ?: onboardingFallback }
             .onSuccess { suggestion = it.ifBlank { null } }
-            .onFailure { error = it.localizedMessage ?: suggestionError }
+            .onFailure { error = (it as? com.apoorvdarshan.calorietracker.services.ai.AiError)?.userMessage(errorContext) ?: suggestionError }
         loading = false
     }
 

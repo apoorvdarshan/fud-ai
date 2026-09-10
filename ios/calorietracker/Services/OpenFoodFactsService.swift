@@ -13,6 +13,8 @@ enum OpenFoodFactsService {
         case rateLimited
         case serviceUnavailable
         case invalidResponse
+        case offline
+        case timeout
         case networkError(Error)
 
         var errorDescription: String? {
@@ -59,6 +61,10 @@ enum OpenFoodFactsService {
                     table: "BarcodeLookup",
                     comment: "Error shown when a barcode response cannot be understood."
                 )
+            case .offline:
+                String(localized: "barcode.lookup.offline", defaultValue: "You appear to be offline. Check your connection and try scanning again.", table: "BarcodeLookup", comment: "Barcode lookup offline guidance")
+            case .timeout:
+                String(localized: "barcode.lookup.timeout", defaultValue: "Open Food Facts took too long to respond. Try scanning again.", table: "BarcodeLookup", comment: "Barcode lookup timed out")
             case .networkError:
                 String(
                     localized: "barcode.lookup.network_error",
@@ -123,7 +129,11 @@ enum OpenFoodFactsService {
         } catch let error as URLError where error.code == .cancelled {
             throw CancellationError()
         } catch {
-            throw LookupError.networkError(error)
+            switch AIErrorKind.network(error) {
+            case .offline: throw LookupError.offline
+            case .timeout: throw LookupError.timeout
+            default: throw LookupError.networkError(error)
+            }
         }
     }
 

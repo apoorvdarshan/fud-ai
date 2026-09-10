@@ -172,12 +172,24 @@ struct OpenFoodFactsServiceTests {
         await expectError(.invalidResponse, session: session)
     }
 
-    @Test func transportFailureMapsToGenericNetworkError() async {
+    @Test func offlineFailureHasSpecificGuidance() async {
         let session = makeSession { _ in
             throw URLError(.notConnectedToInternet)
         }
         defer { finish(session) }
 
+        await expectError(.offline, session: session)
+    }
+
+    @Test func timeoutFailureHasSpecificGuidance() async {
+        let session = makeSession { _ in throw URLError(.timedOut) }
+        defer { finish(session) }
+        await expectError(.timeout, session: session)
+    }
+
+    @Test func connectionRefusedDoesNotClaimOffline() async {
+        let session = makeSession { _ in throw URLError(.cannotConnectToHost) }
+        defer { finish(session) }
         await expectError(.networkError, session: session)
     }
 
@@ -205,6 +217,8 @@ struct OpenFoodFactsServiceTests {
         case rateLimited
         case serviceUnavailable
         case invalidResponse
+        case offline
+        case timeout
         case networkError
     }
 
@@ -234,6 +248,8 @@ struct OpenFoodFactsServiceTests {
              (.rateLimited, .rateLimited),
              (.serviceUnavailable, .serviceUnavailable),
              (.invalidResponse, .invalidResponse),
+             (.offline, .offline),
+             (.timeout, .timeout),
              (.networkError, .networkError):
             true
         default:

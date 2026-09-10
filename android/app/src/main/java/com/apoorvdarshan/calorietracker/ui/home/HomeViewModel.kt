@@ -322,9 +322,9 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 val analysis = container.foodAnalysis.analyzeText(description)
                 savePendingDraft(analysis, imageBytes = null, source = FoodSource.TEXT_INPUT)
             } catch (e: AiError) {
-                _ui.value = _ui.value.copy(analyzing = false, error = e.message, errorOffersScanLabel = false)
+                _ui.value = _ui.value.copy(analyzing = false, error = e.userMessage(container.appContext), errorOffersScanLabel = false)
             } catch (e: Throwable) {
-                _ui.value = _ui.value.copy(analyzing = false, error = e.localizedMessage ?: container.appContext.getString(R.string.error_analysis_failed), errorOffersScanLabel = false)
+                _ui.value = _ui.value.copy(analyzing = false, error = container.appContext.getString(R.string.ai_error_generic), errorOffersScanLabel = false)
             } finally {
                 container.analyzingFood.value = false
             }
@@ -353,9 +353,9 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 val analysis = container.foodAnalysis.analyzeAuto(bytes)
                 savePendingDraft(analysis, imageBytes = bytes, source = FoodSource.SNAP_FOOD)
             } catch (e: AiError) {
-                _ui.value = _ui.value.copy(analyzing = false, error = e.message, errorOffersScanLabel = false)
+                _ui.value = _ui.value.copy(analyzing = false, error = e.userMessage(container.appContext), errorOffersScanLabel = false)
             } catch (e: Throwable) {
-                _ui.value = _ui.value.copy(analyzing = false, error = e.localizedMessage ?: container.appContext.getString(R.string.error_analysis_failed), errorOffersScanLabel = false)
+                _ui.value = _ui.value.copy(analyzing = false, error = container.appContext.getString(R.string.ai_error_generic), errorOffersScanLabel = false)
             } finally {
                 container.analyzingFood.value = false
             }
@@ -395,9 +395,9 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 ).copy(customNote = note?.takeIf { it.isNotBlank() })
                 savePendingDraft(analysis, imageBytesList = images, source = FoodSource.SNAP_FOOD)
             } catch (e: AiError) {
-                _ui.value = _ui.value.copy(analyzing = false, error = e.message, errorOffersScanLabel = false)
+                _ui.value = _ui.value.copy(analyzing = false, error = e.userMessage(container.appContext), errorOffersScanLabel = false)
             } catch (e: Throwable) {
-                _ui.value = _ui.value.copy(analyzing = false, error = e.localizedMessage ?: container.appContext.getString(R.string.error_analysis_failed), errorOffersScanLabel = false)
+                _ui.value = _ui.value.copy(analyzing = false, error = container.appContext.getString(R.string.ai_error_generic), errorOffersScanLabel = false)
             } finally {
                 container.analyzingFood.value = false
             }
@@ -441,7 +441,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             } catch (e: Throwable) {
                 _ui.value = _ui.value.copy(
                     analyzing = false,
-                    error = e.localizedMessage ?: container.appContext.getString(R.string.error_barcode_lookup_failed),
+                    error = container.appContext.getString(R.string.error_barcode_lookup_failed),
                     errorOffersScanLabel = false
                 )
             } finally {
@@ -458,6 +458,8 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             OpenFoodFactsService.LookupFailure.RATE_LIMITED -> R.string.error_barcode_rate_limited
             OpenFoodFactsService.LookupFailure.SERVICE_UNAVAILABLE -> R.string.error_barcode_service_unavailable
             OpenFoodFactsService.LookupFailure.UNEXPECTED_RESPONSE -> R.string.error_barcode_unexpected_response
+            OpenFoodFactsService.LookupFailure.OFFLINE -> R.string.error_barcode_offline
+            OpenFoodFactsService.LookupFailure.TIMEOUT -> R.string.error_barcode_timeout
             OpenFoodFactsService.LookupFailure.NETWORK -> R.string.error_barcode_network
         }
         return container.appContext.getString(messageRes)

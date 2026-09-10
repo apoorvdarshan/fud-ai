@@ -1024,7 +1024,7 @@ private struct WhatIfMealImpactSheet: View {
             )
             suggestion = text.isEmpty ? "No suggestion returned. You can still review the numbers above before logging." : text
         } catch {
-            suggestionError = error.localizedDescription
+            suggestionError = GeminiService.analysisErrorMessage(error)
         }
 
         isLoadingSuggestion = false

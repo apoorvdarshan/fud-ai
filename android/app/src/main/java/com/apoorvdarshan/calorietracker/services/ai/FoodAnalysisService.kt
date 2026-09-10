@@ -506,7 +506,12 @@ class FoodAnalysisService(
             } else {
                 currentImageFallbackConfig(primary, primaryModel)
             } ?: throw primaryError
-            dispatch(fallback.provider, fallback.model, fallback.baseUrl, fallback.apiKey, finalPrompt, uploadImages, maxTokens, requestTimeoutSeconds)
+            try {
+                dispatch(fallback.provider, fallback.model, fallback.baseUrl, fallback.apiKey, finalPrompt, uploadImages, maxTokens, requestTimeoutSeconds)
+            } catch (fallbackError: Throwable) {
+                if (fallbackError is kotlinx.coroutines.CancellationException) throw fallbackError
+                throw AiError.BothProvidersFailed(primary, fallback.provider, fallbackError)
+            }
         }
     }
 
@@ -597,7 +602,7 @@ class FoodAnalysisService(
                 prompt = prompt,
                 images = imageBytesList,
                 maxOutputTokens = maxTokens
-            ) ?: throw AiError.Api("The on-device Gemma runtime is unavailable.")
+            ) ?: throw AiError.Failure(AiErrorKind.LOCAL_UNAVAILABLE)
         }
         if (baseUrl.isEmpty()) throw AiError.InvalidUrl(baseUrl)
         if (provider.requiresApiKey && apiKey.isNullOrEmpty()) throw AiError.NoApiKey

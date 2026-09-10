@@ -594,7 +594,7 @@ struct EditFoodEntryView: View {
 
                 savedNote = customNote.trimmingCharacters(in: .whitespacesAndNewlines)
             } catch {
-                reprocessingError = error.localizedDescription
+                reprocessingError = GeminiService.analysisErrorMessage(error)
             }
             isReprocessing = false
         }

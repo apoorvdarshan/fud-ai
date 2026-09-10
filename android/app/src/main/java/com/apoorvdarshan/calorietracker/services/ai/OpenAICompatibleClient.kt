@@ -88,7 +88,7 @@ object OpenAICompatibleClient {
         if (response.needsCompactRetry) {
             response = request(compactRetryPrompt(prompt, maxTokens), compactRetry = true)
             if (response.wasTruncated) {
-                throw AiError.Api("The AI response was truncated twice. Try a shorter description or another model.")
+                throw AiError.Failure(AiErrorKind.TRUNCATED)
             }
         }
         return response.text ?: throw AiError.InvalidResponse

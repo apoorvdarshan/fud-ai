@@ -71,6 +71,23 @@ class OpenFoodFactsServiceTest {
     }
 
     @Test
+    fun offlineAndTimeoutHaveDifferentGuidance() {
+        for ((cause, expected) in listOf(
+            java.net.UnknownHostException("private host") to OpenFoodFactsService.LookupFailure.OFFLINE,
+            java.net.SocketTimeoutException("private host") to OpenFoodFactsService.LookupFailure.TIMEOUT,
+            java.net.ConnectException("refused") to OpenFoodFactsService.LookupFailure.NETWORK
+        )) {
+            val client = OkHttpClient.Builder().addInterceptor { throw cause }.build()
+            try {
+                runBlocking { OpenFoodFactsService.lookup("3017620422003", client, TEST_BASE_URL) }
+                fail("Expected network error")
+            } catch (error: OpenFoodFactsService.LookupException) {
+                assertEquals(expected, error.failure)
+            }
+        }
+    }
+
+    @Test
     fun networkFailureRemainsDistinct() {
         val client = OkHttpClient.Builder()
             .addInterceptor { throw IOException("offline") }

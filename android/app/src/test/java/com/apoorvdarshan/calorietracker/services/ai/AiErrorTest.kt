@@ -1,59 +1,55 @@
 package com.apoorvdarshan.calorietracker.services.ai
 
-import org.junit.Assert.assertEquals
+import com.apoorvdarshan.calorietracker.models.AIProvider
+import java.io.IOException
+import java.net.ConnectException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
+import org.junit.Assert.*
 import org.junit.Test
 
 class AiErrorTest {
-    private val keyRejected = "Your API key was rejected. Open Settings → AI Provider and re-paste a valid key."
-
-    @Test
-    fun badApiKeyOn400ReturnsKeyRejectedGuidance() {
-        assertEquals(
-            keyRejected,
-            friendlyMessage(400, "API key not valid. Please pass a valid API key.")
-        )
+    @Test fun statusAndProviderMarkersHaveActionableKinds() {
+        for (marker in listOf("API key not valid", "API_KEY_INVALID", "API key expired", "API_KEY_EXPIRED")) {
+            assertEquals(AiErrorKind.KEY_REJECTED, AiErrorKind.fromResponse(400, marker))
+        }
+        assertEquals(AiErrorKind.KEY_REJECTED, AiErrorKind.fromResponse(401, ""))
+        assertEquals(AiErrorKind.KEY_REJECTED, AiErrorKind.fromResponse(403, ""))
+        assertEquals(AiErrorKind.CREDITS, AiErrorKind.fromResponse(402, ""))
+        assertEquals(AiErrorKind.CREDITS, AiErrorKind.fromResponse(400, "Credit balance is too low"))
+        assertEquals(AiErrorKind.CREDITS, AiErrorKind.fromResponse(400, "INSUFFICIENT CREDITS"))
+        assertEquals(AiErrorKind.MODEL, AiErrorKind.fromResponse(404, "unknown endpoint"))
+        assertEquals(AiErrorKind.RATE_LIMIT, AiErrorKind.fromResponse(429, "too many requests"))
+        for (status in listOf(503, 529)) assertEquals(AiErrorKind.OVERLOADED, AiErrorKind.fromResponse(status, ""))
     }
 
-    @Test
-    fun keyInvalidMarkersOn400AreCaseInsensitive() {
-        assertEquals(keyRejected, friendlyMessage(400, "api KEY not VALID. Please pass a valid API key."))
-        assertEquals(keyRejected, friendlyMessage(400, "reason: API_KEY_INVALID"))
-        assertEquals(keyRejected, friendlyMessage(400, "API key expired"))
-        assertEquals(keyRejected, friendlyMessage(400, "reason: API_KEY_EXPIRED"))
+    @Test fun quotasAreNotAutomaticallyBillingFailures() {
+        assertEquals(AiErrorKind.DAILY_QUOTA, AiErrorKind.fromResponse(429, "daily quota exceeded"))
+        assertEquals(AiErrorKind.DAILY_QUOTA, AiErrorKind.fromResponse(429,
+            """{"error":{"message":"Resource exhausted","details":[{"quotaId":"GenerateRequestsPerDayPerProjectPerModel-FreeTier"}]}}"""))
+        assertEquals(AiErrorKind.QUOTA, AiErrorKind.fromResponse(429, "quota exceeded"))
+        assertEquals(AiErrorKind.QUOTA, AiErrorKind.fromResponse(429, "insufficient_quota"))
     }
 
-    @Test
-    fun unauthorizedAndForbiddenReturnKeyRejectedGuidance() {
-        assertEquals(keyRejected, friendlyMessage(401, "Unauthorized"))
-        assertEquals(keyRejected, friendlyMessage(403, "Forbidden"))
+    @Test fun networkFailuresDistinguishTimeoutOfflineAndConnection() {
+        assertEquals(AiErrorKind.TIMEOUT, AiError.Network(SocketTimeoutException("private host")).kind)
+        assertEquals(AiErrorKind.OFFLINE, AiError.Network(UnknownHostException("private host")).kind)
+        assertEquals(AiErrorKind.CONNECTION, AiError.Network(ConnectException("connection refused")).kind)
+        assertEquals(AiErrorKind.TIMEOUT, AiError.Network(IOException(SocketTimeoutException())).kind)
+        assertFalse(AiError.Network(IOException("private transport text")).message!!.contains("private transport"))
     }
 
-    @Test
-    fun rateLimitReturnsRateLimitMessage() {
-        assertEquals(
-            "Rate limit hit on your API key. Wait a minute, or switch to another provider in Settings → AI Provider.",
-            friendlyMessage(429, "Too many requests")
-        )
+    @Test fun unknownProviderBodiesNeverBecomeUserMessages() {
+        for (status in listOf(400, 418, 500)) {
+            assertEquals(AiErrorKind.GENERIC, AiErrorKind.fromResponse(status, "sensitive raw provider text"))
+        }
+        assertFalse(AiError.Api("sensitive raw provider text").message!!.contains("sensitive"))
     }
 
-    @Test
-    fun overloadedStatusesReturnOverloadedMessage() {
-        val overloaded = "The AI provider is overloaded right now. We retried a few times — please try again in a minute, or switch to a different provider/model in Settings → AI Provider."
-
-        assertEquals(overloaded, friendlyMessage(503, "Service unavailable"))
-        assertEquals(overloaded, friendlyMessage(529, "Overloaded"))
-    }
-
-    @Test
-    fun nonKeyBadRequestReturnsRawMessage() {
-        assertEquals(
-            "Invalid JSON payload received.",
-            friendlyMessage(400, "Invalid JSON payload received.")
-        )
-    }
-
-    @Test
-    fun unmappedStatusReturnsRawMessage() {
-        assertEquals("Internal error", friendlyMessage(500, "Internal error"))
+    @Test fun combinedFailureRetainsProviderIdentityAndActionableKind() {
+        val failure = AiError.BothProvidersFailed(AIProvider.GEMINI, AIProvider.OPENROUTER, AiError.Failure(AiErrorKind.CREDITS))
+        assertEquals(AIProvider.GEMINI, failure.primary)
+        assertEquals(AIProvider.OPENROUTER, failure.fallback)
+        assertEquals(AiErrorKind.CREDITS, failure.kind)
     }
 }

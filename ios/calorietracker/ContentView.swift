@@ -2019,7 +2019,7 @@ struct HomeView: View {
     @MainActor
     private func presentAnalysisError(_ error: Error) {
         activeSheet = nil
-        errorMessage = error.localizedDescription
+        errorMessage = GeminiService.analysisErrorMessage(error)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
             showError = true
         }
@@ -2039,7 +2039,8 @@ struct HomeView: View {
             offersScanLabel = false
         }
 
-        let message = error.localizedDescription
+        let message = (error as? OpenFoodFactsService.LookupError)?.localizedDescription
+            ?? OpenFoodFactsService.LookupError.invalidResponse.localizedDescription
         errorMessage = message
         // End the loading sheet first, then show only the system popup.
         activeSheet = nil

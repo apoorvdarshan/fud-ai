@@ -155,21 +155,32 @@ struct GeminiService {
         case networkError(Error)
         case invalidResponse
         case apiError(String)
+        case requestFailed(AIErrorKind)
 
         var errorDescription: String? {
             switch self {
             case .noAPIKey:
-                return "No API key configured. Add your key in Settings → AI Provider."
+                return AIErrorKind.noKey.message
             case .imageConversionFailed:
-                return "Failed to process the image."
+                return AIErrorKind.imageConversion.message
             case .networkError(let error):
-                return "Network error: \(error.localizedDescription)"
+                return AIErrorKind.network(error).message
             case .invalidResponse:
-                return "Could not understand the AI response. Please try again."
+                return AIErrorKind.invalidResponse.message
             case .apiError(let message):
-                return "API error: \(message)"
+                return AIErrorKind.classify(status: 0, raw: message).message
+            case .requestFailed(let kind):
+                return kind.message
             }
         }
+    }
+
+    static func analysisErrorMessage(_ error: Error) -> String {
+        if error is AnalysisError || error is AnalysisFallbackError || error is Gemma4LocalModelManager.LocalModelError {
+            return error.localizedDescription
+        }
+        if (error as NSError).domain == NSURLErrorDomain { return AIErrorKind.network(error).message }
+        return AIErrorKind.generic.message
     }
 
     private static let foodAnalysisJSONShape = """
@@ -719,11 +730,13 @@ struct GeminiService {
                 )
             } catch let fallbackError {
                 if fallbackError is CancellationError { throw fallbackError }
-                throw AIRequestErrorPolicy.errorToSurface(
-                    primaryProvider: primary.provider,
-                    primaryError: error,
-                    fallbackError: fallbackError
+                let chosenError = AIRequestErrorPolicy.errorToSurface(
+                    primaryProvider: primary.provider, primaryError: error, fallbackError: fallbackError
                 )
+                let detail = (chosenError as? AnalysisError)?.localizedDescription
+                    ?? (primary.provider == .gemma4Local ? chosenError.localizedDescription : AIErrorKind.generic.message)
+                throw AnalysisFallbackError(primaryName: primary.provider.displayName,
+                    fallbackName: fallback.provider.displayName, detail: detail)
             }
         }
     }
@@ -742,7 +755,7 @@ struct GeminiService {
                 return try await OnDeviceFoodService.analyzeTextInput(description: description)
             }
             #endif
-            throw AnalysisError.apiError("Apple Intelligence requires iOS 26 or later on a supported iPhone.")
+            throw AnalysisError.requestFailed(.unsupportedDevice)
         }
 
         let text = try await dispatch(
@@ -803,11 +816,13 @@ struct GeminiService {
                 )
             } catch let fallbackError {
                 if fallbackError is CancellationError { throw fallbackError }
-                throw AIRequestErrorPolicy.errorToSurface(
-                    primaryProvider: primary.provider,
-                    primaryError: error,
-                    fallbackError: fallbackError
+                let chosenError = AIRequestErrorPolicy.errorToSurface(
+                    primaryProvider: primary.provider, primaryError: error, fallbackError: fallbackError
                 )
+                let detail = (chosenError as? AnalysisError)?.localizedDescription
+                    ?? (primary.provider == .gemma4Local ? chosenError.localizedDescription : AIErrorKind.generic.message)
+                throw AnalysisFallbackError(primaryName: primary.provider.displayName,
+                    fallbackName: fallback.provider.displayName, detail: detail)
             }
         }
     }
@@ -842,7 +857,7 @@ struct GeminiService {
         switch provider.apiFormat {
         case .onDevice:
             guard imageDataList.isEmpty else {
-                throw AnalysisError.apiError("Apple Intelligence is available for text-only requests.")
+                throw AnalysisError.requestFailed(.textOnly)
             }
             #if canImport(FoundationModels)
             if #available(iOS 26.0, *) {
@@ -852,7 +867,7 @@ struct GeminiService {
                 )
             }
             #endif
-            throw AnalysisError.apiError("Apple Intelligence requires iOS 26 or later on a supported iPhone.")
+            throw AnalysisError.requestFailed(.unsupportedDevice)
         case .liteRTLocal:
             return try await Gemma4LocalModelManager.shared.generate(
                 prompt: prompt,
@@ -896,7 +911,7 @@ struct GeminiService {
 
         guard let apiKey else { throw AnalysisError.noAPIKey }
         guard let url = URL(string: "\(baseURL)/models/\(model):generateContent") else {
-            throw AnalysisError.apiError("Invalid API URL. Check your provider settings.")
+            throw AnalysisError.requestFailed(.invalidURL)
         }
         let data = try await makeRequest(
             url: url,
@@ -972,7 +987,7 @@ struct GeminiService {
 
     private static func callOpenAICompatible(baseURL: String, model: String, apiKey: String?, provider: AIProvider, prompt: String, imageDataList: [Data]) async throws -> String {
         guard let url = URL(string: "\(baseURL)/chat/completions") else {
-            throw AnalysisError.apiError("Invalid API URL. Check your provider settings.")
+            throw AnalysisError.requestFailed(.invalidURL)
         }
 
         var headers = ["Content-Type": "application/json"]
@@ -1015,7 +1030,7 @@ struct GeminiService {
         if response.needsCompactRetry {
             response = try await request(compactOpenAIRetryPrompt(prompt), compactRetry: true)
             if response.wasTruncated {
-                throw AnalysisError.apiError("The AI response was truncated twice. Try a shorter description or another model.")
+                throw AnalysisError.requestFailed(.truncated)
             }
         }
         guard let text = response.text else { throw AnalysisError.invalidResponse }
@@ -1058,7 +1073,7 @@ struct GeminiService {
 
     private static func callAnthropic(baseURL: String, model: String, apiKey: String, prompt: String, imageDataList: [Data]) async throws -> String {
         guard let url = URL(string: "\(baseURL)/messages") else {
-            throw AnalysisError.apiError("Invalid API URL. Check your provider settings.")
+            throw AnalysisError.requestFailed(.invalidURL)
         }
 
         let headers = [
@@ -1096,7 +1111,7 @@ struct GeminiService {
         if response.wasTruncated {
             response = try await request(compactAnthropicRetryPrompt(prompt))
             if response.wasTruncated {
-                throw AnalysisError.apiError("The AI response was truncated twice. Try a shorter description or another model.")
+                throw AnalysisError.requestFailed(.truncated)
             }
         }
         guard let text = response.text else { throw AnalysisError.invalidResponse }
@@ -1131,6 +1146,10 @@ struct GeminiService {
             let (data, response): (Data, URLResponse)
             do {
                 (data, response) = try await URLSession.shared.data(for: request)
+            } catch is CancellationError {
+                throw CancellationError()
+            } catch let error as URLError where error.code == .cancelled {
+                throw CancellationError()
             } catch {
                 throw AnalysisError.networkError(error)
             }
@@ -1147,7 +1166,7 @@ struct GeminiService {
             // which used to slip through as a literal blank "API error: " alert).
             let parsed = parseErrorMessage(from: data) ?? ""
             let parsedMessage = parsed.isEmpty ? "HTTP \(httpResponse.statusCode)" : parsed
-            lastError = .apiError(friendlyMessage(for: httpResponse.statusCode, raw: parsedMessage))
+            lastError = .requestFailed(AIErrorKind.classify(status: httpResponse.statusCode, raw: parsedMessage + "\n" + (String(data: data, encoding: .utf8) ?? "")))
 
             let isRetryable = httpResponse.statusCode == 503
                            || httpResponse.statusCode == 529
@@ -1170,28 +1189,6 @@ struct GeminiService {
             return message
         }
         return nil
-    }
-
-    private static func friendlyMessage(for status: Int, raw: String) -> String {
-        let keyRejected = "Your API key was rejected. Open Settings → AI Provider and re-paste a valid key."
-        // A bad/expired Gemini key comes back as HTTP 400 (INVALID_ARGUMENT), not 401/403, so
-        // match the key-invalid markers in the provider message (mirrors Android #99/#113).
-        let hasKeyInvalidMarker = raw.range(of: "api key not valid", options: .caseInsensitive) != nil
-            || raw.range(of: "api_key_invalid", options: .caseInsensitive) != nil
-            || raw.range(of: "api key expired", options: .caseInsensitive) != nil
-            || raw.range(of: "api_key_expired", options: .caseInsensitive) != nil
-        switch status {
-        case 503, 529:
-            return "The AI provider is overloaded right now. We retried a few times — please try again in a minute, or switch to a different provider/model in Settings → AI Provider."
-        case 429:
-            return "Rate limit hit on your API key. Wait a minute, or switch to another provider in Settings → AI Provider."
-        case 400 where hasKeyInvalidMarker:
-            return keyRejected
-        case 401, 403:
-            return keyRejected
-        default:
-            return raw
-        }
     }
 
     // MARK: - Parsing (unchanged)

@@ -76,7 +76,7 @@ object AnthropicClient {
         if (response.wasTruncated) {
             response = request(compactRetryPrompt(prompt, maxTokens))
             if (response.wasTruncated) {
-                throw AiError.Api("The AI response was truncated twice. Try a shorter description or another model.")
+                throw AiError.Failure(AiErrorKind.TRUNCATED)
             }
         }
         return response.text ?: throw AiError.InvalidResponse

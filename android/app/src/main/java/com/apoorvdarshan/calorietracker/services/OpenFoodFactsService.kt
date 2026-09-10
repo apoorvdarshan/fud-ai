@@ -5,6 +5,7 @@ import com.apoorvdarshan.calorietracker.models.ServingUnitOption
 import com.apoorvdarshan.calorietracker.models.SupplementalNutrient
 import com.apoorvdarshan.calorietracker.models.FoodProductMetadata
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
+import com.apoorvdarshan.calorietracker.services.ai.AiErrorKind
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysisService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -46,6 +47,8 @@ object OpenFoodFactsService {
         RATE_LIMITED,
         SERVICE_UNAVAILABLE,
         UNEXPECTED_RESPONSE,
+        OFFLINE,
+        TIMEOUT,
         NETWORK
     }
 
@@ -99,7 +102,12 @@ object OpenFoodFactsService {
         } catch (error: LookupException) {
             throw error
         } catch (error: IOException) {
-            throw LookupException(LookupFailure.NETWORK, cause = error)
+            val failure = when (AiErrorKind.fromNetwork(error)) {
+                AiErrorKind.OFFLINE -> LookupFailure.OFFLINE
+                AiErrorKind.TIMEOUT -> LookupFailure.TIMEOUT
+                else -> LookupFailure.NETWORK
+            }
+            throw LookupException(failure, cause = error)
         }
 
         val json = runCatching { Json.parseToJsonElement(raw) as? JsonObject }.getOrNull()

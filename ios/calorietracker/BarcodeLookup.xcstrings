@@ -1,6 +1,14 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "barcode.lookup.offline" : {
+      "extractionState" : "manual",
+      "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "You appear to be offline. Check your connection and try scanning again." } } }
+    },
+    "barcode.lookup.timeout" : {
+      "extractionState" : "manual",
+      "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts took too long to respond. Try scanning again." } } }
+    },
     "barcode.lookup.invalid_barcode" : {
       "comment" : "Error shown when the scanned barcode is empty or cannot form a safe request.",
       "extractionState" : "manual",

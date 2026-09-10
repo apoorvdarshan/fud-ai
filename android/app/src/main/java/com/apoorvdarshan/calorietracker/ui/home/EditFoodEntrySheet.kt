@@ -314,7 +314,7 @@ fun EditFoodEntrySheet(
                     ingredients = newAnalysis.ingredients
                 )
             } catch (e: Exception) {
-                errorText = e.localizedMessage ?: reprocessingFailed
+                errorText = (e as? com.apoorvdarshan.calorietracker.services.ai.AiError)?.userMessage(context) ?: reprocessingFailed
             } finally {
                 isReprocessing = false
             }

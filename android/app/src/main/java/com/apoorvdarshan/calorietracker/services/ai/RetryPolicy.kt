@@ -19,7 +19,7 @@ object RetryPolicy {
     private val delays = longArrayOf(1_000, 2_000, 4_000)
 
     suspend fun execute(callFactory: () -> Call): String {
-        var lastMessage = "Request failed"
+        var lastKind = AiErrorKind.GENERIC
         for (attempt in 0..delays.size) {
             val response = try {
                 callFactory().await()
@@ -33,16 +33,16 @@ object RetryPolicy {
             if (response.isSuccessful) return bodyStr
 
             val raw = parseErrorMessage(bodyStr)?.takeIf { it.isNotEmpty() } ?: "HTTP $code"
-            lastMessage = friendlyMessage(code, raw)
+            lastKind = AiErrorKind.fromResponse(code, raw + "\n" + bodyStr)
 
             val retryable = code == 503 || code == 529 || code == 429
             if (retryable && attempt < delays.size) {
                 delay(delays[attempt])
                 continue
             }
-            throw AiError.Api(lastMessage)
+            throw AiError.Failure(lastKind)
         }
-        throw AiError.Api(lastMessage)
+        throw AiError.Failure(lastKind)
     }
 
     private fun parseErrorMessage(body: String): String? {

@@ -34,6 +34,8 @@ data class UserProfile(
     val customFat: Int? = null,
     val customCarbs: Int? = null,
     val autoBalanceMacro: AutoBalanceMacro? = null,
+    /** User-entered allergen names used for local, deterministic food-label checks. */
+    val allergenSensitivities: List<String> = emptyList(),
     /** User lock over the calorie target. When locked, editing one macro holds this total fixed
      *  (the other unlocked macros absorb the change) instead of letting calories float to the new
      *  sum. Defaults false for back-compat. Cleared by Recalculate and the Adaptive auto-run. */

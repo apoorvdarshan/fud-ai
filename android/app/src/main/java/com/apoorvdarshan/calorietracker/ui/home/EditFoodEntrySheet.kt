@@ -22,6 +22,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.rememberCoroutineScope
 import kotlinx.coroutines.launch
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
+import com.apoorvdarshan.calorietracker.models.UserProfile
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DeleteOutline
@@ -102,6 +103,7 @@ import kotlin.math.roundToInt
 fun EditFoodEntrySheet(
     entry: FoodEntry,
     preferGramsByDefault: Boolean = false,
+    profile: UserProfile? = null,
     isFavorite: Boolean,
     container: com.apoorvdarshan.calorietracker.AppContainer,
     analyzeIngredientText: suspend (String) -> FoodAnalysis,
@@ -476,7 +478,26 @@ fun EditFoodEntrySheet(
 
             currentBaseEntry.productMetadata?.takeIf { it.hasDisplayDetails }?.let { metadata ->
                 item { SheetSectionHeader(stringResource(R.string.product_information)) }
-                item { FoodProductMetadataCard(metadata) }
+                item {
+                    FoodProductMetadataCard(
+                        metadata,
+                        currentBaseEntry.allergenAnalysis(profile?.allergenSensitivities.orEmpty())
+                    )
+                }
+            }
+            if (currentBaseEntry.productMetadata?.hasDisplayDetails != true &&
+                profile?.allergenSensitivities?.isNotEmpty() == true
+            ) {
+                item { SheetSectionHeader(stringResource(R.string.product_allergen_check)) }
+                item {
+                    SheetPillCard {
+                        Text(
+                            currentBaseEntry.allergenAnalysis(profile.allergenSensitivities).summary,
+                            modifier = Modifier.padding(18.dp),
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.78f)
+                        )
+                    }
+                }
             }
 
             item { SheetSectionHeader(stringResource(R.string.sheet_serving)) }

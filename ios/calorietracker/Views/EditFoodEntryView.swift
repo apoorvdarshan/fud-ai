@@ -7,6 +7,7 @@ struct EditFoodEntryView: View {
 
     let entry: FoodEntry
     @Environment(FoodStore.self) private var foodStore
+    @Environment(ProfileStore.self) private var profileStore
     @Environment(\.dismiss) private var dismiss
 
     // Base values (the entry's nutrition at its logged serving size)
@@ -277,7 +278,26 @@ struct EditFoodEntryView: View {
 
                     if let productMetadata = entry.productMetadata,
                        productMetadata.hasDisplayDetails {
-                        FoodProductMetadataSection(metadata: productMetadata)
+                        FoodProductMetadataSection(
+                            metadata: productMetadata,
+                            allergenAnalysis: entry.allergenAnalysis(
+                                for: profileStore.profile.configuredAllergenSensitivities
+                            )
+                        )
+                    }
+                    if !(entry.productMetadata?.hasDisplayDetails ?? false),
+                       !profileStore.profile.configuredAllergenSensitivities.isEmpty {
+                        Section("Allergen Check") {
+                            Text(
+                                entry.allergenAnalysis(
+                                    for: profileStore.profile.configuredAllergenSensitivities
+                                ).summary
+                            )
+                            .foregroundStyle(.secondary)
+                            Text("Check the package label and follow your clinician's advice.")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     }
 
                     Section("Serving") {

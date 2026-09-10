@@ -589,6 +589,31 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                         } ?: stringResource(R.string.settings_not_set),
                         icon = Icons.Outlined.Straighten
                     ) { nav.navigate(FudAIRoutes.BODY_MEASUREMENTS) }
+                    HorizontalDivider()
+                    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text(
+                            stringResource(R.string.settings_allergen_sensitivities),
+                            fontWeight = FontWeight.SemiBold
+                        )
+                        OutlinedTextField(
+                            value = p.allergenSensitivities.joinToString(", "),
+                            onValueChange = { value ->
+                                vm.updateProfile {
+                                    it.copy(
+                                        allergenSensitivities = value.split(",")
+                                            .map(String::trim)
+                                            .filter(String::isNotEmpty)
+                                    )
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                            placeholder = { Text(stringResource(R.string.settings_allergen_placeholder)) },
+                            supportingText = {
+                                Text(stringResource(R.string.settings_allergen_disclaimer))
+                            },
+                            singleLine = false
+                        )
+                    }
                 }
             }
             }

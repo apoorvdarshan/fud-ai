@@ -954,6 +954,7 @@ fun HomeScreen(
         EditFoodEntrySheet(
             entry = entry,
             preferGramsByDefault = ui.preferGramsByDefault,
+            profile = ui.profile,
             isFavorite = ui.isFavorite(entry),
             container = container,
             analyzeIngredientText = vm::analyzeIngredientText,

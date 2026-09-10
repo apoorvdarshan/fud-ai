@@ -419,7 +419,46 @@ fun FoodResultSheet(
 
             analysis.productMetadata?.takeIf { it.hasDisplayDetails }?.let { metadata ->
                 item { SheetSectionHeader(stringResource(R.string.product_information)) }
-                item { FoodProductMetadataCard(metadata) }
+                item {
+                    val previewEntry = FoodEntry(
+                        name = name,
+                        calories = analysis.calories,
+                        protein = analysis.protein,
+                        carbs = analysis.carbs,
+                        fat = analysis.fat,
+                        source = source,
+                        ingredients = analysis.ingredients,
+                        productMetadata = analysis.productMetadata
+                    )
+                    FoodProductMetadataCard(
+                        metadata,
+                        previewEntry.allergenAnalysis(profile?.allergenSensitivities.orEmpty())
+                    )
+                }
+            }
+            if (analysis.productMetadata?.hasDisplayDetails != true &&
+                profile?.allergenSensitivities?.isNotEmpty() == true
+            ) {
+                item { SheetSectionHeader(stringResource(R.string.product_allergen_check)) }
+                item {
+                    val previewEntry = FoodEntry(
+                        name = name,
+                        calories = analysis.calories,
+                        protein = analysis.protein,
+                        carbs = analysis.carbs,
+                        fat = analysis.fat,
+                        source = source,
+                        ingredients = analysis.ingredients,
+                        productMetadata = analysis.productMetadata
+                    )
+                    SheetPillCard {
+                        Text(
+                            previewEntry.allergenAnalysis(profile.allergenSensitivities).summary,
+                            modifier = Modifier.padding(18.dp),
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.78f)
+                        )
+                    }
+                }
             }
 
             item { SheetSectionHeader(stringResource(R.string.sheet_serving)) }

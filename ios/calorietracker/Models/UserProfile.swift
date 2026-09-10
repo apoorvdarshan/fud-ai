@@ -184,6 +184,9 @@ struct UserProfile: Codable, Equatable {
     var customFat: Int?
     var customCarbs: Int?
     var autoBalanceMacro: AutoBalanceMacro?
+    /// User-entered allergen names used for local, deterministic food-label checks.
+    /// Optional for backwards-compatible decoding of profiles saved before allergen analysis.
+    var allergenSensitivities: [String]? = nil
     /// User lock over the calorie target. When locked, editing one macro holds this total fixed
     /// (the other unlocked macros absorb the change) instead of letting calories float to the new
     /// sum. Optional so old saves decode cleanly (nil → unlocked). Cleared by Recalculate/Adaptive.
@@ -526,8 +529,13 @@ struct UserProfile: Codable, Equatable {
         customProtein: nil,
         customFat: nil,
         customCarbs: nil,
-        autoBalanceMacro: nil
+        autoBalanceMacro: nil,
+        allergenSensitivities: []
     )
+
+    var configuredAllergenSensitivities: [String] {
+        allergenSensitivities ?? []
+    }
 
     // MARK: - Persistence
 

@@ -4101,6 +4101,30 @@ struct ProfileView: View {
                                 .foregroundStyle(AppColors.calorie)
                         }
                     }
+
+                    VStack(alignment: .leading, spacing: 6) {
+                        Label("Allergen sensitivities", systemImage: "exclamationmark.triangle")
+                            .foregroundStyle(AppColors.calorie)
+                        TextField(
+                            "e.g. milk, peanuts, shellfish",
+                            text: Binding(
+                                get: { profile.configuredAllergenSensitivities.joined(separator: ", ") },
+                                set: { value in
+                                    let values = value
+                                        .split(separator: ",")
+                                        .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                                        .filter { !$0.isEmpty }
+                                    profile.allergenSensitivities = values
+                                    saveProfile()
+                                }
+                            )
+                        )
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                        Text("Used for local label checks. Results never indicate that a food is safe.")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
                 .listRowBackground(AppColors.appCard)
                 }

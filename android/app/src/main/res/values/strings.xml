@@ -82,6 +82,7 @@
     <string name="product_eco_score">Eco-Score</string>
     <string name="product_allergens">Allergens</string>
     <string name="product_may_contain">May contain</string>
+    <string name="product_allergen_check">Allergen check</string>
     <string name="product_labels">Labels</string>
     <string name="product_categories">Categories</string>
     <string name="product_ingredient_label">Ingredient label</string>
@@ -557,6 +558,9 @@
 
     <!-- Settings -->
     <string name="settings_section_personal">Personal Info</string>
+    <string name="settings_allergen_sensitivities">Allergen sensitivities</string>
+    <string name="settings_allergen_placeholder">e.g. milk, peanuts, shellfish</string>
+    <string name="settings_allergen_disclaimer">Used for local label checks. Results never indicate that a food is safe.</string>
     <string name="settings_section_goals">Goals &amp; Nutrition</string>
     <string name="settings_section_daily_targets">Daily Targets</string>
     <string name="settings_section_app">App Settings</string>

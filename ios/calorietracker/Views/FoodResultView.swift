@@ -349,7 +349,26 @@ struct FoodResultView: View {
                     }
 
                     if let productMetadata, productMetadata.hasDisplayDetails {
-                        FoodProductMetadataSection(metadata: productMetadata)
+                        FoodProductMetadataSection(
+                            metadata: productMetadata,
+                            allergenAnalysis: makeFoodEntry(includeImage: false).allergenAnalysis(
+                                for: profile.configuredAllergenSensitivities
+                            )
+                        )
+                    }
+                    if !(productMetadata?.hasDisplayDetails ?? false),
+                       !profile.configuredAllergenSensitivities.isEmpty {
+                        Section("Allergen Check") {
+                            Text(
+                                makeFoodEntry(includeImage: false).allergenAnalysis(
+                                    for: profile.configuredAllergenSensitivities
+                                ).summary
+                            )
+                            .foregroundStyle(.secondary)
+                            Text("Check the package label and follow your clinician's advice.")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
                     }
 
                     Section("Serving") {

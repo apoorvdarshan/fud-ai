@@ -2,6 +2,7 @@ import SwiftUI
 
 struct FoodProductMetadataSection: View {
     let metadata: FoodProductMetadata
+    var allergenAnalysis: AllergenAnalysis? = nil
 
     var body: some View {
         Section("Product Information") {
@@ -23,6 +24,9 @@ struct FoodProductMetadataSection: View {
             }
             if !metadata.traces.isEmpty {
                 ProductMetadataRow(title: "May Contain", value: metadata.traces.formatted())
+            }
+            if let allergenAnalysis {
+                ProductMetadataRow(title: "Allergen Check", value: allergenAnalysis.summary)
             }
             if !metadata.labels.isEmpty {
                 ProductMetadataRow(title: "Labels", value: metadata.labels.formatted())

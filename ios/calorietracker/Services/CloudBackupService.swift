@@ -1,12 +1,18 @@
 import CloudKit
 import Foundation
 import Observation
+import os
 
 @Observable
 final class CloudBackupService {
     static let enabledKey = "cloudBackupEnabled"
     static let lastAtKey = "cloudBackupLastAt"
     static let lastHashKey = "cloudBackupLastHash"
+    static let smokeTestLaunchArgument = "-fudai.cloudBackup.smokeTest"
+    static let smokeTestRecordName = "smoke-test"
+
+    private static var didRunSmokeTestThisLaunch = false
+    private static let smokeLogger = Logger(subsystem: "com.apoorvdarshan.calorietracker", category: "CloudBackupSmoke")
 
     private let recordType = "FudAIBackup"
     private let recordName = "current"
@@ -157,17 +163,7 @@ final class CloudBackupService {
     func deleteCloudBackup() async throws {
         busy = true
         defer { busy = false }
-        try await checkAccount()
-        let id = CKRecord.ID(recordName: recordName)
-        do {
-            try await container.privateCloudDatabase.deleteRecord(withID: id)
-        } catch let error as CKError where error.code == .unknownItem {
-            // already gone
-        }
-        hasCloudBackup = false
-        defaults.removeObject(forKey: Self.lastAtKey)
-        defaults.removeObject(forKey: Self.lastHashKey)
-        lastAt = nil
+        try await deleteCloudRecord(named: recordName)
     }
 
     func autoBackupIfNeeded() async {
@@ -181,22 +177,111 @@ final class CloudBackupService {
         try? await backupNow(skipIfUnchanged: true)
     }
 
-    private func upload(zip: Data, hash: String) async throws {
+    /// Release-safe CloudKit integration check: upload → download → delete.
+    /// Logs `FudAICloudBackupSmokeTest: PASS` or `FAIL: <reason>` to stdout and os_log.
+    func runSmokeTestIfRequested() async {
+        guard CommandLine.arguments.contains(Self.smokeTestLaunchArgument) else { return }
+        guard !Self.didRunSmokeTestThisLaunch else { return }
+        Self.didRunSmokeTestThisLaunch = true
+        await runSmokeTest()
+    }
+
+    func runSmokeTest() async {
+        var smokeUploaded = false
+
+        do {
+            try await checkAccount()
+            let values = snapshotValues()
+            let photos = snapshotPhotos()
+            let hash = CloudBackupArchive.contentHash(values: values, photos: photos)
+            let zip = try CloudBackupArchive.pack(
+                values: values,
+                photos: photos,
+                exportedAt: ISO8601DateFormatter().string(from: Date()),
+                appVersion: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+            )
+            try await upload(zip: zip, hash: hash, toRecord: Self.smokeTestRecordName)
+            smokeUploaded = true
+
+            guard let record = try await fetchRecord(named: Self.smokeTestRecordName) else {
+                logSmokeTestFailure("backup record missing after upload")
+                return
+            }
+            try validateDownloadedBackup(record: record, expectedHash: hash)
+
+            try await deleteCloudRecord(named: Self.smokeTestRecordName)
+            smokeUploaded = false
+
+            guard try await fetchRecord(named: Self.smokeTestRecordName) == nil else {
+                logSmokeTestFailure("record still present after delete")
+                return
+            }
+            logSmokeTestPass()
+        } catch {
+            logSmokeTestFailure(error.localizedDescription)
+        }
+
+        if smokeUploaded {
+            try? await deleteCloudRecord(named: Self.smokeTestRecordName)
+        }
+    }
+
+    private func logSmokeTestPass() {
+        let line = "FudAICloudBackupSmokeTest: PASS"
+        print(line)
+        Self.smokeLogger.info("\(line, privacy: .public)")
+    }
+
+    private func logSmokeTestFailure(_ reason: String) {
+        let line = "FudAICloudBackupSmokeTest: FAIL: \(reason)"
+        print(line)
+        Self.smokeLogger.error("\(line, privacy: .public)")
+    }
+
+    private func upload(zip: Data, hash: String, toRecord named: String? = nil) async throws {
+        let name = named ?? recordName
         let temp = FileManager.default.temporaryDirectory.appendingPathComponent("fudai-backup.zip")
         try zip.write(to: temp, options: .atomic)
-        let id = CKRecord.ID(recordName: recordName)
-        let record = (try? await fetchRecord()) ?? CKRecord(recordType: recordType, recordID: id)
+        let id = CKRecord.ID(recordName: name)
+        let record = (try? await fetchRecord(named: name)) ?? CKRecord(recordType: recordType, recordID: id)
         record[assetField] = CKAsset(fileURL: temp)
         record[shaField] = hash as CKRecordValue
         _ = try await container.privateCloudDatabase.save(record)
     }
 
-    private func fetchRecord() async throws -> CKRecord? {
-        let id = CKRecord.ID(recordName: recordName)
+    private func fetchRecord(named name: String? = nil) async throws -> CKRecord? {
+        let id = CKRecord.ID(recordName: name ?? recordName)
         do {
             return try await container.privateCloudDatabase.record(for: id)
         } catch let error as CKError where error.code == .unknownItem {
             return nil
+        }
+    }
+
+    private func deleteCloudRecord(named name: String) async throws {
+        try await checkAccount()
+        let id = CKRecord.ID(recordName: name)
+        do {
+            try await container.privateCloudDatabase.deleteRecord(withID: id)
+        } catch let error as CKError where error.code == .unknownItem {
+            // already gone
+        }
+        guard name == recordName else { return }
+        hasCloudBackup = false
+        defaults.removeObject(forKey: Self.lastAtKey)
+        defaults.removeObject(forKey: Self.lastHashKey)
+        lastAt = nil
+    }
+
+    private func validateDownloadedBackup(record: CKRecord, expectedHash: String) throws {
+        guard let asset = record[assetField] as? CKAsset,
+              let url = asset.fileURL
+        else { throw CloudBackupError.noBackup }
+        let zip = try Data(contentsOf: url)
+        let (document, _) = try CloudBackupArchive.unpack(zip)
+        guard document.contentSha256 == expectedHash else { throw CloudBackupError.invalidFormat }
+        if let recordSha = record[shaField] as? String, recordSha != expectedHash {
+            throw CloudBackupError.invalidFormat
         }
     }
 

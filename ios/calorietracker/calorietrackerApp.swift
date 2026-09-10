@@ -112,6 +112,7 @@ struct calorietrackerApp: App {
                 refreshWidgetSnapshot()
             }
             .task {
+                await cloudBackupService.runSmokeTestIfRequested()
                 await weeklyChallengeStore.retryPendingDeletionIfNeeded()
             }
         }

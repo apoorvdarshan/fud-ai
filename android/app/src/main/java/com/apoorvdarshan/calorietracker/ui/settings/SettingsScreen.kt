@@ -294,6 +294,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     val latestMeasurement by container.bodyMeasurementRepository.latest.collectAsState(initial = null)
 
     var sheet by remember { mutableStateOf<SettingsSheet?>(null) }
+    var showInlineAllergens by rememberSaveable { mutableStateOf(false) }
     var showNutritionImport by remember { mutableStateOf(false) }
     if (showNutritionImport) {
         HealthNutritionImportDialog(container) { showNutritionImport = false }
@@ -606,7 +607,14 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                             stringResource(R.string.settings_not_set)
                         },
                         icon = Icons.Outlined.Warning
-                    ) { sheet = SettingsSheet.ALLERGENS }
+                    ) { showInlineAllergens = !showInlineAllergens }
+                    if (showInlineAllergens) {
+                        AllergenSensitivitiesSheet(
+                            current = p.allergenSensitivities,
+                            onSave = { values -> vm.updateProfile { it.copy(allergenSensitivities = values) } },
+                            onDismiss = { showInlineAllergens = false }
+                        )
+                    }
                 }
             }
             }

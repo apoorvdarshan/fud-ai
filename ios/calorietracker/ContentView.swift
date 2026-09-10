@@ -6459,26 +6459,38 @@ private struct AllergenSensitivitiesSheet: View {
     let onSave: ([String]) -> Void
 
     @Environment(\.dismiss) private var dismiss
-    @State private var value: String
+    @State private var allergens: [String]
+    @State private var value = ""
+    @State private var pendingDeletion: String?
 
     init(current: [String], onSave: @escaping ([String]) -> Void) {
         self.onSave = onSave
-        _value = State(initialValue: current.joined(separator: ", "))
+        _allergens = State(initialValue: current)
     }
 
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("e.g. milk, peanuts, shellfish", text: $value, axis: .vertical)
+                    ForEach(allergens, id: \.self) { allergen in
+                        Text(allergen)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .destructive) {
+                                    pendingDeletion = allergen
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
+                    }
+                    TextField("Type an allergen", text: $value)
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
-                        .lineLimit(1...3)
+                        .onSubmit { addCurrentValue() }
                 } header: {
                     Label("Allergen sensitivities", systemImage: "exclamationmark.triangle")
                         .foregroundStyle(AppColors.calorie)
                 } footer: {
-                    Text("Separate multiple allergens with commas. Results never indicate that a food is safe.")
+                    Text("Press Return to add an allergen. Swipe left to delete. Results never indicate that a food is safe.")
                 }
             }
             .navigationTitle("Allergen sensitivities")
@@ -6489,11 +6501,11 @@ private struct AllergenSensitivitiesSheet: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        let values = value
+                        addCurrentValue()
+                        onSave(allergens + value.trimmingCharacters(in: .whitespacesAndNewlines)
                             .split(separator: ",")
-                            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                            .filter { !$0.isEmpty }
-                        onSave(values)
+                            .map(String.init)
+                            .filter { !$0.isEmpty })
                         dismiss()
                     }
                     .fontWeight(.semibold)
@@ -6501,6 +6513,31 @@ private struct AllergenSensitivitiesSheet: View {
             }
         }
         .presentationDetents([.medium])
+        .alert("Remove allergen?", isPresented: Binding(
+            get: { pendingDeletion != nil },
+            set: { if !$0 { pendingDeletion = nil } }
+        )) {
+            Button("Remove", role: .destructive) {
+                if let pendingDeletion {
+                    allergens.removeAll { $0 == pendingDeletion }
+                }
+                pendingDeletion = nil
+            }
+            Button("Cancel", role: .cancel) { pendingDeletion = nil }
+        } message: {
+            Text("Remove \(pendingDeletion ?? "this allergen") from your sensitivities?")
+        }
+    }
+
+    private func addCurrentValue() {
+        let newValues = value
+            .split(separator: ",")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+        for allergen in newValues where !allergens.contains(where: { $0.caseInsensitiveCompare(allergen) == .orderedSame }) {
+            allergens.append(allergen)
+        }
+        value = ""
     }
 }
 

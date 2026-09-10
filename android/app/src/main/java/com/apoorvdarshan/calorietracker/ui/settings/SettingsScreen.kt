@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -37,6 +38,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.IosShare
@@ -105,6 +108,11 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DatePicker
@@ -142,6 +150,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.platform.LocalContext
@@ -2936,7 +2945,17 @@ private fun AllergenSensitivitiesSheet(
     onSave: (List<String>) -> Unit,
     onDismiss: () -> Unit
 ) {
-    var value by rememberSaveable { mutableStateOf(current.joinToString(", ")) }
+    var allergens by rememberSaveable { mutableStateOf(current) }
+    var value by rememberSaveable { mutableStateOf("") }
+    var pendingDelete by remember { mutableStateOf<String?>(null) }
+
+    fun addCurrentValue() {
+        val next = value.trim()
+        if (next.isNotEmpty() && allergens.none { it.equals(next, ignoreCase = true) }) {
+            allergens = allergens + next
+        }
+        value = ""
+    }
 
     Column(
         modifier = Modifier
@@ -2954,27 +2973,85 @@ private fun AllergenSensitivitiesSheet(
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            allergens.forEach { allergen ->
+                val dismissState = rememberSwipeToDismissBoxState(
+                    confirmValueChange = { value ->
+                        if (value == SwipeToDismissBoxValue.EndToStart) {
+                            pendingDelete = allergen
+                        }
+                        false
+                    }
+                )
+                SwipeToDismissBox(
+                    state = dismissState,
+                    backgroundContent = {
+                        Box(
+                            Modifier
+                                .fillMaxHeight()
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(MaterialTheme.colorScheme.errorContainer)
+                                .padding(horizontal = 12.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text("Remove", color = MaterialTheme.colorScheme.onErrorContainer)
+                        }
+                    },
+                    content = {
+                        AssistChip(
+                            onClick = { pendingDelete = allergen },
+                            label = { Text(allergen) },
+                            trailingIcon = { Text("×", style = MaterialTheme.typography.titleMedium) },
+                            colors = AssistChipDefaults.assistChipColors(
+                                labelColor = AppColors.Calorie,
+                                trailingIconContentColor = AppColors.Calorie
+                            )
+                        )
+                    }
+                )
+            }
+        }
         OutlinedTextField(
             value = value,
             onValueChange = { value = it },
             modifier = Modifier.fillMaxWidth(),
-            placeholder = { Text(stringResource(R.string.settings_allergen_placeholder)) },
+            placeholder = { Text("Type an allergen and press Done") },
             singleLine = true,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-            supportingText = { Text("Separate multiple allergens with commas.") }
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(onDone = { addCurrentValue() }),
+            supportingText = { Text("Tap a chip to remove it.") }
         )
         Button(
             onClick = {
-                onSave(
-                    value.split(",")
-                        .map(String::trim)
-                        .filter(String::isNotEmpty)
-                )
+                addCurrentValue()
+                onSave(allergens + value.trim().takeIf { it.isNotEmpty() }.orEmpty())
             },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(stringResource(android.R.string.ok))
         }
+    }
+    pendingDelete?.let { allergen ->
+        AlertDialog(
+            onDismissRequest = { pendingDelete = null },
+            title = { Text("Remove allergen?") },
+            text = { Text("Remove \"$allergen\" from your sensitivities?") },
+            confirmButton = {
+                Button(onClick = {
+                    allergens = allergens.filterNot { it == allergen }
+                    pendingDelete = null
+                }) { Text("Remove") }
+            },
+            dismissButton = {
+                Button(onClick = { pendingDelete = null }) { Text("Cancel") }
+            }
+        )
     }
 }
 

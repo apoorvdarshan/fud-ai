@@ -37,17 +37,14 @@ struct MealShareTests {
         #expect(!text.contains("?d="))
     }
 
-    @Test func retriesOnceOnRateLimit() async throws {
-        let short = "https://www.fud-ai.app/m/abcdefghijklmnopqrstuv"
+    @Test func rateLimitFallsBackWithoutRetry() async throws {
         var attempts = 0
         let result = await MealShare.preferredLink(for: entries) { request in
             attempts += 1
-            let status = attempts == 1 ? 429 : 201
-            let body = attempts == 1 ? "{}" : "{\"url\":\"\(short)\"}"
-            return (Data(body.utf8), HTTPURLResponse(url: request.url!, statusCode: status, httpVersion: nil, headerFields: nil)!)
+            return (Data("{}".utf8), HTTPURLResponse(url: request.url!, statusCode: 429, httpVersion: nil, headerFields: nil)!)
         }
-        #expect(attempts == 2)
-        #expect(result?.absoluteString == short)
+        #expect(attempts == 1)
+        #expect(result?.path == MealShare.webPath)
     }
 
     @Test func failuresKeepTheLongLink() async {

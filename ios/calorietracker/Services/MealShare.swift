@@ -55,23 +55,21 @@ enum MealShare {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(shareUserAgent, forHTTPHeaderField: "User-Agent")
         request.httpBody = payload
+        // One attempt only: Worker 429s use Retry-After: 60, so an immediate retry
+        // still fails and only delays the share sheet.
         do {
-            for attempt in 0..<2 {
-                let (data, response) = try await send(request)
-                let status = (response as? HTTPURLResponse)?.statusCode ?? 0
-                if status == 429, attempt == 0 { continue }
-                guard status == 201,
-                      let result = try JSONSerialization.jsonObject(with: data) as? [String: Any],
-                      let value = result["url"] as? String,
-                      let url = URL(string: value),
-                      url.scheme == "https", url.host == webHost,
-                      url.user == nil, url.password == nil, url.port == nil,
-                      url.query == nil, url.fragment == nil,
-                      url.path.range(of: "^/m/[A-Za-z0-9_-]{22}$", options: .regularExpression) != nil
-                else { return fallback }
-                return url
-            }
-            return fallback
+            let (data, response) = try await send(request)
+            let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+            guard status == 201,
+                  let result = try JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let value = result["url"] as? String,
+                  let url = URL(string: value),
+                  url.scheme == "https", url.host == webHost,
+                  url.user == nil, url.password == nil, url.port == nil,
+                  url.query == nil, url.fragment == nil,
+                  url.path.range(of: "^/m/[A-Za-z0-9_-]{22}$", options: .regularExpression) != nil
+            else { return fallback }
+            return url
         } catch { return fallback }
     }
 

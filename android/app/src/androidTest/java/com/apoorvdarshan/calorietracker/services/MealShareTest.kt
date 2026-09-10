@@ -33,16 +33,15 @@ class MealShareTest {
         assertFalse(MealShare.shareText(entries, result).contains("?d="))
     }
 
-    @Test fun retriesOnceOnRateLimit() = runBlocking {
-        val short = "https://www.fud-ai.app/m/abcdefghijklmnopqrstuv"
+    @Test fun rateLimitFallsBackWithoutRetry() = runBlocking {
+        val fallback = MealShare.link(entries)
         var attempts = 0
         val result = MealShare.preferredLink(entries) {
             attempts += 1
-            if (attempts == 1) throw MealShare.RateLimited()
-            short
+            null
         }
-        assertEquals(2, attempts)
-        assertEquals(short, result)
+        assertEquals(1, attempts)
+        assertEquals(fallback, result)
     }
 
     @Test fun failuresPreserveLongLink() = runBlocking {

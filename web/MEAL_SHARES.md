@@ -50,7 +50,9 @@ No account resources are created by the tests or dry-run.
 
 Both mobile share sheets attempt creation with a five-second timeout, send
 `Content-Type: application/json` and a `FudAI/1.0 (...; MealShare)` User-Agent,
-retry once on HTTP 429, and retain the long link on offline, repeated rate-limit,
-service, or invalid-response failures. Deploy
+and retain the long link on offline, rate-limit (HTTP 429), service, or
+invalid-response failures. They do not immediately retry 429s: the Worker returns
+`Retry-After: 60`, so a second request in the same window would still fail and
+only delay the share sheet. Deploy
 the Worker before releasing the mobile changes. Verify creation, messenger previews,
 expiry, and iOS/Android import on a simulator/emulator or test device separately.

@@ -377,17 +377,6 @@ internal fun WorkoutDiaryScreen(
                         )
                     }
                 }
-                SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_menu), leadingIcon = Icons.Filled.Add, onClick = {
-                    addMenuExpanded = false
-                    workoutStartsWithVoice = false
-                    workoutTextInputVisible = true
-                })
-                SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_voice), leadingIcon = Icons.Filled.Mic, onClick = {
-                    addMenuExpanded = false
-                    workoutStartsWithVoice = true
-                    workoutVoiceVisible = true
-                })
-                HorizontalDivider(color = workoutsColors().hairline.copy(alpha = 0.45f))
                 SheetGlassDropdownMenuItem(
                     label = "Copy from day",
                     leadingIcon = Icons.Filled.ContentCopy,
@@ -404,6 +393,17 @@ internal fun WorkoutDiaryScreen(
                         pickerRequest = WorkoutPickerRequest.saved()
                     }
                 )
+                HorizontalDivider(color = workoutsColors().hairline.copy(alpha = 0.45f))
+                SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_voice), leadingIcon = Icons.Filled.Mic, onClick = {
+                    addMenuExpanded = false
+                    workoutStartsWithVoice = true
+                    workoutVoiceVisible = true
+                })
+                SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_menu), leadingIcon = Icons.Filled.Add, onClick = {
+                    addMenuExpanded = false
+                    workoutStartsWithVoice = false
+                    workoutTextInputVisible = true
+                })
             }
         }
     }

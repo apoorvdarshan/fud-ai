@@ -424,6 +424,27 @@ struct GeminiService {
         return await addingFallbackServingUnits(to: analysis, image: image)
     }
 
+    /// Extracts clearly positive/elevated sensitizations from an ISAC/ALEX-style allergy lab report image.
+    /// Returns plain common food/allergen names (not component codes). Empty if none found.
+    static func extractAllergensFromLabReport(image: UIImage) async throws -> [String] {
+        try await extractAllergensFromLabReport(images: [image])
+    }
+
+    static func extractAllergensFromLabReport(images: [UIImage]) async throws -> [String] {
+        guard !images.isEmpty else { throw AnalysisError.imageConversionFailed }
+        let prompt = """
+        This image is an allergy blood-test lab report (ISAC, ALEX, or similar multiplex IgE / component-resolved diagnostics).
+        Extract ONLY clearly positive or elevated sensitizations.
+        Map each to a plain common food or allergen name (e.g. "milk", "peanut", "egg", "wheat", "shrimp") — NOT component codes like Ara h 2, Gal d 1, or ISAC allergen codes.
+        If nothing is clearly positive/elevated, return an empty array.
+        Do not invent allergens. Do not claim anything is safe.
+        Respond ONLY with JSON:
+        {"allergens":["milk","peanut"]}
+        """
+        let text = try await callAI(prompt: prompt, images: images)
+        return try parseAllergensFromLabReport(from: text)
+    }
+
     static func suggestOptionalNutrientGoals(
         profile: UserProfile,
         currentGoals: OptionalNutrientGoals,
@@ -1312,6 +1333,29 @@ struct GeminiService {
             requiresServingUnitFallback: parsedUnitOptions.requiresFallback,
             ingredients: ingredients
         )
+    }
+
+    static func parseAllergensFromLabReport(from text: String) throws -> [String] {
+        let jsonString = extractJSON(from: text)
+        guard let data = jsonString.data(using: .utf8),
+              let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+              let raw = json["allergens"] as? [Any]
+        else { throw AnalysisError.invalidResponse }
+
+        var seen = Set<String>()
+        return raw.compactMap { item -> String? in
+            let name: String
+            if let string = item as? String {
+                name = string
+            } else if let number = item as? NSNumber {
+                name = number.stringValue
+            } else {
+                return nil
+            }
+            let trimmed = name.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !trimmed.isEmpty, seen.insert(trimmed.lowercased()).inserted else { return nil }
+            return trimmed
+        }
     }
 
     static func parseNutritionLabel(from text: String) throws -> NutritionLabelAnalysis {

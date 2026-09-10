@@ -469,6 +469,25 @@ class FoodAnalysisService(
         ).scaled(servingGrams)
     }
 
+    suspend fun extractAllergensFromLabReport(imageBytes: ByteArray): List<String> {
+        return extractAllergensFromLabReport(listOf(imageBytes))
+    }
+
+    suspend fun extractAllergensFromLabReport(imageBytesList: List<ByteArray>): List<String> {
+        val images = imageBytesList.filter { it.isNotEmpty() }
+        if (images.isEmpty()) throw AiError.InvalidResponse
+        val prompt = """
+            This image is an allergy blood-test lab report (ISAC, ALEX, or similar multiplex IgE / component-resolved diagnostics).
+            Extract ONLY clearly positive or elevated sensitizations.
+            Map each to a plain common food or allergen name (e.g. "milk", "peanut", "egg", "wheat", "shrimp") — NOT component codes like Ara h 2, Gal d 1, or ISAC allergen codes.
+            If nothing is clearly positive/elevated, return an empty array.
+            Do not invent allergens. Do not claim anything is safe.
+            Respond ONLY with JSON:
+            {"allergens":["milk","peanut"]}
+        """.trimIndent()
+        return FoodJsonParser.parseAllergensFromLabReport(callAi(prompt, images))
+    }
+
     // -- Internal dispatch ------------------------------------------------
 
     private suspend fun callAi(prompt: String, imageBytes: ByteArray?): String {

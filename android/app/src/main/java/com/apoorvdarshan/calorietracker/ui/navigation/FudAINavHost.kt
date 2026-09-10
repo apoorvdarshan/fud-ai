@@ -235,7 +235,8 @@ fun FudAINavHost(
                     AllergenSensitivitiesScreen(
                         current = settingsViewModel.ui.value.profile?.allergenSensitivities.orEmpty(),
                         onSave = { values -> settingsViewModel.updateProfile { it.copy(allergenSensitivities = values) } },
-                        onBack = { nav.popBackStack() }
+                        onBack = { nav.popBackStack() },
+                        foodAnalysis = container.foodAnalysis
                     )
                 }
                 composable(FudAIRoutes.WORKOUTS) { TabInset { WorkoutsScreen(container = container) } }

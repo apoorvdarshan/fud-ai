@@ -442,6 +442,24 @@ internal object FoodJsonParser {
         )
     }
 
+    fun parseAllergensFromLabReport(text: String): List<String> {
+        val json = runCatching { JSONObject(extractJson(text)) }.getOrNull()
+            ?: throw AiError.InvalidResponse
+        val arr = json.optJSONArray("allergens") ?: throw AiError.InvalidResponse
+        val seen = linkedSetOf<String>()
+        return buildList(arr.length()) {
+            for (i in 0 until arr.length()) {
+                val raw = when (val value = arr.opt(i)) {
+                    is String -> value.trim()
+                    is Number -> value.toString().trim()
+                    else -> continue
+                }
+                if (raw.isEmpty() || !seen.add(raw.lowercase())) continue
+                add(raw)
+            }
+        }
+    }
+
     fun parseGoalCalculation(text: String, profile: UserProfile? = null): GoalCalculation {
         val json = runCatching { Json.parseToJsonElement(extractJson(text)) as? JsonObject }
             .getOrNull() ?: throw AiError.InvalidResponse

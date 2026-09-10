@@ -20,6 +20,7 @@
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
   <a href="https://www.qodo.ai/solutions/open-source/"><img src="https://img.shields.io/badge/Code_reviews-Qodo-634FD1" alt="Code reviews by Qodo"></a>
   <a href="https://github.com/features/copilot"><img src="https://img.shields.io/badge/Code_reviews-GitHub_Copilot-181717?logo=githubcopilot" alt="Code reviews by GitHub Copilot"></a>
+  <a href="https://www.coderabbit.ai/oss"><img src="https://img.shields.io/badge/Code_reviews-CodeRabbit-FF570A" alt="Code reviews by CodeRabbit"></a>
   <a href="https://www.bestpractices.dev/projects/14553"><img src="https://www.bestpractices.dev/projects/14553/badge" alt="OpenSSF Best Practices Passing"></a>
   <a href="https://scorecard.dev/viewer/?uri=github.com/apoorvdarshan/fud-ai"><img src="https://api.scorecard.dev/projects/github.com/apoorvdarshan/fud-ai/badge" alt="OpenSSF Scorecard"></a>
   <img src="https://img.shields.io/badge/Udyam-Registered-green" alt="Udyam Registered">
@@ -415,11 +416,13 @@ Thanks to everyone who has contributed to making Fud AI better:
 
 ## Credits
 
-Automated code reviews by [Qodo](https://www.qodo.ai/solutions/open-source/), [GitHub Copilot](https://github.com/features/copilot), and [Greptile](https://www.greptile.com/).
+Automated code reviews by [Qodo](https://www.qodo.ai/solutions/open-source/), [GitHub Copilot](https://github.com/features/copilot), [Greptile](https://www.greptile.com/), and [CodeRabbit](https://www.coderabbit.ai/oss).
 
 Thanks to [Qodo](https://www.qodo.ai/solutions/open-source/) for providing free AI code reviews through its open-source program.
 
 Thanks to [Greptile](https://www.greptile.com/open-source) for providing free review credits through its open-source program.
+
+Thanks to [CodeRabbit](https://www.coderabbit.ai/oss) for providing free AI code reviews for public open-source repositories.
 
 [![Greptile: The War on Bugs](https://www.greptile.com/badge.svg)](https://www.greptile.com/?utm_source=oss_badge&utm_medium=readme&utm_campaign=greptile_for_open_source)
 

@@ -152,6 +152,7 @@ internal fun WorkoutDiaryScreen(
     var pickerRequest by remember { mutableStateOf<WorkoutPickerRequest?>(null) }
     var textSheetVisible by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     var workoutTextInputVisible by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+    var workoutStartsWithVoice by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     var workoutVoiceVisible by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     var workoutTranscript by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf("") }
     var copySheetVisible by remember { mutableStateOf(false) }
@@ -378,10 +379,12 @@ internal fun WorkoutDiaryScreen(
                 }
                 SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_menu), leadingIcon = Icons.Filled.Add, onClick = {
                     addMenuExpanded = false
+                    workoutStartsWithVoice = false
                     workoutTextInputVisible = true
                 })
                 SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_voice), leadingIcon = Icons.Filled.Mic, onClick = {
                     addMenuExpanded = false
+                    workoutStartsWithVoice = true
                     workoutVoiceVisible = true
                 })
                 HorizontalDivider(color = workoutsColors().hairline.copy(alpha = 0.45f))
@@ -418,6 +421,10 @@ internal fun WorkoutDiaryScreen(
     if (textSheetVisible) WorkoutTextSheet(
         container = container, library = exerciseRepository.exercises,
         initialDescription = workoutTranscript, analyzeOnOpen = workoutTranscript.isNotBlank(),
+        onStartOver = {
+            textSheetVisible = false; workoutTranscript = ""
+            if (workoutStartsWithVoice) workoutVoiceVisible = true else workoutTextInputVisible = true
+        },
         selectedDate = state.selectedDate, unit = state.weightUnit,
         bodyWeightKg = bodyWeightKg, rpeScale = state.preferences.rpeScale,
         onAdded = { viewModel.selectDate(it); textSheetVisible = false },

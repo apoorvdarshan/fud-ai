@@ -42,7 +42,7 @@ struct WorkoutTextDraft: Codable {
             }
             guard minutes != nil || !sets.isEmpty else { throw WorkoutTextError.invalid("Add a duration or completed sets.") }
             guard item != nil || (minutes != nil && sets.isEmpty) else {
-                throw WorkoutTextError.invalid("Which variation of \(entry.name) did you do? Add details such as seated or standing and the equipment, then try again.")
+                throw WorkoutClarification(question: "Which variation of \(entry.name) did you do? For example, seated or standing, and which equipment?")
             }
             let resolved = item ?? ExerciseLibraryItem(id: "custom_activity_\(entry.id.uuidString)", name: entry.name, category: "cardio")
             var exercise = StrengthPlannedExercise(item: resolved)
@@ -69,7 +69,7 @@ struct WorkoutTextDraft: Codable {
             throw WorkoutTextError.invalid("Could not read the workout. Please try again.")
         }
         if let question = root["question"] as? String, !question.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-            throw WorkoutTextError.invalid(question)
+            throw WorkoutClarification(question: question, options: root["options"] as? [String] ?? [])
         }
         guard let date = root["date"] as? String, let rows = root["exercises"] as? [[String: Any]] else {
             throw WorkoutTextError.invalid("Could not read the workout. Please try again.")
@@ -123,6 +123,7 @@ struct WorkoutTextDraft: Codable {
         let encoded = (try? JSONEncoder().encode(description)).flatMap { String(data: $0, encoding: .utf8) } ?? ""
         return """
         Understand the completed workout description and produce exercise-library search queries.
+        Input may contain original_workout and follow_ups; combine the original with all answers, with later corrections taking precedence.
         Correct spelling mistakes, expand abbreviations, and translate everyday names into exercise terms.
         Keep each exercise separate. Preserve equipment and seated/standing/single-leg details when stated.
         Do not invent a variant, load, or duration. Ignore reps, sets and RPE when making search queries.
@@ -150,12 +151,13 @@ struct WorkoutTextDraft: Codable {
         let catalog = matches.map { "\($0.id) | \($0.name) | equipment: \($0.rawEquipment) | muscles: \($0.primaryMuscles.joined(separator: ", "))" }.joined(separator: "\n")
         return """
         Convert the user's completed workout description into a draft for review, never a saved action.
+        Input may contain original_workout and follow_ups. Combine all answers with the original workout; retain sets, reps, weights and dates unless the user explicitly corrects them. Do not ask again for details already answered.
         Today is \(StrengthWorkoutDate.key(for: .now)). Selected diary date is \(StrengthWorkoutDate.key(for: selectedDate)). Default weight unit is \(unit.rawValue).
-        Return ONLY JSON: {"question":null,"date":"YYYY-MM-DD","exercises":[{"exercise_id":"exact catalog id or null","name":"activity name","minutes":null,"intensity":"moderate","unit":"kg","sets":[{"weight":40,"reps":10,"rpe":null}]}]}
+        Return ONLY JSON: {"question":null,"options":[],"date":"YYYY-MM-DD","exercises":[{"exercise_id":"exact catalog id or null","name":"activity name","minutes":null,"intensity":"moderate","unit":"kg","sets":[{"weight":40,"reps":10,"rpe":null}]}]}
         Resolve yesterday relative to TODAY, not the selected diary date. Without a date use the selected date.
         Use the library search results below to resolve everyday wording, spelling mistakes and synonyms to the matching exercise_id; never invent IDs. A machine calf raise may be named Standing Calf Raises or Seated Calf Raise: use equipment metadata, not only words in the title. If the user did not distinguish plausible variants, ask a short specific question (for example: seated or standing?). Never return null for an unresolved strength exercise; ask a question instead. For an unlisted timed sport such as soccer, use null, the activity name, minutes, and empty sets.
         Expand e.g. 3 sets of 10 into three sets. Convert hours/seconds to minutes. Preserve explicit kg/lbs; use the default for unspecified units.
-        Never guess missing reps, weights, duration, exercise variants, or dates. Omitted weight is null (bodyweight). If needed details are ambiguous, return a short question with empty exercises.
+        Never guess missing reps, weights, duration, exercise variants, or dates. Omitted weight is null (bodyweight). If needed details are ambiguous, return a short question with empty exercises and 2–4 short answer options when useful (e.g. Barbell, Dumbbells, Machine). Ask just one question at a time.
         Preserve explicit strength RPE (1–10) in each applicable set; unspecified RPE is null. If the user explicitly uses another RPE scale, ask for its strength 1–10 equivalent rather than silently changing it. Both means bilateral: do not double reps or sets or choose a single-leg variant.
         Timed effort is light, moderate, or vigorous. Preserve explicit effort; otherwise use moderate for the user to review.
         A timed activity requires minutes. Strength requires reps or duration. Maximum 30 exercises, 12 sets each, 1440 minutes, 999 reps, 1500 weight units. No future dates.
@@ -186,5 +188,47 @@ enum WorkoutTextError: LocalizedError {
     case invalid(String)
     var errorDescription: String? {
         switch self { case .invalid(let message): return message }
+    }
+}
+
+struct WorkoutClarification: LocalizedError {
+    let question: String
+    let options: [String]
+    var errorDescription: String? { question }
+
+    init(question: String, options: [String] = []) {
+        self.question = String(question.prefix(500))
+        var seen = Set<String>()
+        let cleaned = options.map { String($0.trimmingCharacters(in: .whitespacesAndNewlines).prefix(80)) }
+            .filter { !$0.isEmpty && seen.insert($0).inserted }
+        self.options = cleaned.isEmpty
+            ? ["Barbell", "Dumbbells", "Machine", "Seated", "Standing"].filter { question.localizedCaseInsensitiveContains($0) }.prefix(4).map { $0 }
+            : Array(cleaned.prefix(4))
+    }
+}
+
+struct WorkoutFollowUp: Codable, Equatable {
+    let question: String
+    let answer: String
+}
+
+struct WorkoutConversation: Codable {
+    let original: String
+    var turns: [WorkoutFollowUp] = []
+
+    func answering(question: String, answer: String) throws -> Self {
+        let reply = answer.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !reply.isEmpty, reply.count <= 500 else { throw WorkoutTextError.invalid("Reply in up to 500 characters.") }
+        guard turns.count < 6 else { throw WorkoutTextError.invalid("Please start over with the details gathered so far.") }
+        var result = self
+        result.turns.append(WorkoutFollowUp(question: String(question.prefix(500)), answer: reply))
+        return result
+    }
+
+    func requestDescription() throws -> String {
+        guard !turns.isEmpty else { return original }
+        let value: [String: Any] = ["original_workout": original,
+            "follow_ups": turns.map { ["question": $0.question, "answer": $0.answer] }]
+        return String(decoding: try JSONSerialization.data(withJSONObject: value), as: UTF8.self)
     }
 }

@@ -34,6 +34,7 @@ internal fun WorkoutTextSheet(
     onDismiss: () -> Unit,
     initialDescription: String = "",
     analyzeOnOpen: Boolean = false,
+    onStartOver: (() -> Unit)? = null,
     analyzeWorkout: suspend (String) -> WorkoutTextDraft = {
         container.foodAnalysis.analyzeWorkout(it, selectedDate, unit, library)
     },
@@ -42,6 +43,14 @@ internal fun WorkoutTextSheet(
     var description by rememberSaveable { mutableStateOf(initialDescription) }
     var draftJson by rememberSaveable { mutableStateOf<String?>(null) }
     val draft = remember(draftJson) { draftJson?.let { Json.decodeFromString<WorkoutTextDraft>(it) } }
+    var followUpsJson by rememberSaveable { mutableStateOf("[]") }
+    val followUps = remember(followUpsJson) { Json.decodeFromString<List<WorkoutFollowUp>>(followUpsJson) }
+    var question by rememberSaveable { mutableStateOf<String?>(null) }
+    var options by rememberSaveable { mutableStateOf(listOf<String>()) }
+    var reply by rememberSaveable { mutableStateOf("") }
+    var voiceReply by rememberSaveable { mutableStateOf(false) }
+    var requestGeneration by remember { mutableIntStateOf(0) }
+    var requestJob by remember { mutableStateOf<kotlinx.coroutines.Job?>(null) }
     var busy by remember { mutableStateOf(false) }
     var saving by remember { mutableStateOf(false) }
     var error by rememberSaveable { mutableStateOf<String?>(null) }
@@ -52,18 +61,42 @@ internal fun WorkoutTextSheet(
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true,
         confirmValueChange = { !saving })
 
-    fun update(value: WorkoutTextDraft) { draftJson = Json.encodeToString(value); error = null }
+    fun update(value: WorkoutTextDraft) { draftJson = Json.encodeToString(value); error = null; question = null }
 
-    fun analyze() {
+    fun analyze(context: String = WorkoutConversation(description.trim(), followUps).requestDescription()) {
         keyboard?.hide()
         busy = true; error = null
-        scope.launch {
+        requestGeneration++
+        val generation = requestGeneration
+        requestJob = scope.launch {
             try {
-                update(analyzeWorkout(description.trim()))
+                val result = analyzeWorkout(context)
+                if (generation == requestGeneration) update(result)
             } catch (e: CancellationException) { throw e }
-            catch (e: Exception) { error = e.localizedMessage ?: "Could not prepare the workout. Try again." }
-            finally { busy = false }
+            catch (e: WorkoutClarification) {
+                if (generation == requestGeneration) { question = e.message; options = e.options; reply = "" }
+            }
+            catch (e: Exception) {
+                if (generation == requestGeneration) error = e.localizedMessage ?: "Could not prepare the workout. Try again."
+            }
+            finally { if (generation == requestGeneration) busy = false }
         }
+    }
+    fun answer(text: String) {
+        val currentQuestion = question ?: return
+        try {
+            val conversation = WorkoutConversation(description, followUps).answering(currentQuestion, text)
+            followUpsJson = Json.encodeToString(conversation.turns)
+            question = null; options = emptyList(); reply = ""
+            analyze(conversation.requestDescription())
+        } catch (e: Exception) { error = e.localizedMessage }
+    }
+    fun startOver() {
+        requestGeneration++
+        requestJob?.cancel()
+        description = ""; followUpsJson = "[]"; question = null; options = emptyList()
+        reply = ""; draftJson = null; error = null; busy = false; voiceReply = false
+        onStartOver?.invoke()
     }
     LaunchedEffect(Unit) {
         if (analyzeOnOpen && !started && draft == null) { started = true; analyze() }
@@ -73,9 +106,27 @@ internal fun WorkoutTextSheet(
         Column(Modifier.fillMaxWidth().imePadding().verticalScroll(rememberScrollState())
             .padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(stringResource(R.string.workout_text_title), style = MaterialTheme.typography.headlineSmall)
-            if (draft == null) {
+            if (draft == null && question != null) {
+                Text(description, style = MaterialTheme.typography.bodyMedium)
+                followUps.forEach { Text(it.answer, color = MaterialTheme.colorScheme.onSurfaceVariant) }
+                Text(question.orEmpty(), style = MaterialTheme.typography.titleMedium)
+                options.chunked(2).forEach { row ->
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        row.forEach { option ->
+                            OutlinedButton(onClick = { answer(option) }, enabled = !busy, modifier = Modifier.weight(1f)) { Text(option) }
+                        }
+                    }
+                }
+                OutlinedTextField(value = reply, onValueChange = { reply = it.take(500) },
+                    label = { Text("Your answer") }, enabled = !busy, modifier = Modifier.fillMaxWidth())
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedButton(onClick = { voiceReply = true }, enabled = !busy) { Text("Voice reply") }
+                    Button(onClick = { answer(reply) }, enabled = !busy && reply.isNotBlank()) { Text("Continue") }
+                }
+            } else if (draft == null) {
+                if (followUps.isNotEmpty()) Text(followUps.joinToString(" · ") { it.answer }, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text(stringResource(R.string.workout_text_intro))
-                OutlinedTextField(value = description, onValueChange = { description = it.take(4000); error = null },
+                OutlinedTextField(value = description, onValueChange = { description = it.take(4000); error = null; followUpsJson = "[]"; question = null },
                     enabled = !busy, modifier = Modifier.fillMaxWidth(), minLines = 2,
                     label = { Text(stringResource(R.string.workout_text_description)) },
                     placeholder = { Text(stringResource(R.string.workout_text_example)) })
@@ -170,7 +221,12 @@ internal fun WorkoutTextSheet(
                     }, enabled = !saving && draft.exercises.isNotEmpty()) { Text(stringResource(if (saving) R.string.workout_text_adding else R.string.workout_text_add)) }
                 }
             }
+            TextButton(onClick = { startOver() }, enabled = !saving) { Text("Start over") }
             error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
         }
     }
+    if (voiceReply) com.apoorvdarshan.calorietracker.ui.home.VoiceInputSheet(
+        container = container, onDismiss = { voiceReply = false },
+        onSubmit = { voiceReply = false; answer(it) }
+    )
 }

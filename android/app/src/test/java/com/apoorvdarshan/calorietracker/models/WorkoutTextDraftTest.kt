@@ -3,6 +3,7 @@ package com.apoorvdarshan.calorietracker.models
 import com.apoorvdarshan.calorietracker.data.ExerciseItem
 import org.junit.Assert.*
 import org.junit.Test
+import kotlinx.serialization.json.*
 import java.time.LocalDate
 
 class WorkoutTextDraftTest {
@@ -10,6 +11,28 @@ class WorkoutTextDraftTest {
     private val library = listOf(bench)
     private val today = LocalDate.of(2026, 9, 10)
     private val json = """{"date":"2026-09-09","exercises":[{"exercise_id":"Bench","name":"invented display name","minutes":null,"unit":"lbs","sets":[{"weight":40.5,"reps":10},{"weight":null,"reps":8}]},{"exercise_id":null,"name":"Soccer","minutes":180,"unit":"kg","sets":[]}]}"""
+
+    @Test fun clarificationCarriesChoicesAndNeverCreatesADraft() {
+        val error = runCatching { WorkoutTextDraft.parse(
+            """{"question":"Which equipment?","options":["Barbell","Dumbbells","Machine","Barbell"],"exercises":[]}""", library, today)
+        }.exceptionOrNull() as WorkoutClarification
+        assertEquals(listOf("Barbell", "Dumbbells", "Machine"), error.options)
+        assertEquals("Which equipment?", error.message)
+    }
+
+    @Test fun conversationPreservesOriginalAndAllRepliesAcrossRetries() {
+        val original = "Bench press, 2 sets of 10"
+        val first = WorkoutConversation(original).answering("Equipment?", "Dumbbells")
+        val second = first.answering("Weight?", "20 kg")
+        assertEquals(original, second.original)
+        assertEquals(listOf("Dumbbells", "20 kg"), second.turns.map { it.answer })
+        val context = kotlinx.serialization.json.Json.parseToJsonElement(second.requestDescription()).jsonObject
+        assertEquals(original, context.getValue("original_workout").jsonPrimitive.content)
+        assertEquals(2, context.getValue("follow_ups").jsonArray.size)
+        assertEquals(original, WorkoutConversation(original).requestDescription())
+        assertTrue(runCatching { first.answering("Weight?", " ") }.isFailure)
+        assertTrue(runCatching { first.answering("Weight?", "x".repeat(501)) }.isFailure)
+    }
 
     @Test fun searchUsesAIQueriesAndEquipmentMetadata() {
         val calf = bench.copy(id = "Standing_Calf_Raises", name = "Standing Calf Raises", equipment = "machine")

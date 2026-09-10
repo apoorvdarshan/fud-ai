@@ -8,6 +8,30 @@ struct WorkoutTextDraftTests {
     private let json = #"{"date":"2026-09-09","exercises":[{"exercise_id":"Bench","name":"invented display name","minutes":null,"unit":"lbs","sets":[{"weight":40.5,"reps":10},{"weight":null,"reps":8}]},{"exercise_id":null,"name":"Soccer","minutes":180,"unit":"kg","sets":[]}]}"#
     private var today: Date { StrengthWorkoutDate.date(for: "2026-09-10")! }
 
+    @Test func clarificationCarriesChoicesAndNeverCreatesADraft() throws {
+        do {
+            _ = try WorkoutTextDraft.parse(#"{"question":"Which equipment?","options":["Barbell","Dumbbells","Machine","Barbell"],"exercises":[]}"#, library: library, today: today)
+            Issue.record("Expected a clarification")
+        } catch let question as WorkoutClarification {
+            #expect(question.question == "Which equipment?")
+            #expect(question.options == ["Barbell", "Dumbbells", "Machine"])
+        }
+    }
+
+    @Test func conversationPreservesOriginalAndReplies() throws {
+        let original = "Bench press, 2 sets of 10"
+        let first = try WorkoutConversation(original: original).answering(question: "Equipment?", answer: "Dumbbells")
+        let second = try first.answering(question: "Weight?", answer: "20 kg")
+        #expect(second.original == original)
+        #expect(second.turns.map(\.answer) == ["Dumbbells", "20 kg"])
+        let context = try JSONSerialization.jsonObject(with: Data(second.requestDescription().utf8)) as! [String: Any]
+        #expect(context["original_workout"] as? String == original)
+        #expect((context["follow_ups"] as? [[String: String]])?.count == 2)
+        #expect(try WorkoutConversation(original: original).requestDescription() == original)
+        #expect(throws: (any Error).self) { try first.answering(question: "Weight?", answer: " ") }
+        #expect(throws: (any Error).self) { try first.answering(question: "Weight?", answer: String(repeating: "x", count: 501)) }
+    }
+
     @Test func searchUsesAIQueriesAndEquipmentMetadata() {
         let calf = ExerciseLibraryItem(id: "Standing_Calf_Raises", name: "Standing Calf Raises", rawEquipment: "machine")
         let queries = WorkoutTextDraft.searchQueries(#"{"queries":["calf raise machine"]}"#, fallback: "calf raise machien")

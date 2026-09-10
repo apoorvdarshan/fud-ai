@@ -10,6 +10,11 @@ struct WorkoutTextView: View {
     var startsWithVoice = false
     @State private var description = ""
     @State private var draft: WorkoutTextDraft?
+    @State private var followUps: [WorkoutFollowUp] = []
+    @State private var clarification: WorkoutClarification?
+    @State private var reply = ""
+    @State private var voiceReply = false
+    @State private var requestID = UUID()
     @FocusState private var inputFocused: Bool
     @State private var busy = false
     @State private var error: String?
@@ -18,7 +23,12 @@ struct WorkoutTextView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            if draft == nil && !busy && error == nil && description.isEmpty {
+            if voiceReply {
+                VoiceInputView(onCancel: { voiceReply = false }, onSubmit: { text in
+                    voiceReply = false
+                    answer(text)
+                })
+            } else if draft == nil && !busy && error == nil && description.isEmpty {
                 if startsWithVoice {
                     VoiceInputView(onCancel: { dismiss() }, onSubmit: submit)
                 } else {
@@ -54,12 +64,18 @@ struct WorkoutTextView: View {
                         Text("Calories are estimates. Use Calculate in the diary after adding your workout.")
                             .font(.footnote).foregroundStyle(.secondary)
                         HStack {
-                            Button("Edit description") { draft = nil; error = nil }
+                            Button("Edit description") { draft = nil; error = nil; clarification = nil }
                                 .buttonStyle(.bordered)
                             Button("Add to diary", action: save).buttonStyle(.borderedProminent)
                                 .disabled(binding.wrappedValue.exercises.isEmpty)
                         }
+                    } else if let clarification {
+                        followUpContent(clarification)
                     } else {
+                        if !followUps.isEmpty {
+                            Text(followUps.map { $0.answer }.joined(separator: " · "))
+                                .font(.subheadline).foregroundStyle(.secondary)
+                        }
                         Text("Describe what you did. Review the details before adding them to your workout diary.")
                         TextField("20 minutes of rope skipping, then 3 sets of 10 bench presses at 40 kg",
                                   text: $description, axis: .vertical)
@@ -71,9 +87,11 @@ struct WorkoutTextView: View {
                             .onChange(of: description) { _, value in
                                 if value.count > 4000 { description = String(value.prefix(4000)) }
                                 error = nil
+                                followUps = []
+                                clarification = nil
                             }
                         Button(action: analyze) {
-                            Text(busy ? "Finding exercises…" : "Analyze")
+                            Text(busy ? "Finding exercises…" : (error == nil ? "Analyze" : "Retry"))
                                 .font(.headline).frame(maxWidth: .infinity)
                         }
                         .buttonStyle(.borderedProminent).controlSize(.large)
@@ -88,22 +106,89 @@ struct WorkoutTextView: View {
             }
             .navigationTitle(draft == nil ? (startsWithVoice ? "Voice workout" : "Describe workout") : "Review workout")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Close") { dismiss() } } }
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) { Button("Close") { dismiss() } }
+                ToolbarItem(placement: .primaryAction) { Button("Start over", action: startOver) }
+            }
         }
+    }
+
+    @ViewBuilder
+    private func followUpContent(_ question: WorkoutClarification) -> some View {
+        Text(description).font(.subheadline).foregroundStyle(.secondary)
+        ForEach(followUps.indices, id: \.self) { index in
+            Text(followUps[index].answer).font(.subheadline).foregroundStyle(.secondary)
+        }
+        Text(question.question).font(.headline)
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
+            ForEach(question.options, id: \.self) { option in
+                Button(option) { answer(option) }.buttonStyle(.bordered)
+            }
+        }
+        TextField("Your answer", text: $reply, axis: .vertical)
+            .lineLimit(1...3).textFieldStyle(.roundedBorder)
+            .accessibilityLabel("Your answer")
+            .onChange(of: reply) { _, value in
+                if value.count > 500 { reply = String(value.prefix(500)) }
+            }
+        HStack {
+            Button("Voice reply", systemImage: "mic") { voiceReply = true }.buttonStyle(.bordered)
+            Button("Continue") { answer(reply) }.buttonStyle(.borderedProminent)
+                .disabled(reply.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+        }
+    }
+
+    private func answer(_ text: String) {
+        guard let clarification else { return }
+        do {
+            let conversation = try WorkoutConversation(original: description, turns: followUps)
+                .answering(question: clarification.question, answer: text)
+            followUps = conversation.turns
+            self.clarification = nil
+            reply = ""
+            analyze()
+        } catch { self.error = error.localizedDescription }
+    }
+
+    private func startOver() {
+        requestID = UUID()
+        request?.cancel()
+        request = nil
+        description = ""
+        followUps = []
+        clarification = nil
+        reply = ""
+        draft = nil
+        error = nil
+        busy = false
+        voiceReply = false
     }
 
     private func analyze() {
         inputFocused = false
         busy = true; error = nil
+        let id = UUID()
+        requestID = id
         request = Task { @MainActor in
-            defer { busy = false }
+            defer { if requestID == id { busy = false } }
             do {
-                let result = try await GeminiService.analyzeWorkout(description: description, date: selectedDate,
+                let context = try WorkoutConversation(original: description, turns: followUps).requestDescription()
+                let result = try await GeminiService.analyzeWorkout(description: context, date: selectedDate,
                                                                      unit: unit, library: library)
                 try Task.checkCancellation()
+                guard requestID == id else { return }
+                clarification = nil
                 draft = result
             } catch is CancellationError { }
-            catch { self.error = error.localizedDescription }
+            catch let question as WorkoutClarification {
+                guard requestID == id, !Task.isCancelled else { return }
+                clarification = question
+                reply = ""
+            }
+            catch {
+                guard requestID == id, !Task.isCancelled else { return }
+                self.error = error.localizedDescription
+            }
         }
     }
 

@@ -10,6 +10,7 @@ import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import java.time.LocalDate
+import kotlinx.serialization.json.*
 
 /** Fake inference, real UI: no provider calls and no changes to the user's diary. */
 class WorkoutTextSheetTest {
@@ -58,11 +59,80 @@ class WorkoutTextSheetTest {
         compose.runOnIdle { assertEquals(1, calls) }
     }
 
+    @Test fun choiceAndTypedReplyPreserveOriginalAndContinueToPreview() {
+        val bench = com.apoorvdarshan.calorietracker.data.ExerciseItem("Bench", "Bench press", "", emptyList(), "", "", "strength", "barbell", emptyList(), emptyList(), emptyList())
+        val requests = mutableListOf<String>()
+        val original = "Bench press, 2 sets of 10"
+        compose.setContent {
+            MaterialTheme {
+                WorkoutTextSheet(container, listOf(bench), LocalDate.now(), WorkoutWeightUnit.KG, 70.0, WorkoutRpeScale.STRENGTH,
+                    onAdded = {}, onDismiss = {}, initialDescription = original, analyzeOnOpen = true,
+                    analyzeWorkout = {
+                        requests.add(it)
+                        when (requests.size) {
+                            1 -> throw WorkoutClarification("Which equipment?", listOf("Barbell", "Dumbbells", "Machine"))
+                            2 -> throw WorkoutClarification("What weight?")
+                            else -> WorkoutTextDraft(LocalDate.now().toString(), listOf(WorkoutTextExercise(exerciseId = "Bench", name = "Bench press", sets = List(2) { WorkoutTextSet(weight = "40", reps = "10") })))
+                        }
+                    }, saveWorkout = { error("Must wait for Add") })
+            }
+        }
+        compose.waitUntil(5000) { requests.size == 1 }
+        compose.onNodeWithText(original).assertExists()
+        compose.onNodeWithText("Barbell").performScrollTo().performClick()
+        compose.waitUntil(5000) { requests.size == 2 }
+        compose.onNodeWithText("Your answer").performScrollTo().performTextInput("40 kg")
+        compose.onNodeWithText("Continue").performScrollTo().performClick()
+        compose.waitUntil(5000) { requests.size == 3 }
+        compose.onNodeWithText("Review workout").assertExists()
+        val context = kotlinx.serialization.json.Json.parseToJsonElement(requests.last()).jsonObject
+        assertEquals(original, context.getValue("original_workout").jsonPrimitive.content)
+        val replies = context.getValue("follow_ups").jsonArray.map { it.jsonObject.getValue("answer").jsonPrimitive.content }
+        assertEquals(listOf("Barbell", "40 kg"), replies)
+    }
+
+    @Test fun networkRetryKeepsTheAnswerWithoutDuplicatingIt() {
+        val requests = mutableListOf<String>()
+        compose.setContent {
+            MaterialTheme {
+                WorkoutTextSheet(container, emptyList(), LocalDate.now(), WorkoutWeightUnit.KG, 70.0, WorkoutRpeScale.STRENGTH,
+                    onAdded = {}, onDismiss = {}, initialDescription = "Bench press, 2 sets of 10", analyzeOnOpen = true,
+                    analyzeWorkout = {
+                        requests.add(it)
+                        if (requests.size == 1) throw WorkoutClarification("Which equipment?", listOf("Barbell"))
+                        error("Network unavailable")
+                    }, saveWorkout = { error("Must not save") })
+            }
+        }
+        compose.onNodeWithText("Barbell").performScrollTo().performClick()
+        compose.waitUntil(5000) { requests.size == 2 }
+        compose.onNodeWithText("Network unavailable").performScrollTo().assertExists()
+        compose.onNodeWithText("Analyze").performScrollTo().performClick()
+        compose.waitUntil(5000) { requests.size == 3 }
+        assertEquals(requests[1], requests[2])
+    }
+
+    @Test fun startOverClearsQuestionAndOriginalWithoutSaving() {
+        compose.setContent {
+            MaterialTheme {
+                WorkoutTextSheet(container, emptyList(), LocalDate.now(), WorkoutWeightUnit.KG, 70.0, WorkoutRpeScale.STRENGTH,
+                    onAdded = {}, onDismiss = {}, initialDescription = "Bench press, 2 sets of 10", analyzeOnOpen = true,
+                    analyzeWorkout = { throw WorkoutClarification("Which equipment?", listOf("Barbell")) },
+                    saveWorkout = { error("Must not save") })
+            }
+        }
+        compose.onNodeWithText("Which equipment?").assertExists()
+        compose.onNodeWithText("Start over").performScrollTo().performClick()
+        compose.onNodeWithText("Which equipment?").assertDoesNotExist()
+        compose.onNodeWithText("Bench press, 2 sets of 10").assertDoesNotExist()
+        compose.onNodeWithText("Analyze").assertIsNotEnabled()
+    }
+
     @Test fun clarificationKeepsDescriptionAndDoesNotSave() {
         compose.setContent {
             MaterialTheme {
                 WorkoutTextSheet(container, emptyList(), LocalDate.now(), WorkoutWeightUnit.KG, 70.0, WorkoutRpeScale.STRENGTH,
-                    onAdded = {}, onDismiss = {}, analyzeWorkout = { error("How many minutes?") },
+                    onAdded = {}, onDismiss = {}, analyzeWorkout = { throw WorkoutClarification("How many minutes?") },
                     saveWorkout = { error("Must not save") })
             }
         }

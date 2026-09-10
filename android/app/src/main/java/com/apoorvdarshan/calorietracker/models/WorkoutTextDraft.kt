@@ -60,7 +60,8 @@ data class WorkoutTextDraft(val date: String, val exercises: List<WorkoutTextExe
             require(start >= 0 && end >= start) { "Could not read the workout. Please try again." }
             val root = Json.parseToJsonElement(response.substring(start, end + 1)).jsonObject
             val question = root["question"]?.jsonPrimitive?.contentOrNull
-            require(question.isNullOrBlank()) { question.orEmpty() }
+            if (!question.isNullOrBlank()) throw WorkoutClarification(question,
+                (root["options"] as? JsonArray)?.mapNotNull { (it as? JsonPrimitive)?.contentOrNull }.orEmpty())
             val entries = root.getValue("exercises").jsonArray
             val draft = WorkoutTextDraft(root.getValue("date").jsonPrimitive.content, entries.map { value ->
                 val obj = value.jsonObject
@@ -97,6 +98,7 @@ data class WorkoutTextDraft(val date: String, val exercises: List<WorkoutTextExe
 
         fun searchPrompt(description: String): String = """
             Understand the completed workout description and produce exercise-library search queries.
+            Input may contain original_workout and follow_ups; combine the original with all answers, with later corrections taking precedence.
             Correct spelling mistakes, expand abbreviations, and translate everyday names into exercise terms.
             Keep each exercise separate. Preserve equipment and seated/standing/single-leg details when stated.
             Do not invent a variant, load, or duration. Ignore reps, sets and RPE when making search queries.
@@ -120,12 +122,13 @@ data class WorkoutTextDraft(val date: String, val exercises: List<WorkoutTextExe
 
         fun prompt(description: String, selectedDate: LocalDate, unit: WorkoutWeightUnit, library: List<ExerciseItem>, searchQueries: List<String> = listOf(description)): String = """
             Convert the user's completed workout description into a draft for review, never a saved action.
+            Input may contain original_workout and follow_ups. Combine all answers with the original workout; retain sets, reps, weights and dates unless the user explicitly corrects them. Do not ask again for details already answered.
             Today is ${LocalDate.now()}. Selected diary date is $selectedDate. Default weight unit is ${unit.storageValue}.
-            Return ONLY JSON: {"question":null,"date":"YYYY-MM-DD","exercises":[{"exercise_id":"exact catalog id or null","name":"activity name","minutes":null,"intensity":"moderate","unit":"kg","sets":[{"weight":40,"reps":10,"rpe":null}]}]}
+            Return ONLY JSON: {"question":null,"options":[],"date":"YYYY-MM-DD","exercises":[{"exercise_id":"exact catalog id or null","name":"activity name","minutes":null,"intensity":"moderate","unit":"kg","sets":[{"weight":40,"reps":10,"rpe":null}]}]}
             Resolve yesterday relative to TODAY, not the selected diary date. Without a date use the selected date.
             Use the library search results below to resolve everyday wording, spelling mistakes and synonyms to the matching exercise_id; never invent IDs. A machine calf raise may be named Standing Calf Raises or Seated Calf Raise: use equipment metadata, not only words in the title. If the user did not distinguish plausible variants, ask a short specific question (for example: seated or standing?). Never return null for an unresolved strength exercise; ask a question instead. For an unlisted timed sport such as soccer, use null, the activity name, minutes, and empty sets.
             Expand e.g. 3 sets of 10 into three sets. Convert hours/seconds to minutes. Preserve explicit kg/lbs; use the default for unspecified units.
-            Never guess missing reps, weights, duration, exercise variants, or dates. Omitted weight is null (bodyweight). If needed details are ambiguous, return a short question with empty exercises.
+            Never guess missing reps, weights, duration, exercise variants, or dates. Omitted weight is null (bodyweight). If needed details are ambiguous, return a short question with empty exercises and 2–4 short answer options when useful (e.g. Barbell, Dumbbells, Machine). Ask just one question at a time.
             Preserve explicit strength RPE (1–10) in each applicable set; unspecified RPE is null. If the user explicitly uses another RPE scale, ask for its strength 1–10 equivalent rather than silently changing it. Both means bilateral: do not double reps or sets or choose a single-leg variant.
             Timed effort is light, moderate, or vigorous. Preserve explicit effort; otherwise use moderate for the user to review.
             A timed activity requires minutes. Strength requires reps or duration. Maximum 30 exercises, 12 sets each, 1440 minutes, 999 reps, 1500 weight units. No future dates.
@@ -144,3 +147,28 @@ data class WorkoutTextExercise(
 )
 @Serializable
 data class WorkoutTextSet(val id: String = UUID.randomUUID().toString(), val weight: String = "", val reps: String = "", val rpe: String = "")
+
+/** Clarification is a conversation turn, not a failed request. */
+class WorkoutClarification(question: String, options: List<String> = emptyList()) : IllegalArgumentException(question.take(500)) {
+    val options: List<String> = options.map { it.trim().take(80) }.filter { it.isNotBlank() }.distinct().take(4)
+        .ifEmpty { listOf("Barbell", "Dumbbells", "Machine", "Seated", "Standing")
+            .filter { question.contains(it, ignoreCase = true) }.take(4) }
+}
+
+@Serializable
+data class WorkoutFollowUp(val question: String, val answer: String)
+
+@Serializable
+data class WorkoutConversation(val original: String, val turns: List<WorkoutFollowUp> = emptyList()) {
+    fun answering(question: String, answer: String): WorkoutConversation {
+        require(answer.isNotBlank() && answer.length <= 500) { "Reply in up to 500 characters." }
+        require(turns.size < 6) { "Please start over with the details gathered so far." }
+        return copy(turns = turns + WorkoutFollowUp(question.take(500), answer.trim()))
+    }
+    fun requestDescription(): String = if (turns.isEmpty()) original else buildJsonObject {
+        put("original_workout", original)
+        putJsonArray("follow_ups") { turns.forEach { turn -> add(buildJsonObject {
+            put("question", turn.question); put("answer", turn.answer)
+        }) } }
+    }.toString()
+}

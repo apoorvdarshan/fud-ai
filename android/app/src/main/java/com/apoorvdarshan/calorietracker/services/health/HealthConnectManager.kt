@@ -2,6 +2,7 @@ package com.apoorvdarshan.calorietracker.services.health
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.UserManager
 import androidx.health.connect.client.HealthConnectFeatures
@@ -67,6 +68,15 @@ internal fun resolveHealthConnectAvailability(
     else -> HealthConnectAvailability.UNAVAILABLE
 }
 
+internal fun resolveHealthConnectAvailabilityFromSdkStatus(
+    isProfile: Boolean,
+    sdkStatus: Int
+): HealthConnectAvailability = resolveHealthConnectAvailability(
+    isProfile = isProfile,
+    sdkAvailable = sdkStatus == HealthConnectClient.SDK_AVAILABLE,
+    providerUpdateRequired = sdkStatus == HealthConnectClient.SDK_UNAVAILABLE_PROVIDER_UPDATE_REQUIRED
+)
+
 class HealthConnectManager(
     private val context: Context,
     private val scheduleRetries: Boolean = true
@@ -99,13 +109,13 @@ class HealthConnectManager(
             runCatching {
                 (context.getSystemService(Context.USER_SERVICE) as? UserManager)?.isProfile == true
             }.getOrDefault(false)
-        val sdkStatus = HealthConnectClient.getSdkStatus(context)
-        return resolveHealthConnectAvailability(
-            isProfile = isProfile,
-            sdkAvailable = sdkStatus == HealthConnectClient.SDK_AVAILABLE,
-            providerUpdateRequired =
-                sdkStatus == HealthConnectClient.SDK_UNAVAILABLE_PROVIDER_UPDATE_REQUIRED
+        val sdkStatus = HealthConnectClient.getSdkStatus(context, HEALTH_CONNECT_PROVIDER_PACKAGE)
+        val resolved = resolveHealthConnectAvailabilityFromSdkStatus(isProfile, sdkStatus)
+        android.util.Log.i(
+            "FudAIHealth",
+            "Health Connect availability: sdkStatus=$sdkStatus isProfile=$isProfile resolved=$resolved"
         )
+        return resolved
     }
 
     fun isAvailable(): Boolean = availability() == HealthConnectAvailability.AVAILABLE
@@ -207,6 +217,19 @@ class HealthConnectManager(
         } else {
             generic
         }).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    }
+
+    /** Play Store deep link for installing or updating the Health Connect provider. */
+    fun providerPlayStoreIntent(): Intent {
+        val marketUri = Uri.parse(
+            "market://details?id=$HEALTH_CONNECT_PROVIDER_PACKAGE&url=healthconnect%3A%2F%2Fonboarding"
+        )
+        return Intent(Intent.ACTION_VIEW, marketUri).apply {
+            setPackage("com.android.vending")
+            putExtra("overlay", true)
+            putExtra("callerId", context.packageName)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
     }
 
     // -- Weight -----------------------------------------------------------
@@ -772,6 +795,7 @@ class HealthConnectManager(
 
         private const val ACTION_MANAGE_HEALTH_PERMISSIONS =
             "android.health.connect.action.MANAGE_HEALTH_PERMISSIONS"
+        internal const val HEALTH_CONNECT_PROVIDER_PACKAGE = "com.google.android.apps.healthdata"
         private const val CLIENT_PREFIX = "fudai_"
         private const val WORKOUT_BURN_CLIENT_PREFIX = "fudai_workout_burn|"
         private const val WORKOUT_BURN_SEPARATOR = '|'

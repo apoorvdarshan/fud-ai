@@ -304,6 +304,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     var showRebalanceBlockedAlert by remember { mutableStateOf(false) }
     var showAdaptiveLockHint by remember { mutableStateOf(false) }
     var permissionDeniedMessage by remember { mutableStateOf<String?>(null) }
+    var permissionDeniedHealthAvailability by remember { mutableStateOf<HealthConnectAvailability?>(null) }
     var showHealthPermissionHelp by remember { mutableStateOf(false) }
     var showDefaultGramsInfo by remember { mutableStateOf(false) }
     var showHealthEnergyGoalsInfo by remember { mutableStateOf(false) }
@@ -399,19 +400,33 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     val healthUnavailableMsg = stringResource(R.string.settings_health_unavailable)
     val healthProfileUnsupportedMsg = stringResource(R.string.settings_health_profile_unsupported)
     val healthSystemUnavailableMsg = stringResource(R.string.settings_health_system_unavailable)
+    val healthOpenSettingsFailedMsg = stringResource(R.string.settings_health_open_settings_failed)
 
-    fun healthAvailabilityMessage(): String = when (container.health.availability()) {
+    fun healthAvailabilityMessage(availability: HealthConnectAvailability): String = when (availability) {
         HealthConnectAvailability.PROFILE_UNSUPPORTED -> healthProfileUnsupportedMsg
         HealthConnectAvailability.PROVIDER_UPDATE_REQUIRED -> healthUnavailableMsg
-        HealthConnectAvailability.UNAVAILABLE,
-        HealthConnectAvailability.AVAILABLE -> healthSystemUnavailableMsg
+        HealthConnectAvailability.UNAVAILABLE -> healthSystemUnavailableMsg
+        HealthConnectAvailability.AVAILABLE -> healthOpenSettingsFailedMsg
+    }
+
+    fun showHealthAvailabilityAlert(availability: HealthConnectAvailability = container.health.availability()) {
+        permissionDeniedHealthAvailability = availability
+        permissionDeniedMessage = healthAvailabilityMessage(availability)
+    }
+
+    fun clearPermissionAlert() {
+        permissionDeniedMessage = null
+        permissionDeniedHealthAvailability = null
     }
 
     val notificationLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
     ) { granted ->
         if (granted) vm.setNotificationsEnabled(true)
-        else permissionDeniedMessage = notifDeniedMsg
+        else {
+            permissionDeniedHealthAvailability = null
+            permissionDeniedMessage = notifDeniedMsg
+        }
     }
 
     // Health Connect honors partial grants: any granted permission connects the app, and
@@ -435,7 +450,12 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
 
     fun openHealthConnectAccess() {
         runCatching { activityContext.startActivity(container.health.manageAccessIntent()) }
-            .onFailure { permissionDeniedMessage = healthAvailabilityMessage() }
+            .onFailure { showHealthAvailabilityAlert(HealthConnectAvailability.AVAILABLE) }
+    }
+
+    fun openHealthConnectPlayStore() {
+        runCatching { activityContext.startActivity(container.health.providerPlayStoreIntent()) }
+            .onFailure { showHealthAvailabilityAlert(HealthConnectAvailability.UNAVAILABLE) }
     }
 
     fun onNotificationsToggle(enabled: Boolean) {
@@ -476,7 +496,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
             return
         }
         if (!container.health.isAvailable()) {
-            permissionDeniedMessage = healthAvailabilityMessage()
+            showHealthAvailabilityAlert()
             return
         }
         // Don't pre-check granted state — Health Connect's contract handles the
@@ -494,7 +514,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
             return
         }
         if (!container.health.isAvailable()) {
-            permissionDeniedMessage = healthAvailabilityMessage()
+            showHealthAvailabilityAlert()
             return
         }
         pendingHealthPermissionAction = HealthConnectPermissionAction.ENERGY_GOALS
@@ -1743,13 +1763,40 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     }
 
     permissionDeniedMessage?.let { msg ->
-        FudGlassDialog(onDismissRequest = { permissionDeniedMessage = null }) {
+        val healthAvailability = permissionDeniedHealthAvailability
+        FudGlassDialog(onDismissRequest = { clearPermissionAlert() }) {
             Text(stringResource(R.string.settings_permission_title), fontSize = 21.sp, fontWeight = FontWeight.Bold)
             Text(msg, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f))
-            FudGlassDialogActions(
-                primaryText = stringResource(R.string.action_ok),
-                onPrimary = { permissionDeniedMessage = null }
-            )
+            when (healthAvailability) {
+                HealthConnectAvailability.PROVIDER_UPDATE_REQUIRED -> {
+                    FudGlassDialogActions(
+                        primaryText = stringResource(R.string.settings_health_open_play_store),
+                        onPrimary = {
+                            clearPermissionAlert()
+                            openHealthConnectPlayStore()
+                        },
+                        dismissText = stringResource(R.string.action_cancel),
+                        onDismiss = { clearPermissionAlert() }
+                    )
+                }
+                HealthConnectAvailability.AVAILABLE -> {
+                    FudGlassDialogActions(
+                        primaryText = stringResource(R.string.settings_manage_health_access),
+                        onPrimary = {
+                            clearPermissionAlert()
+                            openHealthConnectAccess()
+                        },
+                        dismissText = stringResource(R.string.action_cancel),
+                        onDismiss = { clearPermissionAlert() }
+                    )
+                }
+                else -> {
+                    FudGlassDialogActions(
+                        primaryText = stringResource(R.string.action_ok),
+                        onPrimary = { clearPermissionAlert() }
+                    )
+                }
+            }
         }
     }
 

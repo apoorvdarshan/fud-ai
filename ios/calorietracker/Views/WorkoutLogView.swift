@@ -2046,6 +2046,11 @@ private struct WorkoutLogCopyDay: Identifiable {
 }
 
 private struct WorkoutLogCopySheet: View {
+    private static let copyModes: [(includeSetDetails: Bool, title: String, subtitle: String)] = [
+        (false, "Without set details", "Exercise names only, with blank sets"),
+        (true, "With set details", "Sets, weights, reps, RPE, units, and timers"),
+    ]
+
     let days: [WorkoutLogCopyDay]
     let targetTitle: String
     let onCopy: (Date, Bool) -> Void
@@ -2055,17 +2060,22 @@ private struct WorkoutLogCopySheet: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Copy options") {
-                    Picker("What to copy", selection: $includeSetDetails) {
-                        Text("Exercises only").tag(false)
-                        Text("Exercises + set details").tag(true)
+                Section {
+                    ForEach(Self.copyModes, id: \.includeSetDetails) { mode in
+                        Button {
+                            includeSetDetails = mode.includeSetDetails
+                        } label: {
+                            WorkoutCopyModeLabel(
+                                title: mode.title,
+                                subtitle: mode.subtitle,
+                                selected: includeSetDetails == mode.includeSetDetails
+                            )
+                        }
+                        .buttonStyle(.plain)
+                        .listRowBackground(Color.workoutPanel.opacity(0.24))
                     }
-                    .pickerStyle(.segmented)
-                    Text(includeSetDetails
-                         ? "Copies set count, weights, reps, RPE, units, and saved timers."
-                         : "Adds exercises with blank sets, as before.")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                } header: {
+                    Text("What to copy")
                 }
                 if days.isEmpty {
                     ContentUnavailableView("No previous workouts", systemImage: "calendar.badge.exclamationmark")
@@ -2097,6 +2107,30 @@ private struct WorkoutLogCopySheet: View {
                 }
             }
         }
+    }
+}
+
+private struct WorkoutCopyModeLabel: View {
+    let title: String
+    let subtitle: String
+    let selected: Bool
+
+    var body: some View {
+        HStack(spacing: 12) {
+            Image(systemName: selected ? "checkmark.circle.fill" : "circle")
+                .font(.title3.weight(.semibold))
+                .foregroundStyle(selected ? Color.workoutAccent : Color.workoutMutedText)
+            VStack(alignment: .leading, spacing: 3) {
+                Text(title)
+                    .font(.headline.weight(.semibold))
+                    .foregroundStyle(Color.workoutCharcoal)
+                Text(subtitle)
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(Color.workoutMutedText)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(.vertical, 4)
     }
 }
 

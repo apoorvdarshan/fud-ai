@@ -8,19 +8,25 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.gestures.rememberScrollableState
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.scrollableArea
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -46,7 +52,6 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material.icons.filled.Tag
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -58,6 +63,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -66,13 +72,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.data.ExerciseItem
@@ -87,6 +97,8 @@ import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import kotlin.math.abs
+import kotlin.math.roundToInt
 
 internal enum class WorkoutPickerSource {
     DATASET,
@@ -385,55 +397,62 @@ internal fun WorkoutPickerSheet(
                         }
                     } else {
                         items(items.take(120), key = { it.id }) { item ->
-                            ExerciseRow(
-                                item = item,
-                                visual = repository.visualFor(item, visualGender),
-                                onClick = { onToggleExercise(item) },
-                                trailingContent = {
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        horizontalArrangement = Arrangement.spacedBy(2.dp)
-                                    ) {
-                                        IconButton(onClick = { onToggleSaved(item.id) }, modifier = Modifier.size(36.dp)) {
-                                            Icon(
-                                                if (item.id in savedExerciseIds) Icons.Filled.Bookmark else Icons.Filled.BookmarkBorder,
-                                                contentDescription = if (item.id in savedExerciseIds) "Unsave exercise" else "Save exercise",
-                                                tint = if (item.id in savedExerciseIds) AppColors.Calorie else workoutsColors().mutedText,
-                                                modifier = Modifier.size(20.dp)
-                                            )
-                                        }
-                                        Box(
-                                            modifier = Modifier
-                                                .size(34.dp)
-                                                .clip(CircleShape)
-                                                .background(
-                                                    if (item.id in selectedExerciseIds) AppColors.Calorie
-                                                    else workoutsColors().panel.copy(alpha = 0.52f)
+                            val isSaved = item.id in savedExerciseIds
+                            SwipeablePickerBookmarkRow(
+                                itemId = item.id,
+                                isSaved = isSaved,
+                                onToggleSaved = { onToggleSaved(item.id) }
+                            ) {
+                                ExerciseRow(
+                                    item = item,
+                                    visual = repository.visualFor(item, visualGender),
+                                    onClick = { onToggleExercise(item) },
+                                    trailingContent = {
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(2.dp)
+                                        ) {
+                                            IconButton(onClick = { onToggleSaved(item.id) }, modifier = Modifier.size(36.dp)) {
+                                                Icon(
+                                                    if (isSaved) Icons.Filled.Bookmark else Icons.Filled.BookmarkBorder,
+                                                    contentDescription = if (isSaved) "Unsave exercise" else "Save exercise",
+                                                    tint = if (isSaved) AppColors.Calorie else workoutsColors().mutedText,
+                                                    modifier = Modifier.size(20.dp)
                                                 )
-                                                .clickable { onToggleExercise(item) },
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            Icon(
-                                                if (item.id in selectedExerciseIds) Icons.Filled.Check else Icons.Filled.AddCircle,
-                                                contentDescription = if (item.id in selectedExerciseIds) "Remove from day" else "Add to day",
-                                                tint = if (item.id in selectedExerciseIds) androidx.compose.ui.graphics.Color.White else workoutsColors().mutedText,
-                                                modifier = Modifier.size(if (item.id in selectedExerciseIds) 18.dp else 23.dp)
-                                            )
-                                        }
-                                        IconButton(
-                                            onClick = { previewItem = item },
-                                            modifier = Modifier.size(36.dp)
-                                        ) {
-                                            Icon(
-                                                Icons.Filled.Info,
-                                                contentDescription = "Preview ${item.name}",
-                                                tint = workoutsColors().accent,
-                                                modifier = Modifier.size(20.dp)
-                                            )
+                                            }
+                                            Box(
+                                                modifier = Modifier
+                                                    .size(34.dp)
+                                                    .clip(CircleShape)
+                                                    .background(
+                                                        if (item.id in selectedExerciseIds) AppColors.Calorie
+                                                        else workoutsColors().panel.copy(alpha = 0.52f)
+                                                    )
+                                                    .clickable { onToggleExercise(item) },
+                                                contentAlignment = Alignment.Center
+                                            ) {
+                                                Icon(
+                                                    if (item.id in selectedExerciseIds) Icons.Filled.Check else Icons.Filled.AddCircle,
+                                                    contentDescription = if (item.id in selectedExerciseIds) "Remove from day" else "Add to day",
+                                                    tint = if (item.id in selectedExerciseIds) Color.White else workoutsColors().mutedText,
+                                                    modifier = Modifier.size(if (item.id in selectedExerciseIds) 18.dp else 23.dp)
+                                                )
+                                            }
+                                            IconButton(
+                                                onClick = { previewItem = item },
+                                                modifier = Modifier.size(36.dp)
+                                            ) {
+                                                Icon(
+                                                    Icons.Filled.Info,
+                                                    contentDescription = "Preview ${item.name}",
+                                                    tint = workoutsColors().accent,
+                                                    modifier = Modifier.size(20.dp)
+                                                )
+                                            }
                                         }
                                     }
-                                }
-                            )
+                                )
+                            }
                             HorizontalDivider(
                                 color = workoutsColors().hairline.copy(alpha = 0.28f),
                                 thickness = 0.5.dp,
@@ -575,6 +594,89 @@ private fun PickerSourceControl(
 }
 
 @Composable
+private fun SwipeablePickerBookmarkRow(
+    itemId: String,
+    isSaved: Boolean,
+    onToggleSaved: () -> Unit,
+    content: @Composable () -> Unit
+) {
+    val density = LocalDensity.current
+    val saveTriggerPx = with(density) { 120.dp.toPx() }
+    var offsetPx by remember(itemId) { mutableFloatStateOf(0f) }
+
+    BoxWithConstraints(Modifier.fillMaxWidth()) {
+        val maxSwipePx = with(density) { maxWidth.toPx() * 0.58f }
+        Box(Modifier.fillMaxWidth()) {
+            PickerSwipeBackground(offsetPx = offsetPx, isSaved = isSaved)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .offset { IntOffset(offsetPx.roundToInt(), 0) }
+                    .background(workoutsColors().background)
+                    .pointerInput(itemId, isSaved, maxSwipePx) {
+                        detectHorizontalDragGestures(
+                            onHorizontalDrag = { change, dragAmount ->
+                                change.consume()
+                                offsetPx = (offsetPx + dragAmount).coerceIn(-maxSwipePx, maxSwipePx)
+                            },
+                            onDragEnd = {
+                                val finalOffset = offsetPx
+                                offsetPx = 0f
+                                if (abs(finalOffset) >= saveTriggerPx) onToggleSaved()
+                            },
+                            onDragCancel = { offsetPx = 0f }
+                        )
+                    }
+            ) {
+                content()
+            }
+        }
+    }
+}
+
+@Composable
+private fun BoxScope.PickerSwipeBackground(offsetPx: Float, isSaved: Boolean) {
+    if (offsetPx == 0f) {
+        Box(Modifier.matchParentSize())
+        return
+    }
+    val density = LocalDensity.current
+    val trailing = offsetPx < 0f
+    val revealWidth = with(density) { abs(offsetPx).toDp() }
+    Box(Modifier.matchParentSize()) {
+        Box(
+            modifier = Modifier
+                .align(if (trailing) Alignment.CenterEnd else Alignment.CenterStart)
+                .fillMaxHeight()
+                .width(revealWidth)
+                .background(Color(0xFF2E7D32)),
+            contentAlignment = Alignment.Center
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    if (isSaved) Icons.Filled.Bookmark else Icons.Filled.BookmarkBorder,
+                    contentDescription = null,
+                    tint = Color.White,
+                    modifier = Modifier.size(22.dp)
+                )
+                if (revealWidth >= 76.dp) {
+                    Spacer(Modifier.size(4.dp))
+                    Text(
+                        if (isSaved) "Unsave" else "Save",
+                        color = Color.White,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
 private fun PickerEmptyState(source: WorkoutPickerSource) {
     Column(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 54.dp),
@@ -613,7 +715,7 @@ internal fun WorkoutCopySheet(
     onDismiss: () -> Unit
 ) {
     var includeSetDetails by remember { mutableStateOf(false) }
-    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
@@ -636,18 +738,17 @@ internal fun WorkoutCopySheet(
                 }
                 IconButton(onClick = onDismiss) {
                     Icon(Icons.Filled.Close, contentDescription = "Close copy picker")
-            Text("Copy options", fontSize = 14.sp, fontWeight = FontWeight.Bold)
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                FilterChip(selected = !includeSetDetails, onClick = { includeSetDetails = false },
-                    label = { Text("Exercises only") })
-                FilterChip(selected = includeSetDetails, onClick = { includeSetDetails = true },
-                    label = { Text("Exercises + set details") })
+                }
             }
-            Text(
-                if (includeSetDetails) "Copies set count, weights, reps, RPE, units, and saved timers."
-                else "Adds exercises with blank sets, as before.",
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.54f), fontSize = 12.sp
-            )
+            Text("What to copy", fontSize = 14.sp, fontWeight = FontWeight.Bold)
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                workoutCopyModes.forEach { mode ->
+                    WorkoutCopyModeRow(
+                        title = mode.title,
+                        subtitle = mode.subtitle,
+                        selected = includeSetDetails == mode.includeSetDetails,
+                        onClick = { includeSetDetails = mode.includeSetDetails }
+                    )
                 }
             }
             if (days.isEmpty()) {
@@ -661,44 +762,128 @@ internal fun WorkoutCopySheet(
                 LazyColumn(
                     modifier = Modifier.fillMaxWidth().heightIn(max = 460.dp),
                     verticalArrangement = Arrangement.spacedBy(9.dp),
-                    contentPadding = androidx.compose.foundation.layout.PaddingValues(bottom = 24.dp)
+                    contentPadding = PaddingValues(bottom = 24.dp)
                 ) {
                     items(days, key = { it.date }) { day ->
-                        FudGlassSurface(
-                            modifier = Modifier.fillMaxWidth().clickable { onCopy(day.date, includeSetDetails) },
-                            cornerRadius = 18.dp,
-                            padding = 13.dp
-                        ) {
-                            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(11.dp)) {
-                                Icon(Icons.Filled.EventRepeat, contentDescription = null, tint = AppColors.Calorie)
-                                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
-                                    Text(
-                                        day.date.format(DateTimeFormatter.ofPattern("EEE, MMM d", Locale.getDefault())),
-                                        color = MaterialTheme.colorScheme.onSurface,
-                                        fontSize = 15.sp,
-                                        fontWeight = FontWeight.Bold
-                                    )
-                                    Text(
-                                        day.exerciseNames.take(3).joinToString().let {
-                                            if (day.exerciseNames.size > 3) "$it +${day.exerciseNames.size - 3}" else it
-                                        },
-                                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.52f),
-                                        fontSize = 12.sp,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                }
-                                Text(
-                                    "${day.exerciseNames.size}",
-                                    color = AppColors.Calorie,
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.ExtraBold
-                                )
-                            }
-                        }
+                        WorkoutCopyDayRow(
+                            day = day,
+                            onClick = { onCopy(day.date, includeSetDetails) }
+                        )
                     }
                 }
             }
+        }
+    }
+}
+
+private data class WorkoutCopyMode(
+    val includeSetDetails: Boolean,
+    val title: String,
+    val subtitle: String
+)
+
+private val workoutCopyModes = listOf(
+    WorkoutCopyMode(
+        includeSetDetails = false,
+        title = "Without set details",
+        subtitle = "Exercise names only, with blank sets"
+    ),
+    WorkoutCopyMode(
+        includeSetDetails = true,
+        title = "With set details",
+        subtitle = "Sets, weights, reps, RPE, units, and timers"
+    )
+)
+
+@Composable
+private fun WorkoutCopyModeRow(
+    title: String,
+    subtitle: String,
+    selected: Boolean,
+    onClick: () -> Unit
+) {
+    FudGlassSurface(
+        modifier = Modifier.fillMaxWidth().clickable(onClick = onClick),
+        cornerRadius = 16.dp,
+        padding = 13.dp
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(22.dp)
+                    .clip(CircleShape)
+                    .background(
+                        if (selected) AppColors.Calorie
+                        else workoutsColors().panel.copy(alpha = 0.72f)
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                if (selected) {
+                    Icon(
+                        Icons.Filled.Check,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(14.dp)
+                    )
+                }
+            }
+            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(title, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                Text(
+                    subtitle,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.54f),
+                    fontSize = 12.sp
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun WorkoutCopyDayRow(
+    day: WorkoutCopyDayUi,
+    onClick: () -> Unit
+) {
+    val previewNames = day.exerciseNames.take(3).joinToString()
+    val subtitle = if (day.exerciseNames.size > 3) {
+        "$previewNames +${day.exerciseNames.size - 3}"
+    } else {
+        previewNames
+    }
+    FudGlassSurface(
+        modifier = Modifier.fillMaxWidth().clickable(onClick = onClick),
+        cornerRadius = 18.dp,
+        padding = 13.dp
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(11.dp)
+        ) {
+            Icon(Icons.Filled.EventRepeat, contentDescription = null, tint = AppColors.Calorie)
+            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+                Text(
+                    day.date.format(DateTimeFormatter.ofPattern("EEE, MMM d", Locale.getDefault())),
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    subtitle,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.52f),
+                    fontSize = 12.sp,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+            Text(
+                "${day.exerciseNames.size}",
+                color = AppColors.Calorie,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.ExtraBold
+            )
         }
     }
 }

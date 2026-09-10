@@ -11,6 +11,30 @@ class WorkoutTextDraftTest {
     private val today = LocalDate.of(2026, 9, 10)
     private val json = """{"date":"2026-09-09","exercises":[{"exercise_id":"Bench","name":"invented display name","minutes":null,"unit":"lbs","sets":[{"weight":40.5,"reps":10},{"weight":null,"reps":8}]},{"exercise_id":null,"name":"Soccer","minutes":180,"unit":"kg","sets":[]}]}"""
 
+    @Test fun searchUsesAIQueriesAndEquipmentMetadata() {
+        val calf = bench.copy(id = "Standing_Calf_Raises", name = "Standing Calf Raises", equipment = "machine")
+        val queries = WorkoutTextDraft.searchQueries("""{"queries":["calf raise machine"]}""", "calf raise machien")
+        val prompt = WorkoutTextDraft.prompt("calf raise machien 3set 20 reps rpe 6 both", today, WorkoutWeightUnit.KG, listOf(calf), queries)
+        assertTrue(prompt.contains("Standing_Calf_Raises | Standing Calf Raises | equipment: machine"))
+        assertEquals(listOf("original"), WorkoutTextDraft.searchQueries("bad JSON", "original"))
+    }
+
+    @Test fun preservesRpeAndRejectsInvalidRpe() {
+        val response = json.replace("\"reps\":10", "\"reps\":10,\"rpe\":6")
+        val set = WorkoutTextDraft.parse(response, library, today).planned(library, today).first().sets.first()
+        assertEquals("6.0", set.rpe)
+        assertEquals(WorkoutRpeScale.STRENGTH, set.rpeScale)
+        assertTrue(runCatching { WorkoutTextDraft.parse(response.replace("\"rpe\":6", "\"rpe\":11"), library, today) }.isFailure)
+    }
+
+    @Test fun unresolvedStrengthAsksForVariationInsteadOfDuration() {
+        val draft = WorkoutTextDraft(today.toString(), listOf(WorkoutTextExercise(exerciseId = null,
+            name = "Calf raise machine", sets = listOf(WorkoutTextSet(reps = "20", rpe = "6")))))
+        val message = runCatching { draft.planned(library, today) }.exceptionOrNull()!!.message!!
+        assertTrue(message.contains("seated or standing"))
+        assertFalse(message.contains("duration"))
+    }
+
     @Test fun candidateCatalogPrioritizesNamedExercisesAndBoundsContext() {
         val many = (1..100).map { bench.copy(id = "Squat_$it", name = "Squat $it") } + bench
         val candidates = WorkoutTextDraft.candidates("bench press 3 sets of 10", many)

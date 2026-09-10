@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.data.ExerciseItem
 import com.apoorvdarshan.calorietracker.models.*
-import com.apoorvdarshan.calorietracker.ui.home.VoiceInputSheet
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
@@ -33,24 +32,42 @@ internal fun WorkoutTextSheet(
     rpeScale: WorkoutRpeScale,
     onAdded: (LocalDate) -> Unit,
     onDismiss: () -> Unit,
+    initialDescription: String = "",
+    analyzeOnOpen: Boolean = false,
     analyzeWorkout: suspend (String) -> WorkoutTextDraft = {
         container.foodAnalysis.analyzeWorkout(it, selectedDate, unit, library)
     },
     saveWorkout: suspend (WorkoutTextDraft) -> Unit = { container.workoutRepository.addTextWorkout(it, library) }
 ) {
-    var description by rememberSaveable { mutableStateOf("") }
+    var description by rememberSaveable { mutableStateOf(initialDescription) }
     var draftJson by rememberSaveable { mutableStateOf<String?>(null) }
     val draft = remember(draftJson) { draftJson?.let { Json.decodeFromString<WorkoutTextDraft>(it) } }
-    var voice by rememberSaveable { mutableStateOf(false) }
     var busy by remember { mutableStateOf(false) }
     var saving by remember { mutableStateOf(false) }
     var error by rememberSaveable { mutableStateOf<String?>(null) }
     val scope = rememberCoroutineScope()
+    val keyboard = androidx.compose.ui.platform.LocalSoftwareKeyboardController.current
+    var started by rememberSaveable { mutableStateOf(false) }
     val dismiss = { if (!saving) onDismiss() }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true,
         confirmValueChange = { !saving })
 
     fun update(value: WorkoutTextDraft) { draftJson = Json.encodeToString(value); error = null }
+
+    fun analyze() {
+        keyboard?.hide()
+        busy = true; error = null
+        scope.launch {
+            try {
+                update(analyzeWorkout(description.trim()))
+            } catch (e: CancellationException) { throw e }
+            catch (e: Exception) { error = e.localizedMessage ?: "Could not prepare the workout. Try again." }
+            finally { busy = false }
+        }
+    }
+    LaunchedEffect(Unit) {
+        if (analyzeOnOpen && !started && draft == null) { started = true; analyze() }
+    }
 
     ModalBottomSheet(onDismissRequest = dismiss, sheetState = sheetState) {
         Column(Modifier.fillMaxWidth().imePadding().verticalScroll(rememberScrollState())
@@ -59,20 +76,12 @@ internal fun WorkoutTextSheet(
             if (draft == null) {
                 Text(stringResource(R.string.workout_text_intro))
                 OutlinedTextField(value = description, onValueChange = { description = it.take(4000); error = null },
-                    enabled = !busy, modifier = Modifier.fillMaxWidth(), minLines = 4,
+                    enabled = !busy, modifier = Modifier.fillMaxWidth(), minLines = 2,
                     label = { Text(stringResource(R.string.workout_text_description)) },
                     placeholder = { Text(stringResource(R.string.workout_text_example)) })
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    OutlinedButton(onClick = { voice = true }, enabled = !busy) { Text(stringResource(R.string.workout_text_voice)) }
-                    Button(onClick = {
-                        busy = true; error = null
-                        scope.launch {
-                            try {
-                                update(analyzeWorkout(description.trim()))
-                            } catch (e: CancellationException) { throw e }
-                            catch (e: Exception) { error = e.localizedMessage ?: "Could not prepare the workout. Try again." }
-                            finally { busy = false }
-                        }
+                    Button(modifier = Modifier.fillMaxWidth(), onClick = {
+                        analyze()
                     }, enabled = description.isNotBlank() && !busy) { Text(stringResource(if (busy) R.string.workout_text_preparing else R.string.workout_text_preview)) }
                 }
                 if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
@@ -126,6 +135,11 @@ internal fun WorkoutTextSheet(
                                                 }, label = { Text(stringResource(R.string.workout_text_reps)) }, enabled = !saving, singleLine = true,
                                                     modifier = Modifier.weight(1f), keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number))
                                             }
+                                            OutlinedTextField(value = set.rpe, onValueChange = { value ->
+                                                edit(exercise.copy(sets = exercise.sets.map { if (it.id == set.id) it.copy(rpe = value) else it }))
+                                            }, label = { Text(stringResource(R.string.workout_text_rpe)) }, enabled = !saving,
+                                                singleLine = true, modifier = Modifier.fillMaxWidth(),
+                                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
                                         }
                                     }
                                 }
@@ -159,8 +173,4 @@ internal fun WorkoutTextSheet(
             error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
         }
     }
-    if (voice) VoiceInputSheet(container = container, onDismiss = { voice = false }, onSubmit = {
-        description = listOf(description, it).filter(String::isNotBlank).joinToString("\n").take(4000)
-        error = null; voice = false
-    })
 }

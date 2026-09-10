@@ -7,9 +7,11 @@ struct WorkoutTextView: View {
     let unit: WeightUnit
     let bodyWeightKg: Double
     let onAdded: (Date) -> Void
+    var startsWithVoice = false
     @State private var description = ""
     @State private var draft: WorkoutTextDraft?
-    @State private var voice = false
+    @State private var voiceSubmitted = false
+    @FocusState private var inputFocused: Bool
     @State private var busy = false
     @State private var error: String?
     @State private var request: Task<Void, Never>?
@@ -34,22 +36,32 @@ struct WorkoutTextView: View {
                             Button("Add to diary", action: save).buttonStyle(.borderedProminent)
                                 .disabled(binding.wrappedValue.exercises.isEmpty)
                         }
+                    } else if startsWithVoice && !voiceSubmitted {
+                        VoiceInputView(onCancel: { dismiss() }, onSubmit: { text in
+                            description = String(text.prefix(4000))
+                            voiceSubmitted = true
+                            analyze()
+                        })
                     } else {
                         Text("Describe what you did. Review the details before adding them to your workout diary.")
                         TextField("20 minutes of rope skipping, then 3 sets of 10 bench presses at 40 kg",
                                   text: $description, axis: .vertical)
-                            .lineLimit(4...10).textFieldStyle(.roundedBorder)
+                            .lineLimit(2...5).textFieldStyle(.plain)
+                            .autocorrectionDisabled().focused($inputFocused)
+                            .padding(18)
+                            .background(Color(.quaternarySystemFill), in: RoundedRectangle(cornerRadius: 12))
                             .accessibilityLabel("Workout description")
                             .onChange(of: description) { _, value in
                                 if value.count > 4000 { description = String(value.prefix(4000)) }
                                 error = nil
                             }
-                        HStack {
-                            Button("Voice", systemImage: "mic") { voice = true }.buttonStyle(.bordered)
-                            Button(busy ? "Preparing…" : "Preview workout", action: analyze)
-                                .buttonStyle(.borderedProminent)
-                                .disabled(description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                        Button(action: analyze) {
+                            Text(busy ? "Finding exercises…" : "Analyze")
+                                .font(.headline).frame(maxWidth: .infinity)
                         }
+                        .buttonStyle(.borderedProminent).controlSize(.large)
+                        .disabled(description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                        Button("Cancel") { dismiss() }.foregroundStyle(.secondary)
                         if busy { ProgressView() }
                     }
                     if let error { Text(error).foregroundStyle(.red) }
@@ -57,22 +69,15 @@ struct WorkoutTextView: View {
                 .padding(20)
                 .disabled(busy)
             }
-            .navigationTitle("Text / Voice workout")
+            .navigationTitle(draft == nil ? (startsWithVoice ? "Voice workout" : "Describe workout") : "Review workout")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Close") { dismiss() } } }
-            .sheet(isPresented: $voice) {
-                VoiceInputView(onCancel: { voice = false }, onSubmit: { text in
-                    description = String([description, text].filter { !$0.isEmpty }.joined(separator: "\n").prefix(4000))
-                    error = nil
-                    voice = false
-                })
-                .padding().presentationDetents([.large])
-            }
             .onDisappear { request?.cancel() }
         }
     }
 
     private func analyze() {
+        inputFocused = false
         busy = true; error = nil
         request = Task { @MainActor in
             defer { busy = false }
@@ -138,6 +143,7 @@ private struct WorkoutTextReview: View {
                                 TextField("Weight (\(exercise.unit))", text: $set.weight)
                                     .keyboardType(.decimalPad).accessibilityLabel("Weight (\(exercise.unit))")
                                 TextField("Reps", text: $set.reps).keyboardType(.numberPad).accessibilityLabel("Reps")
+                                TextField("RPE 1–10", text: $set.rpe).keyboardType(.decimalPad).accessibilityLabel("RPE 1–10")
                             }.textFieldStyle(.roundedBorder)
                         }
                     }

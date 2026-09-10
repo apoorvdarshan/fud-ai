@@ -78,7 +78,9 @@ class FoodAnalysisService(
         library: List<com.apoorvdarshan.calorietracker.data.ExerciseItem>
     ): com.apoorvdarshan.calorietracker.models.WorkoutTextDraft {
         require(description.isNotBlank() && description.length <= 4000)
-        val prompt = com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.prompt(description, date, unit, library)
+        val searchResponse = callAi(com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.searchPrompt(description), emptyList())
+        val queries = com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.searchQueries(searchResponse, description)
+        val prompt = com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.prompt(description, date, unit, library, queries)
         return com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.parse(callAi(prompt, emptyList()), library)
     }
 

@@ -42,6 +42,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
@@ -150,6 +151,8 @@ internal fun WorkoutDiaryScreen(
 ) {
     var pickerRequest by remember { mutableStateOf<WorkoutPickerRequest?>(null) }
     var textSheetVisible by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+    var workoutVoiceVisible by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+    var workoutTranscript by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf("") }
     var copySheetVisible by remember { mutableStateOf(false) }
     var addMenuExpanded by remember { mutableStateOf(false) }
     val listState = rememberLazyListState()
@@ -374,7 +377,12 @@ internal fun WorkoutDiaryScreen(
                 }
                 SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_menu), leadingIcon = Icons.Filled.Add, onClick = {
                     addMenuExpanded = false
+                    workoutTranscript = ""
                     textSheetVisible = true
+                })
+                SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_voice), leadingIcon = Icons.Filled.Mic, onClick = {
+                    addMenuExpanded = false
+                    workoutVoiceVisible = true
                 })
                 HorizontalDivider(color = workoutsColors().hairline.copy(alpha = 0.45f))
                 SheetGlassDropdownMenuItem(
@@ -397,8 +405,14 @@ internal fun WorkoutDiaryScreen(
         }
     }
 
+    if (workoutVoiceVisible) com.apoorvdarshan.calorietracker.ui.home.VoiceInputSheet(
+        container = container,
+        onDismiss = { workoutVoiceVisible = false },
+        onSubmit = { workoutTranscript = it; workoutVoiceVisible = false; textSheetVisible = true }
+    )
     if (textSheetVisible) WorkoutTextSheet(
         container = container, library = exerciseRepository.exercises,
+        initialDescription = workoutTranscript, analyzeOnOpen = workoutTranscript.isNotBlank(),
         selectedDate = state.selectedDate, unit = state.weightUnit,
         bodyWeightKg = bodyWeightKg, rpeScale = state.preferences.rpeScale,
         onAdded = { viewModel.selectDate(it); textSheetVisible = false },

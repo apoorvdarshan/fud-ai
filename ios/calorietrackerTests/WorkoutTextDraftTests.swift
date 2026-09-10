@@ -8,6 +8,37 @@ struct WorkoutTextDraftTests {
     private let json = #"{"date":"2026-09-09","exercises":[{"exercise_id":"Bench","name":"invented display name","minutes":null,"unit":"lbs","sets":[{"weight":40.5,"reps":10},{"weight":null,"reps":8}]},{"exercise_id":null,"name":"Soccer","minutes":180,"unit":"kg","sets":[]}]}"#
     private var today: Date { StrengthWorkoutDate.date(for: "2026-09-10")! }
 
+    @Test func searchUsesAIQueriesAndEquipmentMetadata() {
+        let calf = ExerciseLibraryItem(id: "Standing_Calf_Raises", name: "Standing Calf Raises", rawEquipment: "machine")
+        let queries = WorkoutTextDraft.searchQueries(#"{"queries":["calf raise machine"]}"#, fallback: "calf raise machien")
+        let prompt = WorkoutTextDraft.prompt(description: "calf raise machien 3set 20 reps rpe 6 both", selectedDate: today,
+            unit: .kg, library: [calf], searchQueries: queries)
+        #expect(prompt.contains("Standing_Calf_Raises | Standing Calf Raises | equipment: machine"))
+        #expect(WorkoutTextDraft.searchQueries("bad JSON", fallback: "original") == ["original"])
+    }
+
+    @Test func preservesRpeAndRejectsInvalidRpe() throws {
+        let response = json.replacingOccurrences(of: "\"reps\":10", with: "\"reps\":10,\"rpe\":6")
+        let set = try WorkoutTextDraft.parse(response, library: library, today: today).planned(library: library, today: today)[0].sets[0]
+        #expect(set.rpe == "6.0")
+        #expect(set.rpeScale == .strength)
+        #expect(throws: (any Error).self) {
+            try WorkoutTextDraft.parse(response.replacingOccurrences(of: "\"rpe\":6", with: "\"rpe\":11"), library: library, today: today)
+        }
+    }
+
+    @Test func unresolvedStrengthAsksForVariationInsteadOfDuration() {
+        let draft = WorkoutTextDraft(date: "2026-09-09", exercises: [WorkoutTextExercise(exerciseID: nil,
+            name: "Calf raise machine", sets: [WorkoutTextSet(reps: "20", rpe: "6")])])
+        do {
+            _ = try draft.planned(library: library, today: today)
+            Issue.record("Expected clarification")
+        } catch {
+            #expect(error.localizedDescription.contains("seated or standing"))
+            #expect(!error.localizedDescription.contains("duration"))
+        }
+    }
+
     @Test func candidateCatalogPrioritizesNamesAndBoundsContext() {
         let many = (1...100).map { ExerciseLibraryItem(id: "Squat_\($0)", name: "Squat \($0)") } + library
         let candidates = WorkoutTextDraft.candidates(description: "bench press 3 sets of 10", library: many)

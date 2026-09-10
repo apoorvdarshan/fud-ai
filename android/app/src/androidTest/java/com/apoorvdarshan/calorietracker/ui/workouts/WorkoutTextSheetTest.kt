@@ -30,7 +30,7 @@ class WorkoutTextSheetTest {
             }
         }
         compose.onNodeWithText("Workout description").performTextInput("3 hours of soccer")
-        compose.onNodeWithText("Preview workout").performScrollTo().performClick()
+        compose.onNodeWithText("Analyze").performScrollTo().performClick()
         compose.waitUntil { submitted.isNotEmpty() }
         compose.onNodeWithText("Review workout").assertExists()
         compose.runOnIdle { assertNull(saved) }
@@ -39,6 +39,23 @@ class WorkoutTextSheetTest {
         compose.waitUntil { saved != null }
         assertEquals("20", saved!!.exercises.single().minutes)
         assertEquals("3 hours of soccer", submitted)
+    }
+
+    @Test fun voiceTranscriptStartsAnalysisWithoutSaving() {
+        var calls = 0
+        compose.setContent {
+            MaterialTheme {
+                WorkoutTextSheet(container, emptyList(), LocalDate.now(), WorkoutWeightUnit.KG, 70.0, WorkoutRpeScale.STRENGTH,
+                    onAdded = {}, onDismiss = {}, initialDescription = "20 minutes soccer", analyzeOnOpen = true,
+                    analyzeWorkout = { calls++; assertEquals("20 minutes soccer", it)
+                        WorkoutTextDraft(LocalDate.now().toString(), listOf(WorkoutTextExercise(exerciseId = null, name = "Soccer", minutes = "20")))
+                    }, saveWorkout = { error("Must wait for review") })
+            }
+        }
+        compose.waitUntil { calls == 1 }
+        compose.onNodeWithText("Review workout").assertExists()
+        compose.onNodeWithText("Voice").assertDoesNotExist()
+        compose.runOnIdle { assertEquals(1, calls) }
     }
 
     @Test fun clarificationKeepsDescriptionAndDoesNotSave() {
@@ -50,7 +67,7 @@ class WorkoutTextSheetTest {
             }
         }
         compose.onNodeWithText("Workout description").performTextInput("soccer")
-        compose.onNodeWithText("Preview workout").performScrollTo().performClick()
+        compose.onNodeWithText("Analyze").performScrollTo().performClick()
         compose.onNodeWithText("How many minutes?").performScrollTo().assertExists()
         compose.onNodeWithText("soccer").assertExists()
         compose.onNodeWithText("Add to diary").assertDoesNotExist()

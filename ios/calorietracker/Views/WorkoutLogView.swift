@@ -74,6 +74,7 @@ struct WorkoutLogView: View {
     @State private var pickerRequest: WorkoutLogPickerRequest?
     @State private var isCopySheetPresented = false
     @State private var isTextSheetPresented = false
+    @State private var workoutInputUsesVoice = false
     @State private var selectedDetailItem: ExerciseLibraryItem?
 
     @State private var isNoPerformedSetAlertPresented = false
@@ -398,7 +399,7 @@ struct WorkoutLogView: View {
                 .presentationDragIndicator(.visible)
             }
             .sheet(isPresented: $isTextSheetPresented) {
-                WorkoutTextView(selectedDate: selectedDate, unit: weightUnit, bodyWeightKg: currentBodyWeightKg, onAdded: { selectedDate = $0 })
+                WorkoutTextView(selectedDate: selectedDate, unit: weightUnit, bodyWeightKg: currentBodyWeightKg, onAdded: { selectedDate = $0 }, startsWithVoice: workoutInputUsesVoice)
                     .presentationDetents([.large])
                     .presentationDragIndicator(.visible)
             }
@@ -419,8 +420,11 @@ struct WorkoutLogView: View {
 
     private var addExerciseMenu: some View {
         Menu {
-            Button { isTextSheetPresented = true } label: {
-                Label("Text / Voice", systemImage: "text.bubble")
+            Button { workoutInputUsesVoice = false; isTextSheetPresented = true } label: {
+                Label("Text", systemImage: "text.bubble")
+            }
+            Button { workoutInputUsesVoice = true; isTextSheetPresented = true } label: {
+                Label("Voice", systemImage: "mic")
             }
             Section {
                 Button {

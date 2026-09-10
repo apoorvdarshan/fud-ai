@@ -273,7 +273,9 @@ struct GeminiService {
         guard !description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, description.count <= 4000 else {
             throw WorkoutTextError.invalid("Describe your workout in up to 4,000 characters.")
         }
-        let prompt = WorkoutTextDraft.prompt(description: description, selectedDate: date, unit: unit, library: library)
+        let searchResponse = try await callAI(prompt: WorkoutTextDraft.searchPrompt(description: description), image: nil)
+        let queries = WorkoutTextDraft.searchQueries(searchResponse, fallback: description)
+        let prompt = WorkoutTextDraft.prompt(description: description, selectedDate: date, unit: unit, library: library, searchQueries: queries)
         return try WorkoutTextDraft.parse(try await callAI(prompt: prompt, image: nil), library: library)
     }
 

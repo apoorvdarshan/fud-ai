@@ -28,6 +28,47 @@ import java.util.UUID
 
 class WorkoutRepositoryTest {
     @Test
+    fun customActivityRemainsAvailableAfterItsSourceEntryIsDeleted() = runBlocking {
+        val store = FakeWorkoutStateStore()
+        val repository = WorkoutRepository(store)
+        val day = LocalDate.of(2026, 9, 9)
+        val draft = com.apoorvdarshan.calorietracker.models.WorkoutTextDraft(day.toString(), listOf(
+            com.apoorvdarshan.calorietracker.models.WorkoutTextExercise(exerciseId = null, name = "Soccer", minutes = "20")
+        ))
+        repository.addTextWorkout(draft, emptyList())
+        repository.addTextWorkout(draft, emptyList())
+        val entry = repository.planNow(day).exercises.single()
+        repository.toggleSaved(entry.itemId)
+        repository.removeExercise(entry.id, day)
+        val state = repository.snapshot()
+        assertEquals(1, state.customActivities.size)
+        assertEquals("Soccer", state.customActivities.single().asExerciseItem().name)
+        assertNull(state.customActivities.single().timer)
+        assertTrue(entry.itemId in state.savedExerciseIds)
+    }
+
+    @Test
+    fun reviewedTextWorkoutAppendsAtomicallyAndRetriesDoNotDuplicate() = runBlocking {
+        val store = FakeWorkoutStateStore()
+        val repository = WorkoutRepository(store)
+        val day = LocalDate.of(2026, 9, 9)
+        val item = exerciseItem()
+        repository.toggleExercise(item, day)
+        val original = repository.planNow(day).exercises.single()
+        val draft = com.apoorvdarshan.calorietracker.models.WorkoutTextDraft(day.toString(), listOf(
+            com.apoorvdarshan.calorietracker.models.WorkoutTextExercise(exerciseId = item.id, name = item.name,
+                unit = "kg", sets = listOf(com.apoorvdarshan.calorietracker.models.WorkoutTextSet(weight = "40", reps = "10")))
+        ))
+        repository.addTextWorkout(draft, listOf(item))
+        repository.addTextWorkout(draft, listOf(item))
+        assertEquals(2, repository.planNow(day).exercises.size)
+        assertEquals(original, repository.planNow(day).exercises.first())
+        val invalid = draft.copy(exercises = listOf(draft.exercises.single().copy(minutes = "-1")))
+        assertTrue(runCatching { repository.addTextWorkout(invalid, listOf(item)) }.isFailure)
+        assertEquals(2, repository.planNow(day).exercises.size)
+    }
+
+    @Test
     fun planEditingSanitizesInputsAddsBlankSetsAndCopiesWithoutDuplicates() = runBlocking {
         val store = FakeWorkoutStateStore()
         val repository = WorkoutRepository(store)

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="workout_text_title">Text / Voice workout</string>
+    <string name="workout_text_intro">Describe what you did. Review the details before adding them to your workout diary.</string>
+    <string name="workout_text_description">Workout description</string>
+    <string name="workout_text_example">20 minutes of rope skipping, then 3 sets of 10 bench presses at 40 kg</string>
+    <string name="workout_text_voice">Voice</string>
+    <string name="workout_text_preparing">Preparing…</string>
+    <string name="workout_text_preview">Preview workout</string>
+    <string name="workout_text_review">Review workout</string>
+    <string name="workout_text_date">Date (YYYY-MM-DD)</string>
+    <string name="workout_text_custom">Custom timed activity · calorie estimate uses a general activity rate</string>
+    <string name="workout_text_minutes">Minutes</string>
+    <string name="workout_text_reps">Reps</string>
+    <string name="workout_text_remove">Remove exercise</string>
+    <string name="workout_text_calories_note">Calories are estimates. Use Calculate in the diary after adding your workout.</string>
+    <string name="workout_text_edit">Edit description</string>
+    <string name="workout_text_adding">Adding…</string>
+    <string name="workout_text_add">Add to diary</string>
+    <string name="workout_text_menu">Text / Voice</string>
+    <string name="workout_text_set_weight">Set %1$d · %2$s</string>
+    <string name="workout_text_estimate">Estimated burn: %1$d kcal</string>
+    <string name="workout_text_effort">Effort (moderate if unspecified)</string>
+    <string name="workout_text_light">Light</string>
+    <string name="workout_text_moderate">Moderate</string>
+    <string name="workout_text_vigorous">Vigorous</string>
+</resources>

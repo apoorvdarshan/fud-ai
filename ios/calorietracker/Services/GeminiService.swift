@@ -268,6 +268,15 @@ struct GeminiService {
         return text.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
+    static func analyzeWorkout(description: String, date: Date, unit: WeightUnit,
+                               library: [ExerciseLibraryItem]) async throws -> WorkoutTextDraft {
+        guard !description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, description.count <= 4000 else {
+            throw WorkoutTextError.invalid("Describe your workout in up to 4,000 characters.")
+        }
+        let prompt = WorkoutTextDraft.prompt(description: description, selectedDate: date, unit: unit, library: library)
+        return try WorkoutTextDraft.parse(try await callAI(prompt: prompt, image: nil), library: library)
+    }
+
     static func analyzeTextInput(description: String) async throws -> FoodAnalysis {
         let prompt = """
         Estimate the nutritional content for: \(description)

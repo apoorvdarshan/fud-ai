@@ -15,6 +15,11 @@ class ExerciseRepository private constructor(
     private val authoredFrames: Map<String, GenderedExerciseFrames>
 ) {
 
+    fun includingActivities(activities: List<com.apoorvdarshan.calorietracker.models.PlannedExercise>): ExerciseRepository =
+        if (activities.isEmpty()) this else ExerciseRepository(
+            (exercises + activities.map { it.asExerciseItem() }).distinctBy { it.id }, authoredFrames
+        )
+
     val availableLevels: List<String> by lazy { sortedUnique(exercises.map { it.level }) }
     val availablePrimaryMuscles: List<String> by lazy { sortedUnique(exercises.flatMap { it.primaryMuscles }) }
     val availableSecondaryMuscles: List<String> by lazy { sortedUnique(exercises.flatMap { it.secondaryMuscles }) }

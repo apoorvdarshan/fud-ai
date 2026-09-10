@@ -9,6 +9,8 @@ final class StrengthWorkoutStore {
         var completedSessions: [StrengthWorkoutSession] = []
         var savedExerciseIDs: Set<String> = []
         var preferences = StrengthWorkoutPreferences()
+        // Optional so diaries saved before text/voice logging still decode.
+        var customActivities: [StrengthPlannedExercise]?
     }
 
     static let defaultStorageKey = "fudai.workouts.diary.state.v1"
@@ -17,6 +19,13 @@ final class StrengthWorkoutStore {
     private(set) var completedSessions: [StrengthWorkoutSession] = []
     private(set) var savedExerciseIDs: Set<String> = []
     private(set) var preferences = StrengthWorkoutPreferences()
+    private(set) var customActivities: [StrengthPlannedExercise] = []
+
+    var exerciseLibrary: ExerciseLibraryService {
+        let base = ExerciseLibraryService.shared.exercises
+        let known = Set(base.map(\.id))
+        return ExerciseLibraryService(exercises: base + customActivities.filter { !known.contains($0.itemID) }.map(\.libraryItem))
+    }
     var onWorkoutBurnUpserted: ((StrengthWorkoutSession) -> Void)?
     var onWorkoutBurnDeleted: ((UUID) -> Void)?
 
@@ -65,6 +74,25 @@ final class StrengthWorkoutStore {
 
     func containsExercise(_ itemID: String, on date: Date) -> Bool {
         exercises(for: date).contains { $0.itemID == itemID }
+    }
+
+    /// Append the reviewed batch; stable draft IDs make retries idempotent.
+    func addTextWorkout(_ draft: WorkoutTextDraft, library: [ExerciseLibraryItem]) throws {
+        let additions = try draft.planned(library: library)
+        guard let date = Self.date(for: draft.date) else { throw WorkoutTextError.invalid("Choose a valid date.") }
+        let known = Set(customActivities.map(\.itemID))
+        customActivities.append(contentsOf: additions.filter {
+            $0.itemID.hasPrefix("custom_activity_") && !known.contains($0.itemID)
+        }.map { item in
+            var template = item
+            template.sets = []
+            template.timer = nil
+            return template
+        })
+        updatePlan(for: date) { plan in
+            let existing = Set(plan.exercises.map(\.id))
+            plan.exercises.append(contentsOf: additions.filter { !existing.contains($0.id) })
+        }
     }
 
     func toggleExercise(_ item: ExerciseLibraryItem, on date: Date) {
@@ -358,6 +386,7 @@ final class StrengthWorkoutStore {
         dayPlans = [:]
         completedSessions = []
         savedExerciseIDs = []
+        customActivities = []
         preferences = StrengthWorkoutPreferences()
         defaults.removeObject(forKey: storageKey)
     }
@@ -448,6 +477,7 @@ final class StrengthWorkoutStore {
         dayPlans = state.dayPlans
         completedSessions = state.completedSessions
         savedExerciseIDs = state.savedExerciseIDs
+        customActivities = state.customActivities ?? []
         preferences = state.preferences
         preferences.sanitize()
     }
@@ -457,7 +487,8 @@ final class StrengthWorkoutStore {
             dayPlans: dayPlans,
             completedSessions: completedSessions,
             savedExerciseIDs: savedExerciseIDs,
-            preferences: preferences
+            preferences: preferences,
+            customActivities: customActivities
         )
         guard let data = try? JSONEncoder().encode(state) else { return }
         defaults.set(data, forKey: storageKey)

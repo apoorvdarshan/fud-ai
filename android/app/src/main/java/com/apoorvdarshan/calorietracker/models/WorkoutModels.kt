@@ -417,6 +417,7 @@ data class WorkoutPersistedState(
     val dayPlans: Map<String, WorkoutDayPlan> = emptyMap(),
     val completedSessions: List<WorkoutSession> = emptyList(),
     val savedExerciseIds: Set<String> = emptySet(),
+    val customActivities: List<PlannedExercise> = emptyList(),
     val preferences: WorkoutPreferences = WorkoutPreferences(),
     val mode: WorkoutTabMode = WorkoutTabMode.Default,
     /**

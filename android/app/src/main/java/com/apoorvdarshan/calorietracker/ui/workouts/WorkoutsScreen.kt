@@ -96,7 +96,9 @@ import com.apoorvdarshan.calorietracker.ui.workouts.WorkoutsViewModel
 @Composable
 fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    val repo = remember { ExerciseRepository.get(context) }
+    val baseRepository = remember { ExerciseRepository.get(context) }
+    val workoutState by container.workoutRepository.state.collectAsState(initial = com.apoorvdarshan.calorietracker.models.WorkoutPersistedState())
+    val repo = remember(baseRepository, workoutState.customActivities) { baseRepository.includingActivities(workoutState.customActivities) }
     val vm: WorkoutsViewModel = viewModel()
     val profile by container.profileRepository.profile.collectAsState(initial = null)
     val latestWeight by container.weightRepository.latest.collectAsState(initial = null)
@@ -135,6 +137,8 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
 
     if (vm.diaryUiState.mode == WorkoutTabMode.LOG) {
         WorkoutDiaryScreen(
+            container = container,
+            bodyWeightKg = bodyWeightKg,
             state = vm.diaryUiState,
             exerciseRepository = repo,
             viewModel = vm,

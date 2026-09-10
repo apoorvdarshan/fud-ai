@@ -97,6 +97,17 @@ class WorkoutRepository(
         updateState { it.copy(mode = mode) }
     }
 
+    /** Append a reviewed batch atomically; stable draft IDs make retries idempotent. */
+    suspend fun addTextWorkout(draft: com.apoorvdarshan.calorietracker.models.WorkoutTextDraft, library: List<ExerciseItem>) {
+        val additions = draft.planned(library)
+        val custom = additions.filter { it.itemId.startsWith("custom_activity_") }
+            .map { it.copy(sets = emptyList(), timer = null) }
+        updatePlan(draft.date, custom) { plan ->
+            val existing = plan.exercises.map { it.id }.toSet()
+            plan.copy(exercises = plan.exercises + additions.filterNot { it.id in existing })
+        }
+    }
+
     suspend fun toggleExercise(item: ExerciseItem, date: LocalDate) =
         toggleExercise(item, WorkoutDate.key(date))
 
@@ -539,11 +550,15 @@ class WorkoutRepository(
         stateMutex.withLock { store.clearWorkoutState() }
     }
 
-    private suspend fun updatePlan(dateKey: String, transform: (WorkoutDayPlan) -> WorkoutDayPlan) =
-        updatePlanWithPreferences(dateKey) { plan, _ -> transform(plan) }
+    private suspend fun updatePlan(
+        dateKey: String,
+        customActivities: List<PlannedExercise> = emptyList(),
+        transform: (WorkoutDayPlan) -> WorkoutDayPlan
+    ) = updatePlanWithPreferences(dateKey, customActivities) { plan, _ -> transform(plan) }
 
     private suspend fun updatePlanWithPreferences(
         dateKey: String,
+        customActivities: List<PlannedExercise> = emptyList(),
         transform: (WorkoutDayPlan, WorkoutPreferences) -> WorkoutDayPlan
     ) {
         var invalidatedBurns: List<WorkoutSession> = emptyList()
@@ -562,6 +577,7 @@ class WorkoutRepository(
             }
             val invalidatedIds = invalidatedBurns.mapTo(mutableSetOf()) { it.id.toString() }
             val next = current.copy(
+                customActivities = (current.customActivities + customActivities).distinctBy { it.itemId },
                 dayPlans = plans,
                 completedSessions = current.completedSessions.filterNot { it.id.toString() in invalidatedIds },
                 healthDeletionTombstones = current.healthDeletionTombstones +

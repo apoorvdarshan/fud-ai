@@ -71,6 +71,17 @@ class FoodAnalysisService(
     private val localGemma: LocalGemmaRuntime? = null
 ) {
 
+    suspend fun analyzeWorkout(
+        description: String,
+        date: java.time.LocalDate,
+        unit: com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit,
+        library: List<com.apoorvdarshan.calorietracker.data.ExerciseItem>
+    ): com.apoorvdarshan.calorietracker.models.WorkoutTextDraft {
+        require(description.isNotBlank() && description.length <= 4000)
+        val prompt = com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.prompt(description, date, unit, library)
+        return com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.parse(callAi(prompt, emptyList()), library)
+    }
+
     suspend fun estimateOptionalNutrientGoals(profile: UserProfile?): OptionalNutrientGoals {
         val profileContext = profile?.let {
             """

@@ -139,6 +139,8 @@ private const val CURRENT_WORKOUT_WEEK = WORKOUT_WEEKS - 1
 
 @Composable
 internal fun WorkoutDiaryScreen(
+    container: com.apoorvdarshan.calorietracker.AppContainer,
+    bodyWeightKg: Double,
     state: WorkoutDiaryUiState,
     exerciseRepository: ExerciseRepository,
     viewModel: WorkoutsViewModel,
@@ -147,6 +149,7 @@ internal fun WorkoutDiaryScreen(
     onShowLibrary: () -> Unit
 ) {
     var pickerRequest by remember { mutableStateOf<WorkoutPickerRequest?>(null) }
+    var textSheetVisible by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     var copySheetVisible by remember { mutableStateOf(false) }
     var addMenuExpanded by remember { mutableStateOf(false) }
     val listState = rememberLazyListState()
@@ -369,6 +372,10 @@ internal fun WorkoutDiaryScreen(
                         )
                     }
                 }
+                SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_menu), leadingIcon = Icons.Filled.Add, onClick = {
+                    addMenuExpanded = false
+                    textSheetVisible = true
+                })
                 HorizontalDivider(color = workoutsColors().hairline.copy(alpha = 0.45f))
                 SheetGlassDropdownMenuItem(
                     label = "Copy from day",
@@ -389,6 +396,14 @@ internal fun WorkoutDiaryScreen(
             }
         }
     }
+
+    if (textSheetVisible) WorkoutTextSheet(
+        container = container, library = exerciseRepository.exercises,
+        selectedDate = state.selectedDate, unit = state.weightUnit,
+        bodyWeightKg = bodyWeightKg, rpeScale = state.preferences.rpeScale,
+        onAdded = { viewModel.selectDate(it); textSheetVisible = false },
+        onDismiss = { textSheetVisible = false }
+    )
 
     pickerRequest?.let { request ->
         WorkoutPickerSheet(

@@ -73,6 +73,7 @@ struct WorkoutLogView: View {
 
     @State private var pickerRequest: WorkoutLogPickerRequest?
     @State private var isCopySheetPresented = false
+    @State private var isTextSheetPresented = false
     @State private var selectedDetailItem: ExerciseLibraryItem?
 
     @State private var isNoPerformedSetAlertPresented = false
@@ -80,7 +81,7 @@ struct WorkoutLogView: View {
     @State private var workoutCardFrames: [UUID: CGRect] = [:]
     @FocusState private var focusedSetField: WorkoutLogSetFocus?
 
-    private let library = ExerciseLibraryService.shared
+    private var library: ExerciseLibraryService { workoutStore.exerciseLibrary }
     private let session: WorkoutLogSessionState
     private let embedsInNavigationStack: Bool
     private let onShowLibrary: (() -> Void)?
@@ -396,6 +397,11 @@ struct WorkoutLogView: View {
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
             }
+            .sheet(isPresented: $isTextSheetPresented) {
+                WorkoutTextView(selectedDate: selectedDate, unit: weightUnit, bodyWeightKg: currentBodyWeightKg, onAdded: { selectedDate = $0 })
+                    .presentationDetents([.large])
+                    .presentationDragIndicator(.visible)
+            }
             .sheet(isPresented: $isCopySheetPresented) {
                 WorkoutLogCopySheet(
                     days: copyableDays,
@@ -413,6 +419,9 @@ struct WorkoutLogView: View {
 
     private var addExerciseMenu: some View {
         Menu {
+            Button { isTextSheetPresented = true } label: {
+                Label("Text / Voice", systemImage: "text.bubble")
+            }
             Section {
                 Button {
                     pickerRequest = WorkoutLogPickerRequest(context: .saved, initialSource: .saved)
@@ -1321,7 +1330,7 @@ private struct WorkoutLogExercisePickerSheet: View {
     @State private var selectedSort: ExerciseLibrarySort = .name
     @State private var previewItem: ExerciseLibraryItem?
 
-    private let library = ExerciseLibraryService.shared
+    private var library: ExerciseLibraryService { workoutStore.exerciseLibrary }
 
     init(request: WorkoutLogPickerRequest, selectedDate: Date, onDone: @escaping () -> Void) {
         self.request = request

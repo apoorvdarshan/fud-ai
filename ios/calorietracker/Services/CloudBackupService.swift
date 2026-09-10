@@ -1,12 +1,17 @@
 import CloudKit
 import Foundation
 import Observation
+import os
 
 @Observable
 final class CloudBackupService {
     static let enabledKey = "cloudBackupEnabled"
     static let lastAtKey = "cloudBackupLastAt"
     static let lastHashKey = "cloudBackupLastHash"
+    static let smokeTestLaunchArgument = "-fudai.cloudBackup.smokeTest"
+
+    private static var didRunSmokeTestThisLaunch = false
+    private static let smokeLogger = Logger(subsystem: "com.apoorvdarshan.calorietracker", category: "CloudBackupSmoke")
 
     private let recordType = "FudAIBackup"
     private let recordName = "current"
@@ -179,6 +184,67 @@ final class CloudBackupService {
             return
         }
         try? await backupNow(skipIfUnchanged: true)
+    }
+
+    /// Release-safe CloudKit integration check: upload → download → delete.
+    /// Logs `FudAICloudBackupSmokeTest: PASS` or `FAIL: <reason>` to stdout and os_log.
+    func runSmokeTestIfRequested() async {
+        guard CommandLine.arguments.contains(Self.smokeTestLaunchArgument) else { return }
+        guard !Self.didRunSmokeTestThisLaunch else { return }
+        Self.didRunSmokeTestThisLaunch = true
+        await runSmokeTest()
+    }
+
+    func runSmokeTest() async {
+        let savedEnabled = enabled
+        let savedLastAt = lastAt
+        let savedLastHash = defaults.string(forKey: Self.lastHashKey)
+
+        defer {
+            enabled = savedEnabled
+            defaults.set(savedEnabled, forKey: Self.enabledKey)
+            if let savedLastAt {
+                defaults.set(savedLastAt, forKey: Self.lastAtKey)
+                lastAt = savedLastAt
+            } else {
+                defaults.removeObject(forKey: Self.lastAtKey)
+                lastAt = nil
+            }
+            if let savedLastHash {
+                defaults.set(savedLastHash, forKey: Self.lastHashKey)
+            } else {
+                defaults.removeObject(forKey: Self.lastHashKey)
+            }
+        }
+
+        do {
+            try await backupNow()
+            guard try await fetchRecord() != nil else {
+                logSmokeTestFailure("backup record missing after upload")
+                return
+            }
+            try await restoreNow()
+            try await deleteCloudBackup()
+            guard try await fetchRecord() == nil else {
+                logSmokeTestFailure("record still present after delete")
+                return
+            }
+            logSmokeTestPass()
+        } catch {
+            logSmokeTestFailure(error.localizedDescription)
+        }
+    }
+
+    private func logSmokeTestPass() {
+        let line = "FudAICloudBackupSmokeTest: PASS"
+        print(line)
+        Self.smokeLogger.info("\(line, privacy: .public)")
+    }
+
+    private func logSmokeTestFailure(_ reason: String) {
+        let line = "FudAICloudBackupSmokeTest: FAIL: \(reason)"
+        print(line)
+        Self.smokeLogger.error("\(line, privacy: .public)")
     }
 
     private func upload(zip: Data, hash: String) async throws {

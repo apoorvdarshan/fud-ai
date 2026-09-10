@@ -611,8 +611,8 @@ internal fun WorkoutCopySheet(
     days: List<WorkoutCopyDayUi>,
     onCopy: (LocalDate, Boolean) -> Unit,
     onDismiss: () -> Unit
-    var includeSetDetails by remember { mutableStateOf(false) }
 ) {
+    var includeSetDetails by remember { mutableStateOf(false) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     ModalBottomSheet(
         onDismissRequest = onDismiss,

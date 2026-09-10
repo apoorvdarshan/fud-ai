@@ -9,7 +9,7 @@ struct TextFoodInputView: View {
     var onCancel: () -> Void
     var onSubmit: (String) -> Void
 
-    private let placeholders = [
+    var placeholders = [
         "2 eggs, toast with butter and a coffee",
         "Chipotle burrito bowl with chicken and rice",
         "Domino's pepperoni pizza, 2 slices",

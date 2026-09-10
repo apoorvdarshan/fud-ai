@@ -151,6 +151,7 @@ internal fun WorkoutDiaryScreen(
 ) {
     var pickerRequest by remember { mutableStateOf<WorkoutPickerRequest?>(null) }
     var textSheetVisible by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
+    var workoutTextInputVisible by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     var workoutVoiceVisible by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     var workoutTranscript by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf("") }
     var copySheetVisible by remember { mutableStateOf(false) }
@@ -377,8 +378,7 @@ internal fun WorkoutDiaryScreen(
                 }
                 SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_menu), leadingIcon = Icons.Filled.Add, onClick = {
                     addMenuExpanded = false
-                    workoutTranscript = ""
-                    textSheetVisible = true
+                    workoutTextInputVisible = true
                 })
                 SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_voice), leadingIcon = Icons.Filled.Mic, onClick = {
                     addMenuExpanded = false
@@ -405,6 +405,11 @@ internal fun WorkoutDiaryScreen(
         }
     }
 
+    if (workoutTextInputVisible) com.apoorvdarshan.calorietracker.ui.home.TextInputDialog(
+        onDismiss = { workoutTextInputVisible = false },
+        onSubmit = { workoutTranscript = it; workoutTextInputVisible = false; textSheetVisible = true },
+        examples = listOf(stringResource(R.string.workout_text_example))
+    )
     if (workoutVoiceVisible) com.apoorvdarshan.calorietracker.ui.home.VoiceInputSheet(
         container = container,
         onDismiss = { workoutVoiceVisible = false },

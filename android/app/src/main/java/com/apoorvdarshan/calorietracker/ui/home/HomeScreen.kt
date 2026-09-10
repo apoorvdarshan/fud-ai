@@ -2773,9 +2773,9 @@ private fun AnalysisResultDialog(
 }
 
 @Composable
-internal fun TextInputDialog(onDismiss: () -> Unit, onSubmit: (String) -> Unit) {
+internal fun TextInputDialog(onDismiss: () -> Unit, onSubmit: (String) -> Unit, examples: List<String>? = null) {
     // Keep the input composable stable so rotating placeholder examples do not drop IME focus.
-    val placeholders = listOf(
+    val placeholders = examples?.takeIf { it.isNotEmpty() } ?: listOf(
         stringResource(R.string.text_input_placeholder_1),
         stringResource(R.string.text_input_placeholder_2),
         stringResource(R.string.text_input_placeholder_3),

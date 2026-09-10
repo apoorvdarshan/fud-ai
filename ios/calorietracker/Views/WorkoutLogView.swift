@@ -398,11 +398,6 @@ struct WorkoutLogView: View {
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
             }
-            .sheet(isPresented: $isTextSheetPresented) {
-                WorkoutTextView(selectedDate: selectedDate, unit: weightUnit, bodyWeightKg: currentBodyWeightKg, onAdded: { selectedDate = $0 }, startsWithVoice: workoutInputUsesVoice)
-                    .presentationDetents([.large])
-                    .presentationDragIndicator(.visible)
-            }
             .sheet(isPresented: $isCopySheetPresented) {
                 WorkoutLogCopySheet(
                     days: copyableDays,
@@ -469,6 +464,11 @@ struct WorkoutLogView: View {
         }
         .tint(Color.workoutAccent)
         .accessibilityLabel("Add workout")
+        .popover(isPresented: $isTextSheetPresented) {
+            WorkoutTextView(selectedDate: selectedDate, unit: weightUnit, bodyWeightKg: currentBodyWeightKg,
+                onAdded: { selectedDate = $0 }, startsWithVoice: workoutInputUsesVoice)
+                .presentationCompactAdaptation(.popover)
+        }
     }
 
     private var selectedDateTitle: String {

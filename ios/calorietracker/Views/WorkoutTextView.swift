@@ -10,7 +10,6 @@ struct WorkoutTextView: View {
     var startsWithVoice = false
     @State private var description = ""
     @State private var draft: WorkoutTextDraft?
-    @State private var voiceSubmitted = false
     @FocusState private var inputFocused: Bool
     @State private var busy = false
     @State private var error: String?
@@ -18,6 +17,30 @@ struct WorkoutTextView: View {
     private var library: [ExerciseLibraryItem] { workoutStore.exerciseLibrary.exercises }
 
     var body: some View {
+        Group {
+            if draft == nil && !busy && error == nil && description.isEmpty {
+                if startsWithVoice {
+                    VoiceInputView(onCancel: { dismiss() }, onSubmit: submit)
+                } else {
+                    TextFoodInputView(onCancel: { dismiss() }, onSubmit: submit, placeholders: [
+                        "20 minutes of rope skipping",
+                        "3 sets of 10 bench presses at 40 kg",
+                        "Standing calf raise machine, 3 sets of 20, RPE 6"
+                    ])
+                }
+            } else {
+                reviewContent.frame(width: 340, height: 480)
+            }
+        }
+        .onDisappear { request?.cancel() }
+    }
+
+    private func submit(_ text: String) {
+        description = String(text.prefix(4000))
+        analyze()
+    }
+
+    private var reviewContent: some View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
@@ -36,12 +59,6 @@ struct WorkoutTextView: View {
                             Button("Add to diary", action: save).buttonStyle(.borderedProminent)
                                 .disabled(binding.wrappedValue.exercises.isEmpty)
                         }
-                    } else if startsWithVoice && !voiceSubmitted {
-                        VoiceInputView(onCancel: { dismiss() }, onSubmit: { text in
-                            description = String(text.prefix(4000))
-                            voiceSubmitted = true
-                            analyze()
-                        })
                     } else {
                         Text("Describe what you did. Review the details before adding them to your workout diary.")
                         TextField("20 minutes of rope skipping, then 3 sets of 10 bench presses at 40 kg",
@@ -72,7 +89,6 @@ struct WorkoutTextView: View {
             .navigationTitle(draft == nil ? (startsWithVoice ? "Voice workout" : "Describe workout") : "Review workout")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Close") { dismiss() } } }
-            .onDisappear { request?.cancel() }
         }
     }
 

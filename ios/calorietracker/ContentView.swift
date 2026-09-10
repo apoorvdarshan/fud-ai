@@ -6478,14 +6478,20 @@ private struct AllergenSensitivitiesDetailView: View {
                         .foregroundStyle(.secondary)
                 } else {
                     ForEach(allergens, id: \.self) { allergen in
-                        Text(allergen)
-                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                                Button(role: .destructive) {
-                                    pendingDeletion = allergen
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
-                                }
+                        HStack {
+                            Text(allergen)
+                            Spacer(minLength: 0)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .contentShape(Rectangle())
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button {
+                                pendingDeletion = allergen
+                            } label: {
+                                Label("Delete", systemImage: "trash.fill")
                             }
+                            .tint(.red)
+                        }
                     }
                 }
             } header: {
@@ -6499,6 +6505,7 @@ private struct AllergenSensitivitiesDetailView: View {
                 TextField("Type an allergen", text: $value)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
+                    .submitLabel(.done)
                     .onSubmit { addCurrentValue() }
             } footer: {
                 Text("Press Return to add.")
@@ -6513,19 +6520,20 @@ private struct AllergenSensitivitiesDetailView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button("Save", action: save)
                     .fontWeight(.semibold)
+                    .foregroundStyle(AppColors.calorie)
             }
         }
         .alert("Remove allergen?", isPresented: Binding(
             get: { pendingDeletion != nil },
             set: { if !$0 { pendingDeletion = nil } }
         )) {
+            Button("Cancel", role: .cancel) { pendingDeletion = nil }
             Button("Remove", role: .destructive) {
                 if let pendingDeletion {
                     allergens.removeAll { $0 == pendingDeletion }
                 }
                 pendingDeletion = nil
             }
-            Button("Cancel", role: .cancel) { pendingDeletion = nil }
         } message: {
             Text("Remove \(pendingDeletion ?? "this allergen") from your sensitivities?")
         }

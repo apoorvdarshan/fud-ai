@@ -2,15 +2,19 @@ package com.apoorvdarshan.calorietracker.ui.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -20,36 +24,42 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassPrimaryButton
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import kotlin.math.roundToInt
 
 @Composable
 fun AllergenSensitivitiesScreen(
@@ -131,12 +141,13 @@ fun AllergenSensitivitiesScreen(
                             Text(
                                 stringResource(R.string.settings_allergen_empty),
                                 modifier = Modifier.padding(16.dp),
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
+                                fontSize = 16.sp
                             )
                         } else {
                             allergens.forEachIndexed { index, allergen ->
                                 key(allergen) {
-                                    AllergenDismissibleRow(
+                                    AllergenSwipeRow(
                                         allergen = allergen,
                                         onRequestDelete = { pendingDelete = allergen }
                                     )
@@ -157,26 +168,29 @@ fun AllergenSensitivitiesScreen(
                     cornerRadius = 22.dp,
                     padding = 16.dp
                 ) {
-                    Column {
-                        OutlinedTextField(
+                    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                        Text(
+                            stringResource(R.string.settings_allergen_add_section),
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
+                        )
+                        FudGlassTextField(
                             value = value,
                             onValueChange = { value = it },
-                            modifier = Modifier.fillMaxWidth(),
-                            placeholder = { Text(stringResource(R.string.settings_allergen_add_placeholder)) },
-                            singleLine = true,
+                            placeholder = stringResource(R.string.settings_allergen_add_placeholder),
                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                            keyboardActions = KeyboardActions(onDone = { addCurrentValue() }),
-                            supportingText = {
-                                Text(stringResource(R.string.settings_allergen_add_hint))
-                            }
+                            keyboardActions = KeyboardActions(onDone = { addCurrentValue() })
                         )
-                        Spacer(Modifier.height(12.dp))
-                        Button(
-                            onClick = ::save,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text(stringResource(R.string.action_save))
-                        }
+                        Text(
+                            stringResource(R.string.settings_allergen_add_hint),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
+                        )
+                        FudGlassPrimaryButton(
+                            text = stringResource(R.string.action_save),
+                            onClick = ::save
+                        )
                     }
                 }
             }
@@ -206,48 +220,74 @@ fun AllergenSensitivitiesScreen(
     }
 }
 
+/**
+ * Home-diary-style trailing swipe: drag past threshold then release to request delete.
+ * Avoids Material SwipeToDismissBox's broken confirmValueChange snap-back.
+ */
 @Composable
-private fun AllergenDismissibleRow(
+private fun AllergenSwipeRow(
     allergen: String,
     onRequestDelete: () -> Unit
 ) {
-    val dismissState = rememberSwipeToDismissBoxState(
-        confirmValueChange = { dismissValue ->
-            if (dismissValue == SwipeToDismissBoxValue.EndToStart) {
-                onRequestDelete()
+    val density = LocalDensity.current
+    val deleteTriggerPx = with(density) { 120.dp.toPx() }
+    var offsetPx by remember(allergen) { mutableFloatStateOf(0f) }
+    val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
+    val rowBg = if (isDark) Color(0xFF17171B) else Color(0xFFFAF2EC)
+
+    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+        val maxSwipePx = with(density) { maxWidth.toPx() * 0.72f }
+        Box(Modifier.fillMaxWidth()) {
+            if (offsetPx < 0f) {
+                val widthDp = with(density) { (-offsetPx).toDp() }
+                Box(Modifier.matchParentSize()) {
+                    Box(
+                        Modifier
+                            .align(Alignment.CenterEnd)
+                            .fillMaxHeight()
+                            .width(widthDp)
+                            .background(Color(0xFFD32F2F)),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        if (-offsetPx > 24f) {
+                            Icon(
+                                Icons.Filled.Delete,
+                                contentDescription = stringResource(R.string.action_remove),
+                                tint = Color.White
+                            )
+                        }
+                    }
+                }
             }
-            false
-        }
-    )
-    SwipeToDismissBox(
-        state = dismissState,
-        enableDismissFromStartToEnd = false,
-        backgroundContent = {
-            Box(
-                Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.errorContainer)
-                    .padding(horizontal = 20.dp),
-                contentAlignment = Alignment.CenterEnd
+            Row(
+                modifier = Modifier
+                    .offset { IntOffset(offsetPx.roundToInt(), 0) }
+                    .fillMaxWidth()
+                    .background(rowBg)
+                    .pointerInput(allergen, maxSwipePx) {
+                        detectHorizontalDragGestures(
+                            onHorizontalDrag = { change, dragAmount ->
+                                change.consume()
+                                offsetPx = (offsetPx + dragAmount).coerceIn(-maxSwipePx, 0f)
+                            },
+                            onDragEnd = {
+                                val shouldDelete = offsetPx <= -deleteTriggerPx
+                                offsetPx = 0f
+                                if (shouldDelete) onRequestDelete()
+                            },
+                            onDragCancel = { offsetPx = 0f }
+                        )
+                    }
+                    .padding(horizontal = 16.dp, vertical = 14.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    stringResource(R.string.action_remove),
-                    color = MaterialTheme.colorScheme.onErrorContainer,
-                    fontWeight = FontWeight.SemiBold
+                    allergen,
+                    modifier = Modifier.weight(1f),
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium
                 )
             }
-        },
-        content = {
-            Text(
-                allergen,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(MaterialTheme.colorScheme.surface)
-                    .clickable(onClick = onRequestDelete)
-                    .padding(horizontal = 16.dp, vertical = 14.dp),
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
-            )
         }
-    )
+    }
 }

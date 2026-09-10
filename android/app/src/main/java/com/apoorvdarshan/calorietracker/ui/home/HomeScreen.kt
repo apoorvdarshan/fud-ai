@@ -164,6 +164,7 @@ import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import com.apoorvdarshan.calorietracker.ui.components.InAppCameraCaptureDialog
+import com.apoorvdarshan.calorietracker.ui.components.FullScreenImageViewer
 import com.apoorvdarshan.calorietracker.ui.components.MacroCard
 import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
@@ -190,6 +191,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 
 private enum class AddMenuGroup {
     PhotoAndScan,
@@ -2271,9 +2274,13 @@ private fun FoodRow(
     val ctx = LocalContext.current
     val timeFmt = DateTimeFormatter.ofPattern(clockTimePattern(ctx), Locale.US).withZone(ZoneId.systemDefault())
     val container = (ctx.applicationContext as com.apoorvdarshan.calorietracker.FudAIApp).container
+    val scope = rememberCoroutineScope()
+    val hasPhotos = entry.allImageFilenames.isNotEmpty()
     val bitmap = remember(entry.allImageFilenames) {
-        entry.allImageFilenames.firstOrNull()?.let { container.imageStore.loadThumbnail(it) }
+        entry.allImageFilenames.firstNotNullOfOrNull { container.imageStore.loadThumbnail(it) }
     }
+    var previewPhotos by remember { mutableStateOf<Pair<List<android.graphics.Bitmap>, Int>?>(null) }
+    var isLoadingPreview by remember { mutableStateOf(false) }
     // iOS layout: large 76dp square thumb · column with (Name + heart on left,
     // time on right) · pink kcal · serving · macro tag pills row.
     Row(
@@ -2314,13 +2321,31 @@ private fun FoodRow(
             Modifier
                 .size(76.dp)
                 .clip(RoundedCornerShape(14.dp))
-                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f)),
+                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f))
+                .then(
+                    if (hasPhotos && !selectionMode) {
+                        Modifier.clickable {
+                            scope.launch {
+                                isLoadingPreview = true
+                                val loaded = withContext(Dispatchers.IO) {
+                                    entry.allImageFilenames.mapNotNull { filename ->
+                                        container.imageStore.loadForViewer(filename)
+                                    }
+                                }
+                                isLoadingPreview = false
+                                if (loaded.isNotEmpty()) previewPhotos = loaded to 0
+                            }
+                        }
+                    } else {
+                        Modifier
+                    }
+                ),
             contentAlignment = Alignment.Center
         ) {
             when {
                 bitmap != null -> androidx.compose.foundation.Image(
                     bitmap = bitmap.asImageBitmap(),
-                    contentDescription = entry.name,
+                    contentDescription = stringResource(R.string.cd_view_full_photo),
                     contentScale = androidx.compose.ui.layout.ContentScale.Crop,
                     modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(14.dp))
                 )
@@ -2422,6 +2447,29 @@ private fun FoodRow(
                 MacroChip("F", entry.fat)
             }
         }
+    }
+    if (isLoadingPreview) {
+        Dialog(
+            onDismissRequest = {},
+            properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
+        ) {
+            Box(
+                Modifier
+                    .size(96.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(Color.Black.copy(alpha = 0.72f)),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = Color.White, modifier = Modifier.size(36.dp))
+            }
+        }
+    }
+    previewPhotos?.let { (bitmaps, index) ->
+        FullScreenImageViewer(
+            bitmaps = bitmaps,
+            initialIndex = index,
+            onDismiss = { previewPhotos = null }
+        )
     }
 }
 

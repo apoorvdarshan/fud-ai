@@ -100,6 +100,7 @@ import androidx.compose.material.icons.outlined.Speed
 import androidx.compose.material.icons.outlined.Straighten
 import androidx.compose.material.icons.automirrored.outlined.TrendingUp
 import androidx.compose.material.icons.outlined.Tune
+import androidx.compose.material.icons.outlined.Warning
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material3.AlertDialog
@@ -221,7 +222,7 @@ private enum class SettingsSheet {
     FALLBACK_PROVIDER, FALLBACK_MODEL, FALLBACK_KEY, FALLBACK_BASE_URL,
     SPEECH_FALLBACK_PROVIDER, SPEECH_FALLBACK_LANGUAGE, SPEECH_FALLBACK_KEY,
     GENDER, BIRTHDAY, HEIGHT, WEIGHT, BODY_FAT, GOAL_BODY_FAT, ACTIVITY, GOAL, GOAL_WEIGHT, GOAL_SPEED,
-    CALORIES, PROTEIN, CARBS, FAT, OPTIONAL_NUTRIENTS,
+    CALORIES, PROTEIN, CARBS, FAT, OPTIONAL_NUTRIENTS, ALLERGENS,
     APPEARANCE, WEEK_START, MEAL_TIMES, WATER_GOAL, WATER_UNIT, FASTING_GOAL, WORKOUT_SPLIT, WORKOUT_RPE
 }
 
@@ -590,30 +591,13 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                         icon = Icons.Outlined.Straighten
                     ) { nav.navigate(FudAIRoutes.BODY_MEASUREMENTS) }
                     HorizontalDivider()
-                    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Text(
-                            stringResource(R.string.settings_allergen_sensitivities),
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        OutlinedTextField(
-                            value = p.allergenSensitivities.joinToString(", "),
-                            onValueChange = { value ->
-                                vm.updateProfile {
-                                    it.copy(
-                                        allergenSensitivities = value.split(",")
-                                            .map(String::trim)
-                                            .filter(String::isNotEmpty)
-                                    )
-                                }
-                            },
-                            modifier = Modifier.fillMaxWidth(),
-                            placeholder = { Text(stringResource(R.string.settings_allergen_placeholder)) },
-                            supportingText = {
-                                Text(stringResource(R.string.settings_allergen_disclaimer))
-                            },
-                            singleLine = false
-                        )
-                    }
+                    SettingRow(
+                        stringResource(R.string.settings_allergen_sensitivities),
+                        p.allergenSensitivities.joinToString(", ").ifBlank {
+                            stringResource(R.string.settings_not_set)
+                        },
+                        icon = Icons.Outlined.Warning
+                    ) { sheet = SettingsSheet.ALLERGENS }
                 }
             }
             }
@@ -2931,8 +2915,65 @@ private fun SettingsSheets(
                     onChange = vm::setOptionalNutrientGoals,
                     onDismiss = onDismiss
                 )
+                SettingsSheet.ALLERGENS -> AllergenSensitivitiesSheet(
+                    current = ui.profile?.allergenSensitivities.orEmpty(),
+                    onSave = { values ->
+                        vm.updateProfile { it.copy(allergenSensitivities = values) }
+                        onDismiss()
+                    },
+                    onDismiss = onDismiss
+                )
             }
             Spacer(Modifier.height(14.dp))
+        }
+
+    }
+}
+
+@Composable
+private fun AllergenSensitivitiesSheet(
+    current: List<String>,
+    onSave: (List<String>) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var value by rememberSaveable { mutableStateOf(current.joinToString(", ")) }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(14.dp)
+    ) {
+        Text(
+            stringResource(R.string.settings_allergen_sensitivities),
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            stringResource(R.string.settings_allergen_disclaimer),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        OutlinedTextField(
+            value = value,
+            onValueChange = { value = it },
+            modifier = Modifier.fillMaxWidth(),
+            placeholder = { Text(stringResource(R.string.settings_allergen_placeholder)) },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+            supportingText = { Text("Separate multiple allergens with commas.") }
+        )
+        Button(
+            onClick = {
+                onSave(
+                    value.split(",")
+                        .map(String::trim)
+                        .filter(String::isNotEmpty)
+                )
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(stringResource(android.R.string.ok))
         }
     }
 }

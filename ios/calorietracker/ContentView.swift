@@ -3857,7 +3857,7 @@ struct ProfileView: View {
     }
 
     enum ActiveSheet: String, Identifiable {
-        case editBirthday, editHeight, editWeight, editBodyFat, editGoalBodyFat, editGoalWeight, editCalories, editProtein, editCarbs, editFat
+        case editBirthday, editHeight, editWeight, editBodyFat, editGoalBodyFat, editAllergens, editGoalWeight, editCalories, editProtein, editCarbs, editFat
         var id: String { rawValue }
     }
     @State private var activeSheet: ActiveSheet?
@@ -4101,29 +4101,14 @@ struct ProfileView: View {
                                 .foregroundStyle(AppColors.calorie)
                         }
                     }
-
-                    VStack(alignment: .leading, spacing: 6) {
-                        Label("Allergen sensitivities", systemImage: "exclamationmark.triangle")
-                            .foregroundStyle(AppColors.calorie)
-                        TextField(
-                            "e.g. milk, peanuts, shellfish",
-                            text: Binding(
-                                get: { profile.configuredAllergenSensitivities.joined(separator: ", ") },
-                                set: { value in
-                                    let values = value
-                                        .split(separator: ",")
-                                        .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                                        .filter { !$0.isEmpty }
-                                    profile.allergenSensitivities = values
-                                    saveProfile()
-                                }
-                            )
-                        )
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
-                        Text("Used for local label checks. Results never indicate that a food is safe.")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                    ProfileInfoRow(
+                        icon: "exclamationmark.triangle",
+                        label: "Allergen sensitivities",
+                        value: profile.configuredAllergenSensitivities.joined(separator: ", ").isEmpty
+                            ? "Not set"
+                            : profile.configuredAllergenSensitivities.joined(separator: ", ")
+                    ) {
+                        activeSheet = .editAllergens
                     }
                 }
                 .listRowBackground(AppColors.appCard)
@@ -5521,6 +5506,15 @@ struct ProfileView: View {
                         saveProfile()
                     }
 
+                case .editAllergens:
+                    AllergenSensitivitiesSheet(
+                        current: profile.configuredAllergenSensitivities
+                    ) { values in
+                        profile.allergenSensitivities = values
+                        saveProfile()
+                        activeSheet = nil
+                    }
+
                 case .editGoalWeight:
                     WeightPickerSheet(
                         currentWeightKg: profile.goalWeightKg ?? profile.weightKg
@@ -6459,6 +6453,55 @@ struct ProfileView: View {
         showAdaptiveGoalAlert = true
     }
 
+}
+
+private struct AllergenSensitivitiesSheet: View {
+    let onSave: ([String]) -> Void
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var value: String
+
+    init(current: [String], onSave: @escaping ([String]) -> Void) {
+        self.onSave = onSave
+        _value = State(initialValue: current.joined(separator: ", "))
+    }
+
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section {
+                    TextField("e.g. milk, peanuts, shellfish", text: $value, axis: .vertical)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                        .lineLimit(1...3)
+                } header: {
+                    Label("Allergen sensitivities", systemImage: "exclamationmark.triangle")
+                        .foregroundStyle(AppColors.calorie)
+                } footer: {
+                    Text("Separate multiple allergens with commas. Results never indicate that a food is safe.")
+                }
+            }
+            .navigationTitle("Allergen sensitivities")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { dismiss() }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Save") {
+                        let values = value
+                            .split(separator: ",")
+                            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                            .filter { !$0.isEmpty }
+                        onSave(values)
+                        dismiss()
+                    }
+                    .fontWeight(.semibold)
+                }
+            }
+        }
+        .presentationDetents([.medium])
+    }
 }
 
 #Preview {

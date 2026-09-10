@@ -18,7 +18,7 @@
   <img src="https://img.shields.io/badge/privacy-local--first-brightgreen" alt="Local-first privacy">
   <img src="https://img.shields.io/badge/languages-iOS%2016%20%2F%20Android%2015-blue" alt="iOS 16 languages / Android 15 languages">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License">
-  <a href="#credits"><img src="https://img.shields.io/badge/Code_reviews-Qodo%20%7C%20GitHub_Copilot%20%7C%20CodeRabbit%20%7C%20Greptile-634FD1" alt="Code reviews by Qodo, GitHub Copilot, CodeRabbit, and Greptile"></a>
+  <a href="#credits"><img src="docs/assets/code-reviews.svg" alt="Code reviews by Qodo, GitHub Copilot, CodeRabbit, and Greptile"></a>
   <a href="https://www.bestpractices.dev/projects/14553"><img src="https://www.bestpractices.dev/projects/14553/badge" alt="OpenSSF Best Practices Passing"></a>
   <a href="https://scorecard.dev/viewer/?uri=github.com/apoorvdarshan/fud-ai"><img src="https://api.scorecard.dev/projects/github.com/apoorvdarshan/fud-ai/badge" alt="OpenSSF Scorecard"></a>
   <img src="https://img.shields.io/badge/Udyam-Registered-green" alt="Udyam Registered">

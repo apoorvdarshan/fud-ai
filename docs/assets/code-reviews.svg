@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="405" height="20" role="img" aria-label="Code reviews: Qodo, GitHub Copilot, CodeRabbit, Greptile">
+  <title>Code reviews: Qodo, GitHub Copilot, CodeRabbit, Greptile</title>
+  <defs>
+    <linearGradient id="shine" x2="0" y2="100%">
+      <stop offset="0" stop-color="#fff" stop-opacity=".1"/>
+      <stop offset="1" stop-opacity=".1"/>
+    </linearGradient>
+    <clipPath id="round"><rect width="405" height="20" rx="3"/></clipPath>
+  </defs>
+  <g clip-path="url(#round)">
+    <path fill="#555" d="M0 0h85v20H0z"/>
+    <path fill="#634fd1" d="M85 0h48v20H85z"/>
+    <path fill="#181717" d="M133 0h108v20H133z"/>
+    <path fill="#c94300" d="M241 0h92v20H241z"/>
+    <path fill="#20e3a2" d="M333 0h72v20H333z"/>
+    <rect width="405" height="20" fill="url(#shine)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="Verdana,DejaVu Sans,sans-serif" font-size="11">
+    <text x="42.5" y="14">Code reviews</text>
+    <text x="109" y="14">Qodo</text>
+    <text x="187" y="14">GitHub Copilot</text>
+    <text x="287" y="14">CodeRabbit</text>
+    <text x="369" y="14" fill="#103b2d">Greptile</text>
+  </g>
+</svg>

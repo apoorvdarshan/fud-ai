@@ -7,6 +7,7 @@
     <string name="workout_text_voice">Voice</string>
     <string name="workout_text_preparing">Finding exercises…</string>
     <string name="workout_text_preview">Analyze</string>
+    <string name="workout_text_retry">Retry</string>
     <string name="workout_text_review">Review workout</string>
     <string name="workout_text_date">Date (YYYY-MM-DD)</string>
     <string name="workout_text_custom">Custom timed activity · calorie estimate uses a general activity rate</string>

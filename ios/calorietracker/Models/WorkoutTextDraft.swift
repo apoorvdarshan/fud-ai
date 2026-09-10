@@ -42,7 +42,8 @@ struct WorkoutTextDraft: Codable {
             }
             guard minutes != nil || !sets.isEmpty else { throw WorkoutTextError.invalid("Add a duration or completed sets.") }
             guard item != nil || (minutes != nil && sets.isEmpty) else {
-                throw WorkoutClarification(question: "Which variation of \(entry.name) did you do? For example, seated or standing, and which equipment?")
+                throw WorkoutClarification(question: "Which variation of \(entry.name) did you do?",
+                    options: ["Barbell", "Dumbbells", "Machine"])
             }
             let resolved = item ?? ExerciseLibraryItem(id: "custom_activity_\(entry.id.uuidString)", name: entry.name, category: "cardio")
             var exercise = StrengthPlannedExercise(item: resolved)

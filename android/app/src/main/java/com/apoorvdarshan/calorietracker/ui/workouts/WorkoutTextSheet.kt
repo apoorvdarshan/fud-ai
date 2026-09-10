@@ -106,25 +106,31 @@ internal fun WorkoutTextSheet(
         Column(Modifier.fillMaxWidth().imePadding().verticalScroll(rememberScrollState())
             .padding(horizontal = 20.dp).padding(bottom = 28.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(stringResource(R.string.workout_text_title), style = MaterialTheme.typography.headlineSmall)
-            if (draft == null && question != null) {
+            if (draft == null && (question != null || followUps.isNotEmpty())) {
                 Text(description, style = MaterialTheme.typography.bodyMedium)
                 followUps.forEach { Text(it.answer, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-                Text(question.orEmpty(), style = MaterialTheme.typography.titleMedium)
-                options.chunked(2).forEach { row ->
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        row.forEach { option ->
-                            OutlinedButton(onClick = { answer(option) }, enabled = !busy, modifier = Modifier.weight(1f)) { Text(option) }
+                if (question != null) {
+                    Text(question.orEmpty(), style = MaterialTheme.typography.titleMedium)
+                    options.chunked(2).forEach { row ->
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            row.forEach { option ->
+                                OutlinedButton(onClick = { answer(option) }, enabled = !busy, modifier = Modifier.weight(1f)) { Text(option) }
+                            }
                         }
                     }
-                }
-                OutlinedTextField(value = reply, onValueChange = { reply = it.take(500) },
-                    label = { Text("Your answer") }, enabled = !busy, modifier = Modifier.fillMaxWidth())
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    OutlinedButton(onClick = { voiceReply = true }, enabled = !busy) { Text("Voice reply") }
-                    Button(onClick = { answer(reply) }, enabled = !busy && reply.isNotBlank()) { Text("Continue") }
+                    OutlinedTextField(value = reply, onValueChange = { reply = it.take(500) },
+                        label = { Text("Your answer") }, enabled = !busy, modifier = Modifier.fillMaxWidth())
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        OutlinedButton(onClick = { voiceReply = true }, enabled = !busy) { Text("Voice reply") }
+                        Button(onClick = { answer(reply) }, enabled = !busy && reply.isNotBlank()) { Text("Continue") }
+                    }
+                } else {
+                    Button(modifier = Modifier.fillMaxWidth(), onClick = { analyze() }, enabled = !busy) {
+                        Text(stringResource(if (busy) R.string.workout_text_preparing else if (error != null) R.string.workout_text_retry else R.string.workout_text_preview))
+                    }
+                    if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
                 }
             } else if (draft == null) {
-                if (followUps.isNotEmpty()) Text(followUps.joinToString(" · ") { it.answer }, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text(stringResource(R.string.workout_text_intro))
                 OutlinedTextField(value = description, onValueChange = { description = it.take(4000); error = null; followUpsJson = "[]"; question = null },
                     enabled = !busy, modifier = Modifier.fillMaxWidth(), minLines = 2,
@@ -133,7 +139,7 @@ internal fun WorkoutTextSheet(
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     Button(modifier = Modifier.fillMaxWidth(), onClick = {
                         analyze()
-                    }, enabled = description.isNotBlank() && !busy) { Text(stringResource(if (busy) R.string.workout_text_preparing else R.string.workout_text_preview)) }
+                    }, enabled = description.isNotBlank() && !busy) { Text(stringResource(if (busy) R.string.workout_text_preparing else if (error != null) R.string.workout_text_retry else R.string.workout_text_preview)) }
                 }
                 if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
             } else {
@@ -206,7 +212,7 @@ internal fun WorkoutTextSheet(
                 estimate?.let { Text(stringResource(R.string.workout_text_estimate, it.calories), style = MaterialTheme.typography.titleMedium) }
                 Text(stringResource(R.string.workout_text_calories_note), style = MaterialTheme.typography.bodySmall)
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    OutlinedButton(onClick = { draftJson = null; error = null }, enabled = !saving) { Text(stringResource(R.string.workout_text_edit)) }
+                    OutlinedButton(onClick = { draftJson = null; error = null; followUpsJson = "[]"; question = null }, enabled = !saving) { Text(stringResource(R.string.workout_text_edit)) }
                     Button(onClick = {
                         saving = true; error = null
                         scope.launch {

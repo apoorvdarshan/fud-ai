@@ -40,8 +40,11 @@ data class WorkoutTextDraft(val date: String, val exercises: List<WorkoutTextExe
                     weightUnit = WorkoutWeightUnit.fromStorage(entry.unit))
             }
             require(minutes != null || sets.isNotEmpty()) { "Add a duration or completed sets." }
-            require(item != null || (minutes != null && sets.isEmpty())) {
-                "Which variation of ${entry.name} did you do? Add details such as seated or standing and the equipment, then try again."
+            if (item == null && (minutes == null || sets.isNotEmpty())) {
+                throw WorkoutClarification(
+                    "Which variation of ${entry.name} did you do?",
+                    listOf("Barbell", "Dumbbells", "Machine")
+                )
             }
             val base = item?.let(PlannedExercise::from) ?: PlannedExercise(
                 itemId = "custom_activity_${entry.id}", name = entry.name.trim(), level = "",

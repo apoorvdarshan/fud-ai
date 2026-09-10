@@ -37,7 +37,7 @@ struct WorkoutTextDraftTests {
         let queries = WorkoutTextDraft.searchQueries(#"{"queries":["calf raise machine"]}"#, fallback: "calf raise machien")
         let prompt = WorkoutTextDraft.prompt(description: "calf raise machien 3set 20 reps rpe 6 both", selectedDate: today,
             unit: .kg, library: [calf], searchQueries: queries)
-        #expect(prompt.contains("Standing_Calf_Raises | Standing Calf Raises | equipment: machine"))
+        #expect(prompt.contains("Standing_Calf_Raises | Standing Calf Raises | equipment: Machine"))
         #expect(WorkoutTextDraft.searchQueries("bad JSON", fallback: "original") == ["original"])
     }
 
@@ -57,9 +57,25 @@ struct WorkoutTextDraftTests {
         do {
             _ = try draft.planned(library: library, today: today)
             Issue.record("Expected clarification")
+        } catch let question as WorkoutClarification {
+            #expect(question.question == "Which variation of Calf raise machine did you do?")
+            #expect(question.options == ["Barbell", "Dumbbells", "Machine"])
+            #expect(!question.question.contains("duration"))
         } catch {
-            #expect(error.localizedDescription.contains("seated or standing"))
-            #expect(!error.localizedDescription.contains("duration"))
+            Issue.record("Expected WorkoutClarification, got \(error)")
+        }
+    }
+
+    @Test func unresolvedStrengthDraftBecomesClarificationNotARedError() throws {
+        let json = #"{"date":"2026-09-09","exercises":[{"exercise_id":null,"name":"Bench press","minutes":null,"unit":"kg","sets":[{"weight":null,"reps":10},{"weight":null,"reps":10}]}]}"#
+        do {
+            _ = try WorkoutTextDraft.parse(json, library: library, today: today)
+            Issue.record("Expected clarification")
+        } catch let question as WorkoutClarification {
+            #expect(question.question.contains("Bench press"))
+            #expect(question.options == ["Barbell", "Dumbbells", "Machine"])
+        } catch {
+            Issue.record("Expected WorkoutClarification, got \(error)")
         }
     }
 

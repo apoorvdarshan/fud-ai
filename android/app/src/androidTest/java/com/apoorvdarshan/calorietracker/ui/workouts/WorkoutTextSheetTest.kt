@@ -107,7 +107,7 @@ class WorkoutTextSheetTest {
         compose.onNodeWithText("Barbell").performScrollTo().performClick()
         compose.waitUntil(5000) { requests.size == 2 }
         compose.onNodeWithText("Network unavailable").performScrollTo().assertExists()
-        compose.onNodeWithText("Analyze").performScrollTo().performClick()
+        compose.onNodeWithText("Retry").performScrollTo().performClick()
         compose.waitUntil(5000) { requests.size == 3 }
         assertEquals(requests[1], requests[2])
     }

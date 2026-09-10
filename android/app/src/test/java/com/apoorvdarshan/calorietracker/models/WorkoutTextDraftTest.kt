@@ -53,9 +53,17 @@ class WorkoutTextDraftTest {
     @Test fun unresolvedStrengthAsksForVariationInsteadOfDuration() {
         val draft = WorkoutTextDraft(today.toString(), listOf(WorkoutTextExercise(exerciseId = null,
             name = "Calf raise machine", sets = listOf(WorkoutTextSet(reps = "20", rpe = "6")))))
-        val message = runCatching { draft.planned(library, today) }.exceptionOrNull()!!.message!!
-        assertTrue(message.contains("seated or standing"))
-        assertFalse(message.contains("duration"))
+        val error = runCatching { draft.planned(library, today) }.exceptionOrNull() as WorkoutClarification
+        assertEquals("Which variation of Calf raise machine did you do?", error.message)
+        assertEquals(listOf("Barbell", "Dumbbells", "Machine"), error.options)
+        assertFalse(error.message!!.contains("duration"))
+    }
+
+    @Test fun unresolvedStrengthDraftBecomesClarificationNotARedError() {
+        val json = """{"date":"2026-09-09","exercises":[{"exercise_id":null,"name":"Bench press","minutes":null,"unit":"kg","sets":[{"weight":null,"reps":10},{"weight":null,"reps":10}]}]}"""
+        val error = runCatching { WorkoutTextDraft.parse(json, library, today) }.exceptionOrNull() as WorkoutClarification
+        assertTrue(error.message!!.contains("Bench press"))
+        assertEquals(listOf("Barbell", "Dumbbells", "Machine"), error.options)
     }
 
     @Test fun candidateCatalogPrioritizesNamedExercisesAndBoundsContext() {

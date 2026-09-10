@@ -5325,6 +5325,8 @@ struct ProfileView: View {
                 }
 
                 if settingsCategory == .dataManagement {
+                CloudBackupSettingsSection()
+
                 Section {
                     // Export Food Diary
                     Button {

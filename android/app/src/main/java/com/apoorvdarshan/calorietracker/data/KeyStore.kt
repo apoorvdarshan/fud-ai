@@ -53,6 +53,12 @@ class KeyStore(context: Context) {
         delete(WEEKLY_CHALLENGE_BEARER_TOKEN)
     }
 
+    fun cloudBackupAccessToken(): String? = load(CLOUD_BACKUP_ACCESS_TOKEN)
+
+    fun setCloudBackupAccessToken(token: String?) {
+        if (token.isNullOrBlank()) delete(CLOUD_BACKUP_ACCESS_TOKEN) else save(CLOUD_BACKUP_ACCESS_TOKEN, token)
+    }
+
     fun clearAll(preserveWeeklyChallengeToken: Boolean = false) {
         val challengeToken = if (preserveWeeklyChallengeToken) weeklyChallengeBearerToken() else null
         prefs.edit().clear().apply {
@@ -68,6 +74,7 @@ class KeyStore(context: Context) {
         private const val AI_PREFIX = "apikey_"
         private const val STT_PREFIX = "speechApiKey_"
         private const val WEEKLY_CHALLENGE_BEARER_TOKEN = "weekly_challenge_bearer_token_v1"
+        private const val CLOUD_BACKUP_ACCESS_TOKEN = "cloud_backup_access_token_v1"
 
         /**
          * Open EncryptedSharedPreferences. On Android 14/15 (and occasionally

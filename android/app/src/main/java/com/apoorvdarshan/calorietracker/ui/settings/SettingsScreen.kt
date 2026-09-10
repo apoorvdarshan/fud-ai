@@ -7,9 +7,12 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
+import android.app.Activity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import com.apoorvdarshan.calorietracker.backup.DriveCloudBackupClient
 import androidx.core.content.ContextCompat
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
@@ -60,6 +63,7 @@ import androidx.compose.material.icons.automirrored.filled.TrendingFlat
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Brightness6
 import androidx.compose.material.icons.outlined.Bolt
+import androidx.compose.material.icons.outlined.CloudUpload
 import androidx.compose.material.icons.outlined.CalendarToday
 import androidx.compose.material.icons.outlined.Cake
 import androidx.compose.material.icons.outlined.DataUsage
@@ -121,6 +125,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -299,6 +304,10 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     var showDefaultGramsInfo by remember { mutableStateOf(false) }
     var showHealthEnergyGoalsInfo by remember { mutableStateOf(false) }
     var showAdaptiveGoalsInfo by remember { mutableStateOf(false) }
+    var showCloudEnableConfirm by remember { mutableStateOf(false) }
+    var showCloudRestoreChoice by remember { mutableStateOf(false) }
+    var showCloudDeleteConfirm by remember { mutableStateOf(false) }
+    var cloudBackupError by remember { mutableStateOf<String?>(null) }
     var selectedCategory by rememberSaveable { mutableStateOf<SettingsCategory?>(null) }
     val settingsHomeScrollState = rememberScrollState()
     val settingsDetailScrollState = remember(selectedCategory) { ScrollState(initial = 0) }
@@ -307,6 +316,55 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     val resources = LocalResources.current
     val settingsScope = rememberCoroutineScope()
     val importReadFailedMessage = stringResource(R.string.import_read_failed)
+    val cloudBackup by container.cloudBackup.ui.collectAsState()
+    LaunchedEffect(selectedCategory) {
+        if (selectedCategory == SettingsCategory.DATA_MANAGEMENT) {
+            container.cloudBackup.refresh()
+        }
+    }
+    val finishDriveSignIn: () -> Unit = {
+        settingsScope.launch {
+            container.cloudBackup.refresh()
+            if (container.cloudBackup.ui.value.existingCloudBackup) {
+                showCloudRestoreChoice = true
+            } else {
+                container.cloudBackup.enableAfterAuth(restoreIfPresent = false)
+                    .onFailure { cloudBackupError = it.message }
+            }
+        }
+    }
+    val driveAuthLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartIntentSenderForResult()
+    ) { result ->
+        if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
+        settingsScope.launch {
+            val activity = activityContext as? Activity ?: return@launch
+            if (container.cloudBackup.finishAuthorization(activity, result.data)) {
+                finishDriveSignIn()
+            }
+        }
+    }
+    val startDriveSignIn: () -> Unit = {
+        val activity = activityContext as? Activity
+        if (activity == null) {
+            cloudBackupError = activityContext.getString(R.string.cloud_backup_sign_in_failed)
+        } else {
+            settingsScope.launch {
+                runCatching { container.cloudBackup.authorize(activity) }
+                    .onSuccess { outcome ->
+                        when (outcome) {
+                            is DriveCloudBackupClient.AuthOutcome.Token -> finishDriveSignIn()
+                            is DriveCloudBackupClient.AuthOutcome.Resolution -> {
+                                driveAuthLauncher.launch(
+                                    IntentSenderRequest.Builder(outcome.intentSender).build()
+                                )
+                            }
+                        }
+                    }
+                    .onFailure { cloudBackupError = it.message }
+            }
+        }
+    }
 
     val importFileLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
@@ -1188,6 +1246,99 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
 
             if (selectedCategory == SettingsCategory.DATA_MANAGEMENT) {
             SectionCard {
+                ToggleRow(
+                    label = stringResource(R.string.cloud_backup_title),
+                    checked = cloudBackup.enabled,
+                    icon = Icons.Outlined.CloudUpload,
+                    onChange = { on ->
+                        if (on) showCloudEnableConfirm = true
+                        else settingsScope.launch { container.cloudBackup.disable() }
+                    }
+                )
+                if (cloudBackup.accountEmail != null) {
+                    Text(
+                        stringResource(R.string.cloud_backup_signed_in, cloudBackup.accountEmail!!),
+                        modifier = Modifier.padding(start = 52.dp, end = 16.dp, bottom = 8.dp),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
+                    )
+                }
+                cloudBackup.lastAt?.let { last ->
+                    Text(
+                        stringResource(R.string.cloud_backup_last, last.take(16).replace('T', ' ')),
+                        modifier = Modifier.padding(start = 52.dp, end = 16.dp, bottom = 8.dp),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
+                    )
+                }
+                Text(
+                    stringResource(R.string.cloud_backup_footer),
+                    modifier = Modifier.padding(start = 52.dp, end = 16.dp, bottom = 12.dp),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
+                )
+                if (cloudBackup.enabled) {
+                    HorizontalDivider()
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .clickable(enabled = !cloudBackup.busy) {
+                                settingsScope.launch {
+                                    container.cloudBackup.backupNow()
+                                        .onFailure { cloudBackupError = it.message }
+                                }
+                            }
+                            .padding(horizontal = 16.dp, vertical = 13.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            stringResource(R.string.cloud_backup_now),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                    HorizontalDivider()
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .clickable(enabled = !cloudBackup.busy) {
+                                settingsScope.launch {
+                                    container.cloudBackup.restoreNow()
+                                        .onFailure { cloudBackupError = it.message }
+                                }
+                            }
+                            .padding(horizontal = 16.dp, vertical = 13.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            stringResource(R.string.cloud_backup_restore_now),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                    HorizontalDivider()
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .clickable(enabled = !cloudBackup.busy) { showCloudDeleteConfirm = true }
+                            .padding(horizontal = 16.dp, vertical = 13.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            stringResource(R.string.cloud_backup_delete),
+                            color = Color(0xFFFF3B30),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                }
+                if (cloudBackup.busy) {
+                    Row(
+                        Modifier.padding(16.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp)
+                    }
+                }
+            }
+            SectionCard {
                 Row(
                     Modifier
                         .fillMaxWidth()
@@ -1342,6 +1493,89 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                 dismissText = stringResource(R.string.action_cancel),
                 onDismiss = { showClearFoodDialog = false },
                 destructive = true
+            )
+        }
+    }
+
+    if (showCloudEnableConfirm) {
+        FudGlassDialog(onDismissRequest = { showCloudEnableConfirm = false }) {
+            Text(stringResource(R.string.cloud_backup_title), fontSize = 21.sp, fontWeight = FontWeight.Bold)
+            Text(
+                stringResource(R.string.cloud_backup_enable_message),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
+            )
+            FudGlassDialogActions(
+                primaryText = stringResource(R.string.cloud_backup_turn_on),
+                onPrimary = {
+                    showCloudEnableConfirm = false
+                    startDriveSignIn()
+                },
+                dismissText = stringResource(R.string.action_cancel),
+                onDismiss = { showCloudEnableConfirm = false }
+            )
+        }
+    }
+
+    if (showCloudRestoreChoice) {
+        FudGlassDialog(onDismissRequest = { showCloudRestoreChoice = false }) {
+            Text(stringResource(R.string.cloud_backup_restore_title), fontSize = 21.sp, fontWeight = FontWeight.Bold)
+            Text(
+                stringResource(R.string.cloud_backup_restore_message),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
+            )
+            FudGlassDialogActions(
+                primaryText = stringResource(R.string.cloud_backup_restore),
+                onPrimary = {
+                    showCloudRestoreChoice = false
+                    settingsScope.launch {
+                        container.cloudBackup.enableAfterAuth(restoreIfPresent = true)
+                            .onFailure { cloudBackupError = it.message }
+                    }
+                },
+                dismissText = stringResource(R.string.cloud_backup_keep),
+                onDismiss = {
+                    showCloudRestoreChoice = false
+                    settingsScope.launch {
+                        container.cloudBackup.enableAfterAuth(restoreIfPresent = false)
+                            .onFailure { cloudBackupError = it.message }
+                    }
+                }
+            )
+        }
+    }
+
+    if (showCloudDeleteConfirm) {
+        FudGlassDialog(onDismissRequest = { showCloudDeleteConfirm = false }) {
+            Text(stringResource(R.string.cloud_backup_delete), fontSize = 21.sp, fontWeight = FontWeight.Bold)
+            Text(
+                stringResource(R.string.cloud_backup_delete_message),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f)
+            )
+            FudGlassDialogActions(
+                primaryText = stringResource(R.string.action_delete),
+                onPrimary = {
+                    showCloudDeleteConfirm = false
+                    settingsScope.launch {
+                        container.cloudBackup.deleteCloudBackup()
+                            .onFailure { cloudBackupError = it.message }
+                    }
+                },
+                dismissText = stringResource(R.string.action_cancel),
+                onDismiss = { showCloudDeleteConfirm = false },
+                destructive = true
+            )
+        }
+    }
+
+    cloudBackupError?.let { message ->
+        FudGlassDialog(onDismissRequest = { cloudBackupError = null }) {
+            Text(stringResource(R.string.cloud_backup_title), fontSize = 21.sp, fontWeight = FontWeight.Bold)
+            Text(message, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f))
+            FudGlassDialogActions(
+                primaryText = stringResource(R.string.action_ok),
+                onPrimary = { cloudBackupError = null },
+                dismissText = null,
+                onDismiss = { cloudBackupError = null }
             )
         }
     }

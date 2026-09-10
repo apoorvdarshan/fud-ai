@@ -95,6 +95,10 @@ class WeightStore {
         }
     }
 
+    func reloadFromDefaults() {
+        loadEntries()
+    }
+
     func replaceAllEntries(_ newEntries: [WeightEntry]) {
         entries = newEntries
         saveEntries()

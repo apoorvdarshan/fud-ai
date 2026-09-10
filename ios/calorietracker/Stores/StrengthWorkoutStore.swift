@@ -384,6 +384,15 @@ final class StrengthWorkoutStore {
         save()
     }
 
+    func reloadFromDefaults() {
+        dayPlans = [:]
+        completedSessions = []
+        savedExerciseIDs = []
+        customActivities = []
+        preferences = StrengthWorkoutPreferences()
+        load()
+    }
+
     func clearAll() {
         dayPlans = [:]
         completedSessions = []

@@ -13,6 +13,7 @@ import com.apoorvdarshan.calorietracker.data.WeightRepository
 import com.apoorvdarshan.calorietracker.data.WaterRepository
 import com.apoorvdarshan.calorietracker.data.WorkoutHealthSync
 import com.apoorvdarshan.calorietracker.data.WorkoutRepository
+import com.apoorvdarshan.calorietracker.backup.CloudBackupCoordinator
 import com.apoorvdarshan.calorietracker.data.WeeklyChallengeRepository
 import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import com.apoorvdarshan.calorietracker.services.NotificationService
@@ -209,6 +210,7 @@ class AppContainer(app: FudAIApp) {
     val fastingRepository = FastingRepository(prefs)
     val workoutRepository = WorkoutRepository(prefs, workoutHealthSync)
     val weeklyChallengeRepository = WeeklyChallengeRepository(app, keyStore)
+    val cloudBackup = CloudBackupCoordinator(app, prefs, imageStore, keyStore)
 
     val localGemma = LocalGemmaRuntime(app, localModels)
     val localWhisper = LocalWhisperRuntime(app, localModels)

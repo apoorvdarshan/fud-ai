@@ -33,6 +33,23 @@ android {
         versionName = "7.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        val oauthProps = Properties().apply {
+            val file = rootProject.file("oauth.properties")
+            if (file.exists()) load(file.inputStream())
+        }
+        val localProps = Properties().apply {
+            val file = rootProject.file("local.properties")
+            if (file.exists()) load(file.inputStream())
+        }
+        val webClientId = oauthProps.getProperty("cloud.backup.web.client.id")
+            ?: localProps.getProperty("cloud.backup.web.client.id")
+            ?: ""
+        buildConfigField(
+            "String",
+            "CLOUD_BACKUP_WEB_CLIENT_ID",
+            "\"${webClientId.replace("\"", "\\\"")}\""
+        )
     }
 
     signingConfigs {
@@ -143,7 +160,9 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.play.services)
     implementation(libs.play.app.update)
+    implementation(libs.play.services.auth)
     implementation(libs.vico.compose.m3)
     implementation(libs.litert.lm.android)
     implementation(libs.whisper.android)

@@ -71,6 +71,10 @@ class BodyFatStore {
         }
     }
 
+    func reloadFromDefaults() {
+        loadEntries()
+    }
+
     func replaceAllEntries(_ newEntries: [BodyFatEntry]) {
         entries = newEntries
         saveEntries()

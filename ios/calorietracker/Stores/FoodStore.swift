@@ -426,6 +426,12 @@ class FoodStore {
         return combined
     }
 
+    func reloadFromDefaults() {
+        loadEntries()
+        loadFavorites()
+        onEntriesChanged?()
+    }
+
     func replaceAllEntries(_ newEntries: [FoodEntry]) {
         // Delete on-disk JPEGs for any entry that's about to be removed —
         // otherwise Clear Food Log / Delete All Data orphan files in

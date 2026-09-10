@@ -1,0 +1,9 @@
+# Copy to android/oauth.properties (gitignored) after creating OAuth clients
+# in Google Cloud Console. Enable the Drive API. Use drive.appdata only.
+#
+# Android OAuth clients:
+#   release  package com.apoorvdarshan.calorietracker + Play App signing SHA-1
+#   debug    package com.apoorvdarshan.calorietracker.debug + debug keystore SHA-1
+#
+# Web client ID is used by AuthorizationClient.requestOfflineAccess.
+cloud.backup.web.client.id=

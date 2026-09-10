@@ -82,6 +82,17 @@ final class FastingStore {
         sessions.filter { $0.occurs(on: day) }.sorted { ($0.endedAt ?? .distantPast) > ($1.endedAt ?? .distantPast) }
     }
 
+    func reloadFromDefaults() {
+        guard let data = defaults.data(forKey: FastingSettings.sessionsKey),
+              let decoded = try? JSONDecoder().decode([FastingSession].self, from: data) else {
+            sessions = []
+            onSessionsChanged?()
+            return
+        }
+        sessions = decoded.sorted { $0.startedAt < $1.startedAt }
+        onSessionsChanged?()
+    }
+
     func clear() {
         sessions = []
         defaults.removeObject(forKey: FastingSettings.sessionsKey)

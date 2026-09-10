@@ -29,6 +29,10 @@ class ChatStore {
         save()
     }
 
+    func reloadFromDefaults() {
+        load()
+    }
+
     func reset() {
         messages = []
         save()

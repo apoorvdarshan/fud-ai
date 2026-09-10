@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AutoBalanceMacro
@@ -26,6 +27,8 @@ import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.WeightEntry
 import com.apoorvdarshan.calorietracker.models.WidgetSnapshot
 import com.apoorvdarshan.calorietracker.models.WaterEntry
+import com.apoorvdarshan.calorietracker.backup.CloudBackupPolicy
+import com.apoorvdarshan.calorietracker.backup.CloudBackupValue
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.models.WorkoutPersistedState
 import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
@@ -237,6 +240,70 @@ class PreferencesStore(
     /// the restore should be allowed to run again.
     val healthFoodRestoreDone: Flow<Boolean> = ds.data.map { it[Keys.HEALTH_FOOD_RESTORE_DONE] ?: false }
     suspend fun setHealthFoodRestoreDone(v: Boolean) { ds.edit { it[Keys.HEALTH_FOOD_RESTORE_DONE] = v } }
+
+    val cloudBackupEnabled: Flow<Boolean> = ds.data.map { it[Keys.CLOUD_BACKUP_ENABLED] ?: false }
+    suspend fun setCloudBackupEnabled(v: Boolean) { ds.edit { it[Keys.CLOUD_BACKUP_ENABLED] = v } }
+
+    val cloudBackupLastAt: Flow<String?> = ds.data.map { it[Keys.CLOUD_BACKUP_LAST_AT] }
+    suspend fun setCloudBackupLastAt(v: String?) {
+        ds.edit {
+            if (v == null) it.remove(Keys.CLOUD_BACKUP_LAST_AT) else it[Keys.CLOUD_BACKUP_LAST_AT] = v
+        }
+    }
+
+    val cloudBackupLastHash: Flow<String?> = ds.data.map { it[Keys.CLOUD_BACKUP_LAST_HASH] }
+    suspend fun setCloudBackupLastHash(v: String?) {
+        ds.edit {
+            if (v == null) it.remove(Keys.CLOUD_BACKUP_LAST_HASH) else it[Keys.CLOUD_BACKUP_LAST_HASH] = v
+        }
+    }
+
+    val cloudBackupAccountEmail: Flow<String?> = ds.data.map { it[Keys.CLOUD_BACKUP_ACCOUNT_EMAIL] }
+    suspend fun setCloudBackupAccountEmail(v: String?) {
+        ds.edit {
+            if (v == null) it.remove(Keys.CLOUD_BACKUP_ACCOUNT_EMAIL)
+            else it[Keys.CLOUD_BACKUP_ACCOUNT_EMAIL] = v
+        }
+    }
+
+    val cloudBackupFileId: Flow<String?> = ds.data.map { it[Keys.CLOUD_BACKUP_FILE_ID] }
+    suspend fun setCloudBackupFileId(v: String?) {
+        ds.edit {
+            if (v == null) it.remove(Keys.CLOUD_BACKUP_FILE_ID) else it[Keys.CLOUD_BACKUP_FILE_ID] = v
+        }
+    }
+
+    suspend fun snapshotCloudBackupValues(): Map<String, CloudBackupValue> {
+        val prefs = ds.data.first()
+        val out = linkedMapOf<String, CloudBackupValue>()
+        for ((key, value) in prefs.asMap()) {
+            if (key.name in CloudBackupPolicy.excludedKeys) continue
+            when (value) {
+                is Boolean -> out[key.name] = CloudBackupValue.bool(value)
+                is Int -> out[key.name] = CloudBackupValue.int(value)
+                is String -> out[key.name] = CloudBackupValue.string(value)
+                is Set<*> -> out[key.name] = CloudBackupValue.stringSet(value.map { it.toString() })
+            }
+        }
+        return out
+    }
+
+    suspend fun restoreCloudBackupValues(values: Map<String, CloudBackupValue>) {
+        ds.edit { prefs ->
+            prefs.clear()
+            for ((name, value) in values) {
+                if (name in CloudBackupPolicy.excludedKeys) continue
+                when (value.t) {
+                    "b" -> value.b?.let { prefs[booleanPreferencesKey(name)] = it }
+                    "i" -> value.i?.let { prefs[intPreferencesKey(name)] = it }
+                    "s" -> value.s?.let { prefs[stringPreferencesKey(name)] = it }
+                    "ss" -> value.ss?.let {
+                        prefs[stringSetPreferencesKey(name)] = it.toSet()
+                    }
+                }
+            }
+        }
+    }
 
     val healthEnergyGoalsEnabled: Flow<Boolean> = ds.data.map { it[Keys.HEALTH_ENERGY_GOALS_ENABLED] ?: false }
     suspend fun setHealthEnergyGoalsEnabled(v: Boolean) { ds.edit { it[Keys.HEALTH_ENERGY_GOALS_ENABLED] = v } }
@@ -1040,6 +1107,11 @@ class PreferencesStore(
         val HEALTH_CHANGES_TOKEN = stringPreferencesKey("healthChangesToken")
         val HEALTH_CHANGES_TOKEN_TYPES = stringPreferencesKey("healthChangesTokenTypes")
         val HEALTH_FOOD_RESTORE_DONE = booleanPreferencesKey("healthFoodRestoreDone")
+        val CLOUD_BACKUP_ENABLED = booleanPreferencesKey("cloudBackupEnabled")
+        val CLOUD_BACKUP_LAST_AT = stringPreferencesKey("cloudBackupLastAt")
+        val CLOUD_BACKUP_LAST_HASH = stringPreferencesKey("cloudBackupLastHash")
+        val CLOUD_BACKUP_ACCOUNT_EMAIL = stringPreferencesKey("cloudBackupAccountEmail")
+        val CLOUD_BACKUP_FILE_ID = stringPreferencesKey("cloudBackupFileId")
         val HEALTH_ENERGY_GOALS_ENABLED = booleanPreferencesKey("healthEnergyGoalsEnabled")
         val HEALTH_ENERGY_GOALS_PREVIOUS_TARGETS = stringPreferencesKey("healthEnergyGoalsPreviousTargets")
         val HEALTH_ENERGY_GOALS_LAST_AUTO_REFRESH_DAY = stringPreferencesKey("healthEnergyGoalsLastAutoRefreshDay")

@@ -1,6 +1,20 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "iCloud Backup": {},
+    "Off until you turn it on. Uses the iCloud account on this iPhone. API keys stay on the device.": {},
+    "Uploads your diary, workouts, fasting, photos, and settings to your iCloud. API keys stay on the phone.": {},
+    "Restore backup?": {},
+    "Restore it, or keep this phone.": {},
+    "Restore": {},
+    "Keep this phone": {},
+    "Back up now": {},
+    "Restore now": {},
+    "Delete cloud backup": {},
+    "Delete cloud backup?": {},
+    "Removes the Fud AI file from iCloud. This iPhone is unchanged.": {},
+    "Turn On": {},
+    "Last backup: ": {},
     "%@ exercise visual": {
       "localizations": {
         "ar": {

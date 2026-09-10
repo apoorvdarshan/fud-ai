@@ -97,6 +97,17 @@ final class WaterStore {
         onEntriesChanged?()
     }
 
+    func reloadFromDefaults() {
+        guard let data = defaults.data(forKey: WaterSettings.entriesKey),
+              let decoded = try? JSONDecoder().decode([WaterEntry].self, from: data) else {
+            entries = []
+            onEntriesChanged?()
+            return
+        }
+        entries = decoded
+        onEntriesChanged?()
+    }
+
     func replaceEntriesFromImport(_ imported: [WaterEntry]) {
         entries = imported
         save()

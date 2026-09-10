@@ -19,6 +19,7 @@ kotlinxSerialization = "1.7.3"
 kotlinxCoroutines = "1.9.0"
 playAppUpdate = "2.1.0"
 playReview = "2.0.2"
+playAuth = "21.4.0"
 cameraX = "1.4.0"
 coil = "2.7.0"
 gson = "2.11.0"
@@ -64,8 +65,10 @@ mlkit-barcode-scanning = { group = "com.google.mlkit", name = "barcode-scanning"
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-play-services = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutines" }
 play-app-update = { group = "com.google.android.play", name = "app-update", version.ref = "playAppUpdate" }
 play-review-ktx = { group = "com.google.android.play", name = "review-ktx", version.ref = "playReview" }
+play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playAuth" }
 vico-compose-m3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "vico" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 litert-lm-android = { group = "com.google.ai.edge.litertlm", name = "litertlm-android", version.ref = "litertLm" }

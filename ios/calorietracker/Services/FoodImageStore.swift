@@ -56,6 +56,17 @@ struct FoodImageStore {
         }
     }
 
+    func filenames() -> [String] {
+        guard let folderURL else { return [] }
+        return (try? FileManager.default.contentsOfDirectory(atPath: folderURL.path)) ?? []
+    }
+
+    @discardableResult
+    func restore(data: Data, filename: String) -> String? {
+        guard let safe = CloudBackupPolicy.safePhotoName(filename) else { return nil }
+        return store(data: data, filename: safe)
+    }
+
     /// Reads the bytes at `filename` (not a full path), or nil if missing.
     func load(filename: String) -> Data? {
         guard let folderURL else { return nil }

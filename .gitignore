@@ -15,6 +15,7 @@ local.properties
 
 # Local configuration
 ios/Local.xcconfig
+android/oauth.properties
 .DS_Store
 
 # Claude Code runtime

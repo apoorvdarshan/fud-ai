@@ -60,6 +60,10 @@ class BodyMeasurementStore {
         saveEntries()
     }
 
+    func reloadFromDefaults() {
+        loadEntries()
+    }
+
     func replaceAllEntries(_ newEntries: [BodyMeasurement]) {
         entries = newEntries
         saveEntries()

@@ -63,7 +63,7 @@ For a codebase overview, start with the Architecture and Source Layout sections 
 - Services are stateless structs with static methods (`GeminiService`, `ChatService`, `SpeechService`, etc.)
 - Xcode auto-discovers files via `PBXFileSystemSynchronizedRootGroup` — **do not** edit `project.pbxproj` to register source files
 - Every user-facing string must be added to `ios/calorietracker/Localizable.xcstrings`; English is required, and touched translations should be updated wherever practical
-- All data persistence is local (`UserDefaults` + iOS Keychain). No Core Data, no iCloud, no CloudKit
+- All data persistence is local (`UserDefaults` + iOS Keychain). No Core Data. No iCloud/CloudKit except the optional user-initiated iCloud Backup in Settings → Data Management.
 - Keep fasting sessions in their dedicated local store. Do not represent a skipped meal as a fast or write fasting records into nutrition/HealthKit paths
 - Siri/App Intents live under `ios/calorietracker/AppIntents/`; phrase-help UI is opened from + → Describe Meal → Siri Phrases on iOS
 
@@ -74,7 +74,7 @@ For a codebase overview, start with the Architecture and Source Layout sections 
 - Repositories expose `Flow<T>` from DataStore; ViewModels `combine()` them into screen state
 - Every user-facing string lives in `app/src/main/res/values/strings.xml`; English is required, and touched translations should be updated in the 14 non-English locale files (`values-{ar,az,de,es,fr,hi,it,ja,ko,nl,pt-rBR,ro,ru,zh-rCN}/strings.xml`) wherever practical
 - Model enums (`Gender`, `MealType`, `AIProvider`, etc.) expose `@get:StringRes val displayNameRes: Int` — no hardcoded `displayName: String` strings
-- All data persistence is local (DataStore Preferences + EncryptedSharedPreferences). No Room, no Firebase, no cloud
+- All data persistence is local (DataStore Preferences + EncryptedSharedPreferences). No Room, no Firebase. No Google Drive except the optional user-initiated Google Drive Backup in Settings → Data Management (OAuth only when that toggle is turned on).
 - Keep fasting sessions in their dedicated repository. Do not represent a skipped meal as a fast or write fasting records into nutrition/Health Connect paths
 - When touching the release build path: keep R8 keep rules in `app/proguard-rules.pro` for kotlinx.serialization, Glance, WorkManager+Room, Health Connect — these all crash production-only without explicit keeps
 

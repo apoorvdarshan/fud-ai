@@ -72,6 +72,13 @@ open class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        lifecycleScope.launch {
+            runCatching { (application as FudAIApp).container.cloudBackup.autoBackupIfNeeded() }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         // Must run before super.onCreate so the system swaps the splash theme
         // back to Theme.FudAI before the first frame, preventing a white flash

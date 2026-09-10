@@ -69,6 +69,22 @@ class FoodImageStore(context: Context) {
 
     fun file(filename: String): File = File(dir, filename)
 
+    fun listedFilenames(): List<String> =
+        dir.listFiles()?.filter { it.isFile }?.map { it.name }.orEmpty()
+
+    fun loadBytes(filename: String): ByteArray? {
+        val file = File(dir, filename)
+        return if (file.isFile) runCatching { file.readBytes() }.getOrNull() else null
+    }
+
+    fun restoreBytes(filename: String, bytes: ByteArray): Boolean = runCatching {
+        File(dir, filename).writeBytes(bytes)
+        runCatching {
+            FoodImageDecoder.decode(bytes, THUMBNAIL_MAX_DIMENSION)?.let { writeThumbnail(filename, it) }
+        }
+        true
+    }.getOrDefault(false)
+
     fun delete(filename: String) {
         runCatching { File(dir, filename).delete() }
         runCatching { File(thumbnailDir, filename).delete() }

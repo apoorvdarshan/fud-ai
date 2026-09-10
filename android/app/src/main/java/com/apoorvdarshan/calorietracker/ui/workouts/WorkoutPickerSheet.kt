@@ -58,6 +58,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalBottomSheetProperties
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -741,16 +744,31 @@ internal fun WorkoutCopySheet(
                 }
             }
             Text("What to copy", fontSize = 14.sp, fontWeight = FontWeight.Bold)
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                workoutCopyModes.forEach { mode ->
-                    WorkoutCopyModeRow(
-                        title = mode.title,
-                        subtitle = mode.subtitle,
-                        selected = includeSetDetails == mode.includeSetDetails,
-                        onClick = { includeSetDetails = mode.includeSetDetails }
-                    )
+            SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
+                SegmentedButton(
+                    selected = !includeSetDetails,
+                    onClick = { includeSetDetails = false },
+                    shape = SegmentedButtonDefaults.itemShape(index = 0, count = 2)
+                ) {
+                    Text("Without details", maxLines = 1, overflow = TextOverflow.Ellipsis)
+                }
+                SegmentedButton(
+                    selected = includeSetDetails,
+                    onClick = { includeSetDetails = true },
+                    shape = SegmentedButtonDefaults.itemShape(index = 1, count = 2)
+                ) {
+                    Text("With set details", maxLines = 1, overflow = TextOverflow.Ellipsis)
                 }
             }
+            Text(
+                if (includeSetDetails) {
+                    "Copies sets, weights, reps, RPE, units, and timers."
+                } else {
+                    "Adds exercise names only, with blank sets."
+                },
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.54f),
+                fontSize = 12.sp
+            )
             if (days.isEmpty()) {
                 Text(
                     "No earlier workout days to copy.",
@@ -771,72 +789,6 @@ internal fun WorkoutCopySheet(
                         )
                     }
                 }
-            }
-        }
-    }
-}
-
-private data class WorkoutCopyMode(
-    val includeSetDetails: Boolean,
-    val title: String,
-    val subtitle: String
-)
-
-private val workoutCopyModes = listOf(
-    WorkoutCopyMode(
-        includeSetDetails = false,
-        title = "Without set details",
-        subtitle = "Exercise names only, with blank sets"
-    ),
-    WorkoutCopyMode(
-        includeSetDetails = true,
-        title = "With set details",
-        subtitle = "Sets, weights, reps, RPE, units, and timers"
-    )
-)
-
-@Composable
-private fun WorkoutCopyModeRow(
-    title: String,
-    subtitle: String,
-    selected: Boolean,
-    onClick: () -> Unit
-) {
-    FudGlassSurface(
-        modifier = Modifier.fillMaxWidth().clickable(onClick = onClick),
-        cornerRadius = 16.dp,
-        padding = 13.dp
-    ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(22.dp)
-                    .clip(CircleShape)
-                    .background(
-                        if (selected) AppColors.Calorie
-                        else workoutsColors().panel.copy(alpha = 0.72f)
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                if (selected) {
-                    Icon(
-                        Icons.Filled.Check,
-                        contentDescription = null,
-                        tint = Color.White,
-                        modifier = Modifier.size(14.dp)
-                    )
-                }
-            }
-            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(title, fontSize = 15.sp, fontWeight = FontWeight.Bold)
-                Text(
-                    subtitle,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.54f),
-                    fontSize = 12.sp
-                )
             }
         }
     }

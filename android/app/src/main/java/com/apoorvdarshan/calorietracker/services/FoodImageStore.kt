@@ -48,6 +48,10 @@ class FoodImageStore(context: Context) {
     fun load(filename: String): Bitmap? =
         runCatching { FoodImageDecoder.decode(File(dir, filename)) }.getOrNull()
 
+    /** Bounded decode for full-screen viewer — avoids loading full-resolution on the main thread. */
+    fun loadForViewer(filename: String, maxDimension: Int = VIEWER_MAX_DIMENSION): Bitmap? =
+        runCatching { FoodImageDecoder.decode(File(dir, filename), maxDimension) }.getOrNull()
+
     fun loadThumbnail(filename: String, maxDimension: Int = THUMBNAIL_MAX_DIMENSION): Bitmap? {
         val key = "$filename:$maxDimension"
         thumbnailCache.get(key)?.takeUnless { it.isRecycled }?.let { return it }
@@ -138,6 +142,7 @@ class FoodImageStore(context: Context) {
         private const val DIR_NAME = "fudai-food-images"
         private const val THUMBNAIL_DIR_NAME = "fudai-food-thumbnails-v2"
         private const val THUMBNAIL_MAX_DIMENSION = 320
+        const val VIEWER_MAX_DIMENSION = 2048
         private const val THUMBNAIL_CACHE_KB = 12 * 1024
     }
 }

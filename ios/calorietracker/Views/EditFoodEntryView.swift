@@ -225,11 +225,15 @@ struct EditFoodEntryView: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                                         .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                                         .onTapGesture {
-                                            let previewImages = photos.compactMap { $0.data.flatMap(UIImage.init(data:)) }
-                                            guard !previewImages.isEmpty else { return }
+                                            let previewItems = photos.compactMap { photo -> (FoodEntryPhoto.ID, UIImage)? in
+                                                guard let image = photo.data.flatMap(UIImage.init(data:)) else { return nil }
+                                                return (photo.id, image)
+                                            }
+                                            guard !previewItems.isEmpty else { return }
+                                            let initialIndex = previewItems.firstIndex(where: { $0.0 == photo.id }) ?? 0
                                             imagePreview = FullScreenImagePreview(
-                                                images: previewImages,
-                                                initialIndex: min(index, previewImages.count - 1)
+                                                images: previewItems.map(\.1),
+                                                initialIndex: initialIndex
                                             )
                                         }
                                         .accessibilityAddTraits(.isButton)

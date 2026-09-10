@@ -21,6 +21,7 @@ struct FullScreenImageViewer: View {
     @State private var currentIndex: Int
     @State private var dragOffset: CGFloat = 0
     @State private var backdropOpacity: Double = 1
+    @State private var verticalDismissCommitted = false
 
     init(images: [UIImage], initialIndex: Int = 0) {
         self.images = images
@@ -84,12 +85,27 @@ struct FullScreenImageViewer: View {
                     let vertical = value.translation.height
                     let horizontal = abs(value.translation.width)
                     // Prefer vertical dismiss; ignore mostly-horizontal page swipes.
-                    guard abs(vertical) > horizontal else { return }
+                    guard abs(vertical) > horizontal else {
+                        verticalDismissCommitted = false
+                        return
+                    }
+                    verticalDismissCommitted = true
                     dragOffset = vertical
                     backdropOpacity = Double(max(0.35, 1 - abs(vertical) / 420))
                 }
                 .onEnded { value in
-                    let shouldDismiss = abs(value.translation.height) > 120
+                    let vertical = value.translation.height
+                    let horizontal = abs(value.translation.width)
+                    guard verticalDismissCommitted, abs(vertical) > horizontal else {
+                        verticalDismissCommitted = false
+                        withAnimation(.spring(response: 0.32, dampingFraction: 0.86)) {
+                            dragOffset = 0
+                            backdropOpacity = 1
+                        }
+                        return
+                    }
+                    verticalDismissCommitted = false
+                    let shouldDismiss = abs(vertical) > 120
                         || abs(value.predictedEndTranslation.height) > 420
                     if shouldDismiss {
                         dismiss()

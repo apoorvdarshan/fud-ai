@@ -1082,11 +1082,12 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         }
 
         val workoutWriteGranted = container.health.hasActiveEnergyWrite()
+        val stepsReadGranted = container.health.hasStepsRead()
         if (granted && (!stored || version < HealthConnectManager.CURRENT_TYPES_VERSION)) {
             backfillHealthConnect()
-            // v5 adds workout Active Energy write. Do not mark v5 complete for
-            // an existing user until that newly added permission is granted.
-            if (workoutWriteGranted) {
+            // v5 adds workout Active Energy write; v6 adds steps read. Do not mark
+            // complete until every permission added in those versions is granted.
+            if (workoutWriteGranted && stepsReadGranted) {
                 container.prefs.setHealthPermissionsVersion(HealthConnectManager.CURRENT_TYPES_VERSION)
             }
         }
@@ -1115,7 +1116,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                     return@launch
                 }
                 container.prefs.setHealthConnectEnabled(true)
-                if (container.health.hasActiveEnergyWrite()) {
+                if (container.health.hasActiveEnergyWrite() && container.health.hasStepsRead()) {
                     container.prefs.setHealthPermissionsVersion(HealthConnectManager.CURRENT_TYPES_VERSION)
                 }
                 if (container.health.readRecentEnergySummary(days = 14) == null) {

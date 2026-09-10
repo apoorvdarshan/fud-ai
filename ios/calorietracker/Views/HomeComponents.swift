@@ -769,6 +769,6 @@ struct DailyStepsRow: View {
     }
 
     private var stepsLabel: String {
-        String(format: String(localized: "%@ steps"), steps.formatted())
+        String(localized: "\(steps) steps")
     }
 }

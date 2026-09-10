@@ -843,7 +843,12 @@ struct HomeView: View {
             dailySteps = nil
             return
         }
-        dailySteps = await healthKitManager.fetchStepsForDay(selectedDate)
+        let requestedDate = selectedDate
+        guard !Task.isCancelled else { return }
+        let steps = await healthKitManager.fetchStepsForDay(requestedDate)
+        guard !Task.isCancelled, healthKitEnabled else { return }
+        guard Calendar.current.isDate(selectedDate, inSameDayAs: requestedDate) else { return }
+        dailySteps = steps
     }
 
     private func logDate(on day: Date, now: Date = .now) -> Date {
@@ -1804,6 +1809,7 @@ struct HomeView: View {
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
                     checkAndConsumeSharedImage()
+                    Task { await refreshDailySteps() }
                     // Returned to the foreground -> replay the fill-from-zero reveal.
                     // Gated on wasBackgrounded so transient .inactive blips (control
                     // center, app switcher) don't retrigger it.

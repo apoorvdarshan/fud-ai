@@ -1073,8 +1073,16 @@ class HealthKitManager {
                 quantityType: type,
                 quantitySamplePredicate: predicate,
                 options: .cumulativeSum
-            ) { _, statistics, _ in
-                let count = statistics?.sumQuantity()?.doubleValue(for: .count()) ?? 0
+            ) { _, statistics, error in
+                if error != nil {
+                    continuation.resume(returning: nil)
+                    return
+                }
+                guard let statistics else {
+                    continuation.resume(returning: nil)
+                    return
+                }
+                let count = statistics.sumQuantity()?.doubleValue(for: .count()) ?? 0
                 continuation.resume(returning: count >= 0 ? Int(count.rounded()) : nil)
             }
             healthStore.execute(query)

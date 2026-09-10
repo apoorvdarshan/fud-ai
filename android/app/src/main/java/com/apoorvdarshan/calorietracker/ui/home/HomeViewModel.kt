@@ -112,6 +112,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
     private val _ui = MutableStateFlow(HomeUiState())
     val ui: StateFlow<HomeUiState> = _ui.asStateFlow()
     private val _selectedDate = MutableStateFlow(LocalDate.now())
+    private val _stepsRefreshEpoch = MutableStateFlow(0)
     private var retryAction: (() -> Unit)? = null
     private val foodSubmissionGate = FoodSubmissionGate()
 
@@ -208,8 +209,9 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
         viewModelScope.launch {
             combine(
                 container.prefs.healthConnectEnabled,
-                _selectedDate
-            ) { enabled, date -> enabled to date }
+                _selectedDate,
+                _stepsRefreshEpoch
+            ) { enabled, date, _ -> enabled to date }
                 .distinctUntilChanged()
                 .collect { (enabled, date) ->
                     if (!enabled || !container.health.hasStepsRead()) {
@@ -222,6 +224,10 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                     }
                 }
         }
+    }
+
+    fun refreshDailySteps() {
+        _stepsRefreshEpoch.value += 1
     }
 
     fun setSelectedDate(date: LocalDate) {

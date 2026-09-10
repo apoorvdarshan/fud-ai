@@ -188,12 +188,14 @@ final class StrengthWorkoutStore {
         }
     }
 
-    func copyPlan(from sourceDate: Date, to targetDate: Date) {
+    func copyPlan(from sourceDate: Date, to targetDate: Date, includeSetDetails: Bool = false) {
         let source = exercises(for: sourceDate)
         guard !source.isEmpty else { return }
         updatePlan(for: targetDate) { target in
             let existing = Set(target.exercises.map(\.itemID))
-            target.exercises.append(contentsOf: source.filter { !existing.contains($0.itemID) }.map { $0.copiedForNewDay() })
+            target.exercises.append(contentsOf: source.filter { !existing.contains($0.itemID) }.map {
+                $0.copiedForNewDay(includeSetDetails: includeSetDetails)
+            })
         }
     }
 

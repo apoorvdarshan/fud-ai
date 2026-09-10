@@ -114,6 +114,30 @@ class WorkoutRepositoryTest {
     }
 
     @Test
+    fun copyPlanCanCarrySetDetailsWhenRequested() = runBlocking {
+        val store = FakeWorkoutStateStore()
+        val repository = WorkoutRepository(store)
+        val source = LocalDate.of(2026, 7, 18)
+        val target = LocalDate.of(2026, 7, 19)
+        val item = exerciseItem()
+        repository.toggleExercise(item, source)
+        val exercise = repository.planNow(source).exercises.single()
+        val set = exercise.sets.single()
+        repository.updateSet(exercise.id, set.id, source, "40", WorkoutWeightUnit.KG, "10", "8")
+        repository.setSetCount(2, exercise.id, source)
+
+        repository.copyPlan(source, target, includeSetDetails = true)
+
+        val copied = repository.planNow(target).exercises.single()
+        assertEquals(2, copied.sets.size)
+        assertEquals("40", copied.sets.first().weight)
+        assertEquals("10", copied.sets.first().reps)
+        assertEquals("8", copied.sets.first().rpe)
+        assertNotEquals(exercise.id, copied.id)
+        assertNotEquals(set.id, copied.sets.first().id)
+    }
+
+    @Test
     fun calculatedBurnUpsertsOneStableDailyVersionedSnapshot() = runBlocking {
         val store = FakeWorkoutStateStore()
         val repository = WorkoutRepository(store)

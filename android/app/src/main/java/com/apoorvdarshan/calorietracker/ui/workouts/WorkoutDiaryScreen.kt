@@ -458,8 +458,8 @@ internal fun WorkoutDiaryScreen(
         WorkoutCopySheet(
             targetDate = state.selectedDate,
             days = state.copyDays,
-            onCopy = {
-                viewModel.copyPlan(it)
+            onCopy = { date, includeSetDetails ->
+                viewModel.copyPlan(date, includeSetDetails)
                 copySheetVisible = false
             },
             onDismiss = { copySheetVisible = false }

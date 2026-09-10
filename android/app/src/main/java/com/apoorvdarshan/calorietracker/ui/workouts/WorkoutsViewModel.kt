@@ -307,9 +307,9 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
         }.apply()
     }
 
-    fun copyPlan(sourceDate: LocalDate) {
+    fun copyPlan(sourceDate: LocalDate, includeSetDetails: Boolean = false) {
         val targetDate = diaryUiState.selectedDate
-        viewModelScope.launch { workoutRepository?.copyPlan(sourceDate, targetDate) }
+        viewModelScope.launch { workoutRepository?.copyPlan(sourceDate, targetDate, includeSetDetails) }
     }
 
     fun calculateBurn() {

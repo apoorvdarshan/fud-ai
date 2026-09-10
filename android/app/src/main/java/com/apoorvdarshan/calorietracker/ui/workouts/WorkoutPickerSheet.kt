@@ -46,6 +46,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Storage
 import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material.icons.filled.Tag
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -608,8 +609,9 @@ private fun PickerEmptyState(source: WorkoutPickerSource) {
 internal fun WorkoutCopySheet(
     targetDate: LocalDate,
     days: List<WorkoutCopyDayUi>,
-    onCopy: (LocalDate) -> Unit,
+    onCopy: (LocalDate, Boolean) -> Unit,
     onDismiss: () -> Unit
+    var includeSetDetails by remember { mutableStateOf(false) }
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
     ModalBottomSheet(
@@ -634,6 +636,18 @@ internal fun WorkoutCopySheet(
                 }
                 IconButton(onClick = onDismiss) {
                     Icon(Icons.Filled.Close, contentDescription = "Close copy picker")
+            Text("Copy options", fontSize = 14.sp, fontWeight = FontWeight.Bold)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                FilterChip(selected = !includeSetDetails, onClick = { includeSetDetails = false },
+                    label = { Text("Exercises only") })
+                FilterChip(selected = includeSetDetails, onClick = { includeSetDetails = true },
+                    label = { Text("Exercises + set details") })
+            }
+            Text(
+                if (includeSetDetails) "Copies set count, weights, reps, RPE, units, and saved timers."
+                else "Adds exercises with blank sets, as before.",
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.54f), fontSize = 12.sp
+            )
                 }
             }
             if (days.isEmpty()) {
@@ -651,7 +665,7 @@ internal fun WorkoutCopySheet(
                 ) {
                     items(days, key = { it.date }) { day ->
                         FudGlassSurface(
-                            modifier = Modifier.fillMaxWidth().clickable { onCopy(day.date) },
+                            modifier = Modifier.fillMaxWidth().clickable { onCopy(day.date, includeSetDetails) },
                             cornerRadius = 18.dp,
                             padding = 13.dp
                         ) {

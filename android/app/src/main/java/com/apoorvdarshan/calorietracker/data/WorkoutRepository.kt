@@ -232,10 +232,10 @@ class WorkoutRepository(
         }
     }
 
-    suspend fun copyPlan(from: LocalDate, to: LocalDate) =
-        copyPlan(WorkoutDate.key(from), WorkoutDate.key(to))
+    suspend fun copyPlan(from: LocalDate, to: LocalDate, includeSetDetails: Boolean = false) =
+        copyPlan(WorkoutDate.key(from), WorkoutDate.key(to), includeSetDetails)
 
-    suspend fun copyPlan(fromDateKey: String, toDateKey: String) {
+    suspend fun copyPlan(fromDateKey: String, toDateKey: String, includeSetDetails: Boolean = false) {
         val sourceKey = WorkoutDate.requireKey(fromDateKey)
         val targetKey = WorkoutDate.requireKey(toDateKey)
         stateMutex.withLock {
@@ -244,7 +244,7 @@ class WorkoutRepository(
             if (source.isEmpty()) return@withLock
             val target = current.dayPlans[targetKey] ?: WorkoutDayPlan(targetKey)
             val existing = target.exercises.mapTo(mutableSetOf()) { it.itemId }
-            val copied = source.filterNot { it.itemId in existing }.map { it.copiedForNewDay() }
+            val copied = source.filterNot { it.itemId in existing }.map { it.copiedForNewDay(includeSetDetails) }
             if (copied.isEmpty()) return@withLock
             store.setWorkoutState(
                 current.copy(dayPlans = current.dayPlans + (targetKey to target.copy(exercises = target.exercises + copied)))

@@ -374,11 +374,19 @@ struct StrengthPlannedExercise: Identifiable, Codable, Equatable, Hashable {
         )
     }
 
-    func copiedForNewDay() -> StrengthPlannedExercise {
+    func copiedForNewDay(includeSetDetails: Bool = false) -> StrengthPlannedExercise {
         var copy = self
         copy.id = UUID()
-        copy.sets = [StrengthPlannedSet()]
-        copy.timer = nil
+        if includeSetDetails {
+            copy.sets = sets.map { set in
+                var copiedSet = set
+                copiedSet.id = UUID()
+                return copiedSet
+            }
+        } else {
+            copy.sets = [StrengthPlannedSet()]
+            copy.timer = nil
+        }
         return copy
     }
 }

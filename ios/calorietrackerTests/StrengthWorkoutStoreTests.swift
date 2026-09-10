@@ -219,6 +219,31 @@ struct StrengthWorkoutStoreTests {
         #expect(store.previousPlanDates(before: targetDate) == [sourceDate])
     }
 
+    @Test func copyPlanCanCarrySetDetailsWhenRequested() throws {
+        let fixture = WorkoutTestFixture()
+        defer { fixture.cleanUp() }
+        let sourceDate = WorkoutTestFixture.date(2026, 9, 8)
+        let targetDate = WorkoutTestFixture.date(2026, 9, 9)
+        let store = fixture.makeStore()
+        let exercise = WorkoutTestFixture.exercise(id: "bench", name: "Bench press")
+        store.toggleExercise(exercise, on: sourceDate)
+        let source = try #require(store.exercises(for: sourceDate).first)
+        let sourceSet = try #require(source.sets.first)
+        store.updateSet(exerciseID: source.id, setID: sourceSet.id, on: sourceDate,
+                        weight: "40", weightUnit: .kg, reps: "10", rpe: "8")
+        store.setSetCount(2, exerciseID: source.id, on: sourceDate)
+
+        store.copyPlan(from: sourceDate, to: targetDate, includeSetDetails: true)
+
+        let copied = try #require(store.exercises(for: targetDate).first)
+        #expect(copied.sets.count == 2)
+        #expect(copied.sets.first?.weight == "40")
+        #expect(copied.sets.first?.reps == "10")
+        #expect(copied.sets.first?.rpe == "8")
+        #expect(copied.id != source.id)
+        #expect(copied.sets.first?.id != sourceSet.id)
+    }
+
     @Test func setLimitsAddBlankRowsAndSanitizeLoadRepsAndRPEScales() throws {
         let fixture = WorkoutTestFixture()
         defer { fixture.cleanUp() }

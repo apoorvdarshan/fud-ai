@@ -320,10 +320,10 @@ data class PlannedExercise(
         get() = (timer?.savedSeconds ?: 0.0) > 0.0 ||
             (!isCardio && sets.any { (it.reps.toIntOrNull() ?: 0) > 0 })
 
-    fun copiedForNewDay(): PlannedExercise = copy(
+    fun copiedForNewDay(includeSetDetails: Boolean = false): PlannedExercise = copy(
         id = UUID.randomUUID(),
-        sets = listOf(PlannedSet()),
-        timer = null
+        sets = if (includeSetDetails) sets.map { it.copy(id = UUID.randomUUID()) } else listOf(PlannedSet()),
+        timer = if (includeSetDetails) timer else null
     )
 
     fun asExerciseItem(): ExerciseItem = ExerciseItem(

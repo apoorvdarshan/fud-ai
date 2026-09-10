@@ -425,8 +425,8 @@ struct WorkoutLogView: View {
                 WorkoutLogCopySheet(
                     days: copyableDays,
                     targetTitle: selectedDateTitle,
-                    onCopy: { sourceDate in
-                        workoutStore.copyPlan(from: sourceDate, to: selectedDate)
+                    onCopy: { sourceDate, includeSetDetails in
+                        workoutStore.copyPlan(from: sourceDate, to: selectedDate, includeSetDetails: includeSetDetails)
                         isCopySheetPresented = false
                     },
                     onClose: { isCopySheetPresented = false }
@@ -2048,12 +2048,25 @@ private struct WorkoutLogCopyDay: Identifiable {
 private struct WorkoutLogCopySheet: View {
     let days: [WorkoutLogCopyDay]
     let targetTitle: String
-    let onCopy: (Date) -> Void
+    let onCopy: (Date, Bool) -> Void
     let onClose: () -> Void
+    @State private var includeSetDetails = false
 
     var body: some View {
         NavigationStack {
             List {
+                Section("Copy options") {
+                    Picker("What to copy", selection: $includeSetDetails) {
+                        Text("Exercises only").tag(false)
+                        Text("Exercises + set details").tag(true)
+                    }
+                    .pickerStyle(.segmented)
+                    Text(includeSetDetails
+                         ? "Copies set count, weights, reps, RPE, units, and saved timers."
+                         : "Adds exercises with blank sets, as before.")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
                 if days.isEmpty {
                     ContentUnavailableView("No previous workouts", systemImage: "calendar.badge.exclamationmark")
                         .listRowBackground(Color.clear)
@@ -2061,7 +2074,7 @@ private struct WorkoutLogCopySheet: View {
                 } else {
                     ForEach(days) { day in
                         Button {
-                            onCopy(day.date)
+                            onCopy(day.date, includeSetDetails)
                         } label: {
                             WorkoutLogCopyDayRow(day: day)
                         }

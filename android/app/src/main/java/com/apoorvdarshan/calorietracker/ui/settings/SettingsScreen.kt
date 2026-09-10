@@ -327,6 +327,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     val resources = LocalResources.current
     val settingsScope = rememberCoroutineScope()
     val importReadFailedMessage = stringResource(R.string.import_read_failed)
+    val cloudBackupSignInFailed = stringResource(R.string.cloud_backup_sign_in_failed)
     val cloudBackup by container.cloudBackup.ui.collectAsState()
     LaunchedEffect(selectedCategory) {
         if (selectedCategory == SettingsCategory.DATA_MANAGEMENT) {
@@ -358,7 +359,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     val startDriveSignIn: () -> Unit = {
         val activity = activityContext as? Activity
         if (activity == null) {
-            cloudBackupError = activityContext.getString(R.string.cloud_backup_sign_in_failed)
+            cloudBackupError = cloudBackupSignInFailed
         } else {
             settingsScope.launch {
                 runCatching { container.cloudBackup.authorize(activity) }

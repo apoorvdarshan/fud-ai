@@ -62,6 +62,15 @@ describe("short meal shares", () => {
     expect(response.status).toBe(200);
     expect(await response.text()).toBe("");
   });
+  it("rounds fractional calories instead of rejecting the payload", async () => {
+    const { env, put } = setup();
+    const body = JSON.stringify({ v: 1, meals: [{ name: "Rounded", calories: 350.6, protein: 12.2, carbs: 55.1, fat: 8.9 }] });
+    const response = await worker.fetch(post(body), env);
+    expect(response.status).toBe(201);
+    const stored = JSON.parse(put.mock.calls[0][1] as string).payload as typeof payload;
+    expect(stored.meals[0].calories).toBe(351);
+    expect(stored.meals[0].protein).toBe(12.2);
+  });
   it.each(["null", "{}", "broken", JSON.stringify({ ...payload, v: 2 }), JSON.stringify({ v: 1, meals: [] }),
     JSON.stringify({ v: 1, meals: [{ name: "bad", calories: -1 }] }), JSON.stringify({ v: 1, meals: Array(101).fill(payload.meals[0]) })])("rejects malformed payload %s", async body => {
     const { env, put } = setup();

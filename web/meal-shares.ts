@@ -92,12 +92,26 @@ async function readPayload(request: Request): Promise<Payload> {
   let payload: Payload;
   try { payload = JSON.parse(new TextDecoder("utf-8", { fatal: true, ignoreBOM: false }).decode(bytes)); }
   catch { throw new ShareError(400, "Invalid JSON."); }
-  if (!payload || payload.v !== 1 || !Array.isArray(payload.meals) || payload.meals.length < 1 || payload.meals.length > 100 ||
-      !payload.meals.every(meal => meal && typeof meal.name === "string" && meal.name.trim().length > 0 && meal.name.length <= 500 &&
-        [meal.calories, meal.protein, meal.carbs, meal.fat].every(value => typeof value === "number" && Number.isFinite(value) && value >= 0) && Number.isSafeInteger(meal.calories))) {
+  if (!payload || payload.v !== 1 || !Array.isArray(payload.meals) || payload.meals.length < 1 || payload.meals.length > 100) {
     throw new ShareError(400, "Invalid version 1 meal payload.");
   }
-  return payload;
+  return { v: 1, meals: payload.meals.map(normalizeMeal) };
+}
+
+function normalizeMeal(meal: unknown): Meal {
+  if (!meal || typeof meal !== "object") throw new ShareError(400, "Invalid version 1 meal payload.");
+  const value = meal as Meal & Record<string, unknown>;
+  if (typeof value.name !== "string" || value.name.trim().length === 0 || value.name.length > 500) {
+    throw new ShareError(400, "Invalid version 1 meal payload.");
+  }
+  for (const key of ["calories", "protein", "carbs", "fat"] as const) {
+    if (typeof value[key] !== "number" || !Number.isFinite(value[key]) || value[key] < 0) {
+      throw new ShareError(400, "Invalid version 1 meal payload.");
+    }
+  }
+  const calories = Math.round(value.calories);
+  if (!Number.isSafeInteger(calories)) throw new ShareError(400, "Invalid version 1 meal payload.");
+  return { ...value, name: value.name, calories, protein: value.protein, carbs: value.carbs, fat: value.fat };
 }
 function base64url(bytes: Uint8Array): string {
   return btoa(Array.from(bytes, byte => String.fromCharCode(byte)).join("")).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");

@@ -4,8 +4,9 @@
 payload with `Content-Type: application/json`. It returns HTTP 201 with
 `{ "url": "https://www.fud-ai.app/m/<id>", "expiresAt": "<ISO timestamp>" }`.
 The body is limited to 64 KiB and 1–100 meals. Each meal needs a nonempty name
-(up to 500 characters), nonnegative integer calories, and finite nonnegative
-protein/carbs/fat. Optional meal fields are preserved for existing mobile decoders.
+(up to 500 characters), nonnegative calories (fractional values are rounded to the
+nearest integer), and finite nonnegative protein/carbs/fat. Optional meal fields are
+preserved for existing mobile decoders.
 The apps send the same fields as their old links: no photos, account data, or API keys.
 
 IDs use 128 random bits encoded as 22 base64url characters. `MEAL_SHARES` stores
@@ -47,7 +48,9 @@ that deployment with the returned ID.
 See [Wrangler configuration](https://developers.cloudflare.com/workers/wrangler/configuration/).
 No account resources are created by the tests or dry-run.
 
-Both mobile share sheets attempt creation with a five-second timeout and retain
-the long link on offline, rate-limit, service, or invalid-response failures. Deploy
+Both mobile share sheets attempt creation with a five-second timeout, send
+`Content-Type: application/json` and a `FudAI/1.0 (...; MealShare)` User-Agent,
+retry once on HTTP 429, and retain the long link on offline, repeated rate-limit,
+service, or invalid-response failures. Deploy
 the Worker before releasing the mobile changes. Verify creation, messenger previews,
 expiry, and iOS/Android import on a simulator/emulator or test device separately.

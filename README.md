@@ -21,6 +21,7 @@
   <a href="https://www.qodo.ai/solutions/open-source/"><img src="https://img.shields.io/badge/Code_reviews-Qodo-634FD1" alt="Code reviews by Qodo"></a>
   <a href="https://github.com/features/copilot"><img src="https://img.shields.io/badge/Code_reviews-GitHub_Copilot-181717?logo=githubcopilot" alt="Code reviews by GitHub Copilot"></a>
   <a href="https://www.coderabbit.ai/oss"><img src="https://img.shields.io/badge/Code_reviews-CodeRabbit-FF570A" alt="Code reviews by CodeRabbit"></a>
+  <a href="https://www.greptile.com/open-source"><img src="https://img.shields.io/badge/Code_reviews-Greptile-20E3A2" alt="Code reviews by Greptile"></a>
   <a href="https://www.bestpractices.dev/projects/14553"><img src="https://www.bestpractices.dev/projects/14553/badge" alt="OpenSSF Best Practices Passing"></a>
   <a href="https://scorecard.dev/viewer/?uri=github.com/apoorvdarshan/fud-ai"><img src="https://api.scorecard.dev/projects/github.com/apoorvdarshan/fud-ai/badge" alt="OpenSSF Scorecard"></a>
   <img src="https://img.shields.io/badge/Udyam-Registered-green" alt="Udyam Registered">

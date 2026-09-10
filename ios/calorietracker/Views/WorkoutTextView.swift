@@ -17,7 +17,7 @@ struct WorkoutTextView: View {
     private var library: [ExerciseLibraryItem] { workoutStore.exerciseLibrary.exercises }
 
     var body: some View {
-        Group {
+        VStack(spacing: 0) {
             if draft == nil && !busy && error == nil && description.isEmpty {
                 if startsWithVoice {
                     VoiceInputView(onCancel: { dismiss() }, onSubmit: submit)

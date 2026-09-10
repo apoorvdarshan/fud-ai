@@ -40,7 +40,6 @@ struct TextFoodInputView: View {
                     .lineLimit(2...5)
                     .textFieldStyle(.plain)
                     .autocorrectionDisabled()
-                    .submitLabel(.done)
                     .focused($isFocused)
                     .padding(.horizontal, 6)
                     .padding(.vertical, 10)

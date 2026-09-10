@@ -58,6 +58,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.DirectionsWalk
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddAPhoto
 import androidx.compose.material.icons.filled.Bookmark
@@ -494,6 +495,10 @@ fun HomeScreen(
                 ) {
                     Spacer(Modifier.height(32.dp))
                     CalorieHero(current = ui.caloriesToday, goal = ui.profile?.effectiveCalories ?: 2000)
+                    ui.dailySteps?.let { steps ->
+                        Spacer(Modifier.height(8.dp))
+                        DailyStepsRow(steps = steps)
+                    }
                     Spacer(Modifier.height(12.dp))
                     Row(
                         Modifier
@@ -1508,6 +1513,31 @@ private fun shortDay(dow: DayOfWeek): String = when (dow) {
  *   }
  *   .padding(.vertical, 20)
  */
+@Composable
+private fun DailyStepsRow(steps: Int) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = Icons.AutoMirrored.Outlined.DirectionsWalk,
+            contentDescription = null,
+            modifier = Modifier.size(18.dp),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Spacer(Modifier.width(6.dp))
+        Text(
+            text = pluralStringResource(R.plurals.home_daily_steps, steps, steps.formattedWholeNumber()),
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
+}
+
 @Composable
 private fun CalorieHero(current: Int, goal: Int) {
     val ratio = if (goal > 0) (current.toFloat() / goal).coerceIn(0f, 1f) else 0f

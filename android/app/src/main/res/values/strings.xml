@@ -295,10 +295,11 @@
     <string name="onboarding_notifications_change_anytime">You can change this anytime in Settings.</string>
 
     <string name="onboarding_health_title">Connect to\nHealth Connect</string>
-    <string name="onboarding_health_subtitle">Keep your nutrition and body\nmeasurements in sync automatically.</string>
+    <string name="onboarding_health_subtitle">Keep your nutrition, steps, and body\nmeasurements in sync automatically.</string>
     <string name="onboarding_health_feature_nutrition">Nutrition Data</string>
     <string name="onboarding_health_feature_weight">Weight Sync</string>
     <string name="onboarding_health_feature_body">Body Measurements</string>
+    <string name="onboarding_health_feature_steps">Daily Steps</string>
     <string name="onboarding_health_unavailable">Health Connect unavailable</string>
     <string name="onboarding_health_connected">Connected</string>
     <string name="onboarding_health_connect">Connect</string>
@@ -336,6 +337,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s step</item>
+        <item quantity="other">%1$s steps</item>
+    </plurals>
+
     <string name="home_add_food">Add food</string>
     <string name="home_menu_camera">Camera</string>
     <string name="home_menu_barcode">Barcode</string>

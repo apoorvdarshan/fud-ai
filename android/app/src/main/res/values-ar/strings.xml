@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">يمكنك تغيير هذا في أي وقت من الإعدادات.</string>
 
     <string name="onboarding_health_title">الاتصال بـ\nHealth Connect</string>
-    <string name="onboarding_health_subtitle">حافظ على مزامنة تغذيتك ومقاييس\nجسمك تلقائيًا.</string>
+    <string name="onboarding_health_subtitle">حافظ على تزامن التغذية والخطوات\nوقياسات الجسم تلقائيًا.</string>
     <string name="onboarding_health_feature_nutrition">بيانات التغذية</string>
     <string name="onboarding_health_feature_weight">مزامنة الوزن</string>
+    <string name="onboarding_health_feature_steps">الخطوات اليومية</string>
     <string name="onboarding_health_feature_body">مقاييس الجسم</string>
     <string name="onboarding_health_unavailable">Health Connect غير متاح</string>
     <string name="onboarding_health_connected">متصل</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">خطوة واحدة (%1$s)</item>
+        <item quantity="other">%1$s خطوة</item>
+    </plurals>
+
     <string name="home_add_food">إضافة طعام</string>
     <string name="home_menu_camera">الكاميرا</string>
     <string name="home_menu_camera_note">كاميرا + ملاحظة</string>

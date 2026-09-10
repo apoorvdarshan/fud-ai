@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">Du kannst dies jederzeit in den Einstellungen ändern.</string>
 
     <string name="onboarding_health_title">Mit Health Connect\nverbinden</string>
-    <string name="onboarding_health_subtitle">Halte deine Ernährungs- und Körpermessdaten\nautomatisch synchron.</string>
+    <string name="onboarding_health_subtitle">Halte Ernährung, Schritte und Körper-\nmaße automatisch synchron.</string>
     <string name="onboarding_health_feature_nutrition">Ernährungsdaten</string>
     <string name="onboarding_health_feature_weight">Gewichts-Sync</string>
+    <string name="onboarding_health_feature_steps">Tägliche Schritte</string>
     <string name="onboarding_health_feature_body">Körpermessungen</string>
     <string name="onboarding_health_unavailable">Health Connect nicht verfügbar</string>
     <string name="onboarding_health_connected">Verbunden</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s Schritt</item>
+        <item quantity="other">%1$s Schritte</item>
+    </plurals>
+
     <string name="home_add_food">Essen hinzufügen</string>
     <string name="home_menu_camera">Kamera</string>
     <string name="home_menu_camera_note">Kamera + Notiz</string>

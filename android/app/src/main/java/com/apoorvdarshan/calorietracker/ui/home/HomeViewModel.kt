@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -81,7 +82,9 @@ data class HomeUiState(
     val fastingOverlap: Boolean = false,
     val error: String? = null,
     /** When true, the error dialog's primary action opens the food camera instead of retrying. */
-    val errorOffersScanLabel: Boolean = false
+    val errorOffersScanLabel: Boolean = false,
+    /** Daily step total from Health Connect for [date]; null when health is off, unreadable, or loading. */
+    val dailySteps: Int? = null
 ) {
     val caloriesToday: Int get() = todayEntries.sumOf { it.calories }
     val proteinToday: Double get() = todayEntries.sumOf { it.protein }
@@ -200,6 +203,24 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
 
         viewModelScope.launch {
             container.prefs.pendingFoodAnalysisDraft.first()?.let { restorePendingDraft(it) }
+        }
+
+        viewModelScope.launch {
+            combine(
+                container.prefs.healthConnectEnabled,
+                _selectedDate
+            ) { enabled, date -> enabled to date }
+                .distinctUntilChanged()
+                .collect { (enabled, date) ->
+                    if (!enabled || !container.health.hasStepsRead()) {
+                        _ui.value = _ui.value.copy(dailySteps = null)
+                        return@collect
+                    }
+                    val steps = container.health.readStepsForDay(date)
+                    if (_selectedDate.value == date) {
+                        _ui.value = _ui.value.copy(dailySteps = steps)
+                    }
+                }
         }
     }
 

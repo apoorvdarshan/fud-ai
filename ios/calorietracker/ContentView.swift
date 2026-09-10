@@ -623,7 +623,10 @@ struct HomeView: View {
     @Environment(WaterStore.self) private var waterStore
     @Environment(FastingStore.self) private var fastingStore
     @Environment(NotificationManager.self) private var notificationManager
+    @Environment(HealthKitManager.self) private var healthKitManager
     @Environment(\.scenePhase) private var scenePhase
+    @AppStorage("healthKitEnabled") private var healthKitEnabled = false
+    @State private var dailySteps: Int?
     @State private var showCamera = false
     @State private var showBarcodeScanner = false
     @State private var capturedImage: UIImage?
@@ -831,6 +834,18 @@ struct HomeView: View {
         selectedDate = newDate
     }
 
+    private var dailyStepsTaskKey: String {
+        "\(selectedDate.timeIntervalSince1970)-\(healthKitEnabled)"
+    }
+
+    private func refreshDailySteps() async {
+        guard healthKitEnabled else {
+            dailySteps = nil
+            return
+        }
+        dailySteps = await healthKitManager.fetchStepsForDay(selectedDate)
+    }
+
     private func logDate(on day: Date, now: Date = .now) -> Date {
         let calendar = Calendar.current
         if calendar.isDateInToday(day) { return now }
@@ -983,6 +998,12 @@ struct HomeView: View {
                         .simultaneousGesture(daySwipeGesture)
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
+
+                    if let dailySteps {
+                        DailyStepsRow(steps: dailySteps)
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                    }
 
                     HStack(alignment: .top, spacing: 4) {
                         ForEach(displayedHomeNutrients) { nutrient in
@@ -1198,6 +1219,9 @@ struct HomeView: View {
             .scrollContentBackground(.hidden)
             .background(AppColors.appBackground)
             .animation(.snappy, value: selectedDate)
+            .task(id: dailyStepsTaskKey) {
+                await refreshDailySteps()
+            }
             .contentMargins(.bottom, isFoodSelectionMode ? 8 : 96, for: .scrollContent)
             .sensoryFeedback(.selection, trigger: selectedFoodIDs) { _, selection in
                 !selection.isEmpty

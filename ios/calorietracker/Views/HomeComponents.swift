@@ -750,3 +750,25 @@ struct MacroVerticalBar: View {
         }
     }
 }
+
+// MARK: - Daily Steps (HealthKit)
+
+struct DailyStepsRow: View {
+    let steps: Int
+
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "figure.walk")
+                .font(.system(size: 16, weight: .medium))
+            Text(stepsLabel)
+                .font(.system(.body, design: .rounded, weight: .medium))
+        }
+        .foregroundStyle(.secondary)
+        .frame(maxWidth: .infinity)
+        .padding(.bottom, 4)
+    }
+
+    private var stepsLabel: String {
+        String(format: String(localized: "%@ steps"), steps.formatted())
+    }
+}

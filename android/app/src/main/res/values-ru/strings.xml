@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">Вы можете изменить это в любое время в Настройках.</string>
 
     <string name="onboarding_health_title">Подключиться к\nHealth Connect</string>
-    <string name="onboarding_health_subtitle">Поддерживайте автоматическую синхронизацию\nпитания и измерений тела.</string>
+    <string name="onboarding_health_subtitle">Синхронизируйте питание, шаги и измерения\nтела автоматически.</string>
     <string name="onboarding_health_feature_nutrition">Данные о питании</string>
     <string name="onboarding_health_feature_weight">Синхронизация веса</string>
+    <string name="onboarding_health_feature_steps">Шаги за день</string>
     <string name="onboarding_health_feature_body">Измерения тела</string>
     <string name="onboarding_health_unavailable">Health Connect недоступен</string>
     <string name="onboarding_health_connected">Подключено</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s шаг</item>
+        <item quantity="other">%1$s шагов</item>
+    </plurals>
+
     <string name="home_add_food">Добавить еду</string>
     <string name="home_menu_camera">Камера</string>
     <string name="home_menu_camera_note">Камера + заметка</string>

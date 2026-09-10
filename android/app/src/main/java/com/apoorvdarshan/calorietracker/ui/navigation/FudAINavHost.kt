@@ -40,6 +40,7 @@ import com.apoorvdarshan.calorietracker.ui.home.HomeScreen
 import com.apoorvdarshan.calorietracker.ui.onboarding.OnboardingScreen
 import com.apoorvdarshan.calorietracker.ui.progress.BodyMeasurementsScreen
 import com.apoorvdarshan.calorietracker.ui.progress.ProgressScreen
+import com.apoorvdarshan.calorietracker.ui.settings.AllergenSensitivitiesScreen
 import com.apoorvdarshan.calorietracker.ui.settings.CalculationMethodsScreen
 import com.apoorvdarshan.calorietracker.ui.settings.OptionalNutrientGoalsScreen
 import com.apoorvdarshan.calorietracker.ui.settings.SettingsScreen
@@ -229,6 +230,13 @@ fun FudAINavHost(
                 }
                 composable(FudAIRoutes.BODY_MEASUREMENTS) {
                     BodyMeasurementsScreen(container = container, onBack = { nav.popBackStack() })
+                }
+                composable(FudAIRoutes.ALLERGEN_SENSITIVITIES) {
+                    AllergenSensitivitiesScreen(
+                        current = settingsViewModel.ui.value.profile?.allergenSensitivities.orEmpty(),
+                        onSave = { values -> settingsViewModel.updateProfile { it.copy(allergenSensitivities = values) } },
+                        onBack = { nav.popBackStack() }
+                    )
                 }
                 composable(FudAIRoutes.WORKOUTS) { TabInset { WorkoutsScreen(container = container) } }
             }

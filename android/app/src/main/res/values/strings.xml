@@ -36,6 +36,7 @@
     <string name="action_info">Info</string>
     <string name="action_clear">Clear</string>
     <string name="action_delete">Delete</string>
+    <string name="action_remove">Remove</string>
     <string name="action_download">Download</string>
     <string name="action_continue">Continue</string>
     <string name="action_get_started">Get Started</string>
@@ -560,6 +561,11 @@
     <string name="settings_section_personal">Personal Info</string>
     <string name="settings_allergen_sensitivities">Allergen sensitivities</string>
     <string name="settings_allergen_placeholder">e.g. milk, peanuts, shellfish</string>
+    <string name="settings_allergen_add_placeholder">Type an allergen</string>
+    <string name="settings_allergen_add_hint">Press Done to add. Swipe left or tap a row to remove.</string>
+    <string name="settings_allergen_empty">No sensitivities added</string>
+    <string name="settings_allergen_remove_title">Remove allergen?</string>
+    <string name="settings_allergen_remove_message">Remove \"%1$s\" from your sensitivities?</string>
     <string name="settings_allergen_disclaimer">Used for local label checks. Results never indicate that a food is safe.</string>
     <string name="settings_section_goals">Goals &amp; Nutrition</string>
     <string name="settings_section_daily_targets">Daily Targets</string>

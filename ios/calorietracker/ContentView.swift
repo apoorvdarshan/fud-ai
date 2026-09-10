@@ -3857,11 +3857,10 @@ struct ProfileView: View {
     }
 
     enum ActiveSheet: String, Identifiable {
-        case editBirthday, editHeight, editWeight, editBodyFat, editGoalBodyFat, editAllergens, editGoalWeight, editCalories, editProtein, editCarbs, editFat
+        case editBirthday, editHeight, editWeight, editBodyFat, editGoalBodyFat, editGoalWeight, editCalories, editProtein, editCarbs, editFat
         var id: String { rawValue }
     }
     @State private var activeSheet: ActiveSheet?
-    @State private var showInlineAllergens = false
     @State private var showExportDiary = false
     @State private var showImportDiary = false
     @State private var showDeleteConfirmation = false
@@ -4103,15 +4102,23 @@ struct ProfileView: View {
                         }
                     }
                     let allergenSummary = profile.configuredAllergenSensitivities.joined(separator: ", ")
-                    ProfileInfoRow(
-                        icon: "exclamationmark.triangle",
-                        label: "Allergen sensitivities",
-                        value: allergenSummary.isEmpty ? "Not set" : allergenSummary
-                    ) { showInlineAllergens.toggle() }
-                    if showInlineAllergens {
-                        AllergenSensitivitiesSheet(current: profile.configuredAllergenSensitivities) { values in
+                    NavigationLink {
+                        AllergenSensitivitiesDetailView(current: profile.configuredAllergenSensitivities) { values in
                             profile.allergenSensitivities = values
                             saveProfile()
+                        }
+                    } label: {
+                        Label {
+                            HStack {
+                                Text("Allergen sensitivities")
+                                Spacer()
+                                Text(allergenSummary.isEmpty ? "Not set" : allergenSummary)
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(1)
+                            }
+                        } icon: {
+                            Image(systemName: "exclamationmark.triangle")
+                                .foregroundStyle(AppColors.calorie)
                         }
                     }
                 }
@@ -5510,15 +5517,6 @@ struct ProfileView: View {
                         saveProfile()
                     }
 
-                case .editAllergens:
-                    AllergenSensitivitiesSheet(
-                        current: profile.configuredAllergenSensitivities
-                    ) { values in
-                        profile.allergenSensitivities = values
-                        saveProfile()
-                        activeSheet = nil
-                    }
-
                 case .editGoalWeight:
                     WeightPickerSheet(
                         currentWeightKg: profile.goalWeightKg ?? profile.weightKg
@@ -6459,7 +6457,7 @@ struct ProfileView: View {
 
 }
 
-private struct AllergenSensitivitiesSheet: View {
+private struct AllergenSensitivitiesDetailView: View {
     let onSave: ([String]) -> Void
 
     @Environment(\.dismiss) private var dismiss
@@ -6473,41 +6471,54 @@ private struct AllergenSensitivitiesSheet: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            ForEach(allergens, id: \.self) { allergen in
-                HStack {
-                    Text(allergen)
-                    Spacer()
-                    Image(systemName: "line.3.horizontal")
+        List {
+            Section {
+                if allergens.isEmpty {
+                    Text("No sensitivities added")
                         .foregroundStyle(.secondary)
-                }
-                .padding(.vertical, 4)
-                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
-                    Button(role: .destructive) {
-                        pendingDeletion = allergen
-                    } label: {
-                        Label("Delete", systemImage: "trash")
+                } else {
+                    ForEach(allergens, id: \.self) { allergen in
+                        Text(allergen)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                Button(role: .destructive) {
+                                    pendingDeletion = allergen
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
                     }
                 }
+            } header: {
+                Text("Sensitivities")
+            } footer: {
+                Text("Used for local label checks. Swipe left to delete. Results never indicate that a food is safe.")
             }
-            TextField("Type an allergen", text: $value)
-                .textInputAutocapitalization(.never)
-                .autocorrectionDisabled()
-                .onSubmit { addCurrentValue() }
-                .textFieldStyle(.roundedBorder)
-            Text("Press Return to add an allergen. Swipe left to delete. Results never indicate that a food is safe.")
-                .font(.caption)
-                .foregroundStyle(.secondary)
-            HStack {
-                Spacer()
-                Button("Done") {
+            .listRowBackground(AppColors.appCard)
+
+            Section {
+                TextField("Type an allergen", text: $value)
+                    .textInputAutocapitalization(.never)
+                    .autocorrectionDisabled()
+                    .onSubmit { addCurrentValue() }
+            } footer: {
+                Text("Press Return to add.")
+            }
+            .listRowBackground(AppColors.appCard)
+        }
+        .scrollContentBackground(.hidden)
+        .background(AppColors.appBackground)
+        .navigationTitle("Allergen sensitivities")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .confirmationAction) {
+                Button("Save") {
                     addCurrentValue()
                     onSave(allergens)
+                    dismiss()
                 }
                 .fontWeight(.semibold)
             }
         }
-        .padding(.vertical, 8)
         .alert("Remove allergen?", isPresented: Binding(
             get: { pendingDeletion != nil },
             set: { if !$0 { pendingDeletion = nil } }
@@ -6525,12 +6536,10 @@ private struct AllergenSensitivitiesSheet: View {
     }
 
     private func addCurrentValue() {
-        let newValues = value
-            .split(separator: ",")
-            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-            .filter { !$0.isEmpty }
-        for allergen in newValues where !allergens.contains(where: { $0.caseInsensitiveCompare(allergen) == .orderedSame }) {
-            allergens.append(allergen)
+        let next = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !next.isEmpty else { return }
+        if !allergens.contains(where: { $0.caseInsensitiveCompare(next) == .orderedSame }) {
+            allergens.append(next)
         }
         value = ""
     }

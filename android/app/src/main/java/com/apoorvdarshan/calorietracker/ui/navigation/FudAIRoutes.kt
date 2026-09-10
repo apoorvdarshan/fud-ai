@@ -10,6 +10,7 @@ object FudAIRoutes {
     const val CALCULATION_METHODS = "settings/calculation-methods"
     const val QUICK_ACTIONS = "settings/quick-actions"
     const val BODY_MEASUREMENTS = "settings/body-measurements"
+    const val ALLERGEN_SENSITIVITIES = "settings/allergen-sensitivities"
     const val WORKOUTS = "workouts"
 
     val bottomTabs = listOf(HOME, PROGRESS, COACH, SETTINGS, WORKOUTS)

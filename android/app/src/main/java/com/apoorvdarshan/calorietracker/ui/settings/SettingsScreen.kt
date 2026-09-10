@@ -39,7 +39,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.IosShare
@@ -108,11 +107,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.AssistChip
-import androidx.compose.material3.AssistChipDefaults
-import androidx.compose.material3.SwipeToDismissBox
-import androidx.compose.material3.SwipeToDismissBoxValue
-import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DatePicker
@@ -231,7 +225,7 @@ private enum class SettingsSheet {
     FALLBACK_PROVIDER, FALLBACK_MODEL, FALLBACK_KEY, FALLBACK_BASE_URL,
     SPEECH_FALLBACK_PROVIDER, SPEECH_FALLBACK_LANGUAGE, SPEECH_FALLBACK_KEY,
     GENDER, BIRTHDAY, HEIGHT, WEIGHT, BODY_FAT, GOAL_BODY_FAT, ACTIVITY, GOAL, GOAL_WEIGHT, GOAL_SPEED,
-    CALORIES, PROTEIN, CARBS, FAT, OPTIONAL_NUTRIENTS, ALLERGENS,
+    CALORIES, PROTEIN, CARBS, FAT, OPTIONAL_NUTRIENTS,
     APPEARANCE, WEEK_START, MEAL_TIMES, WATER_GOAL, WATER_UNIT, FASTING_GOAL, WORKOUT_SPLIT, WORKOUT_RPE
 }
 
@@ -294,7 +288,6 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     val latestMeasurement by container.bodyMeasurementRepository.latest.collectAsState(initial = null)
 
     var sheet by remember { mutableStateOf<SettingsSheet?>(null) }
-    var showInlineAllergens by rememberSaveable { mutableStateOf(false) }
     var showNutritionImport by remember { mutableStateOf(false) }
     if (showNutritionImport) {
         HealthNutritionImportDialog(container) { showNutritionImport = false }
@@ -607,14 +600,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                             stringResource(R.string.settings_not_set)
                         },
                         icon = Icons.Outlined.Warning
-                    ) { showInlineAllergens = !showInlineAllergens }
-                    if (showInlineAllergens) {
-                        AllergenSensitivitiesSheet(
-                            current = p.allergenSensitivities,
-                            onSave = { values -> vm.updateProfile { it.copy(allergenSensitivities = values) } },
-                            onDismiss = { showInlineAllergens = false }
-                        )
-                    }
+                    ) { nav.navigate(FudAIRoutes.ALLERGEN_SENSITIVITIES) }
                 }
             }
             }
@@ -2932,134 +2918,10 @@ private fun SettingsSheets(
                     onChange = vm::setOptionalNutrientGoals,
                     onDismiss = onDismiss
                 )
-                SettingsSheet.ALLERGENS -> AllergenSensitivitiesSheet(
-                    current = ui.profile?.allergenSensitivities.orEmpty(),
-                    onSave = { values ->
-                        vm.updateProfile { it.copy(allergenSensitivities = values) }
-                        onDismiss()
-                    },
-                    onDismiss = onDismiss
-                )
             }
             Spacer(Modifier.height(14.dp))
         }
 
-    }
-}
-
-@Composable
-private fun AllergenSensitivitiesSheet(
-    current: List<String>,
-    onSave: (List<String>) -> Unit,
-    onDismiss: () -> Unit
-) {
-    var allergens by rememberSaveable { mutableStateOf(current) }
-    var value by rememberSaveable { mutableStateOf("") }
-    var pendingDelete by remember { mutableStateOf<String?>(null) }
-
-    fun addCurrentValue() {
-        val next = value.trim()
-        if (next.isNotEmpty() && allergens.none { it.equals(next, ignoreCase = true) }) {
-            allergens = allergens + next
-        }
-        value = ""
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp, vertical = 8.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp)
-    ) {
-        Text(
-            stringResource(R.string.settings_allergen_sensitivities),
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold
-        )
-        Text(
-            stringResource(R.string.settings_allergen_disclaimer),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            allergens.forEach { allergen ->
-                val dismissState = rememberSwipeToDismissBoxState(
-                    confirmValueChange = { value ->
-                        if (value == SwipeToDismissBoxValue.EndToStart) {
-                            pendingDelete = allergen
-                        }
-                        false
-                    }
-                )
-                SwipeToDismissBox(
-                    state = dismissState,
-                    backgroundContent = {
-                        Box(
-                            Modifier
-                                .fillMaxHeight()
-                                .clip(RoundedCornerShape(12.dp))
-                                .background(MaterialTheme.colorScheme.errorContainer)
-                                .padding(horizontal = 12.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Text("Remove", color = MaterialTheme.colorScheme.onErrorContainer)
-                        }
-                    },
-                    content = {
-                        AssistChip(
-                            onClick = { pendingDelete = allergen },
-                            label = { Text(allergen) },
-                            trailingIcon = { Text("×", style = MaterialTheme.typography.titleMedium) },
-                            colors = AssistChipDefaults.assistChipColors(
-                                labelColor = AppColors.Calorie,
-                                trailingIconContentColor = AppColors.Calorie
-                            )
-                        )
-                    }
-                )
-            }
-        }
-        OutlinedTextField(
-            value = value,
-            onValueChange = { value = it },
-            modifier = Modifier.fillMaxWidth(),
-            placeholder = { Text("Type an allergen and press Done") },
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(onDone = { addCurrentValue() }),
-            supportingText = { Text("Tap a chip to remove it.") }
-        )
-        Button(
-            onClick = {
-                addCurrentValue()
-                onSave(allergens + value.trim().takeIf { it.isNotEmpty() }.orEmpty())
-            },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(stringResource(android.R.string.ok))
-        }
-    }
-    pendingDelete?.let { allergen ->
-        AlertDialog(
-            onDismissRequest = { pendingDelete = null },
-            title = { Text("Remove allergen?") },
-            text = { Text("Remove \"$allergen\" from your sensitivities?") },
-            confirmButton = {
-                Button(onClick = {
-                    allergens = allergens.filterNot { it == allergen }
-                    pendingDelete = null
-                }) { Text("Remove") }
-            },
-            dismissButton = {
-                Button(onClick = { pendingDelete = null }) { Text("Cancel") }
-            }
-        )
     }
 }
 

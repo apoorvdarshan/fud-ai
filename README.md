@@ -415,8 +415,12 @@ Thanks to everyone who has contributed to making Fud AI better:
 
 ## Credits
 
-Automated code reviews by [Qodo](https://www.qodo.ai/solutions/open-source/) and [GitHub Copilot](https://github.com/features/copilot).
+Automated code reviews by [Qodo](https://www.qodo.ai/solutions/open-source/), [GitHub Copilot](https://github.com/features/copilot), and [Greptile](https://www.greptile.com/).
 
 Thanks to [Qodo](https://www.qodo.ai/solutions/open-source/) for providing free AI code reviews through its open-source program.
+
+Thanks to [Greptile](https://www.greptile.com/open-source) for providing free review credits through its open-source program.
+
+[![Greptile: The War on Bugs](https://www.greptile.com/badge.svg)](https://www.greptile.com/?utm_source=oss_badge&utm_medium=readme&utm_campaign=greptile_for_open_source)
 
 Exercise data, muscle glyphs, and barcode nutrition data come from open projects — see [ASSET_CREDITS.md](ASSET_CREDITS.md).

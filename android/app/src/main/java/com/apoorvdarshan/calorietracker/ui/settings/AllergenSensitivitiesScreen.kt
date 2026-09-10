@@ -25,13 +25,11 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -54,7 +52,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.R
-import com.apoorvdarshan.calorietracker.ui.components.FudGlassPrimaryButton
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
@@ -71,18 +70,20 @@ fun AllergenSensitivitiesScreen(
     var value by rememberSaveable { mutableStateOf("") }
     var pendingDelete by rememberSaveable { mutableStateOf<String?>(null) }
 
-    fun addCurrentValue() {
-        val next = value.trim()
-        if (next.isNotEmpty() && allergens.none { it.equals(next, ignoreCase = true) }) {
-            allergens = allergens + next
-        }
-        value = ""
+    fun persist(next: List<String>) {
+        allergens = next
+        onSave(next)
     }
 
-    fun save() {
-        addCurrentValue()
-        onSave(allergens)
-        onBack()
+    fun addCurrentValue() {
+        val next = value.trim()
+        value = ""
+        if (next.isEmpty() || allergens.any { it.equals(next, ignoreCase = true) }) return
+        persist(allergens + next)
+    }
+
+    fun removeAllergen(allergen: String) {
+        persist(allergens.filterNot { it == allergen })
     }
 
     Scaffold(containerColor = MaterialTheme.colorScheme.background) { padding ->
@@ -187,36 +188,35 @@ fun AllergenSensitivitiesScreen(
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f)
                         )
-                        FudGlassPrimaryButton(
-                            text = stringResource(R.string.action_save),
-                            onClick = ::save
-                        )
                     }
                 }
             }
         }
     }
     pendingDelete?.let { allergen ->
-        AlertDialog(
-            onDismissRequest = { pendingDelete = null },
-            title = { Text(stringResource(R.string.settings_allergen_remove_title)) },
-            text = {
-                Text(stringResource(R.string.settings_allergen_remove_message, allergen))
-            },
-            confirmButton = {
-                TextButton(onClick = {
-                    allergens = allergens.filterNot { it == allergen }
+        FudGlassDialog(onDismissRequest = { pendingDelete = null }) {
+            Text(
+                stringResource(R.string.settings_allergen_remove_title),
+                fontSize = 21.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                stringResource(R.string.settings_allergen_remove_message, allergen),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.68f),
+                fontSize = 15.sp,
+                lineHeight = 21.sp
+            )
+            FudGlassDialogActions(
+                primaryText = stringResource(R.string.action_delete),
+                onPrimary = {
+                    removeAllergen(allergen)
                     pendingDelete = null
-                }) {
-                    Text(stringResource(R.string.action_remove))
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { pendingDelete = null }) {
-                    Text(stringResource(R.string.action_cancel))
-                }
-            }
-        )
+                },
+                dismissText = stringResource(R.string.action_cancel),
+                onDismiss = { pendingDelete = null },
+                destructive = true
+            )
+        }
     }
 }
 
@@ -230,7 +230,7 @@ private fun AllergenSwipeRow(
     onRequestDelete: () -> Unit
 ) {
     val density = LocalDensity.current
-    val deleteTriggerPx = with(density) { 120.dp.toPx() }
+    val deleteTriggerPx = with(density) { 220.dp.toPx() }
     var offsetPx by remember(allergen) { mutableFloatStateOf(0f) }
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
     val rowBg = if (isDark) Color(0xFF17171B) else Color(0xFFFAF2EC)
@@ -252,7 +252,7 @@ private fun AllergenSwipeRow(
                         if (-offsetPx > 24f) {
                             Icon(
                                 Icons.Filled.Delete,
-                                contentDescription = stringResource(R.string.action_remove),
+                                contentDescription = stringResource(R.string.action_delete),
                                 tint = Color.White
                             )
                         }

@@ -6460,7 +6460,6 @@ struct ProfileView: View {
 private struct AllergenSensitivitiesDetailView: View {
     let onSave: ([String]) -> Void
 
-    @Environment(\.dismiss) private var dismiss
     @State private var allergens: [String]
     @State private var value = ""
     @State private var pendingDeletion: String?
@@ -6484,7 +6483,7 @@ private struct AllergenSensitivitiesDetailView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .contentShape(Rectangle())
-                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                             Button {
                                 pendingDeletion = allergen
                             } label: {
@@ -6497,7 +6496,7 @@ private struct AllergenSensitivitiesDetailView: View {
             } header: {
                 Text("Sensitivities")
             } footer: {
-                Text("Used for local label checks. Swipe left to delete. Results never indicate that a food is safe.")
+                Text("Used for local label checks. Swipe left to delete. Changes save automatically. Results never indicate that a food is safe.")
             }
             .listRowBackground(AppColors.appCard)
 
@@ -6516,21 +6515,14 @@ private struct AllergenSensitivitiesDetailView: View {
         .background(AppColors.appBackground)
         .navigationTitle("Allergen sensitivities")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .confirmationAction) {
-                Button("Save", action: save)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(AppColors.calorie)
-            }
-        }
-        .alert("Remove allergen?", isPresented: Binding(
+        .alert("Delete Allergen?", isPresented: Binding(
             get: { pendingDeletion != nil },
             set: { if !$0 { pendingDeletion = nil } }
         )) {
             Button("Cancel", role: .cancel) { pendingDeletion = nil }
-            Button("Remove", role: .destructive) {
+            Button("Delete", role: .destructive) {
                 if let pendingDeletion {
-                    allergens.removeAll { $0 == pendingDeletion }
+                    removeAllergen(pendingDeletion)
                 }
                 pendingDeletion = nil
             }
@@ -6539,19 +6531,21 @@ private struct AllergenSensitivitiesDetailView: View {
         }
     }
 
-    private func addCurrentValue() {
-        let next = value.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !next.isEmpty else { return }
-        if !allergens.contains(where: { $0.caseInsensitiveCompare(next) == .orderedSame }) {
-            allergens.append(next)
-        }
-        value = ""
+    private func persist(_ next: [String]) {
+        allergens = next
+        onSave(next)
     }
 
-    private func save() {
-        addCurrentValue()
-        onSave(allergens)
-        dismiss()
+    private func addCurrentValue() {
+        let next = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        value = ""
+        guard !next.isEmpty else { return }
+        guard !allergens.contains(where: { $0.caseInsensitiveCompare(next) == .orderedSame }) else { return }
+        persist(allergens + [next])
+    }
+
+    private func removeAllergen(_ allergen: String) {
+        persist(allergens.filter { $0 != allergen })
     }
 }
 

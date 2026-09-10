@@ -562,9 +562,9 @@
     <string name="settings_allergen_sensitivities">Allergen sensitivities</string>
     <string name="settings_allergen_add_placeholder">Type an allergen</string>
     <string name="settings_allergen_add_section">Add sensitivity</string>
-    <string name="settings_allergen_add_hint">Press Done to add. Swipe left on a row to remove.</string>
+    <string name="settings_allergen_add_hint">Press Done to add. Swipe left on a row to remove. Changes save automatically.</string>
     <string name="settings_allergen_empty">No sensitivities added</string>
-    <string name="settings_allergen_remove_title">Remove allergen?</string>
+    <string name="settings_allergen_remove_title">Delete Allergen?</string>
     <string name="settings_allergen_remove_message">Remove \"%1$s\" from your sensitivities?</string>
     <string name="settings_allergen_disclaimer">Used for local label checks. Results never indicate that a food is safe.</string>
     <string name="settings_section_goals">Goals &amp; Nutrition</string>

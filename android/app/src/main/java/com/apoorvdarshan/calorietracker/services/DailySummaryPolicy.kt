@@ -1,6 +1,6 @@
 package com.apoorvdarshan.calorietracker.services
 
-internal enum class CalorieBalanceDirection {
+enum class CalorieBalanceDirection {
     DEFICIT,
     SURPLUS,
     BALANCED

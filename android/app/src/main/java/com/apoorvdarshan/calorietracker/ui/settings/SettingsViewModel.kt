@@ -1035,7 +1035,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             if (enabled) {
                 backfillHealthConnect()
                 container.syncHealthConnectReads()
-                if (container.health.hasActiveEnergyWrite()) {
+                if (container.health.hasActiveEnergyWrite() && container.health.hasStepsRead()) {
                     container.prefs.setHealthPermissionsVersion(HealthConnectManager.CURRENT_TYPES_VERSION)
                 }
             }

@@ -211,9 +211,9 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 container.prefs.healthConnectEnabled,
                 _selectedDate,
                 _stepsRefreshEpoch
-            ) { enabled, date, _ -> enabled to date }
+            ) { enabled, date, epoch -> Triple(enabled, date, epoch) }
                 .distinctUntilChanged()
-                .collect { (enabled, date) ->
+                .collect { (enabled, date, _) ->
                     if (!enabled || !container.health.hasStepsRead()) {
                         _ui.value = _ui.value.copy(dailySteps = null)
                         return@collect

@@ -627,6 +627,7 @@ struct HomeView: View {
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage("healthKitEnabled") private var healthKitEnabled = false
     @State private var dailySteps: Int?
+    @State private var dailyStepsFetchGeneration = 0
     @State private var showCamera = false
     @State private var showBarcodeScanner = false
     @State private var capturedImage: UIImage?
@@ -844,9 +845,12 @@ struct HomeView: View {
             return
         }
         let requestedDate = selectedDate
+        dailyStepsFetchGeneration += 1
+        let generation = dailyStepsFetchGeneration
         guard !Task.isCancelled else { return }
         let steps = await healthKitManager.fetchStepsForDay(requestedDate)
         guard !Task.isCancelled, healthKitEnabled else { return }
+        guard generation == dailyStepsFetchGeneration else { return }
         guard Calendar.current.isDate(selectedDate, inSameDayAs: requestedDate) else { return }
         dailySteps = steps
     }

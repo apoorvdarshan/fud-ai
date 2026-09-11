@@ -64,12 +64,14 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.delay
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -102,6 +104,9 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.roundToInt
+
+private const val PICKER_SEARCH_DEBOUNCE_MS = 175L
+private const val PICKER_FILTER_PERSIST_MS = 400L
 
 internal enum class WorkoutPickerSource {
     DATASET,
@@ -162,6 +167,7 @@ internal fun WorkoutPickerSheet(
         mutableStateOf(if (request.isSavedContext) WorkoutPickerSource.SAVED else initialSource)
     }
     var filter by remember(request.contextId) { mutableStateOf(initialFilterState) }
+    var debouncedSearch by remember(request.contextId) { mutableStateOf(initialFilterState.search) }
     var previewItem by remember(request.contextId) { mutableStateOf<ExerciseItem?>(null) }
     val focus = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
@@ -192,17 +198,38 @@ internal fun WorkoutPickerSheet(
     }
 
     fun updateFilter(transform: (WorkoutPickerFilterState) -> WorkoutPickerFilterState) {
-        val next = transform(filter)
-        filter = next
-        onFilterStateChange(next)
+        filter = transform(filter)
+    }
+
+    LaunchedEffect(filter.search) {
+        delay(PICKER_SEARCH_DEBOUNCE_MS)
+        debouncedSearch = filter.search
+    }
+
+    LaunchedEffect(filter) {
+        delay(PICKER_FILTER_PERSIST_MS)
+        onFilterStateChange(filter)
+    }
+
+    DisposableEffect(request.contextId) {
+        onDispose { onFilterStateChange(filter) }
     }
 
     val items = remember(
         repository,
         source,
-        filter,
+        debouncedSearch,
+        filter.level,
+        filter.primaryMuscle,
+        filter.secondaryMuscle,
+        filter.equipment,
+        filter.force,
+        filter.mechanic,
+        filter.category,
+        filter.sort,
         savedExerciseIds,
-        preferredEquipment
+        preferredEquipment,
+        request.muscles
     ) {
         repository.filtered(
             levels = filter.level?.let(::setOf).orEmpty(),
@@ -213,7 +240,7 @@ internal fun WorkoutPickerSheet(
             mechanics = filter.mechanic?.let(::setOf).orEmpty(),
             categories = filter.category?.let(::setOf).orEmpty(),
             sort = filter.sort,
-            searchText = filter.search
+            searchText = debouncedSearch
         ).filter { item ->
             val matchesSource = source == WorkoutPickerSource.DATASET || item.id in savedExerciseIds
             val matchesContext = request.muscles.isEmpty() ||

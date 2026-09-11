@@ -245,7 +245,7 @@ private fun WorkoutLibraryScreen(
 ) {
 
     val items = remember(
-        repo, vm.search, vm.levels, vm.equipment, vm.primaryMuscles, vm.secondaryMuscles,
+        repo, vm.debouncedSearch, vm.levels, vm.equipment, vm.primaryMuscles, vm.secondaryMuscles,
         vm.forces, vm.mechanics, vm.categories, vm.sort, vm.splitGroupTitles,
         vm.diaryUiState.splitGroups
     ) {
@@ -258,7 +258,7 @@ private fun WorkoutLibraryScreen(
             mechanics = vm.mechanics,
             categories = vm.categories,
             sort = vm.sort,
-            searchText = vm.search
+            searchText = vm.debouncedSearch
         ), vm)
     }
 
@@ -292,8 +292,8 @@ private fun WorkoutLibraryScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             WorkoutLibrarySearchRow(
-                value = vm.search,
-                onValueChange = { vm.search = it },
+                value = vm.searchInput,
+                onValueChange = { vm.searchInput = it },
                 onShowLog = onShowLog
             )
             FilterRow(repo, vm)
@@ -631,7 +631,7 @@ internal fun ExerciseRow(
                 .background(colors.panel.copy(alpha = 0.32f))
                 .border(0.5.dp, colors.hairline.copy(alpha = 0.38f), RoundedCornerShape(18.dp))
         ) {
-            AnimatedExerciseImage(visual, Modifier.fillMaxSize())
+            AnimatedExerciseImage(visual, Modifier.fillMaxSize(), animatesFrames = false)
         }
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(9.dp)) {
             Text(item.name, color = colors.charcoal, fontSize = 17.sp, fontWeight = FontWeight.SemiBold, maxLines = 2, overflow = TextOverflow.Ellipsis)

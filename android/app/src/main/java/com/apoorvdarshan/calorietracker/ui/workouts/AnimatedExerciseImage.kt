@@ -66,7 +66,8 @@ fun AnimatedExerciseImage(
     visual: ExerciseVisual,
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
-    fallbackLabel: String? = null
+    fallbackLabel: String? = null,
+    animatesFrames: Boolean = true
 ) {
     val colors = workoutsColors()
     val imagePaths = visual.framePaths
@@ -99,16 +100,17 @@ fun AnimatedExerciseImage(
         Settings.Global.getFloat(context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f) != 0f
     }
     val representativeIndex = visual.representativeFrameIndex.coerceIn(imagePaths.indices)
-    var index by remember(imagePaths, visual.format, animationsEnabled) {
-        mutableIntStateOf(if (animationsEnabled) 0 else representativeIndex)
+    val shouldAnimate = animatesFrames && animationsEnabled
+    var index by remember(imagePaths, visual.format, shouldAnimate) {
+        mutableIntStateOf(if (shouldAnimate) 0 else representativeIndex)
     }
 
-    LaunchedEffect(imagePaths, visual.format, animationsEnabled) {
-        if (!animationsEnabled) {
+    LaunchedEffect(imagePaths, visual.format, shouldAnimate) {
+        if (!shouldAnimate) {
             index = representativeIndex
             return@LaunchedEffect
         }
-        if (imagePaths.size > 1 && animationsEnabled) {
+        if (imagePaths.size > 1) {
             while (true) {
                 delay(850)
                 index = (index + 1) % imagePaths.size

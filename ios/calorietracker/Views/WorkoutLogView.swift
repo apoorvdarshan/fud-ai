@@ -1371,6 +1371,10 @@ private struct WorkoutLogExercisePickerSheet: View {
 
     @AppStorage("fudai.workouts.picker.source.v1") private var sourceRaw = WorkoutLogPickerSource.dataset.rawValue
     @State private var searchText = ""
+    @State private var debouncedSearchText = ""
+    @State private var displayExercises: [ExerciseLibraryItem] = []
+    @State private var searchDebounceTask: Task<Void, Never>?
+    @State private var filterPersistTask: Task<Void, Never>?
     @State private var selectedLevels: Set<String> = []
     @State private var selectedEquipment: Set<String> = []
     @State private var selectedPrimaryMuscles: Set<String> = []
@@ -1391,6 +1395,7 @@ private struct WorkoutLogExercisePickerSheet: View {
         self.onDone = onDone
         let state = WorkoutLogPickerFilterStateStore.load(contextID: request.context.id)
         _searchText = State(initialValue: state.searchText)
+        _debouncedSearchText = State(initialValue: state.searchText)
         _selectedLevels = State(initialValue: state.levels)
         _selectedEquipment = State(initialValue: state.equipment)
         _selectedPrimaryMuscles = State(initialValue: state.primaryMuscles)
@@ -1437,31 +1442,6 @@ private struct WorkoutLogExercisePickerSheet: View {
         )
     }
 
-    private var filteredExercises: [ExerciseLibraryItem] {
-        let effectiveEquipment = selectedEquipment.isEmpty
-            ? Set(availableEquipment)
-            : selectedEquipment
-        let filtered = library.filtered(
-            levels: selectedLevels,
-            rawEquipment: effectiveEquipment,
-            primaryMuscles: selectedPrimaryMuscles,
-            secondaryMuscles: selectedSecondaryMuscles,
-            forces: selectedForces,
-            mechanics: selectedMechanics,
-            categories: selectedCategories,
-            sort: selectedSort,
-            searchText: searchText
-        )
-
-        return filtered.filter { item in
-            let matchesContext = request.context.muscles.isEmpty
-                || item.primaryMuscles.contains(where: request.context.muscles.contains)
-                || item.secondaryMuscles.contains(where: request.context.muscles.contains)
-            let matchesSource = source == .dataset || workoutStore.savedExerciseIDs.contains(item.id)
-            return matchesContext && matchesSource
-        }
-    }
-
     private var hasActiveFilters: Bool {
         !searchText.isEmpty
             || !selectedLevels.isEmpty
@@ -1502,7 +1482,7 @@ private struct WorkoutLogExercisePickerSheet: View {
                 }
 
                 Section {
-                    if filteredExercises.isEmpty {
+                    if displayExercises.isEmpty {
                         VStack(alignment: .leading, spacing: 12) {
                             Text(!showsSourcePicker || source == .saved ? "No saved workouts yet." : "No matching exercises.")
                                 .foregroundStyle(Color.workoutMutedText)
@@ -1519,7 +1499,7 @@ private struct WorkoutLogExercisePickerSheet: View {
                         }
                         .listRowBackground(Color.workoutPanel.opacity(0.22))
                     } else {
-                        ForEach(filteredExercises.prefix(120)) { item in
+                        ForEach(displayExercises.prefix(120)) { item in
                             WorkoutLogPickerRow(
                                 item: item,
                                 isSelected: workoutStore.containsExercise(item.id, on: selectedDate),
@@ -1605,10 +1585,32 @@ private struct WorkoutLogExercisePickerSheet: View {
             .keepsWorkoutLogToolbarDuringSearch()
         }
         .onAppear {
+            refreshDisplayExercises()
             normalizePrimaryFilterSelection()
             normalizeEquipmentFilterSelection()
         }
+        .onDisappear {
+            filterPersistTask?.cancel()
+            WorkoutLogPickerFilterStateStore.save(filterState, contextID: request.context.id)
+        }
+        .onChange(of: searchText) { _, newValue in
+            WorkoutSearchDebounce.schedule(task: &searchDebounceTask) {
+                debouncedSearchText = newValue
+                refreshDisplayExercises()
+            }
+            scheduleFilterPersist()
+        }
+        .onChange(of: selectedLevels) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedEquipment) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedPrimaryMuscles) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedSecondaryMuscles) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedForces) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedMechanics) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedCategories) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedSort) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: sourceRaw) { _, _ in refreshDisplayExercises() }
         .onChange(of: request.context.muscles) {
+            refreshDisplayExercises()
             normalizePrimaryFilterSelection()
         }
         .onChange(of: hidesPrimaryFilter) {
@@ -1616,9 +1618,45 @@ private struct WorkoutLogExercisePickerSheet: View {
         }
         .onChange(of: availableEquipment) {
             normalizeEquipmentFilterSelection()
+            refreshDisplayExercises()
         }
-        .onChange(of: filterState) { _, state in
-            WorkoutLogPickerFilterStateStore.save(state, contextID: request.context.id)
+        .onChange(of: workoutStore.savedExerciseIDs) { _, _ in refreshDisplayExercises() }
+        .onChange(of: workoutStore.userExercises.count) { _, _ in refreshDisplayExercises() }
+    }
+
+    private func refreshDisplayExercises() {
+        let effectiveEquipment = selectedEquipment.isEmpty
+            ? Set(availableEquipment)
+            : selectedEquipment
+        let filtered = library.filtered(
+            levels: selectedLevels,
+            rawEquipment: effectiveEquipment,
+            primaryMuscles: selectedPrimaryMuscles,
+            secondaryMuscles: selectedSecondaryMuscles,
+            forces: selectedForces,
+            mechanics: selectedMechanics,
+            categories: selectedCategories,
+            sort: selectedSort,
+            searchText: debouncedSearchText
+        )
+
+        displayExercises = filtered.filter { item in
+            let matchesContext = request.context.muscles.isEmpty
+                || item.primaryMuscles.contains(where: request.context.muscles.contains)
+                || item.secondaryMuscles.contains(where: request.context.muscles.contains)
+            let matchesSource = source == .dataset || workoutStore.savedExerciseIDs.contains(item.id)
+            return matchesContext && matchesSource
+        }
+    }
+
+    private func scheduleFilterPersist() {
+        let snapshot = filterState
+        let contextID = request.context.id
+        WorkoutSearchDebounce.schedule(
+            task: &filterPersistTask,
+            delayNanoseconds: WorkoutSearchDebounce.persistDelayNanoseconds
+        ) {
+            WorkoutLogPickerFilterStateStore.save(snapshot, contextID: contextID)
         }
     }
 
@@ -1638,7 +1676,7 @@ private struct WorkoutLogExercisePickerSheet: View {
     private var resultsHeader: some View {
         HStack(alignment: .firstTextBaseline) {
             VStack(alignment: .leading, spacing: 2) {
-                Text("\(filteredExercises.count) \(filteredExercises.count == 1 ? "exercise" : "exercises")")
+                Text("\(displayExercises.count) \(displayExercises.count == 1 ? "exercise" : "exercises")")
                     .font(.headline.weight(.semibold))
                     .foregroundStyle(Color.workoutCharcoal)
                     .textCase(nil)
@@ -1892,7 +1930,9 @@ private struct WorkoutLogExercisePickerSheet: View {
     }
 
     private func resetFilters() {
+        searchDebounceTask?.cancel()
         searchText = ""
+        debouncedSearchText = ""
         selectedLevels.removeAll()
         selectedEquipment.removeAll()
         selectedPrimaryMuscles.removeAll()
@@ -1901,6 +1941,8 @@ private struct WorkoutLogExercisePickerSheet: View {
         selectedMechanics.removeAll()
         selectedCategories.removeAll()
         selectedSort = .name
+        refreshDisplayExercises()
+        scheduleFilterPersist()
     }
 
     private func dismissKeyboard() {
@@ -1989,7 +2031,8 @@ private struct WorkoutLogPickerRow: View {
                         imagePaths: item.imagePaths,
                         height: 58,
                         fillsWidth: false,
-                        allowsDerivedImageLookup: false
+                        allowsDerivedImageLookup: false,
+                        animatesFrames: false
                     )
                     .frame(width: 76, height: 58)
                     .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))

@@ -167,7 +167,7 @@ Include vision-capable model IDs since the app needs vision for food photo analy
 
 iOS ships 17 locale resources; Android ships 16. English is the complete fallback on both platforms, so a missing translation must never block rendering or produce an empty label. Update every affected locale when practical and call out intentional fallback copy in the PR.
 
-**iOS:** Add to `ios/calorietracker/Localizable.xcstrings` (String Catalog) — Xcode auto-extracts new English strings on build with `SWIFT_EMIT_LOC_STRINGS = YES`, but leaves the other 16 columns empty. Fill the translations you are changing and verify fallback behavior for the rest.
+**iOS:** Add to `ios/calorietracker/Localizable.xcstrings` (String Catalog) — Xcode auto-extracts new English strings on build with `SWIFT_EMIT_LOC_STRINGS = YES`, but leaves the other locale columns empty. Fill the translations you are changing and verify fallback behavior for the rest.
 
 **Android:** Add the key to `app/src/main/res/values/strings.xml`, then update the relevant non-English `values-*/strings.xml` files. Android intentionally falls back to the default English resource while locale updates are completed; release lint disables only `MissingTranslation` for that reason. Enums use `displayNameRes: Int` instead of `displayName: String` — see the existing `MealType` / `WeightGoal` for the pattern.
 

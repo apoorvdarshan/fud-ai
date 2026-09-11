@@ -37,5 +37,13 @@
   "Apple Intelligence is available for text-only requests.": "Apple Intelligence доступний для запитів лише з текстом.",
   "%1$@ and fallback %2$@ both failed. %3$@": "%1$@ і резервний %2$@ не спрацювали. %3$@",
   "You appear to be offline. Check your connection and try scanning again.": "Схоже, ви офлайн. Перевірте з'єднання та спробуйте сканувати ще раз.",
-  "Open Food Facts took too long to respond. Try scanning again.": "Open Food Facts занадто довго відповідав. Спробуйте сканувати ще раз."
+  "Open Food Facts took too long to respond. Try scanning again.": "Open Food Facts занадто довго не відповідав. Спробуйте сканувати ще раз.",
+  "%lld step": "%lld крок",
+  "%lld steps": "%lld кроків",
+  "%lld day": "%lld день",
+  "%lld days": "%lld днів",
+  "%lld entry · tap to view or delete": "%lld запис · торкніться, щоб переглянути або видалити",
+  "%lld entries · tap to view or delete": "%lld записів · торкніться, щоб переглянути або видалити",
+  "%1$lld food%2$@ will be added to %3$@.": "%1$lld страв%2$@ буде додано до %3$@.",
+  "Hold the Fud AI app icon to use these shortcuts. Each slot opens its selected action directly. On iPhone, Quick Action 1–3 can also be assigned in Shortcuts to the Action Button or Back Tap.": "Утримуйте значок застосунку Fud AI, щоб використати ці швидкі дії. Кожен слот безпосередньо відкриває обрану дію. На iPhone швидкі дії 1–3 також можна призначити в «Команди» для кнопки «Дія» або «Торкання ззаду»."
 }

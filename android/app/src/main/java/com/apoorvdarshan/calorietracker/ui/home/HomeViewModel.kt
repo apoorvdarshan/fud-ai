@@ -8,6 +8,7 @@ import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FastingSession
 import com.apoorvdarshan.calorietracker.models.FoodSource
+import com.apoorvdarshan.calorietracker.models.AddMenuConfig
 import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.OptionalNutrientGoals
@@ -101,7 +102,8 @@ data class HomeUiState(
     val errorOffersScanLabel: Boolean = false,
 /** Daily step total from Health Connect for [date]; null when health is off, unreadable, or loading. */
     val dailySteps: Int? = null,
-    val homeBurnSummary: HomeBurnSummary? = null
+    val homeBurnSummary: HomeBurnSummary? = null,
+    val addMenuConfig: AddMenuConfig = AddMenuConfig.Default
 ) {
     val caloriesToday: Int get() = todayEntries.sumOf { it.calories }
     val proteinToday: Double get() = todayEntries.sumOf { it.protein }
@@ -166,6 +168,12 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
         container.prefs.homeTopNutrients
             .onEach { raw ->
                 _ui.value = _ui.value.copy(homeTopNutrients = HomeTopNutrient.fromStorage(raw))
+            }
+            .launchIn(viewModelScope)
+
+        container.prefs.addMenuConfig
+            .onEach { config ->
+                _ui.value = _ui.value.copy(addMenuConfig = config)
             }
             .launchIn(viewModelScope)
 

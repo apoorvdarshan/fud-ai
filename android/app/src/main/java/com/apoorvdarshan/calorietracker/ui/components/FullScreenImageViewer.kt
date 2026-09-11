@@ -94,6 +94,7 @@ fun FullScreenImageViewer(
     var isSaving by remember { mutableStateOf(false) }
     val dismissThresholdPx = 180f
     val isCurrentPageZoomed = zoomedPage == pagerState.currentPage
+    val permissionDeniedMessage = stringResource(R.string.photo_save_permission_denied)
     val isCurrentPageInteracting = interactingPage == pagerState.currentPage
 
     val storagePermissionLauncher = rememberLauncherForActivityResult(
@@ -102,11 +103,7 @@ fun FullScreenImageViewer(
         if (granted) {
             scope.launch { saveCurrentPhoto(context, bitmaps, pagerState.currentPage, isSaving) { isSaving = it } }
         } else {
-            Toast.makeText(
-                context,
-                context.getString(R.string.photo_save_permission_denied),
-                Toast.LENGTH_SHORT
-            ).show()
+            Toast.makeText(context, permissionDeniedMessage, Toast.LENGTH_SHORT).show()
         }
     }
 

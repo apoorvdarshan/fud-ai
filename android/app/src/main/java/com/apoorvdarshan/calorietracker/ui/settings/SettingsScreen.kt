@@ -64,6 +64,7 @@ import androidx.compose.material.icons.automirrored.filled.TrendingDown
 import androidx.compose.material.icons.automirrored.filled.TrendingFlat
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Brightness6
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.CloudUpload
 import androidx.compose.material.icons.outlined.CalendarToday
@@ -869,6 +870,12 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                     stringResource(R.string.settings_meal_times_customize),
                     icon = Icons.Outlined.Bolt
                 ) { nav.navigate(FudAIRoutes.QUICK_ACTIONS) }
+                HorizontalDivider()
+                SettingRow(
+                    stringResource(R.string.settings_add_menu_title),
+                    stringResource(R.string.settings_meal_times_customize),
+                    icon = Icons.Outlined.Add
+                ) { nav.navigate(FudAIRoutes.ADD_MENU) }
             }
             }
 

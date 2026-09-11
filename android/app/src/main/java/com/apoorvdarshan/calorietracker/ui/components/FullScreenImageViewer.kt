@@ -11,8 +11,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.awaitEachGesture
 import androidx.compose.foundation.gestures.awaitFirstDown
+import androidx.compose.foundation.gestures.calculatePan
+import androidx.compose.foundation.gestures.calculateZoom
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -278,14 +279,33 @@ private fun ZoomableMealPhotoPage(
     var containerWidth by remember(pageIndex) { mutableFloatStateOf(0f) }
     var containerHeight by remember(pageIndex) { mutableFloatStateOf(0f) }
 
+    fun fittedImageSize(): Pair<Float, Float> {
+        if (containerWidth <= 0f || containerHeight <= 0f) {
+            return containerWidth to containerHeight
+        }
+        val imageWidth = bitmap.width.toFloat()
+        val imageHeight = bitmap.height.toFloat()
+        if (imageWidth <= 0f || imageHeight <= 0f) {
+            return containerWidth to containerHeight
+        }
+        val containerAspect = containerWidth / containerHeight
+        val imageAspect = imageWidth / imageHeight
+        return if (imageAspect > containerAspect) {
+            containerWidth to containerWidth / imageAspect
+        } else {
+            containerHeight * imageAspect to containerHeight
+        }
+    }
+
     fun clampOffset() {
         if (scale <= 1.01f || containerWidth <= 0f || containerHeight <= 0f) {
             offsetX = 0f
             offsetY = 0f
             return
         }
-        val maxX = (containerWidth * (scale - 1f)) / 2f
-        val maxY = (containerHeight * (scale - 1f)) / 2f
+        val (fittedWidth, fittedHeight) = fittedImageSize()
+        val maxX = ((fittedWidth * scale) - containerWidth).coerceAtLeast(0f) / 2f
+        val maxY = ((fittedHeight * scale) - containerHeight).coerceAtLeast(0f) / 2f
         offsetX = offsetX.coerceIn(-maxX, maxX)
         offsetY = offsetY.coerceIn(-maxY, maxY)
     }
@@ -310,21 +330,42 @@ private fun ZoomableMealPhotoPage(
             }
             .pointerInput(pageIndex, isActive) {
                 if (!isActive) return@pointerInput
-                detectTransformGestures { _, pan, zoom, _ ->
-                    onInteractionChanged(true)
-                    val updatedScale = (scale * zoom).coerceIn(1f, MAX_ZOOM)
-                    scale = updatedScale
-                    if (updatedScale > 1.01f) {
-                        offsetX += pan.x
-                        offsetY += pan.y
-                        clampOffset()
-                    } else {
-                        offsetX = 0f
-                        offsetY = 0f
+                awaitEachGesture {
+                    try {
+                        awaitFirstDown(requireUnconsumed = false)
+                        var handlingTransform = false
+                        while (true) {
+                            val event = awaitPointerEvent()
+                            val pressed = event.changes.filter { it.pressed }
+                            if (pressed.isEmpty()) break
+
+                            val shouldHandle = pressed.size >= 2 || scale > 1.01f
+                            if (!shouldHandle) break
+
+                            if (!handlingTransform) {
+                                handlingTransform = true
+                                onInteractionChanged(true)
+                            }
+
+                            val zoomChange = event.calculateZoom()
+                            val panChange = event.calculatePan()
+                            val updatedScale = (scale * zoomChange).coerceIn(1f, MAX_ZOOM)
+                            scale = updatedScale
+                            if (updatedScale > 1.01f) {
+                                offsetX += panChange.x
+                                offsetY += panChange.y
+                                clampOffset()
+                            } else {
+                                offsetX = 0f
+                                offsetY = 0f
+                            }
+                            onZoomChanged(updatedScale > 1.01f)
+                            pressed.forEach { it.consume() }
+                        }
+                    } finally {
+                        onInteractionChanged(false)
                     }
-                    onZoomChanged(updatedScale > 1.01f)
                 }
-                onInteractionChanged(false)
             }
             .pointerInput(pageIndex, isActive) {
                 detectTapGestures(

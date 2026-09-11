@@ -15,6 +15,9 @@ object UserExercise {
         return "exercise_$uuid.jpg"
     }
 
+    /** Fresh on-disk name for a new/replaced custom exercise photo. */
+    fun newPhotoFilename(): String = "exercise_${UUID.randomUUID()}.jpg"
+
     fun isUserPhotoFilename(filename: String): Boolean =
         filename.startsWith("exercise_") && filename.endsWith(".jpg")
 }

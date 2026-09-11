@@ -21,6 +21,7 @@ import com.apoorvdarshan.calorietracker.models.WorkoutPreferences
 import com.apoorvdarshan.calorietracker.models.WorkoutSplitGroup
 import com.apoorvdarshan.calorietracker.models.WorkoutTabMode
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
+import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -76,6 +77,7 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
     private val prefs = app.getSharedPreferences("fudai_workouts", Context.MODE_PRIVATE)
     private val exerciseRepository = ExerciseRepository.get(app)
     private var workoutRepository: WorkoutRepository? = null
+    private var exerciseImageStore: FoodImageStore? = null
     private var repositoryJob: Job? = null
     private var latestPersistedState = WorkoutPersistedState()
     private var bodyWeightKg = 70.0
@@ -180,11 +182,13 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
         repository: WorkoutRepository?,
         currentBodyWeightKg: Double,
         weightUnit: WorkoutWeightUnit,
-        profileGender: Gender
+        profileGender: Gender,
+        imageStore: FoodImageStore? = null
     ) {
         bodyWeightKg = currentBodyWeightKg.takeIf { it.isFinite() && it > 0.0 } ?: 70.0
         workoutWeightUnit = weightUnit
         this.profileGender = profileGender
+        exerciseImageStore = imageStore
         if (workoutRepository === repository && repositoryJob != null) {
             rebuildDiaryState()
             return
@@ -229,7 +233,8 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
 
     fun removeExercise(exerciseId: UUID) {
         val date = diaryUiState.selectedDate
-        viewModelScope.launch { workoutRepository?.removeExercise(exerciseId, date) }
+        val imageStore = exerciseImageStore
+        viewModelScope.launch { workoutRepository?.removeExercise(exerciseId, date, imageStore) }
     }
 
     fun setSetCount(exerciseId: UUID, count: Int) {

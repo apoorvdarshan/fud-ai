@@ -465,7 +465,10 @@ internal fun WorkoutDiaryScreen(
                 pickerRequest = null
                 onCreateExercise()
             },
-            onEditUserExercise = onEditUserExercise,
+            onEditUserExercise = { id ->
+                pickerRequest = null
+                onEditUserExercise(id)
+            },
             onDismiss = { pickerRequest = null }
         )
     }

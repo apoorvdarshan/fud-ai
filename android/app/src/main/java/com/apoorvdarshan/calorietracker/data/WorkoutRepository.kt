@@ -140,9 +140,8 @@ class WorkoutRepository(
         }
 
         draft.photoBytes?.let { bytes ->
-            val filename = com.apoorvdarshan.calorietracker.models.UserExercise.photoFilename(itemId)
-            if (imageStore.restoreBytes(filename, bytes)) {
-                orphanCandidates += imagePaths.filter { it != filename }
+            imageStore.storeExercisePhoto(bytes)?.let { filename ->
+                orphanCandidates += imagePaths
                 imagePaths = listOf(filename)
             }
         }
@@ -186,10 +185,24 @@ class WorkoutRepository(
     suspend fun removeExercise(exerciseId: UUID, date: LocalDate) =
         removeExercise(exerciseId, WorkoutDate.key(date))
 
-    suspend fun removeExercise(exerciseId: UUID, dateKey: String) {
+    suspend fun removeExercise(
+        exerciseId: UUID,
+        dateKey: String,
+        imageStore: com.apoorvdarshan.calorietracker.services.FoodImageStore? = null
+    ) {
         val key = WorkoutDate.requireKey(dateKey)
+        val removedPaths = snapshot().dayPlans[key]?.exercises
+            ?.firstOrNull { it.id == exerciseId }
+            ?.imagePaths
+            .orEmpty()
         updatePlan(key) { plan ->
             plan.copy(exercises = plan.exercises.filterNot { it.id == exerciseId })
+        }
+        imageStore?.let { store ->
+            val after = snapshot()
+            removedPaths
+                .filterNot { after.referencesUserExerciseImage(it) }
+                .forEach { store.delete(it) }
         }
     }
 

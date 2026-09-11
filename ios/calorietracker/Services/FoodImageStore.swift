@@ -81,10 +81,10 @@ struct FoodImageStore {
         return FileManager.default.fileExists(atPath: url.path) ? url : nil
     }
 
-    /// Stores a user exercise photo under a stable exercise-derived filename.
+    /// Stores a user exercise photo under a fresh filename (never overwrites diary snapshots).
     @discardableResult
-    func storeExercisePhoto(data: Data, exerciseID: String) -> String? {
-        store(data: data, filename: UserExercise.photoFilename(forExerciseID: exerciseID))
+    func storeExercisePhoto(data: Data) -> String? {
+        store(data: data, filename: UserExercise.newPhotoFilename())
     }
 
     /// Best-effort delete. Silent no-op if the file is already gone.

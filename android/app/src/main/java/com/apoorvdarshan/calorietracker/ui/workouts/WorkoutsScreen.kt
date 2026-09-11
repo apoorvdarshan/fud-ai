@@ -112,12 +112,13 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
     val weightUnit = WorkoutWeightUnit.fromStorage(weightUnitRaw)
     val bodyWeightKg = latestWeight?.weightKg ?: profile?.weightKg ?: 70.0
 
-    LaunchedEffect(container.workoutRepository, bodyWeightKg, weightUnit, profile?.gender) {
+    LaunchedEffect(container.workoutRepository, bodyWeightKg, weightUnit, profile?.gender, container.imageStore) {
         vm.bindWorkoutRepository(
             repository = container.workoutRepository,
             currentBodyWeightKg = bodyWeightKg,
             weightUnit = weightUnit,
-            profileGender = profile?.gender ?: com.apoorvdarshan.calorietracker.models.Gender.MALE
+            profileGender = profile?.gender ?: com.apoorvdarshan.calorietracker.models.Gender.MALE,
+            imageStore = container.imageStore
         )
     }
 
@@ -135,6 +136,12 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
         onDismiss = {
             showCreateUserExercise = false
             editingUserExerciseId = null
+        },
+        onDeleted = {
+            val deletedId = editingUserExerciseId
+            if (deletedId != null && (deletedId == vm.openExerciseId || deletedId == openItem?.id)) {
+                vm.closeExerciseDetail()
+            }
         }
     )
 
@@ -145,7 +152,11 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
             visual = repo.visualFor(openItem, vm.diaryUiState.visualGender),
             onBack = vm::closeExerciseDetail,
             onEdit = if (com.apoorvdarshan.calorietracker.models.UserExercise.isUserExercise(openItem.id)) {
-                { editingUserExerciseId = openItem.id }
+                {
+                    val itemId = openItem.id
+                    vm.closeExerciseDetail()
+                    editingUserExerciseId = itemId
+                }
             } else {
                 null
             },
@@ -680,14 +691,14 @@ private fun EmptyState(onCreateExercise: (() -> Unit)? = null) {
         Icon(Icons.Filled.FilterListOff, null, tint = colors.mutedText, modifier = Modifier.size(40.dp))
         Text(stringResource(R.string.empty_title), color = colors.charcoal, fontSize = 17.sp, fontWeight = FontWeight.Bold)
         Text(
-            "Try different filters — or create your own exercise.",
+            stringResource(R.string.workout_empty_subtitle),
             color = colors.mutedText, fontSize = 14.sp,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
         )
         onCreateExercise?.let { create ->
             Button(onClick = create, modifier = Modifier.padding(top = 8.dp)) {
-                Text("Create exercise")
+                Text(stringResource(R.string.workout_create_exercise))
             }
         }
     }

@@ -64,6 +64,7 @@ private struct ExerciseLibraryBrowserView: View {
     @State private var selectedSort: ExerciseLibrarySort = .name
     @State private var isCreateExercisePresented = false
     @State private var editingExerciseRequest: EditingExerciseRequest?
+    @State private var selectedDetailItem: ExerciseLibraryItem?
 
     private var service: ExerciseLibraryService { workoutStore.exerciseLibrary }
 
@@ -206,13 +207,42 @@ private struct ExerciseLibraryBrowserView: View {
             scheduleFilterPersist()
             normalizePrimaryFilterSelection()
         }
-        .onChange(of: workoutStore.userExercises.count) { _, _ in refreshDisplayItems() }
+        .onChange(of: userExercisesFingerprint) { _, _ in refreshDisplayItems() }
+        .navigationDestination(item: $selectedDetailItem) { item in
+            ExerciseLibraryDetailView(
+                item: item,
+                onEdit: UserExercise.isUserExercise(item.id) ? {
+                    selectedDetailItem = nil
+                    editingExerciseRequest = EditingExerciseRequest(id: item.id)
+                } : nil
+            )
+        }
         .sheet(isPresented: $isCreateExercisePresented) {
             UserExerciseEditorView()
         }
         .sheet(item: $editingExerciseRequest) { request in
-            UserExerciseEditorView(existingItemID: request.id)
+            UserExerciseEditorView(
+                existingItemID: request.id,
+                onSaved: { saved in
+                    refreshDisplayItems()
+                    if selectedDetailItem?.id == saved.id {
+                        selectedDetailItem = saved
+                    }
+                },
+                onDeleted: {
+                    if selectedDetailItem?.id == request.id {
+                        selectedDetailItem = nil
+                    }
+                    refreshDisplayItems()
+                }
+            )
         }
+    }
+
+    private var userExercisesFingerprint: String {
+        workoutStore.userExercises.map {
+            "\($0.itemID)|\($0.name)|\($0.imagePaths.joined(separator: ","))"
+        }.joined(separator: ";")
     }
 
     private var scrollingList: some View {
@@ -238,10 +268,8 @@ private struct ExerciseLibraryBrowserView: View {
                     .padding(.horizontal, 20)
                 } else {
                     ForEach(displayItems) { item in
-                        NavigationLink {
-                            ExerciseLibraryDetailView(item: item, onEdit: UserExercise.isUserExercise(item.id) ? {
-                                editingExerciseRequest = EditingExerciseRequest(id: item.id)
-                            } : nil)
+                        Button {
+                            selectedDetailItem = item
                         } label: {
                             ExerciseLibraryRow(item: item)
                         }

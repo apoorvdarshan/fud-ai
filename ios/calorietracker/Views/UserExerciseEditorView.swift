@@ -7,19 +7,28 @@ struct UserExerciseEditorView: View {
 
     let existingItemID: String?
     let onSaved: ((ExerciseLibraryItem) -> Void)?
+    let onDeleted: (() -> Void)?
 
     @State private var draft = UserExerciseDraft()
     @State private var selectedPhotoItem: PhotosPickerItem?
     @State private var previewImage: UIImage?
     @State private var showDeleteConfirmation = false
+    @State private var loadedItemID: String?
+    @State private var isPhotoLoading = false
+    @State private var photoLoadGeneration = 0
 
     private var isEditing: Bool { existingItemID != nil }
 
     private var catalog: ExerciseLibraryService { ExerciseLibraryService.shared }
 
-    init(existingItemID: String? = nil, onSaved: ((ExerciseLibraryItem) -> Void)? = nil) {
+    init(
+        existingItemID: String? = nil,
+        onSaved: ((ExerciseLibraryItem) -> Void)? = nil,
+        onDeleted: (() -> Void)? = nil
+    ) {
         self.existingItemID = existingItemID
         self.onSaved = onSaved
+        self.onDeleted = onDeleted
     }
 
     var body: some View {
@@ -80,10 +89,15 @@ struct UserExerciseEditorView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") { save() }
-                        .disabled(draft.trimmedName.isEmpty)
+                        .disabled(draft.trimmedName.isEmpty || isPhotoLoading)
                 }
             }
-            .onAppear(perform: loadExisting)
+            .task(id: existingItemID) {
+                guard let existingItemID else { return }
+                guard loadedItemID != existingItemID else { return }
+                loadedItemID = existingItemID
+                loadExisting()
+            }
             .onChange(of: selectedPhotoItem) { _, item in
                 Task { await loadPhoto(from: item) }
             }
@@ -96,6 +110,7 @@ struct UserExerciseEditorView: View {
                     if let existingItemID {
                         workoutStore.deleteUserExercise(itemID: existingItemID)
                     }
+                    onDeleted?()
                     dismiss()
                 }
             } message: {
@@ -132,14 +147,18 @@ struct UserExerciseEditorView: View {
         PhotosPicker(selection: $selectedPhotoItem, matching: .images) {
             Label(previewImage == nil ? "Choose photo" : "Replace photo", systemImage: "photo")
         }
+        .disabled(isPhotoLoading)
 
         if previewImage != nil {
             Button("Remove photo", role: .destructive) {
+                photoLoadGeneration += 1
                 previewImage = nil
                 selectedPhotoItem = nil
                 draft.photoData = nil
                 draft.removePhoto = true
+                isPhotoLoading = false
             }
+            .disabled(isPhotoLoading)
         }
     }
 
@@ -209,21 +228,40 @@ struct UserExerciseEditorView: View {
             primaryMuscles: template.primaryMuscles,
             secondaryMuscles: template.secondaryMuscles
         )
+        let generation = photoLoadGeneration + 1
+        photoLoadGeneration = generation
+        isPhotoLoading = true
         if let filename = template.imagePaths.first,
            let data = FoodImageStore.shared.load(filename: filename),
            let image = UIImage(data: data) {
             previewImage = image
+        } else {
+            previewImage = nil
         }
+        isPhotoLoading = false
     }
 
     private func loadPhoto(from item: PhotosPickerItem?) async {
         guard let item else { return }
-        guard let data = try? await item.loadTransferable(type: Data.self),
-              let image = UIImage(data: data) else { return }
+        let generation = photoLoadGeneration + 1
         await MainActor.run {
+            photoLoadGeneration = generation
+            isPhotoLoading = true
+        }
+        guard let data = try? await item.loadTransferable(type: Data.self),
+              let image = UIImage(data: data) else {
+            await MainActor.run {
+                guard photoLoadGeneration == generation else { return }
+                isPhotoLoading = false
+            }
+            return
+        }
+        await MainActor.run {
+            guard photoLoadGeneration == generation else { return }
             previewImage = image
             draft.photoData = data
             draft.removePhoto = false
+            isPhotoLoading = false
         }
     }
 

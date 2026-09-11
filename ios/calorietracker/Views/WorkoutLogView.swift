@@ -1545,6 +1545,7 @@ private struct WorkoutLogExercisePickerSheet: View {
                 ExerciseLibraryDetailView(
                     item: item,
                     onEdit: UserExercise.isUserExercise(item.id) ? {
+                        previewItem = nil
                         editingExerciseRequest = WorkoutPickerEditingExerciseRequest(id: item.id)
                     } : nil
                 )
@@ -1552,7 +1553,13 @@ private struct WorkoutLogExercisePickerSheet: View {
                         WorkoutLogPreviewActionBar(
                             isSelected: workoutStore.containsExercise(item.id, on: selectedDate),
                             action: {
-                                workoutStore.toggleExercise(item, on: selectedDate)
+                                guard libraryItemStillExists(item.id) else {
+                                    previewItem = nil
+                                    return
+                                }
+                                if let fresh = workoutStore.exerciseLibrary.exercises.first(where: { $0.id == item.id }) {
+                                    workoutStore.toggleExercise(fresh, on: selectedDate)
+                                }
                             }
                         )
                     }
@@ -1580,7 +1587,21 @@ private struct WorkoutLogExercisePickerSheet: View {
                 }
             }
             .sheet(item: $editingExerciseRequest) { request in
-                UserExerciseEditorView(existingItemID: request.id)
+                UserExerciseEditorView(
+                    existingItemID: request.id,
+                    onSaved: { saved in
+                        refreshDisplayExercises()
+                        if previewItem?.id == saved.id {
+                            previewItem = saved
+                        }
+                    },
+                    onDeleted: {
+                        if previewItem?.id == request.id {
+                            previewItem = nil
+                        }
+                        refreshDisplayExercises()
+                    }
+                )
             }
             .keepsWorkoutLogToolbarDuringSearch()
         }
@@ -1621,7 +1642,17 @@ private struct WorkoutLogExercisePickerSheet: View {
             refreshDisplayExercises()
         }
         .onChange(of: workoutStore.savedExerciseIDs) { _, _ in refreshDisplayExercises() }
-        .onChange(of: workoutStore.userExercises.count) { _, _ in refreshDisplayExercises() }
+        .onChange(of: userExercisesFingerprint) { _, _ in refreshDisplayExercises() }
+    }
+
+    private var userExercisesFingerprint: String {
+        workoutStore.userExercises.map {
+            "\($0.itemID)|\($0.name)|\($0.imagePaths.joined(separator: ","))"
+        }.joined(separator: ";")
+    }
+
+    private func libraryItemStillExists(_ itemID: String) -> Bool {
+        workoutStore.exerciseLibrary.exercises.contains { $0.id == itemID }
     }
 
     private func refreshDisplayExercises() {

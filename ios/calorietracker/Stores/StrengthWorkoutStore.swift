@@ -126,9 +126,8 @@ final class StrengthWorkoutStore {
         }
 
         if let photoData = draft.photoData,
-           FoodImageStore.shared.storeExercisePhoto(data: photoData, exerciseID: itemID) != nil {
-            let filename = UserExercise.photoFilename(forExerciseID: itemID)
-            orphanCandidates.append(contentsOf: imagePaths.filter { $0 != filename })
+           let filename = FoodImageStore.shared.storeExercisePhoto(data: photoData) {
+            orphanCandidates.append(contentsOf: imagePaths)
             imagePaths = [filename]
         }
 
@@ -165,9 +164,13 @@ final class StrengthWorkoutStore {
     }
 
     func removeExercise(_ exerciseID: UUID, on date: Date) {
+        let removedPaths = exercises(for: date).first(where: { $0.id == exerciseID })?.imagePaths ?? []
         updatePlan(for: date) { plan in
             plan.exercises.removeAll { $0.id == exerciseID }
         }
+        removedPaths
+            .filter { !referencesUserExerciseImage($0) }
+            .forEach { FoodImageStore.shared.delete(filename: $0) }
     }
 
     func setSetCount(_ count: Int, exerciseID: UUID, on date: Date) {

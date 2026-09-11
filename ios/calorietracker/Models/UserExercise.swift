@@ -12,6 +12,9 @@ enum UserExercise {
         return "exercise_\(uuid).jpg"
     }
 
+    /// Fresh on-disk name for a new/replaced custom exercise photo.
+    static func newPhotoFilename() -> String { "exercise_\(UUID().uuidString).jpg" }
+
     static func isUserPhotoFilename(_ filename: String) -> Bool {
         filename.hasPrefix("exercise_") && filename.hasSuffix(".jpg")
     }

@@ -10,11 +10,8 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
-import org.robolectric.RuntimeEnvironment
+import java.io.File
 
-@RunWith(RobolectricTestRunner::class)
 class UserExerciseRepositoryTest {
     private class MemoryStore : WorkoutStateStore {
         private val flow = MutableStateFlow(WorkoutPersistedState())
@@ -32,7 +29,7 @@ class UserExerciseRepositoryTest {
     fun saveUserExercisePersistsTemplate() = runBlocking {
         val store = MemoryStore()
         val repository = WorkoutRepository(store)
-        val imageStore = FoodImageStore(RuntimeEnvironment.getApplication())
+        val imageStore = FoodImageStore.forTests(File.createTempFile("fud-user-exercise", null).parentFile!!)
 
         val saved = repository.saveUserExercise(
             UserExerciseDraft(

@@ -25,6 +25,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FitnessCenter
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -59,7 +60,9 @@ import com.apoorvdarshan.calorietracker.models.PlannedExercise
 import com.apoorvdarshan.calorietracker.models.UserExercise
 import com.apoorvdarshan.calorietracker.models.UserExerciseDraft
 import com.apoorvdarshan.calorietracker.services.FoodImageStore
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 
 @Composable
@@ -71,7 +74,8 @@ fun UserExerciseEditorSheet(
     imageStore: FoodImageStore,
     existingTemplate: PlannedExercise?,
     onDismiss: () -> Unit,
-    onSaved: ((String) -> Unit)? = null
+    onSaved: ((String) -> Unit)? = null,
+    onDeleted: (() -> Unit)? = null
 ) {
     if (!visible) return
 
@@ -100,15 +104,52 @@ fun UserExerciseEditorSheet(
             }
         )
     }
+    var isPhotoLoading by remember(existingItemId) { mutableStateOf(false) }
+    var showDeleteConfirmation by remember { mutableStateOf(false) }
 
     val photoPicker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         uri ?: return@rememberLauncherForActivityResult
-        context.contentResolver.openInputStream(uri)?.use { stream ->
-            val bytes = stream.readBytes()
-            photoBytes = bytes
-            removePhoto = false
-            previewUri = uri
+        scope.launch {
+            isPhotoLoading = true
+            val bytes = withContext(Dispatchers.IO) {
+                context.contentResolver.openInputStream(uri)?.use { stream ->
+                    stream.readBytes().takeIf { it.size <= 20 * 1024 * 1024 }
+                }
+            }
+            isPhotoLoading = false
+            if (bytes != null) {
+                photoBytes = bytes
+                removePhoto = false
+                previewUri = uri
+            }
         }
+    }
+
+    if (showDeleteConfirmation) {
+        AlertDialog(
+            onDismissRequest = { showDeleteConfirmation = false },
+            title = { Text("Delete this custom exercise?") },
+            text = {
+                Text("This removes the exercise from your library. Logged workouts keep their history.")
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    showDeleteConfirmation = false
+                    scope.launch {
+                        workoutRepository.deleteUserExercise(existingItemId!!, imageStore)
+                        onDeleted?.invoke()
+                        onDismiss()
+                    }
+                }) {
+                    Text("Delete", color = colors.accent)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteConfirmation = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
     }
 
     ModalBottomSheet(
@@ -215,7 +256,7 @@ fun UserExerciseEditorSheet(
                             onDismiss()
                         }
                     },
-                    enabled = name.trim().isNotEmpty(),
+                    enabled = name.trim().isNotEmpty() && !isPhotoLoading,
                     modifier = Modifier.weight(1f)
                 ) { Text("Save") }
             }
@@ -223,12 +264,7 @@ fun UserExerciseEditorSheet(
             if (existingItemId != null && UserExercise.isUserExercise(existingItemId)) {
                 HorizontalDivider(color = colors.hairline.copy(alpha = 0.35f))
                 TextButton(
-                    onClick = {
-                        scope.launch {
-                            workoutRepository.deleteUserExercise(existingItemId, imageStore)
-                            onDismiss()
-                        }
-                    },
+                    onClick = { showDeleteConfirmation = true },
                     modifier = Modifier.fillMaxWidth()
                 ) { Text("Delete exercise", color = colors.accent) }
             }

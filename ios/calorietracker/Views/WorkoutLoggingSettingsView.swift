@@ -36,19 +36,6 @@ struct WorkoutLoggingSettingsSection: View {
             )
 
             rpeScaleGuide
-
-            HStack {
-                Label {
-                    Text("Walk & Run")
-                } icon: {
-                    Image(systemName: "figure.walk")
-                        .foregroundStyle(AppColors.calorie)
-                }
-                Spacer()
-                Toggle("Walk & Run", isOn: $walkRunQuickLogEnabled)
-                    .labelsHidden()
-                    .tint(AppColors.calorie)
-            }
         } header: {
             Text("Workout")
         } footer: {

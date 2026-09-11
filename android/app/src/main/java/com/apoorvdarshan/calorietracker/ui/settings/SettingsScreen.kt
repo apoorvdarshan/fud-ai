@@ -431,6 +431,29 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
         else permissionDialog = PermissionDialogState(notifDeniedMsg)
     }
 
+    val photoSaveDeniedMsg = stringResource(R.string.photo_save_permission_denied)
+    val gallerySavePermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) vm.setSaveMealPhotosToGallery(true)
+        else permissionDialog = PermissionDialogState(photoSaveDeniedMsg)
+    }
+
+    fun onSavePhotosToGalleryChanged(enabled: Boolean) {
+        if (!enabled) {
+            vm.setSaveMealPhotosToGallery(false)
+            return
+        }
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P &&
+            ContextCompat.checkSelfPermission(activityContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            gallerySavePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        } else {
+            vm.setSaveMealPhotosToGallery(true)
+        }
+    }
+
     // Health Connect honors partial grants: any granted permission connects the app, and
     // each direction is gated on its own permission downstream (issue #91). The SYNC toggle
     // accepts any grant; ENERGY_GOALS still needs the energy reads, which its VM re-checks.
@@ -825,6 +848,14 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                     icon = Icons.Outlined.LocalDining,
                     onInfo = { showDefaultGramsInfo = true },
                     onChange = vm::setPreferGramsByDefault
+                )
+                HorizontalDivider()
+                ToggleRow(
+                    label = stringResource(R.string.settings_save_photos_to_gallery),
+                    subtitle = stringResource(R.string.settings_save_photos_to_gallery_subtitle),
+                    checked = ui.saveMealPhotosToGallery,
+                    icon = Icons.Outlined.Download,
+                    onChange = { onSavePhotosToGalleryChanged(it) }
                 )
                 HorizontalDivider()
                 SettingRow(
@@ -4191,6 +4222,7 @@ private fun ToggleRow(
     label: String,
     checked: Boolean,
     icon: ImageVector? = null,
+    subtitle: String? = null,
     onChange: (Boolean) -> Unit
 ) {
     Row(
@@ -4201,11 +4233,16 @@ private fun ToggleRow(
             FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
             Spacer(Modifier.width(14.dp))
         }
-        Text(
-            label,
-            modifier = Modifier.weight(1f),
-            style = MaterialTheme.typography.bodyLarge
-        )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(label, style = MaterialTheme.typography.bodyLarge)
+            if (subtitle != null) {
+                Text(
+                    subtitle,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
         Switch(checked = checked, onCheckedChange = onChange)
     }
 }

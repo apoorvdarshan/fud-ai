@@ -783,4 +783,6 @@
     <string name="photo_saved_to_gallery">Photo enregistrée</string>
     <string name="photo_save_failed">Impossible d\u2019enregistrer la photo</string>
     <string name="photo_save_permission_denied">Accès aux photos refusé</string>
+    <string name="settings_save_photos_to_gallery">Enregistrer dans Photos</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Enregistrer aussi les photos de repas dans votre galerie lors de la saisie</string>
 </resources>

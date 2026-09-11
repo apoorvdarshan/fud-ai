@@ -4029,6 +4029,7 @@ struct ProfileView: View {
     @AppStorage(EnergyBurnSettings.enabledKey) private var energyBurnEnabled = false
     @AppStorage("weekStartsOnMonday") private var weekStartsOnMonday = true
     @AppStorage(FoodMeasurementSettings.preferGramsByDefaultKey) private var preferGramsByDefault = false
+    @AppStorage(MealPhotoSettings.saveToGalleryKey) private var saveMealPhotosToGallery = false
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @AppStorage(WaterSettings.enabledKey) private var waterTrackingEnabled = false
     @AppStorage(WaterSettings.dailyGoalKey) private var waterDailyGoal = WaterSettings.defaultDailyGoalMl
@@ -4608,6 +4609,25 @@ struct ProfileView: View {
                         Toggle("Default to Grams", isOn: $preferGramsByDefault)
                             .labelsHidden()
                             .tint(AppColors.calorie)
+                    }
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack {
+                            Label {
+                                Text("Save to Photos")
+                            } icon: {
+                                Image(systemName: "square.and.arrow.down")
+                                    .foregroundStyle(AppColors.calorie)
+                            }
+                            Spacer()
+                            Toggle("Save to Photos", isOn: $saveMealPhotosToGallery)
+                                .labelsHidden()
+                                .tint(AppColors.calorie)
+                        }
+                        Text("Also save meal photos to your gallery when logging")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .padding(.leading, 32)
                     }
 
                     Picker(selection: $weekStartsOnMonday) {

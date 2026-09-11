@@ -423,6 +423,9 @@ class PreferencesStore(
     val preferGramsByDefault: Flow<Boolean> = ds.data.map { it[Keys.PREFER_GRAMS_BY_DEFAULT] ?: false }
     suspend fun setPreferGramsByDefault(v: Boolean) { ds.edit { it[Keys.PREFER_GRAMS_BY_DEFAULT] = v } }
 
+    val saveMealPhotosToGallery: Flow<Boolean> = ds.data.map { it[Keys.SAVE_MEAL_PHOTOS_TO_GALLERY] ?: false }
+    suspend fun setSaveMealPhotosToGallery(v: Boolean) { ds.edit { it[Keys.SAVE_MEAL_PHOTOS_TO_GALLERY] = v } }
+
     /** "system" | "light" | "dark". Mirrors iOS @AppStorage("appearanceMode"). */
     val appearanceMode: Flow<String> = ds.data.map { it[Keys.APPEARANCE_MODE] ?: "system" }
     suspend fun setAppearanceMode(v: String) { ds.edit { it[Keys.APPEARANCE_MODE] = v } }
@@ -1127,6 +1130,7 @@ class PreferencesStore(
         val HEIGHT_UNIT = stringPreferencesKey("heightUnit")
         val WEIGHT_UNIT = stringPreferencesKey("weightUnit")
         val PREFER_GRAMS_BY_DEFAULT = booleanPreferencesKey("foodMeasurementPreferGramsByDefault")
+        val SAVE_MEAL_PHOTOS_TO_GALLERY = booleanPreferencesKey("saveMealPhotosToGallery")
         val APPEARANCE_MODE = stringPreferencesKey("appearanceMode")
         val APP_THEME_COLOR = stringPreferencesKey("appThemeColor")
         val WEEK_STARTS_MONDAY = booleanPreferencesKey("weekStartsOnMonday")

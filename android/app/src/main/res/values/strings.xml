@@ -1037,6 +1037,11 @@
     <string name="cd_add_image">Add image</string>
     <string name="cd_open_camera">Open camera</string>
     <string name="cd_close_camera">Close camera</string>
+    <string name="cd_save_photo">Save photo</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Photo saved</string>
+    <string name="photo_save_failed">Couldn\u2019t save photo</string>
+    <string name="photo_save_permission_denied">Photo access denied</string>
 
     <!-- Localization pass: previously hardcoded UI strings -->
     <string name="unit_mcg">mcg</string>

@@ -778,4 +778,9 @@
     <string name="about_whisper_notices">Avisos de terceiros do Whisper Base</string>
     <string name="about_whisper_notices_load_error">Não foi possível carregar os avisos de terceiros do Whisper Base.</string>
     <string name="cd_remove_image">Remover imagem</string>
+    <string name="cd_save_photo">Salvar foto</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Foto salva</string>
+    <string name="photo_save_failed">Não foi possível salvar a foto</string>
+    <string name="photo_save_permission_denied">Acesso às fotos negado</string>
 </resources>

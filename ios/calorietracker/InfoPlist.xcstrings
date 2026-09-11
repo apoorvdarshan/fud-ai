@@ -101,6 +101,107 @@
           }
         }
       }
+    },
+    "NSPhotoLibraryAddUsageDescription": {
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "يحفظ Fud AI صور الوجبات في مكتبة الصور عند النقر على حفظ."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI \"Yadda saxla\" düyməsinə toxunanda yemək şəkillərini foto kitabxananıza yadda saxlayır."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI speichert Mahlzeitfotos in deiner Fotomediathek, wenn du auf Speichern tippst."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI saves meal photos to your photo library when you tap Save."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI guarda fotos de comidas en tu biblioteca de fotos cuando tocas Guardar."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI enregistre les photos de repas dans votre photothèque lorsque vous touchez Enregistrer."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "जब आप सहेजें पर टैप करते हैं, तो Fud AI भोजन की तस्वीरें आपकी फोटो लाइब्रेरी में सहेजता है।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI salva le foto dei pasti nella libreria foto quando tocchi Salva."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AIは「保存」をタップすると、食事の写真をフォトライブラリに保存します。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI는 저장을 탭하면 식사 사진을 사진 보관함에 저장합니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI slaat maaltijdfoto's op in je fotobibliotheek wanneer je op Opslaan tikt."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI zapisuje zdjęcia posiłków w bibliotece zdjęć po dotknięciu Zapisz."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Fud AI salva fotos de refeições na sua biblioteca de fotos quando você toca em Salvar."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI salvează fotografiile meselor în biblioteca foto când atingi Salvează."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI сохраняет фото блюд в медиатеку, когда вы нажимаете «Сохранить»."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "当你点按“保存”时，Fud AI 会将餐食照片保存到照片图库。"
+          }
+        }
+      }
     }
   },
   "version": "1.0"

@@ -778,4 +778,9 @@
     <string name="about_whisper_notices">Drittanbieterhinweise zu Whisper Base</string>
     <string name="about_whisper_notices_load_error">Die Drittanbieterhinweise zu Whisper Base konnten nicht geladen werden.</string>
     <string name="cd_remove_image">Bild entfernen</string>
+    <string name="cd_save_photo">Foto speichern</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Foto gespeichert</string>
+    <string name="photo_save_failed">Foto konnte nicht gespeichert werden</string>
+    <string name="photo_save_permission_denied">Fotozugriff verweigert</string>
 </resources>

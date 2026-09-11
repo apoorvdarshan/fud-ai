@@ -438,8 +438,15 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         viewModelScope.launch {
             container.prefs.setSelectedFallbackProvider(p)
             // Reset model to provider default if old model isn't in the new provider's list.
-            val current = _ui.value.fallbackModel
-            val newModel = p.supportedModelOrDefault(current)
+            var newModel = p.supportedModelOrDefault(_ui.value.fallbackModel)
+            val primary = _ui.value.selectedAI
+            val primaryUrl = container.prefs.customBaseUrl(primary).first()?.takeIf { it.isNotEmpty() }
+                ?: primary.baseUrl
+            val fallbackUrl = container.prefs.fallbackCustomBaseUrl(p).first()?.takeIf { it.isNotEmpty() }
+                ?: p.baseUrl
+            if (p == primary && newModel == _ui.value.selectedModel && primaryUrl == fallbackUrl) {
+                newModel = p.models.firstOrNull { it != _ui.value.selectedModel } ?: newModel
+            }
             container.prefs.setSelectedFallbackModel(newModel)
             val masked = maskKey(container.keyStore.apiKey(p))
             _ui.value = _ui.value.copy(fallbackProvider = p, fallbackModel = newModel, fallbackApiKeyMasked = masked)
@@ -479,7 +486,20 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         if (provider !in _ui.value.availableTextProviders) return
         viewModelScope.launch {
             container.prefs.setSelectedTextFallbackProvider(provider)
-            val model = provider.supportedTextModelOrDefault(_ui.value.textFallbackModel)
+            var model = provider.supportedTextModelOrDefault(_ui.value.textFallbackModel)
+            val primary = if (_ui.value.separateTextProviderEnabled) _ui.value.selectedTextAI else _ui.value.selectedAI
+            val primaryModel = if (_ui.value.separateTextProviderEnabled) {
+                _ui.value.selectedTextModel
+            } else {
+                _ui.value.selectedModel
+            }
+            val primaryUrl = container.prefs.customBaseUrl(primary).first()?.takeIf { it.isNotEmpty() }
+                ?: primary.baseUrl
+            val fallbackUrl = container.prefs.fallbackCustomBaseUrl(provider).first()?.takeIf { it.isNotEmpty() }
+                ?: provider.baseUrl
+            if (provider == primary && model == primaryModel && primaryUrl == fallbackUrl) {
+                model = provider.textModels.firstOrNull { it != primaryModel } ?: model
+            }
             container.prefs.setSelectedTextFallbackModel(model)
             _ui.value = _ui.value.copy(
                 textFallbackProvider = provider,
@@ -1452,13 +1472,52 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
     fun setCustomBaseUrl(provider: AIProvider, url: String) {
         viewModelScope.launch {
             container.prefs.setCustomBaseUrl(provider, url.takeIf { it.isNotBlank() })
+            reconcileImageFallbackAfterUrlChange()
+            reconcileTextFallbackAfterUrlChange()
         }
     }
 
     fun setFallbackCustomBaseUrl(provider: AIProvider, url: String) {
         viewModelScope.launch {
             container.prefs.setFallbackCustomBaseUrl(provider, url.takeIf { it.isNotBlank() })
+            reconcileImageFallbackAfterUrlChange()
+            reconcileTextFallbackAfterUrlChange()
         }
+    }
+
+    private suspend fun reconcileImageFallbackAfterUrlChange() {
+        if (!_ui.value.fallbackEnabled) return
+        val primary = _ui.value.selectedAI
+        val fallback = _ui.value.fallbackProvider
+        if (fallback != primary || _ui.value.fallbackModel != _ui.value.selectedModel) return
+        val primaryUrl = container.prefs.customBaseUrl(primary).first()?.takeIf { it.isNotEmpty() }
+            ?: primary.baseUrl
+        val fallbackUrl = container.prefs.fallbackCustomBaseUrl(fallback).first()?.takeIf { it.isNotEmpty() }
+            ?: fallback.baseUrl
+        if (primaryUrl != fallbackUrl) return
+        val alternate = fallback.models.firstOrNull { it != _ui.value.selectedModel } ?: return
+        container.prefs.setSelectedFallbackModel(alternate)
+        _ui.value = _ui.value.copy(fallbackModel = alternate)
+    }
+
+    private suspend fun reconcileTextFallbackAfterUrlChange() {
+        if (!_ui.value.textFallbackEnabled) return
+        val primary = if (_ui.value.separateTextProviderEnabled) _ui.value.selectedTextAI else _ui.value.selectedAI
+        val primaryModel = if (_ui.value.separateTextProviderEnabled) {
+            _ui.value.selectedTextModel
+        } else {
+            _ui.value.selectedModel
+        }
+        val fallback = _ui.value.textFallbackProvider
+        if (fallback != primary || _ui.value.textFallbackModel != primaryModel) return
+        val primaryUrl = container.prefs.customBaseUrl(primary).first()?.takeIf { it.isNotEmpty() }
+            ?: primary.baseUrl
+        val fallbackUrl = container.prefs.fallbackCustomBaseUrl(fallback).first()?.takeIf { it.isNotEmpty() }
+            ?: fallback.baseUrl
+        if (primaryUrl != fallbackUrl) return
+        val alternate = fallback.textModels.firstOrNull { it != primaryModel } ?: return
+        container.prefs.setSelectedTextFallbackModel(alternate)
+        _ui.value = _ui.value.copy(textFallbackModel = alternate)
     }
 
     private fun maskKey(key: String?): String =

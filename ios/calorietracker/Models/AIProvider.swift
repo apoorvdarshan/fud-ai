@@ -886,6 +886,7 @@ struct AIProviderSettings {
         UserDefaults.standard.removeObject(forKey: textFallbackEnabledKey)
         UserDefaults.standard.removeObject(forKey: textFallbackProviderKey)
         UserDefaults.standard.removeObject(forKey: textFallbackModelKey)
+        UserDefaults.standard.removeObject(forKey: fallbackBaseURLMigrationVersionKey)
         UserDefaults.standard.removeObject(forKey: requestTimeoutSecondsKey)
     }
 

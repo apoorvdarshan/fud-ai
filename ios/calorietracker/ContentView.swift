@@ -4150,7 +4150,7 @@ struct ProfileView: View {
     @State private var selectedTextFallbackProvider: AIProvider = AIProviderSettings.selectedTextFallbackProvider
     @State private var selectedTextFallbackModel: String = AIProviderSettings.selectedTextFallbackModel
     @State private var textFallbackApiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedTextFallbackProvider) ?? ""
-    @State private var textFallbackBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedTextFallbackProvider) ?? ""
+    @State private var textFallbackBaseURL: String = AIProviderSettings.fallbackCustomBaseURL(for: AIProviderSettings.selectedTextFallbackProvider) ?? ""
     @State private var showTextFallbackAPIKey = false
     @State private var localModelAvailabilityRevision = 0
     @State private var selectedSpeechProvider: SpeechProvider = SpeechSettings.selectedProvider
@@ -5007,6 +5007,8 @@ struct ProfileView: View {
                                     .onChange(of: customBaseURL) { _, newValue in
                                         let t = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
                                         AIProviderSettings.setCustomBaseURL(t.isEmpty ? nil : t, for: selectedProvider)
+                                        reconcileImageFallbackModelIfDuplicate()
+                                        reconcileTextFallbackModelIfDuplicate()
                                     }
                             }
 
@@ -5233,6 +5235,7 @@ struct ProfileView: View {
                                 .onChange(of: textBaseURL) { _, newValue in
                                     let trimmed = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
                                     AIProviderSettings.setCustomBaseURL(trimmed.isEmpty ? nil : trimmed, for: selectedTextProvider)
+                                    reconcileTextFallbackModelIfDuplicate()
                                 }
                             }
 
@@ -5432,6 +5435,7 @@ struct ProfileView: View {
                                     .onChange(of: fallbackBaseURL) { _, newValue in
                                         let t = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
                                         AIProviderSettings.setFallbackCustomBaseURL(t.isEmpty ? nil : t, for: selectedFallbackProvider)
+                                        reconcileImageFallbackModelIfDuplicate()
                                     }
                                 }
 
@@ -6104,7 +6108,9 @@ struct ProfileView: View {
                     .textInputAutocapitalization(.never)
                     .keyboardType(.URL)
                     .onChange(of: textFallbackBaseURL) { _, newValue in
-                        AIProviderSettings.setCustomBaseURL(newValue.isEmpty ? nil : newValue, for: selectedTextFallbackProvider)
+                        let t = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                        AIProviderSettings.setFallbackCustomBaseURL(t.isEmpty ? nil : t, for: selectedTextFallbackProvider)
+                        reconcileTextFallbackModelIfDuplicate()
                     }
                 }
             }
@@ -6269,12 +6275,29 @@ struct ProfileView: View {
         return selectedFallbackProvider.models.filter { $0 != selectedModel }
     }
 
-    private var textFallbackModelPresetOptions: [String] {
+    private var resolvedTextPrimaryBaseURL: String {
+        let provider = separateTextProviderEnabled ? selectedTextProvider : selectedProvider
+        let url = separateTextProviderEnabled ? textBaseURL : customBaseURL
+        let trimmed = url.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? provider.baseURL : trimmed
+    }
+
+    private var resolvedTextFallbackBaseURL: String {
+        let trimmed = textFallbackBaseURL.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? selectedTextFallbackProvider.baseURL : trimmed
+    }
+
+    private var textFallbackSharesPrimaryServer: Bool {
         let primaryProvider = separateTextProviderEnabled ? selectedTextProvider : selectedProvider
-        let primaryModel = separateTextProviderEnabled ? selectedTextModel : selectedModel
-        guard selectedTextFallbackProvider == primaryProvider else {
+        return selectedTextFallbackProvider == primaryProvider &&
+            resolvedTextPrimaryBaseURL == resolvedTextFallbackBaseURL
+    }
+
+    private var textFallbackModelPresetOptions: [String] {
+        guard textFallbackSharesPrimaryServer else {
             return selectedTextFallbackProvider.textModels
         }
+        let primaryModel = separateTextProviderEnabled ? selectedTextModel : selectedModel
         return selectedTextFallbackProvider.textModels.filter { $0 != primaryModel }
     }
 
@@ -6341,14 +6364,39 @@ struct ProfileView: View {
         }
         let primaryProvider = separateTextProviderEnabled ? selectedTextProvider : selectedProvider
         let primaryModel = separateTextProviderEnabled ? selectedTextModel : selectedModel
-        if newProvider == primaryProvider,
+        let sharesServer = newProvider == primaryProvider &&
+            (AIProviderSettings.fallbackCustomBaseURL(for: newProvider) ?? newProvider.baseURL) ==
+            (AIProviderSettings.customBaseURL(for: primaryProvider) ?? primaryProvider.baseURL)
+        if sharesServer,
            selectedTextFallbackModel == primaryModel,
            let alternate = options.first(where: { $0 != primaryModel }) {
             selectedTextFallbackModel = alternate
             AIProviderSettings.selectedTextFallbackModel = alternate
         }
         textFallbackApiKeyText = AIProviderSettings.apiKey(for: newProvider) ?? ""
-        textFallbackBaseURL = AIProviderSettings.customBaseURL(for: newProvider) ?? ""
+        textFallbackBaseURL = AIProviderSettings.fallbackCustomBaseURL(for: newProvider) ?? ""
+    }
+
+    private func reconcileImageFallbackModelIfDuplicate() {
+        guard fallbackEnabled else { return }
+        guard selectedFallbackProvider == selectedProvider,
+              selectedFallbackModel == selectedModel,
+              resolvedPrimaryBaseURL == resolvedFallbackBaseURL else { return }
+        guard let alternate = selectedFallbackProvider.models.first(where: { $0 != selectedModel }) else { return }
+        selectedFallbackModel = alternate
+        AIProviderSettings.selectedFallbackModel = alternate
+    }
+
+    private func reconcileTextFallbackModelIfDuplicate() {
+        guard textFallbackEnabled else { return }
+        let primaryProvider = separateTextProviderEnabled ? selectedTextProvider : selectedProvider
+        let primaryModel = separateTextProviderEnabled ? selectedTextModel : selectedModel
+        guard selectedTextFallbackProvider == primaryProvider,
+              selectedTextFallbackModel == primaryModel,
+              resolvedTextPrimaryBaseURL == resolvedTextFallbackBaseURL else { return }
+        guard let alternate = selectedTextFallbackProvider.textModels.first(where: { $0 != primaryModel }) else { return }
+        selectedTextFallbackModel = alternate
+        AIProviderSettings.selectedTextFallbackModel = alternate
     }
 
     private func selectSpeechFallbackProvider(_ newProvider: SpeechProvider) {

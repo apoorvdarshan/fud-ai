@@ -1,190 +1,902 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "barcode.lookup.offline" : {
-      "extractionState" : "manual",
-      "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "You appear to be offline. Check your connection and try scanning again." } } }
-    },
-    "barcode.lookup.timeout" : {
-      "extractionState" : "manual",
-      "localizations" : { "en" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts took too long to respond. Try scanning again." } } }
-    },
-    "barcode.lookup.invalid_barcode" : {
-      "comment" : "Error shown when the scanned barcode is empty or cannot form a safe request.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "تعذّر قراءة هذا الرمز الشريطي. حاول مسحه ضوئيًا مرة أخرى." } },
-        "az" : { "stringUnit" : { "state" : "translated", "value" : "Bu barkodu oxumaq mümkün olmadı. Onu yenidən skan edin." } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Dieser Barcode konnte nicht gelesen werden. Scanne ihn erneut." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "That barcode could not be read. Try scanning it again." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "No se pudo leer este código de barras. Intenta escanearlo de nuevo." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Impossible de lire ce code-barres. Essayez de le scanner à nouveau." } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "यह बारकोड पढ़ा नहीं जा सका। इसे फिर से स्कैन करें।" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Non è stato possibile leggere questo codice a barre. Prova a scansionarlo di nuovo." } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "このバーコードを読み取れませんでした。もう一度スキャンしてください。" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "이 바코드를 읽을 수 없습니다. 다시 스캔해 주세요." } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Deze barcode kon niet worden gelezen. Scan hem opnieuw." } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Nie udało się odczytać tego kodu kreskowego. Zeskanuj go ponownie." } },
-        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Não foi possível ler este código de barras. Tente escaneá-lo novamente." } },
-        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Acest cod de bare nu a putut fi citit. Scanează-l din nou." } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Не удалось прочитать этот штрихкод. Попробуйте отсканировать его ещё раз." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "无法读取此条形码。请重新扫描。" } }
+  "sourceLanguage": "en",
+  "strings": {
+    "barcode.lookup.offline": {
+      "extractionState": "manual",
+      "localizations" : { "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You appear to be offline. Check your connection and try scanning again."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Схоже, ви офлайн. Перевірте з'єднання та спробуйте сканувати ще раз."
+          }
+        }
       }
     },
-    "barcode.lookup.invalid_response" : {
-      "comment" : "Error shown when a barcode response cannot be understood.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "أرجع Open Food Facts استجابة غير متوقعة." } },
-        "az" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts gözlənilməz cavab qaytardı." } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts hat eine unerwartete Antwort zurückgegeben." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts returned an unexpected response." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts devolvió una respuesta inesperada." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts a renvoyé une réponse inattendue." } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts से एक अनपेक्षित प्रतिक्रिया मिली।" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts ha restituito una risposta imprevista." } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts から予期しない応答が返されました。" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts에서 예상하지 못한 응답을 보냈습니다." } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts gaf een onverwacht antwoord." } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts zwrócił nieoczekiwaną odpowiedź." } },
-        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "O Open Food Facts retornou uma resposta inesperada." } },
-        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts a returnat un răspuns neașteptat." } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts вернул неожиданный ответ." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts 返回了意外响应。" } }
+    "barcode.lookup.timeout": {
+      "extractionState": "manual",
+      "localizations" : { "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts took too long to respond. Try scanning again."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts занадто довго відповідав. Спробуйте сканувати ще раз."
+          }
+        }
       }
     },
-    "barcode.lookup.missing_nutrition" : {
-      "comment" : "Error shown when a barcode exists but has no usable calorie or macronutrient data.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "تم العثور على هذا الرمز الشريطي، لكن بيانات التغذية غير مكتملة. امسح ملصق القيم الغذائية ضوئيًا بدلًا من ذلك." } },
-        "az" : { "stringUnit" : { "state" : "translated", "value" : "Bu barkod tapıldı, lakin qida məlumatları natamamdır. Əvəzində qida dəyəri etiketini skan edin." } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Dieser Barcode wurde gefunden, aber die Nährwertangaben sind unvollständig. Scanne stattdessen die Nährwerttabelle." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "This barcode was found, but nutrition data is incomplete. Scan the nutrition label instead." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Se encontró este código de barras, pero los datos nutricionales están incompletos. Escanea la etiqueta nutricional." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Ce code-barres a été trouvé, mais les données nutritionnelles sont incomplètes. Scannez plutôt l’étiquette nutritionnelle." } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "यह बारकोड मिल गया, लेकिन पोषण डेटा अधूरा है। इसके बजाय पोषण लेबल स्कैन करें।" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Il codice a barre è stato trovato, ma i dati nutrizionali sono incompleti. Scansiona invece l’etichetta nutrizionale." } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "バーコードは見つかりましたが、栄養データが不完全です。代わりに栄養成分表示をスキャンしてください。" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "바코드는 찾았지만 영양 정보가 불완전합니다. 대신 영양 성분표를 스캔해 주세요." } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Deze barcode is gevonden, maar de voedingsgegevens zijn onvolledig. Scan in plaats daarvan het voedingsetiket." } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Znaleziono ten kod kreskowy, ale dane żywieniowe są niepełne. Zeskanuj etykietę wartości odżywczych." } },
-        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Este código de barras foi encontrado, mas os dados nutricionais estão incompletos. Escaneie o rótulo nutricional." } },
-        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Codul de bare a fost găsit, dar datele nutriționale sunt incomplete. Scanează eticheta nutrițională." } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Штрихкод найден, но данные о пищевой ценности неполные. Вместо этого отсканируйте этикетку с пищевой ценностью." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已找到此条形码，但营养数据不完整。请改为扫描营养成分表。" } }
+    "barcode.lookup.invalid_barcode": {
+      "comment": "Error shown when the scanned barcode is empty or cannot form a safe request.",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تعذّر قراءة هذا الرمز الشريطي. حاول مسحه ضوئيًا مرة أخرى."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu barkodu oxumaq mümkün olmadı. Onu yenidən skan edin."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Barcode konnte nicht gelesen werden. Scanne ihn erneut."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "That barcode could not be read. Try scanning it again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo leer este código de barras. Intenta escanearlo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossible de lire ce code-barres. Essayez de le scanner à nouveau."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "यह बारकोड पढ़ा नहीं जा सका। इसे फिर से स्कैन करें।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Non è stato possibile leggere questo codice a barre. Prova a scansionarlo di nuovo."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このバーコードを読み取れませんでした。もう一度スキャンしてください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 바코드를 읽을 수 없습니다. 다시 스캔해 주세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deze barcode kon niet worden gelezen. Scan hem opnieuw."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie udało się odczytać tego kodu kreskowego. Zeskanuj go ponownie."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Não foi possível ler este código de barras. Tente escaneá-lo novamente."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Acest cod de bare nu a putut fi citit. Scanează-l din nou."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось прочитать этот штрихкод. Попробуйте отсканировать его ещё раз."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося прочитати цей штрихкод. Спробуйте відсканувати його ще раз."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法读取此条形码。请重新扫描。"
+          }
+        }
       }
     },
-    "barcode.lookup.network_error" : {
-      "comment" : "Error shown when a barcode request fails because of a network problem.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "فشل البحث عن الرمز الشريطي. تحقق من اتصالك وحاول مرة أخرى." } },
-        "az" : { "stringUnit" : { "state" : "translated", "value" : "Barkod axtarışı uğursuz oldu. Bağlantınızı yoxlayıb yenidən cəhd edin." } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Barcode-Suche fehlgeschlagen. Prüfe deine Verbindung und versuche es erneut." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Barcode lookup failed. Check your connection and try again." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "La búsqueda del código de barras falló. Comprueba tu conexión e inténtalo de nuevo." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Échec de la recherche du code-barres. Vérifiez votre connexion et réessayez." } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "बारकोड खोज विफल रही। अपना कनेक्शन जाँचें और फिर प्रयास करें।" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Ricerca del codice a barre non riuscita. Controlla la connessione e riprova." } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "バーコードの検索に失敗しました。接続を確認して、もう一度お試しください。" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "바코드 조회에 실패했습니다. 연결을 확인하고 다시 시도해 주세요." } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Opzoeken van barcode mislukt. Controleer je verbinding en probeer het opnieuw." } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Wyszukiwanie kodu kreskowego nie powiodło się. Sprawdź połączenie i spróbuj ponownie." } },
-        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Falha ao consultar o código de barras. Verifique sua conexão e tente novamente." } },
-        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Căutarea codului de bare a eșuat. Verifică conexiunea și încearcă din nou." } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Не удалось найти штрихкод. Проверьте подключение и повторите попытку." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "条形码查询失败。请检查网络连接后重试。" } }
+    "barcode.lookup.invalid_response": {
+      "comment": "Error shown when a barcode response cannot be understood.",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أرجع Open Food Facts استجابة غير متوقعة."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts gözlənilməz cavab qaytardı."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts hat eine unerwartete Antwort zurückgegeben."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts returned an unexpected response."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts devolvió una respuesta inesperada."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts a renvoyé une réponse inattendue."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts से एक अनपेक्षित प्रतिक्रिया मिली।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts ha restituito una risposta imprevista."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts から予期しない応答が返されました。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts에서 예상하지 못한 응답을 보냈습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts gaf een onverwacht antwoord."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts zwrócił nieoczekiwaną odpowiedź."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Open Food Facts retornou uma resposta inesperada."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts a returnat un răspuns neașteptat."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts вернул неожиданный ответ."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts повернув неочікувану відповідь."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts 返回了意外响应。"
+          }
+        }
       }
     },
-    "barcode.lookup.product_not_found" : {
-      "comment" : "Error shown when Open Food Facts does not contain the scanned product.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "لم يتم العثور على المنتج في Open Food Facts. امسح ملصق القيم الغذائية ضوئيًا بدلًا من ذلك." } },
-        "az" : { "stringUnit" : { "state" : "translated", "value" : "Məhsul Open Food Facts-da tapılmadı. Əvəzində qida dəyəri etiketini skan edin." } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Produkt nicht in Open Food Facts gefunden. Scanne stattdessen die Nährwerttabelle." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Product not found in Open Food Facts. Scan the nutrition label instead." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Producto no encontrado en Open Food Facts. Escanea la etiqueta nutricional." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Produit introuvable dans Open Food Facts. Scannez plutôt l’étiquette nutritionnelle." } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "उत्पाद Open Food Facts में नहीं मिला। इसके बजाय पोषण लेबल स्कैन करें।" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Prodotto non trovato in Open Food Facts. Scansiona invece l’etichetta nutrizionale." } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts に製品が見つかりませんでした。代わりに栄養成分表示をスキャンしてください。" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts에서 제품을 찾지 못했습니다. 대신 영양 성분표를 스캔해 주세요." } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Product niet gevonden in Open Food Facts. Scan in plaats daarvan het voedingsetiket." } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Nie znaleziono produktu w Open Food Facts. Zeskanuj etykietę wartości odżywczych." } },
-        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Produto não encontrado no Open Food Facts. Escaneie o rótulo nutricional." } },
-        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Produsul nu a fost găsit în Open Food Facts. Scanează eticheta nutrițională." } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Продукт не найден в Open Food Facts. Вместо этого отсканируйте этикетку с пищевой ценностью." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts 中未找到该产品。请改为扫描营养成分表。" } }
+    "barcode.lookup.missing_nutrition": {
+      "comment": "Error shown when a barcode exists but has no usable calorie or macronutrient data.",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تم العثور على هذا الرمز الشريطي، لكن بيانات التغذية غير مكتملة. امسح ملصق القيم الغذائية ضوئيًا بدلًا من ذلك."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu barkod tapıldı, lakin qida məlumatları natamamdır. Əvəzində qida dəyəri etiketini skan edin."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dieser Barcode wurde gefunden, aber die Nährwertangaben sind unvollständig. Scanne stattdessen die Nährwerttabelle."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This barcode was found, but nutrition data is incomplete. Scan the nutrition label instead."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se encontró este código de barras, pero los datos nutricionales están incompletos. Escanea la etiqueta nutricional."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ce code-barres a été trouvé, mais les données nutritionnelles sont incomplètes. Scannez plutôt l’étiquette nutritionnelle."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "यह बारकोड मिल गया, लेकिन पोषण डेटा अधूरा है। इसके बजाय पोषण लेबल स्कैन करें।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il codice a barre è stato trovato, ma i dati nutrizionali sono incompleti. Scansiona invece l’etichetta nutrizionale."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "バーコードは見つかりましたが、栄養データが不完全です。代わりに栄養成分表示をスキャンしてください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "바코드는 찾았지만 영양 정보가 불완전합니다. 대신 영양 성분표를 스캔해 주세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deze barcode is gevonden, maar de voedingsgegevens zijn onvolledig. Scan in plaats daarvan het voedingsetiket."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Znaleziono ten kod kreskowy, ale dane żywieniowe są niepełne. Zeskanuj etykietę wartości odżywczych."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este código de barras foi encontrado, mas os dados nutricionais estão incompletos. Escaneie o rótulo nutricional."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codul de bare a fost găsit, dar datele nutriționale sunt incomplete. Scanează eticheta nutrițională."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Штрихкод найден, но данные о пищевой ценности неполные. Вместо этого отсканируйте этикетку с пищевой ценностью."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Штрихкод знайдено, але дані про харчову цінність неповні. Натомість відскануйте етикетку."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已找到此条形码，但营养数据不完整。请改为扫描营养成分表。"
+          }
+        }
       }
     },
-    "barcode.lookup.rate_limited" : {
-      "comment" : "Error shown when Open Food Facts temporarily rate-limits barcode requests.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "عدد كبير جدًا من عمليات البحث عن الرموز الشريطية. انتظر قليلًا ثم حاول مرة أخرى." } },
-        "az" : { "stringUnit" : { "state" : "translated", "value" : "Həddindən çox barkod axtarışı edildi. Bir az gözləyib yenidən cəhd edin." } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Zu viele Barcode-Suchen. Warte einen Moment und versuche es erneut." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Too many barcode lookups. Wait a moment and try again." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Demasiadas búsquedas de códigos de barras. Espera un momento e inténtalo de nuevo." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Trop de recherches de codes-barres. Patientez un instant et réessayez." } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "बहुत अधिक बारकोड खोजें की गई हैं। कुछ देर प्रतीक्षा करके फिर प्रयास करें।" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Troppe ricerche di codici a barre. Attendi un momento e riprova." } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "バーコードの検索回数が多すぎます。しばらく待ってからもう一度お試しください。" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "바코드 조회가 너무 많습니다. 잠시 후 다시 시도해 주세요." } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Te veel barcodezoekopdrachten. Wacht even en probeer het opnieuw." } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Zbyt wiele wyszukiwań kodów kreskowych. Poczekaj chwilę i spróbuj ponownie." } },
-        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Muitas consultas de código de barras. Aguarde um momento e tente novamente." } },
-        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Prea multe căutări de coduri de bare. Așteaptă puțin și încearcă din nou." } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Слишком много запросов штрихкода. Подождите немного и повторите попытку." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "条形码查询次数过多。请稍候再试。" } }
+    "barcode.lookup.network_error": {
+      "comment": "Error shown when a barcode request fails because of a network problem.",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فشل البحث عن الرمز الشريطي. تحقق من اتصالك وحاول مرة أخرى."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barkod axtarışı uğursuz oldu. Bağlantınızı yoxlayıb yenidən cəhd edin."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barcode-Suche fehlgeschlagen. Prüfe deine Verbindung und versuche es erneut."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barcode lookup failed. Check your connection and try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "La búsqueda del código de barras falló. Comprueba tu conexión e inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Échec de la recherche du code-barres. Vérifiez votre connexion et réessayez."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "बारकोड खोज विफल रही। अपना कनेक्शन जाँचें और फिर प्रयास करें।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ricerca del codice a barre non riuscita. Controlla la connessione e riprova."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "バーコードの検索に失敗しました。接続を確認して、もう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "바코드 조회에 실패했습니다. 연결을 확인하고 다시 시도해 주세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Opzoeken van barcode mislukt. Controleer je verbinding en probeer het opnieuw."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyszukiwanie kodu kreskowego nie powiodło się. Sprawdź połączenie i spróbuj ponownie."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falha ao consultar o código de barras. Verifique sua conexão e tente novamente."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Căutarea codului de bare a eșuat. Verifică conexiunea și încearcă din nou."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не удалось найти штрихкод. Проверьте подключение и повторите попытку."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Не вдалося знайти штрихкод. Перевірте з'єднання та спробуйте знову."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条形码查询失败。请检查网络连接后重试。"
+          }
+        }
       }
     },
-    "barcode.lookup.service_unavailable" : {
-      "comment" : "Error shown when the Open Food Facts service returns a server error.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts غير متاح مؤقتًا. حاول مرة أخرى لاحقًا." } },
-        "az" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts müvəqqəti olaraq əlçatan deyil. Daha sonra yenidən cəhd edin." } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts ist vorübergehend nicht verfügbar. Versuche es später erneut." } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts is temporarily unavailable. Try again later." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts no está disponible temporalmente. Inténtalo de nuevo más tarde." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts est temporairement indisponible. Réessayez plus tard." } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts अस्थायी रूप से उपलब्ध नहीं है। बाद में फिर प्रयास करें।" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts non è temporaneamente disponibile. Riprova più tardi." } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts は一時的に利用できません。後でもう一度お試しください。" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts를 일시적으로 사용할 수 없습니다. 나중에 다시 시도해 주세요." } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts is tijdelijk niet beschikbaar. Probeer het later opnieuw." } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts jest tymczasowo niedostępny. Spróbuj ponownie później." } },
-        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "O Open Food Facts está temporariamente indisponível. Tente novamente mais tarde." } },
-        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts este indisponibil temporar. Încearcă din nou mai târziu." } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts временно недоступен. Повторите попытку позже." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Open Food Facts 暂时不可用。请稍后再试。" } }
+    "barcode.lookup.product_not_found": {
+      "comment": "Error shown when Open Food Facts does not contain the scanned product.",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لم يتم العثور على المنتج في Open Food Facts. امسح ملصق القيم الغذائية ضوئيًا بدلًا من ذلك."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Məhsul Open Food Facts-da tapılmadı. Əvəzində qida dəyəri etiketini skan edin."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Produkt nicht in Open Food Facts gefunden. Scanne stattdessen die Nährwerttabelle."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Product not found in Open Food Facts. Scan the nutrition label instead."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Producto no encontrado en Open Food Facts. Escanea la etiqueta nutricional."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Produit introuvable dans Open Food Facts. Scannez plutôt l’étiquette nutritionnelle."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "उत्पाद Open Food Facts में नहीं मिला। इसके बजाय पोषण लेबल स्कैन करें।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prodotto non trovato in Open Food Facts. Scansiona invece l’etichetta nutrizionale."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts に製品が見つかりませんでした。代わりに栄養成分表示をスキャンしてください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts에서 제품을 찾지 못했습니다. 대신 영양 성분표를 스캔해 주세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Product niet gevonden in Open Food Facts. Scan in plaats daarvan het voedingsetiket."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie znaleziono produktu w Open Food Facts. Zeskanuj etykietę wartości odżywczych."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Produto não encontrado no Open Food Facts. Escaneie o rótulo nutricional."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Produsul nu a fost găsit în Open Food Facts. Scanează eticheta nutrițională."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продукт не найден в Open Food Facts. Вместо этого отсканируйте этикетку с пищевой ценностью."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Продукт не знайдено в Open Food Facts. Натомість відскануйте етикетку з харчовою цінністю."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts 中未找到该产品。请改为扫描营养成分表。"
+          }
+        }
       }
     },
-    "barcode.product.fallback_name" : {
-      "comment" : "Fallback food name. The placeholder is the scanned barcode.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "الرمز الشريطي %@" } },
-        "az" : { "stringUnit" : { "state" : "translated", "value" : "Barkod %@" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Barcode %@" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Barcode %@" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Código de barras %@" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Code-barres %@" } },
-        "hi" : { "stringUnit" : { "state" : "translated", "value" : "बारकोड %@" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Codice a barre %@" } },
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "バーコード %@" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "바코드 %@" } },
-        "nl" : { "stringUnit" : { "state" : "translated", "value" : "Barcode %@" } },
-        "pl" : { "stringUnit" : { "state" : "translated", "value" : "Kod kreskowy %@" } },
-        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Código de barras %@" } },
-        "ro" : { "stringUnit" : { "state" : "translated", "value" : "Cod de bare %@" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Штрихкод %@" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "条形码 %@" } }
+    "barcode.lookup.rate_limited": {
+      "comment": "Error shown when Open Food Facts temporarily rate-limits barcode requests.",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "عدد كبير جدًا من عمليات البحث عن الرموز الشريطية. انتظر قليلًا ثم حاول مرة أخرى."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Həddindən çox barkod axtarışı edildi. Bir az gözləyib yenidən cəhd edin."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zu viele Barcode-Suchen. Warte einen Moment und versuche es erneut."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Too many barcode lookups. Wait a moment and try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demasiadas búsquedas de códigos de barras. Espera un momento e inténtalo de nuevo."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trop de recherches de codes-barres. Patientez un instant et réessayez."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "बहुत अधिक बारकोड खोजें की गई हैं। कुछ देर प्रतीक्षा करके फिर प्रयास करें।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Troppe ricerche di codici a barre. Attendi un momento e riprova."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "バーコードの検索回数が多すぎます。しばらく待ってからもう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "바코드 조회가 너무 많습니다. 잠시 후 다시 시도해 주세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te veel barcodezoekopdrachten. Wacht even en probeer het opnieuw."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zbyt wiele wyszukiwań kodów kreskowych. Poczekaj chwilę i spróbuj ponownie."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Muitas consultas de código de barras. Aguarde um momento e tente novamente."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prea multe căutări de coduri de bare. Așteaptă puțin și încearcă din nou."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Слишком много запросов штрихкода. Подождите немного и повторите попытку."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Занадто багато запитів штрихкода. Зачекайте трохи та спробуйте знову."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条形码查询次数过多。请稍候再试。"
+          }
+        }
+      }
+    },
+    "barcode.lookup.service_unavailable": {
+      "comment": "Error shown when the Open Food Facts service returns a server error.",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts غير متاح مؤقتًا. حاول مرة أخرى لاحقًا."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts müvəqqəti olaraq əlçatan deyil. Daha sonra yenidən cəhd edin."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts ist vorübergehend nicht verfügbar. Versuche es später erneut."
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts is temporarily unavailable. Try again later."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts no está disponible temporalmente. Inténtalo de nuevo más tarde."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts est temporairement indisponible. Réessayez plus tard."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts अस्थायी रूप से उपलब्ध नहीं है। बाद में फिर प्रयास करें।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts non è temporaneamente disponibile. Riprova più tardi."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts は一時的に利用できません。後でもう一度お試しください。"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts를 일시적으로 사용할 수 없습니다. 나중에 다시 시도해 주세요."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts is tijdelijk niet beschikbaar. Probeer het later opnieuw."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts jest tymczasowo niedostępny. Spróbuj ponownie później."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O Open Food Facts está temporariamente indisponível. Tente novamente mais tarde."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts este indisponibil temporar. Încearcă din nou mai târziu."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts временно недоступен. Повторите попытку позже."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts тимчасово недоступний. Спробуйте пізніше."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts 暂时不可用。请稍后再试。"
+          }
+        }
+      }
+    },
+    "barcode.product.fallback_name": {
+      "comment": "Fallback food name. The placeholder is the scanned barcode.",
+      "extractionState": "manual",
+      "localizations": {
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الرمز الشريطي %@"
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barkod %@"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barcode %@"
+          }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barcode %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Código de barras %@"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Code-barres %@"
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "बारकोड %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codice a barre %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "バーコード %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "바코드 %@"
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barcode %@"
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kod kreskowy %@"
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Código de barras %@"
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cod de bare %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Штрихкод %@"
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Штрихкод %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "条形码 %@"
+          }
+        }
       }
     }
   },
-  "version" : "1.0"
+  "version": "1.0"
 }

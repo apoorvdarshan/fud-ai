@@ -42,8 +42,11 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.DirectionsRun
+import androidx.compose.material.icons.automirrored.outlined.DirectionsWalk
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.Checklist
@@ -66,6 +69,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.key
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateMapOf
@@ -118,6 +122,8 @@ import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextButton
+import com.apoorvdarshan.calorietracker.ui.home.OutdoorActivityDurationSheet
+import com.apoorvdarshan.calorietracker.ui.home.OutdoorActivityKind
 import com.apoorvdarshan.calorietracker.ui.home.SheetGlassDropdownMenu
 import com.apoorvdarshan.calorietracker.ui.home.SheetGlassDropdownMenuItem
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
@@ -147,7 +153,9 @@ internal fun WorkoutDiaryScreen(
     viewModel: WorkoutsViewModel,
     modifier: Modifier = Modifier,
     weekStartsOnMonday: Boolean = true,
-    onShowLibrary: () -> Unit
+    onShowLibrary: () -> Unit,
+    onCreateExercise: () -> Unit = {},
+    onEditUserExercise: (String) -> Unit = {}
 ) {
     var pickerRequest by remember { mutableStateOf<WorkoutPickerRequest?>(null) }
     var textSheetVisible by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
@@ -158,6 +166,8 @@ internal fun WorkoutDiaryScreen(
     var copySheetVisible by remember { mutableStateOf(false) }
     var historyRequest by remember { mutableStateOf<WorkoutExerciseHistoryRequest?>(null) }
     var addMenuExpanded by remember { mutableStateOf(false) }
+    var outdoorActivitySheet by remember { mutableStateOf<OutdoorActivityKind?>(null) }
+    val walkRunQuickLogEnabled by container.prefs.walkRunQuickLogEnabled.collectAsState(initial = false)
     val listState = rememberLazyListState()
     val focusManager = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
@@ -398,6 +408,32 @@ internal fun WorkoutDiaryScreen(
                         pickerRequest = WorkoutPickerRequest.saved()
                     }
                 )
+                if (walkRunQuickLogEnabled) {
+                    SheetGlassDropdownMenuItem(
+                        label = stringResource(R.string.outdoor_activity_walking),
+                        leadingIcon = Icons.AutoMirrored.Outlined.DirectionsWalk,
+                        onClick = {
+                            addMenuExpanded = false
+                            outdoorActivitySheet = OutdoorActivityKind.WALKING
+                        }
+                    )
+                    SheetGlassDropdownMenuItem(
+                        label = stringResource(R.string.outdoor_activity_running),
+                        leadingIcon = Icons.AutoMirrored.Filled.DirectionsRun,
+                        onClick = {
+                            addMenuExpanded = false
+                            outdoorActivitySheet = OutdoorActivityKind.RUNNING
+                        }
+                    )
+                }
+                SheetGlassDropdownMenuItem(
+                    label = "Create exercise",
+                    leadingIcon = Icons.Filled.AddCircle,
+                    onClick = {
+                        addMenuExpanded = false
+                        onCreateExercise()
+                    }
+                )
                 HorizontalDivider(color = workoutsColors().hairline.copy(alpha = 0.45f))
                 SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_voice), leadingIcon = Icons.Filled.Mic, onClick = {
                     addMenuExpanded = false
@@ -455,7 +491,25 @@ internal fun WorkoutDiaryScreen(
             onFilterStateChange = { viewModel.setPickerFilter(request.contextId, it) },
             onToggleExercise = viewModel::toggleExercise,
             onToggleSaved = viewModel::toggleSaved,
+            onCreateExercise = {
+                pickerRequest = null
+                onCreateExercise()
+            },
+            onEditUserExercise = { id ->
+                pickerRequest = null
+                onEditUserExercise(id)
+            },
             onDismiss = { pickerRequest = null }
+        )
+    }
+
+    outdoorActivitySheet?.let { activity ->
+        OutdoorActivityDurationSheet(
+            activity = activity,
+            onDismiss = { outdoorActivitySheet = null },
+            onLog = { minutes ->
+                viewModel.logQuickOutdoorActivity(activity, minutes)
+            }
         )
     }
 

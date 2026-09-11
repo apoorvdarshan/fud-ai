@@ -67,8 +67,6 @@ struct ExerciseLibraryService {
         sort: ExerciseLibrarySort,
         searchText: String
     ) -> [ExerciseLibraryItem] {
-        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
-
         let filteredItems = exercises.filter { item in
             let matchesLevel = levels.isEmpty || levels.contains(item.rawLevel)
             let matchesRawEquipment = rawEquipment.isEmpty || rawEquipment.contains(item.rawEquipment)
@@ -77,7 +75,11 @@ struct ExerciseLibraryService {
             let matchesForce = forces.isEmpty || forces.contains(item.force)
             let matchesMechanic = mechanics.isEmpty || mechanics.contains(item.mechanic)
             let matchesCategory = categories.isEmpty || categories.contains(item.category)
-            let matchesSearch = query.isEmpty || item.searchableText.contains(query)
+            let matchesSearch = ExerciseSearchMatcher.matches(
+                searchableText: item.searchableText,
+                query: searchText,
+                exerciseID: item.id
+            )
 
             return matchesLevel &&
                 matchesRawEquipment &&

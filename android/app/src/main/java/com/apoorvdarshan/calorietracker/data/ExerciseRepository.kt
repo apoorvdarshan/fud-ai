@@ -48,7 +48,6 @@ class ExerciseRepository private constructor(
         sort: ExerciseSort = ExerciseSort.NAME,
         searchText: String = ""
     ): List<ExerciseItem> {
-        val query = searchText.trim().lowercase()
         val items = exercises.filter { item ->
             (levels.isEmpty() || levels.contains(item.level)) &&
                 (equipment.isEmpty() || equipment.contains(item.equipment)) &&
@@ -57,7 +56,7 @@ class ExerciseRepository private constructor(
                 (forces.isEmpty() || forces.contains(item.force)) &&
                 (mechanics.isEmpty() || mechanics.contains(item.mechanic)) &&
                 (categories.isEmpty() || categories.contains(item.category)) &&
-                (query.isEmpty() || item.searchableText.contains(query))
+                ExerciseSearch.matches(item.searchableText, searchText, item.id)
         }
         return items.sortedWith(comparator(sort))
     }

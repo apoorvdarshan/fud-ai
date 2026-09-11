@@ -638,7 +638,6 @@ struct HomeView: View {
     @Environment(FoodStore.self) private var foodStore
     @Environment(WaterStore.self) private var waterStore
     @Environment(FastingStore.self) private var fastingStore
-    @Environment(StrengthWorkoutStore.self) private var strengthWorkoutStore
     @Environment(NotificationManager.self) private var notificationManager
     @Environment(HealthKitManager.self) private var healthKitManager
     @Environment(\.scenePhase) private var scenePhase
@@ -778,7 +777,6 @@ struct HomeView: View {
     @State private var currentFoodSource: FoodSource = .snapFood
     @State private var showNutritionDetail = false
     @State private var showCustomWaterLog = false
-    @State private var outdoorActivitySheet: OutdoorActivityDurationSheet.ActivityKind?
     @State private var showFastingStart = false
     @State private var editingFastingSession: FastingSession?
     @State private var showFastingQuickActionDisabled = false
@@ -800,7 +798,6 @@ struct HomeView: View {
     @AppStorage(FastingSettings.enabledKey) private var fastingTrackingEnabled = false
     @AppStorage(FastingSettings.defaultGoalMinutesKey) private var fastingDefaultGoalMinutes = FastingSettings.defaultGoalMinutes
     @AppStorage(FastingSettings.notificationEnabledKey) private var fastingGoalNotificationEnabled = true
-    @AppStorage(OutdoorActivitySettings.enabledKey) private var walkRunQuickLogEnabled = false
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
     @Environment(ProfileStore.self) private var profileStore
     @State private var homeBurnLine: String?
@@ -1024,31 +1021,6 @@ private var dailyStepsTaskKey: String {
             _ = AVCaptureDevice.authorizationStatus(for: .video)
             _ = SFSpeechRecognizer.authorizationStatus()
         }
-    }
-
-    private func logQuickOutdoorActivity(_ activity: OutdoorActivityDurationSheet.ActivityKind, minutes: Int) {
-        guard minutes > 0 else { return }
-        let exerciseID = activity == .walking
-            ? OutdoorActivitySettings.walkingExerciseID
-            : OutdoorActivitySettings.runningExerciseID
-        guard let item = ExerciseLibraryService.shared.exercises.first(where: { $0.id == exerciseID }) else { return }
-
-        strengthWorkoutStore.logQuickCardio(item, minutes: minutes, on: selectedDate)
-        let weightUnit: WeightUnit = weightUnitRaw == "kg" ? .kg : .lbs
-        if let estimate = StrengthWorkoutBurnEstimator.estimate(
-            exercises: strengthWorkoutStore.exercises(for: selectedDate),
-            bodyWeightKg: userProfile.weightKg,
-            defaultWeightUnit: weightUnit,
-            defaultRPEScale: strengthWorkoutStore.preferences.rpeScale
-        ) {
-            _ = strengthWorkoutStore.upsertCalculatedWorkout(
-                on: selectedDate,
-                caloriesBurned: estimate.calories,
-                weightUnit: weightUnit
-            )
-        }
-        homeBurnRefreshGeneration += 1
-        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
 
     @ViewBuilder
@@ -1410,18 +1382,6 @@ private var dailyStepsTaskKey: String {
                             waterQuickMenuItems
                         } label: {
                             Label("Water", systemImage: "drop.fill")
-                        }
-                    }
-                    if walkRunQuickLogEnabled {
-                        Button {
-                            outdoorActivitySheet = .walking
-                        } label: {
-                            Label("Walking", systemImage: "figure.walk")
-                        }
-                        Button {
-                            outdoorActivitySheet = .running
-                        } label: {
-                            Label("Running", systemImage: "figure.run")
                         }
                     }
                     if fastingStore.activeSession == nil {
@@ -1811,11 +1771,6 @@ private var dailyStepsTaskKey: String {
             .sheet(isPresented: $showCustomWaterLog) {
                 WaterCustomAmountSheet(unit: waterUnit, onAdd: logWater)
             }
-            .sheet(item: $outdoorActivitySheet) { activity in
-                OutdoorActivityDurationSheet(activity: activity) { minutes in
-                    logQuickOutdoorActivity(activity, minutes: minutes)
-                }
-            }
             .onOpenURL { url in
                 if url.scheme == "fudai", url.host == "import-share-image" {
                     checkAndConsumeSharedImage()
@@ -1902,7 +1857,6 @@ private var dailyStepsTaskKey: String {
         showCopyFromDaySheet = false
         showNutritionDetail = false
         showCustomWaterLog = false
-        outdoorActivitySheet = nil
         showError = false
         showFastingStart = false
         editingFastingSession = nil
@@ -4144,13 +4098,13 @@ struct ProfileView: View {
     @State private var selectedFallbackProvider: AIProvider = AIProviderSettings.selectedFallbackProvider
     @State private var selectedFallbackModel: String = AIProviderSettings.selectedFallbackModel
     @State private var fallbackApiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedFallbackProvider) ?? ""
-    @State private var fallbackBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedFallbackProvider) ?? ""
+    @State private var fallbackBaseURL: String = AIProviderSettings.fallbackCustomBaseURL(for: AIProviderSettings.selectedFallbackProvider) ?? ""
     @State private var showFallbackAPIKey = false
     @State private var textFallbackEnabled: Bool = AIProviderSettings.textFallbackEnabled
     @State private var selectedTextFallbackProvider: AIProvider = AIProviderSettings.selectedTextFallbackProvider
     @State private var selectedTextFallbackModel: String = AIProviderSettings.selectedTextFallbackModel
     @State private var textFallbackApiKeyText: String = AIProviderSettings.apiKey(for: AIProviderSettings.selectedTextFallbackProvider) ?? ""
-    @State private var textFallbackBaseURL: String = AIProviderSettings.customBaseURL(for: AIProviderSettings.selectedTextFallbackProvider) ?? ""
+    @State private var textFallbackBaseURL: String = AIProviderSettings.fallbackCustomBaseURL(for: AIProviderSettings.selectedTextFallbackProvider) ?? ""
     @State private var showTextFallbackAPIKey = false
     @State private var localModelAvailabilityRevision = 0
     @State private var selectedSpeechProvider: SpeechProvider = SpeechSettings.selectedProvider
@@ -5007,6 +4961,8 @@ struct ProfileView: View {
                                     .onChange(of: customBaseURL) { _, newValue in
                                         let t = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
                                         AIProviderSettings.setCustomBaseURL(t.isEmpty ? nil : t, for: selectedProvider)
+                                        reconcileImageFallbackModelIfDuplicate()
+                                        reconcileTextFallbackModelIfDuplicate()
                                     }
                             }
 
@@ -5233,6 +5189,7 @@ struct ProfileView: View {
                                 .onChange(of: textBaseURL) { _, newValue in
                                     let trimmed = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
                                     AIProviderSettings.setCustomBaseURL(trimmed.isEmpty ? nil : trimmed, for: selectedTextProvider)
+                                    reconcileTextFallbackModelIfDuplicate()
                                 }
                             }
 
@@ -5339,10 +5296,10 @@ struct ProfileView: View {
                                     }
                                 }
                             } else {
-                                // Same provider as primary → exclude the primary's model from the picker so
+                                // Same provider + same server → exclude the primary's model so
                                 // user can't accidentally pick an identical config.
                                 let modelOptions: [String] = {
-                                    if selectedFallbackProvider == selectedProvider {
+                                    if fallbackSharesPrimaryServer {
                                         return selectedFallbackProvider.models.filter { $0 != selectedModel }
                                     }
                                     return selectedFallbackProvider.models
@@ -5430,7 +5387,9 @@ struct ProfileView: View {
                                     .textInputAutocapitalization(.never)
                                     .keyboardType(.URL)
                                     .onChange(of: fallbackBaseURL) { _, newValue in
-                                        AIProviderSettings.setCustomBaseURL(newValue.isEmpty ? nil : newValue, for: selectedFallbackProvider)
+                                        let t = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                                        AIProviderSettings.setFallbackCustomBaseURL(t.isEmpty ? nil : t, for: selectedFallbackProvider)
+                                        reconcileImageFallbackModelIfDuplicate()
                                     }
                                 }
 
@@ -6103,7 +6062,9 @@ struct ProfileView: View {
                     .textInputAutocapitalization(.never)
                     .keyboardType(.URL)
                     .onChange(of: textFallbackBaseURL) { _, newValue in
-                        AIProviderSettings.setCustomBaseURL(newValue.isEmpty ? nil : newValue, for: selectedTextFallbackProvider)
+                        let t = newValue.trimmingCharacters(in: .whitespacesAndNewlines)
+                        AIProviderSettings.setFallbackCustomBaseURL(t.isEmpty ? nil : t, for: selectedTextFallbackProvider)
+                        reconcileTextFallbackModelIfDuplicate()
                     }
                 }
             }
@@ -6246,19 +6207,51 @@ struct ProfileView: View {
             }
     }
 
+    private var resolvedPrimaryBaseURL: String {
+        let trimmed = customBaseURL.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? selectedProvider.baseURL : trimmed
+    }
+
+    private var resolvedFallbackBaseURL: String {
+        let trimmed = fallbackBaseURL.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? selectedFallbackProvider.baseURL : trimmed
+    }
+
+    /// True when fallback would hit the same provider, model, and server as primary.
+    private var fallbackSharesPrimaryServer: Bool {
+        selectedFallbackProvider == selectedProvider && resolvedPrimaryBaseURL == resolvedFallbackBaseURL
+    }
+
     private var fallbackModelPresetOptions: [String] {
-        guard selectedFallbackProvider == selectedProvider else {
+        guard fallbackSharesPrimaryServer else {
             return selectedFallbackProvider.models
         }
         return selectedFallbackProvider.models.filter { $0 != selectedModel }
     }
 
-    private var textFallbackModelPresetOptions: [String] {
+    private var resolvedTextPrimaryBaseURL: String {
+        let provider = separateTextProviderEnabled ? selectedTextProvider : selectedProvider
+        let url = separateTextProviderEnabled ? textBaseURL : customBaseURL
+        let trimmed = url.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? provider.baseURL : trimmed
+    }
+
+    private var resolvedTextFallbackBaseURL: String {
+        let trimmed = textFallbackBaseURL.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? selectedTextFallbackProvider.baseURL : trimmed
+    }
+
+    private var textFallbackSharesPrimaryServer: Bool {
         let primaryProvider = separateTextProviderEnabled ? selectedTextProvider : selectedProvider
-        let primaryModel = separateTextProviderEnabled ? selectedTextModel : selectedModel
-        guard selectedTextFallbackProvider == primaryProvider else {
+        return selectedTextFallbackProvider == primaryProvider &&
+            resolvedTextPrimaryBaseURL == resolvedTextFallbackBaseURL
+    }
+
+    private var textFallbackModelPresetOptions: [String] {
+        guard textFallbackSharesPrimaryServer else {
             return selectedTextFallbackProvider.textModels
         }
+        let primaryModel = separateTextProviderEnabled ? selectedTextModel : selectedModel
         return selectedTextFallbackProvider.textModels.filter { $0 != primaryModel }
     }
 
@@ -6301,16 +6294,18 @@ struct ProfileView: View {
             selectedFallbackModel = newProvider.defaultModel
             AIProviderSettings.selectedFallbackModel = selectedFallbackModel
         }
-        // If switching fallback to the primary provider with the same model, select the first
-        // alternate model so the two configurations still provide capacity diversity.
-        if newProvider == selectedProvider,
+        // Same provider + same server + same model would be a pointless retry — pick an alternate.
+        let sharesServer = newProvider == selectedProvider &&
+            (AIProviderSettings.fallbackCustomBaseURL(for: newProvider) ?? newProvider.baseURL) ==
+            (AIProviderSettings.customBaseURL(for: selectedProvider) ?? selectedProvider.baseURL)
+        if sharesServer,
            selectedFallbackModel == selectedModel,
            let alternateModel = newProvider.models.first(where: { $0 != selectedModel }) {
             selectedFallbackModel = alternateModel
             AIProviderSettings.selectedFallbackModel = alternateModel
         }
         fallbackApiKeyText = AIProviderSettings.apiKey(for: newProvider) ?? ""
-        fallbackBaseURL = AIProviderSettings.customBaseURL(for: newProvider) ?? ""
+        fallbackBaseURL = AIProviderSettings.fallbackCustomBaseURL(for: newProvider) ?? ""
     }
 
     private func selectTextFallbackProvider(_ newProvider: AIProvider) {
@@ -6323,14 +6318,39 @@ struct ProfileView: View {
         }
         let primaryProvider = separateTextProviderEnabled ? selectedTextProvider : selectedProvider
         let primaryModel = separateTextProviderEnabled ? selectedTextModel : selectedModel
-        if newProvider == primaryProvider,
+        let sharesServer = newProvider == primaryProvider &&
+            (AIProviderSettings.fallbackCustomBaseURL(for: newProvider) ?? newProvider.baseURL) ==
+            (AIProviderSettings.customBaseURL(for: primaryProvider) ?? primaryProvider.baseURL)
+        if sharesServer,
            selectedTextFallbackModel == primaryModel,
            let alternate = options.first(where: { $0 != primaryModel }) {
             selectedTextFallbackModel = alternate
             AIProviderSettings.selectedTextFallbackModel = alternate
         }
         textFallbackApiKeyText = AIProviderSettings.apiKey(for: newProvider) ?? ""
-        textFallbackBaseURL = AIProviderSettings.customBaseURL(for: newProvider) ?? ""
+        textFallbackBaseURL = AIProviderSettings.fallbackCustomBaseURL(for: newProvider) ?? ""
+    }
+
+    private func reconcileImageFallbackModelIfDuplicate() {
+        guard fallbackEnabled else { return }
+        guard selectedFallbackProvider == selectedProvider,
+              selectedFallbackModel == selectedModel,
+              resolvedPrimaryBaseURL == resolvedFallbackBaseURL else { return }
+        guard let alternate = selectedFallbackProvider.models.first(where: { $0 != selectedModel }) else { return }
+        selectedFallbackModel = alternate
+        AIProviderSettings.selectedFallbackModel = alternate
+    }
+
+    private func reconcileTextFallbackModelIfDuplicate() {
+        guard textFallbackEnabled else { return }
+        let primaryProvider = separateTextProviderEnabled ? selectedTextProvider : selectedProvider
+        let primaryModel = separateTextProviderEnabled ? selectedTextModel : selectedModel
+        guard selectedTextFallbackProvider == primaryProvider,
+              selectedTextFallbackModel == primaryModel,
+              resolvedTextPrimaryBaseURL == resolvedTextFallbackBaseURL else { return }
+        guard let alternate = selectedTextFallbackProvider.textModels.first(where: { $0 != primaryModel }) else { return }
+        selectedTextFallbackModel = alternate
+        AIProviderSettings.selectedTextFallbackModel = alternate
     }
 
     private func selectSpeechFallbackProvider(_ newProvider: SpeechProvider) {

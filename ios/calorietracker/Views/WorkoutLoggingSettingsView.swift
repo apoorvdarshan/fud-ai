@@ -3,6 +3,7 @@ import SwiftUI
 /// Workout preferences embedded directly in Fud AI's main Settings list.
 struct WorkoutLoggingSettingsSection: View {
     @Environment(StrengthWorkoutStore.self) private var workoutStore
+    @AppStorage(OutdoorActivitySettings.enabledKey) private var walkRunQuickLogEnabled = false
 
     @State private var draft = StrengthWorkoutPreferences()
     @State private var hasLoaded = false
@@ -22,8 +23,23 @@ struct WorkoutLoggingSettingsSection: View {
             )
 
             rpeScaleGuide
+
+            HStack {
+                Label {
+                    Text("Walk & Run")
+                } icon: {
+                    Image(systemName: "figure.walk")
+                        .foregroundStyle(AppColors.calorie)
+                }
+                Spacer()
+                Toggle("Walk & Run", isOn: $walkRunQuickLogEnabled)
+                    .labelsHidden()
+                    .tint(AppColors.calorie)
+            }
         } header: {
             Text("Workout")
+        } footer: {
+            Text("Off by default. When enabled, Walking and Running appear in the Workouts + menu for quick outdoor logging.")
         }
         .listRowBackground(AppColors.appCard)
         .onAppear(perform: loadPreferences)

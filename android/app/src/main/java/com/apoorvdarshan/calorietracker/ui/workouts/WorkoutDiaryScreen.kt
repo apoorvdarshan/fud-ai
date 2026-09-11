@@ -46,6 +46,7 @@ import androidx.compose.material.icons.automirrored.filled.DirectionsRun
 import androidx.compose.material.icons.automirrored.outlined.DirectionsWalk
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.BookmarkBorder
 import androidx.compose.material.icons.filled.Checklist
@@ -152,7 +153,9 @@ internal fun WorkoutDiaryScreen(
     viewModel: WorkoutsViewModel,
     modifier: Modifier = Modifier,
     weekStartsOnMonday: Boolean = true,
-    onShowLibrary: () -> Unit
+    onShowLibrary: () -> Unit,
+    onCreateExercise: () -> Unit = {},
+    onEditUserExercise: (String) -> Unit = {}
 ) {
     var pickerRequest by remember { mutableStateOf<WorkoutPickerRequest?>(null) }
     var textSheetVisible by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
@@ -418,6 +421,14 @@ internal fun WorkoutDiaryScreen(
                         }
                     )
                 }
+                SheetGlassDropdownMenuItem(
+                    label = "Create exercise",
+                    leadingIcon = Icons.Filled.AddCircle,
+                    onClick = {
+                        addMenuExpanded = false
+                        onCreateExercise()
+                    }
+                )
                 HorizontalDivider(color = workoutsColors().hairline.copy(alpha = 0.45f))
                 SheetGlassDropdownMenuItem(label = stringResource(R.string.workout_text_voice), leadingIcon = Icons.Filled.Mic, onClick = {
                     addMenuExpanded = false
@@ -475,6 +486,14 @@ internal fun WorkoutDiaryScreen(
             onFilterStateChange = { viewModel.setPickerFilter(request.contextId, it) },
             onToggleExercise = viewModel::toggleExercise,
             onToggleSaved = viewModel::toggleSaved,
+            onCreateExercise = {
+                pickerRequest = null
+                onCreateExercise()
+            },
+            onEditUserExercise = { id ->
+                pickerRequest = null
+                onEditUserExercise(id)
+            },
             onDismiss = { pickerRequest = null }
         )
     }

@@ -525,9 +525,9 @@ class FoodAnalysisService(
         } catch (primaryError: Throwable) {
             if (primaryError is kotlinx.coroutines.CancellationException) throw primaryError
             val fallback = if (imageBytesList.isEmpty()) {
-                currentTextFallbackConfig(primary, primaryModel)
+                currentTextFallbackConfig(primary, primaryModel, primaryBaseUrl)
             } else {
-                currentImageFallbackConfig(primary, primaryModel)
+                currentImageFallbackConfig(primary, primaryModel, primaryBaseUrl)
             } ?: throw primaryError
             try {
                 dispatch(fallback.provider, fallback.model, fallback.baseUrl, fallback.apiKey, finalPrompt, uploadImages, maxTokens, requestTimeoutSeconds)
@@ -643,31 +643,36 @@ class FoodAnalysisService(
 
     private suspend fun currentImageFallbackConfig(
         primary: AIProvider,
-        primaryModel: String
+        primaryModel: String,
+        primaryBaseUrl: String
     ): FallbackConfig? {
+        prefs.migrateFallbackBaseUrls()
         if (!prefs.fallbackEnabled.first()) return null
         val provider = prefs.selectedFallbackProvider.first()
         val model = provider.supportedModelOrDefault(prefs.selectedFallbackModel.first())
+        val baseUrl = prefs.fallbackCustomBaseUrl(provider).first()?.takeIf { it.isNotEmpty() } ?: provider.baseUrl
         // Fallback identical to primary would be a pointless retry of the same call.
-        if (provider == primary && model == primaryModel) return null
+        // The same provider and model on a *different* server is a legitimate config.
+        if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl) return null
         val key = keyStore.apiKey(provider)
         if (provider.requiresApiKey && key.isNullOrEmpty()) return null
-        val baseUrl = prefs.customBaseUrl(provider).first()?.takeIf { it.isNotEmpty() } ?: provider.baseUrl
         if (provider != AIProvider.LOCAL_GEMMA && baseUrl.isEmpty()) return null
         return FallbackConfig(provider, model, baseUrl, key)
     }
 
     private suspend fun currentTextFallbackConfig(
         primary: AIProvider,
-        primaryModel: String
+        primaryModel: String,
+        primaryBaseUrl: String
     ): FallbackConfig? {
+        prefs.migrateFallbackBaseUrls()
         if (!prefs.textFallbackEnabled.first()) return null
         val provider = prefs.selectedTextFallbackProvider.first()
         val model = provider.supportedTextModelOrDefault(prefs.selectedTextFallbackModel.first())
-        if (provider == primary && model == primaryModel) return null
+        val baseUrl = prefs.fallbackCustomBaseUrl(provider).first()?.takeIf { it.isNotEmpty() } ?: provider.baseUrl
+        if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl) return null
         val key = keyStore.apiKey(provider)
         if (provider.requiresApiKey && key.isNullOrEmpty()) return null
-        val baseUrl = prefs.customBaseUrl(provider).first()?.takeIf { it.isNotEmpty() } ?: provider.baseUrl
         if (provider != AIProvider.LOCAL_GEMMA && baseUrl.isEmpty()) return null
         return FallbackConfig(provider, model, baseUrl, key)
     }

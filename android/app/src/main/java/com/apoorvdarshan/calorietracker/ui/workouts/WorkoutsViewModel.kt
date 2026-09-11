@@ -22,6 +22,7 @@ import com.apoorvdarshan.calorietracker.models.WorkoutSplitGroup
 import com.apoorvdarshan.calorietracker.models.WorkoutTabMode
 import com.apoorvdarshan.calorietracker.models.OutdoorActivitySettings
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
+import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import com.apoorvdarshan.calorietracker.ui.home.OutdoorActivityKind
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -78,6 +79,7 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
     private val prefs = app.getSharedPreferences("fudai_workouts", Context.MODE_PRIVATE)
     private val exerciseRepository = ExerciseRepository.get(app)
     private var workoutRepository: WorkoutRepository? = null
+    private var exerciseImageStore: FoodImageStore? = null
     private var repositoryJob: Job? = null
     private var latestPersistedState = WorkoutPersistedState()
     private var bodyWeightKg = 70.0
@@ -87,10 +89,27 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
     var diaryUiState by mutableStateOf(WorkoutDiaryUiState())
         private set
 
-    private val _search = mutableStateOf(prefs.getString(K_SEARCH, "") ?: "")
+    private val _searchInput = mutableStateOf(prefs.getString(K_SEARCH, "") ?: "")
+    private val _debouncedSearch = mutableStateOf(_searchInput.value)
+    private var searchDebounceJob: Job? = null
+    private var searchPersistJob: Job? = null
+
+    /** Immediate search field value — keeps typing responsive. */
+    var searchInput: String
+        get() = _searchInput.value
+        set(value) {
+            _searchInput.value = value
+            scheduleDebouncedSearch(value)
+        }
+
+    /** Debounced query used for filtering the exercise list. */
+    val debouncedSearch: String
+        get() = _debouncedSearch.value
+
+    /** Back-compat alias for library filter bindings. */
     var search: String
-        get() = _search.value
-        set(v) { _search.value = v; prefs.edit().putString(K_SEARCH, v).apply() }
+        get() = searchInput
+        set(value) { searchInput = value }
 
     private val _levels = mutableStateOf(loadSet(K_LEVELS))
     var levels: Set<String>
@@ -165,11 +184,13 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
         repository: WorkoutRepository?,
         currentBodyWeightKg: Double,
         weightUnit: WorkoutWeightUnit,
-        profileGender: Gender
+        profileGender: Gender,
+        imageStore: FoodImageStore? = null
     ) {
         bodyWeightKg = currentBodyWeightKg.takeIf { it.isFinite() && it > 0.0 } ?: 70.0
         workoutWeightUnit = weightUnit
         this.profileGender = profileGender
+        exerciseImageStore = imageStore
         if (workoutRepository === repository && repositoryJob != null) {
             rebuildDiaryState()
             return
@@ -214,7 +235,8 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
 
     fun removeExercise(exerciseId: UUID) {
         val date = diaryUiState.selectedDate
-        viewModelScope.launch { workoutRepository?.removeExercise(exerciseId, date) }
+        val imageStore = exerciseImageStore
+        viewModelScope.launch { workoutRepository?.removeExercise(exerciseId, date, imageStore) }
     }
 
     fun setSetCount(exerciseId: UUID, count: Int) {
@@ -427,12 +449,29 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     val hasActiveFilters: Boolean
-        get() = search.isNotEmpty() || splitGroupTitles.isNotEmpty() || levels.isNotEmpty() || equipment.isNotEmpty() ||
+        get() = searchInput.isNotEmpty() || splitGroupTitles.isNotEmpty() || levels.isNotEmpty() || equipment.isNotEmpty() ||
             primaryMuscles.isNotEmpty() || secondaryMuscles.isNotEmpty() || forces.isNotEmpty() ||
             mechanics.isNotEmpty() || categories.isNotEmpty() || sort != ExerciseSort.NAME
 
+    private fun scheduleDebouncedSearch(value: String) {
+        searchDebounceJob?.cancel()
+        searchDebounceJob = viewModelScope.launch {
+            delay(WORKOUT_SEARCH_DEBOUNCE_MS)
+            _debouncedSearch.value = value
+        }
+        searchPersistJob?.cancel()
+        searchPersistJob = viewModelScope.launch {
+            delay(WORKOUT_FILTER_PERSIST_MS)
+            prefs.edit().putString(K_SEARCH, value).apply()
+        }
+    }
+
     fun reset() {
-        search = ""
+        searchDebounceJob?.cancel()
+        searchPersistJob?.cancel()
+        _searchInput.value = ""
+        _debouncedSearch.value = ""
+        prefs.edit().putString(K_SEARCH, "").apply()
         splitGroupTitles = emptySet()
         levels = emptySet()
         equipment = emptySet()
@@ -448,6 +487,8 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
     private fun saveSet(key: String, v: Set<String>) { prefs.edit().putStringSet(key, v).apply() }
 
     private companion object {
+        const val WORKOUT_SEARCH_DEBOUNCE_MS = 175L
+        const val WORKOUT_FILTER_PERSIST_MS = 400L
         const val K_SEARCH = "search"
         const val K_LEVELS = "levels"
         const val K_EQUIPMENT = "equipment"

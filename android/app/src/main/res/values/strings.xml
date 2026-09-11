@@ -938,6 +938,8 @@
     <string name="clear_search">Clear search</string>
     <string name="empty_subtitle">Try a different muscle, equipment, or search — or reset the filters above.</string>
     <string name="empty_title">No exercises match</string>
+    <string name="workout_empty_subtitle">Try different filters — or create your own exercise.</string>
+    <string name="workout_create_exercise">Create exercise</string>
     <string name="filter_all">All</string>
     <string name="filter_all_count">All %d</string>
     <string name="hide_details">Hide details</string>

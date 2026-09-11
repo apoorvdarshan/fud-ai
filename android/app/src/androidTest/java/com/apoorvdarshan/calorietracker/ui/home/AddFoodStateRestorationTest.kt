@@ -30,7 +30,14 @@ import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import com.apoorvdarshan.calorietracker.ui.theme.FudAITheme
+import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
 import java.io.ByteArrayOutputStream
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Rule
@@ -214,6 +221,69 @@ class AddFoodStateRestorationTest {
             assertEquals(175.0, submission?.quantity)
             assertEquals(analysis.calories, submission?.editedAnalysis?.calories)
         }
+    }
+
+    @Test
+    fun analysisReviewRestoresEditedDateAndTimeBeforeLogging() {
+        val restoration = StateRestorationTester(compose)
+        val app = InstrumentationRegistry.getInstrumentation()
+            .targetContext.applicationContext as FudAIApp
+        val zone = ZoneId.systemDefault()
+        val initialInstant = LocalDate.of(2024, 6, 15).atTime(10, 30).atZone(zone).toInstant()
+        val expectedDate = LocalDate.of(2024, 6, 20)
+        val expectedTime = LocalTime.of(16, 45)
+        val expectedInstant = expectedDate.atTime(expectedTime).atZone(zone).toInstant()
+        val analysis = FoodAnalysis(
+            name = "Brown rice",
+            calories = 120,
+            protein = 3.0,
+            carbs = 24.0,
+            fat = 1.0,
+            servingSizeGrams = 100.0
+        )
+        var submittedTimestamp: Instant? = null
+        restoration.setContent {
+            FudAITheme {
+                FoodResultSheet(
+                    analysis = analysis,
+                    preferGramsByDefault = true,
+                    initialTimestamp = initialInstant,
+                    container = app.container,
+                    analyzeIngredientText = { error("No analysis should run while editing a draft") },
+                    lookupIngredientBarcode = { error("No barcode lookup should run while editing a draft") },
+                    analyzeIngredientImage = { error("No image analysis should run while editing a draft") },
+                    onSave = { _, _, _, _, _, _, _, _, timestamp ->
+                        submittedTimestamp = timestamp
+                    },
+                    onDismiss = {}
+                )
+            }
+        }
+
+        val list = SemanticsMatcher.keyIsDefined(SemanticsActions.ScrollToIndex)
+        compose.onNode(list).performScrollToNode(hasText(string(R.string.label_date)))
+        compose.onNodeWithText(string(R.string.label_date)).performClick()
+        compose.onNode(hasText("20")).performScrollTo()
+        compose.onNodeWithText(string(R.string.action_done)).performClick()
+
+        compose.onNodeWithText(string(R.string.label_time)).performClick()
+        compose.onNode(hasSetTextAction() and hasText("10")).performTextReplacement("16")
+        compose.onNode(hasSetTextAction() and hasText("30")).performTextReplacement("45")
+        compose.onNodeWithText(string(R.string.action_done)).performClick()
+
+        compose.onNodeWithText("Jun 20, 2024").assertExists()
+
+        restoration.emulateSavedInstanceStateRestore()
+
+        compose.onNodeWithText("Jun 20, 2024").assertExists()
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val timeLabel = expectedTime.format(
+            DateTimeFormatter.ofPattern(clockTimePattern(context), Locale.US)
+        )
+        compose.onNodeWithText(timeLabel).assertExists()
+        compose.runOnIdle { assertNull(submittedTimestamp) }
+        compose.onNodeWithText(string(R.string.action_log)).performClick()
+        compose.runOnIdle { assertEquals(expectedInstant, submittedTimestamp) }
     }
 
     private fun string(id: Int): String =

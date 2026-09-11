@@ -1077,6 +1077,7 @@ CalorieHero(
             preferGramsByDefault = ui.preferGramsByDefault,
             profile = ui.profile,
             dayEntries = ui.todayEntries,
+            allEntries = allEntries,
             isSubmitting = ui.foodSaveInProgress,
             container = container,
             analyzeIngredientText = vm::analyzeIngredientText,

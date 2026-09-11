@@ -783,7 +783,10 @@ struct HomeView: View {
     @AppStorage(FastingSettings.defaultGoalMinutesKey) private var fastingDefaultGoalMinutes = FastingSettings.defaultGoalMinutes
     @AppStorage(FastingSettings.notificationEnabledKey) private var fastingGoalNotificationEnabled = true
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
+    @AppStorage("healthKitEnabled") private var healthKitEnabled = false
     @Environment(ProfileStore.self) private var profileStore
+    @State private var homeBurnLine: String?
+    @State private var homeBurnRefreshGeneration = 0
 
     /// Force a body re-evaluation whenever profileStore.profile changes by reading it
     /// at the top of body. SwiftUI's @Observable tracking sometimes misses the access
@@ -835,7 +838,7 @@ struct HomeView: View {
         selectedDate = newDate
     }
 
-    private var dailyStepsTaskKey: String {
+private var dailyStepsTaskKey: String {
         "\(selectedDate.timeIntervalSince1970)-\(healthKitEnabled)"
     }
 
@@ -853,6 +856,71 @@ struct HomeView: View {
         guard generation == dailyStepsFetchGeneration else { return }
         guard Calendar.current.isDate(selectedDate, inSameDayAs: requestedDate) else { return }
         dailySteps = steps
+    }
+
+    private var homeBurnRefreshToken: String {
+        let profileBmr = Int(userProfile.bmr.rounded())
+        return "\(healthKitEnabled)-\(selectedDate.timeIntervalSince1970)-\(selectedCalories)-\(profileBmr)-\(homeBurnRefreshGeneration)"
+    }
+
+    private func formattedHomeBurnLine(from balance: DailyCalorieBalance) -> String {
+        let burned = balance.burnedCalories.formatted()
+        switch balance.direction {
+        case .deficit:
+            return String(
+                format: String(localized: "%@ burned · %@ deficit"),
+                burned,
+                balance.differenceCalories.formatted()
+            )
+        case .surplus:
+            return String(
+                format: String(localized: "%@ burned · %@ surplus"),
+                burned,
+                balance.differenceCalories.formatted()
+            )
+        case .balanced:
+            return String(format: String(localized: "%@ burned · balanced"), burned)
+        }
+    }
+
+    private func refreshHomeBurnLine() async {
+        let requestDate = selectedDate
+        let requestCalories = selectedCalories
+        let requestBmr = Int(userProfile.bmr.rounded())
+        let requestHealthEnabled = healthKitEnabled
+
+        func inputsStillMatch() -> Bool {
+            healthKitEnabled == requestHealthEnabled
+                && Calendar.current.isDate(selectedDate, inSameDayAs: requestDate)
+                && selectedCalories == requestCalories
+                && Int(userProfile.bmr.rounded()) == requestBmr
+        }
+
+        guard requestHealthEnabled else {
+            homeBurnLine = nil
+            return
+        }
+        guard let energy = await healthKitManager.readEnergyForDay(requestDate) else {
+            guard !Task.isCancelled, inputsStillMatch() else { return }
+            homeBurnLine = nil
+            return
+        }
+        guard !Task.isCancelled, inputsStillMatch() else { return }
+        guard let burned = DailySummaryPolicy.resolveBurnedCalories(
+            measuredTotalCalories: energy.totalCalories,
+            externalActiveCalories: energy.activeCalories,
+            profileBmrCalories: requestBmr
+        ) else {
+            guard inputsStillMatch() else { return }
+            homeBurnLine = nil
+            return
+        }
+        guard inputsStillMatch() else { return }
+        let balance = DailySummaryPolicy.balance(
+            eatenCalories: requestCalories,
+            burnedCalories: burned
+        )
+        homeBurnLine = formattedHomeBurnLine(from: balance)
     }
 
     private func logDate(on day: Date, now: Date = .now) -> Date {
@@ -1000,13 +1068,21 @@ struct HomeView: View {
                 // one section removes an unhelpful List section gap and matches Android's
                 // compact top-region hierarchy.
                 Section {
-                    CalorieGauge(eaten: selectedCalories, goal: calorieGoal, launchFillEpoch: launchFillEpoch)
+                    CalorieGauge(
+                        eaten: selectedCalories,
+                        goal: calorieGoal,
+                        burnLine: homeBurnLine,
+                        launchFillEpoch: launchFillEpoch
+                    )
                         .frame(maxWidth: .infinity)
                         .padding(.top, -8)
                         .contentShape(Rectangle())
                         .simultaneousGesture(daySwipeGesture)
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
+                        .task(id: homeBurnRefreshToken) {
+                            await refreshHomeBurnLine()
+                        }
 
                     if let dailySteps {
                         DailyStepsRow(steps: dailySteps)
@@ -1821,6 +1897,7 @@ struct HomeView: View {
                         launchFillEpoch += 1
                         wasBackgrounded = false
                     }
+                    homeBurnRefreshGeneration += 1
                 } else if newPhase == .background {
                     wasBackgrounded = true
                 }
@@ -3249,6 +3326,7 @@ final class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOut
 struct FoodRow: View {
     let entry: FoodEntry
     @Environment(FoodStore.self) private var foodStore
+    @State private var imagePreview: FullScreenImagePreview?
 
     private var servingText: String? {
         guard let grams = entry.servingSizeGrams else {
@@ -3271,28 +3349,36 @@ struct FoodRow: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            // Thumbnail
+            // Thumbnail — tap opens full-screen viewer without opening edit.
             if let imageData = entry.imageData, let uiImage = UIImage(data: imageData) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 56, height: 56)
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .strokeBorder(AppColors.calorie.opacity(0.15), lineWidth: 1)
-                    )
-                    .overlay(alignment: .bottomTrailing) {
-                        if !entry.additionalImageData.isEmpty {
-                            Text("+\(entry.additionalImageData.count)")
-                                .font(.caption2.weight(.bold))
-                                .foregroundStyle(.white)
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 3)
-                                .background(.black.opacity(0.65), in: Capsule())
-                                .padding(4)
+                Button {
+                    let images = entry.allImageData.compactMap(UIImage.init(data:))
+                    guard !images.isEmpty else { return }
+                    imagePreview = FullScreenImagePreview(images: images)
+                } label: {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 56, height: 56)
+                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .strokeBorder(AppColors.calorie.opacity(0.15), lineWidth: 1)
+                        )
+                        .overlay(alignment: .bottomTrailing) {
+                            if !entry.additionalImageData.isEmpty {
+                                Text("+\(entry.additionalImageData.count)")
+                                    .font(.caption2.weight(.bold))
+                                    .foregroundStyle(.white)
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 3)
+                                    .background(.black.opacity(0.65), in: Capsule())
+                                    .padding(4)
+                            }
                         }
-                    }
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("View full photo")
             } else if let emoji = entry.emoji {
                 Text(emoji)
                     .font(.system(size: 28))
@@ -3347,6 +3433,7 @@ struct FoodRow: View {
             }
         }
         .padding(.vertical, 4)
+        .fullScreenImagePreview($imagePreview)
     }
 }
 
@@ -3862,7 +3949,7 @@ struct ProfileView: View {
     @AppStorage("weightUnit") private var weightUnitRaw = "lbs"
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = true
     @AppStorage("healthKitEnabled") private var healthKitEnabled = false
-    @AppStorage(AdaptiveGoalSettings.enabledKey) private var adaptiveGoalsEnabled = false
+    @AppStorage(AdaptiveGoalSettings.enabledKey) private var adaptiveGoalsEnabled = true
     @AppStorage(EnergyBurnSettings.enabledKey) private var energyBurnEnabled = false
     @AppStorage("weekStartsOnMonday") private var weekStartsOnMonday = true
     @AppStorage(FoodMeasurementSettings.preferGramsByDefaultKey) private var preferGramsByDefault = false

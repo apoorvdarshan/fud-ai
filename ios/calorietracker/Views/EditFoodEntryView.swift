@@ -52,6 +52,7 @@ struct EditFoodEntryView: View {
     @State private var reprocessingError: String? = nil
     @State private var isDeleteConfirmationPresented = false
     @State private var removedPhotoIDs = Set<FoodEntryPhoto.ID>()
+    @State private var imagePreview: FullScreenImagePreview?
 
     @State private var name: String
     @State private var servingSizeGrams: Double
@@ -222,6 +223,21 @@ struct EditFoodEntryView: View {
                                         }
                                         .frame(width: 220, height: 200)
                                         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                        .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                        .onTapGesture {
+                                            let previewItems = photos.compactMap { photo -> (FoodEntryPhoto.ID, UIImage)? in
+                                                guard let image = photo.data.flatMap(UIImage.init(data:)) else { return nil }
+                                                return (photo.id, image)
+                                            }
+                                            guard !previewItems.isEmpty else { return }
+                                            let initialIndex = previewItems.firstIndex(where: { $0.0 == photo.id }) ?? 0
+                                            imagePreview = FullScreenImagePreview(
+                                                images: previewItems.map(\.1),
+                                                initialIndex: initialIndex
+                                            )
+                                        }
+                                        .accessibilityAddTraits(.isButton)
+                                        .accessibilityLabel("View full photo")
                                         .overlay(alignment: .topTrailing) {
                                             Button {
                                                 removedPhotoIDs.insert(photo.id)
@@ -530,6 +546,7 @@ struct EditFoodEntryView: View {
                         }
                     )
                 }
+                .fullScreenImagePreview($imagePreview)
             }
         }
     }

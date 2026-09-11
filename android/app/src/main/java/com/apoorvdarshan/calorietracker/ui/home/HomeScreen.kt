@@ -120,6 +120,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.LaunchedEffect
@@ -144,6 +145,9 @@ import androidx.compose.ui.input.pointer.pointerInput
 import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
 import com.apoorvdarshan.calorietracker.ui.util.formattedWholeNumber
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.pluralStringResource
@@ -169,6 +173,7 @@ import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import com.apoorvdarshan.calorietracker.ui.components.InAppCameraCaptureDialog
+import com.apoorvdarshan.calorietracker.ui.components.FullScreenImageViewer
 import com.apoorvdarshan.calorietracker.ui.components.MacroCard
 import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
@@ -195,6 +200,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 
 private enum class AddMenuGroup {
     PhotoAndScan,
@@ -214,10 +221,11 @@ fun HomeScreen(
     val vm: HomeViewModel = viewModel(factory = HomeViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
     val lifecycleOwner = LocalLifecycleOwner.current
-    DisposableEffect(lifecycleOwner) {
+DisposableEffect(lifecycleOwner, vm) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
                 vm.refreshDailySteps()
+                vm.bumpBurnRefresh()
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -508,7 +516,11 @@ fun HomeScreen(
                     }
                 ) {
                     Spacer(Modifier.height(32.dp))
-                    CalorieHero(current = ui.caloriesToday, goal = ui.profile?.effectiveCalories ?: 2000)
+CalorieHero(
+                        current = ui.caloriesToday,
+                        goal = ui.profile?.effectiveCalories ?: 2000,
+                        burnSummary = ui.homeBurnSummary
+                    )
                     ui.dailySteps?.let { steps ->
                         Spacer(Modifier.height(8.dp))
                         DailyStepsRow(steps = steps)
@@ -1553,7 +1565,11 @@ private fun DailyStepsRow(steps: Int) {
 }
 
 @Composable
-private fun CalorieHero(current: Int, goal: Int) {
+private fun CalorieHero(
+    current: Int,
+    goal: Int,
+    burnSummary: HomeBurnSummary? = null
+) {
     val ratio = if (goal > 0) (current.toFloat() / goal).coerceIn(0f, 1f) else 0f
     val formattedCurrent = current.formattedWholeNumber()
     // Fill-from-zero on app open. lastEpoch is saveable so it survives tab switches
@@ -1662,7 +1678,36 @@ private fun CalorieHero(current: Int, goal: Int) {
                     color = AppColors.Calorie
                 )
             }
+            burnSummary?.let { summary ->
+                Text(
+                    text = homeBurnLineText(summary),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
+                )
+            }
         }
+    }
+}
+
+@Composable
+private fun homeBurnLineText(summary: HomeBurnSummary): String {
+    val burned = summary.burnedCalories.formattedWholeNumber()
+    return when (summary.direction) {
+        com.apoorvdarshan.calorietracker.services.CalorieBalanceDirection.DEFICIT ->
+            stringResource(
+                R.string.home_burn_deficit,
+                burned,
+                summary.differenceCalories.formattedWholeNumber()
+            )
+        com.apoorvdarshan.calorietracker.services.CalorieBalanceDirection.SURPLUS ->
+            stringResource(
+                R.string.home_burn_surplus,
+                burned,
+                summary.differenceCalories.formattedWholeNumber()
+            )
+        com.apoorvdarshan.calorietracker.services.CalorieBalanceDirection.BALANCED ->
+            stringResource(R.string.home_burn_balanced, burned)
     }
 }
 
@@ -2315,9 +2360,13 @@ private fun FoodRow(
     val ctx = LocalContext.current
     val timeFmt = DateTimeFormatter.ofPattern(clockTimePattern(ctx), Locale.US).withZone(ZoneId.systemDefault())
     val container = (ctx.applicationContext as com.apoorvdarshan.calorietracker.FudAIApp).container
+    val scope = rememberCoroutineScope()
+    val hasPhotos = entry.allImageFilenames.isNotEmpty()
     val bitmap = remember(entry.allImageFilenames) {
-        entry.allImageFilenames.firstOrNull()?.let { container.imageStore.loadThumbnail(it) }
+        entry.allImageFilenames.firstNotNullOfOrNull { container.imageStore.loadThumbnail(it) }
     }
+    var previewPhotos by remember { mutableStateOf<Pair<List<android.graphics.Bitmap>, Int>?>(null) }
+    var isLoadingPreview by remember { mutableStateOf(false) }
     // iOS layout: large 76dp square thumb · column with (Name + heart on left,
     // time on right) · pink kcal · serving · macro tag pills row.
     Row(
@@ -2358,13 +2407,31 @@ private fun FoodRow(
             Modifier
                 .size(76.dp)
                 .clip(RoundedCornerShape(14.dp))
-                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f)),
+                .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.06f))
+                .then(
+                    if (hasPhotos && !selectionMode) {
+                        Modifier.clickable {
+                            scope.launch {
+                                isLoadingPreview = true
+                                val loaded = withContext(Dispatchers.IO) {
+                                    entry.allImageFilenames.mapNotNull { filename ->
+                                        container.imageStore.loadForViewer(filename)
+                                    }
+                                }
+                                isLoadingPreview = false
+                                if (loaded.isNotEmpty()) previewPhotos = loaded to 0
+                            }
+                        }
+                    } else {
+                        Modifier
+                    }
+                ),
             contentAlignment = Alignment.Center
         ) {
             when {
                 bitmap != null -> androidx.compose.foundation.Image(
                     bitmap = bitmap.asImageBitmap(),
-                    contentDescription = entry.name,
+                    contentDescription = stringResource(R.string.cd_view_full_photo),
                     contentScale = androidx.compose.ui.layout.ContentScale.Crop,
                     modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(14.dp))
                 )
@@ -2466,6 +2533,29 @@ private fun FoodRow(
                 MacroChip("F", entry.fat)
             }
         }
+    }
+    if (isLoadingPreview) {
+        Dialog(
+            onDismissRequest = {},
+            properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
+        ) {
+            Box(
+                Modifier
+                    .size(96.dp)
+                    .clip(RoundedCornerShape(16.dp))
+                    .background(Color.Black.copy(alpha = 0.72f)),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator(color = Color.White, modifier = Modifier.size(36.dp))
+            }
+        }
+    }
+    previewPhotos?.let { (bitmaps, index) ->
+        FullScreenImageViewer(
+            bitmaps = bitmaps,
+            initialIndex = index,
+            onDismiss = { previewPhotos = null }
+        )
     }
 }
 

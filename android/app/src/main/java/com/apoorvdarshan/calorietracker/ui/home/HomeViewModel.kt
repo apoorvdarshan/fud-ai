@@ -15,6 +15,8 @@ import com.apoorvdarshan.calorietracker.models.PendingFoodAnalysisDraft
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WaterUnit
+import com.apoorvdarshan.calorietracker.services.CalorieBalanceDirection
+import com.apoorvdarshan.calorietracker.services.DailySummaryPolicy
 import com.apoorvdarshan.calorietracker.services.OpenFoodFactsService
 import com.apoorvdarshan.calorietracker.services.ai.AiError
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
@@ -22,9 +24,12 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -34,6 +39,12 @@ import java.time.ZoneId
 import java.util.UUID
 import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.math.roundToInt
+
+data class HomeBurnSummary(
+    val burnedCalories: Int,
+    val direction: CalorieBalanceDirection,
+    val differenceCalories: Int
+)
 
 enum class FoodLogSortOrder(val storageValue: String, val displayName: String, val displayNameRes: Int) {
     STANDARD("standard", "Breakfast → Lunch → Dinner", R.string.sort_standard),
@@ -83,8 +94,9 @@ data class HomeUiState(
     val error: String? = null,
     /** When true, the error dialog's primary action opens the food camera instead of retrying. */
     val errorOffersScanLabel: Boolean = false,
-    /** Daily step total from Health Connect for [date]; null when health is off, unreadable, or loading. */
-    val dailySteps: Int? = null
+/** Daily step total from Health Connect for [date]; null when health is off, unreadable, or loading. */
+    val dailySteps: Int? = null,
+    val homeBurnSummary: HomeBurnSummary? = null
 ) {
     val caloriesToday: Int get() = todayEntries.sumOf { it.calories }
     val proteinToday: Double get() = todayEntries.sumOf { it.protein }
@@ -108,13 +120,20 @@ internal class FoodSubmissionGate {
     }
 }
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModel(private val container: AppContainer) : ViewModel() {
     private val _ui = MutableStateFlow(HomeUiState())
     val ui: StateFlow<HomeUiState> = _ui.asStateFlow()
     private val _selectedDate = MutableStateFlow(LocalDate.now())
-    private val _stepsRefreshEpoch = MutableStateFlow(0)
+private val _stepsRefreshEpoch = MutableStateFlow(0)
+    private val _burnRefreshTick = MutableStateFlow(0)
     private var retryAction: (() -> Unit)? = null
     private val foodSubmissionGate = FoodSubmissionGate()
+
+    /** Re-read Health Connect energy after resume or other external invalidation. */
+    fun bumpBurnRefresh() {
+        _burnRefreshTick.value += 1
+    }
 
     init {
         combine(
@@ -206,7 +225,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             container.prefs.pendingFoodAnalysisDraft.first()?.let { restorePendingDraft(it) }
         }
 
-        viewModelScope.launch {
+viewModelScope.launch {
             combine(
                 container.prefs.healthConnectEnabled,
                 _selectedDate,
@@ -224,10 +243,57 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                     }
                 }
         }
+
+        combine(
+            container.prefs.healthConnectEnabled,
+            _selectedDate,
+            container.foodRepository.entries,
+            container.profileRepository.profile,
+            _burnRefreshTick
+        ) { healthEnabled, day, entries, profile, _ ->
+            BurnRefreshInputs(healthEnabled, day, entries, profile)
+        }
+            .flatMapLatest { inputs ->
+                flow { emit(computeHomeBurnSummary(inputs)) }
+            }
+            .onEach { summary ->
+                _ui.value = _ui.value.copy(homeBurnSummary = summary)
+            }
+            .launchIn(viewModelScope)
     }
 
     fun refreshDailySteps() {
         _stepsRefreshEpoch.value += 1
+    }
+
+    private data class BurnRefreshInputs(
+        val healthEnabled: Boolean,
+        val day: LocalDate,
+        val entries: List<FoodEntry>,
+        val profile: UserProfile?
+    )
+
+    private suspend fun computeHomeBurnSummary(inputs: BurnRefreshInputs): HomeBurnSummary? {
+        if (!inputs.healthEnabled) return null
+        val zone = ZoneId.systemDefault()
+        val eaten = inputs.entries
+            .filter { it.timestamp.atZone(zone).toLocalDate() == inputs.day }
+            .sumOf { it.calories }
+        val energy = container.health.readEnergyForDay(inputs.day) ?: return null
+        val burned = DailySummaryPolicy.resolveBurnedCalories(
+            measuredTotalCalories = energy.totalCalories,
+            externalActiveCalories = energy.activeCalories,
+            profileBmrCalories = inputs.profile?.bmr?.roundToInt()
+        ) ?: return null
+        val balance = DailySummaryPolicy.balance(
+            eatenCalories = eaten,
+            burnedCalories = burned
+        )
+        return HomeBurnSummary(
+            burnedCalories = balance.burnedCalories,
+            direction = balance.direction,
+            differenceCalories = balance.differenceCalories
+        )
     }
 
     fun setSelectedDate(date: LocalDate) {

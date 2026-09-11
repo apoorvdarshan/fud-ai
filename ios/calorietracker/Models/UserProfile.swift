@@ -568,6 +568,12 @@ struct AdaptiveGoalSettings {
     private static let lastCheckDayKey = "adaptiveGoalsLastCheckDay"
     private static let daysBetweenChecks = 7
 
+    /// Absent key defaults to enabled (new installs). Explicit false wins for hand-edited plans.
+    static var isEnabled: Bool {
+        guard UserDefaults.standard.object(forKey: enabledKey) != nil else { return true }
+        return UserDefaults.standard.bool(forKey: enabledKey)
+    }
+
     private struct TargetSnapshot: Codable {
         var customCalories: Int?
         var customProtein: Int?

@@ -2,6 +2,7 @@ package com.apoorvdarshan.calorietracker.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,6 +38,10 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -58,6 +63,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.apoorvdarshan.calorietracker.services.FoodImageDecoder
+import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FoodSource
@@ -71,6 +77,7 @@ import com.apoorvdarshan.calorietracker.models.totals
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.allergenAnalysis
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
+import com.apoorvdarshan.calorietracker.ui.components.FullScreenImageViewer
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import kotlin.math.roundToInt
 import java.time.Instant
@@ -108,8 +115,10 @@ fun FoodResultSheet(
     ) -> Unit,
     onDismiss: () -> Unit
 ) {
-    val bitmaps = remember(imageBytesList) {
-        imageBytesList.mapNotNull { FoodImageDecoder.decode(it, 720) }
+    val thumbnails = remember(imageBytesList) {
+        imageBytesList.mapIndexedNotNull { sourceIndex, bytes ->
+            FoodImageDecoder.decode(bytes, 720)?.let { sourceIndex to it }
+        }
     }
     val state = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
@@ -182,6 +191,22 @@ fun FoodResultSheet(
     var editableOmega3 by rememberSaveable(analysis) { mutableStateOf(analysis.omega3) }
     var editableIngredients by rememberSaveable(analysis, stateSaver = foodDraftSaver<List<MealIngredient>>()) { mutableStateOf(analysis.ingredients) }
     var ingredientEditor by rememberSaveable(stateSaver = foodDraftSaver<IngredientEditorTarget?>()) { mutableStateOf<IngredientEditorTarget?>(null) }
+    var previewPhotoIndex by remember { mutableStateOf<Int?>(null) }
+    var viewerBitmaps by remember { mutableStateOf<List<android.graphics.Bitmap>?>(null) }
+
+    LaunchedEffect(previewPhotoIndex) {
+        val index = previewPhotoIndex
+        if (index == null) {
+            viewerBitmaps = null
+            return@LaunchedEffect
+        }
+        viewerBitmaps = withContext(Dispatchers.IO) {
+            thumbnails.map { (sourceIndex, thumb) ->
+                FoodImageDecoder.decode(imageBytesList[sourceIndex], FoodImageStore.VIEWER_MAX_DIMENSION)
+                    ?: thumb
+            }
+        }
+    }
     var mealMenuExpanded by rememberSaveable { mutableStateOf(false) }
     var servingMenuExpanded by rememberSaveable { mutableStateOf(false) }
     val isDark = MaterialTheme.colorScheme.background.luminance() < 0.5f
@@ -361,24 +386,25 @@ fun FoodResultSheet(
                     Modifier.fillMaxWidth().padding(vertical = 8.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    if (bitmaps.isNotEmpty()) {
+                    if (thumbnails.isNotEmpty()) {
                         LazyRow(
                             horizontalArrangement = Arrangement.spacedBy(12.dp),
                             contentPadding = androidx.compose.foundation.layout.PaddingValues(horizontal = 8.dp)
                         ) {
-                            itemsIndexed(bitmaps) { index, bitmap ->
+                            itemsIndexed(thumbnails, key = { _, thumb -> thumb.first }) { index, (_, bitmap) ->
                                 Box {
                                     androidx.compose.foundation.Image(
                                         bitmap = bitmap.asImageBitmap(),
-                                        contentDescription = "Photo ${index + 1}",
+                                        contentDescription = stringResource(R.string.cd_view_full_photo),
                                         contentScale = androidx.compose.ui.layout.ContentScale.Crop,
                                         modifier = Modifier
                                             .size(240.dp)
                                             .clip(RoundedCornerShape(20.dp))
+                                            .clickable { previewPhotoIndex = index }
                                     )
-                                    if (bitmaps.size > 1) {
+                                    if (thumbnails.size > 1) {
                                         Text(
-                                            "${index + 1}/${bitmaps.size}",
+                                            "${index + 1}/${thumbnails.size}",
                                             color = Color.White,
                                             fontSize = 11.sp,
                                             fontWeight = FontWeight.SemiBold,
@@ -720,6 +746,31 @@ fun FoodResultSheet(
             },
             onDismiss = { ingredientEditor = null }
         )
+    }
+    previewPhotoIndex?.let { index ->
+        val images = viewerBitmaps
+        if (images == null) {
+            Dialog(
+                onDismissRequest = { previewPhotoIndex = null },
+                properties = DialogProperties(dismissOnBackPress = true, dismissOnClickOutside = false)
+            ) {
+                Box(
+                    Modifier
+                        .size(96.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Color.Black.copy(alpha = 0.72f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(color = Color.White, modifier = Modifier.size(36.dp))
+                }
+            }
+        } else if (images.isNotEmpty()) {
+            FullScreenImageViewer(
+                bitmaps = images,
+                initialIndex = index.coerceIn(0, images.lastIndex),
+                onDismiss = { previewPhotoIndex = null }
+            )
+        }
     }
 }
 

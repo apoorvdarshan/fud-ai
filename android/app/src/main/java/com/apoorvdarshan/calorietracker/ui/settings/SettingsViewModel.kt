@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.AIProvider
+import com.apoorvdarshan.calorietracker.models.AddMenuConfig
 import com.apoorvdarshan.calorietracker.models.AutoBalanceMacro
 import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.MealSchedule
@@ -55,6 +56,7 @@ data class SettingsUiState(
     /** "kg" | "lbs" — governs all mass display/input. */
     val weightUnit: String = "kg",
     val preferGramsByDefault: Boolean = false,
+    val saveMealPhotosToGallery: Boolean = false,
     val profile: UserProfile? = null,
     val notificationsEnabled: Boolean = false,
     val streakReminderEnabled: Boolean = false,
@@ -101,6 +103,7 @@ data class SettingsUiState(
     val textFallbackApiKeyMasked: String = "",
     val optionalNutrientGoals: OptionalNutrientGoals = OptionalNutrientGoals.Default,
     val quickActions: List<QuickAction> = QuickAction.Defaults,
+    val addMenuConfig: AddMenuConfig = AddMenuConfig.Default,
     val localModelStates: Map<LocalModelId, LocalModelState> = emptyMap(),
     /** A goal-relevant input changed since the last Recalculate. Drives a soft nudge on the
      *  Recalculate row; the button stays tappable at all times — this never disables it. */
@@ -164,6 +167,12 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             }
         }
 
+        viewModelScope.launch {
+            container.prefs.addMenuConfig.collect { config ->
+                _ui.value = _ui.value.copy(addMenuConfig = config)
+            }
+        }
+
         // Keep the profile reactive just like Home/Progress. This also primes the two profile
         // sections immediately from DataStore instead of waiting behind Health Connect work.
         viewModelScope.launch {
@@ -192,6 +201,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             val heightUnit = container.prefs.heightUnit.first()
             val weightUnit = container.prefs.weightUnit.first()
             val preferGramsByDefault = container.prefs.preferGramsByDefault.first()
+            val saveMealPhotosToGallery = container.prefs.saveMealPhotosToGallery.first()
             val notif = container.prefs.notificationsEnabled.first()
             val streakReminder = container.prefs.streakReminderEnabled.first()
             val dailySummary = container.prefs.dailySummaryEnabled.first()
@@ -240,6 +250,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 container.prefs.quickAction2.first(),
                 container.prefs.quickAction3.first()
             )
+            val addMenuConfig = container.prefs.addMenuConfig.first()
             // Seed the recalc baseline for existing users / first launch so the nudge only fires
             // after a genuine change from here on, never immediately on open.
             val storedSignature = container.prefs.lastRecalcGoalSignature.first()
@@ -266,6 +277,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 heightUnit = heightUnit,
                 weightUnit = weightUnit,
                 preferGramsByDefault = preferGramsByDefault,
+                saveMealPhotosToGallery = saveMealPhotosToGallery,
                 profile = profile,
                 notificationsEnabled = notif,
                 streakReminderEnabled = streakReminder,
@@ -303,6 +315,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 textFallbackApiKeyMasked = textFbMasked,
                 optionalNutrientGoals = optionalGoals,
                 quickActions = quickActions,
+                addMenuConfig = addMenuConfig,
                 workoutSplit = workoutPreferences.split,
                 workoutRpeScale = workoutPreferences.rpeScale,
                 localModelStates = container.localModels.states.value,
@@ -514,6 +527,20 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 this[slot] = action
             }
             _ui.value = _ui.value.copy(quickActions = updated)
+        }
+    }
+
+    fun setAddMenuConfig(config: AddMenuConfig) {
+        viewModelScope.launch {
+            container.prefs.setAddMenuConfig(config)
+            _ui.value = _ui.value.copy(addMenuConfig = config.sanitized())
+        }
+    }
+
+    fun resetAddMenuConfig() {
+        viewModelScope.launch {
+            container.prefs.resetAddMenuConfig()
+            _ui.value = _ui.value.copy(addMenuConfig = AddMenuConfig.Default)
         }
     }
 
@@ -825,6 +852,13 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         viewModelScope.launch {
             container.prefs.setPreferGramsByDefault(v)
             _ui.value = _ui.value.copy(preferGramsByDefault = v)
+        }
+    }
+
+    fun setSaveMealPhotosToGallery(v: Boolean) {
+        viewModelScope.launch {
+            container.prefs.setSaveMealPhotosToGallery(v)
+            _ui.value = _ui.value.copy(saveMealPhotosToGallery = v)
         }
     }
 

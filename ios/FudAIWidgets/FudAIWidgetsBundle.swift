@@ -7,5 +7,6 @@ struct FudAIWidgetsBundle: WidgetBundle {
         CalorieWidget()
         ProteinWidget()
         WaterWidget()
+        LogFoodWidget()
     }
 }

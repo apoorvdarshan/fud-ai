@@ -119,6 +119,7 @@ struct ContentView: View {
     @State private var appUpdateState: AppUpdateState = .idle
     @State private var selectedTab: AppTab = .home
     @State private var quickActionRequest: QuickActionRequest?
+    @State private var foodLogMethodRequest: FoodLogMethodRequest?
 
     private var workoutsTabIcon: String {
         WorkoutTabMode.mode(for: workoutTabModeRaw).tabIcon
@@ -128,15 +129,18 @@ struct ContentView: View {
         standardTabView
             .tint(AppThemeColor.color(for: appThemeColorRaw).color)
             .task {
-                consumePendingQuickAction()
+                consumePendingLaunchRoutes()
                 await refreshAppUpdateState()
             }
             .onReceive(NotificationCenter.default.publisher(for: .quickActionRequested)) { _ in
-                consumePendingQuickAction()
+                consumePendingLaunchRoutes()
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .foodLogMethodRequested)) { _ in
+                consumePendingLaunchRoutes()
             }
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
-                    consumePendingQuickAction()
+                    consumePendingLaunchRoutes()
                 }
             }
     }
@@ -147,6 +151,10 @@ struct ContentView: View {
                 quickActionRequest: quickActionRequest,
                 onQuickActionHandled: { requestID in
                     if quickActionRequest?.id == requestID { quickActionRequest = nil }
+                },
+                foodLogMethodRequest: foodLogMethodRequest,
+                onFoodLogMethodHandled: { requestID in
+                    if foodLogMethodRequest?.id == requestID { foodLogMethodRequest = nil }
                 }
             )
                 .tag(AppTab.home)
@@ -199,10 +207,16 @@ struct ContentView: View {
         case workouts
     }
 
-    private func consumePendingQuickAction() {
-        guard let action = QuickActionCoordinator.consumePending() else { return }
-        selectedTab = .home
-        quickActionRequest = QuickActionRequest(action: action)
+    private func consumePendingLaunchRoutes() {
+        if let action = QuickActionCoordinator.consumePending() {
+            selectedTab = .home
+            quickActionRequest = QuickActionRequest(action: action)
+            return
+        }
+        if let method = FoodLogMethodCoordinator.consumePending() {
+            selectedTab = .home
+            foodLogMethodRequest = FoodLogMethodRequest(method: method)
+        }
     }
 
     @MainActor
@@ -619,6 +633,8 @@ struct ActivityShareSheet: UIViewControllerRepresentable {
 struct HomeView: View {
     let quickActionRequest: QuickActionRequest?
     let onQuickActionHandled: (UUID) -> Void
+    var foodLogMethodRequest: FoodLogMethodRequest?
+    var onFoodLogMethodHandled: (UUID) -> Void = { _ in }
     @Environment(FoodStore.self) private var foodStore
     @Environment(WaterStore.self) private var waterStore
     @Environment(FastingStore.self) private var fastingStore
@@ -1369,106 +1385,7 @@ private var dailyStepsTaskKey: String {
                         }
                     }
                     if fastingStore.activeSession == nil {
-                    Menu {
-                        Button {
-                            presentFoodDestination {
-                                showCopyFromDaySheet = true
-                            }
-                        } label: {
-                            Label("Copy from Day", systemImage: "calendar")
-                        }
-                        Button {
-                            presentFoodDestination {
-                                savedMealsMode = .favorites
-                            }
-                        } label: {
-                            Label("Favorites", systemImage: "heart.fill")
-                        }
-                        Button {
-                            presentFoodDestination {
-                                savedMealsMode = .frequent
-                            }
-                        } label: {
-                            Label("Frequent", systemImage: "repeat")
-                        }
-                        Button {
-                            presentFoodDestination {
-                                savedMealsMode = .recent
-                            }
-                        } label: {
-                            Label("Recent", systemImage: "clock.fill")
-                        }
-                    } label: {
-                        Label("Reuse Meal", systemImage: "arrow.clockwise")
-                    }
-
-                    Menu {
-                        Button {
-                            presentFoodDestination {
-                                showManualPopover = true
-                            }
-                        } label: {
-                            Label("Manual Entry", systemImage: "square.and.pencil")
-                        }
-                        Button {
-                            presentFoodDestination {
-                                showSiriPhrases = true
-                            }
-                        } label: {
-                            Label("Siri Phrases", systemImage: "waveform.circle.fill")
-                        }
-                        Button {
-                            presentFoodDestination {
-                                showVoicePopover = true
-                            }
-                        } label: {
-                            Label("Voice", systemImage: "mic.fill")
-                        }
-                        Button {
-                            presentFoodDestination {
-                                showTextPopover = true
-                            }
-                        } label: {
-                            Label("Text Input", systemImage: "character.cursor.ibeam")
-                        }
-                    } label: {
-                        Label("Describe Meal", systemImage: "text.bubble.fill")
-                    }
-
-                    Menu {
-                        Button {
-                            presentFoodDestination {
-                                showBarcodeScanner = true
-                            }
-                        } label: {
-                            Label("Barcode", systemImage: "barcode.viewfinder")
-                        }
-                        Button(action: {
-                            presentFoodDestination {
-                                cameraMode = .snapFoodWithContext
-                                isImportingPhotos = true
-                                captureImages = []
-                                contextDescription = ""
-                                selectedPhotoItems = []
-                                showPhotoPicker = true
-                            }
-                        }) {
-                            Label("Photos", systemImage: "photo.on.rectangle")
-                        }
-                        Button(action: {
-                            presentFoodDestination {
-                                cameraMode = .snapFoodWithContext
-                                isImportingPhotos = false
-                                captureImages = []
-                                contextDescription = ""
-                                showCamera = true
-                            }
-                        }) {
-                            Label("Camera", systemImage: "camera.fill")
-                        }
-                    } label: {
-                        Label("Photo & Scan", systemImage: "camera.viewfinder")
-                    }
+                        configuredFoodAddMenuContent
                     }
                 } label: {
                             Image(systemName: "plus")
@@ -1876,13 +1793,18 @@ private var dailyStepsTaskKey: String {
             .task(id: quickActionRequest?.id) {
                 presentQuickActionIfPossible()
             }
+            .task(id: foodLogMethodRequest?.id) {
+                presentFoodLogMethodIfPossible()
+            }
             .onChange(of: activeSheet) { oldValue, newValue in
                 if oldValue != nil && newValue == nil {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
                         presentQuickActionIfPossible()
+                        presentFoodLogMethodIfPossible()
                     }
                 } else {
                     presentQuickActionIfPossible()
+                    presentFoodLogMethodIfPossible()
                 }
             }
             .onChange(of: scenePhase) { _, newPhase in
@@ -1999,6 +1921,52 @@ private var dailyStepsTaskKey: String {
                 case .fasting:
                     break
                 }
+            }
+        }
+
+        if hadOpenDestination {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: launch)
+        } else {
+            launch()
+        }
+    }
+
+    @MainActor
+    private func presentFoodLogMethodIfPossible() {
+        guard let request = foodLogMethodRequest, activeSheet == nil else { return }
+
+        let hadOpenDestination = showCamera || showBarcodeScanner || showPhotoPicker
+            || showVoicePopover || showTextPopover || showManualPopover
+            || savedMealsMode != nil || showContextSheet || showMultiPhotoCaptureSheet
+            || showCopyFromDaySheet || showFastingStart || editingFastingSession != nil
+
+        showCamera = false
+        showBarcodeScanner = false
+        showPhotoPicker = false
+        showVoicePopover = false
+        showTextPopover = false
+        showManualPopover = false
+        savedMealsMode = nil
+        showContextSheet = false
+        showMultiPhotoCaptureSheet = false
+        showCopyFromDaySheet = false
+        showNutritionDetail = false
+        showCustomWaterLog = false
+        showError = false
+        showFastingStart = false
+        editingFastingSession = nil
+        selectedDate = .now
+
+        guard fastingStore.activeSession == nil else {
+            onFoodLogMethodHandled(request.id)
+            showFoodLoggingBlocked = true
+            return
+        }
+
+        onFoodLogMethodHandled(request.id)
+        let launch: @MainActor @Sendable () -> Void = {
+            presentFoodDestination {
+                performFoodLogMethod(request.method)
             }
         }
 
@@ -2191,6 +2159,80 @@ private var dailyStepsTaskKey: String {
         }
     }
 
+}
+
+// Configurable + menu helpers (same file as HomeView so private state is accessible).
+extension HomeView {
+    @ViewBuilder
+    var configuredFoodAddMenuContent: some View {
+        let config = AddMenuSettings.load()
+        if config.usesFlatLayout {
+            ForEach(config.flatMethods) { method in
+                addMenuButton(for: method)
+            }
+        } else {
+            ForEach(config.groups.filter { !$0.methods.isEmpty }) { group in
+                Menu {
+                    ForEach(group.methods) { method in
+                        addMenuButton(for: method)
+                    }
+                } label: {
+                    Label(group.name, systemImage: addMenuGroupIcon(for: group))
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    func addMenuButton(for method: FoodLogMethod) -> some View {
+        Button {
+            presentFoodDestination {
+                performFoodLogMethod(method)
+            }
+        } label: {
+            Label(method.title, systemImage: method.systemImageName)
+        }
+    }
+
+    func performFoodLogMethod(_ method: FoodLogMethod) {
+        switch method {
+        case .camera:
+            cameraMode = .snapFoodWithContext
+            isImportingPhotos = false
+            captureImages = []
+            contextDescription = ""
+            showCamera = true
+        case .photos:
+            cameraMode = .snapFoodWithContext
+            isImportingPhotos = true
+            captureImages = []
+            contextDescription = ""
+            selectedPhotoItems = []
+            showPhotoPicker = true
+        case .barcode:
+            showBarcodeScanner = true
+        case .voice:
+            showVoicePopover = true
+        case .text:
+            showTextPopover = true
+        case .manual:
+            showManualPopover = true
+        case .siriPhrases:
+            showSiriPhrases = true
+        case .favorites:
+            savedMealsMode = .favorites
+        case .frequent:
+            savedMealsMode = .frequent
+        case .recent:
+            savedMealsMode = .recent
+        case .copyFromDay:
+            showCopyFromDaySheet = true
+        }
+    }
+
+    private func addMenuGroupIcon(for group: AddMenuGroupConfig) -> String {
+        group.methods.first?.systemImageName ?? "folder.fill"
+    }
 }
 
 private extension Notification.Name {
@@ -3983,6 +4025,7 @@ struct ProfileView: View {
     @AppStorage(EnergyBurnSettings.enabledKey) private var energyBurnEnabled = false
     @AppStorage("weekStartsOnMonday") private var weekStartsOnMonday = true
     @AppStorage(FoodMeasurementSettings.preferGramsByDefaultKey) private var preferGramsByDefault = false
+    @AppStorage(MealPhotoSettings.saveToGalleryKey) private var saveMealPhotosToGallery = false
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
     @AppStorage(WaterSettings.enabledKey) private var waterTrackingEnabled = false
     @AppStorage(WaterSettings.dailyGoalKey) private var waterDailyGoal = WaterSettings.defaultDailyGoalMl
@@ -4564,6 +4607,25 @@ struct ProfileView: View {
                             .tint(AppColors.calorie)
                     }
 
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack {
+                            Label {
+                                Text("Save to Photos")
+                            } icon: {
+                                Image(systemName: "square.and.arrow.down")
+                                    .foregroundStyle(AppColors.calorie)
+                            }
+                            Spacer()
+                            Toggle("Save to Photos", isOn: $saveMealPhotosToGallery)
+                                .labelsHidden()
+                                .tint(AppColors.calorie)
+                        }
+                        Text("Also save meal photos to your gallery when logging")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .padding(.leading, 32)
+                    }
+
                     Picker(selection: $weekStartsOnMonday) {
                         Text("Sunday").tag(false)
                         Text("Monday").tag(true)
@@ -4591,6 +4653,23 @@ struct ProfileView: View {
                             }
                         } icon: {
                             Image(systemName: "bolt.fill")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+
+                    NavigationLink {
+                        AddMenuSettingsView()
+                    } label: {
+                        Label {
+                            HStack {
+                                Text("+ Menu")
+                                Spacer()
+                                Text("Customize")
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(1)
+                            }
+                        } icon: {
+                            Image(systemName: "plus.circle.fill")
                                 .foregroundStyle(AppColors.calorie)
                         }
                     }

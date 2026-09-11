@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.apoorvdarshan.calorietracker.models.AddMenuConfig
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AutoBalanceMacro
 import com.apoorvdarshan.calorietracker.models.BodyFatEntry
@@ -423,6 +424,9 @@ class PreferencesStore(
     val preferGramsByDefault: Flow<Boolean> = ds.data.map { it[Keys.PREFER_GRAMS_BY_DEFAULT] ?: false }
     suspend fun setPreferGramsByDefault(v: Boolean) { ds.edit { it[Keys.PREFER_GRAMS_BY_DEFAULT] = v } }
 
+    val saveMealPhotosToGallery: Flow<Boolean> = ds.data.map { it[Keys.SAVE_MEAL_PHOTOS_TO_GALLERY] ?: false }
+    suspend fun setSaveMealPhotosToGallery(v: Boolean) { ds.edit { it[Keys.SAVE_MEAL_PHOTOS_TO_GALLERY] = v } }
+
     /** "system" | "light" | "dark". Mirrors iOS @AppStorage("appearanceMode"). */
     val appearanceMode: Flow<String> = ds.data.map { it[Keys.APPEARANCE_MODE] ?: "system" }
     suspend fun setAppearanceMode(v: String) { ds.edit { it[Keys.APPEARANCE_MODE] = v } }
@@ -450,6 +454,18 @@ class PreferencesStore(
             else -> return
         }
         ds.edit { it[key] = action.name }
+    }
+
+    val addMenuConfig: Flow<AddMenuConfig> = ds.data.map { prefs ->
+        AddMenuConfig.decode(prefs[Keys.ADD_MENU_CONFIG])
+    }
+
+    suspend fun setAddMenuConfig(config: AddMenuConfig) {
+        ds.edit { it[Keys.ADD_MENU_CONFIG] = AddMenuConfig.encode(config) }
+    }
+
+    suspend fun resetAddMenuConfig() {
+        ds.edit { it.remove(Keys.ADD_MENU_CONFIG) }
     }
 
     // -- Workout diary ---------------------------------------------------
@@ -1127,12 +1143,14 @@ class PreferencesStore(
         val HEIGHT_UNIT = stringPreferencesKey("heightUnit")
         val WEIGHT_UNIT = stringPreferencesKey("weightUnit")
         val PREFER_GRAMS_BY_DEFAULT = booleanPreferencesKey("foodMeasurementPreferGramsByDefault")
+        val SAVE_MEAL_PHOTOS_TO_GALLERY = booleanPreferencesKey("saveMealPhotosToGallery")
         val APPEARANCE_MODE = stringPreferencesKey("appearanceMode")
         val APP_THEME_COLOR = stringPreferencesKey("appThemeColor")
         val WEEK_STARTS_MONDAY = booleanPreferencesKey("weekStartsOnMonday")
         val QUICK_ACTION_1 = stringPreferencesKey("quickAction.slot1")
         val QUICK_ACTION_2 = stringPreferencesKey("quickAction.slot2")
         val QUICK_ACTION_3 = stringPreferencesKey("quickAction.slot3")
+        val ADD_MENU_CONFIG = stringPreferencesKey(AddMenuConfig.STORAGE_KEY)
         val WORKOUT_STATE = stringPreferencesKey("workoutDiaryStateV1")
         val MEAL_BREAKFAST_START = intPreferencesKey("mealBreakfastStartMinutes")
         val MEAL_LUNCH_START = intPreferencesKey("mealLunchStartMinutes")

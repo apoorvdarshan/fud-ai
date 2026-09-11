@@ -8,6 +8,7 @@ import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FastingSession
 import com.apoorvdarshan.calorietracker.models.FoodSource
+import com.apoorvdarshan.calorietracker.models.AddMenuConfig
 import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.OptionalNutrientGoals
@@ -18,6 +19,7 @@ import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.CalorieBalanceDirection
 import com.apoorvdarshan.calorietracker.services.DailySummaryPolicy
 import com.apoorvdarshan.calorietracker.services.OpenFoodFactsService
+import com.apoorvdarshan.calorietracker.ui.components.autoSaveMealPhotoIfEnabled
 import com.apoorvdarshan.calorietracker.services.ai.AiError
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import kotlinx.coroutines.CancellationException
@@ -96,7 +98,8 @@ data class HomeUiState(
     val errorOffersScanLabel: Boolean = false,
 /** Daily step total from Health Connect for [date]; null when health is off, unreadable, or loading. */
     val dailySteps: Int? = null,
-    val homeBurnSummary: HomeBurnSummary? = null
+    val homeBurnSummary: HomeBurnSummary? = null,
+    val addMenuConfig: AddMenuConfig = AddMenuConfig.Default
 ) {
     val caloriesToday: Int get() = todayEntries.sumOf { it.calories }
     val proteinToday: Double get() = todayEntries.sumOf { it.protein }
@@ -161,6 +164,12 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
         container.prefs.homeTopNutrients
             .onEach { raw ->
                 _ui.value = _ui.value.copy(homeTopNutrients = HomeTopNutrient.fromStorage(raw))
+            }
+            .launchIn(viewModelScope)
+
+        container.prefs.addMenuConfig
+            .onEach { config ->
+                _ui.value = _ui.value.copy(addMenuConfig = config)
             }
             .launchIn(viewModelScope)
 
@@ -656,6 +665,13 @@ viewModelScope.launch {
                 if (!container.foodRepository.addEntry(entry)) {
                     reportFoodBlockedByFast()
                     return@launch
+                }
+                if (reviewSource == null && filenames.isNotEmpty()) {
+                    filenames.forEach { filename ->
+                        container.imageStore.loadBytes(filename)?.let { bytes ->
+                            autoSaveMealPhotoIfEnabled(container.appContext, bytes)
+                        }
+                    }
                 }
                 container.prefs.setPendingFoodAnalysisDraft(null)
                 _ui.value = _ui.value.copy(

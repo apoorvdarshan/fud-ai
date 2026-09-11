@@ -10,6 +10,19 @@ struct WorkoutLoggingSettingsSection: View {
 
     var body: some View {
         Section {
+            HStack {
+                Label {
+                    Text("Walk & Run")
+                } icon: {
+                    Image(systemName: "figure.walk")
+                        .foregroundStyle(AppColors.calorie)
+                }
+                Spacer()
+                Toggle("Walk & Run", isOn: $walkRunQuickLogEnabled)
+                    .labelsHidden()
+                    .tint(AppColors.calorie)
+            }
+
             WorkoutSplitPickerRow(
                 title: "Training Split",
                 systemImage: "square.grid.2x2.fill",

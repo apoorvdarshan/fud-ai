@@ -358,13 +358,22 @@ class FoodStore {
     func addEntry(_ entry: FoodEntry) -> Bool {
         guard FastingStore.persistedActiveSession(defaults: defaults) == nil else { return false }
         var entry = entry
+        let photosToExport = (entry.imageData.map { [$0] } ?? []) + entry.additionalImageData
         offloadImageToDiskIfNeeded(&entry)
         entries.append(entry)
         saveEntries()
+        exportLoggedMealPhotos(photosToExport)
         onEntriesChanged?()
         onEntryAdded?(entry)
         ReviewPrompter.foodWasLogged()
         return true
+    }
+
+    private func exportLoggedMealPhotos(_ photoData: [Data]) {
+        guard !photoData.isEmpty else { return }
+        for data in photoData {
+            MealPhotoGalleryExport.saveToGalleryIfEnabled(data: data)
+        }
     }
 
     func updateEntry(_ entry: FoodEntry) {

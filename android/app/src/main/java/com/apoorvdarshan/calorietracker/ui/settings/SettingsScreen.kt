@@ -827,6 +827,14 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                     onChange = vm::setPreferGramsByDefault
                 )
                 HorizontalDivider()
+                ToggleRow(
+                    label = stringResource(R.string.settings_save_photos_to_gallery),
+                    subtitle = stringResource(R.string.settings_save_photos_to_gallery_subtitle),
+                    checked = ui.saveMealPhotosToGallery,
+                    icon = Icons.Outlined.Download,
+                    onChange = vm::setSaveMealPhotosToGallery
+                )
+                HorizontalDivider()
                 SettingRow(
                     stringResource(R.string.settings_week_starts),
                     if (ui.weekStartsOnMonday) stringResource(R.string.settings_week_monday) else stringResource(R.string.settings_week_sunday),
@@ -4184,6 +4192,7 @@ private fun ToggleRow(
     label: String,
     checked: Boolean,
     icon: ImageVector? = null,
+    subtitle: String? = null,
     onChange: (Boolean) -> Unit
 ) {
     Row(
@@ -4194,11 +4203,16 @@ private fun ToggleRow(
             FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
             Spacer(Modifier.width(14.dp))
         }
-        Text(
-            label,
-            modifier = Modifier.weight(1f),
-            style = MaterialTheme.typography.bodyLarge
-        )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(label, style = MaterialTheme.typography.bodyLarge)
+            if (subtitle != null) {
+                Text(
+                    subtitle,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
         Switch(checked = checked, onCheckedChange = onChange)
     }
 }

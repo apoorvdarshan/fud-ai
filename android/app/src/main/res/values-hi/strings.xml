@@ -783,4 +783,6 @@
     <string name="photo_saved_to_gallery">फ़ोटो सहेजी गई</string>
     <string name="photo_save_failed">फ़ोटो सहेजी नहीं जा सकी</string>
     <string name="photo_save_permission_denied">फ़ोटो एक्सेस अस्वीकृत</string>
+    <string name="settings_save_photos_to_gallery">Save to Photos</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Also save meal photos to your gallery when logging</string>
 </resources>

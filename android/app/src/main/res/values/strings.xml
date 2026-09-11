@@ -688,6 +688,8 @@
     <string name="settings_weight_unit">Weight Unit</string>
     <string name="settings_default_to_grams">Default to Grams</string>
     <string name="settings_default_to_grams_info">New food review sheets open with grams selected first. You can still switch to serving, slice, cup, or any other detected unit before logging.</string>
+    <string name="settings_save_photos_to_gallery">Save to Photos</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Also save meal photos to your gallery when logging</string>
     <string name="settings_week_starts">Week Starts On</string>
     <string name="settings_meal_times">Meal Times</string>
     <string name="settings_meal_times_customize">Customize</string>

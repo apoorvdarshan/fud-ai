@@ -783,4 +783,6 @@
     <string name="photo_saved_to_gallery">사진 저장됨</string>
     <string name="photo_save_failed">사진을 저장할 수 없습니다</string>
     <string name="photo_save_permission_denied">사진 접근이 거부되었습니다</string>
+    <string name="settings_save_photos_to_gallery">Save to Photos</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Also save meal photos to your gallery when logging</string>
 </resources>

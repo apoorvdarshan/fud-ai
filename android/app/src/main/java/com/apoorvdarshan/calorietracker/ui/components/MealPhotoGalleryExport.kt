@@ -7,13 +7,34 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.data.fudaiDataStore
+import com.apoorvdarshan.calorietracker.services.FoodImageDecoder
 import java.io.File
 import java.io.FileOutputStream
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import androidx.datastore.preferences.core.booleanPreferencesKey
 
 enum class MealPhotoSaveResult {
     Saved,
     PermissionDenied,
     Failed
+}
+
+private val saveMealPhotosToGalleryKey = booleanPreferencesKey("saveMealPhotosToGallery")
+private val autoSaveScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+/** Silently copies a newly stored meal photo into the gallery when the setting is enabled. */
+fun autoSaveMealPhotoIfEnabled(context: Context, bytes: ByteArray) {
+    autoSaveScope.launch {
+        val enabled = context.fudaiDataStore.data.first()[saveMealPhotosToGalleryKey] == true
+        if (!enabled) return@launch
+        val bitmap = FoodImageDecoder.decode(bytes) ?: return@launch
+        runCatching { saveMealPhotoToGallery(context, bitmap) }
+    }
 }
 
 fun saveMealPhotoToGallery(context: Context, bitmap: Bitmap): MealPhotoSaveResult {

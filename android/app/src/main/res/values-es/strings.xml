@@ -783,4 +783,6 @@
     <string name="photo_saved_to_gallery">Foto guardada</string>
     <string name="photo_save_failed">No se pudo guardar la foto</string>
     <string name="photo_save_permission_denied">Acceso a fotos denegado</string>
+    <string name="settings_save_photos_to_gallery">Save to Photos</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Also save meal photos to your gallery when logging</string>
 </resources>

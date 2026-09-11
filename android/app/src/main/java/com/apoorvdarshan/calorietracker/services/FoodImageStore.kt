@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.LruCache
 import com.apoorvdarshan.calorietracker.services.FoodImageDecoder.scaledToMaxDimension
+import com.apoorvdarshan.calorietracker.ui.components.autoSaveMealPhotoIfEnabled
 import java.io.File
 import java.io.FileOutputStream
 import java.util.UUID
@@ -14,8 +15,9 @@ import java.util.UUID
  * the DataStore blob (which would otherwise inflate past quick-read limits).
  */
 class FoodImageStore(context: Context) {
-    private val dir: File = File(context.filesDir, DIR_NAME).apply { mkdirs() }
-    private val thumbnailDir: File = File(context.filesDir, THUMBNAIL_DIR_NAME).apply { mkdirs() }
+    private val appContext = context.applicationContext
+    private val dir: File = File(appContext.filesDir, DIR_NAME).apply { mkdirs() }
+    private val thumbnailDir: File = File(appContext.filesDir, THUMBNAIL_DIR_NAME).apply { mkdirs() }
     private val thumbnailCache = object : LruCache<String, Bitmap>(THUMBNAIL_CACHE_KB) {
         override fun sizeOf(key: String, value: Bitmap): Int = value.byteCount / 1024
     }
@@ -23,7 +25,7 @@ class FoodImageStore(context: Context) {
     init {
         // Legacy thumbnails lost EXIF orientation during compression. Rebuild them
         // lazily in the new cache directory; original photos remain byte-identical.
-        runCatching { File(context.filesDir, "fudai-food-thumbnails").deleteRecursively() }
+        runCatching { File(appContext.filesDir, "fudai-food-thumbnails").deleteRecursively() }
     }
 
     /** Writes the bitmap as JPEG (quality 80) under a new filename. Returns filename or null. */
@@ -33,6 +35,7 @@ class FoodImageStore(context: Context) {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 80, out)
         }
         runCatching { writeThumbnail(filename, bitmap) }
+        autoSaveMealPhotoIfEnabled(appContext, jpegBytesFrom(bitmap))
         filename
     }.getOrNull()
 
@@ -42,6 +45,7 @@ class FoodImageStore(context: Context) {
         runCatching {
             FoodImageDecoder.decode(bytes, THUMBNAIL_MAX_DIMENSION)?.let { writeThumbnail(filename, it) }
         }
+        autoSaveMealPhotoIfEnabled(appContext, bytes)
         filename
     }.getOrNull()
 
@@ -136,6 +140,12 @@ class FoodImageStore(context: Context) {
         for (key in thumbnailCache.snapshot().keys) {
             if (key.startsWith("$filename:")) thumbnailCache.remove(key)
         }
+    }
+
+    private fun jpegBytesFrom(bitmap: Bitmap): ByteArray {
+        val stream = java.io.ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)
+        return stream.toByteArray()
     }
 
     companion object {

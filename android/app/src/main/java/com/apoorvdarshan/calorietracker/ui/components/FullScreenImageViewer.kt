@@ -47,8 +47,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.input.pointer.PointerInputChange
-import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.layout.ContentScale
@@ -63,7 +61,6 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.core.content.ContextCompat
 import com.apoorvdarshan.calorietracker.R
 import kotlin.math.abs
-import kotlin.math.max
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -92,9 +89,11 @@ fun FullScreenImageViewer(
     )
     var dragOffset by remember { mutableFloatStateOf(0f) }
     var zoomedPage by remember { mutableIntStateOf(-1) }
+    var interactingPage by remember { mutableIntStateOf(-1) }
     var isSaving by remember { mutableStateOf(false) }
     val dismissThresholdPx = 180f
     val isCurrentPageZoomed = zoomedPage == pagerState.currentPage
+    val isCurrentPageInteracting = interactingPage == pagerState.currentPage
 
     val storagePermissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -138,8 +137,8 @@ fun FullScreenImageViewer(
                 .fillMaxSize()
                 .background(Color.Black.copy(alpha = (1f - (abs(dragOffset) / 500f)).coerceIn(0.35f, 1f)))
                 .graphicsLayer { translationY = dragOffset }
-                .pointerInput(isCurrentPageZoomed) {
-                    if (!isCurrentPageZoomed) {
+                .pointerInput(isCurrentPageZoomed, isCurrentPageInteracting) {
+                    if (!isCurrentPageZoomed && !isCurrentPageInteracting) {
                         awaitEachGesture {
                             val down = awaitFirstDown(requireUnconsumed = false)
                             val pointerId = down.id
@@ -186,10 +185,14 @@ fun FullScreenImageViewer(
                     bitmap = bitmaps[page],
                     pageIndex = page,
                     isActive = pagerState.currentPage == page,
-                    isZoomed = zoomedPage == page,
                     onZoomChanged = { zoomed ->
                         zoomedPage = if (zoomed) page else {
                             if (zoomedPage == page) -1 else zoomedPage
+                        }
+                    },
+                    onInteractionChanged = { interacting ->
+                        interactingPage = if (interacting) page else {
+                            if (interactingPage == page) -1 else interactingPage
                         }
                     }
                 )
@@ -266,14 +269,26 @@ private fun ZoomableMealPhotoPage(
     bitmap: Bitmap,
     pageIndex: Int,
     isActive: Boolean,
-    isZoomed: Boolean,
-    onZoomChanged: (Boolean) -> Unit
+    onZoomChanged: (Boolean) -> Unit,
+    onInteractionChanged: (Boolean) -> Unit
 ) {
     var scale by remember(pageIndex) { mutableFloatStateOf(1f) }
     var offsetX by remember(pageIndex) { mutableFloatStateOf(0f) }
     var offsetY by remember(pageIndex) { mutableFloatStateOf(0f) }
-    var containerSize by remember(pageIndex) { mutableStateOf(Offset.Zero) }
-    val isPageZoomed = scale > 1.01f
+    var containerWidth by remember(pageIndex) { mutableFloatStateOf(0f) }
+    var containerHeight by remember(pageIndex) { mutableFloatStateOf(0f) }
+
+    fun clampOffset() {
+        if (scale <= 1.01f || containerWidth <= 0f || containerHeight <= 0f) {
+            offsetX = 0f
+            offsetY = 0f
+            return
+        }
+        val maxX = (containerWidth * (scale - 1f)) / 2f
+        val maxY = (containerHeight * (scale - 1f)) / 2f
+        offsetX = offsetX.coerceIn(-maxX, maxX)
+        offsetY = offsetY.coerceIn(-maxY, maxY)
+    }
 
     LaunchedEffect(isActive) {
         if (!isActive) {
@@ -281,6 +296,7 @@ private fun ZoomableMealPhotoPage(
             offsetX = 0f
             offsetY = 0f
             onZoomChanged(false)
+            onInteractionChanged(false)
         }
     }
 
@@ -288,37 +304,27 @@ private fun ZoomableMealPhotoPage(
         modifier = Modifier
             .fillMaxSize()
             .onSizeChanged { size ->
-                containerSize = Offset(size.width.toFloat(), size.height.toFloat())
+                containerWidth = size.width.toFloat()
+                containerHeight = size.height.toFloat()
+                clampOffset()
             }
-            .pointerInput(pageIndex, isActive, isPageZoomed) {
+            .pointerInput(pageIndex, isActive) {
                 if (!isActive) return@pointerInput
-                if (isPageZoomed) {
-                    detectTransformGestures { _, pan, zoom, _ ->
-                        val updatedScale = (scale * zoom).coerceIn(1f, MAX_ZOOM)
-                        scale = updatedScale
-                        if (updatedScale > 1.01f) {
-                            offsetX += pan.x
-                            offsetY += pan.y
-                        } else {
-                            offsetX = 0f
-                            offsetY = 0f
-                        }
-                        onZoomChanged(updatedScale > 1.01f)
+                detectTransformGestures { _, pan, zoom, _ ->
+                    onInteractionChanged(true)
+                    val updatedScale = (scale * zoom).coerceIn(1f, MAX_ZOOM)
+                    scale = updatedScale
+                    if (updatedScale > 1.01f) {
+                        offsetX += pan.x
+                        offsetY += pan.y
+                        clampOffset()
+                    } else {
+                        offsetX = 0f
+                        offsetY = 0f
                     }
-                } else {
-                    detectPinchToZoomGestures { pan, zoom ->
-                        val updatedScale = (scale * zoom).coerceIn(1f, MAX_ZOOM)
-                        scale = updatedScale
-                        if (updatedScale > 1.01f) {
-                            offsetX += pan.x
-                            offsetY += pan.y
-                        } else {
-                            offsetX = 0f
-                            offsetY = 0f
-                        }
-                        onZoomChanged(updatedScale > 1.01f)
-                    }
+                    onZoomChanged(updatedScale > 1.01f)
                 }
+                onInteractionChanged(false)
             }
             .pointerInput(pageIndex, isActive) {
                 detectTapGestures(
@@ -333,10 +339,15 @@ private fun ZoomableMealPhotoPage(
                             scale = DOUBLE_TAP_ZOOM
                             offsetX = 0f
                             offsetY = 0f
-                            centerPanForZoom(tapOffset, containerSize, scale)?.let { (x, y) ->
+                            centerPanForZoom(
+                                tapOffset,
+                                Offset(containerWidth, containerHeight),
+                                scale
+                            )?.let { (x, y) ->
                                 offsetX = x
                                 offsetY = y
                             }
+                            clampOffset()
                             onZoomChanged(true)
                         }
                     }
@@ -368,64 +379,6 @@ private fun centerPanForZoom(
     val centerX = containerSize.x / 2f
     val centerY = containerSize.y / 2f
     return ((centerX - tapOffset.x) * (scale - 1f)) to ((centerY - tapOffset.y) * (scale - 1f))
-}
-
-private suspend fun PointerInputScope.detectPinchToZoomGestures(
-    onGesture: (pan: Offset, zoom: Float) -> Unit
-) {
-    awaitEachGesture {
-        awaitFirstDown(requireUnconsumed = false)
-        while (true) {
-            val event = awaitPointerEvent()
-            val pressed = event.changes.filter { it.pressed }
-            when {
-                pressed.isEmpty() -> return@awaitEachGesture
-                pressed.size >= 2 -> break
-            }
-        }
-
-        var previousCentroid = Offset.Zero
-        var previousSpan = 0f
-        var initialized = false
-
-        do {
-            val event = awaitPointerEvent()
-            val pressed = event.changes.filter { it.pressed }
-            if (pressed.size < 2) break
-
-            val centroid = pressed
-                .map { it.position }
-                .reduce { accumulated, position -> accumulated + position } / pressed.size.toFloat()
-            val span = computePointerSpan(pressed)
-
-            if (!initialized) {
-                previousCentroid = centroid
-                previousSpan = span
-                initialized = true
-            } else {
-                val zoom = if (previousSpan > 0f) span / previousSpan else 1f
-                val pan = centroid - previousCentroid
-                pressed.forEach { it.consume() }
-                onGesture(pan, zoom)
-                previousCentroid = centroid
-                previousSpan = span
-            }
-        } while (event.changes.any { it.pressed })
-    }
-}
-
-private fun computePointerSpan(changes: List<PointerInputChange>): Float {
-    if (changes.size < 2) return 0f
-    var maxDistance = 0f
-    for (first in changes.indices) {
-        for (second in first + 1 until changes.size) {
-            maxDistance = max(
-                maxDistance,
-                (changes[first].position - changes[second].position).getDistance()
-            )
-        }
-    }
-    return maxDistance
 }
 
 private suspend fun saveCurrentPhoto(

@@ -37,7 +37,7 @@ final class StrengthWorkoutStore {
 
     private let defaults: UserDefaults
     private let storageKey: String
-    private var liftSummaryCacheKey: (beforeKey: String, displayUnit: WeightUnit, historyToken: Int)?
+    private var liftSummaryCacheKey: String?
     private var liftSummaryCache: [String: String] = [:]
 
     init(defaults: UserDefaults = .standard, storageKey: String = StrengthWorkoutStore.defaultStorageKey) {
@@ -325,8 +325,8 @@ final class StrengthWorkoutStore {
         displayUnit: WeightUnit
     ) -> String? {
         let beforeKey = Self.dateKey(for: date)
-        let token = (beforeKey: beforeKey, displayUnit: displayUnit, historyToken: liftSummaryHistoryToken)
-        if liftSummaryCacheKey != .some(token) {
+        let token = "\(beforeKey)|\(displayUnit.rawValue)|\(liftSummaryHistoryToken)"
+        if liftSummaryCacheKey != token {
             liftSummaryCache = [:]
             liftSummaryCacheKey = token
         }

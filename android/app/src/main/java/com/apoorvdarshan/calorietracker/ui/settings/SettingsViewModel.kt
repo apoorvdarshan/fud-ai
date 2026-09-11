@@ -68,6 +68,7 @@ data class SettingsUiState(
     val waterUnit: WaterUnit = WaterUnit.Default,
     val waterReminderEnabled: Boolean = false,
     val fastingTrackingEnabled: Boolean = false,
+    val walkRunQuickLogEnabled: Boolean = false,
     val fastingDefaultGoalMinutes: Int = 16 * 60,
     val fastingGoalNotificationEnabled: Boolean = true,
     val healthConnectEnabled: Boolean = false,
@@ -203,6 +204,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             val waterUnit = container.prefs.waterUnit.first()
             val waterReminder = container.prefs.waterReminderEnabled.first()
             val fastingTracking = container.prefs.fastingTrackingEnabled.first()
+            val walkRunQuickLog = container.prefs.walkRunQuickLogEnabled.first()
             val fastingGoal = container.prefs.fastingDefaultGoalMinutes.first()
             val fastingNotification = container.prefs.fastingGoalNotificationEnabled.first()
             val workoutPreferences = container.workoutRepository.preferences.first()
@@ -277,6 +279,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 waterUnit = waterUnit,
                 waterReminderEnabled = waterReminder,
                 fastingTrackingEnabled = fastingTracking,
+                walkRunQuickLogEnabled = walkRunQuickLog,
                 fastingDefaultGoalMinutes = fastingGoal,
                 fastingGoalNotificationEnabled = fastingNotification,
                 healthConnectEnabled = storedHealthConnect,
@@ -927,6 +930,13 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 container.notifications.removeFastingChannel()
             }
             _ui.value = _ui.value.copy(fastingTrackingEnabled = v)
+        }
+    }
+
+    fun setWalkRunQuickLogEnabled(v: Boolean) {
+        viewModelScope.launch {
+            container.prefs.setWalkRunQuickLogEnabled(v)
+            _ui.value = _ui.value.copy(walkRunQuickLogEnabled = v)
         }
     }
 

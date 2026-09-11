@@ -417,7 +417,12 @@
 
     <string name="progress_weight_history">Historie váhy</string>
     <string name="progress_body_fat_history">Historie tělesného tuku</string>
-    <string name="progress_history_count_format">Záznamů: %1$d · klepnutím zobrazíš nebo smažeš</string>
+    <plurals name="progress_history_count_format">
+        <item quantity="one">%1$d záznam · klepnutím zobrazíš nebo smažeš</item>
+        <item quantity="few">%1$d záznamy · klepnutím zobrazíš nebo smažeš</item>
+        <item quantity="many">%1$d záznamů · klepnutím zobrazíš nebo smažeš</item>
+        <item quantity="other">%1$d záznamů · klepnutím zobrazíš nebo smažeš</item>
+    </plurals>
 
     <string name="progress_calories_section">Kalorie</string>
     <string name="progress_avg_format">Průměr: %1$d kcal</string>
@@ -650,12 +655,11 @@
     <string name="about_open_source">Open source (MIT)</string>
     <string name="about_star_github">Dát hvězdu na GitHubu</string>
     <string name="about_vote_ph">Hlasovat na Product Huntu</string>
-    <string name="about_support">Podpořit projekt</string>
+    <string name="about_leave_tip_kofi">Nechej spropitné na Ko-fi</string>
     <string name="about_report_issue">Nahlásit chybu</string>
     <string name="about_request_feature">Navrhnout funkci</string>
     <string name="about_contact">Kontaktuj nás</string>
     <string name="about_follow_x">Sledovat na X</string>
-    <string name="about_follow_instagram">Sledovat na Instagramu</string>
     <string name="about_follow_linkedin">Sledovat na LinkedInu</string>
     <string name="about_privacy">Zásady ochrany soukromí</string>
     <string name="about_terms">Podmínky služby</string>

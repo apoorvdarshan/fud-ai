@@ -115,6 +115,7 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.LaunchedEffect
@@ -139,6 +140,9 @@ import androidx.compose.ui.input.pointer.pointerInput
 import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
 import com.apoorvdarshan.calorietracker.ui.util.formattedWholeNumber
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.pluralStringResource
@@ -211,6 +215,16 @@ fun HomeScreen(
 ) {
     val vm: HomeViewModel = viewModel(factory = HomeViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
+    val lifecycleOwner = LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner, vm) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_RESUME) {
+                vm.bumpBurnRefresh()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose { lifecycleOwner.lifecycle.removeObserver(observer) }
+    }
     val shareScope = rememberCoroutineScope()
     val ctx = LocalContext.current
     val weekStartsOnMonday by container.prefs.weekStartsOnMonday.collectAsState(initial = true)
@@ -496,7 +510,11 @@ fun HomeScreen(
                     }
                 ) {
                     Spacer(Modifier.height(32.dp))
-                    CalorieHero(current = ui.caloriesToday, goal = ui.profile?.effectiveCalories ?: 2000)
+                    CalorieHero(
+                        current = ui.caloriesToday,
+                        goal = ui.profile?.effectiveCalories ?: 2000,
+                        burnSummary = ui.homeBurnSummary
+                    )
                     Spacer(Modifier.height(12.dp))
                     Row(
                         Modifier
@@ -1512,7 +1530,11 @@ private fun shortDay(dow: DayOfWeek): String = when (dow) {
  *   .padding(.vertical, 20)
  */
 @Composable
-private fun CalorieHero(current: Int, goal: Int) {
+private fun CalorieHero(
+    current: Int,
+    goal: Int,
+    burnSummary: HomeBurnSummary? = null
+) {
     val ratio = if (goal > 0) (current.toFloat() / goal).coerceIn(0f, 1f) else 0f
     val formattedCurrent = current.formattedWholeNumber()
     // Fill-from-zero on app open. lastEpoch is saveable so it survives tab switches
@@ -1621,7 +1643,36 @@ private fun CalorieHero(current: Int, goal: Int) {
                     color = AppColors.Calorie
                 )
             }
+            burnSummary?.let { summary ->
+                Text(
+                    text = homeBurnLineText(summary),
+                    fontSize = 11.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.45f)
+                )
+            }
         }
+    }
+}
+
+@Composable
+private fun homeBurnLineText(summary: HomeBurnSummary): String {
+    val burned = summary.burnedCalories.formattedWholeNumber()
+    return when (summary.direction) {
+        com.apoorvdarshan.calorietracker.services.CalorieBalanceDirection.DEFICIT ->
+            stringResource(
+                R.string.home_burn_deficit,
+                burned,
+                summary.differenceCalories.formattedWholeNumber()
+            )
+        com.apoorvdarshan.calorietracker.services.CalorieBalanceDirection.SURPLUS ->
+            stringResource(
+                R.string.home_burn_surplus,
+                burned,
+                summary.differenceCalories.formattedWholeNumber()
+            )
+        com.apoorvdarshan.calorietracker.services.CalorieBalanceDirection.BALANCED ->
+            stringResource(R.string.home_burn_balanced, burned)
     }
 }
 

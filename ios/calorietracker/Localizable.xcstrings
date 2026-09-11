@@ -48591,7 +48591,10 @@
           }
         }
       }
-    }
+    },
+    "%@ burned · %@ deficit": {},
+    "%@ burned · %@ surplus": {},
+    "%@ burned · balanced": {}
   },
   "version": "1.1"
 }

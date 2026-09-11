@@ -566,6 +566,8 @@ struct MacroCard: View {
 struct CalorieGauge: View {
     let eaten: Int
     let goal: Int
+    /// Secondary display-only burn/deficit line when Health energy is available.
+    var burnLine: String? = nil
     /// Increments when the app is opened; drives the fill-from-zero reveal.
     var launchFillEpoch: Int = 0
 
@@ -645,6 +647,12 @@ struct CalorieGauge: View {
                         .font(.system(.footnote, design: .rounded, weight: .semibold))
                 }
                 .foregroundStyle(AppColors.calorie)
+
+                if let burnLine {
+                    Text(burnLine)
+                        .font(.system(.caption2, design: .rounded, weight: .medium))
+                        .foregroundStyle(.tertiary)
+                }
             }
             .offset(y: -diameter * 0.14)
         }

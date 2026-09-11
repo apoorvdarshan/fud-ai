@@ -73,7 +73,7 @@ data class SettingsUiState(
     val healthConnectEnabled: Boolean = false,
     val workoutHealthWriteGranted: Boolean = false,
     val healthEnergyGoalsEnabled: Boolean = false,
-    val adaptiveGoalsEnabled: Boolean = false,
+    val adaptiveGoalsEnabled: Boolean = true,
     val applyingHealthEnergyGoals: Boolean = false,
     val applyingAdaptiveGoals: Boolean = false,
     val recalculatingGoals: Boolean = false,

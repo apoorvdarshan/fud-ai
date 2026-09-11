@@ -623,6 +623,7 @@ struct HomeView: View {
     @Environment(WaterStore.self) private var waterStore
     @Environment(FastingStore.self) private var fastingStore
     @Environment(NotificationManager.self) private var notificationManager
+    @Environment(HealthKitManager.self) private var healthKitManager
     @Environment(\.scenePhase) private var scenePhase
     @State private var showCamera = false
     @State private var showBarcodeScanner = false
@@ -779,7 +780,10 @@ struct HomeView: View {
     @AppStorage(FastingSettings.defaultGoalMinutesKey) private var fastingDefaultGoalMinutes = FastingSettings.defaultGoalMinutes
     @AppStorage(FastingSettings.notificationEnabledKey) private var fastingGoalNotificationEnabled = true
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
+    @AppStorage("healthKitEnabled") private var healthKitEnabled = false
     @Environment(ProfileStore.self) private var profileStore
+    @State private var homeBurnLine: String?
+    @State private var homeBurnRefreshGeneration = 0
 
     /// Force a body re-evaluation whenever profileStore.profile changes by reading it
     /// at the top of body. SwiftUI's @Observable tracking sometimes misses the access
@@ -829,6 +833,71 @@ struct HomeView: View {
         if delta > 0 && calendar.startOfDay(for: newDate) > calendar.startOfDay(for: .now) { return }
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         selectedDate = newDate
+    }
+
+    private var homeBurnRefreshToken: String {
+        let profileBmr = Int(userProfile.bmr.rounded())
+        return "\(healthKitEnabled)-\(selectedDate.timeIntervalSince1970)-\(selectedCalories)-\(profileBmr)-\(homeBurnRefreshGeneration)"
+    }
+
+    private func formattedHomeBurnLine(from balance: DailyCalorieBalance) -> String {
+        let burned = balance.burnedCalories.formatted()
+        switch balance.direction {
+        case .deficit:
+            return String(
+                format: String(localized: "%@ burned · %@ deficit"),
+                burned,
+                balance.differenceCalories.formatted()
+            )
+        case .surplus:
+            return String(
+                format: String(localized: "%@ burned · %@ surplus"),
+                burned,
+                balance.differenceCalories.formatted()
+            )
+        case .balanced:
+            return String(format: String(localized: "%@ burned · balanced"), burned)
+        }
+    }
+
+    private func refreshHomeBurnLine() async {
+        let requestDate = selectedDate
+        let requestCalories = selectedCalories
+        let requestBmr = Int(userProfile.bmr.rounded())
+        let requestHealthEnabled = healthKitEnabled
+
+        func inputsStillMatch() -> Bool {
+            healthKitEnabled == requestHealthEnabled
+                && Calendar.current.isDate(selectedDate, inSameDayAs: requestDate)
+                && selectedCalories == requestCalories
+                && Int(userProfile.bmr.rounded()) == requestBmr
+        }
+
+        guard requestHealthEnabled else {
+            homeBurnLine = nil
+            return
+        }
+        guard let energy = await healthKitManager.readEnergyForDay(requestDate) else {
+            guard !Task.isCancelled, inputsStillMatch() else { return }
+            homeBurnLine = nil
+            return
+        }
+        guard !Task.isCancelled, inputsStillMatch() else { return }
+        guard let burned = DailySummaryPolicy.resolveBurnedCalories(
+            measuredTotalCalories: energy.totalCalories,
+            externalActiveCalories: energy.activeCalories,
+            profileBmrCalories: requestBmr
+        ) else {
+            guard inputsStillMatch() else { return }
+            homeBurnLine = nil
+            return
+        }
+        guard inputsStillMatch() else { return }
+        let balance = DailySummaryPolicy.balance(
+            eatenCalories: requestCalories,
+            burnedCalories: burned
+        )
+        homeBurnLine = formattedHomeBurnLine(from: balance)
     }
 
     private func logDate(on day: Date, now: Date = .now) -> Date {
@@ -976,13 +1045,21 @@ struct HomeView: View {
                 // one section removes an unhelpful List section gap and matches Android's
                 // compact top-region hierarchy.
                 Section {
-                    CalorieGauge(eaten: selectedCalories, goal: calorieGoal, launchFillEpoch: launchFillEpoch)
+                    CalorieGauge(
+                        eaten: selectedCalories,
+                        goal: calorieGoal,
+                        burnLine: homeBurnLine,
+                        launchFillEpoch: launchFillEpoch
+                    )
                         .frame(maxWidth: .infinity)
                         .padding(.top, -8)
                         .contentShape(Rectangle())
                         .simultaneousGesture(daySwipeGesture)
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
+                        .task(id: homeBurnRefreshToken) {
+                            await refreshHomeBurnLine()
+                        }
 
                     HStack(alignment: .top, spacing: 4) {
                         ForEach(displayedHomeNutrients) { nutrient in
@@ -1787,6 +1864,7 @@ struct HomeView: View {
                         launchFillEpoch += 1
                         wasBackgrounded = false
                     }
+                    homeBurnRefreshGeneration += 1
                 } else if newPhase == .background {
                     wasBackgrounded = true
                 }
@@ -3838,7 +3916,7 @@ struct ProfileView: View {
     @AppStorage("weightUnit") private var weightUnitRaw = "lbs"
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = true
     @AppStorage("healthKitEnabled") private var healthKitEnabled = false
-    @AppStorage(AdaptiveGoalSettings.enabledKey) private var adaptiveGoalsEnabled = false
+    @AppStorage(AdaptiveGoalSettings.enabledKey) private var adaptiveGoalsEnabled = true
     @AppStorage(EnergyBurnSettings.enabledKey) private var energyBurnEnabled = false
     @AppStorage("weekStartsOnMonday") private var weekStartsOnMonday = true
     @AppStorage(FoodMeasurementSettings.preferGramsByDefaultKey) private var preferGramsByDefault = false

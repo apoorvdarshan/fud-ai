@@ -227,7 +227,7 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
             // untouched — these prefs are only written here and by the Settings toggles.
             // Onboarding just calculated goals, so stamp the weekly adaptive check as done;
             // the first auto-run lands next week.
-            if (!planEdited) container.prefs.setAdaptiveGoalsEnabled(true)
+            container.prefs.setAdaptiveGoalsEnabled(!planEdited)
             container.prefs.setHealthEnergyGoalsEnabled(true)
             container.prefs.setAdaptiveGoalsLastCheckDay(LocalDate.now().toString())
             container.prefs.setOnboardingCompleted(true)

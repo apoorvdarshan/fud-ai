@@ -318,7 +318,7 @@ class PreferencesStore(
     val reviewPromptedAfterFirstLog: Flow<Boolean> = ds.data.map { it[Keys.REVIEW_PROMPTED_AFTER_FIRST_LOG] ?: false }
     suspend fun setReviewPromptedAfterFirstLog(v: Boolean) { ds.edit { it[Keys.REVIEW_PROMPTED_AFTER_FIRST_LOG] = v } }
 
-    val adaptiveGoalsEnabled: Flow<Boolean> = ds.data.map { it[Keys.ADAPTIVE_GOALS_ENABLED] ?: false }
+    val adaptiveGoalsEnabled: Flow<Boolean> = ds.data.map { it[Keys.ADAPTIVE_GOALS_ENABLED] ?: true }
     suspend fun setAdaptiveGoalsEnabled(v: Boolean) { ds.edit { it[Keys.ADAPTIVE_GOALS_ENABLED] = v } }
 
     val adaptiveGoalsLastCheckDay: Flow<String?> = ds.data.map {

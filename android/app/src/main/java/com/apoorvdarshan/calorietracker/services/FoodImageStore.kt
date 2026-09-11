@@ -14,8 +14,9 @@ import java.util.UUID
  * the DataStore blob (which would otherwise inflate past quick-read limits).
  */
 class FoodImageStore(context: Context) {
-    private val dir: File = File(context.filesDir, DIR_NAME).apply { mkdirs() }
-    private val thumbnailDir: File = File(context.filesDir, THUMBNAIL_DIR_NAME).apply { mkdirs() }
+    private val appContext = context.applicationContext
+    private val dir: File = File(appContext.filesDir, DIR_NAME).apply { mkdirs() }
+    private val thumbnailDir: File = File(appContext.filesDir, THUMBNAIL_DIR_NAME).apply { mkdirs() }
     private val thumbnailCache = object : LruCache<String, Bitmap>(THUMBNAIL_CACHE_KB) {
         override fun sizeOf(key: String, value: Bitmap): Int = value.byteCount / 1024
     }
@@ -23,7 +24,7 @@ class FoodImageStore(context: Context) {
     init {
         // Legacy thumbnails lost EXIF orientation during compression. Rebuild them
         // lazily in the new cache directory; original photos remain byte-identical.
-        runCatching { File(context.filesDir, "fudai-food-thumbnails").deleteRecursively() }
+        runCatching { File(appContext.filesDir, "fudai-food-thumbnails").deleteRecursively() }
     }
 
     /** Writes the bitmap as JPEG (quality 80) under a new filename. Returns filename or null. */

@@ -1,19 +1,52 @@
 package com.apoorvdarshan.calorietracker.ui.components
 
+import android.Manifest
 import android.content.ContentValues
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
+import androidx.core.content.ContextCompat
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.data.fudaiDataStore
+import com.apoorvdarshan.calorietracker.services.FoodImageDecoder
 import java.io.File
 import java.io.FileOutputStream
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import androidx.datastore.preferences.core.booleanPreferencesKey
 
 enum class MealPhotoSaveResult {
     Saved,
     PermissionDenied,
     Failed
+}
+
+private val saveMealPhotosToGalleryKey = booleanPreferencesKey("saveMealPhotosToGallery")
+private val autoSaveScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+
+/** Silently copies a committed meal photo into the gallery when the setting is enabled. */
+fun autoSaveMealPhotoIfEnabled(context: Context, bytes: ByteArray) {
+    autoSaveScope.launch {
+        val enabled = context.fudaiDataStore.data.first()[saveMealPhotosToGalleryKey] == true
+        if (!enabled) return@launch
+        if (!hasLegacyStoragePermission(context)) return@launch
+        val bitmap = FoodImageDecoder.decode(bytes) ?: return@launch
+        saveMealPhotoToGallery(context, bitmap)
+    }
+}
+
+fun hasLegacyStoragePermission(context: Context): Boolean {
+    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) return true
+    return ContextCompat.checkSelfPermission(
+        context,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
 }
 
 fun saveMealPhotoToGallery(context: Context, bitmap: Bitmap): MealPhotoSaveResult {
@@ -74,6 +107,9 @@ private fun saveViaLegacyExternalStorage(
     filename: String,
     folderName: String
 ): MealPhotoSaveResult {
+    if (!hasLegacyStoragePermission(context)) {
+        return MealPhotoSaveResult.PermissionDenied
+    }
     return runCatching {
         val picturesRoot = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
         val targetDir = File(picturesRoot, folderName)

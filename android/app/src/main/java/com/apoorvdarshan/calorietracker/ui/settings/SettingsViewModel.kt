@@ -56,6 +56,7 @@ data class SettingsUiState(
     /** "kg" | "lbs" — governs all mass display/input. */
     val weightUnit: String = "kg",
     val preferGramsByDefault: Boolean = false,
+    val saveMealPhotosToGallery: Boolean = false,
     val profile: UserProfile? = null,
     val notificationsEnabled: Boolean = false,
     val streakReminderEnabled: Boolean = false,
@@ -200,6 +201,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
             val heightUnit = container.prefs.heightUnit.first()
             val weightUnit = container.prefs.weightUnit.first()
             val preferGramsByDefault = container.prefs.preferGramsByDefault.first()
+            val saveMealPhotosToGallery = container.prefs.saveMealPhotosToGallery.first()
             val notif = container.prefs.notificationsEnabled.first()
             val streakReminder = container.prefs.streakReminderEnabled.first()
             val dailySummary = container.prefs.dailySummaryEnabled.first()
@@ -275,6 +277,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 heightUnit = heightUnit,
                 weightUnit = weightUnit,
                 preferGramsByDefault = preferGramsByDefault,
+                saveMealPhotosToGallery = saveMealPhotosToGallery,
                 profile = profile,
                 notificationsEnabled = notif,
                 streakReminderEnabled = streakReminder,
@@ -849,6 +852,13 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         viewModelScope.launch {
             container.prefs.setPreferGramsByDefault(v)
             _ui.value = _ui.value.copy(preferGramsByDefault = v)
+        }
+    }
+
+    fun setSaveMealPhotosToGallery(v: Boolean) {
+        viewModelScope.launch {
+            container.prefs.setSaveMealPhotosToGallery(v)
+            _ui.value = _ui.value.copy(saveMealPhotosToGallery = v)
         }
     }
 

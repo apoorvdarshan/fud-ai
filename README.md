@@ -102,10 +102,10 @@ Fud AI is a Udyam-registered micro enterprise in India, operating as a sole prop
 - **Optional iCloud / Google Drive Backup** — off until you turn it on in Settings → Data Management; iPhone uses iCloud, Android uses Google Drive after sign-in at that toggle only; restore keeps original Health IDs so samples are not duplicated
 - **Apple Watch** — watchOS app and complications show calories, macros, and compact water progress when water tracking is enabled
 - **Widgets** — iOS offers Fud AI in Small, Medium, and Large, small Protein, and a separate small/Lock Screen Water widget; Android offers Calorie, Protein, Today, and Water Glance widgets that update from local snapshots
-- **Share the App** — native iOS share sheet from About → forwards App Store URL plus a personalized message and `fud-ai.app` link; message body localized into all 16 iOS languages
+- **Share the App** — native iOS share sheet from About → forwards App Store URL plus a personalized message and `fud-ai.app` link; message body localized into all 17 iOS languages
 - **Update check** — About shows the installed app version, opens the App Store / Play Store when a newer version is available, and shows a tab dot for pending updates
 - **Theme color** — iOS and Android Settings let users change the app accent, with matching home screen / launcher icons
-- **Languages** — iOS and Android support 16 languages: Arabic, Azerbaijani, Dutch, English, French, German, Hindi, Italian, Japanese, Korean, Polish, Portuguese (Brazil), Romanian, Russian, Simplified Chinese, Spanish. The app auto-selects by the phone's Language setting.
+- **Languages** — iOS and Android support 17 / 16 languages: Arabic, Azerbaijani, Czech, Dutch, English, French, German, Hindi, Italian, Japanese, Korean, Polish, Portuguese (Brazil), Romanian, Russian, Simplified Chinese, Spanish. The app auto-selects by the phone's Language setting.
 - **Meal reminders** — customizable breakfast, lunch, dinner notifications
 - **Dark mode** — system, light, or dark
 - **Metric & imperial** units
@@ -267,7 +267,7 @@ All values can be manually overridden in Settings, with a **Recalculate Goals** 
 | **Speech** | Native `SFSpeechRecognizer` / Android `SpeechRecognizer` or remote providers via `SpeechService` (m4a upload) |
 | **Health** | HealthKit / Health Connect read-write paths for body measurements, meal nutrition, and calculated workout calories, with UUID-tagged samples for safe delete |
 | **Pattern** | `@Observable` + `.environment()`, main actor isolation |
-| **Localization** | `Localizable.xcstrings` (String Catalog), 16 iOS languages, auto-selected by iPhone's system language |
+| **Localization** | `Localizable.xcstrings` (String Catalog), 17 iOS languages, auto-selected by iPhone's system language |
 | **Dependencies** | Native platform frameworks; detailed app data and API keys remain local, with only opt-in Weekly Challenge profile/aggregate fields sent to Fud AI |
 
 ### Repo Layout
@@ -294,7 +294,7 @@ ios/
 └── calorietracker/
     ├── calorietrackerApp.swift       # Entry point, environment setup
     ├── ContentView.swift             # 5-tab layout (Home, Progress, Coach, Settings, Workouts)
-    ├── Localizable.xcstrings         # String Catalog, 16 languages
+    ├── Localizable.xcstrings         # String Catalog, 17 languages
     ├── Models/
     │   ├── AIProvider.swift          # 13 LLM providers, model lists, settings
     │   ├── SpeechProvider.swift      # 6 STT options + Keychain settings

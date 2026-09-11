@@ -24,6 +24,7 @@ struct calorietrackerApp: App {
     @State private var waterStore = WaterStore()
     @State private var fastingStore = FastingStore()
     @State private var strengthWorkoutStore = StrengthWorkoutStore()
+    @State private var importedHealthWorkoutStore = ImportedHealthWorkoutStore()
     @State private var weeklyChallengeStore = WeeklyChallengeStore()
     @State private var cloudBackupService = CloudBackupService()
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
@@ -72,6 +73,7 @@ struct calorietrackerApp: App {
                         .environment(waterStore)
                         .environment(fastingStore)
                         .environment(strengthWorkoutStore)
+                        .environment(importedHealthWorkoutStore)
                         .environment(weeklyChallengeStore)
                         .environment(cloudBackupService)
                 } else {
@@ -108,6 +110,7 @@ struct calorietrackerApp: App {
                 fastingStore.reloadFromDefaults()
                 chatStore.reloadFromDefaults()
                 strengthWorkoutStore.reloadFromDefaults()
+                importedHealthWorkoutStore.reloadFromDefaults()
                 profileStore.reloadFromDisk()
                 refreshWidgetSnapshot()
             }
@@ -197,6 +200,15 @@ struct calorietrackerApp: App {
                 currentEntryIDs: { Set(foodStore.entries.map(\.id)) }
             )
             runBodyMeasurementBackfills()
+        }
+
+        healthKitManager.onImportedWorkoutsChanged = { [healthKitManager, importedHealthWorkoutStore] in
+            healthKitManager.synchronizeImportedWorkoutsWithHealthKit(
+                existingIDs: { Set(importedHealthWorkoutStore.workouts.map(\.id)) },
+                importBatch: { workouts in
+                    importedHealthWorkoutStore.importWorkouts(workouts)
+                }
+            )
         }
 
         healthKitManager.onBodyMeasurementsChanged = { [weightStore, bodyFatStore] weightKg, weightDate, weightFudaiID, heightCm, bodyFat, bodyFatDate, bodyFatFudaiID, dob, sex in
@@ -349,6 +361,12 @@ struct calorietrackerApp: App {
             existing: { [strengthWorkoutStore] in strengthWorkoutStore.workoutBurnSessions },
             mergeBatch: { [strengthWorkoutStore] sessions in
                 strengthWorkoutStore.importWorkoutBurnSessions(sessions)
+            }
+        )
+        healthKitManager.synchronizeImportedWorkoutsWithHealthKit(
+            existingIDs: { [importedHealthWorkoutStore] in Set(importedHealthWorkoutStore.workouts.map(\.id)) },
+            importBatch: { [importedHealthWorkoutStore] workouts in
+                importedHealthWorkoutStore.importWorkouts(workouts)
             }
         )
     }

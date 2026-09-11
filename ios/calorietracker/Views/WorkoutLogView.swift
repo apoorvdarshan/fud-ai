@@ -66,6 +66,7 @@ private struct WorkoutLogCardFramePreferenceKey: PreferenceKey {
 /// Fud AI's existing workout theme tokens.
 struct WorkoutLogView: View {
     @Environment(StrengthWorkoutStore.self) private var workoutStore
+    @Environment(ImportedHealthWorkoutStore.self) private var importedHealthWorkoutStore
     @Environment(WeightStore.self) private var weightStore
     @Environment(ProfileStore.self) private var profileStore
     @AppStorage(WeightUnit.storageKey) private var weightUnitRaw = WeightUnit.lbs.rawValue
@@ -121,6 +122,10 @@ struct WorkoutLogView: View {
 
     private var selectedExercises: [StrengthPlannedExercise] {
         workoutStore.exercises(for: selectedDate)
+    }
+
+    private var importedHealthWorkouts: [ImportedHealthWorkout] {
+        importedHealthWorkoutStore.workouts(on: selectedDate)
     }
 
     private var weightUnit: WeightUnit {
@@ -219,6 +224,17 @@ struct WorkoutLogView: View {
                         .listRowBackground(Color.clear)
                         .listRowSeparator(.hidden)
                         .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    }
+
+                    if !importedHealthWorkouts.isEmpty {
+                        Section {
+                            ImportedHealthWorkoutDaySection(workouts: importedHealthWorkouts)
+                                .contentShape(Rectangle())
+                                .simultaneousGesture(daySwipeGesture)
+                                .listRowBackground(Color.clear)
+                                .listRowSeparator(.hidden)
+                                .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                        }
                     }
 
                     Section {

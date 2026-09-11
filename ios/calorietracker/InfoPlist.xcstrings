@@ -94,6 +94,12 @@
             "value": "Fud AI использует камеру для сканирования продуктов и штрихкодов."
           }
         },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI використовує камеру для сканування продуктів и штрихкодов."
+          }
+        },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
@@ -193,6 +199,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Fud AI сохраняет фото блюд в медиатеку, когда вы нажимаете «Сохранить»."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI зберігає фото страв в медiatеку, когда ви нажимаете «Зберегти»."
           }
         },
         "zh-Hans": {

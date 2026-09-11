@@ -3,7 +3,10 @@ package com.apoorvdarshan.calorietracker.services
 import android.content.Context
 import android.graphics.Bitmap
 import android.util.LruCache
+import androidx.annotation.VisibleForTesting
+import com.apoorvdarshan.calorietracker.models.UserExercise
 import com.apoorvdarshan.calorietracker.services.FoodImageDecoder.scaledToMaxDimension
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.util.UUID
@@ -13,18 +16,24 @@ import java.util.UUID
  * JPEGs live under filesDir/fudai-food-images/{uuid}.jpg so they stay out of
  * the DataStore blob (which would otherwise inflate past quick-read limits).
  */
-class FoodImageStore(context: Context) {
-    private val appContext = context.applicationContext
-    private val dir: File = File(appContext.filesDir, DIR_NAME).apply { mkdirs() }
-    private val thumbnailDir: File = File(appContext.filesDir, THUMBNAIL_DIR_NAME).apply { mkdirs() }
+class FoodImageStore private constructor(
+    rootDir: File,
+    cleanupLegacyThumbnails: Boolean
+) {
+    private val dir: File = File(rootDir, DIR_NAME).apply { mkdirs() }
+    private val thumbnailDir: File = File(rootDir, THUMBNAIL_DIR_NAME).apply { mkdirs() }
     private val thumbnailCache = object : LruCache<String, Bitmap>(THUMBNAIL_CACHE_KB) {
         override fun sizeOf(key: String, value: Bitmap): Int = value.byteCount / 1024
     }
 
+    constructor(context: Context) : this(context.filesDir, cleanupLegacyThumbnails = true)
+
     init {
-        // Legacy thumbnails lost EXIF orientation during compression. Rebuild them
-        // lazily in the new cache directory; original photos remain byte-identical.
-        runCatching { File(appContext.filesDir, "fudai-food-thumbnails").deleteRecursively() }
+        if (cleanupLegacyThumbnails) {
+            // Legacy thumbnails lost EXIF orientation during compression. Rebuild them
+            // lazily in the new cache directory; original photos remain byte-identical.
+            runCatching { File(rootDir, "fudai-food-thumbnails").deleteRecursively() }
+        }
     }
 
     /** Writes the bitmap as JPEG (quality 80) under a new filename. Returns filename or null. */
@@ -90,6 +99,18 @@ class FoodImageStore(context: Context) {
         true
     }.getOrDefault(false)
 
+    /** Stores a custom exercise photo under a fresh filename (never overwrites diary snapshots). */
+    fun storeExercisePhoto(bytes: ByteArray): String? = runCatching {
+        val filename = UserExercise.newPhotoFilename()
+        val bitmap = FoodImageDecoder.decode(bytes, VIEWER_MAX_DIMENSION) ?: return null
+        val jpeg = ByteArrayOutputStream().use { out ->
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, out)
+            out.toByteArray()
+        }
+        bitmap.recycle()
+        if (restoreBytes(filename, jpeg)) filename else null
+    }.getOrNull()
+
     fun delete(filename: String) {
         runCatching { File(dir, filename).delete() }
         runCatching { File(thumbnailDir, filename).delete() }
@@ -145,5 +166,9 @@ class FoodImageStore(context: Context) {
         private const val THUMBNAIL_MAX_DIMENSION = 320
         const val VIEWER_MAX_DIMENSION = 2048
         private const val THUMBNAIL_CACHE_KB = 12 * 1024
+
+        @VisibleForTesting
+        fun forTests(baseDir: File): FoodImageStore =
+            FoodImageStore(baseDir.apply { mkdirs() }, cleanupLegacyThumbnails = false)
     }
 }

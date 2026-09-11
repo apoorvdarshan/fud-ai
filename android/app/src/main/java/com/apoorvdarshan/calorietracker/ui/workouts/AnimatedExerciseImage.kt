@@ -35,6 +35,8 @@ import coil.request.ImageRequest
 import com.apoorvdarshan.calorietracker.data.ExerciseRepository
 import com.apoorvdarshan.calorietracker.data.ExerciseVisual
 import com.apoorvdarshan.calorietracker.data.ExerciseVisualFormat
+import com.apoorvdarshan.calorietracker.models.UserExercise
+import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import kotlinx.coroutines.delay
 
 /**
@@ -64,7 +66,8 @@ fun AnimatedExerciseImage(
     visual: ExerciseVisual,
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
-    fallbackLabel: String? = null
+    fallbackLabel: String? = null,
+    animatesFrames: Boolean = true
 ) {
     val colors = workoutsColors()
     val imagePaths = visual.framePaths
@@ -97,16 +100,17 @@ fun AnimatedExerciseImage(
         Settings.Global.getFloat(context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f) != 0f
     }
     val representativeIndex = visual.representativeFrameIndex.coerceIn(imagePaths.indices)
-    var index by remember(imagePaths, visual.format, animationsEnabled) {
-        mutableIntStateOf(if (animationsEnabled) 0 else representativeIndex)
+    val shouldAnimate = animatesFrames && animationsEnabled
+    var index by remember(imagePaths, visual.format, shouldAnimate) {
+        mutableIntStateOf(if (shouldAnimate) 0 else representativeIndex)
     }
 
-    LaunchedEffect(imagePaths, visual.format, animationsEnabled) {
-        if (!animationsEnabled) {
+    LaunchedEffect(imagePaths, visual.format, shouldAnimate) {
+        if (!shouldAnimate) {
             index = representativeIndex
             return@LaunchedEffect
         }
-        if (imagePaths.size > 1 && animationsEnabled) {
+        if (imagePaths.size > 1) {
             while (true) {
                 delay(850)
                 index = (index + 1) % imagePaths.size
@@ -117,15 +121,20 @@ fun AnimatedExerciseImage(
     Box(modifier.background(colors.background)) {
         imagePaths.forEachIndexed { i, path ->
             key(path, visual.format) {
-                val assetUri = ExerciseRepository.imageAssetUri(path)
                 val model = remember(path, visual.format) {
+                    val localFile = if (UserExercise.isUserPhotoFilename(path)) {
+                        FoodImageStore(context).file(path).takeIf { it.isFile }
+                    } else {
+                        null
+                    }
+                    val dataSource = localFile ?: ExerciseRepository.imageAssetUri(path)
                     if (visual.format == ExerciseVisualFormat.SVG) {
                         ImageRequest.Builder(context)
-                            .data(assetUri)
+                            .data(dataSource)
                             .decoderFactory(SvgDecoder.Factory())
                             .build()
                     } else {
-                        assetUri
+                        dataSource
                     }
                 }
                 AsyncImage(

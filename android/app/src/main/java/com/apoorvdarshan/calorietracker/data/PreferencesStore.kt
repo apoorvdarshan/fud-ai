@@ -1005,11 +1005,24 @@ class PreferencesStore(
                 ?: return null
         }
 
+        val workoutState = prefs[Keys.WORKOUT_STATE]?.let { raw ->
+            runCatching {
+                json.decodeFromString(com.apoorvdarshan.calorietracker.models.WorkoutPersistedState.serializer(), raw)
+            }.getOrNull() ?: return null
+        }
+
         return buildSet {
             foods.forEach { addAll(it.allImageFilenames) }
             favorites.forEach { addAll(it.allImageFilenames) }
             draft?.imageFilename?.let { add(it) }
             draft?.additionalImageFilenames?.let { addAll(it) }
+            workoutState?.userExercises?.flatMap { it.imagePaths }?.forEach { add(it) }
+            workoutState?.customActivities?.flatMap { it.imagePaths }?.forEach { add(it) }
+            workoutState?.dayPlans?.values
+                ?.flatMap { it.exercises }
+                ?.flatMap { it.imagePaths }
+                ?.filter { com.apoorvdarshan.calorietracker.models.UserExercise.isUserPhotoFilename(it) }
+                ?.forEach { add(it) }
         }
     }
 

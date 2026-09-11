@@ -49,6 +49,10 @@ private struct ExerciseLibraryBrowserView: View {
     var onShowWorkoutLog: (() -> Void)?
 
     @State private var searchText = ""
+    @State private var debouncedSearchText = ""
+    @State private var displayItems: [ExerciseLibraryItem] = []
+    @State private var searchDebounceTask: Task<Void, Never>?
+    @State private var filterPersistTask: Task<Void, Never>?
     @State private var selectedSplitGroupTitles: Set<String> = []
     @State private var selectedLevels: Set<String> = []
     @State private var selectedRawEquipment: Set<String> = []
@@ -58,8 +62,11 @@ private struct ExerciseLibraryBrowserView: View {
     @State private var selectedMechanics: Set<String> = []
     @State private var selectedCategories: Set<String> = []
     @State private var selectedSort: ExerciseLibrarySort = .name
+    @State private var isCreateExercisePresented = false
+    @State private var editingExerciseRequest: EditingExerciseRequest?
+    @State private var selectedDetailItem: ExerciseLibraryItem?
 
-    private let service = ExerciseLibraryService.shared
+    private var service: ExerciseLibraryService { workoutStore.exerciseLibrary }
 
     private var selectedWorkoutSplit: StrengthWorkoutSplit {
         workoutStore.preferences.split
@@ -106,30 +113,6 @@ private struct ExerciseLibraryBrowserView: View {
         return selectedRawEquipment
     }
 
-    private var items: [ExerciseLibraryItem] {
-        let rawEquipmentSelection = effectiveRawEquipmentSelection
-        guard !rawEquipmentSelection.isEmpty else { return [] }
-
-        let filtered = service.filtered(
-            levels: selectedLevels,
-            rawEquipment: rawEquipmentSelection,
-            primaryMuscles: selectedPrimaryMuscles,
-            secondaryMuscles: selectedSecondaryMuscles,
-            forces: selectedForces,
-            mechanics: selectedMechanics,
-            categories: selectedCategories,
-            sort: selectedSort,
-            searchText: searchText
-        )
-
-        guard !selectedSplitGroups.isEmpty else { return filtered }
-        let selectedMuscles = Set(selectedSplitGroups.flatMap(\.muscles))
-        return filtered.filter { item in
-            item.primaryMuscles.contains(where: selectedMuscles.contains) ||
-                item.secondaryMuscles.contains(where: selectedMuscles.contains)
-        }
-    }
-
     private var hasActiveFilters: Bool {
         !searchText.isEmpty ||
             !selectedSplitGroupTitles.isEmpty ||
@@ -169,7 +152,7 @@ private struct ExerciseLibraryBrowserView: View {
                 .padding(.bottom, 18)
 
             ResultsHeader(
-                count: items.count,
+                count: displayItems.count,
                 noun: String(localized: "exercise"),
                 subtitle: selectedSort.title,
                 selectedSort: $selectedSort,
@@ -188,37 +171,105 @@ private struct ExerciseLibraryBrowserView: View {
         .workoutScreen()
         .onAppear {
             applyFilterState(ExerciseFilterStateStore.load(key: ExerciseFilterStateStore.workoutsKey))
+            debouncedSearchText = searchText
+            refreshDisplayItems()
             normalizeSplitGroupSelection()
             normalizePrimaryFilterSelection()
             normalizeEquipmentFilterSelection()
         }
-        .onChange(of: filterStateSnapshot) { _, state in
-            ExerciseFilterStateStore.save(state, key: ExerciseFilterStateStore.workoutsKey)
+        .onDisappear {
+            filterPersistTask?.cancel()
+            ExerciseFilterStateStore.save(filterStateSnapshot, key: ExerciseFilterStateStore.workoutsKey)
         }
+        .onChange(of: searchText) { _, newValue in
+            WorkoutSearchDebounce.schedule(task: &searchDebounceTask) {
+                debouncedSearchText = newValue
+                refreshDisplayItems()
+            }
+            scheduleFilterPersist()
+        }
+        .onChange(of: selectedSplitGroupTitles) { _, _ in
+            refreshDisplayItems()
+            scheduleFilterPersist()
+            normalizePrimaryFilterSelection()
+        }
+        .onChange(of: selectedLevels) { _, _ in refreshDisplayItems(); scheduleFilterPersist() }
+        .onChange(of: selectedRawEquipment) { _, _ in refreshDisplayItems(); scheduleFilterPersist() }
+        .onChange(of: selectedPrimaryMuscles) { _, _ in refreshDisplayItems(); scheduleFilterPersist() }
+        .onChange(of: selectedSecondaryMuscles) { _, _ in refreshDisplayItems(); scheduleFilterPersist() }
+        .onChange(of: selectedForces) { _, _ in refreshDisplayItems(); scheduleFilterPersist() }
+        .onChange(of: selectedMechanics) { _, _ in refreshDisplayItems(); scheduleFilterPersist() }
+        .onChange(of: selectedCategories) { _, _ in refreshDisplayItems(); scheduleFilterPersist() }
+        .onChange(of: selectedSort) { _, _ in refreshDisplayItems(); scheduleFilterPersist() }
         .onChange(of: selectedWorkoutSplit) {
             selectedSplitGroupTitles.removeAll()
+            refreshDisplayItems()
+            scheduleFilterPersist()
             normalizePrimaryFilterSelection()
         }
-        .onChange(of: selectedSplitGroupTitles) {
-            normalizePrimaryFilterSelection()
+        .onChange(of: userExercisesFingerprint) { _, _ in refreshDisplayItems() }
+        .navigationDestination(item: $selectedDetailItem) { item in
+            ExerciseLibraryDetailView(
+                item: item,
+                onEdit: UserExercise.isUserExercise(item.id) ? {
+                    selectedDetailItem = nil
+                    editingExerciseRequest = EditingExerciseRequest(id: item.id)
+                } : nil
+            )
         }
+        .sheet(isPresented: $isCreateExercisePresented) {
+            UserExerciseEditorView()
+        }
+        .sheet(item: $editingExerciseRequest) { request in
+            UserExerciseEditorView(
+                existingItemID: request.id,
+                onSaved: { saved in
+                    refreshDisplayItems()
+                    if selectedDetailItem?.id == saved.id {
+                        selectedDetailItem = saved
+                    }
+                },
+                onDeleted: {
+                    if selectedDetailItem?.id == request.id {
+                        selectedDetailItem = nil
+                    }
+                    refreshDisplayItems()
+                }
+            )
+        }
+    }
+
+    private var userExercisesFingerprint: String {
+        workoutStore.userExercises.map {
+            "\($0.itemID)|\($0.name)|\($0.imagePaths.joined(separator: ","))"
+        }.joined(separator: ";")
     }
 
     private var scrollingList: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 0) {
-                if items.isEmpty {
-                    ContentUnavailableView {
-                        Label("No exercises match", systemImage: "line.3.horizontal.decrease")
-                    } description: {
-                        Text("Try a different muscle, equipment, or search — or reset the filters above.")
+                if displayItems.isEmpty {
+                    VStack(spacing: 16) {
+                        ContentUnavailableView {
+                            Label("No exercises match", systemImage: "line.3.horizontal.decrease")
+                        } description: {
+                            Text("Try a different muscle, equipment, or search — or create your own exercise.")
+                        }
+                        Button {
+                            isCreateExercisePresented = true
+                        } label: {
+                            Label("Create exercise", systemImage: "plus.circle.fill")
+                                .font(.headline.weight(.semibold))
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(Color.workoutAccent)
                     }
                     .frame(maxWidth: .infinity, minHeight: 260)
                     .padding(.horizontal, 20)
                 } else {
-                    ForEach(items) { item in
-                        NavigationLink {
-                            ExerciseLibraryDetailView(item: item)
+                    ForEach(displayItems) { item in
+                        Button {
+                            selectedDetailItem = item
                         } label: {
                             ExerciseLibraryRow(item: item)
                         }
@@ -226,7 +277,7 @@ private struct ExerciseLibraryBrowserView: View {
                         .buttonStyle(.plain)
                         .padding(.horizontal, 20)
 
-                        if item.id != items.last?.id {
+                        if item.id != displayItems.last?.id {
                             Divider()
                                 .overlay(Color.workoutHairline.opacity(0.28))
                                 .padding(.leading, 144)
@@ -428,8 +479,51 @@ private struct ExerciseLibraryBrowserView: View {
         categoryCount.category
     }
 
+    private func refreshDisplayItems() {
+        let rawEquipmentSelection = effectiveRawEquipmentSelection
+        guard !rawEquipmentSelection.isEmpty else {
+            displayItems = []
+            return
+        }
+
+        let filtered = service.filtered(
+            levels: selectedLevels,
+            rawEquipment: rawEquipmentSelection,
+            primaryMuscles: selectedPrimaryMuscles,
+            secondaryMuscles: selectedSecondaryMuscles,
+            forces: selectedForces,
+            mechanics: selectedMechanics,
+            categories: selectedCategories,
+            sort: selectedSort,
+            searchText: debouncedSearchText
+        )
+
+        if selectedSplitGroups.isEmpty {
+            displayItems = filtered
+            return
+        }
+
+        let selectedMuscles = Set(selectedSplitGroups.flatMap(\.muscles))
+        displayItems = filtered.filter { item in
+            item.primaryMuscles.contains(where: selectedMuscles.contains) ||
+                item.secondaryMuscles.contains(where: selectedMuscles.contains)
+        }
+    }
+
+    private func scheduleFilterPersist() {
+        let snapshot = filterStateSnapshot
+        WorkoutSearchDebounce.schedule(
+            task: &filterPersistTask,
+            delayNanoseconds: WorkoutSearchDebounce.persistDelayNanoseconds
+        ) {
+            ExerciseFilterStateStore.save(snapshot, key: ExerciseFilterStateStore.workoutsKey)
+        }
+    }
+
     private func resetFilters() {
+        searchDebounceTask?.cancel()
         searchText = ""
+        debouncedSearchText = ""
         selectedSplitGroupTitles.removeAll()
         selectedLevels.removeAll()
         selectedRawEquipment.removeAll()
@@ -439,10 +533,13 @@ private struct ExerciseLibraryBrowserView: View {
         selectedMechanics.removeAll()
         selectedCategories.removeAll()
         selectedSort = .name
+        refreshDisplayItems()
+        scheduleFilterPersist()
     }
 
     private func applyFilterState(_ state: ExerciseFilterState) {
         searchText = state.searchText
+        debouncedSearchText = state.searchText
         selectedSplitGroupTitles = state.splitIdentifier == selectedWorkoutSplit.rawValue
             ? singleStoredSelection(state.splitGroups)
             : []
@@ -751,7 +848,8 @@ private struct ExerciseLibraryRow: View {
             imagePaths: item.imagePaths,
             height: 104,
             fillsWidth: false,
-            allowsDerivedImageLookup: false
+            allowsDerivedImageLookup: false,
+            animatesFrames: false
         )
         .frame(width: 104, height: 104)
         .background(Color.workoutPanel.opacity(0.32), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
@@ -787,8 +885,13 @@ private struct LibraryTag: View {
     }
 }
 
+private struct EditingExerciseRequest: Identifiable {
+    let id: String
+}
+
 struct ExerciseLibraryDetailView: View {
     let item: ExerciseLibraryItem
+    var onEdit: (() -> Void)?
     @State private var isMetricsPresented = false
 
     var body: some View {
@@ -826,6 +929,15 @@ struct ExerciseLibraryDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarBackground(Color.workoutBackground, for: .navigationBar)
+        .toolbar {
+            if let onEdit {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Edit", action: onEdit)
+                        .font(.headline.weight(.semibold))
+                        .foregroundStyle(Color.workoutAccent)
+                }
+            }
+        }
     }
 
     private func detailHero(width: CGFloat) -> some View {

@@ -73,6 +73,7 @@ fun ExerciseDetailScreen(
     item: ExerciseItem,
     visual: ExerciseVisual,
     onBack: () -> Unit,
+    onEdit: (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val colors = workoutsColors()
@@ -99,6 +100,19 @@ fun ExerciseDetailScreen(
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(horizontal = 52.dp)
             )
+            if (onEdit != null) {
+                Text(
+                    "Edit",
+                    color = colors.accent,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .clip(CircleShape)
+                        .clickable(onClick = onEdit)
+                        .padding(horizontal = 12.dp, vertical = 8.dp)
+                )
+            }
         }
 
         // Pinned hero over scrollable instructions (mirrors the iOS ZStack).

@@ -73,6 +73,7 @@ struct WorkoutLogView: View {
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
 
     @State private var pickerRequest: WorkoutLogPickerRequest?
+    @State private var isCreateExercisePresented = false
     @State private var isCopySheetPresented = false
     @State private var isTextSheetPresented = false
     @State private var workoutInputUsesVoice = false
@@ -437,6 +438,9 @@ struct WorkoutLogView: View {
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
             }
+            .sheet(isPresented: $isCreateExercisePresented) {
+                UserExerciseEditorView()
+            }
             .sheet(isPresented: $isCopySheetPresented) {
                 WorkoutLogCopySheet(
                     days: copyableDays,
@@ -465,6 +469,12 @@ struct WorkoutLogView: View {
                     pickerRequest = WorkoutLogPickerRequest(context: .saved, initialSource: .saved)
                 } label: {
                     WorkoutLogPickerContextMenuLabel(context: .saved)
+                }
+
+                Button {
+                    isCreateExercisePresented = true
+                } label: {
+                    Label("Create exercise", systemImage: "plus.circle")
                 }
 
                 Button {
@@ -1365,6 +1375,10 @@ private enum WorkoutLogPickerFilterStateStore {
     }
 }
 
+private struct WorkoutPickerEditingExerciseRequest: Identifiable {
+    let id: String
+}
+
 private struct WorkoutLogExercisePickerSheet: View {
     @Environment(StrengthWorkoutStore.self) private var workoutStore
     let request: WorkoutLogPickerRequest
@@ -1373,6 +1387,10 @@ private struct WorkoutLogExercisePickerSheet: View {
 
     @AppStorage("fudai.workouts.picker.source.v1") private var sourceRaw = WorkoutLogPickerSource.dataset.rawValue
     @State private var searchText = ""
+    @State private var debouncedSearchText = ""
+    @State private var displayExercises: [ExerciseLibraryItem] = []
+    @State private var searchDebounceTask: Task<Void, Never>?
+    @State private var filterPersistTask: Task<Void, Never>?
     @State private var selectedLevels: Set<String> = []
     @State private var selectedEquipment: Set<String> = []
     @State private var selectedPrimaryMuscles: Set<String> = []
@@ -1382,6 +1400,8 @@ private struct WorkoutLogExercisePickerSheet: View {
     @State private var selectedCategories: Set<String> = []
     @State private var selectedSort: ExerciseLibrarySort = .name
     @State private var previewItem: ExerciseLibraryItem?
+    @State private var isCreateExercisePresented = false
+    @State private var editingExerciseRequest: WorkoutPickerEditingExerciseRequest?
 
     private var library: ExerciseLibraryService { workoutStore.exerciseLibrary }
 
@@ -1391,6 +1411,7 @@ private struct WorkoutLogExercisePickerSheet: View {
         self.onDone = onDone
         let state = WorkoutLogPickerFilterStateStore.load(contextID: request.context.id)
         _searchText = State(initialValue: state.searchText)
+        _debouncedSearchText = State(initialValue: state.searchText)
         _selectedLevels = State(initialValue: state.levels)
         _selectedEquipment = State(initialValue: state.equipment)
         _selectedPrimaryMuscles = State(initialValue: state.primaryMuscles)
@@ -1437,31 +1458,6 @@ private struct WorkoutLogExercisePickerSheet: View {
         )
     }
 
-    private var filteredExercises: [ExerciseLibraryItem] {
-        let effectiveEquipment = selectedEquipment.isEmpty
-            ? Set(availableEquipment)
-            : selectedEquipment
-        let filtered = library.filtered(
-            levels: selectedLevels,
-            rawEquipment: effectiveEquipment,
-            primaryMuscles: selectedPrimaryMuscles,
-            secondaryMuscles: selectedSecondaryMuscles,
-            forces: selectedForces,
-            mechanics: selectedMechanics,
-            categories: selectedCategories,
-            sort: selectedSort,
-            searchText: searchText
-        )
-
-        return filtered.filter { item in
-            let matchesContext = request.context.muscles.isEmpty
-                || item.primaryMuscles.contains(where: request.context.muscles.contains)
-                || item.secondaryMuscles.contains(where: request.context.muscles.contains)
-            let matchesSource = source == .dataset || workoutStore.savedExerciseIDs.contains(item.id)
-            return matchesContext && matchesSource
-        }
-    }
-
     private var hasActiveFilters: Bool {
         !searchText.isEmpty
             || !selectedLevels.isEmpty
@@ -1502,12 +1498,24 @@ private struct WorkoutLogExercisePickerSheet: View {
                 }
 
                 Section {
-                    if filteredExercises.isEmpty {
-                        Text(!showsSourcePicker || source == .saved ? "No saved workouts yet." : "No dataset workouts found.")
-                            .foregroundStyle(Color.workoutMutedText)
-                            .listRowBackground(Color.workoutPanel.opacity(0.22))
+                    if displayExercises.isEmpty {
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text(!showsSourcePicker || source == .saved ? "No saved workouts yet." : "No matching exercises.")
+                                .foregroundStyle(Color.workoutMutedText)
+                            if source == .dataset {
+                                Button {
+                                    isCreateExercisePresented = true
+                                } label: {
+                                    Label("Create exercise", systemImage: "plus.circle.fill")
+                                        .font(.subheadline.weight(.semibold))
+                                }
+                                .buttonStyle(.borderless)
+                                .foregroundStyle(Color.workoutAccent)
+                            }
+                        }
+                        .listRowBackground(Color.workoutPanel.opacity(0.22))
                     } else {
-                        ForEach(filteredExercises.prefix(120)) { item in
+                        ForEach(displayExercises.prefix(120)) { item in
                             WorkoutLogPickerRow(
                                 item: item,
                                 isSelected: workoutStore.containsExercise(item.id, on: selectedDate),
@@ -1550,30 +1558,96 @@ private struct WorkoutLogExercisePickerSheet: View {
             .navigationTitle("Add \(request.context.title)")
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(item: $previewItem) { item in
-                ExerciseLibraryDetailView(item: item)
+                ExerciseLibraryDetailView(
+                    item: item,
+                    onEdit: UserExercise.isUserExercise(item.id) ? {
+                        previewItem = nil
+                        editingExerciseRequest = WorkoutPickerEditingExerciseRequest(id: item.id)
+                    } : nil
+                )
                     .safeAreaInset(edge: .bottom, spacing: 0) {
                         WorkoutLogPreviewActionBar(
                             isSelected: workoutStore.containsExercise(item.id, on: selectedDate),
                             action: {
-                                workoutStore.toggleExercise(item, on: selectedDate)
+                                guard libraryItemStillExists(item.id) else {
+                                    previewItem = nil
+                                    return
+                                }
+                                if let fresh = workoutStore.exerciseLibrary.exercises.first(where: { $0.id == item.id }) {
+                                    workoutStore.toggleExercise(fresh, on: selectedDate)
+                                }
                             }
                         )
                     }
             }
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    if source == .dataset {
+                        Button {
+                            isCreateExercisePresented = true
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                        .accessibilityLabel("Create exercise")
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done", action: onDone)
                         .font(.headline.weight(.heavy))
                         .foregroundStyle(Color.workoutAccent)
                 }
             }
+            .sheet(isPresented: $isCreateExercisePresented) {
+                UserExerciseEditorView { item in
+                    workoutStore.toggleExercise(item, on: selectedDate)
+                }
+            }
+            .sheet(item: $editingExerciseRequest) { request in
+                UserExerciseEditorView(
+                    existingItemID: request.id,
+                    onSaved: { saved in
+                        refreshDisplayExercises()
+                        if previewItem?.id == saved.id {
+                            previewItem = saved
+                        }
+                    },
+                    onDeleted: {
+                        if previewItem?.id == request.id {
+                            previewItem = nil
+                        }
+                        refreshDisplayExercises()
+                    }
+                )
+            }
             .keepsWorkoutLogToolbarDuringSearch()
         }
         .onAppear {
+            refreshDisplayExercises()
             normalizePrimaryFilterSelection()
             normalizeEquipmentFilterSelection()
         }
+        .onDisappear {
+            filterPersistTask?.cancel()
+            WorkoutLogPickerFilterStateStore.save(filterState, contextID: request.context.id)
+        }
+        .onChange(of: searchText) { _, newValue in
+            WorkoutSearchDebounce.schedule(task: &searchDebounceTask) {
+                debouncedSearchText = newValue
+                refreshDisplayExercises()
+            }
+            scheduleFilterPersist()
+        }
+        .onChange(of: selectedLevels) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedEquipment) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedPrimaryMuscles) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedSecondaryMuscles) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedForces) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedMechanics) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedCategories) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: selectedSort) { _, _ in refreshDisplayExercises(); scheduleFilterPersist() }
+        .onChange(of: sourceRaw) { _, _ in refreshDisplayExercises() }
         .onChange(of: request.context.muscles) {
+            refreshDisplayExercises()
             normalizePrimaryFilterSelection()
         }
         .onChange(of: hidesPrimaryFilter) {
@@ -1581,9 +1655,55 @@ private struct WorkoutLogExercisePickerSheet: View {
         }
         .onChange(of: availableEquipment) {
             normalizeEquipmentFilterSelection()
+            refreshDisplayExercises()
         }
-        .onChange(of: filterState) { _, state in
-            WorkoutLogPickerFilterStateStore.save(state, contextID: request.context.id)
+        .onChange(of: workoutStore.savedExerciseIDs) { _, _ in refreshDisplayExercises() }
+        .onChange(of: userExercisesFingerprint) { _, _ in refreshDisplayExercises() }
+    }
+
+    private var userExercisesFingerprint: String {
+        workoutStore.userExercises.map {
+            "\($0.itemID)|\($0.name)|\($0.imagePaths.joined(separator: ","))"
+        }.joined(separator: ";")
+    }
+
+    private func libraryItemStillExists(_ itemID: String) -> Bool {
+        workoutStore.exerciseLibrary.exercises.contains { $0.id == itemID }
+    }
+
+    private func refreshDisplayExercises() {
+        let effectiveEquipment = selectedEquipment.isEmpty
+            ? Set(availableEquipment)
+            : selectedEquipment
+        let filtered = library.filtered(
+            levels: selectedLevels,
+            rawEquipment: effectiveEquipment,
+            primaryMuscles: selectedPrimaryMuscles,
+            secondaryMuscles: selectedSecondaryMuscles,
+            forces: selectedForces,
+            mechanics: selectedMechanics,
+            categories: selectedCategories,
+            sort: selectedSort,
+            searchText: debouncedSearchText
+        )
+
+        displayExercises = filtered.filter { item in
+            let matchesContext = request.context.muscles.isEmpty
+                || item.primaryMuscles.contains(where: request.context.muscles.contains)
+                || item.secondaryMuscles.contains(where: request.context.muscles.contains)
+            let matchesSource = source == .dataset || workoutStore.savedExerciseIDs.contains(item.id)
+            return matchesContext && matchesSource
+        }
+    }
+
+    private func scheduleFilterPersist() {
+        let snapshot = filterState
+        let contextID = request.context.id
+        WorkoutSearchDebounce.schedule(
+            task: &filterPersistTask,
+            delayNanoseconds: WorkoutSearchDebounce.persistDelayNanoseconds
+        ) {
+            WorkoutLogPickerFilterStateStore.save(snapshot, contextID: contextID)
         }
     }
 
@@ -1603,7 +1723,7 @@ private struct WorkoutLogExercisePickerSheet: View {
     private var resultsHeader: some View {
         HStack(alignment: .firstTextBaseline) {
             VStack(alignment: .leading, spacing: 2) {
-                Text("\(filteredExercises.count) \(filteredExercises.count == 1 ? "exercise" : "exercises")")
+                Text("\(displayExercises.count) \(displayExercises.count == 1 ? "exercise" : "exercises")")
                     .font(.headline.weight(.semibold))
                     .foregroundStyle(Color.workoutCharcoal)
                     .textCase(nil)
@@ -1857,7 +1977,9 @@ private struct WorkoutLogExercisePickerSheet: View {
     }
 
     private func resetFilters() {
+        searchDebounceTask?.cancel()
         searchText = ""
+        debouncedSearchText = ""
         selectedLevels.removeAll()
         selectedEquipment.removeAll()
         selectedPrimaryMuscles.removeAll()
@@ -1866,6 +1988,8 @@ private struct WorkoutLogExercisePickerSheet: View {
         selectedMechanics.removeAll()
         selectedCategories.removeAll()
         selectedSort = .name
+        refreshDisplayExercises()
+        scheduleFilterPersist()
     }
 
     private func dismissKeyboard() {
@@ -1954,7 +2078,8 @@ private struct WorkoutLogPickerRow: View {
                         imagePaths: item.imagePaths,
                         height: 58,
                         fillsWidth: false,
-                        allowsDerivedImageLookup: false
+                        allowsDerivedImageLookup: false,
+                        animatesFrames: false
                     )
                     .frame(width: 76, height: 58)
                     .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))

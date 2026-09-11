@@ -12,6 +12,8 @@ struct ExerciseLibraryItem: Identifiable, Hashable {
     let primaryMuscles: [String]
     let secondaryMuscles: [String]
     let instructions: [String]
+    /// Precomputed once so library filtering does not rebuild haystacks every keystroke.
+    let searchableText: String
 
     init(
         id: String,
@@ -38,6 +40,17 @@ struct ExerciseLibraryItem: Identifiable, Hashable {
         self.secondaryMuscles = Self.metadataTitles(secondaryMuscles)
         let cleanedInstructions = instructions.compactMap { $0.trimmed.nilIfEmpty }
         self.instructions = cleanedInstructions
+        self.searchableText = Self.buildSearchableText(
+            name: name,
+            rawLevel: self.rawLevel,
+            force: self.force,
+            mechanic: self.mechanic,
+            category: self.category,
+            rawEquipment: self.rawEquipment,
+            primaryMuscles: self.primaryMuscles,
+            secondaryMuscles: self.secondaryMuscles,
+            instructions: cleanedInstructions
+        )
     }
 
     var primaryMusclesTitle: String {
@@ -55,7 +68,17 @@ struct ExerciseLibraryItem: Identifiable, Hashable {
             .nilIfEmpty ?? String(localized: "Database metadata")
     }
 
-    var searchableText: String {
+    nonisolated private static func buildSearchableText(
+        name: String,
+        rawLevel: String,
+        force: String,
+        mechanic: String,
+        category: String,
+        rawEquipment: String,
+        primaryMuscles: [String],
+        secondaryMuscles: [String],
+        instructions: [String]
+    ) -> String {
         [
             name,
             rawLevel,

@@ -774,6 +774,8 @@
     <string name="clear_search">Очистить поиск</string>
     <string name="empty_subtitle">Попробуйте другую мышцу, инвентарь или запрос — либо сбросьте фильтры выше.</string>
     <string name="empty_title">Нет подходящих упражнений</string>
+    <string name="workout_empty_subtitle">Попробуйте другие фильтры — или создайте своё упражнение.</string>
+    <string name="workout_create_exercise">Создать упражнение</string>
     <string name="filter_all">Все</string>
     <string name="filter_all_count">Все %d</string>
     <string name="hide_details">Скрыть детали</string>

@@ -39,7 +39,7 @@ struct WorkoutLoggingSettingsSection: View {
         } header: {
             Text("Workout")
         } footer: {
-            Text("When on, Walking and Running appear in the Home + menu for quick outdoor logs.")
+            Text("Off by default. When enabled, Walking and Running appear in the Workouts + menu for quick outdoor logging.")
         }
         .listRowBackground(AppColors.appCard)
         .onAppear(perform: loadPreferences)

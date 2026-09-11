@@ -14,11 +14,8 @@ import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.OptionalNutrientGoals
 import com.apoorvdarshan.calorietracker.models.PendingFoodAnalysisDraft
 import com.apoorvdarshan.calorietracker.models.UserProfile
-import com.apoorvdarshan.calorietracker.data.ExerciseRepository
-import com.apoorvdarshan.calorietracker.models.OutdoorActivitySettings
 import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WaterUnit
-import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
 import com.apoorvdarshan.calorietracker.services.CalorieBalanceDirection
 import com.apoorvdarshan.calorietracker.services.DailySummaryPolicy
 import com.apoorvdarshan.calorietracker.services.OpenFoodFactsService
@@ -77,7 +74,6 @@ data class HomeUiState(
     val waterTodayMl: Int = 0,
     val waterEntriesToday: List<WaterEntry> = emptyList(),
     val fastingTrackingEnabled: Boolean = false,
-    val walkRunQuickLogEnabled: Boolean = false,
     val fastingDefaultGoalMinutes: Int = 16 * 60,
     val fastingSessions: List<FastingSession> = emptyList(),
     val pendingAnalysis: FoodAnalysis? = null,
@@ -211,10 +207,6 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
             .onEach { enabled -> _ui.value = _ui.value.copy(fastingTrackingEnabled = enabled) }
             .launchIn(viewModelScope)
 
-        container.prefs.walkRunQuickLogEnabled
-            .onEach { enabled -> _ui.value = _ui.value.copy(walkRunQuickLogEnabled = enabled) }
-            .launchIn(viewModelScope)
-
         container.prefs.fastingDefaultGoalMinutes
             .onEach { goal -> _ui.value = _ui.value.copy(fastingDefaultGoalMinutes = goal) }
             .launchIn(viewModelScope)
@@ -323,27 +315,6 @@ viewModelScope.launch {
             container.waterRepository.add(
                 WaterEntry(date = timestampForSelectedDay(), milliliters = milliliters)
             )
-        }
-    }
-
-    fun logQuickOutdoorActivity(kind: OutdoorActivityKind, minutes: Int) {
-        if (minutes <= 0) return
-        val date = _selectedDate.value
-        viewModelScope.launch {
-            val exerciseId = when (kind) {
-                OutdoorActivityKind.WALKING -> OutdoorActivitySettings.WALKING_EXERCISE_ID
-                OutdoorActivityKind.RUNNING -> OutdoorActivitySettings.RUNNING_EXERCISE_ID
-            }
-            val item = ExerciseRepository.get(container.appContext).exercises.firstOrNull { it.id == exerciseId } ?: return@launch
-            container.workoutRepository.logQuickCardio(item, minutes, date)
-            val profile = _ui.value.profile
-            val weightUnit = if (_ui.value.weightMetric) WorkoutWeightUnit.KG else WorkoutWeightUnit.LBS
-            container.workoutRepository.calculateBurn(
-                date = date,
-                bodyWeightKg = profile?.weightKg ?: 70.0,
-                weightUnit = weightUnit
-            )
-            bumpBurnRefresh()
         }
     }
 

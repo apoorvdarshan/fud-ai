@@ -249,7 +249,6 @@ DisposableEffect(lifecycleOwner, vm) {
     val selectionMode = selectedFoodIds.isNotEmpty()
     var showNutritionDetail by remember { mutableStateOf(false) }
     var showCustomWaterLog by remember { mutableStateOf(false) }
-    var outdoorActivitySheet by remember { mutableStateOf<OutdoorActivityKind?>(null) }
     var showFastingStart by remember { mutableStateOf(false) }
     var editingFast by remember { mutableStateOf<FastingSession?>(null) }
     var pendingDiaryDeletion by remember { mutableStateOf<HomeDiaryItem?>(null) }
@@ -774,18 +773,6 @@ CalorieHero(
                                 ) { addMenuDestination = AddMenuDestination.Fasting }
                             }
                         }
-                        if (ui.walkRunQuickLogEnabled) {
-                            SheetGlassDropdownMenuItem(label = stringResource(R.string.outdoor_activity_walking), leadingIcon = Icons.AutoMirrored.Outlined.DirectionsWalk) {
-                                showAddMenu = false
-                                addMenuDestination = null
-                                outdoorActivitySheet = OutdoorActivityKind.WALKING
-                            }
-                            SheetGlassDropdownMenuItem(label = stringResource(R.string.outdoor_activity_running), leadingIcon = Icons.AutoMirrored.Filled.DirectionsRun) {
-                                showAddMenu = false
-                                addMenuDestination = null
-                                outdoorActivitySheet = OutdoorActivityKind.RUNNING
-                            }
-                        }
                     }
 
                     is AddMenuDestination.FoodGroup -> {
@@ -842,14 +829,6 @@ CalorieHero(
             unit = ui.waterUnit,
             onDismiss = { showCustomWaterLog = false },
             onAdd = vm::addWater
-        )
-    }
-
-    outdoorActivitySheet?.let { activity ->
-        OutdoorActivityDurationSheet(
-            activity = activity,
-            onDismiss = { outdoorActivitySheet = null },
-            onLog = { minutes -> vm.logQuickOutdoorActivity(activity, minutes) }
         )
     }
 

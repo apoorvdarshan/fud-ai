@@ -770,12 +770,12 @@ CalorieHero(
                         if (ui.walkRunQuickLogEnabled) {
                             SheetGlassDropdownMenuItem(label = stringResource(R.string.outdoor_activity_walking), leadingIcon = Icons.AutoMirrored.Outlined.DirectionsWalk) {
                                 showAddMenu = false
-                                addMenuGroup = null
+                                addMenuDestination = null
                                 outdoorActivitySheet = OutdoorActivityKind.WALKING
                             }
                             SheetGlassDropdownMenuItem(label = stringResource(R.string.outdoor_activity_running), leadingIcon = Icons.AutoMirrored.Filled.DirectionsRun) {
                                 showAddMenu = false
-                                addMenuGroup = null
+                                addMenuDestination = null
                                 outdoorActivitySheet = OutdoorActivityKind.RUNNING
                             }
                         }

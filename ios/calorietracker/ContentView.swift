@@ -783,7 +783,6 @@ struct HomeView: View {
     @AppStorage(FastingSettings.defaultGoalMinutesKey) private var fastingDefaultGoalMinutes = FastingSettings.defaultGoalMinutes
     @AppStorage(FastingSettings.notificationEnabledKey) private var fastingGoalNotificationEnabled = true
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
-    @AppStorage("healthKitEnabled") private var healthKitEnabled = false
     @Environment(ProfileStore.self) private var profileStore
     @State private var homeBurnLine: String?
     @State private var homeBurnRefreshGeneration = 0

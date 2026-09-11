@@ -412,6 +412,7 @@ struct CoachWorkoutToolsTests {
             weightUnit: .kg,
             reps: "8"
         )
+        _ = store.upsertCalculatedWorkout(on: yesterday, caloriesBurned: 180, weightUnit: .kg)
         store.toggleExercise(bench, on: today)
 
         let tools = CoachTools(

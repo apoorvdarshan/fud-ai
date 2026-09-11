@@ -1007,13 +1007,17 @@ private struct WorkoutLogExerciseCard: View {
             .accessibilityLabel("\(exercise.name), \(exercise.primaryMuscles.joined(separator: ", ")), \(exercise.rawEquipment)")
             .accessibilityHint("Opens exercise instructions")
 
-            if !isCardio, let lastTimeSummary {
+            if !isCardio {
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
-                    Text("Last time: \(lastTimeSummary)")
-                        .font(.system(.caption, design: .rounded, weight: .semibold))
-                        .foregroundStyle(Color.workoutMutedText)
-                        .lineLimit(2)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    if let lastTimeSummary {
+                        Text("Last time: \(lastTimeSummary)")
+                            .font(.system(.caption, design: .rounded, weight: .semibold))
+                            .foregroundStyle(Color.workoutMutedText)
+                            .lineLimit(2)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    } else {
+                        Spacer(minLength: 0)
+                    }
 
                     Button(action: showHistory) {
                         Text("History")

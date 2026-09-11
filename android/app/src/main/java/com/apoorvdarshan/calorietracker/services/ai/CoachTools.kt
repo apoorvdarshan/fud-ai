@@ -367,13 +367,14 @@ class CoachTools(
         val exercise = args.exercise?.trim().orEmpty()
         if (exercise.isEmpty()) return jsonError("exercise is required.")
         val catalogId = args.catalogId?.trim().orEmpty()
-        val toDate = args.to?.let(LocalDate::parse) ?: LocalDate.now(clock)
-        val fromDate = args.from?.let(LocalDate::parse) ?: toDate.minusDays(365)
+        val toDate = parseDate(args.to) ?: LocalDate.now(clock)
+        val fromDate = parseDate(args.from) ?: toDate.minusDays(365)
         val limit = args.boundedLimit(default = 60, maximum = 120)
         val fromKey = fromDate.toString()
         val toKey = toDate.toString()
 
-        val dateKeys = (workoutPlans.map { it.dateKey } + workoutSessions.map { it.diaryDateKey })
+        val dateKeys = workoutSessions
+            .map { it.diaryDateKey }
             .distinct()
             .filter { it in fromKey..toKey }
             .sortedDescending()
@@ -416,14 +417,6 @@ class CoachTools(
     }
 
     private fun coachLiftSets(catalogId: String, name: String, dateKey: String): List<ExerciseLiftSet>? {
-        workoutPlans.firstOrNull { it.dateKey == dateKey }
-            ?.exercises
-            ?.firstOrNull { !it.isCardio && ExerciseLiftHistory.matches(catalogId, name, it.itemId, it.name) }
-            ?.let { exercise ->
-                val sets = ExerciseLiftHistory.performedSets(exercise.sets)
-                if (sets.isNotEmpty()) return sets
-            }
-
         val daySessions = workoutSessions.filter { it.diaryDateKey == dateKey }
         val preferred = daySessions.filter { it.caloriesBurned != null }.maxWithOrNull(
             compareBy<WorkoutSession> { it.healthSyncVersion ?: 0 }.thenBy { it.completedAt }

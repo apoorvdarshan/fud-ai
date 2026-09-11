@@ -31,6 +31,8 @@ final class StrengthWorkoutStore {
 
     private let defaults: UserDefaults
     private let storageKey: String
+    private var liftSummaryCacheKey: (beforeKey: String, displayUnit: WeightUnit)?
+    private var liftSummaryCache: [String: String] = [:]
 
     init(defaults: UserDefaults = .standard, storageKey: String = StrengthWorkoutStore.defaultStorageKey) {
         self.defaults = defaults
@@ -240,9 +242,9 @@ final class StrengthWorkoutStore {
         limit: Int = 90
     ) -> [StrengthExerciseLiftDay] {
         let beforeKey = Self.dateKey(for: date)
-        var dateKeys = Set(dayPlans.keys)
-        dateKeys.formUnion(completedSessions.map(\.stableDiaryDateKey))
-        let priorKeys = dateKeys.filter { $0 < beforeKey }.sorted(by: >)
+        let priorKeys = Set(completedSessions.map(\.stableDiaryDateKey))
+            .filter { $0 < beforeKey }
+            .sorted(by: >)
 
         var results: [StrengthExerciseLiftDay] = []
         for key in priorKeys {
@@ -260,10 +262,22 @@ final class StrengthWorkoutStore {
         before date: Date,
         displayUnit: WeightUnit
     ) -> String? {
+        let beforeKey = Self.dateKey(for: date)
+        let token = (beforeKey, displayUnit)
+        if liftSummaryCacheKey != token {
+            liftSummaryCache = [:]
+            liftSummaryCacheKey = token
+        }
+        let cacheKey = "\(itemID)\u{0}\(StrengthExerciseLiftHistory.normalizedName(name))"
+        if let cached = liftSummaryCache[cacheKey] {
+            return cached.isEmpty ? nil : cached
+        }
         guard let latest = exerciseLiftHistory(itemID: itemID, name: name, before: date, limit: 1).first else {
+            liftSummaryCache[cacheKey] = ""
             return nil
         }
         let summary = StrengthExerciseLiftHistory.formatSummary(latest.sets, displayUnit: displayUnit)
+        liftSummaryCache[cacheKey] = summary
         return summary.isEmpty ? nil : summary
     }
 
@@ -511,32 +525,17 @@ final class StrengthWorkoutStore {
     }
 
     private func liftSets(for itemID: String, name: String, on dateKey: String) -> [StrengthExerciseLiftSet] {
-        if let plan = dayPlans[dateKey],
-           let exercise = plan.exercises.first(where: {
-               ! $0.isCardio && StrengthExerciseLiftHistory.matches(
-                   itemID: itemID,
-                   name: name,
-                   candidateItemID: $0.itemID,
-                   candidateName: $0.name
-               )
-           }) {
-            let sets = StrengthExerciseLiftHistory.performedSets(from: exercise.sets)
-            if !sets.isEmpty { return sets }
-        }
-
-        if let session = preferredHistorySession(on: dateKey),
-           let exercise = session.exercises.first(where: {
-               StrengthExerciseLiftHistory.matches(
-                   itemID: itemID,
-                   name: name,
-                   candidateItemID: $0.itemID,
-                   candidateName: $0.name
-               )
-           }) {
-            return StrengthExerciseLiftHistory.performedSets(from: exercise.sets)
-        }
-
-        return []
+        guard let session = preferredHistorySession(on: dateKey),
+              let exercise = session.exercises.first(where: {
+                  StrengthExerciseLiftHistory.matches(
+                      itemID: itemID,
+                      name: name,
+                      candidateItemID: $0.itemID,
+                      candidateName: $0.name
+                  )
+              })
+        else { return [] }
+        return StrengthExerciseLiftHistory.performedSets(from: exercise.sets)
     }
 
     private func preferredHistorySession(on dateKey: String) -> StrengthWorkoutSession? {
@@ -594,6 +593,8 @@ final class StrengthWorkoutStore {
     }
 
     private func save() {
+        liftSummaryCache = [:]
+        liftSummaryCacheKey = nil
         let state = PersistedState(
             dayPlans: dayPlans,
             completedSessions: completedSessions,

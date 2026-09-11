@@ -80,6 +80,7 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
     private var workoutRepository: WorkoutRepository? = null
     private var repositoryJob: Job? = null
     private var latestPersistedState = WorkoutPersistedState()
+    private var exerciseLiftSummaries: Map<String, String?> = emptyMap()
     private var bodyWeightKg = 70.0
     private var workoutWeightUnit = WorkoutWeightUnit.LBS
     private var profileGender = Gender.MALE
@@ -347,13 +348,7 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun lastExerciseLiftSummary(itemId: String, name: String): String? =
-        ExerciseLiftHistory.lastSummary(
-            latestPersistedState,
-            itemId,
-            name,
-            WorkoutDate.key(diaryUiState.selectedDate),
-            workoutWeightUnit
-        )
+        exerciseLiftSummaries[liftSummaryKey(itemId, name)]
 
     fun exerciseLiftHistory(itemId: String, name: String): List<ExerciseLiftDay> =
         ExerciseLiftHistory.history(
@@ -422,6 +417,26 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
             weightUnit = workoutWeightUnit,
             visualGender = profileGender
         )
+        rebuildExerciseLiftSummaries()
+    }
+
+    private fun liftSummaryKey(itemId: String, name: String): String =
+        "$itemId\u0000${ExerciseLiftHistory.normalizedName(name)}"
+
+    private fun rebuildExerciseLiftSummaries() {
+        val beforeKey = WorkoutDate.key(diaryUiState.selectedDate)
+        exerciseLiftSummaries = diaryUiState.exercises
+            .asSequence()
+            .filterNot { it.isCardio }
+            .associate { exercise ->
+                liftSummaryKey(exercise.itemId, exercise.name) to ExerciseLiftHistory.lastSummary(
+                    latestPersistedState,
+                    exercise.itemId,
+                    exercise.name,
+                    beforeKey,
+                    workoutWeightUnit
+                )
+            }
     }
 
     val hasActiveFilters: Boolean

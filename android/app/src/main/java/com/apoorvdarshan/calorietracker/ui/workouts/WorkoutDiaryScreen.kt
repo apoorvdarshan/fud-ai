@@ -959,21 +959,25 @@ private fun WorkoutExerciseCard(
                 )
             }
 
-            if (!exercise.isCardio && !lastTimeSummary.isNullOrBlank()) {
+            if (!exercise.isCardio) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Text(
-                        "Last time: $lastTimeSummary",
-                        modifier = Modifier.weight(1f),
-                        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
-                    )
+                    if (!lastTimeSummary.isNullOrBlank()) {
+                        Text(
+                            "Last time: $lastTimeSummary",
+                            modifier = Modifier.weight(1f),
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    } else {
+                        Spacer(modifier = Modifier.weight(1f))
+                    }
                     Text(
                         "History",
                         modifier = Modifier.clickable(onClick = onShowHistory),

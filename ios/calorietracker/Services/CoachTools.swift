@@ -488,9 +488,9 @@ struct CoachTools {
         let fromKey = Self.iso(Calendar.current.startOfDay(for: from))
         let toKey = Self.iso(Calendar.current.startOfDay(for: to))
 
-        var dateKeys = Set(workoutPlans.map(\.dateKey))
-        dateKeys.formUnion(effectiveWorkoutSessions.map(\.stableDiaryDateKey))
-        let inRange = dateKeys.filter { $0 >= fromKey && $0 <= toKey }.sorted(by: >)
+        let inRange = Set(effectiveWorkoutSessions.map(\.stableDiaryDateKey))
+            .filter { $0 >= fromKey && $0 <= toKey }
+            .sorted(by: >)
 
         var sessions: [[String: Any]] = []
         var bestLoadKg: Double?
@@ -527,19 +527,6 @@ struct CoachTools {
     }
 
     private func coachLiftSets(itemID: String, name: String, on dateKey: String) -> [StrengthExerciseLiftSet]? {
-        if let plan = workoutPlans.first(where: { $0.dateKey == dateKey }),
-           let exercise = plan.exercises.first(where: {
-               !$0.isCardio && StrengthExerciseLiftHistory.matches(
-                   itemID: itemID,
-                   name: name,
-                   candidateItemID: $0.itemID,
-                   candidateName: $0.name
-               )
-           }) {
-            let sets = StrengthExerciseLiftHistory.performedSets(from: exercise.sets)
-            if !sets.isEmpty { return sets }
-        }
-
         let daySessions = workoutSessions.filter { $0.stableDiaryDateKey == dateKey }
         let preferred = daySessions.first(where: { $0.caloriesBurned != nil })
             ?? daySessions.max(by: { $0.completedAt < $1.completedAt })

@@ -733,18 +733,6 @@ enum StrengthExerciseLiftHistory {
         return !left.isEmpty && left == right
     }
 
-    static func performedSets(from planned: [StrengthPlannedSet]) -> [StrengthExerciseLiftSet] {
-        planned.compactMap { set in
-            let reps = set.reps.trimmingCharacters(in: .whitespacesAndNewlines)
-            guard !reps.isEmpty else { return nil }
-            return StrengthExerciseLiftSet(
-                weight: set.weight.trimmingCharacters(in: .whitespacesAndNewlines),
-                weightUnit: set.weightUnit ?? "",
-                reps: reps
-            )
-        }
-    }
-
     static func performedSets(from completed: [StrengthCompletedSet]) -> [StrengthExerciseLiftSet] {
         completed.filter(\.isPerformed).map {
             StrengthExerciseLiftSet(weight: $0.weight, weightUnit: $0.weightUnit, reps: $0.reps)

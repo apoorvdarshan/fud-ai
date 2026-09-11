@@ -679,17 +679,6 @@ object ExerciseLiftHistory {
         return left.isNotEmpty() && left == right
     }
 
-    fun performedSets(planned: List<PlannedSet>): List<ExerciseLiftSet> =
-        planned.mapNotNull { set ->
-            val reps = set.reps.trim()
-            if (reps.isEmpty()) return@mapNotNull null
-            ExerciseLiftSet(
-                weight = set.weight.trim(),
-                weightUnit = set.weightUnit,
-                reps = reps
-            )
-        }
-
     fun performedSets(completed: List<CompletedSet>): List<ExerciseLiftSet> =
         completed.filter { it.isPerformed }.map {
             ExerciseLiftSet(
@@ -719,7 +708,9 @@ object ExerciseLiftHistory {
         limit: Int = 90
     ): List<ExerciseLiftDay> {
         val before = WorkoutDate.requireKey(beforeDateKey)
-        val dateKeys = (state.dayPlans.keys + state.completedSessions.map { it.diaryDateKey })
+        val dateKeys = state.completedSessions
+            .map { it.diaryDateKey }
+            .distinct()
             .filter { it < before }
             .sortedDescending()
         val results = mutableListOf<ExerciseLiftDay>()
@@ -748,19 +739,11 @@ object ExerciseLiftHistory {
         name: String,
         dateKey: String
     ): List<ExerciseLiftSet> {
-        state.dayPlans[dateKey]?.exercises
-            ?.firstOrNull { !it.isCardio && matches(itemId, name, it.itemId, it.name) }
-            ?.let { exercise ->
-                val sets = performedSets(exercise.sets)
-                if (sets.isNotEmpty()) return sets
-            }
-
-        preferredHistorySession(state, dateKey)
+        return preferredHistorySession(state, dateKey)
             ?.exercises
             ?.firstOrNull { matches(itemId, name, it.itemId, it.name) }
-            ?.let { return performedSets(it.sets) }
-
-        return emptyList()
+            ?.let { performedSets(it.sets) }
+            .orEmpty()
     }
 
     private fun preferredHistorySession(state: WorkoutPersistedState, dateKey: String): WorkoutSession? {

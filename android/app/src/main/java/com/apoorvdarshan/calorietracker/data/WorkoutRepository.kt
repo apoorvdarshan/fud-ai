@@ -121,6 +121,55 @@ class WorkoutRepository(
         }
     }
 
+    suspend fun saveUserExercise(
+        draft: com.apoorvdarshan.calorietracker.models.UserExerciseDraft,
+        imageStore: com.apoorvdarshan.calorietracker.services.FoodImageStore,
+        existingItemId: String? = null
+    ): ExerciseItem? {
+        val trimmedName = draft.trimmedName
+        if (trimmedName.isEmpty()) return null
+
+        val itemId = existingItemId ?: com.apoorvdarshan.calorietracker.models.UserExercise.newId()
+        var imagePaths = snapshot().userExercises.firstOrNull { it.itemId == itemId }?.imagePaths.orEmpty()
+
+        if (draft.removePhoto) {
+            imagePaths.forEach { imageStore.delete(it) }
+            imagePaths = emptyList()
+        }
+
+        draft.photoBytes?.let { bytes ->
+            val filename = com.apoorvdarshan.calorietracker.models.UserExercise.photoFilename(itemId)
+            if (imageStore.restoreBytes(filename, bytes)) {
+                imagePaths.forEach { imageStore.delete(it) }
+                imagePaths = listOf(filename)
+            }
+        }
+
+        val item = draft.toExerciseItem(itemId, imagePaths)
+        val template = PlannedExercise.from(item).copy(sets = emptyList(), timer = null)
+
+        updateState { current ->
+            val existing = current.userExercises.filterNot { it.itemId == itemId }
+            current.copy(userExercises = existing + template)
+        }
+        return item
+    }
+
+    suspend fun deleteUserExercise(
+        itemId: String,
+        imageStore: com.apoorvdarshan.calorietracker.services.FoodImageStore
+    ) {
+        if (!com.apoorvdarshan.calorietracker.models.UserExercise.isUserExercise(itemId)) return
+        updateState { current ->
+            current.userExercises.firstOrNull { it.itemId == itemId }?.imagePaths
+                ?.forEach { imageStore.delete(it) }
+            current.copy(
+                userExercises = current.userExercises.filterNot { it.itemId == itemId },
+                savedExerciseIds = current.savedExerciseIds - itemId
+            )
+        }
+    }
+
     suspend fun removeExercise(exerciseId: UUID, date: LocalDate) =
         removeExercise(exerciseId, WorkoutDate.key(date))
 

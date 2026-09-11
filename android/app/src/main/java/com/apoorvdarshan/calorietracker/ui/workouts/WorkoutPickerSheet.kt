@@ -153,6 +153,8 @@ internal fun WorkoutPickerSheet(
     onFilterStateChange: (WorkoutPickerFilterState) -> Unit,
     onToggleExercise: (ExerciseItem) -> Unit,
     onToggleSaved: (String) -> Unit,
+    onCreateExercise: (() -> Unit)? = null,
+    onEditUserExercise: ((String) -> Unit)? = null,
     onDismiss: () -> Unit
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
@@ -263,6 +265,14 @@ internal fun WorkoutPickerSheet(
                 visual = repository.visualFor(preview, visualGender),
                 isSelected = preview.id in selectedExerciseIds,
                 onToggle = { onToggleExercise(preview) },
+                onEdit = if (com.apoorvdarshan.calorietracker.models.UserExercise.isUserExercise(preview.id)) {
+                    {
+                        previewItem = null
+                        onEditUserExercise?.invoke(preview.id)
+                    }
+                } else {
+                    null
+                },
                 onBack = { previewItem = null }
             )
         } else {
@@ -274,7 +284,13 @@ internal fun WorkoutPickerSheet(
                     .focusRequester(sheetFocusRequester)
                     .focusable()
             ) {
-            PickerHeader(title = request.title, count = items.size, onDismiss = onDismiss)
+            PickerHeader(
+                title = request.title,
+                count = items.size,
+                showCreate = source == WorkoutPickerSource.DATASET,
+                onCreate = onCreateExercise,
+                onDismiss = onDismiss
+            )
 
             Column(
                 modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 14.dp, bottom = 14.dp),
@@ -396,7 +412,7 @@ internal fun WorkoutPickerSheet(
                 ) {
                     if (items.isEmpty()) {
                         item(key = "empty-picker") {
-                            PickerEmptyState(source = source)
+                            PickerEmptyState(source = source, onCreateExercise = onCreateExercise)
                         }
                     } else {
                         items(items.take(120), key = { it.id }) { item ->
@@ -476,6 +492,7 @@ private fun ExercisePickerPreview(
     visual: ExerciseVisual,
     isSelected: Boolean,
     onToggle: () -> Unit,
+    onEdit: (() -> Unit)? = null,
     onBack: () -> Unit
 ) {
     val colors = workoutsColors()
@@ -489,6 +506,7 @@ private fun ExercisePickerPreview(
             item = item,
             visual = visual,
             onBack = onBack,
+            onEdit = onEdit,
             modifier = Modifier.fillMaxSize()
         )
 
@@ -529,11 +547,22 @@ private fun ExercisePickerPreview(
 }
 
 @Composable
-private fun PickerHeader(title: String, count: Int, onDismiss: () -> Unit) {
+private fun PickerHeader(
+    title: String,
+    count: Int,
+    showCreate: Boolean = false,
+    onCreate: (() -> Unit)? = null,
+    onDismiss: () -> Unit
+) {
     Row(
         modifier = Modifier.fillMaxWidth().padding(start = 20.dp, top = 16.dp, end = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        if (showCreate && onCreate != null) {
+            IconButton(onClick = onCreate) {
+                Icon(Icons.Filled.AddCircle, contentDescription = "Create exercise", tint = workoutsColors().accent)
+            }
+        }
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(
                 title,
@@ -680,7 +709,7 @@ private fun BoxScope.PickerSwipeBackground(offsetPx: Float, isSaved: Boolean) {
 }
 
 @Composable
-private fun PickerEmptyState(source: WorkoutPickerSource) {
+private fun PickerEmptyState(source: WorkoutPickerSource, onCreateExercise: (() -> Unit)? = null) {
     Column(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp, vertical = 54.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -702,11 +731,14 @@ private fun PickerEmptyState(source: WorkoutPickerSource) {
             if (source == WorkoutPickerSource.SAVED) {
                 "Bookmark exercises from the dataset to keep them here."
             } else {
-                "Try clearing one or more filters."
+                "Try clearing filters — or create your own exercise."
             },
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.52f),
             fontSize = 13.sp
         )
+        if (source == WorkoutPickerSource.DATASET && onCreateExercise != null) {
+            FudGlassTextButton(text = "Create exercise", onClick = onCreateExercise)
+        }
     }
 }
 

@@ -11,6 +11,8 @@ final class StrengthWorkoutStore {
         var preferences = StrengthWorkoutPreferences()
         // Optional so diaries saved before text/voice logging still decode.
         var customActivities: [StrengthPlannedExercise]?
+        /// User-created strength exercises (device-local templates).
+        var userExercises: [StrengthPlannedExercise]?
     }
 
     static let defaultStorageKey = "fudai.workouts.diary.state.v1"
@@ -20,11 +22,15 @@ final class StrengthWorkoutStore {
     private(set) var savedExerciseIDs: Set<String> = []
     private(set) var preferences = StrengthWorkoutPreferences()
     private(set) var customActivities: [StrengthPlannedExercise] = []
+    private(set) var userExercises: [StrengthPlannedExercise] = []
 
     var exerciseLibrary: ExerciseLibraryService {
         let base = ExerciseLibraryService.shared.exercises
         let known = Set(base.map(\.id))
-        return ExerciseLibraryService(exercises: base + customActivities.filter { !known.contains($0.itemID) }.map(\.libraryItem))
+        let mergedCustom = (customActivities + userExercises)
+            .filter { !known.contains($0.itemID) }
+            .map(\.libraryItem)
+        return ExerciseLibraryService(exercises: base + mergedCustom)
     }
     var onWorkoutBurnUpserted: ((StrengthWorkoutSession) -> Void)?
     var onWorkoutBurnDeleted: ((UUID) -> Void)?
@@ -103,6 +109,52 @@ final class StrengthWorkoutStore {
                 plan.exercises.append(StrengthPlannedExercise(item: item))
             }
         }
+    }
+
+    @discardableResult
+    func saveUserExercise(_ draft: UserExerciseDraft, existingItemID: String? = nil) -> ExerciseLibraryItem? {
+        let trimmedName = draft.trimmedName
+        guard !trimmedName.isEmpty else { return nil }
+
+        let itemID = existingItemID ?? UserExercise.newID()
+        var imagePaths = userExercises.first(where: { $0.itemID == itemID })?.imagePaths ?? []
+
+        if draft.removePhoto {
+            imagePaths.forEach { FoodImageStore.shared.delete(filename: $0) }
+            imagePaths = []
+        }
+
+        if let photoData = draft.photoData,
+           FoodImageStore.shared.storeExercisePhoto(data: photoData, exerciseID: itemID) != nil {
+            imagePaths.forEach { FoodImageStore.shared.delete(filename: $0) }
+            imagePaths = [UserExercise.photoFilename(forExerciseID: itemID)]
+        }
+
+        let item = draft.libraryItem(id: itemID, imagePaths: imagePaths)
+        var template = StrengthPlannedExercise(item: item)
+        template.sets = []
+        template.timer = nil
+
+        if let index = userExercises.firstIndex(where: { $0.itemID == itemID }) {
+            userExercises[index] = template
+        } else {
+            userExercises.append(template)
+        }
+        save()
+        return item
+    }
+
+    func deleteUserExercise(itemID: String) {
+        guard UserExercise.isUserExercise(itemID) else { return }
+        userExercises.first(where: { $0.itemID == itemID })?.imagePaths
+            .forEach { FoodImageStore.shared.delete(filename: $0) }
+        userExercises.removeAll { $0.itemID == itemID }
+        savedExerciseIDs.remove(itemID)
+        save()
+    }
+
+    func userExerciseTemplate(for itemID: String) -> StrengthPlannedExercise? {
+        userExercises.first { $0.itemID == itemID }
     }
 
     func removeExercise(_ exerciseID: UUID, on date: Date) {
@@ -389,6 +441,7 @@ final class StrengthWorkoutStore {
         completedSessions = []
         savedExerciseIDs = []
         customActivities = []
+        userExercises = []
         preferences = StrengthWorkoutPreferences()
         load()
     }
@@ -398,6 +451,10 @@ final class StrengthWorkoutStore {
         completedSessions = []
         savedExerciseIDs = []
         customActivities = []
+        userExercises.forEach { exercise in
+            exercise.imagePaths.forEach { FoodImageStore.shared.delete(filename: $0) }
+        }
+        userExercises = []
         preferences = StrengthWorkoutPreferences()
         defaults.removeObject(forKey: storageKey)
     }
@@ -489,6 +546,7 @@ final class StrengthWorkoutStore {
         completedSessions = state.completedSessions
         savedExerciseIDs = state.savedExerciseIDs
         customActivities = state.customActivities ?? []
+        userExercises = state.userExercises ?? []
         preferences = state.preferences
         preferences.sanitize()
     }
@@ -499,7 +557,8 @@ final class StrengthWorkoutStore {
             completedSessions: completedSessions,
             savedExerciseIDs: savedExerciseIDs,
             preferences: preferences,
-            customActivities: customActivities
+            customActivities: customActivities,
+            userExercises: userExercises
         )
         guard let data = try? JSONEncoder().encode(state) else { return }
         defaults.set(data, forKey: storageKey)

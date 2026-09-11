@@ -260,6 +260,11 @@ struct FreeExerciseDBAssetResolver {
     }()
 
     private static func imageURL(for relativePath: String) -> URL? {
+        if UserExercise.isUserPhotoFilename(relativePath),
+           let localURL = FoodImageStore.shared.fileURL(for: relativePath) {
+            return localURL
+        }
+
         let cleanPath = relativePath.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         let path = cleanPath as NSString
         let filename = path.deletingPathExtension

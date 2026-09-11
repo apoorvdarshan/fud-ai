@@ -35,6 +35,8 @@ import coil.request.ImageRequest
 import com.apoorvdarshan.calorietracker.data.ExerciseRepository
 import com.apoorvdarshan.calorietracker.data.ExerciseVisual
 import com.apoorvdarshan.calorietracker.data.ExerciseVisualFormat
+import com.apoorvdarshan.calorietracker.models.UserExercise
+import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import kotlinx.coroutines.delay
 
 /**
@@ -117,15 +119,20 @@ fun AnimatedExerciseImage(
     Box(modifier.background(colors.background)) {
         imagePaths.forEachIndexed { i, path ->
             key(path, visual.format) {
-                val assetUri = ExerciseRepository.imageAssetUri(path)
                 val model = remember(path, visual.format) {
+                    val localFile = if (UserExercise.isUserPhotoFilename(path)) {
+                        FoodImageStore(context).file(path).takeIf { it.isFile }
+                    } else {
+                        null
+                    }
+                    val dataSource = localFile ?: ExerciseRepository.imageAssetUri(path)
                     if (visual.format == ExerciseVisualFormat.SVG) {
                         ImageRequest.Builder(context)
-                            .data(assetUri)
+                            .data(dataSource)
                             .decoderFactory(SvgDecoder.Factory())
                             .build()
                     } else {
-                        assetUri
+                        dataSource
                     }
                 }
                 AsyncImage(

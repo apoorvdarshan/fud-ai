@@ -58,8 +58,10 @@ private struct ExerciseLibraryBrowserView: View {
     @State private var selectedMechanics: Set<String> = []
     @State private var selectedCategories: Set<String> = []
     @State private var selectedSort: ExerciseLibrarySort = .name
+    @State private var isCreateExercisePresented = false
+    @State private var editingExerciseRequest: EditingExerciseRequest?
 
-    private let service = ExerciseLibraryService.shared
+    private var service: ExerciseLibraryService { workoutStore.exerciseLibrary }
 
     private var selectedWorkoutSplit: StrengthWorkoutSplit {
         workoutStore.preferences.split
@@ -202,23 +204,41 @@ private struct ExerciseLibraryBrowserView: View {
         .onChange(of: selectedSplitGroupTitles) {
             normalizePrimaryFilterSelection()
         }
+        .sheet(isPresented: $isCreateExercisePresented) {
+            UserExerciseEditorView()
+        }
+        .sheet(item: $editingExerciseRequest) { request in
+            UserExerciseEditorView(existingItemID: request.id)
+        }
     }
 
     private var scrollingList: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 0) {
                 if items.isEmpty {
-                    ContentUnavailableView {
-                        Label("No exercises match", systemImage: "line.3.horizontal.decrease")
-                    } description: {
-                        Text("Try a different muscle, equipment, or search — or reset the filters above.")
+                    VStack(spacing: 16) {
+                        ContentUnavailableView {
+                            Label("No exercises match", systemImage: "line.3.horizontal.decrease")
+                        } description: {
+                            Text("Try a different muscle, equipment, or search — or create your own exercise.")
+                        }
+                        Button {
+                            isCreateExercisePresented = true
+                        } label: {
+                            Label("Create exercise", systemImage: "plus.circle.fill")
+                                .font(.headline.weight(.semibold))
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(Color.workoutAccent)
                     }
                     .frame(maxWidth: .infinity, minHeight: 260)
                     .padding(.horizontal, 20)
                 } else {
                     ForEach(items) { item in
                         NavigationLink {
-                            ExerciseLibraryDetailView(item: item)
+                            ExerciseLibraryDetailView(item: item, onEdit: UserExercise.isUserExercise(item.id) ? {
+                                editingExerciseRequest = EditingExerciseRequest(id: item.id)
+                            } : nil)
                         } label: {
                             ExerciseLibraryRow(item: item)
                         }
@@ -787,8 +807,13 @@ private struct LibraryTag: View {
     }
 }
 
+private struct EditingExerciseRequest: Identifiable {
+    let id: String
+}
+
 struct ExerciseLibraryDetailView: View {
     let item: ExerciseLibraryItem
+    var onEdit: (() -> Void)?
     @State private var isMetricsPresented = false
 
     var body: some View {
@@ -826,6 +851,15 @@ struct ExerciseLibraryDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.visible, for: .navigationBar)
         .toolbarBackground(Color.workoutBackground, for: .navigationBar)
+        .toolbar {
+            if let onEdit {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Edit", action: onEdit)
+                        .font(.headline.weight(.semibold))
+                        .foregroundStyle(Color.workoutAccent)
+                }
+            }
+        }
     }
 
     private func detailHero(width: CGFloat) -> some View {

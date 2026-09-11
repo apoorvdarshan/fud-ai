@@ -45,6 +45,7 @@ import androidx.compose.material.icons.filled.SwapHoriz
 import androidx.compose.material.icons.filled.SwapVert
 import androidx.compose.material.icons.filled.Tag
 import androidx.compose.material.icons.filled.SportsGymnastics
+import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
@@ -98,7 +99,11 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val baseRepository = remember { ExerciseRepository.get(context) }
     val workoutState by container.workoutRepository.state.collectAsState(initial = com.apoorvdarshan.calorietracker.models.WorkoutPersistedState())
-    val repo = remember(baseRepository, workoutState.customActivities) { baseRepository.includingActivities(workoutState.customActivities) }
+    val repo = remember(baseRepository, workoutState.customActivities, workoutState.userExercises) {
+        baseRepository.includingActivities(workoutState.customActivities + workoutState.userExercises)
+    }
+    var showCreateUserExercise by remember { mutableStateOf(false) }
+    var editingUserExerciseId by remember { mutableStateOf<String?>(null) }
     val vm: WorkoutsViewModel = viewModel()
     val profile by container.profileRepository.profile.collectAsState(initial = null)
     val latestWeight by container.weightRepository.latest.collectAsState(initial = null)
@@ -118,12 +123,32 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
 
     val openItem = vm.openExerciseSnapshot
         ?: vm.openExerciseId?.let { id -> repo.exercises.firstOrNull { it.id == id } }
+    UserExerciseEditorSheet(
+        visible = showCreateUserExercise || editingUserExerciseId != null,
+        existingItemId = editingUserExerciseId,
+        catalog = baseRepository,
+        workoutRepository = container.workoutRepository,
+        imageStore = container.imageStore,
+        existingTemplate = editingUserExerciseId?.let { id ->
+            workoutState.userExercises.firstOrNull { it.itemId == id }
+        },
+        onDismiss = {
+            showCreateUserExercise = false
+            editingUserExerciseId = null
+        }
+    )
+
     if (openItem != null) {
         BackHandler(onBack = vm::closeExerciseDetail)
         ExerciseDetailScreen(
             item = openItem,
             visual = repo.visualFor(openItem, vm.diaryUiState.visualGender),
             onBack = vm::closeExerciseDetail,
+            onEdit = if (com.apoorvdarshan.calorietracker.models.UserExercise.isUserExercise(openItem.id)) {
+                { editingUserExerciseId = openItem.id }
+            } else {
+                null
+            },
             modifier = modifier
         )
         return
@@ -144,6 +169,8 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
             viewModel = vm,
             weekStartsOnMonday = weekStartsOnMonday,
             onShowLibrary = toggleMode,
+            onCreateExercise = { showCreateUserExercise = true },
+            onEditUserExercise = { editingUserExerciseId = it },
             modifier = modifier
         )
     } else {
@@ -151,6 +178,7 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
             repo = repo,
             vm = vm,
             onShowLog = toggleMode,
+            onCreateExercise = { showCreateUserExercise = true },
             modifier = modifier
         )
     }
@@ -212,6 +240,7 @@ private fun WorkoutLibraryScreen(
     repo: ExerciseRepository,
     vm: WorkoutsViewModel,
     onShowLog: () -> Unit,
+    onCreateExercise: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -284,7 +313,7 @@ private fun WorkoutLibraryScreen(
             contentPadding = PaddingValues(bottom = BottomNavScrollPadding)
         ) {
             if (items.isEmpty()) {
-                item(key = "empty") { EmptyState() }
+                item(key = "empty") { EmptyState(onCreateExercise = onCreateExercise) }
             } else {
                 items(items, key = { it.id }) { item ->
                     ExerciseRow(
@@ -641,7 +670,7 @@ private fun Tag(title: String, icon: ImageVector) {
 }
 
 @Composable
-private fun EmptyState() {
+private fun EmptyState(onCreateExercise: (() -> Unit)? = null) {
     val colors = workoutsColors()
     Column(
         Modifier.fillMaxWidth().heightIn(min = 240.dp).padding(horizontal = 32.dp, vertical = 48.dp),
@@ -651,10 +680,15 @@ private fun EmptyState() {
         Icon(Icons.Filled.FilterListOff, null, tint = colors.mutedText, modifier = Modifier.size(40.dp))
         Text(stringResource(R.string.empty_title), color = colors.charcoal, fontSize = 17.sp, fontWeight = FontWeight.Bold)
         Text(
-            stringResource(R.string.empty_subtitle),
+            "Try different filters — or create your own exercise.",
             color = colors.mutedText, fontSize = 14.sp,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
         )
+        onCreateExercise?.let { create ->
+            Button(onClick = create, modifier = Modifier.padding(top = 8.dp)) {
+                Text("Create exercise")
+            }
+        }
     }
 }

@@ -72,6 +72,7 @@ struct WorkoutLogView: View {
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
 
     @State private var pickerRequest: WorkoutLogPickerRequest?
+    @State private var isCreateExercisePresented = false
     @State private var isCopySheetPresented = false
     @State private var isTextSheetPresented = false
     @State private var workoutInputUsesVoice = false
@@ -421,6 +422,9 @@ struct WorkoutLogView: View {
                 .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
             }
+            .sheet(isPresented: $isCreateExercisePresented) {
+                UserExerciseEditorView()
+            }
             .sheet(isPresented: $isCopySheetPresented) {
                 WorkoutLogCopySheet(
                     days: copyableDays,
@@ -449,6 +453,12 @@ struct WorkoutLogView: View {
                     pickerRequest = WorkoutLogPickerRequest(context: .saved, initialSource: .saved)
                 } label: {
                     WorkoutLogPickerContextMenuLabel(context: .saved)
+                }
+
+                Button {
+                    isCreateExercisePresented = true
+                } label: {
+                    Label("Create exercise", systemImage: "plus.circle")
                 }
 
                 Button {
@@ -1349,6 +1359,10 @@ private enum WorkoutLogPickerFilterStateStore {
     }
 }
 
+private struct WorkoutPickerEditingExerciseRequest: Identifiable {
+    let id: String
+}
+
 private struct WorkoutLogExercisePickerSheet: View {
     @Environment(StrengthWorkoutStore.self) private var workoutStore
     let request: WorkoutLogPickerRequest
@@ -1366,6 +1380,8 @@ private struct WorkoutLogExercisePickerSheet: View {
     @State private var selectedCategories: Set<String> = []
     @State private var selectedSort: ExerciseLibrarySort = .name
     @State private var previewItem: ExerciseLibraryItem?
+    @State private var isCreateExercisePresented = false
+    @State private var editingExerciseRequest: WorkoutPickerEditingExerciseRequest?
 
     private var library: ExerciseLibraryService { workoutStore.exerciseLibrary }
 
@@ -1487,9 +1503,21 @@ private struct WorkoutLogExercisePickerSheet: View {
 
                 Section {
                     if filteredExercises.isEmpty {
-                        Text(!showsSourcePicker || source == .saved ? "No saved workouts yet." : "No dataset workouts found.")
-                            .foregroundStyle(Color.workoutMutedText)
-                            .listRowBackground(Color.workoutPanel.opacity(0.22))
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text(!showsSourcePicker || source == .saved ? "No saved workouts yet." : "No matching exercises.")
+                                .foregroundStyle(Color.workoutMutedText)
+                            if source == .dataset {
+                                Button {
+                                    isCreateExercisePresented = true
+                                } label: {
+                                    Label("Create exercise", systemImage: "plus.circle.fill")
+                                        .font(.subheadline.weight(.semibold))
+                                }
+                                .buttonStyle(.borderless)
+                                .foregroundStyle(Color.workoutAccent)
+                            }
+                        }
+                        .listRowBackground(Color.workoutPanel.opacity(0.22))
                     } else {
                         ForEach(filteredExercises.prefix(120)) { item in
                             WorkoutLogPickerRow(
@@ -1534,7 +1562,12 @@ private struct WorkoutLogExercisePickerSheet: View {
             .navigationTitle("Add \(request.context.title)")
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(item: $previewItem) { item in
-                ExerciseLibraryDetailView(item: item)
+                ExerciseLibraryDetailView(
+                    item: item,
+                    onEdit: UserExercise.isUserExercise(item.id) ? {
+                        editingExerciseRequest = WorkoutPickerEditingExerciseRequest(id: item.id)
+                    } : nil
+                )
                     .safeAreaInset(edge: .bottom, spacing: 0) {
                         WorkoutLogPreviewActionBar(
                             isSelected: workoutStore.containsExercise(item.id, on: selectedDate),
@@ -1545,11 +1578,29 @@ private struct WorkoutLogExercisePickerSheet: View {
                     }
             }
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    if source == .dataset {
+                        Button {
+                            isCreateExercisePresented = true
+                        } label: {
+                            Image(systemName: "plus")
+                        }
+                        .accessibilityLabel("Create exercise")
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Done", action: onDone)
                         .font(.headline.weight(.heavy))
                         .foregroundStyle(Color.workoutAccent)
                 }
+            }
+            .sheet(isPresented: $isCreateExercisePresented) {
+                UserExerciseEditorView { item in
+                    workoutStore.toggleExercise(item, on: selectedDate)
+                }
+            }
+            .sheet(item: $editingExerciseRequest) { request in
+                UserExerciseEditorView(existingItemID: request.id)
             }
             .keepsWorkoutLogToolbarDuringSearch()
         }

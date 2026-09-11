@@ -74,6 +74,19 @@ struct FoodImageStore {
         return try? Data(contentsOf: url)
     }
 
+    /// On-disk URL for a stored filename, when the file exists.
+    func fileURL(for filename: String) -> URL? {
+        guard let folderURL else { return nil }
+        let url = folderURL.appendingPathComponent(filename)
+        return FileManager.default.fileExists(atPath: url.path) ? url : nil
+    }
+
+    /// Stores a user exercise photo under a stable exercise-derived filename.
+    @discardableResult
+    func storeExercisePhoto(data: Data, exerciseID: String) -> String? {
+        store(data: data, filename: UserExercise.photoFilename(forExerciseID: exerciseID))
+    }
+
     /// Best-effort delete. Silent no-op if the file is already gone.
     func delete(filename: String) {
         guard let folderURL else { return }

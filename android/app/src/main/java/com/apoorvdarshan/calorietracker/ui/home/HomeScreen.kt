@@ -727,6 +727,13 @@ CalorieHero(
                 when (val destination = addMenuDestination) {
                     null -> {
                         var insertedFoodBlock = false
+                        @Composable
+                        fun maybeFoodBoundaryHairline() {
+                            if (insertedFoodBlock) {
+                                SheetHairline()
+                                insertedFoodBlock = false
+                            }
+                        }
                         if (ui.activeFast == null) {
                             val addMenuConfig = ui.addMenuConfig
                             if (addMenuConfig.usesFlatLayout) {
@@ -752,7 +759,7 @@ CalorieHero(
                             }
                         }
                         if (ui.waterTrackingEnabled) {
-                            if (insertedFoodBlock) SheetHairline()
+                            maybeFoodBoundaryHairline()
                             SheetGlassDropdownMenuItem(
                                 label = stringResource(R.string.water),
                                 leadingIcon = Icons.Filled.WaterDrop,
@@ -760,6 +767,7 @@ CalorieHero(
                             ) { addMenuDestination = AddMenuDestination.Water }
                         }
                         if (ui.fastingTrackingEnabled) {
+                            maybeFoodBoundaryHairline()
                             if (ui.activeFast == null) {
                                 SheetGlassDropdownMenuItem(label = stringResource(R.string.fasting_start), leadingIcon = Icons.Filled.Timer) {
                                     showAddMenu = false

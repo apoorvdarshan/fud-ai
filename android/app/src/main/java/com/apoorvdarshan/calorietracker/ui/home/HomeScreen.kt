@@ -12,7 +12,11 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.apoorvdarshan.calorietracker.services.FoodImageDecoder
 import com.apoorvdarshan.calorietracker.ui.navigation.LocalLaunchFillEpoch
 import androidx.compose.foundation.BorderStroke
@@ -58,6 +62,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.DirectionsWalk
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddAPhoto
 import androidx.compose.material.icons.filled.Bookmark
@@ -140,9 +145,6 @@ import androidx.compose.ui.input.pointer.pointerInput
 import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
 import com.apoorvdarshan.calorietracker.ui.util.formattedWholeNumber
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.pluralStringResource
@@ -216,9 +218,10 @@ fun HomeScreen(
     val vm: HomeViewModel = viewModel(factory = HomeViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
     val lifecycleOwner = LocalLifecycleOwner.current
-    DisposableEffect(lifecycleOwner, vm) {
+DisposableEffect(lifecycleOwner, vm) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_RESUME) {
+                vm.refreshDailySteps()
                 vm.bumpBurnRefresh()
             }
         }
@@ -510,11 +513,15 @@ fun HomeScreen(
                     }
                 ) {
                     Spacer(Modifier.height(32.dp))
-                    CalorieHero(
+CalorieHero(
                         current = ui.caloriesToday,
                         goal = ui.profile?.effectiveCalories ?: 2000,
                         burnSummary = ui.homeBurnSummary
                     )
+                    ui.dailySteps?.let { steps ->
+                        Spacer(Modifier.height(8.dp))
+                        DailyStepsRow(steps = steps)
+                    }
                     Spacer(Modifier.height(12.dp))
                     Row(
                         Modifier
@@ -1529,6 +1536,31 @@ private fun shortDay(dow: DayOfWeek): String = when (dow) {
  *   }
  *   .padding(.vertical, 20)
  */
+@Composable
+private fun DailyStepsRow(steps: Int) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = Icons.AutoMirrored.Outlined.DirectionsWalk,
+            contentDescription = null,
+            modifier = Modifier.size(18.dp),
+            tint = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        Spacer(Modifier.width(6.dp))
+        Text(
+            text = pluralStringResource(R.plurals.home_daily_steps, steps, steps.formattedWholeNumber()),
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
+}
+
 @Composable
 private fun CalorieHero(
     current: Int,

@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">Bunu istənilən vaxt Parametrlərdə dəyişə bilərsiniz.</string>
 
     <string name="onboarding_health_title">Health Connect-ə\nqoşulun</string>
-    <string name="onboarding_health_subtitle">Qidalanma və bədən ölçülərinizi\navtomatik olaraq sinxronlaşdırın.</string>
+    <string name="onboarding_health_subtitle">Qidalanma, addımlar və bədən\nölçülərini avtomatik sinxron saxlayın.</string>
     <string name="onboarding_health_feature_nutrition">Qidalanma Məlumatları</string>
     <string name="onboarding_health_feature_weight">Çəki Sinxronizasiyası</string>
+    <string name="onboarding_health_feature_steps">Gündəlik addımlar</string>
     <string name="onboarding_health_feature_body">Bədən Ölçüləri</string>
     <string name="onboarding_health_unavailable">Health Connect əlçatan deyil</string>
     <string name="onboarding_health_connected">Qoşuldu</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s addım</item>
+        <item quantity="other">%1$s addım</item>
+    </plurals>
+
     <string name="home_add_food">Yemək əlavə et</string>
     <string name="home_menu_camera">Kamera</string>
     <string name="home_menu_camera_note">Kamera + Qeyd</string>

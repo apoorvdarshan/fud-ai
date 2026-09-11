@@ -126,9 +126,10 @@ class HealthKitManager {
     /// the weight/body-fat backfills, which now restore own samples too.
     /// v6: active energy joined the write set so calculated workout calories can
     /// stay synchronized with Apple Health.
-    /// v8: workout samples joined the read set so Apple Watch / Health workouts
+    /// v8: stepCount joined the read set for daily steps on Home.
+    /// v9: workout samples joined the read set so Apple Watch / Health workouts
     /// can be imported into Fud AI without a Watch companion app.
-    private let typesVersion = 8
+    private let typesVersion = 9
     private let typesVersionKey = "healthKitTypesVersion"
 
     /// Active-energy samples written for the workout diary are deliberately
@@ -239,6 +240,7 @@ class HealthKitManager {
             HKQuantityType(.bodyFatPercentage),
             HKQuantityType(.activeEnergyBurned),
             HKQuantityType(.basalEnergyBurned),
+            HKQuantityType(.stepCount),
             HKCharacteristicType(.dateOfBirth),
             HKCharacteristicType(.biologicalSex),
         ]
@@ -1062,6 +1064,43 @@ class HealthKitManager {
             daysUsed: activeDays.count,
             requestedDays: requestedDays
         )
+    }
+
+    /// Daily step total for one local calendar day. Read-only — watches and phones
+    /// write steps to HealthKit; Fud AI surfaces the aggregate on Home.
+    func fetchStepsForDay(_ date: Date) async -> Int? {
+        guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return nil }
+        let calendar = Calendar.current
+        let start = calendar.startOfDay(for: date)
+        guard let end = calendar.date(byAdding: .day, value: 1, to: start) else { return nil }
+        let endBound = min(end, Date())
+        guard endBound > start else { return nil }
+
+        let type = HKQuantityType(.stepCount)
+        return await withCheckedContinuation { continuation in
+            let predicate = HKQuery.predicateForSamples(
+                withStart: start,
+                end: endBound,
+                options: .strictStartDate
+            )
+            let query = HKStatisticsQuery(
+                quantityType: type,
+                quantitySamplePredicate: predicate,
+                options: .cumulativeSum
+            ) { _, statistics, error in
+                if error != nil {
+                    continuation.resume(returning: nil)
+                    return
+                }
+                guard let statistics else {
+                    continuation.resume(returning: nil)
+                    return
+                }
+                let count = statistics.sumQuantity()?.doubleValue(for: .count()) ?? 0
+                continuation.resume(returning: count >= 0 ? Int(count.rounded()) : nil)
+            }
+            healthStore.execute(query)
+        }
     }
 
     /// Dated measured energy for adaptive-goal evidence. This uses the same active-energy

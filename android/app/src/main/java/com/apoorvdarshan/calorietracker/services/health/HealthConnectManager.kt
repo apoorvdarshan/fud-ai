@@ -14,6 +14,7 @@ import androidx.health.connect.client.records.ActiveCaloriesBurnedRecord
 import androidx.health.connect.client.records.BodyFatRecord
 import androidx.health.connect.client.records.MealType as HCMealType
 import androidx.health.connect.client.records.NutritionRecord
+import androidx.health.connect.client.records.StepsRecord
 import androidx.health.connect.client.records.TotalCaloriesBurnedRecord
 import androidx.health.connect.client.records.WeightRecord
 import androidx.health.connect.client.records.metadata.DataOrigin
@@ -160,11 +161,13 @@ class HealthConnectManager(
     private val activeEnergyRead = HealthPermission.getReadPermission(ActiveCaloriesBurnedRecord::class)
     private val activeEnergyWrite = HealthPermission.getWritePermission(ActiveCaloriesBurnedRecord::class)
     private val totalEnergyRead = HealthPermission.getReadPermission(TotalCaloriesBurnedRecord::class)
+    private val stepsRead = HealthPermission.getReadPermission(StepsRecord::class)
     private val backgroundRead = HealthPermission.PERMISSION_READ_HEALTH_DATA_IN_BACKGROUND
 
     val permissions: Set<String> = setOf(
         weightRead, weightWrite, nutritionRead, nutritionWrite,
-        bodyFatRead, bodyFatWrite, activeEnergyRead, activeEnergyWrite, totalEnergyRead
+        bodyFatRead, bodyFatWrite, activeEnergyRead, activeEnergyWrite, totalEnergyRead,
+        stepsRead
     )
 
     /** Requested only when Daily Summary is enabled. Keeping it out of [permissions]
@@ -199,6 +202,7 @@ class HealthConnectManager(
     suspend fun hasActiveEnergyRead(): Boolean = activeEnergyRead in granted()
     suspend fun hasActiveEnergyWrite(): Boolean = activeEnergyWrite in granted()
     suspend fun hasEnergyRead(): Boolean = granted().let { activeEnergyRead in it && totalEnergyRead in it }
+    suspend fun hasStepsRead(): Boolean = stepsRead in granted()
     suspend fun hasBackgroundRead(): Boolean = backgroundRead in granted()
 
     /** One permission read snapshotting every capability — used by the read-sync coordinator. */
@@ -212,7 +216,8 @@ class HealthConnectManager(
             nutritionRead = nutritionRead in g,
             nutritionWrite = nutritionWrite in g,
             energyRead = activeEnergyRead in g && totalEnergyRead in g,
-            activeEnergyWrite = activeEnergyWrite in g
+            activeEnergyWrite = activeEnergyWrite in g,
+            stepsRead = stepsRead in g
         )
     }
 
@@ -689,6 +694,29 @@ class HealthConnectManager(
         )
     }
 
+    /** Daily step total for one local calendar day from Health Connect aggregates. */
+    suspend fun readStepsForDay(date: LocalDate): Int? {
+        if (!hasStepsRead()) return null
+        val zone = ZoneId.systemDefault()
+        val start = date.atStartOfDay(zone).toInstant()
+        val end = minOf(date.plusDays(1).atStartOfDay(zone).toInstant(), Instant.now())
+        if (!end.isAfter(start)) return null
+        return readDailySteps(start, end)
+    }
+
+    private suspend fun readDailySteps(start: Instant, end: Instant): Int? {
+        val c = client ?: return null
+        val result = runCatching {
+            c.aggregate(
+                AggregateRequest(
+                    metrics = setOf(StepsRecord.COUNT_TOTAL),
+                    timeRangeFilter = TimeRangeFilter.between(start, end)
+                )
+            )
+        }.getOrNull() ?: return null
+        return result[StepsRecord.COUNT_TOTAL]?.toLong()?.toInt()?.takeIf { it >= 0 }
+    }
+
     private suspend fun readDailyEnergy(start: Instant, end: Instant): DailyEnergy? {
         val c = client ?: return null
         val result = runCatching {
@@ -866,8 +894,9 @@ class HealthConnectManager(
          *  v2 = added BodyFatRecord read+write permissions.
          *  v3 = added energy burn read permissions.
          *  v4 = added NutritionRecord read permission (food-log restore).
-         *  v5 = added ActiveCaloriesBurnedRecord write permission (workout burn sync). */
-        const val CURRENT_TYPES_VERSION = 5
+         *  v5 = added ActiveCaloriesBurnedRecord write permission (workout burn sync).
+         *  v6 = added StepsRecord read permission (daily steps on Home). */
+        const val CURRENT_TYPES_VERSION = 6
     }
 }
 
@@ -896,7 +925,8 @@ data class HealthCapabilities(
     val nutritionRead: Boolean,
     val nutritionWrite: Boolean,
     val energyRead: Boolean,
-    val activeEnergyWrite: Boolean
+    val activeEnergyWrite: Boolean,
+    val stepsRead: Boolean
 )
 
 data class WorkoutBurnIdentity(

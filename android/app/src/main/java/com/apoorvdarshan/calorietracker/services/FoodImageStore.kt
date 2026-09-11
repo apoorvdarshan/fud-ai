@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.util.LruCache
 import com.apoorvdarshan.calorietracker.services.FoodImageDecoder.scaledToMaxDimension
-import com.apoorvdarshan.calorietracker.ui.components.autoSaveMealPhotoIfEnabled
 import java.io.File
 import java.io.FileOutputStream
 import java.util.UUID
@@ -35,7 +34,6 @@ class FoodImageStore(context: Context) {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 80, out)
         }
         runCatching { writeThumbnail(filename, bitmap) }
-        autoSaveMealPhotoIfEnabled(appContext, jpegBytesFrom(bitmap))
         filename
     }.getOrNull()
 
@@ -45,7 +43,6 @@ class FoodImageStore(context: Context) {
         runCatching {
             FoodImageDecoder.decode(bytes, THUMBNAIL_MAX_DIMENSION)?.let { writeThumbnail(filename, it) }
         }
-        autoSaveMealPhotoIfEnabled(appContext, bytes)
         filename
     }.getOrNull()
 
@@ -140,12 +137,6 @@ class FoodImageStore(context: Context) {
         for (key in thumbnailCache.snapshot().keys) {
             if (key.startsWith("$filename:")) thumbnailCache.remove(key)
         }
-    }
-
-    private fun jpegBytesFrom(bitmap: Bitmap): ByteArray {
-        val stream = java.io.ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)
-        return stream.toByteArray()
     }
 
     companion object {

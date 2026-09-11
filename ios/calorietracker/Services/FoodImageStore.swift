@@ -35,24 +35,21 @@ struct FoodImageStore {
     /// Returns the filename (not full path) on success.
     @discardableResult
     func store(data: Data, for id: UUID) -> String? {
-        store(data: data, filename: "\(id.uuidString).jpg", exportToGallery: true)
+        store(data: data, filename: "\(id.uuidString).jpg")
     }
 
     /// Writes an additional image for the same entry without overwriting the
     /// primary `<uuid>.jpg` file.
     @discardableResult
     func store(data: Data, for id: UUID, index: Int) -> String? {
-        store(data: data, filename: "\(id.uuidString)-\(index).jpg", exportToGallery: true)
+        store(data: data, filename: "\(id.uuidString)-\(index).jpg")
     }
 
-    private func store(data: Data, filename: String, exportToGallery: Bool) -> String? {
+    private func store(data: Data, filename: String) -> String? {
         guard let folderURL else { return nil }
         let url = folderURL.appendingPathComponent(filename)
         do {
             try data.write(to: url, options: .atomic)
-            if exportToGallery {
-                MealPhotoGalleryExport.saveToGalleryIfEnabled(data: data)
-            }
             return filename
         } catch {
             return nil
@@ -67,7 +64,7 @@ struct FoodImageStore {
     @discardableResult
     func restore(data: Data, filename: String) -> String? {
         guard let safe = CloudBackupPolicy.safePhotoName(filename) else { return nil }
-        return store(data: data, filename: safe, exportToGallery: false)
+        return store(data: data, filename: safe)
     }
 
     /// Reads the bytes at `filename` (not a full path), or nil if missing.

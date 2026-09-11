@@ -18,6 +18,7 @@ import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.CalorieBalanceDirection
 import com.apoorvdarshan.calorietracker.services.DailySummaryPolicy
 import com.apoorvdarshan.calorietracker.services.OpenFoodFactsService
+import com.apoorvdarshan.calorietracker.ui.components.autoSaveMealPhotoIfEnabled
 import com.apoorvdarshan.calorietracker.services.ai.AiError
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import kotlinx.coroutines.CancellationException
@@ -656,6 +657,13 @@ viewModelScope.launch {
                 if (!container.foodRepository.addEntry(entry)) {
                     reportFoodBlockedByFast()
                     return@launch
+                }
+                if (reviewSource == null && filenames.isNotEmpty()) {
+                    filenames.forEach { filename ->
+                        container.imageStore.loadBytes(filename)?.let { bytes ->
+                            autoSaveMealPhotoIfEnabled(container.appContext, bytes)
+                        }
+                    }
                 }
                 container.prefs.setPendingFoodAnalysisDraft(null)
                 _ui.value = _ui.value.copy(

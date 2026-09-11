@@ -431,6 +431,29 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
         else permissionDialog = PermissionDialogState(notifDeniedMsg)
     }
 
+    val photoSaveDeniedMsg = stringResource(R.string.photo_save_permission_denied)
+    val gallerySavePermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) vm.setSaveMealPhotosToGallery(true)
+        else permissionDialog = PermissionDialogState(photoSaveDeniedMsg)
+    }
+
+    fun onSavePhotosToGalleryChanged(enabled: Boolean) {
+        if (!enabled) {
+            vm.setSaveMealPhotosToGallery(false)
+            return
+        }
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P &&
+            ContextCompat.checkSelfPermission(activityContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            gallerySavePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        } else {
+            vm.setSaveMealPhotosToGallery(true)
+        }
+    }
+
     // Health Connect honors partial grants: any granted permission connects the app, and
     // each direction is gated on its own permission downstream (issue #91). The SYNC toggle
     // accepts any grant; ENERGY_GOALS still needs the energy reads, which its VM re-checks.
@@ -832,7 +855,7 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                     subtitle = stringResource(R.string.settings_save_photos_to_gallery_subtitle),
                     checked = ui.saveMealPhotosToGallery,
                     icon = Icons.Outlined.Download,
-                    onChange = vm::setSaveMealPhotosToGallery
+                    onChange = { onSavePhotosToGalleryChanged(it) }
                 )
                 HorizontalDivider()
                 SettingRow(

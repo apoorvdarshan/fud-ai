@@ -625,6 +625,9 @@ struct HomeView: View {
     @Environment(NotificationManager.self) private var notificationManager
     @Environment(HealthKitManager.self) private var healthKitManager
     @Environment(\.scenePhase) private var scenePhase
+    @AppStorage("healthKitEnabled") private var healthKitEnabled = false
+    @State private var dailySteps: Int?
+    @State private var dailyStepsFetchGeneration = 0
     @State private var showCamera = false
     @State private var showBarcodeScanner = false
     @State private var capturedImage: UIImage?
@@ -833,6 +836,26 @@ struct HomeView: View {
         if delta > 0 && calendar.startOfDay(for: newDate) > calendar.startOfDay(for: .now) { return }
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         selectedDate = newDate
+    }
+
+private var dailyStepsTaskKey: String {
+        "\(selectedDate.timeIntervalSince1970)-\(healthKitEnabled)"
+    }
+
+    private func refreshDailySteps() async {
+        guard healthKitEnabled else {
+            dailySteps = nil
+            return
+        }
+        let requestedDate = selectedDate
+        dailyStepsFetchGeneration += 1
+        let generation = dailyStepsFetchGeneration
+        guard !Task.isCancelled else { return }
+        let steps = await healthKitManager.fetchStepsForDay(requestedDate)
+        guard !Task.isCancelled, healthKitEnabled else { return }
+        guard generation == dailyStepsFetchGeneration else { return }
+        guard Calendar.current.isDate(selectedDate, inSameDayAs: requestedDate) else { return }
+        dailySteps = steps
     }
 
     private var homeBurnRefreshToken: String {
@@ -1061,6 +1084,12 @@ struct HomeView: View {
                             await refreshHomeBurnLine()
                         }
 
+                    if let dailySteps {
+                        DailyStepsRow(steps: dailySteps)
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                    }
+
                     HStack(alignment: .top, spacing: 4) {
                         ForEach(displayedHomeNutrients) { nutrient in
                             MacroVerticalBar(
@@ -1275,6 +1304,9 @@ struct HomeView: View {
             .scrollContentBackground(.hidden)
             .background(AppColors.appBackground)
             .animation(.snappy, value: selectedDate)
+            .task(id: dailyStepsTaskKey) {
+                await refreshDailySteps()
+            }
             .contentMargins(.bottom, isFoodSelectionMode ? 8 : 96, for: .scrollContent)
             .sensoryFeedback(.selection, trigger: selectedFoodIDs) { _, selection in
                 !selection.isEmpty
@@ -1857,6 +1889,7 @@ struct HomeView: View {
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .active {
                     checkAndConsumeSharedImage()
+                    Task { await refreshDailySteps() }
                     // Returned to the foreground -> replay the fill-from-zero reveal.
                     // Gated on wasBackgrounded so transient .inactive blips (control
                     // center, app switcher) don't retrigger it.

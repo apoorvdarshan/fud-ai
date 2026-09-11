@@ -1089,6 +1089,7 @@ private fun HealthConnectStep(container: AppContainer, enabled: Boolean, onToggl
             HealthFeatureRow(icon = Icons.Outlined.Restaurant, label = stringResource(R.string.onboarding_health_feature_nutrition))
             HealthFeatureRow(icon = Icons.Outlined.MonitorWeight, label = stringResource(R.string.onboarding_health_feature_weight))
             HealthFeatureRow(icon = Icons.Outlined.Accessibility, label = stringResource(R.string.onboarding_health_feature_body))
+            HealthFeatureRow(icon = Icons.AutoMirrored.Outlined.DirectionsWalk, label = stringResource(R.string.onboarding_health_feature_steps))
         }
         Spacer(Modifier.height(24.dp))
         Box(

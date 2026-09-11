@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">आप इसे सेटिंग्स में कभी भी बदल सकते हैं।</string>
 
     <string name="onboarding_health_title">Health Connect से\nजुड़ें</string>
-    <string name="onboarding_health_subtitle">अपने पोषण और शरीर के मापों को\nस्वतः सिंक रखें।</string>
+    <string name="onboarding_health_subtitle">अपने पोषण, कदम और शरीर के\nमाप को अपने आप सिंक रखें।</string>
     <string name="onboarding_health_feature_nutrition">पोषण डेटा</string>
     <string name="onboarding_health_feature_weight">वज़न सिंक</string>
+    <string name="onboarding_health_feature_steps">दैनिक कदम</string>
     <string name="onboarding_health_feature_body">शरीर के माप</string>
     <string name="onboarding_health_unavailable">Health Connect अनुपलब्ध</string>
     <string name="onboarding_health_connected">कनेक्ट किया गया</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s कदम</item>
+        <item quantity="other">%1$s कदम</item>
+    </plurals>
+
     <string name="home_add_food">भोजन जोड़ें</string>
     <string name="home_menu_camera">कैमरा</string>
     <string name="home_menu_camera_note">कैमरा + नोट</string>

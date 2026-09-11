@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">設定からいつでも変更できます。</string>
 
     <string name="onboarding_health_title">Health Connectに\n接続</string>
-    <string name="onboarding_health_subtitle">栄養と身体測定値を\n自動で同期します。</string>
+    <string name="onboarding_health_subtitle">栄養、歩数、身体測定を\n自動的に同期します。</string>
     <string name="onboarding_health_feature_nutrition">栄養データ</string>
     <string name="onboarding_health_feature_weight">体重の同期</string>
+    <string name="onboarding_health_feature_steps">1日の歩数</string>
     <string name="onboarding_health_feature_body">身体測定値</string>
     <string name="onboarding_health_unavailable">Health Connectは利用できません</string>
     <string name="onboarding_health_connected">接続済み</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s 歩</item>
+        <item quantity="other">%1$s 歩</item>
+    </plurals>
+
     <string name="home_add_food">食事を追加</string>
     <string name="home_menu_camera">カメラ</string>
     <string name="home_menu_camera_note">カメラ + メモ</string>

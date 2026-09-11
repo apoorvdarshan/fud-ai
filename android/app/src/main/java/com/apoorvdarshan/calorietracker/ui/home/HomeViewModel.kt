@@ -26,6 +26,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
@@ -93,6 +94,8 @@ data class HomeUiState(
     val error: String? = null,
     /** When true, the error dialog's primary action opens the food camera instead of retrying. */
     val errorOffersScanLabel: Boolean = false,
+/** Daily step total from Health Connect for [date]; null when health is off, unreadable, or loading. */
+    val dailySteps: Int? = null,
     val homeBurnSummary: HomeBurnSummary? = null
 ) {
     val caloriesToday: Int get() = todayEntries.sumOf { it.calories }
@@ -122,6 +125,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
     private val _ui = MutableStateFlow(HomeUiState())
     val ui: StateFlow<HomeUiState> = _ui.asStateFlow()
     private val _selectedDate = MutableStateFlow(LocalDate.now())
+private val _stepsRefreshEpoch = MutableStateFlow(0)
     private val _burnRefreshTick = MutableStateFlow(0)
     private var retryAction: (() -> Unit)? = null
     private val foodSubmissionGate = FoodSubmissionGate()
@@ -221,6 +225,25 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             container.prefs.pendingFoodAnalysisDraft.first()?.let { restorePendingDraft(it) }
         }
 
+viewModelScope.launch {
+            combine(
+                container.prefs.healthConnectEnabled,
+                _selectedDate,
+                _stepsRefreshEpoch
+            ) { enabled, date, epoch -> Triple(enabled, date, epoch) }
+                .distinctUntilChanged()
+                .collect { (enabled, date, _) ->
+                    if (!enabled || !container.health.hasStepsRead()) {
+                        _ui.value = _ui.value.copy(dailySteps = null)
+                        return@collect
+                    }
+                    val steps = container.health.readStepsForDay(date)
+                    if (_selectedDate.value == date) {
+                        _ui.value = _ui.value.copy(dailySteps = steps)
+                    }
+                }
+        }
+
         combine(
             container.prefs.healthConnectEnabled,
             _selectedDate,
@@ -237,6 +260,10 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 _ui.value = _ui.value.copy(homeBurnSummary = summary)
             }
             .launchIn(viewModelScope)
+    }
+
+    fun refreshDailySteps() {
+        _stepsRefreshEpoch.value += 1
     }
 
     private data class BurnRefreshInputs(

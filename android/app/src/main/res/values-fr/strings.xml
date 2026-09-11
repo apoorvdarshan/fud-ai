@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">Vous pouvez changer cela à tout moment dans Réglages.</string>
 
     <string name="onboarding_health_title">Connectez-vous à\nHealth Connect</string>
-    <string name="onboarding_health_subtitle">Synchronisez automatiquement votre nutrition\net vos mesures corporelles.</string>
+    <string name="onboarding_health_subtitle">Gardez votre nutrition, vos pas et vos mesures\ncorporelles synchronisés automatiquement.</string>
     <string name="onboarding_health_feature_nutrition">Données nutritionnelles</string>
     <string name="onboarding_health_feature_weight">Synchronisation du poids</string>
+    <string name="onboarding_health_feature_steps">Pas quotidiens</string>
     <string name="onboarding_health_feature_body">Mesures corporelles</string>
     <string name="onboarding_health_unavailable">Health Connect indisponible</string>
     <string name="onboarding_health_connected">Connecté</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s pas</item>
+        <item quantity="other">%1$s pas</item>
+    </plurals>
+
     <string name="home_add_food">Ajouter un aliment</string>
     <string name="home_menu_camera">Appareil photo</string>
     <string name="home_menu_camera_note">Appareil photo + note</string>

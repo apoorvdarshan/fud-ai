@@ -111,6 +111,7 @@ class HealthKitManager {
     /// FudaiID is non-nil when the latest sample of that type was written by us
     /// (matched by metadata key) — observer caller uses it to skip echo-imports.
     var onBodyMeasurementsChanged: ((Double?, Date?, UUID?, Double?, Double?, Date?, UUID?, Date?, HKBiologicalSex?) -> Void)?
+    var onImportedWorkoutsChanged: (() -> Void)?
 
     private let healthStore = HKHealthStore()
     private var observerQueries: [HKObserverQuery] = []
@@ -126,7 +127,9 @@ class HealthKitManager {
     /// v6: active energy joined the write set so calculated workout calories can
     /// stay synchronized with Apple Health.
     /// v8: stepCount joined the read set for daily steps on Home.
-    private let typesVersion = 8
+    /// v9: workout samples joined the read set so Apple Watch / Health workouts
+    /// can be imported into Fud AI without a Watch companion app.
+    private let typesVersion = 9
     private let typesVersionKey = "healthKitTypesVersion"
 
     /// Active-energy samples written for the workout diary are deliberately
@@ -219,6 +222,10 @@ class HealthKitManager {
     private var isBackfillingWeight = false
     private var isBackfillingBodyFat = false
     private var isBackfillingWorkoutBurn = false
+    private let workoutImportLookbackDays = 90
+    private let workoutImportLastSyncKey = "healthKitWorkoutImportLastSync"
+    /// Serializes workout imports so observer callbacks queue instead of being dropped.
+    private var workoutImportOperationTail: Task<Void, Never>?
 
     private struct NutritionQuantity {
         var identifier: HKQuantityTypeIdentifier
@@ -240,6 +247,7 @@ class HealthKitManager {
         // Dietary read access powers restoreFoodEntriesFromHealthKitIfNeeded —
         // rebuilding the food log from our own tagged samples after a reinstall.
         types.formUnion(nutritionTypeIdentifiers.map { HKQuantityType($0) })
+        types.insert(HKObjectType.workoutType())
         return types
     }
 
@@ -1432,6 +1440,64 @@ class HealthKitManager {
         }
     }
 
+    // MARK: - Imported Workouts
+
+    /// Pulls recent HKWorkout samples into Fud AI. Imported rows are read-only,
+    /// deduped by HealthKit UUID, and never written back to Health.
+    func synchronizeImportedWorkoutsWithHealthKit(
+        reconcileBatch: @escaping ([ImportedHealthWorkout], Date) -> Void
+    ) {
+        guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
+        enqueueWorkoutImportOperation { [weak self] in
+            guard let self else { return }
+            guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
+            let queryStart = self.workoutImportQueryStartDate()
+            guard let fetched = await self.fetchImportedWorkouts(since: queryStart) else { return }
+            guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
+            await MainActor.run {
+                guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
+                reconcileBatch(fetched, queryStart)
+            }
+            guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
+            UserDefaults.standard.set(Date(), forKey: self.workoutImportLastSyncKey)
+        }
+    }
+
+    private func enqueueWorkoutImportOperation(_ operation: @escaping () async -> Void) {
+        let previous = workoutImportOperationTail
+        workoutImportOperationTail = Task {
+            _ = await previous?.result
+            await operation()
+        }
+    }
+
+    private func workoutImportQueryStartDate(calendar: Calendar = .current) -> Date {
+        calendar.date(byAdding: .day, value: -workoutImportLookbackDays, to: Date()) ?? Date()
+    }
+
+    private func fetchImportedWorkouts(since start: Date) async -> [ImportedHealthWorkout]? {
+        let type = HKObjectType.workoutType()
+        let predicate = HKQuery.predicateForSamples(withStart: start, end: nil, options: .strictStartDate)
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
+
+        return await withCheckedContinuation { (continuation: CheckedContinuation<[ImportedHealthWorkout]?, Never>) in
+            let query = HKSampleQuery(
+                sampleType: type,
+                predicate: predicate,
+                limit: HKObjectQueryNoLimit,
+                sortDescriptors: [sortDescriptor]
+            ) { _, results, error in
+                guard error == nil, let samples = results as? [HKWorkout] else {
+                    continuation.resume(returning: nil)
+                    return
+                }
+                let mapped = samples.compactMap { ImportedHealthWorkout.from($0) }
+                continuation.resume(returning: mapped)
+            }
+            healthStore.execute(query)
+        }
+    }
+
     // MARK: - Observer
 
     func startBodyMeasurementObserver() {
@@ -1462,6 +1528,20 @@ class HealthKitManager {
             healthStore.execute(query)
             observerQueries.append(query)
         }
+
+        let workoutType = HKObjectType.workoutType()
+        let workoutQuery = HKObserverQuery(sampleType: workoutType, predicate: nil) { [weak self] _, completionHandler, _ in
+            guard let self else {
+                completionHandler()
+                return
+            }
+            Task { @MainActor in
+                self.onImportedWorkoutsChanged?()
+                completionHandler()
+            }
+        }
+        healthStore.execute(workoutQuery)
+        observerQueries.append(workoutQuery)
     }
 
     func stopObserver() {

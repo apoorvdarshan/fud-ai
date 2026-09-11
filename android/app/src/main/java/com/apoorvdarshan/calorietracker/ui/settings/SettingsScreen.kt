@@ -898,6 +898,41 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
             }
             }
 
+            // Workout is permanently available. Keep its live preferences in the
+            // same compact Fud AI settings card.
+            if (selectedCategory == SettingsCategory.WORKOUT) {
+            SectionCard {
+                ToggleRow(
+                    stringResource(R.string.settings_walk_run_quick_log),
+                    ui.walkRunQuickLogEnabled,
+                    icon = Icons.AutoMirrored.Outlined.DirectionsWalk,
+                    onChange = vm::setWalkRunQuickLogEnabled
+                )
+                HorizontalDivider()
+                SettingRow(
+                    stringResource(R.string.settings_training_split),
+                    ui.workoutSplit.title,
+                    icon = Icons.Outlined.FitnessCenter,
+                    inlineMenu = true
+                ) { sheet = SettingsSheet.WORKOUT_SPLIT }
+                HorizontalDivider()
+                SettingRow(
+                    stringResource(R.string.settings_rpe_scale),
+                    ui.workoutRpeScale.title,
+                    icon = Icons.Outlined.Speed,
+                    inlineMenu = true
+                ) { sheet = SettingsSheet.WORKOUT_RPE }
+                HorizontalDivider()
+                Text(
+                    stringResource(R.string.settings_rpe_guide),
+                    fontSize = 12.sp,
+                    lineHeight = 18.sp,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+                )
+            }
+            }
+
             if (selectedCategory == SettingsCategory.NOTIFICATIONS) {
                 SectionCard {
                     ToggleRow(stringResource(R.string.settings_notifications), ui.notificationsEnabled, icon = Icons.Outlined.Notifications, onChange = ::onNotificationsToggle)
@@ -1221,34 +1256,6 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                 Text(
                     stringResource(R.string.settings_custom_instructions_footer),
                     fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
-                )
-            }
-            }
-
-            // Workout is permanently available. Keep its only two live
-            // preferences in the same compact Fud AI settings card.
-            if (selectedCategory == SettingsCategory.WORKOUT) {
-            SectionCard {
-                SettingRow(
-                    stringResource(R.string.settings_training_split),
-                    ui.workoutSplit.title,
-                    icon = Icons.Outlined.FitnessCenter,
-                    inlineMenu = true
-                ) { sheet = SettingsSheet.WORKOUT_SPLIT }
-                HorizontalDivider()
-                SettingRow(
-                    stringResource(R.string.settings_rpe_scale),
-                    ui.workoutRpeScale.title,
-                    icon = Icons.Outlined.Speed,
-                    inlineMenu = true
-                ) { sheet = SettingsSheet.WORKOUT_RPE }
-                HorizontalDivider()
-                Text(
-                    stringResource(R.string.settings_rpe_guide),
-                    fontSize = 12.sp,
-                    lineHeight = 18.sp,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                 )

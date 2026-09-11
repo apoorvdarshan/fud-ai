@@ -638,6 +638,7 @@ struct HomeView: View {
     @Environment(FoodStore.self) private var foodStore
     @Environment(WaterStore.self) private var waterStore
     @Environment(FastingStore.self) private var fastingStore
+    @Environment(StrengthWorkoutStore.self) private var strengthWorkoutStore
     @Environment(NotificationManager.self) private var notificationManager
     @Environment(HealthKitManager.self) private var healthKitManager
     @Environment(\.scenePhase) private var scenePhase
@@ -777,6 +778,7 @@ struct HomeView: View {
     @State private var currentFoodSource: FoodSource = .snapFood
     @State private var showNutritionDetail = false
     @State private var showCustomWaterLog = false
+    @State private var outdoorActivitySheet: OutdoorActivityDurationSheet.ActivityKind?
     @State private var showFastingStart = false
     @State private var editingFastingSession: FastingSession?
     @State private var showFastingQuickActionDisabled = false
@@ -798,6 +800,7 @@ struct HomeView: View {
     @AppStorage(FastingSettings.enabledKey) private var fastingTrackingEnabled = false
     @AppStorage(FastingSettings.defaultGoalMinutesKey) private var fastingDefaultGoalMinutes = FastingSettings.defaultGoalMinutes
     @AppStorage(FastingSettings.notificationEnabledKey) private var fastingGoalNotificationEnabled = true
+    @AppStorage(OutdoorActivitySettings.enabledKey) private var walkRunQuickLogEnabled = false
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
     @Environment(ProfileStore.self) private var profileStore
     @State private var homeBurnLine: String?
@@ -1021,6 +1024,31 @@ private var dailyStepsTaskKey: String {
             _ = AVCaptureDevice.authorizationStatus(for: .video)
             _ = SFSpeechRecognizer.authorizationStatus()
         }
+    }
+
+    private func logQuickOutdoorActivity(_ activity: OutdoorActivityDurationSheet.ActivityKind, minutes: Int) {
+        guard minutes > 0 else { return }
+        let exerciseID = activity == .walking
+            ? OutdoorActivitySettings.walkingExerciseID
+            : OutdoorActivitySettings.runningExerciseID
+        guard let item = ExerciseLibraryService.shared.exercises.first(where: { $0.id == exerciseID }) else { return }
+
+        strengthWorkoutStore.logQuickCardio(item, minutes: minutes, on: selectedDate)
+        let weightUnit: WeightUnit = weightUnitRaw == "kg" ? .kg : .lbs
+        if let estimate = StrengthWorkoutBurnEstimator.estimate(
+            exercises: strengthWorkoutStore.exercises(for: selectedDate),
+            bodyWeightKg: userProfile.weightKg,
+            defaultWeightUnit: weightUnit,
+            defaultRPEScale: strengthWorkoutStore.preferences.rpeScale
+        ) {
+            _ = strengthWorkoutStore.upsertCalculatedWorkout(
+                on: selectedDate,
+                caloriesBurned: estimate.calories,
+                weightUnit: weightUnit
+            )
+        }
+        homeBurnRefreshGeneration += 1
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
 
     @ViewBuilder
@@ -1382,6 +1410,18 @@ private var dailyStepsTaskKey: String {
                             waterQuickMenuItems
                         } label: {
                             Label("Water", systemImage: "drop.fill")
+                        }
+                    }
+                    if walkRunQuickLogEnabled {
+                        Button {
+                            outdoorActivitySheet = .walking
+                        } label: {
+                            Label("Walking", systemImage: "figure.walk")
+                        }
+                        Button {
+                            outdoorActivitySheet = .running
+                        } label: {
+                            Label("Running", systemImage: "figure.run")
                         }
                     }
                     if fastingStore.activeSession == nil {
@@ -1771,6 +1811,11 @@ private var dailyStepsTaskKey: String {
             .sheet(isPresented: $showCustomWaterLog) {
                 WaterCustomAmountSheet(unit: waterUnit, onAdd: logWater)
             }
+            .sheet(item: $outdoorActivitySheet) { activity in
+                OutdoorActivityDurationSheet(activity: activity) { minutes in
+                    logQuickOutdoorActivity(activity, minutes: minutes)
+                }
+            }
             .onOpenURL { url in
                 if url.scheme == "fudai", url.host == "import-share-image" {
                     checkAndConsumeSharedImage()
@@ -1857,6 +1902,7 @@ private var dailyStepsTaskKey: String {
         showCopyFromDaySheet = false
         showNutritionDetail = false
         showCustomWaterLog = false
+        outdoorActivitySheet = nil
         showError = false
         showFastingStart = false
         editingFastingSession = nil
@@ -3425,6 +3471,7 @@ struct ProgressTabView: View {
     @Environment(BodyFatStore.self) private var bodyFatStore
     @Environment(ProfileStore.self) private var profileStore
     @Environment(StrengthWorkoutStore.self) private var strengthWorkoutStore
+    @Environment(ImportedHealthWorkoutStore.self) private var importedHealthWorkoutStore
     @AppStorage("weightUnit") private var weightUnitRaw = "lbs"
     @State private var timeRange: TimeRange = .week
     @State private var showLogWeight = false
@@ -3433,6 +3480,7 @@ struct ProgressTabView: View {
     @State private var showAllWeights = false
     @State private var showAllBodyFat = false
     @State private var showWorkoutHistory = false
+    @State private var showImportedHealthWorkoutHistory = false
     @State private var progressMetric: ProgressMetric = .weight
     @State private var progressOverviewMode: ProgressOverviewMode = .myProgress
     @State private var foodRangeStats: ProgressFoodRangeStats?
@@ -3461,10 +3509,19 @@ struct ProgressTabView: View {
         }
     }
 
+    private var importedHealthWorkouts: [ImportedHealthWorkout] {
+        importedHealthWorkoutStore.sortedWorkouts
+    }
+
+    private var filteredImportedHealthWorkouts: [ImportedHealthWorkout] {
+        importedHealthWorkoutStore.workouts(from: dateRange.lowerBound, through: dateRange.upperBound)
+    }
+
     private var availableProgressMetrics: [ProgressMetric] {
         ProgressMetric.available(
             bodyFatAvailable: showsBodyFatSection,
-            workoutBurnAvailable: !workoutCalorieSessions.isEmpty
+            workoutBurnAvailable: !workoutCalorieSessions.isEmpty,
+            importedWorkoutsAvailable: !importedHealthWorkouts.isEmpty
         )
     }
 
@@ -3525,10 +3582,18 @@ struct ProgressTabView: View {
                                 onLogBodyFat: { showLogBodyFat = true }
                             )
                         case .workouts:
-                            WorkoutBurnChartSection(
-                                sessions: workoutCalorieSessions,
-                                dateRange: dateRange
-                            )
+                            if !workoutCalorieSessions.isEmpty {
+                                WorkoutBurnChartSection(
+                                    sessions: workoutCalorieSessions,
+                                    dateRange: dateRange
+                                )
+                            }
+                            if !importedHealthWorkouts.isEmpty {
+                                ImportedHealthWorkoutChartSection(
+                                    workouts: filteredImportedHealthWorkouts,
+                                    dateRange: dateRange
+                                )
+                            }
                         }
                     }
                     .padding(.horizontal)
@@ -3550,10 +3615,18 @@ struct ProgressTabView: View {
                                 )
                             }
                         case .workouts:
-                            WorkoutHistoryLink(
-                                sessions: workoutCalorieSessions,
-                                onTap: { showWorkoutHistory = true }
-                            )
+                            if !workoutCalorieSessions.isEmpty {
+                                WorkoutHistoryLink(
+                                    sessions: workoutCalorieSessions,
+                                    onTap: { showWorkoutHistory = true }
+                                )
+                            }
+                            if !importedHealthWorkouts.isEmpty {
+                                ImportedHealthWorkoutHistoryLink(
+                                    workouts: importedHealthWorkouts,
+                                    onTap: { showImportedHealthWorkoutHistory = true }
+                                )
+                            }
                         }
                     }
                     .padding(.horizontal)
@@ -3677,6 +3750,9 @@ struct ProgressTabView: View {
                         strengthWorkoutStore.deleteSession(session.id)
                     }
                 )
+            }
+            .sheet(isPresented: $showImportedHealthWorkoutHistory) {
+                ImportedHealthWorkoutHistoryView(workouts: importedHealthWorkouts)
             }
         }
     }
@@ -3900,6 +3976,7 @@ struct ProfileView: View {
     @Environment(WaterStore.self) private var waterStore
     @Environment(FastingStore.self) private var fastingStore
     @Environment(StrengthWorkoutStore.self) private var strengthWorkoutStore
+    @Environment(ImportedHealthWorkoutStore.self) private var importedHealthWorkoutStore
     @Environment(BodyMeasurementStore.self) private var bodyMeasurementStore
     @Environment(NotificationManager.self) private var notificationManager
     @Environment(HealthKitManager.self) private var healthKitManager
@@ -5447,6 +5524,8 @@ struct ProfileView: View {
                             }
                     }
 
+                } footer: {
+                    Text("Reads weight, nutrition, energy, and workouts from Apple Health. Apple Watch and iPhone workouts appear read-only in Workouts and Progress. Fud AI’s calculated diary burns are written separately and excluded from Energy Burn goals.")
                 }
                 .listRowBackground(AppColors.appCard)
                 }
@@ -5760,6 +5839,7 @@ struct ProfileView: View {
                         waterStore.clear()
                         fastingStore.clear()
                         strengthWorkoutStore.clearAll()
+                        importedHealthWorkoutStore.clearAll()
                         FoodImageStore.shared.deleteAll()
                         notificationManager.cancelAllNotifications()
                         let domain = Bundle.main.bundleIdentifier ?? ""
@@ -6402,6 +6482,9 @@ struct ProfileView: View {
                             strengthWorkoutStore.importWorkoutBurnSessions(sessions)
                         }
                     )
+                    healthKitManager.synchronizeImportedWorkoutsWithHealthKit { workouts, queryStart in
+                        importedHealthWorkoutStore.synchronize(with: workouts, queryStart: queryStart)
+                    }
                 } else {
                     healthKitEnabled = false
                 }

@@ -1480,7 +1480,7 @@ class HealthKitManager {
         let predicate = HKQuery.predicateForSamples(withStart: start, end: nil, options: .strictStartDate)
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: true)
 
-        return await withCheckedContinuation { continuation in
+        return await withCheckedContinuation { (continuation: CheckedContinuation<[ImportedHealthWorkout]?, Never>) in
             let query = HKSampleQuery(
                 sampleType: type,
                 predicate: predicate,

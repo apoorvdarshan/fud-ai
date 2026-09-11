@@ -727,7 +727,7 @@ struct OnboardingView: View {
                         .font(.system(size: 28, weight: .bold, design: .rounded))
                         .multilineTextAlignment(.center)
 
-                    Text("Keep your nutrition and body\nmeasurements in sync automatically.")
+                    Text("Keep your nutrition, steps, and body\nmeasurements in sync automatically.")
                         .font(.system(.callout, design: .rounded))
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -738,6 +738,8 @@ struct OnboardingView: View {
                     healthFeatureRow(icon: "fork.knife", label: "Nutrition Data")
                     healthFeatureRow(icon: "scalemass.fill", label: "Weight Sync")
                     healthFeatureRow(icon: "figure.stand", label: "Body Measurements")
+                    healthFeatureRow(icon: "figure.walk", label: "Daily Steps")
+                    healthFeatureRow(icon: "applewatch", label: "Apple Watch Workouts")
                 }
                 .padding(.horizontal, 40)
             }

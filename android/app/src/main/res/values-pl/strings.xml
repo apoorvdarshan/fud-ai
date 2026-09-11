@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">Możesz to zmienić w każdej chwili w Ustawieniach.</string>
 
     <string name="onboarding_health_title">Połącz z\nHealth Connect</string>
-    <string name="onboarding_health_subtitle">Automatycznie synchronizuj odżywianie\ni pomiary ciała.</string>
+    <string name="onboarding_health_subtitle">Synchronizuj automatycznie odżywianie, kroki\ni pomiary ciała.</string>
     <string name="onboarding_health_feature_nutrition">Dane żywieniowe</string>
     <string name="onboarding_health_feature_weight">Synchronizacja wagi</string>
+    <string name="onboarding_health_feature_steps">Dzienne kroki</string>
     <string name="onboarding_health_feature_body">Pomiary ciała</string>
     <string name="onboarding_health_unavailable">Health Connect niedostępny</string>
     <string name="onboarding_health_connected">Połączono</string>
@@ -285,6 +286,13 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s krok</item>
+        <item quantity="few">%1$s kroki</item>
+        <item quantity="many">%1$s kroków</item>
+        <item quantity="other">%1$s kroków</item>
+    </plurals>
+
     <string name="home_add_food">Dodaj jedzenie</string>
     <string name="home_menu_camera">Aparat</string>
     <string name="home_menu_camera_note">Aparat + notatka</string>
@@ -776,4 +784,11 @@
     <string name="about_whisper_notices">Informacje zewnętrzne Whisper Base</string>
     <string name="about_whisper_notices_load_error">Nie udało się wczytać informacji zewnętrznych Whisper Base.</string>
     <string name="cd_remove_image">Usuń obraz</string>
+    <string name="cd_save_photo">Zapisz zdjęcie</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Zdjęcie zapisane</string>
+    <string name="photo_save_failed">Nie udało się zapisać zdjęcia</string>
+    <string name="photo_save_permission_denied">Odmowa dostępu do zdjęć</string>
+    <string name="settings_save_photos_to_gallery">Zapisuj w Zdjęciach</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Zapisuj też zdjęcia posiłków w galerii podczas logowania</string>
 </resources>

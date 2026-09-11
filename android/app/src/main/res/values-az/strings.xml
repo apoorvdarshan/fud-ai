@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">Bunu istənilən vaxt Parametrlərdə dəyişə bilərsiniz.</string>
 
     <string name="onboarding_health_title">Health Connect-ə\nqoşulun</string>
-    <string name="onboarding_health_subtitle">Qidalanma və bədən ölçülərinizi\navtomatik olaraq sinxronlaşdırın.</string>
+    <string name="onboarding_health_subtitle">Qidalanma, addımlar və bədən\nölçülərini avtomatik sinxron saxlayın.</string>
     <string name="onboarding_health_feature_nutrition">Qidalanma Məlumatları</string>
     <string name="onboarding_health_feature_weight">Çəki Sinxronizasiyası</string>
+    <string name="onboarding_health_feature_steps">Gündəlik addımlar</string>
     <string name="onboarding_health_feature_body">Bədən Ölçüləri</string>
     <string name="onboarding_health_unavailable">Health Connect əlçatan deyil</string>
     <string name="onboarding_health_connected">Qoşuldu</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s addım</item>
+        <item quantity="other">%1$s addım</item>
+    </plurals>
+
     <string name="home_add_food">Yemək əlavə et</string>
     <string name="home_menu_camera">Kamera</string>
     <string name="home_menu_camera_note">Kamera + Qeyd</string>
@@ -772,4 +778,11 @@
     <string name="about_whisper_notices">Whisper Base üçün üçüncü tərəf bildirişləri</string>
     <string name="about_whisper_notices_load_error">Whisper Base üçün üçüncü tərəf bildirişlərini yükləmək mümkün olmadı.</string>
     <string name="cd_remove_image">Şəkli sil</string>
+    <string name="cd_save_photo">Şəkli yadda saxla</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Şəkil yadda saxlanıldı</string>
+    <string name="photo_save_failed">Şəkil yadda saxlanmadı</string>
+    <string name="photo_save_permission_denied">Foto girişinə icazə verilmədi</string>
+    <string name="settings_save_photos_to_gallery">Fotolarda saxla</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Qeyd edərkən yemək fotolarını qalereyada da saxla</string>
 </resources>

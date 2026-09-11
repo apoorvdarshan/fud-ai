@@ -64,6 +64,7 @@ import androidx.compose.material.icons.automirrored.filled.TrendingDown
 import androidx.compose.material.icons.automirrored.filled.TrendingFlat
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.outlined.Brightness6
+import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.Bolt
 import androidx.compose.material.icons.outlined.CloudUpload
 import androidx.compose.material.icons.outlined.CalendarToday
@@ -429,6 +430,29 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     ) { granted ->
         if (granted) vm.setNotificationsEnabled(true)
         else permissionDialog = PermissionDialogState(notifDeniedMsg)
+    }
+
+    val photoSaveDeniedMsg = stringResource(R.string.photo_save_permission_denied)
+    val gallerySavePermissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) vm.setSaveMealPhotosToGallery(true)
+        else permissionDialog = PermissionDialogState(photoSaveDeniedMsg)
+    }
+
+    fun onSavePhotosToGalleryChanged(enabled: Boolean) {
+        if (!enabled) {
+            vm.setSaveMealPhotosToGallery(false)
+            return
+        }
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P &&
+            ContextCompat.checkSelfPermission(activityContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+            PackageManager.PERMISSION_GRANTED
+        ) {
+            gallerySavePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        } else {
+            vm.setSaveMealPhotosToGallery(true)
+        }
     }
 
     // Health Connect honors partial grants: any granted permission connects the app, and
@@ -827,6 +851,14 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                     onChange = vm::setPreferGramsByDefault
                 )
                 HorizontalDivider()
+                ToggleRow(
+                    label = stringResource(R.string.settings_save_photos_to_gallery),
+                    subtitle = stringResource(R.string.settings_save_photos_to_gallery_subtitle),
+                    checked = ui.saveMealPhotosToGallery,
+                    icon = Icons.Outlined.Download,
+                    onChange = { onSavePhotosToGalleryChanged(it) }
+                )
+                HorizontalDivider()
                 SettingRow(
                     stringResource(R.string.settings_week_starts),
                     if (ui.weekStartsOnMonday) stringResource(R.string.settings_week_monday) else stringResource(R.string.settings_week_sunday),
@@ -838,6 +870,12 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                     stringResource(R.string.settings_meal_times_customize),
                     icon = Icons.Outlined.Bolt
                 ) { nav.navigate(FudAIRoutes.QUICK_ACTIONS) }
+                HorizontalDivider()
+                SettingRow(
+                    stringResource(R.string.settings_add_menu_title),
+                    stringResource(R.string.settings_meal_times_customize),
+                    icon = Icons.Outlined.Add
+                ) { nav.navigate(FudAIRoutes.ADD_MENU) }
             }
             }
 
@@ -888,6 +926,41 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                         icon = Icons.Outlined.TrackChanges
                     ) { sheet = SettingsSheet.FASTING_GOAL }
                 }
+            }
+            }
+
+            // Workout is permanently available. Keep its live preferences in the
+            // same compact Fud AI settings card.
+            if (selectedCategory == SettingsCategory.WORKOUT) {
+            SectionCard {
+                ToggleRow(
+                    stringResource(R.string.settings_walk_run_quick_log),
+                    ui.walkRunQuickLogEnabled,
+                    icon = Icons.AutoMirrored.Outlined.DirectionsWalk,
+                    onChange = vm::setWalkRunQuickLogEnabled
+                )
+                HorizontalDivider()
+                SettingRow(
+                    stringResource(R.string.settings_training_split),
+                    ui.workoutSplit.title,
+                    icon = Icons.Outlined.FitnessCenter,
+                    inlineMenu = true
+                ) { sheet = SettingsSheet.WORKOUT_SPLIT }
+                HorizontalDivider()
+                SettingRow(
+                    stringResource(R.string.settings_rpe_scale),
+                    ui.workoutRpeScale.title,
+                    icon = Icons.Outlined.Speed,
+                    inlineMenu = true
+                ) { sheet = SettingsSheet.WORKOUT_RPE }
+                HorizontalDivider()
+                Text(
+                    stringResource(R.string.settings_rpe_guide),
+                    fontSize = 12.sp,
+                    lineHeight = 18.sp,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+                )
             }
             }
 
@@ -1214,34 +1287,6 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                 Text(
                     stringResource(R.string.settings_custom_instructions_footer),
                     fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
-                )
-            }
-            }
-
-            // Workout is permanently available. Keep its only two live
-            // preferences in the same compact Fud AI settings card.
-            if (selectedCategory == SettingsCategory.WORKOUT) {
-            SectionCard {
-                SettingRow(
-                    stringResource(R.string.settings_training_split),
-                    ui.workoutSplit.title,
-                    icon = Icons.Outlined.FitnessCenter,
-                    inlineMenu = true
-                ) { sheet = SettingsSheet.WORKOUT_SPLIT }
-                HorizontalDivider()
-                SettingRow(
-                    stringResource(R.string.settings_rpe_scale),
-                    ui.workoutRpeScale.title,
-                    icon = Icons.Outlined.Speed,
-                    inlineMenu = true
-                ) { sheet = SettingsSheet.WORKOUT_RPE }
-                HorizontalDivider()
-                Text(
-                    stringResource(R.string.settings_rpe_guide),
-                    fontSize = 12.sp,
-                    lineHeight = 18.sp,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                 )
@@ -4184,6 +4229,7 @@ private fun ToggleRow(
     label: String,
     checked: Boolean,
     icon: ImageVector? = null,
+    subtitle: String? = null,
     onChange: (Boolean) -> Unit
 ) {
     Row(
@@ -4194,11 +4240,16 @@ private fun ToggleRow(
             FudIconBubble(icon = icon, size = 22.dp, iconSize = 14.dp)
             Spacer(Modifier.width(14.dp))
         }
-        Text(
-            label,
-            modifier = Modifier.weight(1f),
-            style = MaterialTheme.typography.bodyLarge
-        )
+        Column(modifier = Modifier.weight(1f)) {
+            Text(label, style = MaterialTheme.typography.bodyLarge)
+            if (subtitle != null) {
+                Text(
+                    subtitle,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
         Switch(checked = checked, onCheckedChange = onChange)
     }
 }

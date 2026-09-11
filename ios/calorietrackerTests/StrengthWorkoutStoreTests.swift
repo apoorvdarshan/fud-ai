@@ -503,6 +503,22 @@ struct StrengthWorkoutStoreTests {
         #expect(deletedIDs == [second.id])
     }
 
+    @Test func logQuickCardioAppendsSavedTimedEntry() throws {
+        let fixture = WorkoutTestFixture()
+        defer { fixture.cleanUp() }
+        let date = WorkoutTestFixture.date(2026, 9, 8)
+        let store = fixture.makeStore()
+        let item = WorkoutTestFixture.exercise(id: "Walking_Outdoor", name: "Walking", category: "cardio")
+
+        store.logQuickCardio(item, minutes: 30, on: date)
+
+        let exercises = store.exercises(for: date)
+        #expect(exercises.count == 1)
+        #expect(exercises[0].itemID == "Walking_Outdoor")
+        #expect(exercises[0].timer?.savedDurationSeconds == 1_800)
+        #expect(exercises[0].timer?.isSaved == true)
+    }
+
     @Test func exerciseTimersPersistThroughReloadAndExcludePausedTime() throws {
         let fixture = WorkoutTestFixture()
         defer { fixture.cleanUp() }

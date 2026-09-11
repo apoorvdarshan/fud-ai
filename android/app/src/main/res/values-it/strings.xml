@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">Puoi modificarlo in qualsiasi momento dalle Impostazioni.</string>
 
     <string name="onboarding_health_title">Connetti a\nHealth Connect</string>
-    <string name="onboarding_health_subtitle">Mantieni nutrizione e misure corporee\nsincronizzate automaticamente.</string>
+    <string name="onboarding_health_subtitle">Tieni sincronizzati automaticamente nutrizione, passi\ne misure corporee.</string>
     <string name="onboarding_health_feature_nutrition">Dati nutrizionali</string>
     <string name="onboarding_health_feature_weight">Sincronizzazione peso</string>
+    <string name="onboarding_health_feature_steps">Passi giornalieri</string>
     <string name="onboarding_health_feature_body">Misure corporee</string>
     <string name="onboarding_health_unavailable">Health Connect non disponibile</string>
     <string name="onboarding_health_connected">Connesso</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s passo</item>
+        <item quantity="other">%1$s passi</item>
+    </plurals>
+
     <string name="home_add_food">Aggiungi cibo</string>
     <string name="home_menu_camera">Fotocamera</string>
     <string name="home_menu_camera_note">Fotocamera + Nota</string>
@@ -772,4 +778,11 @@
     <string name="about_whisper_notices">Avvisi di terze parti di Whisper Base</string>
     <string name="about_whisper_notices_load_error">Impossibile caricare gli avvisi di terze parti di Whisper Base.</string>
     <string name="cd_remove_image">Rimuovi immagine</string>
+    <string name="cd_save_photo">Salva foto</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Foto salvata</string>
+    <string name="photo_save_failed">Impossibile salvare la foto</string>
+    <string name="photo_save_permission_denied">Accesso alle foto negato</string>
+    <string name="settings_save_photos_to_gallery">Salva in Foto</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Salva anche le foto dei pasti nella galleria quando registri</string>
 </resources>

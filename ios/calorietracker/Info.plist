@@ -14,7 +14,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>$(APP_DISPLAY_NAME)</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Read your weight, height, body composition, nutrition, and Fud AI workout calories to keep your history in sync.</string>
+	<string>Read your weight, height, body composition, nutrition, workouts, and Fud AI workout calories to keep your history in sync.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Write, update, or remove your nutrition, body measurements, and calculated workout calories when you change your logs.</string>
 	<key>CFBundleURLTypes</key>

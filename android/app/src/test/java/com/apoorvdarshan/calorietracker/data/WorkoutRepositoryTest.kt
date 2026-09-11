@@ -275,6 +275,21 @@ class WorkoutRepositoryTest {
     }
 
     @Test
+    fun logQuickCardioAppendsSavedTimedEntry() = runBlocking {
+        val repository = WorkoutRepository(FakeWorkoutStateStore())
+        val date = LocalDate.of(2026, 9, 8)
+        repository.logQuickCardio(
+            exerciseItem().copy(id = "Running_Outdoor", name = "Running", category = "cardio"),
+            minutes = 45,
+            date = date
+        )
+        val exercise = repository.planNow(date).exercises.single()
+        assertEquals("Running_Outdoor", exercise.itemId)
+        assertEquals(2_700.0, exercise.timer!!.savedSeconds, 0.001)
+        assertTrue(exercise.sets.isEmpty())
+    }
+
+    @Test
     fun savedTimerBurnUpsertsOneDailySnapshotWithDurationAndSurvivesHealthRestore() = runBlocking {
         val store = FakeWorkoutStateStore()
         val repository = WorkoutRepository(store)

@@ -295,10 +295,11 @@
     <string name="onboarding_notifications_change_anytime">You can change this anytime in Settings.</string>
 
     <string name="onboarding_health_title">Connect to\nHealth Connect</string>
-    <string name="onboarding_health_subtitle">Keep your nutrition and body\nmeasurements in sync automatically.</string>
+    <string name="onboarding_health_subtitle">Keep your nutrition, steps, and body\nmeasurements in sync automatically.</string>
     <string name="onboarding_health_feature_nutrition">Nutrition Data</string>
     <string name="onboarding_health_feature_weight">Weight Sync</string>
     <string name="onboarding_health_feature_body">Body Measurements</string>
+    <string name="onboarding_health_feature_steps">Daily Steps</string>
     <string name="onboarding_health_unavailable">Health Connect unavailable</string>
     <string name="onboarding_health_connected">Connected</string>
     <string name="onboarding_health_connect">Connect</string>
@@ -336,6 +337,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s step</item>
+        <item quantity="other">%1$s steps</item>
+    </plurals>
+
     <string name="home_add_food">Add food</string>
     <string name="home_menu_camera">Camera</string>
     <string name="home_menu_barcode">Barcode</string>
@@ -682,6 +688,8 @@
     <string name="settings_weight_unit">Weight Unit</string>
     <string name="settings_default_to_grams">Default to Grams</string>
     <string name="settings_default_to_grams_info">New food review sheets open with grams selected first. You can still switch to serving, slice, cup, or any other detected unit before logging.</string>
+    <string name="settings_save_photos_to_gallery">Save to Photos</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Also save meal photos to your gallery when logging</string>
     <string name="settings_week_starts">Week Starts On</string>
     <string name="settings_meal_times">Meal Times</string>
     <string name="settings_meal_times_customize">Customize</string>
@@ -705,6 +713,14 @@
     <string name="settings_water_unit_ml">Milliliters (ml)</string>
     <string name="settings_water_unit_fl_oz">Fluid Ounces (fl oz)</string>
     <string name="settings_fasting_tracking">Fasting Tracking</string>
+    <string name="settings_walk_run_quick_log">Walk &amp; Run</string>
+    <string name="outdoor_activity_walking">Walking</string>
+    <string name="outdoor_activity_running">Running</string>
+    <string name="outdoor_activity_how_long">How long?</string>
+    <string name="outdoor_activity_minutes">%1$d min</string>
+    <string name="outdoor_activity_custom_minutes">Custom minutes</string>
+    <string name="outdoor_activity_min_suffix">min</string>
+    <string name="outdoor_activity_log">Log %1$s</string>
     <string name="settings_fasting_goal">Default Fasting Goal</string>
     <string name="settings_fasting_goal_value">%1$d hours</string>
     <string name="settings_notif_fasting_goal">Fasting Goal Reached</string>
@@ -1033,6 +1049,11 @@
     <string name="cd_add_image">Add image</string>
     <string name="cd_open_camera">Open camera</string>
     <string name="cd_close_camera">Close camera</string>
+    <string name="cd_save_photo">Save photo</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Photo saved</string>
+    <string name="photo_save_failed">Couldn\u2019t save photo</string>
+    <string name="photo_save_permission_denied">Photo access denied</string>
 
     <!-- Localization pass: previously hardcoded UI strings -->
     <string name="unit_mcg">mcg</string>
@@ -1237,6 +1258,16 @@
     <string name="progressive_meal_description">Photo 1 → 2 → 3 follows each ingredient added to the same plate. Visible scale differences become ingredient weights.</string>
     <string name="progressive_meal_info_title">How Progressive Meal works</string>
     <string name="progressive_meal_info_body">Use this when every photo shows the same plate after another ingredient is added. Keep the photos in order and make the scale display visible. Fud AI uses the difference between consecutive scale totals to estimate each new ingredient. Leave this off when the photos are only different angles of the same meal.</string>
+    <string name="settings_add_menu_title">+ Menu</string>
+    <string name="settings_add_menu_food_section">Food Add Menu</string>
+    <string name="settings_add_menu_groups">Groups</string>
+    <string name="settings_add_menu_flat">Flat Menu</string>
+    <string name="settings_add_menu_hidden">Hidden Methods</string>
+    <string name="settings_add_menu_reset">Reset to Default</string>
+    <string name="settings_add_menu_footer">Customize the Home + button food menu. Water and fasting stay separate when enabled. This does not change app-icon Quick Actions.</string>
+    <string name="settings_add_menu_add_method">Add Method</string>
+    <string name="settings_add_menu_group_name">Group Name</string>
+    <string name="settings_add_menu_new_group">New Group</string>
     <string name="settings_quick_actions">Quick Actions</string>
     <string name="settings_app_icon_shortcuts">App Icon Shortcuts</string>
     <string name="settings_quick_action_number">Quick Action %1$d</string>

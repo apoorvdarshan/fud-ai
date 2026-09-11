@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">你可以随时在设置中更改。</string>
 
     <string name="onboarding_health_title">连接到\nHealth Connect</string>
-    <string name="onboarding_health_subtitle">让你的营养和身体测量数据\n自动保持同步。</string>
+    <string name="onboarding_health_subtitle">自动同步营养、步数和身体\n测量数据。</string>
     <string name="onboarding_health_feature_nutrition">营养数据</string>
     <string name="onboarding_health_feature_weight">体重同步</string>
+    <string name="onboarding_health_feature_steps">每日步数</string>
     <string name="onboarding_health_feature_body">身体测量</string>
     <string name="onboarding_health_unavailable">Health Connect 不可用</string>
     <string name="onboarding_health_connected">已连接</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s 步</item>
+        <item quantity="other">%1$s 步</item>
+    </plurals>
+
     <string name="home_add_food">添加食物</string>
     <string name="home_menu_camera">相机</string>
     <string name="home_menu_camera_note">相机 + 备注</string>
@@ -772,4 +778,11 @@
     <string name="about_whisper_notices">Whisper Base 第三方声明</string>
     <string name="about_whisper_notices_load_error">无法加载 Whisper Base 第三方声明。</string>
     <string name="cd_remove_image">移除图片</string>
+    <string name="cd_save_photo">保存照片</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">照片已保存</string>
+    <string name="photo_save_failed">无法保存照片</string>
+    <string name="photo_save_permission_denied">照片访问被拒绝</string>
+    <string name="settings_save_photos_to_gallery">保存到照片</string>
+    <string name="settings_save_photos_to_gallery_subtitle">记录时也将餐食照片保存到相册</string>
 </resources>

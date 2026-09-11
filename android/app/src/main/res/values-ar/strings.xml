@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">يمكنك تغيير هذا في أي وقت من الإعدادات.</string>
 
     <string name="onboarding_health_title">الاتصال بـ\nHealth Connect</string>
-    <string name="onboarding_health_subtitle">حافظ على مزامنة تغذيتك ومقاييس\nجسمك تلقائيًا.</string>
+    <string name="onboarding_health_subtitle">حافظ على تزامن التغذية والخطوات\nوقياسات الجسم تلقائيًا.</string>
     <string name="onboarding_health_feature_nutrition">بيانات التغذية</string>
     <string name="onboarding_health_feature_weight">مزامنة الوزن</string>
+    <string name="onboarding_health_feature_steps">الخطوات اليومية</string>
     <string name="onboarding_health_feature_body">مقاييس الجسم</string>
     <string name="onboarding_health_unavailable">Health Connect غير متاح</string>
     <string name="onboarding_health_connected">متصل</string>
@@ -285,6 +286,15 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="zero">لا خطوات (%1$s)</item>
+        <item quantity="one">خطوة واحدة (%1$s)</item>
+        <item quantity="two">خطوتان (%1$s)</item>
+        <item quantity="few">%1$s خطوات</item>
+        <item quantity="many">%1$s خطوة</item>
+        <item quantity="other">%1$s خطوة</item>
+    </plurals>
+
     <string name="home_add_food">إضافة طعام</string>
     <string name="home_menu_camera">الكاميرا</string>
     <string name="home_menu_camera_note">كاميرا + ملاحظة</string>
@@ -780,4 +790,11 @@
     <string name="about_whisper_notices">إشعارات الجهات الخارجية لـ Whisper Base</string>
     <string name="about_whisper_notices_load_error">تعذّر تحميل إشعارات الجهات الخارجية لـ Whisper Base.</string>
     <string name="cd_remove_image">إزالة الصورة</string>
+    <string name="cd_save_photo">حفظ الصورة</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">تم حفظ الصورة</string>
+    <string name="photo_save_failed">تعذر حفظ الصورة</string>
+    <string name="photo_save_permission_denied">تم رفض الوصول إلى الصور</string>
+    <string name="settings_save_photos_to_gallery">حفظ في الصور</string>
+    <string name="settings_save_photos_to_gallery_subtitle">احفظ أيضًا صور الوجبات في المعرض عند التسجيل</string>
 </resources>

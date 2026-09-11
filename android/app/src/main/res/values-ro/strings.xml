@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">Poți schimba asta oricând în Setări.</string>
 
     <string name="onboarding_health_title">Conectează-te la\nHealth Connect</string>
-    <string name="onboarding_health_subtitle">Sincronizează automat nutriția și\nmăsurătorile corporale.</string>
+    <string name="onboarding_health_subtitle">Păstrează sincronizate automat nutriția, pașii\nși măsurătorile corporale.</string>
     <string name="onboarding_health_feature_nutrition">Date nutriționale</string>
     <string name="onboarding_health_feature_weight">Sincronizare greutate</string>
+    <string name="onboarding_health_feature_steps">Pași zilnici</string>
     <string name="onboarding_health_feature_body">Măsurători corporale</string>
     <string name="onboarding_health_unavailable">Health Connect indisponibil</string>
     <string name="onboarding_health_connected">Conectat</string>
@@ -285,6 +286,12 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s pas</item>
+        <item quantity="few">%1$s pași</item>
+        <item quantity="other">%1$s de pași</item>
+    </plurals>
+
     <string name="home_add_food">Adaugă aliment</string>
     <string name="home_menu_camera">Cameră</string>
     <string name="home_menu_camera_note">Cameră + notă</string>
@@ -774,4 +781,11 @@
     <string name="about_whisper_notices">Notificări terțe Whisper Base</string>
     <string name="about_whisper_notices_load_error">Notificările terțe Whisper Base nu au putut fi încărcate.</string>
     <string name="cd_remove_image">Elimină imaginea</string>
+    <string name="cd_save_photo">Salvează fotografia</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Fotografie salvată</string>
+    <string name="photo_save_failed">Fotografia nu a putut fi salvată</string>
+    <string name="photo_save_permission_denied">Acces la fotografii refuzat</string>
+    <string name="settings_save_photos_to_gallery">Salvează în Fotografii</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Salvează și fotografiile meselor în galerie la înregistrare</string>
 </resources>

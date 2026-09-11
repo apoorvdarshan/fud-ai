@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">Vous pouvez changer cela à tout moment dans Réglages.</string>
 
     <string name="onboarding_health_title">Connectez-vous à\nHealth Connect</string>
-    <string name="onboarding_health_subtitle">Synchronisez automatiquement votre nutrition\net vos mesures corporelles.</string>
+    <string name="onboarding_health_subtitle">Gardez votre nutrition, vos pas et vos mesures\ncorporelles synchronisés automatiquement.</string>
     <string name="onboarding_health_feature_nutrition">Données nutritionnelles</string>
     <string name="onboarding_health_feature_weight">Synchronisation du poids</string>
+    <string name="onboarding_health_feature_steps">Pas quotidiens</string>
     <string name="onboarding_health_feature_body">Mesures corporelles</string>
     <string name="onboarding_health_unavailable">Health Connect indisponible</string>
     <string name="onboarding_health_connected">Connecté</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s pas</item>
+        <item quantity="other">%1$s pas</item>
+    </plurals>
+
     <string name="home_add_food">Ajouter un aliment</string>
     <string name="home_menu_camera">Appareil photo</string>
     <string name="home_menu_camera_note">Appareil photo + note</string>
@@ -772,4 +778,11 @@
     <string name="about_whisper_notices">Mentions tierces de Whisper Base</string>
     <string name="about_whisper_notices_load_error">Impossible de charger les mentions tierces de Whisper Base.</string>
     <string name="cd_remove_image">Retirer l’image</string>
+    <string name="cd_save_photo">Enregistrer la photo</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Photo enregistrée</string>
+    <string name="photo_save_failed">Impossible d\u2019enregistrer la photo</string>
+    <string name="photo_save_permission_denied">Accès aux photos refusé</string>
+    <string name="settings_save_photos_to_gallery">Enregistrer dans Photos</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Enregistrer aussi les photos de repas dans votre galerie lors de la saisie</string>
 </resources>

@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">설정에서 언제든지 변경할 수 있어요.</string>
 
     <string name="onboarding_health_title">Health Connect\n연결</string>
-    <string name="onboarding_health_subtitle">영양 정보와 신체 측정을\n자동으로 동기화하세요.</string>
+    <string name="onboarding_health_subtitle">영양, 걸음 수, 신체 측정을\n자동으로 동기화하세요.</string>
     <string name="onboarding_health_feature_nutrition">영양 데이터</string>
     <string name="onboarding_health_feature_weight">체중 동기화</string>
+    <string name="onboarding_health_feature_steps">일일 걸음 수</string>
     <string name="onboarding_health_feature_body">신체 측정</string>
     <string name="onboarding_health_unavailable">Health Connect 사용 불가</string>
     <string name="onboarding_health_connected">연결됨</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s걸음</item>
+        <item quantity="other">%1$s걸음</item>
+    </plurals>
+
     <string name="home_add_food">음식 추가</string>
     <string name="home_menu_camera">카메라</string>
     <string name="home_menu_camera_note">카메라 + 메모</string>
@@ -772,4 +778,11 @@
     <string name="about_whisper_notices">Whisper Base 타사 고지</string>
     <string name="about_whisper_notices_load_error">Whisper Base 타사 고지를 불러올 수 없습니다.</string>
     <string name="cd_remove_image">이미지 제거</string>
+    <string name="cd_save_photo">사진 저장</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">사진 저장됨</string>
+    <string name="photo_save_failed">사진을 저장할 수 없습니다</string>
+    <string name="photo_save_permission_denied">사진 접근이 거부되었습니다</string>
+    <string name="settings_save_photos_to_gallery">사진에 저장</string>
+    <string name="settings_save_photos_to_gallery_subtitle">기록할 때 식사 사진을 갤러리에도 저장</string>
 </resources>

@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">Je kunt dit altijd wijzigen in Instellingen.</string>
 
     <string name="onboarding_health_title">Verbinden met\nHealth Connect</string>
-    <string name="onboarding_health_subtitle">Houd je voeding en lichaams-\nmetingen automatisch synchroon.</string>
+    <string name="onboarding_health_subtitle">Houd je voeding, stappen en lichaams-\nmetingen automatisch gesynchroniseerd.</string>
     <string name="onboarding_health_feature_nutrition">Voedingsgegevens</string>
     <string name="onboarding_health_feature_weight">Gewichtssync</string>
+    <string name="onboarding_health_feature_steps">Dagelijkse stappen</string>
     <string name="onboarding_health_feature_body">Lichaamsmetingen</string>
     <string name="onboarding_health_unavailable">Health Connect niet beschikbaar</string>
     <string name="onboarding_health_connected">Verbonden</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s stap</item>
+        <item quantity="other">%1$s stappen</item>
+    </plurals>
+
     <string name="home_add_food">Eten toevoegen</string>
     <string name="home_menu_camera">Camera</string>
     <string name="home_menu_camera_note">Camera + notitie</string>
@@ -772,4 +778,11 @@
     <string name="about_whisper_notices">Kennisgevingen van derden voor Whisper Base</string>
     <string name="about_whisper_notices_load_error">De kennisgevingen van derden voor Whisper Base konden niet worden geladen.</string>
     <string name="cd_remove_image">Afbeelding verwijderen</string>
+    <string name="cd_save_photo">Foto opslaan</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Foto opgeslagen</string>
+    <string name="photo_save_failed">Kon foto niet opslaan</string>
+    <string name="photo_save_permission_denied">Fototoegang geweigerd</string>
+    <string name="settings_save_photos_to_gallery">Opslaan in Foto\u2019s</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Sla maaltijdfoto\u2019s ook op in je galerij bij het loggen</string>
 </resources>

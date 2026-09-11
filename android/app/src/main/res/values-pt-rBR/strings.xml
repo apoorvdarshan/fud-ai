@@ -244,9 +244,10 @@
     <string name="onboarding_notifications_change_anytime">Você pode mudar isso a qualquer momento em Ajustes.</string>
 
     <string name="onboarding_health_title">Conectar ao\nHealth Connect</string>
-    <string name="onboarding_health_subtitle">Mantenha sua nutrição e medidas\ncorporais sincronizadas automaticamente.</string>
+    <string name="onboarding_health_subtitle">Mantenha nutrição, passos e medidas\ncorporais sincronizados automaticamente.</string>
     <string name="onboarding_health_feature_nutrition">Dados nutricionais</string>
     <string name="onboarding_health_feature_weight">Sincronização de peso</string>
+    <string name="onboarding_health_feature_steps">Passos diários</string>
     <string name="onboarding_health_feature_body">Medidas corporais</string>
     <string name="onboarding_health_unavailable">Health Connect indisponível</string>
     <string name="onboarding_health_connected">Conectado</string>
@@ -285,6 +286,11 @@
 
 
     <!-- Home -->
+    <plurals name="home_daily_steps">
+        <item quantity="one">%1$s passo</item>
+        <item quantity="other">%1$s passos</item>
+    </plurals>
+
     <string name="home_add_food">Adicionar alimento</string>
     <string name="home_menu_camera">Câmera</string>
     <string name="home_menu_camera_note">Câmera + nota</string>
@@ -772,4 +778,11 @@
     <string name="about_whisper_notices">Avisos de terceiros do Whisper Base</string>
     <string name="about_whisper_notices_load_error">Não foi possível carregar os avisos de terceiros do Whisper Base.</string>
     <string name="cd_remove_image">Remover imagem</string>
+    <string name="cd_save_photo">Salvar foto</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Foto salva</string>
+    <string name="photo_save_failed">Não foi possível salvar a foto</string>
+    <string name="photo_save_permission_denied">Acesso às fotos negado</string>
+    <string name="settings_save_photos_to_gallery">Salvar em Fotos</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Também salvar fotos de refeições na galeria ao registrar</string>
 </resources>

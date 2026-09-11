@@ -8,16 +8,21 @@ import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FastingSession
 import com.apoorvdarshan.calorietracker.models.FoodSource
+import com.apoorvdarshan.calorietracker.models.AddMenuConfig
 import com.apoorvdarshan.calorietracker.models.HomeTopNutrient
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.OptionalNutrientGoals
 import com.apoorvdarshan.calorietracker.models.PendingFoodAnalysisDraft
 import com.apoorvdarshan.calorietracker.models.UserProfile
+import com.apoorvdarshan.calorietracker.data.ExerciseRepository
+import com.apoorvdarshan.calorietracker.models.OutdoorActivitySettings
 import com.apoorvdarshan.calorietracker.models.WaterEntry
 import com.apoorvdarshan.calorietracker.models.WaterUnit
+import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
 import com.apoorvdarshan.calorietracker.services.CalorieBalanceDirection
 import com.apoorvdarshan.calorietracker.services.DailySummaryPolicy
 import com.apoorvdarshan.calorietracker.services.OpenFoodFactsService
+import com.apoorvdarshan.calorietracker.ui.components.autoSaveMealPhotoIfEnabled
 import com.apoorvdarshan.calorietracker.services.ai.AiError
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import kotlinx.coroutines.CancellationException
@@ -26,6 +31,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
@@ -71,6 +77,7 @@ data class HomeUiState(
     val waterTodayMl: Int = 0,
     val waterEntriesToday: List<WaterEntry> = emptyList(),
     val fastingTrackingEnabled: Boolean = false,
+    val walkRunQuickLogEnabled: Boolean = false,
     val fastingDefaultGoalMinutes: Int = 16 * 60,
     val fastingSessions: List<FastingSession> = emptyList(),
     val pendingAnalysis: FoodAnalysis? = null,
@@ -93,7 +100,10 @@ data class HomeUiState(
     val error: String? = null,
     /** When true, the error dialog's primary action opens the food camera instead of retrying. */
     val errorOffersScanLabel: Boolean = false,
-    val homeBurnSummary: HomeBurnSummary? = null
+/** Daily step total from Health Connect for [date]; null when health is off, unreadable, or loading. */
+    val dailySteps: Int? = null,
+    val homeBurnSummary: HomeBurnSummary? = null,
+    val addMenuConfig: AddMenuConfig = AddMenuConfig.Default
 ) {
     val caloriesToday: Int get() = todayEntries.sumOf { it.calories }
     val proteinToday: Double get() = todayEntries.sumOf { it.protein }
@@ -122,6 +132,7 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
     private val _ui = MutableStateFlow(HomeUiState())
     val ui: StateFlow<HomeUiState> = _ui.asStateFlow()
     private val _selectedDate = MutableStateFlow(LocalDate.now())
+private val _stepsRefreshEpoch = MutableStateFlow(0)
     private val _burnRefreshTick = MutableStateFlow(0)
     private var retryAction: (() -> Unit)? = null
     private val foodSubmissionGate = FoodSubmissionGate()
@@ -160,6 +171,12 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             }
             .launchIn(viewModelScope)
 
+        container.prefs.addMenuConfig
+            .onEach { config ->
+                _ui.value = _ui.value.copy(addMenuConfig = config)
+            }
+            .launchIn(viewModelScope)
+
         container.prefs.optionalNutrientGoals
             .onEach { goals ->
                 _ui.value = _ui.value.copy(optionalNutrientGoals = goals)
@@ -194,6 +211,10 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             .onEach { enabled -> _ui.value = _ui.value.copy(fastingTrackingEnabled = enabled) }
             .launchIn(viewModelScope)
 
+        container.prefs.walkRunQuickLogEnabled
+            .onEach { enabled -> _ui.value = _ui.value.copy(walkRunQuickLogEnabled = enabled) }
+            .launchIn(viewModelScope)
+
         container.prefs.fastingDefaultGoalMinutes
             .onEach { goal -> _ui.value = _ui.value.copy(fastingDefaultGoalMinutes = goal) }
             .launchIn(viewModelScope)
@@ -221,6 +242,25 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             container.prefs.pendingFoodAnalysisDraft.first()?.let { restorePendingDraft(it) }
         }
 
+viewModelScope.launch {
+            combine(
+                container.prefs.healthConnectEnabled,
+                _selectedDate,
+                _stepsRefreshEpoch
+            ) { enabled, date, epoch -> Triple(enabled, date, epoch) }
+                .distinctUntilChanged()
+                .collect { (enabled, date, _) ->
+                    if (!enabled || !container.health.hasStepsRead()) {
+                        _ui.value = _ui.value.copy(dailySteps = null)
+                        return@collect
+                    }
+                    val steps = container.health.readStepsForDay(date)
+                    if (_selectedDate.value == date) {
+                        _ui.value = _ui.value.copy(dailySteps = steps)
+                    }
+                }
+        }
+
         combine(
             container.prefs.healthConnectEnabled,
             _selectedDate,
@@ -237,6 +277,10 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 _ui.value = _ui.value.copy(homeBurnSummary = summary)
             }
             .launchIn(viewModelScope)
+    }
+
+    fun refreshDailySteps() {
+        _stepsRefreshEpoch.value += 1
     }
 
     private data class BurnRefreshInputs(
@@ -279,6 +323,27 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
             container.waterRepository.add(
                 WaterEntry(date = timestampForSelectedDay(), milliliters = milliliters)
             )
+        }
+    }
+
+    fun logQuickOutdoorActivity(kind: OutdoorActivityKind, minutes: Int) {
+        if (minutes <= 0) return
+        val date = _selectedDate.value
+        viewModelScope.launch {
+            val exerciseId = when (kind) {
+                OutdoorActivityKind.WALKING -> OutdoorActivitySettings.WALKING_EXERCISE_ID
+                OutdoorActivityKind.RUNNING -> OutdoorActivitySettings.RUNNING_EXERCISE_ID
+            }
+            val item = ExerciseRepository.get(container.appContext).exercises.firstOrNull { it.id == exerciseId } ?: return@launch
+            container.workoutRepository.logQuickCardio(item, minutes, date)
+            val profile = _ui.value.profile
+            val weightUnit = if (_ui.value.weightMetric) WorkoutWeightUnit.KG else WorkoutWeightUnit.LBS
+            container.workoutRepository.calculateBurn(
+                date = date,
+                bodyWeightKg = profile?.weightKg ?: 70.0,
+                weightUnit = weightUnit
+            )
+            bumpBurnRefresh()
         }
     }
 
@@ -629,6 +694,13 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
                 if (!container.foodRepository.addEntry(entry)) {
                     reportFoodBlockedByFast()
                     return@launch
+                }
+                if (reviewSource == null && filenames.isNotEmpty()) {
+                    filenames.forEach { filename ->
+                        container.imageStore.loadBytes(filename)?.let { bytes ->
+                            autoSaveMealPhotoIfEnabled(container.appContext, bytes)
+                        }
+                    }
                 }
                 container.prefs.setPendingFoodAnalysisDraft(null)
                 _ui.value = _ui.value.copy(

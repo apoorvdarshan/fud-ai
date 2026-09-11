@@ -3457,6 +3457,7 @@ struct ProgressTabView: View {
     @Environment(BodyFatStore.self) private var bodyFatStore
     @Environment(ProfileStore.self) private var profileStore
     @Environment(StrengthWorkoutStore.self) private var strengthWorkoutStore
+    @Environment(ImportedHealthWorkoutStore.self) private var importedHealthWorkoutStore
     @AppStorage("weightUnit") private var weightUnitRaw = "lbs"
     @State private var timeRange: TimeRange = .week
     @State private var showLogWeight = false
@@ -3465,6 +3466,7 @@ struct ProgressTabView: View {
     @State private var showAllWeights = false
     @State private var showAllBodyFat = false
     @State private var showWorkoutHistory = false
+    @State private var showImportedHealthWorkoutHistory = false
     @State private var progressMetric: ProgressMetric = .weight
     @State private var progressOverviewMode: ProgressOverviewMode = .myProgress
     @State private var foodRangeStats: ProgressFoodRangeStats?
@@ -3493,10 +3495,19 @@ struct ProgressTabView: View {
         }
     }
 
+    private var importedHealthWorkouts: [ImportedHealthWorkout] {
+        importedHealthWorkoutStore.sortedWorkouts
+    }
+
+    private var filteredImportedHealthWorkouts: [ImportedHealthWorkout] {
+        importedHealthWorkoutStore.workouts(from: dateRange.lowerBound, through: dateRange.upperBound)
+    }
+
     private var availableProgressMetrics: [ProgressMetric] {
         ProgressMetric.available(
             bodyFatAvailable: showsBodyFatSection,
-            workoutBurnAvailable: !workoutCalorieSessions.isEmpty
+            workoutBurnAvailable: !workoutCalorieSessions.isEmpty,
+            importedWorkoutsAvailable: !importedHealthWorkouts.isEmpty
         )
     }
 
@@ -3557,10 +3568,18 @@ struct ProgressTabView: View {
                                 onLogBodyFat: { showLogBodyFat = true }
                             )
                         case .workouts:
-                            WorkoutBurnChartSection(
-                                sessions: workoutCalorieSessions,
-                                dateRange: dateRange
-                            )
+                            if !workoutCalorieSessions.isEmpty {
+                                WorkoutBurnChartSection(
+                                    sessions: workoutCalorieSessions,
+                                    dateRange: dateRange
+                                )
+                            }
+                            if !importedHealthWorkouts.isEmpty {
+                                ImportedHealthWorkoutChartSection(
+                                    workouts: filteredImportedHealthWorkouts,
+                                    dateRange: dateRange
+                                )
+                            }
                         }
                     }
                     .padding(.horizontal)
@@ -3582,10 +3601,18 @@ struct ProgressTabView: View {
                                 )
                             }
                         case .workouts:
-                            WorkoutHistoryLink(
-                                sessions: workoutCalorieSessions,
-                                onTap: { showWorkoutHistory = true }
-                            )
+                            if !workoutCalorieSessions.isEmpty {
+                                WorkoutHistoryLink(
+                                    sessions: workoutCalorieSessions,
+                                    onTap: { showWorkoutHistory = true }
+                                )
+                            }
+                            if !importedHealthWorkouts.isEmpty {
+                                ImportedHealthWorkoutHistoryLink(
+                                    workouts: importedHealthWorkouts,
+                                    onTap: { showImportedHealthWorkoutHistory = true }
+                                )
+                            }
                         }
                     }
                     .padding(.horizontal)
@@ -3709,6 +3736,9 @@ struct ProgressTabView: View {
                         strengthWorkoutStore.deleteSession(session.id)
                     }
                 )
+            }
+            .sheet(isPresented: $showImportedHealthWorkoutHistory) {
+                ImportedHealthWorkoutHistoryView(workouts: importedHealthWorkouts)
             }
         }
     }
@@ -3932,6 +3962,7 @@ struct ProfileView: View {
     @Environment(WaterStore.self) private var waterStore
     @Environment(FastingStore.self) private var fastingStore
     @Environment(StrengthWorkoutStore.self) private var strengthWorkoutStore
+    @Environment(ImportedHealthWorkoutStore.self) private var importedHealthWorkoutStore
     @Environment(BodyMeasurementStore.self) private var bodyMeasurementStore
     @Environment(NotificationManager.self) private var notificationManager
     @Environment(HealthKitManager.self) private var healthKitManager
@@ -5462,6 +5493,8 @@ struct ProfileView: View {
                             }
                     }
 
+                } footer: {
+                    Text("Reads weight, nutrition, energy, and workouts from Apple Health. Apple Watch and iPhone workouts appear read-only in Workouts and Progress. Fud AI’s calculated diary burns are written separately and excluded from Energy Burn goals.")
                 }
                 .listRowBackground(AppColors.appCard)
                 }
@@ -5775,6 +5808,7 @@ struct ProfileView: View {
                         waterStore.clear()
                         fastingStore.clear()
                         strengthWorkoutStore.clearAll()
+                        importedHealthWorkoutStore.clearAll()
                         FoodImageStore.shared.deleteAll()
                         notificationManager.cancelAllNotifications()
                         let domain = Bundle.main.bundleIdentifier ?? ""
@@ -6417,6 +6451,9 @@ struct ProfileView: View {
                             strengthWorkoutStore.importWorkoutBurnSessions(sessions)
                         }
                     )
+                    healthKitManager.synchronizeImportedWorkoutsWithHealthKit { workouts, queryStart in
+                        importedHealthWorkoutStore.synchronize(with: workouts, queryStart: queryStart)
+                    }
                 } else {
                     healthKitEnabled = false
                 }

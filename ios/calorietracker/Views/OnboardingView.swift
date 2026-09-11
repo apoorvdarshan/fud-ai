@@ -739,6 +739,7 @@ struct OnboardingView: View {
                     healthFeatureRow(icon: "scalemass.fill", label: "Weight Sync")
                     healthFeatureRow(icon: "figure.stand", label: "Body Measurements")
                     healthFeatureRow(icon: "figure.walk", label: "Daily Steps")
+                    healthFeatureRow(icon: "applewatch", label: "Apple Watch Workouts")
                 }
                 .padding(.horizontal, 40)
             }

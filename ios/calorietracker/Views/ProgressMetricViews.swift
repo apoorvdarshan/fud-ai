@@ -30,10 +30,14 @@ enum ProgressMetric: String, CaseIterable, Identifiable, Equatable {
         }
     }
 
-    static func available(bodyFatAvailable: Bool, workoutBurnAvailable: Bool) -> [ProgressMetric] {
+    static func available(
+        bodyFatAvailable: Bool,
+        workoutBurnAvailable: Bool,
+        importedWorkoutsAvailable: Bool = false
+    ) -> [ProgressMetric] {
         var metrics: [ProgressMetric] = [.weight]
         if bodyFatAvailable { metrics.append(.bodyFat) }
-        if workoutBurnAvailable { metrics.append(.workouts) }
+        if workoutBurnAvailable || importedWorkoutsAvailable { metrics.append(.workouts) }
         return metrics
     }
 }
@@ -257,6 +261,136 @@ struct WorkoutBurnChartSection: View {
         StatBadge(label: "Total", value: "\(total.formatted()) kcal")
         StatBadge(label: "Average", value: "\(average.formatted()) kcal")
         StatBadge(label: "Latest", value: "\(latest.formatted()) kcal")
+        StatBadge(label: "Days", value: days.count.formatted())
+    }
+}
+
+struct ImportedHealthWorkoutDay: Identifiable, Equatable {
+    let date: Date
+    let sessionCount: Int
+    let totalCalories: Int
+    var id: Date { date }
+}
+
+enum ImportedHealthWorkoutAggregation {
+    static func daily(
+        workouts: [ImportedHealthWorkout],
+        in range: ClosedRange<Date>,
+        calendar: Calendar = .current
+    ) -> [ImportedHealthWorkoutDay] {
+        var grouped: [String: (date: Date, count: Int, calories: Int)] = [:]
+        for workout in workouts {
+            let day = calendar.startOfDay(for: workout.calendarDiaryDate)
+            guard range.contains(day) else { continue }
+            var bucket = grouped[workout.diaryDateKey] ?? (day, 0, 0)
+            bucket.count += 1
+            bucket.calories += workout.totalEnergyBurned ?? 0
+            grouped[workout.diaryDateKey] = bucket
+        }
+        return grouped.values.map {
+            ImportedHealthWorkoutDay(date: $0.date, sessionCount: $0.count, totalCalories: $0.calories)
+        }
+        .sorted { $0.date < $1.date }
+    }
+}
+
+struct ImportedHealthWorkoutChartSection: View {
+    let workouts: [ImportedHealthWorkout]
+    let dateRange: ClosedRange<Date>
+
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    private var days: [ImportedHealthWorkoutDay] {
+        ImportedHealthWorkoutAggregation.daily(workouts: workouts, in: dateRange)
+    }
+
+    private var totalSessions: Int { days.reduce(0) { $0 + $1.sessionCount } }
+    private var totalCalories: Int { days.reduce(0) { $0 + $1.totalCalories } }
+    private var averageCalories: Int {
+        let daysWithCalories = days.filter { $0.totalCalories > 0 }
+        guard !daysWithCalories.isEmpty else { return 0 }
+        let sum = daysWithCalories.reduce(0) { $0 + $1.totalCalories }
+        return Int((Double(sum) / Double(daysWithCalories.count)).rounded())
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Label("Apple Health Workouts", systemImage: "applewatch")
+                .font(.system(.headline, design: .rounded, weight: .semibold))
+
+            if days.isEmpty {
+                ProgressMetricEmptyState("No Apple Health workouts in this range")
+            } else {
+                workoutStatBadges
+
+                Chart(days) { day in
+                    BarMark(
+                        x: .value("Date", day.date, unit: .day),
+                        y: .value("Sessions", day.sessionCount)
+                    )
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [AppColors.calorie.opacity(0.55), AppColors.calorie],
+                            startPoint: .bottom,
+                            endPoint: .top
+                        )
+                    )
+                    .clipShape(.rect(cornerRadius: 4))
+                }
+                .chartXAxis {
+                    AxisMarks(values: .automatic(desiredCount: 5)) { _ in
+                        AxisGridLine(stroke: StrokeStyle(lineWidth: 0.6, dash: [3, 4]))
+                            .foregroundStyle(Color.primary.opacity(0.11))
+                        AxisValueLabel(format: .dateTime.month(.abbreviated).day())
+                            .foregroundStyle(Color.secondary)
+                    }
+                }
+                .chartYAxis {
+                    AxisMarks(position: .trailing, values: .automatic(desiredCount: 4)) {
+                        AxisGridLine(stroke: StrokeStyle(lineWidth: 0.6))
+                            .foregroundStyle(Color.primary.opacity(0.10))
+                        AxisValueLabel()
+                            .foregroundStyle(Color.secondary)
+                    }
+                }
+                .chartPlotStyle { plotArea in
+                    plotArea.background(
+                        AppColors.calorie.opacity(0.025),
+                        in: RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    )
+                }
+                .frame(height: 190)
+            }
+
+            Text("Imported from Apple Health and Apple Watch. Read-only here — edit or delete them in the Health app. These sessions do not affect Energy Burn goals.")
+                .font(.system(.caption2, design: .rounded))
+                .foregroundStyle(.secondary)
+        }
+        .padding()
+        .progressMetricCardStyle()
+    }
+
+    @ViewBuilder
+    private var workoutStatBadges: some View {
+        if dynamicTypeSize.isAccessibilitySize {
+            LazyVGrid(
+                columns: [GridItem(.flexible()), GridItem(.flexible())],
+                spacing: 8
+            ) {
+                workoutStatBadgeContent
+            }
+        } else {
+            HStack(spacing: 8) {
+                workoutStatBadgeContent
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var workoutStatBadgeContent: some View {
+        StatBadge(label: "Sessions", value: totalSessions.formatted())
+        StatBadge(label: "Calories", value: "\(totalCalories.formatted()) kcal")
+        StatBadge(label: "Average", value: "\(averageCalories.formatted()) kcal")
         StatBadge(label: "Days", value: days.count.formatted())
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_barcode_invalid">Не вдалося прочитати цей штрихкод. Спробуйте відсканувати його ще раз.</string>
+    <string name="error_barcode_product_not_found">Продукт не знайдено в Open Food Facts. Натомість відскануйте етикетку з харчовою цінністю.</string>
+    <string name="error_barcode_missing_nutrition">Штрихкод знайдено, але дані про харчову цінність неповні. Натомість відскануйте етикетку.</string>
+    <string name="error_barcode_rate_limited">Здійснено занадто багато пошуків штрихкодів. Зачекайте трохи та спробуйте знову.</string>
+    <string name="error_barcode_service_unavailable">Open Food Facts тимчасово недоступний. Спробуйте пізніше.</string>
+    <string name="error_barcode_unexpected_response">Open Food Facts повернув неочікувану відповідь.</string>
+    <string name="error_barcode_network">Не вдалося підключитися до Open Food Facts. Перевірте з\'єднання та спробуйте знову.</string>
+    <string name="error_barcode_offline">Схоже, ви офлайн. Перевірте з\'єднання та спробуйте відсканувати знову.</string>
+    <string name="error_barcode_timeout">Open Food Facts занадто довго не відповідав. Спробуйте відсканувати знову.</string>
+</resources>

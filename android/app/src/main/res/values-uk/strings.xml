@@ -1145,7 +1145,7 @@
     <string name="vm_adaptive_on_message">Адаптивні цілі ввімкнено. Fud AI перевірятиме їх раз на тиждень, коли збереться достатньо даних про їжу та вагу.</string>
     <string name="vm_goals_recalculated">Цілі перераховано</string>
     <plurals name="import_add_meals_title">
-        <item quantity="one">Додати спільну страву</item>
+        <item quantity="one">Додати %1$d спільну страву</item>
         <item quantity="few">Додати %1$d спільні страви</item>
         <item quantity="many">Додати %1$d спільних страв</item>
         <item quantity="other">Додати %1$d спільних страв</item>

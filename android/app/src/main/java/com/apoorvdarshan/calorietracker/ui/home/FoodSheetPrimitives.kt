@@ -773,8 +773,8 @@ internal fun SheetDatePickerDialog(
         DateWheelPicker(
             selected = pickedDate,
             onSelect = { pickedDate = it },
-            minYear = LocalDate.now().year - 10,
-            maxYear = LocalDate.now().year,
+            minYear = minOf(LocalDate.now().year - 10, initialDate.year),
+            maxYear = maxOf(LocalDate.now().year, initialDate.year),
             modifier = Modifier.fillMaxWidth()
         )
         FudGlassDialogActions(

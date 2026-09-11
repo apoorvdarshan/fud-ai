@@ -702,9 +702,14 @@ viewModelScope.launch {
         val snapshot = _ui.value
         val profile = snapshot.profile
             ?: return container.appContext.getString(R.string.finish_onboarding_hint)
+        val zone = ZoneId.systemDefault()
+        val day = entry.timestamp.atZone(zone).toLocalDate()
+        val dayEntries = container.foodRepository.entries.first()
+            .filter { it.timestamp.atZone(zone).toLocalDate() == day }
+            .sortedByDescending { it.timestamp }
         return container.foodAnalysis.suggestMealWhatIf(
             entry = entry,
-            dayEntries = snapshot.todayEntries,
+            dayEntries = dayEntries,
             profile = profile,
             weightMetric = snapshot.weightMetric
         )

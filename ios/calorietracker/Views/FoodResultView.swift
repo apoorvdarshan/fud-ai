@@ -71,7 +71,7 @@ struct FoodResultView: View {
     @State private var loggedAt: Date
 
     let profile: UserProfile
-    let dayEntries: [FoodEntry]
+    let entriesForDate: (Date) -> [FoodEntry]
     let weightMetric: Bool
     var onLog: (FoodEntry) -> Void
     @Environment(\.dismiss) private var dismiss
@@ -163,7 +163,7 @@ struct FoodResultView: View {
         servingSizeIsKnown: Bool = true,
         logDate: Date = .now,
         profile: UserProfile,
-        dayEntries: [FoodEntry],
+        entriesForDate: @escaping (Date) -> [FoodEntry],
         weightMetric: Bool,
         onLog: @escaping (FoodEntry) -> Void
     ) {
@@ -226,9 +226,13 @@ struct FoodResultView: View {
         self._editableIngredients = State(initialValue: ingredients)
         self._loggedAt = State(initialValue: logDate)
         self.profile = profile
-        self.dayEntries = dayEntries
+        self.entriesForDate = entriesForDate
         self.weightMetric = weightMetric
         self.onLog = onLog
+    }
+
+    private var whatIfDayEntries: [FoodEntry] {
+        entriesForDate(loggedAt)
     }
 
     private static func formatGrams(_ value: Double) -> String {
@@ -578,7 +582,7 @@ struct FoodResultView: View {
                 .sheet(isPresented: $showWhatIfSheet) {
                     WhatIfMealImpactSheet(
                         entry: makeFoodEntry(includeImage: false),
-                        dayEntries: dayEntries,
+                        dayEntries: whatIfDayEntries,
                         profile: profile,
                         weightMetric: weightMetric
                     )

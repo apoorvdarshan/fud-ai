@@ -99,6 +99,7 @@ fun FoodResultSheet(
     preferGramsByDefault: Boolean = false,
     profile: UserProfile? = null,
     dayEntries: List<FoodEntry> = emptyList(),
+    allEntries: List<FoodEntry> = dayEntries,
     source: FoodSource = FoodSource.TEXT_INPUT,
     initialTimestamp: Instant = Instant.now(),
     isSubmitting: Boolean = false,
@@ -168,8 +169,17 @@ fun FoodResultSheet(
     // section lets the user adjust it before logging.
     val zone = remember { ZoneId.systemDefault() }
     val initialLoggedAt = remember(analysis) { initialTimestamp.atZone(zone) }
-    var loggedDate by remember(analysis) { mutableStateOf(initialLoggedAt.toLocalDate()) }
-    var loggedTime by remember(analysis) { mutableStateOf(initialLoggedAt.toLocalTime()) }
+    var loggedDate by rememberSaveable(analysis, stateSaver = LocalDateSaver) {
+        mutableStateOf(initialLoggedAt.toLocalDate())
+    }
+    var loggedTime by rememberSaveable(analysis, stateSaver = LocalTimeSaver) {
+        mutableStateOf(initialLoggedAt.toLocalTime())
+    }
+    val whatIfDayEntries = remember(allEntries, loggedDate, zone) {
+        allEntries
+            .filter { it.timestamp.atZone(zone).toLocalDate() == loggedDate }
+            .sortedByDescending { it.timestamp }
+    }
     var showDatePicker by remember { mutableStateOf(false) }
     var showTimePicker by remember { mutableStateOf(false) }
     var moreNutritionExpanded by rememberSaveable { mutableStateOf(false) }
@@ -310,7 +320,7 @@ fun FoodResultSheet(
         protein = scaledMacro(editableProtein),
         carbs = scaledMacro(editableCarbs),
         fat = scaledMacro(editableFat),
-        timestamp = Instant.now(),
+        timestamp = loggedDate.atTime(loggedTime).atZone(zone).toInstant(),
         imageFilename = null,
         emoji = analysis.emoji,
         source = source,
@@ -774,7 +784,7 @@ fun FoodResultSheet(
     whatIfEntry?.let { entry ->
         WhatIfMealImpactDialog(
             entry = entry,
-            dayEntries = dayEntries,
+            dayEntries = whatIfDayEntries,
             profile = profile,
             onDismiss = { whatIfEntry = null },
             onSuggest = onWhatIfSuggestion

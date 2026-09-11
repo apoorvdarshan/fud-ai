@@ -66,10 +66,12 @@ struct FoodResultView: View {
     @State private var imagePreview: FullScreenImagePreview?
     @State private var submissionGate = FoodSubmissionGate()
     @State var mealType: MealType = .currentMeal
+    // Editable log date/time; seeded from the diary day being viewed (now when
+    // it is today) so an untouched save behaves exactly like before.
+    @State private var loggedAt: Date
 
-    let logDate: Date
     let profile: UserProfile
-    let dayEntries: [FoodEntry]
+    let entriesForDate: (Date) -> [FoodEntry]
     let weightMetric: Bool
     var onLog: (FoodEntry) -> Void
     @Environment(\.dismiss) private var dismiss
@@ -161,7 +163,7 @@ struct FoodResultView: View {
         servingSizeIsKnown: Bool = true,
         logDate: Date = .now,
         profile: UserProfile,
-        dayEntries: [FoodEntry],
+        entriesForDate: @escaping (Date) -> [FoodEntry],
         weightMetric: Bool,
         onLog: @escaping (FoodEntry) -> Void
     ) {
@@ -222,11 +224,15 @@ struct FoodResultView: View {
         self._editableFolate = State(initialValue: folate)
         self._editableOmega3 = State(initialValue: omega3)
         self._editableIngredients = State(initialValue: ingredients)
-        self.logDate = logDate
+        self._loggedAt = State(initialValue: logDate)
         self.profile = profile
-        self.dayEntries = dayEntries
+        self.entriesForDate = entriesForDate
         self.weightMetric = weightMetric
         self.onLog = onLog
+    }
+
+    private var whatIfDayEntries: [FoodEntry] {
+        entriesForDate(loggedAt)
     }
 
     private static func formatGrams(_ value: Double) -> String {
@@ -536,6 +542,13 @@ struct FoodResultView: View {
                         .tint(AppColors.calorie)
                     }
 
+                    Section("Date & Time") {
+                        DatePicker("Date", selection: $loggedAt, displayedComponents: .date)
+                            .tint(AppColors.calorie)
+                        DatePicker("Time", selection: $loggedAt, displayedComponents: .hourAndMinute)
+                            .tint(AppColors.calorie)
+                    }
+
                 }
                 .scrollContentBackground(.hidden)
                 .background(AppColors.appBackground)
@@ -569,7 +582,7 @@ struct FoodResultView: View {
                 .sheet(isPresented: $showWhatIfSheet) {
                     WhatIfMealImpactSheet(
                         entry: makeFoodEntry(includeImage: false),
-                        dayEntries: dayEntries,
+                        dayEntries: whatIfDayEntries,
                         profile: profile,
                         weightMetric: weightMetric
                     )
@@ -623,7 +636,7 @@ struct FoodResultView: View {
             protein: scaledProtein,
             carbs: scaledCarbs,
             fat: scaledFat,
-            timestamp: logDate,
+            timestamp: loggedAt,
             imageData: includeImage ? images.first?.jpegData(compressionQuality: 0.5) : nil,
             additionalImageData: includeImage ? images.dropFirst().compactMap { $0.jpegData(compressionQuality: 0.5) } : [],
             emoji: emoji,

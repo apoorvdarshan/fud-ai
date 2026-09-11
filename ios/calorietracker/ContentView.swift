@@ -1351,37 +1351,41 @@ private var dailyStepsTaskKey: String {
             .overlay(alignment: .bottomTrailing) {
                 Menu {
                     if fastingTrackingEnabled {
-                        if fastingStore.activeSession != nil {
-                            Menu {
+                        Section {
+                            if fastingStore.activeSession != nil {
+                                Menu {
+                                    Button {
+                                        endFast()
+                                    } label: {
+                                        Label("End Fast", systemImage: "stop.fill")
+                                    }
+                                    Button(role: .destructive) {
+                                        fastingStore.cancelActive()
+                                        notificationManager.cancelFastingGoal()
+                                    } label: {
+                                        Label("Cancel Fast", systemImage: "trash")
+                                    }
+                                } label: {
+                                    Label("Fasting", systemImage: "timer")
+                                }
+                            } else {
                                 Button {
-                                    endFast()
+                                    presentFoodDestination {
+                                        showFastingStart = true
+                                    }
                                 } label: {
-                                    Label("End Fast", systemImage: "stop.fill")
+                                    Label("Start Fast", systemImage: "timer")
                                 }
-                                Button(role: .destructive) {
-                                    fastingStore.cancelActive()
-                                    notificationManager.cancelFastingGoal()
-                                } label: {
-                                    Label("Cancel Fast", systemImage: "trash")
-                                }
-                            } label: {
-                                Label("Fasting", systemImage: "timer")
-                            }
-                        } else {
-                            Button {
-                                presentFoodDestination {
-                                    showFastingStart = true
-                                }
-                            } label: {
-                                Label("Start Fast", systemImage: "timer")
                             }
                         }
                     }
                     if waterTrackingEnabled {
-                        Menu {
-                            waterQuickMenuItems
-                        } label: {
-                            Label("Water", systemImage: "drop.fill")
+                        Section {
+                            Menu {
+                                waterQuickMenuItems
+                            } label: {
+                                Label("Water", systemImage: "drop.fill")
+                            }
                         }
                     }
                     if fastingStore.activeSession == nil {
@@ -2167,17 +2171,21 @@ extension HomeView {
     var configuredFoodAddMenuContent: some View {
         let config = AddMenuSettings.load()
         if config.usesFlatLayout {
-            ForEach(config.flatMethods) { method in
-                addMenuButton(for: method)
+            Section {
+                ForEach(config.flatMethods) { method in
+                    addMenuButton(for: method)
+                }
             }
         } else {
             ForEach(config.groups.filter { !$0.methods.isEmpty }) { group in
-                Menu {
-                    ForEach(group.methods) { method in
-                        addMenuButton(for: method)
+                Section {
+                    Menu {
+                        ForEach(group.methods) { method in
+                            addMenuButton(for: method)
+                        }
+                    } label: {
+                        Label(group.name, systemImage: addMenuGroupIcon(for: group))
                     }
-                } label: {
-                    Label(group.name, systemImage: addMenuGroupIcon(for: group))
                 }
             }
         }

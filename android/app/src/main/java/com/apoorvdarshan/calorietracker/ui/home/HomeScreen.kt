@@ -726,26 +726,40 @@ CalorieHero(
             ) {
                 when (val destination = addMenuDestination) {
                     null -> {
+                        var insertedFoodBlock = false
+                        @Composable
+                        fun maybeFoodBoundaryHairline() {
+                            if (insertedFoodBlock) {
+                                SheetHairline()
+                                insertedFoodBlock = false
+                            }
+                        }
                         if (ui.activeFast == null) {
                             val addMenuConfig = ui.addMenuConfig
                             if (addMenuConfig.usesFlatLayout) {
-                                addMenuConfig.resolvedFlatMethods().forEach { method ->
+                                val methods = addMenuConfig.resolvedFlatMethods()
+                                methods.forEach { method ->
                                     SheetGlassDropdownMenuItem(
                                         label = stringResource(method.titleRes),
                                         leadingIcon = method.icon
                                     ) { performFoodLogMethod(method) }
                                 }
+                                insertedFoodBlock = methods.isNotEmpty()
                             } else {
-                                addMenuConfig.resolvedGroups().forEachIndexed { index, group ->
+                                val groups = addMenuConfig.resolvedGroups()
+                                groups.forEachIndexed { index, group ->
+                                    if (index > 0) SheetHairline()
                                     SheetGlassDropdownMenuItem(
                                         label = group.displayName(),
                                         leadingIcon = group.methods.firstOrNull()?.icon ?: FoodLogMethodDefaultGroupIcon,
                                         trailingIcon = Icons.Filled.ChevronRight
                                     ) { addMenuDestination = AddMenuDestination.FoodGroup(index) }
                                 }
+                                insertedFoodBlock = groups.isNotEmpty()
                             }
                         }
                         if (ui.waterTrackingEnabled) {
+                            maybeFoodBoundaryHairline()
                             SheetGlassDropdownMenuItem(
                                 label = stringResource(R.string.water),
                                 leadingIcon = Icons.Filled.WaterDrop,
@@ -753,6 +767,7 @@ CalorieHero(
                             ) { addMenuDestination = AddMenuDestination.Water }
                         }
                         if (ui.fastingTrackingEnabled) {
+                            maybeFoodBoundaryHairline()
                             if (ui.activeFast == null) {
                                 SheetGlassDropdownMenuItem(label = stringResource(R.string.fasting_start), leadingIcon = Icons.Filled.Timer) {
                                     showAddMenu = false

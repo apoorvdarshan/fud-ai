@@ -1491,7 +1491,7 @@ class HealthKitManager {
                     continuation.resume(returning: nil)
                     return
                 }
-                let mapped = samples.compactMap(ImportedHealthWorkout.from)
+                let mapped = samples.compactMap { ImportedHealthWorkout.from($0) }
                 continuation.resume(returning: mapped)
             }
             healthStore.execute(query)

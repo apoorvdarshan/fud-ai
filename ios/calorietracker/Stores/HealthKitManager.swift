@@ -221,9 +221,10 @@ class HealthKitManager {
     private var isBackfillingWeight = false
     private var isBackfillingBodyFat = false
     private var isBackfillingWorkoutBurn = false
-    private var isImportingWorkouts = false
     private let workoutImportLookbackDays = 90
     private let workoutImportLastSyncKey = "healthKitWorkoutImportLastSync"
+    /// Serializes workout imports so observer callbacks queue instead of being dropped.
+    private var workoutImportOperationTail: Task<Void, Never>?
 
     private struct NutritionQuantity {
         var identifier: HKQuantityTypeIdentifier
@@ -1405,37 +1406,34 @@ class HealthKitManager {
     /// Pulls recent HKWorkout samples into Fud AI. Imported rows are read-only,
     /// deduped by HealthKit UUID, and never written back to Health.
     func synchronizeImportedWorkoutsWithHealthKit(
-        existingIDs: @escaping () -> Set<UUID>,
-        importBatch: @escaping ([ImportedHealthWorkout]) -> Void
+        reconcileBatch: @escaping ([ImportedHealthWorkout], Date) -> Void
     ) {
         guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
-        guard !isImportingWorkouts else { return }
-        isImportingWorkouts = true
-        Task {
-            defer { isImportingWorkouts = false }
+        enqueueWorkoutImportOperation { [weak self] in
+            guard let self else { return }
             guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
-            let start = workoutImportQueryStartDate()
-            guard let fetched = await fetchImportedWorkouts(since: start) else { return }
-            let known = existingIDs()
-            let imports = fetched.filter { !known.contains($0.id) }
-            let updates = fetched.filter { known.contains($0.id) }
-            let batch = imports + updates
-            if !batch.isEmpty {
-                await MainActor.run { importBatch(batch) }
+            let queryStart = self.workoutImportQueryStartDate()
+            guard let fetched = await self.fetchImportedWorkouts(since: queryStart) else { return }
+            guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
+            await MainActor.run {
+                guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
+                reconcileBatch(fetched, queryStart)
             }
-            UserDefaults.standard.set(Date(), forKey: workoutImportLastSyncKey)
+            guard UserDefaults.standard.bool(forKey: "healthKitEnabled") else { return }
+            UserDefaults.standard.set(Date(), forKey: self.workoutImportLastSyncKey)
+        }
+    }
+
+    private func enqueueWorkoutImportOperation(_ operation: @escaping () async -> Void) {
+        let previous = workoutImportOperationTail
+        workoutImportOperationTail = Task {
+            _ = await previous?.result
+            await operation()
         }
     }
 
     private func workoutImportQueryStartDate(calendar: Calendar = .current) -> Date {
-        let now = Date()
-        let lookbackStart = calendar.date(byAdding: .day, value: -workoutImportLookbackDays, to: now) ?? now
-        guard let lastSync = UserDefaults.standard.object(forKey: workoutImportLastSyncKey) as? Date else {
-            return lookbackStart
-        }
-        // Overlap one day so edits to recent workouts are picked up on re-sync.
-        let overlapStart = calendar.date(byAdding: .day, value: -1, to: lastSync) ?? lastSync
-        return max(lookbackStart, overlapStart)
+        calendar.date(byAdding: .day, value: -workoutImportLookbackDays, to: Date()) ?? Date()
     }
 
     private func fetchImportedWorkouts(since start: Date) async -> [ImportedHealthWorkout]? {

@@ -3542,7 +3542,7 @@ struct ProgressTabView: View {
                                     dateRange: dateRange
                                 )
                             }
-                            if !filteredImportedHealthWorkouts.isEmpty {
+                            if !importedHealthWorkouts.isEmpty {
                                 ImportedHealthWorkoutChartSection(
                                     workouts: filteredImportedHealthWorkouts,
                                     dateRange: dateRange
@@ -6419,12 +6419,9 @@ struct ProfileView: View {
                             strengthWorkoutStore.importWorkoutBurnSessions(sessions)
                         }
                     )
-                    healthKitManager.synchronizeImportedWorkoutsWithHealthKit(
-                        existingIDs: { Set(importedHealthWorkoutStore.workouts.map(\.id)) },
-                        importBatch: { workouts in
-                            importedHealthWorkoutStore.importWorkouts(workouts)
-                        }
-                    )
+                    healthKitManager.synchronizeImportedWorkoutsWithHealthKit { workouts, queryStart in
+                        importedHealthWorkoutStore.synchronize(with: workouts, queryStart: queryStart)
+                    }
                 } else {
                     healthKitEnabled = false
                 }

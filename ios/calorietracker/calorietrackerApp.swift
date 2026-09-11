@@ -203,12 +203,9 @@ struct calorietrackerApp: App {
         }
 
         healthKitManager.onImportedWorkoutsChanged = { [healthKitManager, importedHealthWorkoutStore] in
-            healthKitManager.synchronizeImportedWorkoutsWithHealthKit(
-                existingIDs: { Set(importedHealthWorkoutStore.workouts.map(\.id)) },
-                importBatch: { workouts in
-                    importedHealthWorkoutStore.importWorkouts(workouts)
-                }
-            )
+            healthKitManager.synchronizeImportedWorkoutsWithHealthKit { workouts, queryStart in
+                importedHealthWorkoutStore.synchronize(with: workouts, queryStart: queryStart)
+            }
         }
 
         healthKitManager.onBodyMeasurementsChanged = { [weightStore, bodyFatStore] weightKg, weightDate, weightFudaiID, heightCm, bodyFat, bodyFatDate, bodyFatFudaiID, dob, sex in
@@ -363,12 +360,9 @@ struct calorietrackerApp: App {
                 strengthWorkoutStore.importWorkoutBurnSessions(sessions)
             }
         )
-        healthKitManager.synchronizeImportedWorkoutsWithHealthKit(
-            existingIDs: { [importedHealthWorkoutStore] in Set(importedHealthWorkoutStore.workouts.map(\.id)) },
-            importBatch: { [importedHealthWorkoutStore] workouts in
-                importedHealthWorkoutStore.importWorkouts(workouts)
-            }
-        )
+        healthKitManager.synchronizeImportedWorkoutsWithHealthKit { [importedHealthWorkoutStore] workouts, queryStart in
+            importedHealthWorkoutStore.synchronize(with: workouts, queryStart: queryStart)
+        }
     }
 
     private func wireUpFoodStoreCallback() {

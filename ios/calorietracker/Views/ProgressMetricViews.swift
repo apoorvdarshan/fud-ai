@@ -307,7 +307,10 @@ struct ImportedHealthWorkoutChartSection: View {
     private var totalSessions: Int { days.reduce(0) { $0 + $1.sessionCount } }
     private var totalCalories: Int { days.reduce(0) { $0 + $1.totalCalories } }
     private var averageCalories: Int {
-        days.isEmpty ? 0 : Int((Double(totalCalories) / Double(days.count)).rounded())
+        let daysWithCalories = days.filter { $0.totalCalories > 0 }
+        guard !daysWithCalories.isEmpty else { return 0 }
+        let sum = daysWithCalories.reduce(0) { $0 + $1.totalCalories }
+        return Int((Double(sum) / Double(daysWithCalories.count)).rounded())
     }
 
     var body: some View {

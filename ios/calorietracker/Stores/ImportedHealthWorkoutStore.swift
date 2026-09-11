@@ -51,7 +51,25 @@ final class ImportedHealthWorkoutStore {
 
     func importWorkouts(_ imported: [ImportedHealthWorkout]) {
         guard !imported.isEmpty else { return }
-        var changed = false
+        upsert(imported, changed: false)
+    }
+
+    /// Upserts HealthKit rows and removes local workouts in the queried window
+    /// whose UUIDs no longer exist in Health (deletions / permission expansion).
+    func synchronize(with imported: [ImportedHealthWorkout], queryStart: Date, calendar: Calendar = .current) {
+        let fetchedIDs = Set(imported.map(\.id))
+        let removedStale = workouts.contains {
+            $0.startedAt >= queryStart && !fetchedIDs.contains($0.id)
+        }
+        if removedStale {
+            workouts.removeAll { $0.startedAt >= queryStart && !fetchedIDs.contains($0.id) }
+        }
+        guard !imported.isEmpty || removedStale else { return }
+        upsert(imported, changed: removedStale)
+    }
+
+    private func upsert(_ imported: [ImportedHealthWorkout], changed alreadyChanged: Bool) {
+        var changed = alreadyChanged
         for workout in imported {
             if let index = workouts.firstIndex(where: { $0.id == workout.id }) {
                 if workouts[index] != workout {

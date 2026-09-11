@@ -24,8 +24,8 @@ enum TimeRange: String, CaseIterable {
 
     func dateRange() -> ClosedRange<Date> {
         let calendar = Calendar.current
-        let end = calendar.startOfDay(for: .now).addingTimeInterval(86399)
-        let start = calendar.date(byAdding: .day, value: -(days - 1), to: calendar.startOfDay(for: .now))!
+        let end = calendar.startOfDay(for: .now)
+        let start = calendar.date(byAdding: .day, value: -(days - 1), to: end)!
         return start...end
     }
 }

@@ -69,6 +69,7 @@ class FudAIApp : Application() {
             container.prefs.reconcileLocalModelSelections()
             container.prefs.migrateAIModelSelections()
             container.prefs.migrateMatchingSpeechProviderIfNeeded()
+            container.prefs.migrateFallbackBaseUrls()
         }
         // Older Android builds removed food rows without removing their JPEGs.
         // Prune only unreferenced files; logged foods, saved meals, and pending

@@ -120,7 +120,8 @@ class ChatService(
             val fallback = currentFallbackConfig(
                 hasImage = imageBytes != null,
                 primary = provider,
-                primaryModel = model
+                primaryModel = model,
+                primaryBaseUrl = baseUrl
             ) ?: throw primaryError
             runProvider(
                 fallback.provider, fallback.model, fallback.baseUrl, fallback.apiKey,
@@ -173,8 +174,10 @@ class ChatService(
     private suspend fun currentFallbackConfig(
         hasImage: Boolean,
         primary: AIProvider,
-        primaryModel: String
+        primaryModel: String,
+        primaryBaseUrl: String
     ): ChatFallbackConfig? {
+        prefs.migrateFallbackBaseUrls()
         val enabled = if (hasImage) prefs.fallbackEnabled.first() else prefs.textFallbackEnabled.first()
         if (!enabled) return null
         val provider = if (hasImage) {
@@ -187,10 +190,10 @@ class ChatService(
         } else {
             provider.supportedTextModelOrDefault(prefs.selectedTextFallbackModel.first())
         }
-        if (provider == primary && model == primaryModel) return null
+        val baseUrl = prefs.fallbackCustomBaseUrl(provider).first()?.takeIf { it.isNotEmpty() } ?: provider.baseUrl
+        if (provider == primary && model == primaryModel && baseUrl == primaryBaseUrl) return null
         val apiKey = keyStore.apiKey(provider)
         if (provider.requiresApiKey && apiKey.isNullOrEmpty()) return null
-        val baseUrl = prefs.customBaseUrl(provider).first()?.takeIf { it.isNotEmpty() } ?: provider.baseUrl
         if (provider != AIProvider.LOCAL_GEMMA && baseUrl.isEmpty()) return null
         return ChatFallbackConfig(provider, model, baseUrl, apiKey)
     }

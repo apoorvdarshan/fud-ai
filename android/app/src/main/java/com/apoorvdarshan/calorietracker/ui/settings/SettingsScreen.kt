@@ -2591,7 +2591,22 @@ private fun SettingsSheets(
                 SettingsSheet.TEXT_FALLBACK_MODEL -> {
                     val primaryTextProvider = if (ui.separateTextProviderEnabled) ui.selectedTextAI else ui.selectedAI
                     val primaryTextModel = if (ui.separateTextProviderEnabled) ui.selectedTextModel else ui.selectedModel
-                    val options = if (ui.textFallbackProvider == primaryTextProvider) {
+                    val primaryBaseUrl = remember(primaryTextProvider) {
+                        runBlocking {
+                            vm.container.prefs.migrateFallbackBaseUrls()
+                            vm.container.prefs.customBaseUrl(primaryTextProvider).first()
+                                ?.takeIf { it.isNotEmpty() } ?: primaryTextProvider.baseUrl
+                        }
+                    }
+                    val fallbackBaseUrl = remember(ui.textFallbackProvider) {
+                        runBlocking {
+                            vm.container.prefs.migrateFallbackBaseUrls()
+                            vm.container.prefs.fallbackCustomBaseUrl(ui.textFallbackProvider).first()
+                                ?.takeIf { it.isNotEmpty() } ?: ui.textFallbackProvider.baseUrl
+                        }
+                    }
+                    val sameServer = ui.textFallbackProvider == primaryTextProvider && primaryBaseUrl == fallbackBaseUrl
+                    val options = if (sameServer) {
                         ui.textFallbackProvider.textModels.filter { it != primaryTextModel }
                     } else {
                         ui.textFallbackProvider.textModels
@@ -2614,12 +2629,17 @@ private fun SettingsSheets(
                     onSave = { vm.setTextFallbackApiKey(it); onDismiss() }
                 )
                 SettingsSheet.TEXT_FALLBACK_BASE_URL -> {
-                    val existing = remember { runBlocking { vm.container.prefs.customBaseUrl(ui.textFallbackProvider).first().orEmpty() } }
+                    val existing = remember(ui.textFallbackProvider) {
+                        runBlocking {
+                            vm.container.prefs.migrateFallbackBaseUrls()
+                            vm.container.prefs.fallbackCustomBaseUrl(ui.textFallbackProvider).first().orEmpty()
+                        }
+                    }
                     TextFieldSheet(
                         title = stringResource(R.string.settings_custom_url_title),
                         initial = existing,
                         placeholder = stringResource(R.string.settings_custom_url_placeholder),
-                        onSave = { vm.setCustomBaseUrl(ui.textFallbackProvider, it); onDismiss() }
+                        onSave = { vm.setFallbackCustomBaseUrl(ui.textFallbackProvider, it); onDismiss() }
                     )
                 }
                 SettingsSheet.REASONING_EFFORT -> ListSheet(
@@ -2736,9 +2756,24 @@ private fun SettingsSheets(
                     leadingContent = { AIProviderBrandIcon(it, Modifier.size(20.dp)) }
                 )
                 SettingsSheet.FALLBACK_MODEL -> {
-                    // Same provider as primary → exclude primary's selected model so
-                    // fallback can't be a literal duplicate config.
-                    val opts = if (ui.fallbackProvider == ui.selectedAI)
+                    // Same provider + same server → exclude primary's model so fallback
+                    // can't be a literal duplicate config. Different servers may share a model.
+                    val primaryBaseUrl = remember(ui.selectedAI) {
+                        runBlocking {
+                            vm.container.prefs.migrateFallbackBaseUrls()
+                            vm.container.prefs.customBaseUrl(ui.selectedAI).first()
+                                ?.takeIf { it.isNotEmpty() } ?: ui.selectedAI.baseUrl
+                        }
+                    }
+                    val fallbackBaseUrl = remember(ui.fallbackProvider) {
+                        runBlocking {
+                            vm.container.prefs.migrateFallbackBaseUrls()
+                            vm.container.prefs.fallbackCustomBaseUrl(ui.fallbackProvider).first()
+                                ?.takeIf { it.isNotEmpty() } ?: ui.fallbackProvider.baseUrl
+                        }
+                    }
+                    val sameServer = ui.fallbackProvider == ui.selectedAI && primaryBaseUrl == fallbackBaseUrl
+                    val opts = if (sameServer)
                         ui.fallbackProvider.models.filter { it != ui.selectedModel }
                     else ui.fallbackProvider.models
                     ListSheet(
@@ -2759,12 +2794,17 @@ private fun SettingsSheets(
                     onSave = { vm.setFallbackApiKey(it); onDismiss() }
                 )
                 SettingsSheet.FALLBACK_BASE_URL -> {
-                    val existing = remember { runBlocking { vm.container.prefs.customBaseUrl(ui.fallbackProvider).first().orEmpty() } }
+                    val existing = remember(ui.fallbackProvider) {
+                        runBlocking {
+                            vm.container.prefs.migrateFallbackBaseUrls()
+                            vm.container.prefs.fallbackCustomBaseUrl(ui.fallbackProvider).first().orEmpty()
+                        }
+                    }
                     TextFieldSheet(
                         title = stringResource(R.string.settings_custom_url_title),
                         initial = existing,
                         placeholder = stringResource(R.string.settings_custom_url_placeholder),
-                        onSave = { vm.setCustomBaseUrl(ui.fallbackProvider, it); onDismiss() }
+                        onSave = { vm.setFallbackCustomBaseUrl(ui.fallbackProvider, it); onDismiss() }
                     )
                 }
                 SettingsSheet.GENDER -> ListSheet(

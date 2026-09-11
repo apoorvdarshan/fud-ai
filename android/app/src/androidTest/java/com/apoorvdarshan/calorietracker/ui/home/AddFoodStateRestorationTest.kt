@@ -178,7 +178,7 @@ class AddFoodStateRestorationTest {
                     analyzeIngredientText = { error("No analysis should run while editing a draft") },
                     lookupIngredientBarcode = { error("No barcode lookup should run while editing a draft") },
                     analyzeIngredientImage = { error("No image analysis should run while editing a draft") },
-                    onSave = { name, grams, known, scale, _, _, quantity, edited ->
+                    onSave = { name, grams, known, scale, _, _, quantity, edited, _ ->
                         submission = ReviewSubmission(name, grams, known, scale, quantity, edited)
                     },
                     onDismiss = {}

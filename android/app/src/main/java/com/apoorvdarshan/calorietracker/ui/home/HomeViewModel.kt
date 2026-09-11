@@ -575,7 +575,8 @@ viewModelScope.launch {
         mealType: MealType = MealType.currentMeal,
         selectedServingUnit: String? = null,
         selectedServingQuantity: Double? = null,
-        editedAnalysis: FoodAnalysis? = null
+        editedAnalysis: FoodAnalysis? = null,
+        timestamp: Instant? = null
     ) {
         val pendingAnalysis = _ui.value.pendingAnalysis ?: return
         val analysis = editedAnalysis ?: pendingAnalysis
@@ -609,7 +610,7 @@ viewModelScope.launch {
                     protein = macro(analysis.protein),
                     carbs = macro(analysis.carbs),
                     fat = macro(analysis.fat),
-                    timestamp = timestampForSelectedDay(),
+                    timestamp = timestamp ?: timestampForSelectedDay(),
                     imageFilename = filenames.firstOrNull(),
                     additionalImageFilenames = filenames.drop(1),
                     emoji = analysis.emoji,
@@ -855,8 +856,9 @@ viewModelScope.launch {
      * Mirrors iOS `logDate: selectedDate` behavior. When viewing today, returns now.
      * When viewing a past or future day, combines that day with the current wall-clock
      * time so the entry shows a sensible time and lands on the correct calendar day.
+     * Also seeds the review sheet's editable Date & Time default.
      */
-    private fun timestampForSelectedDay(): Instant {
+    fun timestampForSelectedDay(): Instant {
         val day = _selectedDate.value
         val today = LocalDate.now()
         if (day == today) return Instant.now()

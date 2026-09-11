@@ -1070,6 +1070,7 @@ CalorieHero(
 
     if (ui.analyzing) AnalyzingOverlay(imageBytes = ui.pendingImageBytes)
     ui.pendingAnalysis?.let { analysis ->
+        val initialTimestamp = remember(analysis) { vm.timestampForSelectedDay() }
         FoodResultSheet(
             analysis = analysis,
             imageBytesList = ui.pendingImageBytesList,
@@ -1084,8 +1085,9 @@ CalorieHero(
             source = ui.pendingReviewSource?.source
                 ?: ui.pendingFoodSource
                 ?: if (ui.pendingImageBytes != null) FoodSource.SNAP_FOOD else FoodSource.TEXT_INPUT,
+            initialTimestamp = initialTimestamp,
             onWhatIfSuggestion = vm::suggestMealWhatIf,
-            onSave = { name, grams, servingSizeIsKnown, scale, mealType, selectedServingUnit, selectedServingQuantity, editedAnalysis ->
+            onSave = { name, grams, servingSizeIsKnown, scale, mealType, selectedServingUnit, selectedServingQuantity, editedAnalysis, timestamp ->
                 vm.saveAnalysis(
                     name = name,
                     servingGrams = grams,
@@ -1094,7 +1096,8 @@ CalorieHero(
                     mealType = mealType,
                     selectedServingUnit = selectedServingUnit,
                     selectedServingQuantity = selectedServingQuantity,
-                    editedAnalysis = editedAnalysis
+                    editedAnalysis = editedAnalysis,
+                    timestamp = timestamp
                 )
             },
             onDismiss = { vm.dismissPending() }

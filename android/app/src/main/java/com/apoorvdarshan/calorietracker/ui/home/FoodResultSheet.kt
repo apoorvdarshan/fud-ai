@@ -81,6 +81,9 @@ import com.apoorvdarshan.calorietracker.ui.components.FullScreenImageViewer
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import kotlin.math.roundToInt
 import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneId
 
 /**
  * First-time review sheet shown after photo / text / voice analysis returns
@@ -97,6 +100,7 @@ fun FoodResultSheet(
     profile: UserProfile? = null,
     dayEntries: List<FoodEntry> = emptyList(),
     source: FoodSource = FoodSource.TEXT_INPUT,
+    initialTimestamp: Instant = Instant.now(),
     isSubmitting: Boolean = false,
     container: com.apoorvdarshan.calorietracker.AppContainer,
     analyzeIngredientText: suspend (String) -> FoodAnalysis,
@@ -111,7 +115,8 @@ fun FoodResultSheet(
         mealType: MealType,
         selectedServingUnit: String?,
         selectedServingQuantity: Double?,
-        editedAnalysis: FoodAnalysis
+        editedAnalysis: FoodAnalysis,
+        timestamp: Instant
     ) -> Unit,
     onDismiss: () -> Unit
 ) {
@@ -159,6 +164,14 @@ fun FoodResultSheet(
     val selectedServingQuantity = ServingAmountExpression.evaluate(servingQuantityText)?.takeIf { it > 0 }
     val scale = if (baseServingGrams > 0) servingGrams / baseServingGrams else 1.0
     var mealType by rememberSaveable { mutableStateOf(MealType.currentMeal) }
+    // Seeded from the viewed diary day (now when it is today); the Date & Time
+    // section lets the user adjust it before logging.
+    val zone = remember { ZoneId.systemDefault() }
+    val initialLoggedAt = remember(analysis) { initialTimestamp.atZone(zone) }
+    var loggedDate by remember(analysis) { mutableStateOf(initialLoggedAt.toLocalDate()) }
+    var loggedTime by remember(analysis) { mutableStateOf(initialLoggedAt.toLocalTime()) }
+    var showDatePicker by remember { mutableStateOf(false) }
+    var showTimePicker by remember { mutableStateOf(false) }
     var moreNutritionExpanded by rememberSaveable { mutableStateOf(false) }
     var nutritionUnlocked by rememberSaveable { mutableStateOf(false) }
     var editableCalories by rememberSaveable(analysis) { mutableStateOf(analysis.calories) }
@@ -364,7 +377,8 @@ fun FoodResultSheet(
                     mealType,
                     if (servingUnitOptions.isEmpty()) null else selectedServingOption.unit,
                     if (servingUnitOptions.isEmpty()) null else selectedServingQuantity,
-                    editedAnalysis()
+                    editedAnalysis(),
+                    loggedDate.atTime(loggedTime).atZone(zone).toInstant()
                 )
             },
             onSecondary = { whatIfEntry = previewEntry() }
@@ -716,7 +730,45 @@ fun FoodResultSheet(
                     }
                 }
             }
+
+            item { SheetSectionHeader(stringResource(R.string.section_date_time)) }
+            item {
+                SheetDateTimeCard(
+                    loggedDate = loggedDate,
+                    loggedTime = loggedTime,
+                    onEditDate = {
+                        dismissKeyboard()
+                        showDatePicker = true
+                    },
+                    onEditTime = {
+                        dismissKeyboard()
+                        showTimePicker = true
+                    }
+                )
+            }
         }
+    }
+
+    if (showDatePicker) {
+        SheetDatePickerDialog(
+            initialDate = loggedDate,
+            onConfirm = {
+                loggedDate = it
+                showDatePicker = false
+            },
+            onDismiss = { showDatePicker = false }
+        )
+    }
+
+    if (showTimePicker) {
+        SheetTimePickerDialog(
+            initialTime = loggedTime,
+            onConfirm = {
+                loggedTime = it
+                showTimePicker = false
+            },
+            onDismiss = { showTimePicker = false }
+        )
     }
 
     whatIfEntry?.let { entry ->

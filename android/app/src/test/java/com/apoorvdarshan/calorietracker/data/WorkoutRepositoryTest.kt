@@ -96,7 +96,7 @@ class WorkoutRepositoryTest {
         assertEquals("8", edited.sets.first().reps)
         assertEquals("7.5", edited.sets.first().rpe)
         assertTrue(edited.sets.drop(1).all {
-            it.weight.isEmpty() && it.weightUnit == null && it.reps.isEmpty() &&
+            it.weight == "82.5" && it.weightUnit == WorkoutWeightUnit.KG && it.reps == "8" &&
                 it.rpe.isEmpty() && it.rpeScale == null
         })
 

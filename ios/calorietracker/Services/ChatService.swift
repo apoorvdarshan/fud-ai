@@ -259,6 +259,7 @@ struct ChatService {
         lines.append("- \"What's my data range?\" → call get_data_summary")
         if workoutAccessEnabled {
             lines.append("- \"How is my training progressing?\" → call get_training_summary(from, to), then get_workout_history only if individual sets are needed")
+            lines.append("- \"What did I bench last?\" / one-lift trends → call get_exercise_lift_history(exercise)")
             lines.append("- \"What workout do I have planned?\" → call get_workout_plans")
             lines.append("- Use get_workout_preferences when injuries, available equipment, split, schedule, RPE scale, or strength baselines affect the answer.")
         }

@@ -242,6 +242,15 @@ struct StrengthPlannedSet: Identifiable, Codable, Equatable, Hashable {
         )
     }
 
+    /// New sets inherit weight, unit, and reps from the set above; RPE stays blank.
+    func copyingFromPrevious() -> StrengthPlannedSet {
+        StrengthPlannedSet(
+            weight: weight,
+            weightUnit: weightUnit,
+            reps: reps
+        )
+    }
+
     /// Presents a persisted load in the app-wide unit without relabeling the
     /// underlying value. Editing the field then stores the new text together
     /// with the currently selected global unit.
@@ -694,5 +703,66 @@ struct StrengthWorkoutSplitGroup: Identifiable, Hashable {
         return availableMuscles.map { muscle in
             StrengthWorkoutSplitGroup(title: muscle, muscles: [muscle])
         }
+    }
+}
+
+struct StrengthExerciseLiftSet: Equatable, Hashable {
+    let weight: String
+    let weightUnit: String
+    let reps: String
+}
+
+struct StrengthExerciseLiftDay: Identifiable, Equatable, Hashable {
+    var id: String { dateKey }
+    let dateKey: String
+    let sets: [StrengthExerciseLiftSet]
+}
+
+enum StrengthExerciseLiftHistory {
+    static func normalizedName(_ name: String) -> String {
+        name
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased()
+            .replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+    }
+
+    static func matches(itemID: String, name: String, candidateItemID: String, candidateName: String) -> Bool {
+        if !itemID.isEmpty, itemID == candidateItemID { return true }
+        let left = normalizedName(name)
+        let right = normalizedName(candidateName)
+        return !left.isEmpty && left == right
+    }
+
+    static func performedSets(from planned: [StrengthPlannedSet]) -> [StrengthExerciseLiftSet] {
+        planned.compactMap { set in
+            let reps = set.reps.trimmingCharacters(in: .whitespacesAndNewlines)
+            guard !reps.isEmpty else { return nil }
+            return StrengthExerciseLiftSet(
+                weight: set.weight.trimmingCharacters(in: .whitespacesAndNewlines),
+                weightUnit: set.weightUnit ?? "",
+                reps: reps
+            )
+        }
+    }
+
+    static func performedSets(from completed: [StrengthCompletedSet]) -> [StrengthExerciseLiftSet] {
+        completed.filter(\.isPerformed).map {
+            StrengthExerciseLiftSet(weight: $0.weight, weightUnit: $0.weightUnit, reps: $0.reps)
+        }
+    }
+
+    static func formatSetLine(_ set: StrengthExerciseLiftSet, displayUnit: WeightUnit) -> String {
+        guard !set.reps.isEmpty else { return "" }
+        guard !set.weight.isEmpty else { return "\(set.reps) reps" }
+        let planned = StrengthPlannedSet(weight: set.weight, weightUnit: set.weightUnit, reps: set.reps)
+        return "\(planned.displayWeight(in: displayUnit)) \(displayUnit.rawValue) × \(set.reps)"
+    }
+
+    static func formatSummary(_ sets: [StrengthExerciseLiftSet], displayUnit: WeightUnit) -> String {
+        sets.compactMap { line in
+            let formatted = formatSetLine(line, displayUnit: displayUnit)
+            return formatted.isEmpty ? nil : formatted
+        }
+        .joined(separator: ", ")
     }
 }

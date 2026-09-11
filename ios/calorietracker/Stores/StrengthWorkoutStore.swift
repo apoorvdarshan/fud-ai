@@ -136,8 +136,9 @@ final class StrengthWorkoutStore {
         updateExercise(exerciseID, on: date) { exercise in
             let target = min(max(count, 1), 12)
             if target > exercise.sets.count {
+                let template = exercise.sets.last ?? StrengthPlannedSet()
                 exercise.sets.append(contentsOf: (exercise.sets.count..<target).map { _ in
-                    StrengthPlannedSet()
+                    template.copyingFromPrevious()
                 })
             } else if target < exercise.sets.count {
                 exercise.sets.removeLast(exercise.sets.count - target)
@@ -230,6 +231,40 @@ final class StrengthWorkoutStore {
             return planDate
         }
         .sorted(by: >)
+    }
+
+    func exerciseLiftHistory(
+        itemID: String,
+        name: String,
+        before date: Date,
+        limit: Int = 90
+    ) -> [StrengthExerciseLiftDay] {
+        let beforeKey = Self.dateKey(for: date)
+        var dateKeys = Set(dayPlans.keys)
+        dateKeys.formUnion(completedSessions.map(\.stableDiaryDateKey))
+        let priorKeys = dateKeys.filter { $0 < beforeKey }.sorted(by: >)
+
+        var results: [StrengthExerciseLiftDay] = []
+        for key in priorKeys {
+            guard results.count < limit else { break }
+            let sets = liftSets(for: itemID, name: name, on: key)
+            guard !sets.isEmpty else { continue }
+            results.append(StrengthExerciseLiftDay(dateKey: key, sets: sets))
+        }
+        return results
+    }
+
+    func lastExerciseLiftSummary(
+        itemID: String,
+        name: String,
+        before date: Date,
+        displayUnit: WeightUnit
+    ) -> String? {
+        guard let latest = exerciseLiftHistory(itemID: itemID, name: name, before: date, limit: 1).first else {
+            return nil
+        }
+        let summary = StrengthExerciseLiftHistory.formatSummary(latest.sets, displayUnit: displayUnit)
+        return summary.isEmpty ? nil : summary
     }
 
     @discardableResult
@@ -473,6 +508,50 @@ final class StrengthWorkoutStore {
             guard let index = plan.exercises.firstIndex(where: { $0.id == exerciseID }) else { return }
             mutate(&plan.exercises[index])
         }
+    }
+
+    private func liftSets(for itemID: String, name: String, on dateKey: String) -> [StrengthExerciseLiftSet] {
+        if let plan = dayPlans[dateKey],
+           let exercise = plan.exercises.first(where: {
+               ! $0.isCardio && StrengthExerciseLiftHistory.matches(
+                   itemID: itemID,
+                   name: name,
+                   candidateItemID: $0.itemID,
+                   candidateName: $0.name
+               )
+           }) {
+            let sets = StrengthExerciseLiftHistory.performedSets(from: exercise.sets)
+            if !sets.isEmpty { return sets }
+        }
+
+        if let session = preferredHistorySession(on: dateKey),
+           let exercise = session.exercises.first(where: {
+               StrengthExerciseLiftHistory.matches(
+                   itemID: itemID,
+                   name: name,
+                   candidateItemID: $0.itemID,
+                   candidateName: $0.name
+               )
+           }) {
+            return StrengthExerciseLiftHistory.performedSets(from: exercise.sets)
+        }
+
+        return []
+    }
+
+    private func preferredHistorySession(on dateKey: String) -> StrengthWorkoutSession? {
+        let sessions = completedSessions.filter { $0.stableDiaryDateKey == dateKey }
+        guard !sessions.isEmpty else { return nil }
+        let burns = sessions.filter { $0.caloriesBurned != nil }
+        if let latestBurn = burns.max(by: {
+            let left = $0.healthSyncVersion ?? 0
+            let right = $1.healthSyncVersion ?? 0
+            if left == right { return $0.completedAt < $1.completedAt }
+            return left < right
+        }) {
+            return latestBurn
+        }
+        return sessions.max(by: { $0.completedAt < $1.completedAt })
     }
 
     private func completedExerciseLogs(

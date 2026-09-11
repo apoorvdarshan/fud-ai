@@ -109,6 +109,30 @@ class CoachWorkoutToolsTest {
         for (name in listOf("get_workout_history", "get_training_summary")) {
             assertEquals(listOf("from", "to"), CoachTools.parameterSchemaFor(name)["required"])
         }
+        assertEquals(listOf("exercise"), CoachTools.parameterSchemaFor("get_exercise_lift_history")["required"])
+    }
+
+    @Test
+    fun exerciseLiftHistoryReturnsRecentSetsForOneLift() {
+        val plan = WorkoutDayPlan(
+            dateKey = "2026-07-19",
+            exercises = listOf(
+                plannedExercise(
+                    listOf(PlannedSet(weight = "60", weightUnit = WorkoutWeightUnit.KG, reps = "8"))
+                ).copy(itemId = "bench", name = "Bench Press")
+            )
+        )
+        val payload = json(
+            tools(workoutPlans = listOf(plan), workoutPlanWeightUnit = WorkoutWeightUnit.KG)
+                .execute("get_exercise_lift_history", mapOf("exercise" to "Bench Press", "to" to "2026-07-20"))
+        )
+        assertEquals(1, payload["count"].asInt)
+        val sessions = payload.getAsJsonArray("sessions")
+        assertEquals("2026-07-19", sessions[0].asJsonObject["date"].asString)
+        val sets = sessions[0].asJsonObject.getAsJsonArray("sets")
+        assertEquals("60", sets[0].asJsonObject["weight"].asString)
+        assertEquals(8, sets[0].asJsonObject["reps"].asInt)
+        assertEquals("2026-07-19", payload.getAsJsonObject("last_session")["date"].asString)
     }
 
     @Test

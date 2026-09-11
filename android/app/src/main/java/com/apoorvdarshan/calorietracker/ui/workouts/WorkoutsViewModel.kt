@@ -14,6 +14,8 @@ import com.apoorvdarshan.calorietracker.data.WorkoutRepository
 import com.apoorvdarshan.calorietracker.models.Gender
 import com.apoorvdarshan.calorietracker.models.ExerciseTimerAction
 import com.apoorvdarshan.calorietracker.models.WorkoutIntensity
+import com.apoorvdarshan.calorietracker.models.ExerciseLiftDay
+import com.apoorvdarshan.calorietracker.models.ExerciseLiftHistory
 import com.apoorvdarshan.calorietracker.models.PlannedExercise
 import com.apoorvdarshan.calorietracker.models.WorkoutDate
 import com.apoorvdarshan.calorietracker.models.WorkoutPersistedState
@@ -343,6 +345,23 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
     fun dismissNotice() {
         diaryUiState = diaryUiState.copy(notice = null)
     }
+
+    fun lastExerciseLiftSummary(itemId: String, name: String): String? =
+        ExerciseLiftHistory.lastSummary(
+            latestPersistedState,
+            itemId,
+            name,
+            WorkoutDate.key(diaryUiState.selectedDate),
+            workoutWeightUnit
+        )
+
+    fun exerciseLiftHistory(itemId: String, name: String): List<ExerciseLiftDay> =
+        ExerciseLiftHistory.history(
+            latestPersistedState,
+            itemId,
+            name,
+            WorkoutDate.key(diaryUiState.selectedDate)
+        )
 
     fun openDiaryExercise(exercise: PlannedExercise) {
         openExerciseSnapshot = exercise.asExerciseItem()

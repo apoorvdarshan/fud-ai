@@ -249,6 +249,7 @@ class ChatService(
         lines.add("- \"How consistent has my fasting been?\" → call get_fasting_history(from, to)")
         lines.add("- \"What's my data range?\" → call get_data_summary")
         lines.add("- \"How is my training progressing?\" → call get_training_summary(from, to), then get_workout_history only if individual sets are needed")
+        lines.add("- \"What did I bench last?\" / one-lift trends → call get_exercise_lift_history(exercise)")
         lines.add("- \"What workout do I have planned?\" → call get_workout_plans")
         lines.add("- Use get_workout_preferences when injuries, available equipment, split, schedule, RPE scale, or strength baselines affect the answer.")
         lines.add("Do NOT call tools for questions you can answer from the profile/forecast below.")

@@ -391,6 +391,53 @@ struct CoachWorkoutToolsTests {
             let schema = CoachTools.parameterSchema(for: name)
             #expect(schema["required"] as? [String] == ["from", "to"])
         }
+
+        let liftSchema = CoachTools.parameterSchema(for: "get_exercise_lift_history")
+        #expect(liftSchema["required"] as? [String] == ["exercise"])
+    }
+
+    @Test func exerciseLiftHistoryReturnsRecentSetsForOneLift() throws {
+        let bench = WorkoutTestFixture.exercise(id: "bench", name: "Bench Press")
+        let yesterday = WorkoutTestFixture.date(2026, 7, 19)
+        let today = WorkoutTestFixture.date(2026, 7, 20)
+        let store = WorkoutTestFixture().makeStore()
+        store.toggleExercise(bench, on: yesterday)
+        var planned = try #require(store.exercises(for: yesterday).first)
+        var firstSet = try #require(planned.sets.first)
+        store.updateSet(
+            exerciseID: planned.id,
+            setID: firstSet.id,
+            on: yesterday,
+            weight: "60",
+            weightUnit: .kg,
+            reps: "8"
+        )
+        store.toggleExercise(bench, on: today)
+
+        let tools = CoachTools(
+            weights: [],
+            bodyFats: [],
+            foods: [],
+            workoutSessions: store.completedSessions,
+            workoutPlans: Array(store.dayPlans.values),
+            workoutPreferences: store.preferences,
+            workoutPlanWeightUnit: .kg,
+            workoutAccessEnabled: true
+        )
+        let payload = try WorkoutCoachFixture.jsonObject(
+            tools.execute(
+                name: "get_exercise_lift_history",
+                arguments: ["exercise": "Bench Press", "to": "2026-07-20"]
+            )
+        )
+        let sessions = try #require(payload["sessions"] as? [[String: Any]])
+        #expect(payload["count"] as? Int == 1)
+        #expect(sessions.first?["date"] as? String == "2026-07-19")
+        let sets = try #require(sessions.first?["sets"] as? [[String: Any]])
+        #expect(sets.first?["weight"] as? String == "60")
+        #expect(sets.first?["reps"] as? Int == 8)
+        let last = try #require(payload["last_session"] as? [String: Any])
+        #expect(last["date"] as? String == "2026-07-19")
     }
 }
 

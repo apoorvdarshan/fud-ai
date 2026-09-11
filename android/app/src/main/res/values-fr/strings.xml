@@ -772,4 +772,9 @@
     <string name="about_whisper_notices">Mentions tierces de Whisper Base</string>
     <string name="about_whisper_notices_load_error">Impossible de charger les mentions tierces de Whisper Base.</string>
     <string name="cd_remove_image">Retirer l’image</string>
+    <string name="cd_save_photo">Enregistrer la photo</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Photo enregistrée</string>
+    <string name="photo_save_failed">Impossible d'enregistrer la photo</string>
+    <string name="photo_save_permission_denied">Accès aux photos refusé</string>
 </resources>

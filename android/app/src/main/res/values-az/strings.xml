@@ -772,4 +772,9 @@
     <string name="about_whisper_notices">Whisper Base üçün üçüncü tərəf bildirişləri</string>
     <string name="about_whisper_notices_load_error">Whisper Base üçün üçüncü tərəf bildirişlərini yükləmək mümkün olmadı.</string>
     <string name="cd_remove_image">Şəkli sil</string>
+    <string name="cd_save_photo">Şəkli yadda saxla</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Şəkil yadda saxlanıldı</string>
+    <string name="photo_save_failed">Şəkil yadda saxlanmadı</string>
+    <string name="photo_save_permission_denied">Foto girişinə icazə verilmədi</string>
 </resources>

@@ -772,4 +772,9 @@
     <string name="about_whisper_notices">Whisper Base のサードパーティ通知</string>
     <string name="about_whisper_notices_load_error">Whisper Base のサードパーティ通知を読み込めませんでした。</string>
     <string name="cd_remove_image">画像を削除</string>
+    <string name="cd_save_photo">写真を保存</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">写真を保存しました</string>
+    <string name="photo_save_failed">写真を保存できませんでした</string>
+    <string name="photo_save_permission_denied">写真へのアクセスが拒否されました</string>
 </resources>

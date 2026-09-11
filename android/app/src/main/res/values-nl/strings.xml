@@ -772,4 +772,9 @@
     <string name="about_whisper_notices">Kennisgevingen van derden voor Whisper Base</string>
     <string name="about_whisper_notices_load_error">De kennisgevingen van derden voor Whisper Base konden niet worden geladen.</string>
     <string name="cd_remove_image">Afbeelding verwijderen</string>
+    <string name="cd_save_photo">Foto opslaan</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">Foto opgeslagen</string>
+    <string name="photo_save_failed">Kon foto niet opslaan</string>
+    <string name="photo_save_permission_denied">Fototoegang geweigerd</string>
 </resources>

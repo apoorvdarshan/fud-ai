@@ -772,4 +772,9 @@
     <string name="about_whisper_notices">Whisper Base 타사 고지</string>
     <string name="about_whisper_notices_load_error">Whisper Base 타사 고지를 불러올 수 없습니다.</string>
     <string name="cd_remove_image">이미지 제거</string>
+    <string name="cd_save_photo">사진 저장</string>
+    <string name="gallery_folder_name">Fud AI</string>
+    <string name="photo_saved_to_gallery">사진 저장됨</string>
+    <string name="photo_save_failed">사진을 저장할 수 없습니다</string>
+    <string name="photo_save_permission_denied">사진 접근이 거부되었습니다</string>
 </resources>

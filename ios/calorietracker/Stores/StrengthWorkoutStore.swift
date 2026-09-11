@@ -31,7 +31,7 @@ final class StrengthWorkoutStore {
 
     private let defaults: UserDefaults
     private let storageKey: String
-    private var liftSummaryCacheKey: (beforeKey: String, displayUnit: WeightUnit)?
+    private var liftSummaryCacheKey: (beforeKey: String, displayUnit: WeightUnit, historyToken: Int)?
     private var liftSummaryCache: [String: String] = [:]
 
     init(defaults: UserDefaults = .standard, storageKey: String = StrengthWorkoutStore.defaultStorageKey) {
@@ -263,7 +263,7 @@ final class StrengthWorkoutStore {
         displayUnit: WeightUnit
     ) -> String? {
         let beforeKey = Self.dateKey(for: date)
-        let token = (beforeKey, displayUnit)
+        let token = (beforeKey, displayUnit, liftSummaryHistoryToken)
         if liftSummaryCacheKey != token {
             liftSummaryCache = [:]
             liftSummaryCacheKey = token
@@ -592,9 +592,19 @@ final class StrengthWorkoutStore {
         preferences.sanitize()
     }
 
+    private var liftSummaryHistoryToken: Int {
+        completedSessions.reduce(into: 0) { token, session in
+            token = 31 &* token &+ session.stableDiaryDateKey.hashValue
+            token = 31 &* token &+ session.completedAt.hashValue
+            token = 31 &* token &+ (session.healthSyncVersion ?? 0)
+            for exercise in session.exercises {
+                token = 31 &* token &+ exercise.itemID.hashValue
+                token = 31 &* token &+ exercise.sets.filter(\.isPerformed).count
+            }
+        }
+    }
+
     private func save() {
-        liftSummaryCache = [:]
-        liftSummaryCacheKey = nil
         let state = PersistedState(
             dayPlans: dayPlans,
             completedSessions: completedSessions,

@@ -440,6 +440,114 @@ struct CoachWorkoutToolsTests {
         let last = try #require(payload["last_session"] as? [String: Any])
         #expect(last["date"] as? String == "2026-07-19")
     }
+
+    @Test func exerciseLiftHistoryRespectsCatalogIdOverSameName() throws {
+        let catalogBench = WorkoutCoachFixture.session(
+            date: WorkoutTestFixture.date(2026, 7, 19),
+            caloriesBurned: 180,
+            exercise: "Bench Press",
+            sets: [WorkoutCoachFixture.set(number: 1, weight: "60", reps: "8", rpe: "7")]
+        )
+        let customBench = StrengthWorkoutSession(
+            diaryDate: WorkoutTestFixture.date(2026, 7, 18),
+            startedAt: WorkoutTestFixture.date(2026, 7, 18),
+            completedAt: WorkoutTestFixture.date(2026, 7, 18),
+            durationSeconds: 600,
+            exercises: [
+                StrengthCompletedExercise(
+                    itemID: "custom-bench",
+                    name: "Bench Press",
+                    targetMuscles: ["Chest"],
+                    equipment: "Barbell",
+                    sets: [WorkoutCoachFixture.set(number: 1, weight: "100", reps: "5", rpe: "8")]
+                )
+            ],
+            caloriesBurned: 170
+        )
+        let tools = CoachTools(
+            weights: [],
+            bodyFats: [],
+            foods: [],
+            workoutSessions: [catalogBench, customBench],
+            workoutPlans: [],
+            workoutPlanWeightUnit: .kg,
+            workoutAccessEnabled: true
+        )
+        let payload = try WorkoutCoachFixture.jsonObject(
+            tools.execute(
+                name: "get_exercise_lift_history",
+                arguments: [
+                    "exercise": "Bench Press",
+                    "catalog_id": "bench-press",
+                    "to": "2026-07-20",
+                ]
+            )
+        )
+        let sessions = try #require(payload["sessions"] as? [[String: Any]])
+        #expect(payload["count"] as? Int == 1)
+        let sets = try #require(sessions.first?["sets"] as? [[String: Any]])
+        #expect(sets.first?["weight"] as? String == "60")
+    }
+
+    @Test func exerciseLiftHistoryUsesAuthoritativeSameDaySnapshot() throws {
+        let legacy = WorkoutCoachFixture.session(
+            date: WorkoutTestFixture.date(2026, 7, 12),
+            exercise: "Bench Press",
+            sets: [WorkoutCoachFixture.set(number: 1, weight: "80", reps: "5", rpe: "7")]
+        )
+        var newerClockButOlderVersion = WorkoutCoachFixture.session(
+            date: WorkoutTestFixture.date(2026, 7, 12),
+            caloriesBurned: 190,
+            exercise: "Bench Press",
+            sets: [WorkoutCoachFixture.set(number: 1, weight: "82.5", reps: "6", rpe: "7.5")]
+        )
+        newerClockButOlderVersion = StrengthWorkoutSession(
+            id: newerClockButOlderVersion.id,
+            diaryDate: newerClockButOlderVersion.diaryDate,
+            diaryDateKey: newerClockButOlderVersion.diaryDateKey,
+            startedAt: newerClockButOlderVersion.startedAt,
+            completedAt: WorkoutTestFixture.date(2026, 7, 12).addingTimeInterval(11 * 3600),
+            durationSeconds: newerClockButOlderVersion.durationSeconds,
+            exercises: newerClockButOlderVersion.exercises,
+            caloriesBurned: 190,
+            healthSyncVersion: 1
+        )
+        var authoritative = WorkoutCoachFixture.session(
+            date: WorkoutTestFixture.date(2026, 7, 12),
+            caloriesBurned: 210,
+            exercise: "Bench Press",
+            sets: [WorkoutCoachFixture.set(number: 1, weight: "85", reps: "8", rpe: "8")]
+        )
+        authoritative = StrengthWorkoutSession(
+            id: authoritative.id,
+            diaryDate: authoritative.diaryDate,
+            diaryDateKey: authoritative.diaryDateKey,
+            startedAt: authoritative.startedAt,
+            completedAt: WorkoutTestFixture.date(2026, 7, 12).addingTimeInterval(10 * 3600),
+            durationSeconds: authoritative.durationSeconds,
+            exercises: authoritative.exercises,
+            caloriesBurned: 210,
+            healthSyncVersion: 2
+        )
+        let tools = CoachTools(
+            weights: [],
+            bodyFats: [],
+            foods: [],
+            workoutSessions: [legacy, newerClockButOlderVersion, authoritative],
+            workoutPlans: [],
+            workoutAccessEnabled: true
+        )
+        let payload = try WorkoutCoachFixture.jsonObject(
+            tools.execute(
+                name: "get_exercise_lift_history",
+                arguments: ["exercise": "Bench Press", "to": "2026-07-20"]
+            )
+        )
+        let sessions = try #require(payload["sessions"] as? [[String: Any]])
+        let sets = try #require(sessions.first?["sets"] as? [[String: Any]])
+        #expect(sets.first?["weight"] as? String == "85")
+        #expect(sets.first?["reps"] as? Int == 8)
+    }
 }
 
 @MainActor

@@ -298,6 +298,33 @@ struct StrengthWorkoutStoreTests {
         #expect(store.exercises(for: date)[0].sets[0].rpe == "20")
     }
 
+    @Test func liftHistoryMatchingUsesCatalogIdExclusivelyWhenProvided() {
+        #expect(
+            StrengthExerciseLiftHistory.matches(
+                itemID: "bench-press",
+                name: "Bench Press",
+                candidateItemID: "bench-press",
+                candidateName: "Bench Press"
+            )
+        )
+        #expect(
+            !StrengthExerciseLiftHistory.matches(
+                itemID: "bench-press",
+                name: "Bench Press",
+                candidateItemID: "custom-bench",
+                candidateName: "Bench Press"
+            )
+        )
+        #expect(
+            StrengthExerciseLiftHistory.matches(
+                itemID: "",
+                name: "Bench Press",
+                candidateItemID: "custom-bench",
+                candidateName: "Bench Press"
+            )
+        )
+    }
+
     @Test func exerciseLiftHistoryFindsMostRecentPriorDay() throws {
         let bench = WorkoutTestFixture.exercise(id: "bench", name: "Bench Press")
         let yesterday = WorkoutTestFixture.date(2026, 7, 19)

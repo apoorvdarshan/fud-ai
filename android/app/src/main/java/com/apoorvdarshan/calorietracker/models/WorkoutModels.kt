@@ -673,7 +673,7 @@ object ExerciseLiftHistory {
         name.trim().lowercase().replace(Regex("\\s+"), " ")
 
     fun matches(itemId: String, name: String, candidateItemId: String, candidateName: String): Boolean {
-        if (itemId.isNotEmpty() && itemId == candidateItemId) return true
+        if (itemId.isNotEmpty()) return itemId == candidateItemId
         val left = normalizedName(name)
         val right = normalizedName(candidateName)
         return left.isNotEmpty() && left == right

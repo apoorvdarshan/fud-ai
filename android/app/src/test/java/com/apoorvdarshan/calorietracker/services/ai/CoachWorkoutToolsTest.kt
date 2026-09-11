@@ -175,6 +175,84 @@ class CoachWorkoutToolsTest {
     }
 
     @Test
+    fun exerciseLiftHistoryRespectsCatalogIdOverSameName() {
+        val catalogBench = session(
+            dateKey = "2026-07-19",
+            completedAt = "2026-07-19T10:00:00Z",
+            caloriesBurned = 180,
+            exercise = "Bench Press",
+            sets = listOf(set(1, "60", "8", "7"))
+        )
+        val customBench = session(
+            dateKey = "2026-07-18",
+            completedAt = "2026-07-18T10:00:00Z",
+            caloriesBurned = 170,
+            exercise = "Bench Press",
+            sets = listOf(set(1, "100", "5", "8"))
+        ).copy(
+            exercises = listOf(
+                CompletedExercise(
+                    itemId = "custom-bench",
+                    name = "Bench Press",
+                    targetMuscles = listOf("Chest"),
+                    equipment = "Barbell",
+                    sets = listOf(set(1, "100", "5", "8"))
+                )
+            )
+        )
+        val payload = json(
+            tools(workoutSessions = listOf(catalogBench, customBench), workoutPlanWeightUnit = WorkoutWeightUnit.KG)
+                .execute(
+                    "get_exercise_lift_history",
+                    mapOf(
+                        "exercise" to "Bench Press",
+                        "catalog_id" to "bench-press",
+                        "to" to "2026-07-20"
+                    )
+                )
+        )
+        assertEquals(1, payload["count"].asInt)
+        val sets = payload.getAsJsonArray("sessions")[0].asJsonObject.getAsJsonArray("sets")
+        assertEquals("60", sets[0].asJsonObject["weight"].asString)
+    }
+
+    @Test
+    fun exerciseLiftHistoryUsesAuthoritativeSameDaySnapshot() {
+        val legacy = session(
+            dateKey = "2026-07-12",
+            completedAt = "2026-07-12T08:00:00Z",
+            exercise = "Bench Press",
+            sets = listOf(set(1, "80", "5", "7"))
+        )
+        val newerClockButOlderVersion = session(
+            dateKey = "2026-07-12",
+            completedAt = "2026-07-12T11:00:00Z",
+            caloriesBurned = 190,
+            healthSyncVersion = 1,
+            exercise = "Bench Press",
+            sets = listOf(set(1, "82.5", "6", "7.5"))
+        )
+        val authoritative = session(
+            dateKey = "2026-07-12",
+            completedAt = "2026-07-12T10:00:00Z",
+            caloriesBurned = 210,
+            healthSyncVersion = 2,
+            exercise = "Bench Press",
+            sets = listOf(set(1, "85", "8", "8"))
+        )
+        val payload = json(
+            tools(workoutSessions = listOf(legacy, newerClockButOlderVersion, authoritative))
+                .execute(
+                    "get_exercise_lift_history",
+                    mapOf("exercise" to "Bench Press", "to" to "2026-07-20")
+                )
+        )
+        val sets = payload.getAsJsonArray("sessions")[0].asJsonObject.getAsJsonArray("sets")
+        assertEquals("85", sets[0].asJsonObject["weight"].asString)
+        assertEquals(8, sets[0].asJsonObject["reps"].asInt)
+    }
+
+    @Test
     fun summaryAndHistoryUseNewestCalculatedSameDaySnapshot() {
         val legacy = session(
             dateKey = "2026-07-12",

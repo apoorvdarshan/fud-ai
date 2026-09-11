@@ -727,7 +727,7 @@ enum StrengthExerciseLiftHistory {
     }
 
     static func matches(itemID: String, name: String, candidateItemID: String, candidateName: String) -> Bool {
-        if !itemID.isEmpty, itemID == candidateItemID { return true }
+        if !itemID.isEmpty { return itemID == candidateItemID }
         let left = normalizedName(name)
         let right = normalizedName(candidateName)
         return !left.isEmpty && left == right

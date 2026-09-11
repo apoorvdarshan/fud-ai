@@ -81,6 +81,7 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
     private var repositoryJob: Job? = null
     private var latestPersistedState = WorkoutPersistedState()
     private var exerciseLiftSummaries: Map<String, String?> = emptyMap()
+    private var exerciseLiftSummaryInputs: ExerciseLiftSummaryInputs? = null
     private var bodyWeightKg = 70.0
     private var workoutWeightUnit = WorkoutWeightUnit.LBS
     private var profileGender = Gender.MALE
@@ -417,14 +418,46 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
             weightUnit = workoutWeightUnit,
             visualGender = profileGender
         )
-        rebuildExerciseLiftSummaries()
+        rebuildExerciseLiftSummariesIfNeeded()
     }
 
     private fun liftSummaryKey(itemId: String, name: String): String =
         "$itemId\u0000${ExerciseLiftHistory.normalizedName(name)}"
 
-    private fun rebuildExerciseLiftSummaries() {
+    private data class ExerciseLiftSummaryInputs(
+        val beforeKey: String,
+        val weightUnit: WorkoutWeightUnit,
+        val historyToken: Int,
+        val exerciseKeys: Set<String>
+    )
+
+    private fun completedSessionsHistoryToken(state: WorkoutPersistedState): Int =
+        state.completedSessions.fold(0) { token, session ->
+            var next = 31 * token + session.diaryDateKey.hashCode()
+            next = 31 * next + session.completedAt.hashCode()
+            next = 31 * next + (session.healthSyncVersion ?: 0)
+            session.exercises.fold(next) { exerciseToken, exercise ->
+                var perExercise = 31 * exerciseToken + exercise.itemId.hashCode()
+                perExercise = 31 * perExercise + exercise.sets.count { it.isPerformed }
+                perExercise
+            }
+        }
+
+    private fun rebuildExerciseLiftSummariesIfNeeded() {
         val beforeKey = WorkoutDate.key(diaryUiState.selectedDate)
+        val exerciseKeys = diaryUiState.exercises
+            .asSequence()
+            .filterNot { it.isCardio }
+            .map { liftSummaryKey(it.itemId, it.name) }
+            .toSet()
+        val inputs = ExerciseLiftSummaryInputs(
+            beforeKey = beforeKey,
+            weightUnit = workoutWeightUnit,
+            historyToken = completedSessionsHistoryToken(latestPersistedState),
+            exerciseKeys = exerciseKeys
+        )
+        if (inputs == exerciseLiftSummaryInputs) return
+        exerciseLiftSummaryInputs = inputs
         exerciseLiftSummaries = diaryUiState.exercises
             .asSequence()
             .filterNot { it.isCardio }

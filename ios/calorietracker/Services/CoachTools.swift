@@ -528,8 +528,12 @@ struct CoachTools {
 
     private func coachLiftSets(itemID: String, name: String, on dateKey: String) -> [StrengthExerciseLiftSet]? {
         let daySessions = workoutSessions.filter { $0.stableDiaryDateKey == dateKey }
-        let preferred = daySessions.first(where: { $0.caloriesBurned != nil })
-            ?? daySessions.max(by: { $0.completedAt < $1.completedAt })
+        let preferred = daySessions.filter { $0.caloriesBurned != nil }.max(by: {
+            let leftVersion = $0.healthSyncVersion ?? 0
+            let rightVersion = $1.healthSyncVersion ?? 0
+            if leftVersion == rightVersion { return $0.completedAt < $1.completedAt }
+            return leftVersion < rightVersion
+        }) ?? daySessions.max(by: { $0.completedAt < $1.completedAt })
         guard let session = preferred,
               let exercise = session.exercises.first(where: {
                   StrengthExerciseLiftHistory.matches(

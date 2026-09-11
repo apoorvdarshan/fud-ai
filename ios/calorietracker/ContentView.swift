@@ -5339,10 +5339,10 @@ struct ProfileView: View {
                                     }
                                 }
                             } else {
-                                // Same provider as primary → exclude the primary's model from the picker so
+                                // Same provider + same server → exclude the primary's model so
                                 // user can't accidentally pick an identical config.
                                 let modelOptions: [String] = {
-                                    if selectedFallbackProvider == selectedProvider {
+                                    if fallbackSharesPrimaryServer {
                                         return selectedFallbackProvider.models.filter { $0 != selectedModel }
                                     }
                                     return selectedFallbackProvider.models
@@ -6247,8 +6247,23 @@ struct ProfileView: View {
             }
     }
 
+    private var resolvedPrimaryBaseURL: String {
+        let trimmed = customBaseURL.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? selectedProvider.baseURL : trimmed
+    }
+
+    private var resolvedFallbackBaseURL: String {
+        let trimmed = fallbackBaseURL.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? selectedFallbackProvider.baseURL : trimmed
+    }
+
+    /// True when fallback would hit the same provider, model, and server as primary.
+    private var fallbackSharesPrimaryServer: Bool {
+        selectedFallbackProvider == selectedProvider && resolvedPrimaryBaseURL == resolvedFallbackBaseURL
+    }
+
     private var fallbackModelPresetOptions: [String] {
-        guard selectedFallbackProvider == selectedProvider else {
+        guard fallbackSharesPrimaryServer else {
             return selectedFallbackProvider.models
         }
         return selectedFallbackProvider.models.filter { $0 != selectedModel }
@@ -6302,9 +6317,11 @@ struct ProfileView: View {
             selectedFallbackModel = newProvider.defaultModel
             AIProviderSettings.selectedFallbackModel = selectedFallbackModel
         }
-        // If switching fallback to the primary provider with the same model, select the first
-        // alternate model so the two configurations still provide capacity diversity.
-        if newProvider == selectedProvider,
+        // Same provider + same server + same model would be a pointless retry — pick an alternate.
+        let sharesServer = newProvider == selectedProvider &&
+            (AIProviderSettings.fallbackCustomBaseURL(for: newProvider) ?? newProvider.baseURL) ==
+            (AIProviderSettings.customBaseURL(for: selectedProvider) ?? selectedProvider.baseURL)
+        if sharesServer,
            selectedFallbackModel == selectedModel,
            let alternateModel = newProvider.models.first(where: { $0 != selectedModel }) {
             selectedFallbackModel = alternateModel

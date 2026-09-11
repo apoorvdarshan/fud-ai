@@ -2736,9 +2736,22 @@ private fun SettingsSheets(
                     leadingContent = { AIProviderBrandIcon(it, Modifier.size(20.dp)) }
                 )
                 SettingsSheet.FALLBACK_MODEL -> {
-                    // Same provider as primary → exclude primary's selected model so
-                    // fallback can't be a literal duplicate config.
-                    val opts = if (ui.fallbackProvider == ui.selectedAI)
+                    // Same provider + same server → exclude primary's model so fallback
+                    // can't be a literal duplicate config. Different servers may share a model.
+                    val primaryBaseUrl = remember(ui.selectedAI) {
+                        runBlocking {
+                            vm.container.prefs.customBaseUrl(ui.selectedAI).first()
+                                ?.takeIf { it.isNotEmpty() } ?: ui.selectedAI.baseUrl
+                        }
+                    }
+                    val fallbackBaseUrl = remember(ui.fallbackProvider) {
+                        runBlocking {
+                            vm.container.prefs.fallbackCustomBaseUrl(ui.fallbackProvider).first()
+                                ?.takeIf { it.isNotEmpty() } ?: ui.fallbackProvider.baseUrl
+                        }
+                    }
+                    val sameServer = ui.fallbackProvider == ui.selectedAI && primaryBaseUrl == fallbackBaseUrl
+                    val opts = if (sameServer)
                         ui.fallbackProvider.models.filter { it != ui.selectedModel }
                     else ui.fallbackProvider.models
                     ListSheet(

@@ -304,13 +304,22 @@ private struct ZoomableMealPhotoScrollView: UIViewRepresentable {
             isZoomed = false
         }
 
-        context.coordinator.layoutImage(in: scrollView)
+        let isAtMinZoom = scrollView.zoomScale <= scrollView.minimumZoomScale + 0.01
+        let boundsChanged = scrollView.bounds.size != context.coordinator.lastLayoutBounds
+        let imageChanged = context.coordinator.lastLayoutImage !== image
+        if isAtMinZoom && (boundsChanged || imageChanged) {
+            context.coordinator.layoutImage(in: scrollView)
+            context.coordinator.lastLayoutBounds = scrollView.bounds.size
+            context.coordinator.lastLayoutImage = image
+        }
     }
 
     final class Coordinator: NSObject, UIScrollViewDelegate {
         var parent: ZoomableMealPhotoScrollView
         weak var scrollView: UIScrollView?
         weak var imageView: UIImageView?
+        var lastLayoutBounds: CGSize = .zero
+        var lastLayoutImage: UIImage?
 
         init(parent: ZoomableMealPhotoScrollView) {
             self.parent = parent

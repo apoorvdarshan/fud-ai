@@ -68,7 +68,7 @@
     <string name="kg_per_week_format">%1$.2f кг/тиж.</string>
     <string name="lbs_per_week_format">%1$.2f фун./тиж.</string>
     <string name="height_cm_format">%1$d см</string>
-    <string name="feet_inches_format">%1$d\\' %2$d\&quot;</string>
+    <string name="feet_inches_format">%1$d\' %2$d\"</string>
     <string name="value_unit_format">%1$d %2$s</string>
     <string name="ft_label_format">%1$d фут.</string>
     <string name="in_label_format">%1$d дюйм.</string>
@@ -260,7 +260,7 @@
     <string name="onboarding_no">Ні</string>
     <string name="onboarding_body_fat_ranges">Типові діапазони: чоловіки 10–25%, жінки 18–35%</string>
     <string name="onboarding_body_fat_no_worries">Нічого страшного! Ми використаємо стандартну формулу\nна основі вашого зросту, ваги та віку.</string>
-    <string name="onboarding_goal_optional">Мета (необов\\'язково)</string>
+    <string name="onboarding_goal_optional">Мета (необов\'язково)</string>
     <string name="onboarding_goal_set_later">Ви можете встановити це пізніше в налаштуваннях.</string>
     <string name="progress_metric_weight">Вага</string>
     <string name="progress_metric_body_fat">Відсоток жиру</string>
@@ -317,7 +317,7 @@
     <string name="onboarding_building_carbs">Вуглеводи</string>
     <string name="onboarding_building_protein">Білок</string>
     <string name="onboarding_building_fats">Жири</string>
-    <string name="onboarding_building_health_score">Оцінка здоров\\'я</string>
+    <string name="onboarding_building_health_score">Оцінка здоров\'я</string>
     <string name="onboarding_building_percent_format">%1$d%%</string>
     <string name="onboarding_building_setting_up">Налаштовуємо все\nдля вас</string>
     <string name="onboarding_building_finalizing">Завершення обробки…</string>
@@ -380,7 +380,7 @@
 
     <string name="text_input_placeholder_1">2 яйця, тост з маслом і кава</string>
     <string name="text_input_placeholder_2">Боул Chipotle з куркою та рисом</string>
-    <string name="text_input_placeholder_3">Піца Domino\\'s пепероні, 2 скибочки</string>
+    <string name="text_input_placeholder_3">Піца Domino\'s пепероні, 2 скибочки</string>
     <string name="text_input_placeholder_4">Грецький йогурт з гранолою та чорницею</string>
 
     <string name="manual_title">Ручне введення</string>
@@ -632,7 +632,7 @@
     <string name="settings_rpe_guide" translatable="false">Strength 1–10: 1 is very easy and 10 is maximum effort.\nCR10 0–10: perceived exertion with decimals allowed.\nBorg 6–20: classic whole-number exertion scale.</string>
     <string name="settings_workout_health_access" translatable="false">Workout Burn Sync</string>
     <string name="settings_grant_permission" translatable="false">Grant permission</string>
-    <string name="settings_section_health">Здоров\\'я та дані</string>
+    <string name="settings_section_health">Здоров\'я та дані</string>
     <string name="settings_section_data_management">Керування даними</string>
 
     <string name="settings_gender">Стать</string>
@@ -669,7 +669,7 @@
     <string name="theme_color_red">Червоний</string>
     <string name="theme_color_orange">Помаранчевий</string>
     <string name="theme_color_green">Зелений</string>
-    <string name="theme_color_mint">М\\'ятний</string>
+    <string name="theme_color_mint">М\'ятний</string>
     <string name="theme_color_teal">Бірюзовий</string>
     <string name="theme_color_blue">Синій</string>
     <string name="theme_color_purple">Фіолетовий</string>
@@ -897,7 +897,7 @@
     <string name="about_leave_tip_kofi">Залишити чайові на Ko-fi</string>
     <string name="about_report_issue">Повідомити про проблему</string>
     <string name="about_request_feature">Запропонувати функцію</string>
-    <string name="about_contact">Зв\\'язатися з нами</string>
+    <string name="about_contact">Зв\'язатися з нами</string>
     <string name="about_follow_x">Стежити в X</string>
     <string name="about_follow_linkedin">Стежити в LinkedIn</string>
     <string name="about_privacy">Політика конфіденційності</string>
@@ -936,7 +936,7 @@
     <string name="nav_workouts">Тренування</string>
     <string name="back">Назад</string>
     <string name="clear_search">Очистити пошук</string>
-    <string name="empty_subtitle">Спробуйте інший м\\'яз, обладнання або пошуковий запит — чи скиньте фільтри вище.</string>
+    <string name="empty_subtitle">Спробуйте інший м\'яз, обладнання або пошуковий запит — чи скиньте фільтри вище.</string>
     <string name="empty_title">Немає відповідних вправ</string>
     <string name="workout_empty_subtitle">Спробуйте інші фільтри — або створіть власну вправу.</string>
     <string name="workout_create_exercise">Створити вправу</string>
@@ -968,13 +968,13 @@
     <string name="onboarding_feature_coach">Тренер, який знає ваші дані</string>
     <string name="onboarding_feature_library">Бібліотека з 870+ вправ</string>
     <string name="onboarding_feature_widgets">Віджети на головному екрані</string>
-    <string name="whats_new_v30_workouts">Нова вкладка «Тренування» — переглядайте 873 вправи з фотографіями, фільтрами за м\\'язами та обладнанням, пошуком і сторінками з деталями.</string>
+    <string name="whats_new_v30_workouts">Нова вкладка «Тренування» — переглядайте 873 вправи з фотографіями, фільтрами за м\'язами та обладнанням, пошуком і сторінками з деталями.</string>
     <string name="whats_new_v30_home">Редизайн головної сторінки: шкала калорій у вигляді спідометра, вертикальні індикатори макросів, чотири картки нутрієнтів і плаваюча кнопка додавання.</string>
     <string name="whats_new_v30_coach_voice">Запитуйте Тренера голосом за допомогою нового вбудованого диктофона.</string>
     <string name="whats_new_v30_share">Діліться будь-якою стравою як посиланням, що відкривається прямо у Fud AI на iPhone або Android.</string>
     <string name="whats_new_v30_export">Експортуйте свій щоденник харчування у форматах JSON, Markdown або CSV з Налаштувань.</string>
     <string name="whats_new_v30_reprocess">Повторна обробка записаної страви за допомогою ШІ — налаштуйте назву, порцію або нотатку та проаналізуйте знову.</string>
-    <string name="whats_new_v30_camera">Функція «Камера + Камера» зберігає обидва знімки, об\\'єднані поруч.</string>
+    <string name="whats_new_v30_camera">Функція «Камера + Камера» зберігає обидва знімки, об\'єднані поруч.</string>
     <string name="whats_new_v30_colors">10 нових кольорів теми, які тепер можна вибрати прямо в Налаштуваннях.</string>
     <string name="whats_new_v30_bodyfat">Історія жиру в організмі: переглядайте та видаляйте окремі записи, так само як і вагу.</string>
     <string name="whats_new_v30_units">Одиниці зросту та ваги тепер можна встановлювати незалежно.</string>
@@ -1155,7 +1155,7 @@
     <string name="measure_upper_arm">Плече</string>
     <string name="measure_thigh">Стегно</string>
     <string name="measure_calf">Литка</string>
-    <string name="measure_wrist">Зап\\'ястя</string>
+    <string name="measure_wrist">Зап\'ястя</string>
     <string name="derived_waist_to_hip">Відношення талії до стегон</string>
     <string name="derived_waist_to_height">Відношення талії до зросту</string>
     <string name="derived_body_fat">Відсоток жиру</string>
@@ -1203,7 +1203,7 @@
     <string name="settings_calc_mifflin_used">Стандартна формула для базового метаболізму. Використовується, якщо ви не вказали відсоток жиру в організмі.</string>
     <string name="settings_calc_mifflin_formula">Чоловіки: 10×вага(кг) + 6.25×зріст(см) − 5×вік + 5\nЖінки: 10×вага(кг) + 6.25×зріст(см) − 5×вік − 161</string>
     <string name="settings_calc_katch_name">Рівняння Кетча-МакАрдла</string>
-    <string name="settings_calc_katch_used">Використовується автоматично, якщо ви вказали відсоток жиру в організмі. Точніше для струнких користувачів та спортсменів, оскільки BMR розраховується на основі сухої м\\'язової маси, а не загальної ваги.</string>
+    <string name="settings_calc_katch_used">Використовується автоматично, якщо ви вказали відсоток жиру в організмі. Точніше для струнких користувачів та спортсменів, оскільки BMR розраховується на основі сухої м\'язової маси, а не загальної ваги.</string>
     <string name="settings_calc_katch_formula">BMR = 370 + 21.6 × LBM(кг)\nLBM = вага × (1 − %жиру)</string>
     <string name="settings_calc_tdee_name">Метод множника активності</string>
     <string name="settings_calc_tdee_used">TDEE = BMR × множник активності. Множник відповідає обраному рівню активності. Це базова лінія підтримки, від якої відштовхується ШІ (якщо «Спалювання енергії» не надає виміряне значення).</string>

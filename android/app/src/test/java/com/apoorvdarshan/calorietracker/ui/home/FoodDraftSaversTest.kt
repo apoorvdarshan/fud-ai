@@ -5,6 +5,8 @@ import androidx.compose.runtime.saveable.SaverScope
 import com.apoorvdarshan.calorietracker.models.IngredientPortion
 import com.apoorvdarshan.calorietracker.models.MealIngredient
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
+import java.time.LocalDate
+import java.time.LocalTime
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
@@ -39,6 +41,14 @@ class FoodDraftSaversTest {
         val nutrients = mapOf("selenium" to 12.3, "manganese" to 0.8)
         assertEquals(options, restore(foodDraftSaver<List<ServingUnitOption>>(), options))
         assertEquals(nutrients, restore(foodDraftSaver<Map<String, Double>>(), nutrients))
+    }
+
+    @Test
+    fun loggedDateAndTimeSurviveSaveRestore() {
+        val date = LocalDate.of(2025, 1, 3)
+        val time = LocalTime.of(16, 45, 30)
+        assertEquals(date, restore(LocalDateSaver, date))
+        assertEquals(time, restore(LocalTimeSaver, time))
     }
 
     @Test

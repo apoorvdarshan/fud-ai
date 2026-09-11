@@ -44,6 +44,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
@@ -69,7 +70,16 @@ import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.ServingAmountExpression
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
+import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialogActions
+import com.apoorvdarshan.calorietracker.ui.components.FudGlassTextField
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
+import com.apoorvdarshan.calorietracker.ui.util.clockTimePattern
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 // Shared visual primitives for the food review/edit sheets. Names are
 // `Sheet*`-prefixed so they don't collide with the look-alike privates in
@@ -701,6 +711,119 @@ internal fun SheetGlassDropdownMenuItem(
                 modifier = Modifier.size(18.dp)
             )
         }
+    }
+}
+
+/** Date/time card shared by the review and edit sheets. */
+@Composable
+internal fun SheetDateTimeCard(
+    loggedDate: LocalDate,
+    loggedTime: LocalTime,
+    onEditDate: () -> Unit,
+    onEditTime: () -> Unit
+) {
+    val context = LocalContext.current
+    val dateFormatter = remember { DateTimeFormatter.ofPattern("MMM d, yyyy", Locale.US) }
+    val timeFormatter = remember(context) { DateTimeFormatter.ofPattern(clockTimePattern(context), Locale.US) }
+    SheetPillCard {
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onEditDate)
+                .padding(horizontal = 18.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(stringResource(R.string.label_date), fontSize = 17.sp, modifier = Modifier.weight(1f))
+            Text(
+                loggedDate.format(dateFormatter),
+                fontSize = 17.sp,
+                color = AppColors.Calorie,
+                fontWeight = FontWeight.Medium
+            )
+        }
+        SheetHairline()
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .clickable(onClick = onEditTime)
+                .padding(horizontal = 18.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(stringResource(R.string.label_time), fontSize = 17.sp, modifier = Modifier.weight(1f))
+            Text(
+                loggedTime.format(timeFormatter),
+                fontSize = 17.sp,
+                color = AppColors.Calorie,
+                fontWeight = FontWeight.Medium
+            )
+        }
+    }
+}
+
+/** Wheel-style logged-date picker dialog shared by the review and edit sheets. */
+@Composable
+internal fun SheetDatePickerDialog(
+    initialDate: LocalDate,
+    onConfirm: (LocalDate) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var pickedDate by remember(initialDate) { mutableStateOf(initialDate) }
+    FudGlassDialog(onDismissRequest = onDismiss) {
+        Text(stringResource(R.string.label_date), fontSize = 21.sp, fontWeight = FontWeight.Bold)
+        DateWheelPicker(
+            selected = pickedDate,
+            onSelect = { pickedDate = it },
+            minYear = minOf(LocalDate.now().year - 10, initialDate.year),
+            maxYear = maxOf(LocalDate.now().year, initialDate.year),
+            modifier = Modifier.fillMaxWidth()
+        )
+        FudGlassDialogActions(
+            primaryText = stringResource(R.string.action_done),
+            onPrimary = { onConfirm(pickedDate) },
+            dismissText = stringResource(R.string.action_cancel),
+            onDismiss = onDismiss
+        )
+    }
+}
+
+/** Hour/minute logged-time entry dialog shared by the review and edit sheets. */
+@Composable
+internal fun SheetTimePickerDialog(
+    initialTime: LocalTime,
+    onConfirm: (LocalTime) -> Unit,
+    onDismiss: () -> Unit
+) {
+    var hourText by remember(initialTime) { mutableStateOf(initialTime.hour.toString().padStart(2, '0')) }
+    var minuteText by remember(initialTime) { mutableStateOf(initialTime.minute.toString().padStart(2, '0')) }
+
+    FudGlassDialog(onDismissRequest = onDismiss) {
+        Text(stringResource(R.string.label_time), fontSize = 21.sp, fontWeight = FontWeight.Bold)
+        Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            FudGlassTextField(
+                value = hourText,
+                onValueChange = { hourText = it.filter(Char::isDigit).take(2) },
+                placeholder = stringResource(R.string.placeholder_hour),
+                singleLine = true,
+                modifier = Modifier.weight(1f)
+            )
+            FudGlassTextField(
+                value = minuteText,
+                onValueChange = { minuteText = it.filter(Char::isDigit).take(2) },
+                placeholder = stringResource(R.string.placeholder_minute),
+                singleLine = true,
+                modifier = Modifier.weight(1f)
+            )
+        }
+        FudGlassDialogActions(
+            primaryText = stringResource(R.string.action_done),
+            onPrimary = {
+                val hour = hourText.toIntOrNull()?.coerceIn(0, 23) ?: initialTime.hour
+                val minute = minuteText.toIntOrNull()?.coerceIn(0, 59) ?: initialTime.minute
+                onConfirm(LocalTime.of(hour, minute))
+            },
+            dismissText = stringResource(R.string.action_cancel),
+            onDismiss = onDismiss
+        )
     }
 }
 

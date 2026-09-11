@@ -1609,7 +1609,7 @@ private var dailyStepsTaskKey: String {
                             servingSizeIsKnown: result.servingSizeIsKnown,
                             logDate: logDateForSelectedDay,
                             profile: userProfile,
-                            dayEntries: foodStore.entries(for: logDateForSelectedDay),
+                            entriesForDate: { foodStore.entries(for: $0) },
                             weightMetric: weightUnitRaw == "kg",
                             onLog: { entry in
                                 if !foodStore.addEntry(entry) { showFoodLoggingBlocked = true }

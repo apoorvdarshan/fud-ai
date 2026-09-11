@@ -22,37 +22,39 @@ struct AddMenuSettingsView: View {
                             .foregroundStyle(AppColors.calorie)
                     }
                 }
-
-                if config.usesFlatLayout {
-                    flatMethodsSection
-                } else {
-                    groupOrderSection
-                    ForEach($config.groups) { $group in
-                        groupSection(group: $group)
-                    }
-                }
-
-                if !hiddenMethods.isEmpty {
-                    Section {
-                        ForEach(hiddenMethods) { method in
-                            Label(method.title, systemImage: method.systemImageName)
-                                .foregroundStyle(.secondary)
-                        }
-                    } header: {
-                        Text("Hidden Methods")
-                    } footer: {
-                        Text("These logging methods are not shown on the Home + menu.")
-                    }
-                }
-
-                Button("Reset to Default", role: .destructive) {
-                    AddMenuSettings.reset()
-                    config = .iOSDefault
-                }
             } header: {
                 Text("Food Add Menu")
             } footer: {
                 Text("Customize the Home + button food menu. Water and fasting stay separate when enabled. This does not change app-icon Quick Actions.")
+            }
+
+            if config.usesFlatLayout {
+                flatMethodsSection
+            } else {
+                groupOrderSection
+                ForEach($config.groups) { $group in
+                    groupSection(group: $group)
+                }
+            }
+
+            if !hiddenMethods.isEmpty {
+                Section {
+                    ForEach(hiddenMethods) { method in
+                        Label(method.title, systemImage: method.systemImageName)
+                            .foregroundStyle(.secondary)
+                    }
+                } header: {
+                    Text("Hidden Methods")
+                } footer: {
+                    Text("These logging methods are not shown on the Home + menu.")
+                }
+            }
+
+            Section {
+                Button("Reset to Default", role: .destructive) {
+                    AddMenuSettings.reset()
+                    config = .iOSDefault
+                }
             }
         }
         .environment(\.editMode, $editMode)

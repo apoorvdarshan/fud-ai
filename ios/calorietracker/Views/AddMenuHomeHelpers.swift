@@ -9,7 +9,7 @@ extension HomeView {
                 addMenuButton(for: method)
             }
         } else {
-            ForEach(config.groups) { group in
+            ForEach(config.groups.filter { !$0.methods.isEmpty }) { group in
                 Menu {
                     ForEach(group.methods) { method in
                         addMenuButton(for: method)

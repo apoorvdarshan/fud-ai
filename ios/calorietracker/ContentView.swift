@@ -1774,11 +1774,6 @@ private var dailyStepsTaskKey: String {
             .onOpenURL { url in
                 if url.scheme == "fudai", url.host == "import-share-image" {
                     checkAndConsumeSharedImage()
-                } else if url.scheme == "fudai", url.host == "log-food",
-                          let raw = URLComponents(url: url, resolvingAgainstBaseURL: false)?
-                            .queryItems?.first(where: { $0.name == "method" })?.value,
-                          let method = FoodLogMethod(rawValue: raw) {
-                    FoodLogMethodCoordinator.request(method)
                 } else if MealShare.handles(url) {
                     // Shared meal — custom scheme or https Universal Link (issue #107).
                     // Universal Links open the app directly (no browser). Confirm before adding.
@@ -1939,6 +1934,29 @@ private var dailyStepsTaskKey: String {
     @MainActor
     private func presentFoodLogMethodIfPossible() {
         guard let request = foodLogMethodRequest, activeSheet == nil else { return }
+
+        let hadOpenDestination = showCamera || showBarcodeScanner || showPhotoPicker
+            || showVoicePopover || showTextPopover || showManualPopover
+            || savedMealsMode != nil || showContextSheet || showMultiPhotoCaptureSheet
+            || showCopyFromDaySheet || showFastingStart || editingFastingSession != nil
+
+        showCamera = false
+        showBarcodeScanner = false
+        showPhotoPicker = false
+        showVoicePopover = false
+        showTextPopover = false
+        showManualPopover = false
+        savedMealsMode = nil
+        showContextSheet = false
+        showMultiPhotoCaptureSheet = false
+        showCopyFromDaySheet = false
+        showNutritionDetail = false
+        showCustomWaterLog = false
+        showError = false
+        showFastingStart = false
+        editingFastingSession = nil
+        selectedDate = .now
+
         guard fastingStore.activeSession == nil else {
             onFoodLogMethodHandled(request.id)
             showFoodLoggingBlocked = true
@@ -1946,8 +1964,16 @@ private var dailyStepsTaskKey: String {
         }
 
         onFoodLogMethodHandled(request.id)
-        presentFoodDestination {
-            performFoodLogMethod(request.method)
+        let launch: @MainActor @Sendable () -> Void = {
+            presentFoodDestination {
+                performFoodLogMethod(request.method)
+            }
+        }
+
+        if hadOpenDestination {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35, execute: launch)
+        } else {
+            launch()
         }
     }
     

@@ -165,6 +165,7 @@ import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.models.FoodLogMethod
 import com.apoorvdarshan.calorietracker.models.FoodLogMethodDefaultGroupIcon
+import com.apoorvdarshan.calorietracker.models.displayName
 import com.apoorvdarshan.calorietracker.models.QuickAction
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
@@ -736,7 +737,7 @@ CalorieHero(
                             } else {
                                 addMenuConfig.resolvedGroups().forEachIndexed { index, group ->
                                     SheetGlassDropdownMenuItem(
-                                        label = group.name,
+                                        label = group.displayName(),
                                         leadingIcon = group.methods.firstOrNull()?.icon ?: FoodLogMethodDefaultGroupIcon,
                                         trailingIcon = Icons.Filled.ChevronRight
                                     ) { addMenuDestination = AddMenuDestination.FoodGroup(index) }

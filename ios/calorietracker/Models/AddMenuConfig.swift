@@ -10,6 +10,25 @@ struct AddMenuGroupConfig: Codable, Equatable, Identifiable, Sendable {
         self.name = name
         self.methods = methods
     }
+
+    enum CodingKeys: String, CodingKey {
+        case id, name, methods
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decodeIfPresent(UUID.self, forKey: .id) ?? UUID()
+        name = try container.decode(String.self, forKey: .name)
+        let rawMethods = try container.decode([String].self, forKey: .methods)
+        methods = rawMethods.compactMap(FoodLogMethod.init(rawValue:))
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(methods.map(\.rawValue), forKey: .methods)
+    }
 }
 
 struct AddMenuConfig: Codable, Equatable, Sendable {
@@ -25,6 +44,25 @@ struct AddMenuConfig: Codable, Equatable, Sendable {
         self.version = version
         self.groups = groups
         self.flatMethods = flatMethods
+    }
+
+    enum CodingKeys: String, CodingKey {
+        case version, groups, flatMethods
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        version = try container.decodeIfPresent(Int.self, forKey: .version) ?? Self.currentVersion
+        groups = try container.decodeIfPresent([AddMenuGroupConfig].self, forKey: .groups) ?? []
+        let rawFlat = try container.decodeIfPresent([String].self, forKey: .flatMethods) ?? []
+        flatMethods = rawFlat.compactMap(FoodLogMethod.init(rawValue:))
+    }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(version, forKey: .version)
+        try container.encode(groups, forKey: .groups)
+        try container.encode(flatMethods.map(\.rawValue), forKey: .flatMethods)
     }
 
     /// Matches the pre-customization iOS Home + food menu.
@@ -66,13 +104,15 @@ struct AddMenuConfig: Codable, Equatable, Sendable {
             }
         }
 
-        let trimmedGroups = groups.prefix(3).map { group in
-            AddMenuGroupConfig(
+        let trimmedGroups: [AddMenuGroupConfig] = groups.prefix(3).compactMap { group in
+            let methods = filterMethods(group.methods)
+            guard !methods.isEmpty else { return nil }
+            return AddMenuGroupConfig(
                 id: group.id,
                 name: group.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
                     ? String(localized: "Group", comment: "Fallback add menu group name")
                     : group.name.trimmingCharacters(in: .whitespacesAndNewlines),
-                methods: filterMethods(group.methods)
+                methods: methods
             )
         }
 
@@ -100,8 +140,12 @@ enum AddMenuSettings {
             return .iOSDefault
         }
         let sanitized = decoded.sanitized()
-        if sanitized.groups.isEmpty, sanitized.flatMethods.isEmpty, !decoded.groups.isEmpty {
-            return .iOSDefault
+        if sanitized.groups.isEmpty, sanitized.flatMethods.isEmpty {
+            let hadConfiguredContent = decoded.groups.contains { !$0.methods.isEmpty }
+                || !decoded.flatMethods.isEmpty
+            if hadConfiguredContent {
+                return .iOSDefault
+            }
         }
         return sanitized
     }

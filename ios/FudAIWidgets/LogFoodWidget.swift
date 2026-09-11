@@ -13,6 +13,7 @@ enum LogFoodMethodAppEnum: String, AppEnum {
     case frequent
     case favorites
     case copyFromDay = "copy_from_day"
+    case siriPhrases = "siri_phrases"
 
     static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Logging Method")
 
@@ -24,6 +25,7 @@ enum LogFoodMethodAppEnum: String, AppEnum {
             .text: DisplayRepresentation(title: "Text Input", image: .init(systemName: "character.cursor.ibeam")),
             .voice: DisplayRepresentation(title: "Voice", image: .init(systemName: "mic.fill")),
             .manual: DisplayRepresentation(title: "Manual Entry", image: .init(systemName: "square.and.pencil")),
+            .siriPhrases: DisplayRepresentation(title: "Siri Phrases", image: .init(systemName: "waveform.circle.fill")),
             .recent: DisplayRepresentation(title: "Recent", image: .init(systemName: "clock.fill")),
             .frequent: DisplayRepresentation(title: "Frequent", image: .init(systemName: "repeat")),
             .favorites: DisplayRepresentation(title: "Favorites", image: .init(systemName: "heart.fill")),
@@ -104,6 +106,7 @@ struct LogFoodWidgetView: View {
         case .text: "Text Input"
         case .voice: "Voice"
         case .manual: "Manual Entry"
+        case .siriPhrases: "Siri Phrases"
         case .recent: "Recent"
         case .frequent: "Frequent"
         case .favorites: "Favorites"
@@ -119,6 +122,7 @@ struct LogFoodWidgetView: View {
         case .text: "character.cursor.ibeam"
         case .voice: "mic.fill"
         case .manual: "square.and.pencil"
+        case .siriPhrases: "waveform.circle.fill"
         case .recent: "clock.fill"
         case .frequent: "repeat"
         case .favorites: "heart.fill"

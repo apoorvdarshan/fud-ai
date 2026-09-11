@@ -46,6 +46,8 @@ import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.AddMenuConfig
 import com.apoorvdarshan.calorietracker.models.AddMenuGroupConfig
 import com.apoorvdarshan.calorietracker.models.FoodLogMethod
+import com.apoorvdarshan.calorietracker.models.defaultGroupNameRes
+import com.apoorvdarshan.calorietracker.models.displayName
 import androidx.compose.material3.HorizontalDivider
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
@@ -196,11 +198,21 @@ fun AddMenuSettingsScreen(
                     )
                 }
             } else {
-                itemsIndexed(draft.resolvedGroups()) { index, group ->
+                itemsIndexed(draft.groups) { index, group ->
                     GroupEditor(
                         groupIndex = index,
-                        group = draft.groups[index],
+                        group = group,
+                        groupCount = draft.groups.size,
                         hiddenMethods = hiddenMethods,
+                        onMoveGroup = { direction ->
+                            val groups = draft.groups.toMutableList()
+                            val target = index + direction
+                            if (index in groups.indices && target in groups.indices) {
+                                val item = groups.removeAt(index)
+                                groups.add(target, item)
+                                persist(draft.copy(groups = groups))
+                            }
+                        },
                         onNameChange = { name ->
                             val groups = draft.groups.toMutableList()
                             groups[index] = groups[index].copy(name = name)
@@ -338,17 +350,55 @@ private fun FlatMethodsEditor(
 private fun GroupEditor(
     groupIndex: Int,
     group: AddMenuGroupConfig,
+    groupCount: Int,
     hiddenMethods: List<FoodLogMethod>,
+    onMoveGroup: (Int) -> Unit,
     onNameChange: (String) -> Unit,
     onMoveMethod: (Int, Int) -> Unit,
     onRemoveMethod: (FoodLogMethod) -> Unit,
     onAddMethodClick: () -> Unit
 ) {
     val methods = group.methods.mapNotNull(FoodLogMethod::fromStorage)
-    AddMenuSectionCard(title = group.name.ifBlank { stringResource(R.string.settings_add_menu_new_group) }) {
+    AddMenuSectionCard(title = group.displayName()) {
+        if (groupCount > 1) {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                if (groupIndex > 0) {
+                    Icon(
+                        Icons.Filled.ArrowUpward,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(28.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                            .clickable { onMoveGroup(-1) }
+                            .padding(4.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                if (groupIndex < groupCount - 1) {
+                    Icon(
+                        Icons.Filled.ArrowDownward,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(28.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                            .clickable { onMoveGroup(1) }
+                            .padding(4.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+        }
+        val isDefaultName = defaultGroupNameRes(group.name) != null
         OutlinedTextField(
-            value = group.name,
+            value = if (isDefaultName) "" else group.name,
             onValueChange = onNameChange,
+            placeholder = { Text(group.displayName()) },
             label = { Text(stringResource(R.string.settings_add_menu_group_name)) },
             modifier = Modifier
                 .fillMaxWidth()
@@ -467,18 +517,28 @@ private fun updateGroupCount(config: AddMenuConfig, count: Int): AddMenuConfig {
         )
     }
 
-    var groups = config.groups
+    var groups = config.groups.toMutableList()
     if (groups.isEmpty()) {
-        groups = AddMenuConfig.Default.groups
+        val flat = config.resolvedFlatMethods()
+        groups = if (flat.isEmpty()) {
+            AddMenuConfig.Default.groups.toMutableList()
+        } else {
+            mutableListOf(
+                AddMenuGroupConfig(
+                    name = AddMenuConfig.DEFAULT_GROUP_FALLBACK_NAME,
+                    methods = flat.map { it.storageKey }
+                )
+            )
+        }
     }
     while (groups.size < count) {
-        groups = groups + AddMenuGroupConfig(
-            name = "New Group",
+        groups += AddMenuGroupConfig(
+            name = AddMenuConfig.DEFAULT_GROUP_FALLBACK_NAME,
             methods = emptyList()
         )
     }
     while (groups.size > count) {
-        groups = groups.dropLast(1)
+        groups.removeAt(groups.lastIndex)
     }
     return config.copy(groups = groups, flatMethods = emptyList())
 }

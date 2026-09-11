@@ -96,6 +96,14 @@ struct calorietrackerApp: App {
             .onChange(of: appThemeColorRaw) { _, newValue in
                 AppThemeColor.applyAppIconIfNeeded(for: AppThemeColor.color(for: newValue))
             }
+            .onOpenURL { url in
+                guard url.scheme == "fudai", url.host == "log-food",
+                      let raw = URLComponents(url: url, resolvingAgainstBaseURL: false)?
+                        .queryItems?.first(where: { $0.name == "method" })?.value,
+                      let method = FoodLogMethod(rawValue: raw)
+                else { return }
+                FoodLogMethodCoordinator.request(method)
+            }
             .onReceive(NotificationCenter.default.publisher(for: .userProfileDidChange)) { _ in
                 refreshWidgetSnapshot()
             }

@@ -26,6 +26,7 @@ struct AddMenuSettingsView: View {
                 if config.usesFlatLayout {
                     flatMethodsSection
                 } else {
+                    groupOrderSection
                     ForEach($config.groups) { $group in
                         groupSection(group: $group)
                     }
@@ -77,6 +78,19 @@ struct AddMenuSettingsView: View {
             get: { methodPickerGroupID.map(GroupPickerTarget.init) },
             set: { methodPickerGroupID = $0?.id }
         )
+    }
+
+    private var groupOrderSection: some View {
+        Section {
+            ForEach(config.groups) { group in
+                Label(group.name, systemImage: addMenuGroupIcon(for: group))
+            }
+            .onMove { from, to in
+                config.groups.move(fromOffsets: from, toOffset: to)
+            }
+        } header: {
+            Text("Group Order")
+        }
     }
 
     private var flatMethodsSection: some View {
@@ -139,6 +153,10 @@ struct AddMenuSettingsView: View {
         return FoodLogMethod.addMenuCases.filter { !visible.contains($0) }
     }
 
+    private func addMenuGroupIcon(for group: AddMenuGroupConfig) -> String {
+        group.methods.first?.systemImageName ?? "folder.fill"
+    }
+
     private func updateGroupCount(_ count: Int) {
         if count == 0 {
             let visible = config.groups.isEmpty ? config.flatMethods : config.visibleMethods
@@ -148,7 +166,17 @@ struct AddMenuSettingsView: View {
 
         var groups = config.groups
         if groups.isEmpty {
-            groups = AddMenuConfig.iOSDefault.groups
+            let flat = config.flatMethods
+            if flat.isEmpty {
+                groups = AddMenuConfig.iOSDefault.groups
+            } else {
+                groups = [
+                    AddMenuGroupConfig(
+                        name: String(localized: "New Group", comment: "Default name for new add menu group"),
+                        methods: flat
+                    )
+                ]
+            }
         }
 
         while groups.count < count {

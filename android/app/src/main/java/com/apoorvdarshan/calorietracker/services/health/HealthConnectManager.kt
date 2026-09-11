@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.UserManager
+import android.util.Log
 import androidx.health.connect.client.HealthConnectFeatures
 import androidx.health.connect.client.HealthConnectClient
 import androidx.health.connect.client.PermissionController
@@ -74,6 +75,17 @@ internal fun healthAvailabilityMessageKind(
     HealthConnectAvailability.PROVIDER_UPDATE_REQUIRED ->
         HealthAvailabilityMessageKind.PROVIDER_UPDATE_REQUIRED
     HealthConnectAvailability.UNAVAILABLE -> HealthAvailabilityMessageKind.SYSTEM_UNAVAILABLE
+}
+
+/**
+ * Whether a nutrition write is permitted. [UNKNOWN] is deliberately distinct from [DENIED]:
+ * it means the permission probe failed, not that the user said no. Treating the two the same
+ * is what lets a transient Health Connect outage discard a food entry silently.
+ */
+enum class NutritionWriteGate {
+    ALLOWED,
+    DENIED,
+    UNKNOWN
 }
 
 internal fun resolveHealthConnectAvailability(
@@ -186,8 +198,34 @@ class HealthConnectManager(
     suspend fun hasNutritionHistory(): Boolean = supportsNutritionHistory() &&
         HealthPermission.PERMISSION_READ_HEALTH_DATA_HISTORY in granted()
 
-    private suspend fun granted(): Set<String> =
-        runCatching { client?.permissionController?.getGrantedPermissions() }.getOrNull() ?: emptySet()
+    /**
+     * Granted permissions, or null when the permission probe itself failed.
+     *
+     * Health Connect answers over IPC, and the service can be mid-update, cold-starting,
+     * or binder-timing-out — each of which throws here. Collapsing that into "nothing is
+     * granted" makes a transient outage indistinguishable from a permission the user
+     * actually revoked. That distinction matters on the write path: a revoked permission
+     * means there is nothing to do, while a failed probe means we do not yet know, and
+     * dropping the write is data loss the user never sees.
+     */
+    private suspend fun grantedOrNull(): Set<String>? =
+        runCatching { client?.permissionController?.getGrantedPermissions() }
+            .onFailure { Log.w(TAG, "Health Connect permission probe failed", it) }
+            .getOrNull()
+
+    /** Fail-closed view of [grantedOrNull] for the read paths, where "assume nothing is
+     *  granted" is the safe answer — a read that returns nothing loses no data. */
+    private suspend fun granted(): Set<String> = grantedOrNull() ?: emptySet()
+
+    /**
+     * Whether a nutrition write may proceed. [NutritionWriteGate.UNKNOWN] means the
+     * permission probe failed, not that permission is missing — callers should attempt
+     * the write anyway and treat a failure as retryable rather than skipping silently.
+     */
+    suspend fun nutritionWriteGate(): NutritionWriteGate = when (val g = grantedOrNull()) {
+        null -> NutritionWriteGate.UNKNOWN
+        else -> if (nutritionWrite in g) NutritionWriteGate.ALLOWED else NutritionWriteGate.DENIED
+    }
 
     /** The "connected" state: at least one Fud AI permission granted. Partial grants
      *  are valid — a read-only user still syncs the read direction. */
@@ -198,6 +236,8 @@ class HealthConnectManager(
     suspend fun hasBodyFatRead(): Boolean = bodyFatRead in granted()
     suspend fun hasBodyFatWrite(): Boolean = bodyFatWrite in granted()
     suspend fun hasNutritionRead(): Boolean = nutritionRead in granted()
+    /** Fail-closed, like its siblings. Do NOT gate a nutrition write on this: a failed
+     *  probe reads as false here, which is how writes went missing. Use [nutritionWriteGate]. */
     suspend fun hasNutritionWrite(): Boolean = nutritionWrite in granted()
     suspend fun hasActiveEnergyRead(): Boolean = activeEnergyRead in granted()
     suspend fun hasActiveEnergyWrite(): Boolean = activeEnergyWrite in granted()
@@ -855,6 +895,7 @@ class HealthConnectManager(
     }
 
     companion object {
+        private const val TAG = "HealthConnectManager"
         private val lastLoggedAvailabilityKey = AtomicReference<String?>(null)
         private val writeVersions = HealthWriteVersions()
 

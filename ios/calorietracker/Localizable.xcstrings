@@ -12059,6 +12059,35 @@
         }
       }
     },
+    "Czech": {
+      "extractionState": "manual",
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Czeski"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Чешский"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ceco"
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Čeština"
+          }
+        }
+      }
+    },
     "Cholesterol": {
       "extractionState": "manual",
       "localizations": {

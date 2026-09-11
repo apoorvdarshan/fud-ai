@@ -72,7 +72,7 @@ For a codebase overview, start with the Architecture and Source Layout sections 
 - **Jetpack Compose** with manual DI via `FudAIApp.container` (`AppContainer`) — no Hilt
 - Each screen has a `*ViewModel` exposing `StateFlow<UiState>`; UI collects via `collectAsState()`
 - Repositories expose `Flow<T>` from DataStore; ViewModels `combine()` them into screen state
-- Every user-facing string lives in `app/src/main/res/values/strings.xml`; English is required, and touched translations should be updated in the 15 non-English locale files (`values-{ar,az,cs,de,es,fr,hi,it,ja,ko,nl,pt-rBR,ro,ru,zh-rCN}/strings.xml`) wherever practical
+- Every user-facing string lives in `app/src/main/res/values/strings.xml`; English is required, and touched translations should be updated in the 16 non-English locale files (`values-{ar,az,cs,de,es,fr,hi,it,ja,ko,nl,pl,pt-rBR,ro,ru,zh-rCN}/strings.xml`) wherever practical
 - Model enums (`Gender`, `MealType`, `AIProvider`, etc.) expose `@get:StringRes val displayNameRes: Int` — no hardcoded `displayName: String` strings
 - All data persistence is local (DataStore Preferences + EncryptedSharedPreferences). No Room, no Firebase. No Google Drive except the optional user-initiated Google Drive Backup in Settings → Data Management (OAuth only when that toggle is turned on).
 - Keep fasting sessions in their dedicated repository. Do not represent a skipped meal as a fast or write fasting records into nutrition/Health Connect paths
@@ -165,7 +165,7 @@ Include vision-capable model IDs since the app needs vision for food photo analy
 
 ## Localization
 
-iOS ships 17 locale resources; Android ships 16. English is the complete fallback on both platforms, so a missing translation must never block rendering or produce an empty label. Update every affected locale when practical and call out intentional fallback copy in the PR.
+iOS ships 17 locale resources; Android ships 17. English is the complete fallback on both platforms, so a missing translation must never block rendering or produce an empty label. Update every affected locale when practical and call out intentional fallback copy in the PR.
 
 **iOS:** Add to `ios/calorietracker/Localizable.xcstrings` (String Catalog) — Xcode auto-extracts new English strings on build with `SWIFT_EMIT_LOC_STRINGS = YES`, but leaves the other locale columns empty. Fill the translations you are changing and verify fallback behavior for the rest.
 

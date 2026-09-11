@@ -7,9 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -56,7 +53,15 @@ fun OutdoorActivityDurationSheet(
 ) {
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var customMinutes by remember { mutableStateOf("") }
+    var isSubmitting by remember { mutableStateOf(false) }
     val parsedMinutes = customMinutes.toIntOrNull()?.takeIf { it in 1..600 }
+
+    fun submit(minutes: Int) {
+        if (isSubmitting) return
+        isSubmitting = true
+        onLog(minutes)
+        onDismiss()
+    }
 
     val title = when (activity) {
         OutdoorActivityKind.WALKING -> stringResource(R.string.outdoor_activity_walking)
@@ -86,22 +91,23 @@ fun OutdoorActivityDurationSheet(
 
             Text(stringResource(R.string.outdoor_activity_how_long), fontWeight = FontWeight.SemiBold, fontSize = 18.sp)
 
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                items(OutdoorActivitySettings.durationPresets) { minutes ->
-                    OutlinedButton(
-                        onClick = {
-                            onLog(minutes)
-                            onDismiss()
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.outlinedButtonColors(contentColor = AppColors.Calorie)
-                    ) {
-                        Text(stringResource(R.string.outdoor_activity_minutes, minutes), fontWeight = FontWeight.SemiBold)
+            OutdoorActivitySettings.durationPresets.chunked(2).forEach { rowPresets ->
+                Row(
+                    Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    rowPresets.forEach { minutes ->
+                        OutlinedButton(
+                            onClick = { submit(minutes) },
+                            enabled = !isSubmitting,
+                            modifier = Modifier.weight(1f),
+                            colors = ButtonDefaults.outlinedButtonColors(contentColor = AppColors.Calorie)
+                        ) {
+                            Text(stringResource(R.string.outdoor_activity_minutes, minutes), fontWeight = FontWeight.SemiBold)
+                        }
+                    }
+                    if (rowPresets.size == 1) {
+                        Spacer(Modifier.weight(1f))
                     }
                 }
             }
@@ -119,11 +125,8 @@ fun OutdoorActivityDurationSheet(
             )
 
             Button(
-                onClick = {
-                    parsedMinutes?.let(onLog)
-                    onDismiss()
-                },
-                enabled = parsedMinutes != null,
+                onClick = { parsedMinutes?.let(::submit) },
+                enabled = parsedMinutes != null && !isSubmitting,
                 modifier = Modifier.fillMaxWidth().height(54.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = AppColors.Calorie)
             ) {

@@ -319,13 +319,13 @@ viewModelScope.launch {
 
     fun logQuickOutdoorActivity(kind: OutdoorActivityKind, minutes: Int) {
         if (minutes <= 0) return
+        val date = _selectedDate.value
         viewModelScope.launch {
             val exerciseId = when (kind) {
                 OutdoorActivityKind.WALKING -> OutdoorActivitySettings.WALKING_EXERCISE_ID
                 OutdoorActivityKind.RUNNING -> OutdoorActivitySettings.RUNNING_EXERCISE_ID
             }
             val item = ExerciseRepository.get(container.appContext).exercises.firstOrNull { it.id == exerciseId } ?: return@launch
-            val date = _ui.value.date
             container.workoutRepository.logQuickCardio(item, minutes, date)
             val profile = _ui.value.profile
             val weightUnit = if (_ui.value.weightMetric) WorkoutWeightUnit.KG else WorkoutWeightUnit.LBS

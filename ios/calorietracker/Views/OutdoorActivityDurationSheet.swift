@@ -27,10 +27,18 @@ struct OutdoorActivityDurationSheet: View {
 
     @Environment(\.dismiss) private var dismiss
     @State private var customMinutes = ""
+    @State private var isSubmitting = false
     @FocusState private var customFocused: Bool
 
     private var selectedMinutes: Int? {
-        Int(customMinutes.filter(\.isNumber)).flatMap { $0 > 0 ? min($0, 600) : nil }
+        Int(customMinutes.filter(\.isNumber)).flatMap { (1...600).contains($0) ? $0 : nil }
+    }
+
+    private func submit(_ minutes: Int) {
+        guard !isSubmitting else { return }
+        isSubmitting = true
+        onLog(minutes)
+        dismiss()
     }
 
     var body: some View {
@@ -42,8 +50,7 @@ struct OutdoorActivityDurationSheet: View {
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                     ForEach(OutdoorActivitySettings.durationPresets, id: \.self) { minutes in
                         Button {
-                            onLog(minutes)
-                            dismiss()
+                            submit(minutes)
                         } label: {
                             Text("\(minutes) min")
                                 .font(.system(.headline, design: .rounded, weight: .semibold))
@@ -53,6 +60,7 @@ struct OutdoorActivityDurationSheet: View {
                                 .background(AppColors.calorie.opacity(0.12), in: RoundedRectangle(cornerRadius: 14))
                         }
                         .buttonStyle(.plain)
+                        .disabled(isSubmitting)
                     }
                 }
 
@@ -72,8 +80,7 @@ struct OutdoorActivityDurationSheet: View {
 
                 Button {
                     guard let selectedMinutes else { return }
-                    onLog(selectedMinutes)
-                    dismiss()
+                    submit(selectedMinutes)
                 } label: {
                     Label("Log \(activity.title)", systemImage: activity.systemImage)
                         .font(.system(.headline, design: .rounded, weight: .semibold))
@@ -82,7 +89,7 @@ struct OutdoorActivityDurationSheet: View {
                         .foregroundStyle(.white)
                         .background(AppColors.calorie, in: RoundedRectangle(cornerRadius: 14))
                 }
-                .disabled(selectedMinutes == nil)
+                .disabled(selectedMinutes == nil || isSubmitting)
 
                 Spacer()
             }

@@ -783,6 +783,6 @@
     <string name="photo_saved_to_gallery">写真を保存しました</string>
     <string name="photo_save_failed">写真を保存できませんでした</string>
     <string name="photo_save_permission_denied">写真へのアクセスが拒否されました</string>
-    <string name="settings_save_photos_to_gallery">Save to Photos</string>
-    <string name="settings_save_photos_to_gallery_subtitle">Also save meal photos to your gallery when logging</string>
+    <string name="settings_save_photos_to_gallery">写真に保存</string>
+    <string name="settings_save_photos_to_gallery_subtitle">記録時に食事写真をギャラリーにも保存</string>
 </resources>

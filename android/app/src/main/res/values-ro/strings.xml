@@ -786,6 +786,6 @@
     <string name="photo_saved_to_gallery">Fotografie salvată</string>
     <string name="photo_save_failed">Fotografia nu a putut fi salvată</string>
     <string name="photo_save_permission_denied">Acces la fotografii refuzat</string>
-    <string name="settings_save_photos_to_gallery">Save to Photos</string>
-    <string name="settings_save_photos_to_gallery_subtitle">Also save meal photos to your gallery when logging</string>
+    <string name="settings_save_photos_to_gallery">Salvează în Fotografii</string>
+    <string name="settings_save_photos_to_gallery_subtitle">Salvează și fotografiile meselor în galerie la înregistrare</string>
 </resources>

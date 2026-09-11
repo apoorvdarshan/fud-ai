@@ -39,7 +39,9 @@ enum ActivityLevel: String, Codable, CaseIterable {
     var displayName: String {
         switch self {
         case .sedentary: LocalizedDisplayText.text("Sedentary", polish: "Siedzący")
-        case .light: LocalizedDisplayText.text("Light", polish: "Lekka")
+        // "Light Activity" is a distinct catalog key from the appearance option "Light";
+        // its English display value stays "Light" via the catalog's en entry.
+        case .light: LocalizedDisplayText.text("Light Activity", polish: "Lekka")
         case .moderate: LocalizedDisplayText.text("Moderate", polish: "Umiarkowana")
         case .active: LocalizedDisplayText.text("Active", polish: "Aktywna")
         case .veryActive: LocalizedDisplayText.text("Very Active", polish: "Bardzo aktywna")

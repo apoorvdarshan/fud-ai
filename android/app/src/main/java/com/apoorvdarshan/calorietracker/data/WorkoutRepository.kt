@@ -182,8 +182,11 @@ class WorkoutRepository(
             .forEach { imageStore.delete(it) }
     }
 
-    suspend fun removeExercise(exerciseId: UUID, date: LocalDate) =
-        removeExercise(exerciseId, WorkoutDate.key(date))
+    suspend fun removeExercise(
+        exerciseId: UUID,
+        date: LocalDate,
+        imageStore: com.apoorvdarshan.calorietracker.services.FoodImageStore? = null
+    ) = removeExercise(exerciseId, WorkoutDate.key(date), imageStore)
 
     suspend fun removeExercise(
         exerciseId: UUID,

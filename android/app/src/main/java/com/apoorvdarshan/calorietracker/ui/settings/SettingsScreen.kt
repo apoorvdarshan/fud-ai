@@ -888,6 +888,13 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                         icon = Icons.Outlined.TrackChanges
                     ) { sheet = SettingsSheet.FASTING_GOAL }
                 }
+                HorizontalDivider()
+                ToggleRow(
+                    stringResource(R.string.settings_walk_run_quick_log),
+                    ui.walkRunQuickLogEnabled,
+                    icon = Icons.AutoMirrored.Outlined.DirectionsWalk,
+                    onChange = vm::setWalkRunQuickLogEnabled
+                )
             }
             }
 

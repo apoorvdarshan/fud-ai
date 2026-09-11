@@ -622,6 +622,7 @@ struct HomeView: View {
     @Environment(FoodStore.self) private var foodStore
     @Environment(WaterStore.self) private var waterStore
     @Environment(FastingStore.self) private var fastingStore
+    @Environment(StrengthWorkoutStore.self) private var strengthWorkoutStore
     @Environment(NotificationManager.self) private var notificationManager
     @Environment(HealthKitManager.self) private var healthKitManager
     @Environment(\.scenePhase) private var scenePhase
@@ -761,6 +762,7 @@ struct HomeView: View {
     @State private var currentFoodSource: FoodSource = .snapFood
     @State private var showNutritionDetail = false
     @State private var showCustomWaterLog = false
+    @State private var outdoorActivitySheet: OutdoorActivityDurationSheet.ActivityKind?
     @State private var showFastingStart = false
     @State private var editingFastingSession: FastingSession?
     @State private var showFastingQuickActionDisabled = false
@@ -782,6 +784,7 @@ struct HomeView: View {
     @AppStorage(FastingSettings.enabledKey) private var fastingTrackingEnabled = false
     @AppStorage(FastingSettings.defaultGoalMinutesKey) private var fastingDefaultGoalMinutes = FastingSettings.defaultGoalMinutes
     @AppStorage(FastingSettings.notificationEnabledKey) private var fastingGoalNotificationEnabled = true
+    @AppStorage(OutdoorActivitySettings.enabledKey) private var walkRunQuickLogEnabled = false
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
     @Environment(ProfileStore.self) private var profileStore
     @State private var homeBurnLine: String?
@@ -1005,6 +1008,31 @@ private var dailyStepsTaskKey: String {
             _ = AVCaptureDevice.authorizationStatus(for: .video)
             _ = SFSpeechRecognizer.authorizationStatus()
         }
+    }
+
+    private func logQuickOutdoorActivity(_ activity: OutdoorActivityDurationSheet.ActivityKind, minutes: Int) {
+        guard minutes > 0 else { return }
+        let exerciseID = activity == .walking
+            ? OutdoorActivitySettings.walkingExerciseID
+            : OutdoorActivitySettings.runningExerciseID
+        guard let item = ExerciseLibraryService.shared.exercises.first(where: { $0.id == exerciseID }) else { return }
+
+        strengthWorkoutStore.logQuickCardio(item, minutes: minutes, on: selectedDate)
+        let weightUnit: WeightUnit = weightUnitRaw == "kg" ? .kg : .lbs
+        if let estimate = StrengthWorkoutBurnEstimator.estimate(
+            exercises: strengthWorkoutStore.exercises(for: selectedDate),
+            bodyWeightKg: userProfile.weightKg,
+            defaultWeightUnit: weightUnit,
+            defaultRPEScale: strengthWorkoutStore.preferences.rpeScale
+        ) {
+            _ = strengthWorkoutStore.upsertCalculatedWorkout(
+                on: selectedDate,
+                caloriesBurned: estimate.calories,
+                weightUnit: weightUnit
+            )
+        }
+        homeBurnRefreshGeneration += 1
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
 
     @ViewBuilder
@@ -1366,6 +1394,18 @@ private var dailyStepsTaskKey: String {
                             waterQuickMenuItems
                         } label: {
                             Label("Water", systemImage: "drop.fill")
+                        }
+                    }
+                    if walkRunQuickLogEnabled {
+                        Button {
+                            outdoorActivitySheet = .walking
+                        } label: {
+                            Label("Walking", systemImage: "figure.walk")
+                        }
+                        Button {
+                            outdoorActivitySheet = .running
+                        } label: {
+                            Label("Running", systemImage: "figure.run")
                         }
                     }
                     if fastingStore.activeSession == nil {
@@ -1854,6 +1894,11 @@ private var dailyStepsTaskKey: String {
             .sheet(isPresented: $showCustomWaterLog) {
                 WaterCustomAmountSheet(unit: waterUnit, onAdd: logWater)
             }
+            .sheet(item: $outdoorActivitySheet) { activity in
+                OutdoorActivityDurationSheet(activity: activity) { minutes in
+                    logQuickOutdoorActivity(activity, minutes: minutes)
+                }
+            }
             .onOpenURL { url in
                 if url.scheme == "fudai", url.host == "import-share-image" {
                     checkAndConsumeSharedImage()
@@ -1935,6 +1980,7 @@ private var dailyStepsTaskKey: String {
         showCopyFromDaySheet = false
         showNutritionDetail = false
         showCustomWaterLog = false
+        outdoorActivitySheet = nil
         showError = false
         showFastingStart = false
         editingFastingSession = nil
@@ -3989,6 +4035,7 @@ struct ProfileView: View {
     @AppStorage(WaterSettings.unitKey) private var waterUnitRaw = WaterUnit.defaultUnit.rawValue
     @AppStorage(FastingSettings.enabledKey) private var fastingTrackingEnabled = false
     @AppStorage(FastingSettings.defaultGoalMinutesKey) private var fastingDefaultGoalMinutes = FastingSettings.defaultGoalMinutes
+    @AppStorage(OutdoorActivitySettings.enabledKey) private var walkRunQuickLogEnabled = false
 
     private var waterUnit: WaterUnit { WaterUnit(rawValue: waterUnitRaw) ?? .defaultUnit }
 
@@ -4698,6 +4745,19 @@ struct ProfileView: View {
                                     notificationManager.cancelFastingGoal()
                                 }
                             }
+                    }
+
+                    HStack {
+                        Label {
+                            Text("Walk & Run")
+                        } icon: {
+                            Image(systemName: "figure.walk")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                        Spacer()
+                        Toggle("Walk & Run", isOn: $walkRunQuickLogEnabled)
+                            .labelsHidden()
+                            .tint(AppColors.calorie)
                     }
 
                     if fastingTrackingEnabled {

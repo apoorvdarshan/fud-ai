@@ -181,6 +181,9 @@ class PreferencesStore(
     val fastingTrackingEnabled: Flow<Boolean> = ds.data.map { it[Keys.FASTING_TRACKING_ENABLED] ?: false }
     suspend fun setFastingTrackingEnabled(v: Boolean) { ds.edit { it[Keys.FASTING_TRACKING_ENABLED] = v } }
 
+    val walkRunQuickLogEnabled: Flow<Boolean> = ds.data.map { it[Keys.WALK_RUN_QUICK_LOG_ENABLED] ?: false }
+    suspend fun setWalkRunQuickLogEnabled(v: Boolean) { ds.edit { it[Keys.WALK_RUN_QUICK_LOG_ENABLED] = v } }
+
     val fastingDefaultGoalMinutes: Flow<Int> = ds.data.map {
         (it[Keys.FASTING_DEFAULT_GOAL_MINUTES] ?: 16 * 60).coerceIn(60, 7 * 24 * 60)
     }
@@ -1098,6 +1101,7 @@ class PreferencesStore(
         val WATER_REMINDER_MINUTE = intPreferencesKey("waterReminderMinute")
         val WATER_ENTRIES = stringPreferencesKey("waterEntries")
         val FASTING_TRACKING_ENABLED = booleanPreferencesKey("fastingTrackingEnabled")
+        val WALK_RUN_QUICK_LOG_ENABLED = booleanPreferencesKey("walkRunQuickLogEnabled")
         val FASTING_DEFAULT_GOAL_MINUTES = intPreferencesKey("fastingDefaultGoalMinutes")
         val FASTING_GOAL_NOTIFICATION_ENABLED = booleanPreferencesKey("fastingGoalNotificationEnabled")
         val FASTING_SESSIONS = stringPreferencesKey("fastingSessions")

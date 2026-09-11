@@ -140,7 +140,8 @@ internal object ExerciseVisualResolver {
         gender: Gender,
         authoredFrames: Map<String, GenderedExerciseFrames>
     ): ExerciseVisual {
-        val authoredSet = authoredFrames[item.id]
+        val visualKey = resolveVisualKey(item, authoredFrames)
+        val authoredSet = authoredFrames[visualKey]
         val frames = authoredSet?.forGender(gender)
         return if (frames.isNullOrEmpty()) {
             ExerciseVisual.jpeg(item.imagePaths)
@@ -151,5 +152,28 @@ internal object ExerciseVisualResolver {
                 representativeFrameIndex = authoredSet.representativeFrameIndex
             )
         }
+    }
+
+    private fun resolveVisualKey(
+        item: ExerciseItem,
+        authoredFrames: Map<String, GenderedExerciseFrames>
+    ): String {
+        if (authoredFrames.containsKey(item.id)) return item.id
+        return exerciseIdFromImagePaths(item.imagePaths)
+            ?.takeIf { authoredFrames.containsKey(it) }
+            ?: item.id
+    }
+
+    private fun exerciseIdFromImagePaths(imagePaths: List<String>): String? {
+        for (imagePath in imagePaths) {
+            val filename = imagePath.substringAfterLast('/').substringBeforeLast('.')
+            val separator = filename.lastIndexOf('_')
+            if (separator <= 0) continue
+            val suffix = filename.substring(separator + 1)
+            if (suffix.toIntOrNull() != null) {
+                return filename.substring(0, separator)
+            }
+        }
+        return null
     }
 }

@@ -933,13 +933,6 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
             // same compact Fud AI settings card.
             if (selectedCategory == SettingsCategory.WORKOUT) {
             SectionCard {
-                ToggleRow(
-                    stringResource(R.string.settings_walk_run_quick_log),
-                    ui.walkRunQuickLogEnabled,
-                    icon = Icons.AutoMirrored.Outlined.DirectionsWalk,
-                    onChange = vm::setWalkRunQuickLogEnabled
-                )
-                HorizontalDivider()
                 SettingRow(
                     stringResource(R.string.settings_training_split),
                     ui.workoutSplit.title,
@@ -956,6 +949,20 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                 HorizontalDivider()
                 Text(
                     stringResource(R.string.settings_rpe_guide),
+                    fontSize = 12.sp,
+                    lineHeight = 18.sp,
+                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
+                )
+                HorizontalDivider()
+                ToggleRow(
+                    stringResource(R.string.settings_walk_run_quick_log),
+                    ui.walkRunQuickLogEnabled,
+                    icon = Icons.AutoMirrored.Outlined.DirectionsWalk,
+                    onChange = vm::setWalkRunQuickLogEnabled
+                )
+                Text(
+                    stringResource(R.string.settings_walk_run_quick_log_footer),
                     fontSize = 12.sp,
                     lineHeight = 18.sp,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.55f),

@@ -71,8 +71,10 @@ struct WorkoutLogView: View {
     @Environment(ProfileStore.self) private var profileStore
     @AppStorage(WeightUnit.storageKey) private var weightUnitRaw = WeightUnit.lbs.rawValue
     @AppStorage(AppThemeColor.storageKey) private var appThemeColorRaw = AppThemeColor.defaultColor.rawValue
+    @AppStorage(OutdoorActivitySettings.enabledKey) private var walkRunQuickLogEnabled = false
 
     @State private var pickerRequest: WorkoutLogPickerRequest?
+    @State private var outdoorActivitySheet: OutdoorActivityDurationSheet.ActivityKind?
     @State private var isCreateExercisePresented = false
     @State private var isCopySheetPresented = false
     @State private var isTextSheetPresented = false
@@ -454,6 +456,11 @@ struct WorkoutLogView: View {
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
             }
+            .sheet(item: $outdoorActivitySheet) { activity in
+                OutdoorActivityDurationSheet(activity: activity) { minutes in
+                    logQuickOutdoorActivity(activity, minutes: minutes)
+                }
+            }
         }
 
     private var addExerciseMenu: some View {
@@ -481,6 +488,19 @@ struct WorkoutLogView: View {
                     isCopySheetPresented = true
                 } label: {
                     Label("Copy from day", systemImage: "calendar.badge.plus")
+                }
+
+                if walkRunQuickLogEnabled {
+                    Button {
+                        outdoorActivitySheet = .walking
+                    } label: {
+                        Label("Walking", systemImage: "figure.walk")
+                    }
+                    Button {
+                        outdoorActivitySheet = .running
+                    } label: {
+                        Label("Running", systemImage: "figure.run")
+                    }
                 }
 
                 if splitGroups.isEmpty {
@@ -532,6 +552,29 @@ struct WorkoutLogView: View {
               session.moveSelectedDay(by: delta)
         else { return }
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
+    }
+
+    private func logQuickOutdoorActivity(_ activity: OutdoorActivityDurationSheet.ActivityKind, minutes: Int) {
+        guard minutes > 0 else { return }
+        let exerciseID = activity == .walking
+            ? OutdoorActivitySettings.walkingExerciseID
+            : OutdoorActivitySettings.runningExerciseID
+        guard let item = library.exercises.first(where: { $0.id == exerciseID }) else { return }
+
+        workoutStore.logQuickCardio(item, minutes: minutes, on: selectedDate)
+        if let estimate = StrengthWorkoutBurnEstimator.estimate(
+            exercises: workoutStore.exercises(for: selectedDate),
+            bodyWeightKg: currentBodyWeightKg,
+            defaultWeightUnit: weightUnit,
+            defaultRPEScale: workoutStore.preferences.rpeScale
+        ) {
+            _ = workoutStore.upsertCalculatedWorkout(
+                on: selectedDate,
+                caloriesBurned: estimate.calories,
+                weightUnit: weightUnit
+            )
+        }
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
     }
 
     private func calculateBurn() {

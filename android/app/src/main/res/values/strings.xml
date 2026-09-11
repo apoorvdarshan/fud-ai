@@ -714,6 +714,7 @@
     <string name="settings_water_unit_fl_oz">Fluid Ounces (fl oz)</string>
     <string name="settings_fasting_tracking">Fasting Tracking</string>
     <string name="settings_walk_run_quick_log">Walk &amp; Run</string>
+    <string name="settings_walk_run_quick_log_footer">Off by default. When enabled, Walking and Running appear in the Workouts + menu for quick outdoor logging.</string>
     <string name="outdoor_activity_walking">Walking</string>
     <string name="outdoor_activity_running">Running</string>
     <string name="outdoor_activity_how_long">How long?</string>

@@ -20,8 +20,10 @@ import com.apoorvdarshan.calorietracker.models.WorkoutPersistedState
 import com.apoorvdarshan.calorietracker.models.WorkoutPreferences
 import com.apoorvdarshan.calorietracker.models.WorkoutSplitGroup
 import com.apoorvdarshan.calorietracker.models.WorkoutTabMode
+import com.apoorvdarshan.calorietracker.models.OutdoorActivitySettings
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
 import com.apoorvdarshan.calorietracker.services.FoodImageStore
+import com.apoorvdarshan.calorietracker.ui.home.OutdoorActivityKind
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -332,6 +334,25 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
     fun copyPlan(sourceDate: LocalDate, includeSetDetails: Boolean = false) {
         val targetDate = diaryUiState.selectedDate
         viewModelScope.launch { workoutRepository?.copyPlan(sourceDate, targetDate, includeSetDetails) }
+    }
+
+    fun logQuickOutdoorActivity(kind: OutdoorActivityKind, minutes: Int) {
+        if (minutes <= 0) return
+        val repository = workoutRepository ?: return
+        val date = diaryUiState.selectedDate
+        viewModelScope.launch {
+            val exerciseId = when (kind) {
+                OutdoorActivityKind.WALKING -> OutdoorActivitySettings.WALKING_EXERCISE_ID
+                OutdoorActivityKind.RUNNING -> OutdoorActivitySettings.RUNNING_EXERCISE_ID
+            }
+            val item = exerciseRepository.exercises.firstOrNull { it.id == exerciseId } ?: return@launch
+            repository.logQuickCardio(item, minutes, date)
+            repository.calculateBurn(
+                date = date,
+                bodyWeightKg = bodyWeightKg,
+                weightUnit = workoutWeightUnit
+            )
+        }
     }
 
     fun calculateBurn() {

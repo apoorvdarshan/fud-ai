@@ -4035,7 +4035,6 @@ struct ProfileView: View {
     @AppStorage(WaterSettings.unitKey) private var waterUnitRaw = WaterUnit.defaultUnit.rawValue
     @AppStorage(FastingSettings.enabledKey) private var fastingTrackingEnabled = false
     @AppStorage(FastingSettings.defaultGoalMinutesKey) private var fastingDefaultGoalMinutes = FastingSettings.defaultGoalMinutes
-    @AppStorage(OutdoorActivitySettings.enabledKey) private var walkRunQuickLogEnabled = false
 
     private var waterUnit: WaterUnit { WaterUnit(rawValue: waterUnitRaw) ?? .defaultUnit }
 
@@ -4745,19 +4744,6 @@ struct ProfileView: View {
                                     notificationManager.cancelFastingGoal()
                                 }
                             }
-                    }
-
-                    HStack {
-                        Label {
-                            Text("Walk & Run")
-                        } icon: {
-                            Image(systemName: "figure.walk")
-                                .foregroundStyle(AppColors.calorie)
-                        }
-                        Spacer()
-                        Toggle("Walk & Run", isOn: $walkRunQuickLogEnabled)
-                            .labelsHidden()
-                            .tint(AppColors.calorie)
                     }
 
                     if fastingTrackingEnabled {

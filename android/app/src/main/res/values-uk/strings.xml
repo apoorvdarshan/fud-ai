@@ -339,6 +339,8 @@
     <!-- Home -->
     <plurals name="home_daily_steps">
         <item quantity="one">%1$s крок</item>
+        <item quantity="few">%1$s кроки</item>
+        <item quantity="many">%1$s кроків</item>
         <item quantity="other">%1$s кроків</item>
     </plurals>
 
@@ -533,12 +535,16 @@
     <string name="progress_workout_history">Історія тренувань</string>
     <plurals name="progress_workout_history_count_format">
         <item quantity="one">%1$d розрахований витрат · торкніться, щоб переглянути або видалити</item>
+        <item quantity="few">%1$d розраховані витрати · торкніться, щоб переглянути або видалити</item>
+        <item quantity="many">%1$d розрахованих витрат · торкніться, щоб переглянути або видалити</item>
         <item quantity="other">%1$d розрахованих витрат · торкніться, щоб переглянути або видалити</item>
     </plurals>
     <string name="progress_workout_delete_title">Видалити запис тренування?</string>
     <string name="progress_workout_delete_message">Видаляє дані про спалені калорії з Fud AI і Health Connect. Ваш план щоденника тренування залишається збереженим.</string>
     <plurals name="progress_history_count_format">
         <item quantity="one">%1$d запис · торкніться, щоб переглянути або видалити</item>
+        <item quantity="few">%1$d записи · торкніться, щоб переглянути або видалити</item>
+        <item quantity="many">%1$d записів · торкніться, щоб переглянути або видалити</item>
         <item quantity="other">%1$d записів · торкніться, щоб переглянути або видалити</item>
     </plurals>
 
@@ -960,6 +966,8 @@
     <string name="sort">Сортувати</string>
     <plurals name="exercises_count">
         <item quantity="one">%d вправа</item>
+        <item quantity="few">%d вправи</item>
+        <item quantity="many">%d вправ</item>
         <item quantity="other">%d вправ</item>
     </plurals>
     <string name="ad_label">Реклама</string>
@@ -1066,6 +1074,8 @@
     <string name="copy_no_foods_on_day">Цього дня не записано жодної їжі</string>
     <plurals name="copy_foods_to">
         <item quantity="one">Скопіювати %1$d страву до %2$s</item>
+        <item quantity="few">Скопіювати %1$d страви до %2$s</item>
+        <item quantity="many">Скопіювати %1$d страв до %2$s</item>
         <item quantity="other">Скопіювати %1$d страв до %2$s</item>
     </plurals>
     <string name="home_first_photo_saved">Перше фото збережено</string>
@@ -1136,6 +1146,8 @@
     <string name="vm_goals_recalculated">Цілі перераховано</string>
     <plurals name="import_add_meals_title">
         <item quantity="one">Додати спільну страву</item>
+        <item quantity="few">Додати %1$d спільні страви</item>
+        <item quantity="many">Додати %1$d спільних страв</item>
         <item quantity="other">Додати %1$d спільних страв</item>
     </plurals>
     <string name="import_note">Додає до вашого журналу з точними нутрієнтами від відправника. Фотографія не включається.</string>

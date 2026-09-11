@@ -130,17 +130,19 @@ class WorkoutRepository(
         if (trimmedName.isEmpty()) return null
 
         val itemId = existingItemId ?: com.apoorvdarshan.calorietracker.models.UserExercise.newId()
-        var imagePaths = snapshot().userExercises.firstOrNull { it.itemId == itemId }?.imagePaths.orEmpty()
+        val previous = snapshot()
+        var imagePaths = previous.userExercises.firstOrNull { it.itemId == itemId }?.imagePaths.orEmpty()
+        val orphanCandidates = mutableListOf<String>()
 
         if (draft.removePhoto) {
-            imagePaths.forEach { imageStore.delete(it) }
+            orphanCandidates += imagePaths
             imagePaths = emptyList()
         }
 
         draft.photoBytes?.let { bytes ->
             val filename = com.apoorvdarshan.calorietracker.models.UserExercise.photoFilename(itemId)
             if (imageStore.restoreBytes(filename, bytes)) {
-                imagePaths.forEach { imageStore.delete(it) }
+                orphanCandidates += imagePaths.filter { it != filename }
                 imagePaths = listOf(filename)
             }
         }
@@ -152,6 +154,11 @@ class WorkoutRepository(
             val existing = current.userExercises.filterNot { it.itemId == itemId }
             current.copy(userExercises = existing + template)
         }
+        val after = snapshot()
+        orphanCandidates
+            .distinct()
+            .filterNot { after.referencesUserExerciseImage(it) }
+            .forEach { imageStore.delete(it) }
         return item
     }
 
@@ -160,14 +167,20 @@ class WorkoutRepository(
         imageStore: com.apoorvdarshan.calorietracker.services.FoodImageStore
     ) {
         if (!com.apoorvdarshan.calorietracker.models.UserExercise.isUserExercise(itemId)) return
+        val orphanCandidates = snapshot().userExercises
+            .firstOrNull { it.itemId == itemId }
+            ?.imagePaths
+            .orEmpty()
         updateState { current ->
-            current.userExercises.firstOrNull { it.itemId == itemId }?.imagePaths
-                ?.forEach { imageStore.delete(it) }
             current.copy(
                 userExercises = current.userExercises.filterNot { it.itemId == itemId },
                 savedExerciseIds = current.savedExerciseIds - itemId
             )
         }
+        val after = snapshot()
+        orphanCandidates
+            .filterNot { after.referencesUserExerciseImage(it) }
+            .forEach { imageStore.delete(it) }
     }
 
     suspend fun removeExercise(exerciseId: UUID, date: LocalDate) =
@@ -797,6 +810,13 @@ class WorkoutRepository(
             .groupBy { it.diaryDateKey }
             .mapValues { (_, values) -> values.maxWith(preferredSessionComparator) }
 
+    private fun WorkoutPersistedState.referencesUserExerciseImage(filename: String): Boolean {
+        if (userExercises.any { filename in it.imagePaths }) return true
+        if (customActivities.any { filename in it.imagePaths }) return true
+        return dayPlans.values.any { plan ->
+            plan.exercises.any { filename in it.imagePaths }
+        }
+    }
 
     companion object {
         private val sessionDescendingComparator =

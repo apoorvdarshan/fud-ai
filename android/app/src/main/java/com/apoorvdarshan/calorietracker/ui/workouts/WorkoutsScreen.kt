@@ -245,7 +245,7 @@ private fun WorkoutLibraryScreen(
 ) {
 
     val items = remember(
-        vm.search, vm.levels, vm.equipment, vm.primaryMuscles, vm.secondaryMuscles,
+        repo, vm.search, vm.levels, vm.equipment, vm.primaryMuscles, vm.secondaryMuscles,
         vm.forces, vm.mechanics, vm.categories, vm.sort, vm.splitGroupTitles,
         vm.diaryUiState.splitGroups
     ) {

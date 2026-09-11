@@ -118,16 +118,18 @@ final class StrengthWorkoutStore {
 
         let itemID = existingItemID ?? UserExercise.newID()
         var imagePaths = userExercises.first(where: { $0.itemID == itemID })?.imagePaths ?? []
+        var orphanCandidates: [String] = []
 
         if draft.removePhoto {
-            imagePaths.forEach { FoodImageStore.shared.delete(filename: $0) }
+            orphanCandidates.append(contentsOf: imagePaths)
             imagePaths = []
         }
 
         if let photoData = draft.photoData,
            FoodImageStore.shared.storeExercisePhoto(data: photoData, exerciseID: itemID) != nil {
-            imagePaths.forEach { FoodImageStore.shared.delete(filename: $0) }
-            imagePaths = [UserExercise.photoFilename(forExerciseID: itemID)]
+            let filename = UserExercise.photoFilename(forExerciseID: itemID)
+            orphanCandidates.append(contentsOf: imagePaths.filter { $0 != filename })
+            imagePaths = [filename]
         }
 
         let item = draft.libraryItem(id: itemID, imagePaths: imagePaths)
@@ -141,16 +143,21 @@ final class StrengthWorkoutStore {
             userExercises.append(template)
         }
         save()
+        orphanCandidates
+            .filter { !referencesUserExerciseImage($0) }
+            .forEach { FoodImageStore.shared.delete(filename: $0) }
         return item
     }
 
     func deleteUserExercise(itemID: String) {
         guard UserExercise.isUserExercise(itemID) else { return }
-        userExercises.first(where: { $0.itemID == itemID })?.imagePaths
-            .forEach { FoodImageStore.shared.delete(filename: $0) }
+        let orphanCandidates = userExercises.first(where: { $0.itemID == itemID })?.imagePaths ?? []
         userExercises.removeAll { $0.itemID == itemID }
         savedExerciseIDs.remove(itemID)
         save()
+        orphanCandidates
+            .filter { !referencesUserExerciseImage($0) }
+            .forEach { FoodImageStore.shared.delete(filename: $0) }
     }
 
     func userExerciseTemplate(for itemID: String) -> StrengthPlannedExercise? {
@@ -508,6 +515,14 @@ final class StrengthWorkoutStore {
         updatePlan(for: date) { plan in
             guard let index = plan.exercises.firstIndex(where: { $0.id == exerciseID }) else { return }
             mutate(&plan.exercises[index])
+        }
+    }
+
+    private func referencesUserExerciseImage(_ filename: String) -> Bool {
+        if userExercises.contains(where: { $0.imagePaths.contains(filename) }) { return true }
+        if customActivities.contains(where: { $0.imagePaths.contains(filename) }) { return true }
+        return dayPlans.values.contains { plan in
+            plan.exercises.contains { $0.imagePaths.contains(filename) }
         }
     }
 

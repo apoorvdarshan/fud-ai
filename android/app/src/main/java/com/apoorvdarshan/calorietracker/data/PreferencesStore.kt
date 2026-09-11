@@ -989,7 +989,7 @@ class PreferencesStore(
         val workoutState = prefs[Keys.WORKOUT_STATE]?.let { raw ->
             runCatching {
                 json.decodeFromString(com.apoorvdarshan.calorietracker.models.WorkoutPersistedState.serializer(), raw)
-            }.getOrNull()
+            }.getOrNull() ?: return null
         }
 
         return buildSet {

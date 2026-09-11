@@ -163,6 +163,8 @@ import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
 import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.MealType
+import com.apoorvdarshan.calorietracker.models.FoodLogMethod
+import com.apoorvdarshan.calorietracker.models.FoodLogMethodDefaultGroupIcon
 import com.apoorvdarshan.calorietracker.models.QuickAction
 import com.apoorvdarshan.calorietracker.models.QuickActionRequest
 import com.apoorvdarshan.calorietracker.models.ServingUnitOption
@@ -200,12 +202,10 @@ import kotlinx.coroutines.withContext
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 
-private enum class AddMenuGroup {
-    PhotoAndScan,
-    DescribeMeal,
-    ReuseMeal,
-    Water,
-    Fasting
+private sealed interface AddMenuDestination {
+    data class FoodGroup(val index: Int) : AddMenuDestination
+    data object Water : AddMenuDestination
+    data object Fasting : AddMenuDestination
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -240,7 +240,7 @@ DisposableEffect(lifecycleOwner, vm) {
     var showBarcodeScanner by rememberSaveable { mutableStateOf(false) }
     var showCopyFromDay by remember { mutableStateOf(false) }
     var showAddMenu by remember { mutableStateOf(false) }
-    var addMenuGroup by remember { mutableStateOf<AddMenuGroup?>(null) }
+    var addMenuDestination by remember { mutableStateOf<AddMenuDestination?>(null) }
     var showSortMenu by remember { mutableStateOf(false) }
     var editingEntry by remember { mutableStateOf<FoodEntry?>(null) }
     var selectedFoodIds by remember { mutableStateOf<Set<UUID>>(emptySet()) }
@@ -318,6 +318,27 @@ DisposableEffect(lifecycleOwner, vm) {
         }
     }
 
+    fun performFoodLogMethod(method: FoodLogMethod) {
+        showAddMenu = false
+        addMenuDestination = null
+        when (method) {
+            FoodLogMethod.CAMERA -> openCamera()
+            FoodLogMethod.PHOTOS -> {
+                isImportingPhotos = true
+                clearCaptureDraft()
+                photoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            }
+            FoodLogMethod.BARCODE -> openBarcodeScanner()
+            FoodLogMethod.VOICE -> showVoice = true
+            FoodLogMethod.TEXT -> showText = true
+            FoodLogMethod.MANUAL -> showManual = true
+            FoodLogMethod.FAVORITES -> savedMealsTab = SavedTab.FAVORITES
+            FoodLogMethod.FREQUENT -> savedMealsTab = SavedTab.FREQUENT
+            FoodLogMethod.RECENT -> savedMealsTab = SavedTab.RECENTS
+            FoodLogMethod.COPY_FROM_DAY -> showCopyFromDay = true
+        }
+    }
+
     LaunchedEffect(
         quickActionRequest?.id,
         ui.analyzing,
@@ -334,7 +355,7 @@ DisposableEffect(lifecycleOwner, vm) {
         showBarcodeScanner = false
         showCopyFromDay = false
         showAddMenu = false
-        addMenuGroup = null
+        addMenuDestination = null
         editingEntry = null
         showNutritionDetail = false
         showCustomWaterLog = false
@@ -679,7 +700,7 @@ CalorieHero(
                     .clip(CircleShape)
                     .background(AppColors.Calorie)
                     .clickable {
-                        addMenuGroup = null
+                        addMenuDestination = null
                         showAddMenu = true
                     },
                 contentAlignment = Alignment.Center
@@ -697,19 +718,37 @@ CalorieHero(
                 expanded = showAddMenu,
                 onDismissRequest = {
                     showAddMenu = false
-                    addMenuGroup = null
+                    addMenuDestination = null
                 },
                 menuWidth = 238.dp
             ) {
-                when (addMenuGroup) {
+                when (val destination = addMenuDestination) {
                     null -> {
                         if (ui.activeFast == null) {
-                            SheetGlassDropdownMenuItem(label = stringResource(R.string.home_menu_photo_scan), leadingIcon = Icons.Filled.CameraAlt, trailingIcon = Icons.Filled.ChevronRight) { addMenuGroup = AddMenuGroup.PhotoAndScan }
-                            SheetGlassDropdownMenuItem(label = stringResource(R.string.home_menu_describe_meal), leadingIcon = Icons.Filled.Edit, trailingIcon = Icons.Filled.ChevronRight) { addMenuGroup = AddMenuGroup.DescribeMeal }
-                            SheetGlassDropdownMenuItem(label = stringResource(R.string.home_menu_reuse_meal), leadingIcon = Icons.Filled.Bookmark, trailingIcon = Icons.Filled.ChevronRight) { addMenuGroup = AddMenuGroup.ReuseMeal }
+                            val addMenuConfig = ui.addMenuConfig
+                            if (addMenuConfig.usesFlatLayout) {
+                                addMenuConfig.resolvedFlatMethods().forEach { method ->
+                                    SheetGlassDropdownMenuItem(
+                                        label = stringResource(method.titleRes),
+                                        leadingIcon = method.icon
+                                    ) { performFoodLogMethod(method) }
+                                }
+                            } else {
+                                addMenuConfig.resolvedGroups().forEachIndexed { index, group ->
+                                    SheetGlassDropdownMenuItem(
+                                        label = group.name,
+                                        leadingIcon = group.methods.firstOrNull()?.icon ?: FoodLogMethodDefaultGroupIcon,
+                                        trailingIcon = Icons.Filled.ChevronRight
+                                    ) { addMenuDestination = AddMenuDestination.FoodGroup(index) }
+                                }
+                            }
                         }
                         if (ui.waterTrackingEnabled) {
-                            SheetGlassDropdownMenuItem(label = stringResource(R.string.water), leadingIcon = Icons.Filled.WaterDrop, trailingIcon = Icons.Filled.ChevronRight) { addMenuGroup = AddMenuGroup.Water }
+                            SheetGlassDropdownMenuItem(
+                                label = stringResource(R.string.water),
+                                leadingIcon = Icons.Filled.WaterDrop,
+                                trailingIcon = Icons.Filled.ChevronRight
+                            ) { addMenuDestination = AddMenuDestination.Water }
                         }
                         if (ui.fastingTrackingEnabled) {
                             if (ui.activeFast == null) {
@@ -718,59 +757,49 @@ CalorieHero(
                                     showFastingStart = true
                                 }
                             } else {
-                                SheetGlassDropdownMenuItem(label = stringResource(R.string.fasting), leadingIcon = Icons.Filled.Timer, trailingIcon = Icons.Filled.ChevronRight) { addMenuGroup = AddMenuGroup.Fasting }
+                                SheetGlassDropdownMenuItem(
+                                    label = stringResource(R.string.fasting),
+                                    leadingIcon = Icons.Filled.Timer,
+                                    trailingIcon = Icons.Filled.ChevronRight
+                                ) { addMenuDestination = AddMenuDestination.Fasting }
                             }
                         }
                     }
 
-                    AddMenuGroup.PhotoAndScan -> {
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.home_menu_camera), leadingIcon = Icons.Filled.CameraAlt) { showAddMenu = false; addMenuGroup = null; openCamera() }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.home_menu_from_photos), leadingIcon = Icons.Filled.PhotoLibrary) {
-                            showAddMenu = false
-                            addMenuGroup = null
-                            isImportingPhotos = true
-                            clearCaptureDraft()
-                            photoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                    is AddMenuDestination.FoodGroup -> {
+                        val group = ui.addMenuConfig.resolvedGroups().getOrNull(destination.index)
+                        group?.methods?.forEach { method ->
+                            SheetGlassDropdownMenuItem(
+                                label = stringResource(method.titleRes),
+                                leadingIcon = method.icon
+                            ) { performFoodLogMethod(method) }
                         }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.home_menu_barcode), leadingIcon = Icons.Filled.QrCodeScanner) { showAddMenu = false; addMenuGroup = null; openBarcodeScanner() }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.back), leadingIcon = Icons.Filled.ChevronLeft) { addMenuGroup = null }
+                        SheetGlassDropdownMenuItem(
+                            label = stringResource(R.string.back),
+                            leadingIcon = Icons.Filled.ChevronLeft
+                        ) { addMenuDestination = null }
                     }
 
-                    AddMenuGroup.DescribeMeal -> {
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.home_menu_text_input), leadingIcon = Icons.Filled.Edit) { showAddMenu = false; addMenuGroup = null; showText = true }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.home_menu_voice), leadingIcon = Icons.Filled.Mic) { showAddMenu = false; addMenuGroup = null; showVoice = true }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.home_menu_manual_entry), leadingIcon = Icons.Filled.DriveFileRenameOutline) { showAddMenu = false; addMenuGroup = null; showManual = true }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.back), leadingIcon = Icons.Filled.ChevronLeft) { addMenuGroup = null }
+                    AddMenuDestination.Water -> {
+                        SheetGlassDropdownMenuItem(label = stringResource(R.string.water_one_glass_dynamic, ui.waterUnit.format(250)), leadingIcon = Icons.Filled.WaterDrop) { showAddMenu = false; addMenuDestination = null; vm.addWater(250) }
+                        SheetGlassDropdownMenuItem(label = stringResource(R.string.water_two_glasses_dynamic, ui.waterUnit.format(500)), leadingIcon = Icons.Filled.WaterDrop) { showAddMenu = false; addMenuDestination = null; vm.addWater(500) }
+                        SheetGlassDropdownMenuItem(label = stringResource(R.string.water_three_glasses_dynamic, ui.waterUnit.format(750)), leadingIcon = Icons.Filled.WaterDrop) { showAddMenu = false; addMenuDestination = null; vm.addWater(750) }
+                        SheetGlassDropdownMenuItem(label = stringResource(R.string.water_custom_amount), leadingIcon = Icons.Filled.DriveFileRenameOutline) { showAddMenu = false; addMenuDestination = null; showCustomWaterLog = true }
+                        SheetGlassDropdownMenuItem(label = stringResource(R.string.back), leadingIcon = Icons.Filled.ChevronLeft) { addMenuDestination = null }
                     }
 
-                    AddMenuGroup.ReuseMeal -> {
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.saved_meals_tab_recents), leadingIcon = Icons.Filled.History) { showAddMenu = false; addMenuGroup = null; savedMealsTab = SavedTab.RECENTS }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.saved_meals_tab_frequent), leadingIcon = Icons.Filled.Repeat) { showAddMenu = false; addMenuGroup = null; savedMealsTab = SavedTab.FREQUENT }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.saved_meals_tab_favorites), leadingIcon = Icons.Filled.Favorite) { showAddMenu = false; addMenuGroup = null; savedMealsTab = SavedTab.FAVORITES }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.home_menu_copy_from_day), leadingIcon = Icons.Filled.CalendarMonth) { showAddMenu = false; addMenuGroup = null; showCopyFromDay = true }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.back), leadingIcon = Icons.Filled.ChevronLeft) { addMenuGroup = null }
-                    }
-
-                    AddMenuGroup.Water -> {
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.water_one_glass_dynamic, ui.waterUnit.format(250)), leadingIcon = Icons.Filled.WaterDrop) { showAddMenu = false; addMenuGroup = null; vm.addWater(250) }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.water_two_glasses_dynamic, ui.waterUnit.format(500)), leadingIcon = Icons.Filled.WaterDrop) { showAddMenu = false; addMenuGroup = null; vm.addWater(500) }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.water_three_glasses_dynamic, ui.waterUnit.format(750)), leadingIcon = Icons.Filled.WaterDrop) { showAddMenu = false; addMenuGroup = null; vm.addWater(750) }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.water_custom_amount), leadingIcon = Icons.Filled.DriveFileRenameOutline) { showAddMenu = false; addMenuGroup = null; showCustomWaterLog = true }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.back), leadingIcon = Icons.Filled.ChevronLeft) { addMenuGroup = null }
-                    }
-
-                    AddMenuGroup.Fasting -> {
+                    AddMenuDestination.Fasting -> {
                         SheetGlassDropdownMenuItem(label = stringResource(R.string.fasting_end), leadingIcon = Icons.Filled.Stop) {
                             showAddMenu = false
-                            addMenuGroup = null
+                            addMenuDestination = null
                             vm.endFast()
                         }
                         SheetGlassDropdownMenuItem(label = stringResource(R.string.fasting_cancel), leadingIcon = Icons.Filled.Delete) {
                             showAddMenu = false
-                            addMenuGroup = null
+                            addMenuDestination = null
                             vm.cancelFast()
                         }
-                        SheetGlassDropdownMenuItem(label = stringResource(R.string.back), leadingIcon = Icons.Filled.ChevronLeft) { addMenuGroup = null }
+                        SheetGlassDropdownMenuItem(label = stringResource(R.string.back), leadingIcon = Icons.Filled.ChevronLeft) { addMenuDestination = null }
                     }
                 }
             }

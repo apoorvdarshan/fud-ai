@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.AIProvider
+import com.apoorvdarshan.calorietracker.models.AddMenuConfig
 import com.apoorvdarshan.calorietracker.models.AutoBalanceMacro
 import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.MealSchedule
@@ -100,6 +101,7 @@ data class SettingsUiState(
     val textFallbackApiKeyMasked: String = "",
     val optionalNutrientGoals: OptionalNutrientGoals = OptionalNutrientGoals.Default,
     val quickActions: List<QuickAction> = QuickAction.Defaults,
+    val addMenuConfig: AddMenuConfig = AddMenuConfig.Default,
     val localModelStates: Map<LocalModelId, LocalModelState> = emptyMap(),
     /** A goal-relevant input changed since the last Recalculate. Drives a soft nudge on the
      *  Recalculate row; the button stays tappable at all times — this never disables it. */
@@ -160,6 +162,12 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
         viewModelScope.launch {
             container.prefs.optionalNutrientGoals.collect { goals ->
                 _ui.value = _ui.value.copy(optionalNutrientGoals = goals)
+            }
+        }
+
+        viewModelScope.launch {
+            container.prefs.addMenuConfig.collect { config ->
+                _ui.value = _ui.value.copy(addMenuConfig = config)
             }
         }
 
@@ -238,6 +246,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 container.prefs.quickAction2.first(),
                 container.prefs.quickAction3.first()
             )
+            val addMenuConfig = container.prefs.addMenuConfig.first()
             // Seed the recalc baseline for existing users / first launch so the nudge only fires
             // after a genuine change from here on, never immediately on open.
             val storedSignature = container.prefs.lastRecalcGoalSignature.first()
@@ -300,6 +309,7 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 textFallbackApiKeyMasked = textFbMasked,
                 optionalNutrientGoals = optionalGoals,
                 quickActions = quickActions,
+                addMenuConfig = addMenuConfig,
                 workoutSplit = workoutPreferences.split,
                 workoutRpeScale = workoutPreferences.rpeScale,
                 localModelStates = container.localModels.states.value,
@@ -511,6 +521,20 @@ class SettingsViewModel(val container: AppContainer) : ViewModel() {
                 this[slot] = action
             }
             _ui.value = _ui.value.copy(quickActions = updated)
+        }
+    }
+
+    fun setAddMenuConfig(config: AddMenuConfig) {
+        viewModelScope.launch {
+            container.prefs.setAddMenuConfig(config)
+            _ui.value = _ui.value.copy(addMenuConfig = config.sanitized())
+        }
+    }
+
+    fun resetAddMenuConfig() {
+        viewModelScope.launch {
+            container.prefs.resetAddMenuConfig()
+            _ui.value = _ui.value.copy(addMenuConfig = AddMenuConfig.Default)
         }
     }
 

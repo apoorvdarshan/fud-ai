@@ -1241,6 +1241,16 @@
     <string name="progressive_meal_description">Photo 1 → 2 → 3 follows each ingredient added to the same plate. Visible scale differences become ingredient weights.</string>
     <string name="progressive_meal_info_title">How Progressive Meal works</string>
     <string name="progressive_meal_info_body">Use this when every photo shows the same plate after another ingredient is added. Keep the photos in order and make the scale display visible. Fud AI uses the difference between consecutive scale totals to estimate each new ingredient. Leave this off when the photos are only different angles of the same meal.</string>
+    <string name="settings_add_menu_title">+ Menu</string>
+    <string name="settings_add_menu_food_section">Food Add Menu</string>
+    <string name="settings_add_menu_groups">Groups</string>
+    <string name="settings_add_menu_flat">Flat Menu</string>
+    <string name="settings_add_menu_hidden">Hidden Methods</string>
+    <string name="settings_add_menu_reset">Reset to Default</string>
+    <string name="settings_add_menu_footer">Customize the Home + button food menu. Water and fasting stay separate when enabled. This does not change app-icon Quick Actions.</string>
+    <string name="settings_add_menu_add_method">Add Method</string>
+    <string name="settings_add_menu_group_name">Group Name</string>
+    <string name="settings_add_menu_new_group">New Group</string>
     <string name="settings_quick_actions">Quick Actions</string>
     <string name="settings_app_icon_shortcuts">App Icon Shortcuts</string>
     <string name="settings_quick_action_number">Quick Action %1$d</string>

@@ -838,6 +838,12 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                     stringResource(R.string.settings_meal_times_customize),
                     icon = Icons.Outlined.Bolt
                 ) { nav.navigate(FudAIRoutes.QUICK_ACTIONS) }
+                HorizontalDivider()
+                SettingRow(
+                    stringResource(R.string.settings_add_menu_title),
+                    stringResource(R.string.settings_meal_times_customize),
+                    icon = Icons.Outlined.Add
+                ) { nav.navigate(FudAIRoutes.ADD_MENU) }
             }
             }
 

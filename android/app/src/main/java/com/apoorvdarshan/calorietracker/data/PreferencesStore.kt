@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.apoorvdarshan.calorietracker.models.AddMenuConfig
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AutoBalanceMacro
 import com.apoorvdarshan.calorietracker.models.BodyFatEntry
@@ -447,6 +448,18 @@ class PreferencesStore(
             else -> return
         }
         ds.edit { it[key] = action.name }
+    }
+
+    val addMenuConfig: Flow<AddMenuConfig> = ds.data.map { prefs ->
+        AddMenuConfig.decode(prefs[Keys.ADD_MENU_CONFIG])
+    }
+
+    suspend fun setAddMenuConfig(config: AddMenuConfig) {
+        ds.edit { it[Keys.ADD_MENU_CONFIG] = AddMenuConfig.encode(config) }
+    }
+
+    suspend fun resetAddMenuConfig() {
+        ds.edit { it.remove(Keys.ADD_MENU_CONFIG) }
     }
 
     // -- Workout diary ---------------------------------------------------
@@ -1129,6 +1142,7 @@ class PreferencesStore(
         val QUICK_ACTION_1 = stringPreferencesKey("quickAction.slot1")
         val QUICK_ACTION_2 = stringPreferencesKey("quickAction.slot2")
         val QUICK_ACTION_3 = stringPreferencesKey("quickAction.slot3")
+        val ADD_MENU_CONFIG = stringPreferencesKey(AddMenuConfig.STORAGE_KEY)
         val WORKOUT_STATE = stringPreferencesKey("workoutDiaryStateV1")
         val MEAL_BREAKFAST_START = intPreferencesKey("mealBreakfastStartMinutes")
         val MEAL_LUNCH_START = intPreferencesKey("mealLunchStartMinutes")

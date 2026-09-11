@@ -5,6 +5,8 @@ import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FastingSession
 import com.apoorvdarshan.calorietracker.models.FoodSource
 import com.apoorvdarshan.calorietracker.models.MealType
+import com.apoorvdarshan.calorietracker.models.ExerciseLiftHistory
+import com.apoorvdarshan.calorietracker.models.ExerciseLiftSet
 import com.apoorvdarshan.calorietracker.models.WorkoutDate
 import com.apoorvdarshan.calorietracker.models.WorkoutDayPlan
 import com.apoorvdarshan.calorietracker.models.WorkoutPreferences
@@ -43,7 +45,9 @@ class CoachTools(
         ToolArguments(
             from = args.optString("from").takeIf { it.isNotBlank() },
             to = args.optString("to").takeIf { it.isNotBlank() },
-            limit = (args.opt("limit") as? Number)?.toInt()
+            limit = (args.opt("limit") as? Number)?.toInt(),
+            exercise = args.optString("exercise").takeIf { it.isNotBlank() },
+            catalogId = args.optString("catalog_id").takeIf { it.isNotBlank() }
         )
     )
 
@@ -57,7 +61,9 @@ class CoachTools(
                 is Number -> value.toInt()
                 is String -> value.toIntOrNull()
                 else -> null
-            }
+            },
+            exercise = args["exercise"] as? String,
+            catalogId = args["catalog_id"] as? String
         )
     )
 
@@ -72,6 +78,7 @@ class CoachTools(
         "get_workout_plans" -> getWorkoutPlans(args)
         "get_workout_preferences" -> getWorkoutPreferences()
         "get_training_summary" -> getTrainingSummary(args)
+        "get_exercise_lift_history" -> getExerciseLiftHistory(args)
         else -> jsonError("Unknown tool: $name. Available tools: ${TOOL_NAMES.joinToString(", ")}")
     }
 
@@ -356,6 +363,69 @@ class CoachTools(
         )
     }
 
+    private fun getExerciseLiftHistory(args: ToolArguments): String {
+        val exercise = args.exercise?.trim().orEmpty()
+        if (exercise.isEmpty()) return jsonError("exercise is required.")
+        val catalogId = args.catalogId?.trim().orEmpty()
+        val toDate = parseDate(args.to) ?: LocalDate.now(clock)
+        val fromDate = parseDate(args.from) ?: toDate.minusDays(365)
+        val limit = args.boundedLimit(default = 60, maximum = 120)
+        val fromKey = fromDate.toString()
+        val toKey = toDate.toString()
+
+        val dateKeys = workoutSessions
+            .map { it.diaryDateKey }
+            .distinct()
+            .filter { it in fromKey..toKey }
+            .sortedDescending()
+
+        val sessions = mutableListOf<Map<String, Any?>>()
+        var bestLoadKg: Double? = null
+        for (key in dateKeys) {
+            if (sessions.size >= limit) break
+            val sets = coachLiftSets(catalogId, exercise, key) ?: continue
+            if (sets.isEmpty()) continue
+            val setPayloads = sets.map { set ->
+                linkedMapOf<String, Any?>("reps" to (set.reps.toIntOrNull() ?: 0)).apply {
+                    if (set.weight.isNotEmpty()) {
+                        put("weight", set.weight)
+                        val unit = set.weightUnit ?: workoutPlanWeightUnit
+                        put("weight_unit", unit.storageValue)
+                        weightKg(set.weight, unit)?.let { kilograms ->
+                            put("weight_kg", round1(kilograms))
+                            bestLoadKg = maxOf(bestLoadKg ?: kilograms, kilograms)
+                        }
+                    }
+                }
+            }
+            sessions += linkedMapOf("date" to key, "sets" to setPayloads)
+        }
+
+        return json(
+            linkedMapOf<String, Any?>(
+                "exercise" to exercise,
+                "from" to fromKey,
+                "to" to toKey,
+                "count" to sessions.size,
+                "sessions" to sessions
+            ).apply {
+                if (catalogId.isNotEmpty()) put("catalog_id", catalogId)
+                bestLoadKg?.let { put("best_load_kg", round1(it)) }
+                sessions.firstOrNull()?.let { put("last_session", it) }
+            }
+        )
+    }
+
+    private fun coachLiftSets(catalogId: String, name: String, dateKey: String): List<ExerciseLiftSet>? {
+        val daySessions = workoutSessions.filter { it.diaryDateKey == dateKey }
+        val preferred = daySessions.filter { it.caloriesBurned != null }.maxWithOrNull(
+            compareBy<WorkoutSession> { it.healthSyncVersion ?: 0 }.thenBy { it.completedAt }
+        ) ?: daySessions.maxByOrNull { it.completedAt }
+        return preferred?.exercises
+            ?.firstOrNull { ExerciseLiftHistory.matches(catalogId, name, it.itemId, it.name) }
+            ?.let { ExerciseLiftHistory.performedSets(it.sets) }
+    }
+
     private fun getTrainingSummary(args: ToolArguments): String {
         val range = parseRange(args)
         val sessions = effectiveWorkoutSessions().filter { session ->
@@ -561,7 +631,9 @@ class CoachTools(
     private data class ToolArguments(
         val from: String? = null,
         val to: String? = null,
-        val limit: Int? = null
+        val limit: Int? = null,
+        val exercise: String? = null,
+        val catalogId: String? = null
     ) {
         fun boundedLimit(default: Int, maximum: Int): Int = limit?.coerceIn(1, maximum) ?: default
     }
@@ -601,7 +673,8 @@ class CoachTools(
             "get_workout_history",
             "get_workout_plans",
             "get_workout_preferences",
-            "get_training_summary"
+            "get_training_summary",
+            "get_exercise_lift_history"
         )
 
         /** Workout tools are deliberately always available, even before the first session. */
@@ -614,10 +687,11 @@ class CoachTools(
             "get_calorie_totals" to "Daily calorie totals (sum of all logged foods per day) between two dates. Returns date + kcal. Use when the user asks about intake patterns older than the last 14 days.",
             "get_food_entries" to "Individual logged food items (name + calories + macros) between two dates. Use when the user asks about specific meals, what they ate on a given date, or wants macro breakdowns rather than just kcal totals.",
             "get_fasting_history" to "Fetch explicitly tracked fasting sessions between two dates, including start/end timestamps, duration, goal, and whether the goal was reached. Never infer fasting from missing food logs.",
-            "get_workout_history" to "Fetch completed workouts between two dates, including calculated calorie burn, saved exercise durations and intensity, and logged sets with weight, reps, and RPE. A timed exercise can be performed without any reps or sets.",
+            "get_workout_history" to "Fetch completed workouts between two dates, including calculated calorie burn, saved exercise durations and intensity, and logged sets with weight, reps, and RPE. A timed exercise can be performed without any reps or sets. For one specific lift across many dates, prefer get_exercise_lift_history.",
             "get_workout_plans" to "Fetch dated workout diary plans, set targets, saved exercise durations, and current timer state. Running or paused timer time is unsaved. Optional ISO from/to dates narrow the result; without them it returns recent and upcoming plans around today.",
             "get_workout_preferences" to "Fetch workout-only preferences such as target muscles, injuries or issues, equipment, schedule, split, RPE scale, and strength numbers.",
-            "get_training_summary" to "Summarize workouts between two dates: calculated calorie burn plus sessions, saved exercise duration, sets, reps, volume, best load, and average RPE by exercise. Timed cardio does not require reps or sets."
+            "get_training_summary" to "Summarize workouts between two dates: calculated calorie burn plus sessions, saved exercise duration, sets, reps, volume, best load, and average RPE by exercise. Timed cardio does not require reps or sets.",
+            "get_exercise_lift_history" to "Fetch per-exercise lift history from the local workout diary: dated sessions with logged weight × reps sets, the most recent session, and best load in kg. Use for questions like \"what did I bench last?\" or trends for one lift. Optional catalog_id narrows matching; otherwise exercise name is used."
         )
 
         /** One schema source is wrapped for Gemini, Anthropic, and OpenAI by [ChatService]. */
@@ -633,6 +707,19 @@ class CoachTools(
                         "to" to linkedMapOf("type" to "string", "description" to "Optional ISO date yyyy-MM-dd, inclusive end"),
                         "limit" to linkedMapOf("type" to "integer", "description" to "Optional max plans to return")
                     )
+                )
+            }
+            if (toolName == "get_exercise_lift_history") {
+                return linkedMapOf(
+                    "type" to "object",
+                    "properties" to linkedMapOf(
+                        "exercise" to linkedMapOf("type" to "string", "description" to "Exercise name, e.g. Bench Press"),
+                        "catalog_id" to linkedMapOf("type" to "string", "description" to "Optional library id when known"),
+                        "from" to linkedMapOf("type" to "string", "description" to "Optional ISO date yyyy-MM-dd, inclusive start (defaults to one year before to)"),
+                        "to" to linkedMapOf("type" to "string", "description" to "Optional ISO date yyyy-MM-dd, inclusive end (defaults to today)"),
+                        "limit" to linkedMapOf("type" to "integer", "description" to "Optional max dated sessions to return")
+                    ),
+                    "required" to listOf("exercise")
                 )
             }
             return linkedMapOf(

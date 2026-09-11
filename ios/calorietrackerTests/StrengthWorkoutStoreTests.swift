@@ -273,9 +273,9 @@ struct StrengthWorkoutStoreTests {
         #expect(planned.sets[0].reps == "1234")
         #expect(planned.sets[0].rpe == "7.5")
         #expect(planned.sets.dropFirst().allSatisfy {
-            $0.weight.isEmpty
-                && $0.weightUnit == nil
-                && $0.reps.isEmpty
+            $0.weight == "100.5"
+                && $0.weightUnit == WeightUnit.kg.rawValue
+                && $0.reps == "1234"
                 && $0.rpe.isEmpty
                 && $0.rpeScale == nil
         })
@@ -296,6 +296,65 @@ struct StrengthWorkoutStoreTests {
         #expect(store.exercises(for: date)[0].sets[0].rpe == "20")
         store.updateSet(exerciseID: planned.id, setID: firstSet.id, on: date, rpe: "5")
         #expect(store.exercises(for: date)[0].sets[0].rpe == "20")
+    }
+
+    @Test func liftHistoryMatchingUsesCatalogIdExclusivelyWhenProvided() {
+        #expect(
+            StrengthExerciseLiftHistory.matches(
+                itemID: "bench-press",
+                name: "Bench Press",
+                candidateItemID: "bench-press",
+                candidateName: "Bench Press"
+            )
+        )
+        #expect(
+            !StrengthExerciseLiftHistory.matches(
+                itemID: "bench-press",
+                name: "Bench Press",
+                candidateItemID: "custom-bench",
+                candidateName: "Bench Press"
+            )
+        )
+        #expect(
+            StrengthExerciseLiftHistory.matches(
+                itemID: "",
+                name: "Bench Press",
+                candidateItemID: "custom-bench",
+                candidateName: "Bench Press"
+            )
+        )
+    }
+
+    @Test func exerciseLiftHistoryFindsMostRecentPriorDay() throws {
+        let bench = WorkoutTestFixture.exercise(id: "bench", name: "Bench Press")
+        let yesterday = WorkoutTestFixture.date(2026, 7, 19)
+        let today = WorkoutTestFixture.date(2026, 7, 20)
+        let store = WorkoutTestFixture().makeStore()
+        store.toggleExercise(bench, on: yesterday)
+        var planned = try #require(store.exercises(for: yesterday).first)
+        var set = try #require(planned.sets.first)
+        store.updateSet(
+            exerciseID: planned.id,
+            setID: set.id,
+            on: yesterday,
+            weight: "60",
+            weightUnit: .kg,
+            reps: "8"
+        )
+        _ = store.upsertCalculatedWorkout(on: yesterday, caloriesBurned: 180, weightUnit: .kg)
+        store.toggleExercise(bench, on: today)
+
+        let summary = store.lastExerciseLiftSummary(
+            itemID: bench.id,
+            name: bench.name,
+            before: today,
+            displayUnit: .kg
+        )
+        #expect(summary == "60 kg × 8")
+
+        let history = store.exerciseLiftHistory(itemID: bench.id, name: bench.name, before: today)
+        #expect(history.count == 1)
+        #expect(history[0].dateKey == StrengthWorkoutStore.dateKey(for: yesterday))
     }
 
     @Test func plannedSetWeightDisplayFollowsGlobalUnitWithoutMutatingStoredLoad() {

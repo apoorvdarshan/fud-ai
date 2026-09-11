@@ -109,6 +109,147 @@ class CoachWorkoutToolsTest {
         for (name in listOf("get_workout_history", "get_training_summary")) {
             assertEquals(listOf("from", "to"), CoachTools.parameterSchemaFor(name)["required"])
         }
+        assertEquals(listOf("exercise"), CoachTools.parameterSchemaFor("get_exercise_lift_history")["required"])
+    }
+
+    @Test
+    fun exerciseLiftHistoryReturnsRecentSetsForOneLift() {
+        val logged = session(
+            dateKey = "2026-07-19",
+            completedAt = "2026-07-19T10:00:00Z",
+            caloriesBurned = 180,
+            exercise = "Bench Press",
+            sets = listOf(set(1, "60", "8", "7"))
+        )
+        val payload = json(
+            tools(workoutSessions = listOf(logged), workoutPlanWeightUnit = WorkoutWeightUnit.KG)
+                .execute("get_exercise_lift_history", mapOf("exercise" to "Bench Press", "to" to "2026-07-20"))
+        )
+        assertEquals(1, payload["count"].asInt)
+        val sessions = payload.getAsJsonArray("sessions")
+        assertEquals("2026-07-19", sessions[0].asJsonObject["date"].asString)
+        val sets = sessions[0].asJsonObject.getAsJsonArray("sets")
+        assertEquals("60", sets[0].asJsonObject["weight"].asString)
+        assertEquals(8, sets[0].asJsonObject["reps"].asInt)
+        assertEquals("2026-07-19", payload.getAsJsonObject("last_session")["date"].asString)
+    }
+
+    @Test
+    fun exerciseLiftHistoryIgnoresUnsavedDayPlans() {
+        val plan = WorkoutDayPlan(
+            dateKey = "2026-07-19",
+            exercises = listOf(
+                plannedExercise(
+                    listOf(PlannedSet(weight = "60", weightUnit = WorkoutWeightUnit.KG, reps = "8"))
+                ).copy(itemId = "bench", name = "Bench Press")
+            )
+        )
+        val payload = json(
+            tools(workoutPlans = listOf(plan), workoutPlanWeightUnit = WorkoutWeightUnit.KG)
+                .execute("get_exercise_lift_history", mapOf("exercise" to "Bench Press", "to" to "2026-07-20"))
+        )
+        assertEquals(0, payload["count"].asInt)
+        assertFalse(payload.has("last_session"))
+    }
+
+    @Test
+    fun exerciseLiftHistoryToleratesMalformedDates() {
+        val logged = session(
+            dateKey = "2026-07-19",
+            completedAt = "2026-07-19T10:00:00Z",
+            caloriesBurned = 180,
+            exercise = "Bench Press",
+            sets = listOf(set(1, "60", "8", "7"))
+        )
+        val payload = json(
+            tools(
+                workoutSessions = listOf(logged),
+                workoutPlanWeightUnit = WorkoutWeightUnit.KG,
+                clock = Clock.fixed(Instant.parse("2026-07-20T12:00:00Z"), ZoneOffset.UTC)
+            ).execute(
+                "get_exercise_lift_history",
+                mapOf("exercise" to "Bench Press", "from" to "not-a-date", "to" to "also-bad")
+            )
+        )
+        assertEquals(1, payload["count"].asInt)
+    }
+
+    @Test
+    fun exerciseLiftHistoryRespectsCatalogIdOverSameName() {
+        val catalogBench = session(
+            dateKey = "2026-07-19",
+            completedAt = "2026-07-19T10:00:00Z",
+            caloriesBurned = 180,
+            exercise = "Bench Press",
+            sets = listOf(set(1, "60", "8", "7"))
+        )
+        val customBench = session(
+            dateKey = "2026-07-18",
+            completedAt = "2026-07-18T10:00:00Z",
+            caloriesBurned = 170,
+            exercise = "Bench Press",
+            sets = listOf(set(1, "100", "5", "8"))
+        ).copy(
+            exercises = listOf(
+                CompletedExercise(
+                    itemId = "custom-bench",
+                    name = "Bench Press",
+                    targetMuscles = listOf("Chest"),
+                    equipment = "Barbell",
+                    sets = listOf(set(1, "100", "5", "8"))
+                )
+            )
+        )
+        val payload = json(
+            tools(workoutSessions = listOf(catalogBench, customBench), workoutPlanWeightUnit = WorkoutWeightUnit.KG)
+                .execute(
+                    "get_exercise_lift_history",
+                    mapOf(
+                        "exercise" to "Bench Press",
+                        "catalog_id" to "bench-press",
+                        "to" to "2026-07-20"
+                    )
+                )
+        )
+        assertEquals(1, payload["count"].asInt)
+        val sets = payload.getAsJsonArray("sessions")[0].asJsonObject.getAsJsonArray("sets")
+        assertEquals("60", sets[0].asJsonObject["weight"].asString)
+    }
+
+    @Test
+    fun exerciseLiftHistoryUsesAuthoritativeSameDaySnapshot() {
+        val legacy = session(
+            dateKey = "2026-07-12",
+            completedAt = "2026-07-12T08:00:00Z",
+            exercise = "Bench Press",
+            sets = listOf(set(1, "80", "5", "7"))
+        )
+        val newerClockButOlderVersion = session(
+            dateKey = "2026-07-12",
+            completedAt = "2026-07-12T11:00:00Z",
+            caloriesBurned = 190,
+            healthSyncVersion = 1,
+            exercise = "Bench Press",
+            sets = listOf(set(1, "82.5", "6", "7.5"))
+        )
+        val authoritative = session(
+            dateKey = "2026-07-12",
+            completedAt = "2026-07-12T10:00:00Z",
+            caloriesBurned = 210,
+            healthSyncVersion = 2,
+            exercise = "Bench Press",
+            sets = listOf(set(1, "85", "8", "8"))
+        )
+        val payload = json(
+            tools(workoutSessions = listOf(legacy, newerClockButOlderVersion, authoritative))
+                .execute(
+                    "get_exercise_lift_history",
+                    mapOf("exercise" to "Bench Press", "to" to "2026-07-20")
+                )
+        )
+        val sets = payload.getAsJsonArray("sessions")[0].asJsonObject.getAsJsonArray("sets")
+        assertEquals("85", sets[0].asJsonObject["weight"].asString)
+        assertEquals(8, sets[0].asJsonObject["reps"].asInt)
     }
 
     @Test
@@ -326,7 +467,8 @@ class CoachWorkoutToolsTest {
         workoutSessions: List<WorkoutSession> = emptyList(),
         workoutPlans: List<WorkoutDayPlan> = emptyList(),
         workoutPreferences: WorkoutPreferences = WorkoutPreferences(),
-        workoutPlanWeightUnit: WorkoutWeightUnit = WorkoutWeightUnit.LBS
+        workoutPlanWeightUnit: WorkoutWeightUnit = WorkoutWeightUnit.LBS,
+        clock: Clock = Clock.systemDefaultZone()
     ) = CoachTools(
         weights = emptyList(),
         bodyFats = emptyList(),
@@ -334,7 +476,8 @@ class CoachWorkoutToolsTest {
         workoutSessions = workoutSessions,
         workoutPlans = workoutPlans,
         workoutPreferences = workoutPreferences,
-        workoutPlanWeightUnit = workoutPlanWeightUnit
+        workoutPlanWeightUnit = workoutPlanWeightUnit,
+        clock = clock
     )
 
     private fun session(

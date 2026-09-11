@@ -181,6 +181,19 @@ class WorkoutModelsTest {
     }
 
     @Test
+    fun liftHistoryMatchingUsesCatalogIdExclusivelyWhenProvided() {
+        assertTrue(
+            ExerciseLiftHistory.matches("bench-press", "Bench Press", "bench-press", "Bench Press")
+        )
+        assertFalse(
+            ExerciseLiftHistory.matches("bench-press", "Bench Press", "custom-bench", "Bench Press")
+        )
+        assertTrue(
+            ExerciseLiftHistory.matches("", "Bench Press", "custom-bench", "Bench Press")
+        )
+    }
+
+    @Test
     fun timedCaloriesUseRpeAcrossScalesAndIgnoreBlankSets() {
         fun timed(rpe: String, scale: WorkoutRpeScale) = exercise(PlannedSet(rpe = rpe, rpeScale = scale)).copy(
             timer = ExerciseTimer(accumulatedSeconds = 600.0, savedDurationSeconds = 600.0)

@@ -14,6 +14,8 @@ import com.apoorvdarshan.calorietracker.data.WorkoutRepository
 import com.apoorvdarshan.calorietracker.models.Gender
 import com.apoorvdarshan.calorietracker.models.ExerciseTimerAction
 import com.apoorvdarshan.calorietracker.models.WorkoutIntensity
+import com.apoorvdarshan.calorietracker.models.ExerciseLiftDay
+import com.apoorvdarshan.calorietracker.models.ExerciseLiftHistory
 import com.apoorvdarshan.calorietracker.models.PlannedExercise
 import com.apoorvdarshan.calorietracker.models.WorkoutDate
 import com.apoorvdarshan.calorietracker.models.WorkoutPersistedState
@@ -82,6 +84,8 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
     private var exerciseImageStore: FoodImageStore? = null
     private var repositoryJob: Job? = null
     private var latestPersistedState = WorkoutPersistedState()
+    private var exerciseLiftSummaries: Map<String, String?> = emptyMap()
+    private var exerciseLiftSummaryInputs: ExerciseLiftSummaryInputs? = null
     private var bodyWeightKg = 70.0
     private var workoutWeightUnit = WorkoutWeightUnit.LBS
     private var profileGender = Gender.MALE
@@ -387,6 +391,17 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
         diaryUiState = diaryUiState.copy(notice = null)
     }
 
+    fun lastExerciseLiftSummary(itemId: String, name: String): String? =
+        exerciseLiftSummaries[liftSummaryKey(itemId, name)]
+
+    fun exerciseLiftHistory(itemId: String, name: String): List<ExerciseLiftDay> =
+        ExerciseLiftHistory.history(
+            latestPersistedState,
+            itemId,
+            name,
+            WorkoutDate.key(diaryUiState.selectedDate)
+        )
+
     fun openDiaryExercise(exercise: PlannedExercise) {
         openExerciseSnapshot = exercise.asExerciseItem()
         openExerciseId = exercise.itemId
@@ -446,6 +461,58 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
             weightUnit = workoutWeightUnit,
             visualGender = profileGender
         )
+        rebuildExerciseLiftSummariesIfNeeded()
+    }
+
+    private fun liftSummaryKey(itemId: String, name: String): String =
+        "$itemId\u0000${ExerciseLiftHistory.normalizedName(name)}"
+
+    private data class ExerciseLiftSummaryInputs(
+        val beforeKey: String,
+        val weightUnit: WorkoutWeightUnit,
+        val historyToken: Int,
+        val exerciseKeys: Set<String>
+    )
+
+    private fun completedSessionsHistoryToken(state: WorkoutPersistedState): Int =
+        state.completedSessions.fold(0) { token, session ->
+            var next = 31 * token + session.diaryDateKey.hashCode()
+            next = 31 * next + session.completedAt.hashCode()
+            next = 31 * next + (session.healthSyncVersion ?: 0)
+            session.exercises.fold(next) { exerciseToken, exercise ->
+                var perExercise = 31 * exerciseToken + exercise.itemId.hashCode()
+                perExercise = 31 * perExercise + exercise.sets.count { it.isPerformed }
+                perExercise
+            }
+        }
+
+    private fun rebuildExerciseLiftSummariesIfNeeded() {
+        val beforeKey = WorkoutDate.key(diaryUiState.selectedDate)
+        val exerciseKeys = diaryUiState.exercises
+            .asSequence()
+            .filterNot { it.isCardio }
+            .map { liftSummaryKey(it.itemId, it.name) }
+            .toSet()
+        val inputs = ExerciseLiftSummaryInputs(
+            beforeKey = beforeKey,
+            weightUnit = workoutWeightUnit,
+            historyToken = completedSessionsHistoryToken(latestPersistedState),
+            exerciseKeys = exerciseKeys
+        )
+        if (inputs == exerciseLiftSummaryInputs) return
+        exerciseLiftSummaryInputs = inputs
+        exerciseLiftSummaries = diaryUiState.exercises
+            .asSequence()
+            .filterNot { it.isCardio }
+            .associate { exercise ->
+                liftSummaryKey(exercise.itemId, exercise.name) to ExerciseLiftHistory.lastSummary(
+                    latestPersistedState,
+                    exercise.itemId,
+                    exercise.name,
+                    beforeKey,
+                    workoutWeightUnit
+                )
+            }
     }
 
     val hasActiveFilters: Boolean

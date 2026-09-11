@@ -2,6 +2,9 @@ package com.apoorvdarshan.calorietracker.data
 
 import com.apoorvdarshan.calorietracker.models.CompletedExercise
 import com.apoorvdarshan.calorietracker.models.CompletedSet
+import com.apoorvdarshan.calorietracker.models.ExerciseLiftDay
+import com.apoorvdarshan.calorietracker.models.ExerciseLiftHistory
+import com.apoorvdarshan.calorietracker.models.ExerciseLiftSet
 import com.apoorvdarshan.calorietracker.models.ExerciseTimer
 import com.apoorvdarshan.calorietracker.models.ExerciseTimerAction
 import com.apoorvdarshan.calorietracker.models.PlannedExercise
@@ -238,7 +241,10 @@ class WorkoutRepository(
         val target = count.coerceIn(1, 12)
         updateExercise(WorkoutDate.requireKey(dateKey), exerciseId) { exercise ->
             val sets = when {
-                target > exercise.sets.size -> exercise.sets + List(target - exercise.sets.size) { PlannedSet() }
+                target > exercise.sets.size -> {
+                    val template = exercise.sets.lastOrNull() ?: PlannedSet()
+                    exercise.sets + List(target - exercise.sets.size) { template.copyingFromPrevious() }
+                }
                 target < exercise.sets.size -> exercise.sets.take(target)
                 else -> exercise.sets
             }
@@ -362,6 +368,34 @@ class WorkoutRepository(
             .map { it.dateKey }
             .sortedDescending()
     }
+
+    suspend fun exerciseLiftHistory(
+        itemId: String,
+        name: String,
+        before: LocalDate,
+        limit: Int = 90
+    ): List<ExerciseLiftDay> = exerciseLiftHistory(itemId, name, WorkoutDate.key(before), limit)
+
+    suspend fun exerciseLiftHistory(
+        itemId: String,
+        name: String,
+        beforeDateKey: String,
+        limit: Int = 90
+    ): List<ExerciseLiftDay> =
+        ExerciseLiftHistory.history(snapshot(), itemId, name, beforeDateKey, limit)
+
+    suspend fun lastExerciseLiftSummary(
+        itemId: String,
+        name: String,
+        before: LocalDate,
+        displayUnit: WorkoutWeightUnit
+    ): String? = ExerciseLiftHistory.lastSummary(
+        snapshot(),
+        itemId,
+        name,
+        WorkoutDate.key(before),
+        displayUnit
+    )
 
     suspend fun updatePreferences(transform: (WorkoutPreferences) -> WorkoutPreferences) {
         updateState { current ->

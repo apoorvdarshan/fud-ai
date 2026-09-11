@@ -164,6 +164,7 @@ internal fun WorkoutDiaryScreen(
     var workoutVoiceVisible by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     var workoutTranscript by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf("") }
     var copySheetVisible by remember { mutableStateOf(false) }
+    var historyRequest by remember { mutableStateOf<WorkoutExerciseHistoryRequest?>(null) }
     var addMenuExpanded by remember { mutableStateOf(false) }
     var outdoorActivitySheet by remember { mutableStateOf<OutdoorActivityKind?>(null) }
     val walkRunQuickLogEnabled by container.prefs.walkRunQuickLogEnabled.collectAsState(initial = false)
@@ -307,7 +308,11 @@ internal fun WorkoutDiaryScreen(
                             rpeScale = state.preferences.rpeScale,
                             editingDate = state.selectedDate,
                             isSaved = isSaved,
+                            lastTimeSummary = viewModel.lastExerciseLiftSummary(exercise.itemId, exercise.name),
                             onOpen = { viewModel.openDiaryExercise(exercise) },
+                            onShowHistory = {
+                                historyRequest = WorkoutExerciseHistoryRequest(exercise.itemId, exercise.name)
+                            },
                             onToggleSaved = toggleSaved,
                             onRemove = removeExercise,
                             onSetCount = { viewModel.setSetCount(exercise.id, it) },
@@ -517,6 +522,16 @@ internal fun WorkoutDiaryScreen(
                 copySheetVisible = false
             },
             onDismiss = { copySheetVisible = false }
+        )
+    }
+
+    historyRequest?.let { request ->
+        WorkoutExerciseHistorySheet(
+            request = request,
+            selectedDate = state.selectedDate,
+            weightUnit = state.weightUnit,
+            history = viewModel.exerciseLiftHistory(request.itemId, request.name),
+            onDismiss = { historyRequest = null }
         )
     }
 
@@ -928,7 +943,9 @@ private fun WorkoutExerciseCard(
     rpeScale: WorkoutRpeScale,
     editingDate: LocalDate,
     isSaved: Boolean,
+    lastTimeSummary: String?,
     onOpen: () -> Unit,
+    onShowHistory: () -> Unit,
     onToggleSaved: () -> Unit,
     onRemove: () -> Unit,
     onSetCount: (Int) -> Unit,
@@ -994,6 +1011,35 @@ private fun WorkoutExerciseCard(
                     tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.34f),
                     modifier = Modifier.size(20.dp)
                 )
+            }
+
+            if (!exercise.isCardio) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    if (!lastTimeSummary.isNullOrBlank()) {
+                        Text(
+                            "Last time: $lastTimeSummary",
+                            modifier = Modifier.weight(1f),
+                            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.58f),
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            maxLines = 2,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    } else {
+                        Spacer(modifier = Modifier.weight(1f))
+                    }
+                    Text(
+                        "History",
+                        modifier = Modifier.clickable(onClick = onShowHistory),
+                        color = AppColors.Calorie,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
 
             Row(

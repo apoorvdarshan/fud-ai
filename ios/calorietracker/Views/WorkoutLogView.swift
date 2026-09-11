@@ -80,6 +80,7 @@ struct WorkoutLogView: View {
     @State private var isTextSheetPresented = false
     @State private var workoutInputUsesVoice = false
     @State private var selectedDetailItem: ExerciseLibraryItem?
+    @State private var historyRequest: WorkoutLogExerciseHistoryRequest?
 
     @State private var isNoPerformedSetAlertPresented = false
     @State private var isCalculatingBurn = false
@@ -255,10 +256,22 @@ struct WorkoutLogView: View {
                                     weightUnit: weightUnit,
                                     rpeScale: workoutStore.preferences.rpeScale,
                                     isSaved: workoutStore.savedExerciseIDs.contains(exercise.itemID),
+                                    lastTimeSummary: workoutStore.lastExerciseLiftSummary(
+                                        itemID: exercise.itemID,
+                                        name: exercise.name,
+                                        before: selectedDate,
+                                        displayUnit: weightUnit
+                                    ),
                                     focusedField: $focusedSetField,
                                     openDetail: {
                                         guard focusedSetField == nil else { return }
                                         selectedDetailItem = exercise.libraryItem
+                                    },
+                                    showHistory: {
+                                        historyRequest = WorkoutLogExerciseHistoryRequest(
+                                            itemID: exercise.itemID,
+                                            name: exercise.name
+                                        )
                                     },
                                     toggleSaved: {
                                         workoutStore.toggleSaved(exercise.itemID)
@@ -452,6 +465,21 @@ struct WorkoutLogView: View {
                         isCopySheetPresented = false
                     },
                     onClose: { isCopySheetPresented = false }
+                )
+                .presentationDetents([.medium, .large])
+                .presentationDragIndicator(.visible)
+            }
+            .sheet(item: $historyRequest) { request in
+                WorkoutLogExerciseHistorySheet(
+                    request: request,
+                    selectedDate: selectedDate,
+                    weightUnit: weightUnit,
+                    history: workoutStore.exerciseLiftHistory(
+                        itemID: request.itemID,
+                        name: request.name,
+                        before: selectedDate
+                    ),
+                    onClose: { historyRequest = nil }
                 )
                 .presentationDetents([.medium, .large])
                 .presentationDragIndicator(.visible)
@@ -959,13 +987,22 @@ private struct WorkoutLogSetFocus: Hashable {
     let field: Field
 }
 
+private struct WorkoutLogExerciseHistoryRequest: Identifiable {
+    let itemID: String
+    let name: String
+
+    var id: String { itemID }
+}
+
 private struct WorkoutLogExerciseCard: View {
     let exercise: StrengthPlannedExercise
     let weightUnit: WeightUnit
     let rpeScale: StrengthWorkoutRPEScale
     let isSaved: Bool
+    let lastTimeSummary: String?
     let focusedField: FocusState<WorkoutLogSetFocus?>.Binding
     let openDetail: () -> Void
+    let showHistory: () -> Void
     let toggleSaved: () -> Void
     let removeExercise: () -> Void
     let timerAction: (StrengthExerciseTimerAction) -> Void
@@ -1022,6 +1059,28 @@ private struct WorkoutLogExerciseCard: View {
             .buttonStyle(.plain)
             .accessibilityLabel("\(exercise.name), \(exercise.primaryMuscles.joined(separator: ", ")), \(exercise.rawEquipment)")
             .accessibilityHint("Opens exercise instructions")
+
+            if !isCardio {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    if let lastTimeSummary {
+                        Text("Last time: \(lastTimeSummary)")
+                            .font(.system(.caption, design: .rounded, weight: .semibold))
+                            .foregroundStyle(Color.workoutMutedText)
+                            .lineLimit(2)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    } else {
+                        Spacer(minLength: 0)
+                    }
+
+                    Button(action: showHistory) {
+                        Text("History")
+                            .font(.system(.caption, design: .rounded, weight: .heavy))
+                            .foregroundStyle(Color.workoutAccent)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityHint("Shows past logged sets for this exercise")
+                }
+            }
 
             VStack(alignment: .leading, spacing: 10) {
                 HStack(alignment: .center, spacing: 6) {
@@ -2227,6 +2286,61 @@ private struct WorkoutLogCopyDay: Identifiable {
     let exercises: [StrengthPlannedExercise]
 
     var id: String { StrengthWorkoutStore.dateKey(for: date) }
+}
+
+private struct WorkoutLogExerciseHistorySheet: View {
+    let request: WorkoutLogExerciseHistoryRequest
+    let selectedDate: Date
+    let weightUnit: WeightUnit
+    let history: [StrengthExerciseLiftDay]
+    let onClose: () -> Void
+
+    var body: some View {
+        NavigationStack {
+            List {
+                if history.isEmpty {
+                    ContentUnavailableView("No lift history yet", systemImage: "clock.arrow.circlepath")
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                } else {
+                    ForEach(history) { day in
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text(dayTitle(for: day.dateKey))
+                                .font(.headline.weight(.semibold))
+                                .foregroundStyle(Color.workoutCharcoal)
+                            Text(StrengthExerciseLiftHistory.formatSummary(day.sets, displayUnit: weightUnit))
+                                .font(.caption.weight(.semibold))
+                                .foregroundStyle(Color.workoutMutedText)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .padding(.vertical, 4)
+                        .listRowBackground(Color.workoutPanel.opacity(0.24))
+                        .listRowSeparatorTint(Color.workoutHairline.opacity(0.28))
+                    }
+                }
+            }
+            .scrollContentBackground(.hidden)
+            .listStyle(.plain)
+            .background(Color.workoutBackground)
+            .navigationTitle(request.name)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done", action: onClose)
+                        .font(.headline.weight(.heavy))
+                        .foregroundStyle(Color.workoutAccent)
+                }
+            }
+        }
+    }
+
+    private func dayTitle(for dateKey: String) -> String {
+        guard let date = StrengthWorkoutStore.date(for: dateKey) else { return dateKey }
+        if Calendar.current.isDateInToday(date) { return "Today" }
+        if Calendar.current.isDateInYesterday(date) { return "Yesterday" }
+        if Calendar.current.isDate(date, inSameDayAs: selectedDate) { return "Selected day" }
+        return date.formatted(.dateTime.weekday(.wide).month(.abbreviated).day().year())
+    }
 }
 
 private struct WorkoutLogCopySheet: View {

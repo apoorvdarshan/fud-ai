@@ -229,6 +229,13 @@ data class PlannedSet(
         weightUnit = if (carryingWeight) weightUnit else null
     )
 
+    /** New sets inherit weight, unit, and reps from the set above; RPE stays blank. */
+    fun copyingFromPrevious(): PlannedSet = PlannedSet(
+        weight = weight,
+        weightUnit = weightUnit,
+        reps = reps
+    )
+
     fun displayWeight(targetUnit: WorkoutWeightUnit): String {
         val sourceUnit = weightUnit ?: return weight
         val numericWeight = weight.replace(',', '.').toDoubleOrNull()
@@ -648,5 +655,107 @@ data class WorkoutSplitGroup(
             val configured = groups(split, available).filter { it.muscles.isNotEmpty() }
             return configured.ifEmpty { available.map { WorkoutSplitGroup(it, setOf(it)) } }
         }
+    }
+}
+
+data class ExerciseLiftSet(
+    val weight: String,
+    val weightUnit: WorkoutWeightUnit?,
+    val reps: String
+)
+
+data class ExerciseLiftDay(
+    val dateKey: String,
+    val sets: List<ExerciseLiftSet>
+)
+
+object ExerciseLiftHistory {
+    fun normalizedName(name: String): String =
+        name.trim().lowercase().replace(Regex("\\s+"), " ")
+
+    fun matches(itemId: String, name: String, candidateItemId: String, candidateName: String): Boolean {
+        if (itemId.isNotEmpty()) return itemId == candidateItemId
+        val left = normalizedName(name)
+        val right = normalizedName(candidateName)
+        return left.isNotEmpty() && left == right
+    }
+
+    fun performedSets(completed: List<CompletedSet>): List<ExerciseLiftSet> =
+        completed.filter { it.isPerformed }.map {
+            ExerciseLiftSet(
+                weight = it.weight.trim(),
+                weightUnit = it.weightUnit,
+                reps = it.reps.trim()
+            )
+        }
+
+    fun formatSetLine(set: ExerciseLiftSet, displayUnit: WorkoutWeightUnit): String {
+        if (set.reps.isEmpty()) return ""
+        if (set.weight.isEmpty()) return "${set.reps} reps"
+        val planned = PlannedSet(weight = set.weight, weightUnit = set.weightUnit, reps = set.reps)
+        return "${planned.displayWeight(displayUnit)} ${displayUnit.storageValue} × ${set.reps}"
+    }
+
+    fun formatSummary(sets: List<ExerciseLiftSet>, displayUnit: WorkoutWeightUnit): String =
+        sets.mapNotNull { line ->
+            formatSetLine(line, displayUnit).takeIf { it.isNotEmpty() }
+        }.joinToString(", ")
+
+    fun history(
+        state: WorkoutPersistedState,
+        itemId: String,
+        name: String,
+        beforeDateKey: String,
+        limit: Int = 90
+    ): List<ExerciseLiftDay> {
+        val before = WorkoutDate.requireKey(beforeDateKey)
+        val dateKeys = state.completedSessions
+            .map { it.diaryDateKey }
+            .distinct()
+            .filter { it < before }
+            .sortedDescending()
+        val results = mutableListOf<ExerciseLiftDay>()
+        for (key in dateKeys) {
+            if (results.size >= limit) break
+            val sets = liftSets(state, itemId, name, key)
+            if (sets.isNotEmpty()) results += ExerciseLiftDay(key, sets)
+        }
+        return results
+    }
+
+    fun lastSummary(
+        state: WorkoutPersistedState,
+        itemId: String,
+        name: String,
+        beforeDateKey: String,
+        displayUnit: WorkoutWeightUnit
+    ): String? {
+        val latest = history(state, itemId, name, beforeDateKey, limit = 1).firstOrNull() ?: return null
+        return formatSummary(latest.sets, displayUnit).takeIf { it.isNotEmpty() }
+    }
+
+    private fun liftSets(
+        state: WorkoutPersistedState,
+        itemId: String,
+        name: String,
+        dateKey: String
+    ): List<ExerciseLiftSet> {
+        return preferredHistorySession(state, dateKey)
+            ?.exercises
+            ?.firstOrNull { matches(itemId, name, it.itemId, it.name) }
+            ?.let { performedSets(it.sets) }
+            .orEmpty()
+    }
+
+    private fun preferredHistorySession(state: WorkoutPersistedState, dateKey: String): WorkoutSession? {
+        val sessions = state.completedSessions.filter { it.diaryDateKey == dateKey }
+        if (sessions.isEmpty()) return null
+        val burns = sessions.filter { it.caloriesBurned != null }
+        if (burns.isNotEmpty()) {
+            return burns.maxWith(
+                compareBy<WorkoutSession> { it.healthSyncVersion ?: 0 }.thenBy { it.completedAt }
+            )
+        }
+        return sessions.maxByOrNull { it.completedAt }
     }
 }

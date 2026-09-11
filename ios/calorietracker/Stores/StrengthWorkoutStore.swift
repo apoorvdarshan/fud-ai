@@ -37,6 +37,8 @@ final class StrengthWorkoutStore {
 
     private let defaults: UserDefaults
     private let storageKey: String
+    private var liftSummaryCacheKey: (beforeKey: String, displayUnit: WeightUnit, historyToken: Int)?
+    private var liftSummaryCache: [String: String] = [:]
 
     init(defaults: UserDefaults = .standard, storageKey: String = StrengthWorkoutStore.defaultStorageKey) {
         self.defaults = defaults
@@ -198,8 +200,9 @@ final class StrengthWorkoutStore {
         updateExercise(exerciseID, on: date) { exercise in
             let target = min(max(count, 1), 12)
             if target > exercise.sets.count {
+                let template = exercise.sets.last ?? StrengthPlannedSet()
                 exercise.sets.append(contentsOf: (exercise.sets.count..<target).map { _ in
-                    StrengthPlannedSet()
+                    template.copyingFromPrevious()
                 })
             } else if target < exercise.sets.count {
                 exercise.sets.removeLast(exercise.sets.count - target)
@@ -292,6 +295,52 @@ final class StrengthWorkoutStore {
             return planDate
         }
         .sorted(by: >)
+    }
+
+    func exerciseLiftHistory(
+        itemID: String,
+        name: String,
+        before date: Date,
+        limit: Int = 90
+    ) -> [StrengthExerciseLiftDay] {
+        let beforeKey = Self.dateKey(for: date)
+        let priorKeys = Set(completedSessions.map(\.stableDiaryDateKey))
+            .filter { $0 < beforeKey }
+            .sorted(by: >)
+
+        var results: [StrengthExerciseLiftDay] = []
+        for key in priorKeys {
+            guard results.count < limit else { break }
+            let sets = liftSets(for: itemID, name: name, on: key)
+            guard !sets.isEmpty else { continue }
+            results.append(StrengthExerciseLiftDay(dateKey: key, sets: sets))
+        }
+        return results
+    }
+
+    func lastExerciseLiftSummary(
+        itemID: String,
+        name: String,
+        before date: Date,
+        displayUnit: WeightUnit
+    ) -> String? {
+        let beforeKey = Self.dateKey(for: date)
+        let token = (beforeKey, displayUnit, liftSummaryHistoryToken)
+        if liftSummaryCacheKey != token {
+            liftSummaryCache = [:]
+            liftSummaryCacheKey = token
+        }
+        let cacheKey = "\(itemID)\u{0}\(StrengthExerciseLiftHistory.normalizedName(name))"
+        if let cached = liftSummaryCache[cacheKey] {
+            return cached.isEmpty ? nil : cached
+        }
+        guard let latest = exerciseLiftHistory(itemID: itemID, name: name, before: date, limit: 1).first else {
+            liftSummaryCache[cacheKey] = ""
+            return nil
+        }
+        let summary = StrengthExerciseLiftHistory.formatSummary(latest.sets, displayUnit: displayUnit)
+        liftSummaryCache[cacheKey] = summary
+        return summary.isEmpty ? nil : summary
     }
 
     @discardableResult
@@ -542,6 +591,35 @@ final class StrengthWorkoutStore {
         }
     }
 
+    private func liftSets(for itemID: String, name: String, on dateKey: String) -> [StrengthExerciseLiftSet] {
+        guard let session = preferredHistorySession(on: dateKey),
+              let exercise = session.exercises.first(where: {
+                  StrengthExerciseLiftHistory.matches(
+                      itemID: itemID,
+                      name: name,
+                      candidateItemID: $0.itemID,
+                      candidateName: $0.name
+                  )
+              })
+        else { return [] }
+        return StrengthExerciseLiftHistory.performedSets(from: exercise.sets)
+    }
+
+    private func preferredHistorySession(on dateKey: String) -> StrengthWorkoutSession? {
+        let sessions = completedSessions.filter { $0.stableDiaryDateKey == dateKey }
+        guard !sessions.isEmpty else { return nil }
+        let burns = sessions.filter { $0.caloriesBurned != nil }
+        if let latestBurn = burns.max(by: {
+            let left = $0.healthSyncVersion ?? 0
+            let right = $1.healthSyncVersion ?? 0
+            if left == right { return $0.completedAt < $1.completedAt }
+            return left < right
+        }) {
+            return latestBurn
+        }
+        return sessions.max(by: { $0.completedAt < $1.completedAt })
+    }
+
     private func referencesUserExerciseImage(_ filename: String) -> Bool {
         if userExercises.contains(where: { $0.imagePaths.contains(filename) }) { return true }
         if customActivities.contains(where: { $0.imagePaths.contains(filename) }) { return true }
@@ -588,6 +666,18 @@ final class StrengthWorkoutStore {
         userExercises = state.userExercises ?? []
         preferences = state.preferences
         preferences.sanitize()
+    }
+
+    private var liftSummaryHistoryToken: Int {
+        completedSessions.reduce(into: 0) { token, session in
+            token = 31 &* token &+ session.stableDiaryDateKey.hashValue
+            token = 31 &* token &+ session.completedAt.hashValue
+            token = 31 &* token &+ (session.healthSyncVersion ?? 0)
+            for exercise in session.exercises {
+                token = 31 &* token &+ exercise.itemID.hashValue
+                token = 31 &* token &+ exercise.sets.filter(\.isPerformed).count
+            }
+        }
     }
 
     private func save() {

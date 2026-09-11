@@ -39,6 +39,7 @@ struct CoachTools {
         "get_workout_plans",
         "get_workout_preferences",
         "get_training_summary",
+        "get_exercise_lift_history",
     ]
 
     /// The provider schemas are built from this instance value, preventing any
@@ -76,10 +77,11 @@ struct CoachTools {
         "get_calorie_totals": "Daily calorie totals (sum of all logged foods per day) between two dates. Returns date + kcal. Use when the user asks about intake patterns older than the last 14 days.",
         "get_food_entries": "Individual logged food items (name + calories + macros) between two dates. Use when the user asks about specific meals, what they ate on a given date, or wants macro breakdowns rather than just kcal totals.",
         "get_fasting_history": "Fetch explicitly tracked fasting sessions between two dates, including start/end timestamps, duration, goal, and whether the goal was reached. Never infer fasting from missing food logs.",
-        "get_workout_history": "Fetch completed workouts between two dates, including calculated calorie burn, saved exercise durations and intensity, and logged sets with weight, reps, and RPE. A timed exercise can be performed without any reps or sets.",
+        "get_workout_history": "Fetch completed workouts between two dates, including calculated calorie burn, saved exercise durations and intensity, and logged sets with weight, reps, and RPE. A timed exercise can be performed without any reps or sets. For one specific lift across many dates, prefer get_exercise_lift_history.",
         "get_workout_plans": "Fetch dated workout diary plans, set targets, saved exercise durations, and current timer state. Running or paused timer time is unsaved. Optional ISO from/to dates narrow the result; without them it returns recent and upcoming plans around today.",
         "get_workout_preferences": "Fetch workout-only preferences such as target muscles, injuries or issues, equipment, schedule, split, RPE scale, and strength numbers.",
         "get_training_summary": "Summarize workouts between two dates: calculated calorie burn plus sessions, saved exercise duration, sets, reps, volume, best load, and average RPE by exercise. Timed cardio does not require reps or sets.",
+        "get_exercise_lift_history": "Fetch per-exercise lift history from the local workout diary: dated sessions with logged weight × reps sets, the most recent session, and best load in kg. Use for questions like \"what did I bench last?\" or trends for one lift. Optional catalog_id narrows matching; otherwise exercise name is used.",
     ]
 
     /// One schema source is translated to each provider's wrapper by
@@ -97,6 +99,19 @@ struct CoachTools {
                     "to": ["type": "string", "description": "Optional ISO date yyyy-MM-dd, inclusive end"],
                     "limit": ["type": "integer", "description": "Optional max plans to return"],
                 ],
+            ]
+        }
+        if toolName == "get_exercise_lift_history" {
+            return [
+                "type": "object",
+                "properties": [
+                    "exercise": ["type": "string", "description": "Exercise name, e.g. Bench Press"],
+                    "catalog_id": ["type": "string", "description": "Optional library id when known"],
+                    "from": ["type": "string", "description": "Optional ISO date yyyy-MM-dd, inclusive start (defaults to one year before to)"],
+                    "to": ["type": "string", "description": "Optional ISO date yyyy-MM-dd, inclusive end (defaults to today)"],
+                    "limit": ["type": "integer", "description": "Optional max dated sessions to return"],
+                ],
+                "required": ["exercise"],
             ]
         }
         return [
@@ -140,6 +155,8 @@ struct CoachTools {
             return getWorkoutPreferences()
         case "get_training_summary":
             return getTrainingSummary(arguments: arguments)
+        case "get_exercise_lift_history":
+            return getExerciseLiftHistory(arguments: arguments)
         default:
             return jsonError("Unknown tool: \(name). Available tools: \(availableToolNames.joined(separator: ", "))")
         }
@@ -452,6 +469,82 @@ struct CoachTools {
                 "overhead_press": strengthValue(preferences.strength.overheadPressKg),
             ],
         ])
+    }
+
+    private func getExerciseLiftHistory(arguments: [String: Any]) -> String {
+        guard let exercise = (arguments["exercise"] as? String)?
+            .trimmingCharacters(in: .whitespacesAndNewlines),
+            !exercise.isEmpty
+        else {
+            return jsonError("exercise is required.")
+        }
+        let catalogID = (arguments["catalog_id"] as? String)?
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let to = (arguments["to"] as? String).flatMap(Self.parseDate) ?? Date()
+        let from = (arguments["from"] as? String).flatMap(Self.parseDate)
+            ?? Calendar.current.date(byAdding: .day, value: -365, to: to)
+            ?? to
+        let limit = (arguments["limit"] as? Int).map { min(max($0, 1), 120) } ?? 60
+        let fromKey = Self.iso(Calendar.current.startOfDay(for: from))
+        let toKey = Self.iso(Calendar.current.startOfDay(for: to))
+
+        let inRange = Set(effectiveWorkoutSessions.map(\.stableDiaryDateKey))
+            .filter { $0 >= fromKey && $0 <= toKey }
+            .sorted(by: >)
+
+        var sessions: [[String: Any]] = []
+        var bestLoadKg: Double?
+        for key in inRange {
+            guard sessions.count < limit else { break }
+            guard let sets = coachLiftSets(itemID: catalogID, name: exercise, on: key), !sets.isEmpty else { continue }
+            let setPayloads = sets.map { set -> [String: Any] in
+                var payload: [String: Any] = ["reps": Int(set.reps) ?? 0]
+                if !set.weight.isEmpty {
+                    payload["weight"] = set.weight
+                    let unit = set.weightUnit.isEmpty ? workoutPlanWeightUnit.rawValue : set.weightUnit
+                    payload["weight_unit"] = unit
+                    if let kg = Self.weightKg(value: set.weight, unit: unit) {
+                        payload["weight_kg"] = (kg * 10).rounded() / 10
+                        bestLoadKg = max(bestLoadKg ?? kg, kg)
+                    }
+                }
+                return payload
+            }
+            sessions.append(["date": key, "sets": setPayloads])
+        }
+
+        var payload: [String: Any] = [
+            "exercise": exercise,
+            "from": fromKey,
+            "to": toKey,
+            "count": sessions.count,
+            "sessions": sessions,
+        ]
+        if !catalogID.isEmpty { payload["catalog_id"] = catalogID }
+        if let bestLoadKg { payload["best_load_kg"] = (bestLoadKg * 10).rounded() / 10 }
+        if let last = sessions.first { payload["last_session"] = last }
+        return jsonString(payload)
+    }
+
+    private func coachLiftSets(itemID: String, name: String, on dateKey: String) -> [StrengthExerciseLiftSet]? {
+        let daySessions = workoutSessions.filter { $0.stableDiaryDateKey == dateKey }
+        let preferred = daySessions.filter { $0.caloriesBurned != nil }.max(by: {
+            let leftVersion = $0.healthSyncVersion ?? 0
+            let rightVersion = $1.healthSyncVersion ?? 0
+            if leftVersion == rightVersion { return $0.completedAt < $1.completedAt }
+            return leftVersion < rightVersion
+        }) ?? daySessions.max(by: { $0.completedAt < $1.completedAt })
+        guard let session = preferred,
+              let exercise = session.exercises.first(where: {
+                  StrengthExerciseLiftHistory.matches(
+                      itemID: itemID,
+                      name: name,
+                      candidateItemID: $0.itemID,
+                      candidateName: $0.name
+                  )
+              })
+        else { return nil }
+        return StrengthExerciseLiftHistory.performedSets(from: exercise.sets)
     }
 
     private func getTrainingSummary(arguments: [String: Any]) -> String {

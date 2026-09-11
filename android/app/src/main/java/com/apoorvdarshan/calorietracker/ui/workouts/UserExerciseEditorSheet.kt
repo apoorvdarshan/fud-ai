@@ -41,6 +41,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -105,22 +106,31 @@ fun UserExerciseEditorSheet(
         )
     }
     var isPhotoLoading by remember(existingItemId) { mutableStateOf(false) }
+    var photoLoadGeneration by remember(existingItemId) { mutableIntStateOf(0) }
     var showDeleteConfirmation by remember { mutableStateOf(false) }
 
     val photoPicker = rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
         uri ?: return@rememberLauncherForActivityResult
+        val generation = photoLoadGeneration + 1
+        photoLoadGeneration = generation
         scope.launch {
             isPhotoLoading = true
-            val bytes = withContext(Dispatchers.IO) {
-                context.contentResolver.openInputStream(uri)?.use { stream ->
-                    stream.readBytes().takeIf { it.size <= 20 * 1024 * 1024 }
+            try {
+                val bytes = withContext(Dispatchers.IO) {
+                    context.contentResolver.openInputStream(uri)?.use { stream ->
+                        stream.readBytes().takeIf { it.size <= 20 * 1024 * 1024 }
+                    }
                 }
-            }
-            isPhotoLoading = false
-            if (bytes != null) {
-                photoBytes = bytes
-                removePhoto = false
-                previewUri = uri
+                if (generation != photoLoadGeneration) return@launch
+                if (bytes != null) {
+                    photoBytes = bytes
+                    removePhoto = false
+                    previewUri = uri
+                }
+            } finally {
+                if (generation == photoLoadGeneration) {
+                    isPhotoLoading = false
+                }
             }
         }
     }
@@ -180,7 +190,7 @@ fun UserExerciseEditorSheet(
                     .clip(RoundedCornerShape(16.dp))
                     .background(colors.panel.copy(alpha = 0.35f))
                     .border(0.5.dp, colors.hairline.copy(alpha = 0.35f), RoundedCornerShape(16.dp))
-                    .clickable {
+                    .clickable(enabled = !isPhotoLoading) {
                         photoPicker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
                     },
                 contentAlignment = Alignment.Center
@@ -201,11 +211,16 @@ fun UserExerciseEditorSheet(
             }
 
             if (previewUri != null) {
-                TextButton(onClick = {
-                    previewUri = null
-                    photoBytes = null
-                    removePhoto = true
-                }) { Text("Remove photo", color = colors.accent) }
+                TextButton(
+                    onClick = {
+                        photoLoadGeneration += 1
+                        previewUri = null
+                        photoBytes = null
+                        removePhoto = true
+                        isPhotoLoading = false
+                    },
+                    enabled = !isPhotoLoading
+                ) { Text("Remove photo", color = colors.accent) }
             }
 
             OutlinedTextField(

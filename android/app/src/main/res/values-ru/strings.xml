@@ -232,7 +232,12 @@
     <string name="onboarding_pace_recommended">Рекомендуется</string>
     <string name="onboarding_pace_fast">Быстро</string>
     <string name="onboarding_pace_reach_prefix">Вы достигнете цели через </string>
-    <string name="onboarding_pace_days_format">%1$d дн.</string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="one">%1$d дн.</item>
+        <item quantity="few">%1$d дн.</item>
+        <item quantity="many">%1$d дн.</item>
+        <item quantity="other">%1$d дн.</item>
+    </plurals>
     <string name="onboarding_pace_caption_slow">Мягко и устойчиво. Отлично для долгосрочных привычек.</string>
     <string name="onboarding_pace_caption_fast">Агрессивно, но реально. Требует строгой дисциплины.</string>
     <string name="onboarding_pace_caption_recommended">Самый сбалансированный темп — мотивирующий и устойчивый.</string>
@@ -759,6 +764,7 @@
     <string name="speech_language_japanese">Японский</string>
     <string name="speech_language_chinese">Китайский</string>
     <string name="speech_language_korean">Корейский</string>
+    <string name="speech_language_czech">Чешский</string>
     <string name="about_update_checking">Проверка обновлений</string>
     <string name="about_update_available">Доступно обновление</string>
     <string name="about_update_details_format">Текущая %1$s -&gt; Новая %2$s</string>
@@ -804,6 +810,7 @@
     <string name="export_action">Экспортировать</string>
     <string name="settings_other_nutrients">Другие нутриенты</string>
     <string name="settings_other_nutrient_goals">Цели по другим нутриентам</string>
+    <string name="settings_other_nutrients_note">Отдельно от целей по калориям, белкам, углеводам и жирам.</string>
     <string name="settings_reset_defaults">Сбросить по умолчанию</string>
     <string name="copy_from">Копировать из</string>
     <string name="macro_protein_format">Белки: %1$s</string>

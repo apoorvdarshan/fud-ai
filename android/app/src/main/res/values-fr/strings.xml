@@ -232,7 +232,11 @@
     <string name="onboarding_pace_recommended">Recommandé</string>
     <string name="onboarding_pace_fast">Rapide</string>
     <string name="onboarding_pace_reach_prefix">Vous atteindrez votre objectif dans </string>
-    <string name="onboarding_pace_days_format">%1$d jours</string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="one">%1$d jour</item>
+        <item quantity="many">%1$d de jours</item>
+        <item quantity="other">%1$d jours</item>
+    </plurals>
     <string name="onboarding_pace_caption_slow">Doux et durable. Idéal pour des habitudes à long terme.</string>
     <string name="onboarding_pace_caption_fast">Agressif mais réalisable. Demande une grande discipline.</string>
     <string name="onboarding_pace_caption_recommended">Le rythme le plus équilibré, motivant et durable.</string>
@@ -785,4 +789,5 @@
     <string name="photo_save_permission_denied">Accès aux photos refusé</string>
     <string name="settings_save_photos_to_gallery">Enregistrer dans Photos</string>
     <string name="settings_save_photos_to_gallery_subtitle">Enregistrer aussi les photos de repas dans votre galerie lors de la saisie</string>
+    <string name="settings_other_nutrients_note">Distinct des objectifs de calories, protéines, glucides et lipides.</string>
 </resources>

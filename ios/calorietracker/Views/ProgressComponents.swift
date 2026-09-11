@@ -698,8 +698,8 @@ struct StatsSection: View {
                 .font(.system(.headline, design: .rounded, weight: .semibold))
 
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
-                StatTile(icon: "flame.fill", label: "Current Streak", value: "\(streak) days", color: AppColors.calorie)
-                StatTile(icon: "trophy.fill", label: "Best Streak", value: "\(bestStreak) days", color: AppColors.carbs)
+                StatTile(icon: "flame.fill", label: "Current Streak", value: String(localized: "\(streak) days"), color: AppColors.calorie)
+                StatTile(icon: "trophy.fill", label: "Best Streak", value: String(localized: "\(bestStreak) days"), color: AppColors.carbs)
                 StatTile(icon: "target", label: "Days on Target", value: "\(daysOnTarget)", color: AppColors.protein)
                 StatTile(icon: "fork.knife", label: "Total Entries", value: "\(totalEntries)", color: AppColors.fat)
             }

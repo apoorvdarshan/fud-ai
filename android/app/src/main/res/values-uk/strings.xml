@@ -283,7 +283,12 @@
     <string name="onboarding_pace_recommended">Рекомендовано</string>
     <string name="onboarding_pace_fast">Швидко</string>
     <string name="onboarding_pace_reach_prefix">Ви досягнете своєї мети за </string>
-    <string name="onboarding_pace_days_format">%1$d дн.</string>
+    <plurals name="onboarding_pace_days_format">
+        <item quantity="one">%1$d дн.</item>
+        <item quantity="few">%1$d дн.</item>
+        <item quantity="many">%1$d дн.</item>
+        <item quantity="other">%1$d дн.</item>
+    </plurals>
     <string name="onboarding_pace_caption_slow">Плавно й стабільно. Чудово підходить для довготривалих звичок.</string>
     <string name="onboarding_pace_caption_fast">Агресивно, але досяжно. Потребує суворої дисципліни.</string>
     <string name="onboarding_pace_caption_recommended">Найбільш збалансований темп: мотивує й легко підтримується.</string>

@@ -84,6 +84,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -925,7 +926,7 @@ private fun GoalSpeedStep(
                             fontWeight = FontWeight.Medium
                         )
                         Text(
-                            stringResource(R.string.onboarding_pace_days_format, estimatedDays),
+                            pluralStringResource(R.plurals.onboarding_pace_days_format, estimatedDays, estimatedDays),
                             style = MaterialTheme.typography.bodyMedium,
                             fontWeight = FontWeight.Bold,
                             color = AppColors.Calorie

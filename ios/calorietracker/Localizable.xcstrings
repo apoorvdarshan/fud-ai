@@ -1252,6 +1252,12 @@
             "state": "translated",
             "value": "Нежно-розовый"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rosa confetto"
+          }
         }
       }
     },
@@ -1462,6 +1468,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Коралловый"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Corallo"
           }
         }
       }
@@ -1862,6 +1874,12 @@
             "state": "translated",
             "value": "Графитовый"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grafite"
+          }
         }
       }
     },
@@ -2068,6 +2086,12 @@
             "state": "translated",
             "value": "Индиго"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Indaco"
+          }
         }
       }
     },
@@ -2178,6 +2202,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Лавандовый"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lavanda"
           }
         }
       }
@@ -2290,6 +2320,12 @@
             "state": "translated",
             "value": "Лаймовый"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lime"
+          }
         }
       }
     },
@@ -2400,6 +2436,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мокко"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marrone moka"
           }
         }
       }
@@ -2605,6 +2647,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Розовое золото"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oro rosa"
           }
         }
       }
@@ -3273,7 +3321,14 @@
       }
     },
     "": {
-      "localizations": {}
+      "localizations": {
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
+        }
+      }
     },
     "!": {
       "comment": "An exclamation mark.",
@@ -3286,6 +3341,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "!"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "!"
@@ -3304,6 +3365,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "."
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "."
@@ -3418,6 +3485,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Небесно-голубой"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Azzurro cielo"
           }
         }
       }
@@ -3725,6 +3798,12 @@
             "state": "translated",
             "value": "Жёлтый"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giallo"
+          }
         }
       }
     },
@@ -3932,6 +4011,12 @@
             "state": "translated",
             "value": "·"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "·"
+          }
         }
       }
     },
@@ -3944,6 +4029,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "/ %@"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "/ %@"
@@ -3972,6 +4063,12 @@
             "state": "translated",
             "value": "/%1$@%2$@"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "/%1$@%2$@"
+          }
         }
       }
     },
@@ -3986,6 +4083,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%"
@@ -4012,6 +4115,12 @@
             "state": "translated",
             "value": "%1$@ / %2$lldg"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ / %2$lldg"
+          }
         }
       }
     },
@@ -4030,6 +4139,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ %2$@"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ %2$@"
@@ -4154,6 +4269,12 @@
             "state": "translated",
             "value": "%1$@%2$@ осталось"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@%2$@ rimanenti"
+          }
         }
       }
     },
@@ -4176,6 +4297,12 @@
             "state": "translated",
             "value": "%1$@%2$lld ккал"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@%2$lld kcal"
+          }
         }
       }
     },
@@ -4188,6 +4315,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld"
@@ -4216,6 +4349,12 @@
             "state": "translated",
             "value": "%1$lld %2$@"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld %2$@"
+          }
         }
       }
     },
@@ -4239,6 +4378,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$lld %2$@ · нажмите, чтобы просмотреть или удалить"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld %2$@ · tocca per visualizzare o eliminare"
           }
         }
       }
@@ -4586,6 +4731,12 @@
             "state": "translated",
             "value": "%lld кал"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld cal"
+          }
         }
       }
     },
@@ -4603,6 +4754,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld см"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld cm"
           }
         }
       }
@@ -4640,6 +4797,24 @@
                 "stringUnit": {
                   "state": "translated",
                   "value": "%lld дней"
+                }
+              }
+            }
+          }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld giorno"
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%lld giorni"
                 }
               }
             }
@@ -4692,6 +4867,24 @@
               }
             }
           }
+        },
+        "it": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$lld alimento verrà aggiunto a %3$@."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "%1$lld alimenti verranno aggiunti a %3$@."
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -4710,6 +4903,12 @@
             "state": "translated",
             "value": "%lld фут"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld ft"
+          }
         }
       }
     },
@@ -4725,6 +4924,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld г"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld g"
           }
         }
       }
@@ -4742,6 +4947,12 @@
             "state": "translated",
             "value": "%lld дюйм"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld in"
+          }
         }
       }
     },
@@ -4757,6 +4968,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld ккал"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld kcal"
           }
         }
       }
@@ -4776,6 +4993,12 @@
             "state": "translated",
             "value": "%lld ккал / день"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld kcal / giorno"
+          }
         }
       }
     },
@@ -4791,6 +5014,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%lld осталось"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld rimanenti"
           }
         }
       }
@@ -4816,6 +5045,12 @@
             "state": "translated",
             "value": "%1$lld/%2$lld осталось"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld/%2$lld rimanenti"
+          }
         }
       }
     },
@@ -4838,6 +5073,12 @@
             "state": "translated",
             "value": "%1$lld%2$@"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$lld%2$@"
+          }
         }
       }
     },
@@ -4850,6 +5091,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%%"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "%lld%%"
@@ -4871,6 +5118,12 @@
             "state": "translated",
             "value": "%lldg"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lldg"
+          }
         }
       }
     },
@@ -4888,6 +5141,12 @@
             "state": "translated",
             "value": "%lldg · авто"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lldg · auto"
+          }
         }
       }
     },
@@ -4900,6 +5159,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "•"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "•"
@@ -4922,6 +5187,12 @@
             "state": "translated",
             "value": "~%@ г"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "~%@ g"
+          }
         }
       }
     },
@@ -4938,6 +5209,12 @@
             "state": "translated",
             "value": "0"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "0"
+          }
         }
       }
     },
@@ -4950,6 +5227,12 @@
           }
         },
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "27%"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "27%"
@@ -5164,6 +5447,12 @@
             "state": "translated",
             "value": "О адаптивных целях"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Info su Obiettivi adattivi"
+          }
         }
       }
     },
@@ -5179,6 +5468,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "О настройке «Граммы по умолчанию»"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Info su Grammi predefiniti"
           }
         }
       }
@@ -5290,6 +5585,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "О цели расхода калорий"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Info su Obiettivi consumo energetico"
           }
         }
       }
@@ -5403,6 +5704,12 @@
             "state": "translated",
             "value": "Принять и продолжить"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accetta e continua"
+          }
         }
       }
     },
@@ -5419,6 +5726,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Активный"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attivo"
           }
         }
       }
@@ -5629,6 +5942,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Адаптивные цели"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obiettivi adattivi"
           }
         }
       }
@@ -5942,6 +6261,12 @@
             "state": "translated",
             "value": "Добавлено"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiunto"
+          }
         }
       }
     },
@@ -5958,6 +6283,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавленный сахар"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zuccheri aggiunti"
           }
         }
       }
@@ -6077,6 +6408,12 @@
             "state": "translated",
             "value": "Агрессивно, но выполнимо. Требует высокой дисциплины."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggressivo ma fattibile. Richiede molta disciplina."
+          }
         }
       }
     },
@@ -6094,6 +6431,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Доступ к ИИ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accesso IA"
           }
         }
       }
@@ -6314,6 +6657,12 @@
             "state": "translated",
             "value": "Не удалось получить предложение ИИ"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suggerimento IA non riuscito"
+          }
         }
       }
     },
@@ -6331,6 +6680,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Все четыре напоминания умные — они не срабатывают в дни, когда вы уже внесли данные. Напоминание о жире отключено по умолчанию, так как большинство пользователей не измеряет его каждый день."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tutti e quattro i promemoria sono intelligenti: non si attivano nei giorni in cui hai già registrato i dati. Quello per il grasso corporeo è disattivato di default poiché la maggior parte degli utenti non lo misura ogni giorno."
           }
         }
       }
@@ -6449,6 +6804,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Разрешить напоминания о приемах пищи"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Consenti promemoria pasti"
           }
         }
       }
@@ -6972,6 +7333,12 @@
             "state": "translated",
             "value": "Анализ…"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Analisi in corso…"
+          }
         }
       }
     },
@@ -7090,6 +7457,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "и"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "e"
           }
         }
       }
@@ -7500,6 +7873,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Версия приложения"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versione dell'app"
           }
         }
       }
@@ -8512,6 +8891,12 @@
             "state": "translated",
             "value": "Ср.: %lld ккал"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Media: %lld kcal"
+          }
         }
       }
     },
@@ -8628,6 +9013,12 @@
             "state": "translated",
             "value": "Штрихкод"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Codice a barre"
+          }
         }
       }
     },
@@ -8643,6 +9034,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Базовый URL"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "URL di base"
           }
         }
       }
@@ -8661,6 +9058,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Получайте напоминания\nо записи приёмов пищи"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ricevi promemoria per\nregistrare i pasti"
           }
         }
       }
@@ -8773,6 +9176,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Лучшая серия"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Miglior serie"
           }
         }
       }
@@ -8890,6 +9299,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Синий"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blu"
           }
         }
       }
@@ -9399,6 +9814,12 @@
             "state": "translated",
             "value": "Замеры тела"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Misure corporee"
+          }
         }
       }
     },
@@ -9417,6 +9838,12 @@
             "state": "translated",
             "value": "Показатели тела"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Metriche corporee"
+          }
         }
       }
     },
@@ -9434,6 +9861,12 @@
             "state": "translated",
             "value": "Завтрак"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colazione"
+          }
         }
       }
     },
@@ -9450,6 +9883,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Завтрак → Обед → Ужин"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colazione → Pranzo → Cena"
           }
         }
       }
@@ -9568,6 +10007,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Кальций"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calcio"
           }
         }
       }
@@ -10069,6 +10514,12 @@
             "state": "translated",
             "value": "Камера + Камера"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fotocamera + fotocamera"
+          }
         }
       }
     },
@@ -10474,6 +10925,12 @@
             "state": "translated",
             "value": "Углеводы"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carboidrati"
+          }
         }
       }
     },
@@ -10490,6 +10947,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Углеводы (г)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Carboidrati (g)"
           }
         }
       }
@@ -10509,6 +10972,12 @@
             "state": "translated",
             "value": "Изменяет основной цвет приложения и иконку для вкладок, кнопок, значков, графиков и колец прогресса."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modifica il colore principale dell'app e l'icona della schermata Home usata per pannelli, pulsanti, icone, grafici e anelli di avanzamento."
+          }
         }
       }
     },
@@ -10526,6 +10995,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Проверить обновления"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verifica aggiornamenti"
           }
         }
       }
@@ -10646,6 +11121,12 @@
             "state": "translated",
             "value": "Проверяем соответствие вашим целям..."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verifica compatibilità con i tuoi obiettivi..."
+          }
         }
       }
     },
@@ -10664,6 +11145,12 @@
             "state": "translated",
             "value": "Проверка обновлений…"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verifica aggiornamenti in corso…"
+          }
         }
       }
     },
@@ -10680,6 +11167,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Китайский"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cinese"
           }
         }
       }
@@ -10698,6 +11191,12 @@
             "state": "translated",
             "value": "Холестерин"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colesterolo"
+          }
         }
       }
     },
@@ -10715,6 +11214,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Выберите ИИ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scegli la tua IA"
           }
         }
       }
@@ -11133,6 +11638,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Очистить количество"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancella quantità"
           }
         }
       }
@@ -11847,6 +12358,12 @@
             "state": "translated",
             "value": "Подключиться к\nApple Health"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connettiti ad\nApple Health"
+          }
         }
       }
     },
@@ -12065,6 +12582,12 @@
             "state": "translated",
             "value": "Копировать %@"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia %@"
+          }
         }
       }
     },
@@ -12082,6 +12605,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копировать все продукты"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia tutti gli alimenti"
           }
         }
       }
@@ -12101,6 +12630,12 @@
             "state": "translated",
             "value": "Копировать из"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia da"
+          }
         }
       }
     },
@@ -12116,6 +12651,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Копировать из дня"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copia da un giorno"
           }
         }
       }
@@ -12236,6 +12777,12 @@
             "state": "translated",
             "value": "Текущая %1$@ → Последняя %2$@"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versione attuale %1$@ -> più recente %2$@"
+          }
         }
       }
     },
@@ -12252,6 +12799,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Текущая серия"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serie attuale"
           }
         }
       }
@@ -12270,6 +12823,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сейчас %lld%%"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attualmente %lld%%"
           }
         }
       }
@@ -12684,6 +13243,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ежедневные тренировки или интенсивные 3–4 раза в неделю"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esercizio quotidiano o intenso 3–4 volte a settimana"
           }
         }
       }
@@ -13103,6 +13668,12 @@
             "state": "translated",
             "value": "Дата и Время"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Data e ora"
+          }
         }
       }
     },
@@ -13120,6 +13691,12 @@
             "state": "translated",
             "value": "Дней в цели"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giorni in obiettivo"
+          }
         }
       }
     },
@@ -13136,6 +13713,12 @@
             "state": "translated",
             "value": "Дробная"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Decimale"
+          }
         }
       }
     },
@@ -13151,6 +13734,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Граммы по умолчанию"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grammi come predefiniti"
           }
         }
       }
@@ -13658,6 +14247,12 @@
             "state": "translated",
             "value": "Delts Workout Tracker в App Store"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delts Workout Tracker su App Store"
+          }
         }
       }
     },
@@ -13870,6 +14465,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ужин"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cena"
           }
         }
       }
@@ -14282,6 +14883,12 @@
             "state": "translated",
             "value": "Нидерландский"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Olandese"
+          }
         }
       }
     },
@@ -14297,6 +14904,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "напр. «Это половина порции» или «Приготовлено на оливковом масле»"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ad es. \"Questa è mezza porzione\" o \"Cotto con olio d'oliva\""
           }
         }
       }
@@ -14314,6 +14927,12 @@
             "state": "translated",
             "value": "напр. anthropic/claude-sonnet-4"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ad es. anthropic/claude-sonnet-4"
+          }
         }
       }
     },
@@ -14329,6 +14948,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "напр. gpt-4o-mini"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ad es. gpt-4o-mini"
           }
         }
       }
@@ -14742,6 +15367,12 @@
             "state": "translated",
             "value": "Цель расхода калорий"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obiettivi consumo energetico"
+          }
         }
       }
     },
@@ -14853,6 +15484,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Английский"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inglese"
           }
         }
       }
@@ -15166,6 +15803,12 @@
             "state": "translated",
             "value": "Тренировки 1–3 раза в неделю"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esercizio 1–3 volte a settimana"
+          }
         }
       }
     },
@@ -15182,6 +15825,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Тренировки 4–5 раз в неделю"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esercizio 4–5 volte a settimana"
           }
         }
       }
@@ -15395,6 +16044,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Максимально активный"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Estremamente attivo"
           }
         }
       }
@@ -15713,6 +16368,12 @@
             "state": "translated",
             "value": "Жиры"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grassi"
+          }
         }
       }
     },
@@ -15729,6 +16390,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Жиры (г)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grassi (g)"
           }
         }
       }
@@ -15747,6 +16414,12 @@
             "state": "translated",
             "value": "Жиры"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grassi"
+          }
         }
       }
     },
@@ -15762,6 +16435,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Избранное"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preferito"
           }
         }
       }
@@ -16075,6 +16754,12 @@
             "state": "translated",
             "value": "Клетчатка"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fibre"
+          }
         }
       }
     },
@@ -16191,6 +16876,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Фолат"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Folati"
           }
         }
       }
@@ -16408,6 +17099,12 @@
             "state": "translated",
             "value": "Еда"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alimento"
+          }
         }
       }
     },
@@ -16524,6 +17221,12 @@
             "state": "translated",
             "value": "Дневник питания"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Diario alimentare"
+          }
         }
       }
     },
@@ -16539,6 +17242,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Порядок в дневнике питания"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ordine diario alimentare"
           }
         }
       }
@@ -16752,6 +17461,12 @@
             "state": "translated",
             "value": "Продукты будут скопированы в %@. Исходные записи останутся без изменений."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gli alimenti verranno copiati in %@. Le voci originali rimarranno invariate."
+          }
         }
       }
     },
@@ -16870,6 +17585,12 @@
             "state": "translated",
             "value": "Французский"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Francese"
+          }
         }
       }
     },
@@ -16985,6 +17706,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Изображение + Заметка"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Da foto + nota"
           }
         }
       }
@@ -17195,6 +17922,12 @@
       "isCommentAutoGenerated": true,
       "localizations": {
         "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fud AI 4.4"
+          }
+        },
+        "it": {
           "stringUnit": {
             "state": "translated",
             "value": "Fud AI 4.4"
@@ -17505,6 +18238,12 @@
             "state": "translated",
             "value": "Розовый Fud"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rosa Fud"
+          }
         }
       }
     },
@@ -17523,6 +18262,12 @@
             "state": "translated",
             "value": "г"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "g"
+          }
         }
       }
     },
@@ -17539,6 +18284,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Набрать вес"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aumentare di peso"
           }
         }
       }
@@ -17656,6 +18407,12 @@
             "state": "translated",
             "value": "Мягко и устойчиво. Отлично подходит для долгосрочных привычек."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Delicato e sostenibile. Ideale per abitudini a lungo termine."
+          }
         }
       }
     },
@@ -17673,6 +18430,12 @@
             "state": "translated",
             "value": "Немецкий"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tedesco"
+          }
         }
       }
     },
@@ -17688,6 +18451,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Получайте мягкие напоминания во время еды,\nчтобы не забыть сделать запись."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ricevi promemoria discreti agli orari dei pasti\nper non dimenticare di registrarli."
           }
         }
       }
@@ -17903,6 +18672,12 @@
             "state": "translated",
             "value": "Узнайте сегодняшнюю сумму калорий и белка."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ottieni il totale odierno di calorie e proteine."
+          }
         }
       }
     },
@@ -17921,6 +18696,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Цель"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obiettivo"
           }
         }
       }
@@ -18129,6 +18910,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Целевой % жира"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obiettivo % massa grassa"
           }
         }
       }
@@ -18549,6 +19336,12 @@
             "state": "translated",
             "value": "Зелёный"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verde"
+          }
         }
       }
     },
@@ -18665,6 +19458,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Индекс здоровья"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Punteggio salute"
           }
         }
       }
@@ -18880,6 +19679,12 @@
             "state": "translated",
             "value": "Привет, Siri, %@"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ehi Siri, %@"
+          }
         }
       }
     },
@@ -18895,6 +19700,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скрывать напоминания о завтраке, обеде и ужине, пока активен этот фокус."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nascondi i promemoria di colazione, pranzo e cena mentre questa Full immersion è attiva."
           }
         }
       }
@@ -18913,6 +19724,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Скрывать напоминания Fud AI о приемах пищи, пока активен фокус."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nascondi i promemoria dei pasti di Fud AI mentre è attiva una Full immersion."
           }
         }
       }
@@ -19031,6 +19848,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Хинди"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hindi"
           }
         }
       }
@@ -19251,6 +20074,12 @@
             "state": "translated",
             "value": "Карточки нутриентов на главном экране"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Schede nutrienti schermata Home"
+          }
         }
       }
     },
@@ -19268,6 +20097,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нутриенты на главном экране"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nutrienti schermata Home"
           }
         }
       }
@@ -20071,6 +20906,12 @@
             "state": "translated",
             "value": "Я принимаю Условия использования и Политику конфиденциальности, включая описанную выше передачу данных ИИ-провайдеру."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Accetto i Termini di servizio e l'Informativa sulla privacy, inclusa la condivisione dei dati con il provider IA descritta sopra."
+          }
         }
       }
     },
@@ -20088,6 +20929,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не удалось записать эту еду. %@"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impossibile registrare questo alimento. %@"
           }
         }
       }
@@ -20612,6 +21459,12 @@
             "state": "translated",
             "value": "Изображение прикреплено"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Immagine allegata"
+          }
         }
       }
     },
@@ -20629,6 +21482,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Влияние на сегодня"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Impatto su oggi"
           }
         }
       }
@@ -21150,6 +22009,12 @@
             "state": "translated",
             "value": "Интенсивные тренировки 6–7 раз в неделю"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esercizio intenso 6–7 volte a settimana"
+          }
         }
       }
     },
@@ -21267,6 +22132,12 @@
             "state": "translated",
             "value": "Железо"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ferro"
+          }
         }
       }
     },
@@ -21283,6 +22154,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Итальянский"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Italiano"
           }
         }
       }
@@ -21301,6 +22178,12 @@
             "state": "translated",
             "value": "Японский"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Giapponese"
+          }
         }
       }
     },
@@ -21316,6 +22199,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Фотографируй, записывай и будь здоров.\nПитание стало проще."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scatta, registra e raggiungi i tuoi obiettivi.\nLa tua nutrizione, semplificata."
           }
         }
       }
@@ -21433,6 +22322,12 @@
             "state": "translated",
             "value": "Держите питание и измерения тела\nв синхронизации автоматически."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantieni sincronizzati automaticamente\nnutrizione e misure corporee."
+          }
         }
       }
     },
@@ -21450,6 +22345,12 @@
             "state": "translated",
             "value": "Корейский"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coreano"
+          }
         }
       }
     },
@@ -21465,6 +22366,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Язык"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lingua"
           }
         }
       }
@@ -21482,6 +22389,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сначала последние приёмы пищи"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prima i pasti più recenti"
           }
         }
       }
@@ -21796,6 +22709,12 @@
             "state": "translated",
             "value": "Лимит"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Limite"
+          }
         }
       }
     },
@@ -21811,6 +22730,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Слушаю…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ascolto…"
           }
         }
       }
@@ -21828,6 +22753,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мало или совсем без тренировок"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Poco o nessun esercizio fisico"
           }
         }
       }
@@ -22038,6 +22969,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Заблокировать редактирование питания"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Blocca modifica valori nutrizionali"
           }
         }
       }
@@ -22251,6 +23188,12 @@
             "state": "translated",
             "value": "Записать ${foodDescription}"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra ${foodDescription}"
+          }
         }
       }
     },
@@ -22268,6 +23211,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Добавьте запись еды в Fud AI, описав, что вы съели."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra un alimento in Fud AI descrivendo cosa hai mangiato."
           }
         }
       }
@@ -22483,6 +23432,12 @@
             "state": "translated",
             "value": "Записать еду"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra alimento"
+          }
         }
       }
     },
@@ -22599,6 +23554,12 @@
             "state": "translated",
             "value": "Записать вес ${weightDescription}"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra peso ${weightDescription}"
+          }
         }
       }
     },
@@ -22616,6 +23577,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Запишите текущий вес в Fud AI."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registra il tuo peso attuale in Fud AI."
           }
         }
       }
@@ -22736,6 +23703,12 @@
             "state": "translated",
             "value": "Записано %1$@ %2$@."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrato %1$@ %2$@."
+          }
         }
       }
     },
@@ -22760,6 +23733,12 @@
             "state": "translated",
             "value": "Записано %1$@: %2$lld калорий и %3$@ г белка."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Registrato %1$@: %2$lld calorie e %3$@ grammi di proteine."
+          }
         }
       }
     },
@@ -22776,6 +23755,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сбросить вес"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Perdere peso"
           }
         }
       }
@@ -23385,6 +24370,12 @@
             "state": "translated",
             "value": "Магний"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Magnesio"
+          }
         }
       }
     },
@@ -23401,6 +24392,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Поддерживать"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantenimento"
           }
         }
       }
@@ -23517,6 +24514,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Ручной ввод"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Inserimento manuale"
           }
         }
       }
@@ -23832,6 +24835,12 @@
             "state": "translated",
             "value": "Фильтр напоминаний о еде"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filtro promemoria pasti"
+          }
         }
       }
     },
@@ -23947,6 +24956,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Прием пищи"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tipo di pasto"
           }
         }
       }
@@ -24452,6 +25467,12 @@
             "state": "translated",
             "value": "Мятный"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Menta"
+          }
         }
       }
     },
@@ -24469,6 +25490,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Режим"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modalità"
           }
         }
       }
@@ -24586,6 +25613,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Умеренный"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Moderato"
           }
         }
       }
@@ -24804,6 +25837,12 @@
             "state": "translated",
             "value": "Мононенасыщ. жиры"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grassi monoinsaturi"
+          }
         }
       }
     },
@@ -24821,6 +25860,12 @@
             "state": "translated",
             "value": "Мононенасыщ. жиры"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grassi monoinsaturi"
+          }
         }
       }
     },
@@ -24836,6 +25881,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Подробнее о нутриентах"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altri valori nutrizionali"
           }
         }
       }
@@ -24855,6 +25906,12 @@
             "state": "translated",
             "value": "Отключить напоминания о еде"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Silenzia promemoria pasti"
+          }
         }
       }
     },
@@ -24870,6 +25927,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Отключить напоминания о еде: ${muteMealReminders}"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Silenzia promemoria pasti: ${muteMealReminders}"
           }
         }
       }
@@ -25083,6 +26146,12 @@
             "state": "translated",
             "value": "Итоговое изменение"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Variazione netta"
+          }
         }
       }
     },
@@ -25196,6 +26265,12 @@
             "state": "translated",
             "value": "Ключ API не нужен.\nСканирование еды ИИ, голосовой ввод и тренер работают через Fud AI."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessuna chiave API richiesta.\nScansione alimenti con IA, inserimento vocale e Coach funzionano tramite Fud AI."
+          }
         }
       }
     },
@@ -25213,6 +26288,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Без обязательств — отменяйте в любое время"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun impegno — annulla quando vuoi"
           }
         }
       }
@@ -25331,6 +26412,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Нет занесённой еды в этот день"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun alimento registrato in questo giorno"
           }
         }
       }
@@ -25537,6 +26624,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не переживайте! Мы воспользуемся стандартной формулой\nна основе вашего роста, веса и возраста."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun problema! Useremo una formula standard\nbasata su altezza, peso ed età."
           }
         }
       }
@@ -26045,6 +27138,12 @@
             "state": "translated",
             "value": "Данные о питании"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dati nutrizionali"
+          }
         }
       }
     },
@@ -26362,6 +27461,12 @@
             "state": "translated",
             "value": "из %lld ккал"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "su %lld kcal"
+          }
         }
       }
     },
@@ -26579,6 +27684,12 @@
             "state": "translated",
             "value": "Омега"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Omega"
+          }
         }
       }
     },
@@ -26596,6 +27707,12 @@
             "state": "translated",
             "value": "Омега-3"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Omega-3"
+          }
         }
       }
     },
@@ -26612,6 +27729,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вкл = Кэтч-МакАрдл (использует безжировую массу тела для точного ПБМ). Выкл = Миффлин-Сент-Жор (только рост/вес/возраст). Выключите, если данные о жире устарели или недоступны."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attivo = Katch-McArdle (usa la massa magra per un BMR più accurato). Disattivo = Mifflin-St Jeor (solo altezza/peso/età). Disattiva se la misurazione della massa grassa non è recente."
           }
         }
       }
@@ -27117,6 +28240,12 @@
             "state": "translated",
             "value": "Оранжевый"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Arancione"
+          }
         }
       }
     },
@@ -27233,6 +28362,12 @@
             "state": "translated",
             "value": "Другие нутриенты"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Altri nutrienti"
+          }
         }
       }
     },
@@ -27348,6 +28483,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Процентаж"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Percentuale"
           }
         }
       }
@@ -27467,6 +28608,12 @@
             "state": "translated",
             "value": "Медиатека"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Libreria foto"
+          }
         }
       }
     },
@@ -27584,6 +28731,12 @@
             "state": "translated",
             "value": "Полиненасыщ. жиры"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grassi polinsaturi"
+          }
         }
       }
     },
@@ -27600,6 +28753,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Полиненасыщ. жиры"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grassi polinsaturi"
           }
         }
       }
@@ -27618,6 +28777,12 @@
             "state": "translated",
             "value": "Португальский"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Portoghese"
+          }
         }
       }
     },
@@ -27634,6 +28799,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Калий"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Potassio"
           }
         }
       }
@@ -28052,6 +29223,12 @@
             "state": "translated",
             "value": "Белки"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proteine"
+          }
         }
       }
     },
@@ -28068,6 +29245,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Белки (г)"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Proteine (g)"
           }
         }
       }
@@ -28280,6 +29463,12 @@
             "state": "translated",
             "value": "Автоопределение провайдером"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Automatico del provider"
+          }
         }
       }
     },
@@ -28296,6 +29485,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Фиолетовый"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Viola"
           }
         }
       }
@@ -29207,6 +30402,12 @@
             "state": "translated",
             "value": "Красный"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rosso"
+          }
         }
       }
     },
@@ -29223,6 +30424,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Обновить цель расхода калорий"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiorna obiettivi consumo energetico"
           }
         }
       }
@@ -29242,6 +30449,12 @@
             "state": "translated",
             "value": "Обновить использование"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiorna utilizzo"
+          }
         }
       }
     },
@@ -29259,6 +30472,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Обновление использования"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiornamento utilizzo in corso…"
           }
         }
       }
@@ -29483,6 +30702,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Удалить запись %1$@ о %2$@? Это также удалит соответствующую запись из Apple Health."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rimuovere la voce del %1$@ di %2$@? Verrà eliminato anche il campione corrispondente da Apple Health."
           }
         }
       }
@@ -30289,6 +31514,12 @@
             "state": "translated",
             "value": "Сбросить по умолчанию"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ripristina predefiniti"
+          }
         }
       }
     },
@@ -30503,6 +31734,12 @@
             "state": "translated",
             "value": "Повторить"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Riprova"
+          }
         }
       }
     },
@@ -30620,6 +31857,12 @@
             "state": "translated",
             "value": "Насыщ. жиры"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grassi saturi"
+          }
         }
       }
     },
@@ -30636,6 +31879,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Насыщенные жиры"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grassi saturi"
           }
         }
       }
@@ -31057,6 +32306,12 @@
             "state": "translated",
             "value": "Произнесите эти фразы Siri, чтобы пользоваться Fud AI без рук."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pronuncia queste frasi a Siri per usare Fud AI a mani libere."
+          }
         }
       }
     },
@@ -31173,6 +32428,12 @@
             "state": "translated",
             "value": "Потрите, чтобы узнать\nвашу специальную скидку!"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gratta per scoprire il tuo\nsconto speciale!"
+          }
         }
       }
     },
@@ -31285,6 +32546,12 @@
             "state": "translated",
             "value": "Малоподвижный"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sedentario"
+          }
         }
       }
     },
@@ -31302,6 +32569,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Отправить Тренеру"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invia con il tuo messaggio al Coach"
           }
         }
       }
@@ -31321,6 +32594,12 @@
             "state": "translated",
             "value": "Отдельно от целей по калориям, белкам, углеводам и жирам."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Separati dagli obiettivi di calorie, proteine, carboidrati e grassi."
+          }
         }
       }
     },
@@ -31336,6 +32615,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "URL сервера"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "URL del server"
           }
         }
       }
@@ -31756,6 +33041,12 @@
             "state": "translated",
             "value": "Отображается на главном"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrati nella schermata Home"
+          }
         }
       }
     },
@@ -31773,6 +33064,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Фразы Siri"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Frasi per Siri"
           }
         }
       }
@@ -32380,6 +33677,12 @@
             "state": "translated",
             "value": "Натрий"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sodio"
+          }
         }
       }
     },
@@ -32395,6 +33698,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сортировка"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ordina"
           }
         }
       }
@@ -32507,6 +33816,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Испанский"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spagnolo"
           }
         }
       }
@@ -32926,6 +34241,12 @@
             "state": "translated",
             "value": "Сахар"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zuccheri"
+          }
         }
       }
     },
@@ -32941,6 +34262,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Сахар, клетчатка, натрий"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zuccheri, fibre, sodio"
           }
         }
       }
@@ -32960,6 +34287,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Рекомендация ИИ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Suggerisci con IA"
           }
         }
       }
@@ -33375,6 +34708,12 @@
             "state": "translated",
             "value": "Нажмите на микрофон, чтобы начать"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tocca il microfono per iniziare"
+          }
         }
       }
     },
@@ -33485,6 +34824,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Цель"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Obiettivo"
           }
         }
       }
@@ -33603,6 +34948,12 @@
             "state": "translated",
             "value": "Бирюзовый"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Verde ottanio"
+          }
         }
       }
     },
@@ -33620,6 +34971,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "десятые"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "decimo"
           }
         }
       }
@@ -34031,6 +35388,12 @@
             "state": "translated",
             "value": "Самый сбалансированный темп — мотивирующий и устойчивый."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il ritmo più equilibrato, motivante e sostenibile."
+          }
         }
       }
     },
@@ -34046,6 +35409,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Цвет темы"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Colore tema"
           }
         }
       }
@@ -34064,6 +35433,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Это не записывает прием пищи. Оно показывает, как выглядел бы сегодняшний день, если записать %@."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Questo non registra il pasto. Mostra come sarebbe la giornata di oggi se registrassi %@."
           }
         }
       }
@@ -34384,6 +35759,12 @@
             "state": "translated",
             "value": "Время"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ora"
+          }
         }
       }
     },
@@ -34399,6 +35780,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Диапазон времени"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intervallo di tempo"
           }
         }
       }
@@ -34424,6 +35811,12 @@
             "state": "translated",
             "value": "Сегодня записано %1$lld калорий и %2$@ г белка."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oggi hai registrato %1$lld calorie e %2$@ grammi di proteine."
+          }
         }
       }
     },
@@ -34448,6 +35841,12 @@
             "state": "translated",
             "value": "Сегодня записано %1$lld из %2$lld калорий. Осталось %3$lld калорий. Белок: %4$@ г."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Oggi hai registrato %1$lld di %2$lld calorie. %3$lld calorie rimanenti. Proteine: %4$@ grammi."
+          }
         }
       }
     },
@@ -34466,6 +35865,12 @@
             "state": "translated",
             "value": "Сегодняшние калории"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Calorie di oggi"
+          }
         }
       }
     },
@@ -34481,6 +35886,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Еда за сегодня"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alimenti di oggi"
           }
         }
       }
@@ -34602,6 +36013,12 @@
             "state": "translated",
             "value": "Всего записей"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Totale registrazioni"
+          }
         }
       }
     },
@@ -34618,6 +36035,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Трансжиры"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trans"
           }
         }
       }
@@ -34636,6 +36059,12 @@
             "state": "translated",
             "value": "Трансжиры"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Grassi trans"
+          }
         }
       }
     },
@@ -34651,6 +36080,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Транскрипция через %@…"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Trascrizione tramite %@…"
           }
         }
       }
@@ -34769,6 +36204,12 @@
             "state": "translated",
             "value": "Убрать из избранного"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Rimuovi dai preferiti"
+          }
         }
       }
     },
@@ -34785,6 +36226,12 @@
             "state": "translated",
             "value": "Единица"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unità"
+          }
         }
       }
     },
@@ -34800,6 +36247,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Разблокировать редактирование питания"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sblocca modifica valori nutrizionali"
           }
         }
       }
@@ -34915,6 +36368,12 @@
             "state": "translated",
             "value": "Обновить"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiorna"
+          }
         }
       }
     },
@@ -34933,6 +36392,12 @@
             "state": "translated",
             "value": "Доступно обновление"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aggiornamento disponibile"
+          }
         }
       }
     },
@@ -34949,6 +36414,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Использовать жир для ПБМ"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa grasso corporeo per il BMR"
           }
         }
       }
@@ -34967,6 +36438,12 @@
             "state": "translated",
             "value": "Язык iPhone"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa la lingua dell'iPhone"
+          }
         }
       }
     },
@@ -34982,6 +36459,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Используется при нажатии на иконку голоса для записи приёма пищи. Каждый провайдер запоминает свой язык. «Авто» — значение по умолчанию; «Язык iPhone» — текущий язык iPhone, если он поддерживается."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usato quando tocchi l'icona vocale per registrare un pasto. Ciascun provider memorizza la propria lingua. \"Automatico del provider\" mantiene quella predefinita del provider; \"Usa la lingua dell'iPhone\" invia la lingua corrente del tuo iPhone se supportata."
           }
         }
       }
@@ -35197,6 +36680,12 @@
             "state": "translated",
             "value": "Версия %@"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Versione %@"
+          }
         }
       }
     },
@@ -35213,6 +36702,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Очень активный"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Molto attivo"
           }
         }
       }
@@ -35231,6 +36726,12 @@
             "state": "translated",
             "value": "Очень интенсивные ежедневные тренировки или физическая работа"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attività molto intensa quotidiana o lavoro fisico"
+          }
         }
       }
     },
@@ -35248,6 +36749,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вид"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visualizzazione"
           }
         }
       }
@@ -35461,6 +36968,12 @@
             "state": "translated",
             "value": "Вит. A"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vit. A"
+          }
         }
       }
     },
@@ -35477,6 +36990,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вит. C"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vit. C"
           }
         }
       }
@@ -35495,6 +37014,12 @@
             "state": "translated",
             "value": "Вит. D"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vit. D"
+          }
         }
       }
     },
@@ -35511,6 +37036,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вит. E"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vit. E"
           }
         }
       }
@@ -35529,6 +37060,12 @@
             "state": "translated",
             "value": "Вит. K"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vit. K"
+          }
         }
       }
     },
@@ -35545,6 +37082,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Витамин A"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitamina A"
           }
         }
       }
@@ -35563,6 +37106,12 @@
             "state": "translated",
             "value": "Витамин B12"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitamina B12"
+          }
         }
       }
     },
@@ -35579,6 +37128,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Витамин C"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitamina C"
           }
         }
       }
@@ -35597,6 +37152,12 @@
             "state": "translated",
             "value": "Витамин D"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitamina D"
+          }
         }
       }
     },
@@ -35614,6 +37175,12 @@
             "state": "translated",
             "value": "Витамин E"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitamina E"
+          }
         }
       }
     },
@@ -35630,6 +37197,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Витамин K"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vitamina K"
           }
         }
       }
@@ -35749,6 +37322,12 @@
             "state": "translated",
             "value": "Язык голоса"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lingua vocale"
+          }
         }
       }
     },
@@ -35865,6 +37444,12 @@
             "state": "translated",
             "value": "Мы будем поддерживать калории на стабильном уровне,\nчтобы сохранить ваш текущий вес."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Manterremo costanti le tue calorie\nper conservare il tuo peso attuale."
+          }
         }
       }
     },
@@ -35880,6 +37465,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Мы настраиваем всё\nдля вас"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stiamo preparando\ntutto per te"
           }
         }
       }
@@ -36499,6 +38090,12 @@
             "state": "translated",
             "value": "Синхронизация веса"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sincronizzazione peso"
+          }
         }
       }
     },
@@ -36517,6 +38114,12 @@
             "state": "translated",
             "value": "Что вы съели?"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosa hai mangiato?"
+          }
         }
       }
     },
@@ -36532,6 +38135,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Что если?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosa succederebbe?"
           }
         }
       }
@@ -36643,6 +38252,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Какой у вас вес?"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Qual è il tuo peso?"
           }
         }
       }
@@ -36857,6 +38472,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Что вы съели, например 100 г куриной грудки или два яйца и тост."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cosa hai mangiato, ad esempio 100g di petto di pollo o due uova con pane tostato."
           }
         }
       }
@@ -37076,6 +38697,12 @@
             "state": "translated",
             "value": "Что нового"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Novità"
+          }
         }
       }
     },
@@ -37091,6 +38718,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "При включении новые результаты открываются с граммами по умолчанию, даже если ИИ определяет порции. Вы всегда можете переключить единицы для каждого продукта."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se abilitato, i nuovi risultati degli alimenti si apriranno con i grammi selezionati anche se l'IA rileva tazze, porzioni o porzionature. Puoi comunque cambiare unità per ciascun alimento."
           }
         }
       }
@@ -37394,6 +39027,12 @@
             "state": "translated",
             "value": "целая"
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "intero"
+          }
         }
       }
     },
@@ -37409,6 +39048,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Целая"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Intero"
           }
         }
       }
@@ -38012,6 +39657,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Вы достигнете цели через "
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Raggiungerai il tuo obiettivo tra "
           }
         }
       }
@@ -38901,6 +40552,12 @@
             "state": "translated",
             "value": "Ваш вес, например 75 килограммов или 165 фунтов."
           }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Il tuo peso, ad esempio 75 chilogrammi o 165 libbre."
+          }
         }
       }
     },
@@ -38917,6 +40574,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Цинк"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zinco"
           }
         }
       }
@@ -48388,6 +50051,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Hold the Fud AI app icon to use these shortcuts. Each slot opens its selected action directly. On iPhone, Quick Action 1–3 can also be assigned in Shortcuts to the Action Button or Back Tap."
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tieni premuta l'icona dell'app Fud AI per usare queste abbreviazioni. Ogni posizione apre direttamente l'azione selezionata. Su iPhone, le Azioni rapide 1–3 possono anche essere assegnate in Comandi Rapidi al Tasto Azione o al Tocco posteriore."
           }
         }
       }

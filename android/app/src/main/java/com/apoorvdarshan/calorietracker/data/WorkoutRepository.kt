@@ -121,6 +121,28 @@ class WorkoutRepository(
         }
     }
 
+    /** Appends a completed timed cardio entry for quick logging from Home. */
+    suspend fun logQuickCardio(
+        item: ExerciseItem,
+        minutes: Int,
+        date: LocalDate,
+        intensity: WorkoutIntensity = WorkoutIntensity.MODERATE
+    ) {
+        if (minutes <= 0) return
+        val seconds = minutes * 60.0
+        val exercise = PlannedExercise.from(item).copy(
+            sets = emptyList(),
+            timer = ExerciseTimer(
+                accumulatedSeconds = seconds,
+                savedDurationSeconds = seconds,
+                intensity = intensity
+            )
+        )
+        updatePlan(WorkoutDate.key(date)) { plan ->
+            plan.copy(exercises = plan.exercises + exercise)
+        }
+    }
+
     suspend fun removeExercise(exerciseId: UUID, date: LocalDate) =
         removeExercise(exerciseId, WorkoutDate.key(date))
 

@@ -545,8 +545,8 @@ object WorkoutBurnEstimator {
             when (exercise.itemId) {
                 "Bicycling" -> listOf(4.3, 7.0, 9.0)
                 "Bicycling_Stationary", "Recumbent_Bike" -> listOf(3.5, 6.0, 10.8)
-                "Walking_Treadmill" -> listOf(2.8, 3.8, 4.8)
-                "Running_Treadmill", "Jogging_Treadmill" -> listOf(6.5, 8.5, 10.5)
+                "Walking_Treadmill", "Walking_Outdoor" -> listOf(2.8, 3.8, 4.8)
+                "Running_Treadmill", "Jogging_Treadmill", "Running_Outdoor" -> listOf(6.5, 8.5, 10.5)
                 "Rope_Jumping" -> listOf(8.3, 11.8, 12.3)
                 "Trail_Running_Walking" -> listOf(3.8, 6.0, 9.3)
                 "Skating" -> listOf(7.5, 9.8, 12.3)

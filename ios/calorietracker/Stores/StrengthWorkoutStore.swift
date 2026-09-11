@@ -105,6 +105,27 @@ final class StrengthWorkoutStore {
         }
     }
 
+    /// Appends a completed timed cardio entry for quick logging from Home.
+    func logQuickCardio(
+        _ item: ExerciseLibraryItem,
+        minutes: Int,
+        on date: Date,
+        intensity: StrengthWorkoutIntensity = .moderate
+    ) {
+        guard minutes > 0 else { return }
+        let seconds = Double(minutes * 60)
+        var exercise = StrengthPlannedExercise(item: item)
+        exercise.sets = []
+        exercise.timer = StrengthExerciseTimer(
+            accumulatedSeconds: seconds,
+            savedDurationSeconds: seconds,
+            intensity: intensity
+        )
+        updatePlan(for: date) { plan in
+            plan.exercises.append(exercise)
+        }
+    }
+
     func removeExercise(_ exerciseID: UUID, on date: Date) {
         updatePlan(for: date) { plan in
             plan.exercises.removeAll { $0.id == exerciseID }

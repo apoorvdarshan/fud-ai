@@ -62,6 +62,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.DirectionsRun
 import androidx.compose.material.icons.automirrored.outlined.DirectionsWalk
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.AddAPhoto
@@ -247,6 +248,7 @@ DisposableEffect(lifecycleOwner, vm) {
     val selectionMode = selectedFoodIds.isNotEmpty()
     var showNutritionDetail by remember { mutableStateOf(false) }
     var showCustomWaterLog by remember { mutableStateOf(false) }
+    var outdoorActivitySheet by remember { mutableStateOf<OutdoorActivityKind?>(null) }
     var showFastingStart by remember { mutableStateOf(false) }
     var editingFast by remember { mutableStateOf<FastingSession?>(null) }
     var pendingDiaryDeletion by remember { mutableStateOf<HomeDiaryItem?>(null) }
@@ -721,6 +723,18 @@ CalorieHero(
                                 SheetGlassDropdownMenuItem(label = stringResource(R.string.fasting), leadingIcon = Icons.Filled.Timer, trailingIcon = Icons.Filled.ChevronRight) { addMenuGroup = AddMenuGroup.Fasting }
                             }
                         }
+                        if (ui.walkRunQuickLogEnabled) {
+                            SheetGlassDropdownMenuItem(label = stringResource(R.string.outdoor_activity_walking), leadingIcon = Icons.AutoMirrored.Outlined.DirectionsWalk) {
+                                showAddMenu = false
+                                addMenuGroup = null
+                                outdoorActivitySheet = OutdoorActivityKind.WALKING
+                            }
+                            SheetGlassDropdownMenuItem(label = stringResource(R.string.outdoor_activity_running), leadingIcon = Icons.AutoMirrored.Filled.DirectionsRun) {
+                                showAddMenu = false
+                                addMenuGroup = null
+                                outdoorActivitySheet = OutdoorActivityKind.RUNNING
+                            }
+                        }
                     }
 
                     AddMenuGroup.PhotoAndScan -> {
@@ -791,6 +805,14 @@ CalorieHero(
             unit = ui.waterUnit,
             onDismiss = { showCustomWaterLog = false },
             onAdd = vm::addWater
+        )
+    }
+
+    outdoorActivitySheet?.let { activity ->
+        OutdoorActivityDurationSheet(
+            activity = activity,
+            onDismiss = { outdoorActivitySheet = null },
+            onLog = { minutes -> vm.logQuickOutdoorActivity(activity, minutes) }
         )
     }
 

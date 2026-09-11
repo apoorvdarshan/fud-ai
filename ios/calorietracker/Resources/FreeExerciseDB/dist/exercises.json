@@ -21306,6 +21306,56 @@
     "id": "Trail_Running_Walking"
   },
   {
+    "name": "Walking",
+    "force": null,
+    "level": "beginner",
+    "mechanic": null,
+    "equipment": null,
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "hamstrings"
+    ],
+    "instructions": [
+      "Walk at a comfortable pace outdoors or on a track. Keep your posture upright, land softly through your midfoot, and swing your arms naturally.",
+      "For a brisk walk, shorten your stride slightly and increase cadence rather than overstriding."
+    ],
+    "category": "cardio",
+    "images": [
+      "Walking_Treadmill_0.jpg",
+      "Walking_Treadmill_1.jpg"
+    ],
+    "id": "Walking_Outdoor"
+  },
+  {
+    "name": "Running",
+    "force": null,
+    "level": "beginner",
+    "mechanic": null,
+    "equipment": null,
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "calves",
+      "glutes",
+      "hamstrings"
+    ],
+    "instructions": [
+      "Run at a steady pace outdoors or on a track. Land lightly, keep your shoulders relaxed, and breathe rhythmically.",
+      "Ease into longer runs by building duration gradually and stopping if pain appears."
+    ],
+    "category": "cardio",
+    "images": [
+      "Running_Treadmill_0.jpg",
+      "Running_Treadmill_1.jpg"
+    ],
+    "id": "Running_Outdoor"
+  },
+  {
     "name": "Trap Bar Deadlift",
     "force": "pull",
     "level": "beginner",

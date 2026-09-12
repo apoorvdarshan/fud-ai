@@ -384,6 +384,7 @@ private struct WorkoutEquipmentImageTile: View {
                     imagePaths: option.imagePaths,
                     height: 96,
                     allowsDerivedImageLookup: false,
+                    animatesFrames: false,
                     fallbackSystemImage: "dumbbell.fill",
                     fallbackTitle: option.title
                 )

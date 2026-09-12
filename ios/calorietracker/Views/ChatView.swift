@@ -766,7 +766,7 @@ private struct MarkdownMessageText: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            ForEach(parse(text)) { block in
+            ForEach(MarkdownMessageBlockCache.blocks(for: text)) { block in
                 switch block.kind {
                 case .heading(let level):
                     Text(inline(block.text))
@@ -809,17 +809,18 @@ private struct MarkdownMessageText: View {
         ))) ?? AttributedString(string)
     }
 
-    private struct Block: Identifiable {
+    struct Block: Identifiable, Equatable {
         enum Kind: Equatable { case heading(Int), bullet, numbered(String), code, paragraph }
-        let id = UUID()
+        let id: String
         let kind: Kind
         let text: String
     }
 
-    private func parse(_ raw: String) -> [Block] {
+    fileprivate static func parse(_ raw: String) -> [Block] {
         var blocks: [Block] = []
         let lines = raw.replacingOccurrences(of: "\r\n", with: "\n").components(separatedBy: "\n")
         var index = 0
+        var blockIndex = 0
         while index < lines.count {
             let trimmed = lines[index].trimmingCharacters(in: .whitespaces)
 
@@ -831,7 +832,9 @@ private struct MarkdownMessageText: View {
                     index += 1
                 }
                 index += 1 // skip the closing fence
-                blocks.append(Block(kind: .code, text: codeLines.joined(separator: "\n")))
+                let text = codeLines.joined(separator: "\n")
+                blocks.append(Block(id: "code-\(blockIndex)", kind: .code, text: text))
+                blockIndex += 1
                 continue
             }
 
@@ -839,32 +842,51 @@ private struct MarkdownMessageText: View {
 
             if let level = headingLevel(trimmed) {
                 let content = String(trimmed.drop(while: { $0 == "#" })).trimmingCharacters(in: .whitespaces)
-                blocks.append(Block(kind: .heading(level), text: content))
+                blocks.append(Block(id: "heading-\(blockIndex)", kind: .heading(level), text: content))
             } else if trimmed.hasPrefix("- ") || trimmed.hasPrefix("* ") || trimmed.hasPrefix("+ ") {
-                blocks.append(Block(kind: .bullet, text: String(trimmed.dropFirst(2)).trimmingCharacters(in: .whitespaces)))
+                blocks.append(Block(id: "bullet-\(blockIndex)", kind: .bullet, text: String(trimmed.dropFirst(2)).trimmingCharacters(in: .whitespaces)))
             } else if let (number, rest) = numberedItem(trimmed) {
-                blocks.append(Block(kind: .numbered(number), text: rest))
+                blocks.append(Block(id: "numbered-\(blockIndex)", kind: .numbered(number), text: rest))
             } else {
-                blocks.append(Block(kind: .paragraph, text: trimmed))
+                blocks.append(Block(id: "paragraph-\(blockIndex)", kind: .paragraph, text: trimmed))
             }
+            blockIndex += 1
             index += 1
         }
         return blocks
     }
 
-    private func headingLevel(_ string: String) -> Int? {
+    private static func headingLevel(_ string: String) -> Int? {
         let hashes = string.prefix(while: { $0 == "#" }).count
         guard hashes >= 1, hashes <= 3, string.dropFirst(hashes).first == " " else { return nil }
         return hashes
     }
 
-    private func numberedItem(_ string: String) -> (String, String)? {
+    private static func numberedItem(_ string: String) -> (String, String)? {
         guard let dotIndex = string.firstIndex(of: ".") else { return nil }
         let numberPart = string[string.startIndex..<dotIndex]
         guard !numberPart.isEmpty, numberPart.allSatisfy(\.isNumber),
               string[string.index(after: dotIndex)...].first == " " else { return nil }
         let rest = String(string[string.index(after: dotIndex)...]).trimmingCharacters(in: .whitespaces)
         return (String(numberPart), rest)
+    }
+}
+
+private enum MarkdownMessageBlockCache {
+    private static let cache: NSCache<NSString, NSArray> = {
+        let cache = NSCache<NSString, NSArray>()
+        cache.countLimit = 48
+        return cache
+    }()
+
+    static func blocks(for text: String) -> [MarkdownMessageText.Block] {
+        let key = text as NSString
+        if let cached = cache.object(forKey: key) as? [MarkdownMessageText.Block] {
+            return cached
+        }
+        let parsed = MarkdownMessageText.parse(text)
+        cache.setObject(parsed as NSArray, forKey: key)
+        return parsed
     }
 }
 

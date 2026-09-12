@@ -237,6 +237,26 @@ struct FoodPhotoRemovalTests {
         }
     }
 
+    @Test func duplicatedForLoggingPreservesDiskBackedPhotos() throws {
+        try withStore { store, _ in
+            var meal = makeMeal()
+            meal.imageData = Data("primary-photo".utf8)
+            meal.additionalImageData = [Data("second-photo".utf8)]
+            store.replaceAllEntries([meal])
+            let saved = try #require(store.entries.first)
+            defer { saved.allImageFilenames.forEach { FoodImageStore.shared.delete(filename: $0) } }
+
+            var diskBacked = saved
+            diskBacked.imageData = nil
+            diskBacked.additionalImageData = []
+
+            let duplicated = diskBacked.duplicatedForLogging(at: Date())
+            #expect(duplicated.imageData == Data("primary-photo".utf8))
+            #expect(duplicated.additionalImageData == [Data("second-photo".utf8)])
+            #expect(duplicated.imageFilename == nil)
+        }
+    }
+
     private func makeMeal() -> FoodEntry {
         FoodEntry(
             name: "Rice and beans", calories: 270, protein: 12, carbs: 52, fat: 2,

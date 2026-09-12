@@ -178,6 +178,7 @@ dependencies {
     implementation(libs.revenuecat.purchases)
 
     testImplementation(libs.junit)
+    testImplementation("androidx.test:core:1.6.1")
     testImplementation("org.robolectric:robolectric:4.14.1")
     testImplementation("com.squareup.okhttp3:mockwebserver:${libs.versions.okhttp.get()}")
     testImplementation("com.squareup.okhttp3:okhttp-tls:${libs.versions.okhttp.get()}")

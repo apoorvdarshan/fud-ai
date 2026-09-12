@@ -149,7 +149,10 @@ private struct ExerciseImageView: View {
         .task(id: taskID) {
             displayedImage = nil
             frameIndex = initialFrameIndex
-            displayedImage = await loadFrame(at: frameIndex)
+            if let firstFrame = await loadFrame(at: frameIndex) {
+                guard !Task.isCancelled else { return }
+                displayedImage = firstFrame
+            }
             guard animatesFrames, asset.frames.count > 1, !reduceMotion else { return }
 
             var prefetchedIndex = (frameIndex + 1) % asset.frames.count
@@ -160,11 +163,15 @@ private struct ExerciseImageView: View {
                 guard !Task.isCancelled else { return }
 
                 if let prefetchedImage {
+                    guard !Task.isCancelled else { return }
                     displayedImage = prefetchedImage
                     frameIndex = prefetchedIndex
                 } else {
                     frameIndex = (frameIndex + 1) % asset.frames.count
-                    displayedImage = await loadFrame(at: frameIndex)
+                    if let loaded = await loadFrame(at: frameIndex) {
+                        guard !Task.isCancelled else { return }
+                        displayedImage = loaded
+                    }
                 }
 
                 prefetchedIndex = (frameIndex + 1) % asset.frames.count

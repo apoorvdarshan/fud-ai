@@ -46,9 +46,25 @@ final class StrengthWorkoutStore {
 
     private var exerciseLibrarySourceFingerprint: Int {
         var hasher = Hasher()
-        hasher.combine(customActivities.map(\.itemID))
-        hasher.combine(userExercises.map(\.itemID))
+        for exercise in customActivities + userExercises {
+            combineLibrarySource(&hasher, exercise: exercise)
+        }
         return hasher.finalize()
+    }
+
+    private func combineLibrarySource(_ hasher: inout Hasher, exercise: StrengthPlannedExercise) {
+        let item = exercise.libraryItem
+        hasher.combine(item.id)
+        hasher.combine(item.name)
+        hasher.combine(item.rawLevel)
+        hasher.combine(item.imagePaths)
+        hasher.combine(item.force)
+        hasher.combine(item.mechanic)
+        hasher.combine(item.category)
+        hasher.combine(item.rawEquipment)
+        hasher.combine(item.primaryMuscles)
+        hasher.combine(item.secondaryMuscles)
+        hasher.combine(item.instructions)
     }
     var onWorkoutBurnUpserted: ((StrengthWorkoutSession) -> Void)?
     var onWorkoutBurnDeleted: ((UUID) -> Void)?

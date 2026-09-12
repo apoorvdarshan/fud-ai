@@ -68,9 +68,13 @@ struct FoodEntryThumbnailView: View {
 enum FoodEntryPhotoLoader {
     static func viewerImages(for entry: FoodEntry) async -> [UIImage] {
         await Task.detached(priority: .userInitiated) {
-            entry.allImageFilenames.compactMap { filename in
+            let fromFilenames = entry.allImageFilenames.compactMap { filename in
                 FoodImageStore.shared.loadForViewer(filename: filename)
             }
+            if !fromFilenames.isEmpty {
+                return fromFilenames
+            }
+            return entry.allImageData.compactMap(UIImage.init(data:))
         }.value
     }
 }

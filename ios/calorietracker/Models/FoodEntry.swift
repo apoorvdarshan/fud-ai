@@ -701,6 +701,7 @@ struct FoodEntry: Identifiable, Codable {
     /// Uses current time's meal type by default.
     func duplicatedForLogging(at logDate: Date, mealType: MealType = .currentMeal) -> FoodEntry {
         let resolvedMealType = mealType
+        let copiedPhotos = allImageData
         return FoodEntry(
             name: name,
             calories: calories,
@@ -708,9 +709,9 @@ struct FoodEntry: Identifiable, Codable {
             carbs: carbs,
             fat: fat,
             timestamp: logDate,
-            imageData: imageData,
+            imageData: copiedPhotos.first,
             imageFilename: nil,  // new id → new filename will be assigned on save
-            additionalImageData: additionalImageData,
+            additionalImageData: Array(copiedPhotos.dropFirst()),
             additionalImageFilenames: [],
             emoji: emoji,
             source: source,

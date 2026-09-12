@@ -125,11 +125,12 @@ struct WidgetSnapshot: Codable, Equatable {
             protein: 84, proteinGoal: 150,
             carbs: 132, carbsGoal: 220,
             fat: 42, fatGoal: 70,
+            // Match iPhone Home: up to 3 selectable nutrients; water is injected
+            // as the locked 4th pillar when tracking is enabled.
             homeNutrients: [
                 WidgetNutrientValue(id: "protein", label: "Protein", shortLabel: "P", unit: "g", iconName: "fork.knife", value: 84, goal: 150),
                 WidgetNutrientValue(id: "carbs", label: "Carbs", shortLabel: "C", unit: "g", iconName: "leaf", value: 132, goal: 220),
                 WidgetNutrientValue(id: "fat", label: "Fat", shortLabel: "F", unit: "g", iconName: "drop.fill", value: 42, goal: 70),
-                WidgetNutrientValue(id: "fiber", label: "Fiber", shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 18.2, goal: 34),
             ],
             waterTrackingEnabled: true,
             waterCurrentMl: 1_250,
@@ -156,18 +157,41 @@ struct WidgetSnapshot: Codable, Equatable {
         )
     }
 
-    /// The 4 nutrient cards to render, matching the iPhone Home selection.
-    /// Legacy snapshots (no homeNutrients) yield the four default nutrients.
+    /// The nutrient pillars to render, matching iPhone Home: up to 4 selected
+    /// nutrients, or 3 + a locked Water pillar when Water Tracking is enabled.
     var displayedHomeNutrients: [WidgetNutrientValue] {
-        if let homeNutrients, !homeNutrients.isEmpty {
-            return Array(homeNutrients.prefix(4))
+        let selected = homeNutrients?.filter { !$0.id.isEmpty && $0.id != "water" } ?? []
+        var merged: [WidgetNutrientValue] = []
+        for nutrient in selected.isEmpty ? defaultHomeNutrients : selected {
+            guard !merged.contains(where: { $0.id == nutrient.id }) else { continue }
+            merged.append(nutrient)
+            if merged.count == (waterIsEnabled ? 3 : 4) { break }
         }
-        return [
+        if waterIsEnabled { merged.append(waterHomeNutrient) }
+        return merged
+    }
+
+    private var defaultHomeNutrients: [WidgetNutrientValue] {
+        [
             WidgetNutrientValue(id: "protein", label: "Protein", shortLabel: "P", unit: "g", iconName: "fork.knife", value: protein, goal: Double(proteinGoal)),
             WidgetNutrientValue(id: "carbs", label: "Carbs", shortLabel: "C", unit: "g", iconName: "leaf", value: carbs, goal: Double(carbsGoal)),
             WidgetNutrientValue(id: "fat", label: "Fat", shortLabel: "F", unit: "g", iconName: "drop.fill", value: fat, goal: Double(fatGoal)),
             WidgetNutrientValue(id: "fiber", label: "Fiber", shortLabel: "Fi", unit: "g", iconName: "leaf.fill", value: 0, goal: 34),
         ]
+    }
+
+    private var waterHomeNutrient: WidgetNutrientValue {
+        let usesFluidOunces = waterUnitRaw == "floz"
+        let divisor = usesFluidOunces ? 29.5735295625 : 1
+        return WidgetNutrientValue(
+            id: "water",
+            label: "Water",
+            shortLabel: "W",
+            unit: usesFluidOunces ? " fl oz" : "ml",
+            iconName: "drop.fill",
+            value: Double(waterCurrent) / divisor,
+            goal: Double(waterGoal) / divisor
+        )
     }
 
     var caloriesRemaining: Int { max(0, calorieGoal - calories) }

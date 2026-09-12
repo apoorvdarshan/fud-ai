@@ -8,6 +8,11 @@ Thanks for your interest in contributing! Fud AI is an open-source, "bring-your-
 
 PRs, bug reports, and feature ideas for any of these are welcome.
 
+
+## Localization
+
+Ukrainian (Android + iOS) was contributed by [Oleksandr Belei](https://github.com/oleksandr-belei) (#184 → #270).
+
 ## Getting Started (iOS)
 
 1. Fork the repo

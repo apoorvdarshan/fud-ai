@@ -35,6 +35,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
@@ -133,6 +134,8 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
     private val _burnRefreshTick = MutableStateFlow(0)
     private var retryAction: (() -> Unit)? = null
     private val foodSubmissionGate = FoodSubmissionGate()
+    private var thumbnailPrefetchJob: Job? = null
+    private var lastPrefetchedFilenames: Set<String>? = null
 
     /** Re-read Health Connect energy after resume or other external invalidation. */
     fun bumpBurnRefresh() {
@@ -161,10 +164,15 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
         }
             .onEach { state ->
                 _ui.value = state
-                viewModelScope.launch(Dispatchers.IO) {
-                    container.imageStore.warmThumbnails(
-                        state.todayEntries.flatMap { it.allImageFilenames }
-                    )
+                val filenames = state.todayEntries
+                    .flatMap { it.allImageFilenames }
+                    .filter { it.isNotBlank() }
+                    .toSet()
+                if (filenames == lastPrefetchedFilenames) return@onEach
+                lastPrefetchedFilenames = filenames
+                thumbnailPrefetchJob?.cancel()
+                thumbnailPrefetchJob = viewModelScope.launch(Dispatchers.IO) {
+                    container.imageStore.warmThumbnails(filenames)
                 }
             }
             .launchIn(viewModelScope)

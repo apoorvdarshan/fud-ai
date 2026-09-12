@@ -11,6 +11,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Local food-photo cache. Port of iOS FoodImageStore.
@@ -27,6 +28,7 @@ class FoodImageStore private constructor(
     private val thumbnailCache = object : LruCache<String, Bitmap>(thumbnailCacheKb) {
         override fun sizeOf(key: String, value: Bitmap): Int = value.byteCount / 1024
     }
+    private val thumbnailLocks = ConcurrentHashMap<String, Any>()
 
     constructor(context: Context) : this(
         rootDir = context.filesDir,
@@ -72,19 +74,23 @@ class FoodImageStore private constructor(
         val key = "$filename:$maxDimension"
         thumbnailCache.get(key)?.takeUnless { it.isRecycled }?.let { return it }
 
-        val thumbFile = File(thumbnailDir, filename)
-        val bitmap = when {
-            thumbFile.exists() -> runCatching {
-                FoodImageDecoder.decode(thumbFile, maxDimension)
-            }.getOrNull()
-            else -> runCatching {
-                val fullFile = File(dir, filename)
-                FoodImageDecoder.decode(fullFile, maxDimension)?.also { writeThumbnail(filename, it) }
-            }.getOrNull()
-        }
+        synchronized(thumbnailLockFor(filename)) {
+            thumbnailCache.get(key)?.takeUnless { it.isRecycled }?.let { return it }
 
-        if (bitmap != null) thumbnailCache.put(key, bitmap)
-        return bitmap
+            val thumbFile = File(thumbnailDir, filename)
+            val bitmap = when {
+                thumbFile.exists() -> runCatching {
+                    FoodImageDecoder.decode(thumbFile, maxDimension)
+                }.getOrNull()
+                else -> runCatching {
+                    val fullFile = File(dir, filename)
+                    FoodImageDecoder.decode(fullFile, maxDimension)?.also { writeThumbnail(filename, it) }
+                }.getOrNull()
+            }
+
+            if (bitmap != null) thumbnailCache.put(key, bitmap)
+            return bitmap
+        }
     }
 
     /** Prefetch thumbnails into memory/disk cache. Call from a background dispatcher. */
@@ -162,11 +168,25 @@ class FoodImageStore private constructor(
 
     private fun writeThumbnail(filename: String, bitmap: Bitmap) {
         val thumb = bitmap.scaledToMaxDimension(THUMBNAIL_MAX_DIMENSION)
-        FileOutputStream(File(thumbnailDir, filename)).use { out ->
-            thumb.compress(Bitmap.CompressFormat.JPEG, 76, out)
+        val target = File(thumbnailDir, filename)
+        val temp = File(thumbnailDir, "$filename.${UUID.randomUUID()}.tmp")
+        try {
+            FileOutputStream(temp).use { out ->
+                thumb.compress(Bitmap.CompressFormat.JPEG, 76, out)
+            }
+            if (!temp.renameTo(target)) {
+                temp.copyTo(target, overwrite = true)
+                temp.delete()
+            }
+            thumbnailCache.put("$filename:$THUMBNAIL_MAX_DIMENSION", thumb)
+        } catch (e: Exception) {
+            temp.delete()
+            throw e
         }
-        thumbnailCache.put("$filename:$THUMBNAIL_MAX_DIMENSION", thumb)
     }
+
+    private fun thumbnailLockFor(filename: String): Any =
+        thumbnailLocks.getOrPut(filename) { Any() }
 
     private fun evictThumbnails(filename: String) {
         for (key in thumbnailCache.snapshot().keys) {

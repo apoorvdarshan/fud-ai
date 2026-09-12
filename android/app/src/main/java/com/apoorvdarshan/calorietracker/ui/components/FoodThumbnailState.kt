@@ -15,6 +15,7 @@ fun rememberFoodThumbnail(
     filename: String?,
 ): Bitmap? {
     val bitmap by produceState<Bitmap?>(initialValue = null, filename, imageStore) {
+        value = null
         value = filename?.let { name ->
             withContext(Dispatchers.IO) {
                 imageStore.loadThumbnail(name)
@@ -31,6 +32,7 @@ fun rememberFoodThumbnail(
     filenames: List<String>,
 ): Bitmap? {
     val bitmap by produceState<Bitmap?>(initialValue = null, filenames, imageStore) {
+        value = null
         value = withContext(Dispatchers.IO) {
             filenames.firstNotNullOfOrNull { imageStore.loadThumbnail(it) }
         }

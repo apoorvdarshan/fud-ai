@@ -46,6 +46,7 @@ struct calorietrackerApp: App {
         // Tip-jar IAPs are tracked through RevenueCat (public SDK key, safe to ship).
         Purchases.logLevel = .warn
         Purchases.configure(withAPIKey: "appl_kOERxwXPyEUPZVCKhuuuNnUuGUZ")
+        Task { @MainActor in RevenueCatManager.shared.configure() }
         // Derive the split height/weight unit prefs from the legacy useMetric flag
         // before any view reads them.
         UnitPreferenceMigration.runIfNeeded()
@@ -490,7 +491,8 @@ struct calorietrackerApp: App {
                     measurement: bodyMeasurements.sorted { $0.date > $1.date }.first,
                     evidence: evidence,
                     heightMetric: heightMetric,
-                    weightMetric: weightMetric
+                    weightMetric: weightMetric,
+                    countTowardHostedQuota: false
                 )
                 // The provider call can take seconds. Never overwrite profile/target edits the
                 // user made while it was in flight; the next foreground can recalculate afresh.

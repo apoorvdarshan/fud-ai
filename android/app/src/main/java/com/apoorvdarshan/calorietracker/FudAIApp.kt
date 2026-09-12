@@ -25,8 +25,12 @@ import com.apoorvdarshan.calorietracker.services.GoalEvidenceBuilder
 import com.apoorvdarshan.calorietracker.models.UserProfile
 import com.apoorvdarshan.calorietracker.models.CurrentMealSchedule
 import com.apoorvdarshan.calorietracker.models.WorkoutSession
+import com.apoorvdarshan.calorietracker.billing.HostedAIQuotaManager
+import com.apoorvdarshan.calorietracker.billing.RevenueCatManager
+import com.apoorvdarshan.calorietracker.services.ai.AIGate
 import com.apoorvdarshan.calorietracker.services.ai.ChatService
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysisService
+import com.apoorvdarshan.calorietracker.services.ai.HostedAIService
 import com.apoorvdarshan.calorietracker.services.health.HealthConnectManager
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalGemmaRuntime
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalModelId
@@ -62,6 +66,7 @@ class FudAIApp : Application() {
     override fun onCreate() {
         super.onCreate()
         container = AppContainer(this)
+        container.revenueCat.configure()
         container.notifications.createChannels()
         WidgetRefreshScheduler.onAppStarted(this)
         container.widgetSnapshotWriter.observe().launchIn(appScope)
@@ -216,9 +221,20 @@ class AppContainer(app: FudAIApp) {
     val localGemma = LocalGemmaRuntime(app, localModels)
     val localWhisper = LocalWhisperRuntime(app, localModels)
 
-    val foodAnalysis = FoodAnalysisService(prefs, keyStore, localGemma = localGemma)
-    val chatService = ChatService(prefs, keyStore, localGemma = localGemma)
-    val speechService = SpeechService(prefs, keyStore, localWhisper = localWhisper)
+    val hostedQuotaManager = HostedAIQuotaManager(app)
+    val revenueCat = RevenueCatManager(app, hostedQuotaManager)
+    val hostedAI = HostedAIService(revenueCat = revenueCat)
+    val aiGate = AIGate(prefs, hostedQuotaManager, revenueCat)
+
+    val foodAnalysis = FoodAnalysisService(
+        prefs,
+        keyStore,
+        localGemma = localGemma,
+        aiGate = aiGate,
+        hostedAI = hostedAI
+    )
+    val chatService = ChatService(prefs, keyStore, localGemma = localGemma, aiGate = aiGate, hostedAI = hostedAI)
+    val speechService = SpeechService(prefs, keyStore, localWhisper = localWhisper, aiGate = aiGate, hostedAI = hostedAI)
 
     val widgetSnapshotWriter = WidgetSnapshotWriter(app, prefs, foodRepository, profileRepository)
     /**
@@ -428,7 +444,8 @@ class AppContainer(app: FudAIApp) {
                     weightMetric = weightMetric,
                     measuredTdee = context.measuredTdee,
                     measurement = bodyMeasurementRepository.latestSnapshot(),
-                    evidence = context.evidence
+                    evidence = context.evidence,
+                    countTowardHostedQuota = false
                 )
             }.getOrNull()
             if (result == null) {

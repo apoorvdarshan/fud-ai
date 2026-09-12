@@ -30,6 +30,21 @@ struct SpeechService {
     /// Transcribe an audio file using the selected batch provider, with an optional
     /// independently configured remote STT fallback.
     static func transcribe(audioURL: URL) async throws -> String {
+        if AIModeSettings.isHosted {
+            try await MainActor.run {
+                try AIGate.consumeIfHosted(.hostedSTT)
+            }
+            guard let audioData = try? Data(contentsOf: audioURL) else {
+                throw SpeechError.fileReadFailed
+            }
+            let language = SpeechSettings.selectedLanguage(for: .deepgram).apiLanguageCode
+            return try await HostedAIService.transcribe(
+                audioData: audioData,
+                mimeType: mimeType(for: audioURL),
+                language: language
+            )
+        }
+
         let provider: SpeechProvider = SpeechSettings.selectedProvider
         guard let audioData = try? Data(contentsOf: audioURL) else {
             throw SpeechError.fileReadFailed
@@ -478,5 +493,15 @@ struct SpeechService {
         body.append(file.data)
         body.append("\r\n--\(boundary)--\r\n".data(using: .utf8)!)
         return body
+    }
+
+    private static func mimeType(for url: URL) -> String {
+        switch url.pathExtension.lowercased() {
+        case "m4a": return "audio/mp4"
+        case "mp3": return "audio/mpeg"
+        case "wav": return "audio/wav"
+        case "caf": return "audio/x-caf"
+        default: return "audio/wav"
+        }
     }
 }

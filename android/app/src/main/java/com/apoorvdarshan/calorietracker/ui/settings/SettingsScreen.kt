@@ -251,6 +251,7 @@ internal enum class SettingsCategory(
     GOALS_NUTRITION(R.string.settings_section_goals, Icons.Outlined.TrackChanges),
     TRACKING_REMINDERS(R.string.settings_section_tracking_reminders, Icons.Outlined.Timer),
     NOTIFICATIONS(R.string.settings_notifications, Icons.Outlined.Notifications),
+    AI_ACCESS(R.string.settings_category_ai_access, Icons.Outlined.Key),
     AI_PROVIDERS(R.string.settings_category_ai_providers, Icons.Outlined.SmartToy),
     SPEECH_TO_TEXT(R.string.settings_section_speech, Icons.Outlined.Mic),
     APP_PREFERENCES(R.string.settings_section_app, Icons.Outlined.Palette),
@@ -989,6 +990,12 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                             icon = Icons.Outlined.BatteryAlert
                         ) { openBatteryOptimizationSettings() }
                     }
+                }
+            }
+
+            if (selectedCategory == SettingsCategory.AI_ACCESS) {
+                SectionCard {
+                    HostedAISettingsSection(container)
                 }
             }
 

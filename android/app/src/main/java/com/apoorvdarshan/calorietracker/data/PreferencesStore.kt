@@ -9,6 +9,7 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.apoorvdarshan.calorietracker.billing.AIMode
 import com.apoorvdarshan.calorietracker.models.AddMenuConfig
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AutoBalanceMacro
@@ -339,6 +340,9 @@ class PreferencesStore(
 
     val adaptiveGoalsEnabled: Flow<Boolean> = ds.data.map { it[Keys.ADAPTIVE_GOALS_ENABLED] ?: true }
     suspend fun setAdaptiveGoalsEnabled(v: Boolean) { ds.edit { it[Keys.ADAPTIVE_GOALS_ENABLED] = v } }
+
+    val aiAccessMode: Flow<AIMode> = ds.data.map { AIMode.fromStorage(it[Keys.AI_ACCESS_MODE]) }
+    suspend fun setAiAccessMode(mode: AIMode) { ds.edit { it[Keys.AI_ACCESS_MODE] = mode.storageValue } }
 
     val adaptiveGoalsLastCheckDay: Flow<String?> = ds.data.map {
         it[Keys.ADAPTIVE_GOALS_LAST_CHECK_DAY]
@@ -1207,6 +1211,7 @@ class PreferencesStore(
         val HEALTH_ENERGY_GOALS_ENABLED = booleanPreferencesKey("healthEnergyGoalsEnabled")
         val HEALTH_ENERGY_GOALS_PREVIOUS_TARGETS = stringPreferencesKey("healthEnergyGoalsPreviousTargets")
         val HEALTH_ENERGY_GOALS_LAST_AUTO_REFRESH_DAY = stringPreferencesKey("healthEnergyGoalsLastAutoRefreshDay")
+        val AI_ACCESS_MODE = stringPreferencesKey("aiAccessMode")
         val ADAPTIVE_GOALS_ENABLED = booleanPreferencesKey("adaptiveGoalsEnabled")
         val REVIEW_PROMPTED_AFTER_FIRST_LOG = booleanPreferencesKey("reviewPromptedAfterFirstLog")
         val ADAPTIVE_GOALS_PREVIOUS_TARGETS = stringPreferencesKey("adaptiveGoalsPreviousTargets")

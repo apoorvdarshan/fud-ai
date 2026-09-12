@@ -4,6 +4,7 @@ import {
   cleanupChallengeData,
   handleChallengeRequest,
 } from "./challenge-api";
+import { HOSTED_AI_API_PREFIX, handleHostedAIRequest } from "./hosted-ai-api";
 
 const REPOSITORY = "apoorvdarshan/fud-ai";
 const HISTORY_KEY = "github-star-history-v1";
@@ -41,6 +42,13 @@ export default {
       url.pathname.startsWith(`${CHALLENGE_API_PREFIX}/`)
     ) {
       return handleChallengeRequest(request, env);
+    }
+
+    if (
+      url.pathname === HOSTED_AI_API_PREFIX ||
+      url.pathname.startsWith(`${HOSTED_AI_API_PREFIX}/`)
+    ) {
+      return handleHostedAIRequest(request, env);
     }
 
     if (url.pathname === "/star-history.json") {

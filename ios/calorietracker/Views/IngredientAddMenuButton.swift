@@ -144,7 +144,7 @@ struct IngredientAddMenuButton: View {
             capturedImage = nil
             showCamera = false
             runAnalysis(image: image) {
-                try await GeminiService.analyzeFood(images: [image])
+                try await GeminiService.analyzeFood(images: [image], skipHostedMetering: true)
             }
         }
         .photosPicker(isPresented: $showPhotoPicker, selection: $selectedPhotoItems, maxSelectionCount: 1, matching: .images)
@@ -158,7 +158,7 @@ struct IngredientAddMenuButton: View {
                     return
                 }
                 runAnalysis(image: image) {
-                    try await GeminiService.analyzeFood(images: [image])
+                    try await GeminiService.analyzeFood(images: [image], skipHostedMetering: true)
                 }
             }
         }
@@ -175,6 +175,9 @@ struct IngredientAddMenuButton: View {
         errorMessage = nil
         Task {
             do {
+                try await MainActor.run {
+                    try AIGate.consumeIfHosted(.ingredientAI)
+                }
                 let analysis = try await work()
                 await MainActor.run {
                     isBusy = false

@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.services.ai
 
+import com.apoorvdarshan.calorietracker.billing.HostedAIAction
 import com.apoorvdarshan.calorietracker.data.KeyStore
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
 import com.apoorvdarshan.calorietracker.models.AIProvider
@@ -47,7 +48,9 @@ class ChatService(
     private val prefs: PreferencesStore,
     private val keyStore: KeyStore,
     private val okHttp: OkHttpClient = FoodAnalysisService.defaultClient,
-    private val localGemma: LocalGemmaRuntime? = null
+    private val localGemma: LocalGemmaRuntime? = null,
+    private val aiGate: AIGate? = null,
+    private val hostedAI: HostedAIService? = null
 ) {
 
     suspend fun sendMessage(
@@ -67,6 +70,37 @@ class ChatService(
         workoutPreferences: WorkoutPreferences = WorkoutPreferences(),
         workoutPlanWeightUnit: WorkoutWeightUnit = WorkoutWeightUnit.LBS
     ): String {
+        aiGate?.consumeIfHosted(HostedAIAction.COACH_MESSAGE)
+        if (aiGate?.isHostedMode() == true) {
+            val hosted = hostedAI ?: throw AiError.ApiError("Hosted AI is not configured.")
+            val baseSystemPrompt = buildSystemPrompt(
+                profile = profile,
+                weights = weights,
+                bodyFats = bodyFats,
+                measurements = measurements,
+                foods = foods,
+                fastingSessions = fastingSessions,
+                heightMetric = heightMetric,
+                weightMetric = weightMetric,
+                workoutSessions = workoutSessions,
+                workoutPlans = workoutPlans
+            )
+            val userContext = prefs.userContext.first()
+            val systemPrompt = if (userContext.isNotBlank())
+                "$baseSystemPrompt\n\n## User-provided context\n$userContext"
+            else baseSystemPrompt
+            val tools = CoachTools(
+                weights = weights,
+                bodyFats = bodyFats,
+                foods = foods,
+                fastingSessions = fastingSessions,
+                workoutSessions = workoutSessions,
+                workoutPlans = workoutPlans,
+                workoutPreferences = workoutPreferences,
+                workoutPlanWeightUnit = workoutPlanWeightUnit
+            )
+            return runHostedGeminiToolLoop(hosted, systemPrompt, history, newUserMessage, tools, imageBytes)
+        }
         val baseSystemPrompt = buildSystemPrompt(
             profile = profile,
             weights = weights,
@@ -577,6 +611,80 @@ class ChatService(
                 )
             }
             val json = runCatching { JSONObject(raw) }.getOrNull() ?: throw AiError.InvalidResponse
+            val candidate = json.optJSONArray("candidates")?.optJSONObject(0) ?: throw AiError.InvalidResponse
+            val content = candidate.optJSONObject("content") ?: throw AiError.InvalidResponse
+            val parts = content.optJSONArray("parts") ?: throw AiError.InvalidResponse
+
+            val functionCalls = mutableListOf<JSONObject>()
+            val texts = StringBuilder()
+            for (i in 0 until parts.length()) {
+                val part = parts.optJSONObject(i) ?: continue
+                part.optJSONObject("functionCall")?.let { functionCalls.add(it) }
+                part.optString("text").takeIf { it.isNotEmpty() }?.let { texts.append(it) }
+            }
+            if (functionCalls.isNotEmpty()) {
+                contents.put(JSONObject().apply { put("role", "model"); put("parts", parts) })
+                val responseParts = JSONArray()
+                for (call in functionCalls) {
+                    val name = call.optString("name").takeIf { it.isNotEmpty() } ?: continue
+                    val args = call.optJSONObject("args") ?: JSONObject()
+                    val resultStr = tools.execute(name, args)
+                    val resultObj = runCatching { JSONObject(resultStr) }.getOrNull() ?: JSONObject()
+                    responseParts.put(JSONObject().apply {
+                        put("functionResponse", JSONObject().apply {
+                            put("name", name)
+                            put("response", JSONObject().put("content", resultObj))
+                            call.optString("id").takeIf { it.isNotEmpty() }?.let { put("id", it) }
+                        })
+                    })
+                }
+                contents.put(JSONObject().apply { put("role", "user"); put("parts", responseParts) })
+                return@repeat
+            }
+            val combined = texts.toString().trim()
+            if (combined.isNotEmpty()) return combined
+            throw AiError.InvalidResponse
+        }
+        throw AiError.Api("Coach exceeded the tool-call round limit. Try rephrasing your question.")
+    }
+
+    private suspend fun runHostedGeminiToolLoop(
+        hostedAI: HostedAIService,
+        systemPrompt: String,
+        history: List<ChatMessage>,
+        newUserMessage: String,
+        tools: CoachTools,
+        imageBytes: ByteArray?
+    ): String {
+        val declarations = JSONArray()
+        for (name in CoachTools.TOOL_NAMES) {
+            declarations.put(JSONObject().apply {
+                put("name", name)
+                put("description", CoachTools.TOOL_DESCRIPTIONS[name] ?: "")
+                put("parameters", JSONObject(CoachTools.parameterSchemaFor(name)))
+            })
+        }
+        val toolsObj = JSONObject().put("functionDeclarations", declarations)
+        val contents = JSONArray()
+        for (msg in history) {
+            val role = if (msg.role == ChatMessage.Role.USER) "user" else "model"
+            contents.put(JSONObject().apply {
+                put("role", role)
+                put("parts", JSONArray().put(JSONObject().put("text", msg.content)))
+            })
+        }
+        contents.put(JSONObject().apply {
+            put("role", "user")
+            put("parts", geminiUserParts(newUserMessage, imageBytes))
+        })
+
+        repeat(MAX_TOOL_ROUNDS) {
+            val body = JSONObject().apply {
+                put("systemInstruction", JSONObject().put("parts", JSONArray().put(JSONObject().put("text", systemPrompt))))
+                put("contents", contents)
+                put("tools", JSONArray().put(toolsObj))
+            }
+            val json = hostedAI.geminiGenerate(body)
             val candidate = json.optJSONArray("candidates")?.optJSONObject(0) ?: throw AiError.InvalidResponse
             val content = candidate.optJSONObject("content") ?: throw AiError.InvalidResponse
             val parts = content.optJSONArray("parts") ?: throw AiError.InvalidResponse

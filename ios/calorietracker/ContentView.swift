@@ -3898,6 +3898,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
     case goalsNutrition
     case trackingReminders
     case notifications
+    case aiAccess
     case aiProviders
     case speechToText
     case appPreferences
@@ -3915,6 +3916,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         .goalsNutrition,
         .trackingReminders,
         .notifications,
+        .aiAccess,
         .aiProviders,
         .speechToText,
         .appPreferences,
@@ -3939,6 +3941,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         case .goalsNutrition: "Goals & Nutrition"
         case .trackingReminders: "Tracking & Reminders"
         case .notifications: "Notifications"
+        case .aiAccess: "AI Access"
         case .aiProviders: "AI Providers & Fallbacks"
         case .speechToText: "Speech-to-Text"
         case .appPreferences: "App Settings"
@@ -3959,6 +3962,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         case .goalsNutrition: "target"
         case .trackingReminders: "timer"
         case .notifications: "bell"
+        case .aiAccess: "key.horizontal"
         case .aiProviders: "sparkles"
         case .speechToText: "waveform"
         case .appPreferences: "slider.horizontal.3"
@@ -4192,6 +4196,8 @@ struct ProfileView: View {
                         .navigationDestination(for: ProfileSettingsCategory.self) { category in
                             if category == .notifications {
                                 NotificationSettingsView()
+                            } else if category == .aiAccess {
+                                HostedAISettingsView()
                             } else {
                                 ProfileView(
                                     updateState: $updateState,

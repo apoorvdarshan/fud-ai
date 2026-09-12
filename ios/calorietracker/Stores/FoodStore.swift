@@ -488,6 +488,9 @@ class FoodStore {
     }
 
     func reprocessEntry(_ entry: FoodEntry, withNote note: String) async throws -> GeminiService.FoodAnalysis {
+        try await MainActor.run {
+            try AIGate.consumeIfHosted(.reprocessMeal)
+        }
         let images = entry.allImageFilenames.compactMap {
             FoodImageStore.shared.load(filename: $0).flatMap(UIImage.init(data:))
         }
@@ -500,10 +503,11 @@ class FoodStore {
             result = try await GeminiService.analyzeFood(
                 images: images,
                 description: description,
-                progressiveMeal: entry.progressiveMeal
+                progressiveMeal: entry.progressiveMeal,
+                skipHostedMetering: true
             )
         } else {
-            result = try await GeminiService.analyzeTextInput(description: description)
+            result = try await GeminiService.analyzeTextInput(description: description, skipHostedMetering: true)
         }
         return result
     }

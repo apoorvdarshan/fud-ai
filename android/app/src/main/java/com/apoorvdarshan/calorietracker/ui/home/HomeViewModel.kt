@@ -936,6 +936,7 @@ viewModelScope.launch {
     }
 
     suspend fun reprocessFoodEntry(entry: FoodEntry, updatedNote: String): FoodAnalysis {
+        container.aiGate.consumeIfHosted(com.apoorvdarshan.calorietracker.billing.HostedAIAction.REPROCESS_MEAL)
         val imageBytesList = entry.allImageFilenames.mapNotNull {
             runCatching { container.imageStore.file(it).readBytes() }.getOrNull()
         }
@@ -947,10 +948,11 @@ viewModelScope.launch {
             container.foodAnalysis.analyzeFood(
                 imageBytesList,
                 description.takeIf { it.isNotBlank() },
-                entry.progressiveMeal
+                entry.progressiveMeal,
+                skipHostedMetering = true
             )
         } else {
-            container.foodAnalysis.analyzeText(description)
+            container.foodAnalysis.analyzeText(description, skipHostedMetering = true)
         }
         return result.copy(customNote = updatedNote.takeIf { it.isNotBlank() })
     }

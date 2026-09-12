@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.services.ai
 
+import com.apoorvdarshan.calorietracker.billing.HostedAIAction
 import com.apoorvdarshan.calorietracker.services.SecureHttpClient
 import com.apoorvdarshan.calorietracker.data.KeyStore
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
@@ -70,7 +71,9 @@ class FoodAnalysisService(
     private val prefs: PreferencesStore,
     private val keyStore: KeyStore,
     private val okHttp: OkHttpClient = defaultClient,
-    private val localGemma: LocalGemmaRuntime? = null
+    private val localGemma: LocalGemmaRuntime? = null,
+    private val aiGate: AIGate? = null,
+    private val hostedAI: HostedAIService? = null
 ) {
 
     suspend fun analyzeWorkout(
@@ -79,6 +82,7 @@ class FoodAnalysisService(
         unit: com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit,
         library: List<com.apoorvdarshan.calorietracker.data.ExerciseItem>
     ): com.apoorvdarshan.calorietracker.models.WorkoutTextDraft {
+        aiGate?.consumeIfHosted(HostedAIAction.WORKOUT_AI)
         require(description.isNotBlank() && description.length <= 16000)
         val searchResponse = callAi(com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.searchPrompt(description), emptyList())
         val queries = com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.searchQueries(searchResponse, description)
@@ -203,8 +207,12 @@ class FoodAnalysisService(
         weightMetric: Boolean,
         measuredTdee: Int? = null,
         measurement: BodyMeasurement? = null,
-        evidence: GoalEvidence? = null
+        evidence: GoalEvidence? = null,
+        countTowardHostedQuota: Boolean = true
     ): GoalCalculation {
+        if (countTowardHostedQuota) {
+            aiGate?.consumeIfHosted(1)
+        }
         val weight = if (weightMetric) String.format(Locale.US, "%.1f kg", profile.weightKg)
             else String.format(Locale.US, "%.1f lb", profile.weightKg * 2.20462)
         val height = if (heightMetric) String.format(Locale.US, "%.0f cm", profile.heightCm)
@@ -294,6 +302,7 @@ class FoodAnalysisService(
         profile: UserProfile,
         weightMetric: Boolean
     ): String {
+        aiGate?.consumeIfHosted(HostedAIAction.WHAT_IF)
         val beforeCalories = dayEntries.sumOf { it.calories }
         val beforeProtein = dayEntries.sumOf { it.protein }
         val beforeCarbs = dayEntries.sumOf { it.carbs }
@@ -354,7 +363,8 @@ class FoodAnalysisService(
         return callAi(prompt, imageBytes = null).trim()
     }
 
-    suspend fun analyzeText(description: String): FoodAnalysis {
+    suspend fun analyzeText(description: String, skipHostedMetering: Boolean = false): FoodAnalysis {
+        if (!skipHostedMetering) aiGate?.consumeIfHosted(HostedAIAction.TEXT_FOOD)
         val prompt = """
             Estimate the nutritional content for: $description
             Parse any quantities, brands, and multiple items from the text. If a brand is mentioned, use that brand's known nutritional data. If multiple items are described, sum up the total nutrition.
@@ -380,6 +390,7 @@ class FoodAnalysisService(
     }
 
     suspend fun analyzeAuto(imageBytes: ByteArray): FoodAnalysis {
+        aiGate?.consumeIfHosted(HostedAIAction.PHOTO_FOOD)
         val prompt = """
             Analyze this image. It could be either a photo of food OR a nutrition facts label.
 
@@ -407,7 +418,8 @@ class FoodAnalysisService(
         )
     }
 
-    suspend fun analyzeFood(imageBytes: ByteArray, description: String? = null): FoodAnalysis {
+    suspend fun analyzeFood(imageBytes: ByteArray, description: String? = null, skipHostedMetering: Boolean = false): FoodAnalysis {
+        if (!skipHostedMetering) aiGate?.consumeIfHosted(HostedAIAction.PHOTO_FOOD)
         var prompt = """
             Analyze this food image. Identify the food and estimate its nutritional content.
             Respond ONLY with JSON:
@@ -437,8 +449,10 @@ class FoodAnalysisService(
     suspend fun analyzeFood(
         imageBytesList: List<ByteArray>,
         description: String? = null,
-        progressiveMeal: Boolean = false
+        progressiveMeal: Boolean = false,
+        skipHostedMetering: Boolean = false
     ): FoodAnalysis {
+        if (!skipHostedMetering) aiGate?.consumeIfHosted(HostedAIAction.PHOTO_FOOD)
         val prompt = multiPhotoAnalysisPrompt(progressiveMeal, description)
         val images = imageBytesList.filter { it.isNotEmpty() }
         if (images.isEmpty()) throw AiError.InvalidResponse
@@ -476,6 +490,7 @@ class FoodAnalysisService(
     }
 
     suspend fun extractAllergensFromLabReport(imageBytesList: List<ByteArray>): List<String> {
+        aiGate?.consumeIfHosted(HostedAIAction.ALLERGENS_LAB)
         val images = imageBytesList.filter { it.isNotEmpty() }
         if (images.isEmpty()) throw AiError.InvalidResponse
         val prompt = """
@@ -499,6 +514,15 @@ class FoodAnalysisService(
     private suspend fun callAi(prompt: String, imageBytesList: List<ByteArray>): String {
         val context = prefs.userContext.first()
         val finalPrompt = if (context.isNotBlank()) "User context (apply to every analysis): $context\n\n$prompt" else prompt
+
+        if (aiGate?.isHostedMode() == true) {
+            val hosted = hostedAI ?: throw AiError.ApiError("Hosted AI is not configured.")
+            val uploadImages = withContext(Dispatchers.IO) {
+                imageBytesList.take(com.apoorvdarshan.calorietracker.billing.HostedAIConstants.MAX_HOSTED_IMAGES)
+                    .map(FoodImagePreprocessor::prepareForUpload)
+            }
+            return hosted.generate(finalPrompt, uploadImages, context.takeIf { it.isNotBlank() })
+        }
 
         val useSeparateTextProvider = imageBytesList.isEmpty() && prefs.separateTextProviderEnabled.first()
         val primary = if (useSeparateTextProvider) {

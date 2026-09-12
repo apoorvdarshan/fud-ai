@@ -45,6 +45,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import com.apoorvdarshan.calorietracker.FudAIApp
+import com.apoorvdarshan.calorietracker.ui.settings.TipJarSettingsSection
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -114,6 +116,7 @@ fun AboutAppHeader() {
 @Composable
 fun AboutSettingsRows(category: AboutSettingsCategory) {
     val ctx = LocalContext.current
+    val revenueCat = remember(ctx) { (ctx.applicationContext as FudAIApp).container.revenueCat }
     val shareText = stringResource(R.string.about_share_message)
     val shareChooser = stringResource(R.string.about_share_chooser)
     val currentVersion = remember(ctx) { AndroidUpdateChecker.currentVersion(ctx) }
@@ -173,6 +176,8 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
             }
 
             AboutSettingsCategory.SUPPORT -> {
+                TipJarSettingsSection(revenueCat)
+                Hairline()
                 AboutRow(Icons.Filled.Favorite, stringResource(R.string.about_leave_tip_kofi)) {
                     open("https://ko-fi.com/apoorvdarshan")
                 }

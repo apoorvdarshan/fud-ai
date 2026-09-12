@@ -217,6 +217,7 @@ struct GeminiService {
         profile: UserProfile,
         weightMetric: Bool
     ) async throws -> String {
+        try await consumeHostedQuota(.whatIf)
         let current = macroTotals(for: dayEntries)
         let meal = macroTotals(for: entry)
         let after = current + meal
@@ -281,6 +282,7 @@ struct GeminiService {
 
     static func analyzeWorkout(description: String, date: Date, unit: WeightUnit,
                                library: [ExerciseLibraryItem]) async throws -> WorkoutTextDraft {
+        try await consumeHostedQuota(.workoutAI)
         guard !description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, description.count <= 16000 else {
             throw WorkoutTextError.invalid("The workout conversation is too long. Please start over.")
         }
@@ -290,7 +292,8 @@ struct GeminiService {
         return try WorkoutTextDraft.parse(try await callAI(prompt: prompt, image: nil), library: library)
     }
 
-    static func analyzeTextInput(description: String) async throws -> FoodAnalysis {
+    static func analyzeTextInput(description: String, skipHostedMetering: Bool = false) async throws -> FoodAnalysis {
+        if !skipHostedMetering { try await consumeHostedQuota(.textFood) }
         let prompt = """
         Estimate the nutritional content for: \(description)
         Parse any quantities, brands, and multiple items from the text. If a brand is mentioned, use that brand's known nutritional data. If multiple items are described, sum up the total nutrition.
@@ -307,6 +310,7 @@ struct GeminiService {
     }
 
     static func autoAnalyze(image: UIImage) async throws -> FoodAnalysis {
+        try await consumeHostedQuota(.photoFood)
         let prompt = """
         Analyze this image. It could be either a photo of food OR a nutrition facts label.
 
@@ -326,7 +330,8 @@ struct GeminiService {
         return await addingFallbackServingUnits(to: analysis, image: image, description: nil)
     }
 
-    static func analyzeFood(image: UIImage, description: String? = nil) async throws -> FoodAnalysis {
+    static func analyzeFood(image: UIImage, description: String? = nil, skipHostedMetering: Bool = false) async throws -> FoodAnalysis {
+        if !skipHostedMetering { try await consumeHostedQuota(.photoFood) }
         var prompt = """
         Analyze this food image. Identify the food and estimate its nutritional content.
 
@@ -392,8 +397,10 @@ struct GeminiService {
     static func analyzeFood(
         images: [UIImage],
         description: String? = nil,
-        progressiveMeal: Bool = false
+        progressiveMeal: Bool = false,
+        skipHostedMetering: Bool = false
     ) async throws -> FoodAnalysis {
+        if !skipHostedMetering { try await consumeHostedQuota(.photoFood) }
         guard !images.isEmpty else { throw AnalysisError.imageConversionFailed }
 
         let prompt = multiPhotoAnalysisPrompt(progressiveMeal: progressiveMeal, description: description)
@@ -406,6 +413,7 @@ struct GeminiService {
     }
 
     static func analyzeNutritionLabel(image: UIImage) async throws -> NutritionLabelAnalysis {
+        try await consumeHostedQuota(.photoFood)
         let prompt = """
         Read this nutrition label image. Extract the nutritional values per 100g (or per 100ml).
         If the label shows per-serving values, convert them to per-100g using the serving size.
@@ -431,6 +439,7 @@ struct GeminiService {
     }
 
     static func extractAllergensFromLabReport(images: [UIImage]) async throws -> [String] {
+        try await consumeHostedQuota(.allergensLab)
         guard !images.isEmpty else { throw AnalysisError.imageConversionFailed }
         let prompt = """
         This image is an allergy blood-test lab report (ISAC, ALEX, or similar multiplex IgE / component-resolved diagnostics).
@@ -519,8 +528,12 @@ struct GeminiService {
         measurement: BodyMeasurement? = nil,
         evidence: GoalEvidence? = nil,
         heightMetric: Bool,
-        weightMetric: Bool
+        weightMetric: Bool,
+        countTowardHostedQuota: Bool = true
     ) async throws -> GoalCalculation {
+        if countTowardHostedQuota {
+            try await consumeHostedQuota(.manualRecalculateGoals(llmCalls: 1))
+        }
         let weight = weightMetric
             ? String(format: "%.1f kg", profile.weightKg)
             : String(format: "%.1f lb", profile.weightKg * 2.20462)
@@ -718,6 +731,14 @@ struct GeminiService {
     }
 
     private static func callTextFoodAnalysis(prompt: String, description: String) async throws -> FoodAnalysis {
+        if AIModeSettings.isHosted {
+            let text = try await HostedAIService.generate(
+                prompt: prompt,
+                imageDataList: [],
+                systemInstruction: AIProviderSettings.currentUserContext
+            )
+            return try parseFoodAnalysis(from: text)
+        }
         let primary = AIProviderSettings.currentConfig(requiresVision: false)
         if primary.provider.requiresAPIKey, primary.apiKey == nil {
             throw AnalysisError.noAPIKey
@@ -790,7 +811,22 @@ struct GeminiService {
         return try parseFoodAnalysis(from: text)
     }
 
+    private static func consumeHostedQuota(_ action: HostedAIAction) async throws {
+        try await MainActor.run {
+            try AIGate.consumeIfHosted(action)
+        }
+    }
+
     private static func callAI(prompt: String, images: [UIImage]) async throws -> String {
+        if AIModeSettings.isHosted {
+            let capped = Array(images.prefix(HostedAIConstants.maxHostedImages))
+            let imageDataList = try capped.map { try encodedJPEGData(for: $0) }
+            return try await HostedAIService.generate(
+                prompt: prompt,
+                imageDataList: imageDataList,
+                systemInstruction: AIProviderSettings.currentUserContext
+            )
+        }
         let primary = AIProviderSettings.currentConfig(requiresVision: !images.isEmpty)
         if primary.provider.requiresAPIKey, primary.apiKey == nil {
             throw AnalysisError.noAPIKey

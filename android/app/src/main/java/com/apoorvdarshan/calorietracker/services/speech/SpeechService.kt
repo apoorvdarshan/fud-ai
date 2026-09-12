@@ -18,11 +18,21 @@ class SpeechService(
     private val prefs: PreferencesStore,
     private val keyStore: KeyStore,
     private val okHttp: OkHttpClient = FoodAnalysisService.defaultClient,
-    private val localWhisper: LocalWhisperRuntime? = null
+    private val localWhisper: LocalWhisperRuntime? = null,
+    private val aiGate: AIGate? = null,
+    private val hostedAI: HostedAIService? = null
 ) {
 
     /** Returns the transcript text. Throws [SttApiError] on any failure. */
     suspend fun transcribeRecordedAudio(audio: File): String {
+        if (aiGate?.isHostedMode() == true) {
+            aiGate.consumeIfHosted(com.apoorvdarshan.calorietracker.billing.HostedAIAction.HOSTED_STT)
+            val hosted = hostedAI ?: throw SttApiError.Api("Hosted AI is not configured.")
+            val bytes = audio.readBytes()
+            val language = prefs.selectedSpeechLanguage(com.apoorvdarshan.calorietracker.models.SpeechProvider.DEEPGRAM)
+                .first().remoteLanguageCode()
+            return hosted.transcribe(bytes, mimeTypeFor(audio), language)
+        }
         val provider = prefs.selectedSpeechProvider.first()
         return try {
             try {
@@ -96,6 +106,14 @@ class SpeechService(
             SpeechProvider.NATIVE ->
                 error("NATIVE speech should use NativeSpeechRecognizer, not a recorded audio file.")
         }
+    }
+
+    private fun mimeTypeFor(audio: File): String = when (audio.extension.lowercase()) {
+        "m4a" -> "audio/mp4"
+        "mp3" -> "audio/mpeg"
+        "wav" -> "audio/wav"
+        "caf" -> "audio/x-caf"
+        else -> "audio/wav"
     }
 
     private fun isUsableRecordedProvider(provider: SpeechProvider): Boolean = when (provider) {

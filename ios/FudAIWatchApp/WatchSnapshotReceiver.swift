@@ -10,6 +10,12 @@ final class WatchSnapshotReceiver: NSObject, ObservableObject, WCSessionDelegate
 
     override init() {
         super.init()
+        #if targetEnvironment(simulator)
+        // Simulator has no paired iPhone sync — always seed placeholder nutrition
+        // (calories / macros / water ON) so the full Watch UI can be reviewed.
+        WidgetSnapshot.write(.placeholder)
+        snapshot = .placeholder
+        #endif
         activate()
     }
 

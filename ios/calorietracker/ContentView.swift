@@ -652,6 +652,9 @@ struct HomeView: View {
     @State private var showPhotoPicker = false
     @State private var showError = false
     @State private var errorMessage = ""
+    @State private var showHostedQuotaPaywall = false
+    @State private var showHostedPaywall = false
+    @State private var showHostedCredits = false
     private enum RetryRequest {
         case analysis(images: [UIImage], mode: CameraMode, description: String?, progressiveMeal: Bool)
         case text(String)
@@ -1759,6 +1762,24 @@ private var dailyStepsTaskKey: String {
             } message: {
                 Text(errorMessage)
             }
+            .sheet(isPresented: $showHostedQuotaPaywall) {
+                HostedQuotaSoftPaywall(
+                    onBuyCreditsOrUpgrade: {
+                        if RevenueCatManager.shared.hasHostedEntitlement {
+                            showHostedCredits = true
+                        } else {
+                            showHostedPaywall = true
+                        }
+                    },
+                    onSwitchBYOK: {}
+                )
+            }
+            .sheet(isPresented: $showHostedPaywall) {
+                HostedPaywallView()
+            }
+            .sheet(isPresented: $showHostedCredits) {
+                HostedCreditsSheet()
+            }
             .alert("Food logging paused", isPresented: $showFoodLoggingBlocked) {
                 Button("OK", role: .cancel) { }
             } message: {
@@ -2103,6 +2124,22 @@ private var dailyStepsTaskKey: String {
     @MainActor
     private func presentAnalysisError(_ error: Error) {
         activeSheet = nil
+        if let quotaError = error as? HostedAIQuotaError {
+            switch quotaError {
+            case .quotaExceeded:
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+                    showHostedQuotaPaywall = true
+                }
+                return
+            case .noActiveSubscription:
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+                    showHostedPaywall = true
+                }
+                return
+            case .notHostedMode:
+                break
+            }
+        }
         errorMessage = GeminiService.analysisErrorMessage(error)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
             showError = true
@@ -3898,6 +3935,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
     case goalsNutrition
     case trackingReminders
     case notifications
+    case aiAccess
     case aiProviders
     case speechToText
     case appPreferences
@@ -3915,6 +3953,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         .goalsNutrition,
         .trackingReminders,
         .notifications,
+        .aiAccess,
         .aiProviders,
         .speechToText,
         .appPreferences,
@@ -3939,6 +3978,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         case .goalsNutrition: "Goals & Nutrition"
         case .trackingReminders: "Tracking & Reminders"
         case .notifications: "Notifications"
+        case .aiAccess: "AI Access"
         case .aiProviders: "AI Providers & Fallbacks"
         case .speechToText: "Speech-to-Text"
         case .appPreferences: "App Settings"
@@ -3959,6 +3999,7 @@ enum ProfileSettingsCategory: String, CaseIterable, Identifiable, Hashable {
         case .goalsNutrition: "target"
         case .trackingReminders: "timer"
         case .notifications: "bell"
+        case .aiAccess: "key.horizontal"
         case .aiProviders: "sparkles"
         case .speechToText: "waveform"
         case .appPreferences: "slider.horizontal.3"
@@ -4192,6 +4233,8 @@ struct ProfileView: View {
                         .navigationDestination(for: ProfileSettingsCategory.self) { category in
                             if category == .notifications {
                                 NotificationSettingsView()
+                            } else if category == .aiAccess {
+                                HostedAISettingsView()
                             } else {
                                 ProfileView(
                                     updateState: $updateState,

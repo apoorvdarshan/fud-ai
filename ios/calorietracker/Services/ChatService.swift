@@ -51,6 +51,26 @@ struct ChatService {
         workoutPreferences: StrengthWorkoutPreferences? = nil,
         workoutAccessEnabled: Bool = false
     ) async throws -> String {
+        if AIModeSettings.isHosted {
+            return try await hostedCoachMessage(
+                history: history,
+                newUserMessage: newUserMessage,
+                imageData: imageData,
+                profile: profile,
+                weights: weights,
+                bodyFats: bodyFats,
+                measurements: measurements,
+                foods: foods,
+                fastingSessions: fastingSessions,
+                heightMetric: heightMetric,
+                weightMetric: weightMetric,
+                workoutSessions: workoutSessions,
+                workoutPlans: workoutPlans,
+                workoutPreferences: workoutPreferences,
+                workoutAccessEnabled: workoutAccessEnabled
+            )
+        }
+
         let systemPrompt = buildSystemPrompt(
             profile: profile,
             weights: weights,
@@ -116,6 +136,9 @@ struct ChatService {
                     maxOutputTokens: AIProviderSettings.maxResponseTokens
                 )
             case .gemini:
+                if AIModeSettings.isHosted {
+                    return try await callHostedGemini(systemPrompt: systemPrompt, history: history, newUserMessage: newUserMessage, imageData: imageData, tools: tools)
+                }
                 return try await callGemini(baseURL: baseURL, model: model, apiKey: apiKey, systemPrompt: systemPrompt, history: history, newUserMessage: newUserMessage, imageData: imageData, tools: tools)
             case .anthropic:
                 return try await callAnthropic(baseURL: baseURL, model: model, apiKey: apiKey, systemPrompt: systemPrompt, history: history, newUserMessage: newUserMessage, imageData: imageData, tools: tools)
@@ -631,6 +654,153 @@ struct ChatService {
             if !functionCalls.isEmpty {
                 // Echo the model's full parts back so Gemini sees its own
                 // function call when matching responses.
+                contents.append(["role": "model", "parts": parts])
+                var responseParts: [[String: Any]] = []
+                for call in functionCalls {
+                    guard let name = call["name"] as? String else { continue }
+                    let args = (call["args"] as? [String: Any]) ?? [:]
+                    let resultString = tools.execute(name: name, arguments: args)
+                    let resultObj = (try? JSONSerialization.jsonObject(with: Data(resultString.utf8))) ?? [:]
+                    if let responsePart = geminiFunctionResponsePart(for: call, result: resultObj) {
+                        responseParts.append(responsePart)
+                    }
+                }
+                contents.append(["role": "user", "parts": responseParts])
+                continue
+            }
+
+            let texts = parts.compactMap { $0["text"] as? String }.joined()
+            if !texts.isEmpty {
+                return texts.trimmingCharacters(in: .whitespacesAndNewlines)
+            }
+            throw ChatError.invalidResponse
+        }
+        throw ChatError.apiError("Coach exceeded the tool-call round limit. Try rephrasing your question.")
+    }
+
+    @MainActor
+    private static func hostedCoachMessage(
+        history: [ChatMessage],
+        newUserMessage: String,
+        imageData: Data?,
+        profile: UserProfile,
+        weights: [WeightEntry],
+        bodyFats: [BodyFatEntry],
+        measurements: [BodyMeasurement],
+        foods: [FoodEntry],
+        fastingSessions: [FastingSession],
+        heightMetric: Bool,
+        weightMetric: Bool,
+        workoutSessions: [StrengthWorkoutSession],
+        workoutPlans: [StrengthWorkoutDayPlan],
+        workoutPreferences: StrengthWorkoutPreferences?,
+        workoutAccessEnabled: Bool
+    ) async throws -> String {
+        try await AIGate.runWithHostedQuota(.coachMessage) {
+            try await hostedCoachReply(
+                history: history,
+                newUserMessage: newUserMessage,
+                imageData: imageData,
+                profile: profile,
+                weights: weights,
+                bodyFats: bodyFats,
+                measurements: measurements,
+                foods: foods,
+                fastingSessions: fastingSessions,
+                heightMetric: heightMetric,
+                weightMetric: weightMetric,
+                workoutSessions: workoutSessions,
+                workoutPlans: workoutPlans,
+                workoutPreferences: workoutPreferences,
+                workoutAccessEnabled: workoutAccessEnabled
+            )
+        }
+    }
+
+    private static func hostedCoachReply(
+        history: [ChatMessage],
+        newUserMessage: String,
+        imageData: Data?,
+        profile: UserProfile,
+        weights: [WeightEntry],
+        bodyFats: [BodyFatEntry],
+        measurements: [BodyMeasurement],
+        foods: [FoodEntry],
+        fastingSessions: [FastingSession],
+        heightMetric: Bool,
+        weightMetric: Bool,
+        workoutSessions: [StrengthWorkoutSession],
+        workoutPlans: [StrengthWorkoutDayPlan],
+        workoutPreferences: StrengthWorkoutPreferences?,
+        workoutAccessEnabled: Bool
+    ) async throws -> String {
+        let systemPrompt = buildSystemPrompt(
+            profile: profile,
+            weights: weights,
+            bodyFats: bodyFats,
+            measurements: measurements,
+            foods: foods,
+            fastingSessions: fastingSessions,
+            heightMetric: heightMetric,
+            weightMetric: weightMetric,
+            workoutSessions: workoutSessions,
+            workoutPlans: workoutPlans,
+            workoutAccessEnabled: workoutAccessEnabled
+        )
+        let tools = CoachTools(
+            weights: weights,
+            bodyFats: bodyFats,
+            foods: foods,
+            fastingSessions: fastingSessions,
+            workoutSessions: workoutSessions,
+            workoutPlans: workoutPlans,
+            workoutPreferences: workoutPreferences,
+            workoutPlanWeightUnit: weightMetric ? .kg : .lbs,
+            workoutAccessEnabled: workoutAccessEnabled
+        )
+        return try await callHostedGemini(
+            systemPrompt: systemPrompt,
+            history: history,
+            newUserMessage: newUserMessage,
+            imageData: imageData,
+            tools: tools
+        )
+    }
+
+    private static func callHostedGemini(
+        systemPrompt: String,
+        history: [ChatMessage],
+        newUserMessage: String,
+        imageData: Data?,
+        tools: CoachTools
+    ) async throws -> String {
+        var contents: [[String: Any]] = []
+        for msg in history {
+            let role = msg.role == .user ? "user" : "model"
+            contents.append(["role": role, "parts": [["text": msg.content]]])
+        }
+        contents.append(["role": "user", "parts": geminiUserParts(text: newUserMessage, imageData: imageData)])
+
+        let toolsObj = geminiToolsObject(for: tools)
+
+        for _ in 0..<maxToolRounds {
+            let body: [String: Any] = [
+                "systemInstruction": ["parts": [["text": systemPrompt]]],
+                "contents": contents,
+                "tools": [toolsObj],
+            ]
+            let data = try await HostedAIService.geminiGenerate(requestBody: body)
+            guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
+                  let candidates = json["candidates"] as? [[String: Any]],
+                  let candidate = candidates.first,
+                  let content = candidate["content"] as? [String: Any],
+                  let parts = content["parts"] as? [[String: Any]]
+            else {
+                throw ChatError.invalidResponse
+            }
+
+            let functionCalls = parts.compactMap { $0["functionCall"] as? [String: Any] }
+            if !functionCalls.isEmpty {
                 contents.append(["role": "model", "parts": parts])
                 var responseParts: [[String: Any]] = []
                 for call in functionCalls {

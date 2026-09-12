@@ -1493,7 +1493,12 @@ struct BuildingPlanStepView: View {
     private func startAICalc() {
         Task {
             // New user → no logs yet, so forecast is nil; AI computes from profile + formulas.
-            let result = try? await GeminiService.calculateGoals(profile: profile, heightMetric: heightMetric, weightMetric: weightMetric)
+            let result = try? await GeminiService.calculateGoals(
+                profile: profile,
+                heightMetric: heightMetric,
+                weightMetric: weightMetric,
+                countTowardHostedQuota: false
+            )
             await MainActor.run {
                 aiResult = result
                 aiDone = true

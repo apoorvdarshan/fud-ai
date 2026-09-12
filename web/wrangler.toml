@@ -8,7 +8,7 @@ preview_urls = false
 directory = "."
 binding = "ASSETS"
 not_found_handling = "404-page"
-run_worker_first = ["/star-history.svg", "/star-history.json", "/api/challenge/v1/*", "/api/meal-shares", "/m/*"]
+run_worker_first = ["/star-history.svg", "/star-history.json", "/api/challenge/v1/*", "/api/hosted-ai/v1/*", "/api/meal-shares", "/m/*"]
 
 [[kv_namespaces]]
 binding = "STAR_HISTORY"

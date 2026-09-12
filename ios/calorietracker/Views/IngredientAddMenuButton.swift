@@ -101,7 +101,7 @@ struct IngredientAddMenuButton: View {
                             let text = textDraft.trimmingCharacters(in: .whitespacesAndNewlines)
                             showText = false
                             runAnalysis {
-                                try await GeminiService.analyzeTextInput(description: text)
+                                try await GeminiService.analyzeTextInput(description: text, skipHostedMetering: true)
                             }
                         }
                         .disabled(textDraft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
@@ -116,7 +116,7 @@ struct IngredientAddMenuButton: View {
                 onSubmit: { text in
                     showVoice = false
                     runAnalysis {
-                        try await GeminiService.analyzeTextInput(description: text)
+                        try await GeminiService.analyzeTextInput(description: text, skipHostedMetering: true)
                     }
                 }
             )
@@ -144,7 +144,7 @@ struct IngredientAddMenuButton: View {
             capturedImage = nil
             showCamera = false
             runAnalysis(image: image) {
-                try await GeminiService.analyzeFood(images: [image])
+                try await GeminiService.analyzeFood(images: [image], skipHostedMetering: true)
             }
         }
         .photosPicker(isPresented: $showPhotoPicker, selection: $selectedPhotoItems, maxSelectionCount: 1, matching: .images)
@@ -158,7 +158,7 @@ struct IngredientAddMenuButton: View {
                     return
                 }
                 runAnalysis(image: image) {
-                    try await GeminiService.analyzeFood(images: [image])
+                    try await GeminiService.analyzeFood(images: [image], skipHostedMetering: true)
                 }
             }
         }
@@ -169,13 +169,22 @@ struct IngredientAddMenuButton: View {
         }
     }
 
+    @MainActor
+    private func runHostedIngredientAnalysis(
+        _ work: @escaping () async throws -> GeminiService.FoodAnalysis
+    ) async throws -> GeminiService.FoodAnalysis {
+        try await AIGate.runWithHostedQuota(.ingredientAI) {
+            try await work()
+        }
+    }
+
     private func runAnalysis(image: UIImage? = nil, _ work: @escaping () async throws -> GeminiService.FoodAnalysis) {
         guard !isBusy else { return }
         isBusy = true
         errorMessage = nil
         Task {
             do {
-                let analysis = try await work()
+                let analysis = try await runHostedIngredientAnalysis(work)
                 await MainActor.run {
                     isBusy = false
                     var ingredient = analysis.asMealIngredient()

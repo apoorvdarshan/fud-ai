@@ -7,7 +7,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import com.apoorvdarshan.calorietracker.FudAIApp
 import com.apoorvdarshan.calorietracker.services.FoodImageStore
+import com.apoorvdarshan.calorietracker.ui.components.rememberFoodThumbnail
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -61,8 +63,13 @@ internal fun MealIngredientsCard(
     ingredients: List<MealIngredient>,
     onEdit: (Int) -> Unit,
     onAdd: () -> Unit = {},
-    addMenu: (@Composable () -> Unit)? = null
+    addMenu: (@Composable () -> Unit)? = null,
+    imageStore: FoodImageStore? = null
 ) {
+    val context = LocalContext.current
+    val store = imageStore ?: remember(context) {
+        (context.applicationContext as FudAIApp).container.imageStore
+    }
     SheetPillCard {
         if (ingredients.isEmpty()) {
             Text(
@@ -82,11 +89,7 @@ internal fun MealIngredientsCard(
                     verticalArrangement = Arrangement.spacedBy(5.dp)
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        val context = LocalContext.current
-                        val store = remember(context) { FoodImageStore(context) }
-                        val thumbnail = remember(ingredient.imageFilename) {
-                            ingredient.imageFilename?.let { store.loadThumbnail(it) }
-                        }
+                        val thumbnail = rememberFoodThumbnail(store, ingredient.imageFilename)
                         if (thumbnail != null) {
                             Image(thumbnail.asImageBitmap(), contentDescription = null,
                                 modifier = Modifier.size(44.dp).clip(RoundedCornerShape(10.dp)),

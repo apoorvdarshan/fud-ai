@@ -23,6 +23,7 @@ import com.apoorvdarshan.calorietracker.ui.components.autoSaveMealPhotoIfEnabled
 import com.apoorvdarshan.calorietracker.services.ai.AiError
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -158,7 +159,14 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
                 favoriteKeys = favKeys
             )
         }
-            .onEach { _ui.value = it }
+            .onEach { state ->
+                _ui.value = state
+                viewModelScope.launch(Dispatchers.IO) {
+                    container.imageStore.warmThumbnails(
+                        state.todayEntries.flatMap { it.allImageFilenames }
+                    )
+                }
+            }
             .launchIn(viewModelScope)
 
         container.prefs.homeTopNutrients

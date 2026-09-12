@@ -196,8 +196,11 @@ afterEvaluate {
     }.configureEach {
         doFirst {
             if (revenueCatPublicKey.isBlank() || revenueCatPublicKey.contains("PLACEHOLDER", ignoreCase = true)) {
-                throw GradleException(
-                    "Release builds require revenuecat.public.sdk.key in android/oauth.properties or android/local.properties"
+                // Hosted billing stays disabled until the public Play SDK key is set
+                // (revenuecat.public.sdk.key in oauth.properties / local.properties).
+                // Allow local USB release installs; Play/store shipping must set the key.
+                logger.warn(
+                    "revenuecat.public.sdk.key missing — RevenueCat will not configure in this release build."
                 )
             }
         }

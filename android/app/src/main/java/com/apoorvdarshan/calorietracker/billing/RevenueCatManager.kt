@@ -42,7 +42,7 @@ class RevenueCatManager(
         val builder = PurchasesConfiguration.Builder(appContext, sdkKey)
         appUserId?.let { builder.appUserID(it) }
         Purchases.configure(builder.build())
-        Purchases.sharedInstance.cachedCustomerInfo?.let { applyCustomerInfo(it) }
+        // No cachedCustomerInfo property on Purchases 8.x — listener + refreshCustomerInfo() hydrate entitlements.
         Purchases.sharedInstance.updatedCustomerInfoListener =
             object : UpdatedCustomerInfoListener {
                 override fun onReceived(customerInfo: CustomerInfo) {

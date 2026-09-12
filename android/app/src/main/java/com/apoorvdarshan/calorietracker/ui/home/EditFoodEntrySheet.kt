@@ -45,10 +45,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -117,7 +121,8 @@ fun EditFoodEntrySheet(
     var currentBaseEntry by remember(entry) { mutableStateOf(entry) }
     // Stage removals separately so tapping × does not reset the other editor fields.
     var removedImageFilenames by remember(entry) { mutableStateOf(emptySet<String>()) }
-    var previewPhotos by remember { mutableStateOf<Pair<List<Bitmap>, Int>?>(null) }
+    var previewPhotoIndex by remember { mutableStateOf<Int?>(null) }
+    var viewerBitmaps by remember { mutableStateOf<List<Bitmap>?>(null) }
     var noteText by remember(entry) { mutableStateOf(entry.customNote ?: "") }
     var isReprocessing by remember { mutableStateOf(false) }
     var errorText by remember { mutableStateOf<String?>(null) }
@@ -392,11 +397,33 @@ fun EditFoodEntrySheet(
             ) {
             // Swipeable originals gallery OR 80sp emoji fallback — centered.
             item {
-                val photos = remember(currentBaseEntry.allImageFilenames) {
-                    currentBaseEntry.allImageFilenames.mapNotNull { filename ->
-                        container.imageStore.load(filename)?.let { filename to it }
+                val visibleFilenames = remember(currentBaseEntry.allImageFilenames, removedImageFilenames) {
+                    currentBaseEntry.allImageFilenames.filter { it !in removedImageFilenames }
+                }
+                val photos by produceState<List<Pair<String, Bitmap>>>(
+                    initialValue = emptyList(),
+                    visibleFilenames
+                ) {
+                    value = withContext(Dispatchers.IO) {
+                        visibleFilenames.mapNotNull { filename ->
+                            container.imageStore.loadForViewer(filename, GALLERY_MAX_DIMENSION)
+                                ?.let { filename to it }
+                        }
                     }
-                }.filterNot { (filename, _) -> filename in removedImageFilenames }
+                }
+                LaunchedEffect(previewPhotoIndex, visibleFilenames) {
+                    val index = previewPhotoIndex
+                    if (index == null) {
+                        viewerBitmaps = null
+                        return@LaunchedEffect
+                    }
+                    viewerBitmaps = withContext(Dispatchers.IO) {
+                        visibleFilenames.map { filename ->
+                            container.imageStore.loadForViewer(filename)
+                                ?: container.imageStore.loadForViewer(filename, GALLERY_MAX_DIMENSION)
+                        }
+                    }
+                }
                 Box(
                     Modifier.fillMaxWidth().padding(vertical = 8.dp),
                     contentAlignment = Alignment.Center
@@ -412,9 +439,7 @@ fun EditFoodEntrySheet(
                                         modifier = Modifier
                                             .size(240.dp)
                                             .clip(RoundedCornerShape(20.dp))
-                                            .clickable {
-                                                previewPhotos = photos.map { it.second } to index
-                                            }
+                                            .clickable { previewPhotoIndex = index }
                                     )
                                     IconButton(
                                         onClick = { removedImageFilenames = removedImageFilenames + filename },
@@ -828,12 +853,35 @@ fun EditFoodEntrySheet(
             onDismiss = { ingredientEditor = null }
         )
     }
-    previewPhotos?.let { (bitmaps, index) ->
-        FullScreenImageViewer(
-            bitmaps = bitmaps,
-            initialIndex = index,
-            onDismiss = { previewPhotos = null }
-        )
+    previewPhotoIndex?.let { index ->
+        val images = viewerBitmaps
+        if (images == null) {
+            androidx.compose.ui.window.Dialog(
+                onDismissRequest = { previewPhotoIndex = null },
+                properties = androidx.compose.ui.window.DialogProperties(
+                    dismissOnBackPress = true,
+                    dismissOnClickOutside = false
+                )
+            ) {
+                Box(
+                    Modifier
+                        .size(96.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Color.Black.copy(alpha = 0.72f)),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(color = Color.White, modifier = Modifier.size(36.dp))
+                }
+            }
+        } else if (images.isNotEmpty()) {
+            FullScreenImageViewer(
+                bitmaps = images,
+                initialIndex = index.coerceIn(0, images.lastIndex),
+                onDismiss = { previewPhotoIndex = null }
+            )
+        }
     }
 }
+
+private const val GALLERY_MAX_DIMENSION = 720
 

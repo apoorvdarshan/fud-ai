@@ -33,8 +33,10 @@ import com.apoorvdarshan.calorietracker.backup.CloudBackupValue
 import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.models.WorkoutPersistedState
 import com.apoorvdarshan.calorietracker.ui.theme.AppThemeColor
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -984,7 +986,7 @@ class PreferencesStore(
         prefs[Keys.FOOD_ENTRIES]?.let {
             runCatching { json.decodeFromString(ListSerializer(FoodEntry.serializer()), it) }.getOrNull()
         } ?: emptyList()
-    }
+    }.flowOn(Dispatchers.Default)
 
     suspend fun setFoodEntries(entries: List<FoodEntry>) {
         ds.edit { it[Keys.FOOD_ENTRIES] = json.encodeToString(ListSerializer(FoodEntry.serializer()), entries) }
@@ -1139,7 +1141,7 @@ class PreferencesStore(
         prefs[Keys.CHAT_HISTORY]?.let {
             runCatching { json.decodeFromString(ListSerializer(ChatMessage.serializer()), it) }.getOrNull()
         } ?: emptyList()
-    }
+    }.flowOn(Dispatchers.Default)
 
     suspend fun setChatHistory(history: List<ChatMessage>) {
         ds.edit { it[Keys.CHAT_HISTORY] = json.encodeToString(ListSerializer(ChatMessage.serializer()), history) }

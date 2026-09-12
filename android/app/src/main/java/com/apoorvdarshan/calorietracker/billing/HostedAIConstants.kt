@@ -64,9 +64,6 @@ object HostedAIConstants {
     const val HOSTED_AI_BASE_URL = "https://fud-ai.app/api/hosted-ai/v1"
     const val HOSTED_AI_APP_SECRET = "fud-hosted-v1-dev-placeholder"
 
-    /** Paste the Play public SDK key from RevenueCat → Project Settings → Android. */
-    const val REVENUECAT_PUBLIC_SDK_KEY = "goog_PLACEHOLDER_PASTE_PLAY_PUBLIC_KEY"
-
     val subscriptionProductIds = listOf(PLUS_MONTHLY, PLUS_YEARLY, PRO_MONTHLY, PRO_YEARLY)
     val creditProductIds = listOf(CREDITS_50, CREDITS_150, CREDITS_400)
     val tipProductIds = listOf(TIP_SNACK, TIP_PROTEIN, TIP_LUNCH, TIP_FEAST)

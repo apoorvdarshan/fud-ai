@@ -42,6 +42,18 @@ class HostedAIQuotaManager(context: Context) {
         }
     }
 
+    suspend fun refund(fromDaily: Int, fromCredits: Int) {
+        resetIfNeeded()
+        ds.edit { prefs ->
+            if (fromDaily > 0) {
+                prefs[Keys.DAILY_USED] = ((prefs[Keys.DAILY_USED] ?: 0) - fromDaily).coerceAtLeast(0)
+            }
+            if (fromCredits > 0) {
+                prefs[Keys.CREDIT_BANK] = (prefs[Keys.CREDIT_BANK] ?: 0) + fromCredits
+            }
+        }
+    }
+
     suspend fun resetIfNeeded(today: String = localDayKey()) {
         ds.edit { prefs ->
             if (prefs[Keys.DAILY_RESET_DAY] != today) {

@@ -17,6 +17,18 @@ val keystoreProps = Properties().apply {
     if (keystorePropsFile.exists()) load(keystorePropsFile.inputStream())
 }
 
+val oauthProps = Properties().apply {
+    val file = rootProject.file("oauth.properties")
+    if (file.exists()) load(file.inputStream())
+}
+val localProps = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) load(file.inputStream())
+}
+val revenueCatPublicKey = oauthProps.getProperty("revenuecat.public.sdk.key")
+    ?: localProps.getProperty("revenuecat.public.sdk.key")
+    ?: ""
+
 android {
     namespace = "com.apoorvdarshan.calorietracker"
     compileSdk {
@@ -34,14 +46,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        val oauthProps = Properties().apply {
-            val file = rootProject.file("oauth.properties")
-            if (file.exists()) load(file.inputStream())
-        }
-        val localProps = Properties().apply {
-            val file = rootProject.file("local.properties")
-            if (file.exists()) load(file.inputStream())
-        }
         val webClientId = oauthProps.getProperty("cloud.backup.web.client.id")
             ?: localProps.getProperty("cloud.backup.web.client.id")
             ?: ""
@@ -49,6 +53,11 @@ android {
             "String",
             "CLOUD_BACKUP_WEB_CLIENT_ID",
             "\"${webClientId.replace("\"", "\\\"")}\""
+        )
+        buildConfigField(
+            "String",
+            "REVENUECAT_PUBLIC_SDK_KEY",
+            "\"${revenueCatPublicKey.replace("\"", "\\\"")}\""
         )
     }
 
@@ -169,6 +178,7 @@ dependencies {
     implementation(libs.revenuecat.purchases)
 
     testImplementation(libs.junit)
+    testImplementation("org.robolectric:robolectric:4.14.1")
     testImplementation("com.squareup.okhttp3:mockwebserver:${libs.versions.okhttp.get()}")
     testImplementation("com.squareup.okhttp3:okhttp-tls:${libs.versions.okhttp.get()}")
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -177,4 +187,19 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+}
+
+afterEvaluate {
+    tasks.matching {
+        it.name.equals("assembleRelease", ignoreCase = true) ||
+            it.name.equals("bundleRelease", ignoreCase = true)
+    }.configureEach {
+        doFirst {
+            if (revenueCatPublicKey.isBlank() || revenueCatPublicKey.contains("PLACEHOLDER", ignoreCase = true)) {
+                throw GradleException(
+                    "Release builds require revenuecat.public.sdk.key in android/oauth.properties or android/local.properties"
+                )
+            }
+        }
+    }
 }

@@ -31,18 +31,19 @@ struct SpeechService {
     /// independently configured remote STT fallback.
     static func transcribe(audioURL: URL) async throws -> String {
         if AIModeSettings.isHosted {
-            try await MainActor.run {
-                try AIGate.consumeIfHosted(.hostedSTT)
-            }
             guard let audioData = try? Data(contentsOf: audioURL) else {
                 throw SpeechError.fileReadFailed
             }
             let language = SpeechSettings.selectedLanguage(for: .deepgram).apiLanguageCode
-            return try await HostedAIService.transcribe(
-                audioData: audioData,
-                mimeType: mimeType(for: audioURL),
-                language: language
-            )
+            return try await MainActor.run {
+                try await AIGate.runWithHostedQuota(.hostedSTT) {
+                    try await HostedAIService.transcribe(
+                        audioData: audioData,
+                        mimeType: mimeType(for: audioURL),
+                        language: language
+                    )
+                }
+            }
         }
 
         let provider: SpeechProvider = SpeechSettings.selectedProvider

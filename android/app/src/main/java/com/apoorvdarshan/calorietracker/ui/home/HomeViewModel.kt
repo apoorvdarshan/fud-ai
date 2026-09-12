@@ -20,6 +20,7 @@ import com.apoorvdarshan.calorietracker.services.CalorieBalanceDirection
 import com.apoorvdarshan.calorietracker.services.DailySummaryPolicy
 import com.apoorvdarshan.calorietracker.services.OpenFoodFactsService
 import com.apoorvdarshan.calorietracker.ui.components.autoSaveMealPhotoIfEnabled
+import com.apoorvdarshan.calorietracker.billing.HostedAIQuotaError
 import com.apoorvdarshan.calorietracker.services.ai.AiError
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import kotlinx.coroutines.CancellationException
@@ -96,6 +97,7 @@ data class HomeUiState(
     val error: String? = null,
     /** When true, the error dialog's primary action opens the food camera instead of retrying. */
     val errorOffersScanLabel: Boolean = false,
+    val showHostedQuotaPaywall: Boolean = false,
 /** Daily step total from Health Connect for [date]; null when health is off, unreadable, or loading. */
     val dailySteps: Int? = null,
     val homeBurnSummary: HomeBurnSummary? = null,
@@ -423,6 +425,8 @@ viewModelScope.launch {
             try {
                 val analysis = container.foodAnalysis.analyzeText(description)
                 savePendingDraft(analysis, imageBytes = null, source = FoodSource.TEXT_INPUT)
+            } catch (e: HostedAIQuotaError) {
+                _ui.value = analysisQuotaFailure()
             } catch (e: AiError) {
                 _ui.value = _ui.value.copy(analyzing = false, error = e.userMessage(container.appContext), errorOffersScanLabel = false)
             } catch (e: Throwable) {
@@ -454,6 +458,8 @@ viewModelScope.launch {
             try {
                 val analysis = container.foodAnalysis.analyzeAuto(bytes)
                 savePendingDraft(analysis, imageBytes = bytes, source = FoodSource.SNAP_FOOD)
+            } catch (e: HostedAIQuotaError) {
+                _ui.value = analysisQuotaFailure()
             } catch (e: AiError) {
                 _ui.value = _ui.value.copy(analyzing = false, error = e.userMessage(container.appContext), errorOffersScanLabel = false)
             } catch (e: Throwable) {
@@ -496,6 +502,8 @@ viewModelScope.launch {
                     progressiveMeal
                 ).copy(customNote = note?.takeIf { it.isNotBlank() })
                 savePendingDraft(analysis, imageBytesList = images, source = FoodSource.SNAP_FOOD)
+            } catch (e: HostedAIQuotaError) {
+                _ui.value = analysisQuotaFailure()
             } catch (e: AiError) {
                 _ui.value = _ui.value.copy(analyzing = false, error = e.userMessage(container.appContext), errorOffersScanLabel = false)
             } catch (e: Throwable) {
@@ -714,6 +722,20 @@ viewModelScope.launch {
             weightMetric = snapshot.weightMetric
         )
     }
+
+    fun dismissHostedQuotaPaywall() {
+        _ui.value = _ui.value.copy(showHostedQuotaPaywall = false)
+    }
+
+    fun switchAiModeToByok() {
+        viewModelScope.launch {
+            container.prefs.setAiAccessMode(com.apoorvdarshan.calorietracker.billing.AIMode.BYOK)
+            dismissHostedQuotaPaywall()
+        }
+    }
+
+    private fun analysisQuotaFailure(): HomeUiState =
+        _ui.value.copy(analyzing = false, error = null, errorOffersScanLabel = false, showHostedQuotaPaywall = true)
 
     fun dismissPending() {
         retryAction = null
@@ -936,25 +958,26 @@ viewModelScope.launch {
     }
 
     suspend fun reprocessFoodEntry(entry: FoodEntry, updatedNote: String): FoodAnalysis {
-        container.aiGate.consumeIfHosted(com.apoorvdarshan.calorietracker.billing.HostedAIAction.REPROCESS_MEAL)
         val imageBytesList = entry.allImageFilenames.mapNotNull {
             runCatching { container.imageStore.file(it).readBytes() }.getOrNull()
         }
-        // Compose name + serving + note so a photo-less (text / voice / emoji) entry
-        // keeps its food context instead of re-analyzing the bare note; a photo entry
-        // gets the name/note as extra grounding on top of the image.
         val description = reprocessDescription(entry, updatedNote)
-        val result = if (imageBytesList.isNotEmpty()) {
-            container.foodAnalysis.analyzeFood(
-                imageBytesList,
-                description.takeIf { it.isNotBlank() },
-                entry.progressiveMeal,
-                skipHostedMetering = true
-            )
-        } else {
-            container.foodAnalysis.analyzeText(description, skipHostedMetering = true)
+        return container.aiGate.runWithHostedQuota(
+            com.apoorvdarshan.calorietracker.billing.HostedAIAction.REPROCESS_MEAL
+        ) {
+            val result = if (imageBytesList.isNotEmpty()) {
+                container.foodAnalysis.analyzeFood(
+                    imageBytesList,
+                    description.takeIf { it.isNotBlank() },
+                    entry.progressiveMeal,
+                    skipHostedMetering = true
+                )
+            } else {
+                require(description.isNotBlank())
+                container.foodAnalysis.analyzeText(description, skipHostedMetering = true)
+            }
+            result.copy(customNote = updatedNote.takeIf { it.isNotBlank() })
         }
-        return result.copy(customNote = updatedNote.takeIf { it.isNotBlank() })
     }
 
     private fun reprocessDescription(entry: FoodEntry, note: String): String {

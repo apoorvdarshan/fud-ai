@@ -217,7 +217,7 @@ struct GeminiService {
         profile: UserProfile,
         weightMetric: Bool
     ) async throws -> String {
-        try await consumeHostedQuota(.whatIf)
+        return try await runWithHostedQuota(.whatIf) {
         let current = macroTotals(for: dayEntries)
         let meal = macroTotals(for: entry)
         let after = current + meal
@@ -278,22 +278,23 @@ struct GeminiService {
 
         let text = try await callAI(prompt: prompt, image: nil)
         return text.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
     }
 
     static func analyzeWorkout(description: String, date: Date, unit: WeightUnit,
                                library: [ExerciseLibraryItem]) async throws -> WorkoutTextDraft {
-        try await consumeHostedQuota(.workoutAI)
         guard !description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty, description.count <= 16000 else {
             throw WorkoutTextError.invalid("The workout conversation is too long. Please start over.")
         }
-        let searchResponse = try await callAI(prompt: WorkoutTextDraft.searchPrompt(description: description), image: nil)
-        let queries = WorkoutTextDraft.searchQueries(searchResponse, fallback: description)
-        let prompt = WorkoutTextDraft.prompt(description: description, selectedDate: date, unit: unit, library: library, searchQueries: queries)
-        return try WorkoutTextDraft.parse(try await callAI(prompt: prompt, image: nil), library: library)
+        return try await runWithHostedQuota(.workoutAI) {
+            let searchResponse = try await callAI(prompt: WorkoutTextDraft.searchPrompt(description: description), image: nil)
+            let queries = WorkoutTextDraft.searchQueries(searchResponse, fallback: description)
+            let prompt = WorkoutTextDraft.prompt(description: description, selectedDate: date, unit: unit, library: library, searchQueries: queries)
+            return try WorkoutTextDraft.parse(try await callAI(prompt: prompt, image: nil), library: library)
+        }
     }
 
     static func analyzeTextInput(description: String, skipHostedMetering: Bool = false) async throws -> FoodAnalysis {
-        if !skipHostedMetering { try await consumeHostedQuota(.textFood) }
         let prompt = """
         Estimate the nutritional content for: \(description)
         Parse any quantities, brands, and multiple items from the text. If a brand is mentioned, use that brand's known nutritional data. If multiple items are described, sum up the total nutrition.
@@ -305,12 +306,13 @@ struct GeminiService {
         When supported by the text, use slice/piece for discrete foods, ml/cup/fl oz for liquids, tbsp/tsp for spooned foods, and can/packet for packaged foods.
         Include a single food emoji that best represents the food. Use null for any nutrient you cannot estimate.
         """
-        let analysis = try await callTextFoodAnalysis(prompt: prompt, description: description)
-        return await addingFallbackServingUnits(to: analysis, image: nil, description: description)
+        return try await runWithHostedQuota(.textFood, skip: skipHostedMetering) {
+            let analysis = try await callTextFoodAnalysis(prompt: prompt, description: description)
+            return await addingFallbackServingUnits(to: analysis, image: nil, description: description)
+        }
     }
 
     static func autoAnalyze(image: UIImage) async throws -> FoodAnalysis {
-        try await consumeHostedQuota(.photoFood)
         let prompt = """
         Analyze this image. It could be either a photo of food OR a nutrition facts label.
 
@@ -325,13 +327,14 @@ struct GeminiService {
         When supported by the image or label, use slice/piece for discrete foods, ml/cup/fl oz for liquids, tbsp/tsp for spooned foods, and can/packet for packaged foods. For a whole or mostly-whole divisible food, count only clearly visible pieces or slices and derive grams_per_unit from serving_size_grams / quantity.
         Use null for any nutrient you cannot estimate.
         """
-        let text = try await callAI(prompt: prompt, image: image)
-        let analysis = try parseFoodAnalysis(from: text)
-        return await addingFallbackServingUnits(to: analysis, image: image, description: nil)
+        return try await runWithHostedQuota(.photoFood) {
+            let text = try await callAI(prompt: prompt, image: image)
+            let analysis = try parseFoodAnalysis(from: text)
+            return await addingFallbackServingUnits(to: analysis, image: image, description: nil)
+        }
     }
 
     static func analyzeFood(image: UIImage, description: String? = nil, skipHostedMetering: Bool = false) async throws -> FoodAnalysis {
-        if !skipHostedMetering { try await consumeHostedQuota(.photoFood) }
         var prompt = """
         Analyze this food image. Identify the food and estimate its nutritional content.
 
@@ -349,9 +352,11 @@ struct GeminiService {
             prompt += "\n\nAdditional context from the user about this meal: \(description)\nUse this context to improve accuracy of identification, portion size, and nutrition estimates."
         }
 
-        let text = try await callAI(prompt: prompt, image: image)
-        let analysis = try parseFoodAnalysis(from: text)
-        return await addingFallbackServingUnits(to: analysis, image: image, description: description)
+        return try await runWithHostedQuota(.photoFood, skip: skipHostedMetering) {
+            let text = try await callAI(prompt: prompt, image: image)
+            let analysis = try parseFoodAnalysis(from: text)
+            return await addingFallbackServingUnits(to: analysis, image: image, description: description)
+        }
     }
 
     static func multiPhotoAnalysisPrompt(progressiveMeal: Bool, description: String? = nil) -> String {
@@ -400,20 +405,20 @@ struct GeminiService {
         progressiveMeal: Bool = false,
         skipHostedMetering: Bool = false
     ) async throws -> FoodAnalysis {
-        if !skipHostedMetering { try await consumeHostedQuota(.photoFood) }
         guard !images.isEmpty else { throw AnalysisError.imageConversionFailed }
 
         let prompt = multiPhotoAnalysisPrompt(progressiveMeal: progressiveMeal, description: description)
 
-        let text = try await callAI(prompt: prompt, images: images)
-        let analysis = try parseFoodAnalysis(from: text)
-        var result = await addingFallbackServingUnits(to: analysis, image: images[0], description: description)
-        result.progressiveMeal = progressiveMeal
-        return result
+        return try await runWithHostedQuota(.photoFood, skip: skipHostedMetering) {
+            let text = try await callAI(prompt: prompt, images: images)
+            let analysis = try parseFoodAnalysis(from: text)
+            var result = await addingFallbackServingUnits(to: analysis, image: images[0], description: description)
+            result.progressiveMeal = progressiveMeal
+            return result
+        }
     }
 
     static func analyzeNutritionLabel(image: UIImage) async throws -> NutritionLabelAnalysis {
-        try await consumeHostedQuota(.photoFood)
         let prompt = """
         Read this nutrition label image. Extract the nutritional values per 100g (or per 100ml).
         If the label shows per-serving values, convert them to per-100g using the serving size.
@@ -427,9 +432,11 @@ struct GeminiService {
         \(Self.servingUnitOptionsInstruction)
         All nutrient and serving-size values should be numbers. If serving size or any nutrient is not available, use null. Only include a label serving unit such as slice, piece, tbsp, cup, ml, fl oz, can, or packet when its quantity is actually printed or otherwise visible on the label.
         """
-        let text = try await callAI(prompt: prompt, image: image)
-        let analysis = try parseNutritionLabel(from: text)
-        return await addingFallbackServingUnits(to: analysis, image: image)
+        return try await runWithHostedQuota(.photoFood) {
+            let text = try await callAI(prompt: prompt, image: image)
+            let analysis = try parseNutritionLabel(from: text)
+            return await addingFallbackServingUnits(to: analysis, image: image)
+        }
     }
 
     /// Extracts clearly positive/elevated sensitizations from an ISAC/ALEX-style allergy lab report image.
@@ -439,7 +446,6 @@ struct GeminiService {
     }
 
     static func extractAllergensFromLabReport(images: [UIImage]) async throws -> [String] {
-        try await consumeHostedQuota(.allergensLab)
         guard !images.isEmpty else { throw AnalysisError.imageConversionFailed }
         let prompt = """
         This image is an allergy blood-test lab report (ISAC, ALEX, or similar multiplex IgE / component-resolved diagnostics).
@@ -450,8 +456,10 @@ struct GeminiService {
         Respond ONLY with JSON:
         {"allergens":["milk","peanut"]}
         """
-        let text = try await callAI(prompt: prompt, images: images)
-        return try parseAllergensFromLabReport(from: text)
+        return try await runWithHostedQuota(.allergensLab) {
+            let text = try await callAI(prompt: prompt, images: images)
+            return try parseAllergensFromLabReport(from: text)
+        }
     }
 
     static func suggestOptionalNutrientGoals(
@@ -531,9 +539,7 @@ struct GeminiService {
         weightMetric: Bool,
         countTowardHostedQuota: Bool = true
     ) async throws -> GoalCalculation {
-        if countTowardHostedQuota {
-            try await consumeHostedQuota(.manualRecalculateGoals(llmCalls: 1))
-        }
+        func compute() async throws -> GoalCalculation {
         let weight = weightMetric
             ? String(format: "%.1f kg", profile.weightKg)
             : String(format: "%.1f lb", profile.weightKg * 2.20462)
@@ -627,6 +633,14 @@ struct GeminiService {
 
         let text = try await callAI(prompt: prompt, image: nil)
         return try parseGoalCalculation(from: text, profile: profile)
+        }
+
+        if countTowardHostedQuota {
+            return try await runWithHostedQuota(.manualRecalculateGoals(llmCalls: 1)) {
+                try await compute()
+            }
+        }
+        return try await compute()
     }
 
     // MARK: - Weight Forecast Insight
@@ -811,9 +825,16 @@ struct GeminiService {
         return try parseFoodAnalysis(from: text)
     }
 
-    private static func consumeHostedQuota(_ action: HostedAIAction) async throws {
-        try await MainActor.run {
-            try AIGate.consumeIfHosted(action)
+    private static func runWithHostedQuota<T>(
+        _ action: HostedAIAction,
+        skip: Bool = false,
+        _ work: () async throws -> T
+    ) async throws -> T {
+        if skip || !AIModeSettings.isHosted {
+            return try await work()
+        }
+        return try await MainActor.run {
+            try await AIGate.runWithHostedQuota(action, work)
         }
     }
 

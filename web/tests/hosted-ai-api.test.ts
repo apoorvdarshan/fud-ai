@@ -12,6 +12,16 @@ function env(overrides: Record<string, string> = {}) {
   };
 }
 
+function authedHeaders(overrides: Record<string, string> = {}) {
+  return {
+    Authorization: `Bearer ${SECRET}`,
+    "Content-Type": "application/json",
+    "X-Fud-User-Id": "user-123",
+    "X-Fud-Plan": "plus",
+    ...overrides,
+  };
+}
+
 describe("hosted-ai-api auth", () => {
   it("rejects missing authorization", async () => {
     const response = await handleHostedAIRequest(
@@ -32,14 +42,36 @@ describe("hosted-ai-api auth", () => {
     expect(response.status).toBe(401);
   });
 
-  it("returns 400 for missing prompt on generate", async () => {
+  it("rejects missing user id", async () => {
     const response = await handleHostedAIRequest(
       new Request("https://fud-ai.app/api/hosted-ai/v1/generate", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${SECRET}`,
-          "Content-Type": "application/json",
+          "X-Fud-Plan": "plus",
         },
+      }),
+      env()
+    );
+    expect(response.status).toBe(401);
+  });
+
+  it("rejects invalid plan", async () => {
+    const response = await handleHostedAIRequest(
+      new Request("https://fud-ai.app/api/hosted-ai/v1/generate", {
+        method: "POST",
+        headers: authedHeaders({ "X-Fud-Plan": "none" }),
+      }),
+      env()
+    );
+    expect(response.status).toBe(403);
+  });
+
+  it("returns 400 for missing prompt on generate", async () => {
+    const response = await handleHostedAIRequest(
+      new Request("https://fud-ai.app/api/hosted-ai/v1/generate", {
+        method: "POST",
+        headers: authedHeaders(),
         body: JSON.stringify({}),
       }),
       env()
@@ -51,10 +83,7 @@ describe("hosted-ai-api auth", () => {
     const response = await handleHostedAIRequest(
       new Request("https://fud-ai.app/api/hosted-ai/v1/generate", {
         method: "POST",
-        headers: {
-          Authorization: `Bearer ${SECRET}`,
-          "Content-Type": "application/json",
-        },
+        headers: authedHeaders(),
         body: JSON.stringify({ prompt: "hello" }),
       }),
       env({ GEMINI_API_KEY: "" })

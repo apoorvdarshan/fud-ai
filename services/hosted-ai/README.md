@@ -16,9 +16,11 @@ All requests require:
 
 ```
 Authorization: Bearer <FUD_HOSTED_AI_APP_SECRET>
-X-Fud-User-Id: <RevenueCat app user id>   # v1 client-side gating; logged for future metering
-X-Fud-Plan: plus|pro|none                 # informational in v1
+X-Fud-User-Id: <RevenueCat app user id>   # required; max 128 chars
+X-Fud-Plan: plus|pro                      # required; rejects none/other values
 ```
+
+The worker validates the shared secret, user id, and an active plus/pro plan header. It does **not** yet verify RevenueCat entitlements server-side — see the follow-up note below.
 
 ## Required secrets (Wrangler)
 
@@ -41,7 +43,7 @@ Update `web/wrangler.toml` `run_worker_first` to include `/api/hosted-ai/v1/*` b
 
 ## v1 metering note
 
-Quota (daily pool + credit bank) is enforced **on device** before each hosted call. The worker validates the shared secret only. A future iteration should add RevenueCat webhooks → D1/KV ledger for server-side enforcement.
+Quota (daily pool + credit bank) is enforced **on device** before each hosted call. The worker validates the shared secret, user id, and plus/pro plan header, plus request size limits and upstream timeouts. **Follow-up:** add RevenueCat entitlement verification (webhooks or REST) and a server-side usage ledger so requests cannot bypass device quota.
 
 ## Hosted limits
 

@@ -1,9 +1,11 @@
 /**
  * Fud AI hosted path — proxies Gemini Flash-Lite + Deepgram STT.
  * Secrets live in Worker env vars only; mobile apps send a shared app secret
- * plus the RevenueCat app user id for v1 client-side entitlement gating.
+ * plus RevenueCat user id and plan for v1 client-side entitlement gating.
  *
  * TODO: server-side meter enforcement via RevenueCat webhooks + D1/KV ledger.
+ * The worker currently validates the shared secret, user id, and plus/pro plan
+ * but does not yet verify RevenueCat entitlements server-side.
  */
 
 export const HOSTED_AI_API_PREFIX = "/api/hosted-ai/v1";
@@ -11,12 +13,23 @@ export const HOSTED_AI_API_PREFIX = "/api/hosted-ai/v1";
 const HOSTED_GEMINI_MODEL = "gemini-2.0-flash-lite";
 const MAX_HOSTED_IMAGES = 3;
 const MAX_PROMPT_CHARS = 120_000;
+const MAX_SYSTEM_INSTRUCTION_CHARS = 32_000;
 const MAX_AUDIO_BYTES = 12 * 1024 * 1024;
+const MAX_AUDIO_BASE64_CHARS = Math.ceil((MAX_AUDIO_BYTES / 3) * 4);
+const MAX_IMAGE_BASE64_CHARS = 8 * 1024 * 1024;
+const MAX_REQUEST_BODY_BYTES = 16 * 1024 * 1024;
+const MAX_GEMINI_PASSTHROUGH_BYTES = 8 * 1024 * 1024;
+const UPSTREAM_TIMEOUT_MS = 30_000;
 
 type HostedAIEnv = Pick<
   Env,
   "GEMINI_API_KEY" | "DEEPGRAM_API_KEY" | "FUD_HOSTED_AI_APP_SECRET"
 >;
+
+type HostedClientContext = {
+  userId: string;
+  plan: "plus" | "pro";
+};
 
 export async function handleHostedAIRequest(
   request: Request,
@@ -31,10 +44,9 @@ export async function handleHostedAIRequest(
     return json({ error: "method_not_allowed" }, 405);
   }
 
-  const auth = request.headers.get("Authorization") ?? "";
-  const secret = env.FUD_HOSTED_AI_APP_SECRET;
-  if (!secret || auth !== `Bearer ${secret}`) {
-    return json({ error: "unauthorized" }, 401);
+  const authResult = validateHostedAuth(request, env);
+  if (authResult instanceof Response) {
+    return authResult;
   }
 
   const subpath = url.pathname.slice(HOSTED_AI_API_PREFIX.length) || "/";
@@ -51,16 +63,40 @@ export async function handleHostedAIRequest(
     return json({ error: "not_found" }, 404);
   } catch (err) {
     const message = err instanceof Error ? err.message : "internal_error";
-    console.error(JSON.stringify({ event: "hosted_ai_error", message }));
+    console.error(
+      JSON.stringify({ event: "hosted_ai_error", userId: authResult.userId, plan: authResult.plan, message })
+    );
+    if (message === "body_too_large") {
+      return json({ error: message }, 413);
+    }
     return json({ error: message }, 502);
   }
+}
+
+function validateHostedAuth(request: Request, env: HostedAIEnv): Response | HostedClientContext {
+  const auth = request.headers.get("Authorization") ?? "";
+  const secret = env.FUD_HOSTED_AI_APP_SECRET;
+  if (!secret || auth !== `Bearer ${secret}`) {
+    return json({ error: "unauthorized" }, 401);
+  }
+
+  const userId = request.headers.get("X-Fud-User-Id")?.trim() ?? "";
+  const plan = request.headers.get("X-Fud-Plan")?.trim() ?? "";
+  if (!userId || userId.length > 128) {
+    return json({ error: "invalid_user_id" }, 401);
+  }
+  if (plan !== "plus" && plan !== "pro") {
+    return json({ error: "invalid_plan" }, 403);
+  }
+
+  return { userId, plan };
 }
 
 async function handleGenerate(request: Request, env: HostedAIEnv): Promise<Response> {
   const geminiKey = env.GEMINI_API_KEY;
   if (!geminiKey) return json({ error: "gemini_not_configured" }, 503);
 
-  const body = (await request.json()) as {
+  const body = (await readJsonBody(request, MAX_REQUEST_BODY_BYTES)) as {
     prompt?: string;
     images?: string[];
     systemInstruction?: string;
@@ -70,8 +106,19 @@ async function handleGenerate(request: Request, env: HostedAIEnv): Promise<Respo
   if (!prompt) return json({ error: "missing_prompt" }, 400);
   if (prompt.length > MAX_PROMPT_CHARS) return json({ error: "prompt_too_long" }, 400);
 
-  const images = Array.isArray(body.images) ? body.images.slice(0, MAX_HOSTED_IMAGES) : [];
-  const parts: Array<Record<string, unknown>> = images.map((data) => ({
+  const systemInstruction = body.systemInstruction?.trim();
+  if (systemInstruction && systemInstruction.length > MAX_SYSTEM_INSTRUCTION_CHARS) {
+    return json({ error: "system_instruction_too_long" }, 400);
+  }
+
+  const rawImages = Array.isArray(body.images) ? body.images.slice(0, MAX_HOSTED_IMAGES) : [];
+  for (const image of rawImages) {
+    if (typeof image !== "string" || image.length > MAX_IMAGE_BASE64_CHARS) {
+      return json({ error: "image_too_large" }, 400);
+    }
+  }
+
+  const parts: Array<Record<string, unknown>> = rawImages.map((data) => ({
     inlineData: { mimeType: "image/jpeg", data },
   }));
   parts.push({ text: prompt });
@@ -79,9 +126,9 @@ async function handleGenerate(request: Request, env: HostedAIEnv): Promise<Respo
   const geminiBody: Record<string, unknown> = {
     contents: [{ parts }],
   };
-  if (body.systemInstruction?.trim()) {
+  if (systemInstruction) {
     geminiBody.systemInstruction = {
-      parts: [{ text: body.systemInstruction.trim() }],
+      parts: [{ text: systemInstruction }],
     };
   }
 
@@ -98,7 +145,9 @@ async function handleGeminiPassthrough(
   const geminiKey = env.GEMINI_API_KEY;
   if (!geminiKey) return json({ error: "gemini_not_configured" }, 503);
 
-  const body = (await request.json()) as { requestBody?: Record<string, unknown> };
+  const body = (await readJsonBody(request, MAX_GEMINI_PASSTHROUGH_BYTES)) as {
+    requestBody?: Record<string, unknown>;
+  };
   if (!body.requestBody || typeof body.requestBody !== "object") {
     return json({ error: "missing_request_body" }, 400);
   }
@@ -114,12 +163,15 @@ async function handleTranscribe(request: Request, env: HostedAIEnv): Promise<Res
   const deepgramKey = env.DEEPGRAM_API_KEY;
   if (!deepgramKey) return json({ error: "deepgram_not_configured" }, 503);
 
-  const body = (await request.json()) as {
+  const body = (await readJsonBody(request, MAX_REQUEST_BODY_BYTES)) as {
     audio?: string;
     mimeType?: string;
     language?: string;
   };
   if (!body.audio) return json({ error: "missing_audio" }, 400);
+  if (body.audio.length > MAX_AUDIO_BASE64_CHARS) {
+    return json({ error: "audio_too_large" }, 400);
+  }
 
   const audioBytes = decodeBase64(body.audio);
   if (audioBytes.byteLength > MAX_AUDIO_BYTES) {
@@ -137,6 +189,7 @@ async function handleTranscribe(request: Request, env: HostedAIEnv): Promise<Res
 
   const upstream = await fetch(`https://api.deepgram.com/v1/listen?${params}`, {
     method: "POST",
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
     headers: {
       Authorization: `Token ${deepgramKey}`,
       "Content-Type": mimeType,
@@ -169,6 +222,7 @@ async function fetchGemini(
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${HOSTED_GEMINI_MODEL}:generateContent`;
   const response = await fetch(url, {
     method: "POST",
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
     headers: {
       "Content-Type": "application/json",
       "X-goog-api-key": apiKey,
@@ -183,6 +237,18 @@ async function fetchGemini(
     throw new Error(message);
   }
   return payload;
+}
+
+async function readJsonBody(request: Request, maxBytes: number): Promise<unknown> {
+  const contentLength = request.headers.get("Content-Length");
+  if (contentLength && Number(contentLength) > maxBytes) {
+    throw new Error("body_too_large");
+  }
+  const buffer = await request.arrayBuffer();
+  if (buffer.byteLength > maxBytes) {
+    throw new Error("body_too_large");
+  }
+  return JSON.parse(new TextDecoder().decode(buffer));
 }
 
 function extractGeminiText(payload: Record<string, unknown>): string | null {

@@ -96,6 +96,16 @@ final class HostedAIQuotaManager {
         creditBank += amount
     }
 
+    func refund(fromDaily: Int, fromCredits: Int) {
+        resetIfNeeded()
+        if fromDaily > 0 {
+            dailyUsed = max(0, dailyUsed - fromDaily)
+        }
+        if fromCredits > 0 {
+            creditBank += fromCredits
+        }
+    }
+
     static func localDayKey(for date: Date = Date(), calendar: Calendar = .current) -> String {
         let comps = calendar.dateComponents([.year, .month, .day], from: date)
         return String(format: "%04d-%02d-%02d", comps.year ?? 0, comps.month ?? 0, comps.day ?? 0)

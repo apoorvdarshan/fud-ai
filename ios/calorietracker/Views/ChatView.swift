@@ -23,6 +23,9 @@ struct ChatView: View {
     @State private var selectedPhotoItem: PhotosPickerItem?
     @State private var isSending = false
     @State private var errorMessage: String?
+    @State private var showHostedQuotaPaywall = false
+    @State private var showHostedPaywall = false
+    @State private var showHostedCredits = false
     @State private var showResetConfirmation = false
     @State private var showCamera = false
     @State private var showPhotoPicker = false
@@ -81,6 +84,24 @@ struct ChatView: View {
                 }
             } message: {
                 Text("Clear all messages and start fresh? This can't be undone.")
+            }
+            .sheet(isPresented: $showHostedQuotaPaywall) {
+                HostedQuotaSoftPaywall(
+                    onBuyCreditsOrUpgrade: {
+                        if RevenueCatManager.shared.hasHostedEntitlement {
+                            showHostedCredits = true
+                        } else {
+                            showHostedPaywall = true
+                        }
+                    },
+                    onSwitchBYOK: { errorMessage = nil }
+                )
+            }
+            .sheet(isPresented: $showHostedPaywall) {
+                HostedPaywallView()
+            }
+            .sheet(isPresented: $showHostedCredits) {
+                HostedCreditsSheet()
             }
             .fullScreenCover(isPresented: $showCamera) {
                 CameraView(image: $capturedImage)
@@ -691,7 +712,18 @@ struct ChatView: View {
                 )
                 chatStore.append(ChatMessage(role: .assistant, content: reply))
             } catch {
-                errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+                if let quotaError = error as? HostedAIQuotaError {
+                    switch quotaError {
+                    case .quotaExceeded:
+                        showHostedQuotaPaywall = true
+                    case .noActiveSubscription:
+                        showHostedPaywall = true
+                    case .notHostedMode:
+                        errorMessage = quotaError.errorDescription
+                    }
+                } else {
+                    errorMessage = (error as? LocalizedError)?.errorDescription ?? error.localizedDescription
+                }
             }
         }
     }

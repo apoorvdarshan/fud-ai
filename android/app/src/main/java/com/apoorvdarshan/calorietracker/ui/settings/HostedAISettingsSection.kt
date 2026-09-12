@@ -26,7 +26,11 @@ import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.billing.AIMode
 import com.apoorvdarshan.calorietracker.billing.HostedAIConstants
+import com.revenuecat.purchases.Offerings
+import com.revenuecat.purchases.Package
 import kotlinx.coroutines.launch
+
+internal enum class PaywallKind { Subscribe, Credits }
 
 @Composable
 fun HostedAISettingsSection(container: AppContainer) {
@@ -37,7 +41,9 @@ fun HostedAISettingsSection(container: AppContainer) {
     val plan by container.revenueCat.activePlan.collectAsState()
     val entitled by container.revenueCat.hasHostedEntitlement.collectAsState()
     val offerings by container.revenueCat.offerings.collectAsState()
-    var showPaywall by remember { mutableStateOf(false) }
+    var paywallKind by remember { mutableStateOf<PaywallKind?>(null) }
+    var offeringsError by remember { mutableStateOf<String?>(null) }
+    var purchaseError by remember { mutableStateOf<String?>(null) }
     var dailyUsed by remember { mutableIntStateOf(0) }
     var dailyLimit by remember { mutableIntStateOf(0) }
     var creditBank by remember { mutableIntStateOf(0) }
@@ -45,6 +51,9 @@ fun HostedAISettingsSection(container: AppContainer) {
     LaunchedEffect(plan, entitled) {
         runCatching { container.revenueCat.refreshCustomerInfo() }
         runCatching { container.revenueCat.loadOfferings() }
+            .onFailure { error ->
+                offeringsError = error.message ?: context.getString(R.string.settings_hosted_offerings_error)
+            }
         val snap = container.hostedQuotaManager.snapshot(plan)
         dailyUsed = snap.dailyUsed
         dailyLimit = snap.dailyLimit
@@ -57,7 +66,7 @@ fun HostedAISettingsSection(container: AppContainer) {
             TextButton(onClick = {
                 scope.launch {
                     if (mode == AIMode.HOSTED && !entitled) {
-                        showPaywall = true
+                        paywallKind = PaywallKind.Subscribe
                     } else {
                         container.prefs.setAiAccessMode(mode)
                     }
@@ -77,32 +86,131 @@ fun HostedAISettingsSection(container: AppContainer) {
             Text(stringResource(R.string.settings_hosted_plan, plan.name))
             Text(stringResource(R.string.settings_hosted_today, dailyUsed, dailyLimit))
             Text(stringResource(R.string.settings_hosted_credits, creditBank))
-            TextButton(onClick = { showPaywall = true }) {
+            TextButton(onClick = { paywallKind = PaywallKind.Subscribe }) {
                 Text(stringResource(R.string.settings_hosted_subscribe))
             }
-            TextButton(onClick = { showPaywall = true }, enabled = entitled) {
+            TextButton(onClick = { paywallKind = PaywallKind.Credits }, enabled = entitled) {
                 Text(stringResource(R.string.settings_hosted_buy_credits))
             }
-            TextButton(onClick = {
+        }
+
+        offeringsError?.let { message ->
+            Text(message, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(top = 4.dp))
+        }
+
+        TextButton(onClick = {
+            scope.launch {
+                runCatching { container.revenueCat.restorePurchases() }
+                    .onFailure { purchaseError = it.message }
+                val snap = container.hostedQuotaManager.snapshot(container.revenueCat.activePlan.value)
+                dailyUsed = snap.dailyUsed
+                dailyLimit = snap.dailyLimit
+                creditBank = snap.creditBank
+            }
+        }) {
+            Text(stringResource(R.string.settings_restore_purchases))
+        }
+    }
+
+    val kind = paywallKind
+    if (kind != null && activity != null) {
+        HostedPaywallDialog(
+            kind = kind,
+            offerings = offerings,
+            activity = activity,
+            onDismiss = { paywallKind = null },
+            onPurchaseError = { purchaseError = it },
+            onSubscribeSuccess = {
                 scope.launch {
-                    runCatching { container.revenueCat.restorePurchases() }
+                    container.prefs.setAiAccessMode(AIMode.HOSTED)
+                    paywallKind = null
+                }
+            },
+            onCreditsSuccess = {
+                scope.launch {
                     val snap = container.hostedQuotaManager.snapshot(container.revenueCat.activePlan.value)
                     dailyUsed = snap.dailyUsed
                     dailyLimit = snap.dailyLimit
                     creditBank = snap.creditBank
+                    paywallKind = null
                 }
-            }) {
-                Text(stringResource(R.string.settings_restore_purchases))
+            },
+            purchase = { pkg ->
+                container.revenueCat.purchasePackage(activity, pkg)
             }
-        }
+        )
     }
 
-    if (showPaywall && activity != null) {
+    purchaseError?.let { message ->
         AlertDialog(
-            onDismissRequest = { showPaywall = false },
-            title = { Text(stringResource(R.string.settings_hosted_subscribe)) },
-            text = {
-                Column {
+            onDismissRequest = { purchaseError = null },
+            title = { Text(stringResource(R.string.settings_hosted_purchase_error_title)) },
+            text = { Text(message) },
+            confirmButton = {
+                TextButton(onClick = { purchaseError = null }) {
+                    Text(stringResource(android.R.string.ok))
+                }
+            }
+        )
+    }
+}
+
+@Composable
+fun HostedQuotaSoftPaywallDialog(
+    onDismiss: () -> Unit,
+    onBuyCreditsOrUpgrade: () -> Unit,
+    onSwitchToByok: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(R.string.hosted_quota_exhausted_title)) },
+        text = { Text(stringResource(R.string.hosted_quota_exhausted_body)) },
+        confirmButton = {
+            TextButton(onClick = {
+                onDismiss()
+                onBuyCreditsOrUpgrade()
+            }) {
+                Text(stringResource(R.string.settings_hosted_subscribe))
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = {
+                onSwitchToByok()
+                onDismiss()
+            }) {
+                Text(stringResource(R.string.settings_ai_mode_byok))
+            }
+        }
+    )
+}
+
+@Composable
+internal fun HostedPaywallDialog(
+    kind: PaywallKind,
+    offerings: Offerings?,
+    activity: Activity,
+    onDismiss: () -> Unit,
+    onPurchaseError: (String) -> Unit,
+    onSubscribeSuccess: () -> Unit,
+    onCreditsSuccess: () -> Unit,
+    purchase: suspend (Package) -> Unit
+) {
+    val scope = rememberCoroutineScope()
+    val packages = when (kind) {
+        PaywallKind.Subscribe -> subscriptionPackages(offerings)
+        PaywallKind.Credits -> creditPackages(offerings)
+    }
+    val title = when (kind) {
+        PaywallKind.Subscribe -> stringResource(R.string.settings_hosted_subscribe)
+        PaywallKind.Credits -> stringResource(R.string.settings_hosted_buy_credits)
+    }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(title) },
+        text = {
+            Column {
+                if (kind == PaywallKind.Subscribe) {
                     Text(
                         stringResource(
                             R.string.settings_hosted_paywall_body,
@@ -110,26 +218,44 @@ fun HostedAISettingsSection(container: AppContainer) {
                             HostedAIConstants.PRO_DAILY_LIMIT
                         )
                     )
-                    offerings?.current?.availablePackages?.forEach { pkg ->
-                        TextButton(onClick = {
-                            scope.launch {
-                                runCatching {
-                                    container.revenueCat.purchasePackage(activity, pkg)
-                                    container.prefs.setAiAccessMode(AIMode.HOSTED)
-                                    showPaywall = false
+                }
+                if (packages.isEmpty()) {
+                    Text(stringResource(R.string.settings_hosted_plans_loading))
+                }
+                packages.forEach { pkg ->
+                    TextButton(onClick = {
+                        scope.launch {
+                            runCatching { purchase(pkg) }
+                                .onSuccess {
+                                    when (kind) {
+                                        PaywallKind.Subscribe -> onSubscribeSuccess()
+                                        PaywallKind.Credits -> onCreditsSuccess()
+                                    }
                                 }
-                            }
-                        }) {
-                            Text("${pkg.product.title} — ${pkg.product.price.formatted}")
+                                .onFailure { error ->
+                                    onPurchaseError(error.message ?: "Purchase failed")
+                                }
                         }
+                    }) {
+                        Text("${pkg.product.title} — ${pkg.product.price.formatted}")
                     }
                 }
-            },
-            confirmButton = {
-                TextButton(onClick = { showPaywall = false }) {
-                    Text(stringResource(android.R.string.cancel))
-                }
             }
-        )
-    }
+        },
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text(stringResource(android.R.string.cancel))
+            }
+        }
+    )
 }
+
+private fun subscriptionPackages(offerings: Offerings?): List<Package> =
+    offerings?.current?.availablePackages
+        ?.filter { it.product.id in HostedAIConstants.subscriptionProductIds }
+        .orEmpty()
+
+private fun creditPackages(offerings: Offerings?): List<Package> =
+    offerings?.current?.availablePackages
+        ?.filter { it.product.id in HostedAIConstants.creditProductIds }
+        .orEmpty()

@@ -28,12 +28,21 @@ class SpeechService(
     /** Returns the transcript text. Throws [SttApiError] on any failure. */
     suspend fun transcribeRecordedAudio(audio: File): String {
         if (aiGate?.isHostedMode() == true) {
-            aiGate.consumeIfHosted(com.apoorvdarshan.calorietracker.billing.HostedAIAction.HOSTED_STT)
-            val hosted = hostedAI ?: throw SttApiError.Api("Hosted AI is not configured.")
-            val bytes = audio.readBytes()
-            val language = prefs.selectedSpeechLanguage(com.apoorvdarshan.calorietracker.models.SpeechProvider.DEEPGRAM)
-                .first().remoteLanguageCode()
-            return hosted.transcribe(bytes, mimeTypeFor(audio), language)
+            if (!audio.exists() || audio.length() <= 0L) {
+                throw SttApiError.Api("Recording file is missing or empty.")
+            }
+            val gate = aiGate
+            return try {
+                gate.runWithHostedQuota(com.apoorvdarshan.calorietracker.billing.HostedAIAction.HOSTED_STT) {
+                    val hosted = hostedAI ?: throw SttApiError.Api("Hosted AI is not configured.")
+                    val bytes = audio.readBytes()
+                    val language = prefs.selectedSpeechLanguage(SpeechProvider.DEEPGRAM)
+                        .first().remoteLanguageCode()
+                    hosted.transcribe(bytes, mimeTypeFor(audio), language)
+                }
+            } finally {
+                runCatching { audio.delete() }
+            }
         }
         val provider = prefs.selectedSpeechProvider.first()
         return try {

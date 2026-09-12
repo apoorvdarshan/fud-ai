@@ -70,36 +70,38 @@ class ChatService(
         workoutPreferences: WorkoutPreferences = WorkoutPreferences(),
         workoutPlanWeightUnit: WorkoutWeightUnit = WorkoutWeightUnit.LBS
     ): String {
-        aiGate?.consumeIfHosted(HostedAIAction.COACH_MESSAGE)
         if (aiGate?.isHostedMode() == true) {
-            val hosted = hostedAI ?: throw AiError.Api("Hosted AI is not configured.")
-            val baseSystemPrompt = buildSystemPrompt(
-                profile = profile,
-                weights = weights,
-                bodyFats = bodyFats,
-                measurements = measurements,
-                foods = foods,
-                fastingSessions = fastingSessions,
-                heightMetric = heightMetric,
-                weightMetric = weightMetric,
-                workoutSessions = workoutSessions,
-                workoutPlans = workoutPlans
-            )
-            val userContext = prefs.userContext.first()
-            val systemPrompt = if (userContext.isNotBlank())
-                "$baseSystemPrompt\n\n## User-provided context\n$userContext"
-            else baseSystemPrompt
-            val tools = CoachTools(
-                weights = weights,
-                bodyFats = bodyFats,
-                foods = foods,
-                fastingSessions = fastingSessions,
-                workoutSessions = workoutSessions,
-                workoutPlans = workoutPlans,
-                workoutPreferences = workoutPreferences,
-                workoutPlanWeightUnit = workoutPlanWeightUnit
-            )
-            return runHostedGeminiToolLoop(hosted, systemPrompt, history, newUserMessage, tools, imageBytes)
+            val gate = aiGate ?: throw AiError.Api("Hosted AI is not configured.")
+            return gate.runWithHostedQuota(HostedAIAction.COACH_MESSAGE) {
+                val hosted = hostedAI ?: throw AiError.Api("Hosted AI is not configured.")
+                val baseSystemPrompt = buildSystemPrompt(
+                    profile = profile,
+                    weights = weights,
+                    bodyFats = bodyFats,
+                    measurements = measurements,
+                    foods = foods,
+                    fastingSessions = fastingSessions,
+                    heightMetric = heightMetric,
+                    weightMetric = weightMetric,
+                    workoutSessions = workoutSessions,
+                    workoutPlans = workoutPlans
+                )
+                val userContext = prefs.userContext.first()
+                val systemPrompt = if (userContext.isNotBlank())
+                    "$baseSystemPrompt\n\n## User-provided context\n$userContext"
+                else baseSystemPrompt
+                val tools = CoachTools(
+                    weights = weights,
+                    bodyFats = bodyFats,
+                    foods = foods,
+                    fastingSessions = fastingSessions,
+                    workoutSessions = workoutSessions,
+                    workoutPlans = workoutPlans,
+                    workoutPreferences = workoutPreferences,
+                    workoutPlanWeightUnit = workoutPlanWeightUnit
+                )
+                runHostedGeminiToolLoop(hosted, systemPrompt, history, newUserMessage, tools, imageBytes)
+            }
         }
         val baseSystemPrompt = buildSystemPrompt(
             profile = profile,

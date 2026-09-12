@@ -51,9 +51,26 @@ struct ChatService {
         workoutPreferences: StrengthWorkoutPreferences? = nil,
         workoutAccessEnabled: Bool = false
     ) async throws -> String {
-        try await MainActor.run {
-            try AIGate.consumeIfHosted(.coachMessage)
+        if AIModeSettings.isHosted {
+            return try await hostedCoachMessage(
+                history: history,
+                newUserMessage: newUserMessage,
+                imageData: imageData,
+                profile: profile,
+                weights: weights,
+                bodyFats: bodyFats,
+                measurements: measurements,
+                foods: foods,
+                fastingSessions: fastingSessions,
+                heightMetric: heightMetric,
+                weightMetric: weightMetric,
+                workoutSessions: workoutSessions,
+                workoutPlans: workoutPlans,
+                workoutPreferences: workoutPreferences,
+                workoutAccessEnabled: workoutAccessEnabled
+            )
         }
+
         let systemPrompt = buildSystemPrompt(
             profile: profile,
             weights: weights,
@@ -659,6 +676,95 @@ struct ChatService {
             throw ChatError.invalidResponse
         }
         throw ChatError.apiError("Coach exceeded the tool-call round limit. Try rephrasing your question.")
+    }
+
+    @MainActor
+    private static func hostedCoachMessage(
+        history: [ChatMessage],
+        newUserMessage: String,
+        imageData: Data?,
+        profile: UserProfile,
+        weights: [WeightEntry],
+        bodyFats: [BodyFatEntry],
+        measurements: [BodyMeasurement],
+        foods: [FoodEntry],
+        fastingSessions: [FastingSession],
+        heightMetric: Bool,
+        weightMetric: Bool,
+        workoutSessions: [StrengthWorkoutSession],
+        workoutPlans: [StrengthWorkoutDayPlan],
+        workoutPreferences: StrengthWorkoutPreferences?,
+        workoutAccessEnabled: Bool
+    ) async throws -> String {
+        try await AIGate.runWithHostedQuota(.coachMessage) {
+            try await hostedCoachReply(
+                history: history,
+                newUserMessage: newUserMessage,
+                imageData: imageData,
+                profile: profile,
+                weights: weights,
+                bodyFats: bodyFats,
+                measurements: measurements,
+                foods: foods,
+                fastingSessions: fastingSessions,
+                heightMetric: heightMetric,
+                weightMetric: weightMetric,
+                workoutSessions: workoutSessions,
+                workoutPlans: workoutPlans,
+                workoutPreferences: workoutPreferences,
+                workoutAccessEnabled: workoutAccessEnabled
+            )
+        }
+    }
+
+    private static func hostedCoachReply(
+        history: [ChatMessage],
+        newUserMessage: String,
+        imageData: Data?,
+        profile: UserProfile,
+        weights: [WeightEntry],
+        bodyFats: [BodyFatEntry],
+        measurements: [BodyMeasurement],
+        foods: [FoodEntry],
+        fastingSessions: [FastingSession],
+        heightMetric: Bool,
+        weightMetric: Bool,
+        workoutSessions: [StrengthWorkoutSession],
+        workoutPlans: [StrengthWorkoutDayPlan],
+        workoutPreferences: StrengthWorkoutPreferences?,
+        workoutAccessEnabled: Bool
+    ) async throws -> String {
+        let systemPrompt = buildSystemPrompt(
+            profile: profile,
+            weights: weights,
+            bodyFats: bodyFats,
+            measurements: measurements,
+            foods: foods,
+            fastingSessions: fastingSessions,
+            heightMetric: heightMetric,
+            weightMetric: weightMetric,
+            workoutSessions: workoutSessions,
+            workoutPlans: workoutPlans,
+            workoutAccessEnabled: workoutAccessEnabled
+        )
+        let tools = CoachTools(
+            weights: weights,
+            bodyFats: bodyFats,
+            foods: foods,
+            fastingSessions: fastingSessions,
+            workoutSessions: workoutSessions,
+            workoutPlans: workoutPlans,
+            workoutPreferences: workoutPreferences,
+            workoutPlanWeightUnit: weightMetric ? .kg : .lbs,
+            workoutAccessEnabled: workoutAccessEnabled
+        )
+        return try await callHostedGemini(
+            systemPrompt: systemPrompt,
+            history: history,
+            newUserMessage: newUserMessage,
+            imageData: imageData,
+            tools: tools
+        )
     }
 
     private static func callHostedGemini(

@@ -49,11 +49,14 @@ struct HostedAISettingsView: View {
                     Button("Subscribe or Upgrade") { showPaywall = true }
                     Button("Buy Credits") { showCredits = true }
                         .disabled(!rc.hasHostedEntitlement)
-                    Button("Restore Purchases") {
-                        Task { await restore() }
-                    }
-                    .disabled(isRestoring)
                 }
+            }
+
+            Section {
+                Button("Restore Purchases") {
+                    Task { await restore() }
+                }
+                .disabled(isRestoring)
             }
         }
         .navigationTitle("AI Access")
@@ -169,6 +172,7 @@ struct HostedCreditsSheet: View {
     @State private var products: [String: StoreProduct] = [:]
     @State private var purchasingID: String?
     @State private var didPurchase = false
+    @State private var errorMessage: String?
 
     var body: some View {
         NavigationStack {
@@ -206,6 +210,14 @@ struct HostedCreditsSheet: View {
             .alert("Credits added", isPresented: $didPurchase) {
                 Button("OK") { dismiss() }
             }
+            .alert("Purchase", isPresented: Binding(
+                get: { errorMessage != nil },
+                set: { if !$0 { errorMessage = nil } }
+            )) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(errorMessage ?? "")
+            }
         }
     }
 
@@ -222,13 +234,16 @@ struct HostedCreditsSheet: View {
         do {
             try await rc.purchase(product: product)
             didPurchase = true
-        } catch {}
+        } catch {
+            errorMessage = error.localizedDescription
+        }
     }
 }
 
 /// Soft paywall when hosted quota is exhausted.
 struct HostedQuotaSoftPaywall: View {
     @Environment(\.dismiss) private var dismiss
+    let onBuyCreditsOrUpgrade: () -> Void
     let onSwitchBYOK: () -> Void
 
     var body: some View {
@@ -241,6 +256,7 @@ struct HostedQuotaSoftPaywall: View {
                     .foregroundStyle(.secondary)
                 Button("Buy Credits or Upgrade") {
                     dismiss()
+                    onBuyCreditsOrUpgrade()
                 }
                 .buttonStyle(.borderedProminent)
                 Button("Switch to BYOK") {

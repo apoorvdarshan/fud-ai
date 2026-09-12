@@ -45,7 +45,7 @@ Android may use the same IDs on Play when allowed; otherwise create Play product
 
 ## RevenueCat offerings (suggested)
 
-Create a **default offering** (or separate offerings) with packages:
+Create separate offerings named **`plus`** and **`pro`** (iOS paywall looks up these identifiers). Each offering can include its plan packages, and the **default/current offering** should also expose credit packs for Android:
 
 | Package identifier | Product |
 |--------------------|---------|
@@ -57,12 +57,14 @@ Create a **default offering** (or separate offerings) with packages:
 | `credits_150` | 150 credits |
 | `credits_400` | 400 credits |
 
-iOS paywall looks up offerings `plus` and `pro`; Android uses `offerings.current` packages.
+Legacy note: a single `default` offering alone is not enough for iOS subscribe flows.
+
+iOS paywall looks up offerings `plus` and `pro`; Android filters `offerings.current` into subscription vs credit packages.
 
 ### SDK keys
 
 - **iOS:** already configured (`appl_…` in `calorietrackerApp.swift`)
-- **Android:** set `HostedAIConstants.REVENUECAT_PUBLIC_SDK_KEY` to your Play public key (`goog_…`)
+- **Android:** set `revenuecat.public.sdk.key=goog_…` in `android/oauth.properties` or `android/local.properties` (same pattern as `cloud.backup.web.client.id`). Release builds fail if the key is missing.
 
 ## Hosted AI worker
 

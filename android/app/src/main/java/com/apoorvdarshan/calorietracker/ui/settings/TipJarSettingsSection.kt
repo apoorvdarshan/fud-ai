@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -47,6 +48,8 @@ fun TipJarSettingsSection(revenueCat: RevenueCatManager) {
     var products by remember { mutableStateOf<Map<String, StoreProduct>>(emptyMap()) }
     var purchasingId by remember { mutableStateOf<String?>(null) }
     var thankYou by remember { mutableStateOf(false) }
+    var loadError by remember { mutableStateOf<String?>(null) }
+    var purchaseError by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
         if (!Purchases.isConfigured) return@LaunchedEffect
@@ -59,14 +62,20 @@ fun TipJarSettingsSection(revenueCat: RevenueCatManager) {
                     }
 
                     override fun onError(error: com.revenuecat.purchases.PurchasesError) {
+                        loadError = error.message ?: context.getString(R.string.settings_tip_load_error)
                     }
                 }
             )
+        }.onFailure { error ->
+            loadError = error.message ?: context.getString(R.string.settings_tip_load_error)
         }
     }
 
     Column(Modifier.fillMaxWidth().padding(vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(stringResource(R.string.settings_tip_jar_title), style = MaterialTheme.typography.titleSmall)
+        loadError?.let { message ->
+            Text(message, color = MaterialTheme.colorScheme.error)
+        }
         tiers.forEach { tier ->
             val product = products[tier.productId]
             TextButton(
@@ -78,7 +87,8 @@ fun TipJarSettingsSection(revenueCat: RevenueCatManager) {
                         try {
                             revenueCat.purchaseProduct(act, p)
                             thankYou = true
-                        } catch (_: Throwable) {
+                        } catch (error: Throwable) {
+                            purchaseError = error.message ?: context.getString(R.string.settings_tip_purchase_error_title)
                         } finally {
                             purchasingId = null
                         }
@@ -100,5 +110,18 @@ fun TipJarSettingsSection(revenueCat: RevenueCatManager) {
         if (thankYou) {
             Text(stringResource(R.string.settings_tip_thanks), color = MaterialTheme.colorScheme.primary)
         }
+    }
+
+    purchaseError?.let { message ->
+        AlertDialog(
+            onDismissRequest = { purchaseError = null },
+            title = { Text(stringResource(R.string.settings_tip_purchase_error_title)) },
+            text = { Text(message) },
+            confirmButton = {
+                TextButton(onClick = { purchaseError = null }) {
+                    Text(stringResource(android.R.string.ok))
+                }
+            }
+        )
     }
 }

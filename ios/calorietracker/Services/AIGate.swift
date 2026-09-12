@@ -23,10 +23,21 @@ enum AIModeSettings {
     static var isHosted: Bool { mode == .hosted }
 }
 
+struct HostedAISpendReceipt: Equatable {
+    let fromDaily: Int
+    let fromCredits: Int
+}
+
 @MainActor
 enum AIGate {
     static func requireHostedQuota(for action: HostedAIAction) throws {
-        guard AIModeSettings.isHosted else { return }
+        _ = try consumeIfHosted(action)
+    }
+
+    /// Consume quota only when in Hosted mode; returns a receipt for refund on failure.
+    @discardableResult
+    static func consumeIfHosted(_ action: HostedAIAction) throws -> HostedAISpendReceipt? {
+        guard AIModeSettings.isHosted else { return nil }
         let manager = RevenueCatManager.shared
         guard manager.hasHostedEntitlement else {
             throw HostedAIQuotaError.noActiveSubscription
@@ -36,13 +47,30 @@ enum AIGate {
             plan: manager.activePlan,
             hasEntitlement: true
         )
-        if case .rejected(let error) = result {
+        switch result {
+        case .spent(let fromDaily, let fromCredits):
+            return HostedAISpendReceipt(fromDaily: fromDaily, fromCredits: fromCredits)
+        case .rejected(let error):
             throw error
         }
     }
 
-    /// Consume quota only when in Hosted mode; no-op for BYOK.
-    static func consumeIfHosted(_ action: HostedAIAction) throws {
-        try requireHostedQuota(for: action)
+    static func refundHosted(_ receipt: HostedAISpendReceipt) {
+        guard AIModeSettings.isHosted else { return }
+        HostedAIQuotaManager.shared.refund(fromDaily: receipt.fromDaily, fromCredits: receipt.fromCredits)
+    }
+
+    static func runWithHostedQuota<T>(
+        _ action: HostedAIAction,
+        _ work: () async throws -> T
+    ) async throws -> T {
+        let receipt = try consumeIfHosted(action)
+        do {
+            return try await work()
+        } catch {
+            if error is CancellationError { throw error }
+            if let receipt { refundHosted(receipt) }
+            throw error
+        }
     }
 }

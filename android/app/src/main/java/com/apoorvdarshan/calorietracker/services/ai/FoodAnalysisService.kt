@@ -82,12 +82,13 @@ class FoodAnalysisService(
         unit: com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit,
         library: List<com.apoorvdarshan.calorietracker.data.ExerciseItem>
     ): com.apoorvdarshan.calorietracker.models.WorkoutTextDraft {
-        aiGate?.consumeIfHosted(HostedAIAction.WORKOUT_AI)
         require(description.isNotBlank() && description.length <= 16000)
-        val searchResponse = callAi(com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.searchPrompt(description), emptyList())
-        val queries = com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.searchQueries(searchResponse, description)
-        val prompt = com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.prompt(description, date, unit, library, queries)
-        return com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.parse(callAi(prompt, emptyList()), library)
+        return runWithHostedQuota(HostedAIAction.WORKOUT_AI) {
+            val searchResponse = callAi(com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.searchPrompt(description), emptyList())
+            val queries = com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.searchQueries(searchResponse, description)
+            val prompt = com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.prompt(description, date, unit, library, queries)
+            com.apoorvdarshan.calorietracker.models.WorkoutTextDraft.parse(callAi(prompt, emptyList()), library)
+        }
     }
 
     suspend fun estimateOptionalNutrientGoals(profile: UserProfile?): OptionalNutrientGoals {
@@ -210,9 +211,7 @@ class FoodAnalysisService(
         evidence: GoalEvidence? = null,
         countTowardHostedQuota: Boolean = true
     ): GoalCalculation {
-        if (countTowardHostedQuota) {
-            aiGate?.consumeIfHosted(1)
-        }
+        suspend fun compute(): GoalCalculation {
         val weight = if (weightMetric) String.format(Locale.US, "%.1f kg", profile.weightKg)
             else String.format(Locale.US, "%.1f lb", profile.weightKg * 2.20462)
         val height = if (heightMetric) String.format(Locale.US, "%.0f cm", profile.heightCm)
@@ -294,6 +293,13 @@ class FoodAnalysisService(
             $evidenceSection
         """.trimIndent()
         return FoodJsonParser.parseGoalCalculation(callAi(prompt, imageBytes = null), profile)
+        }
+
+        return if (countTowardHostedQuota) {
+            runWithHostedCost(1) { compute() }
+        } else {
+            compute()
+        }
     }
 
     suspend fun suggestMealWhatIf(
@@ -301,8 +307,7 @@ class FoodAnalysisService(
         dayEntries: List<FoodEntry>,
         profile: UserProfile,
         weightMetric: Boolean
-    ): String {
-        aiGate?.consumeIfHosted(HostedAIAction.WHAT_IF)
+    ): String = runWithHostedQuota(HostedAIAction.WHAT_IF) {
         val beforeCalories = dayEntries.sumOf { it.calories }
         val beforeProtein = dayEntries.sumOf { it.protein }
         val beforeCarbs = dayEntries.sumOf { it.carbs }
@@ -360,11 +365,11 @@ class FoodAnalysisService(
             - Carbs: ${grams(afterCarbs)}
             - Fat: ${grams(afterFat)}
         """.trimIndent()
-        return callAi(prompt, imageBytes = null).trim()
+        callAi(prompt, imageBytes = null).trim()
     }
 
     suspend fun analyzeText(description: String, skipHostedMetering: Boolean = false): FoodAnalysis {
-        if (!skipHostedMetering) aiGate?.consumeIfHosted(HostedAIAction.TEXT_FOOD)
+        require(description.isNotBlank())
         val prompt = """
             Estimate the nutritional content for: $description
             Parse any quantities, brands, and multiple items from the text. If a brand is mentioned, use that brand's known nutritional data. If multiple items are described, sum up the total nutrition.
@@ -380,17 +385,19 @@ class FoodAnalysisService(
             Use slice/piece for explicitly counted pizza, cake, bread, cookies, fruit pieces, etc.; use ml/cup/fl oz for stated liquid volumes; use tbsp/tsp for stated spoon measures; use can/packet only when stated or strongly implied. Use [] when no reliable non-gram unit exists. Do not include g/gram/grams in unit_options.
             For "emoji" pick the single most specific food emoji that depicts this dish — e.g. 🥚 for eggs, 🍕 for pizza, 🍎 for an apple, 🥗 for a salad, 🍔 for a burger, 🍜 for ramen, 🍰 for cake, 🥑 for avocado, ☕ for coffee, 🍣 for sushi. Only fall back to 🍽️ when the food truly cannot be represented by any specific emoji. Use null for any nutrient you cannot estimate.
         """.trimIndent()
-        val parsed = FoodJsonParser.parseFoodResponse(callAi(prompt, null))
-        return addingFallbackServingUnits(
-            analysis = parsed.analysis,
-            imageBytes = null,
-            description = description,
-            shouldRequestFallback = parsed.shouldRequestServingUnitFallback
-        )
+        return runWithHostedQuota(HostedAIAction.TEXT_FOOD, skip = skipHostedMetering) {
+            val parsed = FoodJsonParser.parseFoodResponse(callAi(prompt, null))
+            addingFallbackServingUnits(
+                analysis = parsed.analysis,
+                imageBytes = null,
+                description = description,
+                shouldRequestFallback = parsed.shouldRequestServingUnitFallback
+            )
+        }
     }
 
     suspend fun analyzeAuto(imageBytes: ByteArray): FoodAnalysis {
-        aiGate?.consumeIfHosted(HostedAIAction.PHOTO_FOOD)
+        require(imageBytes.isNotEmpty())
         val prompt = """
             Analyze this image. It could be either a photo of food OR a nutrition facts label.
 
@@ -409,17 +416,19 @@ class FoodAnalysisService(
             Use slice/piece for visibly counted pizza, cake, bread, cookies, fruit pieces, etc.; use ml/cup/fl oz for visible or labeled liquid volumes; use tbsp/tsp for visible or labeled spoon measures; use can/packet only when visible or labeled. Use [] when no reliable non-gram unit exists. Do not include g/gram/grams in unit_options.
             Use null for any nutrient you cannot estimate.
         """.trimIndent()
-        val parsed = FoodJsonParser.parseFoodResponse(callAi(prompt, imageBytes))
-        return addingFallbackServingUnits(
-            analysis = parsed.analysis,
-            imageBytes = imageBytes,
-            description = null,
-            shouldRequestFallback = parsed.shouldRequestServingUnitFallback
-        )
+        return runWithHostedQuota(HostedAIAction.PHOTO_FOOD) {
+            val parsed = FoodJsonParser.parseFoodResponse(callAi(prompt, imageBytes))
+            addingFallbackServingUnits(
+                analysis = parsed.analysis,
+                imageBytes = imageBytes,
+                description = null,
+                shouldRequestFallback = parsed.shouldRequestServingUnitFallback
+            )
+        }
     }
 
     suspend fun analyzeFood(imageBytes: ByteArray, description: String? = null, skipHostedMetering: Boolean = false): FoodAnalysis {
-        if (!skipHostedMetering) aiGate?.consumeIfHosted(HostedAIAction.PHOTO_FOOD)
+        require(imageBytes.isNotEmpty())
         var prompt = """
             Analyze this food image. Identify the food and estimate its nutritional content.
             Respond ONLY with JSON:
@@ -437,13 +446,15 @@ class FoodAnalysisService(
         if (!description.isNullOrBlank()) {
             prompt += "\n\nAdditional context from the user about this meal: $description\nUse this context to improve accuracy of identification, portion size, and nutrition estimates."
         }
-        val parsed = FoodJsonParser.parseFoodResponse(callAi(prompt, imageBytes))
-        return addingFallbackServingUnits(
-            analysis = parsed.analysis,
-            imageBytes = imageBytes,
-            description = description,
-            shouldRequestFallback = parsed.shouldRequestServingUnitFallback
-        )
+        return runWithHostedQuota(HostedAIAction.PHOTO_FOOD, skip = skipHostedMetering) {
+            val parsed = FoodJsonParser.parseFoodResponse(callAi(prompt, imageBytes))
+            addingFallbackServingUnits(
+                analysis = parsed.analysis,
+                imageBytes = imageBytes,
+                description = description,
+                shouldRequestFallback = parsed.shouldRequestServingUnitFallback
+            )
+        }
     }
 
     suspend fun analyzeFood(
@@ -452,17 +463,18 @@ class FoodAnalysisService(
         progressiveMeal: Boolean = false,
         skipHostedMetering: Boolean = false
     ): FoodAnalysis {
-        if (!skipHostedMetering) aiGate?.consumeIfHosted(HostedAIAction.PHOTO_FOOD)
         val prompt = multiPhotoAnalysisPrompt(progressiveMeal, description)
         val images = imageBytesList.filter { it.isNotEmpty() }
         if (images.isEmpty()) throw AiError.InvalidResponse
-        val parsed = FoodJsonParser.parseFoodResponse(callAi(prompt, images))
-        return addingFallbackServingUnits(
-            analysis = parsed.analysis,
-            imageBytes = images.first(),
-            description = description,
-            shouldRequestFallback = parsed.shouldRequestServingUnitFallback
-        ).copy(progressiveMeal = progressiveMeal)
+        return runWithHostedQuota(HostedAIAction.PHOTO_FOOD, skip = skipHostedMetering) {
+            val parsed = FoodJsonParser.parseFoodResponse(callAi(prompt, images))
+            addingFallbackServingUnits(
+                analysis = parsed.analysis,
+                imageBytes = images.first(),
+                description = description,
+                shouldRequestFallback = parsed.shouldRequestServingUnitFallback
+            ).copy(progressiveMeal = progressiveMeal)
+        }
     }
 
     suspend fun analyzeNutritionLabel(imageBytes: ByteArray, servingGrams: Double): FoodAnalysis {
@@ -490,7 +502,6 @@ class FoodAnalysisService(
     }
 
     suspend fun extractAllergensFromLabReport(imageBytesList: List<ByteArray>): List<String> {
-        aiGate?.consumeIfHosted(HostedAIAction.ALLERGENS_LAB)
         val images = imageBytesList.filter { it.isNotEmpty() }
         if (images.isEmpty()) throw AiError.InvalidResponse
         val prompt = """
@@ -502,7 +513,26 @@ class FoodAnalysisService(
             Respond ONLY with JSON:
             {"allergens":["milk","peanut"]}
         """.trimIndent()
-        return FoodJsonParser.parseAllergensFromLabReport(callAi(prompt, images))
+        return runWithHostedQuota(HostedAIAction.ALLERGENS_LAB) {
+            FoodJsonParser.parseAllergensFromLabReport(callAi(prompt, images))
+        }
+    }
+
+    private suspend fun <T> runWithHostedQuota(
+        action: HostedAIAction,
+        skip: Boolean = false,
+        block: suspend () -> T
+    ): T {
+        val gate = aiGate ?: return block()
+        return if (skip || !gate.isHostedMode()) block() else gate.runWithHostedQuota(action, block)
+    }
+
+    private suspend fun <T> runWithHostedCost(
+        cost: Int,
+        block: suspend () -> T
+    ): T {
+        val gate = aiGate ?: return block()
+        return if (!gate.isHostedMode()) block() else gate.runWithHostedCost(cost, block)
     }
 
     // -- Internal dispatch ------------------------------------------------

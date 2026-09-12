@@ -488,28 +488,34 @@ class FoodStore {
     }
 
     func reprocessEntry(_ entry: FoodEntry, withNote note: String) async throws -> GeminiService.FoodAnalysis {
-        try await MainActor.run {
-            try AIGate.consumeIfHosted(.reprocessMeal)
-        }
         let images = entry.allImageFilenames.compactMap {
             FoodImageStore.shared.load(filename: $0).flatMap(UIImage.init(data:))
         }
-        // Compose name + serving + note so a photo-less (text / voice / emoji) entry
-        // keeps its food context instead of re-analyzing the bare note; a photo entry
-        // gets the name/note as extra grounding on top of the image.
         let description = Self.reprocessDescription(for: entry, note: note)
-        let result: GeminiService.FoodAnalysis
-        if !images.isEmpty {
-            result = try await GeminiService.analyzeFood(
-                images: images,
-                description: description,
-                progressiveMeal: entry.progressiveMeal,
-                skipHostedMetering: true
-            )
-        } else {
-            result = try await GeminiService.analyzeTextInput(description: description, skipHostedMetering: true)
+        return try await reprocessWithHostedQuota(
+            images: images,
+            description: description,
+            progressiveMeal: entry.progressiveMeal
+        )
+    }
+
+    @MainActor
+    private func reprocessWithHostedQuota(
+        images: [UIImage],
+        description: String,
+        progressiveMeal: Bool
+    ) async throws -> GeminiService.FoodAnalysis {
+        try await AIGate.runWithHostedQuota(.reprocessMeal) {
+            if !images.isEmpty {
+                return try await GeminiService.analyzeFood(
+                    images: images,
+                    description: description,
+                    progressiveMeal: progressiveMeal,
+                    skipHostedMetering: true
+                )
+            }
+            return try await GeminiService.analyzeTextInput(description: description, skipHostedMetering: true)
         }
-        return result
     }
 
     private static func reprocessDescription(for entry: FoodEntry, note: String) -> String {

@@ -46,6 +46,7 @@ struct HostedAIQuotaManagerTests {
 
     @Test func spendOverflowPullsFromCreditBank() {
         resetLedger()
+        manager.resetIfNeeded()
         manager.creditBank = 50
         manager.dailyUsed = 28
 
@@ -61,6 +62,7 @@ struct HostedAIQuotaManagerTests {
 
     @Test func rejectsWhenDailyAndCreditsInsufficient() {
         resetLedger()
+        manager.resetIfNeeded()
         manager.creditBank = 2
         manager.dailyUsed = 29
 

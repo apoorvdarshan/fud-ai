@@ -2,6 +2,7 @@ package com.apoorvdarshan.calorietracker.billing
 
 import android.app.Activity
 import android.content.Context
+import com.apoorvdarshan.calorietracker.BuildConfig
 import com.revenuecat.purchases.CustomerInfo
 import com.revenuecat.purchases.Offerings
 import com.revenuecat.purchases.Package
@@ -36,10 +37,12 @@ class RevenueCatManager(
     val offerings: StateFlow<Offerings?> = _offerings.asStateFlow()
 
     fun configure(appUserId: String? = null) {
-        if (HostedAIConstants.REVENUECAT_PUBLIC_SDK_KEY.contains("PLACEHOLDER")) return
-        val builder = PurchasesConfiguration.Builder(appContext, HostedAIConstants.REVENUECAT_PUBLIC_SDK_KEY)
+        val sdkKey = BuildConfig.REVENUECAT_PUBLIC_SDK_KEY
+        if (sdkKey.isBlank() || sdkKey.contains("PLACEHOLDER", ignoreCase = true)) return
+        val builder = PurchasesConfiguration.Builder(appContext, sdkKey)
         appUserId?.let { builder.appUserID(it) }
         Purchases.configure(builder.build())
+        Purchases.sharedInstance.cachedCustomerInfo?.let { applyCustomerInfo(it) }
         Purchases.sharedInstance.updatedCustomerInfoListener =
             object : UpdatedCustomerInfoListener {
                 override fun onReceived(customerInfo: CustomerInfo) {

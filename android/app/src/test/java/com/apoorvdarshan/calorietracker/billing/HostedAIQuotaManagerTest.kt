@@ -1,10 +1,25 @@
 package com.apoorvdarshan.calorietracker.billing
 
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
+@RunWith(RobolectricTestRunner::class)
 class HostedAIQuotaManagerTest {
+
+    private lateinit var manager: HostedAIQuotaManager
+
+    @Before
+    fun setUp() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        manager = HostedAIQuotaManager(context)
+    }
 
     @Test
     fun plusDailyLimitIs30() {
@@ -22,25 +37,29 @@ class HostedAIQuotaManagerTest {
     }
 
     @Test
-    fun spendOrderUsesDailyBeforeCredits() {
-        var dailyUsed = 0
-        var creditBank = 100
-        val limit = 30
-        val cost = 5
-        val dailyRemaining = (limit - dailyUsed).coerceAtLeast(0)
-        val fromDaily = minOf(dailyRemaining, cost)
-        var remaining = cost - fromDaily
-        val fromCredits = remaining
-        dailyUsed += fromDaily
-        creditBank -= fromCredits
-        assertEquals(5, fromDaily)
-        assertEquals(0, fromCredits)
-        assertEquals(5, dailyUsed)
-        assertEquals(100, creditBank)
-    }
+    fun productionLedgerSpendAndReject() = runBlocking {
+        manager.resetIfNeeded()
 
-    @Test
-    fun adaptiveGoalsActionNotInMeteredSet() {
-        assertTrue(HostedAIAction.COACH_MESSAGE.cost == 1)
+        val first = manager.spend(5, HostedPlan.PLUS, hasEntitlement = true)
+        assertTrue(first is HostedAISpendResult.Spent)
+        first as HostedAISpendResult.Spent
+        assertEquals(5, first.fromDaily)
+        assertEquals(0, first.fromCredits)
+
+        manager.addCredits(50)
+        repeat(25) {
+            manager.spend(1, HostedPlan.PLUS, hasEntitlement = true)
+        }
+        val overflow = manager.spend(5, HostedPlan.PLUS, hasEntitlement = true)
+        assertTrue(overflow is HostedAISpendResult.Spent)
+        overflow as HostedAISpendResult.Spent
+        assertEquals(0, overflow.fromDaily)
+        assertEquals(5, overflow.fromCredits)
+
+        val rejected = manager.spend(999, HostedPlan.PLUS, hasEntitlement = true)
+        assertTrue(rejected is HostedAISpendResult.Rejected)
+
+        val withoutEntitlement = manager.spend(1, HostedPlan.PLUS, hasEntitlement = false)
+        assertTrue(withoutEntitlement is HostedAISpendResult.Rejected)
     }
 }

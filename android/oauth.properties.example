@@ -7,3 +7,6 @@
 #
 # Web client ID is used by AuthorizationClient.requestOfflineAccess.
 cloud.backup.web.client.id=
+
+# RevenueCat Play public SDK key (Project Settings → Android). Required for release builds.
+revenuecat.public.sdk.key=

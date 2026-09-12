@@ -652,6 +652,9 @@ struct HomeView: View {
     @State private var showPhotoPicker = false
     @State private var showError = false
     @State private var errorMessage = ""
+    @State private var showHostedQuotaPaywall = false
+    @State private var showHostedPaywall = false
+    @State private var showHostedCredits = false
     private enum RetryRequest {
         case analysis(images: [UIImage], mode: CameraMode, description: String?, progressiveMeal: Bool)
         case text(String)
@@ -1759,6 +1762,24 @@ private var dailyStepsTaskKey: String {
             } message: {
                 Text(errorMessage)
             }
+            .sheet(isPresented: $showHostedQuotaPaywall) {
+                HostedQuotaSoftPaywall(
+                    onBuyCreditsOrUpgrade: {
+                        if RevenueCatManager.shared.hasHostedEntitlement {
+                            showHostedCredits = true
+                        } else {
+                            showHostedPaywall = true
+                        }
+                    },
+                    onSwitchBYOK: {}
+                )
+            }
+            .sheet(isPresented: $showHostedPaywall) {
+                HostedPaywallView()
+            }
+            .sheet(isPresented: $showHostedCredits) {
+                HostedCreditsSheet()
+            }
             .alert("Food logging paused", isPresented: $showFoodLoggingBlocked) {
                 Button("OK", role: .cancel) { }
             } message: {
@@ -2103,6 +2124,22 @@ private var dailyStepsTaskKey: String {
     @MainActor
     private func presentAnalysisError(_ error: Error) {
         activeSheet = nil
+        if let quotaError = error as? HostedAIQuotaError {
+            switch quotaError {
+            case .quotaExceeded:
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+                    showHostedQuotaPaywall = true
+                }
+                return
+            case .noActiveSubscription:
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+                    showHostedPaywall = true
+                }
+                return
+            case .notHostedMode:
+                break
+            }
+        }
         errorMessage = GeminiService.analysisErrorMessage(error)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
             showError = true

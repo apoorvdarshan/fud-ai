@@ -452,6 +452,16 @@ private struct AboutSettingsSections: View {
                     }
                 }
                 .tint(.primary)
+
+                Link(destination: URL(string: "https://www.instagram.com/apoorvcodes/")!) {
+                    Label {
+                        Text("Follow on Instagram")
+                    } icon: {
+                        Image(systemName: "camera.fill")
+                            .foregroundStyle(AppColors.calorie)
+                    }
+                }
+                .tint(.primary)
                 }
                 .listRowBackground(AppColors.appCard)
 

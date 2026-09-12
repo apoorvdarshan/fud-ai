@@ -149,7 +149,7 @@ final class calorietrackerUITests: XCTestCase {
             XCTAssertTrue(action.waitForExistence(timeout: 3), "Missing \(expectedAction) in \(title)")
 
             if identifier == "community" {
-                XCTAssertFalse(app.staticTexts["Follow on Instagram"].exists)
+                XCTAssertTrue(app.staticTexts["Follow on Instagram"].exists)
                 XCTAssertTrue(app.staticTexts["Follow on LinkedIn"].exists)
             }
 

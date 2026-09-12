@@ -25,6 +25,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AlternateEmail
+import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Work
 import androidx.compose.material.icons.filled.BugReport
 import androidx.compose.material.icons.filled.CheckCircle
@@ -209,6 +210,10 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
                 Hairline()
                 AboutRow(Icons.Filled.Work, stringResource(R.string.about_follow_linkedin)) {
                     open("https://www.linkedin.com/company/fud-ai-app")
+                }
+                Hairline()
+                AboutRow(Icons.Filled.CameraAlt, stringResource(R.string.about_follow_instagram)) {
+                    open("https://www.instagram.com/apoorvcodes/")
                 }
             }
 

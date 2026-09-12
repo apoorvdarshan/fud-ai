@@ -169,6 +169,11 @@ struct OnboardingView: View {
                 ))
                 .animation(.snappy, value: step)
             }
+            // Consent is mode-specific (BYOK vs hosted disclosures differ) — don't reuse a
+            // prior acceptance when the user switches paths.
+            .onChange(of: aiSubstep) { _, _ in
+                hasAcceptedTerms = false
+            }
     }
 
     // MARK: - Continue Button

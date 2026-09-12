@@ -215,7 +215,17 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
             _ui.value = _ui.value.copy(aiPhase = OnboardingAiPhase.CHOICE)
             return
         }
+        // PLAN_READY's previous ordinal is BUILDING_PLAN, which auto-reruns AI and can
+        // overwrite edited targets — skip it and return to PROVIDER instead.
+        if (_ui.value.step == OnboardingStep.PLAN_READY) {
+            _ui.value = _ui.value.copy(step = OnboardingStep.PROVIDER, aiPhase = OnboardingAiPhase.CHOICE)
+            return
+        }
         val prevStep = OnboardingStep.values().getOrNull(_ui.value.step.ordinal - 1) ?: return
+        if (prevStep == OnboardingStep.BUILDING_PLAN) {
+            _ui.value = _ui.value.copy(step = OnboardingStep.PROVIDER, aiPhase = OnboardingAiPhase.CHOICE)
+            return
+        }
         _ui.value = _ui.value.copy(
             step = prevStep,
             aiPhase = if (prevStep == OnboardingStep.PROVIDER) OnboardingAiPhase.CHOICE else _ui.value.aiPhase

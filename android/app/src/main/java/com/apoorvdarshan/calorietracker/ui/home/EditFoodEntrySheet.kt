@@ -418,7 +418,7 @@ fun EditFoodEntrySheet(
                         return@LaunchedEffect
                     }
                     viewerBitmaps = withContext(Dispatchers.IO) {
-                        visibleFilenames.map { filename ->
+                        visibleFilenames.mapNotNull { filename ->
                             container.imageStore.loadForViewer(filename)
                                 ?: container.imageStore.loadForViewer(filename, GALLERY_MAX_DIMENSION)
                         }

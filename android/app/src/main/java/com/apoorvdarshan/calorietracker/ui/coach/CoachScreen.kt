@@ -725,9 +725,9 @@ private fun Bubble(content: String, isUser: Boolean, attachmentImageBase64: Stri
                         }.getOrNull()
                     }
                 }
-                if (bitmap != null) {
+                bitmap?.let { attachmentBitmap ->
                     Image(
-                        bitmap = bitmap.asImageBitmap(),
+                        bitmap = attachmentBitmap.asImageBitmap(),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
@@ -866,12 +866,12 @@ private fun InputBar(
             .padding(start = 4.dp, end = 5.dp, top = 4.dp, bottom = 4.dp),
     ) {
         attachedImageBytes?.let { bytes ->
-            val bitmap by produceState<Bitmap?>(initialValue = null, bytes) {
-                value = withContext(Dispatchers.IO) {
+            val previewBitmap by produceState<Bitmap?>(initialValue = null, bytes) {
+                this.value = withContext(Dispatchers.IO) {
                     FoodImageDecoder.decode(bytes, COACH_COMPOSER_PREVIEW_MAX_DIMENSION)
                 }
             }
-            if (bitmap != null) {
+            previewBitmap?.let { attachmentBitmap ->
                 Box(
                     modifier = Modifier
                         .padding(start = 10.dp, end = 10.dp, top = 8.dp, bottom = 4.dp)
@@ -879,7 +879,7 @@ private fun InputBar(
                         .clip(RoundedCornerShape(16.dp))
                 ) {
                     Image(
-                        bitmap = bitmap.asImageBitmap(),
+                        bitmap = attachmentBitmap.asImageBitmap(),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxSize()

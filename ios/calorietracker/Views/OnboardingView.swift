@@ -58,6 +58,16 @@ struct OnboardingView: View {
     @State private var showByokKey = false
     /// AI-computed targets from the Building Plan step; seeds the Plan Ready screen.
     @State private var aiGoal: GeminiService.GoalCalculation?
+    /// Step 11 sub-flow: pick Hosted vs BYOK, then complete the chosen path.
+    @State private var aiSubstep: OnboardingAISubstep = .choice
+    @State private var showHostedPaywall = false
+    @State private var rc = RevenueCatManager.shared
+
+    private enum OnboardingAISubstep {
+        case choice
+        case byok
+        case hosted
+    }
 
     private enum EditableField: String, Identifiable {
         case calories, protein, fat, carbs
@@ -102,7 +112,14 @@ struct OnboardingView: View {
                 if step > 0 && step < totalSteps - 1 {
                     HStack(spacing: 16) {
                         Button {
-                            withAnimation(.snappy) { step -= 1 }
+                            withAnimation(.snappy) {
+                                if step == 11, aiSubstep != .choice {
+                                    aiSubstep = .choice
+                                } else {
+                                    if step == 11 { aiSubstep = .choice }
+                                    step -= 1
+                                }
+                            }
                         } label: {
                             Image(systemName: "chevron.left")
                                 .font(.system(size: 18, weight: .semibold))
@@ -151,6 +168,11 @@ struct OnboardingView: View {
                     removal: .move(edge: .leading).combined(with: .opacity)
                 ))
                 .animation(.snappy, value: step)
+            }
+            // Consent is mode-specific (BYOK vs hosted disclosures differ) — don't reuse a
+            // prior acceptance when the user switches paths.
+            .onChange(of: aiSubstep) { _, _ in
+                hasAcceptedTerms = false
             }
     }
 
@@ -796,113 +818,318 @@ struct OnboardingView: View {
         VStack(spacing: 0) {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 18) {
-                    ZStack {
-                        Circle()
-                            .fill(.ultraThinMaterial)
-                            .frame(width: 104, height: 104)
+                    aiProviderHeader
 
-                        Image(systemName: "sparkles")
-                            .font(.system(size: 42))
-                            .foregroundStyle(
-                                LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
-                            )
-                    }
-
-                    VStack(spacing: 8) {
-                        Text("Set Up Your AI")
-                            .font(.system(size: 28, weight: .bold, design: .rounded))
-                            .multilineTextAlignment(.center)
-
-                        Text("Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported. The app stays free.")
-                            .font(.system(.callout, design: .rounded))
-                            .foregroundStyle(.secondary)
-                            .multilineTextAlignment(.center)
+                    switch aiSubstep {
+                    case .choice:
+                        aiChoiceSection
+                            .padding(.horizontal, 24)
+                    case .byok:
+                        byokConfigSection
+                            .padding(.horizontal, 24)
+                        aiPrivacyNoticeCard(isHosted: false)
+                            .padding(.horizontal, 24)
+                        aiTermsCard
+                            .padding(.horizontal, 24)
+                    case .hosted:
+                        hostedOnboardingSection
+                            .padding(.horizontal, 24)
+                        aiPrivacyNoticeCard(isHosted: true)
+                            .padding(.horizontal, 24)
+                        aiTermsCard
                             .padding(.horizontal, 24)
                     }
-
-                    byokConfigSection
-                        .padding(.horizontal, 24)
-
-                    VStack(alignment: .leading, spacing: 12) {
-                        aiNoticeRow(
-                            icon: "photo.fill",
-                            title: "AI analysis",
-                            text: "Food photos, voice transcripts, and typed meals are sent directly to your selected AI provider."
-                        )
-                        aiNoticeRow(
-                            icon: "lock.shield.fill",
-                            title: "Local data",
-                            text: "Your food log, weight history, body-fat history, and BYOK API keys stay on this device."
-                        )
-                    }
-                    .padding(16)
-                    .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
-                    .padding(.horizontal, 24)
-
-                    VStack(alignment: .leading, spacing: 12) {
-                        Button {
-                            hasAcceptedTerms.toggle()
-                        } label: {
-                            HStack(alignment: .top, spacing: 10) {
-                                Image(systemName: hasAcceptedTerms ? "checkmark.square.fill" : "square")
-                                    .font(.system(size: 22, weight: .semibold))
-                                    .foregroundStyle(hasAcceptedTerms ? AppColors.calorie : .secondary)
-                                    .frame(width: 26, height: 26)
-
-                                Text("I accept the Terms of Service and Privacy Policy, including AI provider data sharing described above.")
-                                    .font(.system(.footnote, design: .rounded, weight: .medium))
-                                    .foregroundStyle(.primary)
-                                    .fixedSize(horizontal: false, vertical: true)
-                            }
-                        }
-                        .buttonStyle(.plain)
-
-                        HStack(spacing: 6) {
-                            Link("Privacy Policy", destination: URL(string: "https://fud-ai.app/privacy.html")!)
-                            Text("and")
-                                .foregroundStyle(.secondary)
-                            Link("Terms of Service", destination: URL(string: "https://fud-ai.app/terms.html")!)
-                        }
-                        .font(.system(.footnote, design: .rounded, weight: .semibold))
-                        .foregroundStyle(AppColors.calorie)
-                    }
-                    .padding(16)
-                    .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
-                    .padding(.horizontal, 24)
                 }
                 .padding(.top, 24)
                 .padding(.bottom, 20)
             }
 
-            Button {
-                completeAIChoiceAndAdvance()
-            } label: {
-                Text("Accept & Continue")
-                    .font(.system(.body, design: .rounded, weight: .semibold))
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 54)
-                    .background(
-                        LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing),
-                        in: RoundedRectangle(cornerRadius: 16)
-                    )
-                    .shadow(color: AppColors.calorie.opacity(0.3), radius: 8, y: 4)
+            if aiSubstep != .choice {
+                aiProviderContinueButton
             }
-            .disabled(!canAdvanceAI)
-            .opacity(canAdvanceAI ? 1 : 0.45)
-            .padding(.horizontal, 24)
-            .padding(.bottom, 36)
+        }
+        .task {
+            await rc.refreshCustomerInfo()
+            await rc.loadOfferings()
+        }
+        .sheet(isPresented: $showHostedPaywall) {
+            HostedPaywallView(onSubscribed: {
+                aiSubstep = .hosted
+            })
         }
     }
 
-    /// Step 11 can advance when terms are accepted AND a usable AI provider is set up:
-    /// a model + key (+ base URL for custom endpoints).
+    private var aiProviderHeader: some View {
+        VStack(spacing: 18) {
+            ZStack {
+                Circle()
+                    .fill(.ultraThinMaterial)
+                    .frame(width: 104, height: 104)
+
+                Image(systemName: "sparkles")
+                    .font(.system(size: 42))
+                    .foregroundStyle(
+                        LinearGradient(colors: AppColors.calorieGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
+                    )
+            }
+
+            VStack(spacing: 8) {
+                Text("Set Up Your AI")
+                    .font(.system(size: 28, weight: .bold, design: .rounded))
+                    .multilineTextAlignment(.center)
+
+                Text(aiProviderSubtitle)
+                    .font(.system(.callout, design: .rounded))
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 24)
+            }
+        }
+    }
+
+    private var aiProviderSubtitle: String {
+        switch aiSubstep {
+        case .choice:
+            String(localized: "Choose how you want to power AI in Fud AI. The app stays free either way.")
+        case .byok:
+            String(localized: "Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported.")
+        case .hosted:
+            String(localized: "Subscribe to Plus or Pro for hosted AI — no API key needed. Switch to BYOK anytime in Settings.")
+        }
+    }
+
+    private var aiChoiceSection: some View {
+        VStack(spacing: 12) {
+            aiChoiceCard(
+                icon: "key.fill",
+                title: String(localized: "Bring Your Own Key"),
+                subtitle: String(localized: "Free forever — unlimited on your key. Gemini, OpenAI, Groq & more."),
+                badge: String(localized: "Recommended"),
+                highlight: true
+            ) {
+                withAnimation(.snappy) { aiSubstep = .byok }
+            }
+
+            aiChoiceCard(
+                icon: "bolt.horizontal.circle.fill",
+                title: String(localized: "Hosted AI"),
+                subtitle: String(
+                    localized: "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
+                ),
+                badge: String(localized: "Convenient"),
+                highlight: false
+            ) {
+                withAnimation(.snappy) { aiSubstep = .hosted }
+                if !rc.hasHostedEntitlement {
+                    showHostedPaywall = true
+                }
+            }
+        }
+    }
+
+    private func aiChoiceCard(
+        icon: String,
+        title: String,
+        subtitle: String,
+        badge: String,
+        highlight: Bool,
+        action: @escaping () -> Void
+    ) -> some View {
+        Button(action: action) {
+            HStack(alignment: .top, spacing: 14) {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(AppColors.calorie.opacity(highlight ? 0.12 : 0.08))
+                        .frame(width: 48, height: 48)
+                    Image(systemName: icon)
+                        .font(.system(size: 22, weight: .semibold))
+                        .foregroundStyle(AppColors.calorie)
+                }
+
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(spacing: 8) {
+                        Text(LocalizedDisplayText.text(title))
+                            .font(.system(.headline, design: .rounded, weight: .semibold))
+                            .foregroundStyle(.primary)
+                        Text(LocalizedDisplayText.text(badge))
+                            .font(.system(.caption2, design: .rounded, weight: .bold))
+                            .foregroundStyle(AppColors.calorie)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(AppColors.calorie.opacity(0.12), in: Capsule())
+                    }
+                    Text(LocalizedDisplayText.text(subtitle))
+                        .font(.system(.subheadline, design: .rounded))
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+
+                Spacer(minLength: 0)
+
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundStyle(.tertiary)
+                    .padding(.top, 4)
+            }
+            .padding(16)
+            .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
+            .overlay {
+                RoundedRectangle(cornerRadius: 16)
+                    .strokeBorder(
+                        highlight ? AppColors.calorie.opacity(0.35) : Color.primary.opacity(0.06),
+                        lineWidth: highlight ? 1.5 : 1
+                    )
+            }
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var hostedOnboardingSection: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            if rc.hasHostedEntitlement {
+                HStack {
+                    Label {
+                        Text(String(format: String(localized: "Active plan: %@"), rc.activePlan.displayName))
+                            .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    } icon: {
+                        Image(systemName: "checkmark.seal.fill")
+                            .foregroundStyle(AppColors.calorie)
+                    }
+                    Spacer()
+                }
+            } else {
+                Text("Subscribe to Plus or Pro to use hosted AI without bringing your own key.")
+                    .font(.system(.subheadline, design: .rounded))
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Button("View Plans") {
+                showHostedPaywall = true
+            }
+            .font(.system(.body, design: .rounded, weight: .semibold))
+            .frame(maxWidth: .infinity)
+            .frame(height: 48)
+            .background(AppColors.calorie.opacity(0.12), in: RoundedRectangle(cornerRadius: 12))
+
+            Button {
+                withAnimation(.snappy) { aiSubstep = .byok }
+            } label: {
+                Text("Use BYOK instead")
+                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                    .foregroundStyle(AppColors.calorie)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(16)
+        .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
+    }
+
+    private func aiPrivacyNoticeCard(isHosted: Bool) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            aiNoticeRow(
+                icon: "photo.fill",
+                title: "AI analysis",
+                text: isHosted
+                    ? String(localized: "Food photos, voice transcripts, and typed meals are processed through Fud AI's hosted service.")
+                    : String(localized: "Food photos, voice transcripts, and typed meals are sent directly to your selected AI provider.")
+            )
+            aiNoticeRow(
+                icon: "lock.shield.fill",
+                title: "Local data",
+                text: isHosted
+                    ? String(localized: "Your food log, weight history, and body-fat history stay on this device. Hosted AI does not store your BYOK keys.")
+                    : String(localized: "Your food log, weight history, body-fat history, and BYOK API keys stay on this device.")
+            )
+        }
+        .padding(16)
+        .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
+    }
+
+    private var aiTermsCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Button {
+                hasAcceptedTerms.toggle()
+            } label: {
+                HStack(alignment: .top, spacing: 10) {
+                    Image(systemName: hasAcceptedTerms ? "checkmark.square.fill" : "square")
+                        .font(.system(size: 22, weight: .semibold))
+                        .foregroundStyle(hasAcceptedTerms ? AppColors.calorie : .secondary)
+                        .frame(width: 26, height: 26)
+
+                    Text("I accept the Terms of Service and Privacy Policy, including AI provider data sharing described above.")
+                        .font(.system(.footnote, design: .rounded, weight: .medium))
+                        .foregroundStyle(.primary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            .buttonStyle(.plain)
+
+            HStack(spacing: 6) {
+                Link("Privacy Policy", destination: URL(string: "https://fud-ai.app/privacy.html")!)
+                Text("and")
+                    .foregroundStyle(.secondary)
+                Link("Terms of Service", destination: URL(string: "https://fud-ai.app/terms.html")!)
+            }
+            .font(.system(.footnote, design: .rounded, weight: .semibold))
+            .foregroundStyle(AppColors.calorie)
+        }
+        .padding(16)
+        .background(AppColors.appCard, in: RoundedRectangle(cornerRadius: 16))
+    }
+
+    @ViewBuilder
+    private var aiProviderContinueButton: some View {
+        Button {
+            if aiSubstep == .hosted, !rc.hasHostedEntitlement {
+                showHostedPaywall = true
+            } else {
+                completeAIChoiceAndAdvance()
+            }
+        } label: {
+            Text(aiProviderContinueLabel)
+                .font(.system(.body, design: .rounded, weight: .semibold))
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity)
+                .frame(height: 54)
+                .background(
+                    LinearGradient(colors: AppColors.calorieGradient, startPoint: .leading, endPoint: .trailing),
+                    in: RoundedRectangle(cornerRadius: 16)
+                )
+                .shadow(color: AppColors.calorie.opacity(0.3), radius: 8, y: 4)
+        }
+        .disabled(!canAdvanceAI)
+        .opacity(canAdvanceAI ? 1 : 0.45)
+        .padding(.horizontal, 24)
+        .padding(.bottom, 36)
+    }
+
+    private var aiProviderContinueLabel: String {
+        if aiSubstep == .hosted, !rc.hasHostedEntitlement {
+            String(localized: "Subscribe to Continue")
+        } else {
+            String(localized: "Accept & Continue")
+        }
+    }
+
+    /// Step 11 primary CTA: terms required. Hosted stays tappable without an entitlement so it can
+    /// open the paywall; BYOK still needs a usable key/model. Advancement past the step is gated in
+    /// the button action / `completeAIChoiceAndAdvance`.
     private var canAdvanceAI: Bool {
         guard hasAcceptedTerms else { return false }
-        let modelOK = !byokModel.trimmingCharacters(in: .whitespaces).isEmpty
-        let keyOK = !byokProvider.requiresAPIKey || !byokApiKey.trimmingCharacters(in: .whitespaces).isEmpty
-        let urlOK = !byokProvider.requiresCustomEndpoint || !byokBaseURL.trimmingCharacters(in: .whitespaces).isEmpty
-        return modelOK && keyOK && urlOK
+        switch aiSubstep {
+        case .choice:
+            return false
+        case .hosted:
+            return true
+        case .byok:
+            let modelOK = !byokModel.trimmingCharacters(in: .whitespaces).isEmpty
+            let keyOK = !byokProvider.requiresAPIKey || !byokApiKey.trimmingCharacters(in: .whitespaces).isEmpty
+            let urlOK = !byokProvider.requiresCustomEndpoint || !byokBaseURL.trimmingCharacters(in: .whitespaces).isEmpty
+            return modelOK && keyOK && urlOK
+        }
     }
 
     @ViewBuilder
@@ -1028,6 +1255,7 @@ struct OnboardingView: View {
     private func completeAIChoiceAndAdvance() {
         aiConsentGiven = true
         acceptedTermsAndPrivacy = true
+        AIModeSettings.mode = aiSubstep == .hosted ? .hosted : .byok
         withAnimation(.snappy) { step += 1 }
     }
 

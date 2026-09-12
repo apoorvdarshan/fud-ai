@@ -95,9 +95,12 @@ struct HostedAISettingsView: View {
 
 struct HostedPaywallView: View {
     @Environment(\.dismiss) private var dismiss
+    var onSubscribed: (() -> Void)? = nil
     @State private var rc = RevenueCatManager.shared
     @State private var purchasingID: String?
     @State private var errorMessage: String?
+    @State private var isRestoring = false
+    @State private var restoreMessage: String?
 
     var body: some View {
         NavigationStack {
@@ -107,6 +110,20 @@ struct HostedPaywallView: View {
                 }
                 Section("Pro — \(HostedAIConstants.proDailyLimit)/day") {
                     packageRows(offeringID: "pro")
+                }
+                Section {
+                    Button {
+                        Task { await restore() }
+                    } label: {
+                        HStack {
+                            Text("Restore Purchases")
+                            Spacer()
+                            if isRestoring {
+                                ProgressView()
+                            }
+                        }
+                    }
+                    .disabled(isRestoring || purchasingID != nil)
                 }
             }
             .navigationTitle("Hosted AI")
@@ -123,6 +140,14 @@ struct HostedPaywallView: View {
                 Button("OK", role: .cancel) {}
             } message: {
                 Text(errorMessage ?? "")
+            }
+            .alert("Restore Purchases", isPresented: Binding(
+                get: { restoreMessage != nil },
+                set: { if !$0 { restoreMessage = nil } }
+            )) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(restoreMessage ?? "")
             }
         }
     }
@@ -145,7 +170,7 @@ struct HostedPaywallView: View {
                         }
                     }
                 }
-                .disabled(purchasingID != nil)
+                .disabled(purchasingID != nil || isRestoring)
             }
         } else {
             Text("Plans loading…")
@@ -159,9 +184,28 @@ struct HostedPaywallView: View {
         do {
             try await rc.purchase(package: package)
             AIModeSettings.mode = .hosted
+            onSubscribed?()
             dismiss()
         } catch {
             errorMessage = error.localizedDescription
+        }
+    }
+
+    private func restore() async {
+        isRestoring = true
+        defer { isRestoring = false }
+        do {
+            try await rc.restorePurchases()
+            if rc.hasHostedEntitlement {
+                AIModeSettings.mode = .hosted
+                restoreMessage = String(localized: "Purchases restored.")
+                onSubscribed?()
+                dismiss()
+            } else {
+                restoreMessage = String(localized: "No active Plus or Pro subscription found for this Apple ID.")
+            }
+        } catch {
+            restoreMessage = error.localizedDescription
         }
     }
 }

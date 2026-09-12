@@ -257,12 +257,21 @@
     <string name="onboarding_health_connected">Connecté</string>
     <string name="onboarding_health_connect">Connecter</string>
 
-    <string name="onboarding_provider_title">Utilisez votre propre IA</string>
-    <string name="onboarding_provider_subtitle">Fud AI a besoin d\'une clé de fournisseur d\'IA\npour analyser vos aliments. Vous fournissez la vôtre.</string>
+    <string name="onboarding_ai_choice_title">Configure ton IA</string>
+    <string name="onboarding_ai_choice_subtitle">Choisis comment alimenter l\'IA dans Fud AI. L\'app reste gratuite dans les deux cas.</string>
+    <string name="onboarding_ai_byok_subtitle">Ajoute ta propre clé de fournisseur IA — Gemini, OpenAI, Groq et plus sont pris en charge.</string>
+    <string name="onboarding_ai_byok_card_title">Apporte ta propre clé</string>
+    <string name="onboarding_ai_byok_card_subtitle">Gratuit pour toujours — illimité sur ta clé. Gemini, OpenAI, Groq et plus.</string>
+    <string name="onboarding_ai_byok_badge">Recommandé</string>
+    <string name="onboarding_ai_hosted_ios_card_title">IA hébergée sur iOS</string>
+    <string name="onboarding_ai_hosted_ios_card_subtitle">Les abonnements Plus/Pro sont disponibles sur iPhone et iPad. Android utilise BYOK.</string>
+    <string name="onboarding_ai_hosted_ios_note">Pas d\'abonnement Play Store — connecte ta propre clé IA pour continuer.</string>
+    <string name="onboarding_provider_title">Configure ton IA</string>
+    <string name="onboarding_provider_subtitle">Ajoute ta propre clé de fournisseur IA — l\'app reste gratuite.</string>
     <string name="onboarding_provider_recommended_title">Recommandé : Google Gemini</string>
     <string name="onboarding_provider_recommended_subtitle">Offre gratuite, rapide et précise</string>
     <string name="onboarding_provider_step_1">Obtenez une clé gratuite sur aistudio.google.com/apikey</string>
-    <string name="onboarding_provider_step_2">Ouvrez Réglages → Fournisseur d\'IA</string>
+    <string name="onboarding_provider_step_2">Choisis un fournisseur et colle ta clé ci-dessous</string>
     <string name="onboarding_provider_step_3">Collez votre clé — c\'est fait</string>
     <string name="onboarding_provider_footer">13 fournisseurs pris en charge. Votre clé reste\nsur cet appareil, chiffrée.</string>
 

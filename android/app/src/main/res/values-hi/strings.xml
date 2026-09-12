@@ -256,12 +256,21 @@
     <string name="onboarding_health_connected">कनेक्ट किया गया</string>
     <string name="onboarding_health_connect">कनेक्ट करें</string>
 
-    <string name="onboarding_provider_title">अपनी खुद की AI लाएँ</string>
-    <string name="onboarding_provider_subtitle">आपके भोजन का विश्लेषण करने के लिए Fud AI को\nएक AI प्रदाता कुंजी चाहिए। आप अपनी कुंजी लाएँ।</string>
+    <string name="onboarding_ai_choice_title">अपना AI सेट अप करें</string>
+    <string name="onboarding_ai_choice_subtitle">चुनें कि Fud AI में AI कैसे चलाना है। दोनों तरीकों में ऐप मुफ़्त रहता है।</string>
+    <string name="onboarding_ai_byok_subtitle">अपनी AI प्रोवाइडर कुंजी जोड़ें — Gemini, OpenAI, Groq और अन्य समर्थित हैं।</string>
+    <string name="onboarding_ai_byok_card_title">अपनी कुंजी लाएँ</string>
+    <string name="onboarding_ai_byok_card_subtitle">हमेशा मुफ़्त — आपकी कुंजी पर असीमित। Gemini, OpenAI, Groq और अन्य।</string>
+    <string name="onboarding_ai_byok_badge">अनुशंसित</string>
+    <string name="onboarding_ai_hosted_ios_card_title">iOS पर होस्टेड AI</string>
+    <string name="onboarding_ai_hosted_ios_card_subtitle">Plus/Pro सब्सक्रिप्शन iPhone और iPad पर उपलब्ध हैं। Android BYOK उपयोग करता है।</string>
+    <string name="onboarding_ai_hosted_ios_note">कोई Play Store सब्सक्रिप्शन नहीं — जारी रखने के लिए अपनी AI कुंजी कनेक्ट करें।</string>
+    <string name="onboarding_provider_title">अपना AI सेट अप करें</string>
+    <string name="onboarding_provider_subtitle">अपनी AI प्रोवाइडर कुंजी जोड़ें — ऐप मुफ़्त रहता है।</string>
     <string name="onboarding_provider_recommended_title">अनुशंसित: Google Gemini</string>
     <string name="onboarding_provider_recommended_subtitle">मुफ़्त टियर उपलब्ध, तेज़ और सटीक</string>
     <string name="onboarding_provider_step_1">aistudio.google.com/apikey पर मुफ़्त कुंजी पाएँ</string>
-    <string name="onboarding_provider_step_2">सेटिंग्स खोलें → AI प्रदाता</string>
+    <string name="onboarding_provider_step_2">प्रोवाइडर चुनें और नीचे अपनी कुंजी पेस्ट करें</string>
     <string name="onboarding_provider_step_3">अपनी कुंजी पेस्ट करें — हो गया</string>
     <string name="onboarding_provider_footer">13 प्रदाता समर्थित। आपकी कुंजी इसी डिवाइस पर,\nएन्क्रिप्टेड रहती है।</string>
 

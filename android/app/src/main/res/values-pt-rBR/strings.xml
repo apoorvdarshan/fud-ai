@@ -257,12 +257,21 @@
     <string name="onboarding_health_connected">Conectado</string>
     <string name="onboarding_health_connect">Conectar</string>
 
-    <string name="onboarding_provider_title">Use sua própria IA</string>
-    <string name="onboarding_provider_subtitle">O Fud AI precisa de uma chave de provedor\nde IA para analisar sua comida. Você usa a sua.</string>
+    <string name="onboarding_ai_choice_title">Configure sua IA</string>
+    <string name="onboarding_ai_choice_subtitle">Escolha como quer usar a IA no Fud AI. O app continua gratuito de qualquer forma.</string>
+    <string name="onboarding_ai_byok_subtitle">Adicione sua própria chave de provedor de IA — Gemini, OpenAI, Groq e mais são suportados.</string>
+    <string name="onboarding_ai_byok_card_title">Traga sua própria chave</string>
+    <string name="onboarding_ai_byok_card_subtitle">Grátis para sempre — ilimitado na sua chave. Gemini, OpenAI, Groq e mais.</string>
+    <string name="onboarding_ai_byok_badge">Recomendado</string>
+    <string name="onboarding_ai_hosted_ios_card_title">IA hospedada no iOS</string>
+    <string name="onboarding_ai_hosted_ios_card_subtitle">Assinaturas Plus/Pro estão disponíveis no iPhone e iPad. Android usa BYOK.</string>
+    <string name="onboarding_ai_hosted_ios_note">Sem assinatura na Play Store — conecte sua própria chave de IA para continuar.</string>
+    <string name="onboarding_provider_title">Configure sua IA</string>
+    <string name="onboarding_provider_subtitle">Adicione sua própria chave de provedor de IA — o app continua gratuito.</string>
     <string name="onboarding_provider_recommended_title">Recomendado: Google Gemini</string>
     <string name="onboarding_provider_recommended_subtitle">Versão gratuita disponível, rápida e precisa</string>
     <string name="onboarding_provider_step_1">Obtenha uma chave grátis em aistudio.google.com/apikey</string>
-    <string name="onboarding_provider_step_2">Abra Ajustes → Provedor de IA</string>
+    <string name="onboarding_provider_step_2">Escolha um provedor e cole sua chave abaixo</string>
     <string name="onboarding_provider_step_3">Cole sua chave — pronto</string>
     <string name="onboarding_provider_footer">13 provedores compatíveis. Sua chave fica\nneste dispositivo, criptografada.</string>
 

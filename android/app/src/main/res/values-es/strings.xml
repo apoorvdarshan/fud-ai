@@ -257,12 +257,21 @@
     <string name="onboarding_health_connected">Conectado</string>
     <string name="onboarding_health_connect">Conectar</string>
 
-    <string name="onboarding_provider_title">Usa tu propia IA</string>
-    <string name="onboarding_provider_subtitle">Fud AI necesita una clave de proveedor de IA\npara analizar tu comida. Tú aportas la tuya.</string>
+    <string name="onboarding_ai_choice_title">Configura tu IA</string>
+    <string name="onboarding_ai_choice_subtitle">Elige cómo quieres usar la IA en Fud AI. La app sigue siendo gratis de cualquier forma.</string>
+    <string name="onboarding_ai_byok_subtitle">Añade tu propia clave de proveedor de IA — se admiten Gemini, OpenAI, Groq y más.</string>
+    <string name="onboarding_ai_byok_card_title">Trae tu propia clave</string>
+    <string name="onboarding_ai_byok_card_subtitle">Gratis para siempre — ilimitado con tu clave. Gemini, OpenAI, Groq y más.</string>
+    <string name="onboarding_ai_byok_badge">Recomendado</string>
+    <string name="onboarding_ai_hosted_ios_card_title">IA alojada en iOS</string>
+    <string name="onboarding_ai_hosted_ios_card_subtitle">Las suscripciones Plus/Pro están disponibles en iPhone e iPad. Android usa BYOK.</string>
+    <string name="onboarding_ai_hosted_ios_note">Sin suscripción en Play Store — conecta tu propia clave de IA para continuar.</string>
+    <string name="onboarding_provider_title">Configura tu IA</string>
+    <string name="onboarding_provider_subtitle">Añade tu propia clave de proveedor de IA — la app sigue siendo gratis.</string>
     <string name="onboarding_provider_recommended_title">Recomendado: Google Gemini</string>
     <string name="onboarding_provider_recommended_subtitle">Versión gratuita disponible, rápida y precisa</string>
     <string name="onboarding_provider_step_1">Obtén una clave gratis en aistudio.google.com/apikey</string>
-    <string name="onboarding_provider_step_2">Abre Ajustes → Proveedor de IA</string>
+    <string name="onboarding_provider_step_2">Elige un proveedor y pega tu clave abajo</string>
     <string name="onboarding_provider_step_3">Pega tu clave — listo</string>
     <string name="onboarding_provider_footer">13 proveedores compatibles. Tu clave se queda\nen este dispositivo, cifrada.</string>
 

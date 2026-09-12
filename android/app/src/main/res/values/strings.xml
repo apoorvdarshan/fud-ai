@@ -307,12 +307,21 @@
     <string name="onboarding_health_connected">Connected</string>
     <string name="onboarding_health_connect">Connect</string>
 
-    <string name="onboarding_provider_title">Bring Your Own AI</string>
-    <string name="onboarding_provider_subtitle">Fud AI needs an AI provider key to\nanalyze your food. You bring your own.</string>
+    <string name="onboarding_ai_choice_title">Set Up Your AI</string>
+    <string name="onboarding_ai_choice_subtitle">Choose how you want to power AI in Fud AI. The app stays free either way.</string>
+    <string name="onboarding_ai_byok_subtitle">Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported.</string>
+    <string name="onboarding_ai_byok_card_title">Bring Your Own Key</string>
+    <string name="onboarding_ai_byok_card_subtitle">Free forever — unlimited on your key. Gemini, OpenAI, Groq &amp; more.</string>
+    <string name="onboarding_ai_byok_badge">Recommended</string>
+    <string name="onboarding_ai_hosted_ios_card_title">Hosted AI on iOS</string>
+    <string name="onboarding_ai_hosted_ios_card_subtitle">Plus/Pro subscriptions are available on iPhone and iPad. Android uses BYOK.</string>
+    <string name="onboarding_ai_hosted_ios_note">No Play Store subscription — connect your own AI key to continue.</string>
+    <string name="onboarding_provider_title">Set Up Your AI</string>
+    <string name="onboarding_provider_subtitle">Add your own AI provider key — the app stays free.</string>
     <string name="onboarding_provider_recommended_title">Recommended: Google Gemini</string>
     <string name="onboarding_provider_recommended_subtitle">Free tier available, fast &amp; accurate</string>
     <string name="onboarding_provider_step_1">Get a free key at aistudio.google.com/apikey</string>
-    <string name="onboarding_provider_step_2">Open Settings → AI Provider</string>
+    <string name="onboarding_provider_step_2">Pick a provider and paste your key below</string>
     <string name="onboarding_provider_step_3">Paste your key — done</string>
     <string name="onboarding_provider_footer">13 providers supported. Your key stays on\nthis device, encrypted.</string>
 

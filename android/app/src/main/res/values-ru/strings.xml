@@ -258,12 +258,21 @@
     <string name="onboarding_health_connected">Подключено</string>
     <string name="onboarding_health_connect">Подключить</string>
 
-    <string name="onboarding_provider_title">Используйте свой ИИ</string>
-    <string name="onboarding_provider_subtitle">Fud AI нужен ключ ИИ-провайдера для\nанализа вашей еды. Вы используете свой.</string>
+    <string name="onboarding_ai_choice_title">Настрой свой ИИ</string>
+    <string name="onboarding_ai_choice_subtitle">Выбери, как использовать ИИ в Fud AI. Приложение остаётся бесплатным в любом случае.</string>
+    <string name="onboarding_ai_byok_subtitle">Добавь свой ключ провайдера ИИ — поддерживаются Gemini, OpenAI, Groq и другие.</string>
+    <string name="onboarding_ai_byok_card_title">Свой ключ</string>
+    <string name="onboarding_ai_byok_card_subtitle">Бесплатно навсегда — без лимитов на твоём ключе. Gemini, OpenAI, Groq и другие.</string>
+    <string name="onboarding_ai_byok_badge">Рекомендуется</string>
+    <string name="onboarding_ai_hosted_ios_card_title">Хостинг ИИ на iOS</string>
+    <string name="onboarding_ai_hosted_ios_card_subtitle">Подписки Plus/Pro доступны на iPhone и iPad. Android использует BYOK.</string>
+    <string name="onboarding_ai_hosted_ios_note">Нет подписки в Play Store — подключи свой ключ ИИ, чтобы продолжить.</string>
+    <string name="onboarding_provider_title">Настрой свой ИИ</string>
+    <string name="onboarding_provider_subtitle">Добавь свой ключ провайдера ИИ — приложение остаётся бесплатным.</string>
     <string name="onboarding_provider_recommended_title">Рекомендуется: Google Gemini</string>
     <string name="onboarding_provider_recommended_subtitle">Доступен бесплатный тариф, быстро и точно</string>
     <string name="onboarding_provider_step_1">Получите бесплатный ключ на aistudio.google.com/apikey</string>
-    <string name="onboarding_provider_step_2">Откройте Настройки → ИИ-провайдер</string>
+    <string name="onboarding_provider_step_2">Выбери провайдера и вставь ключ ниже</string>
     <string name="onboarding_provider_step_3">Вставьте ключ — готово</string>
     <string name="onboarding_provider_footer">Поддерживается 13 провайдеров. Ваш ключ остаётся\nна устройстве в зашифрованном виде.</string>
 

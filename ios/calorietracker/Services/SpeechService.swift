@@ -35,14 +35,12 @@ struct SpeechService {
                 throw SpeechError.fileReadFailed
             }
             let language = SpeechSettings.selectedLanguage(for: .deepgram).apiLanguageCode
-            return try await MainActor.run {
-                try await AIGate.runWithHostedQuota(.hostedSTT) {
-                    try await HostedAIService.transcribe(
-                        audioData: audioData,
-                        mimeType: mimeType(for: audioURL),
-                        language: language
-                    )
-                }
+            return try await AIGate.runWithHostedQuota(.hostedSTT) {
+                try await HostedAIService.transcribe(
+                    audioData: audioData,
+                    mimeType: mimeType(for: audioURL),
+                    language: language
+                )
             }
         }
 

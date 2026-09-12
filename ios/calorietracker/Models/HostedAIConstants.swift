@@ -136,7 +136,7 @@ enum HostedAIAction: Equatable {
     var isMetered: Bool { true }
 }
 
-enum HostedAIQuotaError: LocalizedError {
+enum HostedAIQuotaError: LocalizedError, Equatable {
     case notHostedMode
     case noActiveSubscription
     case quotaExceeded(remainingDaily: Int, creditBank: Int)

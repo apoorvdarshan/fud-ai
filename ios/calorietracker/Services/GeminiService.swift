@@ -833,9 +833,7 @@ struct GeminiService {
         if skip || !AIModeSettings.isHosted {
             return try await work()
         }
-        return try await MainActor.run {
-            try await AIGate.runWithHostedQuota(action, work)
-        }
+        return try await AIGate.runWithHostedQuota(action, work)
     }
 
     private static func callAI(prompt: String, images: [UIImage]) async throws -> String {

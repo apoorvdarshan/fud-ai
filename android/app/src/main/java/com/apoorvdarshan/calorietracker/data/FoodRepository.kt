@@ -7,6 +7,7 @@ import com.apoorvdarshan.calorietracker.services.ReviewPrompter
 import com.apoorvdarshan.calorietracker.models.MealType
 import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import com.apoorvdarshan.calorietracker.services.health.HealthConnectManager
+import com.apoorvdarshan.calorietracker.services.health.NutritionWriteGate
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -73,9 +74,7 @@ class FoodRepository(
         if (prefs.fastingSessions.first().any { it.isActive }) return false
         val current = prefs.foodEntries.first()
         prefs.setFoodEntries(current + entry)
-        if (shouldSyncHealth()) {
-            health?.writeNutrition(entry)
-        }
+        healthRetry.sync(entry, isUpdate = false)
         // One-time organic review moment: the first successful food log (iOS parity).
         if (!prefs.reviewPromptedAfterFirstLog.first()) {
             prefs.setReviewPromptedAfterFirstLog(true)
@@ -102,17 +101,21 @@ class FoodRepository(
             }
         }
         if (shouldSyncHealth()) {
-            health?.updateNutrition(entry)
+            healthRetry.sync(entry, isUpdate = true)
         } else {
             // Sync off: still clean up the stale HC record for this entry (iOS
             // parity, best-effort) so the restore path can't resurrect the
             // pre-edit version later.
             health?.deleteNutrition(entry.id)
+            healthRetry.forget(entry.id)
         }
     }
 
     suspend fun deleteEntry(entryId: UUID) {
         ensureFavoritesMigrated()
+        // Drop the queue entry under the same mutex retry/sync uses, before the local
+        // row disappears, so an in-flight retry cannot recreate Health Connect data.
+        healthRetry.forget(entryId)
         val current = prefs.foodEntries.first()
         prefs.setFoodEntries(current.filter { it.id != entryId })
         pruneOrphanedImages()
@@ -164,7 +167,8 @@ class FoodRepository(
 
         if (shouldSyncHealth()) {
             removedIds.forEach { health?.deleteNutrition(it) }
-            changed.forEach { health?.updateNutrition(it) }
+            healthRetry.forgetAll(removedIds)
+            healthRetry.syncAll(changed, isUpdate = true)
         } else {
             // Prevent stale records written by an earlier sync-enabled session
             // from restoring pre-import values later.
@@ -240,9 +244,35 @@ class FoodRepository(
         if (seeded.isNotEmpty()) prefs.setFavoriteFoodEntries(seeded)
     }
 
+    /**
+     * Deferred retry for nutrition writes Health Connect never confirmed. The adapter keeps
+     * [HealthConnectManager] out of the retry's own type signature, matching how
+     * [WorkoutHealthSync] is supplied to [WorkoutRepository].
+     */
+    private val healthRetry = NutritionHealthRetry(
+        prefs,
+        health?.let { manager ->
+            object : NutritionHealthSync {
+                override suspend fun writeGate() = manager.nutritionWriteGate()
+                override suspend fun write(entry: FoodEntry) = manager.writeNutrition(entry)
+                override suspend fun update(entry: FoodEntry) = manager.updateNutrition(entry)
+                override suspend fun delete(entryId: UUID) = manager.deleteNutrition(entryId)
+            }
+        }
+    )
+
+    /** Re-attempt writes that were never confirmed. Called from the app-foreground sync. */
+    suspend fun retryPendingHealthWrites() = healthRetry.retryPending()
+
+    /**
+     * Whether the user has Health Connect sync switched on. Deliberately does not ask
+     * whether the nutrition-write permission is granted: that question is answered inside
+     * [NutritionHealthRetry] via [NutritionWriteGate], because a permission probe that
+     * fails must not be read as "no permission". Doing so here silently discarded writes.
+     */
     private suspend fun shouldSyncHealth(): Boolean {
-        val manager = health ?: return false
-        return prefs.healthConnectEnabled.first() && manager.hasNutritionWrite()
+        if (health == null) return false
+        return prefs.healthConnectEnabled.first()
     }
 
     /**

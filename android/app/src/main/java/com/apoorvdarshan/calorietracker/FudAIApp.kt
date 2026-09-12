@@ -246,6 +246,12 @@ class AppContainer(app: FudAIApp) {
         if (healthReadSyncInFlight) return
         if (!prefs.healthConnectEnabled.first()) return
         if (!health.isAvailable()) return
+
+        // Nutrition writes Health Connect never confirmed retry here. Deliberately ahead of
+        // the read-capability guard below: a user who granted write but no reads still has a
+        // queue to drain, and returning early would strand it forever.
+        foodRepository.retryPendingHealthWrites()
+
         val caps = health.capabilities()
         val workoutBurnRead = health.hasActiveEnergyRead()
         if (!caps.weightRead && !caps.bodyFatRead && !caps.nutritionRead &&

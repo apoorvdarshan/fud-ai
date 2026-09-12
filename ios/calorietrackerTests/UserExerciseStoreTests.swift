@@ -30,6 +30,29 @@ import Testing
         #expect(reloaded.exerciseLibrary.exercises.contains { $0.id == saved!.id })
     }
 
+    @Test func editingUserExerciseRefreshesExerciseLibraryCache() throws {
+        let defaults = UserDefaults(suiteName: "UserExerciseStoreCacheTests")!
+        defaults.removePersistentDomain(forName: "UserExerciseStoreCacheTests")
+        defer { defaults.removePersistentDomain(forName: "UserExerciseStoreCacheTests") }
+
+        let store = StrengthWorkoutStore(defaults: defaults, storageKey: "test.workout.cache")
+        let item = store.saveUserExercise(UserExerciseDraft(
+            name: "Old Name",
+            primaryMuscles: ["Chest"]
+        ))
+        let itemID = try #require(item?.id)
+        _ = store.exerciseLibrary
+
+        _ = store.saveUserExercise(UserExerciseDraft(
+            name: "New Name",
+            primaryMuscles: ["Back"]
+        ), existingItemID: itemID)
+
+        let updated = try #require(store.exerciseLibrary.exercises.first { $0.id == itemID })
+        #expect(updated.name == "New Name")
+        #expect(updated.primaryMuscles == ["Back"])
+    }
+
     @Test func deleteUserExerciseRemovesTemplate() throws {
         let defaults = UserDefaults(suiteName: "UserExerciseStoreDeleteTests")!
         defaults.removePersistentDomain(forName: "UserExerciseStoreDeleteTests")

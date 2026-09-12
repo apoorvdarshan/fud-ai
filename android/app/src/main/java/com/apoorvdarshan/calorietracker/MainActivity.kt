@@ -33,12 +33,19 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+
+private data class StartupPrefs(
+    val startOnboarding: Boolean,
+    val appearance: String,
+    val themeColorKey: String
+)
 
 open class MainActivity : ComponentActivity() {
     // Shared-meal deep link (issue #107). Non-empty -> the confirm sheet is shown over the app.
     private var pendingSharedMeals by mutableStateOf<List<FoodEntry>>(emptyList())
     private var pendingQuickAction by mutableStateOf<QuickActionRequest?>(null)
+    private var startupPrefs by mutableStateOf<StartupPrefs?>(null)
+    private var contentReady by mutableStateOf(false)
 
     /** Decode a `fudai://add-meal` link (if that's what launched us) into pending meals. */
     private fun handleShareIntent(intent: Intent?) {
@@ -104,13 +111,16 @@ open class MainActivity : ComponentActivity() {
             }
         }
 
+        val container = (application as FudAIApp).container
+
         // Support --reset-onboarding launch flag (parallel to iOS CLAUDE.md convention).
         if (intent?.getBooleanExtra("reset_onboarding", false) == true) {
-            runBlocking { (application as FudAIApp).container.prefs.setOnboardingCompleted(false) }
+            lifecycleScope.launch {
+                container.prefs.setOnboardingCompleted(false)
+            }
             intent.removeExtra("reset_onboarding")
         }
 
-        val container = (application as FudAIApp).container
         // A fudai://add-meal link may have cold-launched us.
         handleShareIntent(intent)
         handleQuickActionIntent(intent)
@@ -124,27 +134,29 @@ open class MainActivity : ComponentActivity() {
                 .collect { QuickActionShortcutManager.update(this@MainActivity, it) }
         }
 
-        val startOnboarding = runBlocking { !container.prefs.hasCompletedOnboarding.first() }
-        val initialAppearance = runBlocking { container.prefs.appearanceMode.first() }
-        val initialThemeColorKey = runBlocking { container.prefs.appThemeColor.first() }
-
-        // Hold the splash on screen until the saved profile has loaded from
-        // DataStore so Home doesn't briefly render its 2000/150/220/70 fallback
-        // goal numbers before snapping to the user's real targets. Onboarding
-        // doesn't show those numbers, so we let the splash dismiss immediately
-        // in that case.
-        var contentReady = startOnboarding
-        splashScreen.setKeepOnScreenCondition { !contentReady }
-        if (!startOnboarding) {
-            lifecycleScope.launch {
+        // Hold the splash on screen until startup prefs and (when needed) the saved
+        // profile have loaded from DataStore so Home doesn't briefly render its
+        // 2000/150/220/70 fallback goal numbers before snapping to real targets.
+        splashScreen.setKeepOnScreenCondition { startupPrefs == null || !contentReady }
+        lifecycleScope.launch {
+            val startOnboarding = !container.prefs.hasCompletedOnboarding.first()
+            startupPrefs = StartupPrefs(
+                startOnboarding = startOnboarding,
+                appearance = container.prefs.appearanceMode.first(),
+                themeColorKey = container.prefs.appThemeColor.first()
+            )
+            if (startOnboarding) {
+                contentReady = true
+            } else {
                 container.profileRepository.profile.first { it != null }
                 contentReady = true
             }
         }
 
         setContent {
-            val appearance by container.prefs.appearanceMode.collectAsState(initial = initialAppearance)
-            val themeColorKey by container.prefs.appThemeColor.collectAsState(initial = initialThemeColorKey)
+            val startup = startupPrefs ?: return@setContent
+            val appearance by container.prefs.appearanceMode.collectAsState(initial = startup.appearance)
+            val themeColorKey by container.prefs.appThemeColor.collectAsState(initial = startup.themeColorKey)
             val themeColor = AppThemeColor.fromKey(themeColorKey)
             val systemDark = isSystemInDarkTheme()
             val darkTheme = when (appearance) {
@@ -159,7 +171,7 @@ open class MainActivity : ComponentActivity() {
                 ) {
                     FudAINavHost(
                         container = container,
-                        startOnboarding = startOnboarding,
+                        startOnboarding = startup.startOnboarding,
                         quickActionRequest = pendingQuickAction,
                         onQuickActionHandled = { requestID ->
                             if (pendingQuickAction?.id == requestID) pendingQuickAction = null

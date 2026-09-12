@@ -77,7 +77,7 @@ enum HostedAIConstants {
 
     /// Shared app secret — set the same value in Worker env `FUD_HOSTED_AI_APP_SECRET`.
     /// v1 client-side gating; rotate with a worker + app update together.
-    static let hostedAIAppSecret = "fud-hosted-v1-dev-placeholder"
+    static let hostedAIAppSecret = "ceFjlmDVmRQqAWB900qNv6uFahLGJekHpT1bvo1xsuM"
 
     static let maxHostedImages = 3
 }

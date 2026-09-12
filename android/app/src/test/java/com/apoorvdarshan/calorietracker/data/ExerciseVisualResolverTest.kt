@@ -49,6 +49,21 @@ class ExerciseVisualResolverTest {
     }
 
     @Test
+    fun parseManifestWithNullPackagedNamesSkipsAssetVerification() {
+        val manifest = manifestJson(frameCount = 4)
+        val incompleteAssets = assetNames(4) - "${item.id}_female_2.svg"
+        assertTrue(
+            ExerciseVisualResolver.parseManifest(manifest, incompleteAssets).isEmpty()
+        )
+
+        val frames = ExerciseVisualResolver.parseManifest(manifest, packagedAssetNames = null)
+        assertTrue(frames.containsKey(item.id))
+        val visual = ExerciseVisualResolver.resolve(item, Gender.MALE, frames)
+        assertEquals(ExerciseVisualFormat.SVG, visual.format)
+        assertEquals(4, visual.framePaths.size)
+    }
+
+    @Test
     fun missingOppositeGenderOrPackagedFrameFallsBackToDatasetJpegs() {
         val missingFemaleManifest = ExerciseVisualResolver.parseManifest(
             json = manifestJson(frameCount = 4, includeFemaleFrames = false),

@@ -64,9 +64,9 @@ internal object ExerciseVisualResolver {
     )
 
     /**
-     * Parses the shared packaging manifest and exposes only atomic male/female sets with 3–5
-     * contiguous frames. When [packagedAssetNames] is supplied, every referenced asset must also
-     * exist in the APK asset root; a partial package therefore falls back to the existing JPEGs.
+     * Parses the shared packaging manifest into atomic male/female sets (3–5 contiguous frames).
+     * When [packagedAssetNames] is set (unit tests / packaging audits), every referenced file
+     * must exist. Runtime passes null so we never AssetManager.list the ~7k-frame asset root.
      */
     fun parseManifest(
         json: String,
@@ -79,45 +79,53 @@ internal object ExerciseVisualResolver {
 
         val entries = mutableMapOf<String, GenderedExerciseFrames>()
         val duplicateIDs = mutableSetOf<String>()
-        document.exercises.orEmpty().forEach { record ->
-            val exerciseID = record.exerciseId?.takeIf { it.isNotBlank() } ?: return@forEach
-            val frameCount = record.frameCount?.takeIf { it in 3..5 } ?: return@forEach
-            val representative = record.representativeFrameIndex
-                ?.takeIf { it in 0 until frameCount }
-                ?: return@forEach
-            val format = when (record.format?.lowercase()) {
-                null, "svg" -> ExerciseVisualFormat.SVG
-                "png" -> ExerciseVisualFormat.PNG
-                else -> return@forEach
-            }
-            val extension = format.name.lowercase()
-            val maleNames = record.maleFrames
-                ?.takeIf { validFrameNames(it, exerciseID, "male", frameCount) }
-                ?: return@forEach
-            val femaleNames = record.femaleFrames
-                ?.takeIf { validFrameNames(it, exerciseID, "female", frameCount) }
-                ?: return@forEach
-            val malePaths = maleNames.map { "$it.$extension" }
-            val femalePaths = femaleNames.map { "$it.$extension" }
-            if (packagedAssetNames != null &&
-                !(malePaths + femalePaths).all(packagedAssetNames::contains)
-            ) {
-                return@forEach
-            }
-
+        for (record in document.exercises.orEmpty()) {
+            val frames = parseRecord(record, packagedAssetNames) ?: continue
+            val (exerciseID, gendered) = frames
             if (entries.containsKey(exerciseID)) {
                 duplicateIDs += exerciseID
             } else {
-                entries[exerciseID] = GenderedExerciseFrames(
-                    male = malePaths,
-                    female = femalePaths,
-                    format = format,
-                    representativeFrameIndex = representative
-                )
+                entries[exerciseID] = gendered
             }
         }
         duplicateIDs.forEach { entries.remove(it) }
         return entries
+    }
+
+    private fun parseRecord(
+        record: ManifestRecord,
+        packagedAssetNames: Collection<String>?
+    ): Pair<String, GenderedExerciseFrames>? {
+        val exerciseID = record.exerciseId?.takeIf { it.isNotBlank() } ?: return null
+        val frameCount = record.frameCount?.takeIf { it in 3..5 } ?: return null
+        val representative = record.representativeFrameIndex
+            ?.takeIf { it in 0 until frameCount }
+            ?: return null
+        val format = when (record.format?.lowercase()) {
+            null, "svg" -> ExerciseVisualFormat.SVG
+            "png" -> ExerciseVisualFormat.PNG
+            else -> return null
+        }
+        val extension = format.name.lowercase()
+        val maleNames = record.maleFrames
+            ?.takeIf { validFrameNames(it, exerciseID, "male", frameCount) }
+            ?: return null
+        val femaleNames = record.femaleFrames
+            ?.takeIf { validFrameNames(it, exerciseID, "female", frameCount) }
+            ?: return null
+        val malePaths = maleNames.map { "$it.$extension" }
+        val femalePaths = femaleNames.map { "$it.$extension" }
+        if (packagedAssetNames != null &&
+            !(malePaths + femalePaths).all(packagedAssetNames::contains)
+        ) {
+            return null
+        }
+        return exerciseID to GenderedExerciseFrames(
+            male = malePaths,
+            female = femalePaths,
+            format = format,
+            representativeFrameIndex = representative
+        )
     }
 
     private fun validFrameNames(
@@ -140,18 +148,16 @@ internal object ExerciseVisualResolver {
         gender: Gender,
         authoredFrames: Map<String, GenderedExerciseFrames>
     ): ExerciseVisual {
-        val visualKey = resolveVisualKey(item, authoredFrames)
-        val authoredSet = authoredFrames[visualKey]
-        val frames = authoredSet?.forGender(gender)
-        return if (frames.isNullOrEmpty()) {
-            ExerciseVisual.jpeg(item.imagePaths)
-        } else {
-            ExerciseVisual(
-                framePaths = frames,
-                format = authoredSet.format,
-                representativeFrameIndex = authoredSet.representativeFrameIndex
-            )
+        val authoredSet = authoredFrames[resolveVisualKey(item, authoredFrames)]
+        val frames = authoredSet?.forGender(gender).orEmpty()
+        if (authoredSet == null || frames.isEmpty()) {
+            return ExerciseVisual.jpeg(item.imagePaths)
         }
+        return ExerciseVisual(
+            framePaths = frames,
+            format = authoredSet.format,
+            representativeFrameIndex = authoredSet.representativeFrameIndex
+        )
     }
 
     private fun resolveVisualKey(

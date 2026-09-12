@@ -25,6 +25,9 @@ import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -115,6 +118,14 @@ data class HomeUiState(
     fun isFavorite(entry: FoodEntry): Boolean = entry.favoriteKey in favoriteKeys
 }
 
+private data class HomeDayFilterInputs(
+    val profile: UserProfile?,
+    val entries: List<FoodEntry>,
+    val favoriteKeys: Set<String>,
+    val sortOrder: String?,
+    val day: LocalDate
+)
+
 internal class FoodSubmissionGate {
     private val active = AtomicBoolean(false)
 
@@ -150,18 +161,22 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
             container.prefs.foodLogSortOrder,
             _selectedDate
         ) { p, entries, favKeys, sortOrder, day ->
-            val zone = ZoneId.systemDefault()
-            val dayEntries = entries
-                .filter { it.timestamp.atZone(zone).toLocalDate() == day }
-                .sortedByDescending { it.timestamp }
-            _ui.value.copy(
-                profile = p,
-                date = day,
-                todayEntries = dayEntries,
-                foodLogSortOrder = FoodLogSortOrder.fromStorage(sortOrder),
-                favoriteKeys = favKeys
-            )
+            HomeDayFilterInputs(p, entries, favKeys, sortOrder, day)
         }
+            .map { (p, entries, favKeys, sortOrder, day) ->
+                val zone = ZoneId.systemDefault()
+                val dayEntries = entries
+                    .filter { it.timestamp.atZone(zone).toLocalDate() == day }
+                    .sortedByDescending { it.timestamp }
+                _ui.value.copy(
+                    profile = p,
+                    date = day,
+                    todayEntries = dayEntries,
+                    foodLogSortOrder = FoodLogSortOrder.fromStorage(sortOrder),
+                    favoriteKeys = favKeys
+                )
+            }
+            .flowOn(Dispatchers.Default)
             .onEach { state ->
                 _ui.value = state
                 val filenames = state.todayEntries
@@ -918,9 +933,11 @@ viewModelScope.launch {
         )
     }
 
-    private fun restorePendingDraft(draft: PendingFoodAnalysisDraft) {
-        val bytesList = (listOfNotNull(draft.imageFilename) + draft.additionalImageFilenames).mapNotNull {
-            runCatching { container.imageStore.file(it).readBytes() }.getOrNull()
+    private suspend fun restorePendingDraft(draft: PendingFoodAnalysisDraft) {
+        val bytesList = withContext(Dispatchers.IO) {
+            (listOfNotNull(draft.imageFilename) + draft.additionalImageFilenames).mapNotNull {
+                runCatching { container.imageStore.file(it).readBytes() }.getOrNull()
+            }
         }
         _ui.value = _ui.value.copy(
             analyzing = false,

@@ -4,6 +4,7 @@ import android.app.Application
 import com.apoorvdarshan.calorietracker.data.BodyFatRepository
 import com.apoorvdarshan.calorietracker.data.BodyMeasurementRepository
 import com.apoorvdarshan.calorietracker.data.ChatRepository
+import com.apoorvdarshan.calorietracker.data.ExerciseRepository
 import com.apoorvdarshan.calorietracker.data.FoodRepository
 import com.apoorvdarshan.calorietracker.data.FastingRepository
 import com.apoorvdarshan.calorietracker.data.KeyStore
@@ -65,6 +66,8 @@ class FudAIApp : Application() {
         container.notifications.createChannels()
         WidgetRefreshScheduler.onAppStarted(this)
         container.widgetSnapshotWriter.observe().launchIn(appScope)
+        // Warm exercise catalog off the main thread before the first Workouts tab open.
+        ExerciseRepository.warm(this)
         appScope.launch {
             container.prefs.reconcileLocalModelSelections()
             container.prefs.migrateAIModelSelections()
@@ -74,6 +77,7 @@ class FudAIApp : Application() {
         // Older Android builds removed food rows without removing their JPEGs.
         // Prune only unreferenced files; logged foods, saved meals, and pending
         // analysis drafts remain untouched.
+        appScope.launch { container.imageStore.cleanupLegacyThumbnailDirectory() }
         appScope.launch { container.foodRepository.pruneOrphanedImages() }
         appScope.launch { container.weeklyChallengeRepository.retryPendingRemoteDeletion() }
         container.prefs.mealSchedule

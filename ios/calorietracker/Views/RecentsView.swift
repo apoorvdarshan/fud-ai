@@ -191,16 +191,13 @@ private struct SavedMealRow: View {
     var body: some View {
         HStack(spacing: 12) {
             // Thumbnail
-            if let imageData = entry.imageData, let uiImage = UIImage(data: imageData) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 56, height: 56)
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12, style: .continuous)
-                            .strokeBorder(AppColors.calorie.opacity(0.15), lineWidth: 1)
-                    )
+            if entry.imageFilename != nil || entry.imageData != nil {
+                FoodEntryThumbnailView(
+                    filename: entry.imageFilename,
+                    legacyData: entry.imageData,
+                    additionalCount: entry.listThumbnailAdditionalPhotoCount,
+                    showsAdditionalBadge: false
+                )
             } else if let emoji = entry.emoji {
                 Text(emoji)
                     .font(.system(size: 28))

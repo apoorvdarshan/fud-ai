@@ -57,6 +57,7 @@ struct calorietrackerApp: App {
             UserDefaults.standard.removeObject(forKey: "hasCompletedOnboarding")
             UserDefaults.standard.removeObject(forKey: "userProfile")
         }
+        ExerciseCatalogWarmup.startIfNeeded()
     }
 
     var body: some Scene {

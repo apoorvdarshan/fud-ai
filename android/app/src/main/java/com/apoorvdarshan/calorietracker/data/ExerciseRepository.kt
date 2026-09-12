@@ -1,9 +1,13 @@
 package com.apoorvdarshan.calorietracker.data
 
 import android.content.Context
+import android.os.SystemClock
+import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.InputStreamReader
+import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Loads the bundled free-exercise-db dataset from assets and exposes filtering /
@@ -99,8 +103,33 @@ class ExerciseRepository private constructor(
     }
 
     companion object {
+        private const val TAG = "ExerciseRepository"
+
         @Volatile
         private var instance: ExerciseRepository? = null
+        private val warming = AtomicBoolean(false)
+        private val warmExecutor = Executors.newSingleThreadExecutor { runnable ->
+            Thread(runnable, "exercise-repo-warm").apply { isDaemon = true }
+        }
+
+        /** Already-loaded singleton, or null if [get]/[warm] has not finished yet. */
+        fun peek(): ExerciseRepository? = instance
+
+        /**
+         * Parses catalog + visual manifest on a background thread so the first Workouts
+         * tab open is not blocked by I/O. Safe to call repeatedly.
+         */
+        fun warm(context: Context) {
+            if (instance != null || !warming.compareAndSet(false, true)) return
+            val app = context.applicationContext
+            warmExecutor.execute {
+                try {
+                    get(app)
+                } finally {
+                    warming.set(false)
+                }
+            }
+        }
 
         fun get(context: Context): ExerciseRepository =
             instance ?: synchronized(this) {
@@ -108,37 +137,48 @@ class ExerciseRepository private constructor(
             }
 
         private fun load(context: Context): ExerciseRepository {
-            val items = try {
-                context.assets.open("exercises.json").use { stream ->
-                    InputStreamReader(stream, Charsets.UTF_8).use { reader ->
-                        val type = object : TypeToken<List<ExerciseRecord>>() {}.type
-                        val records: List<ExerciseRecord> = Gson().fromJson(reader, type) ?: emptyList()
-                        val mapped = records.mapNotNull { ExerciseItem.from(it) }
-                            .sortedWith { a, b -> a.name.compareTo(b.name, ignoreCase = true) }
-                        android.util.Log.d("ExerciseRepository", "parsed=${records.size} mapped=${mapped.size}")
-                        mapped
-                    }
+            val startedAt = SystemClock.elapsedRealtime()
+            val items = loadExercises(context)
+            // Never AssetManager.list("") here — ~7k flat PNGs make list() stall for seconds.
+            // Packaging audits (ExerciseVisualResolverTest + sync script) enforce completeness.
+            val authoredFrames = loadAuthoredFrames(context)
+            Log.d(
+                TAG,
+                "load complete exercises=${items.size} visuals=${authoredFrames.size} " +
+                    "ms=${SystemClock.elapsedRealtime() - startedAt}"
+            )
+            return ExerciseRepository(items, authoredFrames)
+        }
+
+        private fun loadExercises(context: Context): List<ExerciseItem> = try {
+            context.assets.open("exercises.json").use { stream ->
+                InputStreamReader(stream, Charsets.UTF_8).use { reader ->
+                    val type = object : TypeToken<List<ExerciseRecord>>() {}.type
+                    val records: List<ExerciseRecord> = Gson().fromJson(reader, type) ?: emptyList()
+                    val mapped = records.mapNotNull { ExerciseItem.from(it) }
+                        .sortedWith { a, b -> a.name.compareTo(b.name, ignoreCase = true) }
+                    Log.d(TAG, "parsed=${records.size} mapped=${mapped.size}")
+                    mapped
                 }
-            } catch (t: Throwable) {
-                // Never swallow this silently again — an empty Workouts library
-                // shipped to production because this catch left no trace.
-                android.util.Log.e("ExerciseRepository", "failed to load exercises.json", t)
-                emptyList()
             }
-            val assetNames = runCatching { context.assets.list("")?.toSet().orEmpty() }
-                .onFailure { android.util.Log.e("ExerciseRepository", "failed to list exercise assets", it) }
-                .getOrDefault(emptySet())
-            val manifestJSON = runCatching {
+        } catch (t: Throwable) {
+            // Never swallow this silently — an empty Workouts library shipped once
+            // because this catch left no trace.
+            Log.e(TAG, "failed to load exercises.json", t)
+            emptyList()
+        }
+
+        private fun loadAuthoredFrames(context: Context): Map<String, GenderedExerciseFrames> {
+            val json = runCatching {
                 context.assets.open(ExerciseVisualResolver.MANIFEST_ASSET_NAME)
                     .bufferedReader(Charsets.UTF_8)
                     .use { it.readText() }
             }
-                .onFailure { android.util.Log.e("ExerciseRepository", "failed to load exercise visual manifest", it) }
+                .onFailure { Log.e(TAG, "failed to load exercise visual manifest", it) }
                 .getOrNull()
-            val authoredFrames = manifestJSON
-                ?.let { ExerciseVisualResolver.parseManifest(it, packagedAssetNames = assetNames) }
-                .orEmpty()
-            return ExerciseRepository(items, authoredFrames)
+                ?: return emptyMap()
+            // packagedAssetNames=null: skip AssetManager.list; trust the packaging manifest.
+            return ExerciseVisualResolver.parseManifest(json)
         }
 
         /** Asset URI for a bundled exercise image filename (Coil-loadable). */

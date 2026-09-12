@@ -909,13 +909,15 @@ struct OnboardingView: View {
                 icon: "bolt.horizontal.circle.fill",
                 title: String(localized: "Hosted AI"),
                 subtitle: String(
-                    localized: "Plus (\(HostedAIConstants.plusDailyLimit)/day) or Pro (\(HostedAIConstants.proDailyLimit)/day) — subscribe in-app, optional credit packs."
+                    localized: "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
                 ),
                 badge: String(localized: "Convenient"),
                 highlight: false
             ) {
                 withAnimation(.snappy) { aiSubstep = .hosted }
-                showHostedPaywall = true
+                if !rc.hasHostedEntitlement {
+                    showHostedPaywall = true
+                }
             }
         }
     }

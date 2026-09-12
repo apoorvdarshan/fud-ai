@@ -61455,6 +61455,112 @@
           }
         }
       }
+    },
+    "No active Plus or Pro subscription found for this Apple ID.": {
+      "localizations": {
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Für diese Apple-ID wurde kein aktives Plus- oder Pro-Abo gefunden."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se encontró una suscripción Plus o Pro activa para este Apple ID."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aucun abonnement Plus ou Pro actif trouvé pour cet identifiant Apple."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "このApple IDに有効なPlusまたはProのサブスクリプションは見つかりませんでした。"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "未找到此 Apple ID 的有效 Plus 或 Pro 订阅。"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لم يتم العثور على اشتراك Plus أو Pro نشط لمعرّف Apple هذا."
+          }
+        },
+        "az": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu Apple ID üçün aktiv Plus və ya Pro abunəliyi tapılmadı."
+          }
+        },
+        "hi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "इस Apple ID के लिए कोई सक्रिय Plus या Pro सब्सक्रिप्शन नहीं मिला।"
+          }
+        },
+        "it": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nessun abbonamento Plus o Pro attivo trovato per questo Apple ID."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 Apple ID에 대한 유효한 Plus 또는 Pro 구독을 찾지 못했습니다."
+          }
+        },
+        "nl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geen actief Plus- of Pro-abonnement gevonden voor deze Apple ID."
+          }
+        },
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie znaleziono aktywnej subskrypcji Plus ani Pro dla tego Apple ID."
+          }
+        },
+        "pt-BR": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nenhuma assinatura Plus ou Pro ativa encontrada para este Apple ID."
+          }
+        },
+        "ro": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nu s-a găsit niciun abonament Plus sau Pro activ pentru acest Apple ID."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для этого Apple ID не найдена активная подписка Plus или Pro."
+          }
+        },
+        "uk": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Для цього Apple ID не знайдено активну підписку Plus або Pro."
+          }
+        },
+        "cs": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pro toto Apple ID nebylo nalezeno aktivní předplatné Plus ani Pro."
+          }
+        }
+      }
     }
   },
   "version": "1.1"

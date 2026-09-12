@@ -17,18 +17,6 @@ val keystoreProps = Properties().apply {
     if (keystorePropsFile.exists()) load(keystorePropsFile.inputStream())
 }
 
-val oauthProps = Properties().apply {
-    val file = rootProject.file("oauth.properties")
-    if (file.exists()) load(file.inputStream())
-}
-val localProps = Properties().apply {
-    val file = rootProject.file("local.properties")
-    if (file.exists()) load(file.inputStream())
-}
-val revenueCatPublicKey = oauthProps.getProperty("revenuecat.public.sdk.key")
-    ?: localProps.getProperty("revenuecat.public.sdk.key")
-    ?: ""
-
 android {
     namespace = "com.apoorvdarshan.calorietracker"
     compileSdk {
@@ -46,6 +34,14 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        val oauthProps = Properties().apply {
+            val file = rootProject.file("oauth.properties")
+            if (file.exists()) load(file.inputStream())
+        }
+        val localProps = Properties().apply {
+            val file = rootProject.file("local.properties")
+            if (file.exists()) load(file.inputStream())
+        }
         val webClientId = oauthProps.getProperty("cloud.backup.web.client.id")
             ?: localProps.getProperty("cloud.backup.web.client.id")
             ?: ""
@@ -53,11 +49,6 @@ android {
             "String",
             "CLOUD_BACKUP_WEB_CLIENT_ID",
             "\"${webClientId.replace("\"", "\\\"")}\""
-        )
-        buildConfigField(
-            "String",
-            "REVENUECAT_PUBLIC_SDK_KEY",
-            "\"${revenueCatPublicKey.replace("\"", "\\\"")}\""
         )
     }
 
@@ -175,11 +166,8 @@ dependencies {
     implementation(libs.vico.compose.m3)
     implementation(libs.litert.lm.android)
     implementation(libs.whisper.android)
-    implementation(libs.revenuecat.purchases)
 
     testImplementation(libs.junit)
-    testImplementation("androidx.test:core:1.6.1")
-    testImplementation("org.robolectric:robolectric:4.14.1")
     testImplementation("com.squareup.okhttp3:mockwebserver:${libs.versions.okhttp.get()}")
     testImplementation("com.squareup.okhttp3:okhttp-tls:${libs.versions.okhttp.get()}")
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -188,22 +176,4 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
-}
-
-afterEvaluate {
-    tasks.matching {
-        it.name.equals("assembleRelease", ignoreCase = true) ||
-            it.name.equals("bundleRelease", ignoreCase = true)
-    }.configureEach {
-        doFirst {
-            if (revenueCatPublicKey.isBlank() || revenueCatPublicKey.contains("PLACEHOLDER", ignoreCase = true)) {
-                // Hosted billing stays disabled until the public Play SDK key is set
-                // (revenuecat.public.sdk.key in oauth.properties / local.properties).
-                // Allow local USB release installs; Play/store shipping must set the key.
-                logger.warn(
-                    "revenuecat.public.sdk.key missing — RevenueCat will not configure in this release build."
-                )
-            }
-        }
-    }
 }

@@ -154,12 +154,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import android.app.Activity
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.AppContainer
-import com.apoorvdarshan.calorietracker.ui.settings.HostedPaywallDialog
-import com.apoorvdarshan.calorietracker.ui.settings.HostedQuotaSoftPaywallDialog
-import com.apoorvdarshan.calorietracker.ui.settings.PaywallKind
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.FastingSession
 import com.apoorvdarshan.calorietracker.models.formatFastingDuration
@@ -223,9 +219,6 @@ fun HomeScreen(
 ) {
     val vm: HomeViewModel = viewModel(factory = HomeViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
-    val entitled by container.revenueCat.hasHostedEntitlement.collectAsState()
-    val offerings by container.revenueCat.offerings.collectAsState()
-    var recoveryPaywallKind by remember { mutableStateOf<PaywallKind?>(null) }
     val lifecycleOwner = LocalLifecycleOwner.current
 DisposableEffect(lifecycleOwner, vm) {
         val observer = LifecycleEventObserver { _, event ->
@@ -239,7 +232,6 @@ DisposableEffect(lifecycleOwner, vm) {
     }
     val shareScope = rememberCoroutineScope()
     val ctx = LocalContext.current
-    val activity = ctx as? Activity
     val weekStartsOnMonday by container.prefs.weekStartsOnMonday.collectAsState(initial = true)
     val allEntries by container.foodRepository.entries.collectAsState(initial = emptyList())
 
@@ -1110,34 +1102,6 @@ CalorieHero(
                 )
             },
             onDismiss = { vm.dismissPending() }
-        )
-    }
-
-    if (ui.showHostedQuotaPaywall) {
-        HostedQuotaSoftPaywallDialog(
-            onDismiss = { vm.dismissHostedQuotaPaywall() },
-            onBuyCreditsOrUpgrade = {
-                vm.dismissHostedQuotaPaywall()
-                recoveryPaywallKind = if (entitled) PaywallKind.Credits else PaywallKind.Subscribe
-            },
-            onSwitchToByok = { vm.switchAiModeToByok() }
-        )
-    }
-
-    val recoveryKind = recoveryPaywallKind
-    if (recoveryKind != null && activity != null) {
-        HostedPaywallDialog(
-            kind = recoveryKind,
-            offerings = offerings,
-            activity = activity,
-            onDismiss = { recoveryPaywallKind = null },
-            onPurchaseError = { message ->
-                vm.dismissPending()
-                recoveryPaywallKind = null
-            },
-            onSubscribeSuccess = { recoveryPaywallKind = null },
-            onCreditsSuccess = { recoveryPaywallKind = null },
-            purchase = { pkg -> container.revenueCat.purchasePackage(activity, pkg) }
         )
     }
 

@@ -1,6 +1,8 @@
-# Fud AI v7 — Hosted Plans, Credits & RevenueCat Setup
+# Fud AI v7 — Hosted Plans, Credits & RevenueCat Setup (iOS first)
 
-Fud AI v7 keeps the **full app free with BYOK forever**. Optional **Plus / Pro** subscriptions unlock **Hosted AI** (Gemini Flash-Lite + Deepgram STT via `fud-ai.app`). Credit packs are consumable add-ons.
+Fud AI keeps the **full app free with BYOK forever** on both platforms.
+
+**v7 shipping scope:** optional **Plus / Pro** + credit packs + tip jar are implemented on **iOS** (RevenueCat + App Store). **Android stays BYOK-only** for now (Ko-fi tip link unchanged). Android hosted plans can ship in a later update.
 
 ## Entitlements (RevenueCat)
 
@@ -11,7 +13,7 @@ Fud AI v7 keeps the **full app free with BYOK forever**. Optional **Plus / Pro**
 
 Configure **Pro** entitlement to include **Plus** in RevenueCat so upgrades behave correctly.
 
-## Product IDs
+## Product IDs (App Store / iOS)
 
 ### Subscriptions
 
@@ -32,7 +34,7 @@ Configure **Pro** entitlement to include **Plus** in RevenueCat so upgrades beha
 
 Credits persist across renewals/cancel; **v1 spends credits only while Plus/Pro is active**.
 
-### Tips (unchanged on iOS; new on Android)
+### Tips (unchanged on iOS)
 
 | Product ID | Tier | Price |
 |------------|------|-------|
@@ -41,11 +43,9 @@ Credits persist across renewals/cancel; **v1 spends credits only while Plus/Pro 
 | `com.apoorvdarshan.calorietracker.tip.lunch` | Lunch | $4.99 |
 | `com.apoorvdarshan.calorietracker.tip.feast` | Feast | $9.99 |
 
-Android may use the same IDs on Play when allowed; otherwise create Play products with matching suffixes and map them in RevenueCat.
-
 ## RevenueCat offerings (suggested)
 
-Create separate offerings named **`plus`** and **`pro`** (iOS paywall looks up these identifiers). Each offering can include its plan packages, and the **default/current offering** should also expose credit packs for Android:
+Create separate offerings named **`plus`** and **`pro`** (iOS paywall looks up these identifiers). Include credit packs on those offerings (or the current offering) so the iOS credits sheet can load them:
 
 | Package identifier | Product |
 |--------------------|---------|
@@ -59,12 +59,10 @@ Create separate offerings named **`plus`** and **`pro`** (iOS paywall looks up t
 
 Legacy note: a single `default` offering alone is not enough for iOS subscribe flows.
 
-iOS paywall looks up offerings `plus` and `pro`; Android filters `offerings.current` into subscription vs credit packages.
-
 ### SDK keys
 
 - **iOS:** already configured (`appl_…` in `calorietrackerApp.swift`)
-- **Android:** set `revenuecat.public.sdk.key=goog_…` in `android/oauth.properties` or `android/local.properties` (same pattern as `cloud.backup.web.client.id`). Release builds fail if the key is missing.
+- **Android:** not wired for hosted billing in this release
 
 ## Hosted AI worker
 
@@ -72,9 +70,9 @@ See `services/hosted-ai/README.md`. Deploy secrets on the `fud-ai` worker:
 
 - `GEMINI_API_KEY`
 - `DEEPGRAM_API_KEY`
-- `FUD_HOSTED_AI_APP_SECRET` (must match app constant)
+- `FUD_HOSTED_AI_APP_SECRET` (must match iOS app constant)
 
-## Metering rules (client)
+## Metering rules (iOS client)
 
 One shared daily pool per subscriber:
 
@@ -87,8 +85,8 @@ One shared daily pool per subscriber:
 
 Spend order: **daily allowance → credit bank → soft paywall**.
 
-## App Store / Play copy notes
+## Store copy notes
 
-- Free forever = full tracker + BYOK
-- Optional Plus/Pro for hosted convenience
-- Tips/donations optional; Android keeps Ko-fi link
+- Free forever = full tracker + BYOK (both platforms)
+- Optional Plus/Pro + credits = **iOS hosted convenience** in this release
+- iOS tip jar unchanged; Android keeps Ko-fi

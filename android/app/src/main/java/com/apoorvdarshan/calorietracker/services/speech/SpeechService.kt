@@ -3,9 +3,7 @@ package com.apoorvdarshan.calorietracker.services.speech
 import com.apoorvdarshan.calorietracker.data.KeyStore
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
-import com.apoorvdarshan.calorietracker.services.ai.AIGate
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysisService
-import com.apoorvdarshan.calorietracker.services.ai.HostedAIService
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalWhisperRuntime
 import kotlinx.coroutines.flow.first
 import okhttp3.OkHttpClient
@@ -20,30 +18,11 @@ class SpeechService(
     private val prefs: PreferencesStore,
     private val keyStore: KeyStore,
     private val okHttp: OkHttpClient = FoodAnalysisService.defaultClient,
-    private val localWhisper: LocalWhisperRuntime? = null,
-    private val aiGate: AIGate? = null,
-    private val hostedAI: HostedAIService? = null
+    private val localWhisper: LocalWhisperRuntime? = null
 ) {
 
     /** Returns the transcript text. Throws [SttApiError] on any failure. */
     suspend fun transcribeRecordedAudio(audio: File): String {
-        if (aiGate?.isHostedMode() == true) {
-            if (!audio.exists() || audio.length() <= 0L) {
-                throw SttApiError.Api("Recording file is missing or empty.")
-            }
-            val gate = aiGate
-            return try {
-                gate.runWithHostedQuota(com.apoorvdarshan.calorietracker.billing.HostedAIAction.HOSTED_STT) {
-                    val hosted = hostedAI ?: throw SttApiError.Api("Hosted AI is not configured.")
-                    val bytes = audio.readBytes()
-                    val language = prefs.selectedSpeechLanguage(SpeechProvider.DEEPGRAM)
-                        .first().remoteLanguageCode()
-                    hosted.transcribe(bytes, mimeTypeFor(audio), language)
-                }
-            } finally {
-                runCatching { audio.delete() }
-            }
-        }
         val provider = prefs.selectedSpeechProvider.first()
         return try {
             try {
@@ -117,14 +96,6 @@ class SpeechService(
             SpeechProvider.NATIVE ->
                 error("NATIVE speech should use NativeSpeechRecognizer, not a recorded audio file.")
         }
-    }
-
-    private fun mimeTypeFor(audio: File): String = when (audio.extension.lowercase()) {
-        "m4a" -> "audio/mp4"
-        "mp3" -> "audio/mpeg"
-        "wav" -> "audio/wav"
-        "caf" -> "audio/x-caf"
-        else -> "audio/wav"
     }
 
     private fun isUsableRecordedProvider(provider: SpeechProvider): Boolean = when (provider) {

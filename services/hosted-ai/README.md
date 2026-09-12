@@ -30,7 +30,7 @@ Set these on the `fud-ai` worker (Dashboard → Workers → fud-ai → Settings 
 |----------|-------------|
 | `GEMINI_API_KEY` | Google AI Studio key for Flash-Lite |
 | `DEEPGRAM_API_KEY` | Deepgram API key for hosted voice STT |
-| `FUD_HOSTED_AI_APP_SECRET` | Shared secret embedded in iOS/Android builds (rotate periodically) |
+| `FUD_HOSTED_AI_APP_SECRET` | Shared secret embedded in the iOS build (rotate periodically; Android hosted client deferred) |
 
 ```bash
 cd web

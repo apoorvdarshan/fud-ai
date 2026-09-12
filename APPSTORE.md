@@ -143,9 +143,11 @@ https://fud-ai.app
 https://fud-ai.app
 ```
 
-## v7 Hosted AI products (Plus / Pro / credits)
+## v7 Hosted AI products (Plus / Pro / credits) — iOS
 
-See `docs/HOSTED_AI_REVENUECAT.md` for the full RevenueCat + App Store Connect + Play Console checklist.
+See `docs/HOSTED_AI_REVENUECAT.md` for the RevenueCat + App Store Connect checklist.
+
+**Scope:** iOS only in this release. Android remains BYOK + Ko-fi (no Play hosted billing yet).
 
 **Entitlements:** `plus`, `pro` (Pro includes Plus)
 
@@ -160,9 +162,9 @@ See `docs/HOSTED_AI_REVENUECAT.md` for the full RevenueCat + App Store Connect +
 - `com.apoorvdarshan.calorietracker.credits.150` ($4.99)
 - `com.apoorvdarshan.calorietracker.credits.400` ($9.99)
 
-**Tips (unchanged):** `…tip.snack`, `…tip.proteinshake`, `…tip.lunch`, `…tip.feast`
+**Tips (unchanged on iOS):** `…tip.snack`, `…tip.proteinshake`, `…tip.lunch`, `…tip.feast`
 
-Free forever = full app + BYOK. Hosted AI is optional; no free hosted quota.
+Free forever = full app + BYOK. Hosted AI is optional on iOS; no free hosted quota.
 
 ## Reviewer Notes
 ```

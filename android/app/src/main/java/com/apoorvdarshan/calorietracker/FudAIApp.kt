@@ -77,6 +77,7 @@ class FudAIApp : Application() {
         // Older Android builds removed food rows without removing their JPEGs.
         // Prune only unreferenced files; logged foods, saved meals, and pending
         // analysis drafts remain untouched.
+        appScope.launch { container.imageStore.cleanupLegacyThumbnailDirectory() }
         appScope.launch { container.foodRepository.pruneOrphanedImages() }
         appScope.launch { container.weeklyChallengeRepository.retryPendingRemoteDeletion() }
         container.prefs.mealSchedule

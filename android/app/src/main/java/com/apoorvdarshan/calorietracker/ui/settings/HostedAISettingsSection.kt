@@ -36,6 +36,7 @@ fun HostedAISettingsSection(container: AppContainer) {
     val aiMode by container.prefs.aiAccessMode.collectAsState(initial = AIMode.BYOK)
     val plan by container.revenueCat.activePlan.collectAsState()
     val entitled by container.revenueCat.hasHostedEntitlement.collectAsState()
+    val offerings by container.revenueCat.offerings.collectAsState()
     var showPaywall by remember { mutableStateOf(false) }
     var dailyUsed by remember { mutableIntStateOf(0) }
     var dailyLimit by remember { mutableIntStateOf(0) }
@@ -109,7 +110,7 @@ fun HostedAISettingsSection(container: AppContainer) {
                             HostedAIConstants.PRO_DAILY_LIMIT
                         )
                     )
-                    container.revenueCat.offerings.value?.current?.availablePackages?.forEach { pkg ->
+                    offerings?.current?.availablePackages?.forEach { pkg ->
                         TextButton(onClick = {
                             scope.launch {
                                 runCatching {

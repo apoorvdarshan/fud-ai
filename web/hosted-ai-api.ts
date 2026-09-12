@@ -10,7 +10,7 @@
 
 export const HOSTED_AI_API_PREFIX = "/api/hosted-ai/v1";
 
-const HOSTED_GEMINI_MODEL = "gemini-2.0-flash-lite";
+const HOSTED_GEMINI_MODEL = "gemini-3.5-flash-lite";
 const MAX_HOSTED_IMAGES = 3;
 const MAX_PROMPT_CHARS = 120_000;
 const MAX_SYSTEM_INSTRUCTION_CHARS = 32_000;

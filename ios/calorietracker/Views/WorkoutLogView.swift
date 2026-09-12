@@ -1023,7 +1023,8 @@ private struct WorkoutLogExerciseCard: View {
                         imagePaths: exercise.imagePaths,
                         height: 64,
                         fillsWidth: false,
-                        allowsDerivedImageLookup: false
+                        allowsDerivedImageLookup: false,
+                        animatesFrames: false
                     )
                     .frame(width: 64, height: 64)
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))

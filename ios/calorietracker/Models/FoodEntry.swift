@@ -550,13 +550,10 @@ struct FoodEntry: Identifiable, Codable {
         // FoodStore.loadEntries() migrates legacy rows to disk on first load so
         // subsequent saves shed the inline bytes and fit under the 4 MiB cap.
         imageFilename = try container.decodeIfPresent(String.self, forKey: .imageFilename)
-        if let filename = imageFilename {
-            imageData = FoodImageStore.shared.load(filename: filename)
-        } else {
-            imageData = try container.decodeIfPresent(Data.self, forKey: .imageData)
-        }
+        // Keep legacy inline bytes from JSON; disk-backed photos load lazily for list thumbs.
+        imageData = try container.decodeIfPresent(Data.self, forKey: .imageData)
         additionalImageFilenames = try container.decodeIfPresent([String].self, forKey: .additionalImageFilenames) ?? []
-        additionalImageData = additionalImageFilenames.compactMap { FoodImageStore.shared.load(filename: $0) }
+        additionalImageData = []
 
         emoji = try container.decodeIfPresent(String.self, forKey: .emoji)
         source = try container.decode(FoodSource.self, forKey: .source)
@@ -692,10 +689,19 @@ struct FoodEntry: Identifiable, Codable {
             .filter { seen.insert($0).inserted }
     }
 
+    /// Count of extra photos for list-row "+N" badges without loading full JPEG bytes.
+    var listThumbnailAdditionalPhotoCount: Int {
+        if !additionalImageFilenames.isEmpty {
+            return additionalImageFilenames.count
+        }
+        return additionalImageData.count
+    }
+
     /// New entry for the given log date (new id), copying nutrition and media from this entry.
     /// Uses current time's meal type by default.
     func duplicatedForLogging(at logDate: Date, mealType: MealType = .currentMeal) -> FoodEntry {
         let resolvedMealType = mealType
+        let copiedPhotos = allImageData
         return FoodEntry(
             name: name,
             calories: calories,
@@ -703,9 +709,9 @@ struct FoodEntry: Identifiable, Codable {
             carbs: carbs,
             fat: fat,
             timestamp: logDate,
-            imageData: imageData,
+            imageData: copiedPhotos.first,
             imageFilename: nil,  // new id → new filename will be assigned on save
-            additionalImageData: additionalImageData,
+            additionalImageData: Array(copiedPhotos.dropFirst()),
             additionalImageFilenames: [],
             emoji: emoji,
             source: source,

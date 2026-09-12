@@ -1,12 +1,34 @@
 import Foundation
 
-struct FreeExerciseDBLoader {
-    static func load() -> [ExerciseLibraryItem] {
+enum FreeExerciseDBRecordsCache {
+    private static let lock = NSLock()
+    private static var cachedRecords: [FreeExerciseDBRecord]?
+
+    static func records() -> [FreeExerciseDBRecord] {
+        lock.lock()
+        defer { lock.unlock() }
+        if let cachedRecords {
+            return cachedRecords
+        }
+
         guard
             let url = FreeExerciseDBAssetResolver.exercisesJSONURL(),
             let data = try? Data(contentsOf: url),
             let records = try? JSONDecoder().decode([FreeExerciseDBRecord].self, from: data)
         else {
+            cachedRecords = []
+            return []
+        }
+
+        cachedRecords = records
+        return records
+    }
+}
+
+struct FreeExerciseDBLoader {
+    static func load() -> [ExerciseLibraryItem] {
+        let records = FreeExerciseDBRecordsCache.records()
+        guard !records.isEmpty else {
             return []
         }
 

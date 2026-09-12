@@ -19,29 +19,28 @@ import java.util.concurrent.ConcurrentHashMap
  * the DataStore blob (which would otherwise inflate past quick-read limits).
  */
 class FoodImageStore private constructor(
-    rootDir: File,
+    private val filesRoot: File,
     cleanupLegacyThumbnails: Boolean,
     thumbnailCacheKb: Int
 ) {
-    private val dir: File = File(rootDir, DIR_NAME).apply { mkdirs() }
-    private val thumbnailDir: File = File(rootDir, THUMBNAIL_DIR_NAME).apply { mkdirs() }
+    private val dir: File = File(filesRoot, DIR_NAME).apply { mkdirs() }
+    private val thumbnailDir: File = File(filesRoot, THUMBNAIL_DIR_NAME).apply { mkdirs() }
     private val thumbnailCache = object : LruCache<String, Bitmap>(thumbnailCacheKb) {
         override fun sizeOf(key: String, value: Bitmap): Int = value.byteCount / 1024
     }
     private val thumbnailLocks = ConcurrentHashMap<String, Any>()
 
     constructor(context: Context) : this(
-        rootDir = context.filesDir,
+        filesRoot = context.filesDir,
         cleanupLegacyThumbnails = true,
         thumbnailCacheKb = thumbnailCacheKbFor(context)
     )
 
-    init {
-        if (cleanupLegacyThumbnails) {
-            // Legacy thumbnails lost EXIF orientation during compression. Rebuild them
-            // lazily in the new cache directory; original photos remain byte-identical.
-            runCatching { File(rootDir, "fudai-food-thumbnails").deleteRecursively() }
-        }
+    /** One-time cleanup of the pre-v2 thumbnail cache directory. Safe to call repeatedly. */
+    fun cleanupLegacyThumbnailDirectory() {
+        // Legacy thumbnails lost EXIF orientation during compression. Rebuild them
+        // lazily in the new cache directory; original photos remain byte-identical.
+        runCatching { File(filesRoot, LEGACY_THUMBNAIL_DIR_NAME).deleteRecursively() }
     }
 
     /** Writes the bitmap as JPEG (quality 80) under a new filename. Returns filename or null. */
@@ -196,6 +195,7 @@ class FoodImageStore private constructor(
 
     companion object {
         private const val DIR_NAME = "fudai-food-images"
+        private const val LEGACY_THUMBNAIL_DIR_NAME = "fudai-food-thumbnails"
         private const val THUMBNAIL_DIR_NAME = "fudai-food-thumbnails-v2"
         private const val THUMBNAIL_MAX_DIMENSION = 320
         const val VIEWER_MAX_DIMENSION = 2048

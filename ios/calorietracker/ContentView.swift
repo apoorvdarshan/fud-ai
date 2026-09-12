@@ -3436,32 +3436,21 @@ struct FoodRow: View {
     var body: some View {
         HStack(spacing: 12) {
             // Thumbnail — tap opens full-screen viewer without opening edit.
-            if let imageData = entry.imageData, let uiImage = UIImage(data: imageData) {
+            if entry.imageFilename != nil || entry.imageData != nil {
                 Button {
-                    let images = entry.allImageData.compactMap(UIImage.init(data:))
-                    guard !images.isEmpty else { return }
-                    imagePreview = FullScreenImagePreview(images: images)
-                } label: {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 56, height: 56)
-                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .strokeBorder(AppColors.calorie.opacity(0.15), lineWidth: 1)
-                        )
-                        .overlay(alignment: .bottomTrailing) {
-                            if !entry.additionalImageData.isEmpty {
-                                Text("+\(entry.additionalImageData.count)")
-                                    .font(.caption2.weight(.bold))
-                                    .foregroundStyle(.white)
-                                    .padding(.horizontal, 6)
-                                    .padding(.vertical, 3)
-                                    .background(.black.opacity(0.65), in: Capsule())
-                                    .padding(4)
-                            }
+                    Task {
+                        let images = await FoodEntryPhotoLoader.viewerImages(for: entry)
+                        guard !images.isEmpty else { return }
+                        await MainActor.run {
+                            imagePreview = FullScreenImagePreview(images: images)
                         }
+                    }
+                } label: {
+                    FoodEntryThumbnailView(
+                        filename: entry.imageFilename,
+                        legacyData: entry.imageData,
+                        additionalCount: entry.listThumbnailAdditionalPhotoCount
+                    )
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel("View full photo")

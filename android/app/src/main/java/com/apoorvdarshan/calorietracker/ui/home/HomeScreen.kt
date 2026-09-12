@@ -175,6 +175,7 @@ import com.apoorvdarshan.calorietracker.models.WaterUnit
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import com.apoorvdarshan.calorietracker.ui.components.InAppCameraCaptureDialog
 import com.apoorvdarshan.calorietracker.ui.components.FullScreenImageViewer
+import com.apoorvdarshan.calorietracker.ui.components.rememberFoodThumbnail
 import com.apoorvdarshan.calorietracker.ui.components.MacroCard
 import com.apoorvdarshan.calorietracker.ui.components.DateWheelPicker
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassDialog
@@ -2409,9 +2410,7 @@ private fun FoodRow(
     val container = (ctx.applicationContext as com.apoorvdarshan.calorietracker.FudAIApp).container
     val scope = rememberCoroutineScope()
     val hasPhotos = entry.allImageFilenames.isNotEmpty()
-    val bitmap = remember(entry.allImageFilenames) {
-        entry.allImageFilenames.firstNotNullOfOrNull { container.imageStore.loadThumbnail(it) }
-    }
+    val bitmap = rememberFoodThumbnail(container.imageStore, entry.allImageFilenames)
     var previewPhotos by remember { mutableStateOf<Pair<List<android.graphics.Bitmap>, Int>?>(null) }
     var isLoadingPreview by remember { mutableStateOf(false) }
     // iOS layout: large 76dp square thumb · column with (Name + heart on left,

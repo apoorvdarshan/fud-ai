@@ -82,6 +82,7 @@ import com.apoorvdarshan.calorietracker.data.FrequentFoodGroup
 import com.apoorvdarshan.calorietracker.models.FoodEntry
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
 import com.apoorvdarshan.calorietracker.services.FoodImageStore
+import com.apoorvdarshan.calorietracker.ui.components.rememberFoodThumbnail
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -644,7 +645,7 @@ private fun SavedMealRow(
 @Composable
 private fun Thumbnail(emoji: String?, imageFilename: String?, imageStore: FoodImageStore) {
     val shape = RoundedCornerShape(12.dp)
-    val bitmap = remember(imageFilename) { imageFilename?.let { imageStore.loadThumbnail(it) } }
+    val bitmap = rememberFoodThumbnail(imageStore, imageFilename)
 
     Box(
         Modifier

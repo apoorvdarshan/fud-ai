@@ -47,7 +47,7 @@ Quota (daily pool + credit bank) is enforced **on device** before each hosted ca
 
 ## Hosted limits
 
-- Model pinned to `gemini-2.0-flash-lite` (worker constant; update when Flash-Lite GA name changes)
+- Model pinned to `gemini-3.5-flash-lite` (worker constant; update when Flash-Lite GA name changes)
 - Max **3** images per hosted vision request (BYOK allows up to 10)
 - Voice food in Hosted mode = **2** actions (STT + LLM)
 

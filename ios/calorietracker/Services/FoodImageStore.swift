@@ -176,7 +176,8 @@ struct FoodImageStore {
     }
 
     private func writeThumbnail(_ image: UIImage, filename: String) {
-        guard let thumbFolderURL, let data = image.jpegData(compressionQuality: 0.76) else { return }
+        guard let thumbFolderURL = thumbnailFolderURL,
+              let data = image.jpegData(compressionQuality: 0.76) else { return }
         let url = thumbFolderURL.appendingPathComponent(filename)
         try? data.write(to: url, options: .atomic)
     }

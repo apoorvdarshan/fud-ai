@@ -59863,7 +59863,7 @@
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose how you want to power AI in Fud AI. The app stays free either way."
+            "value": "Fud AI-da AI-ni necə işlətmək istədiyinizi seçin. Tətbiq hər iki halda pulsuz qalır."
           }
         },
         "de": {
@@ -59887,13 +59887,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose how you want to power AI in Fud AI. The app stays free either way."
+            "value": "चुनें कि Fud AI में AI कैसे चलाना है। दोनों तरीकों में ऐप मुफ़्त रहता है।"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose how you want to power AI in Fud AI. The app stays free either way."
+            "value": "Scegli come alimentare l'IA in Fud AI. L'app resta gratuita in entrambi i casi."
           }
         },
         "ja": {
@@ -59905,43 +59905,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose how you want to power AI in Fud AI. The app stays free either way."
+            "value": "Fud AI에서 AI를 어떻게 사용할지 선택하세요. 두 방법 모두 앱은 무료입니다."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose how you want to power AI in Fud AI. The app stays free either way."
+            "value": "Kies hoe je AI in Fud AI wilt gebruiken. De app blijft in beide gevallen gratis."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose how you want to power AI in Fud AI. The app stays free either way."
+            "value": "Wybierz, jak chcesz korzystać z AI w Fud AI. Aplikacja pozostaje darmowa w obu przypadkach."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose how you want to power AI in Fud AI. The app stays free either way."
+            "value": "Escolha como quer usar a IA no Fud AI. O app continua gratuito de qualquer forma."
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose how you want to power AI in Fud AI. The app stays free either way."
+            "value": "Alege cum vrei să folosești AI în Fud AI. Aplicația rămâne gratuită oricum."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose how you want to power AI in Fud AI. The app stays free either way."
+            "value": "Выбери, как использовать ИИ в Fud AI. Приложение остаётся бесплатным в любом случае."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose how you want to power AI in Fud AI. The app stays free either way."
+            "value": "Обери, як використовувати ШІ у Fud AI. Застосунок залишається безкоштовним у будь-якому разі."
           }
         },
         "zh-Hans": {
@@ -59953,7 +59953,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Choose how you want to power AI in Fud AI. The app stays free either way."
+            "value": "Vyber, jak chceš v Fud AI používat AI. Aplikace zůstane v obou případech zdarma."
           }
         }
       }
@@ -59964,13 +59964,13 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported."
+            "value": "أضف مفتاح مزود الذكاء الاصطناعي الخاص بك — Gemini وOpenAI وGroq والمزيد مدعومة."
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported."
+            "value": "Öz AI provayder açarınızı əlavə edin — Gemini, OpenAI, Groq və daha çoxu dəstəklənir."
           }
         },
         "de": {
@@ -59994,13 +59994,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported."
+            "value": "अपनी AI प्रोवाइडर कुंजी जोड़ें — Gemini, OpenAI, Groq और अन्य समर्थित हैं।"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported."
+            "value": "Aggiungi la tua chiave del provider IA — sono supportati Gemini, OpenAI, Groq e altri."
           }
         },
         "ja": {
@@ -60012,43 +60012,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported."
+            "value": "자체 AI 제공업체 키를 추가하세요 — Gemini, OpenAI, Groq 등을 지원합니다."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported."
+            "value": "Voeg je eigen AI-providersleutel toe — Gemini, OpenAI, Groq en meer worden ondersteund."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported."
+            "value": "Dodaj własny klucz dostawcy AI — obsługujemy Gemini, OpenAI, Groq i inne."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported."
+            "value": "Adicione sua própria chave de provedor de IA — Gemini, OpenAI, Groq e mais são suportados."
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported."
+            "value": "Adaugă propria cheie de furnizor AI — Gemini, OpenAI, Groq și altele sunt suportate."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported."
+            "value": "Добавь свой ключ провайдера ИИ — поддерживаются Gemini, OpenAI, Groq и другие."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported."
+            "value": "Додай свій ключ провайдера ШІ — підтримуються Gemini, OpenAI, Groq та інші."
           }
         },
         "zh-Hans": {
@@ -60060,7 +60060,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add your own AI provider key — Gemini, OpenAI, Groq, and more are supported."
+            "value": "Přidej klíč svého AI poskytovatele — podporujeme Gemini, OpenAI, Groq a další."
           }
         }
       }
@@ -60071,13 +60071,13 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro for hosted AI — no API key needed. Switch to BYOK anytime in Settings."
+            "value": "اشترك في Plus أو Pro للذكاء الاصطناعي المستضاف — بدون مفتاح API. يمكنك التبديل إلى BYOK في أي وقت من الإعدادات."
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro for hosted AI — no API key needed. Switch to BYOK anytime in Settings."
+            "value": "Host edilmiş AI üçün Plus və ya Pro abunə olun — API açarı lazım deyil. İstənilən vaxt Parametrlərdə BYOK-a keçin."
           }
         },
         "de": {
@@ -60101,13 +60101,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro for hosted AI — no API key needed. Switch to BYOK anytime in Settings."
+            "value": "होस्टेड AI के लिए Plus या Pro सब्सक्राइब करें — API कुंजी की ज़रूरत नहीं। सेटिंग्स में कभी भी BYOK पर स्विच करें।"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro for hosted AI — no API key needed. Switch to BYOK anytime in Settings."
+            "value": "Abbonati a Plus o Pro per l'IA ospitata — nessuna chiave API necessaria. Passa a BYOK quando vuoi in Impostazioni."
           }
         },
         "ja": {
@@ -60119,43 +60119,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro for hosted AI — no API key needed. Switch to BYOK anytime in Settings."
+            "value": "호스팅 AI를 위해 Plus 또는 Pro를 구독하세요 — API 키 불필요. 설정에서 언제든 BYOK로 전환할 수 있습니다."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro for hosted AI — no API key needed. Switch to BYOK anytime in Settings."
+            "value": "Abonneer op Plus of Pro voor gehoste AI — geen API-sleutel nodig. Schakel wanneer je wilt over naar BYOK in Instellingen."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro for hosted AI — no API key needed. Switch to BYOK anytime in Settings."
+            "value": "Subskrybuj Plus lub Pro na hostowane AI — bez klucza API. W każdej chwili przełącz się na BYOK w Ustawieniach."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro for hosted AI — no API key needed. Switch to BYOK anytime in Settings."
+            "value": "Assine Plus ou Pro para IA hospedada — sem chave de API. Troque para BYOK a qualquer momento em Ajustes."
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro for hosted AI — no API key needed. Switch to BYOK anytime in Settings."
+            "value": "Abonează-te la Plus sau Pro pentru AI găzduit — fără cheie API. Treci oricând la BYOK din Setări."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro for hosted AI — no API key needed. Switch to BYOK anytime in Settings."
+            "value": "Оформи Plus или Pro для хостинг-ИИ — ключ API не нужен. В любой момент переключись на BYOK в Настройках."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro for hosted AI — no API key needed. Switch to BYOK anytime in Settings."
+            "value": "Оформи Plus або Pro для хостинг-ШІ — ключ API не потрібен. У будь-який момент перейди на BYOK у Налаштуваннях."
           }
         },
         "zh-Hans": {
@@ -60167,7 +60167,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro for hosted AI — no API key needed. Switch to BYOK anytime in Settings."
+            "value": "Předplať si Plus nebo Pro pro hostovanou AI — bez API klíče. Na BYOK můžeš kdykoli přepnout v Nastavení."
           }
         }
       }
@@ -60178,13 +60178,13 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bring Your Own Key"
+            "value": "أحضر مفتاحك الخاص"
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bring Your Own Key"
+            "value": "Öz Açarınızı Gətirin"
           }
         },
         "de": {
@@ -60208,13 +60208,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bring Your Own Key"
+            "value": "अपनी कुंजी लाएँ"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bring Your Own Key"
+            "value": "Porta la tua chiave"
           }
         },
         "ja": {
@@ -60226,43 +60226,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bring Your Own Key"
+            "value": "자체 키 사용"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bring Your Own Key"
+            "value": "Breng je eigen sleutel"
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bring Your Own Key"
+            "value": "Użyj własnego klucza"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bring Your Own Key"
+            "value": "Traga sua própria chave"
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bring Your Own Key"
+            "value": "Adu propria cheie"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bring Your Own Key"
+            "value": "Свой ключ"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bring Your Own Key"
+            "value": "Свій ключ"
           }
         },
         "zh-Hans": {
@@ -60274,7 +60274,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Bring Your Own Key"
+            "value": "Použij vlastní klíč"
           }
         }
       }
@@ -60285,13 +60285,13 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free forever — unlimited on your key. Gemini, OpenAI, Groq & more."
+            "value": "مجاني للأبد — غير محدود على مفتاحك. Gemini وOpenAI وGroq والمزيد."
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free forever — unlimited on your key. Gemini, OpenAI, Groq & more."
+            "value": "Həmişəlik pulsuz — açarınızda limitsiz. Gemini, OpenAI, Groq və s."
           }
         },
         "de": {
@@ -60315,13 +60315,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free forever — unlimited on your key. Gemini, OpenAI, Groq & more."
+            "value": "हमेशा मुफ़्त — आपकी कुंजी पर असीमित। Gemini, OpenAI, Groq और अन्य।"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free forever — unlimited on your key. Gemini, OpenAI, Groq & more."
+            "value": "Gratis per sempre — illimitato sulla tua chiave. Gemini, OpenAI, Groq e altri."
           }
         },
         "ja": {
@@ -60333,43 +60333,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free forever — unlimited on your key. Gemini, OpenAI, Groq & more."
+            "value": "영원히 무료 — 내 키로 무제한. Gemini, OpenAI, Groq 등."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free forever — unlimited on your key. Gemini, OpenAI, Groq & more."
+            "value": "Voor altijd gratis — onbeperkt op jouw sleutel. Gemini, OpenAI, Groq & meer."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free forever — unlimited on your key. Gemini, OpenAI, Groq & more."
+            "value": "Za darmo na zawsze — bez limitu na twoim kluczu. Gemini, OpenAI, Groq i inne."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free forever — unlimited on your key. Gemini, OpenAI, Groq & more."
+            "value": "Grátis para sempre — ilimitado na sua chave. Gemini, OpenAI, Groq e mais."
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free forever — unlimited on your key. Gemini, OpenAI, Groq & more."
+            "value": "Gratuit pentru totdeauna — nelimitat pe cheia ta. Gemini, OpenAI, Groq și altele."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free forever — unlimited on your key. Gemini, OpenAI, Groq & more."
+            "value": "Бесплатно навсегда — без лимитов на твоём ключе. Gemini, OpenAI, Groq и другие."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free forever — unlimited on your key. Gemini, OpenAI, Groq & more."
+            "value": "Безкоштовно назавжди — без обмежень на твоєму ключі. Gemini, OpenAI, Groq та інші."
           }
         },
         "zh-Hans": {
@@ -60381,7 +60381,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Free forever — unlimited on your key. Gemini, OpenAI, Groq & more."
+            "value": "Navždy zdarma — neomezeně na tvém klíči. Gemini, OpenAI, Groq a další."
           }
         }
       }
@@ -60392,13 +60392,13 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hosted AI"
+            "value": "الذكاء الاصطناعي المستضاف"
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hosted AI"
+            "value": "Host edilmiş AI"
           }
         },
         "de": {
@@ -60422,13 +60422,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hosted AI"
+            "value": "होस्टेड AI"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hosted AI"
+            "value": "IA ospitata"
           }
         },
         "ja": {
@@ -60440,43 +60440,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hosted AI"
+            "value": "호스팅 AI"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hosted AI"
+            "value": "Gehoste AI"
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hosted AI"
+            "value": "Hostowane AI"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hosted AI"
+            "value": "IA hospedada"
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hosted AI"
+            "value": "AI găzduit"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hosted AI"
+            "value": "Хостинг ИИ"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hosted AI"
+            "value": "Хостинг ШІ"
           }
         },
         "zh-Hans": {
@@ -60488,7 +60488,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Hosted AI"
+            "value": "Hostovaná AI"
           }
         }
       }
@@ -60499,13 +60499,13 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
+            "value": "Plus (30/يوم) أو Pro (60/يوم) — اشترك داخل التطبيق، حزم رصيد اختيارية."
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
+            "value": "Plus (30/gün) və ya Pro (60/gün) — tətbiqdə abunə olun, istəyə bağlı kredit paketləri."
           }
         },
         "de": {
@@ -60529,13 +60529,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
+            "value": "Plus (30/दिन) या Pro (60/दिन) — ऐप में सब्सक्राइब करें, वैकल्पिक क्रेडिट पैक।"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
+            "value": "Plus (30/giorno) o Pro (60/giorno) — abbonati in-app, pacchetti crediti opzionali."
           }
         },
         "ja": {
@@ -60547,43 +60547,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
+            "value": "Plus(하루 30회) 또는 Pro(하루 60회) — 앱에서 구독, 선택적 크레딧 팩."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
+            "value": "Plus (30/dag) of Pro (60/dag) — abonneer in de app, optionele creditpakketten."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
+            "value": "Plus (30/dzień) lub Pro (60/dzień) — subskrybuj w aplikacji, opcjonalne pakiety kredytów."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
+            "value": "Plus (30/dia) ou Pro (60/dia) — assine no app, pacotes de créditos opcionais."
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
+            "value": "Plus (30/zi) sau Pro (60/zi) — abonează-te în aplicație, pachete de credite opționale."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
+            "value": "Plus (30/день) или Pro (60/день) — подписка в приложении, опциональные пакеты кредитов."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
+            "value": "Plus (30/день) або Pro (60/день) — підписка в застосунку, опційні пакети кредитів."
           }
         },
         "zh-Hans": {
@@ -60595,7 +60595,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Plus (30/day) or Pro (60/day) — subscribe in-app, optional credit packs."
+            "value": "Plus (30/den) nebo Pro (60/den) — předplať v aplikaci, volitelné balíčky kreditů."
           }
         }
       }
@@ -60606,13 +60606,13 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Convenient"
+            "value": "مريح"
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Convenient"
+            "value": "Rahat"
           }
         },
         "de": {
@@ -60636,13 +60636,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Convenient"
+            "value": "सुविधाजनक"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Convenient"
+            "value": "Comodo"
           }
         },
         "ja": {
@@ -60654,43 +60654,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Convenient"
+            "value": "편리함"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Convenient"
+            "value": "Handig"
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Convenient"
+            "value": "Wygodne"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Convenient"
+            "value": "Prático"
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Convenient"
+            "value": "Convenabil"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Convenient"
+            "value": "Удобно"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Convenient"
+            "value": "Зручно"
           }
         },
         "zh-Hans": {
@@ -60702,7 +60702,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Convenient"
+            "value": "Pohodlné"
           }
         }
       }
@@ -60713,13 +60713,13 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro to use hosted AI without bringing your own key."
+            "value": "اشترك في Plus أو Pro لاستخدام الذكاء الاصطناعي المستضاف دون إحضار مفتاحك الخاص."
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro to use hosted AI without bringing your own key."
+            "value": "Öz açarınızı gətirmədən host edilmiş AI istifadə etmək üçün Plus və ya Pro abunə olun."
           }
         },
         "de": {
@@ -60743,13 +60743,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro to use hosted AI without bringing your own key."
+            "value": "अपनी कुंजी लाए बिना होस्टेड AI उपयोग करने के लिए Plus या Pro सब्सक्राइब करें।"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro to use hosted AI without bringing your own key."
+            "value": "Abbonati a Plus o Pro per usare l'IA ospitata senza portare la tua chiave."
           }
         },
         "ja": {
@@ -60761,43 +60761,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro to use hosted AI without bringing your own key."
+            "value": "자체 키 없이 호스팅 AI를 쓰려면 Plus 또는 Pro를 구독하세요."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro to use hosted AI without bringing your own key."
+            "value": "Abonneer op Plus of Pro om gehoste AI te gebruiken zonder je eigen sleutel."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro to use hosted AI without bringing your own key."
+            "value": "Subskrybuj Plus lub Pro, aby korzystać z hostowanego AI bez własnego klucza."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro to use hosted AI without bringing your own key."
+            "value": "Assine Plus ou Pro para usar IA hospedada sem trazer sua própria chave."
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro to use hosted AI without bringing your own key."
+            "value": "Abonează-te la Plus sau Pro pentru a folosi AI găzduit fără propria cheie."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro to use hosted AI without bringing your own key."
+            "value": "Оформи Plus или Pro, чтобы пользоваться хостинг-ИИ без своего ключа."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro to use hosted AI without bringing your own key."
+            "value": "Оформи Plus або Pro, щоб користуватися хостинг-ШІ без власного ключа."
           }
         },
         "zh-Hans": {
@@ -60809,7 +60809,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Plus or Pro to use hosted AI without bringing your own key."
+            "value": "Předplať si Plus nebo Pro a používej hostovanou AI bez vlastního klíče."
           }
         }
       }
@@ -60820,13 +60820,13 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "View Plans"
+            "value": "عرض الخطط"
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "View Plans"
+            "value": "Planlara Bax"
           }
         },
         "de": {
@@ -60850,13 +60850,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "View Plans"
+            "value": "प्लान देखें"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "View Plans"
+            "value": "Vedi i piani"
           }
         },
         "ja": {
@@ -60868,43 +60868,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "View Plans"
+            "value": "요금제 보기"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "View Plans"
+            "value": "Bekijk abonnementen"
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "View Plans"
+            "value": "Zobacz plany"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "View Plans"
+            "value": "Ver planos"
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "View Plans"
+            "value": "Vezi planurile"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "View Plans"
+            "value": "Смотреть планы"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "View Plans"
+            "value": "Переглянути плани"
           }
         },
         "zh-Hans": {
@@ -60916,7 +60916,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "View Plans"
+            "value": "Zobrazit plány"
           }
         }
       }
@@ -60927,13 +60927,13 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Use BYOK instead"
+            "value": "استخدم BYOK بدلاً من ذلك"
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Use BYOK instead"
+            "value": "Əvəzinə BYOK istifadə et"
           }
         },
         "de": {
@@ -60957,13 +60957,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Use BYOK instead"
+            "value": "इसके बजाय BYOK उपयोग करें"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Use BYOK instead"
+            "value": "Usa invece BYOK"
           }
         },
         "ja": {
@@ -60975,43 +60975,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Use BYOK instead"
+            "value": "대신 BYOK 사용"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Use BYOK instead"
+            "value": "Gebruik in plaats daarvan BYOK"
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Use BYOK instead"
+            "value": "Użyj zamiast tego BYOK"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Use BYOK instead"
+            "value": "Usar BYOK em vez disso"
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Use BYOK instead"
+            "value": "Folosește BYOK în schimb"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Use BYOK instead"
+            "value": "Использовать BYOK"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Use BYOK instead"
+            "value": "Використати BYOK"
           }
         },
         "zh-Hans": {
@@ -61023,7 +61023,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Use BYOK instead"
+            "value": "Použít místo toho BYOK"
           }
         }
       }
@@ -61034,13 +61034,13 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Food photos, voice transcripts, and typed meals are processed through Fud AI's hosted service."
+            "value": "تتم معالجة صور الطعام ونصوص الصوت والوجبات المكتوبة عبر خدمة Fud AI المستضافة."
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Food photos, voice transcripts, and typed meals are processed through Fud AI's hosted service."
+            "value": "Yemək fotoşəkilləri, səs transkriptləri və yazılmış yeməklər Fud AI-nin host xidməti vasitəsilə emal olunur."
           }
         },
         "de": {
@@ -61064,13 +61064,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Food photos, voice transcripts, and typed meals are processed through Fud AI's hosted service."
+            "value": "भोजन की फ़ोटो, वॉइस ट्रांसक्रिप्ट और लिखे गए भोजन Fud AI की होस्टेड सेवा से प्रोसेस होते हैं।"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Food photos, voice transcripts, and typed meals are processed through Fud AI's hosted service."
+            "value": "Foto dei pasti, trascrizioni vocali e pasti digitati vengono elaborati tramite il servizio ospitato di Fud AI."
           }
         },
         "ja": {
@@ -61082,43 +61082,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Food photos, voice transcripts, and typed meals are processed through Fud AI's hosted service."
+            "value": "음식 사진, 음성 전사, 입력한 식사는 Fud AI 호스팅 서비스를 통해 처리됩니다."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Food photos, voice transcripts, and typed meals are processed through Fud AI's hosted service."
+            "value": "Eetfoto's, spraaktranscripten en getypte maaltijden worden verwerkt via de gehoste service van Fud AI."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Food photos, voice transcripts, and typed meals are processed through Fud AI's hosted service."
+            "value": "Zdjęcia posiłków, transkrypcje głosu i wpisane posiłki są przetwarzane przez hostowaną usługę Fud AI."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Food photos, voice transcripts, and typed meals are processed through Fud AI's hosted service."
+            "value": "Fotos de comida, transcrições de voz e refeições digitadas são processadas pelo serviço hospedado do Fud AI."
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Food photos, voice transcripts, and typed meals are processed through Fud AI's hosted service."
+            "value": "Fotografiile cu mâncare, transcrierile vocale și mesele tastate sunt procesate prin serviciul găzduit Fud AI."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Food photos, voice transcripts, and typed meals are processed through Fud AI's hosted service."
+            "value": "Фото еды, голосовые расшифровки и введённые приёмы пищи обрабатываются через хостинг-сервис Fud AI."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Food photos, voice transcripts, and typed meals are processed through Fud AI's hosted service."
+            "value": "Фото їжі, голосові розшифровки та введені прийоми їжі обробляються через хостинг-сервіс Fud AI."
           }
         },
         "zh-Hans": {
@@ -61130,7 +61130,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Food photos, voice transcripts, and typed meals are processed through Fud AI's hosted service."
+            "value": "Fotky jídla, přepisy hlasu a zadaná jídla se zpracovávají přes hostovanou službu Fud AI."
           }
         }
       }
@@ -61141,13 +61141,13 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your food log, weight history, and body-fat history stay on this device. Hosted AI does not store your BYOK keys."
+            "value": "سجل طعامك وسجل الوزن ونسبة الدهون يبقى على هذا الجهاز. الذكاء الاصطناعي المستضاف لا يخزن مفاتيح BYOK الخاصة بك."
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your food log, weight history, and body-fat history stay on this device. Hosted AI does not store your BYOK keys."
+            "value": "Yemək jurnalınız, çəki tarixçəniz və bədən yağ tarixçəniz bu cihazda qalır. Host edilmiş AI BYOK açarlarınızı saxlamır."
           }
         },
         "de": {
@@ -61171,13 +61171,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your food log, weight history, and body-fat history stay on this device. Hosted AI does not store your BYOK keys."
+            "value": "आपका फूड लॉग, वज़न इतिहास और बॉडी-फैट इतिहास इस डिवाइस पर रहता है। होस्टेड AI आपकी BYOK कुंजियाँ संग्रहीत नहीं करता।"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your food log, weight history, and body-fat history stay on this device. Hosted AI does not store your BYOK keys."
+            "value": "Il diario alimentare, lo storico del peso e della massa grassa restano su questo dispositivo. L'IA ospitata non memorizza le tue chiavi BYOK."
           }
         },
         "ja": {
@@ -61189,43 +61189,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your food log, weight history, and body-fat history stay on this device. Hosted AI does not store your BYOK keys."
+            "value": "음식 기록, 체중·체지방 기록은 이 기기에 남습니다. 호스팅 AI는 BYOK 키를 저장하지 않습니다."
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your food log, weight history, and body-fat history stay on this device. Hosted AI does not store your BYOK keys."
+            "value": "Je eetdagboek, gewichtsgeschiedenis en vetpercentage blijven op dit apparaat. Gehoste AI bewaart je BYOK-sleutels niet."
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your food log, weight history, and body-fat history stay on this device. Hosted AI does not store your BYOK keys."
+            "value": "Dziennik posiłków, historia wagi i tkanki tłuszczowej zostają na tym urządzeniu. Hostowane AI nie przechowuje twoich kluczy BYOK."
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your food log, weight history, and body-fat history stay on this device. Hosted AI does not store your BYOK keys."
+            "value": "Seu diário alimentar, histórico de peso e de gordura corporal ficam neste dispositivo. A IA hospedada não armazena suas chaves BYOK."
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your food log, weight history, and body-fat history stay on this device. Hosted AI does not store your BYOK keys."
+            "value": "Jurnalul alimentar, istoricul greutății și al grăsimii corporale rămân pe acest dispozitiv. AI-ul găzduit nu stochează cheile tale BYOK."
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your food log, weight history, and body-fat history stay on this device. Hosted AI does not store your BYOK keys."
+            "value": "Дневник еды, история веса и жира остаются на этом устройстве. Хостинг-ИИ не хранит твои ключи BYOK."
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your food log, weight history, and body-fat history stay on this device. Hosted AI does not store your BYOK keys."
+            "value": "Щоденник їжі, історія ваги та жиру лишаються на цьому пристрої. Хостинг-ШІ не зберігає твої ключі BYOK."
           }
         },
         "zh-Hans": {
@@ -61237,7 +61237,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Your food log, weight history, and body-fat history stay on this device. Hosted AI does not store your BYOK keys."
+            "value": "Jídelníček, historie váhy a tělesného tuku zůstávají na tomto zařízení. Hostovaná AI neukládá tvé BYOK klíče."
           }
         }
       }
@@ -61248,13 +61248,13 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Continue"
+            "value": "اشترك للمتابعة"
           }
         },
         "az": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Continue"
+            "value": "Davam etmək üçün abunə olun"
           }
         },
         "de": {
@@ -61278,13 +61278,13 @@
         "hi": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Continue"
+            "value": "जारी रखने के लिए सब्सक्राइब करें"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Continue"
+            "value": "Abbonati per continuare"
           }
         },
         "ja": {
@@ -61296,43 +61296,43 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Continue"
+            "value": "계속하려면 구독"
           }
         },
         "nl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Continue"
+            "value": "Abonneer om door te gaan"
           }
         },
         "pl": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Continue"
+            "value": "Subskrybuj, aby kontynuować"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Continue"
+            "value": "Assine para continuar"
           }
         },
         "ro": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Continue"
+            "value": "Abonează-te pentru a continua"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Continue"
+            "value": "Оформи подписку, чтобы продолжить"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Continue"
+            "value": "Оформи підписку, щоб продовжити"
           }
         },
         "zh-Hans": {
@@ -61344,7 +61344,7 @@
         "cs": {
           "stringUnit": {
             "state": "translated",
-            "value": "Subscribe to Continue"
+            "value": "Předplať si pro pokračování"
           }
         }
       }

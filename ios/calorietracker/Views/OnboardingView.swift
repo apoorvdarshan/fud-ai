@@ -1107,14 +1107,16 @@ struct OnboardingView: View {
         }
     }
 
-    /// Step 11 can advance when terms are accepted AND the chosen path is ready.
+    /// Step 11 primary CTA: terms required. Hosted stays tappable without an entitlement so it can
+    /// open the paywall; BYOK still needs a usable key/model. Advancement past the step is gated in
+    /// the button action / `completeAIChoiceAndAdvance`.
     private var canAdvanceAI: Bool {
         guard hasAcceptedTerms else { return false }
         switch aiSubstep {
         case .choice:
             return false
         case .hosted:
-            return rc.hasHostedEntitlement
+            return true
         case .byok:
             let modelOK = !byokModel.trimmingCharacters(in: .whitespaces).isEmpty
             let keyOK = !byokProvider.requiresAPIKey || !byokApiKey.trimmingCharacters(in: .whitespaces).isEmpty

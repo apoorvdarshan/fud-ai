@@ -100,6 +100,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.activity.compose.BackHandler
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.ActivityLevel
@@ -125,6 +126,11 @@ import java.util.Locale
 fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
     val vm: OnboardingViewModel = viewModel(factory = OnboardingViewModel.Factory(container))
     val ui by vm.ui.collectAsState()
+
+    // Match the on-screen chevron: system back / gesture must use vm.back() so BYOK → choice
+    // (and other nested steps) don't pop the whole onboarding destination.
+    val canNavigateBack = ui.step != OnboardingStep.WELCOME && ui.step != OnboardingStep.BUILDING_PLAN
+    BackHandler(enabled = canNavigateBack) { vm.back() }
 
     Column(
         Modifier

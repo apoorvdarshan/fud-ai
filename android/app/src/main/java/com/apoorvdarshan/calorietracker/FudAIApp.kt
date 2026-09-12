@@ -67,6 +67,7 @@ class FudAIApp : Application() {
         super.onCreate()
         container = AppContainer(this)
         container.revenueCat.configure()
+        appScope.launch { runCatching { container.revenueCat.refreshCustomerInfo() } }
         container.notifications.createChannels()
         WidgetRefreshScheduler.onAppStarted(this)
         container.widgetSnapshotWriter.observe().launchIn(appScope)

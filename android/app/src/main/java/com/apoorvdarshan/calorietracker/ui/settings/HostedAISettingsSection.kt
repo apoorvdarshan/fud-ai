@@ -43,8 +43,8 @@ fun HostedAISettingsSection(container: AppContainer) {
     var creditBank by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(plan, entitled) {
-        container.revenueCat.refreshCustomerInfo()
-        container.revenueCat.loadOfferings()
+        runCatching { container.revenueCat.refreshCustomerInfo() }
+        runCatching { container.revenueCat.loadOfferings() }
         val snap = container.hostedQuotaManager.snapshot(plan)
         dailyUsed = snap.dailyUsed
         dailyLimit = snap.dailyLimit

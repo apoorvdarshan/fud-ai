@@ -13,6 +13,10 @@ PRs, bug reports, and feature ideas for any of these are welcome.
 
 Ukrainian (Android + iOS) was contributed by [Oleksandr Belei](https://github.com/oleksandr-belei) (#184 → #270).
 
+## Health Connect
+
+Android Health Connect nutrition write retries (queue + foreground drain for unconfirmed food sync) were contributed by [Claeshs](https://github.com/Claeshs) (#204 → #272).
+
 ## Getting Started (iOS)
 
 1. Fork the repo

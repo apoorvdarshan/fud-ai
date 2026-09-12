@@ -11,7 +11,7 @@ PRs, bug reports, and feature ideas for any of these are welcome.
 
 ## Localization
 
-Ukrainian (Android + iOS) was contributed by [Oleksandr Belei](https://github.com/oleksandr-belei) (#184 → #270).
+Ukrainian (Android + iOS) was authored by [Oleksandr Belei](https://github.com/oleksandr-belei) (#184 → #270).
 
 ## Getting Started (iOS)
 

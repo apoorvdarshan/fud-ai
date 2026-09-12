@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.ui.workouts
 
+import android.content.Context
 import android.provider.Settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -14,13 +15,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
@@ -31,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
+import coil.imageLoader
 import coil.request.ImageRequest
 import com.apoorvdarshan.calorietracker.data.ExerciseRepository
 import com.apoorvdarshan.calorietracker.data.ExerciseVisual
@@ -40,10 +40,11 @@ import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import kotlinx.coroutines.delay
 
 /**
- * Cycling exercise visual — the Android analog of the iOS `AnimatedExerciseVisual`.
- * Legacy JPEGs keep their cropped, muted treatment; authored SVG/PNG sequences render
- * uncropped and in their original colors. Honors the system "remove animations" setting
- * and shows a meaningful representative frame instead of freezing at the standing pose.
+ * Cycling exercise visual — Android analog of iOS `AnimatedExerciseVisual`.
+ * Legacy JPEGs stay cropped/muted; authored SVG/PNG sequences render uncropped
+ * in original colors. Honors system "remove animations" and freezes on the
+ * representative frame. Composes only the visible frame (optional next-frame
+ * Coil prefetch) so list rows do not decode every PNG up front.
  */
 private val ExerciseImageFilter: ColorFilter = run {
     val saturation = ColorMatrix().apply { setToSaturation(0.19f) }
@@ -73,29 +74,12 @@ fun AnimatedExerciseImage(
     val imagePaths = visual.framePaths
 
     if (imagePaths.isEmpty()) {
-        Box(
-            modifier.background(
-                Brush.linearGradient(listOf(colors.panel, colors.card, colors.accent.copy(alpha = 0.12f)))
-            ),
-            contentAlignment = Alignment.Center
-        ) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Icon(Icons.Filled.FitnessCenter, null, tint = colors.charcoal, modifier = Modifier.size(36.dp))
-                if (!fallbackLabel.isNullOrBlank()) {
-                    Text(
-                        fallbackLabel.uppercase(),
-                        color = colors.charcoal,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        letterSpacing = 1.2.sp
-                    )
-                }
-            }
-        }
+        ExerciseImagePlaceholder(modifier, colors, fallbackLabel)
         return
     }
 
     val context = LocalContext.current
+    val imageStore = remember(context) { FoodImageStore(context) }
     val animationsEnabled = remember {
         Settings.Global.getFloat(context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f) != 0f
     }
@@ -110,43 +94,79 @@ fun AnimatedExerciseImage(
             index = representativeIndex
             return@LaunchedEffect
         }
-        if (imagePaths.size > 1) {
-            while (true) {
-                delay(850)
-                index = (index + 1) % imagePaths.size
-            }
+        if (imagePaths.size <= 1) return@LaunchedEffect
+        while (true) {
+            delay(850)
+            index = (index + 1) % imagePaths.size
         }
     }
 
+    val visiblePath = imagePaths[index]
+    val prefetchPath = imagePaths
+        .takeIf { shouldAnimate && it.size > 1 }
+        ?.let { it[(index + 1) % it.size] }
+
+    LaunchedEffect(prefetchPath, visual.format) {
+        val path = prefetchPath ?: return@LaunchedEffect
+        context.imageLoader.enqueue(exerciseImageRequest(context, imageStore, path, visual.format))
+    }
+
+    val isJpeg = visual.format == ExerciseVisualFormat.JPEG
     Box(modifier.background(colors.background)) {
-        imagePaths.forEachIndexed { i, path ->
-            key(path, visual.format) {
-                val model = remember(path, visual.format) {
-                    val localFile = if (UserExercise.isUserPhotoFilename(path)) {
-                        FoodImageStore(context).file(path).takeIf { it.isFile }
-                    } else {
-                        null
-                    }
-                    val dataSource = localFile ?: ExerciseRepository.imageAssetUri(path)
-                    if (visual.format == ExerciseVisualFormat.SVG) {
-                        ImageRequest.Builder(context)
-                            .data(dataSource)
-                            .decoderFactory(SvgDecoder.Factory())
-                            .build()
-                    } else {
-                        dataSource
-                    }
-                }
-                AsyncImage(
-                    model = model,
-                    contentDescription = null,
-                    contentScale = if (visual.format == ExerciseVisualFormat.JPEG) contentScale else ContentScale.Fit,
-                    colorFilter = if (visual.format == ExerciseVisualFormat.JPEG) ExerciseImageFilter else null,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .alpha(if (i == index) 1f else 0f)
+        AsyncImage(
+            model = remember(visiblePath, visual.format) {
+                exerciseImageRequest(context, imageStore, visiblePath, visual.format)
+            },
+            contentDescription = null,
+            contentScale = if (isJpeg) contentScale else ContentScale.Fit,
+            colorFilter = if (isJpeg) ExerciseImageFilter else null,
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
+
+@Composable
+private fun ExerciseImagePlaceholder(
+    modifier: Modifier,
+    colors: WorkoutsColors,
+    fallbackLabel: String?
+) {
+    Box(
+        modifier.background(
+            Brush.linearGradient(listOf(colors.panel, colors.card, colors.accent.copy(alpha = 0.12f)))
+        ),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Icon(Icons.Filled.FitnessCenter, null, tint = colors.charcoal, modifier = Modifier.size(36.dp))
+            if (!fallbackLabel.isNullOrBlank()) {
+                Text(
+                    fallbackLabel.uppercase(),
+                    color = colors.charcoal,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Bold,
+                    letterSpacing = 1.2.sp
                 )
             }
         }
     }
+}
+
+private fun exerciseImageRequest(
+    context: Context,
+    imageStore: FoodImageStore,
+    path: String,
+    format: ExerciseVisualFormat
+): ImageRequest {
+    val localFile = path
+        .takeIf { UserExercise.isUserPhotoFilename(it) }
+        ?.let { imageStore.file(it).takeIf { file -> file.isFile } }
+    val builder = ImageRequest.Builder(context)
+        .data(localFile ?: ExerciseRepository.imageAssetUri(path))
+        .memoryCacheKey(path)
+        .diskCacheKey(path)
+    if (format == ExerciseVisualFormat.SVG) {
+        builder.decoderFactory(SvgDecoder.Factory())
+    }
+    return builder.build()
 }

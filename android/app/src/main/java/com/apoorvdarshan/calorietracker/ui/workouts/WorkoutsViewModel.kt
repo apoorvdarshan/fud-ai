@@ -26,10 +26,12 @@ import com.apoorvdarshan.calorietracker.models.OutdoorActivitySettings
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
 import com.apoorvdarshan.calorietracker.services.FoodImageStore
 import com.apoorvdarshan.calorietracker.ui.home.OutdoorActivityKind
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import java.util.UUID
 
@@ -79,7 +81,8 @@ data class WorkoutDiaryUiState(
  */
 class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
     private val prefs = app.getSharedPreferences("fudai_workouts", Context.MODE_PRIVATE)
-    private val exerciseRepository = ExerciseRepository.get(app)
+    /** Peek only in the ctor — never call [ExerciseRepository.get] on the main thread. */
+    private var exerciseRepository: ExerciseRepository? = ExerciseRepository.peek()
     private var workoutRepository: WorkoutRepository? = null
     private var exerciseImageStore: FoodImageStore? = null
     private var repositoryJob: Job? = null
@@ -92,6 +95,22 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
 
     var diaryUiState by mutableStateOf(WorkoutDiaryUiState())
         private set
+
+    init {
+        if (exerciseRepository == null) {
+            viewModelScope.launch {
+                ensureExerciseRepository()
+                rebuildDiaryState()
+            }
+        }
+    }
+
+    private suspend fun ensureExerciseRepository(): ExerciseRepository {
+        exerciseRepository?.let { return it }
+        return withContext(Dispatchers.IO) {
+            ExerciseRepository.get(getApplication()).also { exerciseRepository = it }
+        }
+    }
 
     private val _searchInput = mutableStateOf(prefs.getString(K_SEARCH, "") ?: "")
     private val _debouncedSearch = mutableStateOf(_searchInput.value)
@@ -349,7 +368,8 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
                 OutdoorActivityKind.WALKING -> OutdoorActivitySettings.WALKING_EXERCISE_ID
                 OutdoorActivityKind.RUNNING -> OutdoorActivitySettings.RUNNING_EXERCISE_ID
             }
-            val item = exerciseRepository.exercises.firstOrNull { it.id == exerciseId } ?: return@launch
+            val catalog = ensureExerciseRepository()
+            val item = catalog.exercises.firstOrNull { it.id == exerciseId } ?: return@launch
             repository.logQuickCardio(item, minutes, date)
             repository.calculateBurn(
                 date = date,
@@ -435,11 +455,14 @@ class WorkoutsViewModel(app: Application) : AndroidViewModel(app) {
             }
             .toList()
         val preferences = latestPersistedState.preferences
-        val splitGroups = WorkoutSplitGroup.selectionGroups(
-            split = preferences.split,
-            availablePrimaryMuscles = exerciseRepository.availablePrimaryMuscles,
-            availableSecondaryMuscles = exerciseRepository.availableSecondaryMuscles
-        )
+        val catalog = exerciseRepository
+        val splitGroups = catalog?.let {
+            WorkoutSplitGroup.selectionGroups(
+                split = preferences.split,
+                availablePrimaryMuscles = it.availablePrimaryMuscles,
+                availableSecondaryMuscles = it.availableSecondaryMuscles
+            )
+        }.orEmpty()
         val storedSplit = prefs.getString(K_SPLIT_IDENTIFIER, null)
         if (storedSplit != preferences.split.name) {
             splitGroupTitles = emptySet()

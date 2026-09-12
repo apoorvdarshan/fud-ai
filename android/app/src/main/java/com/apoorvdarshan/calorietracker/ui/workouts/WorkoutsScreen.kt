@@ -46,11 +46,11 @@ import androidx.compose.material.icons.filled.SwapVert
 import androidx.compose.material.icons.filled.Tag
 import androidx.compose.material.icons.filled.SportsGymnastics
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -63,6 +63,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
@@ -77,30 +78,45 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.apoorvdarshan.calorietracker.AppContainer
 import com.apoorvdarshan.calorietracker.R
+import com.apoorvdarshan.calorietracker.data.ExerciseItem
+import com.apoorvdarshan.calorietracker.data.ExerciseRepository
+import com.apoorvdarshan.calorietracker.data.ExerciseSort
+import com.apoorvdarshan.calorietracker.data.ExerciseVisual
 import com.apoorvdarshan.calorietracker.models.WorkoutTabMode
 import com.apoorvdarshan.calorietracker.models.WorkoutWeightUnit
 import com.apoorvdarshan.calorietracker.ui.components.FudGlassSurface
 import com.apoorvdarshan.calorietracker.ui.navigation.BottomNavScrollPadding
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
-import com.apoorvdarshan.calorietracker.ui.workouts.AnimatedExerciseImage
-import com.apoorvdarshan.calorietracker.data.ExerciseItem
-import com.apoorvdarshan.calorietracker.data.ExerciseRepository
-import com.apoorvdarshan.calorietracker.data.ExerciseSort
-import com.apoorvdarshan.calorietracker.data.ExerciseVisual
-import com.apoorvdarshan.calorietracker.ui.workouts.WorkoutsViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    val baseRepository = remember { ExerciseRepository.get(context) }
+    var catalog by remember { mutableStateOf(ExerciseRepository.peek()) }
+    LaunchedEffect(Unit) {
+        catalog = catalog ?: withContext(Dispatchers.IO) { ExerciseRepository.get(context) }
+    }
+    val loadedCatalog = catalog
+    if (loadedCatalog == null) {
+        Box(
+            modifier
+                .fillMaxSize()
+                .background(workoutsColors().background)
+                .statusBarsPadding(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(color = AppColors.Calorie, modifier = Modifier.size(36.dp))
+        }
+        return
+    }
     val workoutState by container.workoutRepository.state.collectAsState(initial = com.apoorvdarshan.calorietracker.models.WorkoutPersistedState())
-    val repo = remember(baseRepository, workoutState.customActivities, workoutState.userExercises) {
-        baseRepository.includingActivities(workoutState.customActivities + workoutState.userExercises)
+    val repo = remember(loadedCatalog, workoutState.customActivities, workoutState.userExercises) {
+        loadedCatalog.includingActivities(workoutState.customActivities + workoutState.userExercises)
     }
     var showCreateUserExercise by remember { mutableStateOf(false) }
     var editingUserExerciseId by remember { mutableStateOf<String?>(null) }
@@ -127,7 +143,7 @@ fun WorkoutsScreen(container: AppContainer, modifier: Modifier = Modifier) {
     UserExerciseEditorSheet(
         visible = showCreateUserExercise || editingUserExerciseId != null,
         existingItemId = editingUserExerciseId,
-        catalog = baseRepository,
+        catalog = loadedCatalog,
         workoutRepository = container.workoutRepository,
         imageStore = container.imageStore,
         existingTemplate = editingUserExerciseId?.let { id ->

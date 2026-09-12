@@ -255,12 +255,21 @@
     <string name="onboarding_health_connected">已连接</string>
     <string name="onboarding_health_connect">连接</string>
 
-    <string name="onboarding_provider_title">使用你自己的 AI</string>
-    <string name="onboarding_provider_subtitle">Fud AI 需要 AI 提供商密钥来\n分析你的食物。请使用你自己的密钥。</string>
+    <string name="onboarding_ai_choice_title">设置你的 AI</string>
+    <string name="onboarding_ai_choice_subtitle">选择如何在 Fud AI 中使用 AI。无论哪种方式，应用都保持免费。</string>
+    <string name="onboarding_ai_byok_subtitle">添加你自己的 AI 提供商密钥 — 支持 Gemini、OpenAI、Groq 等。</string>
+    <string name="onboarding_ai_byok_card_title">自带密钥</string>
+    <string name="onboarding_ai_byok_card_subtitle">永久免费 — 使用你的密钥无限制。Gemini、OpenAI、Groq 等。</string>
+    <string name="onboarding_ai_byok_badge">推荐</string>
+    <string name="onboarding_ai_hosted_ios_card_title">iOS 托管 AI</string>
+    <string name="onboarding_ai_hosted_ios_card_subtitle">Plus/Pro 订阅可在 iPhone 和 iPad 上使用。Android 使用 BYOK。</string>
+    <string name="onboarding_ai_hosted_ios_note">无 Play Store 订阅 — 连接你自己的 AI 密钥以继续。</string>
+    <string name="onboarding_provider_title">设置你的 AI</string>
+    <string name="onboarding_provider_subtitle">添加你自己的 AI 提供商密钥 — 应用保持免费。</string>
     <string name="onboarding_provider_recommended_title">推荐：Google Gemini</string>
     <string name="onboarding_provider_recommended_subtitle">提供免费套餐，快速且准确</string>
     <string name="onboarding_provider_step_1">在 aistudio.google.com/apikey 获取免费密钥</string>
-    <string name="onboarding_provider_step_2">打开“设置”→ AI 提供商</string>
+    <string name="onboarding_provider_step_2">选择提供商并在下方粘贴密钥</string>
     <string name="onboarding_provider_step_3">粘贴你的密钥——完成</string>
     <string name="onboarding_provider_footer">支持 13 个提供商。你的密钥仅保留在\n本设备上，并经过加密。</string>
 

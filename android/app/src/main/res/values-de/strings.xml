@@ -256,12 +256,21 @@
     <string name="onboarding_health_connected">Verbunden</string>
     <string name="onboarding_health_connect">Verbinden</string>
 
-    <string name="onboarding_provider_title">Eigene KI verwenden</string>
-    <string name="onboarding_provider_subtitle">Fud AI braucht einen KI-Anbieter-Schlüssel,\num dein Essen zu analysieren. Du bringst ihn mit.</string>
+    <string name="onboarding_ai_choice_title">Richte deine KI ein</string>
+    <string name="onboarding_ai_choice_subtitle">Wähle, wie du KI in Fud AI nutzen möchtest. Die App bleibt in beiden Fällen kostenlos.</string>
+    <string name="onboarding_ai_byok_subtitle">Füge deinen eigenen KI-Anbieter-Schlüssel hinzu — Gemini, OpenAI, Groq und mehr werden unterstützt.</string>
+    <string name="onboarding_ai_byok_card_title">Eigenen Schlüssel mitbringen</string>
+    <string name="onboarding_ai_byok_card_subtitle">Für immer kostenlos — unbegrenzt mit deinem Schlüssel. Gemini, OpenAI, Groq &amp; mehr.</string>
+    <string name="onboarding_ai_byok_badge">Empfohlen</string>
+    <string name="onboarding_ai_hosted_ios_card_title">Gehostete KI auf iOS</string>
+    <string name="onboarding_ai_hosted_ios_card_subtitle">Plus/Pro-Abos sind auf iPhone und iPad verfügbar. Android nutzt BYOK.</string>
+    <string name="onboarding_ai_hosted_ios_note">Kein Play-Store-Abo — verbinde deinen eigenen KI-Schlüssel, um fortzufahren.</string>
+    <string name="onboarding_provider_title">Richte deine KI ein</string>
+    <string name="onboarding_provider_subtitle">Füge deinen eigenen KI-Anbieter-Schlüssel hinzu — die App bleibt kostenlos.</string>
     <string name="onboarding_provider_recommended_title">Empfohlen: Google Gemini</string>
     <string name="onboarding_provider_recommended_subtitle">Kostenlose Stufe, schnell &amp; genau</string>
     <string name="onboarding_provider_step_1">Hol dir einen kostenlosen Schlüssel auf aistudio.google.com/apikey</string>
-    <string name="onboarding_provider_step_2">Öffne Einstellungen → KI-Anbieter</string>
+    <string name="onboarding_provider_step_2">Wähle einen Anbieter und füge deinen Schlüssel unten ein</string>
     <string name="onboarding_provider_step_3">Schlüssel einfügen — fertig</string>
     <string name="onboarding_provider_footer">13 Anbieter unterstützt. Dein Schlüssel bleibt\nverschlüsselt auf diesem Gerät.</string>
 

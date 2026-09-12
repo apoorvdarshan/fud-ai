@@ -24,6 +24,12 @@ enum class OnboardingStep {
     BUILDING_PLAN, PLAN_READY
 }
 
+/** Android onboarding AI step: honest BYOK-first choice, then key setup. */
+enum class OnboardingAiPhase {
+    CHOICE,
+    BYOK
+}
+
 data class OnboardingState(
     val step: OnboardingStep = OnboardingStep.WELCOME,
     val gender: Gender = Gender.MALE,
@@ -47,6 +53,7 @@ data class OnboardingState(
     val weightMetric: Boolean = false,
     val notificationsEnabled: Boolean = false,
     val healthConnectEnabled: Boolean = false,
+    val aiPhase: OnboardingAiPhase = OnboardingAiPhase.CHOICE,
     val aiProvider: AIProvider = AIProvider.GEMINI,
     val aiModel: String = AIProvider.GEMINI.defaultModel,
     val apiKey: String = "",
@@ -63,7 +70,10 @@ data class OnboardingState(
     /** AI is required for goal calculation, so BYOK users must enter an API key before leaving
      *  the provider step (Ollama needs none). All other steps advance freely. */
     val canAdvance: Boolean get() = when (step) {
-        OnboardingStep.PROVIDER -> !aiProvider.requiresApiKey || apiKey.trim().isNotEmpty()
+        OnboardingStep.PROVIDER -> when (aiPhase) {
+            OnboardingAiPhase.CHOICE -> false
+            OnboardingAiPhase.BYOK -> !aiProvider.requiresApiKey || apiKey.trim().isNotEmpty()
+        }
         else -> true
     }
 
@@ -149,6 +159,10 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
             container.keyStore.setApiKey(_ui.value.aiProvider, key.trim().takeIf { it.isNotBlank() })
         }
     }
+
+    fun selectByokSetup() {
+        _ui.value = _ui.value.copy(aiPhase = OnboardingAiPhase.BYOK)
+    }
     /** The single Imperial|Metric segmented control writes BOTH unit prefs coherently:
      *  Imperial -> ftin + lbs, Metric -> cm + kg. */
     fun setUseMetric(v: Boolean) {
@@ -197,8 +211,15 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
     }
 
     fun back() {
+        if (_ui.value.step == OnboardingStep.PROVIDER && _ui.value.aiPhase == OnboardingAiPhase.BYOK) {
+            _ui.value = _ui.value.copy(aiPhase = OnboardingAiPhase.CHOICE)
+            return
+        }
         val prevStep = OnboardingStep.values().getOrNull(_ui.value.step.ordinal - 1) ?: return
-        _ui.value = _ui.value.copy(step = prevStep)
+        _ui.value = _ui.value.copy(
+            step = prevStep,
+            aiPhase = if (prevStep == OnboardingStep.PROVIDER) OnboardingAiPhase.CHOICE else _ui.value.aiPhase
+        )
     }
 
     fun complete(onDone: () -> Unit) {

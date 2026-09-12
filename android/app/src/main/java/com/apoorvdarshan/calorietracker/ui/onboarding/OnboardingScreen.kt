@@ -40,6 +40,7 @@ import androidx.compose.material.icons.outlined.Cancel
 import androidx.compose.material.icons.outlined.Chair
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.ChevronLeft
+import androidx.compose.material.icons.outlined.ChevronRight
 import androidx.compose.material.icons.outlined.FitnessCenter
 import androidx.compose.material.icons.outlined.Forum
 import androidx.compose.material.icons.outlined.PhotoCamera
@@ -227,9 +228,11 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                     onToggle = vm::setHealthConnectEnabled
                 )
                 OnboardingStep.PROVIDER -> ProviderStep(
+                    phase = ui.aiPhase,
                     provider = ui.aiProvider,
                     model = ui.aiModel,
                     apiKey = ui.apiKey,
+                    onSelectByok = vm::selectByokSetup,
                     onProviderChange = vm::setAiProvider,
                     onModelChange = vm::setAiModel,
                     onKeyChange = vm::setApiKey
@@ -1181,153 +1184,37 @@ private fun ToggleCard(label: String, subtitle: String, enabled: Boolean, onTogg
 
 @Composable
 private fun ProviderStep(
+    phase: OnboardingAiPhase,
     provider: AIProvider,
     model: String,
     apiKey: String,
+    onSelectByok: () -> Unit,
     onProviderChange: (AIProvider) -> Unit,
     onModelChange: (String) -> Unit,
     onKeyChange: (String) -> Unit
 ) {
-    // iOS aiProviderStep: sparkles icon in circle, "Bring Your Own AI" title,
-    // recommended-provider Gemini card with star icon, 3-step setup guide, footer.
-    // Scrollable — the BYOK card (provider + model + key) can overflow shorter screens.
     var selectorSheet by remember { mutableStateOf<ProviderSelectorSheet?>(null) }
     Column(
         Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = if (phase == OnboardingAiPhase.CHOICE) Arrangement.Center else Arrangement.Top
     ) {
-        Box(
-            Modifier
-                .size(120.dp)
-                .clip(CircleShape)
-                .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.06f)),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector = Icons.Outlined.AutoAwesome,
-                contentDescription = null,
-                modifier = Modifier.size(48.dp),
-                tint = AppColors.Calorie
+        ProviderStepHeader(phase = phase)
+        Spacer(Modifier.height(18.dp))
+
+        when (phase) {
+            OnboardingAiPhase.CHOICE -> AiAccessChoiceSection(onSelectByok = onSelectByok)
+            OnboardingAiPhase.BYOK -> ByokSetupSection(
+                provider = provider,
+                model = model,
+                apiKey = apiKey,
+                onProviderClick = { selectorSheet = ProviderSelectorSheet.PROVIDER },
+                onModelClick = { selectorSheet = ProviderSelectorSheet.MODEL },
+                onKeyChange = onKeyChange
             )
         }
-        Spacer(Modifier.height(18.dp))
-        Text(
-            stringResource(R.string.onboarding_provider_title),
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = androidx.compose.ui.text.style.TextAlign.Center
-        )
-        Spacer(Modifier.height(8.dp))
-        Text(
-            stringResource(R.string.onboarding_provider_subtitle),
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
-            textAlign = androidx.compose.ui.text.style.TextAlign.Center
-        )
-        Spacer(Modifier.height(18.dp))
-        // Recommended provider card
-        Card(
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface
-            ),
-            border = BorderStroke(1.dp, AppColors.Calorie.copy(alpha = 0.25f)),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Row(
-                Modifier.padding(14.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Box(
-                    Modifier
-                        .size(44.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.06f)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Star,
-                        contentDescription = null,
-                        tint = AppColors.Calorie,
-                        modifier = Modifier.size(18.dp)
-                    )
-                }
-                Spacer(Modifier.width(12.dp))
-                Column(Modifier.weight(1f)) {
-                    Text(
-                        stringResource(R.string.onboarding_provider_recommended_title),
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    Text(
-                        stringResource(R.string.onboarding_provider_recommended_subtitle),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f)
-                    )
-                }
-            }
-        }
-        Spacer(Modifier.height(10.dp))
-        // Steps card
-        Card(
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                AiSetupRow("1", stringResource(R.string.onboarding_provider_step_1))
-                AiSetupRow("2", stringResource(R.string.onboarding_provider_step_2))
-                AiSetupRow("3", stringResource(R.string.onboarding_provider_step_3))
-            }
-        }
-        Spacer(Modifier.height(10.dp))
-        // BYOK setup: provider, model, and API key. AI drives goal calculation, so a key is
-        // required to continue (gated via OnboardingState.canAdvance). Persisted by the VM.
-        Card(
-            shape = RoundedCornerShape(16.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Column(Modifier.padding(vertical = 4.dp)) {
-                // Provider — opens the shared polished picker sheet (matches Settings).
-                OnboardingSelectorRow(
-                    label = stringResource(R.string.settings_ai_provider),
-                    value = stringResource(provider.displayNameRes),
-                    onClick = { selectorSheet = ProviderSelectorSheet.PROVIDER }
-                )
-                HorizontalDivider(Modifier.padding(horizontal = 14.dp))
-                // Model — same picker; providers that allow a custom model id get a custom field.
-                OnboardingSelectorRow(
-                    label = stringResource(R.string.settings_ai_model),
-                    value = model.ifEmpty { stringResource(R.string.settings_ai_model_unset) },
-                    onClick = { selectorSheet = ProviderSelectorSheet.MODEL }
-                )
-                if (provider.requiresApiKey) {
-                    HorizontalDivider(Modifier.padding(horizontal = 14.dp))
-                    OutlinedTextField(
-                        value = apiKey,
-                        onValueChange = onKeyChange,
-                        singleLine = true,
-                        visualTransformation = PasswordVisualTransformation(),
-                        label = { Text(stringResource(R.string.settings_api_key)) },
-                        placeholder = { Text(stringResource(provider.apiKeyPlaceholderRes)) },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 14.dp, vertical = 8.dp)
-                    )
-                }
-            }
-        }
-        Spacer(Modifier.height(14.dp))
-        Text(
-            stringResource(R.string.onboarding_provider_footer),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
-            textAlign = androidx.compose.ui.text.style.TextAlign.Center
-        )
     }
 
     when (selectorSheet) {
@@ -1354,6 +1241,246 @@ private fun ProviderStep(
         )
         null -> Unit
     }
+}
+
+@Composable
+private fun ProviderStepHeader(phase: OnboardingAiPhase) {
+    Box(
+        Modifier
+            .size(120.dp)
+            .clip(CircleShape)
+            .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.06f)),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            imageVector = Icons.Outlined.AutoAwesome,
+            contentDescription = null,
+            modifier = Modifier.size(48.dp),
+            tint = AppColors.Calorie
+        )
+    }
+    Spacer(Modifier.height(18.dp))
+    Text(
+        stringResource(R.string.onboarding_ai_choice_title),
+        fontSize = 28.sp,
+        fontWeight = FontWeight.Bold,
+        textAlign = androidx.compose.ui.text.style.TextAlign.Center
+    )
+    Spacer(Modifier.height(8.dp))
+    Text(
+        when (phase) {
+            OnboardingAiPhase.CHOICE -> stringResource(R.string.onboarding_ai_choice_subtitle)
+            OnboardingAiPhase.BYOK -> stringResource(R.string.onboarding_ai_byok_subtitle)
+        },
+        style = MaterialTheme.typography.bodyLarge,
+        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+        textAlign = androidx.compose.ui.text.style.TextAlign.Center
+    )
+}
+
+@Composable
+private fun AiAccessChoiceSection(onSelectByok: () -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.fillMaxWidth()) {
+        AiAccessChoiceCard(
+            icon = Icons.Filled.Star,
+            title = stringResource(R.string.onboarding_ai_byok_card_title),
+            subtitle = stringResource(R.string.onboarding_ai_byok_card_subtitle),
+            badge = stringResource(R.string.onboarding_ai_byok_badge),
+            highlighted = true,
+            onClick = onSelectByok
+        )
+        AiAccessChoiceCard(
+            icon = Icons.Outlined.AutoAwesome,
+            title = stringResource(R.string.onboarding_ai_hosted_ios_card_title),
+            subtitle = stringResource(R.string.onboarding_ai_hosted_ios_card_subtitle),
+            badge = null,
+            highlighted = false,
+            enabled = false,
+            onClick = {}
+        )
+        Text(
+            stringResource(R.string.onboarding_ai_hosted_ios_note),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+            modifier = Modifier.padding(top = 4.dp)
+        )
+    }
+}
+
+@Composable
+private fun AiAccessChoiceCard(
+    icon: ImageVector,
+    title: String,
+    subtitle: String,
+    badge: String?,
+    highlighted: Boolean,
+    enabled: Boolean = true,
+    onClick: () -> Unit
+) {
+    val border = if (highlighted) {
+        Modifier.border(BorderStroke(1.5.dp, AppColors.Calorie.copy(alpha = 0.35f)), RoundedCornerShape(16.dp))
+    } else {
+        Modifier.border(BorderStroke(1.dp, MaterialTheme.colorScheme.onBackground.copy(alpha = 0.08f)), RoundedCornerShape(16.dp))
+    }
+    FudGlassSurface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(border)
+            .then(if (enabled) Modifier.clickable(onClick = onClick) else Modifier),
+        cornerRadius = 16.dp,
+        padding = 16.dp
+    ) {
+        Row(verticalAlignment = Alignment.Top) {
+            FudIconBubble(
+                icon = icon,
+                size = 48.dp,
+                iconSize = 22.dp,
+                tint = AppColors.Calorie
+            )
+            Spacer(Modifier.width(14.dp))
+            Column(Modifier.weight(1f)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        title,
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                    badge?.let {
+                        Spacer(Modifier.width(8.dp))
+                        Text(
+                            it,
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = AppColors.Calorie,
+                            modifier = Modifier
+                                .background(AppColors.Calorie.copy(alpha = 0.12f), RoundedCornerShape(999.dp))
+                                .padding(horizontal = 8.dp, vertical = 3.dp)
+                        )
+                    }
+                }
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    subtitle,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = if (enabled) 0.6f else 0.45f)
+                )
+            }
+            if (enabled) {
+                Icon(
+                    imageVector = Icons.Outlined.ChevronRight,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.35f),
+                    modifier = Modifier
+                        .padding(top = 4.dp)
+                        .size(18.dp)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ByokSetupSection(
+    provider: AIProvider,
+    model: String,
+    apiKey: String,
+    onProviderClick: () -> Unit,
+    onModelClick: () -> Unit,
+    onKeyChange: (String) -> Unit
+) {
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        border = BorderStroke(1.dp, AppColors.Calorie.copy(alpha = 0.25f)),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            Modifier.padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                Modifier
+                    .size(44.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.06f)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Star,
+                    contentDescription = null,
+                    tint = AppColors.Calorie,
+                    modifier = Modifier.size(18.dp)
+                )
+            }
+            Spacer(Modifier.width(12.dp))
+            Column(Modifier.weight(1f)) {
+                Text(
+                    stringResource(R.string.onboarding_provider_recommended_title),
+                    style = MaterialTheme.typography.bodyMedium,
+                    fontWeight = FontWeight.SemiBold
+                )
+                Text(
+                    stringResource(R.string.onboarding_provider_recommended_subtitle),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.55f)
+                )
+            }
+        }
+    }
+    Spacer(Modifier.height(10.dp))
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(Modifier.padding(14.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            AiSetupRow("1", stringResource(R.string.onboarding_provider_step_1))
+            AiSetupRow("2", stringResource(R.string.onboarding_provider_step_2))
+            AiSetupRow("3", stringResource(R.string.onboarding_provider_step_3))
+        }
+    }
+    Spacer(Modifier.height(10.dp))
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column(Modifier.padding(vertical = 4.dp)) {
+            OnboardingSelectorRow(
+                label = stringResource(R.string.settings_ai_provider),
+                value = stringResource(provider.displayNameRes),
+                onClick = onProviderClick
+            )
+            HorizontalDivider(Modifier.padding(horizontal = 14.dp))
+            OnboardingSelectorRow(
+                label = stringResource(R.string.settings_ai_model),
+                value = model.ifEmpty { stringResource(R.string.settings_ai_model_unset) },
+                onClick = onModelClick
+            )
+            if (provider.requiresApiKey) {
+                HorizontalDivider(Modifier.padding(horizontal = 14.dp))
+                OutlinedTextField(
+                    value = apiKey,
+                    onValueChange = onKeyChange,
+                    singleLine = true,
+                    visualTransformation = PasswordVisualTransformation(),
+                    label = { Text(stringResource(R.string.settings_api_key)) },
+                    placeholder = { Text(stringResource(provider.apiKeyPlaceholderRes)) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 14.dp, vertical = 8.dp)
+                )
+            }
+        }
+    }
+    Spacer(Modifier.height(14.dp))
+    Text(
+        stringResource(R.string.onboarding_provider_footer),
+        style = MaterialTheme.typography.bodySmall,
+        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
+        textAlign = androidx.compose.ui.text.style.TextAlign.Center
+    )
 }
 
 /** Which onboarding BYOK picker sheet is open. */

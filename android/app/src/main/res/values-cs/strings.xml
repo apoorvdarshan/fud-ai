@@ -218,12 +218,21 @@
     <string name="onboarding_health_connected">Propojeno</string>
     <string name="onboarding_health_connect">Propojit</string>
 
-    <string name="onboarding_provider_title">Přines si vlastní AI</string>
-    <string name="onboarding_provider_subtitle">Fud AI potřebuje klíč AI poskytovatele,\naby analyzovala tvé jídlo. Použiješ svůj vlastní.</string>
+    <string name="onboarding_ai_choice_title">Nastav si svou AI</string>
+    <string name="onboarding_ai_choice_subtitle">Vyber, jak chceš v Fud AI používat AI. Aplikace zůstane v obou případech zdarma.</string>
+    <string name="onboarding_ai_byok_subtitle">Přidej klíč svého AI poskytovatele — podporujeme Gemini, OpenAI, Groq a další.</string>
+    <string name="onboarding_ai_byok_card_title">Použij vlastní klíč</string>
+    <string name="onboarding_ai_byok_card_subtitle">Navždy zdarma — neomezeně na tvém klíči. Gemini, OpenAI, Groq a další.</string>
+    <string name="onboarding_ai_byok_badge">Doporučeno</string>
+    <string name="onboarding_ai_hosted_ios_card_title">Hostovaná AI na iOS</string>
+    <string name="onboarding_ai_hosted_ios_card_subtitle">Předplatné Plus/Pro je dostupné na iPhonu a iPadu. Android používá BYOK.</string>
+    <string name="onboarding_ai_hosted_ios_note">Žádné předplatné v Play Store — pro pokračování připoj vlastní AI klíč.</string>
+    <string name="onboarding_provider_title">Nastav si svou AI</string>
+    <string name="onboarding_provider_subtitle">Přidej klíč svého AI poskytovatele — aplikace zůstane zdarma.</string>
     <string name="onboarding_provider_recommended_title">Doporučujeme: Google Gemini</string>
     <string name="onboarding_provider_recommended_subtitle">Bezplatná úroveň, rychlé a přesné</string>
     <string name="onboarding_provider_step_1">Získej klíč zdarma na aistudio.google.com/apikey</string>
-    <string name="onboarding_provider_step_2">Otevři Nastavení → AI poskytovatel</string>
+    <string name="onboarding_provider_step_2">Vyber poskytovatele a vlož klíč níže</string>
     <string name="onboarding_provider_step_3">Vlož klíč — hotovo</string>
     <string name="onboarding_provider_footer">Podporujeme 13 poskytovatelů. Tvůj klíč zůstává\nv tomto zařízení, zašifrovaný.</string>
 

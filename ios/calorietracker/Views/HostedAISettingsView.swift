@@ -95,6 +95,7 @@ struct HostedAISettingsView: View {
 
 struct HostedPaywallView: View {
     @Environment(\.dismiss) private var dismiss
+    var onSubscribed: (() -> Void)? = nil
     @State private var rc = RevenueCatManager.shared
     @State private var purchasingID: String?
     @State private var errorMessage: String?
@@ -159,6 +160,7 @@ struct HostedPaywallView: View {
         do {
             try await rc.purchase(package: package)
             AIModeSettings.mode = .hosted
+            onSubscribed?()
             dismiss()
         } catch {
             errorMessage = error.localizedDescription

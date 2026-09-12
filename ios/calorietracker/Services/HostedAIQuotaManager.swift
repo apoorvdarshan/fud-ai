@@ -29,11 +29,12 @@ final class HostedAIQuotaManager {
         set { defaults.set(max(0, newValue), forKey: dailyUsedKey) }
     }
 
-    func resetIfNeeded(today: String = Self.localDayKey()) {
+    func resetIfNeeded(today: String? = nil) {
+        let day = today ?? Self.localDayKey()
         let stored = defaults.string(forKey: dailyResetDayKey)
-        if stored != today {
+        if stored != day {
             dailyUsed = 0
-            defaults.set(today, forKey: dailyResetDayKey)
+            defaults.set(day, forKey: dailyResetDayKey)
         }
     }
 
@@ -106,7 +107,7 @@ final class HostedAIQuotaManager {
         }
     }
 
-    static func localDayKey(for date: Date = Date(), calendar: Calendar = .current) -> String {
+    nonisolated static func localDayKey(for date: Date = Date(), calendar: Calendar = .current) -> String {
         let comps = calendar.dateComponents([.year, .month, .day], from: date)
         return String(format: "%04d-%02d-%02d", comps.year ?? 0, comps.month ?? 0, comps.day ?? 0)
     }

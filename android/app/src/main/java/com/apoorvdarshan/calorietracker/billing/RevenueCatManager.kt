@@ -9,6 +9,9 @@ import com.revenuecat.purchases.PurchaseParams
 import com.revenuecat.purchases.Purchases
 import com.revenuecat.purchases.PurchasesConfiguration
 import com.revenuecat.purchases.PurchasesError
+import com.revenuecat.purchases.interfaces.ReceiveCustomerInfoCallback
+import com.revenuecat.purchases.interfaces.ReceiveOfferingsCallback
+import com.revenuecat.purchases.interfaces.UpdatedCustomerInfoListener
 import com.revenuecat.purchases.models.StoreProduct
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -37,9 +40,12 @@ class RevenueCatManager(
         val builder = PurchasesConfiguration.Builder(appContext, HostedAIConstants.REVENUECAT_PUBLIC_SDK_KEY)
         appUserId?.let { builder.appUserID(it) }
         Purchases.configure(builder.build())
-        Purchases.sharedInstance.updatedCustomerInfoListener = { info ->
-            applyCustomerInfo(info)
-        }
+        Purchases.sharedInstance.updatedCustomerInfoListener =
+            object : UpdatedCustomerInfoListener {
+                override fun onReceived(customerInfo: CustomerInfo) {
+                    applyCustomerInfo(customerInfo)
+                }
+            }
     }
 
     suspend fun refreshCustomerInfo() {
@@ -85,17 +91,27 @@ class RevenueCatManager(
     }
 
     private suspend fun awaitCustomerInfo(): CustomerInfo = suspendCancellableCoroutine { cont ->
-        Purchases.sharedInstance.getCustomerInfoWith(
-            onError = { cont.resumeWithException(it) },
-            onSuccess = { cont.resume(it) }
-        )
+        Purchases.sharedInstance.getCustomerInfo(object : ReceiveCustomerInfoCallback {
+            override fun onReceived(customerInfo: CustomerInfo) {
+                cont.resume(customerInfo)
+            }
+
+            override fun onError(error: PurchasesError) {
+                cont.resumeWithException(purchasesFailure(error))
+            }
+        })
     }
 
     private suspend fun awaitOfferings(): Offerings = suspendCancellableCoroutine { cont ->
-        Purchases.sharedInstance.getOfferingsWith(
-            onError = { cont.resumeWithException(it) },
-            onSuccess = { cont.resume(it) }
-        )
+        Purchases.sharedInstance.getOfferings(object : ReceiveOfferingsCallback {
+            override fun onReceived(offerings: Offerings) {
+                cont.resume(offerings)
+            }
+
+            override fun onError(error: PurchasesError) {
+                cont.resumeWithException(purchasesFailure(error))
+            }
+        })
     }
 
     private suspend fun awaitPurchase(activity: Activity, params: PurchaseParams) =
@@ -108,18 +124,26 @@ class RevenueCatManager(
                     }
 
                     override fun onError(error: PurchasesError, userCancelled: Boolean) {
-                        cont.resumeWithException(error)
+                        cont.resumeWithException(purchasesFailure(error))
                     }
                 }
             )
         }
 
     private suspend fun awaitRestore(): CustomerInfo = suspendCancellableCoroutine { cont ->
-        Purchases.sharedInstance.restorePurchasesWith(
-            onError = { cont.resumeWithException(it) },
-            onSuccess = { cont.resume(it) }
-        )
+        Purchases.sharedInstance.restorePurchases(object : ReceiveCustomerInfoCallback {
+            override fun onReceived(customerInfo: CustomerInfo) {
+                cont.resume(customerInfo)
+            }
+
+            override fun onError(error: PurchasesError) {
+                cont.resumeWithException(purchasesFailure(error))
+            }
+        })
     }
 
     private data class PurchaseResult(val customerInfo: CustomerInfo)
+
+    private fun purchasesFailure(error: PurchasesError): Exception =
+        Exception(error.message ?: "RevenueCat error ${error.code}")
 }

@@ -13,11 +13,10 @@ const MAX_HOSTED_IMAGES = 3;
 const MAX_PROMPT_CHARS = 120_000;
 const MAX_AUDIO_BYTES = 12 * 1024 * 1024;
 
-interface HostedAIEnv {
-  GEMINI_API_KEY?: string;
-  DEEPGRAM_API_KEY?: string;
-  FUD_HOSTED_AI_APP_SECRET?: string;
-}
+type HostedAIEnv = Pick<
+  Env,
+  "GEMINI_API_KEY" | "DEEPGRAM_API_KEY" | "FUD_HOSTED_AI_APP_SECRET"
+>;
 
 export async function handleHostedAIRequest(
   request: Request,

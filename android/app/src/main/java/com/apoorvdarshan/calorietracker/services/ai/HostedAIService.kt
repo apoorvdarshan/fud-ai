@@ -71,7 +71,7 @@ class HostedAIService(
             val body = response.body?.string().orEmpty()
             if (!response.isSuccessful) {
                 val detail = runCatching { JSONObject(body).optString("error") }.getOrNull()
-                throw AiError.ApiError(detail ?: "Hosted AI failed (${response.code})")
+                throw AiError.Api(detail ?: "Hosted AI failed (${response.code})")
             }
             return body
         }

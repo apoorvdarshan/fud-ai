@@ -3,7 +3,9 @@ package com.apoorvdarshan.calorietracker.services.speech
 import com.apoorvdarshan.calorietracker.data.KeyStore
 import com.apoorvdarshan.calorietracker.data.PreferencesStore
 import com.apoorvdarshan.calorietracker.models.SpeechProvider
+import com.apoorvdarshan.calorietracker.services.ai.AIGate
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysisService
+import com.apoorvdarshan.calorietracker.services.ai.HostedAIService
 import com.apoorvdarshan.calorietracker.services.ondevice.LocalWhisperRuntime
 import kotlinx.coroutines.flow.first
 import okhttp3.OkHttpClient

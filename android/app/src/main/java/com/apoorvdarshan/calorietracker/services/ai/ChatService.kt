@@ -72,7 +72,7 @@ class ChatService(
     ): String {
         aiGate?.consumeIfHosted(HostedAIAction.COACH_MESSAGE)
         if (aiGate?.isHostedMode() == true) {
-            val hosted = hostedAI ?: throw AiError.ApiError("Hosted AI is not configured.")
+            val hosted = hostedAI ?: throw AiError.Api("Hosted AI is not configured.")
             val baseSystemPrompt = buildSystemPrompt(
                 profile = profile,
                 weights = weights,

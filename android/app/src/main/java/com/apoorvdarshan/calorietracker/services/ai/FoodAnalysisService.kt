@@ -516,7 +516,7 @@ class FoodAnalysisService(
         val finalPrompt = if (context.isNotBlank()) "User context (apply to every analysis): $context\n\n$prompt" else prompt
 
         if (aiGate?.isHostedMode() == true) {
-            val hosted = hostedAI ?: throw AiError.ApiError("Hosted AI is not configured.")
+            val hosted = hostedAI ?: throw AiError.Api("Hosted AI is not configured.")
             val uploadImages = withContext(Dispatchers.IO) {
                 imageBytesList.take(com.apoorvdarshan.calorietracker.billing.HostedAIConstants.MAX_HOSTED_IMAGES)
                     .map(FoodImagePreprocessor::prepareForUpload)

@@ -6,10 +6,10 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="ic_launcher_background">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="app_splash_background">#FFF8F2</color>
     <color name="widget_fallback_background">#FFF8F2</color>
     <color name="widget_fallback_primary">#FF1C1C1E</color>
     <color name="widget_fallback_secondary">#FF8E8E93</color>
-    <color name="ic_launcher_background">#FF000000</color>
 </resources>

@@ -24,13 +24,31 @@ final class StrengthWorkoutStore {
     private(set) var customActivities: [StrengthPlannedExercise] = []
     private(set) var userExercises: [StrengthPlannedExercise] = []
 
+    private var cachedExerciseLibrary: ExerciseLibraryService?
+    private var exerciseLibraryFingerprint: Int = 0
+
     var exerciseLibrary: ExerciseLibraryService {
+        let fingerprint = exerciseLibrarySourceFingerprint
+        if let cachedExerciseLibrary, fingerprint == exerciseLibraryFingerprint {
+            return cachedExerciseLibrary
+        }
+
         let base = ExerciseLibraryService.shared.exercises
         let known = Set(base.map(\.id))
         let mergedCustom = (customActivities + userExercises)
             .filter { !known.contains($0.itemID) }
             .map(\.libraryItem)
-        return ExerciseLibraryService(exercises: base + mergedCustom)
+        let merged = ExerciseLibraryService(exercises: base + mergedCustom)
+        cachedExerciseLibrary = merged
+        exerciseLibraryFingerprint = fingerprint
+        return merged
+    }
+
+    private var exerciseLibrarySourceFingerprint: Int {
+        var hasher = Hasher()
+        hasher.combine(customActivities.map(\.itemID))
+        hasher.combine(userExercises.map(\.itemID))
+        return hasher.finalize()
     }
     var onWorkoutBurnUpserted: ((StrengthWorkoutSession) -> Void)?
     var onWorkoutBurnDeleted: ((UUID) -> Void)?

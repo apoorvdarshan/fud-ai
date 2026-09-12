@@ -248,16 +248,16 @@ struct FreeExerciseDBAssetResolver {
     }()
 
     private static let imageRecords: [FreeExerciseDBRecord] = {
-        guard
-            let url = exercisesJSONURL(),
-            let data = try? Data(contentsOf: url),
-            let records = try? JSONDecoder().decode([FreeExerciseDBRecord].self, from: data)
-        else {
-            return []
-        }
-
-        return records
+        FreeExerciseDBRecordsCache.records()
     }()
+
+    static func warmImageLookup() {
+        _ = imagePathsByName
+    }
+
+    static func warmVisualManifest() {
+        _ = bundledVisualManifest
+    }
 
     private static func imageURL(for relativePath: String) -> URL? {
         if UserExercise.isUserPhotoFilename(relativePath),

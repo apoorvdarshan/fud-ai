@@ -51,6 +51,7 @@ private struct ExerciseLibraryBrowserView: View {
     @State private var searchText = ""
     @State private var debouncedSearchText = ""
     @State private var displayItems: [ExerciseLibraryItem] = []
+    @State private var filterGeneration = 0
     @State private var searchDebounceTask: Task<Void, Never>?
     @State private var filterPersistTask: Task<Void, Never>?
     @State private var selectedSplitGroupTitles: Set<String> = []
@@ -480,13 +481,17 @@ private struct ExerciseLibraryBrowserView: View {
     }
 
     private func refreshDisplayItems() {
+        filterGeneration += 1
+        let generation = filterGeneration
         let rawEquipmentSelection = effectiveRawEquipmentSelection
         guard !rawEquipmentSelection.isEmpty else {
             displayItems = []
             return
         }
 
-        let filtered = service.filtered(
+        let exercises = service.exercises
+        let splitMuscles = Set(selectedSplitGroups.flatMap(\.muscles))
+        let request = ExerciseLibraryFilterRequest(
             levels: selectedLevels,
             rawEquipment: rawEquipmentSelection,
             primaryMuscles: selectedPrimaryMuscles,
@@ -495,18 +500,16 @@ private struct ExerciseLibraryBrowserView: View {
             mechanics: selectedMechanics,
             categories: selectedCategories,
             sort: selectedSort,
-            searchText: debouncedSearchText
+            searchText: debouncedSearchText,
+            splitMuscles: splitMuscles
         )
 
-        if selectedSplitGroups.isEmpty {
-            displayItems = filtered
-            return
-        }
-
-        let selectedMuscles = Set(selectedSplitGroups.flatMap(\.muscles))
-        displayItems = filtered.filter { item in
-            item.primaryMuscles.contains(where: selectedMuscles.contains) ||
-                item.secondaryMuscles.contains(where: selectedMuscles.contains)
+        Task.detached(priority: .userInitiated) {
+            let filtered = ExerciseLibraryFilterEngine.filter(exercises: exercises, request: request)
+            await MainActor.run {
+                guard generation == filterGeneration else { return }
+                displayItems = filtered
+            }
         }
     }
 

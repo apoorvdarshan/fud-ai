@@ -142,3 +142,45 @@ struct ExerciseLibraryService {
         }
     }
 }
+
+struct ExerciseLibraryFilterRequest: Sendable {
+    let levels: Set<String>
+    let rawEquipment: Set<String>
+    let primaryMuscles: Set<String>
+    let secondaryMuscles: Set<String>
+    let forces: Set<String>
+    let mechanics: Set<String>
+    let categories: Set<String>
+    let sort: ExerciseLibrarySort
+    let searchText: String
+    let splitMuscles: Set<String>
+}
+
+enum ExerciseLibraryFilterEngine {
+    static func filter(
+        exercises: [ExerciseLibraryItem],
+        request: ExerciseLibraryFilterRequest
+    ) -> [ExerciseLibraryItem] {
+        let service = ExerciseLibraryService(exercises: exercises)
+        let filtered = service.filtered(
+            levels: request.levels,
+            rawEquipment: request.rawEquipment,
+            primaryMuscles: request.primaryMuscles,
+            secondaryMuscles: request.secondaryMuscles,
+            forces: request.forces,
+            mechanics: request.mechanics,
+            categories: request.categories,
+            sort: request.sort,
+            searchText: request.searchText
+        )
+
+        guard !request.splitMuscles.isEmpty else {
+            return filtered
+        }
+
+        return filtered.filter { item in
+            item.primaryMuscles.contains(where: request.splitMuscles.contains) ||
+                item.secondaryMuscles.contains(where: request.splitMuscles.contains)
+        }
+    }
+}

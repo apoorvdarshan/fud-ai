@@ -1,3 +1,4 @@
+import ImageIO
 import SwiftUI
 import UIKit
 
@@ -11,6 +12,8 @@ struct AnimatedExerciseVisual: View {
     var fillsWidth = true
     var allowsDerivedImageLookup = true
     var animatesFrames = true
+    /// When set, decoded frames are capped at this pixel dimension. Nil keeps full resolution.
+    var maxPixelSize: Int? = nil
     var fallbackSystemImage = "figure.strengthtraining.traditional"
     var fallbackTitle = String(localized: "Exercise")
     @Environment(ProfileStore.self) private var profileStore
@@ -21,7 +24,11 @@ struct AnimatedExerciseVisual: View {
 
         ZStack {
             if !visualAsset.frames.isEmpty {
-                ExerciseImageView(asset: visualAsset, animatesFrames: animatesFrames)
+                ExerciseImageView(
+                    asset: visualAsset,
+                    animatesFrames: animatesFrames,
+                    maxPixelSize: effectiveMaxPixelSize
+                )
             } else {
                 fallbackVisual
             }
@@ -33,6 +40,18 @@ struct AnimatedExerciseVisual: View {
             RoundedRectangle(cornerRadius: 20, style: .continuous)
                 .stroke(Color(uiColor: .separator).opacity(0.35), lineWidth: 0.5)
         )
+    }
+
+    private var effectiveMaxPixelSize: Int? {
+        if let maxPixelSize {
+            return maxPixelSize
+        }
+        // Detail heroes keep full quality; list/diary cells downsample to cell size.
+        if height >= 200 {
+            return nil
+        }
+        let scale = UIScreen.main.scale
+        return max(Int(ceil(height * scale)), 1)
     }
 
     private var resolvedVisualAsset: ExerciseVisualAsset {
@@ -101,12 +120,18 @@ struct AnimatedExerciseVisual: View {
 private struct ExerciseImageView: View {
     let asset: ExerciseVisualAsset
     let animatesFrames: Bool
+    let maxPixelSize: Int?
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var frameIndex = 0
-    @State private var frames: [UIImage] = []
+    @State private var displayedImage: UIImage?
 
     private var taskID: ExerciseImageTaskID {
-        ExerciseImageTaskID(asset: asset, animatesFrames: animatesFrames, reduceMotion: reduceMotion)
+        ExerciseImageTaskID(
+            asset: asset,
+            animatesFrames: animatesFrames,
+            reduceMotion: reduceMotion,
+            maxPixelSize: maxPixelSize
+        )
     }
 
     var body: some View {
@@ -115,33 +140,35 @@ private struct ExerciseImageView: View {
             // composite over scrolling content behind a sticky hero.
             Color.workoutBackground
 
-            if !frames.isEmpty {
-                ZStack {
-                    ForEach(frames.indices, id: \.self) { index in
-                        exerciseFrame(frames[index])
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .clipped()
-                            .opacity(index == frameIndex ? 1 : 0)
-                    }
-                }
+            if let displayedImage {
+                exerciseFrame(displayedImage)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .clipped()
             }
         }
         .task(id: taskID) {
-            frames = []
-            frameIndex = 0
+            displayedImage = nil
+            frameIndex = initialFrameIndex
+            displayedImage = await loadFrame(at: frameIndex)
+            guard animatesFrames, asset.frames.count > 1, !reduceMotion else { return }
 
-            let frameSources = frameSourcesToLoad
-            let loadedFrames = ExerciseImageCache.shared.images(for: frameSources)
-            guard !Task.isCancelled else { return }
-            if !loadedFrames.isEmpty {
-                frames = loadedFrames
-            }
-            guard animatesFrames, frames.count > 1, !reduceMotion else { return }
+            var prefetchedIndex = (frameIndex + 1) % asset.frames.count
+            var prefetchedImage = await loadFrame(at: prefetchedIndex)
 
             while !Task.isCancelled {
                 try? await Task.sleep(nanoseconds: 850_000_000)
                 guard !Task.isCancelled else { return }
-                frameIndex = (frameIndex + 1) % frames.count
+
+                if let prefetchedImage {
+                    displayedImage = prefetchedImage
+                    frameIndex = prefetchedIndex
+                } else {
+                    frameIndex = (frameIndex + 1) % asset.frames.count
+                    displayedImage = await loadFrame(at: frameIndex)
+                }
+
+                prefetchedIndex = (frameIndex + 1) % asset.frames.count
+                prefetchedImage = await loadFrame(at: prefetchedIndex)
             }
         }
     }
@@ -164,14 +191,23 @@ private struct ExerciseImageView: View {
         }
     }
 
-    private var frameSourcesToLoad: [ExerciseVisualFrame] {
-        guard !asset.frames.isEmpty else { return [] }
-        guard !animatesFrames || reduceMotion else { return asset.frames }
+    private var initialFrameIndex: Int {
+        guard !asset.frames.isEmpty else { return 0 }
+        if animatesFrames, !reduceMotion {
+            return 0
+        }
+        if asset.format == .jpeg {
+            return 0
+        }
+        return min(asset.representativeFrameIndex, asset.frames.count - 1)
+    }
 
-        let representativeIndex = asset.format == .jpeg
-            ? 0
-            : min(asset.representativeFrameIndex, asset.frames.count - 1)
-        return [asset.frames[representativeIndex]]
+    private func loadFrame(at index: Int) async -> UIImage? {
+        guard asset.frames.indices.contains(index) else { return nil }
+        let frame = asset.frames[index]
+        return await Task.detached(priority: .userInitiated) {
+            ExerciseImageCache.shared.image(for: frame, maxPixelSize: maxPixelSize)
+        }.value
     }
 }
 
@@ -179,6 +215,7 @@ private struct ExerciseImageTaskID: Equatable {
     let asset: ExerciseVisualAsset
     let animatesFrames: Bool
     let reduceMotion: Bool
+    let maxPixelSize: Int?
 }
 
 private final class ExerciseImageCache {
@@ -193,12 +230,8 @@ private final class ExerciseImageCache {
 
     private init() {}
 
-    func images(for frames: [ExerciseVisualFrame]) -> [UIImage] {
-        frames.compactMap { image(for: $0) }
-    }
-
-    private func image(for frame: ExerciseVisualFrame) -> UIImage? {
-        let cacheKey = frame.cacheKey
+    func image(for frame: ExerciseVisualFrame, maxPixelSize: Int?) -> UIImage? {
+        let cacheKey = frame.cacheKey(maxPixelSize: maxPixelSize)
         if let image = imagesByFrame.object(forKey: cacheKey) {
             return image
         }
@@ -206,9 +239,9 @@ private final class ExerciseImageCache {
         let image: UIImage?
         switch frame {
         case .file(let url):
-            image = UIImage(contentsOfFile: url.path)
+            image = Self.decodeImage(fromFileURL: url, maxPixelSize: maxPixelSize)
         case .imageAsset(let name):
-            image = UIImage(named: name)
+            image = Self.decodeAssetImage(named: name, maxPixelSize: maxPixelSize)
         }
 
         guard let image else {
@@ -218,15 +251,50 @@ private final class ExerciseImageCache {
         imagesByFrame.setObject(image, forKey: cacheKey, cost: image.estimatedMemoryCost)
         return image
     }
+
+    private static func decodeImage(fromFileURL url: URL, maxPixelSize: Int?) -> UIImage? {
+        guard let maxPixelSize, maxPixelSize > 0 else {
+            return UIImage(contentsOfFile: url.path)
+        }
+
+        guard let source = CGImageSourceCreateWithURL(url as CFURL, nil) else {
+            return UIImage(contentsOfFile: url.path)
+        }
+        return thumbnail(from: source, maxPixelSize: maxPixelSize)
+    }
+
+    private static func decodeAssetImage(named name: String, maxPixelSize: Int?) -> UIImage? {
+        guard let image = UIImage(named: name) else { return nil }
+        guard let maxPixelSize, maxPixelSize > 0 else { return image }
+
+        let longestEdge = max(image.size.width, image.size.height) * image.scale
+        guard longestEdge > CGFloat(maxPixelSize) else { return image }
+
+        let target = CGSize(width: maxPixelSize, height: maxPixelSize)
+        return image.preparingThumbnail(of: target) ?? image
+    }
+
+    private static func thumbnail(from source: CGImageSource, maxPixelSize: Int) -> UIImage? {
+        let options: [CFString: Any] = [
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceThumbnailMaxPixelSize: maxPixelSize,
+            kCGImageSourceCreateThumbnailWithTransform: true
+        ]
+        guard let cgImage = CGImageSourceCreateThumbnailAtIndex(source, 0, options as CFDictionary) else {
+            return nil
+        }
+        return UIImage(cgImage: cgImage)
+    }
 }
 
 private extension ExerciseVisualFrame {
-    var cacheKey: NSString {
+    func cacheKey(maxPixelSize: Int?) -> NSString {
+        let pixelKey = maxPixelSize.map(String.init) ?? "full"
         switch self {
         case .file(let url):
-            return "file:\(url.standardizedFileURL.absoluteString)" as NSString
+            return "file:\(url.standardizedFileURL.absoluteString):\(pixelKey)" as NSString
         case .imageAsset(let name):
-            return "asset:\(name)" as NSString
+            return "asset:\(name):\(pixelKey)" as NSString
         }
     }
 }

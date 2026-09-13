@@ -22,6 +22,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okio.Buffer
+import okio.BufferedSource
 import okio.Path.Companion.toOkioPath
 import okio.buffer
 import okio.source
@@ -71,6 +73,8 @@ class WorkoutFrameStore private constructor(
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val inFlight = ConcurrentHashMap<String, Deferred<File?>>()
     private val recentFailures = ConcurrentHashMap<String, Long>()
+    /** Cache file names whose contents have been verified this process; avoids re-hashing per request. */
+    private val verifiedFiles: MutableSet<String> = ConcurrentHashMap.newKeySet()
     private val downloadsSinceTrim = AtomicInteger(0)
     private val http: OkHttpClient by lazy {
         SecureHttpClient.builder()
@@ -108,9 +112,45 @@ class WorkoutFrameStore private constructor(
     fun isAvailableOffline(ref: WorkoutFrameRef): Boolean =
         cachedFile(ref) != null || hasBundledAsset(ref)
 
+    /**
+     * Returns the cached frame only if its contents verify against the manifest (size,
+     * PNG signature and digest). Anything else is deleted so the next request repairs
+     * it through the bundled or network path instead of failing to decode forever.
+     */
     fun cachedFile(ref: WorkoutFrameRef): File? {
         val file = File(cacheDirectory, WorkoutFrameLocator.cacheFileName(ref.name, ref.digest, ref.extension))
-        return file.takeIf { it.isFile && it.length() > 0 }
+        if (!file.isFile) return null
+        if (file.name in verifiedFiles) return file
+        val valid = file.length() in 1..MAX_FRAME_BYTES &&
+            runCatching { verifyFrame(ref, file.readBytes()) }.isSuccess
+        if (!valid) {
+            verifiedFiles.remove(file.name)
+            file.delete()
+            return null
+        }
+        verifiedFiles.add(file.name)
+        return file
+    }
+
+    private fun verifyFrame(ref: WorkoutFrameRef, bytes: ByteArray) {
+        if (bytes.isEmpty() || bytes.size > MAX_FRAME_BYTES) throw IOException("Bad frame size: ${ref.name}")
+        if (ref.extension == "png" && !WorkoutFrameLocator.looksLikePng(bytes)) {
+            throw IOException("Not a PNG: ${ref.name}")
+        }
+        if (!WorkoutFrameLocator.matchesDigest(bytes, ref.digest)) {
+            throw IOException("Digest mismatch for ${ref.name}")
+        }
+    }
+
+    /** Reads at most [MAX_FRAME_BYTES]; aborts as soon as the response exceeds the cap. */
+    private fun readBounded(source: BufferedSource, name: String): ByteArray {
+        val buffer = Buffer()
+        while (true) {
+            val read = source.read(buffer, READ_CHUNK_BYTES)
+            if (read == -1L) break
+            if (buffer.size > MAX_FRAME_BYTES) throw IOException("Frame too large: $name")
+        }
+        return buffer.readByteArray()
     }
 
     private fun hasBundledAsset(ref: WorkoutFrameRef): Boolean =
@@ -137,30 +177,29 @@ class WorkoutFrameStore private constructor(
     }
 
     private fun download(ref: WorkoutFrameRef, url: String): File? {
+        cachedFile(ref)?.let { return it }
         val target = File(cacheDirectory, WorkoutFrameLocator.cacheFileName(ref.name, ref.digest, ref.extension))
-        if (target.isFile && target.length() > 0) return target
         val partial = File(cacheDirectory, target.name + ".part")
         return try {
             val request = Request.Builder().url(url).header("Accept", "image/png").get().build()
             val bytes = http.newCall(request).execute().use { response ->
                 if (!response.isSuccessful) throw IOException("HTTP ${response.code} for ${ref.name}")
                 val body = response.body ?: throw IOException("Empty body for ${ref.name}")
+                // Early rejection only; the cap is enforced while streaming because the
+                // declared length may be absent (chunked) or wrong.
                 if (body.contentLength() > MAX_FRAME_BYTES) throw IOException("Frame too large: ${ref.name}")
-                body.bytes()
+                readBounded(body.source(), ref.name)
             }
-            if (bytes.size > MAX_FRAME_BYTES) throw IOException("Frame too large: ${ref.name}")
-            if (ref.extension == "png" && !WorkoutFrameLocator.looksLikePng(bytes)) {
-                throw IOException("Not a PNG: ${ref.name}")
-            }
-            if (!WorkoutFrameLocator.matchesDigest(bytes, ref.digest)) {
-                throw IOException("Digest mismatch for ${ref.name}")
-            }
+            verifyFrame(ref, bytes)
             cacheDirectory.mkdirs()
             partial.writeBytes(bytes)
+            verifiedFiles.remove(target.name)
             if (!partial.renameTo(target)) {
+                // Non-atomic fallback; cachedFile() re-verifies so an interrupted copy self-heals.
                 partial.copyTo(target, overwrite = true)
                 partial.delete()
             }
+            verifiedFiles.add(target.name)
             removeStaleRevisions(ref, keep = target.name)
             recentFailures.remove(ref.name)
             if (downloadsSinceTrim.incrementAndGet() % TRIM_EVERY_DOWNLOADS == 0) trimCache()
@@ -177,7 +216,10 @@ class WorkoutFrameStore private constructor(
         val prefix = WorkoutFrameLocator.cacheFilePrefix(ref.name)
         cacheDirectory.listFiles()
             ?.filter { it.name.startsWith(prefix) && it.name != keep && !it.name.endsWith(".part") }
-            ?.forEach { it.delete() }
+            ?.forEach {
+                verifiedFiles.remove(it.name)
+                it.delete()
+            }
     }
 
     /** Keeps the frame cache bounded; frames are re-downloadable so eviction is harmless. */
@@ -188,12 +230,16 @@ class WorkoutFrameStore private constructor(
         for (file in files.sortedBy { it.lastModified() }) {
             if (total <= TRIM_TARGET_BYTES) break
             val size = file.length()
-            if (file.delete()) total -= size
+            if (file.delete()) {
+                verifiedFiles.remove(file.name)
+                total -= size
+            }
         }
     }
 
     /** Deletes every cached frame (Settings → storage management, tests). */
     fun clearCache() {
+        verifiedFiles.clear()
         cacheDirectory.listFiles()?.forEach { it.delete() }
     }
 
@@ -202,6 +248,7 @@ class WorkoutFrameStore private constructor(
         private const val CACHE_DIRECTORY = "workout-vectors/v2"
         private const val FAILURE_RETRY_MS = 60_000L
         private const val MAX_FRAME_BYTES = 4L * 1024 * 1024
+        private const val READ_CHUNK_BYTES = 64L * 1024
         private const val MAX_CACHE_BYTES = 256L * 1024 * 1024
         private const val TRIM_TARGET_BYTES = 192L * 1024 * 1024
         private const val TRIM_EVERY_DOWNLOADS = 16

@@ -105,7 +105,7 @@
             android:enabled="true"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -119,7 +119,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_red"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_red_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -133,7 +133,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_orange"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_orange_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -147,7 +147,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_green"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_green_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -161,7 +161,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_mint"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_mint_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -175,7 +175,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_teal"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_teal_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -189,7 +189,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_blue"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_blue_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -203,7 +203,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_purple"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_purple_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -217,7 +217,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_yellow"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_yellow_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -231,7 +231,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_coral"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_coral_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -245,7 +245,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_rose_gold"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_rose_gold_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -259,7 +259,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_mocha_brown"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_mocha_brown_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -273,7 +273,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_indigo"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_indigo_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -287,7 +287,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_lavender"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_lavender_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -301,7 +301,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_sky_cyan"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_sky_cyan_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -315,7 +315,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_graphite"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_graphite_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -329,7 +329,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_baby_pink"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_baby_pink_round"
             android:targetActivity=".MainActivity">
             <intent-filter>
@@ -343,7 +343,7 @@
             android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_lime"
-            android:label="@string/app_name"
+            android:label="${launcherAppName}"
             android:roundIcon="@mipmap/ic_launcher_lime_round"
             android:targetActivity=".MainActivity">
             <intent-filter>

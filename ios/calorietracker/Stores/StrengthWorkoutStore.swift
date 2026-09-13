@@ -71,12 +71,30 @@ final class StrengthWorkoutStore {
 
     private let defaults: UserDefaults
     private let storageKey: String
+    private let stateBlob: PersistedBlobGuard
     private var liftSummaryCacheKey: String?
     private var liftSummaryCache: [String: String] = [:]
 
-    init(defaults: UserDefaults = .standard, storageKey: String = StrengthWorkoutStore.defaultStorageKey) {
+    /// Set when the persisted state was written by a build with a newer
+    /// schema. Unlike a corrupt blob (which is safe to replace once backed up)
+    /// this is the user's live data, so writes stay blocked for as long as it
+    /// is on disk — a backup copy does not make overwriting it acceptable.
+    private var hasUnsupportedPersistedState = false
+
+    /// True while the on-disk state must not be overwritten: either an
+    /// unreadable blob has no backup copy yet, or the blob was written by a
+    /// newer schema. Every mutation is refused up front in this state so
+    /// edits cannot appear to succeed and then vanish on the next launch.
+    var isPersistenceBlocked: Bool { stateBlob.isWriteBlocked || hasUnsupportedPersistedState }
+
+    init(
+        defaults: UserDefaults = .standard,
+        storageKey: String = StrengthWorkoutStore.defaultStorageKey,
+        corruptBackupDirectory: URL? = nil
+    ) {
         self.defaults = defaults
         self.storageKey = storageKey
+        self.stateBlob = PersistedBlobGuard(defaults: defaults, key: storageKey, backupDirectory: corruptBackupDirectory)
         load()
     }
 
@@ -120,21 +138,28 @@ final class StrengthWorkoutStore {
 
     /// Append the reviewed batch; stable draft IDs make retries idempotent.
     func addTextWorkout(_ draft: WorkoutTextDraft, library: [ExerciseLibraryItem]) throws {
+        guard !isPersistenceBlocked else { throw WorkoutTextError.invalid(Self.persistenceBlockedMessage) }
         let additions = try draft.planned(library: library)
         guard let date = Self.date(for: draft.date) else { throw WorkoutTextError.invalid("Choose a valid date.") }
         let known = Set(customActivities.map(\.itemID))
-        customActivities.append(contentsOf: additions.filter {
+        let newActivities = additions.filter {
             $0.itemID.hasPrefix("custom_activity_") && !known.contains($0.itemID)
         }.map { item in
             var template = item
             template.sets = []
             template.timer = nil
             return template
-        })
-        updatePlan(for: date) { plan in
-            let existing = Set(plan.exercises.map(\.id))
-            plan.exercises.append(contentsOf: additions.filter { !existing.contains($0.id) })
         }
+        var invalidatedBurnIDs: [UUID] = []
+        let committed = commit {
+            customActivities.append(contentsOf: newActivities)
+            invalidatedBurnIDs = applyPlanMutation(for: date) { plan in
+                let existing = Set(plan.exercises.map(\.id))
+                plan.exercises.append(contentsOf: additions.filter { !existing.contains($0.id) })
+            }
+        }
+        guard committed else { throw WorkoutTextError.invalid(Self.persistenceBlockedMessage) }
+        for id in invalidatedBurnIDs { onWorkoutBurnDeleted?(id) }
     }
 
     func toggleExercise(_ item: ExerciseLibraryItem, on date: Date) {
@@ -149,12 +174,14 @@ final class StrengthWorkoutStore {
 
     @discardableResult
     func saveUserExercise(_ draft: UserExerciseDraft, existingItemID: String? = nil) -> ExerciseLibraryItem? {
+        guard !isPersistenceBlocked else { return nil }
         let trimmedName = draft.trimmedName
         guard !trimmedName.isEmpty else { return nil }
 
         let itemID = existingItemID ?? UserExercise.newID()
         var imagePaths = userExercises.first(where: { $0.itemID == itemID })?.imagePaths ?? []
         var orphanCandidates: [String] = []
+        var newPhotoFilename: String?
 
         if draft.removePhoto {
             orphanCandidates.append(contentsOf: imagePaths)
@@ -165,6 +192,7 @@ final class StrengthWorkoutStore {
            let filename = FoodImageStore.shared.storeExercisePhoto(data: photoData) {
             orphanCandidates.append(contentsOf: imagePaths)
             imagePaths = [filename]
+            newPhotoFilename = filename
         }
 
         let item = draft.libraryItem(id: itemID, imagePaths: imagePaths)
@@ -172,12 +200,18 @@ final class StrengthWorkoutStore {
         template.sets = []
         template.timer = nil
 
-        if let index = userExercises.firstIndex(where: { $0.itemID == itemID }) {
-            userExercises[index] = template
-        } else {
-            userExercises.append(template)
+        let committed = commit {
+            if let index = userExercises.firstIndex(where: { $0.itemID == itemID }) {
+                userExercises[index] = template
+            } else {
+                userExercises.append(template)
+            }
         }
-        save()
+        guard committed else {
+            // The exercise was rolled back, so the photo stored for it is an orphan.
+            if let newPhotoFilename { FoodImageStore.shared.delete(filename: newPhotoFilename) }
+            return nil
+        }
         orphanCandidates
             .filter { !referencesUserExerciseImage($0) }
             .forEach { FoodImageStore.shared.delete(filename: $0) }
@@ -185,11 +219,13 @@ final class StrengthWorkoutStore {
     }
 
     func deleteUserExercise(itemID: String) {
-        guard UserExercise.isUserExercise(itemID) else { return }
+        guard !isPersistenceBlocked, UserExercise.isUserExercise(itemID) else { return }
         let orphanCandidates = userExercises.first(where: { $0.itemID == itemID })?.imagePaths ?? []
-        userExercises.removeAll { $0.itemID == itemID }
-        savedExerciseIDs.remove(itemID)
-        save()
+        let committed = commit {
+            userExercises.removeAll { $0.itemID == itemID }
+            savedExerciseIDs.remove(itemID)
+        }
+        guard committed else { return }
         orphanCandidates
             .filter { !referencesUserExerciseImage($0) }
             .forEach { FoodImageStore.shared.delete(filename: $0) }
@@ -221,10 +257,11 @@ final class StrengthWorkoutStore {
     }
 
     func removeExercise(_ exerciseID: UUID, on date: Date) {
+        guard !isPersistenceBlocked else { return }
         let removedPaths = exercises(for: date).first(where: { $0.id == exerciseID })?.imagePaths ?? []
-        updatePlan(for: date) { plan in
+        guard updatePlan(for: date, mutate: { plan in
             plan.exercises.removeAll { $0.id == exerciseID }
-        }
+        }) else { return }
         removedPaths
             .filter { !referencesUserExerciseImage($0) }
             .forEach { FoodImageStore.shared.delete(filename: $0) }
@@ -271,12 +308,13 @@ final class StrengthWorkoutStore {
     }
 
     func toggleSaved(_ itemID: String) {
-        if savedExerciseIDs.contains(itemID) {
-            savedExerciseIDs.remove(itemID)
-        } else {
-            savedExerciseIDs.insert(itemID)
+        commit {
+            if savedExerciseIDs.contains(itemID) {
+                savedExerciseIDs.remove(itemID)
+            } else {
+                savedExerciseIDs.insert(itemID)
+            }
         }
-        save()
     }
 
     func updateTimer(
@@ -385,6 +423,7 @@ final class StrengthWorkoutStore {
         elapsedSeconds: Int,
         weightUnit: WeightUnit
     ) -> StrengthWorkoutSession? {
+        guard !isPersistenceBlocked else { return nil }
         let planned = exercises(for: date)
         guard !planned.isEmpty else { return nil }
 
@@ -397,8 +436,7 @@ final class StrengthWorkoutStore {
             durationSeconds: max(1, elapsedSeconds),
             exercises: logs
         )
-        completedSessions.append(session)
-        save()
+        guard commit({ completedSessions.append(session) }) else { return nil }
         return session
     }
 
@@ -412,6 +450,7 @@ final class StrengthWorkoutStore {
         weightUnit: WeightUnit,
         calculatedAt: Date = .now
     ) -> StrengthWorkoutSession? {
+        guard !isPersistenceBlocked else { return nil }
         let planned = exercises(for: date)
         let logs = completedExerciseLogs(from: planned, weightUnit: weightUnit)
         guard planned.contains(where: {
@@ -438,11 +477,15 @@ final class StrengthWorkoutStore {
 
         // Keep timer-era completed sessions intact. The burn calculator owns
         // only the single daily burn snapshot it previously created.
-        completedSessions.removeAll {
-            $0.stableDiaryDateKey == key && $0.caloriesBurned != nil
+        // Health only hears about the burn once it is durably stored, so a
+        // refused save cannot leave a sample with no diary record behind it.
+        let committed = commit {
+            completedSessions.removeAll {
+                $0.stableDiaryDateKey == key && $0.caloriesBurned != nil
+            }
+            completedSessions.append(session)
         }
-        completedSessions.append(session)
-        save()
+        guard committed else { return nil }
         for duplicate in existingBurns.dropFirst() where duplicate.id != session.id {
             onWorkoutBurnDeleted?(duplicate.id)
         }
@@ -474,11 +517,11 @@ final class StrengthWorkoutStore {
     }
 
     func deleteSession(_ id: UUID) {
+        guard !isPersistenceBlocked else { return }
         let deletedBurnID = completedSessions.first {
             $0.id == id && $0.caloriesBurned != nil
         }?.id
-        completedSessions.removeAll { $0.id == id }
-        save()
+        guard commit({ completedSessions.removeAll { $0.id == id } }) else { return }
         if let deletedBurnID { onWorkoutBurnDeleted?(deletedBurnID) }
     }
 
@@ -486,42 +529,37 @@ final class StrengthWorkoutStore {
     /// This merge never fires write callbacks, so imported samples are not
     /// echoed back to Apple Health.
     func importWorkoutBurnSessions(_ imported: [StrengthWorkoutSession]) {
-        guard !imported.isEmpty else { return }
+        guard !isPersistenceBlocked, !imported.isEmpty else { return }
+        var merged = completedSessions
         var changed = false
 
         for session in imported where session.caloriesBurned != nil {
-            if let index = completedSessions.firstIndex(where: { $0.id == session.id }) {
-                let localVersion = completedSessions[index].healthSyncVersion ?? 0
+            if let index = merged.firstIndex(where: { $0.id == session.id }) {
+                let localVersion = merged[index].healthSyncVersion ?? 0
                 let importedVersion = session.healthSyncVersion ?? 0
                 if importedVersion > localVersion {
-                    completedSessions[index] = mergedBurnSession(
-                        local: completedSessions[index],
-                        imported: session
-                    )
+                    merged[index] = mergedBurnSession(local: merged[index], imported: session)
                     changed = true
                 }
                 continue
             }
 
-            if let sameDay = completedSessions.firstIndex(where: {
+            if let sameDay = merged.firstIndex(where: {
                 $0.stableDiaryDateKey == session.stableDiaryDateKey && $0.caloriesBurned != nil
             }) {
-                let localVersion = completedSessions[sameDay].healthSyncVersion ?? 0
+                let localVersion = merged[sameDay].healthSyncVersion ?? 0
                 let importedVersion = session.healthSyncVersion ?? 0
                 if importedVersion > localVersion {
-                    completedSessions[sameDay] = mergedBurnSession(
-                        local: completedSessions[sameDay],
-                        imported: session
-                    )
+                    merged[sameDay] = mergedBurnSession(local: merged[sameDay], imported: session)
                     changed = true
                 }
             } else {
-                completedSessions.append(session)
+                merged.append(session)
                 changed = true
             }
         }
 
-        if changed { save() }
+        if changed { commit { completedSessions = merged } }
     }
 
     /// Apple Health stores the burn value and stable identity, not the diary's
@@ -545,22 +583,26 @@ final class StrengthWorkoutStore {
     }
 
     func updatePreferences(_ mutate: (inout StrengthWorkoutPreferences) -> Void) {
-        mutate(&preferences)
-        preferences.sanitize()
-        save()
+        commit {
+            mutate(&preferences)
+            preferences.sanitize()
+        }
     }
 
+    /// Re-reads the persisted state (e.g. after a cloud restore). Memory is
+    /// only replaced by what was actually read: a missing key empties the
+    /// store, a decoded blob replaces it, and a corrupt or newer-schema blob
+    /// leaves the current in-memory diary untouched.
     func reloadFromDefaults() {
-        dayPlans = [:]
-        completedSessions = []
-        savedExerciseIDs = []
-        customActivities = []
-        userExercises = []
-        preferences = StrengthWorkoutPreferences()
         load()
     }
 
+    /// Explicit user action: wipes the diary. The persisted blob is removed
+    /// first so that, if the guard refuses (a corrupt blob still has no
+    /// backup), neither memory nor the exercise photos are touched.
     func clearAll() {
+        guard stateBlob.remove() else { return }
+        hasUnsupportedPersistedState = false
         dayPlans = [:]
         completedSessions = []
         savedExerciseIDs = []
@@ -570,10 +612,23 @@ final class StrengthWorkoutStore {
         }
         userExercises = []
         preferences = StrengthWorkoutPreferences()
-        defaults.removeObject(forKey: storageKey)
     }
 
-    private func updatePlan(for date: Date, mutate: (inout StrengthWorkoutDayPlan) -> Void) {
+    /// Returns `false` (leaving memory untouched) when persistence is blocked
+    /// or the write was refused.
+    @discardableResult
+    private func updatePlan(for date: Date, mutate: (inout StrengthWorkoutDayPlan) -> Void) -> Bool {
+        var invalidatedBurnIDs: [UUID] = []
+        guard commit({ invalidatedBurnIDs = applyPlanMutation(for: date, mutate: mutate) }) else { return false }
+        for id in invalidatedBurnIDs { onWorkoutBurnDeleted?(id) }
+        return true
+    }
+
+    /// In-memory half of `updatePlan`. Must run inside `commit` so the change
+    /// is rolled back if it cannot be persisted. Returns the ids of burn
+    /// records the edit invalidated; the caller reports them to Health only
+    /// once the removal is durable.
+    private func applyPlanMutation(for date: Date, mutate: (inout StrengthWorkoutDayPlan) -> Void) -> [UUID] {
         let key = Self.dateKey(for: date)
         var plan = dayPlans[key] ?? StrengthWorkoutDayPlan(dateKey: key)
         let previousTimerInputs = savedTimerBurnInputs(in: plan)
@@ -587,19 +642,14 @@ final class StrengthWorkoutStore {
         // The explicit Calculate action owns daily burn snapshots. Changing
         // their saved timer inputs invalidates both the local estimate and its
         // Health sample; otherwise discarded time would keep counting forever.
-        let invalidatedBurnIDs: [UUID]
-        if previousTimerInputs != savedTimerBurnInputs(in: plan) {
-            invalidatedBurnIDs = completedSessions.filter {
-                $0.stableDiaryDateKey == key && $0.caloriesBurned != nil
-            }.map(\.id)
-            completedSessions.removeAll {
-                $0.stableDiaryDateKey == key && $0.caloriesBurned != nil
-            }
-        } else {
-            invalidatedBurnIDs = []
+        guard previousTimerInputs != savedTimerBurnInputs(in: plan) else { return [] }
+        let invalidatedBurnIDs = completedSessions.filter {
+            $0.stableDiaryDateKey == key && $0.caloriesBurned != nil
+        }.map(\.id)
+        completedSessions.removeAll {
+            $0.stableDiaryDateKey == key && $0.caloriesBurned != nil
         }
-        save()
-        for id in invalidatedBurnIDs { onWorkoutBurnDeleted?(id) }
+        return invalidatedBurnIDs
     }
 
     private struct SavedTimerBurnInput: Equatable {
@@ -689,17 +739,52 @@ final class StrengthWorkoutStore {
     }
 
     private func load() {
-        guard let data = defaults.data(forKey: storageKey),
-              let state = try? JSONDecoder().decode(PersistedState.self, from: data),
-              state.version == 1
-        else { return }
+        let state: PersistedState
+        switch stateBlob.loadValue(PersistedState.self) {
+        case .missing:
+            hasUnsupportedPersistedState = false
+            resetInMemoryState()
+            return
+        case .corrupt:
+            // Backed up by the guard (or write-blocked until it is). Keep
+            // whatever is in memory: it is either the fresh defaults on first
+            // load or the last good state during a reload.
+            return
+        case .decoded(let decoded, _):
+            state = decoded
+        }
+        guard state.version == 1 else {
+            // Written by a build with a newer schema. Copy it aside for good
+            // measure, but the real protection is the persistent write block:
+            // this build must never save its own (older, here empty) state
+            // over data the user created in a newer one.
+            hasUnsupportedPersistedState = true
+            stateBlob.quarantineCurrentBlob(reason: "unsupported workout state version \(state.version)")
+            return
+        }
+        hasUnsupportedPersistedState = false
+        apply(state)
+        preferences.sanitize()
+    }
+
+    private var currentState: PersistedState {
+        PersistedState(
+            dayPlans: dayPlans,
+            completedSessions: completedSessions,
+            savedExerciseIDs: savedExerciseIDs,
+            preferences: preferences,
+            customActivities: customActivities,
+            userExercises: userExercises
+        )
+    }
+
+    private func apply(_ state: PersistedState) {
         dayPlans = state.dayPlans
         completedSessions = state.completedSessions
         savedExerciseIDs = state.savedExerciseIDs
         customActivities = state.customActivities ?? []
         userExercises = state.userExercises ?? []
         preferences = state.preferences
-        preferences.sanitize()
     }
 
     private var liftSummaryHistoryToken: Int {
@@ -714,17 +799,36 @@ final class StrengthWorkoutStore {
         }
     }
 
-    private func save() {
-        let state = PersistedState(
-            dayPlans: dayPlans,
-            completedSessions: completedSessions,
-            savedExerciseIDs: savedExerciseIDs,
-            preferences: preferences,
-            customActivities: customActivities,
-            userExercises: userExercises
-        )
-        guard let data = try? JSONEncoder().encode(state) else { return }
-        defaults.set(data, forKey: storageKey)
+    private func resetInMemoryState() {
+        apply(PersistedState())
+    }
+
+    static let persistenceBlockedMessage =
+        "Your saved workout history is being protected and can't be changed right now. Update Fud AI to the latest version or restart the app and try again."
+
+    /// Applies `mutate` to memory and persists the result as one unit.
+    ///
+    /// The guard re-reads the on-disk blob at write time, so a save can still
+    /// be refused after the up-front `isPersistenceBlocked` check passed (for
+    /// example when another process replaced the blob with bytes that cannot
+    /// be decoded and the backup copy failed). In that case every in-memory
+    /// change is rolled back, so the UI never shows an edit that would vanish
+    /// on the next launch. Returns `false` when nothing was changed.
+    @discardableResult
+    private func commit(_ mutate: () -> Void) -> Bool {
+        guard !isPersistenceBlocked else { return false }
+        let snapshot = currentState
+        mutate()
+        if save() { return true }
+        apply(snapshot)
+        return false
+    }
+
+    /// Returns `false` when the guard refused the write (a newer-schema blob is
+    /// on disk, or a corrupt one still has no backup copy).
+    private func save() -> Bool {
+        guard !hasUnsupportedPersistedState else { return false }
+        return stateBlob.save(currentState)
     }
 
     private static func decimalText(_ value: String) -> String {

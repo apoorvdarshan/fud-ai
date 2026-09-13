@@ -40,9 +40,12 @@ class WeightRepository(
     }
 
     suspend fun addEntry(entry: WeightEntry): WeightGoalReachedEvent? {
-        val current = prefs.weightEntries.first()
-        val previousLatest = current.maxByOrNull { it.date }
-        prefs.setWeightEntries(current + entry)
+        var latestBeforeAdd: WeightEntry? = null
+        prefs.updateWeightEntries { current ->
+            latestBeforeAdd = current.maxByOrNull { it.date }
+            current + entry
+        }
+        val previousLatest = latestBeforeAdd
 
         syncProfileWeightToLatest()
         if (shouldSyncHealth()) {
@@ -65,8 +68,7 @@ class WeightRepository(
     }
 
     suspend fun deleteEntry(id: UUID) {
-        val current = prefs.weightEntries.first()
-        prefs.setWeightEntries(current.filter { it.id != id })
+        prefs.updateWeightEntries { current -> current.filter { it.id != id } }
         syncProfileWeightToLatest()
         // Delete the HC record even when sync is off (iOS parity, best-effort) —
         // a surviving fudai-tagged record would resurrect through the own-record
@@ -118,17 +120,24 @@ class WeightRepository(
                 )
             }
         if (incoming.isEmpty()) return
-        val byId = prefs.weightEntries.first().associateBy { it.id }.toMutableMap()
         var changed = false
-        for (entry in incoming) {
-            val existing = byId[entry.id]
-            if (existing == null || abs(existing.weightKg - entry.weightKg) > 0.0001 || existing.date != entry.date) {
-                byId[entry.id] = entry
-                changed = true
+        prefs.updateWeightEntries { current ->
+            // associateBy keeps the last duplicate id, so a history that already
+            // holds the same id twice collapses instead of failing the import.
+            val byId = current.associateBy { it.id }.toMutableMap()
+            // Persist the collapse even if every incoming value already matches,
+            // otherwise the duplicate survives and keeps skewing the trend math.
+            if (byId.size != current.size) changed = true
+            for (entry in incoming) {
+                val existing = byId[entry.id]
+                if (existing == null || abs(existing.weightKg - entry.weightKg) > 0.0001 || existing.date != entry.date) {
+                    byId[entry.id] = entry
+                    changed = true
+                }
             }
+            if (changed) byId.values.sortedBy { it.date } else current
         }
         if (!changed) return
-        prefs.setWeightEntries(byId.values.sortedBy { it.date })
         syncProfileWeightToLatest()
     }
 

@@ -39,8 +39,7 @@ class BodyFatRepository(
     }
 
     suspend fun addEntry(entry: BodyFatEntry) {
-        val current = prefs.bodyFatEntries.first()
-        prefs.setBodyFatEntries(current + entry)
+        prefs.updateBodyFatEntries { current -> current + entry }
         syncProfileBodyFatToLatest()
         if (shouldSyncHealth()) {
             health?.writeBodyFat(entry)
@@ -48,8 +47,7 @@ class BodyFatRepository(
     }
 
     suspend fun deleteEntry(id: UUID) {
-        val current = prefs.bodyFatEntries.first()
-        prefs.setBodyFatEntries(current.filter { it.id != id })
+        prefs.updateBodyFatEntries { current -> current.filter { it.id != id } }
         syncProfileBodyFatToLatest()
         // Delete the HC record even when sync is off (iOS parity, best-effort) —
         // a surviving fudai-tagged record would resurrect through the own-record
@@ -93,17 +91,19 @@ class BodyFatRepository(
                 )
             }
         if (incoming.isEmpty()) return
-        val byId = prefs.bodyFatEntries.first().associateBy { it.id }.toMutableMap()
         var changed = false
-        for (entry in incoming) {
-            val existing = byId[entry.id]
-            if (existing == null || abs(existing.bodyFatFraction - entry.bodyFatFraction) > 0.0001 || existing.date != entry.date) {
-                byId[entry.id] = entry
-                changed = true
+        prefs.updateBodyFatEntries { current ->
+            val byId = current.associateBy { it.id }.toMutableMap()
+            for (entry in incoming) {
+                val existing = byId[entry.id]
+                if (existing == null || abs(existing.bodyFatFraction - entry.bodyFatFraction) > 0.0001 || existing.date != entry.date) {
+                    byId[entry.id] = entry
+                    changed = true
+                }
             }
+            if (changed) byId.values.sortedBy { it.date } else current
         }
         if (!changed) return
-        prefs.setBodyFatEntries(byId.values.sortedBy { it.date })
         syncProfileBodyFatToLatest()
     }
 

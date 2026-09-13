@@ -4,21 +4,39 @@ import Foundation
 final class FastingStore {
     private(set) var sessions: [FastingSession] = []
     var onSessionsChanged: (() -> Void)?
-    private let defaults: UserDefaults
+    private let sessionsBlob: PersistedBlobGuard
 
-    init(defaults: UserDefaults = .standard) {
-        self.defaults = defaults
-        guard let data = defaults.data(forKey: FastingSettings.sessionsKey),
-              let decoded = try? JSONDecoder().decode([FastingSession].self, from: data) else { return }
-        sessions = decoded.sorted { $0.startedAt < $1.startedAt }
+    /// True while an unreadable blob is on disk without a backup copy.
+    var isPersistenceBlocked: Bool { sessionsBlob.isWriteBlocked }
+
+    init(defaults: UserDefaults = .standard, corruptBackupDirectory: URL? = nil) {
+        self.sessionsBlob = PersistedBlobGuard(
+            defaults: defaults,
+            key: FastingSettings.sessionsKey,
+            backupDirectory: corruptBackupDirectory
+        )
+        load(isInitialLoad: true)
     }
 
+    private func load(isInitialLoad: Bool) {
+        switch sessionsBlob.loadList(FastingSession.self) {
+        case .missing:
+            sessions = []
+        case .decoded(let decoded, _):
+            sessions = decoded.sorted { $0.startedAt < $1.startedAt }
+        case .corrupt:
+            if isInitialLoad { sessions = [] }
+        }
+    }
+
+    /// Same lenient row-wise decode as `load`, so one unreadable row cannot
+    /// make this report "no active fast" while `activeSession` still has one.
     static func persistedActiveSession(defaults: UserDefaults = .standard) -> FastingSession? {
         guard let data = defaults.data(forKey: FastingSettings.sessionsKey),
-              let decoded = try? JSONDecoder().decode([FastingSession].self, from: data) else {
+              let decoded = PersistedBlobGuard.decodeListLeniently(FastingSession.self, from: data) else {
             return nil
         }
-        return decoded.last(where: \.isActive)
+        return decoded.items.sorted { $0.startedAt < $1.startedAt }.last(where: \.isActive)
     }
 
     var activeSession: FastingSession? {
@@ -27,6 +45,7 @@ final class FastingStore {
 
     @discardableResult
     func start(goalMinutes: Int, at date: Date = .now) -> FastingSession? {
+        guard !isPersistenceBlocked else { return nil }
         guard activeSession == nil else { return nil }
         let session = FastingSession(startedAt: date, goalMinutes: goalMinutes)
         guard !overlapsExistingSession(session) else { return nil }
@@ -37,6 +56,7 @@ final class FastingStore {
 
     @discardableResult
     func endActive(at date: Date = .now) -> FastingSession? {
+        guard !isPersistenceBlocked else { return nil }
         guard let active = activeSession,
               let index = sessions.firstIndex(where: { $0.id == active.id }) else { return nil }
         sessions[index].endedAt = max(date, active.startedAt)
@@ -46,13 +66,14 @@ final class FastingStore {
     }
 
     func cancelActive() {
-        guard let active = activeSession else { return }
+        guard !isPersistenceBlocked, let active = activeSession else { return }
         sessions.removeAll { $0.id == active.id }
         save()
     }
 
     @discardableResult
     func update(_ session: FastingSession) -> Bool {
+        guard !isPersistenceBlocked else { return false }
         guard let index = sessions.firstIndex(where: { $0.id == session.id }) else { return false }
         var validated = session
         validated.goalMinutes = min(
@@ -74,6 +95,7 @@ final class FastingStore {
     }
 
     func delete(id: UUID) {
+        guard !isPersistenceBlocked else { return }
         sessions.removeAll { $0.id == id }
         save()
     }
@@ -83,25 +105,18 @@ final class FastingStore {
     }
 
     func reloadFromDefaults() {
-        guard let data = defaults.data(forKey: FastingSettings.sessionsKey),
-              let decoded = try? JSONDecoder().decode([FastingSession].self, from: data) else {
-            sessions = []
-            onSessionsChanged?()
-            return
-        }
-        sessions = decoded.sorted { $0.startedAt < $1.startedAt }
+        load(isInitialLoad: false)
         onSessionsChanged?()
     }
 
     func clear() {
+        guard sessionsBlob.remove() else { return }
         sessions = []
-        defaults.removeObject(forKey: FastingSettings.sessionsKey)
         onSessionsChanged?()
     }
 
     private func save() {
-        guard let data = try? JSONEncoder().encode(sessions) else { return }
-        defaults.set(data, forKey: FastingSettings.sessionsKey)
+        guard sessionsBlob.save(sessions) else { return }
         onSessionsChanged?()
     }
 

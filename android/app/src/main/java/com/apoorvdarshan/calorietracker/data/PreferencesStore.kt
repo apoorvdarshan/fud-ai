@@ -2,13 +2,14 @@ package com.apoorvdarshan.calorietracker.data
 
 import com.apoorvdarshan.calorietracker.models.OpenRouterReasoningEffort
 import android.content.Context
+import android.util.Log
+import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.core.stringSetPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import com.apoorvdarshan.calorietracker.models.AddMenuConfig
 import com.apoorvdarshan.calorietracker.models.AIProvider
 import com.apoorvdarshan.calorietracker.models.AutoBalanceMacro
@@ -40,13 +41,13 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.SetSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.json.Json
-
-val Context.fudaiDataStore by preferencesDataStore(name = "fudai_prefs")
+import java.io.File
 
 @Serializable
 private data class HealthEnergyGoalTargetSnapshot(
@@ -96,8 +97,85 @@ class PreferencesStore(
     private val isLocalWhisperExecutable: () -> Boolean = { false }
 ) : WorkoutStateStore, NutritionSyncStore {
 
-    private val json = Json { ignoreUnknownKeys = true }
+    // coerceInputValues: an enum value this build does not know (e.g. a meal
+    // type added by a newer release) falls back to the property default
+    // instead of failing the whole row.
+    private val json = Json {
+        ignoreUnknownKeys = true
+        coerceInputValues = true
+    }
     private val ds get() = context.fudaiDataStore
+    private val corruptArchive by lazy {
+        CorruptBlobArchive(File(context.filesDir, CorruptBlobArchive.DIRECTORY_NAME))
+    }
+
+    // -- Guarded JSON list persistence -----------------------------------
+    //
+    // Decode failures used to surface as `emptyList()`, and the next
+    // `first() + entry` write persisted `[entry]` over the user's history.
+    // Every list mutation now runs decode + transform + encode inside one
+    // DataStore transaction, and any blob that could not be (fully) decoded
+    // is copied aside before it is replaced.
+
+    private fun <T> jsonListFlow(key: Preferences.Key<String>, serializer: KSerializer<T>): Flow<List<T>> =
+        ds.data.map { prefs -> decodeList(prefs[key], serializer, key.name).itemsOrEmpty }
+
+    private fun <T> decodeList(raw: String?, serializer: KSerializer<T>, name: String): PersistedListDecode<T> {
+        val decoded = LenientJsonList.decode(json, serializer, raw)
+        when (decoded) {
+            is PersistedListDecode.Corrupt ->
+                Log.e(TAG, "Stored '$name' could not be decoded; showing empty until it is preserved on next write")
+            is PersistedListDecode.Decoded ->
+                if (decoded.dropped > 0) Log.w(TAG, "Dropped ${decoded.dropped} unreadable row(s) from '$name'")
+            PersistedListDecode.Missing -> Unit
+        }
+        return decoded
+    }
+
+    /**
+     * Atomically replaces the list under [key] with `transform(current)`.
+     * Runs inside a single `edit`, so concurrent callers cannot interleave a
+     * stale read with a write, and an unreadable blob is preserved (file
+     * first, in-store key as fallback) before being overwritten.
+     */
+    private suspend fun <T> updateJsonList(
+        key: Preferences.Key<String>,
+        serializer: KSerializer<T>,
+        transform: (List<T>) -> List<T>
+    ): List<T> {
+        var result: List<T> = emptyList()
+        ds.edit { prefs ->
+            val decoded = decodeList(prefs[key], serializer, key.name)
+            preserveIfUnreadable(prefs, key, decoded)
+            result = transform(decoded.itemsOrEmpty)
+            prefs[key] = json.encodeToString(ListSerializer(serializer), result)
+        }
+        return result
+    }
+
+    private fun preserveIfUnreadable(prefs: MutablePreferences, key: Preferences.Key<String>, decoded: PersistedListDecode<*>) {
+        if (!decoded.needsPreservation) return
+        preserveRaw(prefs, key, decoded.rawOrNull ?: return)
+    }
+
+    private fun preserveRaw(prefs: MutablePreferences, key: Preferences.Key<String>, raw: String) {
+        val file = corruptArchive.preserveText("${key.name}.json", raw)
+        if (file != null) {
+            Log.w(TAG, "Preserved unreadable '${key.name}' at ${file.absolutePath}")
+        } else {
+            // Same transaction as the overwrite, so the bytes survive even when
+            // the file copy fails.
+            val backupKey = stringPreferencesKey(CorruptBlobArchive.backupName(key.name))
+            prefs[backupKey] = raw
+            Log.w(TAG, "Preserved unreadable '${key.name}' under '${backupKey.name}'")
+        }
+    }
+
+    /** Single-value variant: back up an unreadable blob before replacing it. */
+    private fun <T> preserveIfUndecodable(prefs: MutablePreferences, key: Preferences.Key<String>, serializer: KSerializer<T>) {
+        val raw = prefs[key] ?: return
+        if (runCatching { json.decodeFromString(serializer, raw) }.isFailure) preserveRaw(prefs, key, raw)
+    }
     private val fallbackBaseUrlMigrationMutex = Mutex()
     @Volatile private var fallbackBaseUrlMigrationCompleted = false
 
@@ -107,7 +185,10 @@ class PreferencesStore(
     }
 
     suspend fun setUserProfile(profile: UserProfile) {
-        ds.edit { it[Keys.USER_PROFILE] = json.encodeToString(UserProfile.serializer(), profile) }
+        ds.edit {
+            preserveIfUndecodable(it, Keys.USER_PROFILE, UserProfile.serializer())
+            it[Keys.USER_PROFILE] = json.encodeToString(UserProfile.serializer(), profile)
+        }
     }
 
     // -- Onboarding -------------------------------------------------------
@@ -174,15 +255,14 @@ class PreferencesStore(
     val waterReminderHour: Flow<Int> = ds.data.map { it[Keys.WATER_REMINDER_HOUR] ?: 14 }
     val waterReminderMinute: Flow<Int> = ds.data.map { it[Keys.WATER_REMINDER_MINUTE] ?: 0 }
 
-    val waterEntries: Flow<List<WaterEntry>> = ds.data.map { prefs ->
-        prefs[Keys.WATER_ENTRIES]?.let {
-            runCatching { json.decodeFromString(ListSerializer(WaterEntry.serializer()), it) }.getOrNull()
-        } ?: emptyList()
-    }
+    val waterEntries: Flow<List<WaterEntry>> = jsonListFlow(Keys.WATER_ENTRIES, WaterEntry.serializer())
 
     suspend fun setWaterEntries(entries: List<WaterEntry>) {
-        ds.edit { it[Keys.WATER_ENTRIES] = json.encodeToString(ListSerializer(WaterEntry.serializer()), entries) }
+        updateWaterEntries { entries }
     }
+
+    suspend fun updateWaterEntries(transform: (List<WaterEntry>) -> List<WaterEntry>): List<WaterEntry> =
+        updateJsonList(Keys.WATER_ENTRIES, WaterEntry.serializer(), transform)
 
     // -- Fasting tracking -----------------------------------------------
     val fastingTrackingEnabled: Flow<Boolean> = ds.data.map { it[Keys.FASTING_TRACKING_ENABLED] ?: false }
@@ -205,15 +285,14 @@ class PreferencesStore(
         ds.edit { it[Keys.FASTING_GOAL_NOTIFICATION_ENABLED] = v }
     }
 
-    val fastingSessions: Flow<List<FastingSession>> = ds.data.map { prefs ->
-        prefs[Keys.FASTING_SESSIONS]?.let {
-            runCatching { json.decodeFromString(ListSerializer(FastingSession.serializer()), it) }.getOrNull()
-        } ?: emptyList()
-    }
+    val fastingSessions: Flow<List<FastingSession>> = jsonListFlow(Keys.FASTING_SESSIONS, FastingSession.serializer())
 
     suspend fun setFastingSessions(sessions: List<FastingSession>) {
-        ds.edit { it[Keys.FASTING_SESSIONS] = json.encodeToString(ListSerializer(FastingSession.serializer()), sessions) }
+        updateFastingSessions { sessions }
     }
+
+    suspend fun updateFastingSessions(transform: (List<FastingSession>) -> List<FastingSession>): List<FastingSession> =
+        updateJsonList(Keys.FASTING_SESSIONS, FastingSession.serializer(), transform)
 
     /// Last app version a "new update" notification was posted for — so it fires at most once per
     /// version even though the update check runs on every launch.
@@ -494,6 +573,7 @@ class PreferencesStore(
 
     override suspend fun setWorkoutState(state: WorkoutPersistedState) {
         ds.edit {
+            preserveIfUndecodable(it, Keys.WORKOUT_STATE, WorkoutPersistedState.serializer())
             it[Keys.WORKOUT_STATE] = json.encodeToString(
                 WorkoutPersistedState.serializer(),
                 state.sanitized()
@@ -548,6 +628,7 @@ class PreferencesStore(
     }
     suspend fun setOptionalNutrientGoals(goals: OptionalNutrientGoals) {
         ds.edit {
+            preserveIfUndecodable(it, Keys.OPTIONAL_NUTRIENT_GOALS, OptionalNutrientGoals.serializer())
             it[Keys.OPTIONAL_NUTRIENT_GOALS] =
                 json.encodeToString(OptionalNutrientGoals.serializer(), goals)
         }
@@ -982,20 +1063,38 @@ class PreferencesStore(
     }
 
     // -- Food entries -----------------------------------------------------
-    override val foodEntries: Flow<List<FoodEntry>> = ds.data.map { prefs ->
-        prefs[Keys.FOOD_ENTRIES]?.let {
-            runCatching { json.decodeFromString(ListSerializer(FoodEntry.serializer()), it) }.getOrNull()
-        } ?: emptyList()
+    override val foodEntries: Flow<List<FoodEntry>> =
+        jsonListFlow(Keys.FOOD_ENTRIES, FoodEntry.serializer()).flowOn(Dispatchers.Default)
+
+    /**
+     * Whether the stored food log is currently unreadable. A `true` here means
+     * [foodEntries] is emitting an empty list for a diary that still exists on
+     * disk; the next mutation preserves the raw blob before replacing it.
+     */
+    val foodEntriesCorrupt: Flow<Boolean> = ds.data.map { prefs ->
+        LenientJsonList.decode(json, FoodEntry.serializer(), prefs[Keys.FOOD_ENTRIES]) is PersistedListDecode.Corrupt
     }.flowOn(Dispatchers.Default)
 
     suspend fun setFoodEntries(entries: List<FoodEntry>) {
-        ds.edit { it[Keys.FOOD_ENTRIES] = json.encodeToString(ListSerializer(FoodEntry.serializer()), entries) }
+        updateFoodEntries { entries }
     }
+
+    /**
+     * Decode + mutate + encode the food log in one DataStore transaction.
+     * Repositories must use this instead of `foodEntries.first()` followed by
+     * [setFoodEntries]: a decode failure on the read side would otherwise
+     * turn "append one entry" into "replace the diary with one entry".
+     */
+    suspend fun updateFoodEntries(transform: (List<FoodEntry>) -> List<FoodEntry>): List<FoodEntry> =
+        updateJsonList(Keys.FOOD_ENTRIES, FoodEntry.serializer(), transform)
 
     // Keep this ledger after local deletion so repeat imports never resurrect removed meals.
     private val nutritionImportLedgerKey = stringPreferencesKey("healthNutritionImportedKeys")
+    private val ledgerSerializer = SetSerializer(String.serializer())
     val nutritionImportedKeys: Flow<Set<String>> = ds.data.map {
-        it[nutritionImportLedgerKey]?.let { raw -> json.decodeFromString<Set<String>>(raw) } ?: emptySet()
+        it[nutritionImportLedgerKey]?.let { raw ->
+            runCatching { json.decodeFromString(ledgerSerializer, raw) }.getOrNull()
+        } ?: emptySet()
     }
 
     /** Commit the log and import ledger together, checking duplicates again after preview. */
@@ -1005,10 +1104,14 @@ class PreferencesStore(
     ): Int {
         var count = 0
         ds.edit { stored ->
-            val current = stored[Keys.FOOD_ENTRIES]?.let { json.decodeFromString<List<FoodEntry>>(it) }
-                ?: emptyList()
-            val ledger = stored[nutritionImportLedgerKey]?.let { json.decodeFromString<Set<String>>(it) }
-                ?: emptySet()
+            val decoded = decodeList(stored[Keys.FOOD_ENTRIES], FoodEntry.serializer(), Keys.FOOD_ENTRIES.name)
+            preserveIfUnreadable(stored, Keys.FOOD_ENTRIES, decoded)
+            val current = decoded.itemsOrEmpty
+            val storedLedger = stored[nutritionImportLedgerKey]
+            val ledger = storedLedger?.let { raw ->
+                runCatching { json.decodeFromString(ledgerSerializer, raw) }.getOrNull()
+                    ?: run { preserveRaw(stored, nutritionImportLedgerKey, raw); null }
+            } ?: emptySet()
             val merged = mergeNutritionImport(current, ledger, records, context.packageName, fallbackName)
             stored[Keys.FOOD_ENTRIES] = json.encodeToString(ListSerializer(FoodEntry.serializer()), merged.entries)
             stored[nutritionImportLedgerKey] = json.encodeToString(SetSerializer(String.serializer()), merged.ledger)
@@ -1033,15 +1136,14 @@ class PreferencesStore(
      * into [foodEntries]) so a favorite survives deletion of the original
      * log entry, AND so user-defined order is preserved across restarts.
      */
-    val favoriteFoodEntries: Flow<List<FoodEntry>> = ds.data.map { prefs ->
-        prefs[Keys.FAVORITE_ENTRIES]?.let {
-            runCatching { json.decodeFromString(ListSerializer(FoodEntry.serializer()), it) }.getOrNull()
-        } ?: emptyList()
-    }
+    val favoriteFoodEntries: Flow<List<FoodEntry>> = jsonListFlow(Keys.FAVORITE_ENTRIES, FoodEntry.serializer())
 
     suspend fun setFavoriteFoodEntries(entries: List<FoodEntry>) {
-        ds.edit { it[Keys.FAVORITE_ENTRIES] = json.encodeToString(ListSerializer(FoodEntry.serializer()), entries) }
+        updateFavoriteFoodEntries { entries }
     }
+
+    suspend fun updateFavoriteFoodEntries(transform: (List<FoodEntry>) -> List<FoodEntry>): List<FoodEntry> =
+        updateJsonList(Keys.FAVORITE_ENTRIES, FoodEntry.serializer(), transform)
 
     /**
      * Returns an atomic snapshot of every persisted food-image reference. A
@@ -1104,37 +1206,34 @@ class PreferencesStore(
     }
 
     // -- Weight entries ---------------------------------------------------
-    val weightEntries: Flow<List<WeightEntry>> = ds.data.map { prefs ->
-        prefs[Keys.WEIGHT_ENTRIES]?.let {
-            runCatching { json.decodeFromString(ListSerializer(WeightEntry.serializer()), it) }.getOrNull()
-        } ?: emptyList()
-    }
+    val weightEntries: Flow<List<WeightEntry>> = jsonListFlow(Keys.WEIGHT_ENTRIES, WeightEntry.serializer())
 
     suspend fun setWeightEntries(entries: List<WeightEntry>) {
-        ds.edit { it[Keys.WEIGHT_ENTRIES] = json.encodeToString(ListSerializer(WeightEntry.serializer()), entries) }
+        updateWeightEntries { entries }
     }
+
+    suspend fun updateWeightEntries(transform: (List<WeightEntry>) -> List<WeightEntry>): List<WeightEntry> =
+        updateJsonList(Keys.WEIGHT_ENTRIES, WeightEntry.serializer(), transform)
 
     // -- Body fat entries --------------------------------------------------
-    val bodyFatEntries: Flow<List<BodyFatEntry>> = ds.data.map { prefs ->
-        prefs[Keys.BODY_FAT_ENTRIES]?.let {
-            runCatching { json.decodeFromString(ListSerializer(BodyFatEntry.serializer()), it) }.getOrNull()
-        } ?: emptyList()
-    }
+    val bodyFatEntries: Flow<List<BodyFatEntry>> = jsonListFlow(Keys.BODY_FAT_ENTRIES, BodyFatEntry.serializer())
 
     suspend fun setBodyFatEntries(entries: List<BodyFatEntry>) {
-        ds.edit { it[Keys.BODY_FAT_ENTRIES] = json.encodeToString(ListSerializer(BodyFatEntry.serializer()), entries) }
+        updateBodyFatEntries { entries }
     }
+
+    suspend fun updateBodyFatEntries(transform: (List<BodyFatEntry>) -> List<BodyFatEntry>): List<BodyFatEntry> =
+        updateJsonList(Keys.BODY_FAT_ENTRIES, BodyFatEntry.serializer(), transform)
 
     // -- Body measurement (circumference) entries --------------------------
-    val bodyMeasurements: Flow<List<BodyMeasurement>> = ds.data.map { prefs ->
-        prefs[Keys.BODY_MEASUREMENTS]?.let {
-            runCatching { json.decodeFromString(ListSerializer(BodyMeasurement.serializer()), it) }.getOrNull()
-        } ?: emptyList()
-    }
+    val bodyMeasurements: Flow<List<BodyMeasurement>> = jsonListFlow(Keys.BODY_MEASUREMENTS, BodyMeasurement.serializer())
 
     suspend fun setBodyMeasurements(entries: List<BodyMeasurement>) {
-        ds.edit { it[Keys.BODY_MEASUREMENTS] = json.encodeToString(ListSerializer(BodyMeasurement.serializer()), entries) }
+        updateBodyMeasurements { entries }
     }
+
+    suspend fun updateBodyMeasurements(transform: (List<BodyMeasurement>) -> List<BodyMeasurement>): List<BodyMeasurement> =
+        updateJsonList(Keys.BODY_MEASUREMENTS, BodyMeasurement.serializer(), transform)
 
     // -- Coach chat history ----------------------------------------------
     val chatHistory: Flow<List<ChatMessage>> = ds.data.map { prefs ->
@@ -1271,6 +1370,7 @@ class PreferencesStore(
     }
 
     companion object {
+        private const val TAG = "PreferencesStore"
         private const val CUSTOM_BASE_URL_PREFIX = "customBaseURL_"
         private const val FALLBACK_BASE_URL_PREFIX = "fallbackCustomBaseURL_"
         private const val MATCHING_SPEECH_PROVIDER_MIGRATION_VERSION = 1

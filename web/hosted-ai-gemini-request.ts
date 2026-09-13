@@ -101,13 +101,20 @@ function sanitizePart(value: unknown, path: string, budget: Budget, allowSystemO
   if (!isObject(value)) reject(path, "invalid_type");
   const allowed = allowSystemOnly
     ? ["text"]
-    : ["text", "inlineData", "functionCall", "functionResponse", "thoughtSignature"];
+    : ["text", "inlineData", "functionCall", "functionResponse", "thoughtSignature", "thought"];
   assertOnlyKeys(value, allowed, path);
 
-  const payloadKeys = Object.keys(value).filter((key) => key !== "thoughtSignature");
+  // `thought`/`thoughtSignature` are echo metadata Gemini attaches to model
+  // parts; the coach copies response parts verbatim into the next tool round,
+  // so they must survive sanitisation alongside exactly one payload.
+  const payloadKeys = Object.keys(value).filter((key) => key !== "thoughtSignature" && key !== "thought");
   if (payloadKeys.length !== 1) reject(path, "part_must_have_one_payload");
 
   const part: JsonObject = {};
+  if ("thought" in value) {
+    if (typeof value.thought !== "boolean") reject(`${path}.thought`, "invalid_type");
+    part.thought = value.thought;
+  }
   if ("text" in value) {
     const text = requireString(value.text, `${path}.text`, GEMINI_REQUEST_LIMITS.maxTotalTextChars);
     budget.textChars += text.length;

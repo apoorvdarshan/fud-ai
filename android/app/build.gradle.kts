@@ -31,6 +31,8 @@ android {
         targetSdk = 36
         versionCode = 35
         versionName = "7.0"
+        // Release uses localized @string/app_name; debug overrides to "Fud AI Debug".
+        manifestPlaceholders["launcherAppName"] = "@string/app_name"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -81,16 +83,19 @@ android {
         }
         debug {
             // Suffix the package + version so the debug build installs side-by-side
-            // with the production app pulled from Play Store. Launcher label stays
-            // "Fud AI" (same as release) — distinguish the two by the install order
-            // / icon position rather than a separate label.
+            // with the production app. Launcher label matches iOS Debug: "Fud AI Debug".
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
+            // Literal placeholder so locale app_name strings can't override the label.
+            manifestPlaceholders["launcherAppName"] = "Fud AI Debug"
+            resValue("string", "app_name", "Fud AI Debug")
         }
         create("debug2") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".debug2"
             versionNameSuffix = "-debug2"
+            manifestPlaceholders["launcherAppName"] = "Fud AI Debug 2"
+            resValue("string", "app_name", "Fud AI Debug 2")
         }
     }
     compileOptions {

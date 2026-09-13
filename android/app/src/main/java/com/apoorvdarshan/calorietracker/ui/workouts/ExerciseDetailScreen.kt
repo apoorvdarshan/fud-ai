@@ -259,33 +259,6 @@ private fun InstructionSection(
                 Text("${instructions.size}", color = colors.secondaryAccent, fontSize = 12.sp, fontWeight = FontWeight.Bold)
             }
         }
-        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-            instructions.forEachIndexed { index, instruction ->
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(18.dp))
-                        .background(colors.panel.copy(alpha = 0.16f))
-                        .border(0.5.dp, colors.hairline.copy(alpha = 0.20f), RoundedCornerShape(18.dp))
-                        .padding(14.dp),
-                    horizontalArrangement = Arrangement.spacedBy(13.dp)
-                ) {
-                    Box(
-                        Modifier.size(27.dp).shadow(6.dp, CircleShape, clip = false).clip(CircleShape).background(colors.accent),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text("${index + 1}", color = colors.onAccent, fontSize = 15.sp, fontWeight = FontWeight.Black)
-                    }
-                    Text(
-                        instruction,
-                        color = colors.charcoal.copy(alpha = 0.86f),
-                        fontSize = 16.sp,
-                        lineHeight = 22.sp,
-                        modifier = Modifier.weight(1f)
-                    )
-                }
-            }
-        }
 
         Row(
             Modifier
@@ -322,6 +295,34 @@ private fun InstructionSection(
                 )
             }
             Icon(Icons.AutoMirrored.Filled.OpenInNew, null, tint = colors.mutedText, modifier = Modifier.size(16.dp))
+        }
+
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            instructions.forEachIndexed { index, instruction ->
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(18.dp))
+                        .background(colors.panel.copy(alpha = 0.16f))
+                        .border(0.5.dp, colors.hairline.copy(alpha = 0.20f), RoundedCornerShape(18.dp))
+                        .padding(14.dp),
+                    horizontalArrangement = Arrangement.spacedBy(13.dp)
+                ) {
+                    Box(
+                        Modifier.size(27.dp).shadow(6.dp, CircleShape, clip = false).clip(CircleShape).background(colors.accent),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text("${index + 1}", color = colors.onAccent, fontSize = 15.sp, fontWeight = FontWeight.Black)
+                    }
+                    Text(
+                        instruction,
+                        color = colors.charcoal.copy(alpha = 0.86f),
+                        fontSize = 16.sp,
+                        lineHeight = 22.sp,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
         }
     }
 }

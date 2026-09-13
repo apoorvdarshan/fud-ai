@@ -1100,33 +1100,6 @@ private struct DetailInstructionSection: View {
                     .background(Color.workoutSecondaryAccent.opacity(0.12), in: Capsule())
             }
 
-            VStack(alignment: .leading, spacing: 10) {
-                ForEach(Array(instructions.enumerated()), id: \.offset) { index, instruction in
-                    HStack(alignment: .top, spacing: 13) {
-                        Text("\(index + 1)")
-                            .font(.subheadline.weight(.heavy))
-                            .monospacedDigit()
-                            .foregroundStyle(Color.workoutOnAccent)
-                            .frame(width: 27, height: 27)
-                            .background(Color.workoutAccent, in: Circle())
-                            .shadow(color: Color.workoutAccent.opacity(0.35), radius: 6, y: 2)
-
-                        Text(instruction)
-                            .font(.callout)
-                            .foregroundStyle(Color.workoutCharcoal.opacity(0.86))
-                            .lineSpacing(4)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .padding(14)
-                    .background(Color.workoutPanel.opacity(0.16), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 18, style: .continuous)
-                            .stroke(Color.workoutHairline.opacity(0.20), lineWidth: 0.5)
-                    }
-                }
-            }
-
             Button {
                 if let url = youtubeSearchURL(for: exerciseName) {
                     openURL(url)
@@ -1165,6 +1138,33 @@ private struct DetailInstructionSection: View {
             .buttonStyle(.plain)
             .workoutPressable()
             .accessibilityHint(String(localized: "Opens YouTube search — not an official Fud AI video"))
+
+            VStack(alignment: .leading, spacing: 10) {
+                ForEach(Array(instructions.enumerated()), id: \.offset) { index, instruction in
+                    HStack(alignment: .top, spacing: 13) {
+                        Text("\(index + 1)")
+                            .font(.subheadline.weight(.heavy))
+                            .monospacedDigit()
+                            .foregroundStyle(Color.workoutOnAccent)
+                            .frame(width: 27, height: 27)
+                            .background(Color.workoutAccent, in: Circle())
+                            .shadow(color: Color.workoutAccent.opacity(0.35), radius: 6, y: 2)
+
+                        Text(instruction)
+                            .font(.callout)
+                            .foregroundStyle(Color.workoutCharcoal.opacity(0.86))
+                            .lineSpacing(4)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .padding(14)
+                    .background(Color.workoutPanel.opacity(0.16), in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 18, style: .continuous)
+                            .stroke(Color.workoutHairline.opacity(0.20), lineWidth: 0.5)
+                    }
+                }
+            }
         }
     }
 

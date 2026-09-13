@@ -67,15 +67,23 @@ data class OnboardingState(
     /** PLAN_READY is the final step (the old Rate-fud review step was removed). */
     val isLastStep: Boolean get() = step == OnboardingStep.PLAN_READY
 
+    /** True once BYOK fields satisfy the same gate as pre-choice onboarding. */
+    val byokSetupComplete: Boolean
+        get() = !aiProvider.requiresApiKey || apiKey.trim().isNotEmpty()
+
     /** AI is required for goal calculation, so BYOK users must enter an API key before leaving
      *  the provider step (Ollama needs none). All other steps advance freely. */
     val canAdvance: Boolean get() = when (step) {
         OnboardingStep.PROVIDER -> when (aiPhase) {
             OnboardingAiPhase.CHOICE -> false
-            OnboardingAiPhase.BYOK -> !aiProvider.requiresApiKey || apiKey.trim().isNotEmpty()
+            OnboardingAiPhase.BYOK -> byokSetupComplete
         }
         else -> true
     }
+
+    /** When returning to the provider step, reopen BYOK if the user already configured it. */
+    fun aiPhaseForProviderStep(): OnboardingAiPhase =
+        if (byokSetupComplete) OnboardingAiPhase.BYOK else OnboardingAiPhase.CHOICE
 
     fun buildProfile(): UserProfile = UserProfile(
         gender = gender,
@@ -138,14 +146,13 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
         _ui.value = _ui.value.copy(healthConnectEnabled = v)
     }
     fun setAiProvider(p: AIProvider) {
-        // Persist immediately so the Building Plan AI call (which runs before onboarding
-        // completes) can resolve the provider/model. Reset to the provider's default model and
-        // reload that provider's stored key.
+        // Update state synchronously so a slow prefs write can't overwrite a key the user typed
+        // while the picker was open. Persist in the background for the Building Plan AI call.
+        val existing = container.keyStore.apiKey(p) ?: ""
+        _ui.value = _ui.value.copy(aiProvider = p, aiModel = p.defaultModel, apiKey = existing)
         viewModelScope.launch {
             container.prefs.setSelectedAIProvider(p)
             container.prefs.setSelectedAIModel(p.defaultModel)
-            val existing = container.keyStore.apiKey(p) ?: ""
-            _ui.value = _ui.value.copy(aiProvider = p, aiModel = p.defaultModel, apiKey = existing)
         }
     }
     fun setAiModel(m: String) {
@@ -161,7 +168,20 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
     }
 
     fun selectByokSetup() {
+        // Flip to BYOK immediately so the form and Continue CTA can react; hydrate from prefs/keystore next.
         _ui.value = _ui.value.copy(aiPhase = OnboardingAiPhase.BYOK)
+        viewModelScope.launch {
+            val provider = container.prefs.selectedAIProvider.first()
+            val storedModel = container.prefs.selectedAIModel.first()
+            val existing = container.keyStore.apiKey(provider) ?: ""
+            val current = _ui.value
+            if (current.aiPhase != OnboardingAiPhase.BYOK) return@launch
+            _ui.value = current.copy(
+                aiProvider = provider,
+                aiModel = provider.supportedModelOrDefault(storedModel),
+                apiKey = existing.ifEmpty { current.apiKey }
+            )
+        }
     }
     /** The single Imperial|Metric segmented control writes BOTH unit prefs coherently:
      *  Imperial -> ftin + lbs, Metric -> cm + kg. */
@@ -218,17 +238,29 @@ class OnboardingViewModel(private val container: AppContainer) : ViewModel() {
         // PLAN_READY's previous ordinal is BUILDING_PLAN, which auto-reruns AI and can
         // overwrite edited targets — skip it and return to PROVIDER instead.
         if (_ui.value.step == OnboardingStep.PLAN_READY) {
-            _ui.value = _ui.value.copy(step = OnboardingStep.PROVIDER, aiPhase = OnboardingAiPhase.CHOICE)
+            val state = _ui.value
+            _ui.value = state.copy(
+                step = OnboardingStep.PROVIDER,
+                aiPhase = state.aiPhaseForProviderStep()
+            )
             return
         }
         val prevStep = OnboardingStep.values().getOrNull(_ui.value.step.ordinal - 1) ?: return
         if (prevStep == OnboardingStep.BUILDING_PLAN) {
-            _ui.value = _ui.value.copy(step = OnboardingStep.PROVIDER, aiPhase = OnboardingAiPhase.CHOICE)
+            val state = _ui.value
+            _ui.value = state.copy(
+                step = OnboardingStep.PROVIDER,
+                aiPhase = state.aiPhaseForProviderStep()
+            )
             return
         }
         _ui.value = _ui.value.copy(
             step = prevStep,
-            aiPhase = if (prevStep == OnboardingStep.PROVIDER) OnboardingAiPhase.CHOICE else _ui.value.aiPhase
+            aiPhase = if (prevStep == OnboardingStep.PROVIDER) {
+                _ui.value.aiPhaseForProviderStep()
+            } else {
+                _ui.value.aiPhase
+            }
         )
     }
 

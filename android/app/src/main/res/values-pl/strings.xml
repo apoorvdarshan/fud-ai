@@ -264,9 +264,9 @@
     <string name="onboarding_ai_byok_card_title">Użyj własnego klucza</string>
     <string name="onboarding_ai_byok_card_subtitle">Za darmo na zawsze — bez limitu na twoim kluczu. Gemini, OpenAI, Groq i inne.</string>
     <string name="onboarding_ai_byok_badge">Polecane</string>
-    <string name="onboarding_ai_hosted_ios_card_title">Hostowane AI na iOS</string>
-    <string name="onboarding_ai_hosted_ios_card_subtitle">Subskrypcje Plus/Pro są dostępne na iPhone i iPad. Android używa BYOK.</string>
-    <string name="onboarding_ai_hosted_ios_note">Brak subskrypcji w Play Store — podłącz własny klucz AI, aby kontynuować.</string>
+    <string name="onboarding_ai_hosted_card_title">Hostowane AI</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Plany Plus lub Pro z dziennymi kredytami AI — bez klucza API.</string>
+    <string name="onboarding_ai_hosted_badge">Wkrótce</string>
     <string name="onboarding_provider_title">Skonfiguruj swoje AI</string>
     <string name="onboarding_provider_subtitle">Dodaj własny klucz dostawcy AI — aplikacja pozostaje darmowa.</string>
     <string name="onboarding_provider_recommended_title">Zalecane: Google Gemini</string>

@@ -261,9 +261,9 @@
     <string name="onboarding_ai_byok_card_title">自带密钥</string>
     <string name="onboarding_ai_byok_card_subtitle">永久免费 — 使用你的密钥无限制。Gemini、OpenAI、Groq 等。</string>
     <string name="onboarding_ai_byok_badge">推荐</string>
-    <string name="onboarding_ai_hosted_ios_card_title">iOS 托管 AI</string>
-    <string name="onboarding_ai_hosted_ios_card_subtitle">Plus/Pro 订阅可在 iPhone 和 iPad 上使用。Android 使用 BYOK。</string>
-    <string name="onboarding_ai_hosted_ios_note">无 Play Store 订阅 — 连接你自己的 AI 密钥以继续。</string>
+    <string name="onboarding_ai_hosted_card_title">托管 AI</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Plus 或 Pro 计划，每日 AI 额度 — 无需 API 密钥。</string>
+    <string name="onboarding_ai_hosted_badge">即将推出</string>
     <string name="onboarding_provider_title">设置你的 AI</string>
     <string name="onboarding_provider_subtitle">添加你自己的 AI 提供商密钥 — 应用保持免费。</string>
     <string name="onboarding_provider_recommended_title">推荐：Google Gemini</string>

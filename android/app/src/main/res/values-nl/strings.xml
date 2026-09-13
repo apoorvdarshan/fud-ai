@@ -262,9 +262,9 @@
     <string name="onboarding_ai_byok_card_title">Breng je eigen sleutel</string>
     <string name="onboarding_ai_byok_card_subtitle">Voor altijd gratis — onbeperkt op jouw sleutel. Gemini, OpenAI, Groq &amp; meer.</string>
     <string name="onboarding_ai_byok_badge">Aanbevolen</string>
-    <string name="onboarding_ai_hosted_ios_card_title">Gehoste AI op iOS</string>
-    <string name="onboarding_ai_hosted_ios_card_subtitle">Plus/Pro-abonnementen zijn beschikbaar op iPhone en iPad. Android gebruikt BYOK.</string>
-    <string name="onboarding_ai_hosted_ios_note">Geen Play Store-abonnement — koppel je eigen AI-sleutel om door te gaan.</string>
+    <string name="onboarding_ai_hosted_card_title">Gehoste AI</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Plus- of Pro-abonnementen met dagelijkse AI-tegoeden — geen API-sleutel nodig.</string>
+    <string name="onboarding_ai_hosted_badge">Binnenkort</string>
     <string name="onboarding_provider_title">Stel je AI in</string>
     <string name="onboarding_provider_subtitle">Voeg je eigen AI-providersleutel toe — de app blijft gratis.</string>
     <string name="onboarding_provider_recommended_title">Aanbevolen: Google Gemini</string>

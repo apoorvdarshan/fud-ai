@@ -266,9 +266,9 @@
     <string name="onboarding_ai_byok_card_title">أحضر مفتاحك الخاص</string>
     <string name="onboarding_ai_byok_card_subtitle">مجاني للأبد — غير محدود على مفتاحك. Gemini وOpenAI وGroq والمزيد.</string>
     <string name="onboarding_ai_byok_badge">موصى به</string>
-    <string name="onboarding_ai_hosted_ios_card_title">الذكاء الاصطناعي المستضاف على iOS</string>
-    <string name="onboarding_ai_hosted_ios_card_subtitle">اشتراكات Plus/Pro متاحة على iPhone وiPad. Android يستخدم BYOK.</string>
-    <string name="onboarding_ai_hosted_ios_note">لا يوجد اشتراك في Play Store — اربط مفتاح الذكاء الاصطناعي الخاص بك للمتابعة.</string>
+    <string name="onboarding_ai_hosted_card_title">الذكاء الاصطناعي المستضاف</string>
+    <string name="onboarding_ai_hosted_card_subtitle">خطط Plus أو Pro مع أرصدة ذكاء اصطناعي يومية — لا حاجة لمفتاح API.</string>
+    <string name="onboarding_ai_hosted_badge">قريبًا</string>
     <string name="onboarding_provider_title">إعداد الذكاء الاصطناعي الخاص بك</string>
     <string name="onboarding_provider_subtitle">أضف مفتاح مزود الذكاء الاصطناعي الخاص بك — التطبيق يبقى مجانيًا.</string>
     <string name="onboarding_provider_recommended_title">موصى به: Google Gemini</string>

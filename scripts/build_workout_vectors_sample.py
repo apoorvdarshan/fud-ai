@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-"""Copy the debug sample pack of workout frames into a build output directory.
+"""Copy the debug sample pack of workout frames into a directory.
 
-Used by the iOS "Copy Workout Vector Sample (Debug only)" run-script phase; the
-Android debug build does the equivalent copy in Gradle. The output directory
-ends up flat: `<name>.png` files plus `exercise-visual-manifest.json`.
+Android debug builds perform the equivalent copy in Gradle. On iOS the output can
+be dropped into the gitignored `ios/calorietracker/WorkoutVectorsSample/` folder,
+which the synchronized Xcode group picks up automatically for local Debug runs:
 
-    python3 scripts/build_workout_vectors_sample.py --output <dir> [--all]
+    python3 scripts/build_workout_vectors_sample.py --output ios/calorietracker/WorkoutVectorsSample
 
-`--all` copies the complete 7,000-frame corpus (local QA only; ~1.2 GB).
+`--all` copies the complete 7,000-frame corpus instead (local QA only; ~1.2 GB).
+The output contains only `<name>.png` frames; the manifest is already bundled.
 """
 
 from __future__ import annotations
@@ -20,7 +21,6 @@ from pathlib import Path
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 SHARED_DIRECTORY = REPOSITORY_ROOT / "shared" / "workout-vectors"
-MANIFEST = SHARED_DIRECTORY / "exercise-visual-manifest.json"
 SAMPLE_PACK_LIST = SHARED_DIRECTORY / "sample-pack.txt"
 GENDERS = ("male", "female")
 FRAME_COUNT = 4
@@ -58,23 +58,17 @@ def copy_if_changed(source: Path, destination: Path) -> bool:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--all", action="store_true", help="Copy every frame, not just the sample pack.")
-    parser.add_argument("--manifest-only", action="store_true", help="Copy only the manifest (release parity).")
     arguments = parser.parse_args()
 
     output: Path = arguments.output
     output.mkdir(parents=True, exist_ok=True)
 
-    wanted: list[Path] = [MANIFEST]
-    if not arguments.manifest_only:
-        if arguments.all:
-            wanted.extend(sorted(SHARED_DIRECTORY.glob("*_v2_*.png")))
-        else:
-            wanted.extend(sample_frame_files())
-
+    wanted = sorted(SHARED_DIRECTORY.glob("*_v2_*.png")) if arguments.all else sample_frame_files()
     wanted_names = {path.name for path in wanted}
+
     removed = 0
     for existing in output.iterdir():
         if existing.name not in wanted_names:
@@ -93,10 +87,7 @@ def main() -> int:
         print(f"error: {error}", file=sys.stderr)
         return 1
 
-    print(
-        f"workout vector sample: {len(wanted) - 1} frames + manifest in {output} "
-        f"(copied {copied}, removed {removed})"
-    )
+    print(f"workout vector sample: {len(wanted)} frames in {output} (copied {copied}, removed {removed})")
     return 0
 
 

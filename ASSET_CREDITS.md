@@ -2,7 +2,7 @@
 
 Exercise data, names, instructions, and the Free Exercise DB catalogue IDs in the Workouts tab come from the [Free Exercise DB](https://github.com/yuhonas/free-exercise-db) and are bundled locally under `ios/calorietracker/Resources/FreeExerciseDB/` (see its `LICENSE.md` and `README.md`). The Android app merges the same `exercises.json` from those iOS resources at build time.
 
-Workout illustration frames shown in the app (gender-aware transparent PNG sequences) are Fud AI–authored artwork, packaged from `shared/workout-vectors/` into the iOS asset catalog and Android assets. Upstream Free Exercise DB JPEG photos are not shipped; every catalogue exercise uses the illustrated set.
+Workout illustration frames shown in the app (gender-aware transparent PNG sequences) are Fud AI–authored artwork. The canonical frames live in `shared/workout-vectors/`; the apps bundle only the frame manifest and download individual frames on demand from Fud AI's asset CDN (see `shared/workout-vectors/README.md`). Upstream Free Exercise DB JPEG photos are not shipped; every catalogue exercise uses the illustrated set.
 
 Barcode product lookups are powered by the [Open Food Facts](https://world.openfoodfacts.org) database, queried live via its public API. Open Food Facts data is available under the [Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl/1-0/); the database is made by a community of contributors. Fud AI does not bundle the database — nutrition facts are fetched per scanned barcode.
 

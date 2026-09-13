@@ -47,6 +47,7 @@ IOS_MANIFEST = (
     / "exercise-visual-manifest.json"
 )
 SAMPLE_PACK_LIST = SHARED_DIRECTORY / "sample-pack.txt"
+IOS_DEVELOPER_SAMPLE = REPOSITORY_ROOT / "ios" / "calorietracker" / "WorkoutVectorsSample"
 FRAME_COUNT = 4
 FRAME_INDICES = tuple(range(FRAME_COUNT))
 GENDERS = ("male", "female")
@@ -350,6 +351,12 @@ def main() -> int:
     )
     if removed:
         print(f"removed {removed} generated frame imagesets from the iOS asset catalog")
+    if IOS_DEVELOPER_SAMPLE.is_dir():
+        print(
+            f"warning: {display_path(IOS_DEVELOPER_SAMPLE)} exists (gitignored developer "
+            "sample); delete it before archiving a release build",
+            file=sys.stderr,
+        )
     return 0
 
 

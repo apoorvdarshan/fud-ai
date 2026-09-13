@@ -291,7 +291,12 @@ internal enum class SettingsCategory(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: SettingsViewModel) {
+fun SettingsScreen(
+    container: AppContainer,
+    nav: NavHostController,
+    vm: SettingsViewModel,
+    popToRootTick: Int = 0
+) {
     val ui by vm.ui.collectAsState()
     val profile = ui.profile
     val latestMeasurement by container.bodyMeasurementRepository.latest.collectAsState(initial = null)
@@ -322,6 +327,11 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     var showCloudDeleteConfirm by remember { mutableStateOf(false) }
     var cloudBackupError by remember { mutableStateOf<String?>(null) }
     var selectedCategory by rememberSaveable { mutableStateOf<SettingsCategory?>(null) }
+    LaunchedEffect(popToRootTick) {
+        if (popToRootTick > 0) {
+            selectedCategory = null
+        }
+    }
     val settingsHomeScrollState = rememberScrollState()
     val settingsDetailScrollState = remember(selectedCategory) { ScrollState(initial = 0) }
     var pendingHealthPermissionAction by remember { mutableStateOf<HealthConnectPermissionAction?>(null) }

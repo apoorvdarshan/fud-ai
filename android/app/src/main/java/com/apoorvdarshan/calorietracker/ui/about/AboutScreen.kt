@@ -3,6 +3,7 @@ package com.apoorvdarshan.calorietracker.ui.about
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -28,6 +29,7 @@ import androidx.compose.material.icons.filled.AlternateEmail
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Work
 import androidx.compose.material.icons.filled.BugReport
+import androidx.compose.material.icons.filled.Business
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Description
@@ -36,12 +38,14 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Forum
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.StarRate
 import androidx.compose.material.icons.filled.Sync
 import androidx.compose.material.icons.filled.SystemUpdate
 import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.filled.Verified
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -172,6 +176,22 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
                 AboutRow(Icons.Filled.Code, stringResource(R.string.about_open_source)) {
                     open("https://github.com/apoorvdarshan/fud-ai")
                 }
+                Hairline()
+                AboutRow(
+                    Icons.Filled.Verified,
+                    stringResource(R.string.about_openssf_best_practices),
+                    subtitle = stringResource(R.string.about_openssf_best_practices_desc)
+                ) {
+                    open("https://www.bestpractices.dev/projects/14553")
+                }
+                Hairline()
+                AboutRow(
+                    Icons.Filled.Security,
+                    stringResource(R.string.about_openssf_scorecard),
+                    subtitle = stringResource(R.string.about_openssf_scorecard_desc)
+                ) {
+                    open("https://scorecard.dev/viewer/?uri=github.com/apoorvdarshan/fud-ai")
+                }
             }
 
             AboutSettingsCategory.SUPPORT -> {
@@ -229,6 +249,23 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
                 Hairline()
                 AboutRow(Icons.Filled.Description, stringResource(R.string.about_terms)) {
                     open("https://fud-ai.app/terms.html")
+                }
+                Hairline()
+                AboutRow(
+                    Icons.Filled.Business,
+                    stringResource(R.string.about_udyam),
+                    subtitle = stringResource(R.string.about_udyam_desc)
+                ) {
+                    open("https://udyamregistration.gov.in/")
+                }
+                Hairline()
+                AboutRow(
+                    iconRes = R.drawable.ace_cpt_mark,
+                    label = stringResource(R.string.about_ace),
+                    subtitle = stringResource(R.string.about_ace_desc),
+                    iconSize = 28.dp
+                ) {
+                    open("https://credentials.acefitness.org/d23fcb24-899b-4588-be1b-93298a039289")
                 }
                 Hairline()
                 AboutRow(
@@ -463,6 +500,56 @@ private fun AboutRow(
     trailing: (@Composable () -> Unit)? = null,
     onClick: () -> Unit
 ) {
+    AboutRow(
+        iconContent = {
+            Icon(
+                icon,
+                contentDescription = null,
+                tint = AppColors.Calorie,
+                modifier = Modifier.size(22.dp)
+            )
+        },
+        label = label,
+        subtitle = subtitle,
+        showDot = showDot,
+        trailing = trailing,
+        onClick = onClick
+    )
+}
+
+@Composable
+private fun AboutRow(
+    @DrawableRes iconRes: Int,
+    label: String,
+    subtitle: String? = null,
+    iconSize: androidx.compose.ui.unit.Dp = 22.dp,
+    onClick: () -> Unit
+) {
+    AboutRow(
+        iconContent = {
+            Image(
+                painter = painterResource(iconRes),
+                contentDescription = null,
+                modifier = Modifier
+                    .size(iconSize)
+                    .clip(RoundedCornerShape(4.dp))
+            )
+        },
+        label = label,
+        subtitle = subtitle,
+        onClick = onClick
+    )
+}
+
+@Composable
+private fun AboutRow(
+    iconContent: @Composable () -> Unit,
+    label: String,
+    subtitle: String? = null,
+    showDot: Boolean = false,
+    trailing: (@Composable () -> Unit)? = null,
+    onClick: () -> Unit
+) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -470,13 +557,8 @@ private fun AboutRow(
             .padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Box(Modifier.size(22.dp), contentAlignment = Alignment.Center) {
-            Icon(
-                icon,
-                contentDescription = null,
-                tint = AppColors.Calorie,
-                modifier = Modifier.size(22.dp)
-            )
+        Box(Modifier.size(28.dp), contentAlignment = Alignment.Center) {
+            iconContent()
             if (showDot) {
                 Box(
                     Modifier
@@ -487,7 +569,7 @@ private fun AboutRow(
                 )
             }
         }
-        Spacer(Modifier.width(16.dp))
+        Spacer(Modifier.width(14.dp))
         Column(Modifier.weight(1f)) {
             Text(label, fontSize = 17.sp, color = MaterialTheme.colorScheme.onSurface)
             if (!subtitle.isNullOrBlank()) {
@@ -509,7 +591,7 @@ private fun AboutRow(
 private fun Hairline() {
     Box(
         Modifier
-            .padding(start = 54.dp)
+            .padding(start = 58.dp)
             .fillMaxWidth()
             .height(0.5.dp)
             .background(MaterialTheme.colorScheme.onSurface.copy(alpha = 0.1f))

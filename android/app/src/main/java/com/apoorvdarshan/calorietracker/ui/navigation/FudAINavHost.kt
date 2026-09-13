@@ -94,7 +94,13 @@ fun FudAINavHost(
     // Match iOS's versioned AppStorage key: reset the former library-first
     // default once, then keep every user switch persistent after that.
     val workoutMode = if (workoutModeV2Initialized) persistedWorkoutMode else WorkoutTabMode.LOG
-    val showTabs = currentRoute in FudAIRoutes.bottomTabs && !analyzing
+    // Nested settings/* screens keep the tab bar visible and highlight Settings,
+    // so re-tapping the Settings icon can return to the hub (iOS parity).
+    val selectedTabRoute = FudAIRoutes.selectedBottomTab(currentRoute)
+    val showTabs = selectedTabRoute != null && !analyzing
+    // Bumped when the Settings tab is re-tapped so SettingsScreen can pop back to the hub
+    // (matches iOS TabView + NavigationStack reselect → root behavior).
+    var settingsPopToRootTick by remember { mutableIntStateOf(0) }
     val currentVersion = remember(context) { AndroidUpdateChecker.currentVersion(context) }
     var updateAvailable by remember { mutableStateOf(false) }
 
@@ -166,11 +172,25 @@ fun FudAINavHost(
         bottomBar = {
             if (showTabs) {
                 FudAIBottomNavBar(
-                    currentRoute = currentRoute,
+                    currentRoute = selectedTabRoute,
                     showAboutBadge = updateAvailable,
                     workoutMode = workoutMode,
                     onTap = { target ->
-                        if (target == currentRoute) return@FudAIBottomNavBar
+                        // Re-tapping Settings while already in Settings (hub category or a
+                        // nested settings/* destination) returns to the Settings hub — same
+                        // as iOS re-tapping the Settings tab to pop the navigation stack.
+                        if (target == FudAIRoutes.SETTINGS) {
+                            val onSettingsRoot = currentRoute == FudAIRoutes.SETTINGS
+                            val onSettingsChild = currentRoute?.startsWith("settings/") == true
+                            if (onSettingsRoot || onSettingsChild) {
+                                settingsPopToRootTick++
+                                if (onSettingsChild) {
+                                    nav.popBackStack(FudAIRoutes.SETTINGS, inclusive = false)
+                                }
+                                return@FudAIBottomNavBar
+                            }
+                        }
+                        if (target == selectedTabRoute) return@FudAIBottomNavBar
                         // Tapping HOME (the start destination) needs popBackStack
                         // — `navigate(HOME) { popUpTo(HOME); launchSingleTop = true }`
                         // is a no-op because NavController sees HOME at the top of
@@ -217,7 +237,12 @@ fun FudAINavHost(
                 composable(FudAIRoutes.COACH) { TabInset { CoachScreen(container = container) } }
                 composable(FudAIRoutes.SETTINGS) {
                     TabInset {
-                        SettingsScreen(container = container, nav = nav, vm = settingsViewModel)
+                        SettingsScreen(
+                            container = container,
+                            nav = nav,
+                            vm = settingsViewModel,
+                            popToRootTick = settingsPopToRootTick
+                        )
                     }
                 }
                 composable(FudAIRoutes.OPTIONAL_NUTRIENT_GOALS) {

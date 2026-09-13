@@ -15,6 +15,14 @@
 #
 # versionCode discipline stays in the repo: bump it in app/build.gradle.kts
 # BEFORE tagging — Play rejects a versionCode it has already seen.
+#
+# Supply-chain: the AAB/APK attached to the GitHub Release are signed keylessly
+# with Sigstore cosign (a *.sigstore.json bundle per artifact) and carry a
+# GitHub build-provenance attestation. Verify a download with:
+#   cosign verify-blob fudai-vX.Y.apk --bundle fudai-vX.Y.apk.sigstore.json \
+#     --certificate-identity-regexp '^https://github.com/apoorvdarshan/fud-ai/' \
+#     --certificate-oidc-issuer https://token.actions.githubusercontent.com
+#   gh attestation verify fudai-vX.Y.apk --repo apoorvdarshan/fud-ai
 
 name: Android Release
 
@@ -22,6 +30,9 @@ on:
   push:
     tags:
       - "android-v*"
+
+permissions:
+  contents: read
 
 jobs:
   quality:
@@ -34,15 +45,19 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write # create the GitHub Release
+      id-token: write # Sigstore keyless signing + provenance (OIDC token)
+      attestations: write # store the build-provenance attestation
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
 
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4.9.1
         with:
           distribution: temurin
           java-version: "17"
 
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@748248ddd2a24f49513d8f472f81c3a07d4d50e1 # v4.4.4
 
       - name: Prepare reviewed release notes
         run: python3 scripts/release_notes.py "$GITHUB_REF_NAME" > "$RUNNER_TEMP/release-notes.md"
@@ -69,8 +84,34 @@ jobs:
         working-directory: android
         run: ./gradlew :app:bundleRelease :app:assembleRelease
 
+      - name: Stage release artifacts
+        run: |
+          VERSION="${GITHUB_REF_NAME#android-v}"
+          mkdir -p "$RUNNER_TEMP/dist"
+          cp android/app/build/outputs/bundle/release/app-release.aab "$RUNNER_TEMP/dist/fudai-v${VERSION}.aab"
+          cp android/app/build/outputs/apk/release/app-release.apk "$RUNNER_TEMP/dist/fudai-v${VERSION}.apk"
+
+      # Signing runs before the Play upload so a signing failure leaves nothing
+      # half-published: the workflow can simply be re-run for the same tag.
+      - uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6 # v4.1.2
+
+      - name: Sign release artifacts (Sigstore keyless)
+        working-directory: ${{ runner.temp }}/dist
+        run: |
+          for artifact in *.aab *.apk; do
+            cosign sign-blob --yes --bundle "${artifact}.sigstore.json" "$artifact"
+          done
+          ls -l
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: |
+            ${{ runner.temp }}/dist/*.aab
+            ${{ runner.temp }}/dist/*.apk
+
       - name: Upload to Play Console (production, draft)
-        uses: r0adkll/upload-google-play@v1
+        uses: r0adkll/upload-google-play@e738b9dd8f2476ea806d921b64aacd24f34515a5 # v1.1.5
         with:
           serviceAccountJsonPlainText: ${{ secrets.PLAY_SERVICE_ACCOUNT_JSON }}
           packageName: com.apoorvdarshan.calorietracker
@@ -84,9 +125,10 @@ jobs:
         run: |
           VERSION="${GITHUB_REF_NAME#android-v}"
           VCODE=$(grep -m1 'versionCode = ' android/app/build.gradle.kts | tr -dc '0-9')
-          cp android/app/build/outputs/bundle/release/app-release.aab "fudai-v${VERSION}.aab"
-          cp android/app/build/outputs/apk/release/app-release.apk "fudai-v${VERSION}.apk"
           gh release create "$GITHUB_REF_NAME" \
             --title "Android ${VERSION} (versionCode ${VCODE})" \
             --notes-file "$RUNNER_TEMP/release-notes.md" --latest \
-            "fudai-v${VERSION}.aab" "fudai-v${VERSION}.apk"
+            "$RUNNER_TEMP/dist/fudai-v${VERSION}.aab" \
+            "$RUNNER_TEMP/dist/fudai-v${VERSION}.aab.sigstore.json" \
+            "$RUNNER_TEMP/dist/fudai-v${VERSION}.apk" \
+            "$RUNNER_TEMP/dist/fudai-v${VERSION}.apk.sigstore.json"

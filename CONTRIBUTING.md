@@ -145,12 +145,10 @@ an exact reviewed note section.
 
 ## Reporting Issues
 
-Use the issue templates at [github.com/apoorvdarshan/fud-ai/issues/new/choose](https://github.com/apoorvdarshan/fud-ai/issues/new/choose):
+- **Bug:** [open the bug report form](https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml) — steps to reproduce, expected vs actual, device + OS, app version, AI provider when relevant, and Siri/Shortcuts details when relevant
+- **Feature:** [open the feature request form](https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml) — problem, proposed solution, and target platforms
 
-- **Bug report** — steps to reproduce, expected vs actual, device + OS, app version, AI provider when relevant, and Siri/Shortcuts details when relevant
-- **Feature request** — problem, proposed solution, and target platforms
-
-Security issues: use [private vulnerability reporting](https://github.com/apoorvdarshan/fud-ai/security/advisories/new), not a public issue.
+Or pick from [the issue chooser](https://github.com/apoorvdarshan/fud-ai/issues/new/choose). Security issues: use [private vulnerability reporting](https://github.com/apoorvdarshan/fud-ai/security/advisories/new), not a public issue.
 
 ## Adding an AI Provider
 

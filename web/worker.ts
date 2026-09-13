@@ -5,6 +5,7 @@ import {
   handleChallengeRequest,
 } from "./challenge-api";
 import { HOSTED_AI_API_PREFIX, handleHostedAIRequest } from "./hosted-ai-api";
+import { cleanupHostedAILedger } from "./hosted-ai-ledger";
 
 const REPOSITORY = "apoorvdarshan/fud-ai";
 const HISTORY_KEY = "github-star-history-v1";
@@ -78,6 +79,7 @@ async function runScheduledMaintenance(env: Env): Promise<void> {
   const tasks = [
     { name: "star_history", promise: refreshHistory(env) },
     { name: "challenge_cleanup", promise: cleanupChallengeData(env.CHALLENGE_DB) },
+    { name: "hosted_ai_ledger_cleanup", promise: cleanupHostedAILedger(env.CHALLENGE_DB) },
   ];
   const results = await Promise.allSettled(tasks.map((task) => task.promise));
   for (const [index, result] of results.entries()) {

@@ -66,3 +66,21 @@ namespace_id = "61004"
   [ratelimits.simple]
   limit = 120
   period = 60
+
+# Hosted AI proxy (/api/hosted-ai/v1/*). Keyed by hashed RevenueCat app user id
+# and by hashed client address. The per-user ledger in D1 (CHALLENGE_DB,
+# migration 0002) enforces daily/credit quota on top of these burst limits.
+# See services/hosted-ai/README.md.
+[[ratelimits]]
+name = "HOSTED_AI_USER_RATE_LIMITER"
+namespace_id = "61005"
+  [ratelimits.simple]
+  limit = 40
+  period = 60
+
+[[ratelimits]]
+name = "HOSTED_AI_ADDRESS_RATE_LIMITER"
+namespace_id = "61006"
+  [ratelimits.simple]
+  limit = 120
+  period = 60

@@ -52,3 +52,7 @@ artifacts/workout-visual-qa/cursor-wave-300/workers/
 artifacts/workout-visual-qa/cursor-wave-leftover/candidates/
 artifacts/workout-visual-qa/cursor-wave-leftover/staging/
 artifacts/workout-visual-qa/cursor-wave-leftover/workers/
+
+# Stray compiler output at the repo root (e.g. `swiftc test.swift` -> ./test).
+# A Mach-O binary was once committed this way; keep it out.
+/test

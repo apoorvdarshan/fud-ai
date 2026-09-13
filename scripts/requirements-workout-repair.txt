@@ -1,7 +1,7 @@
 # Tested local CPU runtime; explicit MIT BiRefNet-general-lite, never rembg defaults.
 Pillow==12.3.0
-numpy==2.5.2
+numpy==2.5.3
 scipy==1.18.1
 opencv-python-headless==5.0.0.93
-rembg==2.0.83
+rembg==2.0.84
 onnxruntime==1.29.0

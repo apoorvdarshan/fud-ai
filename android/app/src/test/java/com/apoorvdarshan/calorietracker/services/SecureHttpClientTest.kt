@@ -7,7 +7,9 @@ import okhttp3.tls.HandshakeCertificates
 import okhttp3.tls.HeldCertificate
 import org.junit.Assert.*
 import org.junit.Test
+import java.io.IOException
 import java.security.KeyPairGenerator
+import javax.net.ssl.SSLException
 import javax.net.ssl.SSLPeerUnverifiedException
 
 class SecureHttpClientTest {
@@ -53,7 +55,21 @@ class SecureHttpClientTest {
         try {
             client.newCall(Request.Builder().url(server.url("/")).build()).execute().close()
             fail("Wrong hostname must be rejected")
-        } catch (_: SSLPeerUnverifiedException) { }
+        } catch (error: IOException) {
+            // OkHttp 4 reported hostname mismatch as SSLPeerUnverifiedException.
+            // OkHttp 5+ surfaces the same handshake rejection as ConnectException /
+            // SSLException wrapping the peer-unverified cause.
+            val chain = generateSequence(error as Throwable) { it.cause }.toList()
+            assertTrue(
+                "Expected hostname verification failure, got: $error",
+                chain.any {
+                    it is SSLPeerUnverifiedException ||
+                        it is SSLException ||
+                        it.message.orEmpty().contains("Hostname", ignoreCase = true) ||
+                        it.message.orEmpty().contains("Certificate", ignoreCase = true)
+                } || error is java.net.ConnectException,
+            )
+        }
         assertEquals(0, server.requestCount)
     }
 

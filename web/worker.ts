@@ -31,7 +31,7 @@ interface StarHistory {
 }
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: Env, context?: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
     if (url.pathname === MEAL_SHARE_API || url.pathname.startsWith("/m/")) {
@@ -49,7 +49,11 @@ export default {
       url.pathname === HOSTED_AI_API_PREFIX ||
       url.pathname.startsWith(`${HOSTED_AI_API_PREFIX}/`)
     ) {
-      return handleHostedAIRequest(request, env);
+      return handleHostedAIRequest(
+        request,
+        env,
+        context ? { waitUntil: (promise) => context.waitUntil(promise) } : {},
+      );
     }
 
     if (url.pathname === "/star-history.json") {

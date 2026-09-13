@@ -11,7 +11,10 @@
  *     (daily pool → credit bank), so reinstalls/backups cannot reset quota.
  *   - Cloudflare rate limiters cap requests per user and per address.
  *   - `/gemini` bodies pass a strict allow-list before being forwarded.
- *   - Upstream error bodies are logged, never echoed to callers.
+ *   - Requests are fully validated (provider config + body) *before* the
+ *     ledger is charged, so only genuine upstream failures need a refund.
+ *   - Upstream error bodies are never echoed to callers and never logged
+ *     verbatim; only structured status/code fields reach the logs.
  */
 
 import { sanitizeGeminiRequestBody } from "./hosted-ai-gemini-request";
@@ -58,15 +61,24 @@ const ALLOWED_AUDIO_MIME_TYPES = new Set([
 ]);
 
 /**
- * RevenueCat anonymous ids (`$RCAnonymousID:<32 hex>`) are the only ids the
- * iOS app uses today. Custom ids are accepted with a conservative charset so a
- * future `Purchases.logIn` rollout keeps working without a Worker change.
+ * The subscriber id is the caller's only credential, so it must be
+ * unguessable. RevenueCat anonymous ids (`$RCAnonymousID:` + 128 random bits)
+ * are the only ids the iOS app uses (it never calls `Purchases.logIn`), and
+ * they are the only shape accepted here. Custom ids (emails, usernames, …)
+ * would be guessable and must not be enabled until requests carry a
+ * device-bound proof of identity (App Attest) — see services/hosted-ai/README.md.
  */
 const RC_ANONYMOUS_ID_PATTERN = /^\$RCAnonymousID:[0-9a-f]{32}$/;
-const RC_CUSTOM_ID_PATTERN = /^[A-Za-z0-9_.@-]{8,128}$/;
 
 /** Every upstream round-trip costs one metered action. */
 const ACTION_COST = 1;
+
+/**
+ * Backoff between refund attempts when D1 rejects the compensating write.
+ * The first attempt is inline; later ones run in `waitUntil` so the caller's
+ * error response is not delayed.
+ */
+const REFUND_RETRY_DELAYS_MS: readonly number[] = [100, 400, 1500];
 
 type HostedAIEnv = Pick<
   Env,
@@ -83,6 +95,9 @@ export interface HostedAIDependencies {
   fetch?: typeof fetch;
   store?: LedgerStore;
   now?: () => Date;
+  /** `ExecutionContext.waitUntil`; lets refund retries outlive the response. */
+  waitUntil?: (promise: Promise<unknown>) => void;
+  sleep?: (ms: number) => Promise<void>;
 }
 
 class HostedAIError extends Error {
@@ -97,6 +112,10 @@ class HostedAIError extends Error {
   }
 }
 
+/**
+ * `detail` must already be safe to log: a short machine token or the output of
+ * `summarizeUpstreamErrorBody`, never a raw provider body.
+ */
 class UpstreamError extends Error {
   constructor(
     readonly provider: "gemini" | "deepgram",
@@ -112,6 +131,16 @@ interface HostedClientContext {
   userId: string;
   userIdHash: string;
 }
+
+/**
+ * A fully validated request whose only remaining work is the upstream call.
+ * Handlers return this so validation runs before the ledger is charged.
+ */
+interface PreparedRequest {
+  execute: (fetchImpl: typeof fetch) => Promise<Response>;
+}
+
+type RoutePreparer = (request: Request, env: HostedAIEnv) => Promise<PreparedRequest>;
 
 export async function handleHostedAIRequest(
   request: Request,
@@ -143,16 +172,21 @@ export async function handleHostedAIRequest(
       return json({ quota: quotaFromRow(row, now()) }, 200, quotaHeaders(quotaFromRow(row, now())));
     }
 
-    let handler: (request: Request, env: HostedAIEnv, fetchImpl: typeof fetch) => Promise<Response>;
-    if (subpath === "/generate") handler = handleGenerate;
-    else if (subpath === "/gemini") handler = handleGeminiPassthrough;
-    else if (subpath === "/transcribe") handler = handleTranscribe;
+    let prepare: RoutePreparer;
+    if (subpath === "/generate") prepare = prepareGenerate;
+    else if (subpath === "/gemini") prepare = prepareGeminiPassthrough;
+    else if (subpath === "/transcribe") prepare = prepareTranscribe;
     else throw new HostedAIError(404, "not_found");
 
+    // Entitlement first: an unverified id never gets its body parsed.
     const row = await loadVerifiedLedger(ledger, client.userId, client.userIdHash);
     if (row.plan === "none") {
       throw new HostedAIError(403, "subscription_required", { quota: quotaFromRow(row, now()) });
     }
+
+    // Provider configuration and body validation complete before the ledger
+    // is touched, so 4xx/503 validation failures never depend on a refund.
+    const prepared = await prepare(request, env);
 
     const spend = await spendFromLedger(ledger, client.userIdHash, row, ACTION_COST);
     if (spend.status === "quota_exceeded") {
@@ -160,17 +194,17 @@ export async function handleHostedAIRequest(
     }
 
     try {
-      const response = await handler(request, env, fetchImpl);
+      const response = await prepared.execute(fetchImpl);
       for (const [key, value] of Object.entries(quotaHeaders(spend.quota))) {
         response.headers.set(key, value);
       }
       return response;
     } catch (error) {
-      await refundSafely(ledger, client.userIdHash, spend.receipt);
+      await refundSafely(ledger, client.userIdHash, spend.receipt, deps);
       throw error;
     }
   } catch (error) {
-    return errorResponse(error, client);
+    return errorResponse(error, client, env);
   }
 }
 
@@ -195,7 +229,7 @@ function buildLedgerContext(
 
 async function identifyClient(request: Request, env: HostedAIEnv): Promise<HostedClientContext> {
   const userId = request.headers.get("X-Fud-User-Id")?.trim() ?? "";
-  if (!userId || !(RC_ANONYMOUS_ID_PATTERN.test(userId) || RC_CUSTOM_ID_PATTERN.test(userId))) {
+  if (!RC_ANONYMOUS_ID_PATTERN.test(userId)) {
     throw new HostedAIError(401, "invalid_user_id");
   }
   const userIdHash = await sha256Hex(userId);
@@ -212,20 +246,60 @@ async function identifyClient(request: Request, env: HostedAIEnv): Promise<Hoste
   return { userId, userIdHash };
 }
 
-async function refundSafely(ledger: LedgerContext, userIdHash: string, receipt: SpendReceipt): Promise<void> {
-  try {
-    await refundToLedger(ledger, userIdHash, receipt);
-  } catch (error) {
+/**
+ * Reverses a committed spend after the upstream call failed. The first attempt
+ * runs inline; if D1 rejects it, retries continue in `waitUntil` with backoff
+ * so a transient error does not silently consume the subscriber's quota. If
+ * every attempt fails the full receipt is logged (with the complete user hash)
+ * so the ledger can be reconciled by hand. A retry after a write that actually
+ * committed can at worst credit one extra action to the user, never take one.
+ */
+async function refundSafely(
+  ledger: LedgerContext,
+  userIdHash: string,
+  receipt: SpendReceipt,
+  deps: HostedAIDependencies
+): Promise<void> {
+  if (receipt.fromDaily === 0 && receipt.fromCredits === 0) return;
+  const firstError = await attemptRefund(ledger, userIdHash, receipt);
+  if (firstError === null) return;
+
+  const sleep = deps.sleep ?? ((ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms)));
+  const retries = (async () => {
+    let lastError: unknown = firstError;
+    for (const [index, delay] of REFUND_RETRY_DELAYS_MS.entries()) {
+      await sleep(delay);
+      lastError = await attemptRefund(ledger, userIdHash, receipt);
+      if (lastError === null) {
+        console.error(JSON.stringify({ event: "hosted_ai_refund_recovered", attempt: index + 2, userIdHash }));
+        return;
+      }
+    }
     console.error(
       JSON.stringify({
         event: "hosted_ai_refund_failed",
-        errorType: error instanceof Error ? error.name : typeof error,
+        attempts: REFUND_RETRY_DELAYS_MS.length + 1,
+        errorType: lastError instanceof Error ? lastError.name : typeof lastError,
+        userIdHash,
+        receipt,
       })
     );
+  })();
+
+  if (deps.waitUntil) deps.waitUntil(retries);
+  else await retries;
+}
+
+async function attemptRefund(ledger: LedgerContext, userIdHash: string, receipt: SpendReceipt): Promise<unknown> {
+  try {
+    await refundToLedger(ledger, userIdHash, receipt);
+    return null;
+  } catch (error) {
+    return error ?? new Error("unknown_refund_error");
   }
 }
 
-function errorResponse(error: unknown, client: HostedClientContext | null): Response {
+function errorResponse(error: unknown, client: HostedClientContext | null, env: HostedAIEnv): Response {
   if (error instanceof HostedAIError) {
     return json({ error: error.code, ...error.extra }, error.status, error.headers);
   }
@@ -237,7 +311,7 @@ function errorResponse(error: unknown, client: HostedClientContext | null): Resp
         event: "hosted_ai_upstream_error",
         provider: error.provider,
         upstreamStatus: error.upstreamStatus,
-        detail: error.message.slice(0, 500),
+        detail: redactSecrets(error.message.slice(0, 200), env),
         userIdHash,
       })
     );
@@ -250,7 +324,12 @@ function errorResponse(error: unknown, client: HostedClientContext | null): Resp
   const name = error instanceof Error ? error.name : typeof error;
   const message = error instanceof Error ? error.message : String(error);
   console.error(
-    JSON.stringify({ event: "hosted_ai_error", errorType: name, message: message.slice(0, 500), userIdHash })
+    JSON.stringify({
+      event: "hosted_ai_error",
+      errorType: name,
+      message: redactSecrets(message.slice(0, 500), env),
+      userIdHash,
+    })
   );
   if (name === "TimeoutError" || name === "AbortError") {
     return json({ error: "upstream_timeout" }, 504);
@@ -273,15 +352,11 @@ function quotaHeaders(quota: QuotaSnapshot): Record<string, string> {
 
 // MARK: Route handlers
 
-async function handleGenerate(request: Request, env: HostedAIEnv, fetchImpl: typeof fetch): Promise<Response> {
+async function prepareGenerate(request: Request, env: HostedAIEnv): Promise<PreparedRequest> {
   const geminiKey = env.GEMINI_API_KEY;
   if (!geminiKey) throw new HostedAIError(503, "gemini_not_configured");
 
-  const body = (await readJsonBody(request, MAX_REQUEST_BODY_BYTES)) as {
-    prompt?: unknown;
-    images?: unknown;
-    systemInstruction?: unknown;
-  };
+  const body = await readJsonObjectBody(request, MAX_REQUEST_BODY_BYTES);
 
   const prompt = typeof body.prompt === "string" ? body.prompt.trim() : "";
   if (!prompt) throw new HostedAIError(400, "missing_prompt");
@@ -310,22 +385,22 @@ async function handleGenerate(request: Request, env: HostedAIEnv, fetchImpl: typ
     geminiBody.systemInstruction = { parts: [{ text: systemInstruction }] };
   }
 
-  const upstream = await fetchGemini(geminiKey, geminiBody, fetchImpl);
-  const text = extractGeminiText(upstream);
-  if (!text) throw new UpstreamError("gemini", 200, "invalid_upstream_response");
-  return json({ text });
+  return {
+    execute: async (fetchImpl) => {
+      const upstream = await fetchGemini(geminiKey, geminiBody, fetchImpl);
+      const text = extractGeminiText(upstream);
+      if (!text) throw new UpstreamError("gemini", 200, "invalid_upstream_response");
+      return json({ text });
+    },
+  };
 }
 
-async function handleGeminiPassthrough(
-  request: Request,
-  env: HostedAIEnv,
-  fetchImpl: typeof fetch
-): Promise<Response> {
+async function prepareGeminiPassthrough(request: Request, env: HostedAIEnv): Promise<PreparedRequest> {
   const geminiKey = env.GEMINI_API_KEY;
   if (!geminiKey) throw new HostedAIError(503, "gemini_not_configured");
 
-  const body = (await readJsonBody(request, MAX_GEMINI_PASSTHROUGH_BYTES)) as { requestBody?: unknown };
-  if (!body || typeof body !== "object" || body.requestBody === undefined) {
+  const body = await readJsonObjectBody(request, MAX_GEMINI_PASSTHROUGH_BYTES);
+  if (body.requestBody === undefined) {
     throw new HostedAIError(400, "missing_request_body");
   }
 
@@ -334,19 +409,16 @@ async function handleGeminiPassthrough(
     throw new HostedAIError(400, "invalid_request_body", { detail: sanitized.error });
   }
 
-  const upstream = await fetchGemini(geminiKey, sanitized.body, fetchImpl);
-  return json(upstream);
+  return {
+    execute: async (fetchImpl) => json(await fetchGemini(geminiKey, sanitized.body, fetchImpl)),
+  };
 }
 
-async function handleTranscribe(request: Request, env: HostedAIEnv, fetchImpl: typeof fetch): Promise<Response> {
+async function prepareTranscribe(request: Request, env: HostedAIEnv): Promise<PreparedRequest> {
   const deepgramKey = env.DEEPGRAM_API_KEY;
   if (!deepgramKey) throw new HostedAIError(503, "deepgram_not_configured");
 
-  const body = (await readJsonBody(request, MAX_REQUEST_BODY_BYTES)) as {
-    audio?: unknown;
-    mimeType?: unknown;
-    language?: unknown;
-  };
+  const body = await readJsonObjectBody(request, MAX_REQUEST_BODY_BYTES);
   if (typeof body.audio !== "string" || !body.audio) throw new HostedAIError(400, "missing_audio");
   if (body.audio.length > MAX_AUDIO_BASE64_CHARS) throw new HostedAIError(400, "audio_too_large");
 
@@ -370,23 +442,28 @@ async function handleTranscribe(request: Request, env: HostedAIEnv, fetchImpl: t
   const params = new URLSearchParams({ model: "nova-2", smart_format: "true" });
   if (language) params.set("language", language);
 
-  const upstream = await fetchImpl(`https://api.deepgram.com/v1/listen?${params}`, {
-    method: "POST",
-    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
-    headers: {
-      Authorization: `Token ${deepgramKey}`,
-      "Content-Type": mimeType,
-    },
-    body: audioBytes,
-  });
+  return {
+    execute: async (fetchImpl) => {
+      const upstream = await fetchImpl(`https://api.deepgram.com/v1/listen?${params}`, {
+        method: "POST",
+        signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+        headers: {
+          Authorization: `Token ${deepgramKey}`,
+          "Content-Type": mimeType,
+        },
+        body: audioBytes,
+      });
 
-  const payload = await readUpstreamJson(upstream, "deepgram");
-  const transcript = (
-    (payload.results as Record<string, unknown> | undefined)?.channels as Array<Record<string, unknown>> | undefined
-  )?.[0]?.alternatives as Array<Record<string, unknown>> | undefined;
-  const text = (transcript?.[0]?.transcript as string | undefined)?.trim() ?? "";
-  if (!text) return json({ text: "" });
-  return json({ text });
+      const payload = await readUpstreamJson(upstream, "deepgram");
+      const transcript = (
+        (payload.results as Record<string, unknown> | undefined)?.channels as
+          | Array<Record<string, unknown>>
+          | undefined
+      )?.[0]?.alternatives as Array<Record<string, unknown>> | undefined;
+      const text = (transcript?.[0]?.transcript as string | undefined)?.trim() ?? "";
+      return json({ text });
+    },
+  };
 }
 
 // MARK: Upstream helpers
@@ -415,7 +492,7 @@ async function readUpstreamJson(
 ): Promise<Record<string, unknown>> {
   const raw = await response.text();
   if (!response.ok) {
-    throw new UpstreamError(provider, response.status, raw);
+    throw new UpstreamError(provider, response.status, summarizeUpstreamErrorBody(raw));
   }
   try {
     const parsed = JSON.parse(raw) as unknown;
@@ -426,7 +503,52 @@ async function readUpstreamJson(
   }
 }
 
-async function readJsonBody(request: Request, maxBytes: number): Promise<unknown> {
+/**
+ * Reduces a provider error body to structured identifiers only. Free-text
+ * fields (`message`, `err_msg`, …) are dropped on purpose: Gemini and Deepgram
+ * echo request details, and Deepgram includes the presented token, in them.
+ */
+export function summarizeUpstreamErrorBody(raw: string): string {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    return `non_json_body bytes=${raw.length}`;
+  }
+  if (!isPlainObject(parsed)) return `non_object_body bytes=${raw.length}`;
+
+  const error = isPlainObject(parsed.error) ? parsed.error : parsed;
+  const token = (value: unknown): string | null => {
+    if (typeof value === "number" && Number.isFinite(value)) return String(value);
+    if (typeof value !== "string") return null;
+    const cleaned = value.replace(/[^A-Za-z0-9_.:-]/g, "").slice(0, 64);
+    return cleaned || null;
+  };
+  const fields: string[] = [];
+  for (const key of ["status", "code", "err_code", "request_id"] as const) {
+    const value = token(error[key]);
+    if (value !== null) fields.push(`${key}=${value}`);
+  }
+  return fields.length > 0 ? fields.join(" ") : `unrecognized_body bytes=${raw.length}`;
+}
+
+/** Strips any configured provider secret out of text destined for the logs. */
+function redactSecrets(text: string, env: HostedAIEnv): string {
+  let result = text;
+  for (const secret of [env.GEMINI_API_KEY, env.DEEPGRAM_API_KEY, env.REVENUECAT_API_KEY]) {
+    if (typeof secret === "string" && secret.length >= 8) {
+      result = result.split(secret).join("[redacted]");
+    }
+  }
+  return result;
+}
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/** Parses a JSON request body and requires it to be a non-null, non-array object. */
+async function readJsonObjectBody(request: Request, maxBytes: number): Promise<Record<string, unknown>> {
   const contentLength = request.headers.get("Content-Length");
   if (contentLength && Number(contentLength) > maxBytes) {
     throw new HostedAIError(413, "body_too_large");
@@ -435,11 +557,14 @@ async function readJsonBody(request: Request, maxBytes: number): Promise<unknown
   if (buffer.byteLength > maxBytes) {
     throw new HostedAIError(413, "body_too_large");
   }
+  let parsed: unknown;
   try {
-    return JSON.parse(new TextDecoder().decode(buffer));
+    parsed = JSON.parse(new TextDecoder().decode(buffer));
   } catch {
     throw new HostedAIError(400, "invalid_json");
   }
+  if (!isPlainObject(parsed)) throw new HostedAIError(400, "invalid_body");
+  return parsed;
 }
 
 function extractGeminiText(payload: Record<string, unknown>): string | null {

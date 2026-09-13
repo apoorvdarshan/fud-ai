@@ -72,7 +72,7 @@ See `services/hosted-ai/README.md`. Deploy secrets on the `fud-ai` worker:
 - `GEMINI_API_KEY` — set at production time
 - `DEEPGRAM_API_KEY` — set at production time
 
-The app ships **no proxy secret**. It sends only its RevenueCat app user id (`X-Fud-User-Id`); the Worker checks the plan with RevenueCat, caches it in D1, and meters usage in a server-side ledger. No RevenueCat webhook is needed.
+The app ships **no proxy secret**. It sends only its RevenueCat app user id (`X-Fud-User-Id`, anonymous `$RCAnonymousID:` form only — the app never calls `Purchases.logIn`); the Worker checks the plan with RevenueCat, caches it in D1, and meters usage in a server-side ledger. No RevenueCat webhook is needed. Because the id is the sole credential, the Worker treats it as a bearer token: guessable custom ids are rejected, nothing is charged before RevenueCat confirms the plan, and the residual leak-and-replay risk (with the App Attest follow-up that would close it) is documented in `services/hosted-ai/README.md`.
 
 ## Metering rules (enforced by the Worker)
 

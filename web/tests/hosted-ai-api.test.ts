@@ -1,7 +1,10 @@
-import { describe, expect, it } from "vitest";
-import { handleHostedAIRequest, type HostedAIDependencies } from "../hosted-ai-api";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { handleHostedAIRequest, summarizeUpstreamErrorBody, type HostedAIDependencies } from "../hosted-ai-api";
 import {
   ENTITLEMENT_TTL_MS,
+  LEDGER_RETENTION_MS,
+  cleanupHostedAILedger,
+  loadVerifiedLedger,
   parseRevenueCatSubscriber,
   spendFromLedger,
   type EntitlementSnapshot,
@@ -18,6 +21,9 @@ class MemoryLedgerStore implements LedgerStore {
   spendAttempts = 0;
   /** When set, the next `trySpend` call fails once to simulate a concurrent writer. */
   conflictOnce = false;
+  /** Number of `refund` calls that should throw before one succeeds. */
+  refundFailures = 0;
+  refundAttempts = 0;
 
   async get(userIdHash: string): Promise<LedgerRow | null> {
     const row = this.rows.get(userIdHash);
@@ -26,12 +32,13 @@ class MemoryLedgerStore implements LedgerStore {
 
   async upsertEntitlement(userIdHash: string, snapshot: EntitlementSnapshot, verifiedAt: string): Promise<LedgerRow> {
     const existing = this.rows.get(userIdHash);
+    const newer = existing === undefined || verifiedAt >= existing.entitlement_verified_at;
     const row: LedgerRow = existing
       ? {
           ...existing,
-          plan: snapshot.plan,
+          plan: newer ? snapshot.plan : existing.plan,
           credits_granted: Math.max(existing.credits_granted, snapshot.creditsGranted),
-          entitlement_verified_at: verifiedAt,
+          entitlement_verified_at: newer ? verifiedAt : existing.entitlement_verified_at,
           version: existing.version + 1,
         }
       : {
@@ -69,6 +76,11 @@ class MemoryLedgerStore implements LedgerStore {
   }
 
   async refund(userIdHash: string, receipt: SpendReceipt): Promise<void> {
+    this.refundAttempts += 1;
+    if (this.refundFailures > 0) {
+      this.refundFailures -= 1;
+      throw new Error("D1_ERROR: transient");
+    }
     const row = this.rows.get(userIdHash);
     if (!row) return;
     if (row.usage_day === receipt.day) row.daily_used = Math.max(0, row.daily_used - receipt.fromDaily);
@@ -93,6 +105,8 @@ interface Harness {
   deepgram: { status?: number; body?: unknown };
   rateLimit: { user: boolean; address: boolean };
   clock: { now: Date };
+  /** Promises handed to `waitUntil` (refund retries). */
+  background: Promise<unknown>[];
 }
 
 function subscriberPayload(harness: Harness): unknown {
@@ -126,6 +140,7 @@ function createHarness(overrides: Partial<Pick<Harness, "revenueCat" | "gemini" 
     clock: { now: new Date("2026-09-13T01:00:00.000Z") },
     env: undefined as unknown as Harness["env"],
     deps: {},
+    background: [],
   };
 
   const fetchImpl: typeof fetch = async (input, init) => {
@@ -156,9 +171,29 @@ function createHarness(overrides: Partial<Pick<Harness, "revenueCat" | "gemini" 
     HOSTED_AI_USER_RATE_LIMITER: { limit: async () => ({ success: harness.rateLimit.user }) },
     HOSTED_AI_ADDRESS_RATE_LIMITER: { limit: async () => ({ success: harness.rateLimit.address }) },
   };
-  harness.deps = { fetch: fetchImpl, store, now: () => harness.clock.now };
+  harness.deps = {
+    fetch: fetchImpl,
+    store,
+    now: () => harness.clock.now,
+    sleep: async () => {},
+    waitUntil: (promise) => {
+      harness.background.push(promise);
+    },
+  };
   return harness;
 }
+
+function captureLogs(): { lines: string[]; restore: () => void } {
+  const lines: string[] = [];
+  const spy = vi.spyOn(console, "error").mockImplementation((...args: unknown[]) => {
+    lines.push(args.map(String).join(" "));
+  });
+  return { lines, restore: () => spy.mockRestore() };
+}
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
 
 function post(path: string, body: unknown, headers: Record<string, string> = {}): Request {
   return new Request(`${BASE}${path}`, {
@@ -200,6 +235,19 @@ describe("hosted-ai identity and auth", () => {
       post("/generate", { prompt: "hi" }, { "X-Fud-User-Id": "../etc/passwd; drop" })
     );
     expect(response.status).toBe(401);
+    expect(harness.calls).toHaveLength(0);
+  });
+
+  it.each([
+    ["a guessable custom id", "alice@example.com"],
+    ["an upper-case anonymous id", "$RCAnonymousID:0123456789ABCDEF0123456789ABCDEF"],
+    ["a short anonymous id", "$RCAnonymousID:0123456789abcdef"],
+    ["a numeric id", "12345678"],
+  ])("rejects %s — only RevenueCat anonymous ids are unguessable credentials", async (_label, id) => {
+    const harness = createHarness();
+    const response = await call(harness, post("/generate", { prompt: "hi" }, { "X-Fud-User-Id": id }));
+    expect(response.status).toBe(401);
+    await expect(response.json()).resolves.toEqual({ error: "invalid_user_id" });
     expect(harness.calls).toHaveLength(0);
   });
 
@@ -369,6 +417,107 @@ describe("hosted-ai server-side ledger", () => {
     expect(harness.store.only().daily_used).toBe(0);
   });
 
+  it("does not charge the ledger for invalid requests or unconfigured providers", async () => {
+    const harness = createHarness();
+    await call(harness, post("/generate", { prompt: "warm" }));
+    harness.store.spendAttempts = 0;
+
+    await call(harness, post("/generate", {}));
+    await call(harness, post("/transcribe", { audio: "%%%not-base64%%%" }));
+    await call(harness, post("/gemini", geminiBody({ tools: [{ googleSearch: {} }] })));
+    harness.env = { ...harness.env, GEMINI_API_KEY: "" };
+    await call(harness, post("/generate", { prompt: "hi" }));
+
+    expect(harness.store.spendAttempts).toBe(0);
+    expect(harness.store.refundAttempts).toBe(0);
+    expect(harness.store.only().daily_used).toBe(1);
+  });
+
+  it("retries a failed refund in the background instead of losing the action", async () => {
+    const harness = createHarness({ gemini: { status: 500, body: {} } });
+    harness.store.refundFailures = 2;
+    const logs = captureLogs();
+    const response = await call(harness, post("/generate", { prompt: "hi" }));
+    expect(response.status).toBe(503);
+    expect(harness.background).toHaveLength(1);
+    await Promise.all(harness.background);
+    logs.restore();
+
+    expect(harness.store.refundAttempts).toBe(3);
+    expect(harness.store.only().daily_used).toBe(0);
+    expect(logs.lines.some((line) => line.includes("hosted_ai_refund_recovered"))).toBe(true);
+  });
+
+  it("logs the full receipt for reconciliation when every refund attempt fails", async () => {
+    const harness = createHarness({ gemini: { status: 500, body: {} } });
+    harness.store.refundFailures = 99;
+    const logs = captureLogs();
+    await call(harness, post("/generate", { prompt: "hi" }));
+    await Promise.all(harness.background);
+    logs.restore();
+
+    expect(harness.store.refundAttempts).toBe(4);
+    const failure = logs.lines.map((line) => JSON.parse(line) as Record<string, unknown>).find(
+      (entry) => entry.event === "hosted_ai_refund_failed"
+    );
+    expect(failure).toMatchObject({
+      attempts: 4,
+      userIdHash: harness.store.only().user_id_hash,
+      receipt: { fromDaily: 1, fromCredits: 0, day: "2026-09-13" },
+    });
+  });
+
+  it("never lets an older RevenueCat verification overwrite a newer plan", async () => {
+    const store = new MemoryLedgerStore();
+    const hash = "h".repeat(64);
+    const pending: Array<{ resolve: (snapshot: EntitlementSnapshot) => void }> = [];
+    let now = new Date("2026-09-13T10:00:00.000Z");
+    const context = {
+      store,
+      now: () => now,
+      verify: () => new Promise<EntitlementSnapshot>((resolve) => pending.push({ resolve })),
+    };
+
+    const tick = () => new Promise<void>((resolve) => setTimeout(resolve, 0));
+    const older = loadVerifiedLedger(context, USER_ID, hash);
+    await tick();
+    now = new Date(now.getTime() + 1_000);
+    const newer = loadVerifiedLedger(context, USER_ID, hash);
+    await tick();
+    expect(pending).toHaveLength(2);
+
+    pending[1]!.resolve({ plan: "pro", creditsGranted: 50 });
+    await expect(newer).resolves.toMatchObject({ plan: "pro", credits_granted: 50 });
+    pending[0]!.resolve({ plan: "plus", creditsGranted: 0 });
+    const losing = await older;
+
+    expect(losing.plan).toBe("pro");
+    expect(losing.credits_granted).toBe(50);
+    expect(losing.entitlement_verified_at).toBe("2026-09-13T10:00:01.000Z");
+    expect(store.only()).toMatchObject({ plan: "pro", entitlement_verified_at: "2026-09-13T10:00:01.000Z" });
+  });
+
+  it("retention cleanup keeps rows that have spent purchased credits", async () => {
+    const statements: Array<{ sql: string; binds: unknown[] }> = [];
+    const database = {
+      prepare: (sql: string) => ({
+        bind: (...binds: unknown[]) => ({
+          run: async () => {
+            statements.push({ sql, binds });
+            return { success: true, meta: {} };
+          },
+        }),
+      }),
+    } as unknown as D1Database;
+
+    const now = new Date("2026-09-13T01:00:00.000Z");
+    await cleanupHostedAILedger(database, now);
+    expect(statements).toHaveLength(1);
+    expect(statements[0]!.sql).toMatch(/DELETE FROM hosted_ai_ledger/);
+    expect(statements[0]!.sql).toMatch(/credits_spent = 0/);
+    expect(statements[0]!.binds).toEqual([new Date(now.getTime() - LEDGER_RETENTION_MS).toISOString()]);
+  });
+
   it("retries the compare-and-swap when a concurrent writer bumps the version", async () => {
     const harness = createHarness();
     await call(harness, post("/generate", { prompt: "warm" }));
@@ -498,7 +647,10 @@ describe("hosted-ai /gemini body allow-list", () => {
             { role: "user", parts: [{ text: "How much did I lift?" }] },
             {
               role: "model",
-              parts: [{ functionCall: { name: "get_workouts", args: { days: 7 } }, thoughtSignature: "sig" }],
+              parts: [
+                { text: "Let me check.", thought: true, thoughtSignature: "sig-1" },
+                { functionCall: { name: "get_workouts", args: { days: 7 } }, thoughtSignature: "sig-2" },
+              ],
             },
             { role: "user", parts: [{ functionResponse: { name: "get_workouts", response: { sessions: [] } } }] },
           ],
@@ -508,6 +660,44 @@ describe("hosted-ai /gemini body allow-list", () => {
       )
     );
     expect(response.status).toBe(200);
+    const upstream = harness.calls.find((c) => c.url.includes("generativelanguage"));
+    const forwarded = JSON.parse(String(upstream?.init?.body)) as { contents: Array<{ parts: unknown[] }> };
+    expect(forwarded.contents[1]!.parts).toEqual([
+      { text: "Let me check.", thought: true, thoughtSignature: "sig-1" },
+      { functionCall: { name: "get_workouts", args: { days: 7 } }, thoughtSignature: "sig-2" },
+    ]);
+  });
+
+  it("rejects non-boolean thought metadata and metadata-only parts", async () => {
+    const harness = createHarness();
+    let response = await call(
+      harness,
+      post("/gemini", geminiBody({ contents: [{ role: "model", parts: [{ text: "x", thought: "yes" }] }] }))
+    );
+    await expect(response.json()).resolves.toMatchObject({ detail: "invalid_type:contents[0].parts[0].thought" });
+    response = await call(
+      harness,
+      post("/gemini", geminiBody({ contents: [{ role: "model", parts: [{ thought: true, thoughtSignature: "s" }] }] }))
+    );
+    await expect(response.json()).resolves.toMatchObject({
+      detail: "part_must_have_one_payload:contents[0].parts[0]",
+    });
+  });
+
+  it.each([
+    ["null", null],
+    ["an array", [1, 2]],
+    ["a string", "prompt"],
+    ["a number", 42],
+  ])("returns 400 invalid_body when the JSON body is %s", async (_label, body) => {
+    const harness = createHarness();
+    for (const path of ["/generate", "/transcribe", "/gemini"]) {
+      const response = await call(harness, post(path, body));
+      expect(response.status).toBe(400);
+      await expect(response.json()).resolves.toEqual({ error: "invalid_body" });
+    }
+    expect(harness.calls.filter((c) => !c.url.includes("revenuecat"))).toHaveLength(0);
+    expect(harness.store.only().daily_used).toBe(0);
   });
 
   it("returns 400 for a missing requestBody", async () => {
@@ -535,6 +725,60 @@ describe("hosted-ai upstream error hygiene", () => {
     expect(response.status).toBe(502);
     expect(await response.text()).not.toContain("dg-key");
     expect(harness.store.only().daily_used).toBe(0);
+  });
+
+  it("logs only structured provider fields — never the raw body, tokens, or user content", async () => {
+    const harness = createHarness({
+      deepgram: {
+        status: 401,
+        body: { err_code: "INVALID_AUTH", err_msg: "Invalid credentials: token dg-key", request_id: "req-1" },
+      },
+    });
+    const logs = captureLogs();
+    await call(harness, post("/transcribe", { audio: btoa("audio"), mimeType: "audio/wav" }));
+
+    harness.gemini = {
+      status: 400,
+      body: { error: { code: 400, status: "INVALID_ARGUMENT", message: `API key gemini-key not valid for "my secret prompt"` } },
+    };
+    await call(harness, post("/generate", { prompt: "my secret prompt" }));
+    logs.restore();
+
+    const joined = logs.lines.join("\n");
+    expect(joined).toContain("hosted_ai_upstream_error");
+    expect(joined).toContain("err_code=INVALID_AUTH");
+    expect(joined).toContain("status=INVALID_ARGUMENT");
+    for (const leak of ["dg-key", "gemini-key", "Invalid credentials", "my secret prompt", "not valid"]) {
+      expect(joined).not.toContain(leak);
+    }
+  });
+
+  it("summarizes upstream error bodies without free text", () => {
+    expect(summarizeUpstreamErrorBody('{"error":{"code":429,"status":"RESOURCE_EXHAUSTED","message":"quota"}}')).toBe(
+      "status=RESOURCE_EXHAUSTED code=429"
+    );
+    expect(summarizeUpstreamErrorBody('{"err_code":"Bad Request<script>","err_msg":"token abc"}')).toBe(
+      "err_code=BadRequestscript"
+    );
+    expect(summarizeUpstreamErrorBody("<html>gateway timeout</html>")).toBe("non_json_body bytes=28");
+    expect(summarizeUpstreamErrorBody('{"message":"free text only"}')).toBe("unrecognized_body bytes=28");
+  });
+
+  it("redacts configured provider secrets from generic error logs", async () => {
+    const harness = createHarness();
+    harness.deps.store = {
+      ...harness.store,
+      get: async () => {
+        throw new Error("D1 rejected query with key gemini-key in it");
+      },
+    } as unknown as LedgerStore;
+    const logs = captureLogs();
+    const response = await call(harness, post("/generate", { prompt: "hi" }));
+    logs.restore();
+    expect(response.status).toBe(500);
+    const joined = logs.lines.join("\n");
+    expect(joined).toContain("[redacted]");
+    expect(joined).not.toContain("gemini-key");
   });
 
   it("maps upstream 429 to 503 with Retry-After", async () => {

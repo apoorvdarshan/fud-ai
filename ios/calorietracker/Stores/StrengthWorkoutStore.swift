@@ -71,12 +71,22 @@ final class StrengthWorkoutStore {
 
     private let defaults: UserDefaults
     private let storageKey: String
+    private let stateBlob: PersistedBlobGuard
     private var liftSummaryCacheKey: String?
     private var liftSummaryCache: [String: String] = [:]
 
-    init(defaults: UserDefaults = .standard, storageKey: String = StrengthWorkoutStore.defaultStorageKey) {
+    /// True while an unreadable state blob is on disk without a backup copy;
+    /// `save()` is refused in that state so it cannot be overwritten.
+    var isPersistenceBlocked: Bool { stateBlob.isWriteBlocked }
+
+    init(
+        defaults: UserDefaults = .standard,
+        storageKey: String = StrengthWorkoutStore.defaultStorageKey,
+        corruptBackupDirectory: URL? = nil
+    ) {
         self.defaults = defaults
         self.storageKey = storageKey
+        self.stateBlob = PersistedBlobGuard(defaults: defaults, key: storageKey, backupDirectory: corruptBackupDirectory)
         load()
     }
 
@@ -570,7 +580,7 @@ final class StrengthWorkoutStore {
         }
         userExercises = []
         preferences = StrengthWorkoutPreferences()
-        defaults.removeObject(forKey: storageKey)
+        stateBlob.remove()
     }
 
     private func updatePlan(for date: Date, mutate: (inout StrengthWorkoutDayPlan) -> Void) {
@@ -689,10 +699,21 @@ final class StrengthWorkoutStore {
     }
 
     private func load() {
-        guard let data = defaults.data(forKey: storageKey),
-              let state = try? JSONDecoder().decode(PersistedState.self, from: data),
-              state.version == 1
-        else { return }
+        let state: PersistedState
+        switch stateBlob.loadValue(PersistedState.self) {
+        case .missing, .corrupt:
+            // Corrupt blobs are backed up by the guard and protected from
+            // being overwritten until that copy exists.
+            return
+        case .decoded(let decoded, _):
+            state = decoded
+        }
+        guard state.version == 1 else {
+            // Written by a build with a newer schema — preserve it rather than
+            // clobbering it with a downgraded empty state on the next save.
+            stateBlob.quarantineCurrentBlob(reason: "unsupported workout state version \(state.version)")
+            return
+        }
         dayPlans = state.dayPlans
         completedSessions = state.completedSessions
         savedExerciseIDs = state.savedExerciseIDs
@@ -723,8 +744,7 @@ final class StrengthWorkoutStore {
             customActivities: customActivities,
             userExercises: userExercises
         )
-        guard let data = try? JSONEncoder().encode(state) else { return }
-        defaults.set(data, forKey: storageKey)
+        stateBlob.save(state)
     }
 
     private static func decimalText(_ value: String) -> String {

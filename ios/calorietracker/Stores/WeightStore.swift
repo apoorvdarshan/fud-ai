@@ -7,14 +7,25 @@ class WeightStore {
     var onEntryAdded: ((WeightEntry) -> Void)?
     var onEntryDeleted: ((UUID) -> Void)?
 
-    private let storageKey = "weightEntries"
+    static let storageKey = "weightEntries"
     private let observesExternalChanges: Bool
+    private let entriesBlob: PersistedBlobGuard
+
+    /// True while an unreadable weight blob is on disk without a backup copy;
+    /// mutations are refused so they cannot overwrite the user's history.
+    var isPersistenceBlocked: Bool { entriesBlob.isWriteBlocked }
+    var corruptBlobBackups: [PersistedBlobGuard.CorruptBackup] { entriesBlob.backups }
 
     static let externalChangeNotification = "ai.fud.weightEntriesDidChange"
 
-    init(observesExternalChanges: Bool = true) {
+    init(
+        observesExternalChanges: Bool = true,
+        defaults: UserDefaults = .standard,
+        corruptBackupDirectory: URL? = nil
+    ) {
         self.observesExternalChanges = observesExternalChanges
-        loadEntries()
+        self.entriesBlob = PersistedBlobGuard(defaults: defaults, key: Self.storageKey, backupDirectory: corruptBackupDirectory)
+        loadEntries(isInitialLoad: true)
         if observesExternalChanges {
             startObservingExternalChanges()
         }
@@ -54,6 +65,7 @@ class WeightStore {
     }
 
     func addEntry(_ entry: WeightEntry) {
+        guard !isPersistenceBlocked else { return }
         let previousLatest = entries.sorted { $0.date > $1.date }.first
         entries.append(entry)
         saveEntries()
@@ -76,6 +88,7 @@ class WeightStore {
     }
 
     func deleteEntry(_ entry: WeightEntry) {
+        guard !isPersistenceBlocked else { return }
         let id = entry.id
         entries.removeAll { $0.id == id }
         saveEntries()
@@ -96,10 +109,11 @@ class WeightStore {
     }
 
     func reloadFromDefaults() {
-        loadEntries()
+        loadEntries(isInitialLoad: false)
     }
 
     func replaceAllEntries(_ newEntries: [WeightEntry]) {
+        guard !isPersistenceBlocked else { return }
         entries = newEntries
         saveEntries()
     }
@@ -108,36 +122,52 @@ class WeightStore {
     /// scale history that predate Fud AI). Bypasses onEntryAdded so the
     /// imported externals don't echo back to HK as fresh writes — these
     /// samples already exist there. Saves + syncs profile once at the end.
+    /// Samples whose id is already in the store (a restore that raced a
+    /// live observer write, or the same batch delivered twice) are skipped so
+    /// the list never accumulates duplicate ids.
     func importExternalEntries(_ external: [WeightEntry]) {
-        guard !external.isEmpty else { return }
-        entries.append(contentsOf: external)
+        guard !isPersistenceBlocked else { return }
+        var seen = Set(entries.map(\.id))
+        let fresh = external.filter { seen.insert($0.id).inserted }
+        guard !fresh.isEmpty else { return }
+        entries.append(contentsOf: fresh)
         saveEntries()
         syncProfileWeightToLatest()
     }
 
+    /// Upserts by id; duplicate ids resolve newest-wins instead of trapping.
     func mergeWithCloudEntries(_ cloudEntries: [WeightEntry]) {
-        var merged = Dictionary(uniqueKeysWithValues: entries.map { ($0.id, $0) })
-        for cloudEntry in cloudEntries {
-            merged[cloudEntry.id] = cloudEntry
-        }
-        entries = Array(merged.values)
+        guard !isPersistenceBlocked else { return }
+        entries = Self.mergingByID(entries, with: cloudEntries)
         saveEntries()
     }
 
-    private func saveEntries() {
-        if let data = try? JSONEncoder().encode(entries) {
-            UserDefaults.standard.set(data, forKey: storageKey)
+    static func mergingByID(_ existing: [WeightEntry], with incoming: [WeightEntry]) -> [WeightEntry] {
+        var order: [UUID] = []
+        var byID: [UUID: WeightEntry] = [:]
+        for entry in existing + incoming {
+            if byID.updateValue(entry, forKey: entry.id) == nil {
+                order.append(entry.id)
+            }
         }
+        return order.compactMap { byID[$0] }
     }
 
-    private func loadEntries() {
-        guard let data = UserDefaults.standard.data(forKey: storageKey),
-              let decoded = try? JSONDecoder().decode([WeightEntry].self, from: data)
-        else {
+    private func saveEntries() {
+        entriesBlob.save(entries)
+    }
+
+    private func loadEntries(isInitialLoad: Bool) {
+        switch entriesBlob.loadList(WeightEntry.self) {
+        case .missing:
             entries = []
-            return
+        case .decoded(let decoded, _):
+            entries = decoded
+        case .corrupt:
+            // Backed up (or write-blocked until it is). Keep the in-memory
+            // copy on reloads instead of presenting an empty history.
+            if isInitialLoad { entries = [] }
         }
-        entries = decoded
     }
 
     private func startObservingExternalChanges() {
@@ -158,7 +188,7 @@ class WeightStore {
     }
 
     private func reloadFromExternalChange() {
-        loadEntries()
+        loadEntries(isInitialLoad: false)
         syncProfileWeightToLatest()
     }
 

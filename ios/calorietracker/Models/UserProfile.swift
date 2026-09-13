@@ -541,18 +541,22 @@ struct UserProfile: Codable, Equatable {
 
     // MARK: - Persistence
 
+    static let storageKey = "userProfile"
+
+    /// Shared guard so an unreadable profile blob is backed up and cannot be
+    /// silently replaced by `.default` on the next `save()`.
+    private static let storageBlob = PersistedBlobGuard(defaults: .standard, key: storageKey)
+
     static func load() -> UserProfile? {
-        guard let data = UserDefaults.standard.data(forKey: "userProfile"),
-              let profile = try? JSONDecoder().decode(UserProfile.self, from: data)
-        else { return nil }
-        return profile
+        switch storageBlob.loadValue(UserProfile.self) {
+        case .decoded(let profile, _): return profile
+        case .missing, .corrupt: return nil
+        }
     }
 
     func save() {
-        if let data = try? JSONEncoder().encode(self) {
-            UserDefaults.standard.set(data, forKey: "userProfile")
-            NotificationCenter.default.post(name: .userProfileDidChange, object: nil)
-        }
+        guard Self.storageBlob.save(self) else { return }
+        NotificationCenter.default.post(name: .userProfileDidChange, object: nil)
     }
 }
 

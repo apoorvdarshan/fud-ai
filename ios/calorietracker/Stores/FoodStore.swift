@@ -45,18 +45,41 @@ class FoodStore {
     var onEntryDeleted: ((UUID) -> Void)?
     var onEntryUpdated: ((FoodEntry) -> Void)?
 
-    private let storageKey = "foodEntries"
-    private let favoritesKey = "favoriteFoodEntries"
+    static let storageKey = "foodEntries"
+    static let favoritesKey = "favoriteFoodEntries"
     private(set) var favorites: [FoodEntry] = []
     private let observesExternalChanges: Bool
     private let defaults: UserDefaults
+    private let entriesBlob: PersistedBlobGuard
+    private let favoritesBlob: PersistedBlobGuard
+
+    /// Number of diary rows that were unreadable on the last load and had to be
+    /// skipped. The raw blob was backed up first, so nothing is lost.
+    private(set) var droppedEntriesOnLoad = 0
+
+    /// Backups written for diary blobs that could not be decoded. Surfaced so
+    /// a future recovery UI can point at the file; the store never deletes them.
+    var corruptBlobBackups: [PersistedBlobGuard.CorruptBackup] {
+        entriesBlob.backups + favoritesBlob.backups
+    }
+
+    /// True while an unreadable diary blob is still on disk without a backup
+    /// copy. Every mutation is refused in this state so the next save cannot
+    /// replace the user's history with a one-entry list.
+    var isPersistenceBlocked: Bool { entriesBlob.isWriteBlocked }
 
     static let externalChangeNotification = "ai.fud.foodEntriesDidChange"
 
-    init(observesExternalChanges: Bool = true, defaults: UserDefaults = .standard) {
+    init(
+        observesExternalChanges: Bool = true,
+        defaults: UserDefaults = .standard,
+        corruptBackupDirectory: URL? = nil
+    ) {
         self.observesExternalChanges = observesExternalChanges
         self.defaults = defaults
-        loadEntries()
+        self.entriesBlob = PersistedBlobGuard(defaults: defaults, key: Self.storageKey, backupDirectory: corruptBackupDirectory)
+        self.favoritesBlob = PersistedBlobGuard(defaults: defaults, key: Self.favoritesKey, backupDirectory: corruptBackupDirectory)
+        loadEntries(isInitialLoad: true)
         loadFavorites()
         if observesExternalChanges {
             startObservingExternalChanges()
@@ -315,6 +338,7 @@ class FoodStore {
     }
 
     func toggleFavorite(_ entry: FoodEntry) {
+        guard !favoritesBlob.isWriteBlocked else { return }
         if let index = favorites.firstIndex(where: { $0.favoriteKey == entry.favoriteKey }) {
             favorites.remove(at: index)
         } else {
@@ -334,28 +358,35 @@ class FoodStore {
     }
 
     func moveFavorite(from source: IndexSet, to destination: Int) {
+        guard !favoritesBlob.isWriteBlocked else { return }
         favorites.move(fromOffsets: source, toOffset: destination)
         saveFavorites()
     }
 
     private func saveFavorites() {
-        if let data = try? JSONEncoder().encode(favorites) {
-            defaults.set(data, forKey: favoritesKey)
+        if favoritesBlob.save(favorites) {
             defaults.synchronize()
         }
     }
 
     private func loadFavorites() {
-        guard let data = defaults.data(forKey: favoritesKey),
-              let decoded = try? JSONDecoder().decode([FoodEntry].self, from: data)
-        else { return }
-        favorites = decoded
+        switch favoritesBlob.loadList(FoodEntry.self) {
+        case .missing:
+            favorites = []
+        case .decoded(let decoded, _):
+            favorites = decoded
+        case .corrupt:
+            // Keep whatever is in memory; the unreadable blob has been backed up
+            // and `saveFavorites` stays blocked until that copy exists.
+            break
+        }
     }
 
     // MARK: - CRUD
 
     @discardableResult
     func addEntry(_ entry: FoodEntry) -> Bool {
+        guard !isPersistenceBlocked else { return false }
         guard FastingStore.persistedActiveSession(defaults: defaults) == nil else { return false }
         var entry = entry
         let photosToExport = (entry.imageData.map { [$0] } ?? []) + entry.additionalImageData
@@ -377,6 +408,7 @@ class FoodStore {
     }
 
     func updateEntry(_ entry: FoodEntry) {
+        guard !isPersistenceBlocked else { return }
         guard let index = entries.firstIndex(where: { $0.id == entry.id }) else { return }
         let previousFilenames = Set(entries[index].allImageFilenames)
         var entry = entry
@@ -394,6 +426,7 @@ class FoodStore {
     }
 
     func deleteEntry(_ entry: FoodEntry) {
+        guard !isPersistenceBlocked else { return }
         let id = entry.id
         // Skip the disk-delete when a favorite (or another entry) still
         // references this filename. Without this guard, favoriting a meal,
@@ -411,6 +444,7 @@ class FoodStore {
     /// Merge selected diary foods into one combined meal and remove the originals.
     @discardableResult
     func combineIntoMeal(ids: Set<UUID>) -> FoodEntry? {
+        guard !isPersistenceBlocked else { return nil }
         guard FastingStore.persistedActiveSession(defaults: defaults) == nil else { return nil }
         guard ids.count >= 2 else { return nil }
         let selected = entries.filter { ids.contains($0.id) }
@@ -436,12 +470,13 @@ class FoodStore {
     }
 
     func reloadFromDefaults() {
-        loadEntries()
+        loadEntries(isInitialLoad: false)
         loadFavorites()
         onEntriesChanged?()
     }
 
     func replaceAllEntries(_ newEntries: [FoodEntry]) {
+        guard !isPersistenceBlocked else { return }
         // Delete on-disk JPEGs for any entry that's about to be removed —
         // otherwise Clear Food Log / Delete All Data orphan files in
         // Application Support forever. Skip files that a favorite or a
@@ -464,6 +499,7 @@ class FoodStore {
     /// resulting ID changes to Apple Health through the existing callbacks.
     /// Entries whose IDs survive the import are updates; new IDs are additions.
     func replaceEntriesFromImport(_ newEntries: [FoodEntry]) {
+        guard !isPersistenceBlocked else { return }
         let oldIDs = Set(entries.map(\.id))
         let newIDs = Set(newEntries.map(\.id))
         let removedIDs = oldIDs.subtracting(newIDs)
@@ -477,14 +513,27 @@ class FoodStore {
         addedEntries.forEach { onEntryAdded?($0) }
     }
 
+    /// Upserts `cloudEntries` (iCloud restore, HealthKit recovery) by id.
+    /// Duplicate ids — in the local list, the incoming batch, or across both —
+    /// resolve newest-wins instead of trapping in `Dictionary(uniqueKeysWithValues:)`.
     func mergeWithCloudEntries(_ cloudEntries: [FoodEntry]) {
-        var merged = Dictionary(uniqueKeysWithValues: entries.map { ($0.id, $0) })
-        for cloudEntry in cloudEntries {
-            merged[cloudEntry.id] = cloudEntry
-        }
-        entries = Array(merged.values)
+        guard !isPersistenceBlocked else { return }
+        entries = Self.mergingByID(entries, with: cloudEntries)
         saveEntries()
         onEntriesChanged?()
+    }
+
+    /// Order-preserving upsert: existing rows keep their position, later
+    /// duplicates of the same id replace earlier ones, new ids append.
+    static func mergingByID(_ existing: [FoodEntry], with incoming: [FoodEntry]) -> [FoodEntry] {
+        var order: [UUID] = []
+        var byID: [UUID: FoodEntry] = [:]
+        for entry in existing + incoming {
+            if byID.updateValue(entry, forKey: entry.id) == nil {
+                order.append(entry.id)
+            }
+        }
+        return order.compactMap { byID[$0] }
     }
 
     func reprocessEntry(_ entry: FoodEntry, withNote note: String) async throws -> GeminiService.FoodAnalysis {
@@ -596,7 +645,7 @@ class FoodStore {
     }
 
     private func reloadFromExternalChange() {
-        loadEntries()
+        loadEntries(isInitialLoad: false)
         onEntriesChanged?()
     }
 
@@ -612,21 +661,27 @@ class FoodStore {
 
     @discardableResult
     private func saveEntries() -> Bool {
-        if let data = try? JSONEncoder().encode(entries) {
-            defaults.set(data, forKey: storageKey)
-            return defaults.synchronize()
-        }
-        return false
+        guard entriesBlob.save(entries) else { return false }
+        return defaults.synchronize()
     }
 
-    private func loadEntries() {
-        guard let data = defaults.data(forKey: storageKey),
-              let decoded = try? JSONDecoder().decode([FoodEntry].self, from: data)
-        else {
+    private func loadEntries(isInitialLoad: Bool) {
+        switch entriesBlob.loadList(FoodEntry.self) {
+        case .missing:
+            droppedEntriesOnLoad = 0
             entries = []
             return
+        case .decoded(let decoded, let dropped):
+            droppedEntriesOnLoad = dropped
+            entries = decoded
+        case .corrupt:
+            // The blob is unreadable and has been backed up (or writes are
+            // blocked until it is). On first launch there is nothing else to
+            // show; on a reload keep the good in-memory copy rather than
+            // replacing the user's diary with an empty list.
+            if isInitialLoad { entries = [] }
+            return
         }
-        entries = decoded
 
         // Legacy migration: rows written by pre-FoodImageStore builds embedded
         // JPEG bytes in the JSON blob. Offload any such rows to disk, stamp

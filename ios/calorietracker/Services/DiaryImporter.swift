@@ -262,7 +262,10 @@ enum DiaryImporter {
                 let day = calendar.startOfDay(for: $0.timestamp)
                 return day >= preview.startDate && day <= preview.endDate
             }
-            var existingByID = Dictionary(uniqueKeysWithValues: inRange.map { ($0.id, $0) })
+            // A diary that already holds two rows with the same id (older
+            // HealthKit restores could append duplicates) must not trap the
+            // import; the later row wins.
+            var existingByID = Dictionary(inRange.map { ($0.id, $0) }, uniquingKeysWith: { _, latest in latest })
             var existingByKey: [String: [FoodEntry]] = Dictionary(grouping: inRange) { matchKey($0, calendar: calendar) }
             var usedIDs = Set<UUID>()
             var occupiedIDs = Set(outsideRange.map(\.id))

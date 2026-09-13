@@ -64,13 +64,29 @@ struct WaterEntry: Codable, Identifiable, Equatable {
 final class WaterStore {
     private(set) var entries: [WaterEntry] = []
     var onEntriesChanged: (() -> Void)?
-    private let defaults: UserDefaults
+    private let entriesBlob: PersistedBlobGuard
 
-    init(defaults: UserDefaults = .standard) {
-        self.defaults = defaults
-        guard let data = defaults.data(forKey: WaterSettings.entriesKey),
-              let decoded = try? JSONDecoder().decode([WaterEntry].self, from: data) else { return }
-        entries = decoded
+    /// True while an unreadable blob is on disk without a backup copy.
+    var isPersistenceBlocked: Bool { entriesBlob.isWriteBlocked }
+
+    init(defaults: UserDefaults = .standard, corruptBackupDirectory: URL? = nil) {
+        self.entriesBlob = PersistedBlobGuard(
+            defaults: defaults,
+            key: WaterSettings.entriesKey,
+            backupDirectory: corruptBackupDirectory
+        )
+        load(isInitialLoad: true)
+    }
+
+    private func load(isInitialLoad: Bool) {
+        switch entriesBlob.loadList(WaterEntry.self) {
+        case .missing:
+            entries = []
+        case .decoded(let decoded, _):
+            entries = decoded
+        case .corrupt:
+            if isInitialLoad { entries = [] }
+        }
     }
 
     @discardableResult
@@ -83,6 +99,7 @@ final class WaterStore {
     @discardableResult
     func add(id: UUID, milliliters: Int, on date: Date) -> WaterEntry? {
         guard milliliters > 0 else { return nil }
+        guard !isPersistenceBlocked else { return nil }
         if let existing = entries.first(where: { $0.id == id }) { return existing }
         let entry = WaterEntry(id: id, date: date, milliliters: milliliters)
         entries.append(entry)
@@ -92,31 +109,27 @@ final class WaterStore {
     }
 
     func delete(id: UUID) {
+        guard !isPersistenceBlocked else { return }
         entries.removeAll { $0.id == id }
         save()
         onEntriesChanged?()
     }
 
     func reloadFromDefaults() {
-        guard let data = defaults.data(forKey: WaterSettings.entriesKey),
-              let decoded = try? JSONDecoder().decode([WaterEntry].self, from: data) else {
-            entries = []
-            onEntriesChanged?()
-            return
-        }
-        entries = decoded
+        load(isInitialLoad: false)
         onEntriesChanged?()
     }
 
     func replaceEntriesFromImport(_ imported: [WaterEntry]) {
+        guard !isPersistenceBlocked else { return }
         entries = imported
         save()
         onEntriesChanged?()
     }
 
     func clear() {
+        guard entriesBlob.remove() else { return }
         entries = []
-        defaults.removeObject(forKey: WaterSettings.entriesKey)
         onEntriesChanged?()
     }
 
@@ -132,7 +145,6 @@ final class WaterStore {
     }
 
     private func save() {
-        guard let data = try? JSONEncoder().encode(entries) else { return }
-        defaults.set(data, forKey: WaterSettings.entriesKey)
+        entriesBlob.save(entries)
     }
 }

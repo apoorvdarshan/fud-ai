@@ -1,11 +1,12 @@
 import Foundation
 import UIKit
 
-/// One authored workout frame from the shared manifest. Frames are not bundled in
-/// release builds; `WorkoutFrameStore` resolves them (cache → debug sample → CDN).
+/// One authored workout frame from the shared manifest. Frames ship in the app bundle's
+/// `workout-vectors` folder; `WorkoutFrameStore` resolves them (cache → bundle → optional
+/// debug download).
 nonisolated struct ExerciseAuthoredFrame: Hashable, Sendable {
     let name: String
-    /// Hex prefix of the frame PNG's SHA-256 (CDN cache key + download integrity check).
+    /// Hex prefix of the frame PNG's SHA-256 (cache filename + download integrity check).
     let digest: String?
     let format: ExerciseVisualAsset.Format
 
@@ -175,8 +176,9 @@ struct ExerciseVisualManifest: Equatable {
 }
 
 struct FreeExerciseDBAssetResolver {
-    /// The manifest is compiled as an asset-catalog data set; it is the only workout-frame
-    /// artifact in the app bundle. Frames themselves are delivered by `WorkoutFrameStore`.
+    /// The manifest is compiled as an asset-catalog data set and decides which exercises
+    /// have authored visuals; the frames themselves live in the bundled `workout-vectors`
+    /// folder and are delivered by `WorkoutFrameStore`.
     private static let bundledVisualManifest: ExerciseVisualManifest? = {
         guard let data = NSDataAsset(name: "ExerciseVisualManifest")?.data else { return nil }
         return try? ExerciseVisualManifest(data: data)

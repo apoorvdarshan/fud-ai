@@ -21,10 +21,12 @@ val localProperties = Properties().apply {
     if (file.exists()) load(file.inputStream())
 }
 
-// Public CDN prefix for on-demand workout frames (R2 bucket behind a custom domain;
-// see shared/workout-vectors/README.md). Debug builds may point at a local corpus
-// server via local.properties: workout.vectors.base.url=http://10.0.2.2:8765
-val workoutVectorsDefaultBaseUrl = "https://assets.fud-ai.app/workout-vectors/v2"
+// Workout frames ship inside the APK/AAB (see shared/workout-vectors/README.md), so no
+// CDN is required or contacted. Release builds hard-code an empty base URL, which
+// disables WorkoutFrameStore downloads entirely. Debug builds may opt into a
+// download fallback (e.g. when built with -PworkoutVectors=sample) by pointing at a
+// local corpus server in local.properties: workout.vectors.base.url=http://10.0.2.2:8765
+val workoutVectorsDefaultBaseUrl = ""
 val debugWorkoutVectorsBaseUrl = localProperties.getProperty("workout.vectors.base.url")
     ?.trim()
     ?.takeIf { it.isNotEmpty() }
@@ -61,7 +63,7 @@ android {
             "CLOUD_BACKUP_WEB_CLIENT_ID",
             "\"${webClientId.replace("\"", "\\\"")}\""
         )
-        // Public CDN prefix the app fetches workout frames from on demand.
+        // Empty: frames are bundled; WorkoutFrameStore never downloads in release.
         buildConfigField("String", "WORKOUT_VECTORS_BASE_URL", "\"$workoutVectorsDefaultBaseUrl\"")
     }
 
@@ -127,8 +129,9 @@ android {
     }
 
     // Workouts: mirror iOS exercises.json. The authored workout frames in
-    // shared/workout-vectors (~1.2 GB) are deliberately NOT merged here; see the
-    // workout-vector asset task below (manifest only in release, sample in debug).
+    // shared/workout-vectors (~1.2 GB) are added by the workout-vector asset task
+    // below rather than as a srcDir, so only the manifest + `*_v2_*.png` frames are
+    // packaged (not the README, SVG pilot, or sample list that live next to them).
     sourceSets {
         getByName("main") {
             assets.srcDirs(
@@ -143,22 +146,30 @@ android {
 // ---------------------------------------------------------------------------
 // Workout vector frames
 //
-// Release/store builds bundle only exercise-visual-manifest.json; frames are
-// fetched on demand from WORKOUT_VECTORS_BASE_URL and cached on device
-// (WorkoutFrameStore). Debug builds also bundle the small sample pack listed in
-// shared/workout-vectors/sample-pack.txt so animations work offline.
+// Every build bundles exercise-visual-manifest.json plus the complete authored
+// frame corpus (shared/workout-vectors/*_v2_*.png, ~7,000 files / ~1.2 GB) as flat
+// assets, so WorkoutFrameStore resolves frames offline with no CDN dependency.
+// Known ship blocker: the resulting Play base module is far above Play's 200 MB
+// cap; the owner accepts this for now (see shared/workout-vectors/README.md).
 //
-//   ./gradlew assembleDebug -PworkoutVectors=sample   (default for debug builds)
-//   ./gradlew assembleDebug -PworkoutVectors=all      (whole corpus, local QA only)
-//   ./gradlew assembleDebug -PworkoutVectors=none     (manifest only, release parity)
+// Debug builds may trade offline coverage for build speed:
 //
-// Release builds refuse anything other than the manifest so the 1.2 GB corpus
-// can never end up in a store binary again.
+//   ./gradlew assembleDebug -PworkoutVectors=all      (default: whole corpus)
+//   ./gradlew assembleDebug -PworkoutVectors=sample   (sample-pack.txt only, ~15 MB)
+//   ./gradlew assembleDebug -PworkoutVectors=none     (manifest only)
+//
+// Release builds always bundle the whole corpus and refuse the overrides above so
+// a store binary can never ship with missing frames by accident.
+//
+// Frames are hard-linked into the generated asset directory when the filesystem
+// allows it (falling back to a copy), so a clean build does not duplicate 1.2 GB.
 // ---------------------------------------------------------------------------
 val workoutVectorsDirectory = rootProject.file("../shared/workout-vectors")
 val workoutVectorsManifest = File(workoutVectorsDirectory, "exercise-visual-manifest.json")
 val workoutVectorsSampleList = File(workoutVectorsDirectory, "sample-pack.txt")
 val workoutVectorsModeProperty = providers.gradleProperty("workoutVectors")
+// 875 illustrated exercises x 2 genders x 4 frames (scripts/sync_workout_visual_assets.py).
+val workoutVectorsExpectedFrameCount = 875 * 2 * 4
 
 fun workoutVectorSampleFiles(): List<File> {
     val ids = workoutVectorsSampleList.readLines()
@@ -180,7 +191,7 @@ abstract class PrepareWorkoutVectorAssetsTask : DefaultTask() {
     @get:Input
     abstract val mode: Property<String>
 
-    /** The raw -PworkoutVectors override; release tasks refuse anything but none/absent. */
+    /** The raw -PworkoutVectors override; release tasks refuse anything but all/absent. */
     @get:Input
     @get:Optional
     abstract val requestedMode: Property<String>
@@ -188,16 +199,20 @@ abstract class PrepareWorkoutVectorAssetsTask : DefaultTask() {
     @get:Input
     abstract val release: Property<Boolean>
 
+    /** Frame count the complete corpus must contain; release builds fail when it is short. */
+    @get:Input
+    abstract val expectedFrameCount: Property<Int>
+
     @get:OutputDirectory
     abstract val outputDirectory: DirectoryProperty
 
     @TaskAction
     fun prepare() {
         val requested = requestedMode.orNull
-        if (release.get() && requested != null && requested != "none") {
+        if (release.get() && requested != null && requested != "all") {
             throw GradleException(
                 "workoutVectors=$requested is not allowed for release builds; " +
-                    "store binaries must only bundle the manifest."
+                    "store binaries must bundle the complete workout frame corpus."
             )
         }
         val output = outputDirectory.get().asFile
@@ -206,8 +221,16 @@ abstract class PrepareWorkoutVectorAssetsTask : DefaultTask() {
         var frames = 0
         sourceFiles.files.forEach { source ->
             require(source.isFile) { "workout vector source missing: $source" }
-            source.copyTo(File(output, source.name), overwrite = true)
+            val target = File(output, source.name)
+            runCatching { java.nio.file.Files.createLink(target.toPath(), source.toPath()) }
+                .onFailure { source.copyTo(target, overwrite = true) }
             if (source.extension == "png") frames++
+        }
+        if (mode.get() == "all" && frames != expectedFrameCount.get()) {
+            throw GradleException(
+                "shared/workout-vectors contains $frames v2 frames, expected " +
+                    "${expectedFrameCount.get()}; run scripts/sync_workout_visual_assets.py --check"
+            )
         }
         logger.lifecycle("workout vectors (${mode.get()}): bundled manifest + $frames frame(s)")
     }
@@ -218,11 +241,11 @@ androidComponents {
         val isRelease = variant.buildType == "release"
         val requested = workoutVectorsModeProperty.orNull
         // Gradle configures every variant even for `assembleDebug`, so the release variant
-        // must not throw here when a debug corpus override is present. Release always uses
-        // manifest-only inputs and only rejects the override if its own asset task runs.
+        // must not throw here when a debug override is present. Release always bundles the
+        // whole corpus and only rejects the override if its own asset task runs.
         val mode = when {
-            isRelease -> "none"
-            requested == null -> "sample"
+            isRelease -> "all"
+            requested == null -> "all"
             requested in setOf("none", "sample", "all") -> requested
             else -> throw GradleException("Unknown workoutVectors mode '$requested' (none|sample|all)")
         }
@@ -231,6 +254,7 @@ androidComponents {
             this.mode.set(mode)
             requestedMode.set(workoutVectorsModeProperty)
             release.set(isRelease)
+            expectedFrameCount.set(workoutVectorsExpectedFrameCount)
             sourceFiles.from(workoutVectorsManifest)
             when (mode) {
                 "sample" -> sourceFiles.from(workoutVectorSampleFiles())

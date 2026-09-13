@@ -2,17 +2,19 @@
 """Validate the v2 workout illustration corpus and regenerate its runtime manifests.
 
 `shared/workout-vectors` is the single canonical copy of the ~7,000 authored PNG
-frames. The frames are *not* packaged into the store binaries: both apps bundle
-only `exercise-visual-manifest.json` and fetch individual frames on demand from
-the workout-vector CDN (see `shared/workout-vectors/README.md`). This script:
+frames, and both apps package it directly: Android links the frames into its
+assets at build time and the iOS project carries the directory as a folder
+reference, so frames render offline without a CDN (see
+`shared/workout-vectors/README.md`). This script:
 
 1. validates the corpus (complete male/female 4-frame sets, 1024x768 RGBA PNGs,
    one set per catalogue exercise),
 2. writes the shared manifest and the byte-identical iOS `ExerciseVisualManifest`
-   data set, including a per-frame content digest used for CDN cache busting and
-   on-device download verification,
+   data set, including a per-frame content digest used to verify cached or
+   downloaded frames,
 3. rejects any generated `*_v2_*.imageset` left in the iOS asset catalog (the
-   catalog must never carry the frame corpus again).
+   corpus ships once, via the folder reference, never as a second catalog copy),
+4. checks that the iOS project still references `shared/workout-vectors`.
 """
 
 from __future__ import annotations
@@ -47,7 +49,9 @@ IOS_MANIFEST = (
     / "exercise-visual-manifest.json"
 )
 SAMPLE_PACK_LIST = SHARED_DIRECTORY / "sample-pack.txt"
-IOS_DEVELOPER_SAMPLE = REPOSITORY_ROOT / "ios" / "calorietracker" / "WorkoutVectorsSample"
+IOS_PROJECT = REPOSITORY_ROOT / "ios" / "calorietracker.xcodeproj" / "project.pbxproj"
+# The folder reference that copies the corpus into calorietracker.app/workout-vectors.
+IOS_FOLDER_REFERENCE = 'lastKnownFileType = folder; name = "workout-vectors"; path = "../shared/workout-vectors";'
 FRAME_COUNT = 4
 FRAME_INDICES = tuple(range(FRAME_COUNT))
 GENDERS = ("male", "female")
@@ -278,12 +282,26 @@ def enforce_catalog_has_no_frames(*, check: bool) -> int:
     if check:
         raise ValueError(
             f"iOS asset catalog still contains {len(stale)} generated workout frame "
-            "imagesets; frames must not ship in the app binary. Run "
+            "imagesets; the corpus ships via the shared/workout-vectors folder reference "
+            "and must not be duplicated in the catalog. Run "
             "scripts/sync_workout_visual_assets.py (without --check) to remove them."
         )
     for imageset in stale:
         shutil.rmtree(imageset)
     return len(stale)
+
+
+def enforce_ios_bundles_corpus() -> None:
+    """The Xcode project must copy shared/workout-vectors into the app bundle."""
+    if not IOS_PROJECT.is_file():
+        raise ValueError(f"missing iOS project: {display_path(IOS_PROJECT)}")
+    project = IOS_PROJECT.read_text()
+    if IOS_FOLDER_REFERENCE not in project or "workout-vectors in Resources" not in project:
+        raise ValueError(
+            f"{display_path(IOS_PROJECT)} no longer bundles shared/workout-vectors as a "
+            "folder reference in the calorietracker Resources phase; iOS would ship "
+            "without offline workout frames"
+        )
 
 
 def manifest_document(
@@ -338,6 +356,7 @@ def main() -> int:
         }
         sample_ids = validate_sample_pack(sequences)
         removed = enforce_catalog_has_no_frames(check=arguments.check)
+        enforce_ios_bundles_corpus()
         sync_manifest(manifest_document(sequences, digests), check=arguments.check)
     except (OSError, ValueError, json.JSONDecodeError) as error:
         print(f"error: {error}", file=sys.stderr)
@@ -351,12 +370,6 @@ def main() -> int:
     )
     if removed:
         print(f"removed {removed} generated frame imagesets from the iOS asset catalog")
-    if IOS_DEVELOPER_SAMPLE.is_dir():
-        print(
-            f"warning: {display_path(IOS_DEVELOPER_SAMPLE)} exists (gitignored developer "
-            "sample); delete it before archiving a release build",
-            file=sys.stderr,
-        )
     return 0
 
 

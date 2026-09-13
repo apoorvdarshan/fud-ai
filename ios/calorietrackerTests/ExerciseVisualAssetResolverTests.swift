@@ -126,7 +126,7 @@ struct ExerciseVisualAssetResolverTests {
         #expect(asset.frames == svgNames.map { authoredFrame($0, format: .svg) })
     }
 
-    @Test func bundledManifestDescribesV2PNGsWithoutBundlingFrames() throws {
+    @Test func bundledManifestDescribesV2PNGsThatShipInTheBundle() throws {
         let manifestData = try #require(NSDataAsset(name: "ExerciseVisualManifest")?.data)
         let manifest = try ExerciseVisualManifest(data: manifestData)
         let entry = try #require(manifest.entry(for: "Barbell_Full_Squat"))
@@ -148,10 +148,23 @@ struct ExerciseVisualAssetResolverTests {
                     continue
                 }
                 #expect(authored.digest != nil)
-                // The 1.2 GB corpus must never be compiled into the asset catalog again.
+                // Frames ship as a folder reference to shared/workout-vectors, byte-identical
+                // to the canonical corpus, so they render offline with no CDN.
+                let bundled = try #require(WorkoutFrameStore.bundledURL(for: authored))
+                #expect(bundled.lastPathComponent == "\(authored.name).png")
+                let bytes = try Data(contentsOf: bundled)
+                #expect(WorkoutFrameStore.looksLikePNG(bytes))
+                #expect(WorkoutFrameStore.data(bytes, matchesDigest: authored.digest))
+                // The corpus must not additionally be compiled into the asset catalog.
                 #expect(UIImage(named: authored.name) == nil)
             }
         }
+    }
+
+    @Test func frameDownloadsAreDisabledWithoutAnExplicitDebugOverride() {
+        // A developer scheme may set the launch argument; only assert the default state.
+        guard UserDefaults.standard.string(forKey: WorkoutFrameStore.baseURLOverrideKey) == nil else { return }
+        #expect(WorkoutFrameStore.configuredBaseURL() == nil)
     }
 
     @Test func frameStoreNamingRules() {
@@ -183,10 +196,12 @@ struct ExerciseVisualAssetResolverTests {
         let directory = FileManager.default.temporaryDirectory
             .appendingPathComponent("workout-frame-store-\(UUID().uuidString)", isDirectory: true)
         defer { try? FileManager.default.removeItem(at: directory) }
-        // No base URL: the store must never attempt a download.
+        // No base URL: the store must never attempt a download. The name is deliberately
+        // not part of the bundled corpus so only the cache can satisfy it.
         let store = WorkoutFrameStore(baseURL: nil, cacheDirectory: directory)
-        let frame = ExerciseAuthoredFrame(name: "Pushups_male_v2_1", digest: "0123456789abcdef", format: .png)
+        let frame = ExerciseAuthoredFrame(name: "Not_A_Real_Exercise_male_v2_1", digest: "0123456789abcdef", format: .png)
 
+        #expect(WorkoutFrameStore.bundledURL(for: frame) == nil)
         #expect(await store.localURL(for: frame) == nil)
 
         try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)

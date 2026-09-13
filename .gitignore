@@ -26,10 +26,6 @@ ios/build-sim/
 # Xcode per-user state (scheme order, workspace UI) — meaningless off this machine
 ios/**/xcuserdata/
 
-# Optional local workout-frame sample for iOS debug runs (see shared/workout-vectors/README.md).
-# Never commit: release builds must not bundle workout frames.
-ios/calorietracker/WorkoutVectorsSample/
-
 # Generated review contact sheets (regenerate via scripts/render_workout_review.py)
 artifacts/workout-visual-qa/review-batches/**/previews/
 artifacts/workout-visual-qa/cursor-pilot-10/candidates/

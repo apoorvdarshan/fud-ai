@@ -16,10 +16,10 @@ enum class ExerciseVisualFormat {
  * - [ExerciseVisualFormat.JPEG]: [framePaths] are bundled asset paths or user photo
  *   filenames, loaded directly.
  * - [ExerciseVisualFormat.PNG] / [ExerciseVisualFormat.SVG]: authored frames. [framePaths]
- *   are flat filenames (`<name>.png`) that are *not* bundled in release builds; they are
- *   resolved through [com.apoorvdarshan.calorietracker.services.WorkoutFrameStore]
- *   (on-device cache → bundled debug sample → CDN download). [frameDigests] carries the
- *   manifest's per-frame content digest used as the CDN cache key and integrity check.
+ *   are flat filenames (`<name>.png`) bundled as assets in every build; they are resolved
+ *   through [com.apoorvdarshan.calorietracker.services.WorkoutFrameStore]
+ *   (on-device cache → bundled asset → optional debug-only download). [frameDigests]
+ *   carries the manifest's per-frame content digest used to verify cached/downloaded bytes.
  */
 data class ExerciseVisual(
     val framePaths: List<String>,
@@ -95,8 +95,9 @@ internal object ExerciseVisualResolver {
     /**
      * Parses the shared manifest into atomic male/female sets (3–5 contiguous frames).
      * When [packagedAssetNames] is set (unit tests / corpus audits), every referenced file
-     * must exist in that collection. Runtime passes null: frames are not bundled in release
-     * builds, they are fetched on demand, so the manifest is the source of truth.
+     * must exist in that collection. Runtime passes null: the manifest is the source of
+     * truth and corpus completeness is enforced at build time (sync script + Gradle asset
+     * task), so listing ~7,000 assets on every launch would be wasted I/O.
      */
     fun parseManifest(
         json: String,

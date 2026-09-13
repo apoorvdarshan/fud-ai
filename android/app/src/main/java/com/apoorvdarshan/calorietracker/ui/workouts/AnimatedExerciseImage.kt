@@ -48,8 +48,9 @@ import kotlinx.coroutines.delay
  * in original colors. Honors system "remove animations" and freezes on the
  * representative frame. Composes only the visible frame (optional next-frame
  * Coil prefetch) so list rows do not decode every PNG up front. Authored frames
- * arrive through [WorkoutFrameStore] (cache → debug sample → CDN); until a frame
- * is available the card shows the workout background, never a broken image.
+ * arrive through [WorkoutFrameStore] (cache → bundled asset → optional debug
+ * download); until a frame is available the card shows the workout background,
+ * never a broken image.
  */
 private val ExerciseImageFilter: ColorFilter = run {
     val saturation = ColorMatrix().apply { setToSaturation(0.19f) }
@@ -116,8 +117,9 @@ fun AnimatedExerciseImage(
     }
 
     val isJpeg = visual.format == ExerciseVisualFormat.JPEG
-    // Authored frames may be unavailable (offline before first download, CDN not
-    // reachable). Fall back to the icon placeholder instead of an empty card.
+    // Authored frames may be unavailable (frame missing from the bundled corpus, or a
+    // debug build packaged with -PworkoutVectors=sample|none). Fall back to the icon
+    // placeholder instead of an empty card.
     var frameUnavailable by remember(visual) { mutableStateOf(false) }
     // Coil never retries a failed request by itself, and a non-animating card keeps the
     // same `index` forever, so a transient outage would otherwise leave the thumbnail
@@ -197,8 +199,8 @@ private fun exerciseImageRequest(
 ): ImageRequest {
     val path = visual.framePaths[index]
     if (visual.isAuthored) {
-        // Authored frames are not bundled in release builds; WorkoutFrameStore's fetcher
-        // serves them from the on-device cache, the debug sample pack, or the CDN.
+        // Authored frames are bundled assets; WorkoutFrameStore's fetcher serves them from
+        // the on-device cache, the bundle, or (debug builds only) a configured download URL.
         val ref = WorkoutFrameRef.from(path, visual.digestAt(index), visual.format)
         if (ref != null) {
             val cacheKey = "${ref.name}:${ref.digest ?: "nodigest"}"

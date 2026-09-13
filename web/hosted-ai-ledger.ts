@@ -72,6 +72,8 @@ export interface QuotaSnapshot {
 }
 
 export interface SpendReceipt {
+  /** Unique per spend; refunds are keyed on it so they apply at most once. */
+  id: string;
   fromDaily: number;
   fromCredits: number;
   day: string;
@@ -102,8 +104,15 @@ export interface LedgerStore {
     next: { usageDay: string; dailyUsed: number; creditsSpent: number },
     now: string
   ): Promise<boolean>;
+  /**
+   * Reverses `receipt`. Must be idempotent: applying the same receipt again
+   * (a retry after a write that committed but reported an error) is a no-op.
+   */
   refund(userIdHash: string, receipt: SpendReceipt, now: string): Promise<void>;
 }
+
+/** Applied-refund markers older than this are pruned by the scheduled job. */
+export const REFUND_MARKER_RETENTION_MS = 30 * 24 * 60 * 60 * 1000;
 
 export class D1LedgerStore implements LedgerStore {
   constructor(private readonly database: D1Database | D1DatabaseSession) {}
@@ -167,35 +176,56 @@ export class D1LedgerStore implements LedgerStore {
     return (result.meta?.changes ?? 0) === 1;
   }
 
+  /**
+   * The ledger update and the applied-refund marker are written in one D1
+   * batch, which runs as a single transaction. The update is conditional on
+   * the marker not existing, so if the transaction committed but the error
+   * was reported after the fact, the retry matches zero rows instead of
+   * crediting the user a second time. If it rolled back, neither statement
+   * took effect and the retry applies the refund normally.
+   */
   async refund(userIdHash: string, receipt: SpendReceipt, now: string): Promise<void> {
-    await this.database
-      .prepare(
-        `UPDATE hosted_ai_ledger
-            SET daily_used = CASE WHEN usage_day = ?1 THEN MAX(0, daily_used - ?2) ELSE daily_used END,
-                credits_spent = MAX(0, credits_spent - ?3),
-                version = version + 1, updated_at = ?4
-          WHERE user_id_hash = ?5`
-      )
-      .bind(receipt.day, receipt.fromDaily, receipt.fromCredits, now, userIdHash)
-      .run();
+    await this.database.batch([
+      this.database
+        .prepare(
+          `UPDATE hosted_ai_ledger
+              SET daily_used = CASE WHEN usage_day = ?1 THEN MAX(0, daily_used - ?2) ELSE daily_used END,
+                  credits_spent = MAX(0, credits_spent - ?3),
+                  version = version + 1, updated_at = ?4
+            WHERE user_id_hash = ?5
+              AND NOT EXISTS (SELECT 1 FROM hosted_ai_refunds WHERE receipt_id = ?6)`
+        )
+        .bind(receipt.day, receipt.fromDaily, receipt.fromCredits, now, userIdHash, receipt.id),
+      this.database
+        .prepare(
+          `INSERT OR IGNORE INTO hosted_ai_refunds (receipt_id, user_id_hash, created_at)
+           VALUES (?1, ?2, ?3)`
+        )
+        .bind(receipt.id, userIdHash, now),
+    ]);
   }
 }
 
 /**
- * Prunes idle ledger rows. Rows that have ever spent purchased credits are kept
- * indefinitely: `credits_granted` is re-derived from RevenueCat's lifetime
- * `non_subscriptions`, but `credits_spent` exists only here, so deleting such
- * a row would hand every previously consumed credit back on the next visit.
+ * Prunes idle ledger rows and stale refund markers. Ledger rows that have
+ * ever spent purchased credits are kept indefinitely: `credits_granted` is
+ * re-derived from RevenueCat's lifetime `non_subscriptions`, but
+ * `credits_spent` exists only here, so deleting such a row would hand every
+ * previously consumed credit back on the next visit. Refund markers only need
+ * to outlive the refund retry window (seconds), so they are pruned after
+ * `REFUND_MARKER_RETENTION_MS`.
  */
 export async function cleanupHostedAILedger(
   database: Pick<D1Database, "prepare">,
   now: Date = new Date()
 ): Promise<void> {
-  const cutoff = new Date(now.getTime() - LEDGER_RETENTION_MS).toISOString();
+  const ledgerCutoff = new Date(now.getTime() - LEDGER_RETENTION_MS).toISOString();
   await database
     .prepare("DELETE FROM hosted_ai_ledger WHERE updated_at < ?1 AND credits_spent = 0")
-    .bind(cutoff)
+    .bind(ledgerCutoff)
     .run();
+  const refundCutoff = new Date(now.getTime() - REFUND_MARKER_RETENTION_MS).toISOString();
+  await database.prepare("DELETE FROM hosted_ai_refunds WHERE created_at < ?1").bind(refundCutoff).run();
 }
 
 export function utcDayKey(date: Date): string {
@@ -381,7 +411,7 @@ export async function spendFromLedger(
     if (committed) {
       return {
         status: "spent",
-        receipt: { fromDaily, fromCredits, day: quota.day },
+        receipt: { id: crypto.randomUUID(), fromDaily, fromCredits, day: quota.day },
         quota: {
           ...quota,
           dailyUsed: next.dailyUsed,

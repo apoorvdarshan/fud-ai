@@ -251,8 +251,9 @@ async function identifyClient(request: Request, env: HostedAIEnv): Promise<Hoste
  * runs inline; if D1 rejects it, retries continue in `waitUntil` with backoff
  * so a transient error does not silently consume the subscriber's quota. If
  * every attempt fails the full receipt is logged (with the complete user hash)
- * so the ledger can be reconciled by hand. A retry after a write that actually
- * committed can at worst credit one extra action to the user, never take one.
+ * so the ledger can be reconciled by hand. Refunds are keyed on the receipt id
+ * (see `LedgerStore.refund`), so retrying after a write that actually
+ * committed is a no-op rather than a second credit.
  */
 async function refundSafely(
   ledger: LedgerContext,

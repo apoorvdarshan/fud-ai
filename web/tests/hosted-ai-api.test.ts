@@ -1,8 +1,10 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { handleHostedAIRequest, summarizeUpstreamErrorBody, type HostedAIDependencies } from "../hosted-ai-api";
 import {
+  D1LedgerStore,
   ENTITLEMENT_TTL_MS,
   LEDGER_RETENTION_MS,
+  REFUND_MARKER_RETENTION_MS,
   cleanupHostedAILedger,
   loadVerifiedLedger,
   parseRevenueCatSubscriber,
@@ -23,7 +25,14 @@ class MemoryLedgerStore implements LedgerStore {
   conflictOnce = false;
   /** Number of `refund` calls that should throw before one succeeds. */
   refundFailures = 0;
+  /**
+   * Number of `refund` calls that should apply the write and *then* throw,
+   * simulating D1 committing the transaction but reporting an error.
+   */
+  refundCommitThenFail = 0;
   refundAttempts = 0;
+  /** Receipt ids that have already been refunded (mirrors `hosted_ai_refunds`). */
+  refunded = new Set<string>();
 
   async get(userIdHash: string): Promise<LedgerRow | null> {
     const row = this.rows.get(userIdHash);
@@ -82,10 +91,16 @@ class MemoryLedgerStore implements LedgerStore {
       throw new Error("D1_ERROR: transient");
     }
     const row = this.rows.get(userIdHash);
-    if (!row) return;
-    if (row.usage_day === receipt.day) row.daily_used = Math.max(0, row.daily_used - receipt.fromDaily);
-    row.credits_spent = Math.max(0, row.credits_spent - receipt.fromCredits);
-    row.version += 1;
+    if (row && !this.refunded.has(receipt.id)) {
+      if (row.usage_day === receipt.day) row.daily_used = Math.max(0, row.daily_used - receipt.fromDaily);
+      row.credits_spent = Math.max(0, row.credits_spent - receipt.fromCredits);
+      row.version += 1;
+    }
+    this.refunded.add(receipt.id);
+    if (this.refundCommitThenFail > 0) {
+      this.refundCommitThenFail -= 1;
+      throw new Error("D1_ERROR: network error after commit");
+    }
   }
 
   only(): LedgerRow {
@@ -463,8 +478,38 @@ describe("hosted-ai server-side ledger", () => {
     expect(failure).toMatchObject({
       attempts: 4,
       userIdHash: harness.store.only().user_id_hash,
-      receipt: { fromDaily: 1, fromCredits: 0, day: "2026-09-13" },
+      receipt: { id: expect.stringMatching(/^[0-9a-f-]{36}$/), fromDaily: 1, fromCredits: 0, day: "2026-09-13" },
     });
+  });
+
+  it("does not double-credit when a refund committed but D1 reported an error", async () => {
+    const harness = createHarness();
+    await call(harness, post("/generate", { prompt: "one" }));
+    await call(harness, post("/generate", { prompt: "two" }));
+    expect(harness.store.only().daily_used).toBe(2);
+
+    harness.gemini = { status: 500, body: {} };
+    harness.store.refundCommitThenFail = 1;
+    const logs = captureLogs();
+    const response = await call(harness, post("/generate", { prompt: "three" }));
+    expect(response.status).toBe(503);
+    expect(harness.background).toHaveLength(1);
+    await Promise.all(harness.background);
+    logs.restore();
+
+    expect(harness.store.refundAttempts).toBe(2);
+    expect(harness.store.only().daily_used).toBe(2);
+    expect(harness.store.refunded.size).toBe(1);
+  });
+
+  it("issues a distinct receipt id per spend so refunds cannot collide", async () => {
+    const harness = createHarness({ gemini: { status: 500, body: {} } });
+    await call(harness, post("/generate", { prompt: "a" }));
+    await call(harness, post("/generate", { prompt: "b" }));
+    await Promise.all(harness.background);
+    expect(harness.store.refundAttempts).toBe(2);
+    expect(harness.store.refunded.size).toBe(2);
+    expect(harness.store.only().daily_used).toBe(0);
   });
 
   it("never lets an older RevenueCat verification overwrite a newer plan", async () => {
@@ -512,10 +557,36 @@ describe("hosted-ai server-side ledger", () => {
 
     const now = new Date("2026-09-13T01:00:00.000Z");
     await cleanupHostedAILedger(database, now);
-    expect(statements).toHaveLength(1);
+    expect(statements).toHaveLength(2);
     expect(statements[0]!.sql).toMatch(/DELETE FROM hosted_ai_ledger/);
     expect(statements[0]!.sql).toMatch(/credits_spent = 0/);
     expect(statements[0]!.binds).toEqual([new Date(now.getTime() - LEDGER_RETENTION_MS).toISOString()]);
+    expect(statements[1]!.sql).toMatch(/DELETE FROM hosted_ai_refunds/);
+    expect(statements[1]!.binds).toEqual([new Date(now.getTime() - REFUND_MARKER_RETENTION_MS).toISOString()]);
+  });
+
+  it("D1 refund is a single transaction whose ledger update is gated on the receipt marker", async () => {
+    const batches: Array<Array<{ sql: string; binds: unknown[] }>> = [];
+    const database = {
+      prepare: (sql: string) => ({ bind: (...binds: unknown[]) => ({ sql, binds }) }),
+      batch: async (statements: Array<{ sql: string; binds: unknown[] }>) => {
+        batches.push(statements);
+        return statements.map(() => ({ success: true, meta: {} }));
+      },
+    } as unknown as D1Database;
+
+    const store = new D1LedgerStore(database);
+    const hash = "a".repeat(64);
+    const receipt: SpendReceipt = { id: "11111111-2222-4333-8444-555555555555", fromDaily: 1, fromCredits: 0, day: "2026-09-13" };
+    await store.refund(hash, receipt, "2026-09-13T01:00:00.000Z");
+
+    expect(batches).toHaveLength(1);
+    const [update, marker] = batches[0]!;
+    expect(update!.sql).toMatch(/UPDATE hosted_ai_ledger/);
+    expect(update!.sql).toMatch(/NOT EXISTS \(SELECT 1 FROM hosted_ai_refunds WHERE receipt_id = \?6\)/);
+    expect(update!.binds).toEqual(["2026-09-13", 1, 0, "2026-09-13T01:00:00.000Z", hash, receipt.id]);
+    expect(marker!.sql).toMatch(/INSERT OR IGNORE INTO hosted_ai_refunds/);
+    expect(marker!.binds).toEqual([receipt.id, hash, "2026-09-13T01:00:00.000Z"]);
   });
 
   it("retries the compare-and-swap when a concurrent writer bumps the version", async () => {

@@ -27,7 +27,8 @@ struct AnimatedExerciseVisual: View {
                 ExerciseImageView(
                     asset: visualAsset,
                     animatesFrames: animatesFrames,
-                    maxPixelSize: effectiveMaxPixelSize
+                    maxPixelSize: effectiveMaxPixelSize,
+                    placeholder: AnyView(fallbackVisual)
                 )
             } else {
                 fallbackVisual
@@ -121,9 +122,13 @@ private struct ExerciseImageView: View {
     let asset: ExerciseVisualAsset
     let animatesFrames: Bool
     let maxPixelSize: Int?
+    /// Shown while no frame could be produced (authored frames are fetched on demand and
+    /// may be unavailable offline before their first download).
+    let placeholder: AnyView
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var frameIndex = 0
     @State private var displayedImage: UIImage?
+    @State private var frameUnavailable = false
 
     private var taskID: ExerciseImageTaskID {
         ExerciseImageTaskID(
@@ -144,14 +149,20 @@ private struct ExerciseImageView: View {
                 exerciseFrame(displayedImage)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .clipped()
+            } else if frameUnavailable {
+                placeholder
             }
         }
         .task(id: taskID) {
             displayedImage = nil
+            frameUnavailable = false
             frameIndex = initialFrameIndex
             if let firstFrame = await loadFrame(at: frameIndex) {
                 guard !Task.isCancelled else { return }
                 displayedImage = firstFrame
+            } else {
+                guard !Task.isCancelled else { return }
+                frameUnavailable = true
             }
             guard animatesFrames, asset.frames.count > 1, !reduceMotion else { return }
 
@@ -212,8 +223,9 @@ private struct ExerciseImageView: View {
     private func loadFrame(at index: Int) async -> UIImage? {
         guard asset.frames.indices.contains(index) else { return nil }
         let frame = asset.frames[index]
+        let maxPixelSize = maxPixelSize
         return await Task.detached(priority: .userInitiated) {
-            ExerciseImageCache.shared.image(for: frame, maxPixelSize: maxPixelSize)
+            await ExerciseImageCache.shared.image(for: frame, maxPixelSize: maxPixelSize)
         }.value
     }
 }
@@ -225,7 +237,8 @@ private struct ExerciseImageTaskID: Equatable {
     let maxPixelSize: Int?
 }
 
-private final class ExerciseImageCache {
+/// Decoded-frame memory cache. NSCache is thread-safe, so this stays off the main actor.
+nonisolated private final class ExerciseImageCache: @unchecked Sendable {
     static let shared = ExerciseImageCache()
 
     private let imagesByFrame: NSCache<NSString, UIImage> = {
@@ -237,7 +250,7 @@ private final class ExerciseImageCache {
 
     private init() {}
 
-    func image(for frame: ExerciseVisualFrame, maxPixelSize: Int?) -> UIImage? {
+    func image(for frame: ExerciseVisualFrame, maxPixelSize: Int?) async -> UIImage? {
         let cacheKey = frame.cacheKey(maxPixelSize: maxPixelSize)
         if let image = imagesByFrame.object(forKey: cacheKey) {
             return image
@@ -247,8 +260,10 @@ private final class ExerciseImageCache {
         switch frame {
         case .file(let url):
             image = Self.decodeImage(fromFileURL: url, maxPixelSize: maxPixelSize)
-        case .imageAsset(let name):
-            image = Self.decodeAssetImage(named: name, maxPixelSize: maxPixelSize)
+        case .authored(let authored):
+            // Cache → bundled debug sample → CDN download; nil keeps the placeholder visible.
+            guard let url = await WorkoutFrameStore.shared.localURL(for: authored) else { return nil }
+            image = Self.decodeImage(fromFileURL: url, maxPixelSize: maxPixelSize)
         }
 
         guard let image else {
@@ -270,17 +285,6 @@ private final class ExerciseImageCache {
         return thumbnail(from: source, maxPixelSize: maxPixelSize)
     }
 
-    private static func decodeAssetImage(named name: String, maxPixelSize: Int?) -> UIImage? {
-        guard let image = UIImage(named: name) else { return nil }
-        guard let maxPixelSize, maxPixelSize > 0 else { return image }
-
-        let longestEdge = max(image.size.width, image.size.height) * image.scale
-        guard longestEdge > CGFloat(maxPixelSize) else { return image }
-
-        let target = CGSize(width: maxPixelSize, height: maxPixelSize)
-        return image.preparingThumbnail(of: target) ?? image
-    }
-
     private static func thumbnail(from source: CGImageSource, maxPixelSize: Int) -> UIImage? {
         let options: [CFString: Any] = [
             kCGImageSourceCreateThumbnailFromImageAlways: true,
@@ -294,19 +298,19 @@ private final class ExerciseImageCache {
     }
 }
 
-private extension ExerciseVisualFrame {
+nonisolated private extension ExerciseVisualFrame {
     func cacheKey(maxPixelSize: Int?) -> NSString {
         let pixelKey = maxPixelSize.map(String.init) ?? "full"
         switch self {
         case .file(let url):
             return "file:\(url.standardizedFileURL.absoluteString):\(pixelKey)" as NSString
-        case .imageAsset(let name):
-            return "asset:\(name):\(pixelKey)" as NSString
+        case .authored(let frame):
+            return "authored:\(frame.name):\(frame.digest ?? "nodigest"):\(pixelKey)" as NSString
         }
     }
 }
 
-private extension UIImage {
+nonisolated private extension UIImage {
     var estimatedMemoryCost: Int {
         let pixelWidth = max(Int(size.width * scale), 1)
         let pixelHeight = max(Int(size.height * scale), 1)

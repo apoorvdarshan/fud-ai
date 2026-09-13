@@ -1,0 +1,66 @@
+# Dependabot version updates. Security updates are enabled separately in the
+# repository settings; this file adds routine version bumps so pinned versions
+# (including the commit-SHA-pinned GitHub Actions) do not go stale.
+#
+# Every ecosystem is grouped into a single weekly PR so the Quality checks /
+# CodeQL runs on that one PR validate the whole batch at once.
+
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Kolkata
+    groups:
+      github-actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: "CI"
+
+  - package-ecosystem: npm
+    directory: /web
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Kolkata
+    groups:
+      web-dev-dependencies:
+        patterns: ["*"]
+    commit-message:
+      prefix: "Web"
+
+  - package-ecosystem: gradle
+    directory: /android
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Kolkata
+    groups:
+      android-dependencies:
+        patterns: ["*"]
+    ignore:
+      # AGP / Kotlin majors change build behaviour; bump them deliberately.
+      - dependency-name: com.android.application
+        update-types: ["version-update:semver-major"]
+      - dependency-name: org.jetbrains.kotlin.*
+        update-types: ["version-update:semver-major"]
+    commit-message:
+      prefix: "Android"
+
+  - package-ecosystem: pip
+    directory: /scripts
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Asia/Kolkata
+    groups:
+      workout-repair-tooling:
+        patterns: ["*"]
+    commit-message:
+      prefix: "Scripts"

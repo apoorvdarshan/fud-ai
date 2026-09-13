@@ -17,10 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           sparse-checkout: web
-      - uses: actions/setup-node@v4
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: '22'
           cache: npm
@@ -34,17 +35,21 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           sparse-checkout: |
             android
             shared
-      - uses: actions/setup-java@v4
+          persist-credentials: false
+      # Verifies the checksum of android/gradle/wrapper/gradle-wrapper.jar against
+      # Gradle's published releases, so a tampered wrapper binary fails CI.
+      - uses: gradle/actions/wrapper-validation@748248ddd2a24f49513d8f472f81c3a07d4d50e1 # v4.4.4
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4.9.1
         with:
           distribution: temurin
           java-version: '17'
-      - uses: android-actions/setup-android@v3
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3.2.2
+      - uses: gradle/actions/setup-gradle@748248ddd2a24f49513d8f472f81c3a07d4d50e1 # v4.4.4
       # -PworkoutVectors=none: tests and lint do not package assets, so skip wiring the
       # ~7,000-frame / 1.2 GB workout corpus (shared/workout-vectors) into this build.
       # Real device and store builds (assembleRelease / bundleRelease, local installs)
@@ -54,7 +59,7 @@ jobs:
         run: ./gradlew :app:testDebugUnitTest :app:lintRelease -PworkoutVectors=none
       - name: Retain test and lint reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: android-quality-reports
           path: |

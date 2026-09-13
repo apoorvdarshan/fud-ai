@@ -14,6 +14,9 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: read
+
 jobs:
   quality:
     uses: ./.github/workflows/quality.yml
@@ -24,9 +27,11 @@ jobs:
     needs: quality
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write # create the GitHub Release
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
 
       - name: Prepare reviewed release notes
         run: python3 scripts/release_notes.py "$GITHUB_REF_NAME" > "$RUNNER_TEMP/release-notes.md"

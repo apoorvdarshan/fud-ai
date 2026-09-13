@@ -2,17 +2,22 @@
 """Validate the v2 workout illustration corpus and regenerate its runtime manifests.
 
 `shared/workout-vectors` is the single canonical copy of the ~7,000 authored PNG
-frames. The frames are *not* packaged into the store binaries: both apps bundle
-only `exercise-visual-manifest.json` and fetch individual frames on demand from
-the workout-vector CDN (see `shared/workout-vectors/README.md`). This script:
+frames, and both apps package it directly at build time: Android copies the
+manifest + frames into its generated assets and the iOS app target runs the
+"Copy Workout Frames" build phase (`ios/scripts/copy_workout_frames.sh`), so
+frames render offline without a CDN (see `shared/workout-vectors/README.md`).
+This script:
 
 1. validates the corpus (complete male/female 4-frame sets, 1024x768 RGBA PNGs,
    one set per catalogue exercise),
 2. writes the shared manifest and the byte-identical iOS `ExerciseVisualManifest`
-   data set, including a per-frame content digest used for CDN cache busting and
-   on-device download verification,
+   data set, including a per-frame content digest used to verify cached or
+   downloaded frames,
 3. rejects any generated `*_v2_*.imageset` left in the iOS asset catalog (the
-   catalog must never carry the frame corpus again).
+   corpus ships once, via the build phase, never as a second catalog copy),
+4. checks, by following the Xcode project's object references, that the
+   calorietracker app target still runs the "Copy Workout Frames" build phase
+   against `shared/workout-vectors` and does not also copy the raw directory.
 """
 
 from __future__ import annotations
@@ -47,7 +52,22 @@ IOS_MANIFEST = (
     / "exercise-visual-manifest.json"
 )
 SAMPLE_PACK_LIST = SHARED_DIRECTORY / "sample-pack.txt"
-IOS_DEVELOPER_SAMPLE = REPOSITORY_ROOT / "ios" / "calorietracker" / "WorkoutVectorsSample"
+IOS_PROJECT = REPOSITORY_ROOT / "ios" / "calorietracker.xcodeproj" / "project.pbxproj"
+# The run-script build phase that copies manifest + frames into
+# calorietracker.app/workout-vectors (and nothing else from this directory).
+IOS_APP_TARGET_NAME = "calorietracker"
+IOS_APP_PRODUCT_TYPE = "com.apple.product-type.application"
+IOS_COPY_SCRIPT = REPOSITORY_ROOT / "ios" / "scripts" / "copy_workout_frames.sh"
+IOS_COPY_SCRIPT_INVOCATION = "${SRCROOT}/scripts/copy_workout_frames.sh"
+IOS_COPY_PHASE_INPUTS = {
+    "$(SRCROOT)/scripts/copy_workout_frames.sh",
+    "$(SRCROOT)/../shared/workout-vectors",
+}
+IOS_COPY_PHASE_OUTPUT = "$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/workout-vectors"
+PBXPROJ_OBJECT_ID = re.compile(r"[0-9A-F]{24}")
+PBXPROJ_OBJECT_START = re.compile(
+    r"^\t\t(?P<id>[0-9A-F]{24}) (?:/\* (?P<comment>.*?) \*/ )?= \{", re.MULTILINE
+)
 FRAME_COUNT = 4
 FRAME_INDICES = tuple(range(FRAME_COUNT))
 GENDERS = ("male", "female")
@@ -278,12 +298,148 @@ def enforce_catalog_has_no_frames(*, check: bool) -> int:
     if check:
         raise ValueError(
             f"iOS asset catalog still contains {len(stale)} generated workout frame "
-            "imagesets; frames must not ship in the app binary. Run "
+            "imagesets; the corpus ships via the Copy Workout Frames build phase "
+            "and must not be duplicated in the catalog. Run "
             "scripts/sync_workout_visual_assets.py (without --check) to remove them."
         )
     for imageset in stale:
         shutil.rmtree(imageset)
     return len(stale)
+
+
+def pbxproj_objects(project: str) -> dict[str, str]:
+    """Map every top-level object id in an Xcode-formatted pbxproj to its body text.
+
+    Xcode writes each object of the `objects` dictionary at two-tab indentation, either
+    on one line (`ID /* c */ = {isa = PBXBuildFile; ...};`) or spanning lines that end
+    with `\\t\\t};`. Both forms are recognised; the body excludes the outer braces.
+    """
+    objects: dict[str, str] = {}
+    for match in PBXPROJ_OBJECT_START.finditer(project):
+        object_id = match.group("id")
+        if object_id in objects:
+            raise ValueError(f"{display_path(IOS_PROJECT)}: duplicate object id {object_id}")
+        line_end = project.find("\n", match.end())
+        if line_end == -1:
+            line_end = len(project)
+        first_line = project[match.end():line_end]
+        if first_line.rstrip().endswith("};"):
+            body = first_line.rstrip()[: -len("};")]
+        else:
+            close = project.find("\n\t\t};", match.end())
+            if close == -1:
+                raise ValueError(f"{display_path(IOS_PROJECT)}: unterminated object {object_id}")
+            body = project[match.end():close]
+        objects[object_id] = body
+    if not objects:
+        raise ValueError(f"{display_path(IOS_PROJECT)}: no objects found")
+    return objects
+
+
+def pbxproj_value(body: str, key: str) -> str | None:
+    """`key = value;` inside an object body; quoted values are unescaped."""
+    pattern = r"(?<![\w.])" + re.escape(key) + r' = ("(?:[^"\\]|\\.)*"|[^;]*);'
+    match = re.search(pattern, body)
+    if match is None:
+        return None
+    value = match.group(1).strip()
+    if value.startswith('"') and value.endswith('"'):
+        value = value[1:-1].encode("utf-8").decode("unicode_escape")
+    return value
+
+
+def pbxproj_list(body: str, key: str) -> list[str]:
+    """Items of `key = ( ... );` with trailing commas, quotes and comments removed."""
+    pattern = r"(?<![\w.])" + re.escape(key) + r" = \((.*?)\);"
+    match = re.search(pattern, body, re.DOTALL)
+    if match is None:
+        return []
+    items: list[str] = []
+    for raw_line in match.group(1).splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        line = line.rstrip(",")
+        line = re.sub(r"\s*/\*.*?\*/\s*$", "", line)
+        if line.startswith('"') and line.endswith('"'):
+            line = line[1:-1]
+        items.append(line)
+    return items
+
+
+def enforce_ios_bundles_corpus() -> None:
+    """The calorietracker app target must run the filtered corpus copy build phase.
+
+    Follows the real object graph — app target → buildPhases → shell-script phase —
+    rather than searching the file for strings, so detaching the phase from the target
+    (or pointing it elsewhere) fails validation even if the text is still present.
+    """
+    if not IOS_PROJECT.is_file():
+        raise ValueError(f"missing iOS project: {display_path(IOS_PROJECT)}")
+    if not IOS_COPY_SCRIPT.is_file():
+        raise ValueError(f"missing iOS copy script: {display_path(IOS_COPY_SCRIPT)}")
+    project_name = display_path(IOS_PROJECT)
+    objects = pbxproj_objects(IOS_PROJECT.read_text())
+
+    app_targets = [
+        (object_id, body)
+        for object_id, body in objects.items()
+        if pbxproj_value(body, "isa") == "PBXNativeTarget"
+        and pbxproj_value(body, "name") == IOS_APP_TARGET_NAME
+        and pbxproj_value(body, "productType") == IOS_APP_PRODUCT_TYPE
+    ]
+    if len(app_targets) != 1:
+        raise ValueError(
+            f"{project_name}: expected exactly one application target named "
+            f"{IOS_APP_TARGET_NAME!r}, found {len(app_targets)}"
+        )
+    target_id, target_body = app_targets[0]
+
+    copy_phases: list[str] = []
+    for phase_id in pbxproj_list(target_body, "buildPhases"):
+        if PBXPROJ_OBJECT_ID.fullmatch(phase_id) is None:
+            raise ValueError(f"{project_name}: malformed build phase reference {phase_id!r}")
+        phase = objects.get(phase_id)
+        if phase is None:
+            raise ValueError(f"{project_name}: target {target_id} references missing phase {phase_id}")
+        if pbxproj_value(phase, "isa") != "PBXShellScriptBuildPhase":
+            continue
+        if IOS_COPY_SCRIPT_INVOCATION in (pbxproj_value(phase, "shellScript") or ""):
+            copy_phases.append(phase_id)
+    if len(copy_phases) != 1:
+        raise ValueError(
+            f"{project_name}: the {IOS_APP_TARGET_NAME} target must run exactly one "
+            f"build phase invoking {IOS_COPY_SCRIPT_INVOCATION}, found {len(copy_phases)}; "
+            "iOS would ship without offline workout frames"
+        )
+    phase = objects[copy_phases[0]]
+    inputs = set(pbxproj_list(phase, "inputPaths"))
+    outputs = set(pbxproj_list(phase, "outputPaths"))
+    if not IOS_COPY_PHASE_INPUTS <= inputs:
+        raise ValueError(
+            f"{project_name}: Copy Workout Frames phase must declare inputs "
+            f"{sorted(IOS_COPY_PHASE_INPUTS)} (sandboxed builds cannot read the corpus otherwise); "
+            f"found {sorted(inputs)}"
+        )
+    if IOS_COPY_PHASE_OUTPUT not in outputs:
+        raise ValueError(
+            f"{project_name}: Copy Workout Frames phase must declare output "
+            f"{IOS_COPY_PHASE_OUTPUT}; found {sorted(outputs)}"
+        )
+    if pbxproj_value(phase, "runOnlyForDeploymentPostprocessing") != "0":
+        raise ValueError(f"{project_name}: Copy Workout Frames phase must run for every build")
+
+    # The raw directory must not also be copied wholesale (README, sample list, SVG pilot).
+    for object_id, body in objects.items():
+        if pbxproj_value(body, "isa") != "PBXFileReference":
+            continue
+        path = pbxproj_value(body, "path") or ""
+        if path.replace("\\", "/").rstrip("/").endswith("shared/workout-vectors"):
+            raise ValueError(
+                f"{project_name}: file reference {object_id} points at shared/workout-vectors; "
+                "the corpus ships only through the Copy Workout Frames build phase, never as "
+                "a folder reference"
+            )
 
 
 def manifest_document(
@@ -338,6 +494,7 @@ def main() -> int:
         }
         sample_ids = validate_sample_pack(sequences)
         removed = enforce_catalog_has_no_frames(check=arguments.check)
+        enforce_ios_bundles_corpus()
         sync_manifest(manifest_document(sequences, digests), check=arguments.check)
     except (OSError, ValueError, json.JSONDecodeError) as error:
         print(f"error: {error}", file=sys.stderr)
@@ -351,12 +508,6 @@ def main() -> int:
     )
     if removed:
         print(f"removed {removed} generated frame imagesets from the iOS asset catalog")
-    if IOS_DEVELOPER_SAMPLE.is_dir():
-        print(
-            f"warning: {display_path(IOS_DEVELOPER_SAMPLE)} exists (gitignored developer "
-            "sample); delete it before archiving a release build",
-            file=sys.stderr,
-        )
     return 0
 
 

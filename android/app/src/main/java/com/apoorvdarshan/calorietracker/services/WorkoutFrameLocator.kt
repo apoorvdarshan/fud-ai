@@ -4,12 +4,13 @@ import java.security.MessageDigest
 
 /**
  * Pure naming rules shared by [WorkoutFrameStore] and its unit tests: how an authored
- * workout frame maps to a CDN URL, an on-device cache filename, and an integrity check.
+ * workout frame maps to a bundled asset name, an on-device cache filename, an optional
+ * debug download URL, and an integrity check.
  *
  * Frames are addressed by their manifest name (`<exercise>_<gender>_v2_<n>`) plus an
  * optional content digest (hex prefix of the PNG's SHA-256, from the manifest). The
- * digest is part of both the remote URL (`?v=`) and the cache filename, so a repaired
- * frame published under the same name invalidates CDN and device caches automatically.
+ * digest is part of both the debug download URL (`?v=`) and the cache filename, so a
+ * repaired frame published under the same name invalidates stale caches automatically.
  */
 internal object WorkoutFrameLocator {
     private val safeName = Regex("^[A-Za-z0-9_-]+$")

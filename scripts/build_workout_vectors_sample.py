@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-"""Copy the debug sample pack of workout frames into a directory.
+"""Copy the sample pack of workout frames (shared/workout-vectors/sample-pack.txt)
+into a directory.
 
-Android debug builds perform the equivalent copy in Gradle. On iOS the output can
-be dropped into the gitignored `ios/calorietracker/WorkoutVectorsSample/` folder,
-which the synchronized Xcode group picks up automatically for local Debug runs:
+Both apps bundle the complete corpus, so this is only a developer convenience: for
+example to serve a small subset from a local HTTP server while testing the optional
+debug download path of `WorkoutFrameStore`:
 
-    python3 scripts/build_workout_vectors_sample.py --output ios/calorietracker/WorkoutVectorsSample
+    python3 scripts/build_workout_vectors_sample.py --output /tmp/workout-vectors-sample
+    python3 -m http.server -d /tmp/workout-vectors-sample 8765
 
-`--all` copies the complete 7,000-frame corpus instead (local QA only; ~1.2 GB).
-The output contains only `<name>.png` frames; the manifest is already bundled.
+Android's `-PworkoutVectors=sample` performs the equivalent selection in Gradle.
+`--all` copies the complete 7,000-frame corpus instead (~1.2 GB). The output
+contains only `<name>.png` frames; the manifest is already bundled.
 """
 
 from __future__ import annotations

@@ -299,6 +299,7 @@
 				BA8E0DEF2F33F197007DD537 /* Sources */,
 				BA8E0DF02F33F197007DD537 /* Frameworks */,
 				BA8E0DF12F33F197007DD537 /* Resources */,
+				F00D60000000000000000013 /* Copy Workout Frames */,
 				BA8E0E2C2F33F198007DD537 /* Embed Foundation Extensions */,
 				F00D10000000000000000005 /* Embed Watch Content */,
 			);
@@ -592,6 +593,32 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F00D60000000000000000013 /* Copy Workout Frames */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/scripts/copy_workout_frames.sh",
+				"$(SRCROOT)/../shared/workout-vectors",
+			);
+			name = "Copy Workout Frames";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/workout-vectors",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Bundles only the runtime corpus (manifest + *_v2_*.png) from shared/workout-vectors.\n/bin/sh \"${SRCROOT}/scripts/copy_workout_frames.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BA8E0DEF2F33F197007DD537 /* Sources */ = {

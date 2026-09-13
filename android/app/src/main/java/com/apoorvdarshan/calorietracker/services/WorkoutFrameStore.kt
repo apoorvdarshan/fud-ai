@@ -51,17 +51,22 @@ data class WorkoutFrameRef(
 }
 
 /**
- * Delivers authored workout frames without shipping the 1.2 GB corpus in the APK/AAB.
+ * Delivers authored workout frames. The complete corpus ships inside the APK/AAB as
+ * flat assets (`<name>.png`), so every frame is available offline without a CDN.
  *
  * Resolution order for a frame:
- * 1. on-device cache (`cacheDir/workout-vectors/v2/<name>.<digest>.png`),
- * 2. bundled asset (debug builds bundle the small sample pack; release bundles none),
- * 3. download from [BuildConfig.WORKOUT_VECTORS_BASE_URL] (`<base>/<name>.png?v=<digest>`),
- *    verified against the manifest digest and stored in the cache.
+ * 1. on-device cache (`cacheDir/workout-vectors/v2/<name>.<digest>.png`; only ever
+ *    populated by step 3, so it is empty in release builds),
+ * 2. bundled asset — the normal path for every build,
+ * 3. optional download from [BuildConfig.WORKOUT_VECTORS_BASE_URL]
+ *    (`<base>/<name>.png?v=<digest>`), verified against the manifest digest and stored
+ *    in the cache. The base URL is empty in release builds, which disables this step
+ *    entirely; debug builds enable it via `workout.vectors.base.url` in
+ *    `android/local.properties` (useful with `-PworkoutVectors=sample|none`).
  *
- * Anything that fails resolves to null and the UI keeps its placeholder, which is the
- * same behaviour the app had before authored frames existed. Failures are remembered
- * briefly so offline users do not retry every frame on every recomposition.
+ * A frame that is genuinely missing from the corpus resolves to null and the UI keeps
+ * its placeholder. Failures are remembered briefly so a missing frame is not retried on
+ * every recomposition.
  */
 class WorkoutFrameStore private constructor(
     private val context: Context,
@@ -98,12 +103,16 @@ class WorkoutFrameStore private constructor(
         val dataSource: DataSource
     )
 
-    /** Returns a readable source for [ref], downloading it first when needed, or null. */
+    /** True when downloads are enabled for this build (never in release). */
+    val downloadsEnabled: Boolean get() = baseUrl.isNotBlank()
+
+    /** Returns a readable source for [ref] (cache → bundled asset → optional download), or null. */
     internal suspend fun open(ref: WorkoutFrameRef): OpenedFrame? = withContext(Dispatchers.IO) {
         cachedFile(ref)?.let { file ->
             return@withContext OpenedFrame(ImageSource(file.toOkioPath()), DataSource.DISK)
         }
         bundledAsset(ref)?.let { return@withContext it }
+        if (!downloadsEnabled) return@withContext null
         val downloaded = ensureDownloaded(ref) ?: return@withContext null
         OpenedFrame(ImageSource(downloaded.toOkioPath()), DataSource.NETWORK)
     }
@@ -156,6 +165,12 @@ class WorkoutFrameStore private constructor(
     private fun hasBundledAsset(ref: WorkoutFrameRef): Boolean =
         runCatching { context.assets.open(ref.fileName).close(); true }.getOrDefault(false)
 
+    /**
+     * Bundled frames are trusted as-is: the APK/AAB is signed, and the Gradle asset task
+     * links the canonical corpus files byte-for-byte, so hashing 175 KB per frame on
+     * every request would only cost decode latency. The manifest digest still guards the
+     * device cache and the optional debug download path.
+     */
     private fun bundledAsset(ref: WorkoutFrameRef): OpenedFrame? {
         val stream = runCatching { context.assets.open(ref.fileName) }.getOrNull() ?: return null
         return OpenedFrame(ImageSource(stream.source().buffer(), context), DataSource.DISK)

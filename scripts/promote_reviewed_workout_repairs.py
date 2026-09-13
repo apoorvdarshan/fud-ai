@@ -5,10 +5,10 @@ Default / --check is strictly read-only. --apply first validates EVERY reference
 candidate and pre-change hash, then stages exact PNG bytes and retains a unique
 backup/recovery manifest before replacing the canonical shared/workout-vectors
 frames. It does not edit app code, image pixels, database IDs, or either visual
-manifest. shared/workout-vectors is the only copy of the frames (the apps fetch
-them on demand from the CDN), so after a successful apply run
+manifest. shared/workout-vectors is the only copy of the frames (both apps bundle
+this directory at build time), so after a successful apply run
 `python3 scripts/sync_workout_visual_assets.py` to refresh the per-frame digests
-in both manifests, then `scripts/publish_workout_vectors.py` to upload.
+in both manifests; the next app build picks up the repaired frames.
 
 Review JSON schema (all paths are absolute or relative to --repo):
   {"schema_version": 1, "exercises": [{

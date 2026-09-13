@@ -279,7 +279,7 @@ fud-ai/
 ├── web/          # Marketing site — https://fud-ai.app (static HTML/CSS, Cloudflare Workers)
 ├── APPSTORE.md   # App Store Connect listing copy (iOS)
 ├── PLAYSTORE.md  # Google Play Console listing copy (Android)
-└── README, LICENSE, CONTRIBUTING, SECURITY, .github/
+└── README, LICENSE, CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, .github/
 ```
 
 ### Source Layout (iOS)
@@ -364,6 +364,10 @@ First launch walks you through onboarding (gender, birthday, height/weight with 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. Bug reports and feature requests welcome.
 
 Adding a new translation? Open `ios/calorietracker/Localizable.xcstrings` in Xcode and fill in your language column — everything else is already wired.
+
+## Code of Conduct
+
+Everyone in the Fud AI community is expected to follow our [Code of Conduct](CODE_OF_CONDUCT.md). Report concerns to **apoorv@fud-ai.app**.
 
 ## Security
 

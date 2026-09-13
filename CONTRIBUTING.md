@@ -8,6 +8,7 @@ Thanks for your interest in contributing! Fud AI is an open-source, "bring-your-
 
 PRs, bug reports, and feature ideas for any of these are welcome.
 
+Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to uphold it.
 
 ## Localization
 
@@ -189,6 +190,11 @@ If you want to chat before opening a big PR, or you hit a wall and need help:
 - **Email:** **apoorv@fud-ai.app** or **ad13dtu@gmail.com**
 - **X (Twitter):** [@apoorvdarshan](https://x.com/apoorvdarshan)
 - **GitHub Issues:** [github.com/apoorvdarshan/fud-ai/issues](https://github.com/apoorvdarshan/fud-ai/issues)
+- **Discord:** [discord.gg/Py4VrFctP3](https://discord.gg/Py4VrFctP3)
+
+## Code of Conduct
+
+This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). Report unacceptable behavior to **apoorv@fud-ai.app**.
 
 ## License
 

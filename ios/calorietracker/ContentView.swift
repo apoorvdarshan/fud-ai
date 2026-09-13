@@ -346,6 +346,36 @@ private struct AboutSettingsSections: View {
                         }
                     }
                     .tint(.primary)
+
+                    Link(destination: URL(string: "https://www.bestpractices.dev/projects/14553")!) {
+                        Label {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("OpenSSF Best Practices")
+                                Text("Passing · project 14553")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        } icon: {
+                            Image(systemName: "checkmark.seal.fill")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+                    .tint(.primary)
+
+                    Link(destination: URL(string: "https://scorecard.dev/viewer/?uri=github.com/apoorvdarshan/fud-ai")!) {
+                        Label {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("OpenSSF Scorecard")
+                                Text("Security health score")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        } icon: {
+                            Image(systemName: "shield.checkered")
+                                .foregroundStyle(AppColors.calorie)
+                        }
+                    }
+                    .tint(.primary)
                 }
                 .listRowBackground(AppColors.appCard)
 
@@ -493,6 +523,39 @@ private struct AboutSettingsSections: View {
                     } icon: {
                         Image(systemName: "doc.text.fill")
                             .foregroundStyle(AppColors.calorie)
+                    }
+                }
+                .tint(.primary)
+
+                Link(destination: URL(string: "https://udyamregistration.gov.in/")!) {
+                    Label {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Udyam Registered")
+                            Text("UDYAM-DL-06-0225072 · Micro enterprise")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    } icon: {
+                        Image(systemName: "building.2.fill")
+                            .foregroundStyle(AppColors.calorie)
+                    }
+                }
+                .tint(.primary)
+
+                Link(destination: URL(string: "https://credentials.acefitness.org/d23fcb24-899b-4588-be1b-93298a039289")!) {
+                    Label {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("ACE Certified")
+                            Text("Personal Trainer · NCCA-accredited")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    } icon: {
+                        Image("ACECPTMark")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 28, height: 28)
+                            .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
                     }
                 }
                 .tint(.primary)

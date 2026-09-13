@@ -905,6 +905,14 @@
     <string name="about_rate">Rate the App</string>
     <string name="about_share">Share the App</string>
     <string name="about_open_source">Open Source (MIT)</string>
+    <string name="about_openssf_best_practices">OpenSSF Best Practices</string>
+    <string name="about_openssf_best_practices_desc">Passing · project 14553</string>
+    <string name="about_openssf_scorecard">OpenSSF Scorecard</string>
+    <string name="about_openssf_scorecard_desc">Security health score</string>
+    <string name="about_udyam">Udyam Registered</string>
+    <string name="about_udyam_desc">UDYAM-DL-06-0225072 · Micro enterprise</string>
+    <string name="about_ace">ACE Certified</string>
+    <string name="about_ace_desc">Personal Trainer · NCCA-accredited</string>
     <string name="about_star_github">Star on GitHub</string>
     <string name="about_vote_ph">Vote on Product Hunt</string>
     <string name="about_leave_tip_kofi">Leave a Tip on Ko-fi</string>

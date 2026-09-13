@@ -61673,6 +61673,86 @@
           }
         }
       }
+    },
+    "OpenSSF Best Practices": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OpenSSF Best Practices"
+          }
+        }
+      }
+    },
+    "Passing · project 14553": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passing · project 14553"
+          }
+        }
+      }
+    },
+    "OpenSSF Scorecard": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "OpenSSF Scorecard"
+          }
+        }
+      }
+    },
+    "Security health score": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Security health score"
+          }
+        }
+      }
+    },
+    "Udyam Registered": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Udyam Registered"
+          }
+        }
+      }
+    },
+    "UDYAM-DL-06-0225072 · Micro enterprise": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "UDYAM-DL-06-0225072 · Micro enterprise"
+          }
+        }
+      }
+    },
+    "ACE Certified": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ACE Certified"
+          }
+        }
+      }
+    },
+    "Personal Trainer · NCCA-accredited": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personal Trainer · NCCA-accredited"
+          }
+        }
+      }
     }
   },
   "version": "1.1"

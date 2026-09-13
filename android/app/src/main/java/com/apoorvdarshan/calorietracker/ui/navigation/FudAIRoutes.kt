@@ -15,4 +15,12 @@ object FudAIRoutes {
     const val WORKOUTS = "workouts"
 
     val bottomTabs = listOf(HOME, PROGRESS, COACH, SETTINGS, WORKOUTS)
+
+    /** Maps a Nav destination to the bottom-tab route that should appear selected. */
+    fun selectedBottomTab(route: String?): String? = when {
+        route == null -> null
+        route in bottomTabs -> route
+        route.startsWith("settings/") -> SETTINGS
+        else -> null
+    }
 }

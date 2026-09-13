@@ -88,14 +88,12 @@ android {
             versionNameSuffix = "-debug"
             // Literal placeholder so locale app_name strings can't override the label.
             manifestPlaceholders["launcherAppName"] = "Fud AI Debug"
-            resValue("string", "app_name", "Fud AI Debug")
         }
         create("debug2") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".debug2"
             versionNameSuffix = "-debug2"
             manifestPlaceholders["launcherAppName"] = "Fud AI Debug 2"
-            resValue("string", "app_name", "Fud AI Debug 2")
         }
     }
     compileOptions {

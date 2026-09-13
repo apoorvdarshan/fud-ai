@@ -24,6 +24,14 @@ final class HostedAIQuotaManager {
     private(set) var cached: HostedAIQuotaSnapshot?
     private(set) var isRefreshing = false
 
+    /// The refresh currently talking to the Worker, if any. Concurrent callers
+    /// coalesce onto it instead of issuing duplicate requests.
+    private var inFlight: Task<Void, Never>?
+    /// Monotonic id assigned to every refresh run; `lastForcedRunID` is the id
+    /// of the most recent run that asked the Worker to re-verify RevenueCat.
+    private var runCounter = 0
+    private var lastForcedRunID = 0
+
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         for key in Self.legacyKeys { defaults.removeObject(forKey: key) }
@@ -73,13 +81,40 @@ final class HostedAIQuotaManager {
     /// Worker to re-verify entitlements with RevenueCat immediately (used right
     /// after a purchase or restore so new credits show up without waiting for
     /// the server-side cache TTL).
+    ///
+    /// Concurrent calls coalesce onto the in-flight request. A forced call is
+    /// never dropped: it is satisfied by a forced run that is already in flight,
+    /// otherwise it waits for the current (non-forced) run and then issues its
+    /// own forced request, so a purchase completing during a routine refresh
+    /// still gets re-verified.
     func refresh(force: Bool = false) async {
-        guard !isRefreshing else { return }
-        isRefreshing = true
-        defer { isRefreshing = false }
-        if let snapshot = try? await HostedAIService.fetchQuota(forceRefresh: force) {
-            apply(snapshot)
+        let arrivalRunID = runCounter
+        while let current = inFlight {
+            await current.value
+            if !force || lastForcedRunID >= arrivalRunID { return }
+            // A non-forced run finished (or a forced one that predates us was
+            // not in flight); another waiter may have started the forced run
+            // we need, so re-check before starting our own.
         }
+        await run(forced: force)
+    }
+
+    private func run(forced: Bool) async {
+        runCounter += 1
+        if forced { lastForcedRunID = runCounter }
+        isRefreshing = true
+        // The task body runs on the main actor and clears `inFlight` before it
+        // completes, so waiters resuming from `inFlight.value` observe the
+        // slot as free (or already reused) rather than a finished task.
+        let task = Task { @MainActor [self] in
+            if let snapshot = try? await HostedAIService.fetchQuota(forceRefresh: forced) {
+                apply(snapshot)
+            }
+            inFlight = nil
+            isRefreshing = false
+        }
+        inFlight = task
+        await task.value
     }
 
     /// Parses the `X-Fud-Quota-*` headers the Worker attaches to every hosted response.

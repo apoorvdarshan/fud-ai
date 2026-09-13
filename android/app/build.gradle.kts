@@ -1,3 +1,4 @@
+import java.nio.file.Files
 import java.util.Properties
 
 plugins {
@@ -222,8 +223,8 @@ abstract class PrepareWorkoutVectorAssetsTask : DefaultTask() {
         sourceFiles.files.forEach { source ->
             require(source.isFile) { "workout vector source missing: $source" }
             val target = File(output, source.name)
-            runCatching { java.nio.file.Files.createLink(target.toPath(), source.toPath()) }
-                .onFailure { source.copyTo(target, overwrite = true) }
+            val linked = runCatching { Files.createLink(target.toPath(), source.toPath()) }.isSuccess
+            if (!linked) source.copyTo(target, overwrite = true)
             if (source.extension == "png") frames++
         }
         if (mode.get() == "all" && frames != expectedFrameCount.get()) {

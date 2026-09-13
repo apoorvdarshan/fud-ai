@@ -38,8 +38,9 @@ val debugWorkoutVectorsBaseUrl = localProperties.getProperty("workout.vectors.ba
 android {
     namespace = "com.apoorvdarshan.calorietracker"
     compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
+        // AndroidX Compose / core 1.19+ and OkHttp 5.5 require compileSdk >= 37.
+        version = release(37) {
+            minorApiLevel = 2
         }
     }
 

@@ -84,6 +84,12 @@ export type SpendOutcome =
 /** Storage abstraction so tests can run against an in-memory ledger. */
 export interface LedgerStore {
   get(userIdHash: string): Promise<LedgerRow | null>;
+  /**
+   * Records a RevenueCat verification. Must be monotonic in `verifiedAt`: when
+   * the stored row was verified more recently (overlapping refreshes finishing
+   * out of order), the stored plan/timestamp win and the current row is
+   * returned. `credits_granted` only ever grows regardless.
+   */
   upsertEntitlement(
     userIdHash: string,
     snapshot: EntitlementSnapshot,
@@ -118,6 +124,8 @@ export class D1LedgerStore implements LedgerStore {
     snapshot: EntitlementSnapshot,
     verifiedAt: string
   ): Promise<LedgerRow> {
+    // Timestamps are fixed-width `Date#toISOString()` values, so lexical
+    // comparison in SQL orders them chronologically.
     const row = await this.database
       .prepare(
         `INSERT INTO hosted_ai_ledger (
@@ -125,11 +133,13 @@ export class D1LedgerStore implements LedgerStore {
            entitlement_verified_at, version, created_at, updated_at
          ) VALUES (?1, ?2, ?3, 0, ?4, 0, ?5, 0, ?5, ?5)
          ON CONFLICT(user_id_hash) DO UPDATE SET
-           plan = excluded.plan,
+           plan = CASE
+             WHEN excluded.entitlement_verified_at >= hosted_ai_ledger.entitlement_verified_at
+             THEN excluded.plan ELSE hosted_ai_ledger.plan END,
            credits_granted = MAX(hosted_ai_ledger.credits_granted, excluded.credits_granted),
-           entitlement_verified_at = excluded.entitlement_verified_at,
+           entitlement_verified_at = MAX(hosted_ai_ledger.entitlement_verified_at, excluded.entitlement_verified_at),
            version = hosted_ai_ledger.version + 1,
-           updated_at = excluded.updated_at
+           updated_at = MAX(hosted_ai_ledger.updated_at, excluded.updated_at)
          RETURNING user_id_hash, plan, credits_granted, credits_spent, usage_day, daily_used,
                    entitlement_verified_at, version`
       )
@@ -171,9 +181,21 @@ export class D1LedgerStore implements LedgerStore {
   }
 }
 
-export async function cleanupHostedAILedger(database: D1Database, now: Date = new Date()): Promise<void> {
+/**
+ * Prunes idle ledger rows. Rows that have ever spent purchased credits are kept
+ * indefinitely: `credits_granted` is re-derived from RevenueCat's lifetime
+ * `non_subscriptions`, but `credits_spent` exists only here, so deleting such
+ * a row would hand every previously consumed credit back on the next visit.
+ */
+export async function cleanupHostedAILedger(
+  database: Pick<D1Database, "prepare">,
+  now: Date = new Date()
+): Promise<void> {
   const cutoff = new Date(now.getTime() - LEDGER_RETENTION_MS).toISOString();
-  await database.prepare("DELETE FROM hosted_ai_ledger WHERE updated_at < ?").bind(cutoff).run();
+  await database
+    .prepare("DELETE FROM hosted_ai_ledger WHERE updated_at < ?1 AND credits_spent = 0")
+    .bind(cutoff)
+    .run();
 }
 
 export function utcDayKey(date: Date): string {

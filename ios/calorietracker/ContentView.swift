@@ -429,7 +429,7 @@ private struct AboutSettingsSections: View {
 
             case .helpFeedback:
                 Section {
-                Link(destination: URL(string: "https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20")!) {
+                Link(destination: URL(string: "https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml")!) {
                     Label {
                         Text("Report an Issue")
                     } icon: {
@@ -439,7 +439,7 @@ private struct AboutSettingsSections: View {
                 }
                 .tint(.primary)
 
-                Link(destination: URL(string: "https://github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20")!) {
+                Link(destination: URL(string: "https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml")!) {
                     Label {
                         Text("Request a Feature")
                     } icon: {

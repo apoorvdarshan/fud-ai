@@ -214,11 +214,11 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
 
             AboutSettingsCategory.HELP_FEEDBACK -> {
                 AboutRow(Icons.Filled.BugReport, stringResource(R.string.about_report_issue)) {
-                    open("https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20")
+                    open("https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml")
                 }
                 Hairline()
                 AboutRow(Icons.Filled.Lightbulb, stringResource(R.string.about_request_feature)) {
-                    open("https://github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20")
+                    open("https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml")
                 }
                 Hairline()
                 AboutRow(Icons.Filled.Email, stringResource(R.string.about_contact), onClick = ::email)

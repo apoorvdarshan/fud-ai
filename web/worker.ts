@@ -5,6 +5,7 @@ import {
   handleChallengeRequest,
 } from "./challenge-api";
 import { HOSTED_AI_API_PREFIX, handleHostedAIRequest } from "./hosted-ai-api";
+import { cleanupHostedAILedger } from "./hosted-ai-ledger";
 
 const REPOSITORY = "apoorvdarshan/fud-ai";
 const HISTORY_KEY = "github-star-history-v1";
@@ -30,7 +31,7 @@ interface StarHistory {
 }
 
 export default {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: Env, context?: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
     if (url.pathname === MEAL_SHARE_API || url.pathname.startsWith("/m/")) {
@@ -48,7 +49,11 @@ export default {
       url.pathname === HOSTED_AI_API_PREFIX ||
       url.pathname.startsWith(`${HOSTED_AI_API_PREFIX}/`)
     ) {
-      return handleHostedAIRequest(request, env);
+      return handleHostedAIRequest(
+        request,
+        env,
+        context ? { waitUntil: (promise) => context.waitUntil(promise) } : {},
+      );
     }
 
     if (url.pathname === "/star-history.json") {
@@ -78,6 +83,7 @@ async function runScheduledMaintenance(env: Env): Promise<void> {
   const tasks = [
     { name: "star_history", promise: refreshHistory(env) },
     { name: "challenge_cleanup", promise: cleanupChallengeData(env.CHALLENGE_DB) },
+    { name: "hosted_ai_ledger_cleanup", promise: cleanupHostedAILedger(env.CHALLENGE_DB) },
   ];
   const results = await Promise.allSettled(tasks.map((task) => task.promise));
   for (const [index, result] of results.entries()) {

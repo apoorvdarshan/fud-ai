@@ -8,6 +8,8 @@ interface __BaseEnv_Env {
 	CHALLENGE_CREATE_RATE_LIMITER: RateLimit;
 	MEAL_SHARE_CREATE_RATE_LIMITER: RateLimit;
 	MEAL_SHARE_READ_RATE_LIMITER: RateLimit;
+	HOSTED_AI_USER_RATE_LIMITER: RateLimit;
+	HOSTED_AI_ADDRESS_RATE_LIMITER: RateLimit;
 	ASSETS: Fetcher;
 }
 declare namespace Cloudflare {

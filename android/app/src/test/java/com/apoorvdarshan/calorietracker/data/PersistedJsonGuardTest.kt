@@ -123,4 +123,40 @@ class PersistedJsonGuardTest {
             dir.deleteRecursively()
         }
     }
+
+    @Test fun archiveNeverOverwritesAnEarlierDataStoreBackup() {
+        val dir = java.nio.file.Files.createTempDirectory("guard").toFile()
+        try {
+            val source = File(dir, "fudai_prefs.preferences_pb").apply { writeText("first") }
+            val archive = CorruptBlobArchive(File(dir, "unused"))
+            val first = archive.preserveFile(source)
+            source.writeText("second")
+            // Same millisecond timestamp is likely here; the name must still be unique.
+            val second = archive.preserveFile(source)
+            assertNotNull(first)
+            assertNotNull(second)
+            assertTrue(first!!.path != second!!.path)
+            assertEquals("first", first.readText())
+            assertEquals("second", second.readText())
+        } finally {
+            dir.deleteRecursively()
+        }
+    }
+
+    @Test fun archiveFallsBackToArchiveDirectoryWhenSiblingCopyFails() {
+        val dir = java.nio.file.Files.createTempDirectory("guard").toFile()
+        try {
+            val parent = File(dir, "readonly").apply { mkdirs() }
+            val source = File(parent, "fudai_prefs.preferences_pb").apply { writeText("bytes") }
+            if (!parent.setWritable(false) || parent.canWrite()) return // running as root: cannot simulate
+            val fallback = File(dir, "corrupt-backups")
+            val backup = CorruptBlobArchive(fallback).preserveFile(source)
+            assertNotNull(backup)
+            assertEquals(fallback, backup!!.parentFile)
+            assertEquals("bytes", backup.readText())
+        } finally {
+            File(dir, "readonly").setWritable(true)
+            dir.deleteRecursively()
+        }
+    }
 }

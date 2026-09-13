@@ -21,6 +21,11 @@ private const val TAG = "FudaiDataStore"
  * loop on launch). The corruption handler copies the unreadable file aside as
  * `fudai_prefs.preferences_pb.corrupt-<timestamp>` and starts from empty
  * preferences, so the user gets a working app and support still has the bytes.
+ *
+ * If that copy cannot be written the handler rethrows instead: DataStore then
+ * leaves the original file untouched (readers keep failing, which is the
+ * pre-existing behaviour) rather than replacing the only copy of every
+ * preference with an empty file.
  */
 val Context.fudaiDataStore: DataStore<Preferences>
     get() = FudaiDataStoreHolder.get(this)
@@ -39,11 +44,11 @@ internal object FudaiDataStoreHolder {
         return PreferenceDataStoreFactory.create(
             corruptionHandler = ReplaceFileCorruptionHandler { exception ->
                 val backup = preserveCorruptFile(file)
-                Log.e(
-                    TAG,
-                    "Preferences file is corrupt; preserved copy at ${backup?.absolutePath ?: "<copy failed>"}",
-                    exception
-                )
+                if (backup == null) {
+                    Log.e(TAG, "Preferences file is corrupt and could not be copied aside; keeping it in place", exception)
+                    throw exception
+                }
+                Log.e(TAG, "Preferences file is corrupt; preserved copy at ${backup.absolutePath}", exception)
                 emptyPreferences()
             },
             produceFile = { file }

@@ -125,6 +125,9 @@ class WeightRepository(
             // associateBy keeps the last duplicate id, so a history that already
             // holds the same id twice collapses instead of failing the import.
             val byId = current.associateBy { it.id }.toMutableMap()
+            // Persist the collapse even if every incoming value already matches,
+            // otherwise the duplicate survives and keeps skewing the trend math.
+            if (byId.size != current.size) changed = true
             for (entry in incoming) {
                 val existing = byId[entry.id]
                 if (existing == null || abs(existing.weightKg - entry.weightKg) > 0.0001 || existing.date != entry.date) {

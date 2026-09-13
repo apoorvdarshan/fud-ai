@@ -27,22 +27,31 @@ class FastingRepository(private val prefs: PreferencesStore) {
         return if (started) session else null
     }
 
+    /**
+     * Completes the active session. Lookup, validation and replacement all run
+     * against the list inside the DataStore transaction, so a session started,
+     * edited or deleted by a concurrent caller cannot slip past the overlap
+     * check or make this report success after changing nothing.
+     */
     suspend fun endActive(at: Instant = Instant.now(), updatedSession: FastingSession? = null): FastingSession? {
-        val current = prefs.fastingSessions.first()
-        val active = current.lastOrNull { it.isActive } ?: return null
-        val proposed = updatedSession?.takeIf { it.id == active.id }
-        val source = proposed
-            ?.copy(
-                endedAt = null,
-                goalMinutes = proposed.goalMinutes.coerceIn(
-                    FastingDefaults.MIN_GOAL_MINUTES,
-                    FastingDefaults.MAX_GOAL_MINUTES
+        var completed: FastingSession? = null
+        prefs.updateFastingSessions { current ->
+            val active = current.lastOrNull { it.isActive } ?: return@updateFastingSessions current
+            val proposed = updatedSession?.takeIf { it.id == active.id }
+            val source = proposed
+                ?.copy(
+                    endedAt = null,
+                    goalMinutes = proposed.goalMinutes.coerceIn(
+                        FastingDefaults.MIN_GOAL_MINUTES,
+                        FastingDefaults.MAX_GOAL_MINUTES
+                    )
                 )
-            )
-            ?: active
-        val completed = source.copy(endedAt = maxOf(at, source.startedAt))
-        if (current.any { it.id != completed.id && overlaps(completed, it) }) return null
-        prefs.updateFastingSessions { stored -> stored.map { if (it.id == active.id) completed else it } }
+                ?: active
+            val candidate = source.copy(endedAt = maxOf(at, source.startedAt))
+            if (current.any { it.id != candidate.id && overlaps(candidate, it) }) return@updateFastingSessions current
+            completed = candidate
+            current.map { if (it.id == active.id) candidate else it }
+        }
         return completed
     }
 
@@ -50,19 +59,24 @@ class FastingRepository(private val prefs: PreferencesStore) {
         prefs.updateFastingSessions { current -> current.filterNot { it.isActive } }
     }
 
+    /** Returns false when the session no longer exists or the edit would violate an invariant. */
     suspend fun update(session: FastingSession): Boolean {
-        val current = prefs.fastingSessions.first()
-        if (session.isActive && current.any { it.id != session.id && it.isActive }) return false
-        val validated = session.copy(
-            endedAt = session.endedAt?.let { maxOf(it, session.startedAt) },
-            goalMinutes = session.goalMinutes.coerceIn(
-                FastingDefaults.MIN_GOAL_MINUTES,
-                FastingDefaults.MAX_GOAL_MINUTES
+        var updated = false
+        prefs.updateFastingSessions { current ->
+            if (current.none { it.id == session.id }) return@updateFastingSessions current
+            if (session.isActive && current.any { it.id != session.id && it.isActive }) return@updateFastingSessions current
+            val validated = session.copy(
+                endedAt = session.endedAt?.let { maxOf(it, session.startedAt) },
+                goalMinutes = session.goalMinutes.coerceIn(
+                    FastingDefaults.MIN_GOAL_MINUTES,
+                    FastingDefaults.MAX_GOAL_MINUTES
+                )
             )
-        )
-        if (current.any { it.id != validated.id && overlaps(validated, it) }) return false
-        prefs.updateFastingSessions { stored -> stored.map { if (it.id == session.id) validated else it } }
-        return true
+            if (current.any { it.id != validated.id && overlaps(validated, it) }) return@updateFastingSessions current
+            updated = true
+            current.map { if (it.id == session.id) validated else it }
+        }
+        return updated
     }
 
     suspend fun delete(id: UUID) {

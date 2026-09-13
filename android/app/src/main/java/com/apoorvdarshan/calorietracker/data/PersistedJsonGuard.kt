@@ -75,7 +75,7 @@ object LenientJsonList {
  * Copies unreadable persisted blobs aside as `<name>.corrupt-<timestamp>` so
  * a decode failure never costs the user their data. Best-effort: returns
  * `null` when the copy could not be written, letting callers fall back to an
- * in-store backup.
+ * in-store backup or refuse the overwrite.
  */
 class CorruptBlobArchive(private val directory: File) {
     fun preserveText(name: String, raw: String): File? = runCatching {
@@ -90,19 +90,34 @@ class CorruptBlobArchive(private val directory: File) {
         target
     }.getOrNull()
 
-    fun preserveFile(source: File): File? = runCatching {
+    /**
+     * Copies [source] to a collision-free `<name>.corrupt-<timestamp>` sibling,
+     * falling back to the archive directory when the sibling cannot be written.
+     * Returns `null` only when neither location accepted the copy, so a non-null
+     * result means the bytes are safe to replace.
+     */
+    fun preserveFile(source: File): File? {
         if (!source.exists()) return null
-        val target = File(source.parentFile ?: directory, backupName(source.name))
-        source.copyTo(target, overwrite = false)
-        target
-    }.getOrNull()
+        val locations = listOfNotNull(source.parentFile, directory).distinct()
+        for (location in locations) {
+            val copied = runCatching {
+                location.mkdirs()
+                val target = uniqueTarget(source.name, location)
+                source.copyTo(target, overwrite = false)
+                target
+            }.getOrNull()
+            if (copied != null && copied.length() == source.length()) return copied
+            copied?.delete()
+        }
+        return null
+    }
 
-    private fun uniqueTarget(name: String): File {
-        var candidate = File(directory, backupName(name))
+    private fun uniqueTarget(name: String, location: File = directory): File {
+        var candidate = File(location, backupName(name))
         var attempt = 0
         while (candidate.exists()) {
             attempt += 1
-            candidate = File(directory, backupName(name, suffix = "-$attempt"))
+            candidate = File(location, backupName(name, suffix = "-$attempt"))
         }
         return candidate
     }

@@ -35,7 +35,7 @@ iOS and Android 6.1 (build/versionCode 34) add an optional intermittent-fasting 
 
 The app also includes faster Saved Meal reuse, current-time meal copying, export of every stored nutrient, selectable water units, water progress on Apple Watch, current AI model presets, configurable timeouts for Ollama/custom endpoints, and reliability fixes across widgets, settings, images, and provider responses. Normal updates preserve existing local and Health data.
 
-[App Store](https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726) · [Google Play](https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker) · [Website](https://fud-ai.app) · [Report an Issue](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20) · [Request a Feature](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20)
+[App Store](https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726) · [Google Play](https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker) · [Website](https://fud-ai.app) · [Report an Issue](https://github.com/apoorvdarshan/fud-ai/issues/new/choose) · [Request a Feature](https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml)
 
 ---
 
@@ -387,8 +387,8 @@ MIT License. See [LICENSE](LICENSE).
 - **Email:** apoorv@fud-ai.app or ad13dtu@gmail.com
 - **Follow on X:** [@apoorvdarshan](https://x.com/apoorvdarshan)
 - **Follow on LinkedIn:** [Fud AI](https://www.linkedin.com/company/fud-ai-app)
-- **Report an Issue:** [github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20)
-- **Request a Feature:** [github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20)
+- **Report an Issue:** [github.com/apoorvdarshan/fud-ai/issues/new/choose](https://github.com/apoorvdarshan/fud-ai/issues/new/choose)
+- **Request a Feature:** [github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml](https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml)
 
 ## Support the Project
 
@@ -397,7 +397,7 @@ Fud AI is fully free, open source, and privacy-first — no ads, no subscription
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-Support-ff5e5b?logo=kofi)](https://ko-fi.com/apoorvdarshan)
 [![Product Hunt](https://img.shields.io/badge/Product%20Hunt-Vote-orange?logo=producthunt)](https://www.producthunt.com/products/fud-ai-calorie-tracker)
 
-You can also help by [voting on Product Hunt](https://www.producthunt.com/products/fud-ai-calorie-tracker), [starring the repo](https://github.com/apoorvdarshan/fud-ai), [filing bugs](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20), or [requesting features](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20).
+You can also help by [voting on Product Hunt](https://www.producthunt.com/products/fud-ai-calorie-tracker), [starring the repo](https://github.com/apoorvdarshan/fud-ai), [filing bugs](https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml), or [requesting features](https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml).
 
 ## Star History
 

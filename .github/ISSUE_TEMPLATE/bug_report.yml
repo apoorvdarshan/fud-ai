@@ -1,0 +1,85 @@
+name: Bug report
+description: Something isn't working as expected in Fud AI
+title: "Bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please fill out the sections below so we can reproduce it quickly.
+        Security issues belong in [private vulnerability reporting](https://github.com/apoorvdarshan/fud-ai/security/advisories/new), not here.
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: Where did you see the bug?
+      multiple: true
+      options:
+        - iOS
+        - Android
+        - Watch
+        - Widget
+        - Web (fud-ai.app)
+        - Other / unclear
+    validations:
+      required: true
+  - type: input
+    id: app-version
+    attributes:
+      label: App version
+      description: Settings → About, or the store listing version.
+      placeholder: e.g. 6.1 (34)
+    validations:
+      required: true
+  - type: input
+    id: device-os
+    attributes:
+      label: Device and OS
+      description: Model + OS (include OEM skin on Android if relevant).
+      placeholder: e.g. iPhone 15 Pro, iOS 18.2 · Pixel 8, Android 15
+    validations:
+      required: true
+  - type: input
+    id: ai-provider
+    attributes:
+      label: AI / speech provider (if relevant)
+      description: Leave blank if the bug is unrelated to analysis or transcription.
+      placeholder: e.g. Gemini · OpenAI · Apple Intelligence fallback
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Exact steps someone else can follow.
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: siri
+    attributes:
+      label: Siri / Shortcuts details (if relevant)
+      description: Exact phrase used, and whether it happened from Siri, Shortcuts, or the in-app phrase guide.
+  - type: textarea
+    id: media
+    attributes:
+      label: Screenshots or screen recording
+      description: Drag and drop images or a short video here if helpful.
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context
+      description: Anything else that might help (logs, recent settings changes, etc.).

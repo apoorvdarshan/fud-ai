@@ -145,15 +145,12 @@ an exact reviewed note section.
 
 ## Reporting Issues
 
-Open a bug at [github.com/apoorvdarshan/fud-ai/issues/new?labels=bug](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=bug&title=Bug:%20) with:
-- Steps to reproduce
-- Expected vs actual behavior
-- Device model + OS version (iPhone model + iOS version, or Android model + OS / OEM skin like OriginOS / One UI / HyperOS)
-- Which AI provider you were using (if the bug is analysis-related)
-- For Siri/App Intent bugs, the exact phrase used and whether the issue happened from Siri, Shortcuts, or the in-app phrase guide
-- Screenshots or a short screen recording if relevant
+Use the issue templates at [github.com/apoorvdarshan/fud-ai/issues/new/choose](https://github.com/apoorvdarshan/fud-ai/issues/new/choose):
 
-For feature ideas, use [the enhancement label](https://github.com/apoorvdarshan/fud-ai/issues/new?labels=enhancement&title=Feature:%20).
+- **Bug report** — steps to reproduce, expected vs actual, device + OS, app version, AI provider when relevant, and Siri/Shortcuts details when relevant
+- **Feature request** — problem, proposed solution, and target platforms
+
+Security issues: use [private vulnerability reporting](https://github.com/apoorvdarshan/fud-ai/security/advisories/new), not a public issue.
 
 ## Adding an AI Provider
 

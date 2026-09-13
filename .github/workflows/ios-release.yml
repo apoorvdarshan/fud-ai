@@ -14,6 +14,11 @@ on:
     tags:
       - "v*"
 
+# Least privilege by default; the github-release job below opts into
+# contents: write only for `gh release create`.
+permissions:
+  contents: read
+
 jobs:
   quality:
     uses: ./.github/workflows/quality.yml

@@ -23,6 +23,11 @@ on:
     tags:
       - "android-v*"
 
+# Least privilege by default; the release job below opts into contents: write
+# only for `gh release create`.
+permissions:
+  contents: read
+
 jobs:
   quality:
     uses: ./.github/workflows/quality.yml

@@ -148,6 +148,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.platform.LocalUriHandler
@@ -4602,7 +4603,8 @@ private fun OptionalNutrient.customValueDetail(value: Int): String? =
 @Composable
 private fun birthdayDisplay(profile: UserProfile): String {
     val date = profile.birthday.atZone(ZoneId.systemDefault()).toLocalDate()
-    val formatted = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.getDefault()))
+    val locale = LocalConfiguration.current.locales[0]
+    val formatted = date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale))
     return stringResource(R.string.settings_birthday_age_format, formatted, profile.age)
 }
 

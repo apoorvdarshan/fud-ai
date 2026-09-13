@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -33,7 +34,6 @@ import com.apoorvdarshan.calorietracker.export.DiaryImportPreview
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,7 +46,8 @@ fun ImportDiarySheet(
 ) {
     val state = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     val isDark = MaterialTheme.colorScheme.background.let { (it.red + it.green + it.blue) / 3f < 0.5f }
-    val dateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.getDefault())
+    val locale = LocalConfiguration.current.locales[0]
+    val dateFormat = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)
 
     ModalBottomSheet(
         onDismissRequest = { if (!importing) onDismiss() },

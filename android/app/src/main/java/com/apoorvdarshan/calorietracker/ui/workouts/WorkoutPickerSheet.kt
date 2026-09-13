@@ -79,6 +79,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
@@ -858,6 +859,7 @@ private fun WorkoutCopyDayRow(
     day: WorkoutCopyDayUi,
     onClick: () -> Unit
 ) {
+    val locale = LocalConfiguration.current.locales[0]
     val previewNames = day.exerciseNames.take(3).joinToString()
     val subtitle = if (day.exerciseNames.size > 3) {
         "$previewNames +${day.exerciseNames.size - 3}"
@@ -876,7 +878,7 @@ private fun WorkoutCopyDayRow(
             Icon(Icons.Filled.EventRepeat, contentDescription = null, tint = AppColors.Calorie)
             Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
                 Text(
-                    day.date.format(DateTimeFormatter.ofPattern("EEE, MMM d", Locale.getDefault())),
+                    day.date.format(DateTimeFormatter.ofPattern("EEE, MMM d", locale)),
                     color = MaterialTheme.colorScheme.onSurface,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold

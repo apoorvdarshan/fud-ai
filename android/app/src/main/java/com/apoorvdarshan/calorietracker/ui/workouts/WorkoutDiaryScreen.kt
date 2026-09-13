@@ -93,6 +93,7 @@ import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.boundsInRoot
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -1376,6 +1377,7 @@ private fun WorkoutDayTile(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val locale = LocalConfiguration.current.locales[0]
     Column(
         modifier = modifier
             .alpha(if (enabled) 1f else 0.32f)
@@ -1389,7 +1391,7 @@ private fun WorkoutDayTile(
         verticalArrangement = Arrangement.spacedBy(5.dp)
     ) {
         Text(
-            date.dayOfWeek.getDisplayName(java.time.format.TextStyle.NARROW, Locale.getDefault()),
+            date.dayOfWeek.getDisplayName(java.time.format.TextStyle.NARROW, locale),
             color = if (isSelected) AppColors.Calorie else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.42f),
             fontSize = 11.sp,
             fontWeight = FontWeight.Medium

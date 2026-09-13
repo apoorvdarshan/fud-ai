@@ -46,6 +46,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -311,8 +312,9 @@ private fun ChallengeHeader(
     lastUpdatedEpochMillis: Long?,
     isOffline: Boolean
 ) {
-    val formatter = remember(Locale.getDefault()) {
-        DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.getDefault())
+    val locale = LocalConfiguration.current.locales[0]
+    val formatter = remember(locale) {
+        DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)
     }
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         Text(
@@ -332,8 +334,8 @@ private fun ChallengeHeader(
         val status = when {
             isOffline -> stringResource(R.string.challenge_offline_status)
             lastUpdatedEpochMillis != null -> {
-                val formatted = remember(lastUpdatedEpochMillis, Locale.getDefault()) {
-                    DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT)
+                val formatted = remember(lastUpdatedEpochMillis, locale) {
+                    DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, locale)
                         .format(Date(lastUpdatedEpochMillis))
                 }
                 stringResource(R.string.challenge_last_updated, formatted)

@@ -918,7 +918,8 @@
     <string name="about_report_issue">Повідомити про проблему</string>
     <string name="about_request_feature">Запропонувати функцію</string>
     <string name="about_contact">Зв\'язатися з нами</string>
-    <string name="about_follow_x">Стежити в X</string>
+        <string name="about_join_discord">Приєднатися до Discord</string>
+<string name="about_follow_x">Стежити в X</string>
     <string name="about_follow_linkedin">Стежити в LinkedIn</string>
     <string name="about_follow_instagram">Стежити в Instagram</string>
     <string name="about_privacy">Політика конфіденційності</string>

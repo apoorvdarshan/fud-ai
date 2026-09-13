@@ -610,7 +610,8 @@
     <string name="about_report_issue">Problemi Bildir</string>
     <string name="about_request_feature">Funksiya Tələb Et</string>
     <string name="about_contact">Bizimlə Əlaqə</string>
-    <string name="about_follow_x">X-də İzlə</string>
+        <string name="about_join_discord">Discord-a qoşul</string>
+<string name="about_follow_x">X-də İzlə</string>
     <string name="about_follow_linkedin">LinkedIn-də İzlə</string>
     <string name="about_follow_instagram">Instagram-da İzlə</string>
     <string name="about_privacy">Məxfilik Siyasəti</string>

@@ -609,7 +609,8 @@
     <string name="about_report_issue">問題を報告</string>
     <string name="about_request_feature">機能をリクエスト</string>
     <string name="about_contact">お問い合わせ</string>
-    <string name="about_follow_x">Xでフォロー</string>
+        <string name="about_join_discord">Discordに参加</string>
+<string name="about_follow_x">Xでフォロー</string>
     <string name="about_follow_linkedin">LinkedInでフォロー</string>
     <string name="about_follow_instagram">Instagramでフォロー</string>
     <string name="about_privacy">プライバシーポリシー</string>

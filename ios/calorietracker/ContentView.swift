@@ -433,6 +433,16 @@ private struct AboutSettingsSections: View {
 
             case .community:
                 Section {
+                Link(destination: URL(string: "https://discord.gg/Py4VrFctP3")!) {
+                    Label {
+                        Text("Join Discord")
+                    } icon: {
+                        Image(systemName: "bubble.left.and.bubble.right.fill")
+                            .foregroundStyle(AppColors.calorie)
+                    }
+                }
+                .tint(.primary)
+
                 Link(destination: URL(string: "https://x.com/apoorvdarshan")!) {
                     Label {
                         Text("Follow on X")

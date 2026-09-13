@@ -115,7 +115,7 @@ final class calorietrackerUITests: XCTestCase {
             ("appUpdates", "App & Updates", "Open Source (MIT)"),
             ("support", "Support Fud AI", "Rate the App"),
             ("helpFeedback", "Help & Feedback", "Report an Issue"),
-            ("community", "Community", "Follow on X"),
+            ("community", "Community", "Join Discord"),
             ("legal", "Legal", "Privacy Policy"),
         ]
 
@@ -149,6 +149,8 @@ final class calorietrackerUITests: XCTestCase {
             XCTAssertTrue(action.waitForExistence(timeout: 3), "Missing \(expectedAction) in \(title)")
 
             if identifier == "community" {
+                XCTAssertTrue(app.staticTexts["Join Discord"].exists)
+                XCTAssertTrue(app.staticTexts["Follow on X"].exists)
                 XCTAssertTrue(app.staticTexts["Follow on Instagram"].exists)
                 XCTAssertTrue(app.staticTexts["Follow on LinkedIn"].exists)
             }

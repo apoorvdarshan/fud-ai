@@ -609,7 +609,8 @@
     <string name="about_report_issue">报告问题</string>
     <string name="about_request_feature">请求功能</string>
     <string name="about_contact">联系我们</string>
-    <string name="about_follow_x">在 X 上关注</string>
+        <string name="about_join_discord">加入 Discord</string>
+<string name="about_follow_x">在 X 上关注</string>
     <string name="about_follow_linkedin">在 LinkedIn 上关注</string>
     <string name="about_follow_instagram">在 Instagram 上关注</string>
     <string name="about_privacy">隐私政策</string>

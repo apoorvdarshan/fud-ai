@@ -622,7 +622,8 @@
     <string name="about_report_issue">الإبلاغ عن مشكلة</string>
     <string name="about_request_feature">طلب ميزة</string>
     <string name="about_contact">اتصل بنا</string>
-    <string name="about_follow_x">تابعنا على X</string>
+        <string name="about_join_discord">انضم إلى Discord</string>
+<string name="about_follow_x">تابعنا على X</string>
     <string name="about_follow_linkedin">تابعنا على LinkedIn</string>
     <string name="about_follow_instagram">تابعنا على Instagram</string>
     <string name="about_privacy">سياسة الخصوصية</string>

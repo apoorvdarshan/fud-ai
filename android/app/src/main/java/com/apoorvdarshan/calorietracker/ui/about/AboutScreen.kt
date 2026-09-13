@@ -33,6 +33,7 @@ import androidx.compose.material.icons.filled.Code
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Forum
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Share
@@ -204,6 +205,10 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
             }
 
             AboutSettingsCategory.COMMUNITY -> {
+                AboutRow(Icons.Filled.Forum, stringResource(R.string.about_join_discord)) {
+                    open("https://discord.gg/Py4VrFctP3")
+                }
+                Hairline()
                 AboutRow(Icons.Filled.AlternateEmail, stringResource(R.string.about_follow_x)) {
                     open("https://x.com/apoorvdarshan")
                 }

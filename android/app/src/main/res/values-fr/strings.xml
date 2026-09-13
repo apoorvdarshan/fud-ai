@@ -611,7 +611,8 @@
     <string name="about_report_issue">Signaler un problème</string>
     <string name="about_request_feature">Demander une fonctionnalité</string>
     <string name="about_contact">Nous contacter</string>
-    <string name="about_follow_x">Suivre sur X</string>
+        <string name="about_join_discord">Rejoindre Discord</string>
+<string name="about_follow_x">Suivre sur X</string>
     <string name="about_follow_linkedin">Suivre sur LinkedIn</string>
     <string name="about_follow_instagram">Suivre sur Instagram</string>
     <string name="about_privacy">Politique de confidentialité</string>

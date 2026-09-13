@@ -616,7 +616,8 @@
     <string name="about_report_issue">Zgłoś problem</string>
     <string name="about_request_feature">Poproś o funkcję</string>
     <string name="about_contact">Kontakt</string>
-    <string name="about_follow_x">Obserwuj na X</string>
+        <string name="about_join_discord">Dołącz do Discorda</string>
+<string name="about_follow_x">Obserwuj na X</string>
     <string name="about_follow_linkedin">Obserwuj na LinkedIn</string>
     <string name="about_follow_instagram">Obserwuj na Instagram</string>
     <string name="about_privacy">Polityka prywatności</string>

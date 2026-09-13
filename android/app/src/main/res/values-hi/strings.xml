@@ -610,7 +610,8 @@
     <string name="about_report_issue">समस्या की रिपोर्ट करें</string>
     <string name="about_request_feature">फीचर का अनुरोध करें</string>
     <string name="about_contact">संपर्क करें</string>
-    <string name="about_follow_x">X पर फॉलो करें</string>
+        <string name="about_join_discord">Discord से जुड़ें</string>
+<string name="about_follow_x">X पर फॉलो करें</string>
     <string name="about_follow_linkedin">LinkedIn पर फॉलो करें</string>
     <string name="about_follow_instagram">Instagram पर फॉलो करें</string>
     <string name="about_privacy">गोपनीयता नीति</string>

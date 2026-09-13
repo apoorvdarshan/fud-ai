@@ -610,7 +610,8 @@
     <string name="about_report_issue">Probleem melden</string>
     <string name="about_request_feature">Functie aanvragen</string>
     <string name="about_contact">Neem contact op</string>
-    <string name="about_follow_x">Volg op X</string>
+        <string name="about_join_discord">Join Discord</string>
+<string name="about_follow_x">Volg op X</string>
     <string name="about_follow_linkedin">Volg op LinkedIn</string>
     <string name="about_follow_instagram">Volg op Instagram</string>
     <string name="about_privacy">Privacybeleid</string>

@@ -613,7 +613,8 @@
     <string name="about_report_issue">Raportează o problemă</string>
     <string name="about_request_feature">Solicită o funcție</string>
     <string name="about_contact">Contactează-ne</string>
-    <string name="about_follow_x">Urmărește pe X</string>
+        <string name="about_join_discord">Alătură-te pe Discord</string>
+<string name="about_follow_x">Urmărește pe X</string>
     <string name="about_follow_linkedin">Urmărește pe LinkedIn</string>
     <string name="about_follow_instagram">Urmărește pe Instagram</string>
     <string name="about_privacy">Politica de confidențialitate</string>

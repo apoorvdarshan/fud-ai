@@ -668,7 +668,8 @@
     <string name="about_report_issue">Nahlásit chybu</string>
     <string name="about_request_feature">Navrhnout funkci</string>
     <string name="about_contact">Kontaktuj nás</string>
-    <string name="about_follow_x">Sledovat na X</string>
+        <string name="about_join_discord">Připojit se na Discord</string>
+<string name="about_follow_x">Sledovat na X</string>
     <string name="about_follow_linkedin">Sledovat na LinkedInu</string>
     <string name="about_follow_instagram">Sledovat na Instagramu</string>
     <string name="about_privacy">Zásady ochrany soukromí</string>

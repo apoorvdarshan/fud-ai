@@ -616,7 +616,8 @@
     <string name="about_report_issue">Сообщить о проблеме</string>
     <string name="about_request_feature">Предложить функцию</string>
     <string name="about_contact">Связаться с нами</string>
-    <string name="about_follow_x">Подписаться в X</string>
+        <string name="about_join_discord">Присоединиться к Discord</string>
+<string name="about_follow_x">Подписаться в X</string>
     <string name="about_follow_linkedin">Подписаться в LinkedIn</string>
     <string name="about_follow_instagram">Подписаться в Instagram</string>
     <string name="about_privacy">Политика конфиденциальности</string>

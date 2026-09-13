@@ -118,6 +118,33 @@ struct DiaryPersistenceSafetyTests {
         }
     }
 
+    @Test func firstWriteWithoutLoadBacksUpWhateverIsAlreadyStored() throws {
+        try withDefaults { defaults, backupDir in
+            let garbage = Data("{never decoded".utf8)
+            defaults.set(garbage, forKey: "k")
+            // No load: the guard has no decoder and has never seen the key.
+            let blob = PersistedBlobGuard(defaults: defaults, key: "k", backupDirectory: backupDir)
+
+            #expect(blob.save([WaterEntry(milliliters: 250)]))
+            let backup = try #require(blob.backups.first)
+            #expect(try Data(contentsOf: backup.url) == garbage)
+        }
+    }
+
+    @Test func firstWriteWithoutLoadIsRefusedWhenExistingBlobCannotBeBackedUp() throws {
+        try withDefaults { defaults, _ in
+            let garbage = Data("{never decoded".utf8)
+            defaults.set(garbage, forKey: "k")
+            let unwritable = URL(fileURLWithPath: "/dev/null/cannot-create")
+            let blob = PersistedBlobGuard(defaults: defaults, key: "k", backupDirectory: unwritable)
+
+            #expect(!blob.save([WaterEntry(milliliters: 250)]))
+            #expect(!blob.remove())
+            #expect(blob.isWriteBlocked)
+            #expect(defaults.data(forKey: "k") == garbage)
+        }
+    }
+
     @Test func blobReplacedExternallyWithValidDataDoesNotSpawnBackups() throws {
         try withDefaults { defaults, backupDir in
             let blob = PersistedBlobGuard(defaults: defaults, key: "k", backupDirectory: backupDir)
@@ -162,6 +189,38 @@ struct DiaryPersistenceSafetyTests {
             #expect(store.dayPlans.isEmpty)
             #expect(store.savedExerciseIDs.isEmpty)
             #expect(store.preferences == StrengthWorkoutPreferences())
+            #expect(defaults.data(forKey: key) == garbage)
+        }
+    }
+
+    @Test func workoutMutationsRollBackWhenBlobTurnsCorruptBehindTheStore() throws {
+        try withDefaults { defaults, _ in
+            let key = "workouts"
+            let unwritable = URL(fileURLWithPath: "/dev/null/cannot-create")
+            let store = StrengthWorkoutStore(defaults: defaults, storageKey: key, corruptBackupDirectory: unwritable)
+            let date = Date(timeIntervalSince1970: 1_800_000_000)
+            store.toggleExercise(makeExercise(), on: date)
+            store.toggleSaved("bench")
+            #expect(store.workoutCount(for: date) == 1)
+            #expect(!store.isPersistenceBlocked)
+
+            // Another writer replaces the blob after the store's last look.
+            // The up-front check still passes; only the write-time re-read
+            // discovers the corrupt bytes, and their backup fails.
+            let garbage = Data("{broken".utf8)
+            defaults.set(garbage, forKey: key)
+
+            store.toggleExercise(makeExercise(), on: date)
+            store.toggleSaved("bench")
+            store.updatePreferences { $0.frequencyDays = 6 }
+            #expect(store.completeWorkout(on: date, startedAt: date, elapsedSeconds: 60, weightUnit: .kg) == nil)
+
+            // Every refused edit was rolled back: memory still shows the last persisted state.
+            #expect(store.workoutCount(for: date) == 1)
+            #expect(store.savedExerciseIDs == ["bench"])
+            #expect(store.preferences == StrengthWorkoutPreferences())
+            #expect(store.completedSessions.isEmpty)
+            #expect(store.isPersistenceBlocked)
             #expect(defaults.data(forKey: key) == garbage)
         }
     }

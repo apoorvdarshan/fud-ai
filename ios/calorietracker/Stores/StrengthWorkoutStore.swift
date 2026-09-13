@@ -75,9 +75,17 @@ final class StrengthWorkoutStore {
     private var liftSummaryCacheKey: String?
     private var liftSummaryCache: [String: String] = [:]
 
-    /// True while an unreadable state blob is on disk without a backup copy;
-    /// `save()` is refused in that state so it cannot be overwritten.
-    var isPersistenceBlocked: Bool { stateBlob.isWriteBlocked }
+    /// Set when the persisted state was written by a build with a newer
+    /// schema. Unlike a corrupt blob (which is safe to replace once backed up)
+    /// this is the user's live data, so writes stay blocked for as long as it
+    /// is on disk — a backup copy does not make overwriting it acceptable.
+    private var hasUnsupportedPersistedState = false
+
+    /// True while the on-disk state must not be overwritten: either an
+    /// unreadable blob has no backup copy yet, or the blob was written by a
+    /// newer schema. Every mutation is refused up front in this state so
+    /// edits cannot appear to succeed and then vanish on the next launch.
+    var isPersistenceBlocked: Bool { stateBlob.isWriteBlocked || hasUnsupportedPersistedState }
 
     init(
         defaults: UserDefaults = .standard,
@@ -130,6 +138,7 @@ final class StrengthWorkoutStore {
 
     /// Append the reviewed batch; stable draft IDs make retries idempotent.
     func addTextWorkout(_ draft: WorkoutTextDraft, library: [ExerciseLibraryItem]) throws {
+        guard !isPersistenceBlocked else { throw WorkoutTextError.invalid(Self.persistenceBlockedMessage) }
         let additions = try draft.planned(library: library)
         guard let date = Self.date(for: draft.date) else { throw WorkoutTextError.invalid("Choose a valid date.") }
         let known = Set(customActivities.map(\.itemID))
@@ -159,6 +168,7 @@ final class StrengthWorkoutStore {
 
     @discardableResult
     func saveUserExercise(_ draft: UserExerciseDraft, existingItemID: String? = nil) -> ExerciseLibraryItem? {
+        guard !isPersistenceBlocked else { return nil }
         let trimmedName = draft.trimmedName
         guard !trimmedName.isEmpty else { return nil }
 
@@ -187,7 +197,7 @@ final class StrengthWorkoutStore {
         } else {
             userExercises.append(template)
         }
-        save()
+        guard save() else { return nil }
         orphanCandidates
             .filter { !referencesUserExerciseImage($0) }
             .forEach { FoodImageStore.shared.delete(filename: $0) }
@@ -195,11 +205,11 @@ final class StrengthWorkoutStore {
     }
 
     func deleteUserExercise(itemID: String) {
-        guard UserExercise.isUserExercise(itemID) else { return }
+        guard !isPersistenceBlocked, UserExercise.isUserExercise(itemID) else { return }
         let orphanCandidates = userExercises.first(where: { $0.itemID == itemID })?.imagePaths ?? []
         userExercises.removeAll { $0.itemID == itemID }
         savedExerciseIDs.remove(itemID)
-        save()
+        guard save() else { return }
         orphanCandidates
             .filter { !referencesUserExerciseImage($0) }
             .forEach { FoodImageStore.shared.delete(filename: $0) }
@@ -231,10 +241,11 @@ final class StrengthWorkoutStore {
     }
 
     func removeExercise(_ exerciseID: UUID, on date: Date) {
+        guard !isPersistenceBlocked else { return }
         let removedPaths = exercises(for: date).first(where: { $0.id == exerciseID })?.imagePaths ?? []
-        updatePlan(for: date) { plan in
+        guard updatePlan(for: date, mutate: { plan in
             plan.exercises.removeAll { $0.id == exerciseID }
-        }
+        }) else { return }
         removedPaths
             .filter { !referencesUserExerciseImage($0) }
             .forEach { FoodImageStore.shared.delete(filename: $0) }
@@ -281,6 +292,7 @@ final class StrengthWorkoutStore {
     }
 
     func toggleSaved(_ itemID: String) {
+        guard !isPersistenceBlocked else { return }
         if savedExerciseIDs.contains(itemID) {
             savedExerciseIDs.remove(itemID)
         } else {
@@ -395,6 +407,7 @@ final class StrengthWorkoutStore {
         elapsedSeconds: Int,
         weightUnit: WeightUnit
     ) -> StrengthWorkoutSession? {
+        guard !isPersistenceBlocked else { return nil }
         let planned = exercises(for: date)
         guard !planned.isEmpty else { return nil }
 
@@ -408,7 +421,7 @@ final class StrengthWorkoutStore {
             exercises: logs
         )
         completedSessions.append(session)
-        save()
+        guard save() else { return nil }
         return session
     }
 
@@ -422,6 +435,7 @@ final class StrengthWorkoutStore {
         weightUnit: WeightUnit,
         calculatedAt: Date = .now
     ) -> StrengthWorkoutSession? {
+        guard !isPersistenceBlocked else { return nil }
         let planned = exercises(for: date)
         let logs = completedExerciseLogs(from: planned, weightUnit: weightUnit)
         guard planned.contains(where: {
@@ -452,7 +466,9 @@ final class StrengthWorkoutStore {
             $0.stableDiaryDateKey == key && $0.caloriesBurned != nil
         }
         completedSessions.append(session)
-        save()
+        // Health only hears about the burn once it is durably stored, so a
+        // refused save cannot leave a sample with no diary record behind it.
+        guard save() else { return nil }
         for duplicate in existingBurns.dropFirst() where duplicate.id != session.id {
             onWorkoutBurnDeleted?(duplicate.id)
         }
@@ -484,11 +500,12 @@ final class StrengthWorkoutStore {
     }
 
     func deleteSession(_ id: UUID) {
+        guard !isPersistenceBlocked else { return }
         let deletedBurnID = completedSessions.first {
             $0.id == id && $0.caloriesBurned != nil
         }?.id
         completedSessions.removeAll { $0.id == id }
-        save()
+        guard save() else { return }
         if let deletedBurnID { onWorkoutBurnDeleted?(deletedBurnID) }
     }
 
@@ -496,7 +513,7 @@ final class StrengthWorkoutStore {
     /// This merge never fires write callbacks, so imported samples are not
     /// echoed back to Apple Health.
     func importWorkoutBurnSessions(_ imported: [StrengthWorkoutSession]) {
-        guard !imported.isEmpty else { return }
+        guard !isPersistenceBlocked, !imported.isEmpty else { return }
         var changed = false
 
         for session in imported where session.caloriesBurned != nil {
@@ -555,22 +572,26 @@ final class StrengthWorkoutStore {
     }
 
     func updatePreferences(_ mutate: (inout StrengthWorkoutPreferences) -> Void) {
+        guard !isPersistenceBlocked else { return }
         mutate(&preferences)
         preferences.sanitize()
         save()
     }
 
+    /// Re-reads the persisted state (e.g. after a cloud restore). Memory is
+    /// only replaced by what was actually read: a missing key empties the
+    /// store, a decoded blob replaces it, and a corrupt or newer-schema blob
+    /// leaves the current in-memory diary untouched.
     func reloadFromDefaults() {
-        dayPlans = [:]
-        completedSessions = []
-        savedExerciseIDs = []
-        customActivities = []
-        userExercises = []
-        preferences = StrengthWorkoutPreferences()
         load()
     }
 
+    /// Explicit user action: wipes the diary. The persisted blob is removed
+    /// first so that, if the guard refuses (a corrupt blob still has no
+    /// backup), neither memory nor the exercise photos are touched.
     func clearAll() {
+        guard stateBlob.remove() else { return }
+        hasUnsupportedPersistedState = false
         dayPlans = [:]
         completedSessions = []
         savedExerciseIDs = []
@@ -580,10 +601,12 @@ final class StrengthWorkoutStore {
         }
         userExercises = []
         preferences = StrengthWorkoutPreferences()
-        stateBlob.remove()
     }
 
-    private func updatePlan(for date: Date, mutate: (inout StrengthWorkoutDayPlan) -> Void) {
+    /// Returns `false` (leaving memory untouched) when persistence is blocked.
+    @discardableResult
+    private func updatePlan(for date: Date, mutate: (inout StrengthWorkoutDayPlan) -> Void) -> Bool {
+        guard !isPersistenceBlocked else { return false }
         let key = Self.dateKey(for: date)
         var plan = dayPlans[key] ?? StrengthWorkoutDayPlan(dateKey: key)
         let previousTimerInputs = savedTimerBurnInputs(in: plan)
@@ -608,8 +631,9 @@ final class StrengthWorkoutStore {
         } else {
             invalidatedBurnIDs = []
         }
-        save()
+        guard save() else { return false }
         for id in invalidatedBurnIDs { onWorkoutBurnDeleted?(id) }
+        return true
     }
 
     private struct SavedTimerBurnInput: Equatable {
@@ -701,19 +725,28 @@ final class StrengthWorkoutStore {
     private func load() {
         let state: PersistedState
         switch stateBlob.loadValue(PersistedState.self) {
-        case .missing, .corrupt:
-            // Corrupt blobs are backed up by the guard and protected from
-            // being overwritten until that copy exists.
+        case .missing:
+            hasUnsupportedPersistedState = false
+            resetInMemoryState()
+            return
+        case .corrupt:
+            // Backed up by the guard (or write-blocked until it is). Keep
+            // whatever is in memory: it is either the fresh defaults on first
+            // load or the last good state during a reload.
             return
         case .decoded(let decoded, _):
             state = decoded
         }
         guard state.version == 1 else {
-            // Written by a build with a newer schema — preserve it rather than
-            // clobbering it with a downgraded empty state on the next save.
+            // Written by a build with a newer schema. Copy it aside for good
+            // measure, but the real protection is the persistent write block:
+            // this build must never save its own (older, here empty) state
+            // over data the user created in a newer one.
+            hasUnsupportedPersistedState = true
             stateBlob.quarantineCurrentBlob(reason: "unsupported workout state version \(state.version)")
             return
         }
+        hasUnsupportedPersistedState = false
         dayPlans = state.dayPlans
         completedSessions = state.completedSessions
         savedExerciseIDs = state.savedExerciseIDs
@@ -735,7 +768,23 @@ final class StrengthWorkoutStore {
         }
     }
 
-    private func save() {
+    private func resetInMemoryState() {
+        dayPlans = [:]
+        completedSessions = []
+        savedExerciseIDs = []
+        customActivities = []
+        userExercises = []
+        preferences = StrengthWorkoutPreferences()
+    }
+
+    static let persistenceBlockedMessage =
+        "Your saved workout history is being protected and can't be changed right now. Update Fud AI to the latest version or restart the app and try again."
+
+    /// Returns `false` when the guard refused the write (a newer-schema blob is
+    /// on disk, or a corrupt one still has no backup copy).
+    @discardableResult
+    private func save() -> Bool {
+        guard !hasUnsupportedPersistedState else { return false }
         let state = PersistedState(
             dayPlans: dayPlans,
             completedSessions: completedSessions,
@@ -744,7 +793,7 @@ final class StrengthWorkoutStore {
             customActivities: customActivities,
             userExercises: userExercises
         )
-        stateBlob.save(state)
+        return stateBlob.save(state)
     }
 
     private static func decimalText(_ value: String) -> String {

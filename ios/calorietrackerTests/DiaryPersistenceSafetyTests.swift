@@ -80,6 +80,128 @@ struct DiaryPersistenceSafetyTests {
         }
     }
 
+    @Test func blobReplacedExternallyWithGarbageIsBackedUpBeforeSave() throws {
+        try withDefaults { defaults, backupDir in
+            let blob = PersistedBlobGuard(defaults: defaults, key: "k", backupDirectory: backupDir)
+            #expect(blob.save([WaterEntry(milliliters: 100)]))
+            guard case .decoded = blob.loadList(WaterEntry.self) else {
+                Issue.record("expected .decoded")
+                return
+            }
+            // Another process (widget, restore) replaces the key behind the guard's back.
+            let garbage = Data("{not water".utf8)
+            defaults.set(garbage, forKey: "k")
+
+            #expect(blob.save([WaterEntry(milliliters: 250)]))
+            let backup = try #require(blob.backups.first)
+            #expect(try Data(contentsOf: backup.url) == garbage)
+        }
+    }
+
+    @Test func blobReplacedExternallyWithGarbageBlocksSaveWhenBackupFails() throws {
+        try withDefaults { defaults, _ in
+            let unwritable = URL(fileURLWithPath: "/dev/null/cannot-create")
+            let blob = PersistedBlobGuard(defaults: defaults, key: "k", backupDirectory: unwritable)
+            #expect(blob.save([WaterEntry(milliliters: 100)]))
+            guard case .decoded = blob.loadList(WaterEntry.self) else {
+                Issue.record("expected .decoded")
+                return
+            }
+            #expect(!blob.isWriteBlocked)
+            let garbage = Data("{not water".utf8)
+            defaults.set(garbage, forKey: "k")
+
+            #expect(!blob.save([WaterEntry(milliliters: 250)]))
+            #expect(!blob.remove())
+            #expect(blob.isWriteBlocked)
+            #expect(defaults.data(forKey: "k") == garbage)
+        }
+    }
+
+    @Test func blobReplacedExternallyWithValidDataDoesNotSpawnBackups() throws {
+        try withDefaults { defaults, backupDir in
+            let blob = PersistedBlobGuard(defaults: defaults, key: "k", backupDirectory: backupDir)
+            _ = blob.loadList(WaterEntry.self)
+            defaults.set(try JSONEncoder().encode([WaterEntry(milliliters: 100)]), forKey: "k")
+
+            #expect(blob.save([WaterEntry(milliliters: 250)]))
+            #expect(blob.backups.isEmpty)
+        }
+    }
+
+    // MARK: - FastingStore
+
+    @Test func persistedActiveSessionSurvivesOneUnreadableRow() throws {
+        try withDefaults { defaults, _ in
+            let active = FastingSession(startedAt: Date(timeIntervalSince1970: 1_800_000_000), goalMinutes: 960)
+            let activeJSON = try String(decoding: JSONEncoder().encode(active), as: UTF8.self)
+            defaults.set(Data("[{\"id\": 1}, \(activeJSON)]".utf8), forKey: FastingSettings.sessionsKey)
+
+            #expect(FastingStore.persistedActiveSession(defaults: defaults)?.id == active.id)
+        }
+    }
+
+    // MARK: - StrengthWorkoutStore
+
+    @Test func workoutMutationsAreRefusedWhileCorruptStateHasNoBackup() throws {
+        try withDefaults { defaults, _ in
+            let key = "workouts"
+            let garbage = Data("{broken".utf8)
+            defaults.set(garbage, forKey: key)
+            let unwritable = URL(fileURLWithPath: "/dev/null/cannot-create")
+            let store = StrengthWorkoutStore(defaults: defaults, storageKey: key, corruptBackupDirectory: unwritable)
+            let date = Date(timeIntervalSince1970: 1_800_000_000)
+
+            #expect(store.isPersistenceBlocked)
+            store.toggleExercise(makeExercise(), on: date)
+            store.toggleSaved("bench")
+            store.updatePreferences { $0.frequencyDays = 6 }
+            #expect(store.completeWorkout(on: date, startedAt: date, elapsedSeconds: 60, weightUnit: .kg) == nil)
+            store.clearAll()
+
+            #expect(store.dayPlans.isEmpty)
+            #expect(store.savedExerciseIDs.isEmpty)
+            #expect(store.preferences == StrengthWorkoutPreferences())
+            #expect(defaults.data(forKey: key) == garbage)
+        }
+    }
+
+    @Test func reloadingCorruptWorkoutStateKeepsTheInMemoryDiary() throws {
+        try withDefaults { defaults, backupDir in
+            let key = "workouts"
+            let store = StrengthWorkoutStore(defaults: defaults, storageKey: key, corruptBackupDirectory: backupDir)
+            let date = Date(timeIntervalSince1970: 1_800_000_000)
+            store.toggleExercise(makeExercise(), on: date)
+            #expect(store.workoutCount(for: date) == 1)
+
+            defaults.set(Data("garbage".utf8), forKey: key)
+            store.reloadFromDefaults()
+
+            #expect(store.workoutCount(for: date) == 1)
+            #expect(!store.isPersistenceBlocked)
+        }
+    }
+
+    @Test func newerWorkoutSchemaStaysWriteBlockedAfterBackup() throws {
+        try withDefaults { defaults, backupDir in
+            let key = "workouts"
+            var newerState = StrengthWorkoutStore.PersistedState()
+            newerState.version = 2
+            let newer = try JSONEncoder().encode(newerState)
+            defaults.set(newer, forKey: key)
+            let store = StrengthWorkoutStore(defaults: defaults, storageKey: key, corruptBackupDirectory: backupDir)
+            let date = Date(timeIntervalSince1970: 1_800_000_000)
+
+            // The backup exists, yet this build must still never overwrite the newer state.
+            #expect(store.isPersistenceBlocked)
+            store.toggleExercise(makeExercise(), on: date)
+            store.toggleSaved("bench")
+            #expect(store.dayPlans.isEmpty)
+            #expect(store.savedExerciseIDs.isEmpty)
+            #expect(defaults.data(forKey: key) == newer)
+        }
+    }
+
     // MARK: - FoodStore
 
     @Test func corruptFoodBlobIsPreservedAndAddIsRefusedUntilBackedUp() throws {
@@ -215,6 +337,21 @@ struct DiaryPersistenceSafetyTests {
     }
 
     // MARK: - Helpers
+
+    private func makeExercise() -> ExerciseLibraryItem {
+        ExerciseLibraryItem(
+            id: "bench",
+            name: "Bench Press",
+            rawLevel: "intermediate",
+            force: "push",
+            mechanic: "compound",
+            category: "strength",
+            rawEquipment: "barbell",
+            primaryMuscles: ["chest"],
+            secondaryMuscles: ["triceps"],
+            instructions: ["Control the repetition."]
+        )
+    }
 
     private func makeMeal() -> FoodEntry {
         FoodEntry(

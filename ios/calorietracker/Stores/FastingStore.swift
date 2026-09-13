@@ -29,12 +29,14 @@ final class FastingStore {
         }
     }
 
+    /// Same lenient row-wise decode as `load`, so one unreadable row cannot
+    /// make this report "no active fast" while `activeSession` still has one.
     static func persistedActiveSession(defaults: UserDefaults = .standard) -> FastingSession? {
         guard let data = defaults.data(forKey: FastingSettings.sessionsKey),
-              let decoded = try? JSONDecoder().decode([FastingSession].self, from: data) else {
+              let decoded = PersistedBlobGuard.decodeListLeniently(FastingSession.self, from: data) else {
             return nil
         }
-        return decoded.last(where: \.isActive)
+        return decoded.items.sorted { $0.startedAt < $1.startedAt }.last(where: \.isActive)
     }
 
     var activeSession: FastingSession? {

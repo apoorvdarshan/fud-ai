@@ -31,6 +31,11 @@ enum PersistedBlobLoad<Value> {
 /// * If the backup could not be written, every `save`/`remove` is refused
 ///   (returns `false`) so the unreadable bytes stay in place for a later
 ///   recovery attempt instead of being replaced by a fresh empty list.
+/// * Before every `save`/`remove` the live `UserDefaults` value is re-read.
+///   If something else (widget, extension, restore) replaced it since the
+///   guard last looked, the new bytes are decode-checked and quarantined the
+///   same way, so a corrupt blob written behind the store's back is never
+///   overwritten on the strength of a stale "all good" from the last load.
 final class PersistedBlobGuard {
     struct CorruptBackup: Equatable {
         let key: String
@@ -50,6 +55,14 @@ final class PersistedBlobGuard {
     /// of the same corrupt bytes don't spawn a new backup file each time.
     private var backedUpBlobHashes: Set<Int> = []
     private(set) var backups: [CorruptBackup] = []
+
+    /// Raw bytes as of the guard's last load/save/remove (`nil` = key absent).
+    /// Any difference at write time means an external writer touched the key.
+    private var lastObservedBlob: Data?
+    private var hasObservedBlob = false
+    /// Decode check for the type this key holds, captured on load so an
+    /// externally written blob can be validated before it is replaced.
+    private var isFullyReadable: ((Data) -> Bool)?
 
     init(defaults: UserDefaults, key: String, backupDirectory: URL? = nil) {
         self.defaults = defaults
@@ -75,7 +88,8 @@ final class PersistedBlobGuard {
         _ type: Element.Type,
         decoder: JSONDecoder = JSONDecoder()
     ) -> PersistedBlobLoad<[Element]> {
-        guard let raw = rawBlob() else { return .missing }
+        isFullyReadable = { (try? decoder.decode([Element].self, from: $0)) != nil }
+        guard let raw = observeCurrentBlob() else { return .missing }
         guard case .data(let data) = raw else {
             quarantine(raw.bytes, reason: "value under '\(key)' is not Data")
             return .corrupt
@@ -86,13 +100,9 @@ final class PersistedBlobGuard {
             return .decoded(decoded, droppedElements: 0)
         }
 
-        if let lenient = try? decoder.decode([LenientElement<Element>].self, from: data) {
-            let recovered = lenient.compactMap(\.value)
-            let dropped = lenient.count - recovered.count
-            if !recovered.isEmpty {
-                quarantine(data, reason: "\(dropped) of \(lenient.count) rows under '\(key)' were unreadable")
-                return .decoded(recovered, droppedElements: dropped)
-            }
+        if let lenient = Self.decodeListLeniently(Element.self, from: data, decoder: decoder) {
+            quarantine(data, reason: "\(lenient.dropped) of \(lenient.items.count + lenient.dropped) rows under '\(key)' were unreadable")
+            return .decoded(lenient.items, droppedElements: lenient.dropped)
         }
 
         quarantine(data, reason: "blob under '\(key)' could not be decoded")
@@ -104,7 +114,8 @@ final class PersistedBlobGuard {
         _ type: Value.Type,
         decoder: JSONDecoder = JSONDecoder()
     ) -> PersistedBlobLoad<Value> {
-        guard let raw = rawBlob() else { return .missing }
+        isFullyReadable = { (try? decoder.decode(Value.self, from: $0)) != nil }
+        guard let raw = observeCurrentBlob() else { return .missing }
         guard case .data(let data) = raw else {
             quarantine(raw.bytes, reason: "value under '\(key)' is not Data")
             return .corrupt
@@ -117,11 +128,29 @@ final class PersistedBlobGuard {
         return .corrupt
     }
 
+    /// Element-wise decode of a JSON array: rows that fail to decode are
+    /// dropped instead of failing the whole list. Returns `nil` when the data
+    /// is not an array or no row could be recovered. Pure — nothing is backed
+    /// up or quarantined — so it is safe for one-off reads outside a store.
+    static func decodeListLeniently<Element: Decodable>(
+        _ type: Element.Type,
+        from data: Data,
+        decoder: JSONDecoder = JSONDecoder()
+    ) -> (items: [Element], dropped: Int)? {
+        if let decoded = try? decoder.decode([Element].self, from: data) {
+            return (decoded, 0)
+        }
+        guard let lenient = try? decoder.decode([LenientElement<Element>].self, from: data) else { return nil }
+        let recovered = lenient.compactMap(\.value)
+        guard !recovered.isEmpty else { return nil }
+        return (recovered, lenient.count - recovered.count)
+    }
+
     /// Treats whatever is currently stored as unreadable (e.g. a persisted
     /// schema version this build does not understand) so it is backed up and
     /// protected from being overwritten until the copy exists.
     func quarantineCurrentBlob(reason: String) {
-        guard let raw = rawBlob() else { return }
+        guard let raw = observeCurrentBlob() else { return }
         quarantine(raw.bytes, reason: reason)
     }
 
@@ -132,12 +161,14 @@ final class PersistedBlobGuard {
     /// up yet.
     @discardableResult
     func save<Value: Encodable>(_ value: Value, encoder: JSONEncoder = JSONEncoder()) -> Bool {
-        guard ensureCorruptBlobIsBackedUp() else { return false }
+        guard ensureCurrentBlobIsSafeToReplace() else { return false }
         guard let data = try? encoder.encode(value) else {
             logger.error("Refusing to persist '\(self.key, privacy: .public)': encoding failed")
             return false
         }
         defaults.set(data, forKey: key)
+        lastObservedBlob = data
+        hasObservedBlob = true
         return true
     }
 
@@ -145,8 +176,10 @@ final class PersistedBlobGuard {
     /// still waiting for its backup copy.
     @discardableResult
     func remove() -> Bool {
-        guard ensureCorruptBlobIsBackedUp() else { return false }
+        guard ensureCurrentBlobIsSafeToReplace() else { return false }
         defaults.removeObject(forKey: key)
+        lastObservedBlob = nil
+        hasObservedBlob = true
         return true
     }
 
@@ -168,6 +201,40 @@ final class PersistedBlobGuard {
         guard let object = defaults.object(forKey: key) else { return nil }
         if let data = object as? Data { return .data(data) }
         return .other(object)
+    }
+
+    /// Reads the live value and records it as the baseline for external-change detection.
+    private func observeCurrentBlob() -> RawBlob? {
+        let raw = rawBlob()
+        lastObservedBlob = raw?.bytes
+        hasObservedBlob = true
+        return raw
+    }
+
+    /// Re-reads `defaults` so a blob written by another process since the
+    /// last load is decode-checked (and quarantined if unreadable) before it
+    /// is overwritten, then makes sure any quarantined bytes have a backup.
+    private func ensureCurrentBlobIsSafeToReplace() -> Bool {
+        reconcileExternalChange()
+        return ensureCorruptBlobIsBackedUp()
+    }
+
+    private func reconcileExternalChange() {
+        let current = rawBlob()
+        let currentBytes = current?.bytes
+        guard hasObservedBlob, currentBytes != lastObservedBlob else { return }
+        lastObservedBlob = currentBytes
+        switch current {
+        case .none:
+            break
+        case .some(.other):
+            quarantine(currentBytes ?? Data(), reason: "value under '\(key)' was externally replaced with non-Data")
+        case .some(.data(let data)):
+            guard let isFullyReadable else { return }
+            if !isFullyReadable(data) {
+                quarantine(data, reason: "blob under '\(key)' was externally replaced with unreadable data")
+            }
+        }
     }
 
     private func quarantine(_ data: Data, reason: String) {

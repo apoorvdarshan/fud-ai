@@ -112,7 +112,44 @@ class ExerciseVisualResolverTest {
     }
 
     @Test
-    fun sharedV2ManifestAndPackagedSourcesAreComplete() {
+    fun manifestFrameDigestsAreParsedAndMalformedOnesIgnored() {
+        val maleFrames = (0 until 4).map { "${item.id}_male_v2_$it" }
+        val femaleFrames = (0 until 4).map { "${item.id}_female_v2_$it" }
+        val maleDigests = listOf("0123456789abcdef", "ABCDEF0123456789", "not-a-digest", "fedcba9876543210")
+        val manifest = Gson().toJson(
+            mapOf(
+                "schemaVersion" to 1,
+                "exercises" to listOf(
+                    mapOf(
+                        "exerciseId" to item.id,
+                        "format" to "png",
+                        "frameCount" to 4,
+                        "representativeFrameIndex" to 2,
+                        "maleFrames" to maleFrames,
+                        "femaleFrames" to femaleFrames,
+                        "maleFrameDigests" to maleDigests,
+                        "femaleFrameDigests" to listOf("0123456789abcdef") // wrong length → ignored
+                    )
+                )
+            )
+        )
+        val frames = ExerciseVisualResolver.parseManifest(manifest)
+
+        val male = ExerciseVisualResolver.resolve(item, Gender.MALE, frames)
+        assertEquals(listOf("0123456789abcdef", "abcdef0123456789", null, "fedcba9876543210"), male.frameDigests)
+        assertEquals("abcdef0123456789", male.digestAt(1))
+        assertTrue(male.isAuthored)
+
+        val female = ExerciseVisualResolver.resolve(item, Gender.FEMALE, frames)
+        assertEquals(List<String?>(4) { null }, female.frameDigests)
+        assertEquals(null, female.digestAt(7))
+
+        assertTrue(ExerciseVisual.jpeg(item.imagePaths).frameDigests.isEmpty())
+        assertEquals(false, ExerciseVisual.jpeg(item.imagePaths).isAuthored)
+    }
+
+    @Test
+    fun sharedV2ManifestAndCorpusSourcesAreComplete() {
         val vectorDirectory = File(repositoryRoot(), "shared/workout-vectors")
         val manifest = File(vectorDirectory, ExerciseVisualResolver.MANIFEST_ASSET_NAME)
         assertTrue("Missing shared exercise visual manifest: ${manifest.absolutePath}", manifest.isFile)
@@ -128,10 +165,25 @@ class ExerciseVisualResolverTest {
             femaleVisual.framePaths
         )
         assertEquals(2, femaleVisual.representativeFrameIndex)
+        assertTrue(
+            "Shared manifest must carry a content digest per frame",
+            femaleVisual.frameDigests.size == 4 && femaleVisual.frameDigests.all { it != null }
+        )
         v2PngAssetNames().forEach { assetName ->
             val asset = File(vectorDirectory, assetName)
             assertTrue("Missing v2 workout illustration: ${asset.absolutePath}", asset.isFile)
         }
+    }
+
+    @Test
+    fun releaseBuildsNeverMergeTheFrameCorpusIntoAssets() {
+        val gradleFile = File(repositoryRoot(), "android/app/build.gradle.kts")
+        val script = gradleFile.readText()
+        assertTrue(
+            "shared/workout-vectors must not be an assets.srcDir; frames ship via WorkoutFrameStore",
+            !script.contains("\"../../shared/workout-vectors\"")
+        )
+        assertTrue(script.contains("isRelease -> \"none\""))
     }
 
     private fun assertSvgVisual(

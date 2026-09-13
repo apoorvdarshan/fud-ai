@@ -139,8 +139,9 @@ class ExerciseRepository private constructor(
         private fun load(context: Context): ExerciseRepository {
             val startedAt = SystemClock.elapsedRealtime()
             val items = loadExercises(context)
-            // Never AssetManager.list("") here — ~7k flat PNGs make list() stall for seconds.
-            // Packaging audits (ExerciseVisualResolverTest + sync script) enforce completeness.
+            // Frames are not bundled (release ships only the manifest; WorkoutFrameStore
+            // fetches frames on demand), so the manifest alone decides which exercises
+            // have authored visuals. Corpus completeness is enforced by the sync script.
             val authoredFrames = loadAuthoredFrames(context)
             Log.d(
                 TAG,
@@ -177,7 +178,7 @@ class ExerciseRepository private constructor(
                 .onFailure { Log.e(TAG, "failed to load exercise visual manifest", it) }
                 .getOrNull()
                 ?: return emptyMap()
-            // packagedAssetNames=null: skip AssetManager.list; trust the packaging manifest.
+            // packagedAssetNames=null: frames live on the CDN / device cache, not in assets.
             return ExerciseVisualResolver.parseManifest(json)
         }
 

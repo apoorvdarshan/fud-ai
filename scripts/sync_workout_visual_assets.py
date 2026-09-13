@@ -1,9 +1,24 @@
 #!/usr/bin/env python3
-"""Validate and package generated v2 workout illustration sequences."""
+"""Validate the v2 workout illustration corpus and regenerate its runtime manifests.
+
+`shared/workout-vectors` is the single canonical copy of the ~7,000 authored PNG
+frames. The frames are *not* packaged into the store binaries: both apps bundle
+only `exercise-visual-manifest.json` and fetch individual frames on demand from
+the workout-vector CDN (see `shared/workout-vectors/README.md`). This script:
+
+1. validates the corpus (complete male/female 4-frame sets, 1024x768 RGBA PNGs,
+   one set per catalogue exercise),
+2. writes the shared manifest and the byte-identical iOS `ExerciseVisualManifest`
+   data set, including a per-frame content digest used for CDN cache busting and
+   on-device download verification,
+3. rejects any generated `*_v2_*.imageset` left in the iOS asset catalog (the
+   catalog must never carry the frame corpus again).
+"""
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import shutil
@@ -31,11 +46,17 @@ IOS_MANIFEST = (
     / "ExerciseVisualManifest.dataset"
     / "exercise-visual-manifest.json"
 )
+SAMPLE_PACK_LIST = SHARED_DIRECTORY / "sample-pack.txt"
+IOS_DEVELOPER_SAMPLE = REPOSITORY_ROOT / "ios" / "calorietracker" / "WorkoutVectorsSample"
 FRAME_COUNT = 4
 FRAME_INDICES = tuple(range(FRAME_COUNT))
 GENDERS = ("male", "female")
 EXPECTED_EXERCISE_COUNT = 875
 EXPECTED_ASSET_COUNT = EXPECTED_EXERCISE_COUNT * len(GENDERS) * FRAME_COUNT
+# Catalogue entries that are quick-log activities rather than illustrated exercises.
+FRAMELESS_EXERCISE_IDS = frozenset({"Running_Outdoor", "Walking_Outdoor"})
+# Hex prefix of the SHA-256 that the apps use as a cache key / integrity check.
+DIGEST_LENGTH = 16
 ASSET_PATTERN = re.compile(
     r"^(?P<exercise_id>.+)_(?P<gender>male|female)_v2_(?P<frame>[0-9]+)\.png$"
 )
@@ -50,7 +71,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--check",
         action="store_true",
-        help="Validate packaging and manifests without writing files.",
+        help="Validate the corpus, manifests, and catalog without writing files.",
     )
     return parser.parse_args()
 
@@ -62,8 +83,11 @@ def display_path(path: Path) -> str:
         return str(path)
 
 
-def png_metadata(asset: Path) -> tuple[int, int, bool]:
-    data = asset.read_bytes()
+def frame_digest(data: bytes) -> str:
+    return hashlib.sha256(data).hexdigest()[:DIGEST_LENGTH]
+
+
+def png_metadata(data: bytes, asset: Path) -> tuple[int, int, bool]:
     if not data.startswith(PNG_SIGNATURE):
         raise ValueError(f"not a PNG: {display_path(asset)}")
 
@@ -107,12 +131,19 @@ def expected_exercise_ids() -> set[str]:
     unique_ids = set(exercise_ids)
     if len(unique_ids) != len(exercise_ids):
         raise ValueError("exercise database contains duplicate ids")
-    if len(unique_ids) != EXPECTED_EXERCISE_COUNT:
+    missing_frameless = FRAMELESS_EXERCISE_IDS - unique_ids
+    if missing_frameless:
         raise ValueError(
-            f"exercise database must contain {EXPECTED_EXERCISE_COUNT} ids, "
-            f"found {len(unique_ids)}"
+            "frameless allow-list references unknown ids: "
+            + summarize_values(missing_frameless)
         )
-    return unique_ids
+    illustrated_ids = unique_ids - FRAMELESS_EXERCISE_IDS
+    if len(illustrated_ids) != EXPECTED_EXERCISE_COUNT:
+        raise ValueError(
+            f"exercise database must contain {EXPECTED_EXERCISE_COUNT} illustrated "
+            f"ids, found {len(illustrated_ids)}"
+        )
+    return illustrated_ids
 
 
 def summarize_values(values: set[str], *, limit: int = 12) -> str:
@@ -123,22 +154,7 @@ def summarize_values(values: set[str], *, limit: int = 12) -> str:
     return displayed
 
 
-def imageset_contents(filename: str) -> dict[str, object]:
-    return {
-        "images": [
-            {
-                "filename": filename,
-                "idiom": "universal",
-                "scale": "1x",
-            }
-        ],
-        "info": {"author": "xcode", "version": 1},
-    }
-
-
-def serialized_json(document: object, *, compact: bool = False) -> str:
-    if compact:
-        return json.dumps(document, separators=(",", ":")) + "\n"
+def serialized_json(document: object) -> str:
     return json.dumps(document, indent=2) + "\n"
 
 
@@ -164,9 +180,11 @@ def discover_sequences() -> dict[str, dict[str, dict[int, Path]]]:
 def validate_sequence(
     exercise_id: str,
     by_gender: dict[str, dict[int, Path]],
-) -> None:
+) -> dict[str, list[str]]:
+    """Validate one exercise and return its per-gender frame digests."""
     if set(by_gender) != set(GENDERS):
         raise ValueError(f"{exercise_id}: male and female sets must both be present")
+    digests: dict[str, list[str]] = {}
     for gender in GENDERS:
         frames = by_gender[gender]
         if set(frames) != set(FRAME_INDICES):
@@ -174,15 +192,21 @@ def validate_sequence(
                 f"{exercise_id} {gender}: expected frames {FRAME_INDICES}, "
                 f"found {tuple(sorted(frames))}"
             )
+        digests[gender] = []
         for frame in FRAME_INDICES:
             asset = frames[frame]
-            width, height, has_alpha = png_metadata(asset)
+            if asset.is_symlink():
+                raise ValueError(f"{asset.name}: canonical frames must not be symlinks")
+            data = asset.read_bytes()
+            width, height, has_alpha = png_metadata(data, asset)
             if (width, height) != (1024, 768):
                 raise ValueError(
                     f"{asset.name}: expected 1024x768, found {width}x{height}"
                 )
             if not has_alpha:
                 raise ValueError(f"{asset.name}: PNG has no alpha channel")
+            digests[gender].append(frame_digest(data))
+    return digests
 
 
 def validate_sequence_inventory(
@@ -220,61 +244,51 @@ def validate_sequence_inventory(
         )
 
 
-def validate_ios_imageset_inventory(
-    expected_stems: set[str],
-    *,
-    check: bool,
-) -> None:
-    actual_stems: set[str] = set()
-    for imageset in IOS_CATALOG.glob("*_v2_*.imageset"):
-        if ASSET_STEM_PATTERN.fullmatch(imageset.stem) is None:
-            raise ValueError(
-                f"invalid generated iOS imageset name: "
-                f"{imageset.relative_to(REPOSITORY_ROOT)}"
-            )
-        actual_stems.add(imageset.stem)
+def validate_sample_pack(sequences: dict[str, dict[str, dict[int, Path]]]) -> list[str]:
+    if not SAMPLE_PACK_LIST.is_file():
+        raise ValueError(f"missing sample pack list: {display_path(SAMPLE_PACK_LIST)}")
+    ids: list[str] = []
+    for raw_line in SAMPLE_PACK_LIST.read_text().splitlines():
+        line = raw_line.split("#", 1)[0].strip()
+        if not line:
+            continue
+        if line not in sequences:
+            raise ValueError(f"sample pack references unknown exercise: {line}")
+        if line in ids:
+            raise ValueError(f"sample pack lists {line} twice")
+        ids.append(line)
+    if not ids:
+        raise ValueError("sample pack list must name at least one exercise")
+    return ids
 
-    unexpected = actual_stems - expected_stems
-    if unexpected:
+
+def generated_catalog_imagesets() -> list[Path]:
+    """Frame image sets that older syncs generated into the iOS asset catalog."""
+    stale: list[Path] = []
+    for imageset in sorted(IOS_CATALOG.glob("*_v2_*.imageset")):
+        if ASSET_STEM_PATTERN.fullmatch(imageset.stem) is not None:
+            stale.append(imageset)
+    return stale
+
+
+def enforce_catalog_has_no_frames(*, check: bool) -> int:
+    stale = generated_catalog_imagesets()
+    if not stale:
+        return 0
+    if check:
         raise ValueError(
-            f"iOS asset catalog contains {len(unexpected)} stale generated "
-            f"imagesets ({summarize_values(unexpected)})"
+            f"iOS asset catalog still contains {len(stale)} generated workout frame "
+            "imagesets; frames must not ship in the app binary. Run "
+            "scripts/sync_workout_visual_assets.py (without --check) to remove them."
         )
-
-    if check:
-        missing = expected_stems - actual_stems
-        if missing:
-            raise ValueError(
-                f"iOS asset catalog is missing {len(missing)} generated "
-                f"imagesets ({summarize_values(missing)})"
-            )
-
-
-def sync_ios_asset(asset: Path, *, check: bool) -> None:
-    imageset = IOS_CATALOG / f"{asset.stem}.imageset"
-    ios_asset = imageset / asset.name
-    contents_path = imageset / "Contents.json"
-    expected_contents = serialized_json(imageset_contents(asset.name), compact=True)
-
-    if check:
-        if not ios_asset.is_file() or ios_asset.read_bytes() != asset.read_bytes():
-            raise ValueError(f"iOS asset differs or is missing: {ios_asset.name}")
-        if not contents_path.is_file() or contents_path.read_text() != expected_contents:
-            raise ValueError(
-                f"iOS Contents.json differs or is missing: "
-                f"{contents_path.relative_to(REPOSITORY_ROOT)}"
-            )
-        return
-
-    imageset.mkdir(parents=True, exist_ok=True)
-    if not ios_asset.is_file() or ios_asset.read_bytes() != asset.read_bytes():
-        shutil.copyfile(asset, ios_asset)
-    if not contents_path.is_file() or contents_path.read_text() != expected_contents:
-        contents_path.write_text(expected_contents)
+    for imageset in stale:
+        shutil.rmtree(imageset)
+    return len(stale)
 
 
 def manifest_document(
     sequences: dict[str, dict[str, dict[int, Path]]],
+    digests: dict[str, dict[str, list[str]]],
 ) -> dict[str, object]:
     entries: list[dict[str, object]] = []
     for exercise_id in sorted(sequences):
@@ -282,11 +296,13 @@ def manifest_document(
             {
                 "exerciseId": exercise_id,
                 "format": "png",
+                "femaleFrameDigests": digests[exercise_id]["female"],
                 "femaleFrames": [
                     sequences[exercise_id]["female"][frame].stem
                     for frame in FRAME_INDICES
                 ],
                 "frameCount": FRAME_COUNT,
+                "maleFrameDigests": digests[exercise_id]["male"],
                 "maleFrames": [
                     sequences[exercise_id]["male"][frame].stem
                     for frame in FRAME_INDICES
@@ -306,6 +322,7 @@ def sync_manifest(document: dict[str, object], *, check: bool) -> None:
                     f"manifest is out of date: {manifest.relative_to(REPOSITORY_ROOT)}"
                 )
         elif not manifest.is_file() or manifest.read_text() != expected:
+            manifest.parent.mkdir(parents=True, exist_ok=True)
             manifest.write_text(expected)
 
 
@@ -315,20 +332,13 @@ def main() -> int:
         expected_ids = expected_exercise_ids()
         sequences = discover_sequences()
         validate_sequence_inventory(sequences, expected_ids)
-        for exercise_id, by_gender in sequences.items():
-            validate_sequence(exercise_id, by_gender)
-        expected_stems = {
-            frames[frame].stem
-            for by_gender in sequences.values()
-            for frames in by_gender.values()
-            for frame in FRAME_INDICES
+        digests = {
+            exercise_id: validate_sequence(exercise_id, by_gender)
+            for exercise_id, by_gender in sequences.items()
         }
-        validate_ios_imageset_inventory(expected_stems, check=arguments.check)
-        for by_gender in sequences.values():
-            for gender in GENDERS:
-                for frame in FRAME_INDICES:
-                    sync_ios_asset(by_gender[gender][frame], check=arguments.check)
-        sync_manifest(manifest_document(sequences), check=arguments.check)
+        sample_ids = validate_sample_pack(sequences)
+        removed = enforce_catalog_has_no_frames(check=arguments.check)
+        sync_manifest(manifest_document(sequences, digests), check=arguments.check)
     except (OSError, ValueError, json.JSONDecodeError) as error:
         print(f"error: {error}", file=sys.stderr)
         return 1
@@ -336,8 +346,17 @@ def main() -> int:
     mode = "validated" if arguments.check else "synced"
     print(
         f"{mode} {len(sequences)} exercise sequences, "
-        f"{len(sequences) * len(GENDERS) * FRAME_COUNT} PNG assets"
+        f"{len(sequences) * len(GENDERS) * FRAME_COUNT} PNG assets, "
+        f"{len(sample_ids)} sample-pack exercises"
     )
+    if removed:
+        print(f"removed {removed} generated frame imagesets from the iOS asset catalog")
+    if IOS_DEVELOPER_SAMPLE.is_dir():
+        print(
+            f"warning: {display_path(IOS_DEVELOPER_SAMPLE)} exists (gitignored developer "
+            "sample); delete it before archiving a release build",
+            file=sys.stderr,
+        )
     return 0
 
 

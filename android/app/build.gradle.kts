@@ -16,6 +16,19 @@ val keystorePropsFile = rootProject.file("keystore.properties")
 val keystoreProps = Properties().apply {
     if (keystorePropsFile.exists()) load(keystorePropsFile.inputStream())
 }
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.exists()) load(file.inputStream())
+}
+
+// Public CDN prefix for on-demand workout frames (R2 bucket behind a custom domain;
+// see shared/workout-vectors/README.md). Debug builds may point at a local corpus
+// server via local.properties: workout.vectors.base.url=http://10.0.2.2:8765
+val workoutVectorsDefaultBaseUrl = "https://assets.fud-ai.app/workout-vectors/v2"
+val debugWorkoutVectorsBaseUrl = localProperties.getProperty("workout.vectors.base.url")
+    ?.trim()
+    ?.takeIf { it.isNotEmpty() }
+    ?: workoutVectorsDefaultBaseUrl
 
 android {
     namespace = "com.apoorvdarshan.calorietracker"
@@ -40,18 +53,16 @@ android {
             val file = rootProject.file("oauth.properties")
             if (file.exists()) load(file.inputStream())
         }
-        val localProps = Properties().apply {
-            val file = rootProject.file("local.properties")
-            if (file.exists()) load(file.inputStream())
-        }
         val webClientId = oauthProps.getProperty("cloud.backup.web.client.id")
-            ?: localProps.getProperty("cloud.backup.web.client.id")
+            ?: localProperties.getProperty("cloud.backup.web.client.id")
             ?: ""
         buildConfigField(
             "String",
             "CLOUD_BACKUP_WEB_CLIENT_ID",
             "\"${webClientId.replace("\"", "\\\"")}\""
         )
+        // Public CDN prefix the app fetches workout frames from on demand.
+        buildConfigField("String", "WORKOUT_VECTORS_BASE_URL", "\"$workoutVectorsDefaultBaseUrl\"")
     }
 
     signingConfigs {
@@ -88,12 +99,14 @@ android {
             versionNameSuffix = "-debug"
             // Literal placeholder so locale app_name strings can't override the label.
             manifestPlaceholders["launcherAppName"] = "Fud AI Debug"
+            buildConfigField("String", "WORKOUT_VECTORS_BASE_URL", "\"$debugWorkoutVectorsBaseUrl\"")
         }
         create("debug2") {
             initWith(getByName("debug"))
             applicationIdSuffix = ".debug2"
             versionNameSuffix = "-debug2"
             manifestPlaceholders["launcherAppName"] = "Fud AI Debug 2"
+            buildConfigField("String", "WORKOUT_VECTORS_BASE_URL", "\"$debugWorkoutVectorsBaseUrl\"")
         }
     }
     compileOptions {
@@ -113,17 +126,121 @@ android {
         disable += "MissingTranslation"
     }
 
-    // Workouts: mirror iOS exercises.json plus gender-aware authored frames from
-    // shared/workout-vectors. Upstream Free Exercise DB JPEGs are no longer shipped.
+    // Workouts: mirror iOS exercises.json. The authored workout frames in
+    // shared/workout-vectors (~1.2 GB) are deliberately NOT merged here; see the
+    // workout-vector asset task below (manifest only in release, sample in debug).
     sourceSets {
         getByName("main") {
             assets.srcDirs(
                 "src/main/assets",
                 "../../ios/calorietracker/Resources/FreeExerciseDB/dist",
-                "../../shared/workout-vectors",
                 "../../local-models/legal"
             )
         }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Workout vector frames
+//
+// Release/store builds bundle only exercise-visual-manifest.json; frames are
+// fetched on demand from WORKOUT_VECTORS_BASE_URL and cached on device
+// (WorkoutFrameStore). Debug builds also bundle the small sample pack listed in
+// shared/workout-vectors/sample-pack.txt so animations work offline.
+//
+//   ./gradlew assembleDebug -PworkoutVectors=sample   (default for debug builds)
+//   ./gradlew assembleDebug -PworkoutVectors=all      (whole corpus, local QA only)
+//   ./gradlew assembleDebug -PworkoutVectors=none     (manifest only, release parity)
+//
+// Release builds refuse anything other than the manifest so the 1.2 GB corpus
+// can never end up in a store binary again.
+// ---------------------------------------------------------------------------
+val workoutVectorsDirectory = rootProject.file("../shared/workout-vectors")
+val workoutVectorsManifest = File(workoutVectorsDirectory, "exercise-visual-manifest.json")
+val workoutVectorsSampleList = File(workoutVectorsDirectory, "sample-pack.txt")
+val workoutVectorsModeProperty = providers.gradleProperty("workoutVectors")
+
+fun workoutVectorSampleFiles(): List<File> {
+    val ids = workoutVectorsSampleList.readLines()
+        .map { it.substringBefore('#').trim() }
+        .filter { it.isNotEmpty() }
+        .distinct()
+    return ids.flatMap { id ->
+        listOf("male", "female").flatMap { gender ->
+            (0 until 4).map { frame -> File(workoutVectorsDirectory, "${id}_${gender}_v2_$frame.png") }
+        }
+    }
+}
+
+abstract class PrepareWorkoutVectorAssetsTask : DefaultTask() {
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
+    abstract val sourceFiles: ConfigurableFileCollection
+
+    @get:Input
+    abstract val mode: Property<String>
+
+    /** The raw -PworkoutVectors override; release tasks refuse anything but none/absent. */
+    @get:Input
+    @get:Optional
+    abstract val requestedMode: Property<String>
+
+    @get:Input
+    abstract val release: Property<Boolean>
+
+    @get:OutputDirectory
+    abstract val outputDirectory: DirectoryProperty
+
+    @TaskAction
+    fun prepare() {
+        val requested = requestedMode.orNull
+        if (release.get() && requested != null && requested != "none") {
+            throw GradleException(
+                "workoutVectors=$requested is not allowed for release builds; " +
+                    "store binaries must only bundle the manifest."
+            )
+        }
+        val output = outputDirectory.get().asFile
+        output.deleteRecursively()
+        output.mkdirs()
+        var frames = 0
+        sourceFiles.files.forEach { source ->
+            require(source.isFile) { "workout vector source missing: $source" }
+            source.copyTo(File(output, source.name), overwrite = true)
+            if (source.extension == "png") frames++
+        }
+        logger.lifecycle("workout vectors (${mode.get()}): bundled manifest + $frames frame(s)")
+    }
+}
+
+androidComponents {
+    onVariants { variant ->
+        val isRelease = variant.buildType == "release"
+        val requested = workoutVectorsModeProperty.orNull
+        // Gradle configures every variant even for `assembleDebug`, so the release variant
+        // must not throw here when a debug corpus override is present. Release always uses
+        // manifest-only inputs and only rejects the override if its own asset task runs.
+        val mode = when {
+            isRelease -> "none"
+            requested == null -> "sample"
+            requested in setOf("none", "sample", "all") -> requested
+            else -> throw GradleException("Unknown workoutVectors mode '$requested' (none|sample|all)")
+        }
+        val taskName = "prepare${variant.name.replaceFirstChar { it.uppercase() }}WorkoutVectorAssets"
+        val task = tasks.register<PrepareWorkoutVectorAssetsTask>(taskName) {
+            this.mode.set(mode)
+            requestedMode.set(workoutVectorsModeProperty)
+            release.set(isRelease)
+            sourceFiles.from(workoutVectorsManifest)
+            when (mode) {
+                "sample" -> sourceFiles.from(workoutVectorSampleFiles())
+                "all" -> sourceFiles.from(fileTree(workoutVectorsDirectory) { include("*_v2_*.png") })
+            }
+        }
+        variant.sources.assets?.addGeneratedSourceDirectory(
+            task,
+            PrepareWorkoutVectorAssetsTask::outputDirectory
+        )
     }
 }
 

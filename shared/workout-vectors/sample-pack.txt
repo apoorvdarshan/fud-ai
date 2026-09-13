@@ -1,0 +1,15 @@
+# Exercises whose frames are bundled into DEBUG builds only, so the workout
+# animations can be exercised without network access or a provisioned CDN.
+# One catalogue exercise id per line. Release builds never bundle frames.
+Barbell_Full_Squat
+Pushups
+Pullups
+Barbell_Deadlift
+Barbell_Bench_Press_-_Medium_Grip
+Dumbbell_Bicep_Curl
+Plank
+Bodyweight_Squat
+Dumbbell_Shoulder_Press
+Bent_Over_Barbell_Row
+Crunches
+Dumbbell_Lunges

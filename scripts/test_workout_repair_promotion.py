@@ -41,11 +41,8 @@ class WorkoutRepairPromotionTests(unittest.TestCase):
         record.write_text("Reviewed all eight frames on dark and light backgrounds. Accepted background and framing.")
         frames = []
         for name in self.names:
-            shared, ios = self.layout.destinations(name)
+            (shared,) = self.layout.destinations(name)
             shared.write_bytes(self.old)
-            ios.parent.mkdir(parents=True)
-            ios.write_bytes(self.old)
-            (ios.parent / "Contents.json").write_text(json.dumps({"images": [{"filename": name + ".png"}]}))
             candidate = self.candidates / (name + ".png")
             candidate.write_bytes(self.new)
             frames.append({"asset_name": name, "candidate_path": str(candidate),
@@ -153,25 +150,23 @@ class WorkoutRepairPromotionTests(unittest.TestCase):
         self.layout.shared_manifest.write_bytes(encoded)
         self.layout.ios_manifest.write_bytes(encoded)
         for name in names:
-            shared, ios = self.layout.destinations(name)
+            (shared,) = self.layout.destinations(name)
             shared.write_bytes(self.old)
-            ios.parent.mkdir(parents=True)
-            ios.write_bytes(self.old)
-            (ios.parent / "Contents.json").write_text(json.dumps({"images": [{"filename": name + ".png"}]}))
         preflight(self.review_path, self.root, expected_count=2)
-        self.layout.destinations(names[-1])[1].write_bytes(self.new)
+        self.layout.destinations(names[-1])[0].unlink()
         with self.assertRaises(ValueError):
             preflight(self.review_path, self.root, expected_count=2)
 
-    def test_ios_copy_or_contents_reference_mismatch_is_rejected(self):
-        _, ios = self.layout.destinations(self.names[-1])
-        ios.write_bytes(self.new)
+    def test_stale_ios_imageset_is_rejected(self):
+        imageset = self.layout.catalog / (self.names[-1] + ".imageset")
+        imageset.mkdir(parents=True)
+        (imageset / (self.names[-1] + ".png")).write_bytes(self.old)
         with self.assertRaises(ValueError):
             self.plan()
-        ios.write_bytes(self.old)
-        (ios.parent / "Contents.json").write_text(json.dumps({"images": [{"filename": "wrong.png"}]}))
-        with self.assertRaises(ValueError):
-            self.plan()
+
+    def test_frameless_activities_are_tolerated_in_database(self):
+        self.layout.database.write_text(json.dumps([{"id": self.exercise_id}, {"id": "Running_Outdoor"}]))
+        self.assertEqual(len(self.plan().frames), 8)
 
     def test_manifest_reference_mismatch_is_rejected(self):
         manifest = json.loads(self.layout.shared_manifest.read_text())
@@ -182,18 +177,18 @@ class WorkoutRepairPromotionTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.plan()
 
-    def test_apply_copies_exact_reviewed_bytes_and_preserves_both_originals(self):
+    def test_apply_copies_exact_reviewed_bytes_and_preserves_originals(self):
         result = apply_plan(self.plan())
-        self.assertEqual(result["platform_png_writes"], 16)
+        self.assertEqual(result["platform_png_writes"], 8)
         backup = Path(result["backup_directory"])
         for name in self.names:
             for destination in self.layout.destinations(name):
                 self.assertEqual(destination.read_bytes(), self.new)
-            for platform in ("shared", "ios"):
-                self.assertEqual((backup / platform / (name + ".png")).read_bytes(), self.old)
+            self.assertEqual((backup / "shared" / (name + ".png")).read_bytes(), self.old)
+        self.assertFalse((backup / "ios").exists())
         recovery = json.loads((backup / "recovery.json").read_text())
         self.assertEqual(recovery["status"], "applied")
-        self.assertEqual(len(recovery["copies"]), 16)
+        self.assertEqual(len(recovery["copies"]), 8)
 
     def test_changed_candidate_after_preflight_aborts_before_any_writes(self):
         plan = self.plan()

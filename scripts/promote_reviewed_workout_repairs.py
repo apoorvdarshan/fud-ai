@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
-"""Promote exact, hash-reviewed complete workout repair sets to both platforms.
+"""Promote exact, hash-reviewed complete workout repair sets into the shared corpus.
 
 Default / --check is strictly read-only. --apply first validates EVERY reference,
 candidate and pre-change hash, then stages exact PNG bytes and retains a unique
-backup/recovery manifest before updating shared and iOS copies. It does not edit
-app code, image pixels, asset metadata, database IDs, or either visual manifest.
+backup/recovery manifest before replacing the canonical shared/workout-vectors
+frames. It does not edit app code, image pixels, database IDs, or either visual
+manifest. shared/workout-vectors is the only copy of the frames (the apps fetch
+them on demand from the CDN), so after a successful apply run
+`python3 scripts/sync_workout_visual_assets.py` to refresh the per-frame digests
+in both manifests, then `scripts/publish_workout_vectors.py` to upload.
 
 Review JSON schema (all paths are absolute or relative to --repo):
   {"schema_version": 1, "exercises": [{
@@ -44,6 +48,8 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_EXERCISES = 875
+# Quick-log activities in the catalogue that intentionally have no illustration set.
+FRAMELESS_EXERCISE_IDS = frozenset({"Running_Outdoor", "Walking_Outdoor"})
 HASH = re.compile(r"^[0-9a-f]{64}$")
 GENDERS = ("male", "female")
 
@@ -97,9 +103,9 @@ class AssetLayout:
     def database(self) -> Path:
         return self.repo / "ios/calorietracker/Resources/FreeExerciseDB/dist/exercises.json"
 
-    def destinations(self, name: str) -> tuple[Path, Path]:
-        filename = name + ".png"
-        return self.shared / filename, self.catalog / (name + ".imageset") / filename
+    def destinations(self, name: str) -> tuple[Path]:
+        # Only the shared corpus holds frames; the iOS catalog carries just the manifest.
+        return (self.shared / (name + ".png"),)
 
 
 @dataclass(frozen=True)
@@ -111,7 +117,7 @@ class PromotionFrame:
     original_sha256: str
     candidate_bytes: bytes
     original_bytes: bytes
-    destinations: tuple[Path, Path]
+    destinations: tuple[Path, ...]
 
 
 @dataclass(frozen=True)
@@ -144,8 +150,11 @@ def validate_entire_catalog(layout: AssetLayout, expected_count: int) -> tuple[d
     ids = [entry.get("id") for entry in database]
     for exercise_id in ids:
         expected_names(exercise_id)
-    if len(ids) != expected_count or len(set(ids)) != len(ids):
-        raise ValueError(f"database must contain exactly {expected_count} unique exercise IDs")
+    if len(set(ids)) != len(ids):
+        raise ValueError("database must not contain duplicate exercise IDs")
+    ids = [exercise_id for exercise_id in ids if exercise_id not in FRAMELESS_EXERCISE_IDS]
+    if len(ids) != expected_count:
+        raise ValueError(f"database must contain exactly {expected_count} illustrated exercise IDs")
     shared_bytes, manifest = read_json(layout.shared_manifest)
     ios_bytes = layout.ios_manifest.read_bytes()
     if shared_bytes != ios_bytes:
@@ -173,21 +182,11 @@ def validate_entire_catalog(layout: AssetLayout, expected_count: int) -> tuple[d
             if name in seen_names:
                 raise ValueError(f"duplicate manifest reference: {name}")
             seen_names.add(name)
-            shared, ios = layout.destinations(name)
-            for target, directory in ((shared, layout.shared), (ios, layout.catalog)):
-                if target.is_symlink() or not target.is_file() or not target.resolve().is_relative_to(directory.resolve()):
-                    raise ValueError(f"missing or symlinked canonical frame: {target}")
-            contents_path = ios.parent / "Contents.json"
-            contents_bytes, contents = read_json(contents_path)
-            if not isinstance(contents, dict) or not isinstance(contents.get("images"), list):
-                raise ValueError(f"{name}: invalid iOS image-set metadata")
-            referenced = [item.get("filename") for item in contents["images"] if isinstance(item, dict) and item.get("filename")]
-            if referenced != [name + ".png"]:
-                raise ValueError(f"{name}: iOS image-set filename reference is wrong")
-            shared_data, ios_data = shared.read_bytes(), ios.read_bytes()
-            if shared_data != ios_data:
-                raise ValueError(f"{name}: existing shared and iOS PNG copies are not byte-identical")
-            guards.append((contents_path, digest(contents_bytes)))
+            (shared,) = layout.destinations(name)
+            if shared.is_symlink() or not shared.is_file() or not shared.resolve().is_relative_to(layout.shared.resolve()):
+                raise ValueError(f"missing or symlinked canonical frame: {shared}")
+            if (layout.catalog / (name + ".imageset")).exists():
+                raise ValueError(f"{name}: stale iOS image set; frames must not live in the asset catalog")
     return {entry["exerciseId"]: entry for entry in entries}, guards, len(seen_names)
 
 
@@ -240,8 +239,8 @@ def preflight(review_path: Path, repo: Path = ROOT, *, expected_count: int = EXP
             validate_candidate_png(candidate_data, name)
             destinations = layout.destinations(name)
             originals = [path.read_bytes() for path in destinations]
-            if originals[0] != originals[1] or any(digest(data) != original_hash for data in originals):
-                raise ValueError(f"{name}: original shared/iOS bytes changed since review")
+            if any(digest(data) != original_hash for data in originals):
+                raise ValueError(f"{name}: original shared bytes changed since review")
             frames.append(PromotionFrame(exercise_id, name, candidate, candidate_hash, original_hash,
                                          candidate_data, originals[0], destinations))
             candidate_paths.add(candidate)
@@ -301,7 +300,7 @@ def apply_plan(plan: PromotionPlan, backup_root: Path | None = None) -> dict:
     staged, replaced = [], []
     try:
         for frame in plan.frames:
-            for platform, destination in zip(("shared", "ios"), frame.destinations):
+            for platform, destination in zip(("shared",), frame.destinations):
                 backup = backup_dir / platform / (frame.asset_name + ".png")
                 backup.parent.mkdir(parents=True, exist_ok=True)
                 durable_write(backup, frame.original_bytes)
@@ -350,7 +349,9 @@ def apply_plan(plan: PromotionPlan, backup_root: Path | None = None) -> dict:
             temporary.unlink(missing_ok=True)
     return {"status": "applied", "exercises": len(plan.exercise_ids), "frames": len(plan.frames),
             "platform_png_writes": len(replaced), "backup_directory": str(backup_dir),
-            "note": "Existing PNGs replaced with exact reviewed bytes; originals retained in the backup. No app code or manifest changed."}
+            "note": "Existing shared PNGs replaced with exact reviewed bytes; originals retained in the backup. "
+                    "No app code or manifest changed: run scripts/sync_workout_visual_assets.py to refresh frame "
+                    "digests, then scripts/publish_workout_vectors.py to upload."}
 
 
 def main() -> int:
@@ -367,7 +368,7 @@ def main() -> int:
     plan = preflight(args.review, args.repo)
     result = apply_plan(plan, args.backup_root) if args.apply else {
         "status": "check_passed_no_writes", "exercises": len(plan.exercise_ids), "frames": len(plan.frames),
-        "would_replace_platform_pngs": len(plan.frames) * 2,
+        "would_replace_platform_pngs": len(plan.frames),
         "full_catalog_references_verified": plan.full_reference_count,
         "exercise_ids": list(plan.exercise_ids), "review_manifest_sha256": digest(plan.review_bytes),
     }

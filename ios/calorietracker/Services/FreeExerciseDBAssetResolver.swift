@@ -1,13 +1,30 @@
 import Foundation
 import UIKit
 
-enum ExerciseVisualFrame: Hashable {
+/// One authored workout frame from the shared manifest. Frames are not bundled in
+/// release builds; `WorkoutFrameStore` resolves them (cache → debug sample → CDN).
+nonisolated struct ExerciseAuthoredFrame: Hashable, Sendable {
+    let name: String
+    /// Hex prefix of the frame PNG's SHA-256 (CDN cache key + download integrity check).
+    let digest: String?
+    let format: ExerciseVisualAsset.Format
+
+    init(name: String, digest: String? = nil, format: ExerciseVisualAsset.Format = .png) {
+        self.name = name
+        self.digest = digest
+        self.format = format
+    }
+
+    var fileExtension: String { format == .svg ? "svg" : "png" }
+}
+
+nonisolated enum ExerciseVisualFrame: Hashable, Sendable {
     case file(URL)
-    case imageAsset(String)
+    case authored(ExerciseAuthoredFrame)
 }
 
 struct ExerciseVisualAsset: Equatable {
-    enum Format: String, Equatable {
+    nonisolated enum Format: String, Equatable, Sendable {
         case jpeg
         case svg
         case png
@@ -34,6 +51,9 @@ struct ExerciseVisualManifest: Equatable {
         let format: ExerciseVisualAsset.Format
         let maleFrames: [String]
         let femaleFrames: [String]
+        /// Parallel to `maleFrames` / `femaleFrames`; nil where the manifest carries no digest.
+        let maleFrameDigests: [String?]
+        let femaleFrameDigests: [String?]
 
         fileprivate init?(record: Record) {
             guard
@@ -59,10 +79,27 @@ struct ExerciseVisualManifest: Equatable {
             self.format = format
             self.maleFrames = maleFrames
             self.femaleFrames = femaleFrames
+            maleFrameDigests = Self.validDigests(record.maleFrameDigests, frameCount: record.frameCount)
+            femaleFrameDigests = Self.validDigests(record.femaleFrameDigests, frameCount: record.frameCount)
         }
 
         func frames(for gender: Gender) -> [String] {
             gender == .female ? femaleFrames : maleFrames
+        }
+
+        func authoredFrames(for gender: Gender) -> [ExerciseAuthoredFrame] {
+            let digests = gender == .female ? femaleFrameDigests : maleFrameDigests
+            return zip(frames(for: gender), digests).map { name, digest in
+                ExerciseAuthoredFrame(name: name, digest: digest, format: format)
+            }
+        }
+
+        /// Digests are optional metadata: a malformed list is ignored rather than rejecting the set.
+        private static func validDigests(_ digests: [String]?, frameCount: Int) -> [String?] {
+            guard let digests, digests.count == frameCount else {
+                return Array(repeating: nil, count: frameCount)
+            }
+            return digests.map { WorkoutFrameStore.normalizedDigest($0) }
         }
 
         private static func validFrameNames(
@@ -94,6 +131,8 @@ struct ExerciseVisualManifest: Equatable {
         let format: String?
         let maleFrames: [String]?
         let femaleFrames: [String]?
+        let maleFrameDigests: [String]?
+        let femaleFrameDigests: [String]?
 
         enum CodingKeys: String, CodingKey {
             case exerciseID = "exerciseId"
@@ -102,6 +141,8 @@ struct ExerciseVisualManifest: Equatable {
             case format
             case maleFrames
             case femaleFrames
+            case maleFrameDigests
+            case femaleFrameDigests
         }
     }
 
@@ -134,8 +175,8 @@ struct ExerciseVisualManifest: Equatable {
 }
 
 struct FreeExerciseDBAssetResolver {
-    /// The manifest is compiled as an asset-catalog data set, so availability checks do not
-    /// instantiate every named workout image through UIKit's global image cache.
+    /// The manifest is compiled as an asset-catalog data set; it is the only workout-frame
+    /// artifact in the app bundle. Frames themselves are delivered by `WorkoutFrameStore`.
     private static let bundledVisualManifest: ExerciseVisualManifest? = {
         guard let data = NSDataAsset(name: "ExerciseVisualManifest")?.data else { return nil }
         return try? ExerciseVisualManifest(data: data)
@@ -177,7 +218,7 @@ struct FreeExerciseDBAssetResolver {
             let entry = manifest?.entry(for: exerciseID)
         {
             return ExerciseVisualAsset(
-                frames: entry.frames(for: gender).map(ExerciseVisualFrame.imageAsset),
+                frames: entry.authoredFrames(for: gender).map(ExerciseVisualFrame.authored),
                 format: entry.format,
                 representativeFrameIndex: entry.representativeFrameIndex
             )

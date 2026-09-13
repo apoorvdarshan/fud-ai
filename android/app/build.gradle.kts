@@ -180,11 +180,26 @@ abstract class PrepareWorkoutVectorAssetsTask : DefaultTask() {
     @get:Input
     abstract val mode: Property<String>
 
+    /** The raw -PworkoutVectors override; release tasks refuse anything but none/absent. */
+    @get:Input
+    @get:Optional
+    abstract val requestedMode: Property<String>
+
+    @get:Input
+    abstract val release: Property<Boolean>
+
     @get:OutputDirectory
     abstract val outputDirectory: DirectoryProperty
 
     @TaskAction
     fun prepare() {
+        val requested = requestedMode.orNull
+        if (release.get() && requested != null && requested != "none") {
+            throw GradleException(
+                "workoutVectors=$requested is not allowed for release builds; " +
+                    "store binaries must only bundle the manifest."
+            )
+        }
         val output = outputDirectory.get().asFile
         output.deleteRecursively()
         output.mkdirs()
@@ -202,12 +217,10 @@ androidComponents {
     onVariants { variant ->
         val isRelease = variant.buildType == "release"
         val requested = workoutVectorsModeProperty.orNull
+        // Gradle configures every variant even for `assembleDebug`, so the release variant
+        // must not throw here when a debug corpus override is present. Release always uses
+        // manifest-only inputs and only rejects the override if its own asset task runs.
         val mode = when {
-            isRelease && requested != null && requested != "none" ->
-                throw GradleException(
-                    "workoutVectors=$requested is not allowed for release builds; " +
-                        "store binaries must only bundle the manifest."
-                )
             isRelease -> "none"
             requested == null -> "sample"
             requested in setOf("none", "sample", "all") -> requested
@@ -216,6 +229,8 @@ androidComponents {
         val taskName = "prepare${variant.name.replaceFirstChar { it.uppercase() }}WorkoutVectorAssets"
         val task = tasks.register<PrepareWorkoutVectorAssetsTask>(taskName) {
             this.mode.set(mode)
+            requestedMode.set(workoutVectorsModeProperty)
+            release.set(isRelease)
             sourceFiles.from(workoutVectorsManifest)
             when (mode) {
                 "sample" -> sourceFiles.from(workoutVectorSampleFiles())

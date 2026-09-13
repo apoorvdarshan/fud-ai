@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -37,6 +38,8 @@ import com.apoorvdarshan.calorietracker.data.ExerciseVisual
 import com.apoorvdarshan.calorietracker.data.ExerciseVisualFormat
 import com.apoorvdarshan.calorietracker.models.UserExercise
 import com.apoorvdarshan.calorietracker.services.FoodImageStore
+import com.apoorvdarshan.calorietracker.services.WorkoutFrameRef
+import com.apoorvdarshan.calorietracker.services.WorkoutFrameStore
 import kotlinx.coroutines.delay
 
 /**
@@ -44,7 +47,9 @@ import kotlinx.coroutines.delay
  * Legacy JPEGs stay cropped/muted; authored SVG/PNG sequences render uncropped
  * in original colors. Honors system "remove animations" and freezes on the
  * representative frame. Composes only the visible frame (optional next-frame
- * Coil prefetch) so list rows do not decode every PNG up front.
+ * Coil prefetch) so list rows do not decode every PNG up front. Authored frames
+ * arrive through [WorkoutFrameStore] (cache → debug sample → CDN); until a frame
+ * is available the card shows the workout background, never a broken image.
  */
 private val ExerciseImageFilter: ColorFilter = run {
     val saturation = ColorMatrix().apply { setToSaturation(0.19f) }
@@ -80,6 +85,8 @@ fun AnimatedExerciseImage(
 
     val context = LocalContext.current
     val imageStore = remember(context) { FoodImageStore(context) }
+    val frameStore = remember(context) { WorkoutFrameStore.get(context) }
+    val imageLoader = if (visual.isAuthored) frameStore.imageLoader else context.imageLoader
     val animationsEnabled = remember {
         Settings.Global.getFloat(context.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1f) != 0f
     }
@@ -101,23 +108,29 @@ fun AnimatedExerciseImage(
         }
     }
 
-    val visiblePath = imagePaths[index]
-    val prefetchPath = imagePaths
-        .takeIf { shouldAnimate && it.size > 1 }
-        ?.let { it[(index + 1) % it.size] }
+    val prefetchIndex = if (shouldAnimate && imagePaths.size > 1) (index + 1) % imagePaths.size else null
 
-    LaunchedEffect(prefetchPath, visual.format) {
-        val path = prefetchPath ?: return@LaunchedEffect
-        context.imageLoader.enqueue(exerciseImageRequest(context, imageStore, path, visual.format))
+    LaunchedEffect(prefetchIndex, visual) {
+        val next = prefetchIndex ?: return@LaunchedEffect
+        imageLoader.enqueue(exerciseImageRequest(context, imageStore, visual, next))
     }
 
     val isJpeg = visual.format == ExerciseVisualFormat.JPEG
+    // Authored frames may be unavailable (offline before first download, CDN not
+    // reachable). Fall back to the icon placeholder instead of an empty card.
+    var frameUnavailable by remember(visual) { mutableStateOf(false) }
     Box(modifier.background(colors.background)) {
+        if (frameUnavailable) {
+            ExerciseImagePlaceholder(Modifier.fillMaxSize(), colors, fallbackLabel)
+        }
         AsyncImage(
-            model = remember(visiblePath, visual.format) {
-                exerciseImageRequest(context, imageStore, visiblePath, visual.format)
+            model = remember(visual, index) {
+                exerciseImageRequest(context, imageStore, visual, index)
             },
+            imageLoader = imageLoader,
             contentDescription = null,
+            onSuccess = { frameUnavailable = false },
+            onError = { frameUnavailable = true },
             contentScale = if (isJpeg) contentScale else ContentScale.Fit,
             colorFilter = if (isJpeg) ExerciseImageFilter else null,
             modifier = Modifier.fillMaxSize()
@@ -155,9 +168,23 @@ private fun ExerciseImagePlaceholder(
 private fun exerciseImageRequest(
     context: Context,
     imageStore: FoodImageStore,
-    path: String,
-    format: ExerciseVisualFormat
+    visual: ExerciseVisual,
+    index: Int
 ): ImageRequest {
+    val path = visual.framePaths[index]
+    if (visual.isAuthored) {
+        // Authored frames are not bundled in release builds; WorkoutFrameStore's fetcher
+        // serves them from the on-device cache, the debug sample pack, or the CDN.
+        val ref = WorkoutFrameRef.from(path, visual.digestAt(index), visual.format)
+        if (ref != null) {
+            val cacheKey = "${ref.name}:${ref.digest ?: "nodigest"}"
+            return ImageRequest.Builder(context)
+                .data(ref)
+                .memoryCacheKey(cacheKey)
+                .diskCacheKey(cacheKey)
+                .build()
+        }
+    }
     val localFile = path
         .takeIf { UserExercise.isUserPhotoFilename(it) }
         ?.let { imageStore.file(it).takeIf { file -> file.isFile } }
@@ -165,7 +192,7 @@ private fun exerciseImageRequest(
         .data(localFile ?: ExerciseRepository.imageAssetUri(path))
         .memoryCacheKey(path)
         .diskCacheKey(path)
-    if (format == ExerciseVisualFormat.SVG) {
+    if (visual.format == ExerciseVisualFormat.SVG) {
         builder.decoderFactory(SvgDecoder.Factory())
     }
     return builder.build()

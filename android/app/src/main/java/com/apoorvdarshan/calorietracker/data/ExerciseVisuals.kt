@@ -10,11 +10,27 @@ enum class ExerciseVisualFormat {
     PNG
 }
 
+/**
+ * Frames for one exercise visual.
+ *
+ * - [ExerciseVisualFormat.JPEG]: [framePaths] are bundled asset paths or user photo
+ *   filenames, loaded directly.
+ * - [ExerciseVisualFormat.PNG] / [ExerciseVisualFormat.SVG]: authored frames. [framePaths]
+ *   are flat filenames (`<name>.png`) that are *not* bundled in release builds; they are
+ *   resolved through [com.apoorvdarshan.calorietracker.services.WorkoutFrameStore]
+ *   (on-device cache → bundled debug sample → CDN download). [frameDigests] carries the
+ *   manifest's per-frame content digest used as the CDN cache key and integrity check.
+ */
 data class ExerciseVisual(
     val framePaths: List<String>,
     val format: ExerciseVisualFormat,
-    val representativeFrameIndex: Int
+    val representativeFrameIndex: Int,
+    val frameDigests: List<String?> = emptyList()
 ) {
+    val isAuthored: Boolean get() = format != ExerciseVisualFormat.JPEG
+
+    fun digestAt(index: Int): String? = frameDigests.getOrNull(index)
+
     companion object {
         fun jpeg(paths: List<String>): ExerciseVisual = ExerciseVisual(
             framePaths = paths,
@@ -24,17 +40,24 @@ data class ExerciseVisual(
     }
 }
 
-/** Complete gender-specific authored frame sets discovered in the flat exercise asset directory. */
+/** Complete gender-specific authored frame sets described by the shared manifest. */
 internal data class GenderedExerciseFrames(
     val male: List<String>,
     val female: List<String>,
     val format: ExerciseVisualFormat,
-    val representativeFrameIndex: Int
+    val representativeFrameIndex: Int,
+    val maleDigests: List<String?> = emptyList(),
+    val femaleDigests: List<String?> = emptyList()
 ) {
     fun forGender(gender: Gender): List<String> = when (gender) {
         Gender.FEMALE -> female
         // OTHER intentionally uses the male visual convention so its result is deterministic.
         Gender.MALE, Gender.OTHER -> male
+    }
+
+    fun digestsForGender(gender: Gender): List<String?> = when (gender) {
+        Gender.FEMALE -> femaleDigests
+        Gender.MALE, Gender.OTHER -> maleDigests
     }
 }
 
@@ -60,13 +83,20 @@ internal object ExerciseVisualResolver {
         @SerializedName("maleFrames")
         val maleFrames: List<String>? = null,
         @SerializedName("femaleFrames")
-        val femaleFrames: List<String>? = null
+        val femaleFrames: List<String>? = null,
+        @SerializedName("maleFrameDigests")
+        val maleFrameDigests: List<String>? = null,
+        @SerializedName("femaleFrameDigests")
+        val femaleFrameDigests: List<String>? = null
     )
 
+    private val digestPattern = Regex("^[0-9a-f]{8,64}$")
+
     /**
-     * Parses the shared packaging manifest into atomic male/female sets (3–5 contiguous frames).
-     * When [packagedAssetNames] is set (unit tests / packaging audits), every referenced file
-     * must exist. Runtime passes null so we never AssetManager.list the ~7k-frame asset root.
+     * Parses the shared manifest into atomic male/female sets (3–5 contiguous frames).
+     * When [packagedAssetNames] is set (unit tests / corpus audits), every referenced file
+     * must exist in that collection. Runtime passes null: frames are not bundled in release
+     * builds, they are fetched on demand, so the manifest is the source of truth.
      */
     fun parseManifest(
         json: String,
@@ -124,8 +154,16 @@ internal object ExerciseVisualResolver {
             male = malePaths,
             female = femalePaths,
             format = format,
-            representativeFrameIndex = representative
+            representativeFrameIndex = representative,
+            maleDigests = validDigests(record.maleFrameDigests, frameCount),
+            femaleDigests = validDigests(record.femaleFrameDigests, frameCount)
         )
+    }
+
+    /** Digests are optional metadata; a malformed list is ignored rather than rejecting the set. */
+    private fun validDigests(digests: List<String>?, frameCount: Int): List<String?> {
+        if (digests == null || digests.size != frameCount) return List(frameCount) { null }
+        return digests.map { digest -> digest.lowercase().takeIf(digestPattern::matches) }
     }
 
     private fun validFrameNames(
@@ -156,7 +194,8 @@ internal object ExerciseVisualResolver {
         return ExerciseVisual(
             framePaths = frames,
             format = authoredSet.format,
-            representativeFrameIndex = authoredSet.representativeFrameIndex
+            representativeFrameIndex = authoredSet.representativeFrameIndex,
+            frameDigests = authoredSet.digestsForGender(gender)
         )
     }
 

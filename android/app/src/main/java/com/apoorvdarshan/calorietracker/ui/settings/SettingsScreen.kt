@@ -350,21 +350,30 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
     val driveAuthLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.StartIntentSenderForResult()
     ) { result ->
-        if (result.resultCode != Activity.RESULT_OK) return@rememberLauncherForActivityResult
+        if (result.resultCode != Activity.RESULT_OK) {
+            cloudBackupError = cloudBackupSignInFailed
+            return@rememberLauncherForActivityResult
+        }
         settingsScope.launch {
-            val activity = activityContext as? Activity ?: return@launch
+            val activity = activityContext as? Activity
+            if (activity == null) {
+                cloudBackupError = cloudBackupSignInFailed
+                return@launch
+            }
             if (container.cloudBackup.finishAuthorization(activity, result.data)) {
                 finishDriveSignIn()
+            } else {
+                cloudBackupError = cloudBackupSignInFailed
             }
         }
     }
-    val startDriveSignIn: () -> Unit = {
+    val continueDriveAuth: (android.accounts.Account) -> Unit = { account ->
         val activity = activityContext as? Activity
         if (activity == null) {
             cloudBackupError = cloudBackupSignInFailed
         } else {
             settingsScope.launch {
-                runCatching { container.cloudBackup.authorize(activity) }
+                runCatching { container.cloudBackup.authorize(activity, account) }
                     .onSuccess { outcome ->
                         when (outcome) {
                             is DriveCloudBackupClient.AuthOutcome.Token -> finishDriveSignIn()
@@ -378,6 +387,25 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                     .onFailure { cloudBackupError = it.message }
             }
         }
+    }
+    val driveAccountPickerLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode != Activity.RESULT_OK) {
+            cloudBackupError = cloudBackupSignInFailed
+            return@rememberLauncherForActivityResult
+        }
+        val account = container.cloudBackup.accountFromPickerResult(result.data)
+        if (account == null) {
+            cloudBackupError = cloudBackupSignInFailed
+        } else {
+            continueDriveAuth(account)
+        }
+    }
+    val startDriveSignIn: () -> Unit = {
+        runCatching {
+            driveAccountPickerLauncher.launch(container.cloudBackup.accountPickerIntent())
+        }.onFailure { cloudBackupError = it.message ?: cloudBackupSignInFailed }
     }
 
     val importFileLauncher = rememberLauncherForActivityResult(
@@ -1340,7 +1368,9 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                     icon = Icons.Outlined.CloudUpload,
                     onChange = { on ->
                         if (on) showCloudEnableConfirm = true
-                        else settingsScope.launch { container.cloudBackup.disable() }
+                        else settingsScope.launch {
+                            container.cloudBackup.disable(activityContext as? Activity)
+                        }
                     }
                 )
                 if (cloudBackup.accountEmail != null) {
@@ -1365,22 +1395,75 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.62f)
                 )
-                if (cloudBackup.enabled) {
+                if (cloudBackup.enabled || cloudBackup.accountEmail != null) {
                     HorizontalDivider()
+                    if (cloudBackup.enabled) {
+                        Row(
+                            Modifier
+                                .fillMaxWidth()
+                                .clickable(enabled = !cloudBackup.busy) {
+                                    settingsScope.launch {
+                                        container.cloudBackup.backupNow()
+                                            .onFailure { cloudBackupError = it.message }
+                                    }
+                                }
+                                .padding(horizontal = 16.dp, vertical = 13.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                stringResource(R.string.cloud_backup_now),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
+                        HorizontalDivider()
+                        Row(
+                            Modifier
+                                .fillMaxWidth()
+                                .clickable(enabled = !cloudBackup.busy) {
+                                    settingsScope.launch {
+                                        container.cloudBackup.restoreNow()
+                                            .onFailure { cloudBackupError = it.message }
+                                    }
+                                }
+                                .padding(horizontal = 16.dp, vertical = 13.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                stringResource(R.string.cloud_backup_restore_now),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
+                        HorizontalDivider()
+                        Row(
+                            Modifier
+                                .fillMaxWidth()
+                                .clickable(enabled = !cloudBackup.busy) {
+                                    showCloudDeleteConfirm = true
+                                }
+                                .padding(horizontal = 16.dp, vertical = 13.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                stringResource(R.string.cloud_backup_delete),
+                                color = Color(0xFFFF3B30),
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
+                        HorizontalDivider()
+                    }
                     Row(
                         Modifier
                             .fillMaxWidth()
                             .clickable(enabled = !cloudBackup.busy) {
                                 settingsScope.launch {
-                                    container.cloudBackup.backupNow()
-                                        .onFailure { cloudBackupError = it.message }
+                                    container.cloudBackup.signOut(activityContext as? Activity)
                                 }
                             }
                             .padding(horizontal = 16.dp, vertical = 13.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            stringResource(R.string.cloud_backup_now),
+                            stringResource(R.string.cloud_backup_sign_out),
                             style = MaterialTheme.typography.bodyLarge
                         )
                     }
@@ -1390,29 +1473,15 @@ fun SettingsScreen(container: AppContainer, nav: NavHostController, vm: Settings
                             .fillMaxWidth()
                             .clickable(enabled = !cloudBackup.busy) {
                                 settingsScope.launch {
-                                    container.cloudBackup.restoreNow()
-                                        .onFailure { cloudBackupError = it.message }
+                                    container.cloudBackup.signOut(activityContext as? Activity)
+                                    startDriveSignIn()
                                 }
                             }
                             .padding(horizontal = 16.dp, vertical = 13.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            stringResource(R.string.cloud_backup_restore_now),
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    }
-                    HorizontalDivider()
-                    Row(
-                        Modifier
-                            .fillMaxWidth()
-                            .clickable(enabled = !cloudBackup.busy) { showCloudDeleteConfirm = true }
-                            .padding(horizontal = 16.dp, vertical = 13.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            stringResource(R.string.cloud_backup_delete),
-                            color = Color(0xFFFF3B30),
+                            stringResource(R.string.cloud_backup_switch_account),
                             style = MaterialTheme.typography.bodyLarge
                         )
                     }

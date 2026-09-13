@@ -1,10 +1,14 @@
 package com.apoorvdarshan.calorietracker.backup
 
+import android.accounts.Account
+import android.accounts.AccountManager
 import android.app.Activity
+import android.content.Intent
 import android.content.IntentSender
 import com.google.android.gms.auth.api.identity.AuthorizationRequest
 import com.google.android.gms.auth.api.identity.AuthorizationResult
 import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.common.AccountPicker
 import com.google.android.gms.common.api.Scope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -34,14 +38,34 @@ class DriveCloudBackupClient(
         data class Resolution(val intentSender: IntentSender) : AuthOutcome()
     }
 
-    suspend fun authorize(activity: Activity): AuthOutcome {
+    /** Always shows every Google account on the device (not Continue for the last one). */
+    fun accountPickerIntent(): Intent {
+        val options = AccountPicker.AccountChooserOptions.Builder()
+            .setAllowableAccountsTypes(listOf("com.google"))
+            .setAlwaysShowAccountPicker(true)
+            .build()
+        return AccountPicker.newChooseAccountIntent(options)
+    }
+
+    fun accountFromPickerResult(data: Intent?): Account? {
+        val name = data?.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)?.takeIf { it.isNotBlank() }
+            ?: return null
+        val type = data.getStringExtra(AccountManager.KEY_ACCOUNT_TYPE)?.takeIf { it.isNotBlank() }
+            ?: "com.google"
+        return Account(name, type)
+    }
+
+    suspend fun authorize(activity: Activity, account: Account): AuthOutcome {
         val scopes = listOf(
             Scope(DRIVE_APPDATA_SCOPE),
             Scope(EMAIL_SCOPE),
         )
-        val builder = AuthorizationRequest.builder().setRequestedScopes(scopes)
+        val builder = AuthorizationRequest.builder()
+            .setRequestedScopes(scopes)
+            .setAccount(account)
+            .setOptOutIncludingGrantedScopes(true)
         if (webClientId.isNotBlank()) {
-            builder.requestOfflineAccess(webClientId)
+            builder.requestOfflineAccess(webClientId, /* forceCodeForRefreshToken = */ true)
         }
         val result = Identity.getAuthorizationClient(activity)
             .authorize(builder.build())
@@ -49,7 +73,12 @@ class DriveCloudBackupClient(
         return outcome(result)
     }
 
-    fun parseAuthorizationResult(activity: Activity, data: android.content.Intent?): String? {
+    /** Clears One Tap / Identity cached Google session so the next pick is fresh. */
+    suspend fun clearSignInSession(context: android.content.Context) {
+        runCatching { Identity.getSignInClient(context).signOut().await() }
+    }
+
+    fun parseAuthorizationResult(activity: Activity, data: Intent?): String? {
         if (data == null) return null
         val result = Identity.getAuthorizationClient(activity).getAuthorizationResultFromIntent(data)
         return result.accessToken

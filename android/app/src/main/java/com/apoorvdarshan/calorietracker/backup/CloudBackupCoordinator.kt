@@ -47,13 +47,21 @@ class CloudBackupCoordinator(
         )
     }
 
-    suspend fun authorize(activity: Activity): DriveCloudBackupClient.AuthOutcome {
-        val outcome = drive.authorize(activity)
+    suspend fun authorize(
+        activity: Activity,
+        account: android.accounts.Account,
+    ): DriveCloudBackupClient.AuthOutcome {
+        val outcome = drive.authorize(activity, account)
         if (outcome is DriveCloudBackupClient.AuthOutcome.Token) {
             onAccessToken(outcome.accessToken)
         }
         return outcome
     }
+
+    fun accountPickerIntent(): android.content.Intent = drive.accountPickerIntent()
+
+    fun accountFromPickerResult(data: android.content.Intent?): android.accounts.Account? =
+        drive.accountFromPickerResult(data)
 
     suspend fun finishAuthorization(activity: Activity, data: android.content.Intent?): Boolean {
         val token = drive.parseAuthorizationResult(activity, data) ?: return false
@@ -89,11 +97,25 @@ class CloudBackupCoordinator(
         }.also { busy(false) }
     }
 
-    suspend fun disable() {
+    /** Turn backup off and disconnect Google. Leaves the Drive file in place. */
+    suspend fun disable(activity: Activity? = null) = signOut(activity)
+
+    /**
+     * Revoke Google access and clear local Drive backup session state.
+     * Does not delete the backup file in Drive (use [deleteCloudBackup] for that).
+     */
+    suspend fun signOut(activity: Activity? = null) {
         accessToken?.let { runCatching { drive.revoke(it) } }
-        prefs.setCloudBackupEnabled(false)
         accessToken = null
         keyStore.setCloudBackupAccessToken(null)
+        prefs.setCloudBackupEnabled(false)
+        prefs.setCloudBackupAccountEmail(null)
+        prefs.setCloudBackupFileId(null)
+        prefs.setCloudBackupLastAt(null)
+        prefs.setCloudBackupLastHash(null)
+        _ui.value = _ui.value.copy(existingCloudBackup = false)
+        val sessionContext = activity ?: context
+        drive.clearSignInSession(sessionContext)
         refresh()
     }
 
@@ -129,6 +151,8 @@ class CloudBackupCoordinator(
             accessToken?.let { runCatching { drive.revoke(it) } }
             accessToken = null
             keyStore.setCloudBackupAccessToken(null)
+            prefs.setCloudBackupAccountEmail(null)
+            prefs.setCloudBackupEnabled(false)
             refresh()
         }.also { busy(false) }
     }

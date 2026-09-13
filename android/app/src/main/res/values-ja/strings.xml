@@ -261,9 +261,9 @@
     <string name="onboarding_ai_byok_card_title">自分のキーを使う</string>
     <string name="onboarding_ai_byok_card_subtitle">永久無料 — 自分のキーで無制限。Gemini、OpenAI、Groqなど。</string>
     <string name="onboarding_ai_byok_badge">おすすめ</string>
-    <string name="onboarding_ai_hosted_ios_card_title">iOSのホスト型AI</string>
-    <string name="onboarding_ai_hosted_ios_card_subtitle">Plus/ProサブスクリプションはiPhoneとiPadで利用可能。AndroidはBYOKです。</string>
-    <string name="onboarding_ai_hosted_ios_note">Play Storeのサブスクリプションはありません — 続行するには自分のAIキーを接続してください。</string>
+    <string name="onboarding_ai_hosted_card_title">ホスト型AI</string>
+    <string name="onboarding_ai_hosted_card_subtitle">PlusまたはProプランで毎日のAIクレジット — APIキー不要。</string>
+    <string name="onboarding_ai_hosted_badge">近日公開</string>
     <string name="onboarding_provider_title">AIをセットアップ</string>
     <string name="onboarding_provider_subtitle">自分のAIプロバイダーキーを追加 — アプリは無料のままです。</string>
     <string name="onboarding_provider_recommended_title">おすすめ：Google Gemini</string>

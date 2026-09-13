@@ -263,9 +263,9 @@
     <string name="onboarding_ai_byok_card_title">Adu propria cheie</string>
     <string name="onboarding_ai_byok_card_subtitle">Gratuit pentru totdeauna — nelimitat pe cheia ta. Gemini, OpenAI, Groq și altele.</string>
     <string name="onboarding_ai_byok_badge">Recomandat</string>
-    <string name="onboarding_ai_hosted_ios_card_title">AI găzduit pe iOS</string>
-    <string name="onboarding_ai_hosted_ios_card_subtitle">Abonamentele Plus/Pro sunt disponibile pe iPhone și iPad. Android folosește BYOK.</string>
-    <string name="onboarding_ai_hosted_ios_note">Fără abonament Play Store — conectează propria cheie AI pentru a continua.</string>
+    <string name="onboarding_ai_hosted_card_title">AI găzduit</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Planuri Plus sau Pro cu credite AI zilnice — fără cheie API.</string>
+    <string name="onboarding_ai_hosted_badge">În curând</string>
     <string name="onboarding_provider_title">Configurează-ți AI-ul</string>
     <string name="onboarding_provider_subtitle">Adaugă propria cheie de furnizor AI — aplicația rămâne gratuită.</string>
     <string name="onboarding_provider_recommended_title">Recomandat: Google Gemini</string>

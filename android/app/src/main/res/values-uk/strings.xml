@@ -315,9 +315,9 @@
     <string name="onboarding_ai_byok_card_title">Свій ключ</string>
     <string name="onboarding_ai_byok_card_subtitle">Безкоштовно назавжди — без обмежень на твоєму ключі. Gemini, OpenAI, Groq та інші.</string>
     <string name="onboarding_ai_byok_badge">Рекомендовано</string>
-    <string name="onboarding_ai_hosted_ios_card_title">Хостинг ШІ на iOS</string>
-    <string name="onboarding_ai_hosted_ios_card_subtitle">Підписки Plus/Pro доступні на iPhone та iPad. Android використовує BYOK.</string>
-    <string name="onboarding_ai_hosted_ios_note">Немає підписки в Play Store — підключи свій ключ ШІ, щоб продовжити.</string>
+    <string name="onboarding_ai_hosted_card_title">Хостинг ШІ</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Тарифи Plus або Pro з щоденними кредитами ШІ — ключ API не потрібен.</string>
+    <string name="onboarding_ai_hosted_badge">Незабаром</string>
     <string name="onboarding_provider_title">Налаштуй свій ШІ</string>
     <string name="onboarding_provider_subtitle">Додай свій ключ провайдера ШІ — застосунок залишається безкоштовним.</string>
     <string name="onboarding_provider_recommended_title">Рекомендовано: Google Gemini</string>

@@ -264,9 +264,9 @@
     <string name="onboarding_ai_byok_card_title">Свой ключ</string>
     <string name="onboarding_ai_byok_card_subtitle">Бесплатно навсегда — без лимитов на твоём ключе. Gemini, OpenAI, Groq и другие.</string>
     <string name="onboarding_ai_byok_badge">Рекомендуется</string>
-    <string name="onboarding_ai_hosted_ios_card_title">Хостинг ИИ на iOS</string>
-    <string name="onboarding_ai_hosted_ios_card_subtitle">Подписки Plus/Pro доступны на iPhone и iPad. Android использует BYOK.</string>
-    <string name="onboarding_ai_hosted_ios_note">Нет подписки в Play Store — подключи свой ключ ИИ, чтобы продолжить.</string>
+    <string name="onboarding_ai_hosted_card_title">Хостинг ИИ</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Тарифы Plus или Pro с ежедневными кредитами ИИ — ключ API не нужен.</string>
+    <string name="onboarding_ai_hosted_badge">Скоро</string>
     <string name="onboarding_provider_title">Настрой свой ИИ</string>
     <string name="onboarding_provider_subtitle">Добавь свой ключ провайдера ИИ — приложение остаётся бесплатным.</string>
     <string name="onboarding_provider_recommended_title">Рекомендуется: Google Gemini</string>

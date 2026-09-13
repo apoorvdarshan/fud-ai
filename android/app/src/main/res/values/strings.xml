@@ -313,9 +313,9 @@
     <string name="onboarding_ai_byok_card_title">Bring Your Own Key</string>
     <string name="onboarding_ai_byok_card_subtitle">Free forever — unlimited on your key. Gemini, OpenAI, Groq &amp; more.</string>
     <string name="onboarding_ai_byok_badge">Recommended</string>
-    <string name="onboarding_ai_hosted_ios_card_title">Hosted AI on iOS</string>
-    <string name="onboarding_ai_hosted_ios_card_subtitle">Plus/Pro subscriptions are available on iPhone and iPad. Android uses BYOK.</string>
-    <string name="onboarding_ai_hosted_ios_note">No Play Store subscription — connect your own AI key to continue.</string>
+    <string name="onboarding_ai_hosted_card_title">Hosted AI</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Plus or Pro plans with daily AI credits — no API key needed.</string>
+    <string name="onboarding_ai_hosted_badge">Coming soon</string>
     <string name="onboarding_provider_title">Set Up Your AI</string>
     <string name="onboarding_provider_subtitle">Add your own AI provider key — the app stays free.</string>
     <string name="onboarding_provider_recommended_title">Recommended: Google Gemini</string>

@@ -262,9 +262,9 @@
     <string name="onboarding_ai_byok_card_title">Öz Açarınızı Gətirin</string>
     <string name="onboarding_ai_byok_card_subtitle">Həmişəlik pulsuz — açarınızda limitsiz. Gemini, OpenAI, Groq və s.</string>
     <string name="onboarding_ai_byok_badge">Tövsiyə olunur</string>
-    <string name="onboarding_ai_hosted_ios_card_title">iOS-da Host edilmiş AI</string>
-    <string name="onboarding_ai_hosted_ios_card_subtitle">Plus/Pro abunəlikləri iPhone və iPad-də mövcuddur. Android BYOK istifadə edir.</string>
-    <string name="onboarding_ai_hosted_ios_note">Play Store abunəliyi yoxdur — davam etmək üçün öz AI açarınızı qoşun.</string>
+    <string name="onboarding_ai_hosted_card_title">Host edilmiş AI</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Plus və ya Pro planları gündəlik AI kreditləri ilə — API açarı lazım deyil.</string>
+    <string name="onboarding_ai_hosted_badge">Tezliklə</string>
     <string name="onboarding_provider_title">Öz AI-ni Quraşdır</string>
     <string name="onboarding_provider_subtitle">Öz AI provayder açarınızı əlavə edin — tətbiq pulsuz qalır.</string>
     <string name="onboarding_provider_recommended_title">Tövsiyə olunur: Google Gemini</string>

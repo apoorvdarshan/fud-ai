@@ -261,9 +261,9 @@
     <string name="onboarding_ai_byok_card_title">자체 키 사용</string>
     <string name="onboarding_ai_byok_card_subtitle">영원히 무료 — 내 키로 무제한. Gemini, OpenAI, Groq 등.</string>
     <string name="onboarding_ai_byok_badge">추천</string>
-    <string name="onboarding_ai_hosted_ios_card_title">iOS 호스팅 AI</string>
-    <string name="onboarding_ai_hosted_ios_card_subtitle">Plus/Pro 구독은 iPhone과 iPad에서 이용 가능합니다. Android는 BYOK를 사용합니다.</string>
-    <string name="onboarding_ai_hosted_ios_note">Play Store 구독 없음 — 계속하려면 자체 AI 키를 연결하세요.</string>
+    <string name="onboarding_ai_hosted_card_title">호스팅 AI</string>
+    <string name="onboarding_ai_hosted_card_subtitle">Plus 또는 Pro 요금제로 매일 AI 크레딧 — API 키 불필요.</string>
+    <string name="onboarding_ai_hosted_badge">곧 출시</string>
     <string name="onboarding_provider_title">AI 설정하기</string>
     <string name="onboarding_provider_subtitle">자체 AI 제공업체 키를 추가하세요 — 앱은 무료입니다.</string>
     <string name="onboarding_provider_recommended_title">추천: Google Gemini</string>

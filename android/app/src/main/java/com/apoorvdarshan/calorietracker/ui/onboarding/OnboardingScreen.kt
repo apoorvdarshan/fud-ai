@@ -10,6 +10,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -88,6 +90,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -311,26 +314,33 @@ fun OnboardingScreen(container: AppContainer, onComplete: () -> Unit) {
                 }
             }
             else -> {
-                // iOS continueButton: full-width inverse-coloured capsule.
-                Button(
-                    onClick = { vm.next() },
-                    enabled = ui.canAdvance,
-                    shape = RoundedCornerShape(28.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.onBackground,
-                        contentColor = MaterialTheme.colorScheme.background
-                    ),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 24.dp)
-                        .padding(bottom = 36.dp)
-                        .height(54.dp)
-                ) {
-                    Text(
-                        stringResource(R.string.action_continue),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold
-                    )
+                // iOS hides the provider-step CTA on the choice screen; BYOK shows Continue once valid.
+                val showContinue = ui.step != OnboardingStep.PROVIDER ||
+                    ui.aiPhase != OnboardingAiPhase.CHOICE
+                if (showContinue) {
+                    Button(
+                        onClick = { vm.next() },
+                        enabled = ui.canAdvance,
+                        shape = RoundedCornerShape(28.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.onBackground,
+                            contentColor = MaterialTheme.colorScheme.background
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 24.dp)
+                            .padding(bottom = 36.dp)
+                            .height(54.dp)
+                    ) {
+                        Text(
+                            stringResource(R.string.action_continue),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold
+                        )
+                    }
+                } else {
+                    // Reserve footer height so the choice cards don't jump when BYOK opens.
+                    Spacer(Modifier.height(54.dp + 36.dp))
                 }
             }
         }
@@ -1297,19 +1307,12 @@ private fun AiAccessChoiceSection(onSelectByok: () -> Unit) {
         )
         AiAccessChoiceCard(
             icon = Icons.Outlined.AutoAwesome,
-            title = stringResource(R.string.onboarding_ai_hosted_ios_card_title),
-            subtitle = stringResource(R.string.onboarding_ai_hosted_ios_card_subtitle),
-            badge = null,
+            title = stringResource(R.string.onboarding_ai_hosted_card_title),
+            subtitle = stringResource(R.string.onboarding_ai_hosted_card_subtitle),
+            badge = stringResource(R.string.onboarding_ai_hosted_badge),
             highlighted = false,
             enabled = false,
             onClick = {}
-        )
-        Text(
-            stringResource(R.string.onboarding_ai_hosted_ios_note),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
-            textAlign = androidx.compose.ui.text.style.TextAlign.Center,
-            modifier = Modifier.padding(top = 4.dp)
         )
     }
 }
@@ -1346,25 +1349,7 @@ private fun AiAccessChoiceCard(
             )
             Spacer(Modifier.width(14.dp))
             Column(Modifier.weight(1f)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        title,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    badge?.let {
-                        Spacer(Modifier.width(8.dp))
-                        Text(
-                            it,
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = AppColors.Calorie,
-                            modifier = Modifier
-                                .background(AppColors.Calorie.copy(alpha = 0.12f), RoundedCornerShape(999.dp))
-                                .padding(horizontal = 8.dp, vertical = 3.dp)
-                        )
-                    }
-                }
+                AiAccessChoiceTitleRow(title = title, badge = badge, enabled = enabled)
                 Spacer(Modifier.height(6.dp))
                 Text(
                     subtitle,
@@ -1384,6 +1369,52 @@ private fun AiAccessChoiceCard(
             }
         }
     }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun AiAccessChoiceTitleRow(
+    title: String,
+    badge: String?,
+    enabled: Boolean
+) {
+    // Title ellipsizes when long; badge stays a single-line pill. FlowRow drops the badge to the
+    // next line when the row is too tight instead of letter-wrapping inside the pill.
+    FlowRow(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+        itemVerticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            title,
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+        )
+        badge?.let { AiAccessChoiceBadge(text = it, enabled = enabled) }
+    }
+}
+
+@Composable
+private fun AiAccessChoiceBadge(text: String, enabled: Boolean) {
+    val badgeColor = if (enabled) {
+        AppColors.Calorie
+    } else {
+        MaterialTheme.colorScheme.onBackground.copy(alpha = 0.45f)
+    }
+    Text(
+        text = text,
+        style = MaterialTheme.typography.labelSmall,
+        fontWeight = FontWeight.Bold,
+        color = badgeColor,
+        maxLines = 1,
+        softWrap = false,
+        modifier = Modifier
+            .background(badgeColor.copy(alpha = 0.12f), RoundedCornerShape(999.dp))
+            .padding(horizontal = 8.dp, vertical = 3.dp)
+    )
 }
 
 @Composable

@@ -119,13 +119,24 @@ fun AnimatedExerciseImage(
     // Authored frames may be unavailable (offline before first download, CDN not
     // reachable). Fall back to the icon placeholder instead of an empty card.
     var frameUnavailable by remember(visual) { mutableStateOf(false) }
+    // Coil never retries a failed request by itself, and a non-animating card keeps the
+    // same `index` forever, so a transient outage would otherwise leave the thumbnail
+    // blank until the composable is recreated. Bump the attempt counter with backoff
+    // while unavailable; the request carries it as a parameter so AsyncImage sees a
+    // new model without changing the cache keys.
+    var retryAttempt by remember(visual) { mutableIntStateOf(0) }
+    LaunchedEffect(frameUnavailable, retryAttempt, visual) {
+        if (!frameUnavailable || !visual.isAuthored) return@LaunchedEffect
+        delay(frameRetryDelayMillis(retryAttempt))
+        retryAttempt++
+    }
     Box(modifier.background(colors.background)) {
         if (frameUnavailable) {
             ExerciseImagePlaceholder(Modifier.fillMaxSize(), colors, fallbackLabel)
         }
         AsyncImage(
-            model = remember(visual, index) {
-                exerciseImageRequest(context, imageStore, visual, index)
+            model = remember(visual, index, retryAttempt) {
+                exerciseImageRequest(context, imageStore, visual, index, retryAttempt)
             },
             imageLoader = imageLoader,
             contentDescription = null,
@@ -165,11 +176,24 @@ private fun ExerciseImagePlaceholder(
     }
 }
 
+/**
+ * Backoff between UI-driven retries of an unavailable frame. [WorkoutFrameStore] already
+ * short-circuits repeat downloads for 60s after a failure, so early attempts mostly pick
+ * up frames that appeared in the cache meanwhile; the cap matches its retry window.
+ */
+private fun frameRetryDelayMillis(attempt: Int): Long =
+    (FRAME_RETRY_BASE_MS shl attempt.coerceIn(0, 2)).coerceAtMost(FRAME_RETRY_MAX_MS)
+
+private const val FRAME_RETRY_BASE_MS = 15_000L
+private const val FRAME_RETRY_MAX_MS = 60_000L
+private const val FRAME_RETRY_ATTEMPT_PARAMETER = "workoutFrameRetryAttempt"
+
 private fun exerciseImageRequest(
     context: Context,
     imageStore: FoodImageStore,
     visual: ExerciseVisual,
-    index: Int
+    index: Int,
+    retryAttempt: Int = 0
 ): ImageRequest {
     val path = visual.framePaths[index]
     if (visual.isAuthored) {
@@ -182,6 +206,8 @@ private fun exerciseImageRequest(
                 .data(ref)
                 .memoryCacheKey(cacheKey)
                 .diskCacheKey(cacheKey)
+                // Distinguishes retries for ImageRequest.equals only; excluded from cache keys.
+                .setParameter(FRAME_RETRY_ATTEMPT_PARAMETER, retryAttempt, memoryCacheKey = null)
                 .build()
         }
     }

@@ -718,7 +718,7 @@ struct ChatView: View {
                         showHostedQuotaPaywall = true
                     case .noActiveSubscription:
                         showHostedPaywall = true
-                    case .notHostedMode:
+                    case .notHostedMode, .rateLimited:
                         errorMessage = quotaError.errorDescription
                     }
                 } else {

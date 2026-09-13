@@ -1,5 +1,6 @@
 package com.apoorvdarshan.calorietracker.services
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.SystemClock
 import android.util.Log
@@ -205,6 +206,8 @@ class WorkoutFrameStore private constructor(
         private const val TRIM_TARGET_BYTES = 192L * 1024 * 1024
         private const val TRIM_EVERY_DOWNLOADS = 16
 
+        // Holds the application context only (see get()), never an Activity.
+        @SuppressLint("StaticFieldLeak")
         @Volatile
         private var instance: WorkoutFrameStore? = null
 

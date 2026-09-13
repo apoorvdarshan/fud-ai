@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -131,6 +132,16 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
     fun open(url: String) =
         ctx.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
 
+    /** Prefer Custom Tabs so GitHub issue forms keep `?template=` instead of the native app chooser. */
+    fun openGithubIssueForm(url: String) {
+        val uri = Uri.parse(url)
+        runCatching {
+            CustomTabsIntent.Builder().build().launchUrl(ctx, uri)
+        }.onFailure {
+            open(url)
+        }
+    }
+
     fun openPlayStore() = openPlayStore(ctx)
 
     fun refreshUpdateState() {
@@ -214,11 +225,11 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
 
             AboutSettingsCategory.HELP_FEEDBACK -> {
                 AboutRow(Icons.Filled.BugReport, stringResource(R.string.about_report_issue)) {
-                    open("https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml")
+                    openGithubIssueForm("https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml")
                 }
                 Hairline()
                 AboutRow(Icons.Filled.Lightbulb, stringResource(R.string.about_request_feature)) {
-                    open("https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml")
+                    openGithubIssueForm("https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml")
                 }
                 Hairline()
                 AboutRow(Icons.Filled.Email, stringResource(R.string.about_contact), onClick = ::email)

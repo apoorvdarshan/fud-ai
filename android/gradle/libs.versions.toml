@@ -26,6 +26,7 @@ gson = "2.11.0"
 mlkitBarcode = "17.3.0"
 vico = "2.0.2"
 splashscreen = "1.0.1"
+browser = "1.8.0"
 litertLm = "0.16.0"
 whisperAndroid = "1.0.0"
 
@@ -71,6 +72,7 @@ play-review-ktx = { group = "com.google.android.play", name = "review-ktx", vers
 play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "playAuth" }
 vico-compose-m3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "vico" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
+androidx-browser = { group = "androidx.browser", name = "browser", version.ref = "browser" }
 litert-lm-android = { group = "com.google.ai.edge.litertlm", name = "litertlm-android", version.ref = "litertLm" }
 whisper-android = { group = "dev.ffmpegkit-maintained", name = "whisper-android", version.ref = "whisperAndroid" }
 

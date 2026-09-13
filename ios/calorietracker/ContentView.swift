@@ -9,6 +9,7 @@ import WidgetKit
 import AVFoundation
 import Speech
 import UniformTypeIdentifiers
+import SafariServices
 
 // MARK: - Camera Mode
 enum CameraMode {
@@ -315,6 +316,11 @@ private struct AboutSettingsSections: View {
     private let refreshUpdateState: () async -> Void
 
     @State private var showShareSheet = false
+    /// Open GitHub issue forms in SafariView so the GitHub app cannot swallow `?template=` and show the chooser.
+    @State private var githubFormURL: URL?
+
+    private static let bugReportURL = URL(string: "https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml")!
+    private static let featureRequestURL = URL(string: "https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml")!
 
     init(
         category: AboutSettingsCategory,
@@ -429,7 +435,9 @@ private struct AboutSettingsSections: View {
 
             case .helpFeedback:
                 Section {
-                Link(destination: URL(string: "https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml")!) {
+                Button {
+                    githubFormURL = Self.bugReportURL
+                } label: {
                     Label {
                         Text("Report an Issue")
                     } icon: {
@@ -439,7 +447,9 @@ private struct AboutSettingsSections: View {
                 }
                 .tint(.primary)
 
-                Link(destination: URL(string: "https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml")!) {
+                Button {
+                    githubFormURL = Self.featureRequestURL
+                } label: {
                     Label {
                         Text("Request a Feature")
                     } icon: {
@@ -588,6 +598,15 @@ private struct AboutSettingsSections: View {
         .sheet(isPresented: $showShareSheet) {
             ActivityShareSheet(activityItems: [shareMessage, fudAIAppStoreURL])
         }
+        .sheet(isPresented: Binding(
+            get: { githubFormURL != nil },
+            set: { if !$0 { githubFormURL = nil } }
+        )) {
+            if let githubFormURL {
+                SafariView(url: githubFormURL)
+                    .ignoresSafeArea()
+            }
+        }
     }
 
     @ViewBuilder
@@ -710,6 +729,17 @@ struct ActivityShareSheet: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
+/// In-app Safari so GitHub issue form URLs keep `?template=` instead of opening the GitHub app chooser.
+private struct SafariView: UIViewControllerRepresentable {
+    let url: URL
+
+    func makeUIViewController(context: Context) -> SFSafariViewController {
+        SFSafariViewController(url: url)
+    }
+
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: Context) {}
 }
 
 // MARK: - Home View (Main Dashboard)

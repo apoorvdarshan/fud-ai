@@ -16,7 +16,6 @@
 		F00D58000000000000000011 /* LiteRTLM in Frameworks */ = {isa = PBXBuildFile; productRef = F00D58000000000000000013 /* LiteRTLM */; };
 		F00D59000000000000000011 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = F00D59000000000000000012 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt */; };
 		F00D5A000000000000000011 /* THIRD_PARTY_NOTICES_WhisperBase.txt in Resources */ = {isa = PBXBuildFile; fileRef = F00D5A000000000000000012 /* THIRD_PARTY_NOTICES_WhisperBase.txt */; };
-		F00D60000000000000000011 /* workout-vectors in Resources */ = {isa = PBXBuildFile; fileRef = F00D60000000000000000012 /* workout-vectors */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,7 +110,6 @@
 		F00D10000000000000000008 /* FudAIWatchWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FudAIWatchWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F00D59000000000000000012 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt; path = ../local-models/legal/THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt; sourceTree = "<group>"; };
 		F00D5A000000000000000012 /* THIRD_PARTY_NOTICES_WhisperBase.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = THIRD_PARTY_NOTICES_WhisperBase.txt; path = ../local-models/legal/THIRD_PARTY_NOTICES_WhisperBase.txt; sourceTree = "<group>"; };
-		F00D60000000000000000012 /* workout-vectors */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "workout-vectors"; path = "../shared/workout-vectors"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -267,7 +265,6 @@
 				BA8E0DF52F33F197007DD537 /* calorietracker */,
 				F00D59000000000000000012 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt */,
 				F00D5A000000000000000012 /* THIRD_PARTY_NOTICES_WhisperBase.txt */,
-				F00D60000000000000000012 /* workout-vectors */,
 				BA8E0E252F33F198007DD537 /* FudAIWidgets */,
 				BA8E0E3A2F33F198007DD537 /* calorietrackerShare */,
 				F00D1000000000000000000B /* FudAIWatchApp */,
@@ -302,6 +299,7 @@
 				BA8E0DEF2F33F197007DD537 /* Sources */,
 				BA8E0DF02F33F197007DD537 /* Frameworks */,
 				BA8E0DF12F33F197007DD537 /* Resources */,
+				F00D60000000000000000013 /* Copy Workout Frames */,
 				BA8E0E2C2F33F198007DD537 /* Embed Foundation Extensions */,
 				F00D10000000000000000005 /* Embed Watch Content */,
 			);
@@ -549,7 +547,6 @@
 			files = (
 				F00D59000000000000000011 /* THIRD_PARTY_NOTICES_LiteRTLM_v0.16.0.txt in Resources */,
 				F00D5A000000000000000011 /* THIRD_PARTY_NOTICES_WhisperBase.txt in Resources */,
-				F00D60000000000000000011 /* workout-vectors in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,6 +593,32 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		F00D60000000000000000013 /* Copy Workout Frames */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/scripts/copy_workout_frames.sh",
+				"$(SRCROOT)/../shared/workout-vectors",
+			);
+			name = "Copy Workout Frames";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/workout-vectors",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Bundles only the runtime corpus (manifest + *_v2_*.png) from shared/workout-vectors.\n/bin/sh \"${SRCROOT}/scripts/copy_workout_frames.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BA8E0DEF2F33F197007DD537 /* Sources */ = {

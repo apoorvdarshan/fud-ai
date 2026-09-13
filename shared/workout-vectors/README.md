@@ -45,7 +45,8 @@ copy: neither platform keeps a second checked-in copy of the frames (no iOS
 
 | | Android | iOS |
 | --- | --- | --- |
-| Packaging | `app/build.gradle.kts` task `prepare<Variant>WorkoutVectorAssets` hard-links `*_v2_*.png` + the manifest into a generated assets directory (flat `assets/<name>.png`) for **every** build type, release included | `calorietracker.xcodeproj` carries `../shared/workout-vectors` as a blue **folder reference** in the app target's *Copy Bundle Resources* phase → `calorietracker.app/workout-vectors/<name>.png` |
+| Packaging | `app/build.gradle.kts` task `prepare<Variant>WorkoutVectorAssets` copies `*_v2_*.png` + the manifest into a generated assets directory (flat `assets/<name>.png`) for **every** build type, release included | the app target's **Copy Workout Frames** run-script phase (`ios/scripts/copy_workout_frames.sh`) copies `*_v2_*.png` + the manifest → `calorietracker.app/workout-vectors/<name>.png` |
+| Filtering | only the manifest and `*_v2_*.png` are packaged; the copied set must equal the manifest's frame sequences or the build fails | same filter and same manifest check; `README.md`, `sample-pack.txt` and the SVG pilot never enter the IPA |
 | Manifest | `exercise-visual-manifest.json` asset | `Assets.xcassets/ExerciseVisualManifest.dataset` (byte-identical) |
 | Runtime | `WorkoutFrameStore.kt` (Coil fetcher) | `WorkoutFrameStore.swift` |
 | Resolution order | 1. device cache → 2. **bundled asset** → 3. download, only if `BuildConfig.WORKOUT_VECTORS_BASE_URL` is non-empty | 1. device cache → 2. **bundled `workout-vectors/`** → 3. download, only if a base URL is configured |
@@ -53,12 +54,18 @@ copy: neither platform keeps a second checked-in copy of the frames (no iOS
 | Debug opt-in | `workout.vectors.base.url=…` in `android/local.properties` (debug/debug2 only) | launch argument `-WorkoutVectorsBaseURL …` (Debug only) |
 
 Bundled frames are trusted as-is (the APK/AAB and the IPA are code-signed, and the
-packaging steps copy this directory byte-for-byte); `sync_workout_visual_assets.py
---check` and the Android asset task verify corpus completeness at build time, and the
-iOS unit tests confirm the bundled bytes match the manifest digests. The per-frame
-16-hex SHA-256 prefixes in the manifest (`maleFrameDigests` / `femaleFrameDigests`)
-remain the cache filename and integrity check for the device cache and the optional
-download path (`<base>/<name>.png?v=<digest>`), so that path stays safe to enable.
+packaging steps copy the frames byte-for-byte — real copies, never hard links or
+symlinks, so build outputs can be cleaned without touching this directory);
+`sync_workout_visual_assets.py --check` and both packaging steps verify at build time
+that the bundled set is exactly the manifest's frame sequences, and the iOS unit tests
+confirm the bundled bytes match the manifest digests and that no tooling files leaked
+into the bundle. The per-frame 16-hex SHA-256 prefixes in the manifest
+(`maleFrameDigests` / `femaleFrameDigests`) remain the cache filename and integrity
+check for the device cache and the optional download path
+(`<base>/<name>.png?v=<digest>`), so that path stays safe to enable. On both platforms a
+cached file is served only after it verifies (size, PNG signature, digest); anything
+else is deleted and the bundled frame is used, so a corrupt cache entry can never hide
+a bundled frame behind the placeholder.
 
 A frame that is genuinely missing from the corpus leaves the existing icon placeholder
 in place; failures are remembered for 60 s so a missing frame is not retried on every
@@ -89,8 +96,9 @@ animation tick.
   workout.vectors.base.url=http://10.0.2.2:8765
   ```
 
-- **iOS:** the folder reference means Debug and Release always bundle the whole corpus;
-  no developer sample folder is needed. To exercise the download path, run the same local
+- **iOS:** the Copy Workout Frames phase runs for Debug and Release alike, so both always
+  bundle the whole corpus (incrementally — unchanged frames are not re-copied); no
+  developer sample folder is needed. To exercise the download path, run the same local
   server and add the launch argument `-WorkoutVectorsBaseURL http://localhost:8765` to
   the calorietracker scheme (ATS already allows local networking).
 
@@ -107,8 +115,10 @@ python3 scripts/generate_barbell_full_squat_svg_pilot.py --check
 ```
 
 The sync command intentionally rejects partial corpora, unknown exercise IDs, any
-`*_v2_*.imageset` reappearing in the iOS asset catalog, an Xcode project that no longer
-bundles this folder, and anything other than the complete 875-exercise/7,000-frame set
+`*_v2_*.imageset` reappearing in the iOS asset catalog, an Xcode project whose app
+target no longer runs the Copy Workout Frames phase (checked by following the project's
+object references, not by string search) or that copies this raw directory as a folder
+reference, and anything other than the complete 875-exercise/7,000-frame set
 (`Running_Outdoor` and `Walking_Outdoor` are quick-log activities without
 illustrations). After changing a v2 sequence, regenerate both runtime manifests (frame
 names + digests) and validate; the next app build picks the frames up automatically:

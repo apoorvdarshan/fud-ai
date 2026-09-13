@@ -75,9 +75,10 @@ enum HostedAIConstants {
     /// Production hosted path on fud-ai.app. Override in debug via UserDefaults if needed.
     static let hostedAIBaseURL = "https://fud-ai.app/api/hosted-ai/v1"
 
-    /// Shared app secret — set the same value in Worker env `FUD_HOSTED_AI_APP_SECRET`.
-    /// v1 client-side gating; rotate with a worker + app update together.
-    static let hostedAIAppSecret = "ceFjlmDVmRQqAWB900qNv6uFahLGJekHpT1bvo1xsuM"
+    /// The app ships no proxy secret. Requests identify the subscriber with the
+    /// RevenueCat app user id (`X-Fud-User-Id`); the Worker verifies the plan
+    /// with RevenueCat server-side and meters usage in its own ledger.
+    static let hostedUserIDHeader = "X-Fud-User-Id"
 
     static let maxHostedImages = 3
 }
@@ -124,7 +125,10 @@ enum HostedAIAction: Equatable {
     case manualRecalculateGoals(llmCalls: Int)
     case hostedSTT
 
-    var cost: Int {
+    /// Expected number of hosted round-trips for this action, for UI copy only.
+    /// The Worker is the source of truth and meters every upstream call as 1
+    /// (so a coach message that needs several tool rounds costs several actions).
+    var estimatedCost: Int {
         switch self {
         case .voiceFood: 2
         case .manualRecalculateGoals(let llmCalls): max(1, llmCalls)
@@ -140,6 +144,7 @@ enum HostedAIQuotaError: LocalizedError, Equatable {
     case notHostedMode
     case noActiveSubscription
     case quotaExceeded(remainingDaily: Int, creditBank: Int)
+    case rateLimited
 
     var errorDescription: String? {
         switch self {
@@ -149,6 +154,8 @@ enum HostedAIQuotaError: LocalizedError, Equatable {
             return String(localized: "Subscribe to Plus or Pro to use Hosted AI, or switch to BYOK in Settings → AI Access.")
         case .quotaExceeded:
             return String(localized: "You're out of hosted AI actions for today. Buy credits, upgrade, or switch to BYOK.")
+        case .rateLimited:
+            return String(localized: "Hosted AI is busy. Please wait a moment and try again.")
         }
     }
 }

@@ -5,7 +5,7 @@
 
 import Foundation
 
-/// Central gate for BYOK vs Hosted AI mode and hosted quota consumption.
+/// Central gate for BYOK vs Hosted AI mode.
 enum AIModeSettings {
     private static let modeKey = "aiAccessMode"
 
@@ -23,54 +23,26 @@ enum AIModeSettings {
     static var isHosted: Bool { mode == .hosted }
 }
 
-struct HostedAISpendReceipt: Equatable {
-    let fromDaily: Int
-    let fromCredits: Int
-}
-
+/// Hosted quota is enforced by the Worker (see `web/hosted-ai-ledger.ts`): every
+/// upstream round-trip is metered server-side against the subscriber's daily
+/// pool and credit bank, and exhausted quota surfaces as
+/// `HostedAIQuotaError.quotaExceeded` from `HostedAIService`. The client only
+/// short-circuits the obvious local cases (BYOK mode, no entitlement) so users
+/// get the paywall without a network round-trip.
 @MainActor
 enum AIGate {
-    static func requireHostedQuota(for action: HostedAIAction) throws {
-        _ = try consumeIfHosted(action)
-    }
-
-    /// Consume quota only when in Hosted mode; returns a receipt for refund on failure.
-    @discardableResult
-    static func consumeIfHosted(_ action: HostedAIAction) throws -> HostedAISpendReceipt? {
-        guard AIModeSettings.isHosted else { return nil }
-        let manager = RevenueCatManager.shared
-        guard manager.hasHostedEntitlement else {
+    static func requireHostedEntitlement() throws {
+        guard AIModeSettings.isHosted else { return }
+        guard RevenueCatManager.shared.hasHostedEntitlement else {
             throw HostedAIQuotaError.noActiveSubscription
         }
-        let result = HostedAIQuotaManager.shared.spend(
-            action.cost,
-            plan: manager.activePlan,
-            hasEntitlement: true
-        )
-        switch result {
-        case .spent(let fromDaily, let fromCredits):
-            return HostedAISpendReceipt(fromDaily: fromDaily, fromCredits: fromCredits)
-        case .rejected(let error):
-            throw error
-        }
-    }
-
-    static func refundHosted(_ receipt: HostedAISpendReceipt) {
-        guard AIModeSettings.isHosted else { return }
-        HostedAIQuotaManager.shared.refund(fromDaily: receipt.fromDaily, fromCredits: receipt.fromCredits)
     }
 
     static func runWithHostedQuota<T>(
         _ action: HostedAIAction,
         _ work: () async throws -> T
     ) async throws -> T {
-        let receipt = try consumeIfHosted(action)
-        do {
-            return try await work()
-        } catch {
-            if error is CancellationError { throw error }
-            if let receipt { refundHosted(receipt) }
-            throw error
-        }
+        try requireHostedEntitlement()
+        return try await work()
     }
 }

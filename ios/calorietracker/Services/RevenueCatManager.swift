@@ -49,25 +49,26 @@ final class RevenueCatManager: NSObject {
         }
     }
 
+    /// Credits are never granted on device. The Worker reconciles credit packs
+    /// from RevenueCat `non_subscriptions` by transaction id, so a purchase is
+    /// followed by a forced server-side re-verification to surface the new
+    /// balance immediately.
     func purchase(package: Package) async throws {
         let result = try await Purchases.shared.purchase(package: package)
         applyCustomerInfo(result.customerInfo)
-        if let credits = HostedAIConstants.creditAmount(for: package.storeProduct.productIdentifier) {
-            HostedAIQuotaManager.shared.addCredits(credits)
-        }
+        await HostedAIQuotaManager.shared.refresh(force: true)
     }
 
     func purchase(product: StoreProduct) async throws {
         let result = try await Purchases.shared.purchase(product: product)
         applyCustomerInfo(result.customerInfo)
-        if let credits = HostedAIConstants.creditAmount(for: product.productIdentifier) {
-            HostedAIQuotaManager.shared.addCredits(credits)
-        }
+        await HostedAIQuotaManager.shared.refresh(force: true)
     }
 
     func restorePurchases() async throws {
         let info = try await Purchases.shared.restorePurchases()
         applyCustomerInfo(info)
+        await HostedAIQuotaManager.shared.refresh(force: true)
     }
 
     func appUserID() async -> String {

@@ -68,22 +68,27 @@ Legacy note: a single `default` offering alone is not enough for iOS subscribe f
 
 See `services/hosted-ai/README.md`. Deploy secrets on the `fud-ai` worker:
 
-- `GEMINI_API_KEY`
-- `DEEPGRAM_API_KEY`
-- `FUD_HOSTED_AI_APP_SECRET` (must match iOS app constant)
+- `REVENUECAT_API_KEY` — RevenueCat v1 **secret** key; the Worker verifies each subscriber's entitlements and credit purchases with it. Never embedded in the app.
+- `GEMINI_API_KEY` — set at production time
+- `DEEPGRAM_API_KEY` — set at production time
 
-## Metering rules (iOS client)
+The app ships **no proxy secret**. It sends only its RevenueCat app user id (`X-Fud-User-Id`, anonymous `$RCAnonymousID:` form only — the app never calls `Purchases.logIn`); the Worker checks the plan with RevenueCat, caches it in D1, and meters usage in a server-side ledger. No RevenueCat webhook is needed. Because the id is the sole credential, the Worker treats it as a bearer token: guessable custom ids are rejected, nothing is charged before RevenueCat confirms the plan, and the residual leak-and-replay risk (with the App Attest follow-up that would close it) is documented in `services/hosted-ai/README.md`.
 
-One shared daily pool per subscriber:
+## Metering rules (enforced by the Worker)
+
+One shared daily pool per subscriber, keyed by RevenueCat app user id and reset at **midnight UTC**. Every upstream call the Worker makes on the user's behalf costs one action:
 
 | Action | Cost |
 |--------|------|
-| Photo/text food, coach message, workout AI, what-if, allergens, ingredient AI, reprocess, manual recalculate (1 LLM) | 1 |
+| Photo/text food, workout AI, what-if, allergens, ingredient AI, reprocess, manual recalculate (per LLM call) | 1 |
 | Voice food (Deepgram + LLM) | 2 |
+| Coach message | 1 per Gemini round — a reply that needs tool calls costs one action per round |
 
 **Not counted:** Adaptive Goals, onboarding goal calc, barcode, Health, widgets, BYOK traffic.
 
-Spend order: **daily allowance → credit bank → soft paywall**.
+Spend order: **daily allowance → credit bank → `402 quota_exceeded` → soft paywall**.
+
+Credits are reconciled from RevenueCat `non_subscriptions` by transaction id, so a pack is counted exactly once regardless of reinstalls, restores, or backups. The iOS app only caches the numbers the Worker returns (`X-Fud-Quota-*` headers) for display and forces a re-verification (`GET /quota?refresh=1`) right after a purchase or restore.
 
 ## Store copy notes
 

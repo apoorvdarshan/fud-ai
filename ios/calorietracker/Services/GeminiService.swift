@@ -179,6 +179,12 @@ struct GeminiService {
         if error is AnalysisError || error is AnalysisFallbackError || error is Gemma4LocalModelManager.LocalModelError {
             return error.localizedDescription
         }
+        if let hosted = error as? HostedAIQuotaError, let message = hosted.errorDescription {
+            return message
+        }
+        if let hosted = error as? HostedAIServiceError, let message = hosted.errorDescription {
+            return message
+        }
         if (error as NSError).domain == NSURLErrorDomain { return AIErrorKind.network(error).message }
         return AIErrorKind.generic.message
     }

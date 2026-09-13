@@ -2249,7 +2249,7 @@ private var dailyStepsTaskKey: String {
                     showHostedPaywall = true
                 }
                 return
-            case .notHostedMode:
+            case .notHostedMode, .rateLimited:
                 break
             }
         }

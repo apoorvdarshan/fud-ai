@@ -8,14 +8,16 @@ import RevenueCat
 
 struct HostedAISettingsView: View {
     @State private var rc = RevenueCatManager.shared
+    @State private var quotaManager = HostedAIQuotaManager.shared
     @State private var aiMode = AIModeSettings.mode
     @State private var showPaywall = false
     @State private var showCredits = false
     @State private var isRestoring = false
     @State private var restoreMessage: String?
 
+    /// Server-reported numbers (the Worker owns the ledger); cached for display.
     private var quota: HostedAIQuotaSnapshot {
-        HostedAIQuotaManager.shared.snapshot(plan: rc.activePlan)
+        quotaManager.snapshot(plan: rc.activePlan)
     }
 
     var body: some View {
@@ -39,10 +41,14 @@ struct HostedAISettingsView: View {
             }
 
             if aiMode == .hosted {
-                Section("Hosted Plan") {
+                Section {
                     LabeledContent("Plan", value: rc.activePlan.displayName)
-                    LabeledContent("Today", value: "\(quota.dailyUsed)/\(quota.dailyLimit)")
+                    LabeledContent("Today (UTC)", value: "\(quota.dailyUsed)/\(quota.dailyLimit)")
                     LabeledContent("Credit bank", value: "\(quota.creditBank)")
+                } header: {
+                    Text("Hosted Plan")
+                } footer: {
+                    Text("Usage is metered by Fud AI’s server per AI call and resets at midnight UTC. Coach replies that need several tool calls use several actions.")
                 }
 
                 Section {
@@ -64,6 +70,9 @@ struct HostedAISettingsView: View {
         .task {
             await rc.refreshCustomerInfo()
             await rc.loadOfferings()
+            if rc.hasHostedEntitlement {
+                await quotaManager.refresh()
+            }
         }
         .sheet(isPresented: $showPaywall) {
             HostedPaywallView()

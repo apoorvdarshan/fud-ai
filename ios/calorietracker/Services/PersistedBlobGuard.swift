@@ -36,6 +36,10 @@ enum PersistedBlobLoad<Value> {
 ///   guard last looked, the new bytes are decode-checked and quarantined the
 ///   same way, so a corrupt blob written behind the store's back is never
 ///   overwritten on the strength of a stale "all good" from the last load.
+/// * A `save`/`remove` issued before any load is treated the same way: if the
+///   key already holds bytes nobody has decoded, they are copied aside first
+///   (and the write refused if that copy fails) instead of being replaced
+///   blind.
 final class PersistedBlobGuard {
     struct CorruptBackup: Equatable {
         let key: String
@@ -222,15 +226,22 @@ final class PersistedBlobGuard {
     private func reconcileExternalChange() {
         let current = rawBlob()
         let currentBytes = current?.bytes
-        guard hasObservedBlob, currentBytes != lastObservedBlob else { return }
+        if hasObservedBlob, currentBytes == lastObservedBlob { return }
         lastObservedBlob = currentBytes
+        hasObservedBlob = true
         switch current {
         case .none:
             break
         case .some(.other):
             quarantine(currentBytes ?? Data(), reason: "value under '\(key)' was externally replaced with non-Data")
         case .some(.data(let data)):
-            guard let isFullyReadable else { return }
+            guard let isFullyReadable else {
+                // Never loaded through this guard, so there is no decoder to
+                // vouch for the bytes. Copy them aside rather than blindly
+                // overwrite what might be the only copy of the user's data.
+                quarantine(data, reason: "blob under '\(key)' would be replaced without ever having been decoded")
+                return
+            }
             if !isFullyReadable(data) {
                 quarantine(data, reason: "blob under '\(key)' was externally replaced with unreadable data")
             }

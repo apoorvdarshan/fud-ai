@@ -126,8 +126,11 @@ Run affected iOS tests through Xcode's Test action on a supported simulator. Run
 instrumented Android tests on an emulator or device for Android framework paths.
 Do not uninstall an existing app or clear its data as part of routine validation.
 
-The Quality checks workflow runs web tests, Android unit tests and Android lint
-on pushes, pull requests and daily. Release workflows require these checks before
+The Quality checks workflow runs web tests, Android unit tests, Android lint and
+Gradle wrapper validation on pushes, pull requests and daily. CodeQL analyzes the
+web, Python and workflow code on pull requests and weekly, and Dependency review
+blocks pull requests that add dependencies with known high-severity
+vulnerabilities. Release workflows require these checks before
 creating their release artifacts/entries. Before an App Store release through
 Xcode Cloud, the maintainer must also verify a successful Quality checks run for
 the exact release commit and run the affected iOS tests. Resolve lint errors;

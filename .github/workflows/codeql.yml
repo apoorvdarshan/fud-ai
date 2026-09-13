@@ -1,0 +1,59 @@
+# CodeQL static analysis (SAST). Findings land in Security → Code scanning and
+# the runs feed the OpenSSF Scorecard SAST check.
+#
+# Analyzed here (no build needed, cheap Linux runners):
+#   - javascript-typescript : web/ (Cloudflare Worker, static site, tests)
+#   - python                : scripts/ tooling
+#   - actions               : the workflows in .github/workflows
+#
+# Deliberately not analyzed here: Kotlin (android/) and Swift (ios/). CodeQL needs
+# a fully traced compile for both, Swift additionally needs a macOS runner and the
+# complete Xcode project, and the Android build already takes most of the Quality
+# checks budget. Revisit if that trade-off changes.
+
+name: CodeQL
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Weekly on Tuesdays.
+    - cron: '41 4 * * 2'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      # Upload SARIF results to the code scanning dashboard.
+      security-events: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: actions
+          - language: javascript-typescript
+          - language: python
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4.38.0
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: none
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4.38.0
+        with:
+          category: '/language:${{ matrix.language }}'

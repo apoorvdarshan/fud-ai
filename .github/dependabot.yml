@@ -1,0 +1,47 @@
+# Dependabot version updates. Security updates are enabled separately in the
+# repository settings; this file adds the regular version bumps and groups them
+# so a weekly batch lands as one PR per ecosystem instead of a dozen.
+#
+# Actions are pinned by commit SHA (with a version comment) in the workflows;
+# Dependabot keeps both the SHA and the comment in sync.
+
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      github-actions:
+        patterns: ['*']
+
+  # Cloudflare Worker + static site tooling (web/package.json is devDependencies only).
+  - package-ecosystem: npm
+    directory: /web
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      web-dev-dependencies:
+        patterns: ['*']
+
+  # Android: AGP, Kotlin, AndroidX and the rest of android/gradle/libs.versions.toml.
+  - package-ecosystem: gradle
+    directory: /android
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      android-dependencies:
+        patterns: ['*']
+
+  # Workout-asset repair tooling (scripts/requirements-workout-repair.txt).
+  - package-ecosystem: pip
+    directory: /scripts
+    schedule:
+      interval: weekly
+      day: monday
+    groups:
+      python-tooling:
+        patterns: ['*']

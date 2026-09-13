@@ -10,6 +10,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -88,6 +90,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -1346,30 +1349,7 @@ private fun AiAccessChoiceCard(
             )
             Spacer(Modifier.width(14.dp))
             Column(Modifier.weight(1f)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        title,
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                    badge?.let {
-                        Spacer(Modifier.width(8.dp))
-                        val badgeColor = if (enabled) {
-                            AppColors.Calorie
-                        } else {
-                            MaterialTheme.colorScheme.onBackground.copy(alpha = 0.45f)
-                        }
-                        Text(
-                            it,
-                            style = MaterialTheme.typography.labelSmall,
-                            fontWeight = FontWeight.Bold,
-                            color = badgeColor,
-                            modifier = Modifier
-                                .background(badgeColor.copy(alpha = 0.12f), RoundedCornerShape(999.dp))
-                                .padding(horizontal = 8.dp, vertical = 3.dp)
-                        )
-                    }
-                }
+                AiAccessChoiceTitleRow(title = title, badge = badge, enabled = enabled)
                 Spacer(Modifier.height(6.dp))
                 Text(
                     subtitle,
@@ -1389,6 +1369,52 @@ private fun AiAccessChoiceCard(
             }
         }
     }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun AiAccessChoiceTitleRow(
+    title: String,
+    badge: String?,
+    enabled: Boolean
+) {
+    // Title ellipsizes when long; badge stays a single-line pill. FlowRow drops the badge to the
+    // next line when the row is too tight instead of letter-wrapping inside the pill.
+    FlowRow(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp),
+        itemVerticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            title,
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.SemiBold,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+        )
+        badge?.let { AiAccessChoiceBadge(text = it, enabled = enabled) }
+    }
+}
+
+@Composable
+private fun AiAccessChoiceBadge(text: String, enabled: Boolean) {
+    val badgeColor = if (enabled) {
+        AppColors.Calorie
+    } else {
+        MaterialTheme.colorScheme.onBackground.copy(alpha = 0.45f)
+    }
+    Text(
+        text = text,
+        style = MaterialTheme.typography.labelSmall,
+        fontWeight = FontWeight.Bold,
+        color = badgeColor,
+        maxLines = 1,
+        softWrap = false,
+        modifier = Modifier
+            .background(badgeColor.copy(alpha = 0.12f), RoundedCornerShape(999.dp))
+            .padding(horizontal = 8.dp, vertical = 3.dp)
+    )
 }
 
 @Composable

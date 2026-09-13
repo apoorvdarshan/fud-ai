@@ -1,0 +1,100 @@
+# Static analysis (SAST) with GitHub CodeQL.
+#
+# One job per language, each with a sparse checkout of just the directories that
+# language lives in, so no job has to download the 1.2 GB workout-frame corpus in
+# shared/ or the review artifacts in artifacts/.
+#
+#   javascript-typescript  web/ (Cloudflare Worker + static site), scripts/*.mjs
+#   python                 scripts/*.py, local-models/verify_catalog.py
+#   java-kotlin            android/ (compiled with the same flags as quality.yml)
+#   actions                .github/workflows/*.yml
+#
+# Swift (ios/) is not analyzed: CodeQL's Swift extractor needs a macOS runner and a
+# full xcodebuild, which Xcode Cloud already owns for this project.
+
+name: CodeQL
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Weekly on Mondays.
+    - cron: '17 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      security-events: write # upload SARIF to code scanning
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: javascript-typescript
+            build-mode: none
+            sparse-checkout: |
+              web
+              scripts
+          - language: python
+            build-mode: none
+            sparse-checkout: |
+              scripts
+              local-models
+          - language: java-kotlin
+            build-mode: manual
+            sparse-checkout: |
+              android
+              shared
+          - language: actions
+            build-mode: none
+            sparse-checkout: .github
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          sparse-checkout: ${{ matrix.sparse-checkout }}
+          persist-credentials: false
+
+      - name: Set up JDK 17
+        if: matrix.language == 'java-kotlin'
+        uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3 # v4.9.1
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        if: matrix.language == 'java-kotlin'
+        uses: android-actions/setup-android@9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407 # v3.2.2
+
+      - name: Set up Gradle
+        if: matrix.language == 'java-kotlin'
+        uses: gradle/actions/setup-gradle@748248ddd2a24f49513d8f472f81c3a07d4d50e1 # v4.4.4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4.38.0
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+
+      # Compile only the debug Kotlin sources under the CodeQL tracer. Same
+      # -PworkoutVectors=none as quality.yml: compilation never packages assets,
+      # so the workout corpus is not wired into this build. --no-daemon keeps the
+      # compiler inside the traced process tree.
+      - name: Build Android sources for CodeQL
+        if: matrix.language == 'java-kotlin'
+        working-directory: android
+        run: ./gradlew --no-daemon :app:compileDebugKotlin -PworkoutVectors=none
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@b96794f015dfd88f77b49b1c93e0fa7110f94c63 # v4.38.0
+        with:
+          category: /language:${{ matrix.language }}

@@ -14,15 +14,17 @@ class FastingRepository(private val prefs: PreferencesStore) {
     suspend fun active(): FastingSession? = prefs.fastingSessions.first().lastOrNull { it.isActive }
 
     suspend fun start(goalMinutes: Int, at: Instant = Instant.now()): FastingSession? {
-        val current = prefs.fastingSessions.first()
-        if (current.any { it.isActive }) return null
         val session = FastingSession(
             startedAt = at,
             goalMinutes = goalMinutes.coerceIn(FastingDefaults.MIN_GOAL_MINUTES, FastingDefaults.MAX_GOAL_MINUTES)
         )
-        if (current.any { overlaps(session, it) }) return null
-        prefs.setFastingSessions(current + session)
-        return session
+        var started = false
+        prefs.updateFastingSessions { current ->
+            if (current.any { it.isActive } || current.any { overlaps(session, it) }) return@updateFastingSessions current
+            started = true
+            current + session
+        }
+        return if (started) session else null
     }
 
     suspend fun endActive(at: Instant = Instant.now(), updatedSession: FastingSession? = null): FastingSession? {
@@ -40,13 +42,12 @@ class FastingRepository(private val prefs: PreferencesStore) {
             ?: active
         val completed = source.copy(endedAt = maxOf(at, source.startedAt))
         if (current.any { it.id != completed.id && overlaps(completed, it) }) return null
-        prefs.setFastingSessions(current.map { if (it.id == active.id) completed else it })
+        prefs.updateFastingSessions { stored -> stored.map { if (it.id == active.id) completed else it } }
         return completed
     }
 
     suspend fun cancelActive() {
-        val current = prefs.fastingSessions.first()
-        prefs.setFastingSessions(current.filterNot { it.isActive })
+        prefs.updateFastingSessions { current -> current.filterNot { it.isActive } }
     }
 
     suspend fun update(session: FastingSession): Boolean {
@@ -60,12 +61,12 @@ class FastingRepository(private val prefs: PreferencesStore) {
             )
         )
         if (current.any { it.id != validated.id && overlaps(validated, it) }) return false
-        prefs.setFastingSessions(current.map { if (it.id == session.id) validated else it })
+        prefs.updateFastingSessions { stored -> stored.map { if (it.id == session.id) validated else it } }
         return true
     }
 
     suspend fun delete(id: UUID) {
-        prefs.setFastingSessions(prefs.fastingSessions.first().filterNot { it.id == id })
+        prefs.updateFastingSessions { current -> current.filterNot { it.id == id } }
     }
 
     private fun overlaps(left: FastingSession, right: FastingSession): Boolean {

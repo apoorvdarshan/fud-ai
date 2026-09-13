@@ -5,7 +5,6 @@ import com.apoorvdarshan.calorietracker.export.DiaryImporter
 import com.apoorvdarshan.calorietracker.export.DiaryImportPreview
 import com.apoorvdarshan.calorietracker.export.DiaryImportMode
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -18,20 +17,20 @@ class WaterRepository(private val prefs: PreferencesStore) {
     suspend fun add(entry: WaterEntry) {
         if (entry.milliliters <= 0) return
         mutationMutex.withLock {
-            prefs.setWaterEntries(prefs.waterEntries.first() + entry)
+            prefs.updateWaterEntries { current -> current + entry }
         }
     }
 
     suspend fun importDiary(preview: DiaryImportPreview, mode: DiaryImportMode) {
         if (!preview.includesWater) return
         mutationMutex.withLock {
-            prefs.setWaterEntries(DiaryImporter.applyingWater(preview, prefs.waterEntries.first(), mode))
+            prefs.updateWaterEntries { current -> DiaryImporter.applyingWater(preview, current, mode) }
         }
     }
 
     suspend fun delete(id: UUID) {
         mutationMutex.withLock {
-            prefs.setWaterEntries(prefs.waterEntries.first().filter { it.id != id })
+            prefs.updateWaterEntries { current -> current.filter { it.id != id } }
         }
     }
 }

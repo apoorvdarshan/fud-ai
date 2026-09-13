@@ -1,6 +1,7 @@
 package com.apoorvdarshan.calorietracker
 
 import android.app.Application
+import android.util.Log
 import com.apoorvdarshan.calorietracker.data.BodyFatRepository
 import com.apoorvdarshan.calorietracker.data.BodyMeasurementRepository
 import com.apoorvdarshan.calorietracker.data.ChatRepository
@@ -36,6 +37,7 @@ import com.apoorvdarshan.calorietracker.services.ondevice.LocalWhisperRuntime
 import com.apoorvdarshan.calorietracker.services.speech.SpeechService
 import com.apoorvdarshan.calorietracker.widget.WidgetRefreshScheduler
 import kotlin.math.roundToInt
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -58,7 +60,14 @@ class FudAIApp : Application() {
     lateinit var container: AppContainer
         private set
 
-    private val appScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    // Startup work (migrations, image pruning, reminder re-arming) must never
+    // take the process down: an uncaught exception here would otherwise crash
+    // on every launch until the user clears app data — and their diary with it.
+    private val appScope = CoroutineScope(
+        SupervisorJob() + Dispatchers.Default + CoroutineExceptionHandler { _, throwable ->
+            Log.e("FudAIApp", "Background startup task failed", throwable)
+        }
+    )
 
     override fun onCreate() {
         super.onCreate()

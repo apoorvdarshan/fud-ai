@@ -72,8 +72,9 @@ class FoodRepository(
 
     suspend fun addEntry(entry: FoodEntry): Boolean {
         if (prefs.fastingSessions.first().any { it.isActive }) return false
-        val current = prefs.foodEntries.first()
-        prefs.setFoodEntries(current + entry)
+        // Decode + append + encode in one transaction: a diary that fails to
+        // decode is preserved, never replaced by `[entry]`.
+        prefs.updateFoodEntries { current -> current + entry }
         healthRetry.sync(entry, isUpdate = false)
         // One-time organic review moment: the first successful food log (iOS parity).
         if (!prefs.reviewPromptedAfterFirstLog.first()) {
@@ -86,12 +87,14 @@ class FoodRepository(
     suspend fun updateEntry(entry: FoodEntry) {
         // Legacy favorites must keep their original photos before the diary copy changes.
         ensureFavoritesMigrated()
-        val current = prefs.foodEntries.first()
-        val index = current.indexOfFirst { it.id == entry.id }
-        if (index < 0) return
-        val removedImages = current[index].allImageFilenames.toSet() - entry.allImageFilenames.toSet()
-        val updated = current.toMutableList().also { it[index] = entry }
-        prefs.setFoodEntries(updated)
+        var previous: FoodEntry? = null
+        prefs.updateFoodEntries { current ->
+            val index = current.indexOfFirst { it.id == entry.id }
+            if (index < 0) return@updateFoodEntries current
+            previous = current[index]
+            current.toMutableList().also { it[index] = entry }
+        }
+        val removedImages = (previous ?: return).allImageFilenames.toSet() - entry.allImageFilenames.toSet()
         if (imageStore != null && removedImages.isNotEmpty()) {
             // Only consider this edit's removed files, preserving shared saved meals,
             // other log entries and the recoverable analysis draft. A decode failure
@@ -116,8 +119,7 @@ class FoodRepository(
         // Drop the queue entry under the same mutex retry/sync uses, before the local
         // row disappears, so an in-flight retry cannot recreate Health Connect data.
         healthRetry.forget(entryId)
-        val current = prefs.foodEntries.first()
-        prefs.setFoodEntries(current.filter { it.id != entryId })
+        prefs.updateFoodEntries { current -> current.filter { it.id != entryId } }
         pruneOrphanedImages()
         // Delete even when sync is off (iOS parity, best-effort) — a surviving
         // fudai-tagged record would resurrect through restoreFromHealthConnect.
@@ -133,18 +135,22 @@ class FoodRepository(
         ensureFavoritesMigrated()
         val idSet = entryIds.toSet()
         if (idSet.size < 2) return null
-        val current = prefs.foodEntries.first()
-        val selected = current.filter { it.id in idSet }
-        if (selected.size < 2) return null
-        val combined = combineFoodEntries(selected)
-        val remaining = current.filter { it.id !in idSet }
-        prefs.setFoodEntries(remaining + combined)
+        var selected: List<FoodEntry> = emptyList()
+        var combined: FoodEntry? = null
+        prefs.updateFoodEntries { current ->
+            selected = current.filter { it.id in idSet }
+            if (selected.size < 2) return@updateFoodEntries current
+            val merged = combineFoodEntries(selected)
+            combined = merged
+            current.filter { it.id !in idSet } + merged
+        }
+        val result = combined ?: return null
         pruneOrphanedImages()
         selected.forEach { health?.deleteNutrition(it.id) }
         if (shouldSyncHealth()) {
-            health?.writeNutrition(combined)
+            health?.writeNutrition(result)
         }
-        return combined
+        return result
     }
 
     suspend fun replaceAll(entries: List<FoodEntry>) {
@@ -156,13 +162,16 @@ class FoodRepository(
     /** Apply a validated diary import in one local write and keep Health Connect in sync. */
     suspend fun replaceFromImport(entries: List<FoodEntry>) {
         ensureFavoritesMigrated()
-        val previous = prefs.foodEntries.first()
+        var previous: List<FoodEntry> = emptyList()
+        prefs.updateFoodEntries { current ->
+            previous = current
+            entries
+        }
         val previousById = previous.associateBy { it.id }
         val importedIds = entries.mapTo(mutableSetOf()) { it.id }
         val removedIds = previous.map { it.id }.filterNot { it in importedIds }
         val changed = entries.filter { previousById[it.id] != it }
 
-        prefs.setFoodEntries(entries)
         pruneOrphanedImages()
 
         if (shouldSyncHealth()) {
@@ -198,17 +207,19 @@ class FoodRepository(
      */
     suspend fun toggleFavorite(entry: FoodEntry) {
         ensureFavoritesMigrated()
-        val current = prefs.favoriteFoodEntries.first().toMutableList()
-        val idx = current.indexOfFirst { it.favoriteKey == entry.favoriteKey }
-        if (idx >= 0) {
-            current.removeAt(idx)
-        } else {
-            // Drop any other entry with the same id (defensive — should not
-            // normally happen since we matched by favoriteKey above).
-            current.removeAll { it.id == entry.id }
-            current.add(entry)
+        val current = prefs.updateFavoriteFoodEntries { stored ->
+            val list = stored.toMutableList()
+            val idx = list.indexOfFirst { it.favoriteKey == entry.favoriteKey }
+            if (idx >= 0) {
+                list.removeAt(idx)
+            } else {
+                // Drop any other entry with the same id (defensive — should not
+                // normally happen since we matched by favoriteKey above).
+                list.removeAll { it.id == entry.id }
+                list.add(entry)
+            }
+            list
         }
-        prefs.setFavoriteFoodEntries(current)
         prefs.setFavoriteKeys(current.map { it.favoriteKey }.toSet())
         pruneOrphanedImages()
     }
@@ -220,12 +231,14 @@ class FoodRepository(
      */
     suspend fun moveFavorite(from: Int, to: Int) {
         ensureFavoritesMigrated()
-        val list = prefs.favoriteFoodEntries.first().toMutableList()
-        if (from !in list.indices) return
-        val item = list.removeAt(from)
-        val safeTo = to.coerceIn(0, list.size)
-        list.add(safeTo, item)
-        prefs.setFavoriteFoodEntries(list)
+        prefs.updateFavoriteFoodEntries { stored ->
+            val list = stored.toMutableList()
+            if (from !in list.indices) return@updateFavoriteFoodEntries stored
+            val item = list.removeAt(from)
+            val safeTo = to.coerceIn(0, list.size)
+            list.add(safeTo, item)
+            list
+        }
     }
 
     /**
@@ -302,53 +315,54 @@ class FoodRepository(
      */
     suspend fun restoreFromHealthConnect(external: List<com.apoorvdarshan.calorietracker.services.health.ExternalNutrition>) {
         val manager = health ?: return
-        val current = prefs.foodEntries.first()
-        val existingIds = current.map { it.id }.toSet()
-        val restored = external.mapNotNull { record ->
-            val id = manager.ownRecordId(record.clientRecordId) ?: return@mapNotNull null
-            if (id in existingIds) return@mapNotNull null
-            val name = record.name?.trim().orEmpty()
-            if (name.isEmpty()) return@mapNotNull null
-            FoodEntry(
-                id = id,
-                name = name,
-                calories = (record.calories ?: 0.0).roundToInt(),
-                protein = record.protein ?: 0.0,
-                carbs = record.carbs ?: 0.0,
-                fat = record.fat ?: 0.0,
-                timestamp = record.time,
-                source = FoodSource.MANUAL,
-                mealType = record.mealType,
-                sugar = record.sugar,
-                fiber = record.fiber,
-                saturatedFat = record.saturatedFat,
-                monounsaturatedFat = record.monounsaturatedFat,
-                polyunsaturatedFat = record.polyunsaturatedFat,
-                cholesterol = record.cholesterol,
-                caffeine = record.caffeine,
-                sodium = record.sodium,
-                potassium = record.potassium,
-                transFat = record.transFat,
-                calcium = record.calcium,
-                iron = record.iron,
-                magnesium = record.magnesium,
-                zinc = record.zinc,
-                vitaminA = record.vitaminA,
-                vitaminC = record.vitaminC,
-                vitaminD = record.vitaminD,
-                vitaminB12 = record.vitaminB12,
-                vitaminE = record.vitaminE,
-                vitaminK = record.vitaminK,
-                folate = record.folate,
-                // Health Connect NutritionRecord exposes nutrient totals but
-                // no food-mass/custom-metadata field. Preserve that truth as
-                // one logged serving instead of fabricating 100 grams.
-                selectedServingUnit = "serving",
-                selectedServingQuantity = 1.0
-            )
+        prefs.updateFoodEntries { current ->
+            val existingIds = current.map { it.id }.toMutableSet()
+            val restored = external.mapNotNull { record ->
+                val id = manager.ownRecordId(record.clientRecordId) ?: return@mapNotNull null
+                val name = record.name?.trim().orEmpty()
+                if (name.isEmpty()) return@mapNotNull null
+                // `add` also dedupes ids repeated within the Health Connect batch.
+                if (!existingIds.add(id)) return@mapNotNull null
+                FoodEntry(
+                    id = id,
+                    name = name,
+                    calories = (record.calories ?: 0.0).roundToInt(),
+                    protein = record.protein ?: 0.0,
+                    carbs = record.carbs ?: 0.0,
+                    fat = record.fat ?: 0.0,
+                    timestamp = record.time,
+                    source = FoodSource.MANUAL,
+                    mealType = record.mealType,
+                    sugar = record.sugar,
+                    fiber = record.fiber,
+                    saturatedFat = record.saturatedFat,
+                    monounsaturatedFat = record.monounsaturatedFat,
+                    polyunsaturatedFat = record.polyunsaturatedFat,
+                    cholesterol = record.cholesterol,
+                    caffeine = record.caffeine,
+                    sodium = record.sodium,
+                    potassium = record.potassium,
+                    transFat = record.transFat,
+                    calcium = record.calcium,
+                    iron = record.iron,
+                    magnesium = record.magnesium,
+                    zinc = record.zinc,
+                    vitaminA = record.vitaminA,
+                    vitaminC = record.vitaminC,
+                    vitaminD = record.vitaminD,
+                    vitaminB12 = record.vitaminB12,
+                    vitaminE = record.vitaminE,
+                    vitaminK = record.vitaminK,
+                    folate = record.folate,
+                    // Health Connect NutritionRecord exposes nutrient totals but
+                    // no food-mass/custom-metadata field. Preserve that truth as
+                    // one logged serving instead of fabricating 100 grams.
+                    selectedServingUnit = "serving",
+                    selectedServingQuantity = 1.0
+                )
+            }
+            if (restored.isEmpty()) current else (current + restored).sortedBy { it.timestamp }
         }
-        if (restored.isEmpty()) return
-        prefs.setFoodEntries((current + restored).sortedBy { it.timestamp })
     }
 
     // -- Recents / Frequent ---------------------------------------------

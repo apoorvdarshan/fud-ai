@@ -23,13 +23,11 @@ class BodyMeasurementRepository(private val prefs: PreferencesStore) {
 
     suspend fun addEntry(entry: BodyMeasurement) {
         if (!entry.hasAnyValue) return
-        val current = prefs.bodyMeasurements.first()
-        prefs.setBodyMeasurements(current + entry)
+        prefs.updateBodyMeasurements { current -> current + entry }
     }
 
     suspend fun deleteEntry(id: UUID) {
-        val current = prefs.bodyMeasurements.first()
-        prefs.setBodyMeasurements(current.filter { it.id != id })
+        prefs.updateBodyMeasurements { current -> current.filter { it.id != id } }
     }
 
     /**
@@ -38,21 +36,22 @@ class BodyMeasurementRepository(private val prefs: PreferencesStore) {
      * forward (so the latest entry always holds the user's current full set). `null` clears a site.
      */
     suspend fun setValue(site: BodyMeasurement.Site, cm: Double?) {
-        val current = prefs.bodyMeasurements.first()
-        val latest = current.maxByOrNull { it.date }
         val zone = ZoneId.systemDefault()
         val today = LocalDate.now(zone)
-        if (latest != null && latest.date.atZone(zone).toLocalDate() == today) {
-            val updated = latest.setting(site, cm)
-            val rest = current.filter { it.id != latest.id }
-            prefs.setBodyMeasurements(if (updated.hasAnyValue) rest + updated else rest)
-        } else {
-            var fresh = BodyMeasurement()
-            if (latest != null) {
-                BodyMeasurement.Site.values().forEach { s -> fresh = fresh.setting(s, latest.value(s)) }
+        prefs.updateBodyMeasurements { current ->
+            val latest = current.maxByOrNull { it.date }
+            if (latest != null && latest.date.atZone(zone).toLocalDate() == today) {
+                val updated = latest.setting(site, cm)
+                val rest = current.filter { it.id != latest.id }
+                if (updated.hasAnyValue) rest + updated else rest
+            } else {
+                var fresh = BodyMeasurement()
+                if (latest != null) {
+                    BodyMeasurement.Site.values().forEach { s -> fresh = fresh.setting(s, latest.value(s)) }
+                }
+                fresh = fresh.setting(site, cm)
+                if (fresh.hasAnyValue) current + fresh else current
             }
-            fresh = fresh.setting(site, cm)
-            if (fresh.hasAnyValue) prefs.setBodyMeasurements(current + fresh)
         }
     }
 

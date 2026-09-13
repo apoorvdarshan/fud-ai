@@ -130,6 +130,27 @@ class NutritionHealthRetryTest {
     }
 
     @Test
+    fun writeCompletingAfterTheEntryIsGoneRollsBackHealthConnect() = runBlocking {
+        // The reachable half of the rollback. `forget` takes the mutex the pass is
+        // holding, so the queue cannot empty mid-write; the local row can, because
+        // combining, replacing or clearing the log rewrites it without the lock.
+        val entry = foodEntry("Rugbrod")
+        val store = FakeNutritionSyncStore(
+            entries = listOf(entry),
+            pending = setOf(entry.id.toString())
+        )
+        val health = FakeNutritionHealthSync(onUpdate = {
+            store.entries.value = emptyList()
+        })
+        val retry = NutritionHealthRetry(store, health)
+
+        retry.retryPending()
+
+        assertEquals(listOf(entry.id), health.deleted)
+        assertTrue(store.pending.value.isEmpty())
+    }
+
+    @Test
     fun syncIsANoOpWhileHealthConnectIsSwitchedOff() = runBlocking {
         val entry = foodEntry("Havregryn")
         val store = FakeNutritionSyncStore(entries = listOf(entry), enabled = false)
@@ -213,8 +234,8 @@ private class FakeNutritionSyncStore(
     enabled: Boolean = true
 ) : NutritionSyncStore {
     val pending = MutableStateFlow(pending)
-    private val entriesFlow = MutableStateFlow(entries)
-    override val foodEntries: Flow<List<FoodEntry>> = entriesFlow
+    val entries = MutableStateFlow(entries)
+    override val foodEntries: Flow<List<FoodEntry>> = this.entries
     override val healthConnectEnabled: Flow<Boolean> = MutableStateFlow(enabled)
     override val pendingNutritionHealthWrites: Flow<Set<String>> = this.pending
     override suspend fun setPendingNutritionHealthWrites(ids: Set<String>) { pending.value = ids }

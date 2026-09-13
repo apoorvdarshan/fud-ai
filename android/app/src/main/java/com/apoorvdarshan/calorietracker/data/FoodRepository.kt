@@ -108,9 +108,11 @@ class FoodRepository(
         } else {
             // Sync off: still clean up the stale HC record for this entry (iOS
             // parity, best-effort) so the restore path can't resurrect the
-            // pre-edit version later.
-            health?.deleteNutrition(entry.id)
+            // pre-edit version later. The queue key goes first, matching deleteEntry,
+            // so an in-flight retry cannot rewrite the record after the deliberate
+            // delete.
             healthRetry.forget(entry.id)
+            health?.deleteNutrition(entry.id)
         }
     }
 
@@ -146,9 +148,15 @@ class FoodRepository(
         }
         val result = combined ?: return null
         pruneOrphanedImages()
+        // The source rows are gone locally, so drop their queue keys under the retry
+        // mutex before their Health Connect records go: an in-flight pass cannot then
+        // recreate them. The merged meal goes through the queue like every other write.
+        // Calling `health` directly meant an unreachable service lost the merge with
+        // nothing queued to retry it.
+        healthRetry.forgetAll(selected.map { it.id })
         selected.forEach { health?.deleteNutrition(it.id) }
         if (shouldSyncHealth()) {
-            health?.writeNutrition(result)
+            healthRetry.sync(result, isUpdate = false)
         }
         return result
     }

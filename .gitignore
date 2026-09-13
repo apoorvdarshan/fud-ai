@@ -18,6 +18,10 @@ ios/Local.xcconfig
 android/oauth.properties
 .DS_Store
 
+# Stray compiler output at the repo root (e.g. `swiftc test.swift` -> ./test).
+# A Mach-O binary was once committed this way; keep it out.
+/test
+
 # Claude Code runtime
 .claude/
 ios/build-sim/

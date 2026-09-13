@@ -1,0 +1,9 @@
+# Default owner for everything in the repository. With a "Require review from
+# Code Owners" rule on main, every pull request needs the maintainer's approval.
+* @apoorvdarshan
+
+# Supply-chain sensitive paths: CI definitions, release signing, dependency policy.
+/.github/ @apoorvdarshan
+/android/gradle/ @apoorvdarshan
+/android/release/ @apoorvdarshan
+/SECURITY.md @apoorvdarshan

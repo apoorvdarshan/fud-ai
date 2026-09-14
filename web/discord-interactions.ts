@@ -27,10 +27,8 @@ Not a doctor — no medical advice or diagnoses. If unsure about the app, point 
 type DiscordEnv = {
   DISCORD_PUBLIC_KEY: string;
   DISCORD_APPLICATION_ID?: string;
-  /** Preferred free/community Gemini key for Discord. */
+  /** Free-tier Gemini key for Discord `/ask` only (never use hosted GEMINI_API_KEY). */
   DISCORD_GEMINI_API_KEY?: string;
-  /** Fallback: shared Worker Gemini secret (hosted AI). */
-  GEMINI_API_KEY?: string;
 };
 
 type Interaction = {
@@ -152,7 +150,8 @@ async function fulfillAsk(
   interactionToken: string,
   question: string,
 ): Promise<void> {
-  const apiKey = (env.DISCORD_GEMINI_API_KEY || env.GEMINI_API_KEY || "").trim();
+  // Discord must use its own free-tier key only — never GEMINI_API_KEY (hosted/billed).
+  const apiKey = (env.DISCORD_GEMINI_API_KEY || "").trim();
   if (!apiKey) {
     await editInteractionReply(
       applicationId,

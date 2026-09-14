@@ -12,8 +12,8 @@ interface Env {
    */
   REVENUECAT_API_KEY?: string;
   /**
-   * Optional Gemini key dedicated to Discord `/ask` (preferred over
-   * GEMINI_API_KEY so community chat doesn’t share the hosted-AI key).
+   * Free-tier Gemini key for Discord `/ask` only. Never fall back to
+   * GEMINI_API_KEY (that secret is billed hosted AI).
    */
   DISCORD_GEMINI_API_KEY?: string;
   /** Discord application public key (also set via wrangler `[vars]`). */

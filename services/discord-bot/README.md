@@ -6,7 +6,7 @@ Slash command **`/ask`** is handled by the main `fud-ai.app` Worker:
 
 - Endpoint: `https://fud-ai.app/api/discord/interactions`
 - Code: `web/discord-interactions.ts`
-- Secrets: `DISCORD_GEMINI_API_KEY` (preferred) or existing `GEMINI_API_KEY`
+- Secrets: `DISCORD_GEMINI_API_KEY` only (free-tier). Does **not** use `GEMINI_API_KEY` (hosted/billed).
 - Vars in `web/wrangler.toml`: `DISCORD_PUBLIC_KEY`, `DISCORD_APPLICATION_ID`
 
 ### One-time Discord portal steps

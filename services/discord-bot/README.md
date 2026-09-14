@@ -1,5 +1,7 @@
 # Fud AI Discord bot
 
+Community help lives in the [Fud AI Discord server](https://discord.gg/Py4VrFctP3). Use the **`/ask`** slash command (Fud AI bot) with your question — the bot replies in-channel via Cloudflare (always online; no Mac required).
+
 ## Production (Cloudflare — no Mac required)
 
 Slash command **`/ask`** is handled by the main `fud-ai.app` Worker:

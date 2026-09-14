@@ -20,7 +20,7 @@ Facts:
 - AI uses bring-your-own-key (BYOK) or optional hosted AI on iOS.
 - Website: https://fud-ai.app
 - Source / issues: https://github.com/apoorvdarshan/fud-ai
-- Discord: https://discord.gg/Py4VrFctP3
+- Discord: https://discord.gg/Py4VrFctP3 — in that server use the /ask slash command for help from this bot
 
 Not a doctor — no medical advice or diagnoses. If unsure about the app, point to GitHub issues or in-app Settings.`;
 

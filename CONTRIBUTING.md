@@ -185,7 +185,7 @@ If you want to chat before opening a big PR, or you hit a wall and need help:
 - **Email:** **apoorv@fud-ai.app** or **ad13dtu@gmail.com**
 - **X (Twitter):** [@apoorvdarshan](https://x.com/apoorvdarshan)
 - **GitHub Issues:** [github.com/apoorvdarshan/fud-ai/issues](https://github.com/apoorvdarshan/fud-ai/issues)
-- **Discord:** [discord.gg/Py4VrFctP3](https://discord.gg/Py4VrFctP3)
+- **Discord:** [discord.gg/Py4VrFctP3](https://discord.gg/Py4VrFctP3) — in the Fud AI server, use **`/ask`** to question the helper bot
 
 ## Code of Conduct
 

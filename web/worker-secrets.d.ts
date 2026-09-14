@@ -11,4 +11,13 @@ interface Env {
    * entitlements server-side. Never shipped to clients.
    */
   REVENUECAT_API_KEY?: string;
+  /**
+   * Optional Gemini key dedicated to Discord `/ask` (preferred over
+   * GEMINI_API_KEY so community chat doesn’t share the hosted-AI key).
+   */
+  DISCORD_GEMINI_API_KEY?: string;
+  /** Discord application public key (also set via wrangler `[vars]`). */
+  DISCORD_PUBLIC_KEY: string;
+  /** Discord application id (also set via wrangler `[vars]`). */
+  DISCORD_APPLICATION_ID?: string;
 }

@@ -6,6 +6,10 @@ import {
 } from "./challenge-api";
 import { HOSTED_AI_API_PREFIX, handleHostedAIRequest } from "./hosted-ai-api";
 import { cleanupHostedAILedger } from "./hosted-ai-ledger";
+import {
+  DISCORD_INTERACTIONS_PATH,
+  handleDiscordInteractionsRequest,
+} from "./discord-interactions";
 
 const REPOSITORY = "apoorvdarshan/fud-ai";
 const HISTORY_KEY = "github-star-history-v1";
@@ -53,6 +57,14 @@ export default {
         request,
         env,
         context ? { waitUntil: (promise) => context.waitUntil(promise) } : {},
+      );
+    }
+
+    if (url.pathname === DISCORD_INTERACTIONS_PATH) {
+      return handleDiscordInteractionsRequest(
+        request,
+        env,
+        context ? { waitUntil: (promise) => context.waitUntil(promise) } : undefined,
       );
     }
 

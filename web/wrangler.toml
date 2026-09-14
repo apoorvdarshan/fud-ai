@@ -8,7 +8,14 @@ preview_urls = false
 directory = "."
 binding = "ASSETS"
 not_found_handling = "404-page"
-run_worker_first = ["/star-history.svg", "/star-history.json", "/api/challenge/v1/*", "/api/hosted-ai/v1/*", "/api/meal-shares", "/m/*"]
+run_worker_first = ["/star-history.svg", "/star-history.json", "/api/challenge/v1/*", "/api/hosted-ai/v1/*", "/api/discord/interactions", "/api/meal-shares", "/m/*"]
+
+# Discord slash-command Interactions Endpoint (public; not a secret).
+# Set Interactions Endpoint URL in Discord Developer Portal to:
+#   https://fud-ai.app/api/discord/interactions
+[vars]
+DISCORD_PUBLIC_KEY = "0ce6e6014282b489ce0930fad550e978c7d623cc71040d14250223110a9a9f57"
+DISCORD_APPLICATION_ID = "1548469419922038845"
 
 [[kv_namespaces]]
 binding = "STAR_HISTORY"

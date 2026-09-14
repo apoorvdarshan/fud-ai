@@ -91,7 +91,7 @@ Fud AI is a Udyam-registered micro enterprise in India, operating as a sole prop
 - **Workout diary & logger** — plan exercises by day, swipe between weeks, and log sets, reps, weight, and RPE without starting a timer
 - **Gender-aware exercise illustrations** — selected exercise detail views use matched four-phase male/female v2 sequences in one consistent hand-drawn visual system, with the original exercise photos retained as the fallback for entries that do not yet have authored artwork
 - **Calculated workout burn** — estimate a day's calorie burn from the logged work, review or delete burn history in Progress, and optionally sync those records with Apple Health / Health Connect
-- **Exercise library** — switch in place to 873 exercises with photos, primary/secondary muscle and equipment filters, search, sort, and per-exercise detail pages; the last diary/library view persists
+- **Exercise library** — switch in place to 877 exercises with photos, primary/secondary muscle and equipment filters, search, sort, and per-exercise detail pages; the last diary/library view persists
 - **Coach workout context** — Coach can retrieve workout plans, preferences, completed sessions, sets, reps, RPE, and calculated burn when answering training questions
 
 ### Health & platform
@@ -236,7 +236,7 @@ An eight-screen walkthrough of the current app flow — from the dashboard and g
       <br><br>
       <b>08 · Workouts · Library</b>
       <br>
-      <sub>Browse 873 exercises with photos, filterable by primary/secondary muscle and equipment, with search, sort, and per-exercise detail pages.</sub>
+      <sub>Browse 877 exercises with photos, filterable by primary/secondary muscle and equipment, with search, sort, and per-exercise detail pages.</sub>
     </td>
   </tr>
 </table>

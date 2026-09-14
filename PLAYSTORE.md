@@ -67,7 +67,7 @@ REVIEW BEFORE LOGGING
 Unlock Nutrition to correct calories, macros, and detailed nutrients before saving; serving changes then scale from your edits. What if? previews today's macro impact and can ask AI for a suggestion.
 
 WORKOUTS
-Plan by day; log sets, reps, weight, and RPE. Create custom exercises, autofill sets, and quick-log Walk/Run. Browse 873 exercises with photos, filters, search, sorting, and details.
+Plan by day; log sets, reps, weight, and RPE. Create custom exercises, autofill sets, and quick-log Walk/Run. Browse 877 exercises with photos, filters, search, sorting, and details.
 
 PERSONALIZED GOALS
 BMR and TDEE calculators, six activity levels, automatic or editable macro targets, and customizable meal-time boundaries.

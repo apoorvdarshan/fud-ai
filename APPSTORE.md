@@ -54,7 +54,7 @@ COACH
 Multi-turn chat can access your profile, targets, forecast, food log, workouts, and explicitly logged fasts when requested. It never assumes a missing meal means you fasted.
 
 WORKOUTS
-Plan by day and log sets, reps, weight, and RPE without a timer. Create custom exercises, autofill sets from lift history, and quick-log Walk/Run. The 873-exercise library includes filters, search, sorting, and details.
+Plan by day and log sets, reps, weight, and RPE without a timer. Create custom exercises, autofill sets from lift history, and quick-log Walk/Run. The 877-exercise library includes filters, search, sorting, and details.
 
 EXPANDED NUTRIENTS
 Track macros plus fiber, sugar, fats, sodium, minerals, vitamins, folate, omega-3, and more when available.

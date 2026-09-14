@@ -132,9 +132,18 @@ def stage(*, dry_run: bool) -> list[Path]:
     if not SOURCE.is_dir():
         fail(f"screenshot source missing: {SOURCE.relative_to(ROOT)}")
 
-    pngs = sorted(SOURCE.glob("*.png"))
+    # Store uploads use numbered marketing frames only (01-….png).
+    # Short aliases (home.png, logging.png, …) exist for README/website and
+    # must not be staged — they duplicate the numbered set.
+    pngs = sorted(
+        p
+        for p in SOURCE.glob("*.png")
+        if len(p.name) >= 3 and p.name[0:2].isdigit() and p.name[2] == "-"
+    )
     if not pngs:
-        fail(f"no PNG files under {SOURCE.relative_to(ROOT)}")
+        fail(
+            f"no numbered PNG files (NN-name.png) under {SOURCE.relative_to(ROOT)}"
+        )
 
     will_upload = uploads_enabled()
     Image = try_import_pillow()

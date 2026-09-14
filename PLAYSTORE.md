@@ -263,7 +263,7 @@ Privacy policy: https://fud-ai.app/privacy.html
 These are one-time setup in Play Console → Policy → App content. Don't drift from these answers across submissions:
 
 - **Privacy policy URL**: https://fud-ai.app/privacy.html
-- **App access**: All functionality available without restrictions
+- **Sign in details / App access**: Yes — some functionality is restricted (BYOK Gemini for AI). Console-only (not available via Play API). Path: Policy and programs → App content → Actioned → Sign in details → Manage. Keep the declaration in sync with the paste block below (and the same review key used in App Store Connect Sign-In password).
 - **Ads**: No — v3.0.3 removed the AdMob banner and the ads SDK entirely. Set "contains ads" to No, and set the Advertising ID declaration to No (the `AD_ID` permission is gone from the manifest).
 - **Content rating**: Everyone (E)
 - **Target audience**: 13+
@@ -273,6 +273,32 @@ These are one-time setup in Play Console → Policy → App content. Don't drift
 - **Government app**: No
 - **Financial features**: No
 - **Health features**: Yes — nutrition, body measurements, energy-based goals, calculated workout calories, optional daily step reads for Home, optional local water/fasting tracking, and an optional 18+ Weekly Challenge. Challenge qualification is calculated locally and uploads only weekly totals: overall points, qualifying activity/nutrition/consistency/hydration day counts, and activity calories capped at 2,000 per day; it never uploads raw logs or ranks weight loss. Health Connect permissions are READ/WRITE nutrition, weight, body fat, and active calories burned, plus READ total calories burned and steps. Water and fasting history are local and are not written to Health Connect. Explain restore/backfill, Energy Burn Goals, calculated workout-burn sync, daily steps display, and the separate opt-in challenge aggregate in the permissions/declaration material, and keep the in-app rationale/Manage Access flow aligned with the privacy policy.
+
+### Sign in details (Play Console → App content → Sign in details)
+
+Console path: **Policy and programs → App content → Actioned → Sign in details → Manage**.
+
+**Is any part of your app restricted?** Yes
+
+| Field | Value |
+| --- | --- |
+| Name | `Fud AI Google Play review access` |
+| Username / email / phone | `Not applicable - no user account or login.` |
+| Password | Same Google Gemini API key as App Store Connect App Review Sign-In password (do not commit the key in git). |
+| Personal-data checkbox | Check: account has no personal data that could identify a real person |
+| Full-access checkbox | Check: these details provide full access including premium/paid content |
+
+**Any other information** (≤500 chars — paste as-is):
+
+```
+No account/login. Password field = Google Gemini API key for review only.
+
+1. Finish onboarding with any test values; skip notifications and Health Connect.
+2. On Bring Your Own AI: keep Google Gemini + the preselected model, paste the key into API Key, tap Continue.
+3. Key is reusable; no 2FA or location lock. All features work after that, including AI food log / coach.
+```
+
+After Apply → Save, if Publishing overview lists pending changes, **Send for review**.
 
 ### Health apps declaration (Play Console → App content → Health apps)
 

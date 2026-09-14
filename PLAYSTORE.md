@@ -273,3 +273,75 @@ These are one-time setup in Play Console → Policy → App content. Don't drift
 - **Government app**: No
 - **Financial features**: No
 - **Health features**: Yes — nutrition, body measurements, energy-based goals, calculated workout calories, optional daily step reads for Home, optional local water/fasting tracking, and an optional 18+ Weekly Challenge. Challenge qualification is calculated locally and uploads only weekly totals: overall points, qualifying activity/nutrition/consistency/hydration day counts, and activity calories capped at 2,000 per day; it never uploads raw logs or ranks weight loss. Health Connect permissions are READ/WRITE nutrition, weight, body fat, and active calories burned, plus READ total calories burned and steps. Water and fasting history are local and are not written to Health Connect. Explain restore/backfill, Energy Burn Goals, calculated workout-burn sync, daily steps display, and the separate opt-in challenge aggregate in the permissions/declaration material, and keep the in-app rationale/Manage Access flow aligned with the privacy policy.
+
+### Health apps declaration (Play Console → App content → Health apps)
+
+**Step 1 — App features (select only these)**
+- Activity and fitness
+- Nutrition and weight management
+
+Do **not** select medical, mental health, research studies, or Other.
+
+**Step 2 — Permission justifications** (paste each block into the matching field)
+
+#### Activity — Active calories (`READ_ACTIVE_CALORIES_BURNED`)
+```
+Fud AI reads Active Calories Burned from Health Connect, with the user's permission, to estimate personalized calorie goals from recent activity energy. This helps the user set nutrition targets based on actual activity instead of only static profile formulas. If total calories burned is unavailable, Fud AI can combine active calories with the user's profile-based BMR estimate. This data is used only for nutrition and fitness goal tracking, not for diagnosis, treatment, clinical decisions, or medical advice.
+```
+
+#### Activity — Steps (`READ_STEPS`)
+```
+Fud AI reads daily steps from Health Connect, with the user's permission, to show today's step count on the Home screen and to support clearer burn and deficit context for nutrition and fitness tracking. Steps are used only for optional user-facing progress display and goal-related estimates inside Fud AI. This data is not used for diagnosis, treatment, clinical decisions, or medical advice.
+```
+
+#### Activity — Write active calories (`WRITE_ACTIVE_CALORIES_BURNED`)
+```
+Fud AI writes calculated workout calorie burn to Health Connect when the user logs workouts in Fud AI and chooses to sync. This keeps activity energy consistent across Health Connect and other fitness apps the user enables. Written values are calculated workout burns from the user's logged sessions, used only for fitness and nutrition tracking—not for diagnosis, treatment, clinical decisions, or medical advice.
+```
+
+#### Body measurement — Body fat (`READ_BODY_FAT`)
+```
+Fud AI reads body fat measurements from Health Connect so users can see body fat history and trends in the Progress tab. Body fat can also be used, if enabled by the user, for body-fat-aware BMR and calorie goal calculations. This supports nutrition and weight management only. Fud AI does not use body fat data for diagnosis, treatment, clinical decisions, or medical advice.
+```
+
+#### Body measurement — Weight (`READ_WEIGHT`)
+```
+Fud AI reads weight measurements from Health Connect so the user's weight progress chart, goal tracking, calorie calculations, and AI Coach context can reflect weights logged in other approved apps or smart scales. Imported weights are shown in the Progress tab and used for nutrition and weight-management calculations. Fud AI does not use weight data for diagnosis, treatment, clinical decisions, or medical advice.
+```
+
+#### Body measurement — Write body fat (`WRITE_BODY_FAT`)
+```
+Fud AI writes body fat entries the user logs in the app to Health Connect so other approved apps can stay in sync when the user enables sync. This supports weight-management tracking only and is not used for diagnosis, treatment, clinical decisions, or medical advice.
+```
+
+#### Body measurement — Write weight (`WRITE_WEIGHT`)
+```
+Fud AI writes weight entries the user logs in the app to Health Connect so other approved apps and scales can stay in sync when the user enables sync. This supports weight-management tracking only and is not used for diagnosis, treatment, clinical decisions, or medical advice.
+```
+
+#### Nutrition — Total calories burned (`READ_TOTAL_CALORIES_BURNED`)
+```
+Fud AI reads Total Calories Burned from Health Connect, with the user's permission, to estimate the user's recent total daily energy expenditure. This helps calculate a personalized daily calorie target for nutrition and weight management. The data is used only to support calorie goal estimation inside Fud AI and is not used for diagnosis, treatment, clinical decisions, or medical advice.
+```
+
+#### Nutrition — Nutrition read (`READ_NUTRITION`)
+```
+Fud AI may read nutrition records from Health Connect, with the user's permission, to keep the user's daily calorie, protein, carbohydrate, fat, and nutrient totals consistent with nutrition data stored in Health Connect. This supports the Home screen, widgets, progress views, and AI Coach context for nutrition and weight management. Fud AI uses this data only for user-facing food logging, nutrition tracking, and goal tracking. It is not used for diagnosis, treatment, clinical decisions, or medical advice.
+```
+
+#### Nutrition — Nutrition write (`WRITE_NUTRITION`)
+```
+Fud AI writes meals the user logs in the app to Health Connect nutrition records when sync is enabled, so daily nutrition totals stay consistent across Health Connect and other approved apps. This supports food logging and nutrition tracking only and is not used for diagnosis, treatment, clinical decisions, or medical advice.
+```
+
+#### Miscellaneous — Health data history (`READ_HEALTH_DATA_HISTORY`)
+```
+Fud AI reads historical Health Connect records, with the user's permission, so food log, weight, body fat, and related nutrition or energy data can restore after reinstall or when the user reconnects Health Connect. History access is used only to backfill and display the user's own past tracking data for nutrition and fitness goals. It is not used for diagnosis, treatment, clinical decisions, or medical advice.
+```
+
+#### Miscellaneous — Health data in background (`READ_HEALTH_DATA_IN_BACKGROUND`)
+```
+Fud AI requests background health data access only when the user explicitly enables the optional Daily Summary notification. At the user-selected time, the app reads that day's Active Calories Burned and Total Calories Burned from Health Connect to calculate the user's eaten-versus-burned calorie balance and display it in a local notification. Background reads are limited to that optional summary feature and are not used for diagnosis, treatment, clinical decisions, or medical advice.
+```
+
+**Privacy policy URL to use in the form:** https://fud-ai.app/privacy.html

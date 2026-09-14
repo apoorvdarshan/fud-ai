@@ -31,6 +31,31 @@ IMPROVED
 
 Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
 
+[Release](https://github.com/apoorvdarshan/fud-ai/releases/tag/v7.0) · [Tagged source](https://github.com/apoorvdarshan/fud-ai/tree/v7.0)
+
+
+## android-v7.0
+
+Fud AI 7.0 — richer workouts and Health insights, two new languages, and BYOK AI (hosted Plus/Pro stays iOS-first).
+
+NEW
+• See daily steps from Health Connect on Home, plus a clearer burn/deficit line. Adaptive Goals is on by default for new setups.
+• Log Walk/Run from the Workouts menu; create custom exercises; smarter search; set autofill from lift history with Coach-aware training context.
+• Set meal log date and time on the review sheet; configure which actions appear in Home +.
+• Pinch-zoom meal photos and optionally save them to the gallery after a successful log.
+• Czech and Ukrainian join the app — 18 languages on iOS and Android.
+• Optional Google Drive backup gains sign-out, account switch, and a clearer rollout disclaimer.
+
+IMPROVED
+• Faster Workouts open and smoother meal/Coach photo thumbnails.
+• More reliable Health Connect nutrition writes, diary safety guards, and exercise demos that load on demand.
+• Community links for Discord and Instagram in Settings.
+• Reliability, privacy-documentation, and security updates.
+
+Existing logs, goals, Health data, widgets, workout history, and BYOK settings are preserved during a normal update.
+
+[Release](https://github.com/apoorvdarshan/fud-ai/releases/tag/android-v7.0) · [Tagged source](https://github.com/apoorvdarshan/fud-ai/tree/android-v7.0)
+
 
 ## v6.1
 

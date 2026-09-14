@@ -385,6 +385,7 @@ MIT License. See [LICENSE](LICENSE).
 
 - **Developer:** Apoorv Darshan
 - **Email:** apoorv@fud-ai.app or ad13dtu@gmail.com
+- **Discord:** [Join the Fud AI server](https://discord.gg/Py4VrFctP3)
 - **Follow on X:** [@apoorvdarshan](https://x.com/apoorvdarshan)
 - **Follow on LinkedIn:** [Fud AI](https://www.linkedin.com/company/fud-ai-app)
 - **Report an Issue:** [github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml](https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml)
@@ -395,9 +396,10 @@ MIT License. See [LICENSE](LICENSE).
 Fud AI is fully free, open source, and privacy-first — no ads, no subscription. If it helps you, consider supporting development (on iOS there's an in-app Tip Jar under Settings → About) — every bit keeps this project alive.
 
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-Support-ff5e5b?logo=kofi)](https://ko-fi.com/apoorvdarshan)
+[![Discord](https://img.shields.io/badge/Discord-Join-5865F2?logo=discord&logoColor=white)](https://discord.gg/Py4VrFctP3)
 [![Product Hunt](https://img.shields.io/badge/Product%20Hunt-Vote-orange?logo=producthunt)](https://www.producthunt.com/products/fud-ai)
 
-You can also help by [voting on Product Hunt](https://www.producthunt.com/products/fud-ai), [starring the repo](https://github.com/apoorvdarshan/fud-ai), [filing bugs](https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml), or [requesting features](https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml).
+You can also help by [joining Discord](https://discord.gg/Py4VrFctP3), [voting on Product Hunt](https://www.producthunt.com/products/fud-ai), [starring the repo](https://github.com/apoorvdarshan/fud-ai), [filing bugs](https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml), or [requesting features](https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml).
 
 ## Star History
 

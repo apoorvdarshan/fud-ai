@@ -22,6 +22,8 @@ PLAY_MIN_SIDE = 320
 PLAY_MAX_SIDE = 3840
 PLAY_PORTRAIT_ASPECT = 9 / 16  # width / height
 PLAY_ASPECT_TOLERANCE = 0.08
+# Play Console phone screenshot cap (App Store allows 10).
+PLAY_PHONE_MAX = 8
 
 
 def fail(msg: str) -> None:
@@ -136,50 +138,64 @@ def stage(*, dry_run: bool) -> list[Path]:
 
     will_upload = uploads_enabled()
     Image = try_import_pillow()
+    play_pngs = pngs[:PLAY_PHONE_MAX]
     if will_upload and Image is None:
-        for path in pngs:
+        for path in play_pngs:
             w, h = read_png_size(path)
             validate_play_png(path, width=w, height=h)
+        for path in pngs:
+            w, h = read_png_size(path)
             validate_asc_png(path, width=w, height=h)
 
     if not dry_run:
         clear_destination_pngs(PLAY_PHONE_DIR, IOS_67_DIR)
 
+    if len(pngs) > PLAY_PHONE_MAX:
+        skipped = ", ".join(p.name for p in pngs[PLAY_PHONE_MAX:])
+        print(
+            f"note: Play phone cap is {PLAY_PHONE_MAX}; "
+            f"staging ASC-only for: {skipped}"
+        )
+
     copied: list[Path] = []
     for path in pngs:
         w, h = read_png_size(path)
+        for_play = path in play_pngs
 
         if dry_run:
+            dests = [IOS_67_DIR.relative_to(ROOT)]
+            if for_play:
+                dests.insert(0, PLAY_PHONE_DIR.relative_to(ROOT))
             print(
                 f"dry-run: would stage {path.name} ({w}x{h}) → "
-                f"{PLAY_PHONE_DIR.relative_to(ROOT)} and "
-                f"{IOS_67_DIR.relative_to(ROOT)}"
+                + " and ".join(str(d) for d in dests)
             )
             continue
 
-        PLAY_PHONE_DIR.mkdir(parents=True, exist_ok=True)
         IOS_67_DIR.mkdir(parents=True, exist_ok=True)
 
-        play_dest = PLAY_PHONE_DIR / path.name
-        if will_upload:
-            if Image is not None and not play_portrait_ok(w, h):
-                with Image.open(path) as img:
-                    img = img.convert("RGBA")
-                    target_h = min(PLAY_MAX_SIDE, max(h, PLAY_MIN_SIDE * 16 // 9))
-                    target_w = int(round(target_h * PLAY_PORTRAIT_ASPECT))
-                    target_w = min(PLAY_MAX_SIDE, max(PLAY_MIN_SIDE, target_w))
-                    play_img = fit_and_pad_rgba(Image, img, target_w, target_h)
-                out = io.BytesIO()
-                play_img.save(out, format="PNG")
-                play_bytes = out.getvalue()
+        if for_play:
+            PLAY_PHONE_DIR.mkdir(parents=True, exist_ok=True)
+            play_dest = PLAY_PHONE_DIR / path.name
+            if will_upload:
+                if Image is not None and not play_portrait_ok(w, h):
+                    with Image.open(path) as img:
+                        img = img.convert("RGBA")
+                        target_h = min(PLAY_MAX_SIDE, max(h, PLAY_MIN_SIDE * 16 // 9))
+                        target_w = int(round(target_h * PLAY_PORTRAIT_ASPECT))
+                        target_w = min(PLAY_MAX_SIDE, max(PLAY_MIN_SIDE, target_w))
+                        play_img = fit_and_pad_rgba(Image, img, target_w, target_h)
+                    out = io.BytesIO()
+                    play_img.save(out, format="PNG")
+                    play_bytes = out.getvalue()
+                else:
+                    validate_play_png(path, width=w, height=h)
+                    play_bytes = path.read_bytes()
             else:
-                validate_play_png(path, width=w, height=h)
                 play_bytes = path.read_bytes()
-        else:
-            play_bytes = path.read_bytes()
 
-        play_dest.write_bytes(play_bytes)
-        copied.append(play_dest)
+            play_dest.write_bytes(play_bytes)
+            copied.append(play_dest)
 
         ios_dest = IOS_67_DIR / path.name
         if Image is not None:
@@ -194,7 +210,7 @@ def stage(*, dry_run: bool) -> list[Path]:
 
     if not dry_run:
         print(
-            f"staged {len(pngs)} screenshot(s) into Play phone + ASC 6.7\" folders"
+            f"staged {len(play_pngs)} Play phone + {len(pngs)} ASC 6.7\" screenshot(s)"
         )
     return copied
 

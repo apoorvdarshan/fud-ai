@@ -97,7 +97,7 @@ NEW
 • Set meal log date and time on the review sheet; configure which actions appear in Home +; add the Log Food widget.
 • Pinch-zoom meal photos and optionally save them to Photos after a successful log.
 • Czech and Ukrainian join the app — 18 languages.
-• Optional iCloud backup gains clearer restore guidance alongside Google Drive on Android.
+• Optional iCloud backup gains clearer restore guidance.
 
 IMPROVED
 • Faster Workouts open and smoother meal and Coach photo thumbnails.

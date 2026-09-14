@@ -421,7 +421,7 @@ private struct AboutSettingsSections: View {
                 }
                 .tint(.primary)
 
-                Link(destination: URL(string: "https://www.producthunt.com/products/fud-ai-calorie-tracker")!) {
+                Link(destination: URL(string: "https://www.producthunt.com/products/fud-ai")!) {
                     Label {
                         Text("Vote on Product Hunt")
                     } icon: {

@@ -219,7 +219,7 @@ fun AboutSettingsRows(category: AboutSettingsCategory) {
                 }
                 Hairline()
                 AboutRow(Icons.Filled.ThumbUp, stringResource(R.string.about_vote_ph)) {
-                    open("https://www.producthunt.com/products/fud-ai-calorie-tracker")
+                    open("https://www.producthunt.com/products/fud-ai")
                 }
             }
 

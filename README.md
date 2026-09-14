@@ -395,9 +395,9 @@ MIT License. See [LICENSE](LICENSE).
 Fud AI is fully free, open source, and privacy-first — no ads, no subscription. If it helps you, consider supporting development (on iOS there's an in-app Tip Jar under Settings → About) — every bit keeps this project alive.
 
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-Support-ff5e5b?logo=kofi)](https://ko-fi.com/apoorvdarshan)
-[![Product Hunt](https://img.shields.io/badge/Product%20Hunt-Vote-orange?logo=producthunt)](https://www.producthunt.com/products/fud-ai-calorie-tracker)
+[![Product Hunt](https://img.shields.io/badge/Product%20Hunt-Vote-orange?logo=producthunt)](https://www.producthunt.com/products/fud-ai)
 
-You can also help by [voting on Product Hunt](https://www.producthunt.com/products/fud-ai-calorie-tracker), [starring the repo](https://github.com/apoorvdarshan/fud-ai), [filing bugs](https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml), or [requesting features](https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml).
+You can also help by [voting on Product Hunt](https://www.producthunt.com/products/fud-ai), [starring the repo](https://github.com/apoorvdarshan/fud-ai), [filing bugs](https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml), or [requesting features](https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml).
 
 ## Star History
 

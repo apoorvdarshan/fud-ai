@@ -35,7 +35,7 @@ iOS and Android 7.0 (build/versionCode 35) add optional Plus/Pro hosted AI on iP
 
 Normal updates preserve existing local and Health data.
 
-[App Store](https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726) · [Google Play](https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker) · [Website](https://fud-ai.app) · [Report an Issue](https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml) · [Request a Feature](https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml)
+[App Store](https://apps.apple.com/us/app/fud-ai-calorie-tracker/id6758935726) · [Google Play](https://play.google.com/store/apps/details?id=com.apoorvdarshan.calorietracker) · [Website](https://fud-ai.app) · [Discord `/ask`](https://discord.gg/Py4VrFctP3) · [Report an Issue](https://github.com/apoorvdarshan/fud-ai/issues/new?template=bug_report.yml) · [Request a Feature](https://github.com/apoorvdarshan/fud-ai/issues/new?template=feature_request.yml)
 
 ---
 

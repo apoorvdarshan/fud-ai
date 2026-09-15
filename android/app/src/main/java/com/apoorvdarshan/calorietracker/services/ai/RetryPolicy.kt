@@ -69,7 +69,7 @@ object RetryPolicy {
  * Cooperative cancellation: cancelling the coroutine (e.g. the analyzing overlay's Cancel button)
  * also cancels the underlying OkHttp call instead of letting it run to completion in the background.
  */
-private suspend fun Call.await(): Response = suspendCancellableCoroutine { cont ->
+internal suspend fun Call.await(): Response = suspendCancellableCoroutine { cont ->
     enqueue(object : okhttp3.Callback {
         override fun onFailure(call: Call, e: IOException) {
             if (cont.isActive) cont.resumeWithException(e)

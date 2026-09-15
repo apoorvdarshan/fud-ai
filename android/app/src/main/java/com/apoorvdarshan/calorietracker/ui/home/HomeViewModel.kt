@@ -441,7 +441,7 @@ viewModelScope.launch {
 
     fun analyzeText(description: String) {
         retryAction = { analyzeText(description) }
-        analysisJob = launchAnalysis {
+        analysisJob = launchAnalysis { _ ->
             val previousDraftImages = _ui.value.pendingDraftImageFilenames
             container.analyzingFood.value = true
             _ui.value = _ui.value.copy(
@@ -468,15 +468,13 @@ viewModelScope.launch {
             } catch (e: Throwable) {
                 ensureActive()
                 _ui.value = _ui.value.copy(analyzing = false, error = container.appContext.getString(R.string.ai_error_generic), errorOffersScanLabel = false)
-            } finally {
-                container.analyzingFood.value = false
             }
         }
     }
 
     fun analyzePhoto(bytes: ByteArray) {
         retryAction = { analyzePhoto(bytes) }
-        analysisJob = launchAnalysis {
+        analysisJob = launchAnalysis { _ ->
             val previousDraftImages = _ui.value.pendingDraftImageFilenames
             container.analyzingFood.value = true
             _ui.value = _ui.value.copy(
@@ -503,8 +501,6 @@ viewModelScope.launch {
             } catch (e: Throwable) {
                 ensureActive()
                 _ui.value = _ui.value.copy(analyzing = false, error = container.appContext.getString(R.string.ai_error_generic), errorOffersScanLabel = false)
-            } finally {
-                container.analyzingFood.value = false
             }
         }
     }
@@ -516,7 +512,7 @@ viewModelScope.launch {
     ) {
         val retryImages = imageBytesList.toList()
         retryAction = { analyzePhotos(retryImages, note, progressiveMeal) }
-        analysisJob = launchAnalysis {
+        analysisJob = launchAnalysis { _ ->
             val images = imageBytesList.filter { it.isNotEmpty() }.take(10)
             if (images.isEmpty()) return@launchAnalysis
             val previousDraftImages = _ui.value.pendingDraftImageFilenames
@@ -549,15 +545,13 @@ viewModelScope.launch {
             } catch (e: Throwable) {
                 ensureActive()
                 _ui.value = _ui.value.copy(analyzing = false, error = container.appContext.getString(R.string.ai_error_generic), errorOffersScanLabel = false)
-            } finally {
-                container.analyzingFood.value = false
             }
         }
     }
 
     fun lookupBarcode(barcode: String) {
         retryAction = { lookupBarcode(barcode) }
-        analysisJob = launchAnalysis {
+        analysisJob = launchAnalysis { _ ->
             val previousDraftImages = _ui.value.pendingDraftImageFilenames
             container.analyzingFood.value = true
             _ui.value = _ui.value.copy(
@@ -597,8 +591,6 @@ viewModelScope.launch {
                     error = container.appContext.getString(R.string.error_barcode_lookup_failed),
                     errorOffersScanLabel = false
                 )
-            } finally {
-                container.analyzingFood.value = false
             }
         }
     }
@@ -791,9 +783,19 @@ viewModelScope.launch {
         action()
     }
 
-    private fun launchAnalysis(block: suspend CoroutineScope.() -> Unit): Job {
+    private fun launchAnalysis(block: suspend CoroutineScope.(generation: Long) -> Unit): Job {
         analysisGeneration += 1
-        return viewModelScope.launch(block = block)
+        val generation = analysisGeneration
+        return viewModelScope.launch {
+            try {
+                block(generation)
+            } finally {
+                // A canceled job can unwind after a newer scan started — don't hide its overlay.
+                if (analysisGeneration == generation) {
+                    container.analyzingFood.value = false
+                }
+            }
+        }
     }
 
     /**

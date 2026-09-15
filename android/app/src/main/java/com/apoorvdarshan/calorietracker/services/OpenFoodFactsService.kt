@@ -7,6 +7,7 @@ import com.apoorvdarshan.calorietracker.models.FoodProductMetadata
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import com.apoorvdarshan.calorietracker.services.ai.AiErrorKind
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysisService
+import com.apoorvdarshan.calorietracker.services.ai.await
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -78,7 +79,7 @@ object OpenFoodFactsService {
             .build()
 
         val raw = try {
-            client.newCall(request).execute().use { response ->
+            client.newCall(request).await().use { response ->
                 when {
                     response.code == 404 -> throw LookupException(
                         LookupFailure.PRODUCT_NOT_FOUND,
@@ -268,7 +269,7 @@ object OpenFoodFactsService {
         ?.takeIf { it.isNotEmpty() && it != "unknown" && it != "not-applicable" }
         ?.uppercase(Locale.US)
 
-    private fun productImageBytes(urlString: String?, client: OkHttpClient): ByteArray? {
+    private suspend fun productImageBytes(urlString: String?, client: OkHttpClient): ByteArray? {
         val url = urlString?.toHttpUrlOrNull()
             ?.takeIf { it.isHttps && it.host == "images.openfoodfacts.org" }
             ?: return null
@@ -278,7 +279,7 @@ object OpenFoodFactsService {
             .addHeader("Accept", "image/*")
             .build()
         return try {
-            client.newCall(request).execute().use { response ->
+            client.newCall(request).await().use { response ->
                 val body = response.body ?: return null
                 val length = body.contentLength()
                 if (!response.isSuccessful ||

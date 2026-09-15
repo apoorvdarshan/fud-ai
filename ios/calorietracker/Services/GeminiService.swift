@@ -1284,7 +1284,7 @@ struct GeminiService {
                            || httpResponse.statusCode == 529
                            || httpResponse.statusCode == 429
             if isRetryable && attempt < retryDelaysNs.count {
-                try? await Task.sleep(nanoseconds: retryDelaysNs[attempt])
+                try await Task.sleep(nanoseconds: retryDelaysNs[attempt])
                 continue
             }
             throw lastError

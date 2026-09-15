@@ -860,6 +860,8 @@ struct HomeView: View {
         case barcode(String)
     }
     @State private var retryRequest: RetryRequest?
+    /// The in-flight photo/text/barcode analysis behind the analyzing sheet, so Cancel can abort it.
+    @State private var analysisTask: Task<Void, Never>?
     @State private var selectedDate: Date = .now
     @State private var showVoicePopover = false
     @State private var showTextPopover = false
@@ -1761,11 +1763,11 @@ private var dailyStepsTaskKey: String {
             .sheet(item: $activeSheet) { sheet in
                 switch sheet {
                 case .analyzing:
-                    AnalyzingView(image: currentImage)
+                    AnalyzingView(image: currentImage, onCancel: cancelAnalysis)
                 case .analyzingText:
-                    AnalyzingView(image: nil, message: "Looking up nutrition...")
+                    AnalyzingView(image: nil, message: "Looking up nutrition...", onCancel: cancelAnalysis)
                 case .lookingUpBarcode:
-                    AnalyzingView(image: nil, message: "Looking up barcode...")
+                    AnalyzingView(image: nil, message: "Looking up barcode...", onCancel: cancelAnalysis)
                 case .foodResult:
                     if let result = currentFoodResult {
                         FoodResultView(
@@ -2240,7 +2242,8 @@ private var dailyStepsTaskKey: String {
         )
         activeSheet = .analyzing
 
-        Task {
+        analysisTask?.cancel()
+        analysisTask = Task {
             do {
                 switch mode {
                 case .snapFood:
@@ -2248,6 +2251,7 @@ private var dailyStepsTaskKey: String {
                         images: images,
                         progressiveMeal: progressiveMeal
                     )
+                    try Task.checkCancellation()
                     currentFoodResult = result
                     currentFoodSource = .snapFood
                     retryRequest = nil
@@ -2259,15 +2263,30 @@ private var dailyStepsTaskKey: String {
                         description: description,
                         progressiveMeal: progressiveMeal
                     )
+                    try Task.checkCancellation()
                     currentFoodResult = result
                     currentFoodSource = .snapFood
                     retryRequest = nil
                     activeSheet = .foodResult
 
                 }
+            } catch is CancellationError {
+                // User tapped Cancel on the analyzing sheet; cancelAnalysis already reset the UI.
             } catch {
+                if Task.isCancelled { return }
                 presentAnalysisError(error)
             }
+        }
+    }
+
+    /// Cancel button on the analyzing sheet. Cancels the task (which also cancels the underlying
+    /// URLSession request), dismisses the sheet, and drops the retry request so no error alert follows.
+    private func cancelAnalysis() {
+        analysisTask?.cancel()
+        analysisTask = nil
+        retryRequest = nil
+        if activeSheet == .analyzing || activeSheet == .analyzingText || activeSheet == .lookingUpBarcode {
+            activeSheet = nil
         }
     }
 
@@ -2282,9 +2301,11 @@ private var dailyStepsTaskKey: String {
         currentFoodSource = .barcode
         activeSheet = .lookingUpBarcode
 
-        Task {
+        analysisTask?.cancel()
+        analysisTask = Task {
             do {
                 let lookup = try await OpenFoodFactsService.lookupWithImage(barcode: trimmedBarcode)
+                try Task.checkCancellation()
                 let result = lookup.analysis
                 currentFoodResult = result
                 currentEmoji = result.emoji
@@ -2295,7 +2316,10 @@ private var dailyStepsTaskKey: String {
                 }
                 retryRequest = nil
                 activeSheet = .foodResult
+            } catch is CancellationError {
+                // User tapped Cancel on the analyzing sheet; cancelAnalysis already reset the UI.
             } catch {
+                if Task.isCancelled { return }
                 presentBarcodeLookupError(error)
             }
         }
@@ -2304,14 +2328,19 @@ private var dailyStepsTaskKey: String {
     private func startTextAnalysis(_ description: String) {
         retryRequest = .text(description)
         activeSheet = .analyzingText
-        Task {
+        analysisTask?.cancel()
+        analysisTask = Task {
             do {
                 let result = try await GeminiService.analyzeTextInput(description: description)
+                try Task.checkCancellation()
                 currentFoodResult = result
                 currentEmoji = result.emoji
                 retryRequest = nil
                 activeSheet = .foodResult
+            } catch is CancellationError {
+                // User tapped Cancel on the analyzing sheet; cancelAnalysis already reset the UI.
             } catch {
+                if Task.isCancelled { return }
                 presentAnalysisError(error)
             }
         }

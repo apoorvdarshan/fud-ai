@@ -23,6 +23,7 @@ import com.apoorvdarshan.calorietracker.ui.components.autoSaveMealPhotoIfEnabled
 import com.apoorvdarshan.calorietracker.services.ai.AiError
 import com.apoorvdarshan.calorietracker.services.ai.FoodAnalysis
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOn
@@ -39,6 +40,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.launch
 import java.time.Instant
 import java.time.LocalDate
@@ -144,6 +146,8 @@ class HomeViewModel(private val container: AppContainer) : ViewModel() {
 private val _stepsRefreshEpoch = MutableStateFlow(0)
     private val _burnRefreshTick = MutableStateFlow(0)
     private var retryAction: (() -> Unit)? = null
+    /** The in-flight photo/text/barcode analysis behind the analyzing overlay, so Cancel can abort it. */
+    private var analysisJob: Job? = null
     private val foodSubmissionGate = FoodSubmissionGate()
     private var thumbnailPrefetchJob: Job? = null
     private var lastPrefetchedFilenames: Set<String>? = null
@@ -435,7 +439,7 @@ viewModelScope.launch {
 
     fun analyzeText(description: String) {
         retryAction = { analyzeText(description) }
-        viewModelScope.launch {
+        analysisJob = launchAnalysis {
             val previousDraftImages = _ui.value.pendingDraftImageFilenames
             container.analyzingFood.value = true
             _ui.value = _ui.value.copy(
@@ -454,9 +458,13 @@ viewModelScope.launch {
             try {
                 val analysis = container.foodAnalysis.analyzeText(description)
                 savePendingDraft(analysis, imageBytes = null, source = FoodSource.TEXT_INPUT)
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: AiError) {
+                ensureActive()
                 _ui.value = _ui.value.copy(analyzing = false, error = e.userMessage(container.appContext), errorOffersScanLabel = false)
             } catch (e: Throwable) {
+                ensureActive()
                 _ui.value = _ui.value.copy(analyzing = false, error = container.appContext.getString(R.string.ai_error_generic), errorOffersScanLabel = false)
             } finally {
                 container.analyzingFood.value = false
@@ -466,7 +474,7 @@ viewModelScope.launch {
 
     fun analyzePhoto(bytes: ByteArray) {
         retryAction = { analyzePhoto(bytes) }
-        viewModelScope.launch {
+        analysisJob = launchAnalysis {
             val previousDraftImages = _ui.value.pendingDraftImageFilenames
             container.analyzingFood.value = true
             _ui.value = _ui.value.copy(
@@ -485,9 +493,13 @@ viewModelScope.launch {
             try {
                 val analysis = container.foodAnalysis.analyzeAuto(bytes)
                 savePendingDraft(analysis, imageBytes = bytes, source = FoodSource.SNAP_FOOD)
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: AiError) {
+                ensureActive()
                 _ui.value = _ui.value.copy(analyzing = false, error = e.userMessage(container.appContext), errorOffersScanLabel = false)
             } catch (e: Throwable) {
+                ensureActive()
                 _ui.value = _ui.value.copy(analyzing = false, error = container.appContext.getString(R.string.ai_error_generic), errorOffersScanLabel = false)
             } finally {
                 container.analyzingFood.value = false
@@ -502,9 +514,9 @@ viewModelScope.launch {
     ) {
         val retryImages = imageBytesList.toList()
         retryAction = { analyzePhotos(retryImages, note, progressiveMeal) }
-        viewModelScope.launch {
+        analysisJob = launchAnalysis {
             val images = imageBytesList.filter { it.isNotEmpty() }.take(10)
-            if (images.isEmpty()) return@launch
+            if (images.isEmpty()) return@launchAnalysis
             val previousDraftImages = _ui.value.pendingDraftImageFilenames
             container.analyzingFood.value = true
             _ui.value = _ui.value.copy(
@@ -527,9 +539,13 @@ viewModelScope.launch {
                     progressiveMeal
                 ).copy(customNote = note?.takeIf { it.isNotBlank() })
                 savePendingDraft(analysis, imageBytesList = images, source = FoodSource.SNAP_FOOD)
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: AiError) {
+                ensureActive()
                 _ui.value = _ui.value.copy(analyzing = false, error = e.userMessage(container.appContext), errorOffersScanLabel = false)
             } catch (e: Throwable) {
+                ensureActive()
                 _ui.value = _ui.value.copy(analyzing = false, error = container.appContext.getString(R.string.ai_error_generic), errorOffersScanLabel = false)
             } finally {
                 container.analyzingFood.value = false
@@ -539,7 +555,7 @@ viewModelScope.launch {
 
     fun lookupBarcode(barcode: String) {
         retryAction = { lookupBarcode(barcode) }
-        viewModelScope.launch {
+        analysisJob = launchAnalysis {
             val previousDraftImages = _ui.value.pendingDraftImageFilenames
             container.analyzingFood.value = true
             _ui.value = _ui.value.copy(
@@ -565,6 +581,7 @@ viewModelScope.launch {
             } catch (error: CancellationException) {
                 throw error
             } catch (error: OpenFoodFactsService.LookupException) {
+                ensureActive()
                 _ui.value = _ui.value.copy(
                     analyzing = false,
                     error = barcodeLookupErrorMessage(error),
@@ -572,6 +589,7 @@ viewModelScope.launch {
                         error.failure == OpenFoodFactsService.LookupFailure.PRODUCT_NOT_FOUND
                 )
             } catch (e: Throwable) {
+                ensureActive()
                 _ui.value = _ui.value.copy(
                     analyzing = false,
                     error = container.appContext.getString(R.string.error_barcode_lookup_failed),
@@ -769,6 +787,38 @@ viewModelScope.launch {
         val action = retryAction ?: return
         _ui.value = _ui.value.copy(error = null, errorOffersScanLabel = false)
         action()
+    }
+
+    private fun launchAnalysis(block: suspend CoroutineScope.() -> Unit): Job =
+        viewModelScope.launch(block = block)
+
+    /**
+     * Cancel button on the analyzing overlay. Cancels the coroutine (which also cancels the
+     * underlying HTTP call), clears the overlay and any half-written pending draft, and drops
+     * the retry action so no error dialog follows.
+     */
+    fun cancelAnalysis() {
+        if (!_ui.value.analyzing) return
+        val job = analysisJob
+        analysisJob = null
+        retryAction = null
+        job?.cancel()
+        container.analyzingFood.value = false
+        _ui.value = _ui.value.copy(
+            analyzing = false,
+            error = null,
+            errorOffersScanLabel = false,
+            pendingAnalysis = null,
+            pendingImageBytes = null,
+            pendingAdditionalImageBytes = emptyList(),
+            pendingFoodSource = null,
+            pendingDraftImageFilename = null,
+            pendingDraftAdditionalImageFilenames = emptyList()
+        )
+        viewModelScope.launch {
+            job?.join()
+            discardPendingDraft()
+        }
     }
 
     /**

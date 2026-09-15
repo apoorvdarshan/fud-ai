@@ -1,24 +1,31 @@
 package com.apoorvdarshan.calorietracker.services.ai
 
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.Call
 import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 /**
- * Retries 503/429/529 with 1s/2s/4s exponential backoff (same as iOS).
+ * Retries 503/429/529 with exponential backoff (same as iOS).
  * On final failure, throws [AiError.Api] with a user-friendly message.
  * The caller supplies a factory that builds a fresh [Call] per attempt
  * because OkHttp [Call] instances can only be executed once.
  */
 object RetryPolicy {
-    private val delays = longArrayOf(1_000, 2_000, 4_000)
+    /** Default 1s/2s/4s backoff: up to four attempts. Used by the coach and background jobs. */
+    val defaultDelays = longArrayOf(1_000, 2_000, 4_000)
 
-    suspend fun execute(callFactory: () -> Call): String {
+    /**
+     * Interactive food logging keeps the user staring at the analyzing overlay, so it only gets
+     * one quick retry before surfacing the overload/rate-limit error and letting them decide.
+     */
+    val interactiveDelays = longArrayOf(1_500)
+
+    suspend fun execute(delays: LongArray = defaultDelays, callFactory: () -> Call): String {
         var lastKind = AiErrorKind.GENERIC
         for (attempt in 0..delays.size) {
             val response = try {
@@ -58,9 +65,19 @@ object RetryPolicy {
     }
 }
 
-private suspend fun Call.await(): Response = suspendCoroutine { cont ->
+/**
+ * Cooperative cancellation: cancelling the coroutine (e.g. the analyzing overlay's Cancel button)
+ * also cancels the underlying OkHttp call instead of letting it run to completion in the background.
+ */
+private suspend fun Call.await(): Response = suspendCancellableCoroutine { cont ->
     enqueue(object : okhttp3.Callback {
-        override fun onFailure(call: Call, e: IOException) = cont.resumeWithException(e)
-        override fun onResponse(call: Call, response: Response) = cont.resume(response)
+        override fun onFailure(call: Call, e: IOException) {
+            if (cont.isActive) cont.resumeWithException(e)
+        }
+
+        override fun onResponse(call: Call, response: Response) {
+            if (cont.isActive) cont.resume(response) else response.close()
+        }
     })
+    cont.invokeOnCancellation { cancel() }
 }

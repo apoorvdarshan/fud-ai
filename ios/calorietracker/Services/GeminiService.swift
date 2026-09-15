@@ -282,7 +282,7 @@ struct GeminiService {
         \(existingMeals)
         """
 
-        let text = try await callAI(prompt: prompt, image: nil)
+        let text = try await callAI(prompt: prompt, image: nil, jsonResponse: false)
         return text.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
@@ -715,7 +715,7 @@ struct GeminiService {
 
         \(lines.joined(separator: "\n"))
         """
-        return try await callAI(prompt: prompt, image: nil)
+        return try await callAI(prompt: prompt, image: nil, jsonResponse: false)
     }
 
     private static func macroTotals(for entries: [FoodEntry]) -> MacroTotals {
@@ -746,8 +746,11 @@ struct GeminiService {
 
     // MARK: - Unified AI Call Router
 
-    private static func callAI(prompt: String, image: UIImage?) async throws -> String {
-        try await callAI(prompt: prompt, images: image.map { [$0] } ?? [])
+    /// - Parameter jsonResponse: true (default) for prompts that demand a JSON object; providers with
+    ///   structured output are asked for `application/json` so they cannot wander off into prose.
+    ///   Pass false for the few plain-English prompts.
+    private static func callAI(prompt: String, image: UIImage?, jsonResponse: Bool = true) async throws -> String {
+        try await callAI(prompt: prompt, images: image.map { [$0] } ?? [], jsonResponse: jsonResponse)
     }
 
     private static func callTextFoodAnalysis(prompt: String, description: String) async throws -> FoodAnalysis {
@@ -842,7 +845,7 @@ struct GeminiService {
         return try await AIGate.runWithHostedQuota(action, work)
     }
 
-    private static func callAI(prompt: String, images: [UIImage]) async throws -> String {
+    private static func callAI(prompt: String, images: [UIImage], jsonResponse: Bool = true) async throws -> String {
         if AIModeSettings.isHosted {
             let capped = Array(images.prefix(HostedAIConstants.maxHostedImages))
             let imageDataList = try capped.map { try encodedJPEGData(for: $0) }
@@ -868,7 +871,8 @@ struct GeminiService {
                 baseURL: primary.baseURL,
                 apiKey: primary.apiKey,
                 prompt: prompt,
-                imageDataList: imageDataList
+                imageDataList: imageDataList,
+                jsonResponse: jsonResponse
             )
         } catch {
             if error is CancellationError { throw error }
@@ -894,7 +898,8 @@ struct GeminiService {
                     baseURL: fallback.baseURL,
                     apiKey: fallback.apiKey,
                     prompt: prompt,
-                    imageDataList: imageDataList
+                    imageDataList: imageDataList,
+                    jsonResponse: jsonResponse
                 )
             } catch let fallbackError {
                 if fallbackError is CancellationError { throw fallbackError }
@@ -935,7 +940,7 @@ struct GeminiService {
         return data
     }
 
-    private static func dispatch(provider: AIProvider, model: String, baseURL: String, apiKey: String?, prompt: String, imageDataList: [Data]) async throws -> String {
+    private static func dispatch(provider: AIProvider, model: String, baseURL: String, apiKey: String?, prompt: String, imageDataList: [Data], jsonResponse: Bool = true) async throws -> String {
         switch provider.apiFormat {
         case .onDevice:
             guard imageDataList.isEmpty else {
@@ -959,7 +964,7 @@ struct GeminiService {
             )
         case .gemini:
             guard let key = apiKey else { throw AnalysisError.noAPIKey }
-            return try await callGemini(baseURL: baseURL, model: model, apiKey: key, prompt: prompt, imageDataList: imageDataList)
+            return try await callGemini(baseURL: baseURL, model: model, apiKey: key, prompt: prompt, imageDataList: imageDataList, jsonResponse: jsonResponse)
         case .openaiCompatible:
             return try await callOpenAICompatible(baseURL: baseURL, model: model, apiKey: apiKey, provider: provider, prompt: prompt, imageDataList: imageDataList)
         case .anthropic:
@@ -970,44 +975,60 @@ struct GeminiService {
 
     // MARK: - Gemini Format
 
-    private static func callGemini(baseURL: String, model: String, apiKey: String?, prompt: String, imageDataList: [Data]) async throws -> String {
+    private static func callGemini(baseURL: String, model: String, apiKey: String?, prompt: String, imageDataList: [Data], jsonResponse: Bool) async throws -> String {
         // Send the API key in the X-goog-api-key header, not the URL query string,
         // so it doesn't end up in server logs / proxies (CodeQL: cleartext transmission).
-        var parts: [[String: Any]] = []
-        for imageData in imageDataList {
-            parts.append([
-                "inlineData": [
-                    "mimeType": "image/jpeg",
-                    "data": imageData.base64EncodedString()
-                ]
-            ])
-        }
-        parts.append(["text": prompt])
-
-        var body: [String: Any] = [
-            "contents": [["parts": parts]]
-        ]
-        if let userContext = AIProviderSettings.currentUserContext {
-            body["systemInstruction"] = ["parts": [["text": userContext]]]
-        }
-
         guard let apiKey else { throw AnalysisError.noAPIKey }
         guard let url = URL(string: "\(baseURL)/models/\(model):generateContent") else {
             throw AnalysisError.requestFailed(.invalidURL)
         }
-        let data = try await makeRequest(
-            url: url,
-            headers: ["Content-Type": "application/json", "X-goog-api-key": apiKey],
-            body: body,
-            provider: .gemini
+        let maxOutputTokens = AIProviderSettings.maxResponseTokens
+        let generationConfig = GeminiRequestConfiguration.generationConfig(
+            model: model,
+            maxOutputTokens: maxOutputTokens,
+            jsonResponse: jsonResponse
         )
 
-        guard let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-              let candidates = json["candidates"] as? [[String: Any]],
-              let content = candidates.first?["content"] as? [String: Any],
-              let parts = content["parts"] as? [[String: Any]],
-              let text = parts.first?["text"] as? String
-        else { throw AnalysisError.invalidResponse }
+        func request(_ requestPrompt: String) async throws -> GeminiRequestConfiguration.TextResponse {
+            var parts: [[String: Any]] = []
+            for imageData in imageDataList {
+                parts.append([
+                    "inlineData": [
+                        "mimeType": "image/jpeg",
+                        "data": imageData.base64EncodedString()
+                    ]
+                ])
+            }
+            parts.append(["text": requestPrompt])
+
+            var body: [String: Any] = [
+                "contents": [["parts": parts]]
+            ]
+            if let userContext = AIProviderSettings.currentUserContext {
+                body["systemInstruction"] = ["parts": [["text": userContext]]]
+            }
+            if let generationConfig {
+                body["generationConfig"] = generationConfig
+            }
+
+            let data = try await makeRequest(
+                url: url,
+                headers: ["Content-Type": "application/json", "X-goog-api-key": apiKey],
+                body: body,
+                provider: .gemini,
+                retryDelaysNs: GeminiRequestConfiguration.interactiveRetryDelaysNs
+            )
+            return try GeminiRequestConfiguration.parseTextResponse(from: data)
+        }
+
+        var response = try await request(prompt)
+        if response.wasTruncated {
+            response = try await request(GeminiRequestConfiguration.compactRetryPrompt(prompt, maxOutputTokens: maxOutputTokens))
+            if response.wasTruncated {
+                throw AnalysisError.requestFailed(.truncated)
+            }
+        }
+        guard let text = response.text else { throw AnalysisError.invalidResponse }
         return text
     }
 
@@ -1202,12 +1223,15 @@ struct GeminiService {
 
     // MARK: - Network
 
+    static let defaultRetryDelaysNs: [UInt64] = [1_000_000_000, 2_000_000_000, 4_000_000_000]
+
     static func makeRequest(
         url: URL,
         headers: [String: String],
         body: [String: Any],
         provider: AIProvider,
-        session: URLSession = .shared
+        session: URLSession = .shared,
+        retryDelaysNs: [UInt64] = GeminiService.defaultRetryDelaysNs
     ) async throws -> Data {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -1219,10 +1243,9 @@ struct GeminiService {
         }
         request.httpBody = try JSONSerialization.data(withJSONObject: body)
 
-        // Retry transient overload responses (503/429/529) with exponential backoff: 1s, 2s, 4s.
+        // Retry transient overload responses (503/429/529) with exponential backoff (default 1s, 2s, 4s).
         // The "model is currently experiencing high demand" message is Google's global throttle on
         // the Gemini model, not a per-key rate limit, so a quick retry usually succeeds.
-        let retryDelaysNs: [UInt64] = [1_000_000_000, 2_000_000_000, 4_000_000_000]
         var lastError: AnalysisError = .apiError("Request failed")
 
         for attempt in 0...retryDelaysNs.count {
@@ -1585,9 +1608,9 @@ struct GeminiService {
         image: UIImage?,
         description: String?
     ) async -> FoodAnalysis {
-        guard analysis.requiresServingUnitFallback else { return analysis }
         var updated = analysis
         updated.requiresServingUnitFallback = false
+        guard ServingUnitRepairPolicy.shouldRepair(analysis) else { return updated }
         guard let options = try? await inferServingUnitOptions(
             name: analysis.name,
             servingSizeGrams: analysis.servingSizeGrams,
@@ -1607,9 +1630,9 @@ struct GeminiService {
         to analysis: NutritionLabelAnalysis,
         image: UIImage
     ) async -> NutritionLabelAnalysis {
-        guard analysis.requiresServingUnitFallback else { return analysis }
         var updated = analysis
         updated.requiresServingUnitFallback = false
+        guard ServingUnitRepairPolicy.shouldRepair(analysis) else { return updated }
         guard let servingSizeGrams = analysis.servingSizeGrams,
               let options = try? await inferServingUnitOptions(
                 name: analysis.name,

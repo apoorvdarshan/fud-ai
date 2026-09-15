@@ -351,7 +351,7 @@ class FoodAnalysisService(
             - Carbs: ${grams(afterCarbs)}
             - Fat: ${grams(afterFat)}
         """.trimIndent()
-        return callAi(prompt, imageBytes = null).trim()
+        return callAi(prompt, imageBytesList = emptyList(), jsonResponse = false).trim()
     }
 
     suspend fun analyzeText(description: String): FoodAnalysis {
@@ -496,7 +496,16 @@ class FoodAnalysisService(
         return callAi(prompt, imageBytes?.let { listOf(it) }.orEmpty())
     }
 
-    private suspend fun callAi(prompt: String, imageBytesList: List<ByteArray>): String {
+    /**
+     * @param jsonResponse true for the (default) prompts that demand a JSON object; providers that
+     * support structured output are asked for `application/json` so they cannot wander off into
+     * prose. Pass false for the few plain-English prompts.
+     */
+    private suspend fun callAi(
+        prompt: String,
+        imageBytesList: List<ByteArray>,
+        jsonResponse: Boolean = true
+    ): String {
         val context = prefs.userContext.first()
         val finalPrompt = if (context.isNotBlank()) "User context (apply to every analysis): $context\n\n$prompt" else prompt
 
@@ -521,7 +530,7 @@ class FoodAnalysisService(
         }
 
         return try {
-            dispatch(primary, primaryModel, primaryBaseUrl, primaryKey, finalPrompt, uploadImages, maxTokens, requestTimeoutSeconds)
+            dispatch(primary, primaryModel, primaryBaseUrl, primaryKey, finalPrompt, uploadImages, maxTokens, requestTimeoutSeconds, jsonResponse)
         } catch (primaryError: Throwable) {
             if (primaryError is kotlinx.coroutines.CancellationException) throw primaryError
             val fallback = if (imageBytesList.isEmpty()) {
@@ -530,7 +539,7 @@ class FoodAnalysisService(
                 currentImageFallbackConfig(primary, primaryModel, primaryBaseUrl)
             } ?: throw primaryError
             try {
-                dispatch(fallback.provider, fallback.model, fallback.baseUrl, fallback.apiKey, finalPrompt, uploadImages, maxTokens, requestTimeoutSeconds)
+                dispatch(fallback.provider, fallback.model, fallback.baseUrl, fallback.apiKey, finalPrompt, uploadImages, maxTokens, requestTimeoutSeconds, jsonResponse)
             } catch (fallbackError: Throwable) {
                 if (fallbackError is kotlinx.coroutines.CancellationException) throw fallbackError
                 throw AiError.BothProvidersFailed(primary, fallback.provider, fallbackError)
@@ -544,7 +553,7 @@ class FoodAnalysisService(
         description: String?,
         shouldRequestFallback: Boolean
     ): FoodAnalysis {
-        if (!shouldRequestFallback) return analysis
+        if (!ServingUnitRepairPolicy.shouldRepair(analysis, shouldRequestFallback)) return analysis
         val options = runCatching {
             inferServingUnitOptions(
                 name = analysis.name,
@@ -567,7 +576,7 @@ class FoodAnalysisService(
         imageBytes: ByteArray,
         shouldRequestFallback: Boolean
     ): NutritionLabelAnalysis {
-        if (!shouldRequestFallback) return analysis
+        if (!ServingUnitRepairPolicy.shouldRepair(analysis, shouldRequestFallback)) return analysis
         val servingSizeGrams = analysis.servingSizeGrams ?: return analysis
         val options = runCatching {
             inferServingUnitOptions(
@@ -618,7 +627,8 @@ class FoodAnalysisService(
         prompt: String,
         imageBytesList: List<ByteArray>,
         maxTokens: Int,
-        requestTimeoutSeconds: Int
+        requestTimeoutSeconds: Int,
+        jsonResponse: Boolean
     ): String {
         if (provider == AIProvider.LOCAL_GEMMA) {
             return localGemma?.generate(
@@ -632,7 +642,11 @@ class FoodAnalysisService(
         val requestClient = clientForProvider(okHttp, provider, requestTimeoutSeconds)
         return when (provider.apiFormat) {
             AIProvider.ApiFormat.GEMINI ->
-                GeminiClient.analyze(requestClient, baseUrl, model, apiKey!!, prompt, imageBytesList)
+                GeminiClient.analyze(
+                    requestClient, baseUrl, model, apiKey!!, prompt, imageBytesList,
+                    generationConfig = GeminiClient.GenerationConfig.forFoodAnalysis(model, maxTokens, jsonResponse),
+                    retryDelays = RetryPolicy.interactiveDelays
+                )
             AIProvider.ApiFormat.ANTHROPIC ->
                 AnthropicClient.analyze(requestClient, baseUrl, model, apiKey!!, prompt, imageBytesList, maxTokens)
             AIProvider.ApiFormat.OPENAI_COMPATIBLE ->

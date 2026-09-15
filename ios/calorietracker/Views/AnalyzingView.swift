@@ -3,6 +3,8 @@ import SwiftUI
 struct AnalyzingView: View {
     let image: UIImage?
     var message: String = "Analyzing your food..."
+    /// A slow or stalled provider used to leave this sheet up with no way out (#357).
+    var onCancel: (() -> Void)? = nil
 
     var body: some View {
         VStack(spacing: 24) {
@@ -29,6 +31,13 @@ struct AnalyzingView: View {
             Text(message)
                 .font(.headline)
                 .foregroundStyle(AppColors.calorie)
+
+            if let onCancel {
+                Button("Cancel", action: onCancel)
+                    .font(.body.weight(.medium))
+                    .foregroundStyle(.secondary)
+                    .padding(.top, 8)
+            }
 
             Spacer()
         }

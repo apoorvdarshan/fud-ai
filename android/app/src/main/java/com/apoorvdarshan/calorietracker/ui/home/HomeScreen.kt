@@ -1069,7 +1069,7 @@ CalorieHero(
         )
     }
 
-    if (ui.analyzing) AnalyzingOverlay(imageBytes = ui.pendingImageBytes)
+    if (ui.analyzing) AnalyzingOverlay(imageBytes = ui.pendingImageBytes, onCancel = vm::cancelAnalysis)
     ui.pendingAnalysis?.let { analysis ->
         val initialTimestamp = remember(analysis) { vm.timestampForSelectedDay() }
         FoodResultSheet(
@@ -2793,9 +2793,9 @@ private fun CopyFromDaySheet(
 // ── Dialogs (unchanged styling polish) ──────────────────────────────
 
 @Composable
-private fun AnalyzingOverlay(imageBytes: ByteArray? = null) {
+private fun AnalyzingOverlay(imageBytes: ByteArray? = null, onCancel: (() -> Unit)? = null) {
     // Verbatim port of ios/calorietracker/Views/AnalyzingView.swift:
-    //   VStack { (image | text.magnifyingglass) → ProgressView(.large) → "Analyzing your food..." }
+    //   VStack { (image | text.magnifyingglass) → ProgressView(.large) → "Analyzing your food..." → Cancel }
     //   filling the screen, opaque background, calorie-pink accents.
     val bitmap by produceState<android.graphics.Bitmap?>(initialValue = null, imageBytes) {
         value = withContext(Dispatchers.IO) {
@@ -2845,6 +2845,17 @@ private fun AnalyzingOverlay(imageBytes: ByteArray? = null) {
                 fontWeight = FontWeight.SemiBold,
                 color = AppColors.Calorie
             )
+            // A slow or stalled provider used to leave this screen up with no way out (#357).
+            onCancel?.let { cancel ->
+                TextButton(onClick = cancel) {
+                    Text(
+                        stringResource(R.string.action_cancel),
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
         }
     }
 }

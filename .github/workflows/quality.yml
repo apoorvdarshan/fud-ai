@@ -48,7 +48,10 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      # Default packages include obsolete `tools`, which sdkmanager no longer ships.
       - uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: platform-tools
       - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
       # -PworkoutVectors=none: release parity (manifest only). Store builds never bundle
       # the ~7,000-frame / 1.2 GB workout corpus (shared/workout-vectors); frames come

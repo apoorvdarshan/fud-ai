@@ -73,7 +73,10 @@ jobs:
 
       - name: Set up Android SDK
         if: matrix.language == 'java-kotlin'
+        # Default packages include obsolete `tools`, which sdkmanager no longer ships.
         uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699 # v4.0.1
+        with:
+          packages: platform-tools
 
       - name: Set up Gradle
         if: matrix.language == 'java-kotlin'

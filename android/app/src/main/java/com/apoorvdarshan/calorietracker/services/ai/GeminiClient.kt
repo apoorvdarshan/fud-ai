@@ -116,7 +116,13 @@ object GeminiClient {
 
         var response = request(prompt)
         if (response.wasTruncated) {
-            response = request(compactRetryPrompt(prompt, generationConfig?.maxOutputTokens))
+            response = request(
+                compactRetryPrompt(
+                    prompt,
+                    generationConfig?.maxOutputTokens,
+                    jsonResponse = generationConfig?.responseMimeType == "application/json"
+                )
+            )
             if (response.wasTruncated) {
                 throw AiError.Failure(AiErrorKind.TRUNCATED)
             }
@@ -147,9 +153,14 @@ object GeminiClient {
         generationConfig?.toJson()?.let { put("generationConfig", it) }
     }
 
-    private fun compactRetryPrompt(prompt: String, maxTokens: Int?): String {
+    private fun compactRetryPrompt(prompt: String, maxTokens: Int?, jsonResponse: Boolean): String {
         val budget = maxTokens?.takeIf { it > 0 }?.let { " Keep the complete response under $it tokens." }.orEmpty()
-        return "$prompt\n\nIMPORTANT: The previous response was truncated. Return only the requested compact JSON object, with no reasoning, explanation, or markdown.$budget"
+        val shape = if (jsonResponse) {
+            "Return only the requested compact JSON object, with no reasoning, explanation, or markdown."
+        } else {
+            "Return only the requested concise plain-English answer, with no reasoning, explanation, JSON, or markdown."
+        }
+        return "$prompt\n\nIMPORTANT: The previous response was truncated. $shape$budget"
     }
 
     /**

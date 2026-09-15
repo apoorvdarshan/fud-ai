@@ -148,6 +148,8 @@ private val _stepsRefreshEpoch = MutableStateFlow(0)
     private var retryAction: (() -> Unit)? = null
     /** The in-flight photo/text/barcode analysis behind the analyzing overlay, so Cancel can abort it. */
     private var analysisJob: Job? = null
+    /** Bumped on each analysis launch so a delayed cancel cleanup cannot wipe a newer draft. */
+    private var analysisGeneration: Long = 0L
     private val foodSubmissionGate = FoodSubmissionGate()
     private var thumbnailPrefetchJob: Job? = null
     private var lastPrefetchedFilenames: Set<String>? = null
@@ -789,8 +791,10 @@ viewModelScope.launch {
         action()
     }
 
-    private fun launchAnalysis(block: suspend CoroutineScope.() -> Unit): Job =
-        viewModelScope.launch(block = block)
+    private fun launchAnalysis(block: suspend CoroutineScope.() -> Unit): Job {
+        analysisGeneration += 1
+        return viewModelScope.launch(block = block)
+    }
 
     /**
      * Cancel button on the analyzing overlay. Cancels the coroutine (which also cancels the
@@ -800,6 +804,8 @@ viewModelScope.launch {
     fun cancelAnalysis() {
         if (!_ui.value.analyzing) return
         val job = analysisJob
+        val canceledGeneration = analysisGeneration
+        val draftImagesToDiscard = _ui.value.pendingDraftImageFilenames
         analysisJob = null
         retryAction = null
         job?.cancel()
@@ -817,7 +823,13 @@ viewModelScope.launch {
         )
         viewModelScope.launch {
             job?.join()
-            discardPendingDraft()
+            // Only wipe prefs/files for this canceled attempt. A newer analysis may have
+            // already saved a draft after the user started another scan.
+            if (analysisGeneration == canceledGeneration) {
+                if (draftImagesToDiscard.isNotEmpty()) {
+                    discardPendingDraft(draftImagesToDiscard)
+                }
+            }
         }
     }
 

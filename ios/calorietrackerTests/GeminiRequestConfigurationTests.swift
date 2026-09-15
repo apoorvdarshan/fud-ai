@@ -88,10 +88,19 @@ struct GeminiRequestConfigurationTests {
     }
 
     @Test func compactRetryPromptMentionsBudget() {
-        let prompt = GeminiRequestConfiguration.compactRetryPrompt("Analyze", maxOutputTokens: 256)
-        #expect(prompt.hasPrefix("Analyze"))
-        #expect(prompt.contains("truncated"))
-        #expect(prompt.contains("256 tokens"))
+        let jsonPrompt = GeminiRequestConfiguration.compactRetryPrompt(
+            "Analyze", maxOutputTokens: 256, jsonResponse: true
+        )
+        #expect(jsonPrompt.hasPrefix("Analyze"))
+        #expect(jsonPrompt.contains("truncated"))
+        #expect(jsonPrompt.contains("JSON object"))
+        #expect(jsonPrompt.contains("256 tokens"))
+
+        let prosePrompt = GeminiRequestConfiguration.compactRetryPrompt(
+            "Suggest", maxOutputTokens: 128, jsonResponse: false
+        )
+        #expect(prosePrompt.contains("plain-English"))
+        #expect(!prosePrompt.contains("JSON object"))
     }
 
     @Test func servingUnitRepairSkipsWhenMacrosAreUsable() throws {

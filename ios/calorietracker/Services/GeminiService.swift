@@ -1023,7 +1023,13 @@ struct GeminiService {
 
         var response = try await request(prompt)
         if response.wasTruncated {
-            response = try await request(GeminiRequestConfiguration.compactRetryPrompt(prompt, maxOutputTokens: maxOutputTokens))
+            response = try await request(
+                GeminiRequestConfiguration.compactRetryPrompt(
+                    prompt,
+                    maxOutputTokens: maxOutputTokens,
+                    jsonResponse: jsonResponse
+                )
+            )
             if response.wasTruncated {
                 throw AnalysisError.requestFailed(.truncated)
             }

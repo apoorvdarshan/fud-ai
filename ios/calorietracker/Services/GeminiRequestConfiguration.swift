@@ -81,12 +81,15 @@ enum GeminiRequestConfiguration {
         return TextResponse(text: combined.isEmpty ? nil : combined, finishReason: finishReason)
     }
 
-    static func compactRetryPrompt(_ prompt: String, maxOutputTokens: Int) -> String {
+    static func compactRetryPrompt(_ prompt: String, maxOutputTokens: Int, jsonResponse: Bool = true) -> String {
         let budget = maxOutputTokens > 0 ? " Keep the complete response under \(maxOutputTokens) tokens." : ""
+        let shape = jsonResponse
+            ? "Return only the requested compact JSON object, with no reasoning, explanation, or markdown."
+            : "Return only the requested concise plain-English answer, with no reasoning, explanation, JSON, or markdown."
         return """
         \(prompt)
 
-        IMPORTANT: The previous response was truncated. Return only the requested compact JSON object, with no reasoning, explanation, or markdown.\(budget)
+        IMPORTANT: The previous response was truncated. \(shape)\(budget)
         """
     }
 }

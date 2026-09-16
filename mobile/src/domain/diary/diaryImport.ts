@@ -294,7 +294,7 @@ export function applyDiaryImport(
   return [...outsideRange, ...imported];
 }
 
-/** Foods Health should delete / write after an import so the diary and Health stay aligned. */
+/** Foods Health should delete, then write. Preserved IDs are deleted first so iOS does not append a second sample. */
 export function diaryImportHealthReconcile(
   preview: DiaryImportPreview,
   existing: readonly FoodEntry[],
@@ -305,13 +305,12 @@ export function diaryImportHealthReconcile(
     const existingIds = new Set(existing.map((entry) => entry.id));
     return { deleteIds: [], writeEntries: next.filter((entry) => !existingIds.has(entry.id)) };
   }
-  const nextIds = new Set(next.map((entry) => entry.id));
   const inRange = (iso: string) => {
     const day = startOfDay(new Date(iso));
     return day >= preview.startDate && day <= preview.endDate;
   };
   return {
-    deleteIds: existing.filter((entry) => inRange(entry.timestamp) && !nextIds.has(entry.id)).map((entry) => entry.id),
+    deleteIds: [...new Set(existing.filter((entry) => inRange(entry.timestamp)).map((entry) => entry.id))],
     writeEntries: next.filter((entry) => inRange(entry.timestamp)),
   };
 }

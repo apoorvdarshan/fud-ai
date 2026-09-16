@@ -21,7 +21,7 @@ interface VoiceMealSheetProps {
   onTranscribed: (text: string) => void;
 }
 
-type Phase = 'idle' | 'recording' | 'transcribing';
+type Phase = 'idle' | 'starting' | 'recording' | 'transcribing';
 
 export function VoiceMealSheet({ visible, onDismiss, onTranscribed }: VoiceMealSheetProps) {
   const theme = useTheme();
@@ -37,6 +37,7 @@ export function VoiceMealSheet({ visible, onDismiss, onTranscribed }: VoiceMealS
   const visibleRef = useRef(visible);
   visibleRef.current = visible;
   const startGeneration = useRef(0);
+  const startingRef = useRef(false);
 
   const abortRecording = async () => {
     if (timeout.current) clearTimeout(timeout.current);
@@ -50,6 +51,7 @@ export function VoiceMealSheet({ visible, onDismiss, onTranscribed }: VoiceMealS
 
   const cancelPendingStart = () => {
     startGeneration.current += 1;
+    startingRef.current = false;
     setPhase('idle');
     setError(null);
     void abortRecording();
@@ -91,18 +93,25 @@ export function VoiceMealSheet({ visible, onDismiss, onTranscribed }: VoiceMealS
   };
 
   const startRecording = async () => {
+    if (startingRef.current || phase === 'starting' || phase === 'recording' || phase === 'transcribing') return;
+    startingRef.current = true;
     const generation = ++startGeneration.current;
-    const cancelled = () => !visibleRef.current || generation !== startGeneration.current;
+    const isCurrent = () => generation === startGeneration.current;
     const abortIfDismissed = async () => {
-      if (!cancelled()) return false;
+      if (!isCurrent()) return true;
+      if (visibleRef.current) return false;
       await abortRecording();
+      startingRef.current = false;
       return true;
     };
 
     setError(null);
+    setPhase('starting');
     const granted = await requestMicrophonePermission();
     if (await abortIfDismissed()) return;
     if (!granted) {
+      startingRef.current = false;
+      setPhase('idle');
       setError(speechErrors.permission);
       return;
     }
@@ -113,13 +122,16 @@ export function VoiceMealSheet({ visible, onDismiss, onTranscribed }: VoiceMealS
       if (await abortIfDismissed()) return;
       recorder.record();
       if (await abortIfDismissed()) return;
+      startingRef.current = false;
       setPhase('recording');
       timeout.current = setTimeout(() => {
         void stopRecording();
       }, RECORDING_MAX_MS);
     } catch {
+      if (!isCurrent()) return;
       await abortRecording();
-      if (!cancelled()) {
+      startingRef.current = false;
+      if (visibleRef.current) {
         setError(speechErrors.failed);
         setPhase('idle');
       }
@@ -137,7 +149,7 @@ export function VoiceMealSheet({ visible, onDismiss, onTranscribed }: VoiceMealS
       <View style={{ alignItems: 'center', gap: 16, paddingVertical: 12 }}>
         {phase === 'transcribing' ? <ActivityIndicator color={theme.colors.accent} /> : null}
         <AppText variant="headline" tone="accent">
-          {phase === 'recording' ? 'Listening…' : phase === 'transcribing' ? 'Transcribing…' : 'Tap to record your meal'}
+          {phase === 'recording' ? 'Listening…' : phase === 'transcribing' || phase === 'starting' ? 'Working…' : 'Tap to record your meal'}
         </AppText>
         {recorderState.isRecording ? (
           <AppText variant="caption" tone="secondary">
@@ -153,7 +165,7 @@ export function VoiceMealSheet({ visible, onDismiss, onTranscribed }: VoiceMealS
       {phase === 'recording' ? (
         <PrimaryButton title="Stop & Transcribe" onPress={() => void stopRecording()} />
       ) : (
-        <PrimaryButton title={phase === 'transcribing' ? 'Working…' : 'Record'} disabled={phase === 'transcribing'} onPress={() => void startRecording()} />
+        <PrimaryButton title={phase === 'idle' ? 'Record' : 'Working…'} disabled={phase !== 'idle'} onPress={() => void startRecording()} />
       )}
       <LinkButton title="Cancel" variant="body" style={{ opacity: 0.7 }} onPress={onDismiss} />
     </BottomSheet>

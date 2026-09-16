@@ -108,7 +108,7 @@ describe('diary import', () => {
       '44444444-4444-4444-4444-444444444444',
     );
     const plan = diaryImportHealthReconcile(preview, [entry, outgoing], replaced, 'replaceDateRange');
-    expect(plan.deleteIds).toEqual([outgoing.id]);
+    expect(plan.deleteIds).toEqual([entry.id, outgoing.id]);
     expect(plan.writeEntries.map((e) => e.id)).toEqual([entry.id]);
   });
 

@@ -7,6 +7,8 @@ import { AI_MODE_STORAGE_KEY, type AIMode } from '../ai/hosted';
 import { aiSettingsKeys } from '../ai/settings';
 import { FOOD_LOG_SORT_ORDER_KEY, type FoodLogSortOrder } from '../diary/mealGroups';
 import { fastingSettings } from '../fasting/fasting';
+import { ADAPTIVE_GOALS_ENABLED_KEY, ADAPTIVE_GOALS_LAST_CHECK_DAY_KEY, ADAPTIVE_GOALS_PREVIOUS_TARGETS_KEY } from '../profile/adaptiveGoals';
+import { defaultReminderTimes, reminderPreferenceKeys } from './reminders';
 import { DEFAULT_WATER_UNIT, waterSettings, type WaterUnit } from '../water/water';
 
 export type AppearanceMode = 'system' | 'light' | 'dark';
@@ -92,8 +94,23 @@ export interface Preferences {
 
   /** Meal reminders granted during onboarding / Settings → Notifications. */
   notificationsEnabled: boolean;
-  /** Apple Health / Health Connect sync — native-only for now, kept so Settings mirrors iOS. */
+  breakfastReminderEnabled: boolean;
+  breakfastReminderHour: number;
+  breakfastReminderMinute: number;
+  lunchReminderEnabled: boolean;
+  lunchReminderHour: number;
+  lunchReminderMinute: number;
+  dinnerReminderEnabled: boolean;
+  dinnerReminderHour: number;
+  dinnerReminderMinute: number;
+  /** Apple Health / Health Connect sync. */
   healthKitEnabled: boolean;
+  /** Weekly Adaptive Goals. Absent native key defaults to on; Expo matches that. */
+  adaptiveGoalsEnabled: boolean;
+  adaptiveGoalsPreviousTargets?: string;
+  adaptiveGoalsLastCheckDay?: string;
+  /** `SpeechProvider.rawValue` — OpenAI Whisper / Groq. On-device Whisper Base is unsupported here. */
+  selectedSpeechProvider?: string;
   /** Set when the user hand-tuned the Plan Ready numbers, so Adaptive Goals stays off. */
   onboardingPlanEdited: boolean;
 
@@ -133,7 +150,17 @@ export const defaultPreferences: Preferences = {
   fastingDefaultGoalMinutes: fastingSettings.defaultGoalMinutes,
 
   notificationsEnabled: false,
+  breakfastReminderEnabled: defaultReminderTimes.breakfast.enabled,
+  breakfastReminderHour: defaultReminderTimes.breakfast.hour,
+  breakfastReminderMinute: defaultReminderTimes.breakfast.minute,
+  lunchReminderEnabled: defaultReminderTimes.lunch.enabled,
+  lunchReminderHour: defaultReminderTimes.lunch.hour,
+  lunchReminderMinute: defaultReminderTimes.lunch.minute,
+  dinnerReminderEnabled: defaultReminderTimes.dinner.enabled,
+  dinnerReminderHour: defaultReminderTimes.dinner.hour,
+  dinnerReminderMinute: defaultReminderTimes.dinner.minute,
   healthKitEnabled: false,
+  adaptiveGoalsEnabled: true,
   onboardingPlanEdited: false,
 
   aiAccessMode: 'byok',
@@ -164,7 +191,20 @@ export const preferenceKeys: { readonly [K in keyof Preferences]: K } = {
   fastingTrackingEnabled: fastingSettings.enabledKey,
   fastingDefaultGoalMinutes: fastingSettings.defaultGoalMinutesKey,
   notificationsEnabled: 'notificationsEnabled',
+  breakfastReminderEnabled: reminderPreferenceKeys.breakfastEnabled,
+  breakfastReminderHour: reminderPreferenceKeys.breakfastHour,
+  breakfastReminderMinute: reminderPreferenceKeys.breakfastMinute,
+  lunchReminderEnabled: reminderPreferenceKeys.lunchEnabled,
+  lunchReminderHour: reminderPreferenceKeys.lunchHour,
+  lunchReminderMinute: reminderPreferenceKeys.lunchMinute,
+  dinnerReminderEnabled: reminderPreferenceKeys.dinnerEnabled,
+  dinnerReminderHour: reminderPreferenceKeys.dinnerHour,
+  dinnerReminderMinute: reminderPreferenceKeys.dinnerMinute,
   healthKitEnabled: 'healthKitEnabled',
+  adaptiveGoalsEnabled: ADAPTIVE_GOALS_ENABLED_KEY,
+  adaptiveGoalsPreviousTargets: ADAPTIVE_GOALS_PREVIOUS_TARGETS_KEY,
+  adaptiveGoalsLastCheckDay: ADAPTIVE_GOALS_LAST_CHECK_DAY_KEY,
+  selectedSpeechProvider: 'selectedSpeechProvider',
   onboardingPlanEdited: 'onboardingPlanEdited',
   aiAccessMode: AI_MODE_STORAGE_KEY,
   aiConsentGiven: 'aiConsentGiven',

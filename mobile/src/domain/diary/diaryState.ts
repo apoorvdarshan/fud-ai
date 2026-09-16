@@ -43,6 +43,8 @@ export type DiaryAction =
   | { type: 'fasting/cancelActive' }
   | { type: 'fasting/update'; session: FastingSession }
   | { type: 'fasting/delete'; id: string }
+  | { type: 'food/replaceAll'; entries: readonly FoodEntry[] }
+  | { type: 'water/replaceAll'; entries: readonly WaterEntry[] }
   | { type: 'clearAll' };
 
 export function favoriteKey(entry: Pick<FoodEntry, 'name'>): string {
@@ -143,6 +145,12 @@ export function diaryReducer(state: DiaryState, action: DiaryAction): DiaryState
     case 'fasting/delete':
       if (!state.fastingSessions.some((s) => s.id === action.id)) return state;
       return bump(state, { fastingSessions: state.fastingSessions.filter((s) => s.id !== action.id) });
+
+    case 'food/replaceAll':
+      return bump(state, { foodEntries: [...action.entries] });
+
+    case 'water/replaceAll':
+      return bump(state, { waterEntries: [...action.entries] });
 
     case 'clearAll':
       return bump(state, { foodEntries: [], waterEntries: [], fastingSessions: [], favoriteKeys: [] });

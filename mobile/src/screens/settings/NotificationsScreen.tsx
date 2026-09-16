@@ -59,14 +59,16 @@ export function NotificationsScreen() {
   const toggleMeal = async (id: ReminderMeal, enabled: boolean) => {
     const key = `${id}ReminderEnabled` as const;
     const next = { ...prefs, [key]: enabled };
-    setPreferences({ [key]: enabled });
     if (prefs.notificationsEnabled) {
       try {
         await reschedule(next);
+        setPreferences({ [key]: enabled });
       } catch (error) {
         Alert.alert('Reminders', error instanceof Error ? error.message : 'Could not update that reminder.');
       }
+      return;
     }
+    setPreferences({ [key]: enabled });
   };
 
   const openTime = (reminder: ReminderTime) => {
@@ -82,15 +84,18 @@ export function NotificationsScreen() {
     const hourKey = `${editing.id}ReminderHour` as const;
     const minuteKey = `${editing.id}ReminderMinute` as const;
     const next = { ...prefs, [hourKey]: nextHour, [minuteKey]: nextMinute };
-    setPreferences({ [hourKey]: nextHour, [minuteKey]: nextMinute });
-    setEditing(null);
     if (prefs.notificationsEnabled) {
       try {
         await reschedule(next);
+        setPreferences({ [hourKey]: nextHour, [minuteKey]: nextMinute });
+        setEditing(null);
       } catch (error) {
         Alert.alert('Reminders', error instanceof Error ? error.message : 'Could not update that time.');
       }
+      return;
     }
+    setPreferences({ [hourKey]: nextHour, [minuteKey]: nextMinute });
+    setEditing(null);
   };
 
   return (

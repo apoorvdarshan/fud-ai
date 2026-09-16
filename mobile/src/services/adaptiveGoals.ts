@@ -15,7 +15,7 @@ import { preferencesStore, profileStore, setPreferences } from '../state/appStor
 
 export function applyAdaptiveGoalsIfDue(now: Date = new Date()): boolean {
   const prefs = preferencesStore.getState();
-  if (!prefs.adaptiveGoalsEnabled || prefs.onboardingPlanEdited) return false;
+  if (!prefs.hasCompletedOnboarding || !prefs.adaptiveGoalsEnabled || prefs.onboardingPlanEdited) return false;
   if (!shouldCheckAdaptiveGoals(prefs.adaptiveGoalsLastCheckDay, now)) return false;
   const profile = profileStore.getState();
   const previous = snapshotFromProfile(profile);
@@ -32,12 +32,12 @@ export function setAdaptiveGoalsEnabled(enabled: boolean): void {
   const prefs = preferencesStore.getState();
   if (!enabled) {
     const snapshot = parseAdaptiveTargetSnapshot(prefs.adaptiveGoalsPreviousTargets);
-    if (snapshot) {
+    if (snapshot && !prefs.onboardingPlanEdited) {
       profileStore.dispatch({ type: 'hydrate', profile: restoreAdaptiveTargets(profileStore.getState(), snapshot) });
     }
-    setPreferences({ adaptiveGoalsEnabled: false, onboardingPlanEdited: false });
+    setPreferences({ adaptiveGoalsEnabled: false });
     return;
   }
-  setPreferences({ adaptiveGoalsEnabled: true, onboardingPlanEdited: false });
+  setPreferences({ adaptiveGoalsEnabled: true });
   applyAdaptiveGoalsIfDue();
 }

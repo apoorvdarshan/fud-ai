@@ -18,6 +18,8 @@ interface NativeHealthModule {
   writeBodyFat(fraction: number, dateMs: number, entryId?: string): Promise<void>;
   writeNutrition(payload: HealthNutritionTotals & { dateMs: number }): Promise<void>;
   deleteNutrition(entryId: string): Promise<void>;
+  deleteWeight(entryId: string): Promise<void>;
+  deleteBodyFat(entryId: string): Promise<void>;
   readSteps(startMs: number, endMs: number): Promise<number | undefined>;
 }
 
@@ -43,6 +45,8 @@ export function createHealthSync(): HealthSync {
     writeBodyFat: (fraction, date, entryId) => native.writeBodyFat(fraction, date.getTime(), entryId),
     writeNutrition: (day, totals) => native.writeNutrition({ ...totals, dateMs: day.getTime() }),
     deleteNutrition: (entryId) => native.deleteNutrition(entryId),
+    deleteWeight: (entryId) => native.deleteWeight(entryId),
+    deleteBodyFat: (entryId) => native.deleteBodyFat(entryId),
     readSteps: async (day) => {
       const start = new Date(day);
       start.setHours(0, 0, 0, 0);
@@ -93,4 +97,16 @@ export function writeWeightToHealth(kg: number, date: Date, entryId?: string): v
 export function writeBodyFatToHealth(fraction: number, date: Date, entryId?: string): void {
   if (!healthEnabled()) return;
   void healthSync.writeBodyFat(fraction, date, entryId).catch(() => undefined);
+}
+
+/** Bypasses the Health toggle so a previously synced sample is still removed. */
+export function deleteWeightFromHealth(entryId: string): void {
+  if (!healthSync.isAvailable) return;
+  void healthSync.deleteWeight(entryId).catch(() => undefined);
+}
+
+/** Bypasses the Health toggle so a previously synced sample is still removed. */
+export function deleteBodyFatFromHealth(entryId: string): void {
+  if (!healthSync.isAvailable) return;
+  void healthSync.deleteBodyFat(entryId).catch(() => undefined);
 }

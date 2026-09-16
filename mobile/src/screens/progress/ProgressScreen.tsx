@@ -8,7 +8,7 @@
 
 import { BottomTabBarHeightContext } from '@react-navigation/bottom-tabs';
 import { useContext, useEffect, useMemo, useState } from 'react';
-import { Alert, Pressable, ScrollView, TextInput, View } from 'react-native';
+import { Alert, Linking, Pressable, ScrollView, Switch, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { BottomSheet } from '../../components/BottomSheet';
@@ -50,7 +50,7 @@ import {
   leaveWeeklyChallenge,
   loadChallengeProfile,
 } from '../../services/weeklyChallenge';
-import { addWeighIn, bodyStore, deleteWeighIn, newId, setPreferences, useBody, useDiary, usePreferences, useProfile, useWorkouts, workoutsStore } from '../../state/appStores';
+import { addWeighIn, bodyStore, deleteBodyFatEntry, deleteWeighIn, newId, setPreferences, useBody, useDiary, usePreferences, useProfile, useWorkouts, workoutsStore } from '../../state/appStores';
 import {
   weeklyChallengeCategories,
   weeklyChallengeSocialPlatforms,
@@ -303,7 +303,7 @@ export function ProgressScreen() {
         visible={sheet === 'bodyFatHistory'}
         entries={body.bodyFatEntries}
         onDismiss={() => setSheet(null)}
-        onDelete={(entry) => bodyStore.dispatch({ type: 'bodyFat/delete', id: entry.id })}
+        onDelete={(entry) => deleteBodyFatEntry(entry.id)}
       />
     </Screen>
   );
@@ -467,6 +467,8 @@ function WeeklyChallengePane({ tabBarHeight }: { tabBarHeight: number }) {
   const [displayName, setDisplayName] = useState(profile.name ?? '');
   const [social, setSocial] = useState<WeeklyChallengeSocialPlatform | undefined>(undefined);
   const [handle, setHandle] = useState('');
+  const [acceptedRules, setAcceptedRules] = useState(false);
+  const [eligibilityAccepted, setEligibilityAccepted] = useState(false);
   const [socialPicker, setSocialPicker] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -518,7 +520,11 @@ function WeeklyChallengePane({ tabBarHeight }: { tabBarHeight: number }) {
     setBusy(true);
     setError(null);
     try {
-      const created = await joinWeeklyChallenge(validated.profile);
+      const created = await joinWeeklyChallenge({
+        ...validated.profile,
+        acceptedRules,
+        eligibilityAccepted,
+      });
       setAccount(created.profile);
       setJoinOpen(false);
     } catch (err) {
@@ -535,10 +541,14 @@ function WeeklyChallengePane({ tabBarHeight }: { tabBarHeight: number }) {
         text: 'Leave',
         style: 'destructive',
         onPress: () => {
-          void leaveWeeklyChallenge().then(() => {
-            setAccount(null);
-            setBoard(null);
-          });
+          void leaveWeeklyChallenge()
+            .then(() => {
+              setAccount(null);
+              setBoard(null);
+            })
+            .catch((err: unknown) => {
+              setError(err instanceof Error ? err.message : 'Remote challenge data was not deleted. Check your connection and try again.');
+            });
         },
       },
     ]);
@@ -613,7 +623,14 @@ function WeeklyChallengePane({ tabBarHeight }: { tabBarHeight: number }) {
             <AppText variant="caption" tone="secondary">
               Your score is computed on this device. Join to create a challenge profile and appear on the public board.
             </AppText>
-            <PrimaryButton title="Join Leaderboard" onPress={() => setJoinOpen(true)} />
+            <PrimaryButton
+              title="Join Leaderboard"
+              onPress={() => {
+                setAcceptedRules(false);
+                setEligibilityAccepted(false);
+                setJoinOpen(true);
+              }}
+            />
           </View>
         )}
         {error ? (
@@ -649,7 +666,37 @@ function WeeklyChallengePane({ tabBarHeight }: { tabBarHeight: number }) {
             style={[theme.text.body, { color: theme.colors.label, backgroundColor: theme.colors.fill, borderRadius: theme.radii.control, padding: 12 }]}
           />
         ) : null}
-        <PrimaryButton title={busy ? 'Joining…' : 'Create profile'} disabled={busy} onPress={() => void join()} />
+        <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+          <AppText variant="body" style={{ flex: 1, paddingRight: 12 }}>
+            I am 18 or older
+          </AppText>
+          <Switch
+            value={eligibilityAccepted}
+            onValueChange={setEligibilityAccepted}
+            trackColor={{ true: theme.colors.accent, false: theme.colors.fill }}
+            thumbColor="#FFFFFF"
+          />
+        </Row>
+        <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+          <AppText variant="body" style={{ flex: 1, paddingRight: 12 }}>
+            I agree to the Community Rules
+          </AppText>
+          <Switch
+            value={acceptedRules}
+            onValueChange={setAcceptedRules}
+            trackColor={{ true: theme.colors.accent, false: theme.colors.fill }}
+            thumbColor="#FFFFFF"
+          />
+        </Row>
+        <Pressable onPress={() => void Linking.openURL('https://fud-ai.app/terms.html#community-rules')}>
+          <AppText variant="footnote" tone="accent">
+            Read Community Rules
+          </AppText>
+        </Pressable>
+        <AppText variant="caption" tone="secondary">
+          Fud AI does not read or upload your date of birth for this confirmation.
+        </AppText>
+        <PrimaryButton title={busy ? 'Joining…' : 'Create profile'} disabled={busy || !acceptedRules || !eligibilityAccepted} onPress={() => void join()} />
       </BottomSheet>
       <PickerSheet<WeeklyChallengeSocialPlatform | 'none'>
         visible={socialPicker}

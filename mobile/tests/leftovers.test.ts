@@ -1,7 +1,10 @@
 import { createHash } from 'node:crypto';
 import { describe, expect, it } from 'vitest';
 
+import { deflateSync } from 'fflate';
+
 import {
+  assertBackupIntegrity,
   buildBackupDocument,
   CloudBackupError,
   contentHash,
@@ -10,6 +13,8 @@ import {
   parseBackupDocument,
   safePhotoName,
   unpackBackupArchive,
+  unpackZip,
+  validateBackupDiary,
 } from '../src/domain/diary/cloudBackup';
 import { applyFormulaAdaptiveGoals, shouldCheckAdaptiveGoals, snapshotFromProfile } from '../src/domain/profile/adaptiveGoals';
 import { reminderTimesFromPrefs, scheduledReminders } from '../src/domain/prefs/reminders';
@@ -49,8 +54,94 @@ describe('cloud backup archive', () => {
     expect(unpacked.document.payload.values.displayName).toEqual({ t: 's', s: 'Ada' });
     expect([...unpacked.photos['meal.jpg']!]).toEqual([1, 2, 3]);
     expect(() => parseBackupDocument('{"format":"nope"}')).toThrow(CloudBackupError);
+    expect(() => assertBackupIntegrity({ ...document, content_sha256: 'nope' }, photos, sha256Hex)).toThrow(/damaged/);
+  });
+
+  it('inflates DEFLATE (method 8) Android-style ZIP entries', () => {
+    const payload = new TextEncoder().encode('{"format":"fudai-cloud-backup","format_version":1}');
+    const zip = packZipDeflate([{ name: 'backup.json', data: payload }]);
+    expect([...unpackZip(zip)['backup.json']!]).toEqual([...payload]);
+  });
+
+  it('rejects malformed diary collections and keeps missing ones unset', () => {
+    expect(validateBackupDiary({})).toEqual({});
+    expect(validateBackupDiary({ foodEntries: [] }).foodEntries).toEqual([]);
+    expect(() => validateBackupDiary({ foodEntries: [{ name: 'Oats' }] })).toThrow(CloudBackupError);
+    expect(() => validateBackupDiary(null)).toThrow(CloudBackupError);
   });
 });
+
+function packZipDeflate(files: Array<{ name: string; data: Uint8Array }>): Uint8Array {
+  const locals: number[] = [];
+  const central: number[] = [];
+  let offset = 0;
+  const u16 = (value: number) => [value & 0xff, (value >> 8) & 0xff];
+  const u32 = (value: number) => [value & 0xff, (value >> 8) & 0xff, (value >> 16) & 0xff, (value >>> 24) & 0xff];
+  const crcTable = Array.from({ length: 256 }, (_, i) => {
+    let c = i;
+    for (let bit = 0; bit < 8; bit += 1) c = (c & 1) === 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+    return c >>> 0;
+  });
+  const crc32 = (data: Uint8Array) => {
+    let crc = 0xffffffff;
+    for (const byte of data) crc = (crc >>> 8) ^ crcTable[(crc ^ byte) & 0xff]!;
+    return (crc ^ 0xffffffff) >>> 0;
+  };
+  for (const file of files) {
+    const nameData = [...new TextEncoder().encode(file.name)];
+    const compressed = deflateSync(file.data);
+    const crc = crc32(file.data);
+    const local = [
+      ...u32(0x04034b50),
+      ...u16(20),
+      ...u16(0),
+      ...u16(8),
+      ...u16(0),
+      ...u16(0),
+      ...u32(crc),
+      ...u32(compressed.byteLength),
+      ...u32(file.data.byteLength),
+      ...u16(nameData.length),
+      ...u16(0),
+      ...nameData,
+      ...compressed,
+    ];
+    locals.push(...local);
+    central.push(
+      ...u32(0x02014b50),
+      ...u16(20),
+      ...u16(20),
+      ...u16(0),
+      ...u16(8),
+      ...u16(0),
+      ...u16(0),
+      ...u32(crc),
+      ...u32(compressed.byteLength),
+      ...u32(file.data.byteLength),
+      ...u16(nameData.length),
+      ...u16(0),
+      ...u16(0),
+      ...u16(0),
+      ...u16(0),
+      ...u32(0),
+      ...u32(offset),
+      ...nameData,
+    );
+    offset += local.length;
+  }
+  return Uint8Array.from([
+    ...locals,
+    ...central,
+    ...u32(0x06054b50),
+    ...u16(0),
+    ...u16(0),
+    ...u16(files.length),
+    ...u16(files.length),
+    ...u32(central.length),
+    ...u32(offset),
+    ...u16(0),
+  ]);
+}
 
 describe('adaptive goals', () => {
   it('checks once a week and pins formula targets', () => {

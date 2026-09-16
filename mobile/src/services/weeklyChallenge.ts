@@ -3,7 +3,7 @@
  * The bearer token lives in SecureStore — never in git.
  */
 
-import { createWeeklyChallengeAPI, type WeeklyChallengeCreateProfileResponse, type WeeklyChallengeLeaderboardResponse, type WeeklyChallengeProfileInput } from '../domain/progress/weeklyChallengeApi';
+import { createWeeklyChallengeAPI, WeeklyChallengeAPIError, type WeeklyChallengeCreateProfileResponse, type WeeklyChallengeLeaderboardResponse, type WeeklyChallengeProfileInput } from '../domain/progress/weeklyChallengeApi';
 import { weeklyChallengeScore } from '../domain/progress/weeklyChallenge';
 import { dailyTargets } from '../domain/profile/userProfile';
 import { diaryStore, preferencesStore, profileStore, workoutsStore } from '../state/appStores';
@@ -28,8 +28,13 @@ export async function loadChallengeProfile(): Promise<WeeklyChallengeCreateProfi
   }
 }
 
-export async function joinWeeklyChallenge(input: WeeklyChallengeProfileInput): Promise<WeeklyChallengeCreateProfileResponse> {
-  const created = await weeklyChallengeAPI.createProfile({ ...input, acceptedRules: true, eligibilityAccepted: true });
+export async function joinWeeklyChallenge(
+  input: WeeklyChallengeProfileInput & { acceptedRules: boolean; eligibilityAccepted: boolean },
+): Promise<WeeklyChallengeCreateProfileResponse> {
+  if (!input.acceptedRules || !input.eligibilityAccepted) {
+    throw new Error('Confirm you are 18 or older and agree to the Community Rules.');
+  }
+  const created = await weeklyChallengeAPI.createProfile(input);
   await secureSecretStore.set(TOKEN_SECRET, created.bearerToken);
   await asyncKeyValueStore.set(PROFILE_KEY, JSON.stringify(created.profile));
   return created;
@@ -40,8 +45,9 @@ export async function leaveWeeklyChallenge(): Promise<void> {
   if (token) {
     try {
       await weeklyChallengeAPI.deleteProfile(token);
-    } catch {
-      /* still clear local */
+    } catch (error) {
+      const status = error instanceof WeeklyChallengeAPIError ? error.statusCode : undefined;
+      if (status !== 401 && status !== 404) throw error;
     }
   }
   await secureSecretStore.remove(TOKEN_SECRET).catch(() => undefined);

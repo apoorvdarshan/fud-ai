@@ -136,6 +136,8 @@ export interface HealthSync {
   writeBodyFat(fraction: number, date: Date, entryId?: string): Promise<void>;
   writeNutrition(day: Date, totals: HealthNutritionTotals): Promise<void>;
   deleteNutrition(entryId: string): Promise<void>;
+  deleteWeight(entryId: string): Promise<void>;
+  deleteBodyFat(entryId: string): Promise<void>;
   readSteps(day: Date): Promise<number | undefined>;
 }
 
@@ -166,6 +168,12 @@ export function unavailableHealthSync(platform: MobilePlatform): HealthSync {
       throw new HealthUnavailableError(platform);
     },
     async deleteNutrition() {
+      throw new HealthUnavailableError(platform);
+    },
+    async deleteWeight() {
+      throw new HealthUnavailableError(platform);
+    },
+    async deleteBodyFat() {
       throw new HealthUnavailableError(platform);
     },
     async readSteps() {

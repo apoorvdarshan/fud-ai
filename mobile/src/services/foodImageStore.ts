@@ -53,3 +53,35 @@ export function deleteAllFoodImages(): void {
     console.warn('[fudai] could not clear the meal photos', error);
   }
 }
+
+/** Bytes for every meal photo on disk, keyed by safe filename. */
+export function listFoodImages(): Record<string, Uint8Array> {
+  const photos: Record<string, Uint8Array> = {};
+  try {
+    const directory = new Directory(Paths.document, FOLDER_NAME);
+    if (!directory.exists) return photos;
+    for (const item of directory.list()) {
+      if (!(item instanceof File)) continue;
+      if (![...item.name].every((ch) => /[A-Za-z0-9._-]/.test(ch))) continue;
+      const ext = (item.name.split('.').pop() ?? '').toLowerCase();
+      if (!['jpg', 'jpeg', 'png', 'webp'].includes(ext)) continue;
+      photos[item.name] = item.bytesSync();
+    }
+  } catch (error) {
+    console.warn('[fudai] could not list meal photos', error);
+  }
+  return photos;
+}
+
+/** Writes restored backup photos under the food-image directory. */
+export function restoreFoodImages(photos: Record<string, Uint8Array>): void {
+  for (const [name, bytes] of Object.entries(photos)) {
+    if (![...name].every((ch) => /[A-Za-z0-9._-]/.test(ch))) continue;
+    try {
+      const file = new File(folder(), name);
+      file.write(bytes);
+    } catch (error) {
+      console.warn('[fudai] could not restore a meal photo', error);
+    }
+  }
+}

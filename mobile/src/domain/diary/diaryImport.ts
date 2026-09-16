@@ -158,6 +158,9 @@ export function parseDiaryImport(data: string | Uint8Array, makeId: () => string
       for (const item of meal.items ?? []) {
         validateItem(item);
         const timestamp = parseTimestamp(day.date, item.time);
+        if (dayKey(timestamp) !== day.date || timeKey(timestamp) !== item.time) {
+          throw new DiaryImportError('invalidDate', `${day.date} ${item.time}`);
+        }
         const ingredients: MealIngredient[] = (item.ingredients ?? []).map((ingredient, index) => {
           if (
             !isNonNegative(ingredient.quantity_g) ||

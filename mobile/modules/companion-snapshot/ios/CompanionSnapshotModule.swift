@@ -8,7 +8,6 @@ public class CompanionSnapshotModule: Module {
   private static let debugAppGroupID = "group.com.apoorvdarshan.calorietracker.debug"
   private static let key = "widget_snapshot_v1"
   private static let fileName = "widget_snapshot_v1.json"
-  private static let watchPayloadKey = "widget_snapshot_data_v1"
 
   public func definition() -> ModuleDefinition {
     Name("CompanionSnapshot")
@@ -76,22 +75,43 @@ public class CompanionSnapshotModule: Module {
     if session.delegate == nil {
       session.delegate = WatchRelay.shared
     }
+    WatchRelay.shared.enqueue(data)
     if session.activationState != .activated {
       session.activate()
-    }
-    let context = [watchPayloadKey: data]
-    try? session.updateApplicationContext(context)
-    if session.isReachable {
-      session.sendMessage(context, replyHandler: nil, errorHandler: nil)
+    } else {
+      WatchRelay.shared.flush()
     }
   }
 }
 
 private final class WatchRelay: NSObject, WCSessionDelegate {
   static let shared = WatchRelay()
+  private static let watchPayloadKey = "widget_snapshot_data_v1"
+  private var pending: Data?
 
-  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {}
+  func enqueue(_ data: Data) {
+    pending = data
+  }
+
+  func flush() {
+    let session = WCSession.default
+    guard session.activationState == .activated, let data = pending else { return }
+    pending = nil
+    let context = [Self.watchPayloadKey: data]
+    try? session.updateApplicationContext(context)
+    if session.isReachable {
+      session.sendMessage(context, replyHandler: nil, errorHandler: nil)
+    }
+  }
+
+  func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+    if activationState == .activated {
+      flush()
+    }
+  }
+
   func sessionDidBecomeInactive(_ session: WCSession) {}
+
   func sessionDidDeactivate(_ session: WCSession) {
     session.activate()
   }

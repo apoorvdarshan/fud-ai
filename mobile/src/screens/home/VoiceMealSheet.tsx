@@ -32,14 +32,32 @@ export function VoiceMealSheet({ visible, onDismiss, onTranscribed }: VoiceMealS
   const [phase, setPhase] = useState<Phase>('idle');
   const [error, setError] = useState<string | null>(null);
   const timeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const recorderRef = useRef(recorder);
+  recorderRef.current = recorder;
+
+  const abortRecording = async () => {
+    if (timeout.current) clearTimeout(timeout.current);
+    try {
+      await recorderRef.current.stop();
+    } catch {
+      /* already stopped */
+    }
+    await stopAudioMode().catch(() => undefined);
+  };
 
   useEffect(() => {
     if (!visible) {
       setPhase('idle');
       setError(null);
-      if (timeout.current) clearTimeout(timeout.current);
+      void abortRecording();
     }
   }, [visible]);
+
+  useEffect(() => {
+    return () => {
+      void abortRecording();
+    };
+  }, []);
 
   const stopRecording = async () => {
     if (timeout.current) clearTimeout(timeout.current);

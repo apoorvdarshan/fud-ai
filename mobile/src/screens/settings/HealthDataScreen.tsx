@@ -151,7 +151,7 @@ export function HealthDataScreen() {
     try {
       const uri = await pickDiaryImportFile();
       if (!uri) return;
-      Alert.alert('Restore Backup?', 'This replaces preferences, profile and diary on this device from the file. Photos in the ZIP are not restored yet.', [
+      Alert.alert('Restore Backup?', 'This replaces preferences, profile, diary, and meal photos on this device from the file. Missing collections are left as they are.', [
         { text: 'Cancel', style: 'cancel' },
         {
           text: 'Restore',

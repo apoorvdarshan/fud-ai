@@ -25,6 +25,8 @@ describe('companion seams', () => {
     expect(health.isAvailable).toBe(false);
     await expect(health.requestAuthorization()).resolves.toBe(false);
     await expect(health.writeWeight(80, new Date())).rejects.toBeInstanceOf(HealthUnavailableError);
+    await expect(health.deleteWeight('w1')).rejects.toBeInstanceOf(HealthUnavailableError);
+    await expect(health.deleteBodyFat('bf1')).rejects.toBeInstanceOf(HealthUnavailableError);
     await expect(health.readSteps(new Date())).resolves.toBeUndefined();
     await expect(
       noopSnapshotWriter.write({

@@ -24,7 +24,7 @@ public class HealthSyncModule: Module {
       guard HKHealthStore.isHealthDataAvailable() else { return false }
       do {
         try await store.requestAuthorization(toShare: Self.shareTypes, read: Self.readTypes)
-        return true
+        return Self.requiredWriteTypes.allSatisfy { store.authorizationStatus(for: $0) == .sharingAuthorized }
       } catch {
         return false
       }
@@ -76,18 +76,17 @@ public class HealthSyncModule: Module {
     }
 
     AsyncFunction("deleteNutrition") { (entryId: String) in
-      let predicate = HKQuery.predicateForObjects(withMetadataKey: "fudai_entry_id", operatorType: .equalTo, value: entryId)
-      let identifiers: [HKQuantityTypeIdentifier] = [
+      try await deleteSamples(metadataKey: "fudai_entry_id", entryId: entryId, identifiers: [
         .dietaryEnergyConsumed, .dietaryProtein, .dietaryCarbohydrates, .dietaryFatTotal
-      ]
-      for identifier in identifiers {
-        try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
-          store.deleteObjects(of: HKQuantityType(identifier), predicate: predicate) { _, _, error in
-            if let error { continuation.resume(throwing: error) }
-            else { continuation.resume() }
-          }
-        }
-      }
+      ])
+    }
+
+    AsyncFunction("deleteWeight") { (entryId: String) in
+      try await deleteSamples(metadataKey: "fudai_weight_id", entryId: entryId, identifiers: [.bodyMass])
+    }
+
+    AsyncFunction("deleteBodyFat") { (entryId: String) in
+      try await deleteSamples(metadataKey: "fudai_bodyfat_id", entryId: entryId, identifiers: [.bodyFatPercentage])
     }
 
     AsyncFunction("readSteps") { (startMs: Double, endMs: Double) async -> Int? in
@@ -107,6 +106,29 @@ public class HealthSyncModule: Module {
         store.execute(query)
       }
     }
+  }
+
+  private func deleteSamples(metadataKey: String, entryId: String, identifiers: [HKQuantityTypeIdentifier]) async throws {
+    let predicate = HKQuery.predicateForObjects(withMetadataKey: metadataKey, operatorType: .equalTo, value: entryId)
+    for identifier in identifiers {
+      try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
+        store.deleteObjects(of: HKQuantityType(identifier), predicate: predicate) { _, _, error in
+          if let error { continuation.resume(throwing: error) }
+          else { continuation.resume() }
+        }
+      }
+    }
+  }
+
+  private static var requiredWriteTypes: [HKQuantityType] {
+    [
+      HKQuantityType(.bodyMass),
+      HKQuantityType(.bodyFatPercentage),
+      HKQuantityType(.dietaryEnergyConsumed),
+      HKQuantityType(.dietaryProtein),
+      HKQuantityType(.dietaryCarbohydrates),
+      HKQuantityType(.dietaryFatTotal),
+    ]
   }
 
   private static var shareTypes: Set<HKSampleType> {

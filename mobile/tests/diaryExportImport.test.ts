@@ -92,5 +92,10 @@ describe('diary import', () => {
     expect(() => parseDiaryImport('{"export":{"app":"Fud AI","format_version":"2.0","date_range":{"start":"2026-09-16","end":"2026-09-16"}},"days":[]}')).toThrow(
       /not supported/,
     );
+    const badTime = JSON.parse(exported) as {
+      days: Array<{ date: string; meals: Array<{ items: Array<{ time: string }> }> }>;
+    };
+    badTime.days[0]!.meals[0]!.items[0]!.time = '99:99';
+    expect(() => parseDiaryImport(JSON.stringify(badTime))).toThrow(/invalid date or time/);
   });
 });

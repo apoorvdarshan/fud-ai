@@ -4,6 +4,13 @@
  * Settings can export / import on both platforms without secrets in git.
  */
 
+import { inflateSync } from 'fflate';
+
+import { activityLevels, genders, weightGoals, type UserProfile } from '../profile/userProfile';
+import type { FastingSession } from '../fasting/fasting';
+import type { FoodEntry } from '../food/food';
+import type { WaterEntry } from '../water/water';
+
 export const cloudBackupPolicy = {
   format: 'fudai-cloud-backup',
   version: 1,
@@ -39,14 +46,18 @@ export interface CloudBackupDocument {
   payload: { values: Record<string, CloudBackupValue> };
 }
 
-export type CloudBackupErrorKind = 'missingPayload' | 'invalidFormat' | 'needsNewerApp';
+export type CloudBackupErrorKind = 'missingPayload' | 'invalidFormat' | 'needsNewerApp' | 'hashMismatch';
 
 export class CloudBackupError extends Error {
   readonly kind: CloudBackupErrorKind;
 
   constructor(kind: CloudBackupErrorKind) {
     super(
-      kind === 'needsNewerApp' ? 'This backup needs a newer Fud AI.' : 'This is not a Fud AI backup.',
+      kind === 'needsNewerApp'
+        ? 'This backup needs a newer Fud AI.'
+        : kind === 'hashMismatch'
+          ? 'This backup file is damaged or incomplete.'
+          : 'This is not a Fud AI backup.',
     );
     this.name = 'CloudBackupError';
     this.kind = kind;
@@ -70,7 +81,8 @@ export function safePhotoName(name: string): string | undefined {
   return base;
 }
 
-export function contentHash(values: Record<string, CloudBackupValue>, photos: Record<string, Uint8Array>, sha256Hex: (data: Uint8Array) => string): string {
+/** Canonical UTF-8 payload hashed as `content_sha256` (matches `CloudBackupArchive.contentHash`). */
+export function canonicalBackupContent(values: Record<string, CloudBackupValue>, photos: Record<string, Uint8Array>): string {
   let canonical = '';
   for (const key of Object.keys(values).sort()) {
     const value = values[key];
@@ -98,7 +110,21 @@ export function contentHash(values: Record<string, CloudBackupValue>, photos: Re
   for (const name of Object.keys(photos).sort()) {
     canonical += `photo:${name}:${photos[name]?.byteLength ?? 0}\n`;
   }
-  return sha256Hex(new TextEncoder().encode(canonical));
+  return canonical;
+}
+
+export function contentHash(values: Record<string, CloudBackupValue>, photos: Record<string, Uint8Array>, sha256Hex: (data: Uint8Array) => string): string {
+  return sha256Hex(new TextEncoder().encode(canonicalBackupContent(values, photos)));
+}
+
+export function assertBackupIntegrity(
+  document: CloudBackupDocument,
+  photos: Record<string, Uint8Array>,
+  sha256Hex: (data: Uint8Array) => string,
+): void {
+  if (document.content_sha256 !== contentHash(document.payload.values, photos, sha256Hex)) {
+    throw new CloudBackupError('hashMismatch');
+  }
 }
 
 export function buildBackupDocument(input: {
@@ -202,24 +228,80 @@ export function packZip(files: Array<{ name: string; data: Uint8Array }>): Uint8
 }
 
 export function unpackZip(data: Uint8Array): Record<string, Uint8Array> {
-  const result: Record<string, Uint8Array> = {};
-  let i = 0;
-  while (i + 30 <= data.byteLength) {
-    const sig = readU32(data, i);
-    if (sig === 0x02014b50 || sig === 0x06054b50) break;
-    if (sig !== 0x04034b50) break;
-    const nameLen = readU16(data, i + 26);
-    const extraLen = readU16(data, i + 28);
-    const compact = readU32(data, i + 18);
-    const nameStart = i + 30;
-    const nameEnd = nameStart + nameLen;
-    if (nameEnd + extraLen + compact > data.byteLength) break;
-    const name = new TextDecoder().decode(data.subarray(nameStart, nameEnd));
-    const dataStart = nameEnd + extraLen;
-    result[name] = data.subarray(dataStart, dataStart + compact);
-    i = dataStart + compact;
+  const eocd = findEndOfCentralDirectory(data);
+  if (eocd >= 0) {
+    const fromCentral = unpackZipFromCentralDirectory(data, eocd);
+    if (Object.keys(fromCentral).length > 0) return fromCentral;
   }
-  return result;
+  return unpackZipFromLocalHeaders(data);
+}
+
+/** Present collections only. Missing keys must not wipe existing diary state. */
+export interface BackupDiaryCollections {
+  foodEntries?: FoodEntry[];
+  waterEntries?: WaterEntry[];
+  fastingSessions?: FastingSession[];
+  favoriteKeys?: string[];
+}
+
+export function parseBackupJsonValue(raw: string): unknown {
+  try {
+    return JSON.parse(raw) as unknown;
+  } catch {
+    throw new CloudBackupError('invalidFormat');
+  }
+}
+
+export function validateBackupPreferences(value: unknown): Record<string, unknown> {
+  if (!isPlainObject(value)) throw new CloudBackupError('invalidFormat');
+  return value;
+}
+
+export function validateBackupProfile(value: unknown): Partial<UserProfile> {
+  if (!isPlainObject(value)) throw new CloudBackupError('invalidFormat');
+  if (value.gender !== undefined && !genders.includes(value.gender as UserProfile['gender'])) {
+    throw new CloudBackupError('invalidFormat');
+  }
+  if (value.activityLevel !== undefined && !activityLevels.includes(value.activityLevel as UserProfile['activityLevel'])) {
+    throw new CloudBackupError('invalidFormat');
+  }
+  if (value.goal !== undefined && !weightGoals.includes(value.goal as UserProfile['goal'])) {
+    throw new CloudBackupError('invalidFormat');
+  }
+  if (value.heightCm !== undefined && !isFiniteNumber(value.heightCm)) throw new CloudBackupError('invalidFormat');
+  if (value.weightKg !== undefined && !isFiniteNumber(value.weightKg)) throw new CloudBackupError('invalidFormat');
+  if (value.birthday !== undefined && typeof value.birthday !== 'string') throw new CloudBackupError('invalidFormat');
+  return value as Partial<UserProfile>;
+}
+
+export function validateBackupDiary(value: unknown): BackupDiaryCollections {
+  if (!isPlainObject(value)) throw new CloudBackupError('invalidFormat');
+  const collections: BackupDiaryCollections = {};
+  if ('foodEntries' in value) {
+    if (!Array.isArray(value.foodEntries) || !value.foodEntries.every(isBackupFoodEntry)) {
+      throw new CloudBackupError('invalidFormat');
+    }
+    collections.foodEntries = value.foodEntries as FoodEntry[];
+  }
+  if ('waterEntries' in value) {
+    if (!Array.isArray(value.waterEntries) || !value.waterEntries.every(isBackupWaterEntry)) {
+      throw new CloudBackupError('invalidFormat');
+    }
+    collections.waterEntries = value.waterEntries as WaterEntry[];
+  }
+  if ('fastingSessions' in value) {
+    if (!Array.isArray(value.fastingSessions) || !value.fastingSessions.every(isBackupFastingSession)) {
+      throw new CloudBackupError('invalidFormat');
+    }
+    collections.fastingSessions = value.fastingSessions as FastingSession[];
+  }
+  if ('favoriteKeys' in value) {
+    if (!Array.isArray(value.favoriteKeys) || !value.favoriteKeys.every((key) => typeof key === 'string')) {
+      throw new CloudBackupError('invalidFormat');
+    }
+    collections.favoriteKeys = value.favoriteKeys as string[];
+  }
+  return collections;
 }
 
 export function unpackBackupArchive(data: Uint8Array): { document: CloudBackupDocument; photos: Record<string, Uint8Array> } {
@@ -249,7 +331,117 @@ function readU16(data: Uint8Array, i: number): number {
 }
 
 function readU32(data: Uint8Array, i: number): number {
-  return data[i]! | (data[i + 1]! << 8) | (data[i + 2]! << 16) | (data[i + 3]! << 24);
+  return (data[i]! | (data[i + 1]! << 8) | (data[i + 2]! << 16) | (data[i + 3]! << 24)) >>> 0;
+}
+
+function findEndOfCentralDirectory(data: Uint8Array): number {
+  const min = Math.max(0, data.byteLength - 22 - 65_535);
+  for (let i = data.byteLength - 22; i >= min; i -= 1) {
+    if (readU32(data, i) === 0x06054b50) return i;
+  }
+  return -1;
+}
+
+function unpackZipFromCentralDirectory(data: Uint8Array, eocd: number): Record<string, Uint8Array> {
+  const result: Record<string, Uint8Array> = {};
+  const entryCount = readU16(data, eocd + 10);
+  let i = readU32(data, eocd + 16);
+  for (let n = 0; n < entryCount; n += 1) {
+    if (i + 46 > data.byteLength || readU32(data, i) !== 0x02014b50) break;
+    const method = readU16(data, i + 10);
+    const compact = readU32(data, i + 20);
+    const nameLen = readU16(data, i + 28);
+    const extraLen = readU16(data, i + 30);
+    const commentLen = readU16(data, i + 32);
+    const localOff = readU32(data, i + 42);
+    const nameEnd = i + 46 + nameLen;
+    if (nameEnd > data.byteLength) break;
+    const name = new TextDecoder().decode(data.subarray(i + 46, nameEnd));
+    if (localOff + 30 > data.byteLength || readU32(data, localOff) !== 0x04034b50) break;
+    const localNameLen = readU16(data, localOff + 26);
+    const localExtraLen = readU16(data, localOff + 28);
+    const dataStart = localOff + 30 + localNameLen + localExtraLen;
+    if (dataStart + compact > data.byteLength) break;
+    result[name] = inflateZipPayload(data.subarray(dataStart, dataStart + compact), method);
+    i = nameEnd + extraLen + commentLen;
+  }
+  return result;
+}
+
+function unpackZipFromLocalHeaders(data: Uint8Array): Record<string, Uint8Array> {
+  const result: Record<string, Uint8Array> = {};
+  let i = 0;
+  while (i + 30 <= data.byteLength) {
+    const sig = readU32(data, i);
+    if (sig === 0x02014b50 || sig === 0x06054b50) break;
+    if (sig !== 0x04034b50) break;
+    const method = readU16(data, i + 8);
+    const nameLen = readU16(data, i + 26);
+    const extraLen = readU16(data, i + 28);
+    const compact = readU32(data, i + 18);
+    const nameStart = i + 30;
+    const nameEnd = nameStart + nameLen;
+    if (nameEnd + extraLen + compact > data.byteLength) break;
+    const name = new TextDecoder().decode(data.subarray(nameStart, nameEnd));
+    const dataStart = nameEnd + extraLen;
+    result[name] = inflateZipPayload(data.subarray(dataStart, dataStart + compact), method);
+    i = dataStart + compact;
+  }
+  return result;
+}
+
+function inflateZipPayload(raw: Uint8Array, method: number): Uint8Array {
+  if (method === 0) return raw;
+  if (method === 8) {
+    try {
+      return inflateSync(raw);
+    } catch {
+      throw new CloudBackupError('invalidFormat');
+    }
+  }
+  throw new CloudBackupError('invalidFormat');
+}
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return !!value && typeof value === 'object' && !Array.isArray(value);
+}
+
+function isFiniteNumber(value: unknown): value is number {
+  return typeof value === 'number' && Number.isFinite(value);
+}
+
+function isIsoTimestamp(value: unknown): value is string {
+  return typeof value === 'string' && !Number.isNaN(Date.parse(value));
+}
+
+function isBackupFoodEntry(value: unknown): value is FoodEntry {
+  if (!isPlainObject(value)) return false;
+  return (
+    typeof value.id === 'string' &&
+    typeof value.name === 'string' &&
+    isFiniteNumber(value.calories) &&
+    isFiniteNumber(value.protein) &&
+    isFiniteNumber(value.carbs) &&
+    isFiniteNumber(value.fat) &&
+    isIsoTimestamp(value.timestamp) &&
+    typeof value.source === 'string' &&
+    typeof value.mealType === 'string'
+  );
+}
+
+function isBackupWaterEntry(value: unknown): value is WaterEntry {
+  if (!isPlainObject(value)) return false;
+  return typeof value.id === 'string' && isIsoTimestamp(value.date) && isFiniteNumber(value.milliliters) && value.milliliters > 0;
+}
+
+function isBackupFastingSession(value: unknown): value is FastingSession {
+  if (!isPlainObject(value)) return false;
+  return (
+    typeof value.id === 'string' &&
+    isIsoTimestamp(value.startedAt) &&
+    isFiniteNumber(value.goalMinutes) &&
+    (value.endedAt === undefined || isIsoTimestamp(value.endedAt))
+  );
 }
 
 function crc32(data: Uint8Array): number {

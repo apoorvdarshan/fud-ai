@@ -13,6 +13,7 @@ import androidx.health.connect.client.time.TimeRangeFilter
 import androidx.health.connect.client.units.Energy
 import androidx.health.connect.client.units.Mass
 import androidx.health.connect.client.units.Percentage
+import expo.modules.kotlin.Promise
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +22,8 @@ import java.time.Instant
 import java.time.ZoneId
 
 class HealthSyncModule : Module() {
+  private var authorizationPromise: Promise? = null
+
   override fun definition() = ModuleDefinition {
     Name("HealthSync")
 
@@ -38,16 +41,38 @@ class HealthSyncModule : Module() {
       }
     }
 
-    AsyncFunction("requestAuthorization") {
-      if (!isHealthConnectAvailable()) return@AsyncFunction false
-      val activity = appContext.currentActivity ?: return@AsyncFunction false
-      val client = clientOrNull() ?: return@AsyncFunction false
+    AsyncFunction("requestAuthorization") { promise: Promise ->
+      if (!isHealthConnectAvailable()) {
+        promise.resolve(false)
+        return@AsyncFunction
+      }
+      val activity = appContext.currentActivity
+      if (activity == null) {
+        promise.resolve(false)
+        return@AsyncFunction
+      }
+      try {
+        authorizationPromise?.resolve(false)
+        authorizationPromise = promise
+        val contract = androidx.health.connect.client.PermissionController.createRequestPermissionResultContract()
+        @Suppress("DEPRECATION")
+        activity.startActivityForResult(contract.createIntent(activity, requiredPermissions), AUTH_REQUEST_CODE)
+      } catch (_: Exception) {
+        authorizationPromise = null
+        promise.resolve(false)
+      }
+    }
+
+    OnActivityResult { _, payload ->
+      if (payload.requestCode != AUTH_REQUEST_CODE) return@OnActivityResult
+      val promise = authorizationPromise ?: return@OnActivityResult
+      authorizationPromise = null
       try {
         val contract = androidx.health.connect.client.PermissionController.createRequestPermissionResultContract()
-        activity.startActivity(contract.createIntent(activity, requiredPermissions))
-        client.permissionController.getGrantedPermissions().containsAll(requiredPermissions)
+        val granted = contract.parseResult(payload.resultCode, payload.data)
+        promise.resolve(granted.containsAll(requiredPermissions))
       } catch (_: Exception) {
-        false
+        promise.resolve(false)
       }
     }
 
@@ -105,6 +130,28 @@ class HealthSyncModule : Module() {
       }
     }
 
+    AsyncFunction("deleteWeight") { entryId: String ->
+      val client = clientOrNull() ?: return@AsyncFunction
+      withContext(Dispatchers.IO) {
+        client.deleteRecords(
+          WeightRecord::class,
+          recordIdsList = emptyList(),
+          clientRecordIdsList = listOf(entryId),
+        )
+      }
+    }
+
+    AsyncFunction("deleteBodyFat") { entryId: String ->
+      val client = clientOrNull() ?: return@AsyncFunction
+      withContext(Dispatchers.IO) {
+        client.deleteRecords(
+          BodyFatRecord::class,
+          recordIdsList = emptyList(),
+          clientRecordIdsList = listOf(entryId),
+        )
+      }
+    }
+
     AsyncFunction("readSteps") { startMs: Double, endMs: Double ->
       val client = clientOrNull() ?: return@AsyncFunction null
       val request = ReadRecordsRequest(
@@ -149,5 +196,9 @@ class HealthSyncModule : Module() {
 
   private fun metadata(entryId: String?): Metadata {
     return if (entryId != null) Metadata.manualEntry(clientRecordId = entryId) else Metadata.manualEntry()
+  }
+
+  private companion object {
+    const val AUTH_REQUEST_CODE = 24801
   }
 }

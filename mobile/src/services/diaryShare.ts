@@ -130,12 +130,17 @@ export async function previewDiaryImport(uri: string): Promise<DiaryImportPrevie
 }
 
 export async function commitDiaryImport(preview: DiaryImportPreview, mode: DiaryImportMode): Promise<void> {
-  const diary = diaryStore.getState();
-  const nextFoods = applyDiaryImport(preview, diary.foodEntries, mode, newId);
-  const nextWater = applyWaterImport(preview, diary.waterEntries, mode, newId);
-  await reconcileImportedFoodsWithHealth(preview, diary.foodEntries, nextFoods, mode);
-  diaryStore.dispatch({ type: 'food/replaceAll', entries: nextFoods });
-  diaryStore.dispatch({ type: 'water/replaceAll', entries: nextWater });
+  diaryStore.pause();
+  try {
+    const diary = diaryStore.getState();
+    const nextFoods = applyDiaryImport(preview, diary.foodEntries, mode, newId);
+    const nextWater = applyWaterImport(preview, diary.waterEntries, mode, newId);
+    await reconcileImportedFoodsWithHealth(preview, diary.foodEntries, nextFoods, mode);
+    diaryStore.applyImmediate({ type: 'food/replaceAll', entries: nextFoods });
+    diaryStore.applyImmediate({ type: 'water/replaceAll', entries: nextWater });
+  } finally {
+    diaryStore.resume();
+  }
 }
 
 async function reconcileImportedFoodsWithHealth(

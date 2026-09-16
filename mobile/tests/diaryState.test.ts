@@ -53,6 +53,27 @@ describe('diaryReducer — one store for food, water and fasting (#369)', () => 
     expect(store.getState().revision).toBe(1);
   });
 
+  it('queues diary writes while paused and replays them after the import commit', () => {
+    const store = createStore(diaryReducer, initialDiaryState);
+    const imported = makeFoodEntry(
+      { name: 'Oats', calories: 300, protein: 10, carbs: 50, fat: 5, source: 'manual', timestamp: iso(8) },
+      'imported',
+    );
+    const concurrent = makeFoodEntry(
+      { name: 'Apple', calories: 80, protein: 0, carbs: 20, fat: 0, source: 'manual', timestamp: iso(9) },
+      'concurrent',
+    );
+    store.pause();
+    store.dispatch({ type: 'food/add', entry: concurrent });
+    store.dispatch({ type: 'water/add', entry: { id: 'w-live', date: iso(9), milliliters: 200 } });
+    expect(store.getState().foodEntries).toHaveLength(0);
+    store.applyImmediate({ type: 'food/replaceAll', entries: [imported] });
+    store.applyImmediate({ type: 'water/replaceAll', entries: [{ id: 'w-imported', date: iso(8), milliliters: 250 }] });
+    store.resume();
+    expect(store.getState().foodEntries.map((e) => e.id)).toEqual(['imported', 'concurrent']);
+    expect(store.getState().waterEntries.map((e) => e.id)).toEqual(['w-imported', 'w-live']);
+  });
+
   it('is idempotent on water entry id (retried Watch/widget transfers)', () => {
     const state = run([
       { type: 'water/add', entry: { id: 'same', date: iso(9), milliliters: 250 } },

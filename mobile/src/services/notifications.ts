@@ -1,11 +1,12 @@
 /**
  * Meal reminders. Mirrors `NotificationManager.swift` (`requestAuthorization`,
- * `scheduleMealReminders`): three repeating daily local notifications with the same ids and
- * copy. Local-only; no push token is ever requested.
+ * `scheduleMealReminders`): repeating daily local notifications. Local-only.
  */
 
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
+
+import { scheduledReminders, type ReminderPreferenceSlice, type ReminderTime } from '../domain/prefs/reminders';
 
 export interface MealReminder {
   id: 'meal.breakfast' | 'meal.lunch' | 'meal.dinner';
@@ -22,6 +23,10 @@ export const defaultMealReminders: readonly MealReminder[] = [
 ];
 
 const MEAL_CHANNEL = 'meal-reminders';
+
+function notificationId(reminder: Pick<ReminderTime, 'id'>): MealReminder['id'] {
+  return `meal.${reminder.id}`;
+}
 
 /** Android 13+ only shows the permission prompt once the app owns a notification channel. */
 async function ensureMealChannel(): Promise<void> {
@@ -41,6 +46,16 @@ export async function requestNotificationAuthorization(): Promise<boolean> {
     console.warn('[fudai] notification permission request failed', error);
     return false;
   }
+}
+
+export function mealRemindersFromPrefs(prefs: ReminderPreferenceSlice): MealReminder[] {
+  return scheduledReminders(prefs).map((reminder) => ({
+    id: notificationId(reminder),
+    title: reminder.title,
+    body: reminder.body,
+    hour: reminder.hour,
+    minute: reminder.minute,
+  }));
 }
 
 /**

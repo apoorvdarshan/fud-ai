@@ -100,6 +100,13 @@ export const profileStore: Store<UserProfile, ProfileAction> = createStore(profi
 export function addWeighIn(entry: WeightEntry): void {
   bodyStore.dispatch({ type: 'weight/add', entry });
   syncProfileWeightToLatest();
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { writeWeightToHealth } = require('../services/health') as typeof import('../services/health');
+    writeWeightToHealth(entry.weightKg, new Date(entry.date), entry.id);
+  } catch {
+    /* Expo Go / tests */
+  }
 }
 
 export function deleteWeighIn(id: string): void {

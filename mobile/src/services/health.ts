@@ -69,10 +69,17 @@ function healthEnabled(): boolean {
   }
 }
 
-/** Best-effort write; never blocks the diary. */
-export function writeFoodToHealth(entry: { id: string; name: string; calories: number; protein: number; carbs: number; fat: number; timestamp: string }): void {
+export async function writeFoodToHealthAsync(entry: {
+  id: string;
+  name: string;
+  calories: number;
+  protein: number;
+  carbs: number;
+  fat: number;
+  timestamp: string;
+}): Promise<void> {
   if (!healthEnabled()) return;
-  void healthSync
+  await healthSync
     .writeNutrition(new Date(entry.timestamp), {
       calories: entry.calories,
       protein: entry.protein,
@@ -84,9 +91,18 @@ export function writeFoodToHealth(entry: { id: string; name: string; calories: n
     .catch(() => undefined);
 }
 
-export function deleteFoodFromHealth(entryId: string): void {
+export async function deleteFoodFromHealthAsync(entryId: string): Promise<void> {
   if (!healthEnabled()) return;
-  void healthSync.deleteNutrition(entryId).catch(() => undefined);
+  await healthSync.deleteNutrition(entryId).catch(() => undefined);
+}
+
+/** Best-effort write; never blocks the diary. */
+export function writeFoodToHealth(entry: { id: string; name: string; calories: number; protein: number; carbs: number; fat: number; timestamp: string }): void {
+  void writeFoodToHealthAsync(entry);
+}
+
+export function deleteFoodFromHealth(entryId: string): void {
+  void deleteFoodFromHealthAsync(entryId);
 }
 
 export function writeWeightToHealth(kg: number, date: Date, entryId?: string): void {

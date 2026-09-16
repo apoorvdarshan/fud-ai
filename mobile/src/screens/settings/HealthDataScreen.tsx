@@ -132,14 +132,17 @@ export function HealthDataScreen() {
     }
   };
 
-  const applyImport = (mode: DiaryImportMode) => {
-    if (!importPreview) return;
+  const applyImport = async (mode: DiaryImportMode) => {
+    if (!importPreview || busy) return;
+    setBusy(true);
     try {
-      commitDiaryImport(importPreview, mode);
+      await commitDiaryImport(importPreview, mode);
       setImportPreview(null);
       Alert.alert('Import Diary', `Imported ${importPreview.entries.length} food ${importPreview.entries.length === 1 ? 'entry' : 'entries'}.`);
     } catch (error) {
       Alert.alert('Import Diary', error instanceof Error ? error.message : 'Could not import that diary.');
+    } finally {
+      setBusy(false);
     }
   };
 

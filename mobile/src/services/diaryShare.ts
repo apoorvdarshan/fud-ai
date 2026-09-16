@@ -37,7 +37,7 @@ import type { FoodEntry } from '../domain/food/food';
 import { dailyTargets, defaultUserProfile } from '../domain/profile/userProfile';
 import { diaryStore, newId, preferencesStore, profileStore, setPreferences } from '../state/appStores';
 import { listFoodImages, restoreFoodImages } from './foodImageStore';
-import { deleteFoodFromHealth, healthSync, writeFoodToHealth } from './health';
+import { deleteFoodFromHealthAsync, healthSync, writeFoodToHealthAsync } from './health';
 
 export async function shareDiaryExport(format: DiaryExportFormat, start: Date, end: Date): Promise<boolean> {
   const bundle = buildDiaryExport({
@@ -129,21 +129,21 @@ export async function previewDiaryImport(uri: string): Promise<DiaryImportPrevie
   return parseDiaryImport(await readImportedText(uri), newId);
 }
 
-export function commitDiaryImport(preview: DiaryImportPreview, mode: DiaryImportMode): void {
+export async function commitDiaryImport(preview: DiaryImportPreview, mode: DiaryImportMode): Promise<void> {
   const diary = diaryStore.getState();
   const nextFoods = applyDiaryImport(preview, diary.foodEntries, mode, newId);
   const nextWater = applyWaterImport(preview, diary.waterEntries, mode, newId);
-  reconcileImportedFoodsWithHealth(preview, diary.foodEntries, nextFoods, mode);
+  await reconcileImportedFoodsWithHealth(preview, diary.foodEntries, nextFoods, mode);
   diaryStore.dispatch({ type: 'food/replaceAll', entries: nextFoods });
   diaryStore.dispatch({ type: 'water/replaceAll', entries: nextWater });
 }
 
-function reconcileImportedFoodsWithHealth(
+async function reconcileImportedFoodsWithHealth(
   preview: DiaryImportPreview,
   existing: readonly FoodEntry[],
   nextFoods: readonly FoodEntry[],
   mode: DiaryImportMode,
-): void {
+): Promise<void> {
   let healthEnabled = false;
   try {
     healthEnabled = preferencesStore.getState().healthKitEnabled;
@@ -160,8 +160,12 @@ function reconcileImportedFoodsWithHealth(
     return;
   }
   const plan = diaryImportHealthReconcile(preview, existing, nextFoods, mode);
-  for (const id of plan.deleteIds) deleteFoodFromHealth(id);
-  for (const entry of plan.writeEntries) writeFoodToHealth(entry);
+  for (const id of plan.deleteIds) {
+    await deleteFoodFromHealthAsync(id);
+  }
+  for (const entry of plan.writeEntries) {
+    await writeFoodToHealthAsync(entry);
+  }
 }
 
 export async function restoreLocalBackup(uri: string): Promise<void> {

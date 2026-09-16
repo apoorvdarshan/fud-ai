@@ -28,33 +28,36 @@ the SwiftUI source they mirror.
 |------|-------|--------|
 | App shell + theme | `App.tsx`, `src/theme/`, `src/navigation/` | 5 tabs (Home, Progress, Coach, Settings, Workouts), accent + appearance prefs |
 | Onboarding | `src/screens/onboarding/` | All 14 steps of `OnboardingView.swift`: welcome, gender, birthday, height & weight, body fat, activity, goal, desired weight, goal speed, notifications, Health, AI setup, building plan, Plan Ready. AI step keeps the #373 fix: placeholder is "Paste Gemini API key", helper text explains a disabled Continue |
-| Home | `src/screens/home/`, `src/components/home/` | Week strip, calorie dome, nutrient bars, unified diary, "+" menu with water, fasting, manual entry and AI logging. Photo and label scans keep their picture on disk (`src/services/foodImageStore.ts`, the `FoodImageStore` layout) and the diary row shows it |
-| AI food logging | `src/screens/home/FoodAISheets.tsx`, `src/services/aiClient.ts`, `src/domain/ai/` | Scan Food / Scan Label (camera or library), Describe Meal, Voice (keyboard dictation), Saved Meals. Analyzing overlay with Cancel; every request has a hard timeout; results reviewed (name, kcal, macros, serving grams, ingredients, meal, note) before entering the diary with the native `FoodSource` |
+| Home | `src/screens/home/`, `src/components/home/` | Week strip, calorie dome, nutrient bars, unified diary, "+" menu with water, fasting, manual entry, barcode (Open Food Facts), voice meal (cloud Whisper), and AI logging. Photo and label scans keep their picture on disk (`src/services/foodImageStore.ts`, the `FoodImageStore` layout) and the diary row shows it |
+| AI food logging | `src/screens/home/FoodAISheets.tsx`, `BarcodeScannerSheet.tsx`, `VoiceMealSheet.tsx`, `src/services/aiClient.ts`, `src/domain/ai/` | Scan Food / Scan Label (camera or library), Scan Barcode (Open Food Facts), Describe Meal, Voice (record + OpenAI/Groq Whisper), Saved Meals. Analyzing overlay with Cancel; every request has a hard timeout; results reviewed before entering the diary with the native `FoodSource` |
 | AI transports | `src/domain/ai/transport.ts`, `runtime.ts`, `errors.ts` | Gemini, OpenAI-compatible, Anthropic and the hosted proxy. Compact retry on truncation, `AIErrorKind` classification, vision/text selection, single fallback retry, hosted entitlement gate |
-| Progress | `src/screens/progress/`, `src/domain/progress/`, `src/domain/body/` | My Progress / Weekly Challenge pills; 1W–All ranges; Weight / Body Fat / Workouts metric; SVG trend chart (area, dots, goal rule, drag-to-inspect); calorie bars; macro + nutrient averages; streaks & stats; Log Weight / Log Body Fat and history sheets. Weekly Challenge scores on device |
+| Progress | `src/screens/progress/`, `src/domain/progress/`, `src/domain/body/` | My Progress / Weekly Challenge pills; 1W–All ranges; Weight / Body Fat / Workouts metric; SVG trend chart; calorie bars; macro + nutrient averages; streaks & stats; Log Weight / Log Body Fat and history sheets. Weekly Challenge scores on device and can join the in-repo leaderboard API |
 | Coach | `src/screens/coach/CoachScreen.tsx`, `src/domain/coach/` | `ChatView` layout: hero empty state, goal-aware prompt grid and chips, bubbles, typing indicator, photo attach, gradient send, Reset Chat. System prompt carries profile, formulas and the `WeightAnalysisService` forecast; history persisted under `coachChatHistory` with a 20-message context window |
 | Workouts | `src/screens/workouts/`, `src/domain/workouts/` | Log / Library modes. Log: today's exercises with weight / reps / RPE sets, add from library, Finish with the `StrengthWorkoutBurnEstimator` estimate, history. Library: 877-exercise FreeExerciseDB catalog, debounced search, Level / Equipment / Primary / Category filters, sort, CDN thumbnails, detail with animated frames and instructions |
-| Settings | `src/screens/settings/` | Personal Info, Goals & Nutrition (custom targets, Recalculate Goals, calculation methods), Tracking & Reminders, Notifications (meal reminders), AI Access, App Settings, Health & Data |
+| Settings | `src/screens/settings/` | Personal Info, Goals & Nutrition (custom targets, Adaptive Goals, Recalculate Goals), Tracking & Reminders, Notifications (custom meal times), AI Access, Speech-to-Text, App Settings, Health & Data (sync toggle, diary export/import, portable ZIP backup) |
 | Hosted paywall + purchases | `src/screens/paywall/HostedPaywallSheet.tsx`, `src/services/purchases.ts`, `src/domain/purchases/` | `react-native-purchases` adapter behind `setPurchasesAdapter`: offerings, purchase (cancelled sheet is not an error), restore, customer-info listener. Without an SDK key or native module the sheet says plans are unavailable |
-| Companion seams | `src/domain/integrations/companions.ts`, Settings → Health & Data | `HealthSync`, snapshot writer and per-platform status model; all report native-only honestly (see below) |
+| Companion seams | `src/domain/integrations/companions.ts`, `modules/health-sync/`, `modules/companion-snapshot/` | HealthKit / Health Connect via `HealthSync`; today's totals written to the App Group (`widget_snapshot_v1.json`) the native widget and watch targets already read. Settings status is connected / available / denied — not native-only when the bridge works |
 | Unified diary store | `src/domain/diary/diaryState.ts`, `src/state/` | One reducer/state for food + water + fasting (#369); body, workouts and chat follow the same pattern |
 | iOS glass bridge | `modules/glass-chrome/` | Expo local module: `UIGlassEffect` (iOS 26+) with material fallback |
+| Health + snapshot modules | `modules/health-sync/`, `modules/companion-snapshot/` | HealthKit (iOS) and Health Connect (Android); App Group + WidgetKit + WatchConnectivity writer |
 
 ### Still native-only (ios/ and android/)
 
-These stay in the native apps for now. The shared app never fakes them — Settings → Health &
-Data lists each one with its status.
+These stay in the native shipping apps. The shared app never fakes them.
 
-- **Apple Health / Health Connect** — `HealthKitManager.swift`; the shared app has the
-  `HealthSync` seam and the `healthKitEnabled` preference but no bridge module yet.
-- **Apple Watch companion, home / lock-screen widgets, Siri App Intents** — extension targets
-  read a snapshot the native app writes (`WidgetSnapshotWriter`, `WatchSnapshotSync`). The
-  `CompanionSnapshot` shape is defined; no shared-app extension targets exist.
+- **Widget / Watch / Live Activity UI** — Expo can write the same App Group snapshot
+  (`WidgetSnapshotWriter` / `WatchSnapshotSync` fields, Apple `Date` encoding). Adding or
+  changing the home-screen, lock-screen, or watchOS *chrome* still requires the native
+  extension targets in `ios/` (and the Android widget target).
+- **Siri App Intents** — logging food and water by voice ships with the native iOS app. Settings
+  shows an honest “Native app only” row; there is no broken Siri stub.
 - **On-device AI** — Apple Intelligence and the LiteRT Gemma 4 runtime; selecting them reports
-  `unsupportedDevice` / `localUnavailable` and points to a cloud provider.
-- **Barcode lookup (Open Food Facts), on-device Whisper transcription, weekly-challenge
-  leaderboard accounts, diary export/import, cloud backup, Adaptive Goals, custom reminder
-  times** — the UI names each of these where it would appear.
+  `unsupportedDevice` / `localUnavailable` and points to a cloud provider. Whisper Base
+  (on-device CoreML) is listed in Speech-to-Text but not selectable — cloud OpenAI / Groq Whisper
+  actually transcribes.
+- **Automatic iCloud Drive backup** — a portable ZIP (`CloudBackupArchive` format) can be
+  exported and restored from Settings. Signing into iCloud and syncing in the background stays
+  native-only so no secrets land in git.
 
 ## Domain parity
 
@@ -147,14 +150,16 @@ mobile/
 ├── App.tsx                  # Hydrates stores, installs the purchases adapter, gates on onboarding
 ├── app.json                 # Expo config (7.1 / 38, bundle id, plugins)
 ├── assets/                  # Onboarding logo
-├── modules/glass-chrome/    # iOS Liquid Glass local Expo module (Swift) + TS wrapper
+├── modules/glass-chrome/         # iOS Liquid Glass local Expo module (Swift) + TS wrapper
+├── modules/health-sync/          # HealthKit + Health Connect
+├── modules/companion-snapshot/   # App Group snapshot + WidgetKit + WatchConnectivity
 ├── scripts/                 # build-exercise-catalog.mjs
 ├── src/
 │   ├── theme/               # AppColors palette, surfaces, typography, spacing, ThemeProvider
 │   ├── domain/              # Pure TS: ai/, body/, coach/, diary/, fasting/, food/, integrations/,
 │   │                        #   onboarding/, prefs/, profile/, progress/, purchases/, water/, workouts/
 │   ├── state/               # createStore, persistence adapters, app stores + hydration
-│   ├── services/            # RN bindings: aiClient, imagePicker, notifications, purchases
+│   ├── services/            # RN bindings: aiClient, barcode, speech, health, snapshots, diary share, notifications, purchases
 │   ├── components/          # Primitives, Icon map, SegmentedControl, StepperField, charts/, home/
 │   ├── navigation/          # Tab + settings stack
 │   └── screens/             # home/, progress/, coach/, workouts/, onboarding/, settings/, paywall/

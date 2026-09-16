@@ -26,7 +26,7 @@ const preferenceCategories: Category[] = [
   { id: 'notifications', title: 'Notifications', icon: 'bell', route: 'Notifications' },
   { id: 'aiAccess', title: 'AI Access', icon: 'key.horizontal', route: 'AIAccess' },
   { id: 'aiProviders', title: 'AI Providers & Fallbacks', icon: 'sparkles' },
-  { id: 'speechToText', title: 'Speech-to-Text', icon: 'waveform' },
+  { id: 'speechToText', title: 'Speech-to-Text', icon: 'waveform', route: 'SpeechToText' },
   { id: 'appPreferences', title: 'App Settings', icon: 'slider.horizontal.3', route: 'AppSettings' },
   { id: 'workout', title: 'Workout', icon: 'dumbbell' },
   { id: 'healthData', title: 'Health & Data', icon: 'heart', route: 'HealthData' },

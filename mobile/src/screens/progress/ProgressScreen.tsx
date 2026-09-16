@@ -8,13 +8,16 @@
 
 import { BottomTabBarHeightContext } from '@react-navigation/bottom-tabs';
 import { useContext, useEffect, useMemo, useState } from 'react';
-import { Alert, Pressable, ScrollView, View } from 'react-native';
+import { Alert, Pressable, ScrollView, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { BottomSheet } from '../../components/BottomSheet';
+import { PickerSheet } from '../../components/PickerSheet';
 
 import { BarChart } from '../../components/charts/BarChart';
 import { TrendLineChart } from '../../components/charts/TrendLineChart';
 import { Icon, type SFSymbolName } from '../../components/Icon';
-import { AppText, Card, Row, Screen } from '../../components/primitives';
+import { AppText, Card, PrimaryButton, Row, Screen } from '../../components/primitives';
 import { ProgressBarRow } from '../../components/ProgressBarRow';
 import { PillTabs, SegmentedControl } from '../../components/SegmentedControl';
 import { displayWeight, entriesInRange, latestBodyFat, latestWeight } from '../../domain/body/bodyState';
@@ -40,7 +43,24 @@ import {
 import { weeklyChallengeScore, weeklyChallengeWeek } from '../../domain/progress/weeklyChallenge';
 import { dailyTargets } from '../../domain/profile/userProfile';
 import { burnSessions, dailyBurn, durationMinutes, performedSetCount, totalBurn } from '../../domain/workouts/workoutSessions';
+import { writeBodyFatToHealth } from '../../services/health';
+import {
+  fetchLeaderboard,
+  joinWeeklyChallenge,
+  leaveWeeklyChallenge,
+  loadChallengeProfile,
+} from '../../services/weeklyChallenge';
 import { addWeighIn, bodyStore, deleteWeighIn, newId, setPreferences, useBody, useDiary, usePreferences, useProfile, useWorkouts, workoutsStore } from '../../state/appStores';
+import {
+  weeklyChallengeCategories,
+  weeklyChallengeSocialPlatforms,
+  weeklyChallengeValidationMessages,
+  validateWeeklyChallengeProfile,
+  type WeeklyChallengeCategory,
+  type WeeklyChallengeLeaderboardResponse,
+  type WeeklyChallengePublicProfile,
+  type WeeklyChallengeSocialPlatform,
+} from '../../domain/progress/weeklyChallengeApi';
 import { useTheme } from '../../theme';
 import { BodyFatHistorySheet, LogBodyFatSheet, LogWeightSheet, WeightHistorySheet } from './ProgressSheets';
 
@@ -266,7 +286,9 @@ export function ProgressScreen() {
         currentFraction={currentBodyFat}
         onDismiss={() => setSheet(null)}
         onSave={(bodyFatFraction) => {
-          bodyStore.dispatch({ type: 'bodyFat/add', entry: { id: newId(), date: new Date().toISOString(), bodyFatFraction } });
+          const entry = { id: newId(), date: new Date().toISOString(), bodyFatFraction };
+          bodyStore.dispatch({ type: 'bodyFat/add', entry });
+          writeBodyFatToHealth(bodyFatFraction, new Date(), entry.id);
           setSheet(null);
         }}
       />
@@ -414,9 +436,8 @@ function StatTile({ icon, label, value }: { icon: SFSymbolName; label: string; v
 // MARK: - Weekly Challenge
 
 /**
- * `WeeklyChallengeView`, scored on device. Joining the leaderboard needs the challenge
- * account API (`WeeklyChallengeAPIClient`), which the shared app does not call yet, so the
- * leaderboard card says so instead of pretending.
+ * `WeeklyChallengeView`, scored on device. Leaderboard accounts call the in-repo
+ * `WeeklyChallengeAPIClient` (`https://fud-ai.app/api/challenge/v1`).
  */
 function WeeklyChallengePane({ tabBarHeight }: { tabBarHeight: number }) {
   const theme = useTheme();
@@ -439,6 +460,42 @@ function WeeklyChallengePane({ tabBarHeight }: { tabBarHeight: number }) {
     [diary, workouts.sessions, targets.calories, prefs.waterTrackingEnabled, prefs.waterDailyGoalMl],
   );
   const weekLabel = `${week.start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – ${week.end.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`;
+  const [account, setAccount] = useState<WeeklyChallengePublicProfile | null>(null);
+  const [board, setBoard] = useState<WeeklyChallengeLeaderboardResponse | null>(null);
+  const [category, setCategory] = useState<WeeklyChallengeCategory>('overall');
+  const [joinOpen, setJoinOpen] = useState(false);
+  const [displayName, setDisplayName] = useState(profile.name ?? '');
+  const [social, setSocial] = useState<WeeklyChallengeSocialPlatform | undefined>(undefined);
+  const [handle, setHandle] = useState('');
+  const [socialPicker, setSocialPicker] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    void loadChallengeProfile().then(setAccount);
+  }, []);
+
+  useEffect(() => {
+    if (!account) {
+      setBoard(null);
+      return;
+    }
+    let cancelled = false;
+    setBusy(true);
+    void fetchLeaderboard(category)
+      .then((next) => {
+        if (!cancelled) setBoard(next);
+      })
+      .catch((err: unknown) => {
+        if (!cancelled) setError(err instanceof Error ? err.message : 'Could not load the leaderboard.');
+      })
+      .finally(() => {
+        if (!cancelled) setBusy(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [account, category, score.overallPoints]);
 
   const pillar = (label: string, days: number, icon: SFSymbolName) => (
     <View key={label} style={{ flex: 1, alignItems: 'center', gap: 6, paddingVertical: 12, borderRadius: theme.radii.control, backgroundColor: theme.accentAlpha(0.08) }}>
@@ -451,6 +508,40 @@ function WeeklyChallengePane({ tabBarHeight }: { tabBarHeight: number }) {
       </AppText>
     </View>
   );
+
+  const join = async () => {
+    const validated = validateWeeklyChallengeProfile(displayName, social, handle);
+    if (!validated.ok) {
+      setError(weeklyChallengeValidationMessages[validated.error]);
+      return;
+    }
+    setBusy(true);
+    setError(null);
+    try {
+      const created = await joinWeeklyChallenge(validated.profile);
+      setAccount(created.profile);
+      setJoinOpen(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not join the leaderboard.');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const leave = () =>
+    Alert.alert('Leave the leaderboard?', 'Your public profile and token are removed from this device.', [
+      { text: 'Stay', style: 'cancel' },
+      {
+        text: 'Leave',
+        style: 'destructive',
+        onPress: () => {
+          void leaveWeeklyChallenge().then(() => {
+            setAccount(null);
+            setBoard(null);
+          });
+        },
+      },
+    ]);
 
   return (
     <ScrollView contentContainerStyle={{ padding: theme.spacing.lg, gap: 18, paddingBottom: tabBarHeight + 32 }} scrollIndicatorInsets={{ bottom: tabBarHeight }}>
@@ -476,17 +567,114 @@ function WeeklyChallengePane({ tabBarHeight }: { tabBarHeight: number }) {
         </AppText>
       </ProgressCard>
 
-      <ProgressCard title="Leaderboard">
-        <Row style={{ gap: 12, alignItems: 'flex-start' }}>
-          <Icon name="person.3.fill" size={22} color={theme.colors.accent} />
-          <View style={{ flex: 1, gap: 4 }}>
-            <AppText variant="subheadlineSemibold">Leaderboard accounts are not connected in the shared app yet</AppText>
+      <ProgressCard
+        title="Leaderboard"
+        trailing={
+          account ? (
+            <Pressable accessibilityRole="button" onPress={leave}>
+              <AppText variant="subheadline" tone="destructive" weight="500">
+                Leave
+              </AppText>
+            </Pressable>
+          ) : undefined
+        }
+      >
+        {account ? (
+          <View style={{ gap: 12 }}>
+            <SegmentedControl<WeeklyChallengeCategory>
+              segments={weeklyChallengeCategories.map((c) => ({ value: c, label: c.charAt(0).toUpperCase() + c.slice(1) }))}
+              selected={category}
+              onSelect={setCategory}
+              accessibilityLabel="Leaderboard category"
+            />
             <AppText variant="caption" tone="secondary">
-              Your score is computed on this device from your diary. Creating a challenge profile and syncing scores with other Fud AI users still happens in the native iOS and Android apps.
+              Playing as {account.displayName}
+              {account.socialHandle ? ` · ${account.socialPlatform === 'x' ? 'X' : 'Instagram'} @${account.socialHandle}` : ''}
             </AppText>
+            {board?.rankings.length ? (
+              board.rankings.slice(0, 20).map((row) => (
+                <Row key={row.participantId} style={{ justifyContent: 'space-between' }}>
+                  <AppText variant="subheadline" weight={row.isViewer ? '700' : '400'}>
+                    {row.rank}. {row.displayName}
+                  </AppText>
+                  <AppText variant="subheadlineSemibold" tone="accent">
+                    {row.score}
+                  </AppText>
+                </Row>
+              ))
+            ) : (
+              <AppText variant="caption" tone="secondary">
+                {busy ? 'Updating…' : 'No rankings for this week yet. Your local score will upload when you open this tab.'}
+              </AppText>
+            )}
           </View>
-        </Row>
+        ) : (
+          <View style={{ gap: 12 }}>
+            <AppText variant="caption" tone="secondary">
+              Your score is computed on this device. Join to create a challenge profile and appear on the public board.
+            </AppText>
+            <PrimaryButton title="Join Leaderboard" onPress={() => setJoinOpen(true)} />
+          </View>
+        )}
+        {error ? (
+          <AppText variant="caption" tone="destructive">
+            {error}
+          </AppText>
+        ) : null}
       </ProgressCard>
+
+      <BottomSheet visible={joinOpen} title="Join Leaderboard" onDismiss={() => setJoinOpen(false)}>
+        <AppText variant="footnote" tone="secondary">
+          2–40 letters or numbers. Optional X or Instagram handle — no @ or URL.
+        </AppText>
+        <TextInput
+          value={displayName}
+          onChangeText={setDisplayName}
+          placeholder="Display name"
+          placeholderTextColor={theme.colors.tertiaryLabel}
+          style={[theme.text.body, { color: theme.colors.label, backgroundColor: theme.colors.fill, borderRadius: theme.radii.control, padding: 12 }]}
+        />
+        <SettingsLikeRow
+          title="Social"
+          value={social ? (social === 'x' ? 'X' : 'Instagram') : 'None'}
+          onPress={() => setSocialPicker(true)}
+        />
+        {social ? (
+          <TextInput
+            value={handle}
+            onChangeText={setHandle}
+            placeholder="handle"
+            autoCapitalize="none"
+            placeholderTextColor={theme.colors.tertiaryLabel}
+            style={[theme.text.body, { color: theme.colors.label, backgroundColor: theme.colors.fill, borderRadius: theme.radii.control, padding: 12 }]}
+          />
+        ) : null}
+        <PrimaryButton title={busy ? 'Joining…' : 'Create profile'} disabled={busy} onPress={() => void join()} />
+      </BottomSheet>
+      <PickerSheet<WeeklyChallengeSocialPlatform | 'none'>
+        visible={socialPicker}
+        title="Social"
+        options={[
+          { value: 'none', label: 'No social link' },
+          ...weeklyChallengeSocialPlatforms.map((p) => ({ value: p, label: p === 'x' ? 'X' : 'Instagram' })),
+        ]}
+        selected={social ?? 'none'}
+        onSelect={(value) => setSocial(value === 'none' ? undefined : value)}
+        onDismiss={() => setSocialPicker(false)}
+      />
     </ScrollView>
+  );
+}
+
+function SettingsLikeRow({ title, value, onPress }: { title: string; value: string; onPress: () => void }) {
+  return (
+    <Pressable onPress={onPress} style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1, paddingVertical: 8 })}>
+      <Row style={{ justifyContent: 'space-between' }}>
+        <AppText variant="body">{title}</AppText>
+        <AppText variant="body" tone="secondary">
+          {value}
+        </AppText>
+      </Row>
+    </Pressable>
   );
 }

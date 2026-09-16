@@ -15,4 +15,5 @@ export type SettingsStackParamList = {
   Notifications: undefined;
   AppSettings: undefined;
   HealthData: undefined;
+  SpeechToText: undefined;
 };

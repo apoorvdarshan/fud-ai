@@ -6,6 +6,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { RootNavigator } from './src/navigation/RootNavigator';
 import { OnboardingFlow } from './src/screens/onboarding/OnboardingFlow';
 import { HostedPaywallSheet } from './src/screens/paywall/HostedPaywallSheet';
+import { applyAdaptiveGoalsIfDue } from './src/services/adaptiveGoals';
+import { subscribeCompanionSnapshot } from './src/services/companionSnapshot';
 import { installPurchasesAdapter } from './src/services/purchases';
 import { hydrateAndPersistStores, usePreferences } from './src/state/appStores';
 import { appThemeColor, ThemeProvider, useTheme } from './src/theme';
@@ -36,11 +38,16 @@ export default function App() {
       console.warn('[fudai] purchases adapter unavailable', error),
     );
     void Promise.all([hydration, purchases]).finally(() => {
-      if (!disposed) setHydrated(true);
+      if (!disposed) {
+        setHydrated(true);
+        applyAdaptiveGoalsIfDue();
+      }
     });
+    const unsubscribeSnapshot = subscribeCompanionSnapshot();
     return () => {
       disposed = true;
       dispose?.();
+      unsubscribeSnapshot();
     };
   }, []);
 

@@ -10,12 +10,13 @@ import { Alert, ScrollView } from 'react-native';
 import { BottomSheet } from '../../components/BottomSheet';
 import { PickerSheet } from '../../components/PickerSheet';
 import { AppText, PrimaryButton } from '../../components/primitives';
-import { SettingsRow, SettingsSection } from '../../components/SettingsRow';
+import { SettingsRow, SettingsSection, SettingsToggleRow } from '../../components/SettingsRow';
 import { StepperField } from '../../components/StepperField';
 import { displayWeight, formatWeight, isValidWeightKg, weightKgFromDisplay } from '../../domain/body/bodyState';
 import { calculationMethodsSummary, goalSpeedTitle, planLimits, weeklyChangeKg, type GoalSpeed } from '../../domain/onboarding/onboarding';
 import { dailyCalories, dailyTargets, weightGoalDisplayName, weightGoals, type WeightGoal } from '../../domain/profile/userProfile';
-import { profileStore, usePreferences, useProfile } from '../../state/appStores';
+import { setAdaptiveGoalsEnabled } from '../../services/adaptiveGoals';
+import { profileStore, setPreferences, usePreferences, useProfile } from '../../state/appStores';
 import { useTheme } from '../../theme';
 
 type Sheet = 'goal' | 'pace' | 'goalWeight' | 'calories' | 'protein' | 'carbs' | 'fat' | 'methods' | null;
@@ -28,7 +29,8 @@ function speedForRate(rate: number | undefined): GoalSpeed {
 export function GoalsNutritionScreen() {
   const theme = useTheme();
   const profile = useProfile((p) => p);
-  const weightMetric = usePreferences((p) => p.weightUnit === 'kg');
+  const prefs = usePreferences((p) => p);
+  const weightMetric = prefs.weightUnit === 'kg';
   const [sheet, setSheet] = useState<Sheet>(null);
   const [draft, setDraft] = useState('');
   const targets = dailyTargets(profile);
@@ -72,6 +74,7 @@ export function GoalsNutritionScreen() {
         update({ customFat: macroDraft });
         break;
     }
+    setPreferences({ onboardingPlanEdited: true });
     setSheet(null);
   };
 
@@ -93,13 +96,24 @@ export function GoalsNutritionScreen() {
           {macroRow('Fat', 'fat', profile.customFat, 'g')}
         </SettingsSection>
 
+        <SettingsSection
+          header="Adaptive Goals"
+          footer="Once a week, Fud AI re-pins calories and macros to the current formula from your latest weight. This is not an on-device AI model. Turn it off to keep numbers you set by hand."
+        >
+          <SettingsToggleRow
+            icon="arrow.triangle.2.circlepath.circle.fill"
+            title="Adaptive Goals"
+            value={prefs.adaptiveGoalsEnabled}
+            onValueChange={(enabled) => {
+              if (enabled) setPreferences({ onboardingPlanEdited: false });
+              setAdaptiveGoalsEnabled(enabled);
+            }}
+          />
+        </SettingsSection>
         <SettingsSection>
           <SettingsRow icon="arrow.triangle.2.circlepath.circle.fill" title="Recalculate Goals" onPress={recalculate} chevron={false} />
           <SettingsRow icon="book.fill" title="How is this calculated?" onPress={() => setSheet('methods')} chevron={false} />
         </SettingsSection>
-        <AppText variant="footnote" tone="tertiary" align="center">
-          Adaptive Goals (weekly automatic adjustment) is being ported from the native apps.
-        </AppText>
       </ScrollView>
 
       <BottomSheet visible={sheet === 'methods'} title="Calculation methods" onDismiss={() => setSheet(null)} surface="card" detent="medium">

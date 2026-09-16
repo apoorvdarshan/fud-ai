@@ -17,6 +17,7 @@ import { HealthDataScreen } from '../screens/settings/HealthDataScreen';
 import { NotificationsScreen } from '../screens/settings/NotificationsScreen';
 import { PersonalInfoScreen } from '../screens/settings/PersonalInfoScreen';
 import { SettingsScreen } from '../screens/settings/SettingsScreen';
+import { SpeechToTextScreen } from '../screens/settings/SpeechToTextScreen';
 import { TrackingRemindersScreen } from '../screens/settings/TrackingRemindersScreen';
 import { useTheme } from '../theme';
 import type { RootTabParamList, SettingsStackParamList } from './types';
@@ -53,6 +54,7 @@ function SettingsStackScreen() {
       <SettingsStack.Screen name="Notifications" component={NotificationsScreen} options={{ title: 'Notifications' }} />
       <SettingsStack.Screen name="AppSettings" component={AppSettingsScreen} options={{ title: 'App Settings' }} />
       <SettingsStack.Screen name="HealthData" component={HealthDataScreen} options={{ title: 'Health & Data' }} />
+      <SettingsStack.Screen name="SpeechToText" component={SpeechToTextScreen} options={{ title: 'Speech-to-Text' }} />
     </SettingsStack.Navigator>
   );
 }

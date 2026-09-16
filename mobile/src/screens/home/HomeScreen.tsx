@@ -4,7 +4,7 @@ import { Alert, AppState, Pressable, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ActionListSheet, type ActionListItem } from '../../components/ActionListSheet';
-import { ComingSoonSheet } from '../../components/ComingSoonSheet';
+import { BarcodeLookupError, barcodeLookupMessages } from '../../domain/food/openFoodFacts';
 import { Icon } from '../../components/Icon';
 import { CalorieGauge } from '../../components/home/CalorieGauge';
 import { FastingRow, FoodRow, WaterLogRow } from '../../components/home/DiaryRows';
@@ -37,7 +37,11 @@ import { deleteFoodImage, storeFoodImage } from '../../services/foodImageStore';
 import { ImagePermissionError, pickImage, type ImageSource } from '../../services/imagePicker';
 import { diaryStore, newId, setPreferences, useDiary, usePreferences, useProfile } from '../../state/appStores';
 import { useTheme } from '../../theme';
+import { lookupBarcode } from '../../services/openFoodFacts';
+import { deleteFoodFromHealth, writeFoodToHealth } from '../../services/health';
 import { AnalyzingOverlay, FoodResultSheet, SavedMealsSheet, TextFoodInputSheet, type FoodResultSave } from './FoodAISheets';
+import { BarcodeScannerSheet } from './BarcodeScannerSheet';
+import { VoiceMealSheet } from './VoiceMealSheet';
 import {
   AddMenuSheet,
   FastingStartSheet,
@@ -58,7 +62,7 @@ type Sheet =
   | 'review'
   | 'nutritionDetail'
   | 'imageSource'
-  | 'barcodeInfo'
+  | 'barcodeScan'
   | 'foodActions'
   | 'waterActions'
   | 'fastingActions'
@@ -366,7 +370,9 @@ export function HomeScreen() {
       ...(result.customNote !== undefined ? { customNote: result.customNote } : {}),
       ...(imageFilename ? { imageFilename } : {}),
     });
-    diaryStore.dispatch({ type: 'food/add', entry: makeFoodEntry(input, id) });
+    const entry = makeFoodEntry(input, id);
+    diaryStore.dispatch({ type: 'food/add', entry });
+    writeFoodToHealth(entry);
     setReview(null);
     setSheet(null);
   };
@@ -374,12 +380,46 @@ export function HomeScreen() {
   const deleteFoodEntry = (entry: FoodEntry) => {
     diaryStore.dispatch({ type: 'food/delete', id: entry.id });
     deleteFoodImage(entry.imageFilename);
+    deleteFoodFromHealth(entry.id);
   };
 
   const relogEntry = (entry: FoodEntry) => {
     const { id: _id, timestamp: _timestamp, imageFilename: _image, additionalImageFilenames: _images, ...rest } = entry;
-    diaryStore.dispatch({ type: 'food/add', entry: makeFoodEntry({ ...rest, timestamp: logDate().toISOString() }, newId()) });
+    const next = makeFoodEntry({ ...rest, timestamp: logDate().toISOString() }, newId());
+    diaryStore.dispatch({ type: 'food/add', entry: next });
+    writeFoodToHealth(next);
     setSheet(null);
+  };
+
+  const lookupScannedBarcode = (code: string) => {
+    setSheet(null);
+    analysisAbort.current?.abort();
+    const controller = new AbortController();
+    analysisAbort.current = controller;
+    setPending({ kind: 'barcode' });
+    void lookupBarcode(code, controller.signal)
+      .then((analysis) => {
+        if (controller.signal.aborted) return;
+        setReview({ kind: 'barcode', analysis });
+        setSheet('review');
+      })
+      .catch((error: unknown) => {
+        if (controller.signal.aborted) return;
+        const lookupError = error instanceof BarcodeLookupError ? error : new BarcodeLookupError('networkError');
+        const buttons = lookupError.offersScanLabel
+          ? [
+              { text: 'Cancel', style: 'cancel' as const },
+              { text: 'Scan Label', onPress: () => chooseImageSource('nutritionLabel') },
+            ]
+          : [{ text: 'OK' }];
+        Alert.alert('Scan Barcode', lookupError.message || barcodeLookupMessages.networkError, buttons);
+      })
+      .finally(() => {
+        if (analysisAbort.current === controller) {
+          analysisAbort.current = null;
+          setPending(null);
+        }
+      });
   };
 
   const handleAddMenu = (action: AddMenuAction) => {
@@ -416,11 +456,11 @@ export function HomeScreen() {
           case 'voice':
             openSheet('voiceMeal');
             return;
+          case 'barcode':
+            openSheet('barcodeScan');
+            return;
           case 'saved':
             openSheet('savedMeals');
-            return;
-          case 'barcode':
-            setSheet('barcodeInfo');
             return;
         }
     }
@@ -589,20 +629,34 @@ export function HomeScreen() {
         logDate={logDate()}
         onDismiss={() => setSheet(null)}
         onSave={(input) => {
-          diaryStore.dispatch({ type: 'food/add', entry: makeFoodEntry(input, newId()) });
+          const entry = makeFoodEntry(input, newId());
+          diaryStore.dispatch({ type: 'food/add', entry });
+          writeFoodToHealth(entry);
           setSheet(null);
         }}
       />
       <TextFoodInputSheet
         key={`text-${sheetEpoch}`}
-        visible={sheet === 'describeMeal' || sheet === 'voiceMeal'}
-        voice={sheet === 'voiceMeal'}
+        visible={sheet === 'describeMeal'}
         onDismiss={() => setSheet(null)}
         onSubmit={(description) => {
-          const kind: FoodAnalysisKind = sheet === 'voiceMeal' ? 'voice' : 'text';
           setSheet(null);
-          void runAnalysis(kind, { text: description });
+          void runAnalysis('text', { text: description });
         }}
+      />
+      <VoiceMealSheet
+        key={`voice-${sheetEpoch}`}
+        visible={sheet === 'voiceMeal'}
+        onDismiss={() => setSheet(null)}
+        onTranscribed={(text) => {
+          setSheet(null);
+          void runAnalysis('voice', { text });
+        }}
+      />
+      <BarcodeScannerSheet
+        visible={sheet === 'barcodeScan'}
+        onDismiss={() => setSheet(null)}
+        onScan={(code) => lookupScannedBarcode(code)}
       />
       <SavedMealsSheet
         visible={sheet === 'savedMeals'}
@@ -659,13 +713,6 @@ export function HomeScreen() {
           setDiaryTarget(null);
           setSheet(null);
         }}
-      />
-      <ComingSoonSheet
-        visible={sheet === 'barcodeInfo'}
-        title="Scan Barcode"
-        icon="barcode"
-        message="Barcode lookup (Open Food Facts) stays in the native apps for now. Use Scan Food or Describe Meal."
-        onDismiss={() => setSheet(null)}
       />
       <NutritionDetailSheet
         visible={sheet === 'nutritionDetail'}

@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android"],
+  "apple": {
+    "modules": ["NativeStorageModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.nativestorage.NativeStorageModule"]
+  }
+}

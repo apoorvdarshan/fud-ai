@@ -10,10 +10,34 @@ import { Directory, File, Paths } from 'expo-file-system';
 
 const FOLDER_NAME = 'fudai-food-images';
 
+/** Native iOS writes photos under Application Support; Expo uses Documents. */
+let nativeFoodImagesDirectory: string | undefined;
+
 function folder(): Directory {
   const directory = new Directory(Paths.document, FOLDER_NAME);
   if (!directory.exists) directory.create({ intermediates: true, idempotent: true });
   return directory;
+}
+
+/**
+ * Keep native `FoodImageStore` filenames resolving after a store overlay.
+ * iOS Application Support and Expo Documents can differ; Android `filesDir` usually matches.
+ */
+export function adoptNativeFoodImages(directoryPath: string): void {
+  if (!directoryPath.trim()) return;
+  nativeFoodImagesDirectory = directoryPath.startsWith('file://') ? directoryPath : `file://${directoryPath}`;
+}
+
+function foodImageFile(filename: string): File {
+  const primary = new File(Paths.document, FOLDER_NAME, filename);
+  if (primary.exists || !nativeFoodImagesDirectory) return primary;
+  try {
+    const fallback = new File(nativeFoodImagesDirectory, filename);
+    if (fallback.exists) return fallback;
+  } catch {
+    /* invalid native path */
+  }
+  return primary;
 }
 
 /** Writes JPEG bytes (base64) under a filename derived from the entry id; undefined when the disk refused. */
@@ -31,13 +55,13 @@ export function storeFoodImage(jpegBase64: string, entryId: string): string | un
 
 /** `file://` URI for an `imageFilename`, for `<Image source={{ uri }}>`. */
 export function foodImageURI(filename: string): string {
-  return new File(Paths.document, FOLDER_NAME, filename).uri;
+  return foodImageFile(filename).uri;
 }
 
 export function deleteFoodImage(filename: string | undefined): void {
   if (!filename) return;
   try {
-    const file = new File(Paths.document, FOLDER_NAME, filename);
+    const file = foodImageFile(filename);
     if (file.exists) file.delete();
   } catch (error) {
     console.warn('[fudai] could not delete the meal photo', error);

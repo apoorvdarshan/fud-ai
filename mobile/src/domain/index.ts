@@ -35,4 +35,6 @@ export * from './purchases/revenueCatAdapter';
 export * from './water/water';
 export * from './workouts/exerciseLibrary';
 export * from './workouts/workoutSessions';
+export * from './nativeMigration/nativeSnapshot';
+export * from './nativeMigration/mapNativeSnapshot';
 export * from './progress/weeklyChallenge';

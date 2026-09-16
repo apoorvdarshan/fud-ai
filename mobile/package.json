@@ -36,6 +36,7 @@
     "expo-status-bar": "~57.0.1",
     "fflate": "^0.8.3",
     "health-sync": "file:./modules/health-sync",
+    "native-storage": "file:./modules/native-storage",
     "react": "19.2.3",
     "react-native": "0.86.3",
     "react-native-purchases": "^10.9.1",

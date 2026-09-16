@@ -7,7 +7,8 @@ import { randomUUID } from 'expo-crypto';
 import { useSyncExternalStore } from 'react';
 
 import { bodyReducer, initialBodyState, latestWeight, type BodyAction, type BodyState, type WeightEntry } from '../domain/body/bodyState';
-import { chatReducer, COACH_CHAT_STORAGE_KEY, initialChatState, type ChatAction, type ChatMessage, type ChatState } from '../domain/coach/coach';
+import { chatReducer, initialChatState, type ChatAction, type ChatMessage, type ChatState } from '../domain/coach/coach';
+import { migrateNativeDataIfNeeded } from '../services/nativeMigration';
 import { diaryReducer, initialDiaryState, type DiaryAction, type DiaryState } from '../domain/diary/diaryState';
 import { defaultPreferences, mergePreferences, type Preferences } from '../domain/prefs/preferences';
 import { defaultUserProfile, type UserProfile } from '../domain/profile/userProfile';
@@ -22,16 +23,9 @@ import {
 import { initialWorkoutsState, workoutsReducer, type WorkoutsAction, type WorkoutsState } from '../domain/workouts/workoutSessions';
 import { createStore, type Store } from './createStore';
 import { asyncKeyValueStore, readJSON, writeJSON, type KeyValueStore } from './persistence';
+import { storageKeys } from './storageKeys';
 
-export const storageKeys = {
-  diary: 'fudai.diary.v1',
-  preferences: 'fudai.preferences.v1',
-  profile: 'fudai.profile.v1',
-  body: 'fudai.body.v1',
-  workouts: 'fudai.workouts.v1',
-  /** Same key as `ChatStore.swift` so the name lines up with the native UserDefaults blob. */
-  chat: COACH_CHAT_STORAGE_KEY,
-} as const;
+export { storageKeys };
 
 export function newId(): string {
   return randomUUID();
@@ -321,6 +315,11 @@ async function readStore<T>(kv: KeyValueStore, key: string): Promise<StoreRead<T
  * every failure goes through `reportPersistenceFailure`.
  */
 export async function hydrateAndPersistStores(kv: KeyValueStore = asyncKeyValueStore): Promise<() => void> {
+  try {
+    await migrateNativeDataIfNeeded(kv);
+  } catch (error) {
+    console.error('[fudai] native migration failed; continuing with RN storage', error);
+  }
   const [diary, preferences, profile, body, workouts, chat] = await Promise.all([
     readStore<PersistedDiary>(kv, storageKeys.diary),
     readStore<Partial<Preferences>>(kv, storageKeys.preferences),

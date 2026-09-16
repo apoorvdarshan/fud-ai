@@ -15,6 +15,12 @@
             "state": "translated",
             "value": "Ключ API не налаштовано. Додайте ключ у Налаштування → Провайдер ШІ."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API anahtarı yapılandırılmadı. Anahtarınızı Ayarlar → Yapay Zeka Sağlayıcısı'ndan ekleyin."
+          }
         }
       }
     },
@@ -31,6 +37,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не вдалося обробити зображення. Спробуйте інше фото."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Görsel işlenemedi. Başka bir fotoğraf deneyin."
           }
         }
       }
@@ -49,6 +61,12 @@
             "state": "translated",
             "value": "Не вдалося розібрати відповідь ШІ. Спробуйте ще раз."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yapay zeka yanıtı anlaşılamadı. Lütfen tekrar deneyin."
+          }
         }
       }
     },
@@ -65,6 +83,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Недійсна URL-адреса API. Перевірте налаштування провайдера."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Geçersiz API URL'si. Sağlayıcı ayarlarınızı kontrol edin."
           }
         }
       }
@@ -83,6 +107,12 @@
             "state": "translated",
             "value": "Схоже, ви офлайн. Перевірте з'єднання та спробуйте ще раз."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çevrimdışı görünüyorsunuz. Bağlantınızı kontrol edip tekrar deneyin."
+          }
         }
       }
     },
@@ -99,6 +129,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Не вдалося підключитися до провайдера ШІ. Перевірте з'єднання та URL провайдера, потім спробуйте ще раз."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yapay zeka sağlayıcısına bağlanılamadı. Bağlantınızı ve sağlayıcı URL'nizi kontrol edip tekrar deneyin."
           }
         }
       }
@@ -117,6 +153,12 @@
             "state": "translated",
             "value": "ШІ занадто довго відповідав. Спробуйте ще раз або збільште тайм-аут запиту в Налаштування → Провайдер ШІ."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yapay zeka yanıt vermek için çok uzun sürdü. Tekrar deneyin veya Ayarlar → Yapay Zeka Sağlayıcısı'ndan istek zaman aşımını artırın."
+          }
         }
       }
     },
@@ -133,6 +175,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "На вашому обліковому записі ШІ закінчилися кредити. Поповніть баланс або змініть провайдера в Налаштування → Провайдер ШІ."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yapay zeka hesabınızın kredisi bitti. Kredi yükleyin veya Ayarlar → Yapay Zeka Sağlayıcısı'ndan sağlayıcı değiştirin."
           }
         }
       }
@@ -151,6 +199,12 @@
             "state": "translated",
             "value": "Щоденну квоту вашого облікового запису ШІ вичерпано. Спробуйте завтра або змініть провайдера в Налаштування → Провайдер ШІ."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yapay zeka hesabınızın günlük kotası doldu. Yarın tekrar deneyin veya Ayarlar → Yapay Zeka Sağlayıcısı'ndan sağlayıcı değiştirin."
+          }
         }
       }
     },
@@ -167,6 +221,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Перевищено квоту використання вашого облікового запису ШІ. Перевірте ліміти провайдера або змініть провайдера в Налаштування → Провайдер ШІ."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yapay zeka hesabınızın kullanım kotası aşıldı. Sağlayıcınızın sınırlarını kontrol edin veya Ayarlar → Yapay Zeka Sağlayıcısı'ndan sağlayıcı değiştirin."
           }
         }
       }
@@ -185,6 +245,12 @@
             "state": "translated",
             "value": "Обрана модель або кінцева точка API недоступна. Перевірте модель і URL API в Налаштування → Провайдер ШІ."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Seçilen model veya API uç noktası kullanılamıyor. Ayarlar → Yapay Zeka Sağlayıcısı'ndan modeli ve API URL'sini kontrol edin."
+          }
         }
       }
     },
@@ -201,6 +267,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Досягнуто ліміт запитів для вашого ключа API. Зачекайте хвилину або змініть провайдера в Налаштування → Провайдер ШІ. Якщо ви використовуєте безкоштовний тариф, перевірте, чи не вичерпано щоденну квоту."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API anahtarınızda hız sınırına ulaşıldı. Bir dakika bekleyin veya Ayarlar → Yapay Zeka Sağlayıcısı'ndan sağlayıcı değiştirin. Ücretsiz katman kullanıyorsanız günlük kotasının dolup dolmadığını kontrol edin."
           }
         }
       }
@@ -219,6 +291,12 @@
             "state": "translated",
             "value": "Ваш ключ API відхилено. Відкрийте Налаштування → Провайдер ШІ і вставте дійсний ключ."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "API anahtarınız reddedildi. Ayarlar → Yapay Zeka Sağlayıcısı'nı açın ve geçerli bir anahtarı yeniden yapıştırın."
+          }
         }
       }
     },
@@ -235,6 +313,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Провайдер ШІ зараз перевантажений. Ми повторили кілька разів — спробуйте через хвилину або змініть провайдера/модель у Налаштування → Провайдер ШІ."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yapay zeka sağlayıcısı şu anda aşırı yüklü. Birkaç kez yeniden denedik — bir dakika sonra tekrar deneyin veya Ayarlar → Yapay Zeka Sağlayıcısı'ndan sağlayıcı/model değiştirin."
           }
         }
       }
@@ -253,6 +337,12 @@
             "state": "translated",
             "value": "Запит до ШІ не вдався. Спробуйте ще раз або змініть провайдера в Налаштування → Провайдер ШІ."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yapay zeka isteği başarısız oldu. Tekrar deneyin veya Ayarlar → Yapay Zeka Sağlayıcısı'ndan sağlayıcı değiştirin."
+          }
         }
       }
     },
@@ -269,6 +359,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Локальне середовище ШІ недоступне. Перевірте завантажену модель у Налаштування → Провайдер ШІ."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cihaz üzerindeki yapay zeka çalışma zamanı kullanılamıyor. Ayarlar → Yapay Zeka Sağlayıcısı'ndan indirilen modeli kontrol edin."
           }
         }
       }
@@ -287,6 +383,12 @@
             "state": "translated",
             "value": "Apple Intelligence потребує iOS 26 або новішої версії на підтримуваному iPhone."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence, desteklenen bir iPhone'da iOS 26 veya üzerini gerektirir."
+          }
         }
       }
     },
@@ -303,6 +405,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Відповідь ШІ двічі обрізано. Спробуйте коротший ввід або іншу модель."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yapay zeka yanıtı iki kez kesildi. Daha kısa bir girdi veya başka bir model deneyin."
           }
         }
       }
@@ -321,6 +429,12 @@
             "state": "translated",
             "value": "Apple Intelligence доступний для запитів лише з текстом."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apple Intelligence yalnızca metin içeren istekler için kullanılabilir."
+          }
         }
       }
     },
@@ -337,6 +451,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ і резервний %2$@ не спрацювали. %3$@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%1$@ ve yedek %2$@ ikisi de başarısız oldu. %3$@"
           }
         }
       }

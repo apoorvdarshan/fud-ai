@@ -546,7 +546,7 @@ struct MacroCard: View {
                 .font(.system(.caption, design: .rounded, weight: .medium))
                 .foregroundStyle(.secondary)
 
-            Text("\(formatted(max(goal - current, 0)))\(unit) left")
+            Text(String(format: LocalizedDisplayText.text("%@ left"), "\(formatted(max(goal - current, 0)))\(unit)"))
                 .font(.system(.caption2, design: .rounded))
                 .foregroundStyle(.tertiary)
         }
@@ -588,10 +588,14 @@ struct CalorieGauge: View {
     }
 
     private var statusText: String {
-        guard goal > 0 else { return "No goal" }
-        if eaten < goal { return "\((goal - eaten).formatted()) left" }
-        if eaten > goal { return "\((eaten - goal).formatted()) over" }
-        return "Goal reached"
+        guard goal > 0 else { return LocalizedDisplayText.text("No goal") }
+        if eaten < goal {
+            return String(format: LocalizedDisplayText.text("%@ left"), (goal - eaten).formatted())
+        }
+        if eaten > goal {
+            return String(format: LocalizedDisplayText.text("%@ over"), (eaten - goal).formatted())
+        }
+        return LocalizedDisplayText.text("Goal reached")
     }
 
     private var dashedStroke: StrokeStyle {
@@ -623,7 +627,7 @@ struct CalorieGauge: View {
 
             // Readout, lifted up into the dome so nothing is cropped at the bottom.
             VStack(spacing: 2) {
-                Text("Calories")
+                Text(LocalizedDisplayText.text("Calories"))
                     .font(.system(.caption, design: .rounded, weight: .semibold))
                     .textCase(.uppercase)
                     .tracking(0.5)
@@ -699,11 +703,12 @@ struct MacroVerticalBar: View {
     }
 
     private var statusText: String {
-        guard goal > 0 else { return "No goal" }
+        guard goal > 0 else { return LocalizedDisplayText.text("No goal") }
         let difference = goal - current
-        if abs(difference) < 0.0001 { return "Goal reached" }
+        if abs(difference) < 0.0001 { return LocalizedDisplayText.text("Goal reached") }
         let amount = MacroValueFormatter.string(abs(difference))
-        return difference > 0 ? "\(amount)\(unit) left" : "\(amount)\(unit) over"
+        let formatKey = difference > 0 ? "%@ left" : "%@ over"
+        return String(format: LocalizedDisplayText.text(formatKey), "\(amount)\(unit)")
     }
 
     var body: some View {

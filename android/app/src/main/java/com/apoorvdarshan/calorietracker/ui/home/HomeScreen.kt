@@ -1639,7 +1639,7 @@ private fun CalorieHero(
     }
     val statusText = when {
         goal <= 0 -> "No goal"
-        current < goal -> "${(goal - current).formattedWholeNumber()} left"
+        current < goal -> stringResource(R.string.home_kcal_left_format, (goal - current).formattedWholeNumber())
         current > goal -> "${(current - goal).formattedWholeNumber()} over"
         else -> "Goal reached"
     }
@@ -1692,7 +1692,7 @@ private fun CalorieHero(
             verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
-                "CALORIES",
+                stringResource(R.string.widget_calories),
                 fontSize = 12.sp,
                 fontWeight = FontWeight.SemiBold,
                 letterSpacing = 0.5.sp,

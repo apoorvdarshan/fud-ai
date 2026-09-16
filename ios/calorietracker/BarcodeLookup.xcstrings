@@ -3,7 +3,8 @@
   "strings": {
     "barcode.lookup.offline": {
       "extractionState": "manual",
-      "localizations" : { "en": {
+      "localizations": {
+        "en": {
           "stringUnit": {
             "state": "translated",
             "value": "You appear to be offline. Check your connection and try scanning again."
@@ -14,12 +15,19 @@
             "state": "translated",
             "value": "Схоже, ви офлайн. Перевірте з'єднання та спробуйте сканувати ще раз."
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çevrimdışı görünüyorsunuz. Bağlantınızı kontrol edip tekrar taramayı deneyin."
+          }
         }
       }
     },
     "barcode.lookup.timeout": {
       "extractionState": "manual",
-      "localizations" : { "en": {
+      "localizations": {
+        "en": {
           "stringUnit": {
             "state": "translated",
             "value": "Open Food Facts took too long to respond. Try scanning again."
@@ -29,6 +37,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open Food Facts занадто довго відповідав. Спробуйте сканувати ще раз."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts yanıt vermek için çok uzun sürdü. Tekrar taramayı deneyin."
           }
         }
       }
@@ -138,6 +152,12 @@
             "state": "translated",
             "value": "无法读取此条形码。请重新扫描。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu barkod okunamadı. Tekrar taramayı deneyin."
+          }
         }
       }
     },
@@ -245,6 +265,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open Food Facts 返回了意外响应。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts beklenmedik bir yanıt döndürdü."
           }
         }
       }
@@ -354,6 +380,12 @@
             "state": "translated",
             "value": "已找到此条形码，但营养数据不完整。请改为扫描营养成分表。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu barkod bulundu ancak besin verisi eksik. Bunun yerine besin etiketini tarayın."
+          }
         }
       }
     },
@@ -461,6 +493,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "条形码查询失败。请检查网络连接后重试。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barkod araması başarısız oldu. Bağlantınızı kontrol edip tekrar deneyin."
           }
         }
       }
@@ -570,6 +608,12 @@
             "state": "translated",
             "value": "Open Food Facts 中未找到该产品。请改为扫描营养成分表。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ürün Open Food Facts'te bulunamadı. Bunun yerine besin etiketini tarayın."
+          }
         }
       }
     },
@@ -677,6 +721,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "条形码查询次数过多。请稍候再试。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çok fazla barkod araması yapıldı. Biraz bekleyin ve tekrar deneyin."
           }
         }
       }
@@ -786,6 +836,12 @@
             "state": "translated",
             "value": "Open Food Facts 暂时不可用。请稍后再试。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Food Facts geçici olarak kullanılamıyor. Daha sonra tekrar deneyin."
+          }
         }
       }
     },
@@ -893,6 +949,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "条形码 %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Barkod %@"
           }
         }
       }

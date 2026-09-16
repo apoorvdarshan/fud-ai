@@ -27,10 +27,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.apoorvdarshan.calorietracker.R
 import com.apoorvdarshan.calorietracker.models.MacroValueFormatter
 import com.apoorvdarshan.calorietracker.ui.navigation.LocalLaunchFillEpoch
 import com.apoorvdarshan.calorietracker.ui.theme.AppColors
@@ -69,10 +71,16 @@ fun MacroCard(
     val firstColor = gradientColors.firstOrNull() ?: AppColors.Calorie
     val goalValue = goal
     val statusText = when {
-        goal <= 0 -> "No goal"
-        current == goalValue -> "Goal reached"
-        current < goalValue -> "${MacroValueFormatter.string(goalValue - current)}$unit left"
-        else -> "${MacroValueFormatter.string(current - goalValue)}$unit over"
+        goal <= 0 -> stringResource(R.string.home_macro_no_goal)
+        current == goalValue -> stringResource(R.string.home_macro_goal_reached)
+        current < goalValue -> stringResource(
+            R.string.home_macro_left_format,
+            "${MacroValueFormatter.string(goalValue - current)}$unit",
+        )
+        else -> stringResource(
+            R.string.home_macro_over_format,
+            "${MacroValueFormatter.string(current - goalValue)}$unit",
+        )
     }
 
     Column(

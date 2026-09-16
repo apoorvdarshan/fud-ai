@@ -515,6 +515,7 @@
 				"pt-BR",
 				ro,
 				ru,
+				tr,
 				"zh-Hans",
 				Base,
 			);

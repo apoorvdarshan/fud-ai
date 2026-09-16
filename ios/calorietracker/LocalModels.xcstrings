@@ -104,6 +104,12 @@
             "state": "translated",
             "value": "取消"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İptal"
+          }
         }
       }
     },
@@ -209,6 +215,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "删除"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sil"
           }
         }
       }
@@ -316,6 +328,12 @@
             "state": "translated",
             "value": "删除模型"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Modeli Sil"
+          }
         }
       }
     },
@@ -421,6 +439,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "下载"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İndir"
           }
         }
       }
@@ -528,6 +552,12 @@
             "state": "translated",
             "value": "已下载"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İndirildi"
+          }
         }
       }
     },
@@ -633,6 +663,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "使用中"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kullanımda"
           }
         }
       }
@@ -740,6 +776,12 @@
             "state": "translated",
             "value": "需要处理"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dikkat gerekiyor"
+          }
         }
       }
     },
@@ -845,6 +887,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "未下载"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İndirilmedi"
           }
         }
       }
@@ -952,6 +1000,12 @@
             "state": "translated",
             "value": "准备"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hazırla"
+          }
         }
       }
     },
@@ -1057,6 +1111,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "正在准备"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hazırlanıyor"
           }
         }
       }
@@ -1164,6 +1224,12 @@
             "state": "translated",
             "value": "就绪"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hazır"
+          }
         }
       }
     },
@@ -1270,6 +1336,12 @@
             "state": "translated",
             "value": "正在验证"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğrulanıyor"
+          }
         }
       }
     },
@@ -1372,6 +1444,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemma 4 E2B"
+          }
+        },
+        "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "Gemma 4 E2B"
@@ -1482,6 +1560,12 @@
             "state": "translated",
             "value": "Gemma 4 E2B（设备端）"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemma 4 E2B (Cihaz Üzerinde)"
+          }
         }
       }
     },
@@ -1587,6 +1671,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gemma 4 下载进度"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemma 4 indirme ilerlemesi"
           }
         }
       }
@@ -1694,6 +1784,12 @@
             "state": "translated",
             "value": "正在验证 Gemma 4 下载内容"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemma 4 indirmesi doğrulanıyor"
+          }
         }
       }
     },
@@ -1799,6 +1895,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "模型来源"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Model kaynağı"
           }
         }
       }
@@ -1906,6 +2008,12 @@
             "state": "translated",
             "value": "删除 Gemma 4？"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemma 4 silinsin mi?"
+          }
         }
       }
     },
@@ -2011,6 +2119,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "下载的模型及其编译缓存将从此 iPhone 中移除。您稍后可以重新下载。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İndirilen model ve derlenmiş önbelleği bu iPhone'dan kaldırılacak. Daha sonra tekrar indirebilirsiniz."
           }
         }
       }
@@ -2118,6 +2232,12 @@
             "state": "translated",
             "value": "需要 8 GB 内存"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "8 GB RAM'li bir cihaz gerekir"
+          }
         }
       }
     },
@@ -2223,6 +2343,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "此设备端图像和文本模型可用于物理内存至少为 8 GB 的 iPhone。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu cihaz üzerindeki görsel ve metin modeli, en az 8 GB fiziksel belleğe sahip iPhone'larda kullanılabilir."
           }
         }
       }
@@ -2330,6 +2456,12 @@
             "state": "translated",
             "value": "下载大小为 2.59 GB。Fud AI 会检查是否另有 1 GB 可用安装空间。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "2,59 GB indirme. Fud AI, ek 1 GB boş kurulum alanı olup olmadığını kontrol eder."
+          }
         }
       }
     },
@@ -2435,6 +2567,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "已验证并存储在本地（%@）。现在轻点“准备”，否则将在首次使用时加载。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğrulandı ve yerel olarak depolandı (%@). Şimdi Hazırla'ya dokunun, yoksa ilk kullanımda yüklenir."
           }
         }
       }
@@ -2542,6 +2680,12 @@
             "state": "translated",
             "value": "已验证并存储在本地。现在轻点“准备”，否则将在首次使用时加载。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doğrulandı ve yerel olarak depolandı. Şimdi Hazırla'ya dokunun, yoksa ilk kullanımda yüklenir."
+          }
         }
       }
     },
@@ -2647,6 +2791,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "正在下载固定版本的 Gemma 4 模型… 完成前请保持 Fud AI 打开。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sabitlenmiş Gemma 4 modeli indiriliyor… Bitene kadar Fud AI'yı açık tutun."
           }
         }
       }
@@ -2754,6 +2904,12 @@
             "state": "translated",
             "value": "安装前正在检查确切的文件大小和 SHA-256…"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kurulumdan önce tam dosya boyutu ve SHA-256 kontrol ediliyor…"
+          }
         }
       }
     },
@@ -2859,6 +3015,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "正在编译并加载 LiteRT-LM Metal 运行时…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LiteRT-LM Metal çalışma zamanı derleniyor ve yükleniyor…"
           }
         }
       }
@@ -2966,6 +3128,12 @@
             "state": "translated",
             "value": "已可私密、离线处理食物图像和文本。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Özel, çevrimdışı yiyecek görselleri ve metinleri için hazır."
+          }
         }
       }
     },
@@ -3071,6 +3239,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "正在此 iPhone 上本地生成…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bu iPhone'da yerel olarak oluşturuluyor…"
           }
         }
       }
@@ -3178,6 +3352,12 @@
             "state": "translated",
             "value": "Gemma 4 需要内存至少为 8 GB 的 iPhone。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemma 4, en az 8 GB belleğe sahip bir iPhone gerektirir."
+          }
         }
       }
     },
@@ -3283,6 +3463,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gemma 4 尚未下载。请前往“设置”→“AI 提供商”下载。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemma 4 indirilmedi. Ayarlar → Yapay Zeka Sağlayıcıları'ndan indirin."
           }
         }
       }
@@ -3390,6 +3576,12 @@
             "state": "translated",
             "value": "Gemma 4 正忙。请等待当前操作完成。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemma 4 zaten meşgul. Lütfen mevcut işlemin bitmesini bekleyin."
+          }
         }
       }
     },
@@ -3495,6 +3687,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Gemma 4 需要 %@ 可用空间（包括安装余量）。此 iPhone 当前有 %@ 可用。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemma 4, kurulum alanı dahil %@ boş alana ihtiyaç duyar. Bu iPhone'da şu anda %@ kullanılabilir."
           }
         }
       }
@@ -3602,6 +3800,12 @@
             "state": "translated",
             "value": "无法检查可用存储空间，因此未开始下载大型模型。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kullanılabilir depolama kontrol edilemedi, bu yüzden büyük model indirmesi başlatılmadı."
+          }
         }
       }
     },
@@ -3707,6 +3911,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "无法验证 Gemma 4 下载内容（%@）。请重试。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemma 4 indirmesi doğrulanamadı (%@). Lütfen tekrar deneyin."
           }
         }
       }
@@ -3814,6 +4024,12 @@
             "state": "translated",
             "value": "Gemma 4 返回了空响应。请重试。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gemma 4 boş bir yanıt döndürdü. Lütfen tekrar deneyin."
+          }
         }
       }
     },
@@ -3919,6 +4135,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "预期 %@ 字节，收到 %@"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "beklenen %@ bayt, alınan %@"
           }
         }
       }
@@ -4026,6 +4248,12 @@
             "state": "translated",
             "value": "SHA-256 不匹配"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SHA-256 uyuşmazlığı"
+          }
         }
       }
     },
@@ -4131,6 +4359,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "模型服务器返回了无效响应。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Model sunucusu geçersiz bir yanıt döndürdü."
           }
         }
       }
@@ -4238,6 +4472,12 @@
             "state": "translated",
             "value": "模型服务器返回了 HTTP %@。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Model sunucusu HTTP %@ döndürdü."
+          }
         }
       }
     },
@@ -4344,6 +4584,12 @@
             "state": "translated",
             "value": "模型下载已完成，但没有文件。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Model indirmesi dosyasız tamamlandı."
+          }
         }
       }
     },
@@ -4446,6 +4692,12 @@
           }
         },
         "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whisper Base"
+          }
+        },
+        "tr": {
           "stringUnit": {
             "state": "translated",
             "value": "Whisper Base"
@@ -4556,6 +4808,12 @@
             "state": "translated",
             "value": "Whisper Base（设备端）"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whisper Base (Cihaz Üzerinde)"
+          }
         }
       }
     },
@@ -4661,6 +4919,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "多语言 Whisper Base 完全在此 iPhone 上运行。下载一次即可进行私密的离线转写。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tamamen bu iPhone'da çalışan çok dilli Whisper Base. Özel çevrimdışı deşifre için bir kez indirin."
           }
         }
       }
@@ -4768,6 +5032,12 @@
             "state": "translated",
             "value": "Whisper Base 下载进度"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whisper Base indirme ilerlemesi"
+          }
         }
       }
     },
@@ -4873,6 +5143,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "删除 Whisper Base？"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whisper Base silinsin mi?"
           }
         }
       }
@@ -4980,6 +5256,12 @@
             "state": "translated",
             "value": "下载的模型将从此 iPhone 中移除。您稍后可以重新下载。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "İndirilen model bu iPhone'dan kaldırılacak. Daha sonra tekrar indirebilirsiniz."
+          }
         }
       }
     },
@@ -5085,6 +5367,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "约 147 MB。下载后完全在设备端运行。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yaklaşık 147 MB. İndirmeden sonra tamamen cihaz üzerinde çalışır."
           }
         }
       }
@@ -5192,6 +5480,12 @@
             "state": "translated",
             "value": "已存储在本地（%@）。任何音频都不会离开此 iPhone。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yerel olarak depolandı (%@). Ses bu iPhone'dan çıkmaz."
+          }
         }
       }
     },
@@ -5297,6 +5591,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "已存储在本地。任何音频都不会离开此 iPhone。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yerel olarak depolandı. Ses bu iPhone'dan çıkmaz."
           }
         }
       }
@@ -5404,6 +5704,12 @@
             "state": "translated",
             "value": "正在下载多语言 Core ML 模型…"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Çok dilli Core ML modeli indiriliyor…"
+          }
         }
       }
     },
@@ -5509,6 +5815,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "正在为此 iPhone 优化模型…"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Model bu iPhone için optimize ediliyor…"
           }
         }
       }
@@ -5616,6 +5928,12 @@
             "state": "translated",
             "value": "正在本地转写…"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Yerel olarak deşifre ediliyor…"
+          }
         }
       }
     },
@@ -5721,6 +6039,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Whisper Base 尚未下载。请前往“设置”→“语音转文本”下载。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whisper Base indirilmedi. Ayarlar → Konuşmadan Metne'den indirin."
           }
         }
       }
@@ -5828,6 +6152,12 @@
             "state": "translated",
             "value": "Whisper Base 正忙。请等待当前操作完成。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whisper Base zaten meşgul. Lütfen mevcut işlemin bitmesini bekleyin."
+          }
         }
       }
     },
@@ -5933,6 +6263,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "Whisper Base 未在此录音中检测到任何语音。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Whisper Base bu kayıtta herhangi bir konuşma algılayamadı."
           }
         }
       }
@@ -6040,6 +6376,12 @@
             "state": "translated",
             "value": "正在加载声明…"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bildirimler yükleniyor…"
+          }
         }
       }
     },
@@ -6145,6 +6487,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "LiteRT-LM 第三方声明"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LiteRT-LM üçüncü taraf bildirimleri"
           }
         }
       }
@@ -6252,6 +6600,12 @@
             "state": "translated",
             "value": "声明不可用"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bildirimler Kullanılamıyor"
+          }
         }
       }
     },
@@ -6357,6 +6711,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "LiteRT-LM 声明"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LiteRT-LM Bildirimleri"
           }
         }
       }
@@ -6464,6 +6824,12 @@
             "state": "translated",
             "value": "找不到内置的声明文件。"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paketlenmiş bildirim dosyası bulunamadı."
+          }
         }
       }
     },
@@ -6569,6 +6935,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "无法打开内置的声明文件。"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paketlenmiş bildirim dosyası açılamadı."
           }
         }
       }
@@ -6676,6 +7048,12 @@
             "state": "translated",
             "value": "LiteRT-LM 第三方声明"
           }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "LiteRT-LM Üçüncü Taraf Bildirimleri"
+          }
         }
       }
     },
@@ -6781,6 +7159,12 @@
           "stringUnit": {
             "state": "translated",
             "value": "设备端模型"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cihaz Üzerindeki Model"
           }
         }
       }

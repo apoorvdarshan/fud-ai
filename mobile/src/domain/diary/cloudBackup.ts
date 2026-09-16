@@ -46,7 +46,13 @@ export interface CloudBackupDocument {
   payload: { values: Record<string, CloudBackupValue> };
 }
 
-export type CloudBackupErrorKind = 'missingPayload' | 'invalidFormat' | 'needsNewerApp' | 'hashMismatch';
+export const zipInflateLimits = {
+  maxEntryBytes: 20 * 1024 * 1024,
+  maxTotalBytes: 64 * 1024 * 1024,
+  maxEntries: 256,
+} as const;
+
+export type CloudBackupErrorKind = 'missingPayload' | 'invalidFormat' | 'needsNewerApp' | 'hashMismatch' | 'tooLarge';
 
 export class CloudBackupError extends Error {
   readonly kind: CloudBackupErrorKind;
@@ -57,7 +63,9 @@ export class CloudBackupError extends Error {
         ? 'This backup needs a newer Fud AI.'
         : kind === 'hashMismatch'
           ? 'This backup file is damaged or incomplete.'
-          : 'This is not a Fud AI backup.',
+          : kind === 'tooLarge'
+            ? 'This backup is too large to restore.'
+            : 'This is not a Fud AI backup.',
     );
     this.name = 'CloudBackupError';
     this.kind = kind;
@@ -228,12 +236,13 @@ export function packZip(files: Array<{ name: string; data: Uint8Array }>): Uint8
 }
 
 export function unpackZip(data: Uint8Array): Record<string, Uint8Array> {
+  const budget = { used: 0, entries: 0 };
   const eocd = findEndOfCentralDirectory(data);
   if (eocd >= 0) {
-    const fromCentral = unpackZipFromCentralDirectory(data, eocd);
+    const fromCentral = unpackZipFromCentralDirectory(data, eocd, budget);
     if (Object.keys(fromCentral).length > 0) return fromCentral;
   }
-  return unpackZipFromLocalHeaders(data);
+  return unpackZipFromLocalHeaders(data, { used: 0, entries: 0 });
 }
 
 /** Present collections only. Missing keys must not wipe existing diary state. */
@@ -342,14 +351,16 @@ function findEndOfCentralDirectory(data: Uint8Array): number {
   return -1;
 }
 
-function unpackZipFromCentralDirectory(data: Uint8Array, eocd: number): Record<string, Uint8Array> {
+function unpackZipFromCentralDirectory(data: Uint8Array, eocd: number, budget: ZipBudget): Record<string, Uint8Array> {
   const result: Record<string, Uint8Array> = {};
   const entryCount = readU16(data, eocd + 10);
+  if (entryCount > zipInflateLimits.maxEntries) throw new CloudBackupError('tooLarge');
   let i = readU32(data, eocd + 16);
   for (let n = 0; n < entryCount; n += 1) {
     if (i + 46 > data.byteLength || readU32(data, i) !== 0x02014b50) break;
     const method = readU16(data, i + 10);
     const compact = readU32(data, i + 20);
+    const uncompressed = readU32(data, i + 24);
     const nameLen = readU16(data, i + 28);
     const extraLen = readU16(data, i + 30);
     const commentLen = readU16(data, i + 32);
@@ -362,13 +373,13 @@ function unpackZipFromCentralDirectory(data: Uint8Array, eocd: number): Record<s
     const localExtraLen = readU16(data, localOff + 28);
     const dataStart = localOff + 30 + localNameLen + localExtraLen;
     if (dataStart + compact > data.byteLength) break;
-    result[name] = inflateZipPayload(data.subarray(dataStart, dataStart + compact), method);
+    result[name] = inflateZipPayload(data.subarray(dataStart, dataStart + compact), method, uncompressed, budget);
     i = nameEnd + extraLen + commentLen;
   }
   return result;
 }
 
-function unpackZipFromLocalHeaders(data: Uint8Array): Record<string, Uint8Array> {
+function unpackZipFromLocalHeaders(data: Uint8Array, budget: ZipBudget): Record<string, Uint8Array> {
   const result: Record<string, Uint8Array> = {};
   let i = 0;
   while (i + 30 <= data.byteLength) {
@@ -376,30 +387,59 @@ function unpackZipFromLocalHeaders(data: Uint8Array): Record<string, Uint8Array>
     if (sig === 0x02014b50 || sig === 0x06054b50) break;
     if (sig !== 0x04034b50) break;
     const method = readU16(data, i + 8);
+    const compact = readU32(data, i + 18);
+    const uncompressed = readU32(data, i + 22);
     const nameLen = readU16(data, i + 26);
     const extraLen = readU16(data, i + 28);
-    const compact = readU32(data, i + 18);
     const nameStart = i + 30;
     const nameEnd = nameStart + nameLen;
     if (nameEnd + extraLen + compact > data.byteLength) break;
     const name = new TextDecoder().decode(data.subarray(nameStart, nameEnd));
     const dataStart = nameEnd + extraLen;
-    result[name] = inflateZipPayload(data.subarray(dataStart, dataStart + compact), method);
+    result[name] = inflateZipPayload(data.subarray(dataStart, dataStart + compact), method, uncompressed, budget);
     i = dataStart + compact;
   }
   return result;
 }
 
-function inflateZipPayload(raw: Uint8Array, method: number): Uint8Array {
-  if (method === 0) return raw;
-  if (method === 8) {
+interface ZipBudget {
+  used: number;
+  entries: number;
+}
+
+function consumeZipBudget(budget: ZipBudget, produced: number, declared: number): void {
+  if (declared > zipInflateLimits.maxEntryBytes || produced > zipInflateLimits.maxEntryBytes) {
+    throw new CloudBackupError('tooLarge');
+  }
+  budget.used += produced;
+  budget.entries += 1;
+  if (budget.used > zipInflateLimits.maxTotalBytes || budget.entries > zipInflateLimits.maxEntries) {
+    throw new CloudBackupError('tooLarge');
+  }
+}
+
+function inflateZipPayload(raw: Uint8Array, method: number, uncompressed: number, budget: ZipBudget): Uint8Array {
+  if (uncompressed > zipInflateLimits.maxEntryBytes) throw new CloudBackupError('tooLarge');
+  const reserved = uncompressed > 0 ? uncompressed : raw.byteLength;
+  if (budget.used + reserved > zipInflateLimits.maxTotalBytes) throw new CloudBackupError('tooLarge');
+
+  let produced: Uint8Array;
+  if (method === 0) {
+    produced = raw;
+    if (uncompressed > 0 && raw.byteLength !== uncompressed) throw new CloudBackupError('invalidFormat');
+  } else if (method === 8) {
+    if (uncompressed === 0) throw new CloudBackupError('tooLarge');
     try {
-      return inflateSync(raw);
+      produced = inflateSync(raw, { out: new Uint8Array(uncompressed) });
     } catch {
       throw new CloudBackupError('invalidFormat');
     }
+    if (produced.byteLength > uncompressed) throw new CloudBackupError('tooLarge');
+  } else {
+    throw new CloudBackupError('invalidFormat');
   }
-  throw new CloudBackupError('invalidFormat');
+  consumeZipBudget(budget, produced.byteLength, uncompressed);
+  return produced;
 }
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {

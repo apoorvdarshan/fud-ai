@@ -34,6 +34,9 @@ export function VoiceMealSheet({ visible, onDismiss, onTranscribed }: VoiceMealS
   const timeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const recorderRef = useRef(recorder);
   recorderRef.current = recorder;
+  const visibleRef = useRef(visible);
+  visibleRef.current = visible;
+  const startGeneration = useRef(0);
 
   const abortRecording = async () => {
     if (timeout.current) clearTimeout(timeout.current);
@@ -45,16 +48,20 @@ export function VoiceMealSheet({ visible, onDismiss, onTranscribed }: VoiceMealS
     await stopAudioMode().catch(() => undefined);
   };
 
+  const cancelPendingStart = () => {
+    startGeneration.current += 1;
+    setPhase('idle');
+    setError(null);
+    void abortRecording();
+  };
+
   useEffect(() => {
-    if (!visible) {
-      setPhase('idle');
-      setError(null);
-      void abortRecording();
-    }
+    if (!visible) cancelPendingStart();
   }, [visible]);
 
   useEffect(() => {
     return () => {
+      startGeneration.current += 1;
       void abortRecording();
     };
   }, []);
@@ -84,23 +91,38 @@ export function VoiceMealSheet({ visible, onDismiss, onTranscribed }: VoiceMealS
   };
 
   const startRecording = async () => {
+    const generation = ++startGeneration.current;
+    const cancelled = () => !visibleRef.current || generation !== startGeneration.current;
+    const abortIfDismissed = async () => {
+      if (!cancelled()) return false;
+      await abortRecording();
+      return true;
+    };
+
     setError(null);
     const granted = await requestMicrophonePermission();
+    if (await abortIfDismissed()) return;
     if (!granted) {
       setError(speechErrors.permission);
       return;
     }
     try {
       await prepareRecording();
+      if (await abortIfDismissed()) return;
       await recorder.prepareToRecordAsync();
+      if (await abortIfDismissed()) return;
       recorder.record();
+      if (await abortIfDismissed()) return;
       setPhase('recording');
       timeout.current = setTimeout(() => {
         void stopRecording();
       }, RECORDING_MAX_MS);
     } catch {
-      setError(speechErrors.failed);
-      setPhase('idle');
+      await abortRecording();
+      if (!cancelled()) {
+        setError(speechErrors.failed);
+        setPhase('idle');
+      }
     }
   };
 

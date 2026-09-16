@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { applyDiaryImport, applyWaterImport, DiaryImportError, parseDiaryImport } from '../src/domain/diary/diaryImport';
-import { buildDiaryExport, resolveDiaryExportRange, sourceLabel } from '../src/domain/diary/diaryExport';
+import { applyDiaryImport, applyWaterImport, diaryImportHealthReconcile, DiaryImportError, parseDiaryImport } from '../src/domain/diary/diaryImport';
+import { buildDiaryExport, csvEscape, resolveDiaryExportRange, sourceLabel } from '../src/domain/diary/diaryExport';
 import { makeFoodEntry } from '../src/domain/food/food';
 
 const day = new Date(2026, 8, 16, 8, 30, 0);
@@ -58,6 +58,27 @@ describe('diary export', () => {
     expect(week.end.getDate()).toBe(16);
     expect(week.start.getDay()).toBe(1);
   });
+
+  it('neutralizes spreadsheet formula injection in CSV cells', () => {
+    expect(csvEscape('=1+1')).toBe(`"'=1+1"`);
+    expect(csvEscape('+cmd')).toBe(`"'+cmd"`);
+    expect(csvEscape('-1')).toBe(`"'-1"`);
+    expect(csvEscape('@sum')).toBe(`"'@sum"`);
+    expect(csvEscape('Oats')).toBe('Oats');
+    const formula = makeFoodEntry(
+      { name: '=HYPERLINK("http://evil")', calories: 1, protein: 0, carbs: 0, fat: 0, source: 'manual', timestamp: day.toISOString(), mealType: 'snack' },
+      '33333333-3333-3333-3333-333333333333',
+    );
+    const csv = buildDiaryExport({
+      start: day,
+      end: day,
+      format: 'csv',
+      entries: [formula],
+      targets: { calories: 2000, protein: 150, carbs: 220, fat: 70 },
+    });
+    expect(csv?.text).toContain(`"'=HYPERLINK(""http://evil"")"`);
+    expect(csv?.text.includes(',=HYPERLINK')).toBe(false);
+  });
 });
 
 describe('diary import', () => {
@@ -82,6 +103,13 @@ describe('diary import', () => {
     expect(added[1]?.id).toBe('new-id');
     const water = applyWaterImport(preview, [], 'replaceDateRange');
     expect(water[0]?.milliliters).toBe(250);
+    const outgoing = makeFoodEntry(
+      { name: 'Rice', calories: 200, protein: 4, carbs: 40, fat: 1, source: 'manual', timestamp: day.toISOString(), mealType: 'lunch' },
+      '44444444-4444-4444-4444-444444444444',
+    );
+    const plan = diaryImportHealthReconcile(preview, [entry, outgoing], replaced, 'replaceDateRange');
+    expect(plan.deleteIds).toEqual([outgoing.id]);
+    expect(plan.writeEntries.map((e) => e.id)).toEqual([entry.id]);
   });
 
   it('rejects invalid documents with the native messages', () => {

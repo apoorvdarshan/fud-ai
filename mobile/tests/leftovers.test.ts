@@ -15,6 +15,7 @@ import {
   unpackBackupArchive,
   unpackZip,
   validateBackupDiary,
+  zipInflateLimits,
 } from '../src/domain/diary/cloudBackup';
 import { applyFormulaAdaptiveGoals, shouldCheckAdaptiveGoals, snapshotFromProfile } from '../src/domain/profile/adaptiveGoals';
 import { reminderTimesFromPrefs, scheduledReminders } from '../src/domain/prefs/reminders';
@@ -61,6 +62,16 @@ describe('cloud backup archive', () => {
     const payload = new TextEncoder().encode('{"format":"fudai-cloud-backup","format_version":1}');
     const zip = packZipDeflate([{ name: 'backup.json', data: payload }]);
     expect([...unpackZip(zip)['backup.json']!]).toEqual([...payload]);
+  });
+
+  it('rejects ZIP entries whose declared uncompressed size exceeds the inflate budget', () => {
+    const name = 'bomb.bin';
+    const zip = packZip([{ name, data: new Uint8Array([1]) }]);
+    const view = new DataView(zip.buffer, zip.byteOffset, zip.byteLength);
+    const tooBig = zipInflateLimits.maxEntryBytes + 1;
+    view.setUint32(22, tooBig, true);
+    view.setUint32(30 + name.length + 1 + 24, tooBig, true);
+    expect(() => unpackZip(zip)).toThrow(/too large/);
   });
 
   it('rejects malformed diary collections and keeps missing ones unset', () => {

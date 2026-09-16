@@ -294,6 +294,28 @@ export function applyDiaryImport(
   return [...outsideRange, ...imported];
 }
 
+/** Foods Health should delete / write after an import so the diary and Health stay aligned. */
+export function diaryImportHealthReconcile(
+  preview: DiaryImportPreview,
+  existing: readonly FoodEntry[],
+  next: readonly FoodEntry[],
+  mode: DiaryImportMode,
+): { deleteIds: string[]; writeEntries: FoodEntry[] } {
+  if (mode === 'addAsNew') {
+    const existingIds = new Set(existing.map((entry) => entry.id));
+    return { deleteIds: [], writeEntries: next.filter((entry) => !existingIds.has(entry.id)) };
+  }
+  const nextIds = new Set(next.map((entry) => entry.id));
+  const inRange = (iso: string) => {
+    const day = startOfDay(new Date(iso));
+    return day >= preview.startDate && day <= preview.endDate;
+  };
+  return {
+    deleteIds: existing.filter((entry) => inRange(entry.timestamp) && !nextIds.has(entry.id)).map((entry) => entry.id),
+    writeEntries: next.filter((entry) => inRange(entry.timestamp)),
+  };
+}
+
 export function applyWaterImport(
   preview: DiaryImportPreview,
   existing: readonly WaterEntry[],

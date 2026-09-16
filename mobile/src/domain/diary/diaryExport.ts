@@ -310,11 +310,14 @@ function markdownExport(days: DayBundle[], start: Date, end: Date, targets: Dail
   return s;
 }
 
-function csvEscape(field: string): string {
-  if (field.includes(',') || field.includes('"') || field.includes('\n')) {
-    return `"${field.replace(/"/g, '""')}"`;
+/** Neutralize spreadsheet formula injection (`=`, `+`, `-`, `@`) and quote CSV specials. */
+export function csvEscape(field: string): string {
+  const formula = /^[=+\-@\t\r]/.test(field);
+  const safe = formula ? `'${field}` : field;
+  if (safe.includes(',') || safe.includes('"') || safe.includes('\n') || formula) {
+    return `"${safe.replace(/"/g, '""')}"`;
   }
-  return field;
+  return safe;
 }
 
 function csvExport(days: DayBundle[]): string {

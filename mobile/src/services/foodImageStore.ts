@@ -19,13 +19,49 @@ function folder(): Directory {
   return directory;
 }
 
+function toFileUri(path: string): string {
+  return path.startsWith('file://') ? path : `file://${path}`;
+}
+
+function isSafeImageName(name: string): boolean {
+  if (![...name].every((ch) => /[A-Za-z0-9._-]/.test(ch))) return false;
+  const ext = (name.split('.').pop() ?? '').toLowerCase();
+  return ['jpg', 'jpeg', 'png', 'webp'].includes(ext);
+}
+
 /**
  * Keep native `FoodImageStore` filenames resolving after a store overlay.
  * iOS Application Support and Expo Documents can differ; Android `filesDir` usually matches.
+ * Call this on every cold start with the persisted native directory — the in-memory
+ * fallback alone does not survive process death.
  */
 export function adoptNativeFoodImages(directoryPath: string): void {
   if (!directoryPath.trim()) return;
-  nativeFoodImagesDirectory = directoryPath.startsWith('file://') ? directoryPath : `file://${directoryPath}`;
+  nativeFoodImagesDirectory = toFileUri(directoryPath);
+}
+
+/** Expo Documents `fudai-food-images` path (`file://…`) for native copy destinations. */
+export function documentsFoodImagesPath(): string {
+  return folder().uri;
+}
+
+/**
+ * Copy native meal JPEGs into Expo Documents so `foodImageURI` finds them after restart
+ * without relying on the in-memory adopt path. Same filenames — diary rows stay valid.
+ */
+export function copyNativeFoodImagesIntoDocuments(sourcePath: string): number {
+  if (!sourcePath.trim()) return 0;
+  const dest = folder();
+  const source = new Directory(toFileUri(sourcePath));
+  if (!source.exists) return 0;
+  let copied = 0;
+  for (const item of source.list()) {
+    if (!(item instanceof File) || !isSafeImageName(item.name)) continue;
+    const target = new File(dest, item.name);
+    if (!target.exists) target.write(item.bytesSync());
+    copied += 1;
+  }
+  return copied;
 }
 
 function foodImageFile(filename: string): File {

@@ -25,7 +25,7 @@ import {
   type WorkoutSession,
   type WorkoutSplit,
 } from '../workouts/workoutSessions';
-import { nativeBlobKeys, NATIVE_MIGRATION_DONE, type NativePlatform, type NativeStorageSnapshot } from './nativeSnapshot';
+import { nativeBlobKeys, NATIVE_MIGRATION_DONE, NATIVE_MIGRATION_STARTED, type NativePlatform, type NativeStorageSnapshot } from './nativeSnapshot';
 
 /** Swift `Date` default Codable: seconds since 2001-01-01 00:00:00 UTC. */
 const IOS_REFERENCE_DATE_UNIX_SECONDS = 978_307_200;
@@ -88,7 +88,10 @@ export function planNativeMigration(input: {
   existing: RnExistingState;
 }): NativeMigrationPlan {
   if (input.marker === NATIVE_MIGRATION_DONE) return { action: 'skip', reason: 'already-migrated' };
-  if (rnLooksPopulated(input.existing)) return { action: 'skip', reason: 'rn-populated' };
+  // A crash after partial writes leaves RN keys but `started` — resume and overwrite.
+  if (input.marker !== NATIVE_MIGRATION_STARTED && rnLooksPopulated(input.existing)) {
+    return { action: 'skip', reason: 'rn-populated' };
+  }
   if (!input.snapshot?.available) return { action: 'skip', reason: 'native-unavailable' };
   if (!nativeHasUserData(input.snapshot)) return { action: 'mark-empty' };
   return { action: 'migrate', mapped: mapNativeSnapshot(input.snapshot) };
@@ -178,8 +181,9 @@ export function nativeDateToIso(value: unknown, platform: NativePlatform): strin
   if (typeof value !== 'number' || !Number.isFinite(value)) return undefined;
 
   if (platform === 'android') {
-    const ms = Math.abs(value) < 1e11 ? value * 1000 : value;
-    const date = new Date(ms);
+    // InstantSerializer always writes epoch milliseconds, including birthdays near
+    // 1970 (e.g. 1.4e10). Those must not be treated as seconds or the year shifts.
+    const date = new Date(value);
     return Number.isFinite(date.getTime()) ? date.toISOString() : undefined;
   }
 

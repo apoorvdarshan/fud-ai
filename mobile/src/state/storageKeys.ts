@@ -1,5 +1,5 @@
 import { COACH_CHAT_STORAGE_KEY } from '../domain/coach/coach';
-import { NATIVE_MIGRATION_STORAGE_KEY } from '../domain/nativeMigration/nativeSnapshot';
+import { NATIVE_FOOD_IMAGES_STORAGE_KEY, NATIVE_MIGRATION_STORAGE_KEY } from '../domain/nativeMigration/nativeSnapshot';
 
 export const storageKeys = {
   diary: 'fudai.diary.v1',
@@ -10,4 +10,5 @@ export const storageKeys = {
   /** Same key as `ChatStore.swift` so the name lines up with the native UserDefaults blob. */
   chat: COACH_CHAT_STORAGE_KEY,
   nativeMigration: NATIVE_MIGRATION_STORAGE_KEY,
+  nativeFoodImages: NATIVE_FOOD_IMAGES_STORAGE_KEY,
 } as const;

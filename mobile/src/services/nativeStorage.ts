@@ -8,6 +8,7 @@ import type { NativeStorageSnapshot } from '../domain/nativeMigration/nativeSnap
 interface NativeStorageModule {
   isAvailable?: boolean;
   readSnapshot(): Promise<NativeStorageSnapshot>;
+  copyFoodImages?(destination: string): Promise<number>;
 }
 
 function loadNative(): NativeStorageModule | undefined {
@@ -33,6 +34,17 @@ export async function readNativeSnapshot(): Promise<NativeStorageSnapshot | unde
       prefs: isPrefRecord(snapshot.prefs) ? snapshot.prefs : {},
       foodImagesDirectory: typeof snapshot.foodImagesDirectory === 'string' ? snapshot.foodImagesDirectory : null,
     };
+  } catch {
+    return undefined;
+  }
+}
+
+/** Copy native `fudai-food-images` into Expo Documents. Undefined when the module is missing. */
+export async function copyNativeFoodImages(destination: string): Promise<number | undefined> {
+  const native = loadNative();
+  if (!native?.copyFoodImages) return undefined;
+  try {
+    return await native.copyFoodImages(destination);
   } catch {
     return undefined;
   }

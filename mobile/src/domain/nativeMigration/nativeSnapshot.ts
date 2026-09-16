@@ -19,6 +19,10 @@ export interface NativeStorageSnapshot {
 
 export const NATIVE_MIGRATION_STORAGE_KEY = 'fudai.nativeMigration.v1';
 export const NATIVE_MIGRATION_DONE = 'done';
+/** Written before store copies so a crash mid-migration can resume instead of skipping. */
+export const NATIVE_MIGRATION_STARTED = 'started';
+/** Absolute native `fudai-food-images` directory so meal photos resolve after a cold start. */
+export const NATIVE_FOOD_IMAGES_STORAGE_KEY = 'fudai.nativeFoodImages.v1';
 
 export const nativeBlobKeys = {
   foodEntries: 'foodEntries',

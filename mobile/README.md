@@ -135,9 +135,13 @@ On the first cold start — before stores hydrate — `migrateNativeDataIfNeeded
 through `modules/native-storage` (a no-op in Expo Go) and writes RN shapes under
 `fudai.diary.v1` / `fudai.preferences.v1` / … so existing users keep their diary, prefs, profile,
 body log, workouts, and onboarding instead of seeing a fake new install. Native keys are not
-deleted. A later launch with `fudai.nativeMigration.v1=done`, or a device that already has real RN
-data, skips the copy. Meal photo filenames keep working: native `fudai-food-images` is consulted
-when Expo Documents does not have the file (iOS Application Support vs Documents).
+deleted. `fudai.nativeMigration.v1` is `started` before any store write and becomes `done` only
+after every mapped store succeeds — a crash mid-copy retries on the next launch (partial writes
+are overwritten / completed). A later launch with `done`, or a device that already has real RN
+data (and is not mid-migration), skips the copy. Meal photos keep resolving after a cold start:
+JPEGs are copied into Expo Documents `fudai-food-images` with the same filenames, and the native
+directory is persisted (`fudai.nativeFoodImages.v1`) so leftovers still resolve (iOS Application
+Support vs Documents).
 
 ### Purchases (RevenueCat)
 

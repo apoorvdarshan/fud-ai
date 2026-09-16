@@ -38,6 +38,10 @@ public class NativeStorageModule: Module {
         "foodImagesDirectory": Self.foodImagesDirectoryPath() as Any,
       ]
     }
+
+    AsyncFunction("copyFoodImages") { (destination: String) -> Int in
+      Self.copyFoodImages(to: destination)
+    }
   }
 
   /// JSON blobs persisted as `Data` (PersistedBlobGuard) or, rarely, as a UTF-8 string.
@@ -152,10 +156,65 @@ public class NativeStorageModule: Module {
 
   /// Native `FoodImageStore` writes JPEGs under Application Support, not Documents.
   private static func foodImagesDirectoryPath() -> String? {
-    guard let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else {
-      return nil
+    foodImagesSourceDirectories().first?.path
+  }
+
+  private static func fileURL(_ path: String) -> URL {
+    if path.hasPrefix("file:"), let url = URL(string: path) {
+      return url
     }
-    let url = base.appendingPathComponent("fudai-food-images", isDirectory: true)
-    return FileManager.default.fileExists(atPath: url.path) ? url.path : url.path
+    return URL(fileURLWithPath: path)
+  }
+
+  private static func foodImagesSourceDirectories() -> [URL] {
+    var urls: [URL] = []
+    if let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
+      urls.append(support.appendingPathComponent("fudai-food-images", isDirectory: true))
+    }
+    if let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+      urls.append(documents.appendingPathComponent("fudai-food-images", isDirectory: true))
+    }
+    return urls
+  }
+
+  private static func copyFoodImages(to destination: String) -> Int {
+    let dest = fileURL(destination)
+    try? FileManager.default.createDirectory(at: dest, withIntermediateDirectories: true)
+    var copied = 0
+    for source in foodImagesSourceDirectories() {
+      copied += copyJPEGs(from: source, to: dest)
+    }
+    return copied
+  }
+
+  private static func copyJPEGs(from source: URL, to dest: URL) -> Int {
+    let fm = FileManager.default
+    guard fm.fileExists(atPath: source.path),
+          let items = try? fm.contentsOfDirectory(at: source, includingPropertiesForKeys: nil) else {
+      return 0
+    }
+    if (try? source.resourceValues(forKeys: [.canonicalPathKey]).canonicalPath)
+        == (try? dest.resourceValues(forKeys: [.canonicalPathKey]).canonicalPath) {
+      return items.filter { isImage($0) }.count
+    }
+    var copied = 0
+    for file in items where isImage(file) {
+      let target = dest.appendingPathComponent(file.lastPathComponent)
+      if fm.fileExists(atPath: target.path) {
+        copied += 1
+        continue
+      }
+      do {
+        try fm.copyItem(at: file, to: target)
+        copied += 1
+      } catch {
+        continue
+      }
+    }
+    return copied
+  }
+
+  private static func isImage(_ url: URL) -> Bool {
+    ["jpg", "jpeg", "png", "webp"].contains(url.pathExtension.lowercased())
   }
 }

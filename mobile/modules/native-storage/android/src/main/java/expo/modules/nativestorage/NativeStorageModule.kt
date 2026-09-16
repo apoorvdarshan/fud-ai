@@ -35,6 +35,12 @@ class NativeStorageModule : Module() {
       val snapshot = readSnapshotOrEmpty()
       snapshot
     }
+
+    AsyncFunction("copyFoodImages") { destination: String ->
+      withContext(Dispatchers.IO) {
+        copyFoodImages(destination)
+      }
+    }
   }
 
   private suspend fun readSnapshotOrEmpty(): Map<String, Any?> = withContext(Dispatchers.IO) {
@@ -108,6 +114,34 @@ class NativeStorageModule : Module() {
   private fun foodImagesDirectoryPath(): String? {
     val context = appContext.reactContext ?: return null
     return File(context.filesDir, FOOD_IMAGES_DIR).absolutePath
+  }
+
+  private fun copyFoodImages(destination: String): Int {
+    val dest = fileFromPath(destination)
+    dest.mkdirs()
+    val sourcePath = foodImagesDirectoryPath() ?: return 0
+    val source = File(sourcePath)
+    if (!source.isDirectory) return 0
+    if (source.canonicalPath == dest.canonicalPath) {
+      return source.listFiles()?.count { isImage(it) } ?: 0
+    }
+    var copied = 0
+    source.listFiles()?.forEach { file ->
+      if (!isImage(file)) return@forEach
+      val target = File(dest, file.name)
+      if (target.exists() || runCatching { file.copyTo(target, overwrite = false) }.isSuccess) {
+        copied += 1
+      }
+    }
+    return copied
+  }
+
+  private fun fileFromPath(path: String): File =
+    if (path.startsWith("file:")) File(android.net.Uri.parse(path).path ?: path) else File(path)
+
+  private fun isImage(file: File): Boolean {
+    val ext = file.extension.lowercase()
+    return ext == "jpg" || ext == "jpeg" || ext == "png" || ext == "webp"
   }
 
   private companion object {

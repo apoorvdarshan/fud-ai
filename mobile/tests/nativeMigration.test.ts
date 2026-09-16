@@ -13,7 +13,7 @@ import {
   planNativeMigration,
   rnLooksPopulated,
 } from '../src/domain/nativeMigration/mapNativeSnapshot';
-import { NATIVE_MIGRATION_DONE, type NativeStorageSnapshot } from '../src/domain/nativeMigration/nativeSnapshot';
+import { NATIVE_MIGRATION_DONE, NATIVE_MIGRATION_STARTED, type NativeStorageSnapshot } from '../src/domain/nativeMigration/nativeSnapshot';
 import { migrateNativeDataIfNeeded } from '../src/services/nativeMigration';
 import { memoryKeyValueStore } from '../src/state/persistence';
 import { storageKeys } from '../src/state/storageKeys';
@@ -71,6 +71,15 @@ describe('nativeDateToIso', () => {
     expect(nativeDateToIso(iosRefSeconds, 'ios')).toBe(ISO);
     expect(nativeDateToIso(unixMs, 'android')).toBe(ISO);
     expect(nativeDateToIso(ISO, 'ios')).toBe(ISO);
+  });
+
+  it('keeps Android InstantSerializer epoch-ms birthdays near Unix epoch', () => {
+    // 1970-06-01 is ~1.3e10 ms — the old abs<1e11-as-seconds heuristic shifted this to ~2381.
+    const june1970Ms = Date.UTC(1970, 5, 1);
+    expect(june1970Ms).toBeLessThan(1e11);
+    expect(nativeDateToIso(june1970Ms, 'android')).toBe('1970-06-01T00:00:00.000Z');
+    const appleSeconds = june1970Ms / 1000 - 978_307_200;
+    expect(nativeDateToIso(appleSeconds, 'ios')).toBe('1970-06-01T00:00:00.000Z');
   });
 });
 
@@ -243,6 +252,23 @@ describe('mapNativeSnapshot', () => {
       weightUnit: 'kg',
     });
     expect(mapped.profile?.birthday).toBe(ISO);
+    const june1970Ms = Date.UTC(1970, 5, 1);
+    const earlyBirthday = mapNativeSnapshot({
+      available: true,
+      platform: 'android',
+      blobs: {
+        userProfile: JSON.stringify({
+          gender: 'male',
+          birthday: june1970Ms,
+          heightCm: 180,
+          weightKg: 80,
+          activityLevel: 'active',
+          goal: 'maintain',
+        }),
+      },
+      prefs: { hasCompletedOnboarding: true },
+    });
+    expect(earlyBirthday.profile?.birthday).toBe('1970-06-01T00:00:00.000Z');
     expect(mapped.workouts?.sessions[0]?.exercises[0]).toMatchObject({ itemID: 'row' });
     expect(mapped.workouts?.preferences).toMatchObject({ split: 'upperLower', rpeScale: 'cr10', weightUnit: 'kg' });
   });
@@ -332,6 +358,21 @@ describe('planNativeMigration', () => {
       expect(plan.mapped.diary?.foodEntries[0]?.name).toBe('Oats');
     }
   });
+
+  it('resumes when marker is started even if RN already looks populated', () => {
+    const plan = planNativeMigration({
+      marker: NATIVE_MIGRATION_STARTED,
+      snapshot: populatedNative,
+      existing: {
+        diary: { foodEntries: [{ id: 'partial' }], waterEntries: [], fastingSessions: [], favoriteKeys: [] },
+        preferences: { hasCompletedOnboarding: true },
+      },
+    });
+    expect(plan.action).toBe('migrate');
+    if (plan.action === 'migrate') {
+      expect(plan.mapped.diary?.foodEntries[0]?.name).toBe('Oats');
+    }
+  });
 });
 
 describe('rnLooksPopulated / nativeHasUserData', () => {
@@ -381,5 +422,68 @@ describe('migrateNativeDataIfNeeded', () => {
     await migrateNativeDataIfNeeded(kv, async () => undefined);
     expect(await kv.get(storageKeys.nativeMigration)).toBeNull();
     expect(await kv.get(storageKeys.diary)).toBeNull();
+  });
+
+  it('resumes a partial write when the marker is started', async () => {
+    const kv = memoryKeyValueStore({
+      [storageKeys.nativeMigration]: NATIVE_MIGRATION_STARTED,
+      [storageKeys.diary]: JSON.stringify({
+        foodEntries: [{ id: 'partial', name: 'Half copied' }],
+        waterEntries: [],
+        fastingSessions: [],
+        favoriteKeys: [],
+      }),
+    });
+    await migrateNativeDataIfNeeded(kv, async () => ({
+      available: true,
+      platform: 'ios',
+      blobs: { foodEntries: iosFoodBlob() },
+      prefs: { hasCompletedOnboarding: true },
+    }));
+    expect(await kv.get(storageKeys.nativeMigration)).toBe(NATIVE_MIGRATION_DONE);
+    expect(JSON.parse((await kv.get(storageKeys.diary))!).foodEntries[0].name).toBe('Oats');
+    expect(JSON.parse((await kv.get(storageKeys.preferences))!).hasCompletedOnboarding).toBe(true);
+  });
+
+  it('does not mark done when a store write fails mid-migration', async () => {
+    const inner = memoryKeyValueStore();
+    const kv = {
+      get: (key: string) => inner.get(key),
+      remove: (key: string) => inner.remove(key),
+      set: async (key: string, value: string) => {
+        if (key === storageKeys.preferences) throw new Error('disk full');
+        await inner.set(key, value);
+      },
+    };
+    await expect(
+      migrateNativeDataIfNeeded(kv, async () => ({
+        available: true,
+        platform: 'ios',
+        blobs: { foodEntries: iosFoodBlob() },
+        prefs: { hasCompletedOnboarding: true, appearanceMode: 'light' },
+      })),
+    ).rejects.toThrow('disk full');
+    expect(await inner.get(storageKeys.nativeMigration)).toBe(NATIVE_MIGRATION_STARTED);
+    expect(JSON.parse((await inner.get(storageKeys.diary))!).foodEntries[0].name).toBe('Oats');
+    expect(await inner.get(storageKeys.preferences)).toBeNull();
+  });
+
+  it('persists the native food-images directory so photos resolve after restart', async () => {
+    const foodImagesDirectory = '/var/mobile/Library/Application Support/fudai-food-images';
+    const kv = memoryKeyValueStore();
+    await migrateNativeDataIfNeeded(kv, async () => ({
+      available: true,
+      platform: 'ios',
+      blobs: { foodEntries: iosFoodBlob() },
+      prefs: { hasCompletedOnboarding: true },
+      foodImagesDirectory,
+    }));
+    expect(await kv.get(storageKeys.nativeFoodImages)).toBe(foodImagesDirectory);
+    expect(await kv.get(storageKeys.nativeMigration)).toBe(NATIVE_MIGRATION_DONE);
+
+    await migrateNativeDataIfNeeded(kv, async () => {
+      throw new Error('should not re-read native after done');
+    });
+    expect(await kv.get(storageKeys.nativeFoodImages)).toBe(foodImagesDirectory);
   });
 });

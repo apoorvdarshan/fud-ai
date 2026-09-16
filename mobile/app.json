@@ -13,7 +13,18 @@
       "buildNumber": "38",
       "supportsTablet": false,
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSCameraUsageDescription": "Fud AI uses the camera to scan meal barcodes and photograph food.",
+        "NSMicrophoneUsageDescription": "Fud AI records a short voice clip so Whisper can transcribe your meal.",
+        "NSHealthShareUsageDescription": "Fud AI reads steps, weight and nutrition you choose to sync with Apple Health.",
+        "NSHealthUpdateUsageDescription": "Fud AI writes nutrition, weight and body measurements you log to Apple Health.",
+        "AppGroupIdentifier": "group.com.apoorvdarshan.calorietracker"
+      },
+      "entitlements": {
+        "com.apple.developer.healthkit": true,
+        "com.apple.security.application-groups": [
+          "group.com.apoorvdarshan.calorietracker"
+        ]
       }
     },
     "android": {
@@ -31,7 +42,21 @@
           "photosPermission": "Fud AI reads the photo you pick so the AI can estimate its nutrition."
         }
       ],
-      "./plugins/withIosSceneLifecycle"
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Fud AI uses the camera to scan product barcodes."
+        }
+      ],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "Fud AI records a short voice clip so Whisper can transcribe your meal."
+        }
+      ],
+      "./plugins/withIosSceneLifecycle",
+      "./plugins/withCompanionCapabilities",
+      "expo-sharing"
     ]
   }
 }

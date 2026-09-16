@@ -1,0 +1,10 @@
+{
+  "name": "companion-snapshot",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "peerDependencies": {
+    "expo": "*",
+    "react": "*",
+    "react-native": "*"
+  }
+}

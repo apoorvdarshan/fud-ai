@@ -56,7 +56,15 @@
       ],
       "./plugins/withIosSceneLifecycle",
       "./plugins/withCompanionCapabilities",
-      "expo-sharing"
+      "expo-sharing",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 26
+          }
+        }
+      ]
     ]
   }
 }

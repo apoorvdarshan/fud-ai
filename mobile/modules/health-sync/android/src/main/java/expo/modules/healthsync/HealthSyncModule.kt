@@ -17,6 +17,7 @@ import expo.modules.kotlin.Promise
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import java.time.Instant
 import java.time.ZoneId
@@ -31,13 +32,15 @@ class HealthSyncModule : Module() {
       mapOf("isAvailable" to isHealthConnectAvailable())
     }
 
-    AsyncFunction("authorizationStatus") Coroutine {
-      if (!isHealthConnectAvailable()) return@Coroutine "unavailable"
-      val granted = clientOrNull()?.permissionController?.getGrantedPermissions() ?: emptySet()
-      when {
-        granted.containsAll(requiredPermissions) -> "authorized"
-        granted.isEmpty() -> "notDetermined"
-        else -> "denied"
+    AsyncFunction("authorizationStatus") {
+      if (!isHealthConnectAvailable()) return@AsyncFunction "unavailable"
+      runBlocking {
+        val granted = clientOrNull()?.permissionController?.getGrantedPermissions() ?: emptySet()
+        when {
+          granted.containsAll(requiredPermissions) -> "authorized"
+          granted.isEmpty() -> "notDetermined"
+          else -> "denied"
+        }
       }
     }
 
@@ -76,8 +79,8 @@ class HealthSyncModule : Module() {
       }
     }
 
-    AsyncFunction("writeWeight") Coroutine { kg: Double, dateMs: Double, entryId: String? ->
-      val client = clientOrNull() ?: return@Coroutine
+    AsyncFunction("writeWeight") { kg: Double, dateMs: Double, entryId: String? ->
+      val client = clientOrNull() ?: return@AsyncFunction
       val time = Instant.ofEpochMilli(dateMs.toLong())
       val record = WeightRecord(
         time = time,
@@ -85,11 +88,13 @@ class HealthSyncModule : Module() {
         weight = Mass.kilograms(kg),
         metadata = metadata(entryId)
       )
-      withContext(Dispatchers.IO) { client.insertRecords(listOf(record)) }
+      runBlocking {
+        withContext(Dispatchers.IO) { client.insertRecords(listOf(record)) }
+      }
     }
 
-    AsyncFunction("writeBodyFat") Coroutine { fraction: Double, dateMs: Double, entryId: String? ->
-      val client = clientOrNull() ?: return@Coroutine
+    AsyncFunction("writeBodyFat") { fraction: Double, dateMs: Double, entryId: String? ->
+      val client = clientOrNull() ?: return@AsyncFunction
       val time = Instant.ofEpochMilli(dateMs.toLong())
       val record = BodyFatRecord(
         time = time,
@@ -97,12 +102,14 @@ class HealthSyncModule : Module() {
         percentage = Percentage(fraction * 100.0),
         metadata = metadata(entryId)
       )
-      withContext(Dispatchers.IO) { client.insertRecords(listOf(record)) }
+      runBlocking {
+        withContext(Dispatchers.IO) { client.insertRecords(listOf(record)) }
+      }
     }
 
-    AsyncFunction("writeNutrition") Coroutine { payload: Map<String, Any?> ->
-      val client = clientOrNull() ?: return@Coroutine
-      val dateMs = (payload["dateMs"] as? Number)?.toLong() ?: return@Coroutine
+    AsyncFunction("writeNutrition") { payload: Map<String, Any?> ->
+      val client = clientOrNull() ?: return@AsyncFunction
+      val dateMs = (payload["dateMs"] as? Number)?.toLong() ?: return@AsyncFunction
       val time = Instant.ofEpochMilli(dateMs)
       val record = NutritionRecord(
         startTime = time,
@@ -116,44 +123,52 @@ class HealthSyncModule : Module() {
         name = payload["name"] as? String,
         metadata = metadata(payload["entryId"] as? String)
       )
-      withContext(Dispatchers.IO) { client.insertRecords(listOf(record)) }
-    }
-
-    AsyncFunction("deleteNutrition") Coroutine { entryId: String ->
-      val client = clientOrNull() ?: return@Coroutine
-      withContext(Dispatchers.IO) {
-        client.deleteRecords(
-          NutritionRecord::class,
-          recordIdsList = emptyList(),
-          clientRecordIdsList = listOf(entryId),
-        )
+      runBlocking {
+        withContext(Dispatchers.IO) { client.insertRecords(listOf(record)) }
       }
     }
 
-    AsyncFunction("deleteWeight") Coroutine { entryId: String ->
-      val client = clientOrNull() ?: return@Coroutine
-      withContext(Dispatchers.IO) {
-        client.deleteRecords(
-          WeightRecord::class,
-          recordIdsList = emptyList(),
-          clientRecordIdsList = listOf(entryId),
-        )
+    AsyncFunction("deleteNutrition") { entryId: String ->
+      val client = clientOrNull() ?: return@AsyncFunction
+      runBlocking {
+        withContext(Dispatchers.IO) {
+          client.deleteRecords(
+            NutritionRecord::class,
+            recordIdsList = emptyList(),
+            clientRecordIdsList = listOf(entryId),
+          )
+        }
       }
     }
 
-    AsyncFunction("deleteBodyFat") Coroutine { entryId: String ->
-      val client = clientOrNull() ?: return@Coroutine
-      withContext(Dispatchers.IO) {
-        client.deleteRecords(
-          BodyFatRecord::class,
-          recordIdsList = emptyList(),
-          clientRecordIdsList = listOf(entryId),
-        )
+    AsyncFunction("deleteWeight") { entryId: String ->
+      val client = clientOrNull() ?: return@AsyncFunction
+      runBlocking {
+        withContext(Dispatchers.IO) {
+          client.deleteRecords(
+            WeightRecord::class,
+            recordIdsList = emptyList(),
+            clientRecordIdsList = listOf(entryId),
+          )
+        }
       }
     }
 
-    AsyncFunction("readSteps") Coroutine { startMs: Double, endMs: Double ->
-      val client = clientOrNull() ?: return@Coroutine null
+    AsyncFunction("deleteBodyFat") { entryId: String ->
+      val client = clientOrNull() ?: return@AsyncFunction
+      runBlocking {
+        withContext(Dispatchers.IO) {
+          client.deleteRecords(
+            BodyFatRecord::class,
+            recordIdsList = emptyList(),
+            clientRecordIdsList = listOf(entryId),
+          )
+        }
+      }
+    }
+
+    AsyncFunction("readSteps") { startMs: Double, endMs: Double ->
+      val client = clientOrNull() ?: return@AsyncFunction null
       val request = ReadRecordsRequest(
         recordType = StepsRecord::class,
         timeRangeFilter = TimeRangeFilter.between(
@@ -161,8 +176,10 @@ class HealthSyncModule : Module() {
           Instant.ofEpochMilli(endMs.toLong())
         )
       )
-      val records = withContext(Dispatchers.IO) { client.readRecords(request).records }
-      records.sumOf { it.count }.toInt()
+      runBlocking {
+        val records = withContext(Dispatchers.IO) { client.readRecords(request).records }
+        records.sumOf { it.count }.toInt()
+      }
     }
   }
 

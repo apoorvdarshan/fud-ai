@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 /**
@@ -31,13 +32,15 @@ class NativeStorageModule : Module() {
       )
     }
 
-    AsyncFunction("readSnapshot") Coroutine {
-      readSnapshotOrEmpty()
+    AsyncFunction("readSnapshot") {
+      runBlocking { readSnapshotOrEmpty() }
     }
 
-    AsyncFunction("copyFoodImages") Coroutine { destination: String ->
-      withContext(Dispatchers.IO) {
-        copyFoodImages(destination)
+    AsyncFunction("copyFoodImages") { destination: String ->
+      runBlocking {
+        withContext(Dispatchers.IO) {
+          copyFoodImages(destination)
+        }
       }
     }
   }

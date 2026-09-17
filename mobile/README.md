@@ -136,12 +136,13 @@ through `modules/native-storage` (a no-op in Expo Go) and writes RN shapes under
 `fudai.diary.v1` / `fudai.preferences.v1` / … so existing users keep their diary, prefs, profile,
 body log, workouts, and onboarding instead of seeing a fake new install. Native keys are not
 deleted. `fudai.nativeMigration.v1` is `started` before any store write and becomes `done` only
-after every mapped store succeeds — a crash mid-copy retries on the next launch (partial writes
-are overwritten / completed). A later launch with `done`, or a device that already has real RN
-data (and is not mid-migration), skips the copy. Meal photos keep resolving after a cold start:
-JPEGs are copied into Expo Documents `fudai-food-images` with the same filenames, and the native
-directory is persisted (`fudai.nativeFoodImages.v1`) so leftovers still resolve (iOS Application
-Support vs Documents).
+after every mapped store succeeds — a crash mid-copy retries on the next launch, filling only
+stores that are still empty so post-failure diary/pref edits are not overwritten. A later launch
+with `done`, or a device that already has real RN data (and is not mid-migration), skips the copy.
+Meal photos keep resolving after a cold start: referenced JPEGs are copied once into Expo
+Documents `fudai-food-images`, and the native directory is persisted (`fudai.nativeFoodImages.v1`)
+so leftovers still resolve. Later launches adopt that directory but do not copy again, so a photo
+the user deleted is not restored.
 
 ### Purchases (RevenueCat)
 

@@ -7,12 +7,20 @@
  *
  * `fudai.nativeMigration.v1` is `started` before any store write and `done` only after
  * every mapped store succeeds. A crash mid-copy leaves `started` so the next launch
- * overwrites / completes remaining keys instead of treating the partial RN blob as a
- * real install.
+ * fills remaining empty keys. Stores that already have RN data — including edits the
+ * user saved after the failure — are left alone.
  */
 
-import { planNativeMigration, type RnExistingState } from '../domain/nativeMigration/mapNativeSnapshot';
 import {
+  referencedFoodImageFilenames,
+  storesToWrite,
+  planNativeMigration,
+  type MappedNativeStores,
+  type NativeMigrationStoreKey,
+  type RnExistingState,
+} from '../domain/nativeMigration/mapNativeSnapshot';
+import {
+  NATIVE_FOOD_IMAGES_COPIED_KEY,
   NATIVE_FOOD_IMAGES_STORAGE_KEY,
   NATIVE_MIGRATION_DONE,
   NATIVE_MIGRATION_STARTED,
@@ -21,9 +29,18 @@ import {
 } from '../domain/nativeMigration/nativeSnapshot';
 import { readJSON, writeJSON, type KeyValueStore } from '../state/persistence';
 import { storageKeys } from '../state/storageKeys';
-import { copyNativeFoodImages, readNativeSnapshot } from './nativeStorage';
+import { readNativeSnapshot } from './nativeStorage';
 
 export { NATIVE_MIGRATION_DONE, NATIVE_MIGRATION_STARTED, NATIVE_MIGRATION_STORAGE_KEY };
+
+const storeStorageKeys: Record<NativeMigrationStoreKey, string> = {
+  diary: storageKeys.diary,
+  preferences: storageKeys.preferences,
+  profile: storageKeys.profile,
+  body: storageKeys.body,
+  workouts: storageKeys.workouts,
+  chat: storageKeys.chat,
+};
 
 export async function migrateNativeDataIfNeeded(
   kv: KeyValueStore,
@@ -48,18 +65,17 @@ export async function migrateNativeDataIfNeeded(
   }
 
   // Persist in-progress before any store write so a crash cannot look like a
-  // finished RN install and skip the remaining stores forever.
+  // finished RN install and skip the remaining empty stores forever.
   await kv.set(NATIVE_MIGRATION_STORAGE_KEY, NATIVE_MIGRATION_STARTED);
 
   const { mapped } = plan;
-  if (mapped.diary) await writeJSON(kv, storageKeys.diary, mapped.diary);
-  if (mapped.preferences) await writeJSON(kv, storageKeys.preferences, mapped.preferences);
-  if (mapped.profile) await writeJSON(kv, storageKeys.profile, mapped.profile);
-  if (mapped.body) await writeJSON(kv, storageKeys.body, mapped.body);
-  if (mapped.workouts) await writeJSON(kv, storageKeys.workouts, mapped.workouts);
-  if (mapped.chat) await writeJSON(kv, storageKeys.chat, mapped.chat);
+  const keys = storesToWrite(marker, existing, mapped);
+  for (const key of keys) {
+    const value = mapped[key];
+    if (value !== undefined) await writeJSON(kv, storeStorageKeys[key], value);
+  }
 
-  await persistAndCopyFoodImages(kv, snapshot);
+  await persistAndCopyFoodImages(kv, snapshot, existing, mapped, keys.includes('diary'));
 
   await kv.set(NATIVE_MIGRATION_STORAGE_KEY, NATIVE_MIGRATION_DONE);
 }
@@ -67,16 +83,26 @@ export async function migrateNativeDataIfNeeded(
 async function restorePersistedFoodImages(kv: KeyValueStore): Promise<void> {
   const directory = await kv.get(NATIVE_FOOD_IMAGES_STORAGE_KEY);
   if (!directory) return;
+  // Adopt only — a repeated copy would put back photos the user deleted.
   adoptNativeFoodImagesBestEffort(directory);
-  await copyFoodImagesBestEffort(directory);
 }
 
-async function persistAndCopyFoodImages(kv: KeyValueStore, snapshot: NativeStorageSnapshot | undefined): Promise<void> {
+async function persistAndCopyFoodImages(
+  kv: KeyValueStore,
+  snapshot: NativeStorageSnapshot | undefined,
+  existing: RnExistingState,
+  mapped: MappedNativeStores,
+  wroteDiary: boolean,
+): Promise<void> {
   const directory = snapshot?.foodImagesDirectory?.trim();
-  if (!directory) return;
-  await kv.set(NATIVE_FOOD_IMAGES_STORAGE_KEY, directory);
-  adoptNativeFoodImagesBestEffort(directory);
-  await copyFoodImagesBestEffort(directory);
+  if (directory) {
+    await kv.set(NATIVE_FOOD_IMAGES_STORAGE_KEY, directory);
+    adoptNativeFoodImagesBestEffort(directory);
+  }
+  if (!directory || (await kv.get(NATIVE_FOOD_IMAGES_COPIED_KEY))) return;
+  const names = referencedFoodImageFilenames(existing.diary, wroteDiary ? mapped.diary : undefined);
+  await copyFoodImagesBestEffort(directory, names);
+  await kv.set(NATIVE_FOOD_IMAGES_COPIED_KEY, '1');
 }
 
 async function readExistingRnState(kv: KeyValueStore): Promise<RnExistingState | undefined> {
@@ -112,17 +138,12 @@ function adoptNativeFoodImagesBestEffort(directory: string): void {
   }
 }
 
-async function copyFoodImagesBestEffort(sourceDirectory: string): Promise<void> {
+async function copyFoodImagesBestEffort(sourceDirectory: string, filenames: readonly string[]): Promise<void> {
+  if (filenames.length === 0) return;
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const foodImages = require('./foodImageStore') as typeof import('./foodImageStore');
-    try {
-      const copied = await copyNativeFoodImages(foodImages.documentsFoodImagesPath());
-      if (copied !== undefined) return;
-    } catch {
-      /* fall through to the JS copy */
-    }
-    foodImages.copyNativeFoodImagesIntoDocuments(sourceDirectory);
+    foodImages.copyNativeFoodImagesIntoDocuments(sourceDirectory, new Set(filenames));
   } catch {
     /* Expo Go / tests / file-system unavailable */
   }

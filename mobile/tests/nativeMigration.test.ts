@@ -11,7 +11,10 @@ import {
   nativeDateToIso,
   nativeHasUserData,
   planNativeMigration,
+  referencedFoodImageFilenames,
   rnLooksPopulated,
+  rnStoreHasData,
+  storesToWrite,
 } from '../src/domain/nativeMigration/mapNativeSnapshot';
 import { NATIVE_MIGRATION_DONE, NATIVE_MIGRATION_STARTED, type NativeStorageSnapshot } from '../src/domain/nativeMigration/nativeSnapshot';
 import { migrateNativeDataIfNeeded } from '../src/services/nativeMigration';
@@ -360,18 +363,36 @@ describe('planNativeMigration', () => {
   });
 
   it('resumes when marker is started even if RN already looks populated', () => {
+    const existing = {
+      diary: { foodEntries: [{ id: 'partial' }], waterEntries: [], fastingSessions: [], favoriteKeys: [] },
+      preferences: { hasCompletedOnboarding: true },
+    };
     const plan = planNativeMigration({
       marker: NATIVE_MIGRATION_STARTED,
       snapshot: populatedNative,
-      existing: {
-        diary: { foodEntries: [{ id: 'partial' }], waterEntries: [], fastingSessions: [], favoriteKeys: [] },
-        preferences: { hasCompletedOnboarding: true },
-      },
+      existing,
     });
     expect(plan.action).toBe('migrate');
     if (plan.action === 'migrate') {
       expect(plan.mapped.diary?.foodEntries[0]?.name).toBe('Oats');
+      expect(storesToWrite(NATIVE_MIGRATION_STARTED, existing, plan.mapped)).toEqual([]);
     }
+  });
+
+  it('on a started retry writes only stores that are still empty', () => {
+    const mapped = mapNativeSnapshot(populatedNative);
+    expect(
+      storesToWrite(
+        NATIVE_MIGRATION_STARTED,
+        {
+          diary: { foodEntries: [{ id: 'user-meal' }], waterEntries: [], fastingSessions: [], favoriteKeys: [] },
+        },
+        mapped,
+      ),
+    ).toEqual(['preferences']);
+    expect(storesToWrite(null, {}, mapped)).toEqual(['diary', 'preferences']);
+    expect(rnStoreHasData('diary', { foodEntries: [{ id: 'x' }] })).toBe(true);
+    expect(rnStoreHasData('workouts', { sessions: [], drafts: { '2026-01-15': { dateKey: '2026-01-15', exercises: [] } } })).toBe(true);
   });
 });
 
@@ -424,11 +445,11 @@ describe('migrateNativeDataIfNeeded', () => {
     expect(await kv.get(storageKeys.diary)).toBeNull();
   });
 
-  it('resumes a partial write when the marker is started', async () => {
+  it('resumes a partial write when the marker is started without clobbering RN diary', async () => {
     const kv = memoryKeyValueStore({
       [storageKeys.nativeMigration]: NATIVE_MIGRATION_STARTED,
       [storageKeys.diary]: JSON.stringify({
-        foodEntries: [{ id: 'partial', name: 'Half copied' }],
+        foodEntries: [{ id: 'user-edit', name: 'Logged after failure' }],
         waterEntries: [],
         fastingSessions: [],
         favoriteKeys: [],
@@ -441,8 +462,24 @@ describe('migrateNativeDataIfNeeded', () => {
       prefs: { hasCompletedOnboarding: true },
     }));
     expect(await kv.get(storageKeys.nativeMigration)).toBe(NATIVE_MIGRATION_DONE);
-    expect(JSON.parse((await kv.get(storageKeys.diary))!).foodEntries[0].name).toBe('Oats');
+    expect(JSON.parse((await kv.get(storageKeys.diary))!).foodEntries[0].name).toBe('Logged after failure');
     expect(JSON.parse((await kv.get(storageKeys.preferences))!).hasCompletedOnboarding).toBe(true);
+  });
+
+  it('fills only the empty stores on retry and keeps post-failure preference edits', async () => {
+    const kv = memoryKeyValueStore({
+      [storageKeys.nativeMigration]: NATIVE_MIGRATION_STARTED,
+      [storageKeys.preferences]: JSON.stringify({ hasCompletedOnboarding: true, appearanceMode: 'dark' }),
+    });
+    await migrateNativeDataIfNeeded(kv, async () => ({
+      available: true,
+      platform: 'ios',
+      blobs: { foodEntries: iosFoodBlob() },
+      prefs: { hasCompletedOnboarding: true, appearanceMode: 'light' },
+    }));
+    expect(await kv.get(storageKeys.nativeMigration)).toBe(NATIVE_MIGRATION_DONE);
+    expect(JSON.parse((await kv.get(storageKeys.preferences))!).appearanceMode).toBe('dark');
+    expect(JSON.parse((await kv.get(storageKeys.diary))!).foodEntries[0].name).toBe('Oats');
   });
 
   it('does not mark done when a store write fails mid-migration', async () => {
@@ -479,11 +516,30 @@ describe('migrateNativeDataIfNeeded', () => {
       foodImagesDirectory,
     }));
     expect(await kv.get(storageKeys.nativeFoodImages)).toBe(foodImagesDirectory);
+    expect(await kv.get(storageKeys.nativeFoodImagesCopied)).toBe('1');
     expect(await kv.get(storageKeys.nativeMigration)).toBe(NATIVE_MIGRATION_DONE);
 
     await migrateNativeDataIfNeeded(kv, async () => {
       throw new Error('should not re-read native after done');
     });
     expect(await kv.get(storageKeys.nativeFoodImages)).toBe(foodImagesDirectory);
+    expect(await kv.get(storageKeys.nativeFoodImagesCopied)).toBe('1');
+  });
+});
+
+describe('referencedFoodImageFilenames', () => {
+  it('collects current diary filenames and ignores meals the user removed', () => {
+    expect(
+      referencedFoodImageFilenames(
+        {
+          foodEntries: [
+            { imageFilename: 'keep.jpg', additionalImageFilenames: ['keep-2.jpg'] },
+            { imageFilename: 'also.jpg', additionalImageFilenames: [] },
+          ],
+        },
+        { foodEntries: [{ imageFilename: 'native-only.jpg', additionalImageFilenames: [] }] },
+      ),
+    ).toEqual(['keep.jpg', 'keep-2.jpg', 'also.jpg', 'native-only.jpg']);
+    expect(referencedFoodImageFilenames({ foodEntries: [] })).toEqual([]);
   });
 });

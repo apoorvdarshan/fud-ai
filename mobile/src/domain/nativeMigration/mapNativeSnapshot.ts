@@ -82,19 +82,72 @@ export type NativeMigrationPlan =
   | { action: 'mark-empty' }
   | { action: 'migrate'; mapped: MappedNativeStores };
 
+export const nativeMigrationStoreKeys = ['diary', 'preferences', 'profile', 'body', 'workouts', 'chat'] as const;
+export type NativeMigrationStoreKey = (typeof nativeMigrationStoreKeys)[number];
+
 export function planNativeMigration(input: {
   marker: string | null | undefined;
   snapshot: NativeStorageSnapshot | undefined;
   existing: RnExistingState;
 }): NativeMigrationPlan {
   if (input.marker === NATIVE_MIGRATION_DONE) return { action: 'skip', reason: 'already-migrated' };
-  // A crash after partial writes leaves RN keys but `started` — resume and overwrite.
+  // A crash after partial writes leaves RN keys but `started` — resume empty stores only.
   if (input.marker !== NATIVE_MIGRATION_STARTED && rnLooksPopulated(input.existing)) {
     return { action: 'skip', reason: 'rn-populated' };
   }
   if (!input.snapshot?.available) return { action: 'skip', reason: 'native-unavailable' };
   if (!nativeHasUserData(input.snapshot)) return { action: 'mark-empty' };
   return { action: 'migrate', mapped: mapNativeSnapshot(input.snapshot) };
+}
+
+/** First run writes every mapped store. A `started` retry fills only stores that are still empty. */
+export function storesToWrite(
+  marker: string | null | undefined,
+  existing: RnExistingState,
+  mapped: MappedNativeStores,
+): NativeMigrationStoreKey[] {
+  const available = nativeMigrationStoreKeys.filter((key) => mapped[key] != null);
+  if (marker !== NATIVE_MIGRATION_STARTED) return available;
+  return available.filter((key) => !rnStoreHasData(key, existing[key]));
+}
+
+export function rnStoreHasData(key: NativeMigrationStoreKey, value: unknown): boolean {
+  switch (key) {
+    case 'diary':
+      return hasDiaryEntries(value);
+    case 'preferences':
+      return isRecord(value) && Object.keys(value).length > 0;
+    case 'profile':
+      return isRecord(value) && typeof value.gender === 'string';
+    case 'body':
+      return hasNamedArray(value, 'weightEntries') || hasNamedArray(value, 'bodyFatEntries');
+    case 'workouts':
+      return (
+        hasNamedArray(value, 'sessions') ||
+        (isRecord(value) && isRecord(value.drafts) && Object.keys(value.drafts).length > 0)
+      );
+    case 'chat':
+      return Array.isArray(value) && value.length > 0;
+  }
+}
+
+/** Filenames still referenced by RN / about-to-write diary rows — never copy deleted meals. */
+export function referencedFoodImageFilenames(...diaries: unknown[]): string[] {
+  const names = new Set<string>();
+  for (const diary of diaries) {
+    if (!isRecord(diary) || !Array.isArray(diary.foodEntries)) continue;
+    for (const entry of diary.foodEntries) {
+      if (!isRecord(entry)) continue;
+      if (typeof entry.imageFilename === 'string' && entry.imageFilename.trim()) {
+        names.add(entry.imageFilename);
+      }
+      if (!Array.isArray(entry.additionalImageFilenames)) continue;
+      for (const name of entry.additionalImageFilenames) {
+        if (typeof name === 'string' && name.trim()) names.add(name);
+      }
+    }
+  }
+  return [...names];
 }
 
 export function rnLooksPopulated(existing: RnExistingState): boolean {

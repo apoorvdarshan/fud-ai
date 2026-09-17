@@ -48,8 +48,9 @@ export function documentsFoodImagesPath(): string {
 /**
  * Copy native meal JPEGs into Expo Documents so `foodImageURI` finds them after restart
  * without relying on the in-memory adopt path. Same filenames — diary rows stay valid.
+ * Pass `onlyFilenames` so a retry cannot restore photos the user already deleted.
  */
-export function copyNativeFoodImagesIntoDocuments(sourcePath: string): number {
+export function copyNativeFoodImagesIntoDocuments(sourcePath: string, onlyFilenames?: ReadonlySet<string>): number {
   if (!sourcePath.trim()) return 0;
   const dest = folder();
   const source = new Directory(toFileUri(sourcePath));
@@ -57,6 +58,7 @@ export function copyNativeFoodImagesIntoDocuments(sourcePath: string): number {
   let copied = 0;
   for (const item of source.list()) {
     if (!(item instanceof File) || !isSafeImageName(item.name)) continue;
+    if (onlyFilenames && !onlyFilenames.has(item.name)) continue;
     const target = new File(dest, item.name);
     if (!target.exists) target.write(item.bytesSync());
     copied += 1;
@@ -97,7 +99,9 @@ export function foodImageURI(filename: string): string {
 export function deleteFoodImage(filename: string | undefined): void {
   if (!filename) return;
   try {
-    const file = foodImageFile(filename);
+    // Documents only — never remove the native original (rollback) or a later
+    // one-time copy would be the only way that file returns, which we skip.
+    const file = new File(Paths.document, FOLDER_NAME, filename);
     if (file.exists) file.delete();
   } catch (error) {
     console.warn('[fudai] could not delete the meal photo', error);

@@ -23,6 +23,8 @@ export const NATIVE_MIGRATION_DONE = 'done';
 export const NATIVE_MIGRATION_STARTED = 'started';
 /** Absolute native `fudai-food-images` directory so meal photos resolve after a cold start. */
 export const NATIVE_FOOD_IMAGES_STORAGE_KEY = 'fudai.nativeFoodImages.v1';
+/** Set after the one-time Documents copy so later launches do not restore deleted photos. */
+export const NATIVE_FOOD_IMAGES_COPIED_KEY = 'fudai.nativeFoodImages.copied.v1';
 
 export const nativeBlobKeys = {
   foodEntries: 'foodEntries',

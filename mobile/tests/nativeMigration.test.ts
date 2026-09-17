@@ -17,7 +17,7 @@ import {
   storesToWrite,
 } from '../src/domain/nativeMigration/mapNativeSnapshot';
 import { NATIVE_MIGRATION_DONE, NATIVE_MIGRATION_STARTED, type NativeStorageSnapshot } from '../src/domain/nativeMigration/nativeSnapshot';
-import { migrateNativeDataIfNeeded } from '../src/services/nativeMigration';
+import { migrateNativeDataIfNeeded, NATIVE_FOOD_IMAGE_COPY_FAILED } from '../src/services/nativeMigration';
 import { memoryKeyValueStore } from '../src/state/persistence';
 import { storageKeys } from '../src/state/storageKeys';
 
@@ -508,15 +508,20 @@ describe('migrateNativeDataIfNeeded', () => {
   it('persists the native food-images directory so photos resolve after restart', async () => {
     const foodImagesDirectory = '/var/mobile/Library/Application Support/fudai-food-images';
     const kv = memoryKeyValueStore();
-    await migrateNativeDataIfNeeded(kv, async () => ({
-      available: true,
-      platform: 'ios',
-      blobs: { foodEntries: iosFoodBlob() },
-      prefs: { hasCompletedOnboarding: true },
-      foodImagesDirectory,
-    }));
+    await migrateNativeDataIfNeeded(
+      kv,
+      async () => ({
+        available: true,
+        platform: 'ios',
+        blobs: { foodEntries: iosFoodBlob() },
+        prefs: { hasCompletedOnboarding: true },
+        foodImagesDirectory,
+      }),
+      { copyReferencedFoodImages: () => [] },
+    );
     expect(await kv.get(storageKeys.nativeFoodImages)).toBe(foodImagesDirectory);
     expect(await kv.get(storageKeys.nativeFoodImagesCopied)).toBe('1');
+    expect(await kv.get(storageKeys.nativeFoodImagesPending)).toBeNull();
     expect(await kv.get(storageKeys.nativeMigration)).toBe(NATIVE_MIGRATION_DONE);
 
     await migrateNativeDataIfNeeded(kv, async () => {
@@ -524,6 +529,59 @@ describe('migrateNativeDataIfNeeded', () => {
     });
     expect(await kv.get(storageKeys.nativeFoodImages)).toBe(foodImagesDirectory);
     expect(await kv.get(storageKeys.nativeFoodImagesCopied)).toBe('1');
+  });
+
+  it('does not mark done when referenced meal photos fail to copy', async () => {
+    const foodImagesDirectory = '/var/mobile/Library/Application Support/fudai-food-images';
+    const kv = memoryKeyValueStore();
+    await expect(
+      migrateNativeDataIfNeeded(
+        kv,
+        async () => ({
+          available: true,
+          platform: 'ios',
+          blobs: { foodEntries: iosFoodBlob() },
+          prefs: { hasCompletedOnboarding: true },
+          foodImagesDirectory,
+        }),
+        { copyReferencedFoodImages: () => ['11111111-1111-1111-1111-111111111111.jpg'] },
+      ),
+    ).rejects.toThrow(NATIVE_FOOD_IMAGE_COPY_FAILED);
+    expect(await kv.get(storageKeys.nativeMigration)).toBe(NATIVE_MIGRATION_STARTED);
+    expect(await kv.get(storageKeys.nativeFoodImagesCopied)).toBeNull();
+    expect(JSON.parse((await kv.get(storageKeys.nativeFoodImagesPending))!)).toEqual([
+      '11111111-1111-1111-1111-111111111111.jpg',
+    ]);
+    expect(JSON.parse((await kv.get(storageKeys.diary))!).foodEntries[0].name).toBe('Oats');
+  });
+
+  it('retries a failed photo copy on the next launch and then marks done', async () => {
+    const foodImagesDirectory = '/var/mobile/Library/Application Support/fudai-food-images';
+    const kv = memoryKeyValueStore();
+    let remainingFails = 1;
+    const snapshot = async (): Promise<NativeStorageSnapshot> => ({
+      available: true,
+      platform: 'ios',
+      blobs: { foodEntries: iosFoodBlob() },
+      prefs: { hasCompletedOnboarding: true },
+      foodImagesDirectory,
+    });
+    const hooks = {
+      copyReferencedFoodImages: () => {
+        if (remainingFails > 0) {
+          remainingFails -= 1;
+          return ['11111111-1111-1111-1111-111111111111.jpg'];
+        }
+        return [];
+      },
+    };
+    await expect(migrateNativeDataIfNeeded(kv, snapshot, hooks)).rejects.toThrow(NATIVE_FOOD_IMAGE_COPY_FAILED);
+    expect(await kv.get(storageKeys.nativeMigration)).toBe(NATIVE_MIGRATION_STARTED);
+
+    await migrateNativeDataIfNeeded(kv, snapshot, hooks);
+    expect(await kv.get(storageKeys.nativeMigration)).toBe(NATIVE_MIGRATION_DONE);
+    expect(await kv.get(storageKeys.nativeFoodImagesCopied)).toBe('1');
+    expect(await kv.get(storageKeys.nativeFoodImagesPending)).toBeNull();
   });
 });
 

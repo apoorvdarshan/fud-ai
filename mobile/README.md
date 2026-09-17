@@ -139,10 +139,11 @@ deleted. `fudai.nativeMigration.v1` is `started` before any store write and beco
 after every mapped store succeeds — a crash mid-copy retries on the next launch, filling only
 stores that are still empty so post-failure diary/pref edits are not overwritten. A later launch
 with `done`, or a device that already has real RN data (and is not mid-migration), skips the copy.
-Meal photos keep resolving after a cold start: referenced JPEGs are copied once into Expo
-Documents `fudai-food-images`, and the native directory is persisted (`fudai.nativeFoodImages.v1`)
-so leftovers still resolve. Later launches adopt that directory but do not copy again, so a photo
-the user deleted is not restored.
+Meal photos keep resolving after a cold start: referenced JPEGs must copy into Expo Documents
+`fudai-food-images` before `done` is recorded — a failed copy leaves `started` and retries the
+still-referenced filenames. Until that copy succeeds, backups enumerate the adopted native
+directory as well as Documents. Later launches adopt the native path but do not recopy deleted
+meals.
 
 ### Purchases (RevenueCat)
 

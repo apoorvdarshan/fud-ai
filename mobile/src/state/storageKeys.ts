@@ -1,6 +1,7 @@
 import { COACH_CHAT_STORAGE_KEY } from '../domain/coach/coach';
 import {
   NATIVE_FOOD_IMAGES_COPIED_KEY,
+  NATIVE_FOOD_IMAGES_PENDING_KEY,
   NATIVE_FOOD_IMAGES_STORAGE_KEY,
   NATIVE_MIGRATION_STORAGE_KEY,
 } from '../domain/nativeMigration/nativeSnapshot';
@@ -16,4 +17,5 @@ export const storageKeys = {
   nativeMigration: NATIVE_MIGRATION_STORAGE_KEY,
   nativeFoodImages: NATIVE_FOOD_IMAGES_STORAGE_KEY,
   nativeFoodImagesCopied: NATIVE_FOOD_IMAGES_COPIED_KEY,
+  nativeFoodImagesPending: NATIVE_FOOD_IMAGES_PENDING_KEY,
 } as const;

@@ -6,9 +6,10 @@
  * deleted so a rollback still sees the original blobs.
  *
  * `fudai.nativeMigration.v1` is `started` before any store write and `done` only after
- * every mapped store succeeds. A crash mid-copy leaves `started` so the next launch
- * fills remaining empty keys. Stores that already have RN data — including edits the
- * user saved after the failure — are left alone.
+ * every mapped store succeeds and referenced meal JPEGs are in Expo Documents. A crash
+ * mid-copy leaves `started` so the next launch fills remaining empty keys. Stores that
+ * already have RN data — including edits the user saved after the failure — are left
+ * alone.
  */
 
 import {
@@ -21,6 +22,7 @@ import {
 } from '../domain/nativeMigration/mapNativeSnapshot';
 import {
   NATIVE_FOOD_IMAGES_COPIED_KEY,
+  NATIVE_FOOD_IMAGES_PENDING_KEY,
   NATIVE_FOOD_IMAGES_STORAGE_KEY,
   NATIVE_MIGRATION_DONE,
   NATIVE_MIGRATION_STARTED,
@@ -32,6 +34,13 @@ import { storageKeys } from '../state/storageKeys';
 import { readNativeSnapshot } from './nativeStorage';
 
 export { NATIVE_MIGRATION_DONE, NATIVE_MIGRATION_STARTED, NATIVE_MIGRATION_STORAGE_KEY };
+
+export const NATIVE_FOOD_IMAGE_COPY_FAILED = 'native meal photo copy failed';
+
+export interface NativeMigrationHooks {
+  /** Return filenames that still need a Documents copy. Empty means success. */
+  copyReferencedFoodImages?: (sourceDirectory: string, filenames: readonly string[]) => string[] | Promise<string[]>;
+}
 
 const storeStorageKeys: Record<NativeMigrationStoreKey, string> = {
   diary: storageKeys.diary,
@@ -45,8 +54,9 @@ const storeStorageKeys: Record<NativeMigrationStoreKey, string> = {
 export async function migrateNativeDataIfNeeded(
   kv: KeyValueStore,
   readSnapshot: () => Promise<NativeStorageSnapshot | undefined> = readNativeSnapshot,
+  hooks: NativeMigrationHooks = {},
 ): Promise<void> {
-  await restorePersistedFoodImages(kv);
+  await restorePersistedFoodImages(kv, hooks);
 
   const marker = await kv.get(NATIVE_MIGRATION_STORAGE_KEY);
   if (marker === NATIVE_MIGRATION_DONE) return;
@@ -75,16 +85,28 @@ export async function migrateNativeDataIfNeeded(
     if (value !== undefined) await writeJSON(kv, storeStorageKeys[key], value);
   }
 
-  await persistAndCopyFoodImages(kv, snapshot, existing, mapped, keys.includes('diary'));
+  await persistAndCopyFoodImages(kv, snapshot, existing, mapped, keys.includes('diary'), hooks);
 
   await kv.set(NATIVE_MIGRATION_STORAGE_KEY, NATIVE_MIGRATION_DONE);
 }
 
-async function restorePersistedFoodImages(kv: KeyValueStore): Promise<void> {
+async function restorePersistedFoodImages(kv: KeyValueStore, hooks: NativeMigrationHooks): Promise<void> {
   const directory = await kv.get(NATIVE_FOOD_IMAGES_STORAGE_KEY);
   if (!directory) return;
-  // Adopt only — a repeated copy would put back photos the user deleted.
   adoptNativeFoodImagesBestEffort(directory);
+  if (await kv.get(NATIVE_FOOD_IMAGES_COPIED_KEY)) {
+    includeAdoptedNativeInListingBestEffort(false);
+    return;
+  }
+  includeAdoptedNativeInListingBestEffort(true);
+  const diary = await readJSON(kv, storageKeys.diary);
+  const names = referencedFoodImageFilenames(diary);
+  if (names.length === 0) return;
+  try {
+    await copyReferencedOrThrow(kv, directory, names, hooks);
+  } catch {
+    /* Retry again during migrate / next launch — keep listing the native dir. */
+  }
 }
 
 async function persistAndCopyFoodImages(
@@ -93,16 +115,60 @@ async function persistAndCopyFoodImages(
   existing: RnExistingState,
   mapped: MappedNativeStores,
   wroteDiary: boolean,
+  hooks: NativeMigrationHooks,
 ): Promise<void> {
   const directory = snapshot?.foodImagesDirectory?.trim();
   if (directory) {
     await kv.set(NATIVE_FOOD_IMAGES_STORAGE_KEY, directory);
     adoptNativeFoodImagesBestEffort(directory);
   }
-  if (!directory || (await kv.get(NATIVE_FOOD_IMAGES_COPIED_KEY))) return;
+  if (await kv.get(NATIVE_FOOD_IMAGES_COPIED_KEY)) {
+    includeAdoptedNativeInListingBestEffort(false);
+    return;
+  }
+  if (!directory) return;
   const names = referencedFoodImageFilenames(existing.diary, wroteDiary ? mapped.diary : undefined);
-  await copyFoodImagesBestEffort(directory, names);
+  await copyReferencedOrThrow(kv, directory, names, hooks);
+}
+
+async function copyReferencedOrThrow(
+  kv: KeyValueStore,
+  directory: string,
+  filenames: readonly string[],
+  hooks: NativeMigrationHooks,
+): Promise<void> {
+  if (filenames.length === 0) {
+    await kv.remove(NATIVE_FOOD_IMAGES_PENDING_KEY);
+    await kv.set(NATIVE_FOOD_IMAGES_COPIED_KEY, '1');
+    includeAdoptedNativeInListingBestEffort(false);
+    return;
+  }
+  const failed = await copyReferencedFoodImages(directory, filenames, hooks);
+  if (failed.length > 0) {
+    await kv.set(NATIVE_FOOD_IMAGES_PENDING_KEY, JSON.stringify(failed));
+    includeAdoptedNativeInListingBestEffort(true);
+    throw new Error(`${NATIVE_FOOD_IMAGE_COPY_FAILED}: ${failed.join(', ')}`);
+  }
+  await kv.remove(NATIVE_FOOD_IMAGES_PENDING_KEY);
   await kv.set(NATIVE_FOOD_IMAGES_COPIED_KEY, '1');
+  includeAdoptedNativeInListingBestEffort(false);
+}
+
+async function copyReferencedFoodImages(
+  directory: string,
+  filenames: readonly string[],
+  hooks: NativeMigrationHooks,
+): Promise<string[]> {
+  if (hooks.copyReferencedFoodImages) {
+    return [...(await hooks.copyReferencedFoodImages(directory, filenames))];
+  }
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const foodImages = require('./foodImageStore') as typeof import('./foodImageStore');
+    return foodImages.copyReferencedFoodImagesIntoDocuments(directory, filenames);
+  } catch {
+    return [...filenames];
+  }
 }
 
 async function readExistingRnState(kv: KeyValueStore): Promise<RnExistingState | undefined> {
@@ -138,12 +204,11 @@ function adoptNativeFoodImagesBestEffort(directory: string): void {
   }
 }
 
-async function copyFoodImagesBestEffort(sourceDirectory: string, filenames: readonly string[]): Promise<void> {
-  if (filenames.length === 0) return;
+function includeAdoptedNativeInListingBestEffort(include: boolean): void {
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const foodImages = require('./foodImageStore') as typeof import('./foodImageStore');
-    foodImages.copyNativeFoodImagesIntoDocuments(sourceDirectory, new Set(filenames));
+    const { includeAdoptedNativeFoodImagesInListing } = require('./foodImageStore') as typeof import('./foodImageStore');
+    includeAdoptedNativeFoodImagesInListing(include);
   } catch {
     /* Expo Go / tests / file-system unavailable */
   }

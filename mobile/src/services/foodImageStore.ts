@@ -12,6 +12,8 @@ const FOLDER_NAME = 'fudai-food-images';
 
 /** Native iOS writes photos under Application Support; Expo uses Documents. */
 let nativeFoodImagesDirectory: string | undefined;
+/** Backups include the native dir until referenced copies succeed. */
+let includeAdoptedNativeInListing = false;
 
 function folder(): Directory {
   const directory = new Directory(Paths.document, FOLDER_NAME);
@@ -38,6 +40,12 @@ function isSafeImageName(name: string): boolean {
 export function adoptNativeFoodImages(directoryPath: string): void {
   if (!directoryPath.trim()) return;
   nativeFoodImagesDirectory = toFileUri(directoryPath);
+  includeAdoptedNativeInListing = true;
+}
+
+/** After referenced copies land in Documents, backups no longer enumerate the native dir. */
+export function includeAdoptedNativeFoodImagesInListing(include: boolean): void {
+  includeAdoptedNativeInListing = include;
 }
 
 /** Expo Documents `fudai-food-images` path (`file://…`) for native copy destinations. */
@@ -51,19 +59,45 @@ export function documentsFoodImagesPath(): string {
  * Pass `onlyFilenames` so a retry cannot restore photos the user already deleted.
  */
 export function copyNativeFoodImagesIntoDocuments(sourcePath: string, onlyFilenames?: ReadonlySet<string>): number {
-  if (!sourcePath.trim()) return 0;
+  const names = onlyFilenames
+    ? [...onlyFilenames]
+    : listSafeImageNames(sourcePath);
+  return names.length - copyReferencedFoodImagesIntoDocuments(sourcePath, names).length;
+}
+
+/**
+ * Copy referenced meal JPEGs into Expo Documents. Returns filenames that still
+ * need a retry — already-present Documents files and natively-missing files succeed.
+ */
+export function copyReferencedFoodImagesIntoDocuments(sourcePath: string, filenames: readonly string[]): string[] {
   const dest = folder();
-  const source = new Directory(toFileUri(sourcePath));
-  if (!source.exists) return 0;
-  let copied = 0;
-  for (const item of source.list()) {
-    if (!(item instanceof File) || !isSafeImageName(item.name)) continue;
-    if (onlyFilenames && !onlyFilenames.has(item.name)) continue;
-    const target = new File(dest, item.name);
-    if (!target.exists) target.write(item.bytesSync());
-    copied += 1;
+  const source = sourcePath.trim() ? new Directory(toFileUri(sourcePath)) : undefined;
+  const failed: string[] = [];
+  for (const name of filenames) {
+    if (!isSafeImageName(name)) continue;
+    const target = new File(dest, name);
+    if (target.exists) continue;
+    try {
+      if (!source?.exists) {
+        failed.push(name);
+        continue;
+      }
+      const item = new File(source, name);
+      if (!item.exists) continue;
+      target.write(item.bytesSync());
+      if (!target.exists) failed.push(name);
+    } catch {
+      failed.push(name);
+    }
   }
-  return copied;
+  return failed;
+}
+
+function listSafeImageNames(sourcePath: string): string[] {
+  if (!sourcePath.trim()) return [];
+  const source = new Directory(toFileUri(sourcePath));
+  if (!source.exists) return [];
+  return source.list().flatMap((item) => (item instanceof File && isSafeImageName(item.name) ? [item.name] : []));
 }
 
 function foodImageFile(filename: string): File {
@@ -122,19 +156,23 @@ export function deleteAllFoodImages(): void {
 export function listFoodImages(): Record<string, Uint8Array> {
   const photos: Record<string, Uint8Array> = {};
   try {
-    const directory = new Directory(Paths.document, FOLDER_NAME);
-    if (!directory.exists) return photos;
-    for (const item of directory.list()) {
-      if (!(item instanceof File)) continue;
-      if (![...item.name].every((ch) => /[A-Za-z0-9._-]/.test(ch))) continue;
-      const ext = (item.name.split('.').pop() ?? '').toLowerCase();
-      if (!['jpg', 'jpeg', 'png', 'webp'].includes(ext)) continue;
-      photos[item.name] = item.bytesSync();
+    collectFoodImages(new Directory(Paths.document, FOLDER_NAME), photos);
+    if (includeAdoptedNativeInListing && nativeFoodImagesDirectory) {
+      collectFoodImages(new Directory(nativeFoodImagesDirectory), photos);
     }
   } catch (error) {
     console.warn('[fudai] could not list meal photos', error);
   }
   return photos;
+}
+
+function collectFoodImages(directory: Directory, photos: Record<string, Uint8Array>): void {
+  if (!directory.exists) return;
+  for (const item of directory.list()) {
+    if (!(item instanceof File) || photos[item.name]) continue;
+    if (!isSafeImageName(item.name)) continue;
+    photos[item.name] = item.bytesSync();
+  }
 }
 
 /** Writes restored backup photos under the food-image directory. */

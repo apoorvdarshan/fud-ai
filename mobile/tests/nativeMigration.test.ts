@@ -197,6 +197,45 @@ describe('mapNativeSnapshot', () => {
     expect(mapped.workouts?.drafts['2026-01-16']?.exercises[0]).toMatchObject({ itemID: 'squat', name: 'Squat' });
   });
 
+  it('migrates only saved exercise timers, not paused or running ones', () => {
+    const snapshot: NativeStorageSnapshot = {
+      available: true,
+      platform: 'ios',
+      blobs: {
+        'fudai.workouts.diary.state.v1': JSON.stringify({
+          version: 1,
+          completedSessions: [],
+          dayPlans: {
+            '2026-01-16': {
+              dateKey: '2026-01-16',
+              exercises: [
+                {
+                  id: 'w1',
+                  itemID: 'Walking_Outdoor',
+                  name: 'Walking',
+                  sets: [],
+                  timer: { savedDurationSeconds: 1800, accumulatedSeconds: 1800, isRunning: false },
+                },
+                {
+                  id: 'w2',
+                  itemID: 'squat',
+                  name: 'Squat',
+                  sets: [{ id: 's', weight: '185', reps: '5', rpe: '' }],
+                  timer: { accumulatedSeconds: 90, isRunning: true },
+                },
+              ],
+            },
+          },
+        }),
+      },
+      prefs: {},
+    };
+    const mapped = mapNativeSnapshot(snapshot);
+    expect(mapped.workouts?.drafts['2026-01-16']?.exercises[0]).toMatchObject({ itemID: 'Walking_Outdoor', durationSeconds: 1800 });
+    expect(mapped.workouts?.drafts['2026-01-16']?.exercises[1]?.durationSeconds).toBeUndefined();
+    expect(mapped.workouts?.drafts['2026-01-16']?.exercises[1]?.sets[0]).toMatchObject({ reps: '5' });
+  });
+
   it('maps Android DataStore millis timestamps and key aliases', () => {
     const snapshot: NativeStorageSnapshot = {
       available: true,

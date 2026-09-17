@@ -767,8 +767,8 @@ function savedTimerSeconds(exercise: Record<string, unknown>): number | undefine
   const direct = asFiniteNumber(exercise.durationSeconds);
   if (direct && direct > 0) return Math.round(direct);
   const timer = isRecord(exercise.timer) ? exercise.timer : undefined;
-  if (!timer) return undefined;
-  const saved = asFiniteNumber(timer.savedDurationSeconds) ?? asFiniteNumber(timer.accumulatedSeconds);
+  if (!timer || timer.isRunning === true || timer.isSaved === false) return undefined;
+  const saved = asFiniteNumber(timer.savedDurationSeconds);
   return saved && saved > 0 ? Math.round(saved) : undefined;
 }
 

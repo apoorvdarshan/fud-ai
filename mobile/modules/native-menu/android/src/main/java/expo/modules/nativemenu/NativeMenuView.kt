@@ -81,6 +81,7 @@ class NativeMenuView(context: Context, appContext: AppContext) : ExpoView(contex
       for (item in nodes) {
         val children = item.children
         if (!children.isNullOrEmpty()) {
+          if (item.disabled == true) continue
           if (item.displayInline == true) {
             addItems(menu, children)
           } else {

@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { Modal, Pressable, StyleSheet, View, useWindowDimensions, type StyleProp, type ViewStyle } from 'react-native';
+import { Modal, Pressable, ScrollView, StyleSheet, View, useWindowDimensions, type StyleProp, type ViewStyle } from 'react-native';
 
 import type { ReactNode } from 'react';
 
@@ -71,6 +71,10 @@ export function AnchoredMenu({
   const dismiss = () => {
     setOpen(false);
     setStack([]);
+    // Delay so a same-gesture `onPress` after long-press still sees the flag and is ignored.
+    setTimeout(() => {
+      longPressUsed.current = false;
+    }, 400);
   };
 
   const choose = (item: NativeMenuItem) => {
@@ -89,7 +93,7 @@ export function AnchoredMenu({
     const preferredLeft = anchor.x + anchor.width - MENU_WIDTH;
     const left = Math.min(Math.max(margin, preferredLeft), Math.max(margin, windowWidth - MENU_WIDTH - margin));
     const spaceAbove = anchor.y;
-    const estimatedHeight = Math.min(visibleItems.length * 52 + (stack.length > 0 ? 52 : 0) + 16, 360);
+    const estimatedHeight = Math.min(visibleItems.length * 52 + (stack.length > 0 ? 52 : 0) + 16, Math.min(360, windowHeight - 24));
     if (spaceAbove > estimatedHeight + 12) {
       return { left, bottom: windowHeight - anchor.y + 8 };
     }
@@ -145,8 +149,10 @@ export function AnchoredMenu({
                 borderWidth: 0.8,
                 borderColor: theme.scheme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.7)',
                 paddingVertical: 5,
+                maxHeight: Math.min(360, windowHeight - 24),
               }}
             >
+              <ScrollView bounces={false} keyboardShouldPersistTaps="handled">
               {stack.length > 0 ? (
                 <MenuRow
                   icon="chevron.left"
@@ -165,6 +171,7 @@ export function AnchoredMenu({
                   onPress={() => choose(item)}
                 />
               ))}
+              </ScrollView>
             </GlassChrome>
           </View>
         </View>

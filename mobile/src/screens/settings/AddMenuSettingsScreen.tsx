@@ -29,11 +29,11 @@ import { useTheme } from '../../theme';
 export function AddMenuSettingsScreen() {
   const theme = useTheme();
   const raw = usePreferences((p) => p.addMenuConfig);
-  const config = useMemo(() => addMenuConfigFromPrefs(raw), [raw]);
+  const config = useMemo(() => addMenuConfigFromPrefs(raw, { keepEmptyGroups: true }), [raw]);
   const hidden = hiddenAddMenuMethods(config);
   const [assignTo, setAssignTo] = useState<string | null>(null);
 
-  const save = (next: typeof config) => setPreferences({ addMenuConfig: serializeAddMenuConfig(next) });
+  const save = (next: typeof config) => setPreferences({ addMenuConfig: serializeAddMenuConfig(next, { keepEmptyGroups: true }) });
   const methodIcon = (method: FoodLogMethod): SFSymbolName => foodLogMethodSystemImage(method) as SFSymbolName;
 
   const methodActions = (list: 'flat' | string, methods: FoodLogMethod[], index: number): AlertButton[] => {
@@ -84,8 +84,8 @@ export function AddMenuSettingsScreen() {
                 onPress={() => Alert.alert(foodLogMethodTitle(method), undefined, methodActions('flat', config.flatMethods, index))}
               />
             ))}
-            {hidden[0] ? (
-              <SettingsRow icon="plus.circle.fill" title="Add Method" onPress={() => save(appendFlatAddMenuMethod(config, hidden[0]!))} />
+            {hidden.length > 0 ? (
+              <SettingsRow icon="plus.circle.fill" title="Add Method" onPress={() => setAssignTo('flat')} />
             ) : null}
           </SettingsSection>
         ) : (
@@ -168,7 +168,8 @@ export function AddMenuSettingsScreen() {
         options={hidden.map((method) => ({ value: method, label: foodLogMethodTitle(method) }))}
         selected={undefined}
         onSelect={(method) => {
-          if (assignTo) save(assignAddMenuMethod(config, method, assignTo));
+          if (assignTo === 'flat') save(appendFlatAddMenuMethod(config, method));
+          else if (assignTo) save(assignAddMenuMethod(config, method, assignTo));
           setAssignTo(null);
         }}
         onDismiss={() => setAssignTo(null)}

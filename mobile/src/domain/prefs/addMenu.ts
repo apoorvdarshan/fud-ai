@@ -86,11 +86,11 @@ function filterMethods(methods: readonly string[], seen: Set<FoodLogMethod>): Fo
   return result;
 }
 
-export function sanitizeAddMenuConfig(config: AddMenuConfig): AddMenuConfig {
+export function sanitizeAddMenuConfig(config: AddMenuConfig, options: { keepEmptyGroups?: boolean } = {}): AddMenuConfig {
   const seen = new Set<FoodLogMethod>();
   const trimmedGroups: AddMenuGroupConfig[] = config.groups.slice(0, 3).flatMap((group) => {
     const methods = filterMethods(group.methods, seen);
-    if (methods.length === 0) return [];
+    if (methods.length === 0 && !options.keepEmptyGroups) return [];
     const name = group.name.trim() || 'Group';
     return [{ id: group.id.trim() || newGroupId(), name, methods }];
   });
@@ -106,7 +106,7 @@ export function sanitizeAddMenuConfig(config: AddMenuConfig): AddMenuConfig {
   return { version: ADD_MENU_CURRENT_VERSION, groups: trimmedGroups, flatMethods: [] };
 }
 
-export function parseAddMenuConfig(raw: unknown): AddMenuConfig {
+export function parseAddMenuConfig(raw: unknown, options: { keepEmptyGroups?: boolean } = {}): AddMenuConfig {
   if (!raw || typeof raw !== 'object') return iosDefaultAddMenuConfig;
   const record = raw as Record<string, unknown>;
   const groupsRaw = Array.isArray(record.groups) ? record.groups : [];
@@ -125,7 +125,7 @@ export function parseAddMenuConfig(raw: unknown): AddMenuConfig {
     groups,
     flatMethods: filterMethods(flatRaw, new Set()),
   };
-  const sanitized = sanitizeAddMenuConfig(decoded);
+  const sanitized = sanitizeAddMenuConfig(decoded, options);
   if (sanitized.groups.length === 0 && sanitized.flatMethods.length === 0) {
     const hadConfiguredContent = decoded.groups.some((g) => g.methods.length > 0) || decoded.flatMethods.length > 0;
     return hadConfiguredContent ? iosDefaultAddMenuConfig : sanitized;
@@ -133,10 +133,10 @@ export function parseAddMenuConfig(raw: unknown): AddMenuConfig {
   return sanitized;
 }
 
-export function parseAddMenuConfigJson(raw: string | null | undefined): AddMenuConfig {
+export function parseAddMenuConfigJson(raw: string | null | undefined, options: { keepEmptyGroups?: boolean } = {}): AddMenuConfig {
   if (!raw) return iosDefaultAddMenuConfig;
   try {
-    return parseAddMenuConfig(JSON.parse(raw) as unknown);
+    return parseAddMenuConfig(JSON.parse(raw) as unknown, options);
   } catch {
     return iosDefaultAddMenuConfig;
   }
@@ -243,12 +243,12 @@ export function buildHomeAddMenu(input: {
   return items;
 }
 
-export function addMenuConfigFromPrefs(raw: string | undefined): AddMenuConfig {
-  return parseAddMenuConfigJson(raw);
+export function addMenuConfigFromPrefs(raw: string | undefined, options: { keepEmptyGroups?: boolean } = {}): AddMenuConfig {
+  return parseAddMenuConfigJson(raw, options);
 }
 
-export function serializeAddMenuConfig(config: AddMenuConfig): string {
-  return JSON.stringify(sanitizeAddMenuConfig(config));
+export function serializeAddMenuConfig(config: AddMenuConfig, options: { keepEmptyGroups?: boolean } = {}): string {
+  return JSON.stringify(sanitizeAddMenuConfig(config, options));
 }
 
 export function hiddenAddMenuMethods(config: AddMenuConfig): FoodLogMethod[] {
@@ -340,7 +340,7 @@ export function setAddMenuGroupCount(config: AddMenuConfig, count: number): AddM
   while (groups.length > nextCount) {
     groups.pop();
   }
-  return sanitizeAddMenuConfig({ version: ADD_MENU_CURRENT_VERSION, groups, flatMethods: [] });
+  return sanitizeAddMenuConfig({ version: ADD_MENU_CURRENT_VERSION, groups, flatMethods: [] }, { keepEmptyGroups: true });
 }
 
 export function parseHomeAddMenuAction(id: string): HomeAddMenuAction | undefined {

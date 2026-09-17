@@ -84,6 +84,17 @@ describe('buildHomeAddMenu', () => {
     expect(hiddenAddMenuMethods(flat)).toEqual([]);
   });
 
+  it('keeps empty groups while raising the group count so Settings can assign methods', () => {
+    const one = sanitizeAddMenuConfig({
+      version: 1,
+      groups: [{ id: 'photo-scan', name: 'Photo & Scan', methods: ['camera'] }],
+      flatMethods: [],
+    });
+    const two = setAddMenuGroupCount(one, 2);
+    expect(two.groups).toHaveLength(2);
+    expect(two.groups[1]).toMatchObject({ name: 'New Group', methods: [] });
+  });
+
   it('assigns a hidden method into a group', () => {
     const trimmed = sanitizeAddMenuConfig({
       version: 1,

@@ -12,6 +12,7 @@ export interface NativeMenuViewProps {
   onPress?: () => void;
   accessibilityLabel?: string;
   testID?: string;
+  disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   children?: React.ReactNode;
 }
@@ -23,6 +24,7 @@ interface NativeProps {
   onPress: () => void;
   accessibilityLabel?: string;
   testID?: string;
+  disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   children?: React.ReactNode;
 }
@@ -55,6 +57,7 @@ export function NativeMenuHost({
   onPress,
   accessibilityLabel,
   testID,
+  disabled,
   style,
   children,
 }: NativeMenuViewProps) {
@@ -68,6 +71,7 @@ export function NativeMenuHost({
       onPress={() => onPress?.()}
       accessibilityLabel={accessibilityLabel}
       testID={testID}
+      disabled={disabled}
       style={style}
     >
       {children}

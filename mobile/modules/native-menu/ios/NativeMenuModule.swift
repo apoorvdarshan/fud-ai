@@ -28,6 +28,10 @@ public class NativeMenuModule: Module {
       Prop("testID") { (view: NativeMenuView, testID: String?) in
         view.testIdentifier = testID
       }
+
+      Prop("disabled") { (view: NativeMenuView, disabled: Bool) in
+        view.isMenuDisabled = disabled
+      }
     }
   }
 }

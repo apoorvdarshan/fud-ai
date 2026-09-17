@@ -105,6 +105,11 @@ export function deleteFoodFromHealth(entryId: string): void {
   void deleteFoodFromHealthAsync(entryId);
 }
 
+/** Edit path: wait for the old Health samples to go away before writing the new ones. */
+export function replaceFoodInHealth(entry: { id: string; name: string; calories: number; protein: number; carbs: number; fat: number; timestamp: string }): void {
+  void deleteFoodFromHealthAsync(entry.id).then(() => writeFoodToHealthAsync(entry));
+}
+
 export function writeWeightToHealth(kg: number, date: Date, entryId?: string): void {
   if (!healthEnabled()) return;
   void healthSync.writeWeight(kg, date, entryId).catch(() => undefined);

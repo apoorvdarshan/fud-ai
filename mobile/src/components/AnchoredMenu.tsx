@@ -19,6 +19,7 @@ interface AnchoredMenuProps {
   onPress?: () => void;
   accessibilityLabel?: string;
   testID?: string;
+  disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   children: ReactNode;
 }
@@ -45,6 +46,7 @@ export function AnchoredMenu({
   onPress,
   accessibilityLabel,
   testID,
+  disabled = false,
   style,
   children,
 }: AnchoredMenuProps) {
@@ -54,6 +56,7 @@ export function AnchoredMenu({
   const [open, setOpen] = useState(false);
   const [anchor, setAnchor] = useState<AnchorBox | null>(null);
   const [stack, setStack] = useState<NativeMenuItem[][]>([]);
+  const longPressUsed = useRef(false);
 
   const visibleItems = stack[stack.length - 1] ?? items;
 
@@ -82,13 +85,15 @@ export function AnchoredMenu({
 
   const menuPosition = useMemo(() => {
     if (!anchor) return { right: 16, bottom: 96 };
-    const right = Math.max(12, windowWidth - (anchor.x + anchor.width));
+    const margin = 12;
+    const preferredLeft = anchor.x + anchor.width - MENU_WIDTH;
+    const left = Math.min(Math.max(margin, preferredLeft), Math.max(margin, windowWidth - MENU_WIDTH - margin));
     const spaceAbove = anchor.y;
     const estimatedHeight = Math.min(visibleItems.length * 52 + (stack.length > 0 ? 52 : 0) + 16, 360);
     if (spaceAbove > estimatedHeight + 12) {
-      return { right, bottom: windowHeight - anchor.y + 8 };
+      return { left, bottom: windowHeight - anchor.y + 8 };
     }
-    return { right, top: anchor.y + anchor.height + 8 };
+    return { left, top: anchor.y + anchor.height + 8 };
   }, [anchor, windowWidth, windowHeight, visibleItems.length, stack.length]);
 
   return (
@@ -96,9 +101,26 @@ export function AnchoredMenu({
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={accessibilityLabel}
+        accessibilityState={{ disabled }}
         testID={testID}
-        onPress={trigger === 'press' ? measureAndOpen : onPress}
-        onLongPress={trigger === 'longPress' ? measureAndOpen : undefined}
+        disabled={disabled}
+        onPress={() => {
+          if (disabled) return;
+          if (trigger === 'press') {
+            measureAndOpen();
+            return;
+          }
+          if (longPressUsed.current) {
+            longPressUsed.current = false;
+            return;
+          }
+          onPress?.();
+        }}
+        onLongPress={() => {
+          if (disabled || trigger !== 'longPress') return;
+          longPressUsed.current = true;
+          measureAndOpen();
+        }}
         delayLongPress={280}
       >
         {children}

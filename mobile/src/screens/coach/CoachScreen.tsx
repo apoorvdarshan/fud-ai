@@ -263,7 +263,9 @@ export function CoachScreen() {
           >
             <NativeMenu
               items={attachMenuItems}
+              disabled={isSending}
               onSelect={(id) => {
+                if (isSending) return;
                 if (id === 'camera') void attach('camera');
                 if (id === 'library') void attach('library');
               }}

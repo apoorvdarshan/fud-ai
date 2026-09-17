@@ -39,7 +39,7 @@ import { ImagePermissionError, pickImage, type ImageSource } from '../../service
 import { diaryStore, newId, setPreferences, useDiary, usePreferences, useProfile } from '../../state/appStores';
 import { useTheme } from '../../theme';
 import { lookupBarcode } from '../../services/openFoodFacts';
-import { deleteFoodFromHealth, writeFoodToHealth } from '../../services/health';
+import { deleteFoodFromHealth, replaceFoodInHealth, writeFoodToHealth } from '../../services/health';
 import { AnalyzingOverlay, FoodResultSheet, SavedMealsSheet, TextFoodInputSheet, type FoodResultSave, type SavedMealsMode } from './FoodAISheets';
 import { BarcodeScannerSheet } from './BarcodeScannerSheet';
 import { VoiceMealSheet } from './VoiceMealSheet';
@@ -464,7 +464,7 @@ export function HomeScreen() {
 
   const copyFromDay = (from: Date) => {
     for (const entry of foodEntriesOn(diary, from)) {
-      const { id: _id, timestamp: _timestamp, ...rest } = entry;
+      const { id: _id, timestamp: _timestamp, imageFilename: _image, additionalImageFilenames: _images, ...rest } = entry;
       const next = makeFoodEntry({ ...rest, timestamp: logDate().toISOString() }, newId());
       diaryStore.dispatch({ type: 'food/add', entry: next });
       writeFoodToHealth(next);
@@ -671,9 +671,21 @@ export function HomeScreen() {
         }}
         onSave={(input) => {
           if (diaryTarget?.kind !== 'food') return;
-          const entry = { ...diaryTarget.entry, ...input };
+          const previous = diaryTarget.entry;
+          const { mealType: _meal, ...kept } = previous;
+          const entry = makeFoodEntry(
+            {
+              ...kept,
+              ...input,
+              timestamp: previous.timestamp,
+              source: previous.source,
+              ...(previous.imageFilename ? { imageFilename: previous.imageFilename } : {}),
+              ...(previous.additionalImageFilenames ? { additionalImageFilenames: previous.additionalImageFilenames } : {}),
+            },
+            previous.id,
+          );
           diaryStore.dispatch({ type: 'food/update', entry });
-          writeFoodToHealth(entry);
+          replaceFoodInHealth(entry);
           setDiaryTarget(null);
           setSheet(null);
         }}

@@ -14,6 +14,7 @@ interface NativeMenuProps {
   onPress?: () => void;
   accessibilityLabel?: string;
   testID?: string;
+  disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   children: ReactNode;
 }
@@ -30,6 +31,7 @@ export function NativeMenu({
   onPress,
   accessibilityLabel,
   testID,
+  disabled,
   style,
   children,
 }: NativeMenuProps) {
@@ -42,6 +44,7 @@ export function NativeMenu({
         onPress={onPress}
         accessibilityLabel={accessibilityLabel}
         testID={testID}
+        disabled={disabled}
         style={style}
       >
         {children}
@@ -56,6 +59,7 @@ export function NativeMenu({
       onPress={onPress}
       accessibilityLabel={accessibilityLabel}
       testID={testID}
+      disabled={disabled}
       style={style}
     >
       {children}

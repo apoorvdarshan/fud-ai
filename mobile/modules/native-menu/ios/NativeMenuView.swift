@@ -25,6 +25,10 @@ final class NativeMenuView: ExpoView {
     didSet { button.accessibilityIdentifier = testIdentifier }
   }
 
+  var isMenuDisabled = false {
+    didSet { applyTrigger() }
+  }
+
   required init(appContext: AppContext? = nil) {
     super.init(appContext: appContext)
     clipsToBounds = false
@@ -54,8 +58,9 @@ final class NativeMenuView: ExpoView {
 
   private func applyTrigger() {
     let hasMenu = button.menu != nil
-    button.showsMenuAsPrimaryAction = trigger == "press" && hasMenu
-    button.isUserInteractionEnabled = true
+    button.showsMenuAsPrimaryAction = trigger == "press" && hasMenu && !isMenuDisabled
+    button.isUserInteractionEnabled = !isMenuDisabled
+    button.isEnabled = !isMenuDisabled
   }
 
   private func rebuildMenu() {

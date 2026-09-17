@@ -284,6 +284,19 @@ describe('runtime provider resolution', () => {
     expect(fallbackSelection(other, true)?.provider.id).toBe('openai');
   });
 
+  it('uses the text fallback settings only for text-only requests', () => {
+    const imageOnly = deps({ aiFallbackEnabled: true, selectedFallbackAIProvider: 'OpenAI', selectedFallbackAIModel: 'gpt-5.4-mini' });
+    expect(fallbackSelection(imageOnly, false)).toBeUndefined();
+    expect(fallbackSelection(imageOnly, true)?.provider.id).toBe('openai');
+    const text = deps({
+      textAIFallbackEnabled: true,
+      selectedTextFallbackAIProvider: 'Groq',
+      selectedTextFallbackAIModel: 'llama-3.1-8b-instant',
+    });
+    expect(fallbackSelection(text, false)?.provider.id).toBe('groq');
+    expect(fallbackSelection(text, true)).toBeUndefined();
+  });
+
   it('falls back to the second provider after a primary failure and names both on double failure', async () => {
     const calls: string[] = [];
     const fetchImpl = fakeFetch((url) => {
@@ -291,12 +304,12 @@ describe('runtime provider resolution', () => {
       if (url.includes('googleapis')) return new Response('{"error":{"message":"overloaded"}}', { status: 503 });
       return jsonResponse({ choices: [{ message: { content: '{"name":"Toast","calories":80,"protein":3,"carbs":15,"fat":1}' }, finish_reason: 'stop' }] });
     });
-    const d = deps({ aiFallbackEnabled: true, selectedFallbackAIProvider: 'OpenAI', selectedFallbackAIModel: 'gpt-5.4-mini' }, { fetchImpl });
+    const d = deps({ textAIFallbackEnabled: true, selectedTextFallbackAIProvider: 'OpenAI', selectedTextFallbackAIModel: 'gpt-5.4-mini' }, { fetchImpl });
     const analysis = await analyzeFood(d, { kind: 'text', text: 'toast' });
     expect(analysis.name).toBe('Toast');
     expect(calls).toHaveLength(2);
 
-    const bothFail = deps({ aiFallbackEnabled: true, selectedFallbackAIProvider: 'OpenAI', selectedFallbackAIModel: 'gpt-5.4-mini' }, {
+    const bothFail = deps({ textAIFallbackEnabled: true, selectedTextFallbackAIProvider: 'OpenAI', selectedTextFallbackAIModel: 'gpt-5.4-mini' }, {
       fetchImpl: fakeFetch(() => new Response('{}', { status: 503 })),
     });
     await expect(generate(bothFail, { prompt: 'p' }, { vision: false })).rejects.toThrowError(/Google Gemini and fallback OpenAI both failed/);

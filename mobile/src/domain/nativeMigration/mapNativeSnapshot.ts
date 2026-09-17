@@ -627,6 +627,7 @@ function mapWorkoutSession(value: unknown, platform: NativePlatform): WorkoutSes
               }];
             })
           : [];
+        const durationSeconds = savedTimerSeconds(exercise);
         return [{
           id: exerciseId,
           itemID,
@@ -634,6 +635,7 @@ function mapWorkoutSession(value: unknown, platform: NativePlatform): WorkoutSes
           targetMuscles: asStringArray(exercise.targetMuscles).length > 0 ? asStringArray(exercise.targetMuscles) : asStringArray(exercise.primaryMuscles),
           equipment: typeof exercise.equipment === 'string' ? exercise.equipment : typeof exercise.rawEquipment === 'string' ? exercise.rawEquipment : '',
           sets,
+          ...(durationSeconds ? { durationSeconds } : {}),
         }];
       })
     : [];
@@ -675,6 +677,7 @@ function mapWorkoutDrafts(value: unknown, platform: NativePlatform): Record<stri
                 }];
               })
             : [];
+          const durationSeconds = savedTimerSeconds(exercise);
           return [{
             id,
             itemID,
@@ -683,6 +686,7 @@ function mapWorkoutDrafts(value: unknown, platform: NativePlatform): Record<stri
             equipment: typeof exercise.equipment === 'string' ? exercise.equipment : typeof exercise.rawEquipment === 'string' ? exercise.rawEquipment : '',
             category: typeof exercise.category === 'string' ? exercise.category : '',
             sets,
+            ...(durationSeconds ? { durationSeconds } : {}),
           }];
         })
       : [];
@@ -757,6 +761,15 @@ function asId(value: unknown): string | undefined {
   if (typeof value === 'string' && value.trim()) return value;
   if (isRecord(value) && typeof value.uuid === 'string') return value.uuid;
   return undefined;
+}
+
+function savedTimerSeconds(exercise: Record<string, unknown>): number | undefined {
+  const direct = asFiniteNumber(exercise.durationSeconds);
+  if (direct && direct > 0) return Math.round(direct);
+  const timer = isRecord(exercise.timer) ? exercise.timer : undefined;
+  if (!timer) return undefined;
+  const saved = asFiniteNumber(timer.savedDurationSeconds) ?? asFiniteNumber(timer.accumulatedSeconds);
+  return saved && saved > 0 ? Math.round(saved) : undefined;
 }
 
 function asFiniteNumber(value: unknown): number | undefined {

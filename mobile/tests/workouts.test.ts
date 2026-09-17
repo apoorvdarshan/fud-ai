@@ -19,6 +19,7 @@ import {
   dailyBurn,
   estimateBurn,
   finishDraft,
+  hasLoggedWork,
   initialWorkoutsState,
   isReliableBurn,
   isSetPerformed,
@@ -159,6 +160,32 @@ describe('workout sessions', () => {
     const empty: WorkoutDraft = { dayKey: '2026-09-16', startedAt: new Date(2026, 8, 16, 8).toISOString(), exercises: [] };
     expect(activeDraftKey({ [yesterday.dayKey]: yesterday, [empty.dayKey]: empty })).toBe('2026-09-15');
     expect(activeDraftKey({ [yesterday.dayKey]: yesterday, [draft.dayKey]: draft })).toBe(day);
+  });
+
+  it('keeps outdoor walk/run as a timer, not strength reps', () => {
+    const outdoor: WorkoutDraft = {
+      dayKey: day,
+      startedAt: draft.startedAt,
+      exercises: [
+        {
+          id: 'walk',
+          itemID: 'Walking_Outdoor',
+          name: 'Walking',
+          targetMuscles: ['cardio'],
+          equipment: 'body only',
+          category: 'cardio',
+          sets: [],
+          durationSeconds: 30 * 60,
+        },
+      ],
+    };
+    expect(hasLoggedWork(outdoor.exercises[0]!)).toBe(true);
+    const session = finishDraft(outdoor, id, now, { split: 'fullBody', rpeScale: 'strength', weightUnit: 'lbs' }, 80);
+    expect(session.exercises).toHaveLength(1);
+    expect(session.exercises[0]).toMatchObject({ itemID: 'Walking_Outdoor', durationSeconds: 1800, sets: [] });
+    const burn = estimateBurn(session.exercises, 80, 'strength')!;
+    expect(burn.repCount).toBe(0);
+    expect(burn.calories).toBe(160);
   });
 
   it('estimates nothing without performed sets and scales with effort', () => {

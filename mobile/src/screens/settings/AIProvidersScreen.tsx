@@ -17,7 +17,15 @@ import {
   type AIProviderId,
   type MobilePlatform,
 } from '../../domain/ai/providers';
-import { apiKeySecretName, customBaseURLKey, resolveTextSelection, resolveVisionSelection } from '../../domain/ai/settings';
+import {
+  apiKeySecretName,
+  customBaseURLKey,
+  fallbackCustomBaseURLKey,
+  needsCustomEndpoint,
+  resolveTextSelection,
+  resolveVisionSelection,
+  usesCustomModelName,
+} from '../../domain/ai/settings';
 import { setPreferences, usePreferences } from '../../state/appStores';
 import { asyncKeyValueStore, secureSecretStore } from '../../state/persistence';
 import { useTheme } from '../../theme';
@@ -61,17 +69,23 @@ export function AIProvidersScreen() {
   const [imageFallbackKey, setImageFallbackKey] = useState('');
   const [textFallbackKey, setTextFallbackKey] = useState('');
   const [visionURL, setVisionURL] = useState('');
+  const [textURL, setTextURL] = useState('');
+  const [imageFallbackURL, setImageFallbackURL] = useState('');
+  const [textFallbackURL, setTextFallbackURL] = useState('');
   const [showKey, setShowKey] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     let cancelled = false;
     const load = async () => {
-      const [vKey, tKey, iKey, tfKey, vURL] = await Promise.all([
+      const [vKey, tKey, iKey, tfKey, vURL, tURL, iURL, tfURL] = await Promise.all([
         secureSecretStore.get(apiKeySecretName(vision.provider)),
         secureSecretStore.get(apiKeySecretName(text.provider)),
         secureSecretStore.get(apiKeySecretName(imageFallback.provider)),
         secureSecretStore.get(apiKeySecretName(textFallback.provider)),
         asyncKeyValueStore.get(customBaseURLKey(vision.provider)),
+        asyncKeyValueStore.get(customBaseURLKey(text.provider)),
+        asyncKeyValueStore.get(fallbackCustomBaseURLKey(imageFallback.provider)),
+        asyncKeyValueStore.get(fallbackCustomBaseURLKey(textFallback.provider)),
       ]);
       if (cancelled) return;
       setVisionKey(vKey ?? '');
@@ -79,6 +93,9 @@ export function AIProvidersScreen() {
       setImageFallbackKey(iKey ?? '');
       setTextFallbackKey(tfKey ?? '');
       setVisionURL(vURL ?? '');
+      setTextURL(tURL ?? '');
+      setImageFallbackURL(iURL ?? '');
+      setTextFallbackURL(tfURL ?? '');
     };
     void load();
     return () => {
@@ -89,6 +106,11 @@ export function AIProvidersScreen() {
   const persistKey = async (provider: AIProviderDefinition, value: string) => {
     if (value.trim()) await secureSecretStore.set(apiKeySecretName(provider), value.trim());
     else await secureSecretStore.remove(apiKeySecretName(provider));
+  };
+
+  const persistURL = async (key: string, value: string) => {
+    if (value.trim()) await asyncKeyValueStore.set(key, value.trim());
+    else await asyncKeyValueStore.remove(key);
   };
 
   const selectVision = (id: AIProviderId) => {
@@ -139,7 +161,13 @@ export function AIProvidersScreen() {
       <ScrollView contentContainerStyle={{ padding: theme.spacing.lg, gap: theme.spacing.xl }} keyboardShouldPersistTaps="handled">
         <SettingsSection header="AI Provider" footer="Photos, labels, and typed meals use this vision provider. On-device Apple Intelligence and Gemma stay in the native apps.">
           <SettingsRow icon="cpu" title="Provider" value={vision.provider.displayName} onPress={() => setPicker('vision')} />
-          <SettingsRow icon="brain" title="Model" value={vision.model || 'Custom'} onPress={() => setPicker('visionModel')} />
+          <ModelRow
+            provider={vision.provider}
+            model={vision.model}
+            text={false}
+            onPick={() => setPicker('visionModel')}
+            onChange={(selectedAIModel) => setPreferences({ selectedAIModel })}
+          />
           {vision.provider.requiresAPIKey ? (
             <KeyRow
               label="API Key"
@@ -154,25 +182,15 @@ export function AIProvidersScreen() {
               }}
             />
           ) : null}
-          {vision.provider.id === 'ollama' || vision.provider.requiresCustomEndpoint ? (
-            <View style={{ paddingHorizontal: theme.spacing.lg, paddingVertical: 10 }}>
-              <AppText variant="caption" tone="secondary">
-                {vision.provider.requiresCustomEndpoint ? 'Base URL' : 'Server URL'}
-              </AppText>
-              <TextInput
-                value={visionURL}
-                onChangeText={(value) => {
-                  setVisionURL(value);
-                  void (value.trim() ? asyncKeyValueStore.set(customBaseURLKey(vision.provider), value.trim()) : asyncKeyValueStore.remove(customBaseURLKey(vision.provider)));
-                }}
-                placeholder={vision.provider.baseURL || 'https://your-endpoint.com/v1'}
-                placeholderTextColor={theme.colors.placeholder}
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="url"
-                style={[theme.text.body, { color: theme.colors.label, minHeight: 36 }]}
-              />
-            </View>
+          {needsCustomEndpoint(vision.provider) ? (
+            <URLRow
+              provider={vision.provider}
+              value={visionURL}
+              onChange={(value) => {
+                setVisionURL(value);
+                void persistURL(customBaseURLKey(vision.provider), value);
+              }}
+            />
           ) : null}
         </SettingsSection>
 
@@ -185,7 +203,13 @@ export function AIProvidersScreen() {
           {prefs.separateTextProviderEnabled ? (
             <>
               <SettingsRow title="Provider" value={text.provider.displayName} onPress={() => setPicker('text')} />
-              <SettingsRow title="Model" value={text.model || 'Custom'} onPress={() => setPicker('textModel')} />
+              <ModelRow
+                provider={text.provider}
+                model={text.model}
+                text
+                onPick={() => setPicker('textModel')}
+                onChange={(selectedTextAIModel) => setPreferences({ selectedTextAIModel })}
+              />
               {text.provider.requiresAPIKey ? (
                 <KeyRow
                   label="API Key"
@@ -199,6 +223,16 @@ export function AIProvidersScreen() {
                   }}
                 />
               ) : null}
+              {needsCustomEndpoint(text.provider) ? (
+                <URLRow
+                  provider={text.provider}
+                  value={textURL}
+                  onChange={(value) => {
+                    setTextURL(value);
+                    void persistURL(customBaseURLKey(text.provider), value);
+                  }}
+                />
+              ) : null}
             </>
           ) : null}
         </SettingsSection>
@@ -208,7 +242,13 @@ export function AIProvidersScreen() {
           {prefs.aiFallbackEnabled ? (
             <>
               <SettingsRow title="Provider" value={imageFallback.provider.displayName} onPress={() => setPicker('imageFallback')} />
-              <SettingsRow title="Model" value={imageFallback.model || 'Custom'} onPress={() => setPicker('imageFallbackModel')} />
+              <ModelRow
+                provider={imageFallback.provider}
+                model={imageFallback.model}
+                text={false}
+                onPick={() => setPicker('imageFallbackModel')}
+                onChange={(selectedFallbackAIModel) => setPreferences({ selectedFallbackAIModel })}
+              />
               {imageFallback.provider.requiresAPIKey ? (
                 <KeyRow
                   label="API Key"
@@ -219,6 +259,16 @@ export function AIProvidersScreen() {
                   onChange={(value) => {
                     setImageFallbackKey(value);
                     void persistKey(imageFallback.provider, value);
+                  }}
+                />
+              ) : null}
+              {needsCustomEndpoint(imageFallback.provider) ? (
+                <URLRow
+                  provider={imageFallback.provider}
+                  value={imageFallbackURL}
+                  onChange={(value) => {
+                    setImageFallbackURL(value);
+                    void persistURL(fallbackCustomBaseURLKey(imageFallback.provider), value);
                   }}
                 />
               ) : null}
@@ -235,7 +285,13 @@ export function AIProvidersScreen() {
           {prefs.textAIFallbackEnabled ? (
             <>
               <SettingsRow title="Provider" value={textFallback.provider.displayName} onPress={() => setPicker('textFallback')} />
-              <SettingsRow title="Model" value={textFallback.model || 'Custom'} onPress={() => setPicker('textFallbackModel')} />
+              <ModelRow
+                provider={textFallback.provider}
+                model={textFallback.model}
+                text
+                onPick={() => setPicker('textFallbackModel')}
+                onChange={(selectedTextFallbackAIModel) => setPreferences({ selectedTextFallbackAIModel })}
+              />
               {textFallback.provider.requiresAPIKey ? (
                 <KeyRow
                   label="API Key"
@@ -246,6 +302,16 @@ export function AIProvidersScreen() {
                   onChange={(value) => {
                     setTextFallbackKey(value);
                     void persistKey(textFallback.provider, value);
+                  }}
+                />
+              ) : null}
+              {needsCustomEndpoint(textFallback.provider) ? (
+                <URLRow
+                  provider={textFallback.provider}
+                  value={textFallbackURL}
+                  onChange={(value) => {
+                    setTextFallbackURL(value);
+                    void persistURL(fallbackCustomBaseURLKey(textFallback.provider), value);
                   }}
                 />
               ) : null}
@@ -283,6 +349,70 @@ export function AIProvidersScreen() {
         />
       ) : null}
     </Screen>
+  );
+}
+
+function ModelRow({
+  provider,
+  model,
+  text,
+  onPick,
+  onChange,
+}: {
+  provider: AIProviderDefinition;
+  model: string;
+  text: boolean;
+  onPick: () => void;
+  onChange: (model: string) => void;
+}) {
+  const theme = useTheme();
+  if (!usesCustomModelName(provider, text)) {
+    return <SettingsRow icon="brain" title="Model" value={model || 'Custom'} onPress={onPick} />;
+  }
+  return (
+    <View style={{ paddingHorizontal: theme.spacing.lg, paddingVertical: 10 }}>
+      <AppText variant="caption" tone="secondary">
+        Model
+      </AppText>
+      <TextInput
+        value={model}
+        onChangeText={onChange}
+        placeholder="model-id"
+        placeholderTextColor={theme.colors.placeholder}
+        autoCapitalize="none"
+        autoCorrect={false}
+        style={[theme.text.body, { color: theme.colors.label, minHeight: 36 }]}
+      />
+    </View>
+  );
+}
+
+function URLRow({
+  provider,
+  value,
+  onChange,
+}: {
+  provider: AIProviderDefinition;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const theme = useTheme();
+  return (
+    <View style={{ paddingHorizontal: theme.spacing.lg, paddingVertical: 10 }}>
+      <AppText variant="caption" tone="secondary">
+        {provider.requiresCustomEndpoint ? 'Base URL' : 'Server URL'}
+      </AppText>
+      <TextInput
+        value={value}
+        onChangeText={onChange}
+        placeholder={provider.baseURL || 'https://your-endpoint.com/v1'}
+        placeholderTextColor={theme.colors.placeholder}
+        autoCapitalize="none"
+        autoCorrect={false}
+        keyboardType="url"
+        style={[theme.text.body, { color: theme.colors.label, minHeight: 36 }]}
+      />
+    </View>
   );
 }
 

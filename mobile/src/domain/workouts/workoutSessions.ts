@@ -66,6 +66,8 @@ export interface CompletedExercise {
   targetMuscles: string[];
   equipment: string;
   sets: CompletedSet[];
+  /** Saved exercise timer (`StrengthExerciseTimer.savedDurationSeconds`). */
+  durationSeconds?: number;
 }
 
 export interface WorkoutSession {
@@ -89,6 +91,10 @@ export function performedReps(set: Pick<CompletedSet, 'reps'>): number | undefin
 
 export function isSetPerformed(set: Pick<CompletedSet, 'reps'>): boolean {
   return performedReps(set) !== undefined;
+}
+
+export function hasLoggedWork(exercise: Pick<DraftExercise, 'sets' | 'durationSeconds'>): boolean {
+  return (exercise.durationSeconds ?? 0) > 0 || exercise.sets.some(isSetPerformed);
 }
 
 export function performedSetCount(session: WorkoutSession): number {
@@ -124,6 +130,8 @@ export interface DraftExercise {
   equipment: string;
   category: string;
   sets: DraftSet[];
+  /** Saved outdoor / cardio timer; empty `sets` like native `logQuickCardio`. */
+  durationSeconds?: number;
 }
 
 export interface WorkoutDraft {
@@ -272,8 +280,9 @@ export function finishDraft(draft: WorkoutDraft, makeId: () => string, now: Date
         rpe: set.rpe,
         rpeScale: set.rpeScale ?? preferences.rpeScale,
       })),
+      ...((exercise.durationSeconds ?? 0) > 0 ? { durationSeconds: exercise.durationSeconds } : {}),
     }))
-    .filter((exercise) => exercise.sets.length > 0);
+    .filter((exercise) => exercise.sets.length > 0 || (exercise.durationSeconds ?? 0) > 0);
   const estimate = estimateBurn(exercises, bodyWeightKg, preferences.rpeScale);
   const diaryDate = new Date(`${draft.dayKey}T12:00:00`);
   return {
@@ -397,10 +406,24 @@ function relativeLoad(set: Pick<CompletedSet, 'weight' | 'weightUnit'>, bodyWeig
   return kg > 0 ? Math.min(Math.max(kg / bodyWeightKg, 0), 2) : 0;
 }
 
+/** Moderate-intensity Compendium METs used by native `StrengthWorkoutBurnEstimator.timedMET`. */
+function timedMET(itemID: string): number {
+  switch (itemID) {
+    case 'Walking_Treadmill':
+    case 'Walking_Outdoor':
+      return 3.8;
+    case 'Jogging_Treadmill':
+    case 'Running_Treadmill':
+    case 'Running_Outdoor':
+      return 8.5;
+    default:
+      return 5;
+  }
+}
+
 /**
- * MET-based estimate: ~2.75 s per rep of active time plus 1.6 min recovery per set and a
- * 0.75 min transition per exercise, MET 3.5–8 from effort and relative load. Timed cardio
- * (exercise timers) is not logged in the shared app yet, so only the set path is ported.
+ * MET-based estimate: timed cardio uses saved duration × activity MET; untimed strength
+ * uses ~2.75 s per rep plus 1.6 min recovery per set and a 0.75 min transition, MET 3.5–8.
  */
 export function estimateBurn(exercises: readonly CompletedExercise[], bodyWeightKg: number, defaultScale: RPEScale): BurnEstimate | undefined {
   const safeBodyWeight = Number.isFinite(bodyWeightKg) ? Math.min(Math.max(bodyWeightKg, 35), 300) : 70;
@@ -411,7 +434,13 @@ export function estimateBurn(exercises: readonly CompletedExercise[], bodyWeight
   let effortTotal = 0;
   let loadTotal = 0;
   let exercisesWithWork = 0;
+  let timedCalories = 0;
   for (const exercise of exercises) {
+    const savedSeconds = exercise.durationSeconds ?? 0;
+    const hasSavedDuration = savedSeconds > 0;
+    if (hasSavedDuration) {
+      timedCalories += (timedMET(exercise.itemID) * 3.5 * safeBodyWeight) / 200 * (savedSeconds / 60);
+    }
     let inExercise = 0;
     for (const set of exercise.sets) {
       const rawReps = Number.parseInt(set.reps, 10);
@@ -419,6 +448,7 @@ export function estimateBurn(exercises: readonly CompletedExercise[], bodyWeight
       const setReps = Math.min(rawReps, 100);
       performed += 1;
       reps += setReps;
+      if (hasSavedDuration) continue;
       inExercise += 1;
       activeMinutes += Math.min(Math.max((setReps * 2.75) / 60, 0.3), 1.5);
       recoveryMinutes += 1.6;
@@ -427,12 +457,17 @@ export function estimateBurn(exercises: readonly CompletedExercise[], bodyWeight
     }
     if (inExercise > 0) exercisesWithWork += 1;
   }
-  if (performed === 0) return undefined;
+  if (performed === 0 && timedCalories <= 0) return undefined;
   recoveryMinutes = Math.max(0, recoveryMinutes - 1.6);
   const estimatedMinutes = Math.max(4, activeMinutes + recoveryMinutes + exercisesWithWork * 0.75);
-  const averageEffort = effortTotal / performed;
-  const averageLoad = loadTotal / performed;
+  const untimedSets = exercises.reduce((count, exercise) => {
+    if ((exercise.durationSeconds ?? 0) > 0) return count;
+    return count + exercise.sets.filter((set) => Number.parseInt(set.reps, 10) > 0).length;
+  }, 0);
+  const averageEffort = untimedSets > 0 ? effortTotal / untimedSets : 0;
+  const averageLoad = untimedSets > 0 ? loadTotal / untimedSets : 0;
   const met = Math.min(Math.max(3.8 + 2.4 * averageEffort + 0.5 * averageLoad, 3.5), 8);
-  const calories = ((met * 3.5 * safeBodyWeight) / 200) * estimatedMinutes;
+  const strengthCalories = untimedSets > 0 ? ((met * 3.5 * safeBodyWeight) / 200) * estimatedMinutes : 0;
+  const calories = Math.min(strengthCalories + timedCalories, 5_000);
   return { calories: Math.min(Math.max(Math.round(calories), 1), 5_000), performedSetCount: performed, repCount: reps };
 }

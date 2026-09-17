@@ -19,7 +19,7 @@ export interface AIRuntimeDeps {
   preferences: Preferences;
   /** Resolves the stored key for a provider (`apikey_<rawValue>` in the secure store). */
   apiKey: (providerRawValue: string) => Promise<string | null>;
-  customBaseURL: (providerRawValue: string) => Promise<string | null>;
+  customBaseURL: (providerRawValue: string, role?: 'primary' | 'fallback') => Promise<string | null>;
   /** RevenueCat app user id for the hosted proxy; undefined when purchases are not configured. */
   hostedAppUserId?: string;
   hasHostedEntitlement: boolean;
@@ -50,19 +50,24 @@ export function primarySelection(deps: AIRuntimeDeps, vision: boolean): AISelect
 
 export function fallbackSelection(deps: AIRuntimeDeps, vision: boolean): AISelection | undefined {
   const p = deps.preferences;
-  if (!p.aiFallbackEnabled || !p.selectedFallbackAIProvider) return undefined;
-  const selection = vision
-    ? resolveVisionSelection(deps.platform, p.selectedFallbackAIProvider, p.selectedFallbackAIModel)
-    : resolveTextSelection(deps.platform, p.selectedFallbackAIProvider, p.selectedFallbackAIModel);
-  const primary = primarySelection(deps, vision);
+  if (vision) {
+    if (!p.aiFallbackEnabled || !p.selectedFallbackAIProvider) return undefined;
+    const selection = resolveVisionSelection(deps.platform, p.selectedFallbackAIProvider, p.selectedFallbackAIModel);
+    const primary = primarySelection(deps, true);
+    if (selection.provider.id === primary.provider.id && selection.model === primary.model) return undefined;
+    return selection;
+  }
+  if (!p.textAIFallbackEnabled || !p.selectedTextFallbackAIProvider) return undefined;
+  const selection = resolveTextSelection(deps.platform, p.selectedTextFallbackAIProvider, p.selectedTextFallbackAIModel);
+  const primary = primarySelection(deps, false);
   if (selection.provider.id === primary.provider.id && selection.model === primary.model) return undefined;
   return selection;
 }
 
-async function configFor(deps: AIRuntimeDeps, selection: AISelection): Promise<RequestConfig> {
+async function configFor(deps: AIRuntimeDeps, selection: AISelection, role: 'primary' | 'fallback' = 'primary'): Promise<RequestConfig> {
   const [apiKey, baseURL] = await Promise.all([
     selection.provider.requiresAPIKey ? deps.apiKey(selection.provider.rawValue) : Promise.resolve(null),
-    deps.customBaseURL(selection.provider.rawValue),
+    deps.customBaseURL(selection.provider.rawValue, role),
   ]);
   const config = requestConfig(selection, baseURL, apiKey);
   if (selection.provider.requiresAPIKey && !config.apiKey) throw new AIError('noKey');
@@ -103,7 +108,7 @@ export async function generate(deps: AIRuntimeDeps, request: AIGenerateRequest, 
     const fallback = fallbackSelection(deps, options.vision);
     if (!fallback) throw primaryError;
     try {
-      return await generateText(await configFor(deps, fallback), withContext, requestOptions(fallback));
+      return await generateText(await configFor(deps, fallback, 'fallback'), withContext, requestOptions(fallback));
     } catch (fallbackError) {
       if (fallbackError instanceof AIError && fallbackError.kind === 'cancelled') throw fallbackError;
       throw new AIError(

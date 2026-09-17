@@ -6,7 +6,7 @@
 import { Platform } from 'react-native';
 
 import { analyzeFood as analyzeFoodWithDeps, generate as generateWithDeps, type AICallOptions, type AIRuntimeDeps } from '../domain/ai/runtime';
-import { API_KEY_SECRET_PREFIX, CUSTOM_BASE_URL_PREFIX } from '../domain/ai/settings';
+import { API_KEY_SECRET_PREFIX, CUSTOM_BASE_URL_PREFIX, FALLBACK_CUSTOM_BASE_URL_PREFIX } from '../domain/ai/settings';
 import type { AIGenerateRequest } from '../domain/ai/transport';
 import type { FoodAnalysis, FoodAnalysisRequest } from '../domain/food/analysis';
 import { newId, preferencesStore, purchasesStore } from '../state/appStores';
@@ -18,7 +18,13 @@ export function aiRuntimeDeps(): AIRuntimeDeps {
     platform: Platform.OS === 'ios' ? 'ios' : 'android',
     preferences: preferencesStore.getState(),
     apiKey: (rawValue) => secureSecretStore.get(API_KEY_SECRET_PREFIX + rawValue).catch(() => null),
-    customBaseURL: (rawValue) => asyncKeyValueStore.get(CUSTOM_BASE_URL_PREFIX + rawValue).catch(() => null),
+    customBaseURL: async (rawValue, role) => {
+      if (role === 'fallback') {
+        const fallback = await asyncKeyValueStore.get(FALLBACK_CUSTOM_BASE_URL_PREFIX + rawValue).catch(() => null);
+        if (fallback) return fallback;
+      }
+      return asyncKeyValueStore.get(CUSTOM_BASE_URL_PREFIX + rawValue).catch(() => null);
+    },
     ...(purchases.appUserId ? { hostedAppUserId: purchases.appUserId } : {}),
     hasHostedEntitlement: purchases.hasHostedEntitlement,
     makeId: newId,

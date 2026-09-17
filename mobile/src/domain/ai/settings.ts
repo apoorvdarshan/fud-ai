@@ -47,6 +47,19 @@ export function customBaseURLKey(provider: AIProviderDefinition): string {
   return CUSTOM_BASE_URL_PREFIX + provider.rawValue;
 }
 
+export function fallbackCustomBaseURLKey(provider: AIProviderDefinition): string {
+  return FALLBACK_CUSTOM_BASE_URL_PREFIX + provider.rawValue;
+}
+
+export function needsCustomEndpoint(provider: AIProviderDefinition): boolean {
+  return provider.id === 'ollama' || provider.requiresCustomEndpoint;
+}
+
+export function usesCustomModelName(provider: AIProviderDefinition, text: boolean): boolean {
+  if (provider.requiresCustomModelName) return true;
+  return (text ? provider.textModels : provider.models).length === 0;
+}
+
 export const DEFAULT_MAX_RESPONSE_TOKENS = 1024;
 export const DEFAULT_REQUEST_TIMEOUT_SECONDS = 180;
 export const MIN_REQUEST_TIMEOUT_SECONDS = 30;

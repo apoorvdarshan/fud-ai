@@ -31,12 +31,11 @@ class NativeStorageModule : Module() {
       )
     }
 
-    AsyncFunction("readSnapshot") {
-      val snapshot = readSnapshotOrEmpty()
-      snapshot
+    AsyncFunction("readSnapshot") Coroutine {
+      readSnapshotOrEmpty()
     }
 
-    AsyncFunction("copyFoodImages") { destination: String ->
+    AsyncFunction("copyFoodImages") Coroutine { destination: String ->
       withContext(Dispatchers.IO) {
         copyFoodImages(destination)
       }

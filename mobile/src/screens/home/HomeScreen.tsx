@@ -1,9 +1,9 @@
 import { BottomTabBarHeightContext } from '@react-navigation/bottom-tabs';
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { Alert, AppState, Pressable, ScrollView, View } from 'react-native';
+import { Alert, AppState, ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ActionListSheet, type ActionListItem } from '../../components/ActionListSheet';
+import { NativeMenu } from '../../components/NativeMenu';
 import { BarcodeLookupError, barcodeLookupMessages } from '../../domain/food/openFoodFacts';
 import { Icon } from '../../components/Icon';
 import { CalorieGauge } from '../../components/home/CalorieGauge';
@@ -22,14 +22,15 @@ import {
   waterTotalOn,
 } from '../../domain/diary/diaryState';
 import { displayedHomeNutrients, homeNutrientGoal, homeNutrients } from '../../domain/diary/homeNutrients';
-import { homeDiaryMealGroups, type FoodLogSortOrder } from '../../domain/diary/mealGroups';
+import { foodLogSortOrderDisplayName, homeDiaryMealGroups, type FoodLogSortOrder } from '../../domain/diary/mealGroups';
+import { buildHomeAddMenu, parseHomeAddMenuAction } from '../../domain/prefs/addMenu';
 import { makeFoodEntry, mealTypeDisplayName, type FoodEntry } from '../../domain/food/food';
 import { parseHomeTopNutrients } from '../../domain/prefs/preferences';
 import { dailyTargets } from '../../domain/profile/userProfile';
 import { waterDisplayAmount, waterUnitSymbol } from '../../domain/water/water';
 import { aiErrorMessage } from '../../domain/ai/errors';
 import { foodEntryInputFromAnalysis, type FoodAnalysis, type FoodAnalysisKind } from '../../domain/food/analysis';
-import { favoriteEntries, recentEntries } from '../../domain/diary/diaryState';
+import { favoriteEntries, frequentEntries, recentEntries } from '../../domain/diary/diaryState';
 import type { FastingSession } from '../../domain/fasting/fasting';
 import type { WaterEntry } from '../../domain/water/water';
 import { analyzeFood } from '../../services/aiClient';
@@ -39,33 +40,29 @@ import { diaryStore, newId, setPreferences, useDiary, usePreferences, useProfile
 import { useTheme } from '../../theme';
 import { lookupBarcode } from '../../services/openFoodFacts';
 import { deleteFoodFromHealth, writeFoodToHealth } from '../../services/health';
-import { AnalyzingOverlay, FoodResultSheet, SavedMealsSheet, TextFoodInputSheet, type FoodResultSave } from './FoodAISheets';
+import { AnalyzingOverlay, FoodResultSheet, SavedMealsSheet, TextFoodInputSheet, type FoodResultSave, type SavedMealsMode } from './FoodAISheets';
 import { BarcodeScannerSheet } from './BarcodeScannerSheet';
 import { VoiceMealSheet } from './VoiceMealSheet';
 import {
-  AddMenuSheet,
+  CopyFromDaySheet,
   FastingStartSheet,
   ManualEntrySheet,
   NutritionDetailSheet,
   WaterCustomSheet,
-  type AddMenuAction,
 } from './HomeSheets';
 
 type Sheet =
-  | 'add'
   | 'waterCustom'
   | 'fastingStart'
   | 'manualEntry'
+  | 'editFood'
   | 'describeMeal'
   | 'voiceMeal'
   | 'savedMeals'
+  | 'copyFromDay'
   | 'review'
   | 'nutritionDetail'
-  | 'imageSource'
   | 'barcodeScan'
-  | 'foodActions'
-  | 'waterActions'
-  | 'fastingActions'
   | null;
 
 type DiaryTarget =
@@ -100,10 +97,10 @@ export function HomeScreen() {
   const [sheet, setSheet] = useState<Sheet>(null);
   // Bumped every time a draft sheet opens so it remounts with empty fields (no stale drafts).
   const [sheetEpoch, setSheetEpoch] = useState(0);
+  const [savedMealsMode, setSavedMealsMode] = useState<SavedMealsMode>('all');
   const [now, setNow] = useState(() => new Date());
   const [pending, setPending] = useState<PendingAnalysis | null>(null);
   const [review, setReview] = useState<ReviewState | null>(null);
-  const [imageSourceKind, setImageSourceKind] = useState<'photo' | 'nutritionLabel'>('photo');
   const [diaryTarget, setDiaryTarget] = useState<DiaryTarget | null>(null);
   const analysisAbort = useRef<AbortController | null>(null);
 
@@ -164,9 +161,29 @@ export function HomeScreen() {
   );
 
   const openSheet = (next: Exclude<Sheet, null>) => {
-    if (next !== 'add') setSheetEpoch((epoch) => epoch + 1);
+    setSheetEpoch((epoch) => epoch + 1);
     setSheet(next);
   };
+
+  const addMenuItems = useMemo(
+    () =>
+      buildHomeAddMenu({
+        fastingTrackingEnabled: prefs.fastingTrackingEnabled,
+        waterTrackingEnabled: prefs.waterTrackingEnabled,
+        hasActiveFast: active !== undefined,
+        waterUnit: prefs.waterUnit,
+      }),
+    [prefs.fastingTrackingEnabled, prefs.waterTrackingEnabled, prefs.waterUnit, active],
+  );
+
+  const sortMenuItems = useMemo(
+    () =>
+      (['standard', 'latestMealsFirst'] as const).map((order) => ({
+        id: order,
+        title: foodLogSortOrderDisplayName(order),
+      })),
+    [],
+  );
 
   const nutrients = displayedHomeNutrients(parseHomeTopNutrients(prefs.homeTopNutrients), prefs.waterTrackingEnabled);
   const waterGoalDisplay = waterDisplayAmount(prefs.waterUnit, prefs.waterDailyGoalMl);
@@ -240,9 +257,8 @@ export function HomeScreen() {
     }
   };
 
-  const chooseImageSource = (kind: 'photo' | 'nutritionLabel') => {
-    setImageSourceKind(kind);
-    setSheet('imageSource');
+  const openCameraOrLibrary = (kind: 'photo' | 'nutritionLabel', source: ImageSource) => {
+    void captureAndAnalyze(kind, source);
   };
 
   const confirmDeleteFood = (entry: FoodEntry) =>
@@ -263,83 +279,28 @@ export function HomeScreen() {
       { text: 'Delete', style: 'destructive', onPress: () => diaryStore.dispatch({ type: 'fasting/delete', id: session.id }) },
     ]);
 
-  const openDiaryActions = (target: DiaryTarget) => {
-    setDiaryTarget(target);
-    setSheet(target.kind === 'food' ? 'foodActions' : target.kind === 'water' ? 'waterActions' : 'fastingActions');
+  const openFoodEdit = (entry: FoodEntry) => {
+    setDiaryTarget({ kind: 'food', entry });
+    openSheet('editFood');
   };
 
-  const foodActionItems = useMemo((): ActionListItem[] => {
-    if (!diaryTarget || diaryTarget.kind !== 'food') return [];
-    const entry = diaryTarget.entry;
+  const foodRowMenu = (entry: FoodEntry) => {
     const favorited = isFavorite(diary, entry);
     return [
-      {
-        id: 'favorite',
-        title: favorited ? 'Unfavorite' : 'Favorite',
-        icon: favorited ? 'heart.slash.fill' : 'heart.fill',
-        onPress: () => diaryStore.dispatch({ type: 'food/toggleFavorite', entry }),
-      },
-      {
-        id: 'delete',
-        title: 'Delete',
-        icon: 'trash',
-        destructive: true,
-        onPress: () => confirmDeleteFood(entry),
-      },
+      { id: 'favorite', title: favorited ? 'Unfavorite' : 'Favorite', systemImage: favorited ? 'heart.slash.fill' : 'heart.fill' },
+      { id: 'delete', title: 'Delete', systemImage: 'trash', destructive: true },
     ];
-  }, [diary, diaryTarget]);
+  };
 
-  const waterActionItems = useMemo((): ActionListItem[] => {
-    if (!diaryTarget || diaryTarget.kind !== 'water') return [];
-    const entry = diaryTarget.entry;
-    return [
-      {
-        id: 'delete',
-        title: 'Delete',
-        icon: 'trash',
-        destructive: true,
-        onPress: () => confirmDeleteWater(entry),
-      },
-    ];
-  }, [diaryTarget]);
+  const waterRowMenu = [{ id: 'delete', title: 'Delete', systemImage: 'trash', destructive: true }];
 
-  const fastingActionItems = useMemo((): ActionListItem[] => {
-    if (!diaryTarget || diaryTarget.kind !== 'fasting') return [];
-    const session = diaryTarget.session;
-    if (session.endedAt === undefined) {
-      return [
-        { id: 'end', title: 'End Fast', icon: 'stop.fill', onPress: endFast },
-        { id: 'cancel', title: 'Cancel Fast', icon: 'trash', destructive: true, onPress: cancelFast },
-      ];
-    }
-    return [
-      {
-        id: 'delete',
-        title: 'Delete',
-        icon: 'trash',
-        destructive: true,
-        onPress: () => confirmDeleteFast(session),
-      },
-    ];
-  }, [diaryTarget]);
-
-  const imageSourceActions = useMemo(
-    (): ActionListItem[] => [
-      {
-        id: 'camera',
-        title: 'Take Photo',
-        icon: 'camera.fill',
-        onPress: () => void captureAndAnalyze(imageSourceKind, 'camera'),
-      },
-      {
-        id: 'library',
-        title: 'Choose from Library',
-        icon: 'photo.on.rectangle',
-        onPress: () => void captureAndAnalyze(imageSourceKind, 'library'),
-      },
-    ],
-    [imageSourceKind],
-  );
+  const fastingRowMenu = (session: FastingSession) =>
+    session.endedAt === undefined
+      ? [
+          { id: 'end', title: 'End Fast', systemImage: 'stop.fill' },
+          { id: 'cancel', title: 'Cancel Fast', systemImage: 'trash', destructive: true },
+        ]
+      : [{ id: 'delete', title: 'Delete', systemImage: 'trash', destructive: true }];
 
   const nutritionDetailRows = useMemo(() => {
     const ids = (Object.keys(homeNutrients) as (keyof typeof homeNutrients)[]).filter(
@@ -409,7 +370,7 @@ export function HomeScreen() {
         const buttons = lookupError.offersScanLabel
           ? [
               { text: 'Cancel', style: 'cancel' as const },
-              { text: 'Scan Label', onPress: () => chooseImageSource('nutritionLabel') },
+              { text: 'Scan Label', onPress: () => openCameraOrLibrary('nutritionLabel', 'camera') },
             ]
           : [{ text: 'OK' }];
         Alert.alert('Scan Barcode', lookupError.message || barcodeLookupMessages.networkError, buttons);
@@ -422,7 +383,9 @@ export function HomeScreen() {
       });
   };
 
-  const handleAddMenu = (action: AddMenuAction) => {
+  const handleAddMenu = (id: string) => {
+    const action = parseHomeAddMenuAction(id);
+    if (!action) return;
     switch (action.kind) {
       case 'startFast':
         openSheet('fastingStart');
@@ -442,13 +405,14 @@ export function HomeScreen() {
       case 'food':
         switch (action.method) {
           case 'manual':
+            setDiaryTarget(null);
             openSheet('manualEntry');
             return;
           case 'camera':
-            chooseImageSource('photo');
+            openCameraOrLibrary('photo', 'camera');
             return;
-          case 'label':
-            chooseImageSource('nutritionLabel');
+          case 'photos':
+            openCameraOrLibrary('photo', 'library');
             return;
           case 'text':
             openSheet('describeMeal');
@@ -459,16 +423,53 @@ export function HomeScreen() {
           case 'barcode':
             openSheet('barcodeScan');
             return;
-          case 'saved':
+          case 'favorites':
+            setSavedMealsMode('favorites');
             openSheet('savedMeals');
+            return;
+          case 'frequent':
+            setSavedMealsMode('frequent');
+            openSheet('savedMeals');
+            return;
+          case 'recent':
+            setSavedMealsMode('recent');
+            openSheet('savedMeals');
+            return;
+          case 'copy_from_day':
+            openSheet('copyFromDay');
             return;
         }
     }
   };
 
-  const toggleSortOrder = () => {
-    const next: FoodLogSortOrder = prefs.foodLogSortOrder === 'standard' ? 'latestMealsFirst' : 'standard';
-    setPreferences({ foodLogSortOrder: next });
+  const copyFromDays = useMemo(() => {
+    const selected = dayKey(selectedDate);
+    const byDay = new Map<string, { date: Date; calories: number; count: number }>();
+    for (const entry of diary.foodEntries) {
+      const date = new Date(entry.timestamp);
+      const key = dayKey(date);
+      if (key === selected) continue;
+      const current = byDay.get(key);
+      if (current) {
+        current.calories += entry.calories;
+        current.count += 1;
+      } else {
+        byDay.set(key, { date, calories: entry.calories, count: 1 });
+      }
+    }
+    return [...byDay.entries()]
+      .sort((a, b) => b[0].localeCompare(a[0]))
+      .map(([key, value]) => ({ dayKey: key, ...value }));
+  }, [diary.foodEntries, selectedDate]);
+
+  const copyFromDay = (from: Date) => {
+    for (const entry of foodEntriesOn(diary, from)) {
+      const { id: _id, timestamp: _timestamp, ...rest } = entry;
+      const next = makeFoodEntry({ ...rest, timestamp: logDate().toISOString() }, newId());
+      diaryStore.dispatch({ type: 'food/add', entry: next });
+      writeFoodToHealth(next);
+    }
+    setSheet(null);
   };
 
   return (
@@ -518,14 +519,19 @@ export function HomeScreen() {
                   <Row style={{ gap: 8 }}>
                     <SectionHeader title={mealTypeDisplayName(group.meal)} />
                     {index === 0 ? (
-                      <Pressable accessibilityRole="button" onPress={toggleSortOrder} style={{ paddingLeft: 8 }}>
+                      <NativeMenu
+                        items={sortMenuItems}
+                        onSelect={(id) => setPreferences({ foodLogSortOrder: id as FoodLogSortOrder })}
+                        accessibilityLabel="Sort"
+                        style={{ paddingLeft: 8 }}
+                      >
                         <Row style={{ gap: 6 }}>
                           <Icon name="arrow.up.arrow.down" size={11} color={theme.colors.accent} />
                           <AppText variant="subheadlineSemibold" tone="accent">
                             Sort
                           </AppText>
                         </Row>
-                      </Pressable>
+                      </NativeMenu>
                     ) : null}
                   </Row>
                   {group.foodEntries.length > 0 ? (
@@ -545,17 +551,39 @@ export function HomeScreen() {
                       {i > 0 ? <Divider style={{ marginLeft: theme.spacing.lg + 68 }} /> : null}
                       <View style={{ paddingHorizontal: theme.spacing.lg, paddingVertical: 8 }}>
                         {item.kind === 'food' ? (
-                          <FoodRow
-                            entry={item.entry}
-                            isFavorite={isFavorite(diary, item.entry)}
-                            onPress={() => openDiaryActions({ kind: 'food', entry: item.entry })}
-                          />
+                          <NativeMenu
+                            items={foodRowMenu(item.entry)}
+                            trigger="longPress"
+                            onPress={() => openFoodEdit(item.entry)}
+                            onSelect={(id) => {
+                              if (id === 'favorite') diaryStore.dispatch({ type: 'food/toggleFavorite', entry: item.entry });
+                              if (id === 'delete') confirmDeleteFood(item.entry);
+                            }}
+                          >
+                            <FoodRow entry={item.entry} isFavorite={isFavorite(diary, item.entry)} />
+                          </NativeMenu>
                         ) : item.kind === 'water' ? (
-                          <Pressable onPress={() => openDiaryActions({ kind: 'water', entry: item.entry })} onLongPress={() => openDiaryActions({ kind: 'water', entry: item.entry })}>
+                          <NativeMenu
+                            items={waterRowMenu}
+                            trigger="longPress"
+                            onSelect={(id) => {
+                              if (id === 'delete') confirmDeleteWater(item.entry);
+                            }}
+                          >
                             <WaterLogRow entry={item.entry} unit={prefs.waterUnit} />
-                          </Pressable>
+                          </NativeMenu>
                         ) : (
-                          <FastingRow session={item.session} now={now} onPress={() => openDiaryActions({ kind: 'fasting', session: item.session })} />
+                          <NativeMenu
+                            items={fastingRowMenu(item.session)}
+                            trigger="longPress"
+                            onSelect={(id) => {
+                              if (id === 'end') endFast();
+                              if (id === 'cancel') cancelFast();
+                              if (id === 'delete') confirmDeleteFast(item.session);
+                            }}
+                          >
+                            <FastingRow session={item.session} now={now} />
+                          </NativeMenu>
                         )}
                       </View>
                     </View>
@@ -567,42 +595,38 @@ export function HomeScreen() {
         </View>
       </ScrollView>
 
-      {/* Floating "+" (60pt accent circle, bottom trailing). iOS pads 24 inside the safe area, i.e. above the tab bar. */}
-      <Pressable
-        accessibilityRole="button"
+      {/* Floating "+" (60pt accent circle). iOS attaches UIMenu; Android anchors a glass dropdown. */}
+      <NativeMenu
+        items={addMenuItems}
+        onSelect={handleAddMenu}
         accessibilityLabel="Add"
         testID="home.add"
-        onPress={() => openSheet('add')}
-        style={({ pressed }) => ({
+        style={{
           position: 'absolute',
           right: theme.spacing.xl,
           bottom: tabBarHeight + theme.spacing.xl,
           width: theme.sizes.addButton,
           height: theme.sizes.addButton,
-          borderRadius: theme.sizes.addButton / 2,
-          backgroundColor: theme.colors.accent,
-          alignItems: 'center',
-          justifyContent: 'center',
-          opacity: pressed ? 0.85 : 1,
-          shadowColor: theme.colors.accent,
-          shadowOpacity: 0.3,
-          shadowRadius: 8,
-          shadowOffset: { width: 0, height: 4 },
-          elevation: 6,
-        })}
+        }}
       >
-        <Icon name="plus" size={30} color={theme.colors.onAccent} />
-      </Pressable>
-
-      <AddMenuSheet
-        visible={sheet === 'add'}
-        onDismiss={() => setSheet(null)}
-        onAction={handleAddMenu}
-        fastingTrackingEnabled={prefs.fastingTrackingEnabled}
-        waterTrackingEnabled={prefs.waterTrackingEnabled}
-        hasActiveFast={active !== undefined}
-        waterUnit={prefs.waterUnit}
-      />
+        <View
+          style={{
+            width: theme.sizes.addButton,
+            height: theme.sizes.addButton,
+            borderRadius: theme.sizes.addButton / 2,
+            backgroundColor: theme.colors.accent,
+            alignItems: 'center',
+            justifyContent: 'center',
+            shadowColor: theme.colors.accent,
+            shadowOpacity: 0.3,
+            shadowRadius: 8,
+            shadowOffset: { width: 0, height: 4 },
+            elevation: 6,
+          }}
+        >
+          <Icon name="plus" size={30} color={theme.colors.onAccent} />
+        </View>
+      </NativeMenu>
       <WaterCustomSheet
         key={`water-${sheetEpoch}`}
         visible={sheet === 'waterCustom'}
@@ -627,6 +651,7 @@ export function HomeScreen() {
         key={`manual-${sheetEpoch}`}
         visible={sheet === 'manualEntry'}
         logDate={logDate()}
+        presentation="popover"
         onDismiss={() => setSheet(null)}
         onSave={(input) => {
           const entry = makeFoodEntry(input, newId());
@@ -635,9 +660,28 @@ export function HomeScreen() {
           setSheet(null);
         }}
       />
+      <ManualEntrySheet
+        key={`edit-${sheetEpoch}`}
+        visible={sheet === 'editFood' && diaryTarget?.kind === 'food'}
+        logDate={logDate()}
+        initial={diaryTarget?.kind === 'food' ? diaryTarget.entry : undefined}
+        onDismiss={() => {
+          setDiaryTarget(null);
+          setSheet(null);
+        }}
+        onSave={(input) => {
+          if (diaryTarget?.kind !== 'food') return;
+          const entry = { ...diaryTarget.entry, ...input };
+          diaryStore.dispatch({ type: 'food/update', entry });
+          writeFoodToHealth(entry);
+          setDiaryTarget(null);
+          setSheet(null);
+        }}
+      />
       <TextFoodInputSheet
         key={`text-${sheetEpoch}`}
         visible={sheet === 'describeMeal'}
+        presentation="popover"
         onDismiss={() => setSheet(null)}
         onSubmit={(description) => {
           setSheet(null);
@@ -647,6 +691,7 @@ export function HomeScreen() {
       <VoiceMealSheet
         key={`voice-${sheetEpoch}`}
         visible={sheet === 'voiceMeal'}
+        presentation="popover"
         onDismiss={() => setSheet(null)}
         onTranscribed={(text) => {
           setSheet(null);
@@ -660,10 +705,18 @@ export function HomeScreen() {
       />
       <SavedMealsSheet
         visible={sheet === 'savedMeals'}
+        mode={savedMealsMode}
         favorites={favoriteEntries(diary)}
         recents={recentEntries(diary)}
+        frequent={frequentEntries(diary)}
         onDismiss={() => setSheet(null)}
         onRelog={relogEntry}
+      />
+      <CopyFromDaySheet
+        visible={sheet === 'copyFromDay'}
+        days={copyFromDays}
+        onDismiss={() => setSheet(null)}
+        onCopy={copyFromDay}
       />
       <AnalyzingOverlay
         visible={pending !== null}
@@ -680,39 +733,6 @@ export function HomeScreen() {
           setSheet(null);
         }}
         onSave={saveReview}
-      />
-      <ActionListSheet
-        visible={sheet === 'imageSource'}
-        title={imageSourceKind === 'photo' ? 'Scan Food' : 'Scan Nutrition Label'}
-        actions={imageSourceActions}
-        onDismiss={() => setSheet(null)}
-      />
-      <ActionListSheet
-        visible={sheet === 'foodActions'}
-        title={diaryTarget?.kind === 'food' ? diaryTarget.entry.name : 'Food'}
-        actions={foodActionItems}
-        onDismiss={() => {
-          setDiaryTarget(null);
-          setSheet(null);
-        }}
-      />
-      <ActionListSheet
-        visible={sheet === 'waterActions'}
-        title="Water"
-        actions={waterActionItems}
-        onDismiss={() => {
-          setDiaryTarget(null);
-          setSheet(null);
-        }}
-      />
-      <ActionListSheet
-        visible={sheet === 'fastingActions'}
-        title="Fasting"
-        actions={fastingActionItems}
-        onDismiss={() => {
-          setDiaryTarget(null);
-          setSheet(null);
-        }}
       />
       <NutritionDetailSheet
         visible={sheet === 'nutritionDetail'}

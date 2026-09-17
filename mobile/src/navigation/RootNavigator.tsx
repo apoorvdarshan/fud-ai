@@ -66,7 +66,7 @@ function SettingsStackScreen() {
 function TabBarBackground() {
   const theme = useTheme();
   if (Platform.OS === 'ios') {
-    return <GlassChrome style={StyleSheet.absoluteFill} fallbackColor={theme.colors.appCard} />;
+    return <GlassChrome interactive style={StyleSheet.absoluteFill} fallbackColor={theme.colors.appCard} />;
   }
   return <View style={[StyleSheet.absoluteFill, { backgroundColor: theme.colors.appCard }]} />;
 }

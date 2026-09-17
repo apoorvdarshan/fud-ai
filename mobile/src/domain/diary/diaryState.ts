@@ -217,6 +217,27 @@ export function recentEntries(state: DiaryState, limit = 20): FoodEntry[] {
   return uniqueEntriesByName(state.foodEntries.filter((e) => !isFavorite(state, e)), limit);
 }
 
+/** `FoodStore.frequentGroups` — count by name+calories over the last 90 days. */
+export function frequentEntries(state: DiaryState, limit = 20, now: Date = new Date()): FoodEntry[] {
+  const cutoff = now.getTime() - 90 * 24 * 60 * 60 * 1000;
+  const aggregates = new Map<string, { count: number; template: FoodEntry }>();
+  for (const entry of state.foodEntries) {
+    if (Date.parse(entry.timestamp) < cutoff) continue;
+    const key = `${favoriteKey(entry)}|${entry.calories}`;
+    const current = aggregates.get(key);
+    if (!current) {
+      aggregates.set(key, { count: 1, template: entry });
+      continue;
+    }
+    const template = entry.timestamp > current.template.timestamp ? entry : current.template;
+    aggregates.set(key, { count: current.count + 1, template });
+  }
+  return [...aggregates.values()]
+    .sort((a, b) => (a.count !== b.count ? b.count - a.count : a.template.name.localeCompare(b.template.name)))
+    .slice(0, limit)
+    .map((pair) => pair.template);
+}
+
 /** Convenience for callers that build entries from a review screen. */
 export function newFoodEntryAction(input: NewFoodEntryInput, id: string, now: Date = new Date()): DiaryAction {
   return { type: 'food/add', entry: makeFoodEntry(input, id, now) };

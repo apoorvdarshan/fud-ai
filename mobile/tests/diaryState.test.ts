@@ -7,6 +7,7 @@ import {
   diaryReducer,
   foodEntriesOn,
   initialDiaryState,
+  frequentEntries,
   isFavorite,
   waterTotalOn,
   type DiaryAction,
@@ -155,5 +156,16 @@ describe('diaryReducer — one store for food, water and fasting (#369)', () => 
     });
     expect(state.revision).toBe(0);
     expect(waterTotalOn(state, day)).toBe(300);
+  });
+
+  it('ranks frequent meals by name+calories count', () => {
+    const state = run([
+      { type: 'food/add', entry: makeFoodEntry({ name: 'Oats', calories: 300, protein: 10, carbs: 50, fat: 5, source: 'manual', timestamp: iso(8) }, 'a') },
+      { type: 'food/add', entry: makeFoodEntry({ name: 'Oats', calories: 300, protein: 10, carbs: 50, fat: 5, source: 'manual', timestamp: iso(9) }, 'b') },
+      { type: 'food/add', entry: makeFoodEntry({ name: 'Eggs', calories: 180, protein: 12, carbs: 1, fat: 14, source: 'manual', timestamp: iso(10) }, 'c') },
+    ]);
+    const frequent = frequentEntries(state, 10, day);
+    expect(frequent.map((e) => e.name)).toEqual(['Oats', 'Eggs']);
+    expect(frequent[0]?.id).toBe('b');
   });
 });

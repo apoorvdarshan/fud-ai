@@ -19,11 +19,12 @@ interface VoiceMealSheetProps {
   visible: boolean;
   onDismiss: () => void;
   onTranscribed: (text: string) => void;
+  presentation?: 'sheet' | 'popover';
 }
 
 type Phase = 'idle' | 'starting' | 'recording' | 'transcribing';
 
-export function VoiceMealSheet({ visible, onDismiss, onTranscribed }: VoiceMealSheetProps) {
+export function VoiceMealSheet({ visible, onDismiss, onTranscribed, presentation = 'sheet' }: VoiceMealSheetProps) {
   const theme = useTheme();
   const providerRaw = usePreferences((p) => p.selectedSpeechProvider);
   const provider = speechProviderFromRawValue(providerRaw);
@@ -139,7 +140,7 @@ export function VoiceMealSheet({ visible, onDismiss, onTranscribed }: VoiceMealS
   };
 
   return (
-    <BottomSheet visible={visible} onDismiss={onDismiss} title="Voice">
+    <BottomSheet visible={visible} onDismiss={onDismiss} title="Voice" presentation={presentation}>
       <Row style={{ gap: 8 }}>
         <Icon name="waveform" size={16} color={theme.colors.accent} />
         <AppText variant="footnote" tone="secondary" style={{ flex: 1 }}>

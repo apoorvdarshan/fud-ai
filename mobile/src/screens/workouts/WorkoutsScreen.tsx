@@ -11,7 +11,7 @@ import { useContext, useMemo, useState } from 'react';
 import { Alert, Pressable, ScrollView, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ActionListSheet } from '../../components/ActionListSheet';
+import { NativeMenu } from '../../components/NativeMenu';
 import { BottomSheet } from '../../components/BottomSheet';
 import { Icon } from '../../components/Icon';
 import { AppText, Card, Divider, PrimaryButton, Row, Screen, SecondaryButton } from '../../components/primitives';
@@ -222,54 +222,51 @@ function WorkoutLog({ dayKey: today, onAddExercise, bottomInset }: { dayKey: str
         <PrimaryButton title="Done" onPress={() => setSavedSummary(null)} />
       </BottomSheet>
 
-      <ActionListSheet
-        visible={inspecting !== null}
-        title={
-          inspecting
-            ? new Date(inspecting.diaryDate).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })
-            : 'Workout'
-        }
-        message={inspecting ? inspecting.exercises.map((e) => `${e.name} · ${e.sets.length} sets`).join('\n') || undefined : undefined}
-        actions={
-          inspecting
-            ? [
-                {
-                  id: 'delete',
-                  title: 'Delete',
-                  icon: 'trash',
-                  destructive: true,
-                  onPress: () =>
-                    Alert.alert('Delete workout?', undefined, [
-                      { text: 'Cancel', style: 'cancel' },
-                      {
-                        text: 'Delete',
-                        style: 'destructive',
-                        onPress: () => {
-                          workoutsStore.dispatch({ type: 'session/delete', id: inspecting.id });
-                          setInspecting(null);
-                        },
-                      },
-                    ]),
-                },
-              ]
-            : []
-        }
-        onDismiss={() => setInspecting(null)}
-      />
+      <BottomSheet visible={inspecting !== null} title={inspecting ? new Date(inspecting.diaryDate).toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }) : 'Workout'} onDismiss={() => setInspecting(null)}>
+        {inspecting ? (
+          <>
+            <AppText variant="subheadline" tone="secondary">
+              {inspecting.exercises.map((e) => `${e.name} · ${e.sets.length} sets`).join('\n')}
+            </AppText>
+            <SecondaryButton
+              title="Delete"
+              onPress={() =>
+                Alert.alert('Delete workout?', undefined, [
+                  { text: 'Cancel', style: 'cancel' },
+                  {
+                    text: 'Delete',
+                    style: 'destructive',
+                    onPress: () => {
+                      workoutsStore.dispatch({ type: 'session/delete', id: inspecting.id });
+                      setInspecting(null);
+                    },
+                  },
+                ])
+              }
+            />
+          </>
+        ) : null}
+      </BottomSheet>
     </>
   );
 }
 
 function SessionRow({ session, onInspect }: { session: WorkoutSession; onInspect: () => void }) {
   const theme = useTheme();
-  // Pressable already suppresses onPress after a recognized long press — no extra flag.
   const remove = () =>
     Alert.alert('Delete workout?', undefined, [
       { text: 'Cancel', style: 'cancel' },
       { text: 'Delete', style: 'destructive', onPress: () => workoutsStore.dispatch({ type: 'session/delete', id: session.id }) },
     ]);
   return (
-    <Pressable accessibilityRole="button" delayLongPress={280} onLongPress={remove} onPress={onInspect}>
+    <NativeMenu
+      items={[{ id: 'delete', title: 'Delete', systemImage: 'trash', destructive: true }]}
+      trigger="longPress"
+      onPress={onInspect}
+      onSelect={(id) => {
+        if (id === 'delete') remove();
+      }}
+    >
       <Row style={{ paddingHorizontal: theme.spacing.lg, paddingVertical: 12, gap: 12 }}>
         <View style={{ flex: 1, gap: 2 }}>
           <AppText variant="body" weight="500">
@@ -288,7 +285,7 @@ function SessionRow({ session, onInspect }: { session: WorkoutSession; onInspect
           </AppText>
         ) : null}
       </Row>
-    </Pressable>
+    </NativeMenu>
   );
 }
 

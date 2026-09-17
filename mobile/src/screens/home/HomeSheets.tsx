@@ -1,117 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
 
 import { fastingSettings, formatFastGoal } from '../../domain/fasting/fasting';
-import { mealTypeDisplayName, mealTypes, type MealType, type NewFoodEntryInput } from '../../domain/food/food';
-import { formatWater, millilitersFromDisplayedValue, waterDisplayValue, waterSettings, waterUnitSymbol, type WaterUnit } from '../../domain/water/water';
+import { mealTypeDisplayName, mealTypes, type FoodEntry, type MealType, type NewFoodEntryInput } from '../../domain/food/food';
+import { formatWater, millilitersFromDisplayedValue, waterDisplayValue, waterUnitSymbol, type WaterUnit } from '../../domain/water/water';
 import { useTheme } from '../../theme';
 import { BottomSheet } from '../../components/BottomSheet';
 import { Icon, type SFSymbolName } from '../../components/Icon';
 import { AppText, Card, Divider, PrimaryButton, Row } from '../../components/primitives';
-
-// MARK: - Add menu
-
-export type AddMenuAction =
-  | { kind: 'startFast' }
-  | { kind: 'endFast' }
-  | { kind: 'cancelFast' }
-  | { kind: 'water'; milliliters: number }
-  | { kind: 'waterCustom' }
-  | { kind: 'food'; method: 'camera' | 'label' | 'text' | 'voice' | 'barcode' | 'manual' | 'saved' };
-
-interface AddMenuSheetProps {
-  visible: boolean;
-  onDismiss: () => void;
-  onAction: (action: AddMenuAction) => void;
-  fastingTrackingEnabled: boolean;
-  waterTrackingEnabled: boolean;
-  hasActiveFast: boolean;
-  waterUnit: WaterUnit;
-}
-
-function MenuRow({ icon, title, subtitle, onPress, destructive }: { icon: SFSymbolName; title: string; subtitle?: string; onPress: () => void; destructive?: boolean }) {
-  const theme = useTheme();
-  return (
-    <Pressable accessibilityRole="button" onPress={onPress} style={({ pressed }) => ({ backgroundColor: pressed ? theme.colors.fill : 'transparent' })}>
-      <Row style={{ gap: 12, paddingHorizontal: theme.spacing.lg, minHeight: 48, paddingVertical: 8 }}>
-        <View style={{ width: 24, alignItems: 'center' }}>
-          <Icon name={icon} size={20} color={destructive ? theme.colors.destructive : theme.colors.accent} />
-        </View>
-        <View style={{ flex: 1 }}>
-          <AppText variant="body" weight="500" tone={destructive ? 'destructive' : 'primary'}>
-            {title}
-          </AppText>
-          {subtitle ? (
-            <AppText variant="caption" tone="secondary">
-              {subtitle}
-            </AppText>
-          ) : null}
-        </View>
-      </Row>
-    </Pressable>
-  );
-}
-
-function MenuGroup({ children }: { children: React.ReactNode }) {
-  const theme = useTheme();
-  const rows = React.Children.toArray(children).filter(Boolean);
-  return (
-    <Card padded={false} style={{ overflow: 'hidden' }}>
-      {rows.map((row, i) => (
-        <React.Fragment key={i}>
-          {i > 0 ? <Divider style={{ marginLeft: theme.spacing.lg + 36 }} /> : null}
-          {row}
-        </React.Fragment>
-      ))}
-    </Card>
-  );
-}
-
-/** The Home "+" menu, mirroring the iOS `Menu` sections: fasting, water, then food methods. */
-export function AddMenuSheet({ visible, onDismiss, onAction, fastingTrackingEnabled, waterTrackingEnabled, hasActiveFast, waterUnit }: AddMenuSheetProps) {
-  const act = (action: AddMenuAction) => {
-    onDismiss();
-    onAction(action);
-  };
-  const glasses = (n: number) => `${n} ${n === 1 ? 'Glass' : 'Glasses'} (~${formatWater(waterUnit, n * 250)})`;
-  return (
-    <BottomSheet visible={visible} onDismiss={onDismiss} title="Add">
-      {fastingTrackingEnabled ? (
-        <MenuGroup>
-          {hasActiveFast ? (
-            <MenuRow icon="stop.fill" title="End Fast" onPress={() => act({ kind: 'endFast' })} />
-          ) : (
-            <MenuRow icon="timer" title="Start Fast" onPress={() => act({ kind: 'startFast' })} />
-          )}
-          {hasActiveFast ? <MenuRow icon="trash" title="Cancel Fast" destructive onPress={() => act({ kind: 'cancelFast' })} /> : null}
-        </MenuGroup>
-      ) : null}
-      {waterTrackingEnabled ? (
-        <MenuGroup>
-          {[...waterSettings.quickAddMilliliters].reverse().map((ml) => (
-            <MenuRow key={ml} icon="drop.fill" title={glasses(ml / 250)} onPress={() => act({ kind: 'water', milliliters: ml })} />
-          ))}
-          <MenuRow icon="slider.horizontal.3" title="Custom" onPress={() => act({ kind: 'waterCustom' })} />
-        </MenuGroup>
-      ) : null}
-      {!hasActiveFast ? (
-        <MenuGroup>
-          <MenuRow icon="camera" title="Scan Food" subtitle="Photo of your meal" onPress={() => act({ kind: 'food', method: 'camera' })} />
-          <MenuRow icon="doc.text.viewfinder" title="Scan Label" subtitle="Nutrition facts" onPress={() => act({ kind: 'food', method: 'label' })} />
-          <MenuRow icon="barcode" title="Scan Barcode" onPress={() => act({ kind: 'food', method: 'barcode' })} />
-          <MenuRow icon="text.bubble" title="Describe Meal" onPress={() => act({ kind: 'food', method: 'text' })} />
-          <MenuRow icon="mic" title="Voice" onPress={() => act({ kind: 'food', method: 'voice' })} />
-          <MenuRow icon="clock.arrow.circlepath" title="Saved Meals" onPress={() => act({ kind: 'food', method: 'saved' })} />
-          <MenuRow icon="square.and.pencil" title="Manual Entry" onPress={() => act({ kind: 'food', method: 'manual' })} />
-        </MenuGroup>
-      ) : (
-        <AppText variant="footnote" tone="secondary" align="center">
-          End or cancel your fast to log food.
-        </AppText>
-      )}
-    </BottomSheet>
-  );
-}
 
 // MARK: - Water custom amount
 
@@ -211,16 +107,20 @@ interface ManualEntrySheetProps {
   logDate: Date;
   onDismiss: () => void;
   onSave: (input: NewFoodEntryInput) => void;
+  /** Compact Home + popover (native `.popover`) instead of a full-width sheet. */
+  presentation?: 'sheet' | 'popover';
+  /** Prefill when editing an existing diary row. */
+  initial?: FoodEntry;
 }
 
-export function ManualEntrySheet({ visible, logDate, onDismiss, onSave }: ManualEntrySheetProps) {
+export function ManualEntrySheet({ visible, logDate, onDismiss, onSave, presentation = 'sheet', initial }: ManualEntrySheetProps) {
   const theme = useTheme();
-  const [name, setName] = useState('');
-  const [calories, setCalories] = useState('');
-  const [protein, setProtein] = useState('');
-  const [carbs, setCarbs] = useState('');
-  const [fat, setFat] = useState('');
-  const [meal, setMeal] = useState<MealType | undefined>(undefined);
+  const [name, setName] = useState(initial?.name ?? '');
+  const [calories, setCalories] = useState(initial ? String(initial.calories) : '');
+  const [protein, setProtein] = useState(initial && initial.protein > 0 ? String(initial.protein) : '');
+  const [carbs, setCarbs] = useState(initial && initial.carbs > 0 ? String(initial.carbs) : '');
+  const [fat, setFat] = useState(initial && initial.fat > 0 ? String(initial.fat) : '');
+  const [meal, setMeal] = useState<MealType | undefined>(initial?.mealType);
 
   const number = (v: string) => {
     const n = Number.parseFloat(v.replace(',', '.'));
@@ -259,7 +159,7 @@ export function ManualEntrySheet({ visible, logDate, onDismiss, onSave }: Manual
   );
 
   return (
-    <BottomSheet visible={visible} onDismiss={onDismiss} title="Manual Entry">
+    <BottomSheet visible={visible} onDismiss={onDismiss} title={initial ? 'Edit Food' : 'Manual Entry'} presentation={presentation}>
       <Card style={{ gap: 4 }}>
         <Row style={{ gap: 12, minHeight: 44 }}>
           <AppText variant="body" style={{ width: 88 }}>
@@ -310,8 +210,8 @@ export function ManualEntrySheet({ visible, logDate, onDismiss, onSave }: Manual
             protein: number(protein),
             carbs: number(carbs),
             fat: number(fat),
-            source: 'manual',
-            timestamp: logDate.toISOString(),
+            source: initial?.source ?? 'manual',
+            timestamp: initial?.timestamp ?? logDate.toISOString(),
             ...(meal ? { mealType: meal } : {}),
           });
           reset();
@@ -436,6 +336,62 @@ export function NutritionDetailSheet({
           </Card>
         </View>
       ) : null}
+    </BottomSheet>
+  );
+}
+
+// MARK: - Copy from day (native `.sheet`)
+
+export interface CopyFromDayOption {
+  dayKey: string;
+  date: Date;
+  calories: number;
+  count: number;
+}
+
+interface CopyFromDaySheetProps {
+  visible: boolean;
+  days: readonly CopyFromDayOption[];
+  onDismiss: () => void;
+  onCopy: (day: Date) => void;
+}
+
+export function CopyFromDaySheet({ visible, days, onDismiss, onCopy }: CopyFromDaySheetProps) {
+  const theme = useTheme();
+  return (
+    <BottomSheet visible={visible} onDismiss={onDismiss} title="Copy from Day">
+      {days.length === 0 ? (
+        <Card>
+          <AppText tone="secondary">No other days with food yet. Log a meal, then you can copy that day here.</AppText>
+        </Card>
+      ) : (
+        <Card padded={false} style={{ overflow: 'hidden' }}>
+          {days.map((day, index) => (
+            <View key={day.dayKey}>
+              {index > 0 ? <Divider style={{ marginLeft: theme.spacing.lg }} /> : null}
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => onCopy(day.date)}
+                style={({ pressed }) => ({ backgroundColor: pressed ? theme.colors.fill : 'transparent' })}
+              >
+                <Row style={{ paddingHorizontal: theme.spacing.lg, paddingVertical: 12, gap: 12 }}>
+                  <View style={{ flex: 1 }}>
+                    <AppText variant="body" weight="500">
+                      {day.date.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}
+                    </AppText>
+                    <AppText variant="caption" tone="secondary">
+                      {day.count} {day.count === 1 ? 'entry' : 'entries'}
+                    </AppText>
+                  </View>
+                  <AppText variant="subheadlineSemibold" tone="accent">
+                    {day.calories.toLocaleString()} kcal
+                  </AppText>
+                </Row>
+              </Pressable>
+            </View>
+          ))}
+        </Card>
+      )}
     </BottomSheet>
   );
 }

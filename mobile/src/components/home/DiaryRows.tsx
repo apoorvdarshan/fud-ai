@@ -69,8 +69,7 @@ interface FoodRowProps {
 export function FoodRow({ entry, isFavorite, onPress, onLongPress }: FoodRowProps) {
   const theme = useTheme();
   const serving = servingText(entry);
-  return (
-    <Pressable onPress={onPress} onLongPress={onLongPress} style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
+  const body = (
       <Row style={{ gap: 12, paddingVertical: 4, alignItems: 'center' }}>
         {entry.imageFilename ? (
           // `FoodEntryThumbnailView`: the meal photo takes the thumbnail slot when there is one.
@@ -116,6 +115,11 @@ export function FoodRow({ entry, isFavorite, onPress, onLongPress }: FoodRowProp
           </Row>
         </View>
       </Row>
+    );
+  if (!onPress && !onLongPress) return body;
+  return (
+    <Pressable onPress={onPress} onLongPress={onLongPress} style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
+      {body}
     </Pressable>
   );
 }
@@ -151,8 +155,7 @@ export function FastingRow({ session, now, onPress }: FastingRowProps) {
   const elapsed = fastDurationSeconds(session, now);
   const goalSeconds = session.goalMinutes * 60;
   const progress = goalSeconds > 0 ? Math.min(elapsed / goalSeconds, 1) : 0;
-  return (
-    <Pressable onPress={onPress} style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
+  const body = (
       <Row style={{ gap: 12, paddingVertical: 4 }}>
         <Thumb>
           <Icon name="timer" size={24} color={theme.colors.accent} />
@@ -179,6 +182,11 @@ export function FastingRow({ session, now, onPress }: FastingRowProps) {
           {formatFastDuration(elapsed)}
         </AppText>
       </Row>
+    );
+  if (!onPress) return body;
+  return (
+    <Pressable onPress={onPress} style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}>
+      {body}
     </Pressable>
   );
 }

@@ -1,0 +1,204 @@
+import { useCallback, useMemo, useRef, useState } from 'react';
+import { Modal, Pressable, StyleSheet, View, useWindowDimensions, type StyleProp, type ViewStyle } from 'react-native';
+
+import type { ReactNode } from 'react';
+
+import { GlassChrome } from '../../modules/glass-chrome';
+import type { NativeMenuItem } from '../domain/prefs/addMenu';
+import { useTheme } from '../theme';
+import { Icon, sfSymbolToIonicon, type SFSymbolName } from './Icon';
+import { AppText, Row } from './primitives';
+
+const MENU_WIDTH = 238;
+const MENU_RADIUS = 22;
+
+interface AnchoredMenuProps {
+  items: readonly NativeMenuItem[];
+  trigger?: 'press' | 'longPress';
+  onSelect: (id: string) => void;
+  onPress?: () => void;
+  accessibilityLabel?: string;
+  testID?: string;
+  style?: StyleProp<ViewStyle>;
+  children: ReactNode;
+}
+
+interface AnchorBox {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+function isSymbol(name: string | undefined): name is SFSymbolName {
+  return name !== undefined && name in sfSymbolToIonicon;
+}
+
+/**
+ * Glass-styled dropdown anchored to a child, matching Android `SheetGlassDropdownMenu`.
+ * Used on Android and as the Expo Go / unlinked-module fallback on iOS.
+ */
+export function AnchoredMenu({
+  items,
+  trigger = 'press',
+  onSelect,
+  onPress,
+  accessibilityLabel,
+  testID,
+  style,
+  children,
+}: AnchoredMenuProps) {
+  const theme = useTheme();
+  const { width: windowWidth, height: windowHeight } = useWindowDimensions();
+  const anchorRef = useRef<View>(null);
+  const [open, setOpen] = useState(false);
+  const [anchor, setAnchor] = useState<AnchorBox | null>(null);
+  const [stack, setStack] = useState<NativeMenuItem[][]>([]);
+
+  const visibleItems = stack[stack.length - 1] ?? items;
+
+  const measureAndOpen = useCallback(() => {
+    anchorRef.current?.measureInWindow((x, y, width, height) => {
+      setAnchor({ x, y, width, height });
+      setStack([]);
+      setOpen(true);
+    });
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    setStack([]);
+  };
+
+  const choose = (item: NativeMenuItem) => {
+    if (item.disabled) return;
+    if (item.children && item.children.length > 0) {
+      setStack((current) => [...current, item.children ?? []]);
+      return;
+    }
+    dismiss();
+    onSelect(item.id);
+  };
+
+  const menuPosition = useMemo(() => {
+    if (!anchor) return { right: 16, bottom: 96 };
+    const right = Math.max(12, windowWidth - (anchor.x + anchor.width));
+    const spaceAbove = anchor.y;
+    const estimatedHeight = Math.min(visibleItems.length * 52 + (stack.length > 0 ? 52 : 0) + 16, 360);
+    if (spaceAbove > estimatedHeight + 12) {
+      return { right, bottom: windowHeight - anchor.y + 8 };
+    }
+    return { right, top: anchor.y + anchor.height + 8 };
+  }, [anchor, windowWidth, windowHeight, visibleItems.length, stack.length]);
+
+  return (
+    <View ref={anchorRef} collapsable={false} style={style}>
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel={accessibilityLabel}
+        testID={testID}
+        onPress={trigger === 'press' ? measureAndOpen : onPress}
+        onLongPress={trigger === 'longPress' ? measureAndOpen : undefined}
+        delayLongPress={280}
+      >
+        {children}
+      </Pressable>
+      <Modal visible={open} transparent animationType="fade" onRequestClose={dismiss} statusBarTranslucent>
+        <Pressable accessibilityLabel="Dismiss menu" onPress={dismiss} style={StyleSheet.absoluteFill} />
+        <View
+          pointerEvents="box-none"
+          style={[
+            StyleSheet.absoluteFill,
+            { justifyContent: 'flex-end', alignItems: 'flex-end' },
+          ]}
+        >
+          <View style={[{ position: 'absolute', width: MENU_WIDTH }, menuPosition]}>
+            <GlassChrome
+              interactive
+              cornerRadius={MENU_RADIUS}
+              fallbackColor={theme.scheme === 'dark' ? 'rgba(20,20,22,0.95)' : 'rgba(250,243,238,0.98)'}
+              style={{
+                borderRadius: MENU_RADIUS,
+                overflow: 'hidden',
+                borderWidth: 0.8,
+                borderColor: theme.scheme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.7)',
+                paddingVertical: 5,
+              }}
+            >
+              {stack.length > 0 ? (
+                <MenuRow
+                  icon="chevron.left"
+                  title="Back"
+                  onPress={() => setStack((current) => current.slice(0, -1))}
+                />
+              ) : null}
+              {visibleItems.map((item) => (
+                <MenuRow
+                  key={item.id}
+                  icon={isSymbol(item.systemImage) ? item.systemImage : undefined}
+                  title={item.title}
+                  destructive={item.destructive}
+                  disabled={item.disabled}
+                  submenu={Boolean(item.children && item.children.length > 0)}
+                  onPress={() => choose(item)}
+                />
+              ))}
+            </GlassChrome>
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
+}
+
+function MenuRow({
+  icon,
+  title,
+  destructive,
+  disabled,
+  submenu,
+  onPress,
+}: {
+  icon?: SFSymbolName;
+  title: string;
+  destructive?: boolean;
+  disabled?: boolean;
+  submenu?: boolean;
+  onPress: () => void;
+}) {
+  const theme = useTheme();
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityState={{ disabled: disabled === true }}
+      disabled={disabled}
+      onPress={onPress}
+      style={({ pressed }) => ({
+        opacity: disabled ? 0.4 : pressed ? 0.7 : 1,
+        paddingHorizontal: 7,
+        paddingVertical: 1,
+      })}
+    >
+      <Row
+        style={{
+          minHeight: 48,
+          paddingHorizontal: 10,
+          paddingVertical: 12,
+          gap: 10,
+          borderRadius: 14,
+          backgroundColor: 'transparent',
+        }}
+      >
+        {icon ? (
+          <View style={{ width: 20, alignItems: 'center' }}>
+            <Icon name={icon} size={18} color={destructive ? theme.colors.destructive : theme.colors.accent} />
+          </View>
+        ) : null}
+        <AppText variant="body" weight="500" tone={destructive ? 'destructive' : 'primary'} style={{ flex: 1 }}>
+          {title}
+        </AppText>
+        {submenu ? <Icon name="chevron.right" size={16} color={theme.colors.tertiaryLabel} /> : null}
+      </Row>
+    </Pressable>
+  );
+}

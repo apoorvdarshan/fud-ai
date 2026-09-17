@@ -31,9 +31,10 @@ interface TextFoodInputSheetProps {
   voice?: boolean;
   onDismiss: () => void;
   onSubmit: (description: string) => void;
+  presentation?: 'sheet' | 'popover';
 }
 
-export function TextFoodInputSheet({ visible, voice = false, onDismiss, onSubmit }: TextFoodInputSheetProps) {
+export function TextFoodInputSheet({ visible, voice = false, onDismiss, onSubmit, presentation = 'sheet' }: TextFoodInputSheetProps) {
   const theme = useTheme();
   const [description, setDescription] = useState('');
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
@@ -46,7 +47,7 @@ export function TextFoodInputSheet({ visible, voice = false, onDismiss, onSubmit
 
   const trimmed = description.trim();
   return (
-    <BottomSheet visible={visible} onDismiss={onDismiss} title={voice ? 'Voice' : 'Describe Meal'}>
+    <BottomSheet visible={visible} onDismiss={onDismiss} title={voice ? 'Voice' : 'Describe Meal'} presentation={presentation}>
       {voice ? (
         <Row style={{ gap: 8 }}>
           <Icon name="mic" size={16} color={theme.colors.accent} />
@@ -297,15 +298,19 @@ function MacroCell({ label, value }: { label: string; value: number }) {
 
 // MARK: - Saved meals
 
+export type SavedMealsMode = 'favorites' | 'frequent' | 'recent' | 'all';
+
 interface SavedMealsSheetProps {
   visible: boolean;
   favorites: readonly FoodEntry[];
   recents: readonly FoodEntry[];
+  frequent?: readonly FoodEntry[];
+  mode?: SavedMealsMode;
   onDismiss: () => void;
   onRelog: (entry: FoodEntry) => void;
 }
 
-export function SavedMealsSheet({ visible, favorites, recents, onDismiss, onRelog }: SavedMealsSheetProps) {
+export function SavedMealsSheet({ visible, favorites, recents, frequent = [], mode = 'all', onDismiss, onRelog }: SavedMealsSheetProps) {
   const theme = useTheme();
   const section = (title: string, entries: readonly FoodEntry[]) =>
     entries.length === 0 ? null : (
@@ -339,15 +344,26 @@ export function SavedMealsSheet({ visible, favorites, recents, onDismiss, onRelo
       </View>
     );
 
+  const title =
+    mode === 'favorites' ? 'Favorites' : mode === 'frequent' ? 'Frequent' : mode === 'recent' ? 'Recent' : 'Saved Meals';
+  const showFavorites = mode === 'all' || mode === 'favorites';
+  const showFrequent = mode === 'all' || mode === 'frequent';
+  const showRecents = mode === 'all' || mode === 'recent';
+  const empty =
+    (!showFavorites || favorites.length === 0) &&
+    (!showFrequent || frequent.length === 0) &&
+    (!showRecents || recents.length === 0);
+
   return (
-    <BottomSheet visible={visible} onDismiss={onDismiss} title="Saved Meals">
-      {favorites.length === 0 && recents.length === 0 ? (
+    <BottomSheet visible={visible} onDismiss={onDismiss} title={title}>
+      {empty ? (
         <Card>
           <AppText tone="secondary">Meals you log appear here so you can add them again in one tap. Favorite a meal from the diary to pin it.</AppText>
         </Card>
       ) : null}
-      {section('Favorites', favorites)}
-      {section('Recents', recents)}
+      {showFavorites ? section('Favorites', favorites) : null}
+      {showFrequent ? section('Frequent', frequent) : null}
+      {showRecents ? section('Recents', recents) : null}
     </BottomSheet>
   );
 }

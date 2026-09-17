@@ -27,9 +27,8 @@ interface ActionListSheetProps {
 }
 
 /**
- * Compact action list used wherever iOS would show a `Menu`, `confirmationDialog`, or context
- * menu — camera/library, diary row actions, Coach attach, etc. Identical on both platforms;
- * never use `Alert.alert` for multi-choice menus.
+ * Legacy action list sheet. Prefer `NativeMenu` for menus / context actions (v7 UIMenu and
+ * Android anchored dropdown). Keep this only if a native surface is actually a `.sheet`.
  */
 /** Native Modal slide dismiss is ~300ms; wait past it before opening camera / alerts / next sheets. */
 const DISMISS_THEN_ACTION_MS = 320;

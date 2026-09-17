@@ -17,7 +17,9 @@ deleted; this is the shared port, now covering every tab and the full onboarding
   second design system. Segmented pickers, pill tabs, wheel-style steppers and bottom sheets are
   shared components under `src/components/` so both platforms render the same control.
 - The only platform exception is **Liquid Glass on iOS**, provided by the native bridge in
-  `modules/glass-chrome`. Android gets the same layout and colors with a solid card background.
+  `modules/glass-chrome` (`UIGlassEffect`, `interactive`). The tab bar, Coach composer, Home
+  add-menu dropdown, and compact text/voice/manual popovers use it. Android gets the same
+  layout and colors with a solid `appCard` fallback — never a Material-only menu.
 
 Reference `ios/calorietracker/` when porting a screen; file-level comments in `src/` point at
 the SwiftUI source they mirror.
@@ -28,7 +30,7 @@ the SwiftUI source they mirror.
 |------|-------|--------|
 | App shell + theme | `App.tsx`, `src/theme/`, `src/navigation/` | 5 tabs (Home, Progress, Coach, Settings, Workouts), accent + appearance prefs |
 | Onboarding | `src/screens/onboarding/` | All 14 steps of `OnboardingView.swift`: welcome, gender, birthday, height & weight, body fat, activity, goal, desired weight, goal speed, notifications, Health, AI setup, building plan, Plan Ready. AI step keeps the #373 fix: placeholder is "Paste Gemini API key", helper text explains a disabled Continue |
-| Home | `src/screens/home/`, `src/components/home/` | Week strip, calorie dome, nutrient bars, unified diary, "+" menu with water, fasting, manual entry, barcode (Open Food Facts), voice meal (cloud Whisper), and AI logging. Photo and label scans keep their picture on disk (`src/services/foodImageStore.ts`, the `FoodImageStore` layout) and the diary row shows it |
+| Home | `src/screens/home/`, `src/components/home/` | Week strip, calorie dome, nutrient bars, unified diary, and the v7 "+" **Menu** (not a sheet): iOS `UIMenu` via `modules/native-menu`, Android anchored glass dropdown. Food methods match `performFoodLogMethod` (camera, photos, barcode, voice, text, manual, favorites / frequent / recent, copy-from-day). Text / voice / manual present as compact popovers. Diary rows use a context menu / dropdown (favorite, delete); tap opens edit |
 | AI food logging | `src/screens/home/FoodAISheets.tsx`, `BarcodeScannerSheet.tsx`, `VoiceMealSheet.tsx`, `src/services/aiClient.ts`, `src/domain/ai/` | Scan Food / Scan Label (camera or library), Scan Barcode (Open Food Facts), Describe Meal, Voice (record + OpenAI/Groq Whisper), Saved Meals. Analyzing overlay with Cancel; every request has a hard timeout; results reviewed before entering the diary with the native `FoodSource` |
 | AI transports | `src/domain/ai/transport.ts`, `runtime.ts`, `errors.ts` | Gemini, OpenAI-compatible, Anthropic and the hosted proxy. Compact retry on truncation, `AIErrorKind` classification, vision/text selection, single fallback retry, hosted entitlement gate |
 | Progress | `src/screens/progress/`, `src/domain/progress/`, `src/domain/body/` | My Progress / Weekly Challenge pills; 1W–All ranges; Weight / Body Fat / Workouts metric; SVG trend chart; calorie bars; macro + nutrient averages; streaks & stats; Log Weight / Log Body Fat and history sheets. Weekly Challenge scores on device and can join the in-repo leaderboard API |
@@ -38,7 +40,8 @@ the SwiftUI source they mirror.
 | Hosted paywall + purchases | `src/screens/paywall/HostedPaywallSheet.tsx`, `src/services/purchases.ts`, `src/domain/purchases/` | `react-native-purchases` adapter behind `setPurchasesAdapter`: offerings, purchase (cancelled sheet is not an error), restore, customer-info listener. Without an SDK key or native module the sheet says plans are unavailable |
 | Companion seams | `src/domain/integrations/companions.ts`, `modules/health-sync/`, `modules/companion-snapshot/` | HealthKit / Health Connect via `HealthSync`; today's totals written to the App Group (`widget_snapshot_v1.json`) the native widget and watch targets already read. Settings status is connected / available / denied — not native-only when the bridge works |
 | Unified diary store | `src/domain/diary/diaryState.ts`, `src/state/` | One reducer/state for food + water + fasting (#369); body, workouts and chat follow the same pattern |
-| iOS glass bridge | `modules/glass-chrome/` | Expo local module: `UIGlassEffect` (iOS 26+) with material fallback |
+| iOS glass bridge | `modules/glass-chrome/` | Expo local module: `UIGlassEffect` (iOS 26+, interactive) with `appCard` fallback on Android |
+| Native menu | `modules/native-menu/` | iOS `UIButton.menu` / `UIMenu` for Home +, Coach attach, sort, and row context actions. Android uses the same item tree as an anchored dropdown (`SheetGlassDropdownMenu` layout), never `ActionListSheet` |
 | Health + snapshot modules | `modules/health-sync/`, `modules/companion-snapshot/` | HealthKit (iOS) and Health Connect (Android); App Group + WidgetKit + WatchConnectivity writer |
 | Native → Expo data migration | `modules/native-storage/`, `src/domain/nativeMigration/`, `src/services/nativeMigration.ts` | First cold start after a store overlay reads native UserDefaults / `fudai_prefs` and copies diary, prefs, profile, body, workouts, and coach chat into AsyncStorage |
 
@@ -112,9 +115,9 @@ npm run check
 npm start
 ```
 
-Expo Go runs every screen; the GlassChrome module is simply absent there and the tab bar falls
-back to a solid card background. `react-native-purchases` and local notifications need a
-development build:
+Expo Go runs every screen; GlassChrome and NativeMenu are absent there, so the tab bar and
+menus fall back to the same layout with a solid card / anchored dropdown. `react-native-purchases`
+and local notifications need a development build:
 
 ```bash
 # iOS (macOS only) — generates ios/ via prebuild, links modules/glass-chrome, runs on a simulator
@@ -170,6 +173,7 @@ mobile/
 ├── app.json                 # Expo config (7.1 / 38, bundle id, plugins)
 ├── assets/                  # Onboarding logo
 ├── modules/glass-chrome/         # iOS Liquid Glass local Expo module (Swift) + TS wrapper
+├── modules/native-menu/          # iOS UIMenu local Expo module; Android JS anchored dropdown
 ├── modules/health-sync/          # HealthKit + Health Connect
 ├── modules/companion-snapshot/   # App Group snapshot + WidgetKit + WatchConnectivity
 ├── modules/native-storage/       # Read-only UserDefaults / DataStore `fudai_prefs` bridge

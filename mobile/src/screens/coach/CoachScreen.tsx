@@ -12,8 +12,9 @@ import { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Image, KeyboardAvoidingView, Platform, Pressable, ScrollView, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { ActionListSheet } from '../../components/ActionListSheet';
+import { NativeMenu } from '../../components/NativeMenu';
 import { Icon } from '../../components/Icon';
+import { GlassChrome } from '../../../modules/glass-chrome';
 import { AppText, Row, Screen } from '../../components/primitives';
 import { aiErrorMessage } from '../../domain/ai/errors';
 import { buildCoachSystemPrompt, contextMessages, suggestedPrompts, type ChatMessage } from '../../domain/coach/coach';
@@ -40,7 +41,10 @@ export function CoachScreen() {
   const [attachment, setAttachment] = useState<PickedImage | undefined>(undefined);
   const [isSending, setIsSending] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>(undefined);
-  const [attachSheetVisible, setAttachSheetVisible] = useState(false);
+  const attachMenuItems = [
+    { id: 'camera', title: 'Camera', systemImage: 'camera.fill' as const },
+    { id: 'library', title: 'Photo Library', systemImage: 'photo.on.rectangle' as const },
+  ];
   const scrollRef = useRef<ScrollView>(null);
   const abortRef = useRef<AbortController | null>(null);
 
@@ -232,12 +236,13 @@ export function CoachScreen() {
               </Pressable>
             </Row>
           ) : null}
-          <Row
+          <GlassChrome
+            interactive
+            cornerRadius={24}
+            fallbackColor={theme.colors.appCard}
             style={{
-              alignItems: 'flex-end',
-              gap: 8,
               borderRadius: 24,
-              backgroundColor: theme.colors.appCard,
+              overflow: 'hidden',
               borderWidth: 0.8,
               borderColor: theme.scheme === 'dark' ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.08)',
               shadowColor: '#000',
@@ -245,20 +250,30 @@ export function CoachScreen() {
               shadowRadius: 14,
               shadowOffset: { width: 0, height: 6 },
               elevation: 4,
+            }}
+          >
+          <Row
+            style={{
+              alignItems: 'flex-end',
+              gap: 8,
               paddingLeft: 6,
               paddingRight: 5,
               paddingVertical: 4,
             }}
           >
-            <Pressable
-              accessibilityRole="button"
+            <NativeMenu
+              items={attachMenuItems}
+              onSelect={(id) => {
+                if (id === 'camera') void attach('camera');
+                if (id === 'library') void attach('library');
+              }}
               accessibilityLabel="Attach photo"
-              disabled={isSending}
-              onPress={() => setAttachSheetVisible(true)}
-              style={{ width: COMPOSER_CONTROL, height: COMPOSER_CONTROL, alignItems: 'center', justifyContent: 'center' }}
+              style={{ width: COMPOSER_CONTROL, height: COMPOSER_CONTROL }}
             >
-              <Icon name={attachment ? 'photo.fill' : 'plus.circle.fill'} size={26} color={theme.colors.accent} />
-            </Pressable>
+              <View style={{ width: COMPOSER_CONTROL, height: COMPOSER_CONTROL, alignItems: 'center', justifyContent: 'center', opacity: isSending ? 0.4 : 1 }}>
+                <Icon name={attachment ? 'photo.fill' : 'plus.circle.fill'} size={26} color={theme.colors.accent} />
+              </View>
+            </NativeMenu>
             <TextInput
               value={draft}
               onChangeText={setDraft}
@@ -286,17 +301,9 @@ export function CoachScreen() {
               )}
             </Pressable>
           </Row>
+          </GlassChrome>
         </View>
       </KeyboardAvoidingView>
-      <ActionListSheet
-        visible={attachSheetVisible}
-        title="Attach"
-        actions={[
-          { id: 'camera', title: 'Camera', icon: 'camera.fill', onPress: () => void attach('camera') },
-          { id: 'library', title: 'Photo Library', icon: 'photo.on.rectangle', onPress: () => void attach('library') },
-        ]}
-        onDismiss={() => setAttachSheetVisible(false)}
-      />
     </Screen>
   );
 }

@@ -29,6 +29,10 @@ class NativeMenuModule : Module() {
       Prop("testID") { view: NativeMenuView, testID: String? ->
         view.tag = testID
       }
+
+      Prop("disabled") { view: NativeMenuView, disabled: Boolean ->
+        view.isMenuDisabled = disabled
+      }
     }
   }
 }

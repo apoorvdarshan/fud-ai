@@ -23,6 +23,12 @@ class NativeMenuView(context: Context, appContext: AppContext) : ExpoView(contex
 
   var itemsJson: String = "[]"
   var trigger: String = "press"
+  var isMenuDisabled: Boolean = false
+    set(value) {
+      field = value
+      overlay.isClickable = !value
+      overlay.isEnabled = !value
+    }
 
   private val overlay = View(context).apply {
     isClickable = true
@@ -45,6 +51,7 @@ class NativeMenuView(context: Context, appContext: AppContext) : ExpoView(contex
   }
 
   private fun handleClick() {
+    if (isMenuDisabled) return
     if (trigger == "press") {
       showMenu()
     } else {
@@ -53,6 +60,7 @@ class NativeMenuView(context: Context, appContext: AppContext) : ExpoView(contex
   }
 
   private fun handleLongClick(): Boolean {
+    if (isMenuDisabled) return false
     if (trigger != "press") {
       showMenu()
       return true
@@ -62,6 +70,7 @@ class NativeMenuView(context: Context, appContext: AppContext) : ExpoView(contex
 
   @SuppressLint("RtlHardcoded")
   private fun showMenu() {
+    if (isMenuDisabled) return
     val items = decodeItems(itemsJson)
     if (items.isEmpty()) return
 

@@ -274,9 +274,8 @@ All values can be manually overridden in Settings, with a **Recalculate Goals** 
 
 ```
 fud-ai/
-├── ios/          # SwiftUI iOS app (v7.1 build 38)
-├── android/      # Kotlin + Jetpack Compose app (min SDK 26 / Android 8.0, v7.1 / versionCode 38)
-├── mobile/       # Shared React Native (Expo) app for iOS + Android — iOS-matching UI, in progress (see mobile/README.md)
+├── ios/          # SwiftUI iOS app (v7.0 build 35)
+├── android/      # Kotlin + Jetpack Compose app (min SDK 26 / Android 8.0, v7.0 / versionCode 35)
 ├── web/          # Marketing site — https://fud-ai.app (static HTML/CSS, Cloudflare Workers)
 ├── APPSTORE.md   # App Store Connect listing copy (iOS)
 ├── PLAYSTORE.md  # Google Play Console listing copy (Android)
@@ -357,17 +356,6 @@ cd android
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 adb shell am start -n com.apoorvdarshan.calorietracker/.MainActivity
 ```
-
-### Shared mobile app (React Native / Expo, in progress)
-
-```bash
-cd mobile
-npm ci
-npm run check   # typecheck + domain tests
-npm start       # Metro; press i / a, or open in Expo Go
-```
-
-See [`mobile/README.md`](mobile/README.md) for the UI-parity rule and what has been ported so far.
 
 First launch walks you through onboarding (gender, birthday, height/weight with metric/imperial toggle, body fat %, one of six activity levels with a protein-target preview, goal, goal speed, notifications, Apple Health / Health Connect, AI access setup, and review). A free Gemini key is available at [aistudio.google.com/apikey](https://aistudio.google.com/apikey). You can change provider anytime in **Settings → AI Access**.
 

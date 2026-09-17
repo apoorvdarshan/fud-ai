@@ -15,7 +15,6 @@ import java.io.File
 import java.util.UUID
 
 /** Real Android bitmap/EXIF operations, with asymmetric pixels to detect flips as well as rotation. */
-@Suppress("DEPRECATION") // Bitmap.CompressFormat.WEBP still encodes on every supported API level.
 class FoodImageDecoderTest {
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
     private val colors = listOf(Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW)
